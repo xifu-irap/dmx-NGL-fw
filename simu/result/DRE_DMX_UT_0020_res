@@ -1,0 +1,323 @@
+# ------------------------------------------------------------------------------------------------------------------------------------------------------
+# Simulation DRE_DMX_UT_0020
+# ------------------------------------------------------------------------------------------------------------------------------------------------------
+#             (0 ps) **********************************************************************************************
+#             (0 ps)   Test: EP command error, SPI command length
+#             (0 ps) **********************************************************************************************
+#             (0 ps) 
+#             (0 ps) ==============================================================================================
+#             (0 ps)   Asynchronous reset activated (a_rst_n = '0')
+#             (0 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (0 ps) Write discrete : mask 0000_0000_0000_0001, data 0000_0000_0000_0000
+# ** Note   : (80000 ps) Waiting time for 80000 ps
+#             (80000 ps) 
+#             (80000 ps) ==============================================================================================
+#             (80000 ps)   Asynchronous reset deactivated (a_rst_n = '1')
+#             (80000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (80000 ps) Write discrete : mask 0000_0000_0000_0001, data 0000_0000_0000_0001
+#             (80000 ps) 
+#             (80000 ps) ==============================================================================================
+#             (80000 ps)   Wait internal reset deactivated (rst ='0')
+#             (80000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (7017228 ps) Waiting event, mask 0000_0000_0000_0001, data 0000_0000_0000_0000 for 6937228 ps
+#             (7017228 ps) 
+#             (7017228 ps) ==============================================================================================
+#             (7017228 ps)   Send commands with only SPI command length error
+#             (7017228 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (7017228 ps) Configure SPI command to 18 bits size
+# ** Note   : (7017228 ps) Send SPI command 6000_XXXX
+# ** Note   : (8467000 ps) Waiting SPI command end for 1409772 ps
+# ** Note   : (8467000 ps) Configure SPI command to 19 bits size
+# ** Note   : (8467000 ps) Send SPI command 6000_XXXX
+# ** Note   : (8547000 ps) Waiting SPI command return end for 40000 ps
+# ** Note   : (8567000 ps) Check command return: PASS
+# ** Note   : (8567000 ps)  * Read 6000_0000, expected 6000_0000
+# ** Note   : (10007000 ps) Waiting SPI command end for 1440000 ps
+# ** Note   : (10007000 ps) Configure SPI command to 20 bits size
+# ** Note   : (10007000 ps) Send SPI command 6000_XXXX
+# ** Note   : (10087000 ps) Waiting SPI command return end for 40000 ps
+# ** Note   : (10107000 ps) Check command return: PASS
+# ** Note   : (10107000 ps)  * Read 6000_4000, expected 6000_4000
+# ** Note   : (11627000 ps) Waiting SPI command end for 1520000 ps
+# ** Note   : (11627000 ps) Configure SPI command to 21 bits size
+# ** Note   : (11627000 ps) Send SPI command 6000_XXXX
+# ** Note   : (11707000 ps) Waiting SPI command return end for 40000 ps
+# ** Note   : (11727000 ps) Check command return: PASS
+# ** Note   : (11727000 ps)  * Read 6000_4000, expected 6000_4000
+# ** Note   : (13327000 ps) Waiting SPI command end for 1600000 ps
+# ** Note   : (13327000 ps) Configure SPI command to 22 bits size
+# ** Note   : (13327000 ps) Send SPI command 6000_XXXX
+# ** Note   : (13407000 ps) Waiting SPI command return end for 40000 ps
+# ** Note   : (13427000 ps) Check command return: PASS
+# ** Note   : (13427000 ps)  * Read 6000_4000, expected 6000_4000
+# ** Note   : (15107000 ps) Waiting SPI command end for 1680000 ps
+# ** Note   : (15107000 ps) Configure SPI command to 23 bits size
+# ** Note   : (15107000 ps) Send SPI command 6000_XXXX
+# ** Note   : (15187000 ps) Waiting SPI command return end for 40000 ps
+# ** Note   : (15207000 ps) Check command return: PASS
+# ** Note   : (15207000 ps)  * Read 6000_4000, expected 6000_4000
+# ** Note   : (16967000 ps) Waiting SPI command end for 1760000 ps
+# ** Note   : (16967000 ps) Configure SPI command to 24 bits size
+# ** Note   : (16967000 ps) Send SPI command 6000_XXXX
+# ** Note   : (17047000 ps) Waiting SPI command return end for 40000 ps
+# ** Note   : (17067000 ps) Check command return: PASS
+# ** Note   : (17067000 ps)  * Read 6000_4000, expected 6000_4000
+# ** Note   : (18907000 ps) Waiting SPI command end for 1840000 ps
+# ** Note   : (18907000 ps) Configure SPI command to 25 bits size
+# ** Note   : (18907000 ps) Send SPI command 6000_XXXX
+# ** Note   : (18987000 ps) Waiting SPI command return end for 40000 ps
+# ** Note   : (19007000 ps) Check command return: PASS
+# ** Note   : (19007000 ps)  * Read 6000_4000, expected 6000_4000
+# ** Note   : (20927000 ps) Waiting SPI command end for 1920000 ps
+# ** Note   : (20927000 ps) Configure SPI command to 26 bits size
+# ** Note   : (20927000 ps) Send SPI command 6000_XXXX
+# ** Note   : (21007000 ps) Waiting SPI command return end for 40000 ps
+# ** Note   : (21027000 ps) Check command return: PASS
+# ** Note   : (21027000 ps)  * Read 6000_4000, expected 6000_4000
+# ** Note   : (23027000 ps) Waiting SPI command end for 2000000 ps
+# ** Note   : (23027000 ps) Configure SPI command to 27 bits size
+# ** Note   : (23027000 ps) Send SPI command 6000_XXXX
+# ** Note   : (23107000 ps) Waiting SPI command return end for 40000 ps
+# ** Note   : (23127000 ps) Check command return: PASS
+# ** Note   : (23127000 ps)  * Read 6000_4000, expected 6000_4000
+# ** Note   : (25207000 ps) Waiting SPI command end for 2080000 ps
+# ** Note   : (25207000 ps) Configure SPI command to 28 bits size
+# ** Note   : (25207000 ps) Send SPI command 6000_XXXX
+# ** Note   : (25287000 ps) Waiting SPI command return end for 40000 ps
+# ** Note   : (25307000 ps) Check command return: PASS
+# ** Note   : (25307000 ps)  * Read 6000_4000, expected 6000_4000
+# ** Note   : (27467000 ps) Waiting SPI command end for 2160000 ps
+# ** Note   : (27467000 ps) Configure SPI command to 29 bits size
+# ** Note   : (27467000 ps) Send SPI command 6000_XXXX
+# ** Note   : (27547000 ps) Waiting SPI command return end for 40000 ps
+# ** Note   : (27567000 ps) Check command return: PASS
+# ** Note   : (27567000 ps)  * Read 6000_4000, expected 6000_4000
+# ** Note   : (29807000 ps) Waiting SPI command end for 2240000 ps
+# ** Note   : (29807000 ps) Configure SPI command to 30 bits size
+# ** Note   : (29807000 ps) Send SPI command 6000_XXXX
+# ** Note   : (29887000 ps) Waiting SPI command return end for 40000 ps
+# ** Note   : (29907000 ps) Check command return: PASS
+# ** Note   : (29907000 ps)  * Read 6000_4000, expected 6000_4000
+# ** Note   : (32227000 ps) Waiting SPI command end for 2320000 ps
+# ** Note   : (32227000 ps) Configure SPI command to 31 bits size
+# ** Note   : (32227000 ps) Send SPI command 6000_XXXX
+# ** Note   : (32307000 ps) Waiting SPI command return end for 40000 ps
+# ** Note   : (32327000 ps) Check command return: PASS
+# ** Note   : (32327000 ps)  * Read 6000_4000, expected 6000_4000
+# ** Note   : (34727000 ps) Waiting SPI command end for 2400000 ps
+# ** Note   : (34727000 ps) Configure SPI command to 32 bits size
+# ** Note   : (34727000 ps) Send SPI command 6000_XXXX
+# ** Note   : (34807000 ps) Waiting SPI command return end for 40000 ps
+# ** Note   : (34827000 ps) Check command return: PASS
+# ** Note   : (34827000 ps)  * Read 6000_4000, expected 6000_4000
+# ** Note   : (37307000 ps) Waiting SPI command end for 2480000 ps
+# ** Note   : (37307000 ps) Configure SPI command to 33 bits size
+# ** Note   : (37307000 ps) Send SPI command 6000_XXXX
+# ** Note   : (37387000 ps) Waiting SPI command return end for 40000 ps
+# ** Note   : (37407000 ps) Check command return: PASS
+# ** Note   : (37407000 ps)  * Read 6000_4000, expected 6000_4000
+# ** Note   : (39967000 ps) Waiting SPI command end for 2560000 ps
+# ** Note   : (39967000 ps) Configure SPI command to 34 bits size
+# ** Note   : (39967000 ps) Send SPI command 6000_XXXX
+# ** Note   : (40047000 ps) Waiting SPI command return end for 40000 ps
+# ** Note   : (40067000 ps) Check command return: PASS
+# ** Note   : (40067000 ps)  * Read 6000_0000, expected 6000_0000
+# ** Note   : (42707000 ps) Waiting SPI command end for 2640000 ps
+# ** Note   : (42707000 ps) Configure SPI command to 35 bits size
+# ** Note   : (42707000 ps) Send SPI command 6000_XXXX
+# ** Note   : (42787000 ps) Waiting SPI command return end for 40000 ps
+# ** Note   : (42807000 ps) Check command return: PASS
+# ** Note   : (42807000 ps)  * Read 6000_4000, expected 6000_4000
+# ** Note   : (45527000 ps) Waiting SPI command end for 2720000 ps
+# ** Note   : (45527000 ps) Configure SPI command to 36 bits size
+# ** Note   : (45527000 ps) Send SPI command 6000_XXXX
+# ** Note   : (45607000 ps) Waiting SPI command return end for 40000 ps
+# ** Note   : (45627000 ps) Check command return: PASS
+# ** Note   : (45627000 ps)  * Read 6000_4000, expected 6000_4000
+# ** Note   : (48427000 ps) Waiting SPI command end for 2800000 ps
+# ** Note   : (48427000 ps) Configure SPI command to 37 bits size
+# ** Note   : (48427000 ps) Send SPI command 6000_XXXX
+# ** Note   : (48507000 ps) Waiting SPI command return end for 40000 ps
+# ** Note   : (48527000 ps) Check command return: PASS
+# ** Note   : (48527000 ps)  * Read 6000_4000, expected 6000_4000
+# ** Note   : (51407000 ps) Waiting SPI command end for 2880000 ps
+# ** Note   : (51407000 ps) Configure SPI command to 38 bits size
+# ** Note   : (51407000 ps) Send SPI command 6000_XXXX
+# ** Note   : (51487000 ps) Waiting SPI command return end for 40000 ps
+# ** Note   : (51507000 ps) Check command return: PASS
+# ** Note   : (51507000 ps)  * Read 6000_4000, expected 6000_4000
+# ** Note   : (54467000 ps) Waiting SPI command end for 2960000 ps
+# ** Note   : (54467000 ps) Configure SPI command to 39 bits size
+# ** Note   : (54467000 ps) Send SPI command 6000_XXXX
+# ** Note   : (54547000 ps) Waiting SPI command return end for 40000 ps
+# ** Note   : (54567000 ps) Check command return: PASS
+# ** Note   : (54567000 ps)  * Read 6000_4000, expected 6000_4000
+# ** Note   : (57607000 ps) Waiting SPI command end for 3040000 ps
+# ** Note   : (57607000 ps) Configure SPI command to 40 bits size
+# ** Note   : (57607000 ps) Send SPI command 6000_XXXX
+# ** Note   : (57687000 ps) Waiting SPI command return end for 40000 ps
+# ** Note   : (57707000 ps) Check command return: PASS
+# ** Note   : (57707000 ps)  * Read 6000_4000, expected 6000_4000
+# ** Note   : (60827000 ps) Waiting SPI command end for 3120000 ps
+# ** Note   : (60827000 ps) Configure SPI command to 41 bits size
+# ** Note   : (60827000 ps) Send SPI command 6000_XXXX
+# ** Note   : (60907000 ps) Waiting SPI command return end for 40000 ps
+# ** Note   : (60927000 ps) Check command return: PASS
+# ** Note   : (60927000 ps)  * Read 6000_4000, expected 6000_4000
+# ** Note   : (64127000 ps) Waiting SPI command end for 3200000 ps
+# ** Note   : (64127000 ps) Configure SPI command to 42 bits size
+# ** Note   : (64127000 ps) Send SPI command 6000_XXXX
+# ** Note   : (64207000 ps) Waiting SPI command return end for 40000 ps
+# ** Note   : (64227000 ps) Check command return: PASS
+# ** Note   : (64227000 ps)  * Read 6000_4000, expected 6000_4000
+# ** Note   : (67507000 ps) Waiting SPI command end for 3280000 ps
+# ** Note   : (67507000 ps) Configure SPI command to 43 bits size
+# ** Note   : (67507000 ps) Send SPI command 6000_XXXX
+# ** Note   : (67587000 ps) Waiting SPI command return end for 40000 ps
+# ** Note   : (67607000 ps) Check command return: PASS
+# ** Note   : (67607000 ps)  * Read 6000_4000, expected 6000_4000
+# ** Note   : (70967000 ps) Waiting SPI command end for 3360000 ps
+# ** Note   : (70967000 ps) Configure SPI command to 44 bits size
+# ** Note   : (70967000 ps) Send SPI command 6000_XXXX
+# ** Note   : (71047000 ps) Waiting SPI command return end for 40000 ps
+# ** Note   : (71067000 ps) Check command return: PASS
+# ** Note   : (71067000 ps)  * Read 6000_4000, expected 6000_4000
+# ** Note   : (74507000 ps) Waiting SPI command end for 3440000 ps
+# ** Note   : (74507000 ps) Configure SPI command to 45 bits size
+# ** Note   : (74507000 ps) Send SPI command 6000_XXXX
+# ** Note   : (74587000 ps) Waiting SPI command return end for 40000 ps
+# ** Note   : (74607000 ps) Check command return: PASS
+# ** Note   : (74607000 ps)  * Read 6000_4000, expected 6000_4000
+# ** Note   : (78127000 ps) Waiting SPI command end for 3520000 ps
+# ** Note   : (78127000 ps) Configure SPI command to 46 bits size
+# ** Note   : (78127000 ps) Send SPI command 6000_XXXX
+# ** Note   : (78207000 ps) Waiting SPI command return end for 40000 ps
+# ** Note   : (78227000 ps) Check command return: PASS
+# ** Note   : (78227000 ps)  * Read 6000_4000, expected 6000_4000
+# ** Note   : (81827000 ps) Waiting SPI command end for 3600000 ps
+# ** Note   : (81827000 ps) Configure SPI command to 47 bits size
+# ** Note   : (81827000 ps) Send SPI command 6000_XXXX
+# ** Note   : (81907000 ps) Waiting SPI command return end for 40000 ps
+# ** Note   : (81927000 ps) Check command return: PASS
+# ** Note   : (81927000 ps)  * Read 6000_4000, expected 6000_4000
+# ** Note   : (85607000 ps) Waiting SPI command end for 3680000 ps
+# ** Note   : (85607000 ps) Configure SPI command to 48 bits size
+# ** Note   : (85607000 ps) Send SPI command 6000_XXXX
+# ** Note   : (85687000 ps) Waiting SPI command return end for 40000 ps
+# ** Note   : (85707000 ps) Check command return: PASS
+# ** Note   : (85707000 ps)  * Read 6000_4000, expected 6000_4000
+# ** Note   : (89467000 ps) Waiting SPI command end for 3760000 ps
+# ** Note   : (89467000 ps) Configure SPI command to 49 bits size
+# ** Note   : (89467000 ps) Send SPI command 6000_XXXX
+# ** Note   : (89547000 ps) Waiting SPI command return end for 40000 ps
+# ** Note   : (89567000 ps) Check command return: PASS
+# ** Note   : (89567000 ps)  * Read 6000_4000, expected 6000_4000
+# ** Note   : (93407000 ps) Waiting SPI command end for 3840000 ps
+# ** Note   : (93407000 ps) Configure SPI command to 50 bits size
+# ** Note   : (93407000 ps) Send SPI command 6000_XXXX
+# ** Note   : (93487000 ps) Waiting SPI command return end for 40000 ps
+# ** Note   : (93507000 ps) Check command return: PASS
+# ** Note   : (93507000 ps)  * Read 6000_4000, expected 6000_4000
+# ** Note   : (97427000 ps) Waiting SPI command end for 3920000 ps
+# ** Note   : (97427000 ps) Configure SPI command to 51 bits size
+# ** Note   : (97427000 ps) Send SPI command 6000_XXXX
+# ** Note   : (97507000 ps) Waiting SPI command return end for 40000 ps
+# ** Note   : (97527000 ps) Check command return: PASS
+# ** Note   : (97527000 ps)  * Read 6000_4000, expected 6000_4000
+# ** Note   : (101527000 ps) Waiting SPI command end for 4000000 ps
+# ** Note   : (101527000 ps) Configure SPI command to 52 bits size
+# ** Note   : (101527000 ps) Send SPI command 6000_XXXX
+# ** Note   : (101607000 ps) Waiting SPI command return end for 40000 ps
+# ** Note   : (101627000 ps) Check command return: PASS
+# ** Note   : (101627000 ps)  * Read 6000_4000, expected 6000_4000
+# ** Note   : (105707000 ps) Waiting SPI command end for 4080000 ps
+# ** Note   : (105707000 ps) Configure SPI command to 53 bits size
+# ** Note   : (105707000 ps) Send SPI command 6000_XXXX
+# ** Note   : (105787000 ps) Waiting SPI command return end for 40000 ps
+# ** Note   : (105807000 ps) Check command return: PASS
+# ** Note   : (105807000 ps)  * Read 6000_4000, expected 6000_4000
+# ** Note   : (109967000 ps) Waiting SPI command end for 4160000 ps
+# ** Note   : (109967000 ps) Configure SPI command to 54 bits size
+# ** Note   : (109967000 ps) Send SPI command 6000_XXXX
+# ** Note   : (110047000 ps) Waiting SPI command return end for 40000 ps
+# ** Note   : (110067000 ps) Check command return: PASS
+# ** Note   : (110067000 ps)  * Read 6000_4000, expected 6000_4000
+# ** Note   : (114307000 ps) Waiting SPI command end for 4240000 ps
+# ** Note   : (114307000 ps) Configure SPI command to 55 bits size
+# ** Note   : (114307000 ps) Send SPI command 6000_XXXX
+# ** Note   : (114387000 ps) Waiting SPI command return end for 40000 ps
+# ** Note   : (114407000 ps) Check command return: PASS
+# ** Note   : (114407000 ps)  * Read 6000_4000, expected 6000_4000
+# ** Note   : (118727000 ps) Waiting SPI command end for 4320000 ps
+# ** Note   : (118727000 ps) Configure SPI command to 56 bits size
+# ** Note   : (118727000 ps) Send SPI command 6000_XXXX
+# ** Note   : (118807000 ps) Waiting SPI command return end for 40000 ps
+# ** Note   : (118827000 ps) Check command return: PASS
+# ** Note   : (118827000 ps)  * Read 6000_4000, expected 6000_4000
+# ** Note   : (123227000 ps) Waiting SPI command end for 4400000 ps
+# ** Note   : (123227000 ps) Configure SPI command to 57 bits size
+# ** Note   : (123227000 ps) Send SPI command 6000_XXXX
+# ** Note   : (123307000 ps) Waiting SPI command return end for 40000 ps
+# ** Note   : (123327000 ps) Check command return: PASS
+# ** Note   : (123327000 ps)  * Read 6000_4000, expected 6000_4000
+# ** Note   : (127807000 ps) Waiting SPI command end for 4480000 ps
+# ** Note   : (127807000 ps) Configure SPI command to 58 bits size
+# ** Note   : (127807000 ps) Send SPI command 6000_XXXX
+# ** Note   : (127887000 ps) Waiting SPI command return end for 40000 ps
+# ** Note   : (127907000 ps) Check command return: PASS
+# ** Note   : (127907000 ps)  * Read 6000_4000, expected 6000_4000
+# ** Note   : (132467000 ps) Waiting SPI command end for 4560000 ps
+# ** Note   : (132467000 ps) Configure SPI command to 59 bits size
+# ** Note   : (132467000 ps) Send SPI command 6000_XXXX
+# ** Note   : (132547000 ps) Waiting SPI command return end for 40000 ps
+# ** Note   : (132567000 ps) Check command return: PASS
+# ** Note   : (132567000 ps)  * Read 6000_4000, expected 6000_4000
+# ** Note   : (137207000 ps) Waiting SPI command end for 4640000 ps
+# ** Note   : (137207000 ps) Configure SPI command to 60 bits size
+# ** Note   : (137207000 ps) Send SPI command 6000_XXXX
+# ** Note   : (137287000 ps) Waiting SPI command return end for 40000 ps
+# ** Note   : (137307000 ps) Check command return: PASS
+# ** Note   : (137307000 ps)  * Read 6000_4000, expected 6000_4000
+# ** Note   : (142027000 ps) Waiting SPI command end for 4720000 ps
+# ** Note   : (142027000 ps) Configure SPI command to 61 bits size
+# ** Note   : (142027000 ps) Send SPI command 6000_XXXX
+# ** Note   : (142107000 ps) Waiting SPI command return end for 40000 ps
+# ** Note   : (142127000 ps) Check command return: PASS
+# ** Note   : (142127000 ps)  * Read 6000_4000, expected 6000_4000
+# ** Note   : (146927000 ps) Waiting SPI command end for 4800000 ps
+# ** Note   : (146927000 ps) Configure SPI command to 62 bits size
+# ** Note   : (146927000 ps) Send SPI command 6000_XXXX
+# ** Note   : (147007000 ps) Waiting SPI command return end for 40000 ps
+# ** Note   : (147027000 ps) Check command return: PASS
+# ** Note   : (147027000 ps)  * Read 6000_4000, expected 6000_4000
+# ** Note   : (151907000 ps) Waiting SPI command end for 4880000 ps
+# ** Note   : (151907000 ps) Configure SPI command to 63 bits size
+# ** Note   : (151907000 ps) Send SPI command 6000_XXXX
+# ** Note   : (151987000 ps) Waiting SPI command return end for 40000 ps
+# ** Note   : (152007000 ps) Check command return: PASS
+# ** Note   : (152007000 ps)  * Read 6000_4000, expected 6000_4000
+# ** Note   : (156967000 ps) Waiting SPI command end for 4960000 ps
+# ** Note   : (156967000 ps) Configure SPI command to 32 bits size
+# ** Note   : (156967000 ps) Send SPI command 6000_XXXX
+# ** Note   : (157047000 ps) Waiting SPI command return end for 40000 ps
+# ** Note   : (157067000 ps) Check command return: PASS
+# ** Note   : (157067000 ps)  * Read 6000_4000, expected 6000_4000
+# ** Note   : (159547000 ps) Waiting SPI command end for 2480000 ps
+# ** Note   : (159547000 ps) Send SPI command 6000_XXXX
+# ** Note   : (159627000 ps) Waiting SPI command return end for 40000 ps
+# ** Note   : (159647000 ps) Check command return: PASS
+# ** Note   : (159647000 ps)  * Read 6000_4000, expected 6000_4000
+# ** Note   : (162127000 ps) Waiting SPI command end for 2480000 ps
+# ** Note   : (162127000 ps) Send SPI command 6000_XXXX
+# ** Note   : (162207000 ps) Waiting SPI command return end for 40000 ps
+# ** Note   : (162227000 ps) Check command return: PASS
+# ** Note   : (162227000 ps)  * Read 6000_0000, expected 6000_0000
+# ------------------------------------------------------------------------------------------------------------------------------------------------------
+# Error simulation time         : '0'
+# Error check discrete level    : '0'
+# Error check command return    : '0'
+# Error check time              : '0'
+# ------------------------------------------------------------------------------------------------------------------------------------------------------
+# Simulation time               : 170000000 ps
+# Simulation status             : PASS
+# ------------------------------------------------------------------------------------------------------------------------------------------------------
