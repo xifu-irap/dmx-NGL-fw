@@ -1,3 +1,6 @@
 __pycache__/
 top_*/
 *.log
+.scannerwork/
+build_dir/
+build.sh

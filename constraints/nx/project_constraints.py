@@ -23,13 +23,14 @@
 # ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 def common_constraints(p,option):
-    print("No common constraints")
+    print("Common constraints")
+    p.setAnalysisConditions('worstcase')
 
 def NG_MEDIUM_constraints(p,option):
-    print("No common constraints")
+    print("No NG-MEDIUM constraints")
 
 def NG_LARGE_constraints(p,option):
-    print("No common constraints")
+    print("No NG-LARGE constraints")
 
 def NG_ULTRA_constraints(p,option):
-    print("No common constraints")
+    print("No NG_ULTRA constraints")

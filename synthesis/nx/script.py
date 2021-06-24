@@ -42,7 +42,7 @@ def __main__(Variant,TopCellLib,TopCellName,Option=None,Embedded=False):
 
     script_path  = os.getcwd()
 
-    project_path = script_path + '/'+ TopCellName + '_' + Variant
+    project_path = script_path + '/../../../synthesis/'+ TopCellName + '_' + Variant
 
     if not Option==None:
         project_path+='_' + Option

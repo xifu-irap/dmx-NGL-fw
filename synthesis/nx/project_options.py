@@ -25,13 +25,13 @@
 def common_options(p,option):
     p.setOptions({
         'Autosave': 'Yes',
-        'BypassingEffort': 'Medium',
+        'BypassingEffort': 'High',
         'CongestionEffort': 'High',
-        'Dynamic': 'No',
+        'Dynamic': 'Yes',
         'DefaultFSMEncoding': 'OneHotSafe',
         'DefaultRAMMapping': 'AUTO',
         'DefaultROMMapping': 'AUTO',
-        'DensityEffort': 'Low',
+        'DensityEffort': 'High',
         'DisableAdderBasicMerge': 'No',
         'DisableAdderTreeOptimization': 'No',
         'DisableAdderTrivialRemoval': 'No',
@@ -57,6 +57,7 @@ def common_options(p,option):
         'OptimizedMux': 'Yes',
         'PolishingEffort': 'Medium',
         'RoutingEffort': 'High',
+        'TimingDriven': 'Yes',
         'UnusedPads': 'Floating',
         'VariantAwareSynthesis': 'Yes'
     })

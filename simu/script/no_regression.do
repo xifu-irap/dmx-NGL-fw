@@ -20,19 +20,20 @@
 #    @file                   no_regression.do
 # ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 #    @details                Modelsim script for no regression:
-#                                * proc run_scenario: run all the unitary tests
-#                                * proc run_scenario [CONF_FILE]: run the unitary test selected by the configuration file [CONF_FILE] and display chronograms
+#                                * proc run_utest: run all the unitary tests
+#                                * proc run_utest [CONF_FILE]: run the unitary test selected by the configuration file [CONF_FILE] and display chronograms
 # ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 #### Parameters ####
 quietly set VARIANT "NG-LARGE"
-quietly set NXMAP3_MODEL_PATH "../../../../modelsim"
+quietly set NXMAP3_MODEL_PATH "../modelsim"
+quietly set PR_DIR "../project/dmx-NGL-fw"
 
 #### Directories ####
-quietly set IP_DIR "../../ip/nx/${VARIANT}"
-quietly set SRC_DIR "../../src"
-quietly set TB_DIR "../../simu/tb"
-quietly set CFG_DIR "../../simu/conf"
+quietly set IP_DIR "${PR_DIR}/ip/nx/${VARIANT}"
+quietly set SRC_DIR "${PR_DIR}/src"
+quietly set TB_DIR "${PR_DIR}/simu/tb"
+quietly set CFG_DIR "${PR_DIR}/simu/conf"
 
 # Compile library linked to the FPGA technology
 vlib nx
@@ -193,6 +194,13 @@ proc run_utest {args} {
          add wave -format Logic                    -group "Command"                             sim:/top_dmx_tb/I_top_dmx/o_ep_spi_miso
          add wave -format Logic                    -group "Command"                             sim:/top_dmx_tb/I_top_dmx/i_ep_spi_sclk
          add wave -format Logic                    -group "Command"                             sim:/top_dmx_tb/I_top_dmx/i_ep_spi_cs_n
+#TODO
+         add wave -format Logic -Radix hexadecimal -group "Command"                             sim:/top_dmx_tb/I_top_dmx/ep_cmd_sts_rg
+
+         add wave -format Logic -Radix hexadecimal -group "Command"                             sim:/top_dmx_tb/I_top_dmx/ep_cmd_rx_wd_add
+         add wave -format Logic -Radix hexadecimal -group "Command"                             sim:/top_dmx_tb/I_top_dmx/ep_cmd_rx_wd_data
+         add wave -format Logic                    -group "Command"                             sim:/top_dmx_tb/I_top_dmx/ep_cmd_rx_rw
+         add wave -format Logic                    -group "Command"                             sim:/top_dmx_tb/I_top_dmx/ep_cmd_rx_noerr_rdy
 
          add wave -format Logic                    -group "HouseKeeping"                        sim:/top_dmx_tb/I_top_dmx/i_hk1_spi_miso
          add wave -format Logic                    -group "HouseKeeping"                        sim:/top_dmx_tb/I_top_dmx/o_hk1_spi_mosi

@@ -2,7 +2,7 @@
 DRE-DEMUX TDM firmware.
 
    - FPGA target: NG-LARGE (NanoXplore)
-   - Synthesis tool: Nxmap v3.5.0.4
+   - Synthesis tool: Nxmap v3.7.0.3
    - Firmware specification:
       + IRAP/XIFU-DRE/FM/SP/0065 - DRE TDM firmware requirements, ed. 0.6
       + IRAP/XIFU-DRE/FM/SP/0069 - DRE Inter-Modules Telemetry And Commands Definition, ed. 1.0
@@ -137,7 +137,7 @@ DRE-DEMUX TDM firmware.
       + Parameter **mask** : 64 bits hexa (underscore can be inserted), selection mask on discrete inputs (see §4 on discrete inputs description)
       + Parameter **data** : 64 bits hexa (underscore can be inserted), discrete inputs value expected
 
-## 6. Unitary test result
+## 7. Unitary test result
 
    The unitary test result file is considered as pass when the last line mention "Simulation status: PASS" (FAIL otherwise).
    

@@ -36,7 +36,7 @@ package pkg_model is
    -- ------------------------------------------------------------------------------------------------------
    --!   Interpreter constants
    -- ------------------------------------------------------------------------------------------------------
-constant c_DIR_ROOT           : string  := "../../"                                                         ; --! Directory root
+constant c_DIR_ROOT           : string  := "../project/dmx-NGL-fw/"                                         ; --! Directory root
 constant c_DIR_CMD_FILE       : string  := c_DIR_ROOT & "simu/utest/"                                       ; --! Directory unitary test file
 constant c_DIR_RES_FILE       : string  := c_DIR_ROOT & "simu/result/"                                      ; --! Directory result file
 constant c_CMD_FILE_ROOT      : string  := "DRE_DMX_UT_"                                                    ; --! Command file root
