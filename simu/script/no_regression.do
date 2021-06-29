@@ -28,12 +28,14 @@
 quietly set VARIANT "NG-LARGE"
 quietly set NXMAP3_MODEL_PATH "../modelsim"
 quietly set PR_DIR "../project/dmx-NGL-fw"
+quietly set NR_FILE "no_regression.csv"
 
 #### Directories ####
 quietly set IP_DIR "${PR_DIR}/ip/nx/${VARIANT}"
 quietly set SRC_DIR "${PR_DIR}/src"
 quietly set TB_DIR "${PR_DIR}/simu/tb"
 quietly set CFG_DIR "${PR_DIR}/simu/conf"
+quietly set RES_DIR "${PR_DIR}/simu/result"
 
 # Compile library linked to the FPGA technology
 vlib nx
@@ -52,6 +54,8 @@ proc run_utest {args} {
    global SRC_DIR
    global TB_DIR
    global CFG_DIR
+   global RES_DIR
+   global NR_FILE
 
    # Compile all packages
    vlib work
@@ -77,6 +81,10 @@ proc run_utest {args} {
       # In the case of no argument, compile all configuration files
       vcom -work work -2008 "${CFG_DIR}/*.vhd"
 
+      # No regression file initialization
+      set file_nr [open ${RES_DIR}/${NR_FILE} w]
+      puts $file_nr "Test result number; Final Status"
+
       foreach file [lsort -dictionary [glob -directory ${CFG_DIR} *.vhd]] {
 
          # Extract the simulation time from the selected configuration file
@@ -93,7 +101,37 @@ proc run_utest {args} {
          vsim -t ps -lib work work.[file rootname [file tail $file]]
          run $sim_time
          quit -sim
+
+         # Get the root file name
+         set root_file_name [string range [file rootname [file tail $file]] 0 end-4]
+
+         # Check result file exists
+         if { [file exists ${RES_DIR}/${root_file_name}_res] == 0} {
+
+            # If result file does not exist, write test fail in no regression file
+            puts $file_nr "${root_file_name}; FAIL"
+
+         } else {
+
+            # Check the final simulation status
+            set res_file [open ${RES_DIR}/${root_file_name}_res]
+				while {[gets $res_file line] != -1} {
+
+               # If final simulation status is pass, write test pass in non regression file
+					if {[regexp {# Simulation status             : PASS} $line]} {
+                  puts $file_nr "${root_file_name}; PASS"
+                  break
+					}
+				}
+
+            # If final simulation status pass is not detetected, write test fail in non regression file
+            if {[gets $res_file line] == -1} {
+               puts $file_nr "${root_file_name}; FAIL"
+            }
+         }
       }
+
+      close $file_nr
 
    } else {
 
