@@ -37,16 +37,60 @@ quietly set TB_DIR "${PR_DIR}/simu/tb"
 quietly set CFG_DIR "${PR_DIR}/simu/conf"
 quietly set RES_DIR "${PR_DIR}/simu/result"
 
+#### Package ip files list ####
+quietly set PKG_IP_FILES {
+   pkg_fpga_tech.vhd
+}
+
+#### Ip files list ####
+quietly set IP_FILES {
+   pll.vhd
+}
+
+#### Package source files list ####
+quietly set PKG_SRC_FILES {
+   pkg_func_math.vhd
+   pkg_project.vhd
+   pkg_ep_cmd.vhd
+}
+
+#### Source files list ####
+quietly set SRC_FILES {
+   rst_clk_mgt.vhd
+   in_rs_clk.vhd
+   in_rs_clk_sq1_adc.vhd
+   in_rs_clk_sq1_pls.vhd
+   spi_slave.vhd
+   sts_err_add_mgt.vhd
+   sts_err_wrt_mgt.vhd
+   ep_cmd.vhd
+   register_mgt.vhd
+   spi_master.vhd
+   science_data_tx.vhd
+   top_dmx.vhd
+}
+
+#### Testbench files list ####
+quietly set TB_FILES {
+   pkg_model.vhd
+   pkg_mess.vhd
+   pkg_func_cmd_script.vhd
+   clock_model.vhd
+   ep_spi_model.vhd
+   parser.vhd
+   top_dmx_tb.vhd
+}
+
 # Compile library linked to the FPGA technology
 vlib nx
 if {${VARIANT} == "NG-MEDIUM" || ${VARIANT} == "NG-MEDIUM-EMBEDDED"} {
-    vcom -work nx -2008 "${NXMAP3_MODEL_PATH}/nxLibrary-Medium.vhdp"
+   vcom -work nx -2008 "${NXMAP3_MODEL_PATH}/nxLibrary-Medium.vhdp"
 } elseif { $VARIANT == "NG-LARGE" || ${VARIANT} == "NG-LARGE-EMBEDDED"} {
-    vcom -work nx -2008 "${NXMAP3_MODEL_PATH}/nxLibrary-Large.vhdp"
+   vcom -work nx -2008 "${NXMAP3_MODEL_PATH}/nxLibrary-Large.vhdp"
 } elseif { $VARIANT == "NG-ULTRA" || ${VARIANT} == "NG-ULTRA-EMBEDDED"} {
-    vcom -work nx -2008 "${NXMAP3_MODEL_PATH}/nxLibrary-Ultra.vhdp"
+   vcom -work nx -2008 "${NXMAP3_MODEL_PATH}/nxLibrary-Ultra.vhdp"
 } else {
-    puts "Unrecognized Variant"}
+   puts "Unrecognized Variant"}
 
 #### Run unitary test(s)
 proc run_utest {args} {
@@ -56,24 +100,37 @@ proc run_utest {args} {
    global CFG_DIR
    global RES_DIR
    global NR_FILE
+   global PKG_IP_FILES
+   global IP_FILES
+   global PKG_SRC_FILES
+   global SRC_FILES
+   global TB_FILES
 
-   # Compile all packages
    vlib work
-   vcom -work work -just pb -93 "${IP_DIR}/*.vhd"
-   vcom -work work -just pb -93 "${SRC_DIR}/pkg_func_math.vhd"
-   vcom -work work -just pb -93 "${SRC_DIR}/pkg_project.vhd"
-   vcom -work work -just pb -93 "${SRC_DIR}/*.vhd"
+   # Compile all package ip files
+	foreach file ${PKG_IP_FILES} {
+      vcom -work work -93 ${IP_DIR}/$file
+	}
+   
+   # Compile all package source files
+	foreach file ${PKG_SRC_FILES} {
+      vcom -work work -93 ${SRC_DIR}/$file
+	}
 
-   # Compile all entities/architectures
-   vcom -work work -just ea -93 "${IP_DIR}/*.vhd"
-   vcom -work work -just ea -93 "${SRC_DIR}/spi_slave.vhd"
-   vcom -work work -just ea -93 "${SRC_DIR}/sts_err_add_mgt.vhd"
-   vcom -work work -just ea -93 "${SRC_DIR}/sts_err_wrt_mgt.vhd"
-   vcom -work work -just ea -93 "${SRC_DIR}/*.vhd"
+   # Compile all ip files
+	foreach file ${IP_FILES} {
+      vcom -work work -93 ${IP_DIR}/$file
+	}
+   
+   # Compile all source files
+	foreach file ${SRC_FILES} {
+      vcom -work work -93 ${SRC_DIR}/$file
+	}
 
-   # Compile all testbenches/models
-   vcom -work work -just pb -2008 "${TB_DIR}/*.vhd"
-   vcom -work work -just ea -2008 "${TB_DIR}/*.vhd"
+   # Compile all testbench files
+	foreach file ${TB_FILES} {
+      vcom -work work -2008 ${TB_DIR}/$file
+	}
 
    # Test the argument number
    if {[llength $args] == 0} {

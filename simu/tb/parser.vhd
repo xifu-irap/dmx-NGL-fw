@@ -33,6 +33,7 @@ use     work.pkg_func_math.all;
 use     work.pkg_project.all;
 use     work.pkg_mess.all;
 use     work.pkg_model.all;
+use     work.pkg_func_cmd_script.all;
 
 library std;
 use std.textio.all;
@@ -71,16 +72,9 @@ end entity parser;
 
 architecture Simulation of parser is
 constant c_SIM_NAME           : string    := c_CMD_FILE_ROOT & g_TST_NUM                                    ; --! Simulation name
-constant c_ERROR_CAT_NB       : integer   := 4                                                              ; --! Error category number
 
 signal   discrete_r           : std_logic_vector(c_CMD_FILE_FLD_DATA_S-1 downto 0)                          ; --! Discrete read
 signal   discrete_w           : std_logic_vector(c_CMD_FILE_FLD_DATA_S-1 downto 0)                          ; --! Discrete write
-
-signal   error_cat            : std_logic_vector(c_ERROR_CAT_NB-1 downto 0)                                 ; --! Error category
-alias    err_sim_time         : std_logic is error_cat(0)                                                   ; --! Error simulation time ('0' = No error, '1' = Error: Simulation time not long enough)
-alias    err_chk_dis_r        : std_logic is error_cat(1)                                                   ; --! Error check discrete read  ('0' = No error, '1' = Error)
-alias    err_chk_cmd_r        : std_logic is error_cat(2)                                                   ; --! Error check command return ('0' = No error, '1' = Error)
-alias    err_chk_time         : std_logic is error_cat(3)                                                   ; --! Error check time           ('0' = No error, '1' = Error)
 
 file     cmd_file             : text                                                                        ; --! Command file
 file     res_file             : text                                                                        ; --! Result file
@@ -130,19 +124,26 @@ begin
    --!   Parser sequence: read command file and write result file
    -- ------------------------------------------------------------------------------------------------------
    P_parser_seq: process
-   variable v_line_cnt        : integer   := 1                                                              ; --! Command file line counter
+   constant c_ERROR_CAT_NB    : integer   := 4                                                              ; --! Error category number
+   variable v_error_cat       : std_logic_vector(c_ERROR_CAT_NB-1 downto 0)                                 ; --! Error category
+   alias    v_err_sim_time    : std_logic is v_error_cat(0)                                                 ; --! Error simulation time ('0' = No error, '1' = Error: Simulation time not long enough)
+   alias    v_err_chk_dis_r   : std_logic is v_error_cat(1)                                                 ; --! Error check discrete read  ('0' = No error, '1' = Error)
+   alias    v_err_chk_cmd_r   : std_logic is v_error_cat(2)                                                 ; --! Error check command return ('0' = No error, '1' = Error)
+   alias    v_err_chk_time    : std_logic is v_error_cat(3)                                                 ; --! Error check time           ('0' = No error, '1' = Error)
+
+   variable v_line_cnt        : integer                                                                     ; --! Command file line counter
    variable v_head_mess_stdout: line                                                                        ; --! Header message output stream stdout
    variable v_cmd_file_line   : line                                                                        ; --! Command file line
-   variable v_fld             : line                                                                        ; --! Field
-   variable v_fld2            : line                                                                        ; --! Field 2
-   variable v_fld_cmd         : line                                                                        ; --! Field command
+   variable v_fld_cmd         : line                                                                        ; --! Field script command
+   variable v_fld_spi_cmd     : std_logic_vector(c_EP_CMD_S-1 downto 0)                                     ; --! Field SPI command
+   variable v_wait_end        : t_wait_cmd_end                                                              ; --! Wait end
    variable v_fld_data        : std_logic_vector(c_CMD_FILE_FLD_DATA_S-1 downto 0)                          ; --! Field data
    variable v_fld_mask        : std_logic_vector(c_CMD_FILE_FLD_DATA_S-1 downto 0)                          ; --! Field mask
-   variable v_fld_spi_cmd     : std_logic_vector(c_EP_CMD_S-1 downto 0)                                     ; --! Field SPI command
+   variable v_record_time     : time                                                                        ; --! Record time
+   variable v_fld             : line                                                                        ; --! Field
+   variable v_fld2            : line                                                                        ; --! Field 2
    variable v_fld_integer     : integer                                                                     ; --! Field integer
    variable v_fld_time        : time                                                                        ; --! Field time
-   variable v_record_time     : time      := 0 ns                                                           ; --! Record time
-   variable v_err_chk_time    : std_logic                                                                   ; --! Error check time ('0' = No error, '1' = Error)
    begin
 
       -- Open Command and Result files
@@ -156,11 +157,11 @@ begin
 
       -- Default value initialization
       o_ep_cmd_ser_wd_s <= std_logic_vector(to_unsigned(c_EP_CMD_S, o_ep_cmd_ser_wd_s'length));
-
-      -- Errors initialization
-      error_cat <= (others => '0');
-      o_ep_cmd  <= (others => '0');
-      o_ep_cmd_start <= '0';
+      o_ep_cmd          <= (others => '0');
+      o_ep_cmd_start    <= '0';
+      v_error_cat       := (others => '0');
+      v_line_cnt        := 1;
+      v_record_time     := 0 ns;
 
       -- Command file parser
       while not(endfile(cmd_file)) loop
@@ -184,11 +185,8 @@ begin
                -- ------------------------------------------------------------------------------------------------------
                when "CCMD" =>
 
-                  -- Drop underscore included in the fields
-                  drop_line_char(v_cmd_file_line, '_', v_cmd_file_line);
-
-                  -- Get [cmd], hex format
-                  hrfield(v_cmd_file_line, v_head_mess_stdout.all & "[cmd]", v_fld_spi_cmd);
+                  -- Get parameters
+                  get_param_ccmd(v_cmd_file_line, v_head_mess_stdout.all, v_fld_spi_cmd, v_wait_end);
 
                   wait for c_EP_CLK_PER_DEF;
 
@@ -200,7 +198,7 @@ begin
                      fprintf(error, "Check command return: FAIL", res_file);
 
                      -- Activate error flag
-                     err_chk_cmd_r  <= '1';
+                     v_err_chk_cmd_r  := '1';
 
                   end if;
 
@@ -209,45 +207,22 @@ begin
                   hfield_format(v_fld_spi_cmd, v_fld2);
                   fprintf(note , " * Read " & v_fld.all & ", expected " & v_fld2.all , res_file);
 
-                  -- Get [end] field
-                  rfield(v_cmd_file_line, v_head_mess_stdout.all & "[end]", 1, v_fld);
+                  if v_wait_end = wait_cmd_end_tx then
+                     v_fld_time := now;
+                     wait until i_ep_cmd_busy_n = '1' for g_SIM_TIME-now;
 
-                  case v_fld(1 to 1) is
+                     -- Check the simulation end
+                     chk_sim_end(g_SIM_TIME, now-v_fld_time, "SPI command end", v_err_sim_time, res_file);
 
-                     -- Wait the command end
-                     when "W"|"w"   =>
-
-                        v_fld_time := now;
-                        wait until i_ep_cmd_busy_n = '1' for g_SIM_TIME-now;
-
-                        -- Check the simulation end
-                        chk_sim_end(g_SIM_TIME, now-v_fld_time, "SPI command end", v_err_chk_time, res_file);
-
-                        if v_err_chk_time = '1' then
-                           err_sim_time <= '1';
-                           exit;
-                        end if;
-
-                     -- To do nothing
-                     when "N"|"n"   =>
-                        null;
-
-                     when others =>
-                        assert v_fld = null report v_head_mess_stdout.all & "[end]" & c_MESS_ERR_UNKNOWN severity failure;
-
-                  end case;
+                  end if;
 
                -- ------------------------------------------------------------------------------------------------------
                -- Command CDIS [mask] [data]: check discrete inputs
                -- ------------------------------------------------------------------------------------------------------
                when "CDIS" =>
 
-                  -- Drop underscore included in the fields
-                  drop_line_char(v_cmd_file_line, '_', v_cmd_file_line);
-
-                  -- Get [mask] and [data], hex format
-                  hrfield(v_cmd_file_line, v_head_mess_stdout.all & "[mask]", v_fld_mask);
-                  hrfield(v_cmd_file_line, v_head_mess_stdout.all & "[data]", v_fld_data);
+                  -- Get parameters
+                  get_param_cdis(v_cmd_file_line, v_head_mess_stdout.all, v_fld_data, v_fld_mask);
 
                   -- Check result
                   if (discrete_r and v_fld_mask) = (v_fld_data and v_fld_mask) then
@@ -257,7 +232,7 @@ begin
                      fprintf(error, "Check discrete level: FAIL", res_file);
 
                      -- Activate error flag
-                     err_chk_dis_r  <= '1';
+                     v_err_chk_dis_r := '1';
 
                   end if;
 
@@ -271,15 +246,8 @@ begin
                -- ------------------------------------------------------------------------------------------------------
                when "CTLE" =>
 
-                  -- Drop underscore included in the fields
-                  drop_line_char(v_cmd_file_line, '_', v_cmd_file_line);
-
-                  -- Get [mask], hex format
-                  hrfield(v_cmd_file_line, v_head_mess_stdout.all & "[mask]", v_fld_mask);
-
-                  -- Get [ope] and [time]
-                  rfield(v_cmd_file_line, v_head_mess_stdout.all & "[ope]", 0, v_fld);
-                  rfield(v_cmd_file_line, v_head_mess_stdout.all & "[time]", v_fld_time);
+                  -- Get parameters
+                  get_param_ctle(v_cmd_file_line, v_head_mess_stdout.all, v_fld_mask, v_fld, v_fld_time);
 
                   -- Select discrete signals
                   for i in 0 to v_fld_mask'high loop
@@ -287,11 +255,6 @@ begin
 
                         -- Compare time between the current time and discrete input(s) last event
                         cmp_time(v_fld(1 to 2), dis_read_last_event(i), v_fld_time, "discrete read ("& integer'image(i) &") last event" , v_head_mess_stdout.all & "[ope]", v_err_chk_time, res_file);
-
-                        -- Activate error flag
-                        if v_err_chk_time = '1' then
-                           err_chk_time <= '1';
-                        end if;
 
                      end if;
                   end loop;
@@ -301,20 +264,11 @@ begin
                -- ------------------------------------------------------------------------------------------------------
                when "CTLR" =>
 
-                  -- Drop underscore included in the fields
-                  drop_line_char(v_cmd_file_line, '_', v_cmd_file_line);
-
-                  -- Get [ope] and [time]
-                  rfield(v_cmd_file_line, v_head_mess_stdout.all & "[ope]", 0, v_fld);
-                  rfield(v_cmd_file_line, v_head_mess_stdout.all & "[time]", v_fld_time);
+                  -- Get parameters
+                  get_param_ctlr(v_cmd_file_line, v_head_mess_stdout.all, v_fld, v_fld_time);
 
                   -- Compare time between the current and record time with expected time
                   cmp_time(v_fld(1 to 2), now - v_record_time, v_fld_time, "record time", v_head_mess_stdout.all & "[ope]", v_err_chk_time, res_file);
-
-                  -- Activate error flag
-                  if v_err_chk_time = '1' then
-                     err_chk_time <= '1';
-                  end if;
 
                -- ------------------------------------------------------------------------------------------------------
                -- Command COMM: add comment in result file
@@ -334,8 +288,8 @@ begin
                -- ------------------------------------------------------------------------------------------------------
                when "WAIT" =>
 
-                  -- Get [time]
-                  rfield(v_cmd_file_line, v_head_mess_stdout.all & "[time]", v_fld_time);
+                  -- Get parameters
+                  get_param_wait(v_cmd_file_line, v_head_mess_stdout.all, v_fld_time);
 
                   -- Check the simulation end
                   if v_fld_time > (g_SIM_TIME - now) then
@@ -347,72 +301,49 @@ begin
                   end if;
 
                   -- Check the simulation end
-                  chk_sim_end(g_SIM_TIME, v_fld_time, "time", v_err_chk_time, res_file);
-
-                  if v_err_chk_time = '1' then
-                     err_sim_time <= '1';
-                     exit;
-                  end if;
+                  chk_sim_end(g_SIM_TIME, v_fld_time, "time", v_err_sim_time, res_file);
 
                -- ------------------------------------------------------------------------------------------------------
                -- Command WCMD [cmd] [end]: transmit EP command
                -- ------------------------------------------------------------------------------------------------------
                when "WCMD" =>
 
-                  -- Drop underscore included in the fields
-                  drop_line_char(v_cmd_file_line, '_', v_cmd_file_line);
-
-                  -- Get [cmd], hex format
-                  hrfield(v_cmd_file_line, v_head_mess_stdout.all & "[cmd]", v_fld_spi_cmd);
-                  rfield(v_cmd_file_line, v_head_mess_stdout.all & "[end]", 1, v_fld);
+                  -- Get parameters
+                  get_param_wcmd(v_cmd_file_line, v_head_mess_stdout.all, v_fld_spi_cmd, v_wait_end);
 
                   -- Display command
-                  hfield_format(v_fld_spi_cmd, v_fld2);
-                  fprintf(note , "Send SPI command " & v_fld2.all, res_file);
+                  hfield_format(v_fld_spi_cmd, v_fld);
+                  fprintf(note , "Send SPI command " & v_fld.all, res_file);
 
                   -- Send command
                   o_ep_cmd       <= v_fld_spi_cmd;
                   o_ep_cmd_start <= '1';
-                  wait for 2*c_EP_CLK_PER_DEF;
+                  wait for 2 * c_EP_CLK_PER_DEF;
                   o_ep_cmd_start <= '0';
 
                   -- [end] analysis
-                  case v_fld(1 to 1) is
+                  case v_wait_end is
 
-                     -- Wait the command end
-                     when "R"|"r"   =>
+                     -- Wait the return command end receipt
+                     when wait_rcmd_end_rx   =>
 
                         v_fld_time := now;
                         wait until i_ep_data_rx_rdy = '1' for g_SIM_TIME-now;
 
                         -- Check the simulation end
-                        chk_sim_end(g_SIM_TIME, now-v_fld_time, "SPI command return end", v_err_chk_time, res_file);
+                        chk_sim_end(g_SIM_TIME, now-v_fld_time, "SPI command return end", v_err_sim_time, res_file);
 
-                        if v_err_chk_time = '1' then
-                           err_sim_time <= '1';
-                           exit;
-                        end if;
-
-                     -- Wait the command end
-                     when "W"|"w"   =>
+                     -- Wait the command end transmit
+                     when wait_cmd_end_tx    =>
 
                         v_fld_time := now;
                         wait until i_ep_cmd_busy_n = '1' for g_SIM_TIME-now;
 
                         -- Check the simulation end
-                        chk_sim_end(g_SIM_TIME, now-v_fld_time, "SPI command end", v_err_chk_time, res_file);
-
-                        if v_err_chk_time = '1' then
-                           err_sim_time <= '1';
-                           exit;
-                        end if;
-
-                     -- To do nothing
-                     when "N"|"n"   =>
-                        null;
+                        chk_sim_end(g_SIM_TIME, now-v_fld_time, "SPI command end", v_err_sim_time, res_file);
 
                      when others =>
-                        assert v_fld = null report v_head_mess_stdout.all & "[end]" & c_MESS_ERR_UNKNOWN severity failure;
+                        null;
 
                   end case;
 
@@ -421,11 +352,8 @@ begin
                -- ------------------------------------------------------------------------------------------------------
                when "WCMS" =>
 
-                  -- Drop underscore included in the fields
-                  drop_line_char(v_cmd_file_line, '_', v_cmd_file_line);
-
-                  -- Get [size], hex format
-                  rfield(v_cmd_file_line, v_head_mess_stdout.all & "[size]", v_fld_integer);
+                  -- Get parameters
+                  get_param_wcms(v_cmd_file_line, v_head_mess_stdout.all, v_fld_integer);
 
                   -- Update EP command serial word size
                   o_ep_cmd_ser_wd_s <= std_logic_vector(to_unsigned(v_fld_integer, o_ep_cmd_ser_wd_s'length));
@@ -438,12 +366,8 @@ begin
                -- ------------------------------------------------------------------------------------------------------
                when "WDIS" =>
 
-                  -- Drop underscore included in the fields
-                  drop_line_char(v_cmd_file_line, '_', v_cmd_file_line);
-
-                  -- Get [mask] and [data], hex format
-                  hrfield(v_cmd_file_line, v_head_mess_stdout.all & "[mask]", v_fld_mask);
-                  hrfield(v_cmd_file_line, v_head_mess_stdout.all & "[data]", v_fld_data);
+                  -- Get parameters
+                  get_param_wdis(v_cmd_file_line, v_head_mess_stdout.all, v_fld_data, v_fld_mask);
 
                   -- Update discrete write signals
                   for i in v_fld_data'range loop
@@ -463,12 +387,8 @@ begin
                -- ------------------------------------------------------------------------------------------------------
                when "WUDI" =>
 
-                  -- Drop underscore included in the fields
-                  drop_line_char(v_cmd_file_line, '_', v_cmd_file_line);
-
-                  -- Get [mask] and [data], hex format
-                  hrfield(v_cmd_file_line, v_head_mess_stdout.all & "[mask]", v_fld_mask);
-                  hrfield(v_cmd_file_line, v_head_mess_stdout.all & "[data]", v_fld_data);
+                  -- Get parameters
+                  get_param_wudi(v_cmd_file_line, v_head_mess_stdout.all, v_fld_data, v_fld_mask);
 
                   v_fld_time := now;
                   wait until (discrete_r and v_fld_mask) = (v_fld_data and v_fld_mask) for g_SIM_TIME-now;
@@ -476,12 +396,7 @@ begin
                   -- Check the simulation end
                   hfield_format(v_fld_mask, v_fld);
                   hfield_format(v_fld_data, v_fld2);
-                  chk_sim_end(g_SIM_TIME, now-v_fld_time, "event, mask " & v_fld.all & ", data " & v_fld2.all, v_err_chk_time, res_file);
-
-                  if v_err_chk_time = '1' then
-                     err_sim_time <= '1';
-                     exit;
-                  end if;
+                  chk_sim_end(g_SIM_TIME, now-v_fld_time, "event, mask " & v_fld.all & ", data " & v_fld2.all, v_err_sim_time, res_file);
 
                -- ------------------------------------------------------------------------------------------------------
                -- Command unknown
@@ -491,6 +406,11 @@ begin
 
             end case;
 
+         end if;
+
+         -- Exit loop in case of error simulation time
+         if v_err_sim_time = '1' then
+            exit;
          end if;
 
          -- Update line counter
@@ -505,16 +425,16 @@ begin
 
       -- Result file end
       fprintf(none, c_RES_FILE_DIV_BAR & c_RES_FILE_DIV_BAR & c_RES_FILE_DIV_BAR, res_file);
-      fprintf(none, "Error simulation time         : " & std_logic'image(err_sim_time),   res_file);
-      fprintf(none, "Error check discrete level    : " & std_logic'image(err_chk_dis_r),  res_file);
-      fprintf(none, "Error check command return    : " & std_logic'image(err_chk_cmd_r),  res_file);
-      fprintf(none, "Error check time              : " & std_logic'image(err_chk_time),   res_file);
+      fprintf(none, "Error simulation time         : " & std_logic'image(v_err_sim_time),   res_file);
+      fprintf(none, "Error check discrete level    : " & std_logic'image(v_err_chk_dis_r),  res_file);
+      fprintf(none, "Error check command return    : " & std_logic'image(v_err_chk_cmd_r),  res_file);
+      fprintf(none, "Error check time              : " & std_logic'image(v_err_chk_time),   res_file);
 
       fprintf(none, c_RES_FILE_DIV_BAR & c_RES_FILE_DIV_BAR & c_RES_FILE_DIV_BAR, res_file);
       fprintf(none, "Simulation time               : " & time'image(now), res_file);
 
       -- Final test status
-      if error_cat = std_logic_vector(to_unsigned(0, error_cat'length)) then
+      if v_error_cat = std_logic_vector(to_unsigned(0, v_error_cat'length)) then
          fprintf(none, "Simulation status             : PASS", res_file);
 
       else
