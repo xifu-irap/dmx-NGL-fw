@@ -85,12 +85,14 @@ type     t_wait_cmd_end         is (none, wait_cmd_end_tx, wait_rcmd_end_rx)    
    );
 
    -- ------------------------------------------------------------------------------------------------------
-   --! Get parameters command CTLE [mask] [ope] [time]: check time between the current time and discrete input(s) last event
+   --! Get parameters command CTLE [discrete_r] [ope] [time]: check time between the current time
+   --!  and discrete input last event
    -- ------------------------------------------------------------------------------------------------------
    procedure get_param_ctle
    (     b_cmd_file_line      : inout  line                                                                 ; --  Command file line
          i_mess_header        : in     string                                                               ; --  Message header
-         o_fld_mask           : out    std_logic_vector                                                     ; --  Field mask
+         o_fld_dr             : out    line                                                                 ; --  Field discrete input
+         o_fld_dr_ind         : out    integer range 0 to c_DR_S                                            ; --  Field discrete input index (equal to c_DR_S if field not recognized)
          o_fld_ope            : out    line                                                                 ; --  Field operation
          o_fld_time           : out    time                                                                   --  Field time
    );
@@ -354,22 +356,22 @@ package body pkg_func_cmd_script is
    end get_param_cdis;
 
    -- ------------------------------------------------------------------------------------------------------
-   --! Get parameters command CTLE [mask] [ope] [time]: check time between the current time and discrete input(s) last event
+   --! Get parameters command CTLE [discrete_r] [ope] [time]: check time between the current time
+   --!  and discrete input last event
    -- ------------------------------------------------------------------------------------------------------
    procedure get_param_ctle
    (     b_cmd_file_line      : inout  line                                                                 ; --  Command file line
          i_mess_header        : in     string                                                               ; --  Message header
-         o_fld_mask           : out    std_logic_vector                                                     ; --  Field mask
+         o_fld_dr             : out    line                                                                 ; --  Field discrete input
+         o_fld_dr_ind         : out    integer range 0 to c_DR_S                                            ; --  Field discrete input index (equal to c_DR_S if field not recognized)
          o_fld_ope            : out    line                                                                 ; --  Field operation
          o_fld_time           : out    time                                                                   --  Field time
    ) is
    begin
 
-      -- Drop underscore included in the fields
-      drop_line_char(b_cmd_file_line, '_', b_cmd_file_line);
-
-      -- Get [mask], hex format
-      hrfield(b_cmd_file_line, i_mess_header & "[mask]", o_fld_mask);
+      -- Get [discrete_r]
+      get_dr_index(b_cmd_file_line, o_fld_dr, o_fld_dr_ind);
+      assert o_fld_dr_ind /= c_DR_S report i_mess_header & "[discrete_r]" & c_MESS_ERR_UNKNOWN severity failure;
 
       -- Get [ope] and [time]
       rfield(b_cmd_file_line, i_mess_header & "[ope]", 0, o_fld_ope);

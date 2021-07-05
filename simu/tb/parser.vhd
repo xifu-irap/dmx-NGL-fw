@@ -243,18 +243,11 @@ begin
                when "CTLE" =>
 
                   -- Get parameters
-                  get_param_ctle(v_cmd_file_line, v_head_mess_stdout.all, v_fld_mask, v_fld, v_fld_time);
+                  get_param_ctle(v_cmd_file_line, v_head_mess_stdout.all, v_fld_dis, v_fld_dis_ind, v_fld, v_fld_time);
 
-                  -- Select discrete signals
-                  for i in 0 to v_fld_mask'high loop
-                     if v_fld_mask(i) = '1' then
-
-                        -- Compare time between the current time and discrete input(s) last event
-                        cmp_time(v_fld(1 to 2), dr_last_event(i), v_fld_time, "discrete read ("& integer'image(i) &") last event" , v_head_mess_stdout.all & "[ope]", v_err_chk_time, res_file);
-
-                     end if;
-                  end loop;
-
+                  -- Compare time between the current time and discrete input(s) last event
+                  cmp_time(v_fld(1 to 2), dr_last_event(v_fld_dis_ind), v_fld_time, v_fld_dis.all & " last event" , v_head_mess_stdout.all & "[ope]", v_err_chk_time, res_file);
+                 
                -- ------------------------------------------------------------------------------------------------------
                -- Command CTLR [ope] [time]: check time from the last record time
                -- ------------------------------------------------------------------------------------------------------
