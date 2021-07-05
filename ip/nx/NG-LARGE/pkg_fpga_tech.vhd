@@ -34,4 +34,23 @@ package pkg_fpga_tech is
    -- ------------------------------------------------------------------------------------------------------
 constant c_IO_DEL_STEP        : integer   := 160                                                            ; --! FPGA I/O delay by step value (ps)
 
+constant c_WFG_PAT_S          : integer   := 16                                                             ; --! WFG pattern bus size
+type     t_wfg_pat              is array (0 to c_WFG_PAT_S-1) of bit_vector(0 to c_WFG_PAT_S-1)             ; --! WFG sampling pattern type
+
+constant c_WFG_PAT_ONE_SEQ    : t_wfg_pat := ("1000000000000000",
+                                              "1000000000000000",
+                                              "1000000000000000",
+                                              "1100000000000000",
+                                              "1100000000000000",
+                                              "1110000000000000",
+                                              "1110000000000000",
+                                              "1111000000000000",
+                                              "1111000000000000",
+                                              "1111100000000000",
+                                              "1111100000000000",
+                                              "1111110000000000",
+                                              "1111110000000000",
+                                              "1111111000000000",
+                                              "1111111000000000",
+                                              "1111111100000000")                                           ; --! WFG sampling pattern with only one pattern sequence
 end pkg_fpga_tech;

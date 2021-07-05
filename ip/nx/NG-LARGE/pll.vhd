@@ -30,6 +30,7 @@ library ieee;
 use     ieee.std_logic_1164.all;
 
 library work;
+use     work.pkg_fpga_tech.all;
 use     work.pkg_func_math.all;
 use     work.pkg_project.all;
 
@@ -53,36 +54,6 @@ entity pll is port
 end entity pll;
 
 architecture RTL of pll is
-
-   -- ------------------------------------------------------------------------------------------------------
-   --! @details   Elaborate the WFG sampling pattern with only one pattern sequence
-   -- ------------------------------------------------------------------------------------------------------
-   function wfg_pat_one_seq (
-         pattern_end          : integer                                                                       -- Last useful index of the sampling pattern: PATTERN_END+1 first pattern bits are used
-   ) return bit_vector is
-   begin
-
-      case pattern_end is
-         when  0     => return "1000000000000000";
-         when  1     => return "1000000000000000";
-         when  2     => return "1000000000000000";
-         when  3     => return "1100000000000000";
-         when  4     => return "1100000000000000";
-         when  5     => return "1110000000000000";
-         when  6     => return "1110000000000000";
-         when  7     => return "1111000000000000";
-         when  8     => return "1111000000000000";
-         when  9     => return "1111100000000000";
-         when 10     => return "1111100000000000";
-         when 11     => return "1111110000000000";
-         when 12     => return "1111110000000000";
-         when 13     => return "1111111000000000";
-         when 14     => return "1111111000000000";
-         when others => return "1111111100000000";
-      end case;
-
-   end function;
-
 constant c_PRM_NU             : integer :=  0                                                               ; --! Parameter not used
 
 constant c_DEL_OFF            : bit     := '0'                                                              ; --! Delay off
@@ -100,18 +71,18 @@ constant c_WFG_PATTERN_ON     : bit     := '1'                                  
 constant c_CLK_REF_DIV        : integer := div_floor(c_CLK_REF_FREQ, 100000000)                             ; --! Pll main ref. clock freq. divided as 20MHz<= CLK_REF_FREQ /(REF_INTDIV + 1) <= 100MHz
 
 constant c_CLK_SYNC_REF_N_PAT : integer := c_PLL_MAIN_VCO_MULT*(c_CLK_REF_DIV+1)/c_CLK_REF_MULT - 1         ; --! Clock synchronous Ref. clock: Number of vco cycles for pattern
-constant c_CLK_SYNC_REF_PAT   : bit_vector(0 to 15) := wfg_pat_one_seq(c_CLK_SYNC_REF_N_PAT)                ; --! Clock synchronous Ref. clock: Pattern, use only the number of vco cycles+1 MSB bits
+constant c_CLK_SYNC_REF_PAT   : bit_vector(0 to c_WFG_PAT_S-1) := c_WFG_PAT_ONE_SEQ(c_CLK_SYNC_REF_N_PAT)   ; --! Clock synchronous Ref. clock: Pattern, use only the number of vco cycles+1 MSB bits
 
 constant c_CLK_N_PAT          : integer := c_PLL_MAIN_VCO_MULT/c_CLK_MULT - 1                               ; --! System clock: Number of vco cycles for pattern
-constant c_CLK_PAT            : bit_vector(0 to 15) := wfg_pat_one_seq(c_CLK_N_PAT)                         ; --! System clock: Pattern, use only the number of vco cycles+1 MSB bits
-constant c_CLK_SCIENCE_PAT    : bit_vector(0 to 15) := not(c_CLK_PAT)                                       ; --! Science Data Clock: Pattern, use only the number of vco cycles+1 MSB bits
+constant c_CLK_PAT            : bit_vector(0 to c_WFG_PAT_S-1) := c_WFG_PAT_ONE_SEQ(c_CLK_N_PAT)            ; --! System clock: Pattern, use only the number of vco cycles+1 MSB bits
+constant c_CLK_SCIENCE_PAT    : bit_vector(0 to c_WFG_PAT_S-1) := not(c_CLK_PAT)                            ; --! Science Data Clock: Pattern, use only the number of vco cycles+1 MSB bits
 
 constant c_CLK_ADC_N_PAT      : integer := c_PLL_MAIN_VCO_MULT/c_CLK_ADC_MULT - 1                           ; --! SQUID1 ADC Clock: Number of vco cycles for pattern
-constant c_CLK_ADC_PAT        : bit_vector(0 to 15) := wfg_pat_one_seq(c_CLK_ADC_N_PAT)                     ; --! SQUID1 ADC Clock: Pattern, use only the number of vco cycles+1 MSB bits
+constant c_CLK_ADC_PAT        : bit_vector(0 to c_WFG_PAT_S-1) := c_WFG_PAT_ONE_SEQ(c_CLK_ADC_N_PAT)        ; --! SQUID1 ADC Clock: Pattern, use only the number of vco cycles+1 MSB bits
 
 constant c_CLK_DAC_N_PAT      : integer := c_PLL_MAIN_VCO_MULT/c_CLK_DAC_MULT - 1                           ; --! SQUID1 DAC Clock: Number of vco cycles for pattern
-constant c_CLK_PLS_SHAPE_PAT  : bit_vector(0 to 15) := wfg_pat_one_seq(c_CLK_DAC_N_PAT)                     ; --! SQUID1 pulse shaping Clock: Pattern, use only the number of vco cycles+1 MSB bits
-constant c_CLK_DAC_PAT        : bit_vector(0 to 15) := not(c_CLK_PLS_SHAPE_PAT)                             ; --! SQUID1 DAC Clock: Pattern, use only the number of vco cycles+1 MSB bits
+constant c_CLK_PLS_SHAPE_PAT  : bit_vector(0 to c_WFG_PAT_S-1) := c_WFG_PAT_ONE_SEQ(c_CLK_DAC_N_PAT)        ; --! SQUID1 pulse shaping Clock: Pattern, use only the number of vco cycles+1 MSB bits
+constant c_CLK_DAC_PAT        : bit_vector(0 to c_WFG_PAT_S-1) := not(c_CLK_PLS_SHAPE_PAT)                  ; --! SQUID1 DAC Clock: Pattern, use only the number of vco cycles+1 MSB bits
 
 signal   arst                 : std_logic                                                                   ; --! Asynchronous reset ('0' = Inactive, '1' = Active)
 
