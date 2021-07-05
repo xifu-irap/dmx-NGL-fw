@@ -74,6 +74,7 @@ quietly set SRC_FILES {
 quietly set TB_FILES {
    pkg_model.vhd
    pkg_mess.vhd
+   pkg_str_fld_assoc.vhd
    pkg_func_cmd_script.vhd
    clock_model.vhd
    ep_spi_model.vhd

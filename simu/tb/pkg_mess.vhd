@@ -89,6 +89,17 @@ constant c_MESS_EXP           : string  := ", expected: "                       
    );
 
    -- ------------------------------------------------------------------------------------------------------
+   --! Read delimited by separator space included in line and complete it with padding character
+   --!  to specified size
+   -- ------------------------------------------------------------------------------------------------------
+   procedure rfield_pad
+   (     b_line               : inout  line                                                                 ; --  Line to analysis
+         i_delimiter          : in     character                                                            ; --  Delimiter
+         i_size               : in     integer                                                              ; --  Size to get
+         o_field              : out    line                                                                   --  Field found
+   );
+
+   -- ------------------------------------------------------------------------------------------------------
    --! Read and check field delimited by delimiter space included in line
    -- ------------------------------------------------------------------------------------------------------
    procedure rfield
@@ -114,6 +125,12 @@ constant c_MESS_EXP           : string  := ", expected: "                       
    (     b_line               : inout  line                                                                 ; --  Line to analysis (binary characters)
          i_mess_header        : in     string                                                               ; --  Message header
          o_field              : out    std_logic_vector                                                       --  Field found
+   );
+
+   procedure brfield
+   (     b_line               : inout  line                                                                 ; --  Line to analysis (binary characters)
+         i_mess_header        : in     string                                                               ; --  Message header
+         o_field              : out    std_logic                                                              --  Field found
    );
 
    procedure hrfield
@@ -277,6 +294,32 @@ package body pkg_mess is
    end get_field_line;
 
    -- ------------------------------------------------------------------------------------------------------
+   --! Read delimited by separator space included in line and complete it with padding character
+   --!  to specified size
+   -- ------------------------------------------------------------------------------------------------------
+   procedure rfield_pad
+   (     b_line               : inout  line                                                                 ; --  Line to analysis
+         i_delimiter          : in     character                                                            ; --  Delimiter
+         i_size               : in     integer                                                              ; --  Size to get
+         o_field              : out    line                                                                   --  Field found
+   ) is
+   variable v_field_s         : integer                                                                     ; --! Field size
+   begin
+
+      -- Get field
+      get_field_line(b_line, ' ', o_field, v_field_s);
+
+      -- Add delimiter(s) to field
+      while v_field_s < i_size loop
+
+         write(o_field, i_delimiter);
+         v_field_s := v_field_s + 1;
+
+      end loop;
+
+   end rfield_pad;
+
+   -- ------------------------------------------------------------------------------------------------------
    --! Read and check field delimited by separator space included in line
    -- ------------------------------------------------------------------------------------------------------
    procedure rfield
@@ -347,6 +390,30 @@ package body pkg_mess is
 
       -- Check the mask size
       assert v_field_s = o_field'length report i_mess_header & c_MESS_ERR_SIZE & c_MESS_READ & integer'image(v_field_s) & c_MESS_EXP & integer'image(o_field'length) severity failure;
+
+      -- Get field output format, binary value
+      read(v_field, o_field, v_field_status);
+
+      -- Check the mask Hex value
+      assert v_field_status = true report i_mess_header & c_MESS_FORMAT_BIN & c_MESS_ERR_FORMAT severity failure;
+
+   end brfield;
+
+   procedure brfield
+   (     b_line               : inout  line                                                                 ; --  Line to analysis (binary characters)
+         i_mess_header        : in     string                                                               ; --  Message header
+         o_field              : out    std_logic                                                              --  Field found
+   ) is
+   variable v_field           : line                                                                        ; --! Field
+   variable v_field_s         : integer                                                                     ; --! Field size
+   variable v_field_status    : boolean                                                                     ; --! Field status
+   begin
+
+      -- Get field string
+      get_field_line(b_line, ' ', v_field, v_field_s);
+
+      -- Check the mask size
+      assert v_field_s = 1 report i_mess_header & c_MESS_ERR_SIZE & c_MESS_READ & integer'image(v_field_s) & c_MESS_EXP & "1" severity failure;
 
       -- Get field output format, binary value
       read(v_field, o_field, v_field_status);

@@ -28,7 +28,9 @@ library ieee;
 use     ieee.std_logic_1164.all;
 
 library work;
+use     work.pkg_model.all;
 use     work.pkg_mess.all;
+use     work.pkg_str_fld_assoc.all;
 
 library std;
 use std.textio.all;
@@ -72,13 +74,14 @@ type     t_wait_cmd_end         is (none, wait_cmd_end_tx, wait_rcmd_end_rx)    
    );
 
    -- ------------------------------------------------------------------------------------------------------
-   --! Get parameters command CDIS [mask] [data]: check discrete inputs
+   --! Get parameters command CDIS [discrete_r] [value]: check discrete input
    -- ------------------------------------------------------------------------------------------------------
    procedure get_param_cdis
-   (     b_cmd_file_line      : inout  line                                                                 ; --! Command file line
+   (     b_cmd_file_line      : inout  line                                                                 ; --  Command file line
          i_mess_header        : in     string                                                               ; --  Message header
-         o_fld_data           : out    std_logic_vector                                                     ; --! Field data
-         o_fld_mask           : out    std_logic_vector                                                       --! Field mask
+         o_fld_dr             : out    line                                                                 ; --  Field discrete input
+         o_fld_dr_ind         : out    integer range 0 to c_DR_S                                            ; --  Field discrete input index (equal to c_DR_S if field not recognized)
+         o_fld_value          : out    std_logic                                                              --  Field value
    );
 
    -- ------------------------------------------------------------------------------------------------------
@@ -131,13 +134,14 @@ type     t_wait_cmd_end         is (none, wait_cmd_end_tx, wait_rcmd_end_rx)    
    );
 
    -- ------------------------------------------------------------------------------------------------------
-   --! Get parameters command WDIS [mask] [data]: write discrete output(s)
+   --! Get parameters command WDIS [discrete_w] [value]: write discrete output
    -- ------------------------------------------------------------------------------------------------------
    procedure get_param_wdis
    (     b_cmd_file_line      : inout  line                                                                 ; --  Command file line
          i_mess_header        : in     string                                                               ; --  Message header
-         o_fld_data           : out    std_logic_vector                                                     ; --  Field data
-         o_fld_mask           : out    std_logic_vector                                                       --  Field mask
+         o_fld_dw             : out    line                                                                 ; --  Field discrete output
+         o_fld_dw_ind         : out    integer range 0 to c_DW_S                                            ; --  Field discrete output index (equal to c_DW_S if field not recognized)
+         o_fld_value          : out    std_logic                                                              --  Field value
    );
 
    -- ------------------------------------------------------------------------------------------------------
@@ -329,22 +333,23 @@ package body pkg_func_cmd_script is
    end get_param_ccmd;
 
    -- ------------------------------------------------------------------------------------------------------
-   --! Get parameters command CDIS [mask] [data]: check discrete inputs
+   --! Get parameters command CDIS [discrete_r] [value]: check discrete input
    -- ------------------------------------------------------------------------------------------------------
    procedure get_param_cdis
    (     b_cmd_file_line      : inout  line                                                                 ; --  Command file line
          i_mess_header        : in     string                                                               ; --  Message header
-         o_fld_data           : out    std_logic_vector                                                     ; --  Field data
-         o_fld_mask           : out    std_logic_vector                                                       --  Field mask
+         o_fld_dr             : out    line                                                                 ; --  Field discrete input
+         o_fld_dr_ind         : out    integer range 0 to c_DR_S                                            ; --  Field discrete input index (equal to c_DR_S if field not recognized)
+         o_fld_value          : out    std_logic                                                              --  Field value
    ) is
    begin
 
-      -- Drop underscore included in the fields
-      drop_line_char(b_cmd_file_line, '_', b_cmd_file_line);
+      -- Get [discrete_r]
+      get_dr_index(b_cmd_file_line, o_fld_dr, o_fld_dr_ind);
+      assert o_fld_dr_ind /= c_DR_S report i_mess_header & "[discrete_r]" & c_MESS_ERR_UNKNOWN severity failure;
 
-      -- Get [mask] and [data], hex format
-      hrfield(b_cmd_file_line, i_mess_header & "[mask]", o_fld_mask);
-      hrfield(b_cmd_file_line, i_mess_header & "[data]", o_fld_data);
+      -- Get [value], binary format
+      brfield(b_cmd_file_line, i_mess_header & "[value]", o_fld_value);
 
    end get_param_cdis;
 
@@ -469,22 +474,23 @@ package body pkg_func_cmd_script is
    end get_param_wcms;
 
    -- ------------------------------------------------------------------------------------------------------
-   --! Get parameters command WDIS [mask] [data]: write discrete output(s)
+   --! Get parameters command WDIS [discrete_w] [value]: write discrete output
    -- ------------------------------------------------------------------------------------------------------
    procedure get_param_wdis
    (     b_cmd_file_line      : inout  line                                                                 ; --  Command file line
          i_mess_header        : in     string                                                               ; --  Message header
-         o_fld_data           : out    std_logic_vector                                                     ; --  Field data
-         o_fld_mask           : out    std_logic_vector                                                       --  Field mask
+         o_fld_dw             : out    line                                                                 ; --  Field discrete output
+         o_fld_dw_ind         : out    integer range 0 to c_DW_S                                            ; --  Field discrete output index (equal to c_DW_S if field not recognized)
+         o_fld_value          : out    std_logic                                                              --  Field value
    ) is
    begin
 
-      -- Drop underscore included in the fields
-      drop_line_char(b_cmd_file_line, '_', b_cmd_file_line);
+      -- Get [discrete_w]
+      get_dw_index(b_cmd_file_line, o_fld_dw, o_fld_dw_ind);
+      assert o_fld_dw_ind /= c_DW_S report i_mess_header & "[discrete_w]" & c_MESS_ERR_UNKNOWN severity failure;
 
-      -- Get [mask] and [data], hex format
-      hrfield(b_cmd_file_line, i_mess_header & "[mask]", o_fld_mask);
-      hrfield(b_cmd_file_line, i_mess_header & "[data]", o_fld_data);
+      -- Get [value], binary format
+      brfield(b_cmd_file_line, i_mess_header & "[value]", o_fld_value);
 
    end get_param_wdis;
 

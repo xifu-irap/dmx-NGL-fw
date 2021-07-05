@@ -245,7 +245,7 @@ begin
          i_d_rst              => d_rst                , -- in     std_logic                                 ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
          i_d_clk              => d_clk                , -- in     std_logic                                 ; --! Internal design: System Clock
          i_d_clk_sq1_adc      => d_clk_sq1_adc        , -- in     std_logic                                 ; --! Internal design: SQUID1 ADC Clock (MSB SQUID1 ADC Clocks vector)
-         i_d_clk_sq1_pls_shape=> d_clk_sq1_pls_shape  , -- in     std_logic                                 ; --! Internal design: SQUID1 pulse shaping Clock
+         i_d_clk_sq1_pls_shap => d_clk_sq1_pls_shape  , -- in     std_logic                                 ; --! Internal design: SQUID1 pulse shaping Clock
 
          i_ep_data_rx         => ep_data_rx           , -- in     std_logic_vector(c_EP_CMD_S-1 downto 0)   ; --! EP - Receipted data
          i_ep_data_rx_rdy     => ep_data_rx_rdy       , -- in     std_logic                                 ; --! EP - Receipted data ready ('0' = Not ready, '1' = Ready)

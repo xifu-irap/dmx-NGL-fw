@@ -59,7 +59,7 @@ entity parser is generic
          i_d_rst              : in     std_logic                                                            ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
          i_d_clk              : in     std_logic                                                            ; --! Internal design: System Clock
          i_d_clk_sq1_adc      : in     std_logic                                                            ; --! Internal design: SQUID1 ADC Clock (MSB SQUID1 ADC Clocks vector)
-         i_d_clk_sq1_pls_shape: in     std_logic                                                            ; --! Internal design: SQUID1 pulse shaping Clock
+         i_d_clk_sq1_pls_shap : in     std_logic                                                            ; --! Internal design: SQUID1 pulse shaping Clock
 
          i_ep_data_rx         : in     std_logic_vector(c_EP_CMD_S-1 downto 0)                              ; --! EP - Receipted data
          i_ep_data_rx_rdy     : in     std_logic                                                            ; --! EP - Receipted data ready ('0' = Not ready, '1' = Ready)
@@ -73,52 +73,47 @@ end entity parser;
 architecture Simulation of parser is
 constant c_SIM_NAME           : string    := c_CMD_FILE_ROOT & g_TST_NUM                                    ; --! Simulation name
 
-signal   discrete_r           : std_logic_vector(c_CMD_FILE_FLD_DATA_S-1 downto 0)                          ; --! Discrete read
+type     t_last_event_arr       is array (natural range <>) of time                                         ; --! Last event array type
+
 signal   discrete_w           : std_logic_vector(c_CMD_FILE_FLD_DATA_S-1 downto 0)                          ; --! Discrete write
+signal   discrete_r           : std_logic_vector(c_CMD_FILE_FLD_DATA_S-1 downto 0)                          ; --! Discrete read
+signal   dr_last_event        : t_last_event_arr(c_CMD_FILE_FLD_DATA_S-1 downto 0)                          ; --! Discrete read last event
 
 file     cmd_file             : text                                                                        ; --! Command file
 file     res_file             : text                                                                        ; --! Result file
 
-   -- ------------------------------------------------------------------------------------------------------
-   --! Return the last event time of the signal indexed in discrete read bus
-   -- ------------------------------------------------------------------------------------------------------
-   function dis_read_last_event (
-         discrete_r_index     : integer                                                                       -- Discrete read index
-   ) return time is
-   begin
-
-      case discrete_r_index is
-         when  0     => return i_d_rst'last_event;
-         when  1     => return i_clk_ref'last_event;
-         when  2     => return i_d_clk'last_event;
-         when  3     => return i_d_clk_sq1_adc'last_event;
-         when  4     => return i_d_clk_sq1_pls_shape'last_event;
-         when  5     => return i_ep_cmd_busy_n'last_event;
-         when  6     => return i_ep_data_rx_rdy'last_event;
-         when others => return i_d_rst'last_event;
-      end case;
-
-   end function;
-
 begin
-
-   -- ------------------------------------------------------------------------------------------------------
-   --!   Discrete read signals association
-   -- ------------------------------------------------------------------------------------------------------
-   discrete_r(0)        <= i_d_rst;
-   discrete_r(1)        <= i_clk_ref;
-   discrete_r(2)        <= i_d_clk;
-   discrete_r(3)        <= i_d_clk_sq1_adc;
-   discrete_r(4)        <= i_d_clk_sq1_pls_shape;
-   discrete_r(5)        <= i_ep_cmd_busy_n;
-   discrete_r(6)        <= i_ep_data_rx_rdy;
-
-   discrete_r(discrete_r'high downto 7) <= (others => '0');
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Discrete write signals association
    -- ------------------------------------------------------------------------------------------------------
-   o_arst_n             <= discrete_w(0);
+   o_arst_n             <= discrete_w(c_DW_ARST_N);
+
+   -- ------------------------------------------------------------------------------------------------------
+   --!   Discrete read signals association
+   -- ------------------------------------------------------------------------------------------------------
+   discrete_r(c_DR_D_RST)           <= i_d_rst;
+   discrete_r(c_DR_CLK_REF)         <= i_clk_ref;
+   discrete_r(c_DR_D_CLK)           <= i_d_clk;
+   discrete_r(c_DR_D_CLK_SQ1_ADC)   <= i_d_clk_sq1_adc;
+   discrete_r(c_DR_D_CLK_SQ1_PLS_SH)<= i_d_clk_sq1_pls_shap;
+   discrete_r(c_DR_EP_CMD_BUSY_N)   <= i_ep_cmd_busy_n;
+   discrete_r(c_DR_EP_DATA_RX_RDY)  <= i_ep_data_rx_rdy;
+
+   discrete_r(discrete_r'high downto c_DR_S) <= (others => '0');
+
+   -- ------------------------------------------------------------------------------------------------------
+   --!   Discrete read last event association
+   -- ------------------------------------------------------------------------------------------------------
+   dr_last_event(c_DR_D_RST)           <= i_d_rst'last_event;
+   dr_last_event(c_DR_CLK_REF)         <= i_clk_ref'last_event;
+   dr_last_event(c_DR_D_CLK)           <= i_d_clk'last_event;
+   dr_last_event(c_DR_D_CLK_SQ1_ADC)   <= i_d_clk_sq1_adc'last_event;
+   dr_last_event(c_DR_D_CLK_SQ1_PLS_SH)<= i_d_clk_sq1_pls_shap'last_event;
+   dr_last_event(c_DR_EP_CMD_BUSY_N)   <= i_ep_cmd_busy_n'last_event;
+   dr_last_event(c_DR_EP_DATA_RX_RDY)  <= i_ep_data_rx_rdy'last_event;
+
+   dr_last_event(dr_last_event'high downto c_DR_S) <= (others => 0 ns);
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Parser sequence: read command file and write result file
@@ -137,6 +132,9 @@ begin
    variable v_fld_cmd         : line                                                                        ; --! Field script command
    variable v_fld_spi_cmd     : std_logic_vector(c_EP_CMD_S-1 downto 0)                                     ; --! Field SPI command
    variable v_wait_end        : t_wait_cmd_end                                                              ; --! Wait end
+   variable v_fld_dis         : line                                                                        ; --! Field discrete
+   variable v_fld_dis_ind     : integer                                                                     ; --! Field discrete
+   variable v_fld_value       : std_logic                                                                   ; --! Field value
    variable v_fld_data        : std_logic_vector(c_CMD_FILE_FLD_DATA_S-1 downto 0)                          ; --! Field data
    variable v_fld_mask        : std_logic_vector(c_CMD_FILE_FLD_DATA_S-1 downto 0)                          ; --! Field mask
    variable v_record_time     : time                                                                        ; --! Record time
@@ -217,15 +215,15 @@ begin
                   end if;
 
                -- ------------------------------------------------------------------------------------------------------
-               -- Command CDIS [mask] [data]: check discrete inputs
+               -- Command CDIS [discrete_r] [value]: check discrete input
                -- ------------------------------------------------------------------------------------------------------
                when "CDIS" =>
 
                   -- Get parameters
-                  get_param_cdis(v_cmd_file_line, v_head_mess_stdout.all, v_fld_data, v_fld_mask);
+                  get_param_cdis(v_cmd_file_line, v_head_mess_stdout.all, v_fld_dis, v_fld_dis_ind, v_fld_value);
 
                   -- Check result
-                  if (discrete_r and v_fld_mask) = (v_fld_data and v_fld_mask) then
+                  if discrete_r(v_fld_dis_ind) = v_fld_value then
                      fprintf(note , "Check discrete level: PASS", res_file);
 
                   else
@@ -237,9 +235,7 @@ begin
                   end if;
 
                   -- Display result
-                  hfield_format(discrete_r and v_fld_mask, v_fld);
-                  hfield_format(v_fld_data and v_fld_mask, v_fld2);
-                  fprintf(note , " * Read " & v_fld.all & ", expected " & v_fld2.all , res_file);
+                  fprintf(note , " * Read discrete: " & v_fld_dis.all & ", value " & std_logic'image(discrete_r(v_fld_dis_ind)) & ", expected " & std_logic'image(v_fld_value), res_file);
 
                -- ------------------------------------------------------------------------------------------------------
                -- Command CTLE [mask] [ope] [time]: check time between the current time and discrete input(s) last event
@@ -254,7 +250,7 @@ begin
                      if v_fld_mask(i) = '1' then
 
                         -- Compare time between the current time and discrete input(s) last event
-                        cmp_time(v_fld(1 to 2), dis_read_last_event(i), v_fld_time, "discrete read ("& integer'image(i) &") last event" , v_head_mess_stdout.all & "[ope]", v_err_chk_time, res_file);
+                        cmp_time(v_fld(1 to 2), dr_last_event(i), v_fld_time, "discrete read ("& integer'image(i) &") last event" , v_head_mess_stdout.all & "[ope]", v_err_chk_time, res_file);
 
                      end if;
                   end loop;
@@ -362,25 +358,18 @@ begin
                   fprintf(note, "Configure SPI command to " & integer'image(v_fld_integer) & " bits size", res_file);
 
                -- ------------------------------------------------------------------------------------------------------
-               -- Command WDIS [mask] [data]: write discrete output(s)
+               -- Command WDIS [discrete_w] [value]: write discrete output
                -- ------------------------------------------------------------------------------------------------------
                when "WDIS" =>
 
                   -- Get parameters
-                  get_param_wdis(v_cmd_file_line, v_head_mess_stdout.all, v_fld_data, v_fld_mask);
+                  get_param_wdis(v_cmd_file_line, v_head_mess_stdout.all, v_fld_dis, v_fld_dis_ind, v_fld_value);
 
-                  -- Update discrete write signals
-                  for i in v_fld_data'range loop
-                     if v_fld_mask(i) = '1' then
-                        discrete_w(i) <= v_fld_data(i);
-
-                     end if;
-                  end loop;
+                  -- Update discrete write signal
+                  discrete_w(v_fld_dis_ind) <= v_fld_value;
 
                   -- Display command
-                  hfield_format(v_fld_mask, v_fld);
-                  hfield_format(v_fld_data, v_fld2);
-                  fprintf(note , "Write discrete : mask " & v_fld.all & ", data " & v_fld2.all, res_file);
+                  fprintf(note , "Write discrete: " & v_fld_dis.all & " = " & std_logic'image(v_fld_value), res_file);
 
                -- ------------------------------------------------------------------------------------------------------
                -- Command WUDI [mask] [data]: wait until event on discrete

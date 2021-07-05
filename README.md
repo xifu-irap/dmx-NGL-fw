@@ -90,13 +90,13 @@ DRE-DEMUX TDM firmware.
          * Value *N*: no wait time
 
 
-   - Command CDIS **mask** **data**: check discrete inputs
-      + Parameter **mask** : 64 bits hexa (underscore can be inserted), selection mask on discrete inputs (see §4 on discrete inputs description)
-      + Parameter **data** : 64 bits hexa (underscore can be inserted), discrete inputs value expected
+   - Command CDIS **discrete_r** **value**: check discrete input
+      + Parameter **discrete_r** : discrete input select (see 4 on discrete inputs description)
+      + Parameter **value** : (1 bit U/X/0/1/Z/W/L/H/-) discrete input value expected
 
 
    - Command CTLE **mask** **ope** **time**: check time between the current time and discrete input(s) last event
-      + Parameter **mask** : 64 bits hexa (underscore can be inserted), selection mask on discrete inputs (see §4 on discrete inputs description)
+      + Parameter **mask** : 64 bits hexa (underscore can be inserted), selection mask on discrete inputs (see 4 on discrete inputs description)
       + Parameter **ope** : ( ==, /=, <<, <=, >>, >= ), comparison operation
       + Parameter **time**: (decimal with unit ps, ns, us, ms, sec), comparison time
 
@@ -128,13 +128,13 @@ DRE-DEMUX TDM firmware.
       + Parameter **size** : decimal range 1 to 63, EP command word size
 
 
-   - Command WDIS **mask** **data**: write discrete output(s)
-      + Parameter **mask** : 64 bits hexa (underscore can be inserted), selection mask on discrete outputs (see §5 on discrete outputs description)
-      + Parameter **data** : 64 bits hexa (underscore can be inserted), discrete outputs value
+   - Command WDIS **discrete_w** **value**: write discrete output
+      + Parameter **discrete_w** : discrete output select (see 5 on discrete outputs description)
+      + Parameter **value** : (1 bit U/X/0/1/Z/W/L/H/-) discrete output value
 
 
    - Command WUDI **mask** **data**: wait until event on discrete input(s)
-      + Parameter **mask** : 64 bits hexa (underscore can be inserted), selection mask on discrete inputs (see §4 on discrete inputs description)
+      + Parameter **mask** : 64 bits hexa (underscore can be inserted), selection mask on discrete inputs (see 4 on discrete inputs description)
       + Parameter **data** : 64 bits hexa (underscore can be inserted), discrete inputs value expected
 
 ## 7. Unitary test result
