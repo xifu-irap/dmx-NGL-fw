@@ -133,7 +133,9 @@ DRE-DEMUX TDM firmware.
       + Parameter **value** : (1 bit U/X/0/1/Z/W/L/H/-) discrete output value
 
 
-   - Command WUDI **mask** **data**: wait until event on discrete input(s)
+   - Command WUDI **discrete_r** **value** or WUDI **mask** **data**: wait until event on discrete input(s)
+      + Parameter **discrete_r** : discrete input select (see 4 on discrete inputs description)
+      + Parameter **value** : (1 bit U/X/0/1/Z/W/L/H/-) discrete input value expected
       + Parameter **mask** : 64 bits hexa (underscore can be inserted), selection mask on discrete inputs (see 4 on discrete inputs description)
       + Parameter **data** : 64 bits hexa (underscore can be inserted), discrete inputs value expected
 

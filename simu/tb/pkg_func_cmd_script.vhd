@@ -147,11 +147,14 @@ type     t_wait_cmd_end         is (none, wait_cmd_end_tx, wait_rcmd_end_rx)    
    );
 
    -- ------------------------------------------------------------------------------------------------------
-   --! Get parameters command WUDI [mask] [data]: wait until event on discrete
+   --! Get parameters command WUDI [discrete_r] [value] or WUDI [mask] [data]: wait until event on discrete(s)
    -- ------------------------------------------------------------------------------------------------------
    procedure get_param_wudi
    (     b_cmd_file_line      : inout  line                                                                 ; --  Command file line
          i_mess_header        : in     string                                                               ; --  Message header
+         o_fld_dr             : inout  line                                                                 ; --  Field discrete input
+         o_fld_dr_ind         : out    integer range 0 to c_DR_S                                            ; --  Field discrete input index (equal to c_DR_S if field not recognized)
+         o_fld_value          : out    std_logic                                                            ; --  Field value
          o_fld_data           : out    std_logic_vector                                                     ; --  Field data
          o_fld_mask           : out    std_logic_vector                                                       --  Field mask
    );
@@ -497,22 +500,38 @@ package body pkg_func_cmd_script is
    end get_param_wdis;
 
    -- ------------------------------------------------------------------------------------------------------
-   --! Get parameters command WUDI [mask] [data]: wait until event on discrete
+   --! Get parameters command WUDI [discrete_r] [value] or WUDI [mask] [data]: wait until event on discrete(s)
    -- ------------------------------------------------------------------------------------------------------
    procedure get_param_wudi
    (     b_cmd_file_line      : inout  line                                                                 ; --  Command file line
          i_mess_header        : in     string                                                               ; --  Message header
+         o_fld_dr             : inout  line                                                                 ; --  Field discrete input
+         o_fld_dr_ind         : out    integer range 0 to c_DR_S                                            ; --  Field discrete input index (equal to c_DR_S if field not recognized)
+         o_fld_value          : out    std_logic                                                            ; --  Field value
          o_fld_data           : out    std_logic_vector                                                     ; --  Field data
          o_fld_mask           : out    std_logic_vector                                                       --  Field mask
    ) is
    begin
 
-      -- Drop underscore included in the fields
-      drop_line_char(b_cmd_file_line, '_', b_cmd_file_line);
+      -- Get [discrete_r]
+      get_dr_index(b_cmd_file_line, o_fld_dr, o_fld_dr_ind);
 
-      -- Get [mask] and [data], hex format
-      hrfield(b_cmd_file_line, i_mess_header & "[mask]", o_fld_mask);
-      hrfield(b_cmd_file_line, i_mess_header & "[data]", o_fld_data);
+      -- Check if the last field is a discrete
+      if o_fld_dr_ind /= c_DR_S then
+
+         -- Get [value], binary format
+         brfield(b_cmd_file_line, i_mess_header & "[value]", o_fld_value);
+
+      else
+         -- Drop underscore included in the fields and get [mask], hex format
+         drop_line_char(o_fld_dr, '_', o_fld_dr);
+         hrfield(o_fld_dr, i_mess_header & "[mask]", o_fld_mask);
+
+         -- Drop underscore included in the fields and get [data], hex format
+         drop_line_char(b_cmd_file_line, '_', b_cmd_file_line);
+         hrfield(b_cmd_file_line, i_mess_header & "[data]", o_fld_data);
+
+      end if;
 
    end get_param_wudi;
 

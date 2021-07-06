@@ -247,7 +247,7 @@ begin
 
                   -- Compare time between the current time and discrete input(s) last event
                   cmp_time(v_fld(1 to 2), dr_last_event(v_fld_dis_ind), v_fld_time, v_fld_dis.all & " last event" , v_head_mess_stdout.all & "[ope]", v_err_chk_time, res_file);
-                 
+
                -- ------------------------------------------------------------------------------------------------------
                -- Command CTLR [ope] [time]: check time from the last record time
                -- ------------------------------------------------------------------------------------------------------
@@ -365,20 +365,31 @@ begin
                   fprintf(note , "Write discrete: " & v_fld_dis.all & " = " & std_logic'image(v_fld_value), res_file);
 
                -- ------------------------------------------------------------------------------------------------------
-               -- Command WUDI [mask] [data]: wait until event on discrete
+               -- Command WUDI [discrete_r] [value] or WUDI [mask] [data]: wait until event on discrete(s)
                -- ------------------------------------------------------------------------------------------------------
                when "WUDI" =>
 
                   -- Get parameters
-                  get_param_wudi(v_cmd_file_line, v_head_mess_stdout.all, v_fld_data, v_fld_mask);
+                  get_param_wudi(v_cmd_file_line, v_head_mess_stdout.all, v_fld_dis, v_fld_dis_ind, v_fld_value, v_fld_data, v_fld_mask);
 
                   v_fld_time := now;
-                  wait until (discrete_r and v_fld_mask) = (v_fld_data and v_fld_mask) for g_SIM_TIME-now;
 
-                  -- Check the simulation end
-                  hfield_format(v_fld_mask, v_fld);
-                  hfield_format(v_fld_data, v_fld2);
-                  chk_sim_end(g_SIM_TIME, now-v_fld_time, "event, mask " & v_fld.all & ", data " & v_fld2.all, v_err_sim_time, res_file);
+                  -- Check if the last field is a discrete
+                  if v_fld_dis_ind /= c_DR_S then
+                     wait until discrete_r(v_fld_dis_ind) = v_fld_value for g_SIM_TIME-now;
+
+                     -- Check the simulation end
+                     chk_sim_end(g_SIM_TIME, now-v_fld_time, "event " & v_fld_dis.all & " = " & std_logic'image(v_fld_value), v_err_sim_time, res_file);
+
+                  else
+                     wait until (discrete_r and v_fld_mask) = (v_fld_data and v_fld_mask) for g_SIM_TIME-now;
+
+                     -- Check the simulation end
+                     hfield_format(v_fld_mask, v_fld);
+                     hfield_format(v_fld_data, v_fld2);
+                     chk_sim_end(g_SIM_TIME, now-v_fld_time, "event, mask " & v_fld.all & ", data " & v_fld2.all, v_err_sim_time, res_file);
+
+                  end if;
 
                -- ------------------------------------------------------------------------------------------------------
                -- Command unknown
