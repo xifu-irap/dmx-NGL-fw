@@ -109,19 +109,19 @@ package body pkg_str_fld_assoc is
 
       -- Return field discrete output index
       case v_fld_dr_pad(1 to c_SIG_NAME_STR_MAX_S) is
-         when "d_rst               "   =>
+         when "rst                 "   =>
             o_fld_dr_ind := c_DR_D_RST;
 
          when "clk_ref             "   =>
             o_fld_dr_ind := c_DR_CLK_REF;
 
-         when "d_clk               "   =>
+         when "clk                 "   =>
             o_fld_dr_ind := c_DR_D_CLK;
 
-         when "d_clk_sq1_adc       "   =>
+         when "clk_sq1_adc         "   =>
             o_fld_dr_ind := c_DR_D_CLK_SQ1_ADC;
 
-         when "d_clk_sq1_pls_shape "   =>
+         when "clk_sq1_pls_shape   "   =>
             o_fld_dr_ind := c_DR_D_CLK_SQ1_PLS_SH;
 
          when "ep_cmd_busy_n       "   =>

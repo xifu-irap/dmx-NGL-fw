@@ -64,11 +64,11 @@ DRE-DEMUX TDM firmware.
 ## 4. Discrete inputs description (seen from simulation pilot side)
 
    Discrete inputs are grouped together in a 64 bits field (bit position 63 is the MSB, bit position 0 is the LSB):
-   - Position 0: **d_rst**, Internal DRE-DEMUX: Reset asynchronous assertion, synchronous de-assertion
+   - Position 0: **rst**, Internal DRE-DEMUX: Reset asynchronous assertion, synchronous de-assertion
    - Position 1: **clk_ref**, DRE-DEMUX input, Reference Clock
-   - Position 2: **d_clk**, Internal DRE-DEMUX: System Clock
-   - Position 3: **d_clk_sq1_adc**, Internal DRE-DEMUX: SQUID1 ADC
-   - Position 4: **d_clk_sq1_pls_shape**, Internal DRE-DEMUX: SQUID1 pulse shaping Clock
+   - Position 2: **clk**, Internal DRE-DEMUX: System Clock
+   - Position 3: **clk_sq1_adc**, Internal DRE-DEMUX: SQUID1 ADC
+   - Position 4: **clk_sq1_pls_shape**, Internal DRE-DEMUX: SQUID1 pulse shaping Clock
    - Position 5: **ep_cmd_busy_n**, EP SPI model output, EP - Command transmit busy ('0' = Busy, '1' = Not Busy)
    - Position 6: **ep_data_rx_rdy**, EP SPI model output, EP - Receipted data ready ('0' = Not ready, '1' = Ready)
    - Position 63-7: Not Used

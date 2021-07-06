@@ -177,14 +177,14 @@ proc run_utest {args} {
 
                # If final simulation status is pass, write test pass in non regression file
 					if {[regexp {# Simulation status             : PASS} $line]} {
-                  puts $file_nr "${root_file_name}; PASS"
+                  puts $file_nr "${root_file_name};PASS"
                   break
 					}
 				}
 
             # If final simulation status pass is not detetected, write test fail in non regression file
             if {[gets $res_file line] == -1} {
-               puts $file_nr "${root_file_name}; FAIL"
+               puts $file_nr "${root_file_name};FAIL"
             }
          }
       }

@@ -23,13 +23,13 @@ COMM   Check internal reset de-assertion synchronization with clk_ref and intern
 COMM     clk, clk_sq1_adc and clk_sq1_pls_shape
 COMM ----------------------------------------------------------------------------------------------
 CTLE clk_ref == 0 ps
-CTLE d_clk == 0 ps
-CTLE d_clk_sq1_adc == 0 ps
-CTLE d_clk_sq1_pls_shape == 0 ps
+CTLE clk == 0 ps
+CTLE clk_sq1_adc == 0 ps
+CTLE clk_sq1_pls_shape == 0 ps
 CDIS clk_ref 1
-CDIS d_clk 1
-CDIS d_clk_sq1_adc 1
-CDIS d_clk_sq1_pls_shape 1
+CDIS clk 1
+CDIS clk_sq1_adc 1
+CDIS clk_sq1_pls_shape 1
 COMM
 COMM ==============================================================================================
 COMM   Check 4 clk periods (frequency 59,995MHz)

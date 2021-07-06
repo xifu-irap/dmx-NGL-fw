@@ -27,20 +27,20 @@
 #             (7017228 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (7017228 ps) Check time, clk_ref last event: PASS
 # ** Note   : (7017228 ps)  * clk_ref last event 0 ps equal to expected value 0 ps
-# ** Note   : (7017228 ps) Check time, d_clk last event: PASS
-# ** Note   : (7017228 ps)  * d_clk last event 0 ps equal to expected value 0 ps
-# ** Note   : (7017228 ps) Check time, d_clk_sq1_adc last event: PASS
-# ** Note   : (7017228 ps)  * d_clk_sq1_adc last event 0 ps equal to expected value 0 ps
-# ** Note   : (7017228 ps) Check time, d_clk_sq1_pls_shape last event: PASS
-# ** Note   : (7017228 ps)  * d_clk_sq1_pls_shape last event 0 ps equal to expected value 0 ps
+# ** Note   : (7017228 ps) Check time, clk last event: PASS
+# ** Note   : (7017228 ps)  * clk last event 0 ps equal to expected value 0 ps
+# ** Note   : (7017228 ps) Check time, clk_sq1_adc last event: PASS
+# ** Note   : (7017228 ps)  * clk_sq1_adc last event 0 ps equal to expected value 0 ps
+# ** Note   : (7017228 ps) Check time, clk_sq1_pls_shape last event: PASS
+# ** Note   : (7017228 ps)  * clk_sq1_pls_shape last event 0 ps equal to expected value 0 ps
 # ** Note   : (7017228 ps) Check discrete level: PASS
 # ** Note   : (7017228 ps)  * Read discrete: clk_ref, value '1', expected '1'
 # ** Note   : (7017228 ps) Check discrete level: PASS
-# ** Note   : (7017228 ps)  * Read discrete: d_clk, value '1', expected '1'
+# ** Note   : (7017228 ps)  * Read discrete: clk, value '1', expected '1'
 # ** Note   : (7017228 ps) Check discrete level: PASS
-# ** Note   : (7017228 ps)  * Read discrete: d_clk_sq1_adc, value '1', expected '1'
+# ** Note   : (7017228 ps)  * Read discrete: clk_sq1_adc, value '1', expected '1'
 # ** Note   : (7017228 ps) Check discrete level: PASS
-# ** Note   : (7017228 ps)  * Read discrete: d_clk_sq1_pls_shape, value '1', expected '1'
+# ** Note   : (7017228 ps)  * Read discrete: clk_sq1_pls_shape, value '1', expected '1'
 #             (7017228 ps) 
 #             (7017228 ps) ==============================================================================================
 #             (7017228 ps)   Check 4 clk periods (frequency 59,995MHz)
