@@ -212,7 +212,6 @@ constant c_RET_ADD_UKWN       : std_logic_vector(c_EP_SPI_WD_S-1 downto 0) := (o
    variable v_fld_access      : line                                                                        ; --  Field access
    variable v_fld_add         : line                                                                        ; --  Field address
    variable v_fld_add_val     : std_logic_vector(c_EP_SPI_WD_S-1 downto 0)                                  ; --  Field address value
-   variable v_fld_data        : line                                                                        ; --  Field data
    begin
 
       -- Get [access]
@@ -238,11 +237,11 @@ constant c_RET_ADD_UKWN       : std_logic_vector(c_EP_SPI_WD_S-1 downto 0) := (o
             assert v_cmd_field = null report i_mess_header & "[access]" & c_MESS_ERR_UNKNOWN severity failure;
 
       end case;
-      
+
       -- Get [address]
       get_field_line(b_cmd, c_CMD_DEL, v_cmd_field, v_cmd_field_s);
       get_cmd_add(v_cmd_field, v_fld_add, v_fld_add_val);
-    
+
       if v_fld_add_val = c_RET_ADD_UKWN then
 
          -- Drop underscore included in the fields
@@ -252,7 +251,7 @@ constant c_RET_ADD_UKWN       : std_logic_vector(c_EP_SPI_WD_S-1 downto 0) := (o
          hrfield(v_fld_add, i_mess_header & "[address]", v_fld_add_val);
 
       end if;
-      
+
       if c_EP_CMD_ADD_RW_POS = 0 then
          o_fld_spi_cmd(o_fld_spi_cmd'high     downto c_EP_SPI_WD_S + 1) := v_fld_add_val(v_fld_add_val'high-1 downto 0);
 
@@ -260,7 +259,7 @@ constant c_RET_ADD_UKWN       : std_logic_vector(c_EP_SPI_WD_S-1 downto 0) := (o
          o_fld_spi_cmd(o_fld_spi_cmd'high - 1 downto c_EP_SPI_WD_S    ) := v_fld_add_val(v_fld_add_val'high-1 downto 0);
 
       end if;
-      
+
       -- Drop underscore included in the fields
       drop_line_char(b_cmd, '_', b_cmd);
 
@@ -268,9 +267,8 @@ constant c_RET_ADD_UKWN       : std_logic_vector(c_EP_SPI_WD_S-1 downto 0) := (o
       hrfield(b_cmd, i_mess_header & "[data]", o_fld_spi_cmd(c_EP_SPI_WD_S - 1 downto 0));
 
       -- Elaborate message SPI command
-      hfield_format(o_fld_spi_cmd, v_cmd_field);
-      hfield_format(o_fld_spi_cmd(c_EP_SPI_WD_S - 1 downto 0), v_fld_data);     
-      write(o_mess_spi_cmd, "value " & v_cmd_field.all & " (" & v_fld_add.all & ", mode " & v_fld_access.all & ", data " & v_fld_data.all & ")");
+      write(o_mess_spi_cmd, "value " & hfield_format(o_fld_spi_cmd).all &
+                            " (" & v_fld_add.all & ", mode " & v_fld_access.all & ", data " & hfield_format(o_fld_spi_cmd(c_EP_SPI_WD_S - 1 downto 0)).all & ")");
 
    end parse_spi_cmd;
 

@@ -134,15 +134,12 @@ begin
    variable v_fld_spi_cmd     : std_logic_vector(c_EP_CMD_S-1 downto 0)                                     ; --! Field SPI command
    variable v_wait_end        : t_wait_cmd_end                                                              ; --! Wait end
    variable v_fld_dis         : line                                                                        ; --! Field discrete
-   variable v_fld_dis_ind     : integer                                                                     ; --! Field discrete
+   variable v_fld_dis_ind     : integer                                                                     ; --! Field discrete index
    variable v_fld_value       : std_logic                                                                   ; --! Field value
    variable v_fld_ope         : line                                                                        ; --! Field operation
    variable v_fld_data        : std_logic_vector(c_CMD_FILE_FLD_DATA_S-1 downto 0)                          ; --! Field data
    variable v_fld_mask        : std_logic_vector(c_CMD_FILE_FLD_DATA_S-1 downto 0)                          ; --! Field mask
    variable v_record_time     : time                                                                        ; --! Record time
-   variable v_fld             : line                                                                        ; --! Field
-   variable v_fld2            : line                                                                        ; --! Field 2
-   variable v_fld_integer     : integer                                                                     ; --! Field integer
    variable v_fld_time        : time                                                                        ; --! Field time
    begin
 
@@ -203,8 +200,7 @@ begin
                   end if;
 
                   -- Display result
-                  hfield_format(i_ep_data_rx, v_fld);
-                  fprintf(note , " * Read " & v_fld.all & ", expected " & v_mess_spi_cmd.all , res_file);
+                  fprintf(note , " * Read " & hfield_format(i_ep_data_rx).all & ", expected " & v_mess_spi_cmd.all , res_file);
 
                   if v_wait_end = wait_cmd_end_tx then
                      v_fld_time := now;
@@ -342,13 +338,13 @@ begin
                when "WCMS" =>
 
                   -- Get parameters
-                  get_param_wcms(v_cmd_file_line, v_head_mess_stdout.all, v_fld_integer);
+                  get_param_wcms(v_cmd_file_line, v_head_mess_stdout.all, v_fld_dis_ind);
 
                   -- Update EP command serial word size
-                  o_ep_cmd_ser_wd_s <= std_logic_vector(to_unsigned(v_fld_integer, o_ep_cmd_ser_wd_s'length));
+                  o_ep_cmd_ser_wd_s <= std_logic_vector(to_unsigned(v_fld_dis_ind, o_ep_cmd_ser_wd_s'length));
 
                   -- Display command
-                  fprintf(note, "Configure SPI command to " & integer'image(v_fld_integer) & " bits size", res_file);
+                  fprintf(note, "Configure SPI command to " & integer'image(v_fld_dis_ind) & " bits size", res_file);
 
                -- ------------------------------------------------------------------------------------------------------
                -- Command WDIS [discrete_w] [value]: write discrete output
@@ -385,9 +381,7 @@ begin
                      wait until (discrete_r and v_fld_mask) = (v_fld_data and v_fld_mask) for g_SIM_TIME-now;
 
                      -- Check the simulation end
-                     hfield_format(v_fld_mask, v_fld);
-                     hfield_format(v_fld_data, v_fld2);
-                     chk_sim_end(g_SIM_TIME, now-v_fld_time, "event, mask " & v_fld.all & ", data " & v_fld2.all, v_err_sim_time, res_file);
+                     chk_sim_end(g_SIM_TIME, now-v_fld_time, "event, mask " & hfield_format(v_fld_mask).all & ", data " & hfield_format(v_fld_data).all, v_err_sim_time, res_file);
 
                   end if;
 

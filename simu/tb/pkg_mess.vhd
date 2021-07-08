@@ -73,10 +73,9 @@ constant c_MESS_EXP           : string  := ", expected: "                       
    -- ------------------------------------------------------------------------------------------------------
    --! Format a field in hex characters grouped 4 by 4 and separate by underscore
    -- ------------------------------------------------------------------------------------------------------
-   procedure hfield_format
-   (     i_field              : in     std_logic_vector                                                     ; --  Field (multiple of 16)
-         o_line               : out    line                                                                   --  Line output
-   );
+   function hfield_format
+   (     i_field              : in     std_logic_vector                                                       --  Field (multiple of 16)
+   ) return line;
 
    -- ------------------------------------------------------------------------------------------------------
    --! Get first field delimited by separator included in line
@@ -236,11 +235,11 @@ package body pkg_mess is
    -- ------------------------------------------------------------------------------------------------------
    --! Format a field in hex characters grouped 4 by 4 and separate by underscore
    -- ------------------------------------------------------------------------------------------------------
-   procedure hfield_format
-   (     i_field              : in     std_logic_vector                                                     ; --  Field (multiple of 16)
-         o_line               : out    line                                                                   --  Line output
-   ) is
+   function hfield_format
+   (     i_field              : in     std_logic_vector                                                       --  Field (multiple of 16)
+   ) return line is
    variable v_line_temp       : line                                                                        ; --! Temporary line
+   variable v_line            : line                                                                        ; --! Line output
    begin
 
       -- Convert data into line, hex format
@@ -249,15 +248,17 @@ package body pkg_mess is
       -- Group chain by packet of 4 characters
       for i in 0 to v_line_temp'length/4-1 loop
 
-         write(o_line, v_line_temp(4*i+1 to 4*(i+1)));
+         write(v_line, v_line_temp(4*i+1 to 4*(i+1)));
 
          -- Insert underscore between each packet
          if i/= v_line_temp'length/4-1 then
-            write(o_line, '_');
+            write(v_line, '_');
 
          end if;
 
       end loop;
+
+      return v_line;
 
    end hfield_format;
 
