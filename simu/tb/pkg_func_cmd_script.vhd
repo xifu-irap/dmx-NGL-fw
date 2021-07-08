@@ -69,6 +69,7 @@ type     t_wait_cmd_end         is (none, wait_cmd_end_tx, wait_rcmd_end_rx)    
    procedure get_param_ccmd
    (     b_cmd_file_line      : inout  line                                                                 ; --! Command file line
          i_mess_header        : in     string                                                               ; --  Message header
+         o_mess_spi_cmd       : out    line                                                                 ; --  Message SPI command
          o_fld_spi_cmd        : out    std_logic_vector                                                     ; --! Field SPI command
          o_wait_end           : out    t_wait_cmd_end                                                         --  Wait command end
    );
@@ -122,6 +123,7 @@ type     t_wait_cmd_end         is (none, wait_cmd_end_tx, wait_rcmd_end_rx)    
    procedure get_param_wcmd
    (     b_cmd_file_line      : inout  line                                                                 ; --  Command file line
          i_mess_header        : in     string                                                               ; --  Message header
+         o_mess_spi_cmd       : out    line                                                                 ; --  Message SPI command
          o_fld_spi_cmd        : out    std_logic_vector                                                     ; --  Field SPI command
          o_wait_end           : out    t_wait_cmd_end                                                         --  Wait command end
    );
@@ -303,17 +305,15 @@ package body pkg_func_cmd_script is
    procedure get_param_ccmd
    (     b_cmd_file_line      : inout  line                                                                 ; --  Command file line
          i_mess_header        : in     string                                                               ; --  Message header
+         o_mess_spi_cmd       : out    line                                                                 ; --  Message SPI command
          o_fld_spi_cmd        : out    std_logic_vector                                                     ; --  Field SPI command
          o_wait_end           : out    t_wait_cmd_end                                                         --  Wait command end
    ) is
    variable v_fld_end         : line                                                                        ; --! Field end
    begin
 
-      -- Drop underscore included in the fields
-      drop_line_char(b_cmd_file_line, '_', b_cmd_file_line);
-
-      -- Get [cmd], hex format
-      hrfield(b_cmd_file_line, i_mess_header & "[cmd]", o_fld_spi_cmd);
+      -- Get spi command field
+      parse_spi_cmd(b_cmd_file_line, i_mess_header, o_mess_spi_cmd, o_fld_spi_cmd);
 
       -- Get [end] field
       rfield(b_cmd_file_line, i_mess_header & "[end]", 1, v_fld_end);
@@ -423,17 +423,17 @@ package body pkg_func_cmd_script is
    procedure get_param_wcmd
    (     b_cmd_file_line      : inout  line                                                                 ; --  Command file line
          i_mess_header        : in     string                                                               ; --  Message header
+         o_mess_spi_cmd       : out    line                                                                 ; --  Message SPI command
          o_fld_spi_cmd        : out    std_logic_vector                                                     ; --  Field SPI command
          o_wait_end           : out    t_wait_cmd_end                                                         --  Wait command end
    ) is
    variable v_fld_end         : line                                                                        ; --! Field end
    begin
 
-      -- Drop underscore included in the fields
-      drop_line_char(b_cmd_file_line, '_', b_cmd_file_line);
+      -- Get spi command field
+      parse_spi_cmd(b_cmd_file_line, i_mess_header, o_mess_spi_cmd, o_fld_spi_cmd);
 
-      -- Get [cmd], hex format
-      hrfield(b_cmd_file_line, i_mess_header & "[cmd]", o_fld_spi_cmd);
+      -- Get [end] field
       rfield(b_cmd_file_line, i_mess_header & "[end]", 1, v_fld_end);
 
       o_wait_end := none;

@@ -130,11 +130,13 @@ begin
    variable v_head_mess_stdout: line                                                                        ; --! Header message output stream stdout
    variable v_cmd_file_line   : line                                                                        ; --! Command file line
    variable v_fld_cmd         : line                                                                        ; --! Field script command
+   variable v_mess_spi_cmd    : line                                                                        ; --! Message SPI command
    variable v_fld_spi_cmd     : std_logic_vector(c_EP_CMD_S-1 downto 0)                                     ; --! Field SPI command
    variable v_wait_end        : t_wait_cmd_end                                                              ; --! Wait end
    variable v_fld_dis         : line                                                                        ; --! Field discrete
    variable v_fld_dis_ind     : integer                                                                     ; --! Field discrete
    variable v_fld_value       : std_logic                                                                   ; --! Field value
+   variable v_fld_ope         : line                                                                        ; --! Field operation
    variable v_fld_data        : std_logic_vector(c_CMD_FILE_FLD_DATA_S-1 downto 0)                          ; --! Field data
    variable v_fld_mask        : std_logic_vector(c_CMD_FILE_FLD_DATA_S-1 downto 0)                          ; --! Field mask
    variable v_record_time     : time                                                                        ; --! Record time
@@ -184,7 +186,7 @@ begin
                when "CCMD" =>
 
                   -- Get parameters
-                  get_param_ccmd(v_cmd_file_line, v_head_mess_stdout.all, v_fld_spi_cmd, v_wait_end);
+                  get_param_ccmd(v_cmd_file_line, v_head_mess_stdout.all, v_mess_spi_cmd, v_fld_spi_cmd, v_wait_end);
 
                   wait for c_EP_CLK_PER_DEF;
 
@@ -202,8 +204,7 @@ begin
 
                   -- Display result
                   hfield_format(i_ep_data_rx, v_fld);
-                  hfield_format(v_fld_spi_cmd, v_fld2);
-                  fprintf(note , " * Read " & v_fld.all & ", expected " & v_fld2.all , res_file);
+                  fprintf(note , " * Read " & v_fld.all & ", expected " & v_mess_spi_cmd.all , res_file);
 
                   if v_wait_end = wait_cmd_end_tx then
                      v_fld_time := now;
@@ -243,10 +244,10 @@ begin
                when "CTLE" =>
 
                   -- Get parameters
-                  get_param_ctle(v_cmd_file_line, v_head_mess_stdout.all, v_fld_dis, v_fld_dis_ind, v_fld, v_fld_time);
+                  get_param_ctle(v_cmd_file_line, v_head_mess_stdout.all, v_fld_dis, v_fld_dis_ind, v_fld_ope, v_fld_time);
 
                   -- Compare time between the current time and discrete input(s) last event
-                  cmp_time(v_fld(1 to 2), dr_last_event(v_fld_dis_ind), v_fld_time, v_fld_dis.all & " last event" , v_head_mess_stdout.all & "[ope]", v_err_chk_time, res_file);
+                  cmp_time(v_fld_ope(1 to 2), dr_last_event(v_fld_dis_ind), v_fld_time, v_fld_dis.all & " last event" , v_head_mess_stdout.all & "[ope]", v_err_chk_time, res_file);
 
                -- ------------------------------------------------------------------------------------------------------
                -- Command CTLR [ope] [time]: check time from the last record time
@@ -254,10 +255,10 @@ begin
                when "CTLR" =>
 
                   -- Get parameters
-                  get_param_ctlr(v_cmd_file_line, v_head_mess_stdout.all, v_fld, v_fld_time);
+                  get_param_ctlr(v_cmd_file_line, v_head_mess_stdout.all, v_fld_ope, v_fld_time);
 
                   -- Compare time between the current and record time with expected time
-                  cmp_time(v_fld(1 to 2), now - v_record_time, v_fld_time, "record time", v_head_mess_stdout.all & "[ope]", v_err_chk_time, res_file);
+                  cmp_time(v_fld_ope(1 to 2), now - v_record_time, v_fld_time, "record time", v_head_mess_stdout.all & "[ope]", v_err_chk_time, res_file);
 
                -- ------------------------------------------------------------------------------------------------------
                -- Command COMM: add comment in result file
@@ -298,11 +299,10 @@ begin
                when "WCMD" =>
 
                   -- Get parameters
-                  get_param_wcmd(v_cmd_file_line, v_head_mess_stdout.all, v_fld_spi_cmd, v_wait_end);
+                  get_param_wcmd(v_cmd_file_line, v_head_mess_stdout.all, v_mess_spi_cmd, v_fld_spi_cmd, v_wait_end);
 
                   -- Display command
-                  hfield_format(v_fld_spi_cmd, v_fld);
-                  fprintf(note , "Send SPI command " & v_fld.all, res_file);
+                  fprintf(note , "Send SPI command " & v_mess_spi_cmd.all, res_file);
 
                   -- Send command
                   o_ep_cmd       <= v_fld_spi_cmd;

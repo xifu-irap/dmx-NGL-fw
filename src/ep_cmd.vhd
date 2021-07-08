@@ -133,7 +133,15 @@ begin
    begin
 
       if i_rst = '1' then
-         ep_cmd_rx_wd_add     <= c_EP_CMD_ADD_STATUS;
+
+         if c_EP_CMD_ADD_RW_POS = 0 then
+            ep_cmd_rx_wd_add <= c_EP_CMD_ADD_STATUS(ep_cmd_rx_wd_add'high-1 downto 0) & '0';
+
+         else
+            ep_cmd_rx_wd_add <= '0' & c_EP_CMD_ADD_STATUS(ep_cmd_rx_wd_add'high-1 downto 0);
+
+         end if;
+         
          ep_cmd_rx_wd_add_rdy <= '0';
          ep_cmd_rx_add_err_rdy<= (others => '0');
          ep_cmd_rx_wd_data    <= (others => c_EP_CMD_ERR_CLR);
@@ -169,12 +177,12 @@ begin
 
    end process P_ep_cmd_rx_wd;
 
-   -- Read/Write LSB bit position
+   -- Address Receipt: Read/Write LSB bit position
    G_add_rw_pos_equ_nul: if c_EP_CMD_ADD_RW_POS = 0 generate
-      ep_cmd_rx_wd_add_norw <= ep_cmd_rx_wd_add(ep_cmd_rx_wd_add'high downto 1) & '0';
+      ep_cmd_rx_wd_add_norw <= '0' & ep_cmd_rx_wd_add(ep_cmd_rx_wd_add'high downto 1);
    end generate G_add_rw_pos_equ_nul;
 
-   -- Read/Write others bit position
+   -- Address Receipt: Read/Write others bit position
    G_add_rw_pos_neq_nul: if c_EP_CMD_ADD_RW_POS /= 0 generate
       ep_cmd_rx_wd_add_norw <= '0' & ep_cmd_rx_wd_add(ep_cmd_rx_wd_add'high-1 downto 0);
    end generate G_add_rw_pos_neq_nul;
@@ -188,24 +196,21 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   EP command transmit management
    -- ------------------------------------------------------------------------------------------------------
-   G_ep_cmd_tx_wd_add: for k in 0 to ep_cmd_tx_wd_add'high generate
-   begin
+   -- Address Transmit: Read/Write LSB bit position
+   G_add_tw_pos_equ_nul: if c_EP_CMD_ADD_RW_POS = 0 generate
+      ep_cmd_tx_wd_add(0)                                <= c_EP_CMD_ADD_RW_R;
+      ep_cmd_tx_wd_add(ep_cmd_tx_wd_add'high   downto 1) <= c_EP_CMD_ADD_STATUS(ep_cmd_tx_wd_add'high-1 downto 0) when ep_cmd_rx_wd_add(c_EP_CMD_ADD_RW_POS) = c_EP_CMD_ADD_RW_W else
+                                                            c_EP_CMD_ADD_STATUS(ep_cmd_tx_wd_add'high-1 downto 0) when ep_cmd_all_err_data = c_EP_CMD_ERR_SET else
+                                                            ep_cmd_rx_wd_add(   ep_cmd_tx_wd_add'high   downto 1);
+   end generate G_add_tw_pos_equ_nul;
 
-      -- Read/Write bit position case
-      G_equ_rw_pos: if k = c_EP_CMD_ADD_RW_POS generate
-         ep_cmd_tx_wd_add(k)  <= c_EP_CMD_ADD_RW_R;
-
-      end generate G_equ_rw_pos;
-
-      -- Address bits other Read/Write
-      G_nequ_rw_pos: if k /= c_EP_CMD_ADD_RW_POS generate
-         ep_cmd_tx_wd_add(k)  <= c_EP_CMD_ADD_STATUS(k) when ep_cmd_rx_wd_add(c_EP_CMD_ADD_RW_POS) = c_EP_CMD_ADD_RW_W else
-                                 c_EP_CMD_ADD_STATUS(k) when ep_cmd_all_err_data = c_EP_CMD_ERR_SET else
-                                 ep_cmd_rx_wd_add(k);
-
-      end generate G_nequ_rw_pos;
-
-   end generate G_ep_cmd_tx_wd_add;
+   -- Address Transmit: Read/Write others bit position
+   G_add_tw_pos_neq_nul: if c_EP_CMD_ADD_RW_POS /= 0 generate
+      ep_cmd_tx_wd_add(ep_cmd_tx_wd_add'high)            <= c_EP_CMD_ADD_RW_R;
+      ep_cmd_tx_wd_add(ep_cmd_tx_wd_add'high-1 downto 0) <= c_EP_CMD_ADD_STATUS(ep_cmd_tx_wd_add'high-1 downto 0) when ep_cmd_rx_wd_add(c_EP_CMD_ADD_RW_POS) = c_EP_CMD_ADD_RW_W else
+                                                            c_EP_CMD_ADD_STATUS(ep_cmd_tx_wd_add'high-1 downto 0) when ep_cmd_all_err_data = c_EP_CMD_ERR_SET else
+                                                            ep_cmd_rx_wd_add(   ep_cmd_tx_wd_add'high-1 downto 0);      
+   end generate G_add_tw_pos_neq_nul;
 
    ep_cmd_tx_wd_data    <= ep_cmd_sts_rg when ep_cmd_rx_wd_add(c_EP_CMD_ADD_RW_POS) = c_EP_CMD_ADD_RW_W else
                            ep_cmd_sts_rg when ep_cmd_all_err = '1' else

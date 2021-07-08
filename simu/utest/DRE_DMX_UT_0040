@@ -21,19 +21,19 @@ COMM
 COMM ==============================================================================================
 COMM   Send commands with invalid address
 COMM ----------------------------------------------------------------------------------------------
-WCMD 6004_XXXX W
+WCMD R-6004-XXXX W
 
-WCMD 6006_XXXX R
-CCMD 6000_0000 W
+WCMD R-6006-XXXX R
+CCMD R-Status-0000 W
 
-WCMD 600A_XXXX R
-CCMD 6000_8000 W
+WCMD R-600A-XXXX R
+CCMD R-Status-8000 W
 
-WCMD 6000_XXXX R
-CCMD 6000_8000 W
+WCMD R-Status-XXXX R
+CCMD R-Status-8000 W
 
-WCMD 6000_XXXX R
-CCMD 6000_8000 W
+WCMD R-Status-XXXX R
+CCMD R-Status-8000 W
 
-WCMD 6000_XXXX R
-CCMD 6000_0000 N
+WCMD R-Status-XXXX R
+CCMD R-Status-0000 N

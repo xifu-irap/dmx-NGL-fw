@@ -21,16 +21,16 @@ COMM
 COMM ==============================================================================================
 COMM   Send commands in write on read only register
 COMM ----------------------------------------------------------------------------------------------
-WCMD 6001_XXXX W
+WCMD W-Status-XXXX W
 
-WCMD 6003_XXXX R
-CCMD 6000_0000 W
+WCMD W-Version-XXXX R
+CCMD R-Status-0000 W
 
-WCMD 6000_XXXX R
-CCMD 6000_2000 W
+WCMD R-Status-XXXX R
+CCMD R-Status-2000 W
 
-WCMD 6000_XXXX R
-CCMD 6000_2000 W
+WCMD R-Status-XXXX R
+CCMD R-Status-2000 W
 
-WCMD 6000_XXXX R
-CCMD 6000_0000 N
+WCMD R-Status-XXXX R
+CCMD R-Status-0000 N

@@ -4,7 +4,7 @@ DRE-DEMUX TDM firmware.
    - FPGA target: NG-LARGE (NanoXplore)
    - Synthesis tool: Nxmap v3.7.0.3
    - Firmware specification:
-      + IRAP/XIFU-DRE/FM/SP/0065 - DRE TDM firmware requirements, ed. 0.6
+      + IRAP/XIFU-DRE/FM/SP/0065 - DRE TDM firmware requirements, ed. 0.8
       + IRAP/XIFU-DRE/FM/SP/0069 - DRE Inter-Modules Telemetry And Commands Definition, ed. 1.0
 
 ## 1. Directories and files description
@@ -84,7 +84,14 @@ DRE-DEMUX TDM firmware.
 
    The commands are as follows:
    - Command CCMD **cmd** **end**: check the EP command return
-      + Parameter **cmd** : 32 bits hexa (underscore can be inserted), EP command return value expected
+      + Parameter **cmd** : EP command return value expected, constituted by the following fields, separated by delimiter "-" (Ex: R-Status-XXXX):
+         * *access* :
+            ° Value *R*: Mode read
+            ° Value *W*: Mode write
+         * *address*: EP command name. Two manners to declare:
+            ° Either 16 bits hexa (underscore can be inserted), take back the register address specified in IRAP/XIFU-DRE/FM/SP/0069
+            ° Or take back the register name specified in IRAP/XIFU-DRE/FM/SP/0069 (case sensitive)
+         * *data*: 16 bits hexa (underscore can be inserted), EP command return data
       + Parameter **end**:
          * Value *W*: wait the end of EP command transmit before handle a new command script
          * Value *N*: no wait time
@@ -117,7 +124,14 @@ DRE-DEMUX TDM firmware.
 
 
    - Command WCMD **cmd** **end**: transmit EP command
-      + Parameter **cmd** : 32 bits hexa (underscore can be inserted), EP command value
+      + Parameter **cmd** : EP command, constituted by the following fields, separated by delimiter "-" (Ex: R-Status-XXXX):
+         * *access* :
+            ° Value *R*: Mode read
+            ° Value *W*: Mode write
+         * *address*: EP command name. Two manners to declare:
+            ° Either 16 bits hexa (underscore can be inserted), take back the register address specified in IRAP/XIFU-DRE/FM/SP/0069
+            ° Or take back the register name specified in IRAP/XIFU-DRE/FM/SP/0069 (case sensitive)
+         * *data*: 16 bits hexa (underscore can be inserted), EP command data
       + Parameter **end**:
          * Value *W*: wait the end of EP command transmit before handle a new command script
          * Value *R*: wait the end of EP command return (last command before) before handle a new command script

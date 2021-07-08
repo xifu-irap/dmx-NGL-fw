@@ -24,22 +24,22 @@
 #             (7017228 ps) ==============================================================================================
 #             (7017228 ps)   Read register contents with no errors
 #             (7017228 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (7017228 ps) Send SPI command 6002_XXXX
+# ** Note   : (7017228 ps) Send SPI command value C002_XXXX (Version, mode Read, data XXXX)
 # ** Note   : (9587000 ps) Waiting SPI command end for 2529772 ps
-# ** Note   : (9587000 ps) Send SPI command 6000_XXXX
+# ** Note   : (9587000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
 # ** Note   : (9667000 ps) Waiting SPI command return end for 40000 ps
 # ** Note   : (9687000 ps) Check command return: PASS
-# ** Note   : (9687000 ps)  * Read 6000_0000, expected 6000_0000
+# ** Note   : (9687000 ps)  * Read C000_0000, expected value C000_0000 (Status, mode Read, data 0000)
 # ** Note   : (12167000 ps) Waiting SPI command end for 2480000 ps
-# ** Note   : (12167000 ps) Send SPI command 6000_XXXX
+# ** Note   : (12167000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
 # ** Note   : (12247000 ps) Waiting SPI command return end for 40000 ps
 # ** Note   : (12267000 ps) Check command return: PASS
-# ** Note   : (12267000 ps)  * Read 6002_0001, expected 6002_0001
+# ** Note   : (12267000 ps)  * Read C002_0001, expected value C002_0001 (Version, mode Read, data 0001)
 # ** Note   : (14747000 ps) Waiting SPI command end for 2480000 ps
-# ** Note   : (14747000 ps) Send SPI command 6000_XXXX
+# ** Note   : (14747000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
 # ** Note   : (14827000 ps) Waiting SPI command return end for 40000 ps
 # ** Note   : (14847000 ps) Check command return: PASS
-# ** Note   : (14847000 ps)  * Read 6000_0000, expected 6000_0000
+# ** Note   : (14847000 ps)  * Read C000_0000, expected value C000_0000 (Status, mode Read, data 0000)
 # ------------------------------------------------------------------------------------------------------------------------------------------------------
 # Error simulation time         : '0'
 # Error check discrete level    : '0'

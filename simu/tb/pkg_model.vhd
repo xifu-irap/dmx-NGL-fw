@@ -47,6 +47,7 @@ constant c_CMD_FILE_CMD_S     : integer := 4                                    
 constant c_CMD_FILE_FLD_DATA_S: integer := 64                                                               ; --! Command file: field data size (multiple of 16)
 constant c_RES_FILE_DIV_BAR   : string  := "--------------------------------------------------"             ; --! Result file divider bar
 constant c_SIG_NAME_STR_MAX_S : integer := 20                                                               ; --! Signal name string maximal size
+constant c_CMD_NAME_STR_MAX_S : integer := 30                                                               ; --! Command name string maximal size
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Parser discrete input index

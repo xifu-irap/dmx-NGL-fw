@@ -56,16 +56,17 @@ constant c_EP_CMD_ERR_NIN_POS : integer   := 11                                 
 constant c_EP_CMD_ERR_DIS_POS : integer   := 10                                                             ; --! EP command: Status, error position last SPI command discarded
 
 constant c_EP_CMD_ERR_FST_POS : integer   := 10                                                             ; --! EP command: Status, error first position
+
    -- ------------------------------------------------------------------------------------------------------
    --    EP command: Address
    -- ------------------------------------------------------------------------------------------------------
 constant c_EP_CMD_ADD_STATUS  : std_logic_vector(c_EP_SPI_WD_S-1 downto 0):= x"6000"                        ; --! EP command: Address, Status
-constant c_EP_CMD_ADD_VERSION : std_logic_vector(c_EP_SPI_WD_S-1 downto 0):= x"6002"                        ; --! EP command: Address, Firmware version
+constant c_EP_CMD_ADD_VERSION : std_logic_vector(c_EP_SPI_WD_S-1 downto 0):= x"6001"                        ; --! EP command: Address, Version
 
    -- ------------------------------------------------------------------------------------------------------
    --    EP command: Write register authorization
    -- ------------------------------------------------------------------------------------------------------
 constant c_EP_CMD_AUTH_STATUS : std_logic := c_EP_CMD_ERR_SET                                               ; --! EP command: Authorization, Status
-constant c_EP_CMD_AUTH_VERSION: std_logic := c_EP_CMD_ERR_SET                                               ; --! EP command: Authorization, Firmware version
+constant c_EP_CMD_AUTH_VERSION: std_logic := c_EP_CMD_ERR_SET                                               ; --! EP command: Authorization, Version
 
 end pkg_ep_cmd;

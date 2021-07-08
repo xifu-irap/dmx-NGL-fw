@@ -21,13 +21,13 @@ COMM
 COMM ==============================================================================================
 COMM   Read register contents with no errors
 COMM ----------------------------------------------------------------------------------------------
-WCMD 6002_XXXX W
+WCMD R-Version-XXXX W
 
-WCMD 6000_XXXX R
-CCMD 6000_0000 W
+WCMD R-Status-XXXX R
+CCMD R-Status-0000 W
 
-WCMD 6000_XXXX R
-CCMD 6002_0001 W
+WCMD R-Status-XXXX R
+CCMD R-Version-0001 W
 
-WCMD 6000_XXXX R
-CCMD 6000_0000 N
+WCMD R-Status-XXXX R
+CCMD R-Status-0000 N
