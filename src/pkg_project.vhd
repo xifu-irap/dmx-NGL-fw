@@ -62,10 +62,15 @@ constant c_PLL_MAIN_VCO_FREQ  : integer   := c_PLL_MAIN_VCO_MULT * c_CLK_COM_FRE
    -- ------------------------------------------------------------------------------------------------------
    --    Interface parameters
    -- ------------------------------------------------------------------------------------------------------
+constant c_BRD_REF_S          : integer   := 5                                                              ; --! Board reference
+constant c_BRD_MODEL_S        : integer   := 2                                                              ; --! Board model
+
 constant c_SQ1_ADC_DATA_S     : integer   := 14                                                             ; --! SQUID1 ADC data size bus
 constant c_SQ1_DAC_DATA_S     : integer   := 14                                                             ; --! SQUID1 DAC data size bus
+constant c_SQ2_DAC_MUX_S      : integer   := 3                                                              ; --! SQUID2 DAC  Multiplexer size
 constant c_SC_DATA_SER_W_S    : integer   := 8                                                              ; --! Science data serial word size
 constant c_SC_DATA_SER_NB     : integer   := 2                                                              ; --! Science data serial link number by DEMUX column
+constant c_HK1_MUX_S          : integer   := 3                                                              ; --! HouseKeeping 1 Multiplexer size
 
 constant c_EP_CMD_S           : integer   := 32                                                             ; --! EP command bus size
 constant c_EP_SPI_CPOL        : std_logic := '0'                                                            ; --! EP SPI Clock polarity

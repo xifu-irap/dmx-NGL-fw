@@ -34,10 +34,11 @@ entity in_rs_clk is port
    (     i_rst                : in     std_logic                                                            ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                : in     std_logic                                                            ; --! System Clock
 
+         i_brd_ref            : in     std_logic_vector(     c_BRD_REF_S-1 downto 0)                        ; --! Board reference
+         i_brd_model          : in     std_logic_vector(   c_BRD_MODEL_S-1 downto 0)                        ; --! Board model
          i_sync               : in     std_logic                                                            ; --! Pixel sequence synchronization (R.E. detected = position sequence to the first pixel)
 
          i_hk1_spi_miso       : in     std_logic                                                            ; --! HouseKeeping 1 - SPI Master Input Slave Output
-         i_hk2_spi_miso       : in     std_logic                                                            ; --! HouseKeeping 2 - SPI Master Input Slave Output
 
          i_ep_spi_mosi        : in     std_logic                                                            ; --! EP - SPI Master Input Slave Output (MSB first)
          i_ep_spi_sclk        : in     std_logic                                                            ; --! EP - SPI Serial Clock (CPOL = ‘0’, CPHA = ’0’)
@@ -48,10 +49,11 @@ entity in_rs_clk is port
          i_c2_sq1_adc_spi_sdio: in     std_logic                                                            ; --! SQUID1 ADC, col. 2 - SPI Serial Data In Out
          i_c3_sq1_adc_spi_sdio: in     std_logic                                                            ; --! SQUID1 ADC, col. 3 - SPI Serial Data In Out
 
+         o_brd_ref_rs         : out    std_logic_vector(     c_BRD_REF_S-1 downto 0)                        ; --! Board reference, synchronized on System Clock
+         o_brd_model_rs       : out    std_logic_vector(   c_BRD_MODEL_S-1 downto 0)                        ; --! Board model, synchronized on System Clock
          o_sync_rs            : out    std_logic                                                            ; --! Pixel sequence synchronization, synchronized on System Clock
 
          o_hk1_spi_miso_rs    : out    std_logic                                                            ; --! HouseKeeping 1 - SPI Master Input Slave Output, synchronized on System Clock
-         o_hk2_spi_miso_rs    : out    std_logic                                                            ; --! HouseKeeping 2 - SPI Master Input Slave Output, synchronized on System Clock
 
          o_ep_spi_mosi_rs     : out    std_logic                                                            ; --! EP - SPI Master Input Slave Output (MSB first), synchronized on System Clock
          o_ep_spi_sclk_rs     : out    std_logic                                                            ; --! EP - SPI Serial Clock (CPOL = ‘0’, CPHA = ’0’), synchronized on System Clock
@@ -62,10 +64,14 @@ entity in_rs_clk is port
 end entity in_rs_clk;
 
 architecture RTL of in_rs_clk is
+type     t_brd_ref_v           is array (natural range <>) of std_logic_vector(  c_BRD_REF_S-1  downto 0)   ; --! Board reference vector type
+type     t_brd_model_v         is array (natural range <>) of std_logic_vector(c_BRD_MODEL_S-1  downto 0)   ; --! Board model vector type
+
+signal   brd_ref_r            : t_brd_ref_v(         0 to c_FF_RSYNC_NB-1)                                  ; --! Board reference register
+signal   brd_model_r          : t_brd_model_v(       0 to c_FF_RSYNC_NB-1)                                  ; --! Board model register
 signal   sync_r               : std_logic_vector(c_FF_RSYNC_NB-1 downto 0)                                  ; --! Pixel sequence sync. register (R.E. detected = position sequence to the first pixel)
 
 signal   hk1_spi_miso_r       : std_logic_vector(c_FF_RSYNC_NB-1 downto 0)                                  ; --! HouseKeeping 1 - SPI Master Input Slave Output register
-signal   hk2_spi_miso_r       : std_logic_vector(c_FF_RSYNC_NB-1 downto 0)                                  ; --! HouseKeeping 2 - SPI Master Input Slave Output register
 
 signal   ep_spi_mosi_r        : std_logic_vector(c_FF_RSYNC_NB-1 downto 0)                                  ; --! EP - SPI Master Input Slave Output register (MSB first)
 signal   ep_spi_sclk_r        : std_logic_vector(c_FF_RSYNC_NB-1 downto 0)                                  ; --! EP - SPI Serial Clock register (CPOL = ‘0’, CPHA = ’0’)
@@ -85,9 +91,10 @@ begin
    begin
 
       if i_rst = '1' then
+         brd_ref_r            <= (others => (others => '0'));
+         brd_model_r          <= (others => (others => '0'));
          sync_r               <= (others => c_I_SYNC_DEF);
          hk1_spi_miso_r       <= (others => c_I_SPI_DATA_DEF);
-         hk2_spi_miso_r       <= (others => c_I_SPI_DATA_DEF);
 
          ep_spi_mosi_r        <= (others => c_I_SPI_DATA_DEF);
          ep_spi_sclk_r        <= (others => c_I_SPI_SCLK_DEF);
@@ -99,9 +106,10 @@ begin
          c3_sq1_adc_spi_sdio_r<= (others => c_I_SPI_DATA_DEF);
 
       elsif rising_edge(i_clk) then
+         brd_ref_r            <= i_brd_ref   & brd_ref_r(  0 to brd_ref_r'high-1);
+         brd_model_r          <= i_brd_model & brd_model_r(0 to brd_model_r'high-1);
          sync_r               <= sync_r(                sync_r'high-1 downto 0) & i_sync;
          hk1_spi_miso_r       <= hk1_spi_miso_r(hk1_spi_miso_r'high-1 downto 0) & i_hk1_spi_miso;
-         hk2_spi_miso_r       <= hk2_spi_miso_r(hk2_spi_miso_r'high-1 downto 0) & i_hk2_spi_miso;
 
          ep_spi_mosi_r        <= ep_spi_mosi_r(ep_spi_mosi_r'high-1 downto 0) & i_ep_spi_mosi;
          ep_spi_sclk_r        <= ep_spi_sclk_r(ep_spi_sclk_r'high-1 downto 0) & i_ep_spi_sclk;
@@ -116,9 +124,10 @@ begin
 
    end process P_rsync;
 
+   o_brd_ref_rs            <= brd_ref_r(brd_ref_r'high);
+   o_brd_model_rs          <= brd_model_r(brd_model_r'high);
    o_sync_rs               <= sync_r(                sync_r'high);
    o_hk1_spi_miso_rs       <= hk1_spi_miso_r(hk1_spi_miso_r'high);
-   o_hk2_spi_miso_rs       <= hk2_spi_miso_r(hk2_spi_miso_r'high);
 
    o_ep_spi_mosi_rs        <= ep_spi_mosi_r(ep_spi_mosi_r'high);
    o_ep_spi_sclk_rs        <= ep_spi_sclk_r(ep_spi_sclk_r'high);
