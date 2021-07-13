@@ -129,9 +129,10 @@ type     t_wait_cmd_end         is (none, wait_cmd_end_tx, wait_rcmd_end_rx)    
    );
 
    -- ------------------------------------------------------------------------------------------------------
-   --! Get parameters command WCMS [size]: write EP command word size
+   --! Get parameters command WCMS [size]: write EP command word size or
+   --! Get parameters command WNBD [number]: write board reference number
    -- ------------------------------------------------------------------------------------------------------
-   procedure get_param_wcms
+   procedure get_param_wcms_wnbd
    (     b_cmd_file_line      : inout  line                                                                 ; --  Command file line
          i_mess_header        : in     string                                                               ; --  Message header
          o_fld_integer        : out    integer                                                                --  Field integer
@@ -461,9 +462,10 @@ package body pkg_func_cmd_script is
    end get_param_wcmd;
 
    -- ------------------------------------------------------------------------------------------------------
-   --! Get parameters command WCMS [size]: write EP command word size
+   --! Get parameters command WCMS [size]: write EP command word size or
+   --! Get parameters command WNBD [number]: write board reference number
    -- ------------------------------------------------------------------------------------------------------
-   procedure get_param_wcms
+   procedure get_param_wcms_wnbd
    (     b_cmd_file_line      : inout  line                                                                 ; --  Command file line
          i_mess_header        : in     string                                                               ; --  Message header
          o_fld_integer        : out    integer                                                                --  Field integer
@@ -473,10 +475,10 @@ package body pkg_func_cmd_script is
       -- Drop underscore included in the fields
       drop_line_char(b_cmd_file_line, '_', b_cmd_file_line);
 
-      -- Get [size], hex format
-      rfield(b_cmd_file_line, i_mess_header & "[size]", o_fld_integer);
+      -- Get [size]/[number], hex format
+      rfield(b_cmd_file_line, i_mess_header & "[size]/[number]", o_fld_integer);
 
-   end get_param_wcms;
+   end get_param_wcms_wnbd;
 
    -- ------------------------------------------------------------------------------------------------------
    --! Get parameters command WDIS [discrete_w] [value]: write discrete output

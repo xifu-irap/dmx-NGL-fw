@@ -92,7 +92,7 @@ constant c_I_SYNC_DEF         : std_logic := '0'                                
    -- ------------------------------------------------------------------------------------------------------
    --    Project parameters
    -- ------------------------------------------------------------------------------------------------------
-constant c_FW_VERSION         : std_logic_vector(c_EP_SPI_WD_S-1 downto 0)    := x"0001"                    ; --! Firmware version
+constant c_FW_VERSION         : integer   :=  1                                                             ; --! Firmware version
 constant c_DMX_MUX_FACT       : integer   := 34                                                             ; --! DEMUX: multiplexing factor
 constant c_DMX_NB_COL         : integer   := 4                                                              ; --! DEMUX: column number
 constant c_DRE_PIX_NPER_COM   : integer   := 4                                                              ; --! DRE: period number of clock common to main clocks allocated to one sequence pixel (TBC)

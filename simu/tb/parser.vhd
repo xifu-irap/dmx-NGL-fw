@@ -66,7 +66,11 @@ entity parser is generic
          o_ep_cmd             : out    std_logic_vector(c_EP_CMD_S-1 downto 0)                              ; --! EP - Command to send
          o_ep_cmd_start       : out    std_logic                                                            ; --! EP - Start command transmit ('0' = Inactive, '1' = Active)
          i_ep_cmd_busy_n      : in     std_logic                                                            ; --! EP - Command transmit busy ('0' = Busy, '1' = Not Busy)
-         o_ep_cmd_ser_wd_s    : out    std_logic_vector(log2_ceil(2*c_EP_CMD_S+1)-1 downto 0)                 --! EP - Serial word size
+         o_ep_cmd_ser_wd_s    : out    std_logic_vector(log2_ceil(2*c_EP_CMD_S+1)-1 downto 0)               ; --! EP - Serial word size
+
+         o_brd_ref            : out    std_logic_vector(  c_BRD_REF_S-1 downto 0)                           ; --! Board reference
+         o_brd_model          : out    std_logic_vector(c_BRD_MODEL_S-1 downto 0)                             --! Board model
+
    );
 end entity parser;
 
@@ -88,6 +92,8 @@ begin
    --!   Discrete write signals association
    -- ------------------------------------------------------------------------------------------------------
    o_arst_n             <= discrete_w(c_DW_ARST_N);
+   o_brd_model(0)       <= discrete_w(c_DW_BRD_MODEL_0);
+   o_brd_model(1)       <= discrete_w(c_DW_BRD_MODEL_1);
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Discrete read signals association
@@ -153,6 +159,8 @@ begin
       fprintf(none, c_RES_FILE_DIV_BAR & c_RES_FILE_DIV_BAR & c_RES_FILE_DIV_BAR, res_file);
 
       -- Default value initialization
+      discrete_w        <= (others => '0');
+      o_brd_ref         <= (others => '0');
       o_ep_cmd_ser_wd_s <= std_logic_vector(to_unsigned(c_EP_CMD_S, o_ep_cmd_ser_wd_s'length));
       o_ep_cmd          <= (others => '0');
       o_ep_cmd_start    <= '0';
@@ -338,7 +346,7 @@ begin
                when "WCMS" =>
 
                   -- Get parameters
-                  get_param_wcms(v_cmd_file_line, v_head_mess_stdout.all, v_fld_dis_ind);
+                  get_param_wcms_wnbd(v_cmd_file_line, v_head_mess_stdout.all, v_fld_dis_ind);
 
                   -- Update EP command serial word size
                   o_ep_cmd_ser_wd_s <= std_logic_vector(to_unsigned(v_fld_dis_ind, o_ep_cmd_ser_wd_s'length));
@@ -359,6 +367,20 @@ begin
 
                   -- Display command
                   fprintf(note , "Write discrete: " & v_fld_dis.all & " = " & std_logic'image(v_fld_value), res_file);
+
+               -- ------------------------------------------------------------------------------------------------------
+               -- Command WNBD [number]: write board reference number
+               -- ------------------------------------------------------------------------------------------------------
+               when "WNBD" =>
+
+                  -- Get parameters
+                  get_param_wcms_wnbd(v_cmd_file_line, v_head_mess_stdout.all, v_fld_dis_ind);
+
+                  -- Update EP command serial word size
+                  o_brd_ref <= std_logic_vector(to_unsigned(v_fld_dis_ind, o_brd_ref'length));
+
+                  -- Display command
+                  fprintf(note, "Configure board reference number to " & integer'image(v_fld_dis_ind), res_file);
 
                -- ------------------------------------------------------------------------------------------------------
                -- Command WUDI [discrete_r] [value] or WUDI [mask] [data]: wait until event on discrete(s)

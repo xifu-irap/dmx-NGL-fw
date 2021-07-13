@@ -309,7 +309,10 @@ begin
          o_ep_cmd             => ep_cmd               , -- out    std_logic_vector(c_EP_CMD_S-1 downto 0)   ; --! EP - Command to send
          o_ep_cmd_start       => ep_cmd_start         , -- out    std_logic                                 ; --! EP - Start command transmit ('0' = Inactive, '1' = Active)
          i_ep_cmd_busy_n      => ep_cmd_busy_n        , -- in     std_logic                                 ; --! EP - Command transmit busy ('0' = Busy, '1' = Not Busy)
-         o_ep_cmd_ser_wd_s    => ep_cmd_ser_wd_s        -- out    slv(log2_ceil(2*c_EP_CMD_S+1)-1 downto 0)   --! EP - Serial word size
+         o_ep_cmd_ser_wd_s    => ep_cmd_ser_wd_s      , -- out    slv(log2_ceil(2*c_EP_CMD_S+1)-1 downto 0) ; --! EP - Serial word size
+
+         o_brd_ref            => brd_ref              , -- out    std_logic_vector(  c_BRD_REF_S-1 downto 0); --! Board reference
+         o_brd_model          => brd_model              -- out    std_logic_vector(c_BRD_MODEL_S-1 downto 0)  --! Board model
    );
 
 end simulation;

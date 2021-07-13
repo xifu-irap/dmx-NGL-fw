@@ -77,6 +77,8 @@ DRE-DEMUX TDM firmware.
 
    Discrete outputs are grouped together in a 64 bits field (bit position 63 is the MSB, bit position 0 is the LSB):
   - Position 0: **arst_n**, DRE-DEMUX input, Asynchronous reset ('0' = Active, '1' = Inactive)
+  - Position 1: **brd_model(0)**, DRE-DEMUX input, Board model bit 0
+  - Position 2: **brd_model(1)**, DRE-DEMUX input, Board model bit 1
 
 ## 6. Unitary test script commands description
 
@@ -84,14 +86,14 @@ DRE-DEMUX TDM firmware.
 
    The commands are as follows:
    - Command CCMD **cmd** **end**: check the EP command return
-      + Parameter **cmd** : EP command return value expected, constituted by the following fields, separated by delimiter "-" (Ex: R-Status-XXXX):
+      + Parameter **cmd** : EP command return value expected, constituted by the following fields, separated by delimiter "-" (Ex: R-Status-XXXX, R-Version-FW_VERSION-00):
          * *access* :
-            ° Value *R*: Mode read
-            ° Value *W*: Mode write
+            * Value *R*: Mode read
+            * Value *W*: Mode write
          * *address*: EP command name. Two manners to declare:
-            ° Either 16 bits hexa (underscore can be inserted), take back the register address specified in IRAP/XIFU-DRE/FM/SP/0069
-            ° Or take back the register name specified in IRAP/XIFU-DRE/FM/SP/0069 (case sensitive)
-         * *data*: 16 bits hexa (underscore can be inserted), EP command return data
+            * Either 16 bits hexa (underscore can be inserted), take back the register address specified in IRAP/XIFU-DRE/FM/SP/0069
+            * Or take back the register name specified in IRAP/XIFU-DRE/FM/SP/0069 (case sensitive)
+         * *data*: 16 bits hexa (underscore can be inserted), EP command return data. For the "Version" command, data can be dispatched by the field FW_VERSION, followed by 8 bits hexa
       + Parameter **end**:
          * Value *W*: wait the end of EP command transmit before handle a new command script
          * Value *N*: no wait time
@@ -126,11 +128,11 @@ DRE-DEMUX TDM firmware.
    - Command WCMD **cmd** **end**: transmit EP command
       + Parameter **cmd** : EP command, constituted by the following fields, separated by delimiter "-" (Ex: R-Status-XXXX):
          * *access* :
-            ° Value *R*: Mode read
-            ° Value *W*: Mode write
+            * Value *R*: Mode read
+            * Value *W*: Mode write
          * *address*: EP command name. Two manners to declare:
-            ° Either 16 bits hexa (underscore can be inserted), take back the register address specified in IRAP/XIFU-DRE/FM/SP/0069
-            ° Or take back the register name specified in IRAP/XIFU-DRE/FM/SP/0069 (case sensitive)
+            * Either 16 bits hexa (underscore can be inserted), take back the register address specified in IRAP/XIFU-DRE/FM/SP/0069
+            * Or take back the register name specified in IRAP/XIFU-DRE/FM/SP/0069 (case sensitive)
          * *data*: 16 bits hexa (underscore can be inserted), EP command data
       + Parameter **end**:
          * Value *W*: wait the end of EP command transmit before handle a new command script
@@ -145,6 +147,10 @@ DRE-DEMUX TDM firmware.
    - Command WDIS **discrete_w** **value**: write discrete output
       + Parameter **discrete_w** : discrete output select (see 5 on discrete outputs description)
       + Parameter **value** : (1 bit U/X/0/1/Z/W/L/H/-) discrete output value
+
+
+   - Command WNBD **number**: write board reference number
+      + Parameter **number**: decimal range 0 to 31, board reference number
 
 
    - Command WUDI **discrete_r** **value** or WUDI **mask** **data**: wait until event on discrete input(s)

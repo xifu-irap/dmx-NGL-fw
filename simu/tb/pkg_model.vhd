@@ -66,8 +66,10 @@ constant c_DR_S               : integer :=  7                                   
    --!   Parser discrete output index
    -- ------------------------------------------------------------------------------------------------------
 constant c_DW_ARST_N          : integer :=  0                                                               ; --! Discrete output index, signal: o_arst_n
+constant c_DW_BRD_MODEL_0     : integer :=  1                                                               ; --! Discrete output index, signal: o_brd_model(0)
+constant c_DW_BRD_MODEL_1     : integer :=  2                                                               ; --! Discrete output index, signal: o_brd_model(1)
 
-constant c_DW_S               : integer :=  1                                                               ; --! Discrete output size
+constant c_DW_S               : integer :=  3                                                               ; --! Discrete output size
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Model generic default values
@@ -155,7 +157,10 @@ constant c_SYNC_HIGH          : time    :=      10 * c_CLK_REF_PER_DEF          
          o_ep_cmd             : out    std_logic_vector(c_EP_CMD_S-1 downto 0)                              ; --! EP - Command to send
          o_ep_cmd_start       : out    std_logic                                                            ; --! EP - Start command transmit ('0' = Inactive, '1' = Active)
          i_ep_cmd_busy_n      : in     std_logic                                                            ; --! EP - Command transmit busy ('0' = Busy, '1' = Not Busy)
-         o_ep_cmd_ser_wd_s    : out    std_logic_vector(log2_ceil(2*c_EP_CMD_S+1)-1 downto 0)                 --! EP - Serial word size
+         o_ep_cmd_ser_wd_s    : out    std_logic_vector(log2_ceil(2*c_EP_CMD_S+1)-1 downto 0)               ; --! EP - Serial word size
+
+         o_brd_ref            : out    std_logic_vector(  c_BRD_REF_S-1 downto 0)                           ; --! Board reference
+         o_brd_model          : out    std_logic_vector(c_BRD_MODEL_S-1 downto 0)                             --! Board model
    );
    end component;
 
