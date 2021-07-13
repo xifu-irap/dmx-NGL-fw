@@ -26,6 +26,7 @@
 -- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 library ieee;
 use     ieee.std_logic_1164.all;
+use     ieee.numeric_std.all;
 
 library work;
 use     work.pkg_project.all;
@@ -34,6 +35,9 @@ use     work.pkg_ep_cmd.all;
 entity register_mgt is port
    (     i_rst                : in     std_logic                                                            ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                : in     std_logic                                                            ; --! System Clock
+
+         i_brd_ref_rs         : in     std_logic_vector(  c_BRD_REF_S-1 downto 0)                           ; --! Board reference, synchronized on System Clock
+         i_brd_model_rs       : in     std_logic_vector(c_BRD_MODEL_S-1 downto 0)                           ; --! Board model, synchronized on System Clock
 
          o_ep_cmd_sts_err_out : out    std_logic                                                            ; --! EP command: Status, error SPI data out of range
          o_ep_cmd_sts_err_nin : out    std_logic                                                            ; --! EP command: Status, error parameter to read not initialized yet
@@ -50,6 +54,8 @@ entity register_mgt is port
 end entity register_mgt;
 
 architecture RTL of register_mgt is
+constant c_FW_VERSION_S       : integer   := c_EP_SPI_WD_S - c_BRD_MODEL_S - c_BRD_REF_S                    ; --! Firmware version bus size
+
 begin
 
    -- ------------------------------------------------------------------------------------------------------
@@ -64,7 +70,7 @@ begin
       elsif rising_edge(i_clk) then
          case i_ep_cmd_rx_wd_add is
               when c_EP_CMD_ADD_VERSION  =>
-               o_ep_cmd_tx_wd_rd_rg <= c_FW_VERSION;
+               o_ep_cmd_tx_wd_rd_rg <= std_logic_vector(to_unsigned(c_FW_VERSION, c_FW_VERSION_S)) & i_brd_model_rs & i_brd_ref_rs;
 
               when others                =>
                o_ep_cmd_tx_wd_rd_rg <= i_ep_cmd_sts_rg;

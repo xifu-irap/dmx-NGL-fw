@@ -26,6 +26,7 @@
 -- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 library ieee;
 use     ieee.std_logic_1164.all;
+use     ieee.numeric_std.all;
 
 library work;
 use     work.pkg_project.all;
@@ -69,6 +70,16 @@ package pkg_str_fld_assoc is
    );
 
    -- ------------------------------------------------------------------------------------------------------
+   --! Get the first field (command data) included in line and
+   --!  get the associated data value
+   -- ------------------------------------------------------------------------------------------------------
+   procedure get_cmd_data
+   (     b_line               : inout  line                                                                 ; --  Line to analysis
+         o_fld_data           : out    line                                                                 ; --  Field data
+         o_fld_data_val       : out    std_logic_vector(c_EP_SPI_WD_S-1 downto 0)                             --  Field data value
+   );
+
+   -- ------------------------------------------------------------------------------------------------------
    --! Parse spi command [access] [address] [data]
    -- ------------------------------------------------------------------------------------------------------
    procedure parse_spi_cmd
@@ -81,7 +92,9 @@ package pkg_str_fld_assoc is
 end pkg_str_fld_assoc;
 
 package body pkg_str_fld_assoc is
-constant c_RET_ADD_UKWN       : std_logic_vector(c_EP_SPI_WD_S-1 downto 0) := (others => '1')               ; --! Return address unknown value
+constant c_CMD_DEL            : character := '-'                                                            ; --  Command delimiter character
+constant c_PAD                : character := ' '                                                            ; --  Padding character
+constant c_RET_UKWN           : std_logic_vector(c_EP_SPI_WD_S-1 downto 0) := (others => '1')               ; --! Return unknown value
 
    -- ------------------------------------------------------------------------------------------------------
    --! Get the first field (discrete output name) included in line and
@@ -92,7 +105,6 @@ constant c_RET_ADD_UKWN       : std_logic_vector(c_EP_SPI_WD_S-1 downto 0) := (o
          o_fld_dw             : out    line                                                                 ; --  Field discrete output
          o_fld_dw_ind         : out    integer range 0 to c_DW_S                                              --  Field discrete output index (equal to c_DW_S if field not recognized)
    ) is
-   constant c_PAD             : character := ' '                                                            ; --  Padding character
    variable v_fld_dw_pad      : line                                                                        ; --  Field discrete output with padding
    begin
 
@@ -103,6 +115,12 @@ constant c_RET_ADD_UKWN       : std_logic_vector(c_EP_SPI_WD_S-1 downto 0) := (o
       case v_fld_dw_pad(1 to c_SIG_NAME_STR_MAX_S) is
          when "arst_n              "   =>
             o_fld_dw_ind := c_DW_ARST_N;
+
+         when "brd_model(0)        "   =>
+            o_fld_dw_ind := c_DW_BRD_MODEL_0;
+
+         when "brd_model(1)        "   =>
+            o_fld_dw_ind := c_DW_BRD_MODEL_1;
 
          when others                   =>
             o_fld_dw_ind := c_DW_S;
@@ -123,7 +141,6 @@ constant c_RET_ADD_UKWN       : std_logic_vector(c_EP_SPI_WD_S-1 downto 0) := (o
          o_fld_dr             : out    line                                                                 ; --  Field discrete input
          o_fld_dr_ind         : out    integer range 0 to c_DR_S                                              --  Field discrete input index (equal to c_DR_S if field not recognized)
    ) is
-   constant c_PAD             : character := ' '                                                            ; --  Padding character
    variable v_fld_dr_pad      : line                                                                        ; --  Field discrete input with padding
    begin
 
@@ -172,7 +189,6 @@ constant c_RET_ADD_UKWN       : std_logic_vector(c_EP_SPI_WD_S-1 downto 0) := (o
          o_fld_add            : out    line                                                                 ; --  Field address
          o_fld_add_val        : out    std_logic_vector(c_EP_SPI_WD_S-1 downto 0)                             --  Field address value
    ) is
-   constant c_PAD             : character := ' '                                                            ; --  Padding character
    variable v_fld_add_pad     : line                                                                        ; --  Field address with padding
    begin
 
@@ -188,7 +204,7 @@ constant c_RET_ADD_UKWN       : std_logic_vector(c_EP_SPI_WD_S-1 downto 0) := (o
             o_fld_add_val:= c_EP_CMD_ADD_VERSION;
 
          when others                            =>
-            o_fld_add_val:= c_RET_ADD_UKWN;
+            o_fld_add_val:= c_RET_UKWN;
 
       end case;
 
@@ -196,6 +212,36 @@ constant c_RET_ADD_UKWN       : std_logic_vector(c_EP_SPI_WD_S-1 downto 0) := (o
       drop_line_char(v_fld_add_pad, c_PAD, o_fld_add);
 
    end get_cmd_add;
+
+   -- ------------------------------------------------------------------------------------------------------
+   --! Get the first field (command data) included in line and
+   --!  get the associated data value
+   -- ------------------------------------------------------------------------------------------------------
+   procedure get_cmd_data
+   (     b_line               : inout  line                                                                 ; --  Line to analysis
+         o_fld_data           : out    line                                                                 ; --  Field data
+         o_fld_data_val       : out    std_logic_vector(c_EP_SPI_WD_S-1 downto 0)                             --  Field data value
+   ) is
+   variable v_fld_data_pad    : line                                                                        ; --  Field data with padding
+   begin
+
+      -- Get the data name
+      rfield_pad(b_line, c_PAD, c_CMD_NAME_STR_MAX_S, v_fld_data_pad);
+
+      -- Return data value
+      case v_fld_data_pad(1 to c_CMD_NAME_STR_MAX_S) is
+         when "FW_VERSION                    "  =>
+            o_fld_data_val:= std_logic_vector(to_unsigned(c_FW_VERSION, o_fld_data_val'length));
+
+         when others                            =>
+            o_fld_data_val:= c_RET_UKWN;
+
+      end case;
+
+      -- Drop padding character(s)
+      drop_line_char(v_fld_data_pad, c_PAD, o_fld_data);
+
+   end get_cmd_data;
 
    -- ------------------------------------------------------------------------------------------------------
    --! Parse spi command [access] [address] [data]
@@ -206,12 +252,14 @@ constant c_RET_ADD_UKWN       : std_logic_vector(c_EP_SPI_WD_S-1 downto 0) := (o
          o_mess_spi_cmd       : out    line                                                                 ; --  Message SPI command
          o_fld_spi_cmd        : out    std_logic_vector                                                       --  Field SPI command
    ) is
-   constant c_CMD_DEL         : character := '-'                                                            ; --  Command delimiter character
+   constant c_FW_VERSION_S    : integer   := c_EP_SPI_WD_S - c_BRD_MODEL_S - c_BRD_REF_S                    ; --  Firmware version bus size
    variable v_cmd_field       : line                                                                        ; --  Command field
    variable v_cmd_field_s     : integer                                                                     ; --  Command field size
    variable v_fld_access      : line                                                                        ; --  Field access
    variable v_fld_add         : line                                                                        ; --  Field address
    variable v_fld_add_val     : std_logic_vector(c_EP_SPI_WD_S-1 downto 0)                                  ; --  Field address value
+   variable v_fld_data        : line                                                                        ; --  Field data
+   variable v_fld_data_val    : std_logic_vector(c_EP_SPI_WD_S-1 downto 0)                                  ; --  Field data value
    begin
 
       -- Get [access]
@@ -226,12 +274,12 @@ constant c_RET_ADD_UKWN       : std_logic_vector(c_EP_SPI_WD_S-1 downto 0) := (o
          -- Wait the command end
          when "R"|"r"   =>
             o_fld_spi_cmd(c_EP_SPI_WD_S + c_EP_CMD_ADD_RW_POS) := c_EP_CMD_ADD_RW_R;
-            write(v_fld_access, v_cmd_field(1 to 1) & "ead");
+            write(v_fld_access, string'("Read"));
 
          -- Wait the command end
          when "W"|"w"   =>
             o_fld_spi_cmd(c_EP_SPI_WD_S + c_EP_CMD_ADD_RW_POS) := c_EP_CMD_ADD_RW_W;
-            write(v_fld_access, v_cmd_field(1 to 1) &  "rite");
+            write(v_fld_access, string'("Write"));
 
          when others =>
             assert v_cmd_field = null report i_mess_header & "[access]" & c_MESS_ERR_UNKNOWN severity failure;
@@ -242,7 +290,7 @@ constant c_RET_ADD_UKWN       : std_logic_vector(c_EP_SPI_WD_S-1 downto 0) := (o
       get_field_line(b_cmd, c_CMD_DEL, v_cmd_field, v_cmd_field_s);
       get_cmd_add(v_cmd_field, v_fld_add, v_fld_add_val);
 
-      if v_fld_add_val = c_RET_ADD_UKWN then
+      if v_fld_add_val = c_RET_UKWN then
 
          -- Drop underscore included in the fields
          drop_line_char(v_fld_add, '_', v_fld_add);
@@ -260,11 +308,27 @@ constant c_RET_ADD_UKWN       : std_logic_vector(c_EP_SPI_WD_S-1 downto 0) := (o
 
       end if;
 
-      -- Drop underscore included in the fields
-      drop_line_char(b_cmd, '_', b_cmd);
+      -- Get [data]
+      rfield(b_cmd, i_mess_header & "[data]", 0, v_cmd_field);
+      get_field_line(v_cmd_field, c_CMD_DEL, v_fld_data, v_cmd_field_s);
+      get_cmd_data(v_fld_data, v_fld_data, v_fld_data_val);
 
-      -- Get [data], hex format
-      hrfield(b_cmd, i_mess_header & "[data]", o_fld_spi_cmd(c_EP_SPI_WD_S - 1 downto 0));
+      if v_fld_data_val /= c_RET_UKWN then
+
+         -- Case Version
+         o_fld_spi_cmd(c_EP_SPI_WD_S-1 downto c_EP_SPI_WD_S-c_FW_VERSION_S):= v_fld_data_val(c_FW_VERSION_S-1 downto 0);
+         hrfield(v_cmd_field, i_mess_header & "[data]", v_fld_data_val(c_EP_SPI_WD_S/2-1 downto 0));
+         o_fld_spi_cmd(c_EP_SPI_WD_S-c_FW_VERSION_S-1 downto 0):= v_fld_data_val(c_EP_SPI_WD_S-c_FW_VERSION_S-1 downto 0);
+
+      else
+
+         -- Drop underscore included in the fields
+         drop_line_char(v_fld_data, '_', v_fld_data);
+
+         -- Get [data], hex format
+         hrfield(v_fld_data, i_mess_header & "[data]", o_fld_spi_cmd(c_EP_SPI_WD_S - 1 downto 0));
+
+      end if;
 
       -- Elaborate message SPI command
       write(o_mess_spi_cmd, "value " & hfield_format(o_fld_spi_cmd).all &

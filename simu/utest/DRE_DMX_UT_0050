@@ -1,5 +1,5 @@
 COMM **********************************************************************************************
-COMM   Test: EP command, read register contents with no errors
+COMM   Test: EP command, read register Version and Status with no errors
 COMM **********************************************************************************************
 COMM
 COMM ==============================================================================================
@@ -23,11 +23,51 @@ COMM   Read register contents with no errors
 COMM ----------------------------------------------------------------------------------------------
 WCMD R-Version-XXXX W
 
-WCMD R-Status-XXXX R
+WCMD R-Version-XXXX R
 CCMD R-Status-0000 W
 
+WCMD R-Version-XXXX R
+WNBD 1
+CCMD R-Version-FW_VERSION-00 W
+
+WCMD R-Version-XXXX R
+WNBD 2
+CCMD R-Version-FW_VERSION-01 W
+
+WCMD R-Version-XXXX R
+WNBD 4
+CCMD R-Version-FW_VERSION-02 W
+
+WCMD R-Version-XXXX R
+WNBD 8
+CCMD R-Version-FW_VERSION-04 W
+
+WCMD R-Version-XXXX R
+WNBD 16
+CCMD R-Version-FW_VERSION-08 W
+
+WCMD R-Version-XXXX R
+WNBD 31
+CCMD R-Version-FW_VERSION-10 W
+
+WCMD R-Version-XXXX R
+WNBD 0
+WDIS brd_model(0) 1
+WDIS brd_model(1) 0
+CCMD R-Version-FW_VERSION-1F W
+
+WCMD R-Version-XXXX R
+WDIS brd_model(0) 0
+WDIS brd_model(1) 1
+CCMD R-Version-FW_VERSION-20 W
+
 WCMD R-Status-XXXX R
-CCMD R-Version-0001 W
+WDIS brd_model(0) 1
+WDIS brd_model(1) 1
+CCMD R-Version-FW_VERSION-40 W
+
+WCMD R-Status-XXXX R
+CCMD R-Version-FW_VERSION-60 W
 
 WCMD R-Status-XXXX R
 CCMD R-Status-0000 N
