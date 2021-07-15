@@ -19,85 +19,85 @@
 #             (80000 ps) ==============================================================================================
 #             (80000 ps)   Wait internal reset deactivated
 #             (80000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (7017228 ps) Waiting event rst = '0' for 6937228 ps
-#             (7017228 ps) 
-#             (7017228 ps) ==============================================================================================
-#             (7017228 ps)   Read register contents with no errors
-#             (7017228 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (7017228 ps) Send SPI command value C002_XXXX (Version, mode Read, data XXXX)
-# ** Note   : (9587000 ps) Waiting SPI command end for 2529772 ps
-# ** Note   : (9587000 ps) Send SPI command value C002_XXXX (Version, mode Read, data XXXX)
-# ** Note   : (9667000 ps) Waiting SPI command return end for 40000 ps
-# ** Note   : (9687000 ps) Check command return: PASS
-# ** Note   : (9687000 ps)  * Read C000_0000, expected value C000_0000 (Status, mode Read, data 0000)
-# ** Note   : (12167000 ps) Waiting SPI command end for 2480000 ps
-# ** Note   : (12167000 ps) Send SPI command value C002_XXXX (Version, mode Read, data XXXX)
-# ** Note   : (12247000 ps) Waiting SPI command return end for 40000 ps
-# ** Note   : (12247000 ps) Configure board reference number to 1
-# ** Note   : (12267000 ps) Check command return: PASS
-# ** Note   : (12267000 ps)  * Read C002_0080, expected value C002_0080 (Version, mode Read, data 0080)
-# ** Note   : (14747000 ps) Waiting SPI command end for 2480000 ps
-# ** Note   : (14747000 ps) Send SPI command value C002_XXXX (Version, mode Read, data XXXX)
-# ** Note   : (14827000 ps) Waiting SPI command return end for 40000 ps
-# ** Note   : (14827000 ps) Configure board reference number to 2
-# ** Note   : (14847000 ps) Check command return: PASS
-# ** Note   : (14847000 ps)  * Read C002_0081, expected value C002_0081 (Version, mode Read, data 0081)
-# ** Note   : (17327000 ps) Waiting SPI command end for 2480000 ps
-# ** Note   : (17327000 ps) Send SPI command value C002_XXXX (Version, mode Read, data XXXX)
-# ** Note   : (17407000 ps) Waiting SPI command return end for 40000 ps
-# ** Note   : (17407000 ps) Configure board reference number to 4
-# ** Note   : (17427000 ps) Check command return: PASS
-# ** Note   : (17427000 ps)  * Read C002_0082, expected value C002_0082 (Version, mode Read, data 0082)
-# ** Note   : (19907000 ps) Waiting SPI command end for 2480000 ps
-# ** Note   : (19907000 ps) Send SPI command value C002_XXXX (Version, mode Read, data XXXX)
-# ** Note   : (19987000 ps) Waiting SPI command return end for 40000 ps
-# ** Note   : (19987000 ps) Configure board reference number to 8
-# ** Note   : (20007000 ps) Check command return: PASS
-# ** Note   : (20007000 ps)  * Read C002_0084, expected value C002_0084 (Version, mode Read, data 0084)
-# ** Note   : (22487000 ps) Waiting SPI command end for 2480000 ps
-# ** Note   : (22487000 ps) Send SPI command value C002_XXXX (Version, mode Read, data XXXX)
-# ** Note   : (22567000 ps) Waiting SPI command return end for 40000 ps
-# ** Note   : (22567000 ps) Configure board reference number to 16
-# ** Note   : (22587000 ps) Check command return: PASS
-# ** Note   : (22587000 ps)  * Read C002_0088, expected value C002_0088 (Version, mode Read, data 0088)
-# ** Note   : (25067000 ps) Waiting SPI command end for 2480000 ps
-# ** Note   : (25067000 ps) Send SPI command value C002_XXXX (Version, mode Read, data XXXX)
-# ** Note   : (25147000 ps) Waiting SPI command return end for 40000 ps
-# ** Note   : (25147000 ps) Configure board reference number to 31
-# ** Note   : (25167000 ps) Check command return: PASS
-# ** Note   : (25167000 ps)  * Read C002_0090, expected value C002_0090 (Version, mode Read, data 0090)
-# ** Note   : (27647000 ps) Waiting SPI command end for 2480000 ps
-# ** Note   : (27647000 ps) Send SPI command value C002_XXXX (Version, mode Read, data XXXX)
-# ** Note   : (27727000 ps) Waiting SPI command return end for 40000 ps
-# ** Note   : (27727000 ps) Configure board reference number to 0
-# ** Note   : (27727000 ps) Write discrete: brd_model(0) = '1'
-# ** Note   : (27727000 ps) Write discrete: brd_model(1) = '0'
-# ** Note   : (27747000 ps) Check command return: PASS
-# ** Note   : (27747000 ps)  * Read C002_009F, expected value C002_009F (Version, mode Read, data 009F)
-# ** Note   : (30227000 ps) Waiting SPI command end for 2480000 ps
-# ** Note   : (30227000 ps) Send SPI command value C002_XXXX (Version, mode Read, data XXXX)
-# ** Note   : (30307000 ps) Waiting SPI command return end for 40000 ps
-# ** Note   : (30307000 ps) Write discrete: brd_model(0) = '0'
-# ** Note   : (30307000 ps) Write discrete: brd_model(1) = '1'
-# ** Note   : (30327000 ps) Check command return: PASS
-# ** Note   : (30327000 ps)  * Read C002_00A0, expected value C002_00A0 (Version, mode Read, data 00A0)
-# ** Note   : (32807000 ps) Waiting SPI command end for 2480000 ps
-# ** Note   : (32807000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
-# ** Note   : (32887000 ps) Waiting SPI command return end for 40000 ps
-# ** Note   : (32887000 ps) Write discrete: brd_model(0) = '1'
-# ** Note   : (32887000 ps) Write discrete: brd_model(1) = '1'
-# ** Note   : (32907000 ps) Check command return: PASS
-# ** Note   : (32907000 ps)  * Read C002_00C0, expected value C002_00C0 (Version, mode Read, data 00C0)
-# ** Note   : (35387000 ps) Waiting SPI command end for 2480000 ps
-# ** Note   : (35387000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
-# ** Note   : (35467000 ps) Waiting SPI command return end for 40000 ps
-# ** Note   : (35487000 ps) Check command return: PASS
-# ** Note   : (35487000 ps)  * Read C002_00E0, expected value C002_00E0 (Version, mode Read, data 00E0)
-# ** Note   : (37967000 ps) Waiting SPI command end for 2480000 ps
-# ** Note   : (37967000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
-# ** Note   : (38047000 ps) Waiting SPI command return end for 40000 ps
-# ** Note   : (38067000 ps) Check command return: PASS
-# ** Note   : (38067000 ps)  * Read C000_0000, expected value C000_0000 (Status, mode Read, data 0000)
+# ** Note   : (7050564 ps) Waiting event rst = '0' for 6970564 ps
+#             (7050564 ps) 
+#             (7050564 ps) ==============================================================================================
+#             (7050564 ps)   Read register contents with no errors
+#             (7050564 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (7050564 ps) Send SPI command value C002_XXXX (Version, mode Read, data XXXX)
+# ** Note   : (9627000 ps) Waiting SPI command end for 2536436 ps
+# ** Note   : (9627000 ps) Send SPI command value C002_XXXX (Version, mode Read, data XXXX)
+# ** Note   : (9707000 ps) Waiting SPI command return end for 40000 ps
+# ** Note   : (9727000 ps) Check command return: PASS
+# ** Note   : (9727000 ps)  * Read C000_0000, expected value C000_0000 (Status, mode Read, data 0000)
+# ** Note   : (12207000 ps) Waiting SPI command end for 2480000 ps
+# ** Note   : (12207000 ps) Send SPI command value C002_XXXX (Version, mode Read, data XXXX)
+# ** Note   : (12287000 ps) Waiting SPI command return end for 40000 ps
+# ** Note   : (12287000 ps) Configure board reference number to 1
+# ** Note   : (12307000 ps) Check command return: PASS
+# ** Note   : (12307000 ps)  * Read C002_0080, expected value C002_0080 (Version, mode Read, data 0080)
+# ** Note   : (14787000 ps) Waiting SPI command end for 2480000 ps
+# ** Note   : (14787000 ps) Send SPI command value C002_XXXX (Version, mode Read, data XXXX)
+# ** Note   : (14867000 ps) Waiting SPI command return end for 40000 ps
+# ** Note   : (14867000 ps) Configure board reference number to 2
+# ** Note   : (14887000 ps) Check command return: PASS
+# ** Note   : (14887000 ps)  * Read C002_0081, expected value C002_0081 (Version, mode Read, data 0081)
+# ** Note   : (17367000 ps) Waiting SPI command end for 2480000 ps
+# ** Note   : (17367000 ps) Send SPI command value C002_XXXX (Version, mode Read, data XXXX)
+# ** Note   : (17447000 ps) Waiting SPI command return end for 40000 ps
+# ** Note   : (17447000 ps) Configure board reference number to 4
+# ** Note   : (17467000 ps) Check command return: PASS
+# ** Note   : (17467000 ps)  * Read C002_0082, expected value C002_0082 (Version, mode Read, data 0082)
+# ** Note   : (19947000 ps) Waiting SPI command end for 2480000 ps
+# ** Note   : (19947000 ps) Send SPI command value C002_XXXX (Version, mode Read, data XXXX)
+# ** Note   : (20027000 ps) Waiting SPI command return end for 40000 ps
+# ** Note   : (20027000 ps) Configure board reference number to 8
+# ** Note   : (20047000 ps) Check command return: PASS
+# ** Note   : (20047000 ps)  * Read C002_0084, expected value C002_0084 (Version, mode Read, data 0084)
+# ** Note   : (22527000 ps) Waiting SPI command end for 2480000 ps
+# ** Note   : (22527000 ps) Send SPI command value C002_XXXX (Version, mode Read, data XXXX)
+# ** Note   : (22607000 ps) Waiting SPI command return end for 40000 ps
+# ** Note   : (22607000 ps) Configure board reference number to 16
+# ** Note   : (22627000 ps) Check command return: PASS
+# ** Note   : (22627000 ps)  * Read C002_0088, expected value C002_0088 (Version, mode Read, data 0088)
+# ** Note   : (25107000 ps) Waiting SPI command end for 2480000 ps
+# ** Note   : (25107000 ps) Send SPI command value C002_XXXX (Version, mode Read, data XXXX)
+# ** Note   : (25187000 ps) Waiting SPI command return end for 40000 ps
+# ** Note   : (25187000 ps) Configure board reference number to 31
+# ** Note   : (25207000 ps) Check command return: PASS
+# ** Note   : (25207000 ps)  * Read C002_0090, expected value C002_0090 (Version, mode Read, data 0090)
+# ** Note   : (27687000 ps) Waiting SPI command end for 2480000 ps
+# ** Note   : (27687000 ps) Send SPI command value C002_XXXX (Version, mode Read, data XXXX)
+# ** Note   : (27767000 ps) Waiting SPI command return end for 40000 ps
+# ** Note   : (27767000 ps) Configure board reference number to 0
+# ** Note   : (27767000 ps) Write discrete: brd_model(0) = '1'
+# ** Note   : (27767000 ps) Write discrete: brd_model(1) = '0'
+# ** Note   : (27787000 ps) Check command return: PASS
+# ** Note   : (27787000 ps)  * Read C002_009F, expected value C002_009F (Version, mode Read, data 009F)
+# ** Note   : (30267000 ps) Waiting SPI command end for 2480000 ps
+# ** Note   : (30267000 ps) Send SPI command value C002_XXXX (Version, mode Read, data XXXX)
+# ** Note   : (30347000 ps) Waiting SPI command return end for 40000 ps
+# ** Note   : (30347000 ps) Write discrete: brd_model(0) = '0'
+# ** Note   : (30347000 ps) Write discrete: brd_model(1) = '1'
+# ** Note   : (30367000 ps) Check command return: PASS
+# ** Note   : (30367000 ps)  * Read C002_00A0, expected value C002_00A0 (Version, mode Read, data 00A0)
+# ** Note   : (32847000 ps) Waiting SPI command end for 2480000 ps
+# ** Note   : (32847000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (32927000 ps) Waiting SPI command return end for 40000 ps
+# ** Note   : (32927000 ps) Write discrete: brd_model(0) = '1'
+# ** Note   : (32927000 ps) Write discrete: brd_model(1) = '1'
+# ** Note   : (32947000 ps) Check command return: PASS
+# ** Note   : (32947000 ps)  * Read C002_00C0, expected value C002_00C0 (Version, mode Read, data 00C0)
+# ** Note   : (35427000 ps) Waiting SPI command end for 2480000 ps
+# ** Note   : (35427000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (35507000 ps) Waiting SPI command return end for 40000 ps
+# ** Note   : (35527000 ps) Check command return: PASS
+# ** Note   : (35527000 ps)  * Read C002_00E0, expected value C002_00E0 (Version, mode Read, data 00E0)
+# ** Note   : (38007000 ps) Waiting SPI command end for 2480000 ps
+# ** Note   : (38007000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (38087000 ps) Waiting SPI command return end for 40000 ps
+# ** Note   : (38107000 ps) Check command return: PASS
+# ** Note   : (38107000 ps)  * Read C000_0000, expected value C000_0000 (Status, mode Read, data 0000)
 # ------------------------------------------------------------------------------------------------------------------------------------------------------
 # Error simulation time         : '0'
 # Error check discrete level    : '0'

@@ -31,7 +31,7 @@ library work;
 use     work.pkg_project.all;
 
 entity in_rs_clk_sq1_adc is port
-   (     i_rst                : in     std_logic                                                            ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+   (     i_rst_sq1_adc        : in     std_logic                                                            ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk_sq1_adc        : in     std_logic                                                            ; --! SQUID1 ADC Clock
 
          i_sync               : in     std_logic                                                            ; --! Pixel sequence synchronization (R.E. detected = position sequence to the first pixel)
@@ -68,10 +68,10 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   Resynchronization
    -- ------------------------------------------------------------------------------------------------------
-   P_rsync : process (i_rst, i_clk_sq1_adc)
+   P_rsync : process (i_rst_sq1_adc, i_clk_sq1_adc)
    begin
 
-      if i_rst = '1' then
+      if i_rst_sq1_adc = '1' then
          sync_r            <= (others => c_I_SYNC_DEF);
 
          c0_sq1_adc_data_r <= (others => c_I_SQ1_ADC_DATA_DEF);

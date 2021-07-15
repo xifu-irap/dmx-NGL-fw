@@ -57,6 +57,9 @@ entity parser is generic
          i_c3_sq1_dac_sleep   : in     std_logic                                                            ; --! SQUID1 DAC, col. 3 - Sleep ('0' = Inactive, '1' = Active)
 
          i_d_rst              : in     std_logic                                                            ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
+         i_d_rst_sq1_adc      : in     std_logic                                                            ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
+         i_d_rst_sq1_pls_shap : in     std_logic                                                            ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
+
          i_d_clk              : in     std_logic                                                            ; --! Internal design: System Clock
          i_d_clk_sq1_adc      : in     std_logic                                                            ; --! Internal design: SQUID1 ADC Clock (MSB SQUID1 ADC Clocks vector)
          i_d_clk_sq1_pls_shap : in     std_logic                                                            ; --! Internal design: SQUID1 pulse shaping Clock
@@ -105,6 +108,8 @@ begin
    discrete_r(c_DR_D_CLK_SQ1_PLS_SH)<= i_d_clk_sq1_pls_shap;
    discrete_r(c_DR_EP_CMD_BUSY_N)   <= i_ep_cmd_busy_n;
    discrete_r(c_DR_EP_DATA_RX_RDY)  <= i_ep_data_rx_rdy;
+   discrete_r(c_DR_D_RST_SQ1_ADC)   <= i_d_rst_sq1_adc;
+   discrete_r(c_DR_D_RST_SQ1_PLS_SH)<= i_d_rst_sq1_pls_shap;
 
    discrete_r(discrete_r'high downto c_DR_S) <= (others => '0');
 
@@ -118,6 +123,8 @@ begin
    dr_last_event(c_DR_D_CLK_SQ1_PLS_SH)<= i_d_clk_sq1_pls_shap'last_event;
    dr_last_event(c_DR_EP_CMD_BUSY_N)   <= i_ep_cmd_busy_n'last_event;
    dr_last_event(c_DR_EP_DATA_RX_RDY)  <= i_ep_data_rx_rdy'last_event;
+   dr_last_event(c_DR_D_RST_SQ1_ADC)   <= i_d_rst_sq1_adc'last_event;
+   dr_last_event(c_DR_D_RST_SQ1_PLS_SH)<= i_d_rst_sq1_pls_shap'last_event;
 
    dr_last_event(dr_last_event'high downto c_DR_S) <= (others => 0 ns);
 

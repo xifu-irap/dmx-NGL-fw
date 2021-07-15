@@ -135,10 +135,13 @@ signal   c3_sq2_dac_sync_n    : std_logic                                       
 signal   c3_sq2_dac_mux       : std_logic_vector( c_SQ2_DAC_MUX_S-1 downto 0)                               ; --!	SQUID2 DAC, col. 3 - Multiplexer
 signal   c3_sq2_dac_mx_en_n   : std_logic                                                                   ; --!	SQUID2 DAC, col. 3 - Multiplexer Enable ('0' = Active, '1' = Inactive)
 
-alias    d_rst                : std_logic is <<signal .top_dmx_tb.I_top_dmx.rst              : std_logic>>  ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
-alias    d_clk                : std_logic is <<signal .top_dmx_tb.I_top_dmx.clk              : std_logic>>  ; --! Internal design: System Clock
-alias    d_clk_sq1_adc        : std_logic is <<signal .top_dmx_tb.I_top_dmx.clk_sq1_adc      : std_logic>>  ; --! Internal design: SQUID1 ADC Clock (MSB SQUID1 ADC Clocks vector)
-alias    d_clk_sq1_pls_shape  : std_logic is <<signal .top_dmx_tb.I_top_dmx.clk_sq1_pls_shape: std_logic>>  ; --! Internal design: SQUID1 pulse shaping Clock
+signal   d_rst                : std_logic                                                                   ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
+signal   d_rst_sq1_adc        : std_logic                                                                   ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
+signal   d_rst_sq1_pls_shape  : std_logic                                                                   ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
+
+signal   d_clk                : std_logic                                                                   ; --! Internal design: System Clock
+signal   d_clk_sq1_adc        : std_logic                                                                   ; --! Internal design: SQUID1 ADC Clock (MSB SQUID1 ADC Clocks vector)
+signal   d_clk_sq1_pls_shape  : std_logic                                                                   ; --! Internal design: SQUID1 pulse shaping Clock
 
 signal   ep_cmd               : std_logic_vector(c_EP_CMD_S-1 downto 0)                                     ; --! EP - Command to send
 signal   ep_cmd_start         : std_logic                                                                   ; --! EP - Start command transmit (one system clock pulse)
@@ -256,6 +259,27 @@ begin
    );
 
    -- ------------------------------------------------------------------------------------------------------
+   --!   Get top level internal signals
+   -- ------------------------------------------------------------------------------------------------------
+   G_get_top_level_sig: if true generate
+   alias td_rst               : std_logic is <<signal .top_dmx_tb.I_top_dmx.rst              : std_logic>>  ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
+   alias td_rst_sq1_adc       : std_logic is <<signal .top_dmx_tb.I_top_dmx.rst_sq1_adc      : std_logic>>  ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
+   alias td_rst_sq1_pls_shape : std_logic is <<signal .top_dmx_tb.I_top_dmx.rst_sq1_pls_shape: std_logic>>  ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
+   alias td_clk               : std_logic is <<signal .top_dmx_tb.I_top_dmx.clk              : std_logic>>  ; --! Internal design: System Clock
+   alias td_clk_sq1_adc       : std_logic is <<signal .top_dmx_tb.I_top_dmx.clk_sq1_adc      : std_logic>>  ; --! Internal design: SQUID1 ADC Clock (MSB SQUID1 ADC Clocks vector)
+   alias td_clk_sq1_pls_shape : std_logic is <<signal .top_dmx_tb.I_top_dmx.clk_sq1_pls_shape: std_logic>>  ; --! Internal design: SQUID1 pulse shaping Clock
+   begin
+
+      d_rst                <= td_rst;
+      d_rst_sq1_adc        <= td_rst_sq1_adc;
+      d_rst_sq1_pls_shape  <= td_rst_sq1_pls_shape;
+      d_clk                <= td_clk;
+      d_clk_sq1_adc        <= td_clk_sq1_adc;
+      d_clk_sq1_pls_shape  <= td_clk_sq1_pls_shape;
+
+   end generate G_get_top_level_sig;
+
+   -- ------------------------------------------------------------------------------------------------------
    --!   Clock reference generation
    -- ------------------------------------------------------------------------------------------------------
    I_clock_model: clock_model port map
@@ -300,6 +324,9 @@ begin
          i_c3_sq1_dac_sleep   => c3_sq1_dac_sleep     , -- in     std_logic                                 ; --! SQUID1 DAC, col. 3 - Sleep ('0' = Inactive, '1' = Active)
 
          i_d_rst              => d_rst                , -- in     std_logic                                 ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
+         i_d_rst_sq1_adc      => d_rst_sq1_adc        , -- in     std_logic                                 ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
+         i_d_rst_sq1_pls_shap => d_rst_sq1_pls_shape  , -- in     std_logic                                 ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
+
          i_d_clk              => d_clk                , -- in     std_logic                                 ; --! Internal design: System Clock
          i_d_clk_sq1_adc      => d_clk_sq1_adc        , -- in     std_logic                                 ; --! Internal design: SQUID1 ADC Clock (MSB SQUID1 ADC Clocks vector)
          i_d_clk_sq1_pls_shap => d_clk_sq1_pls_shape  , -- in     std_logic                                 ; --! Internal design: SQUID1 pulse shaping Clock

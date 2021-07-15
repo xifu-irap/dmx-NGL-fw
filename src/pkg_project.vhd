@@ -35,7 +35,9 @@ package pkg_project is
    -- ------------------------------------------------------------------------------------------------------
    --    System parameters
    -- ------------------------------------------------------------------------------------------------------
-constant c_FF_RESET_NB        : integer   := 2                                                              ; --! Flip-Flop number used for internal reset
+constant c_FF_RST_NB          : integer   := 3                                                              ; --! Flip-Flop number used for internal reset: System Clock
+constant c_FF_RST_SQ1_DAC_NB  : integer   := 6                                                              ; --! Flip-Flop number used for internal reset: DAC Clock
+constant c_FF_RST_SQ1_ADC_NB  : integer   := 6                                                              ; --! Flip-Flop number used for internal reset: ADC Clock
 constant c_FF_RSYNC_NB        : integer   := 2                                                              ; --! Flip-Flop number used for FPGA input resynchronization
 
 constant c_CLK_REF_MULT       : integer   := 1                                                              ; --! Reference Clock multiplier frequency factor

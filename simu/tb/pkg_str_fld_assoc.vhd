@@ -170,6 +170,12 @@ constant c_RET_UKWN           : std_logic_vector(c_EP_SPI_WD_S-1 downto 0) := (o
          when "ep_data_rx_rdy      "   =>
             o_fld_dr_ind := c_DR_EP_DATA_RX_RDY;
 
+         when "rst_sq1_adc         "   =>
+            o_fld_dr_ind := c_DR_D_RST_SQ1_ADC;
+
+         when "rst_sq1_pls_shape   "   =>
+            o_fld_dr_ind := c_DR_D_RST_SQ1_PLS_SH;
+
          when others                   =>
             o_fld_dr_ind := c_DR_S;
 

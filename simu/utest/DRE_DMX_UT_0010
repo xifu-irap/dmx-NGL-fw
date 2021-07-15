@@ -16,16 +16,20 @@ COMM
 COMM ==============================================================================================
 COMM   Wait internal reset deactivated
 COMM ----------------------------------------------------------------------------------------------
-WUDI rst 0
+WUDI rst_sq1_adc 0
 COMM
 COMM ==============================================================================================
-COMM   Check internal reset de-assertion synchronization with clk_ref and internal clocks:
+COMM   Check internal resets de-assertion synchronization with clk_ref and internal clocks:
 COMM     clk, clk_sq1_adc and clk_sq1_pls_shape
 COMM ----------------------------------------------------------------------------------------------
+CTLE rst == 0 ps
+CTLE rst_sq1_pls_shape == 0 ps
 CTLE clk_ref == 0 ps
 CTLE clk == 0 ps
 CTLE clk_sq1_adc == 0 ps
 CTLE clk_sq1_pls_shape == 0 ps
+CDIS rst 0
+CDIS rst_sq1_pls_shape 0
 CDIS clk_ref 1
 CDIS clk 1
 CDIS clk_sq1_adc 1

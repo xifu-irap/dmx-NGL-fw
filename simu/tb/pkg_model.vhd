@@ -56,11 +56,13 @@ constant c_DR_D_RST           : integer :=  0                                   
 constant c_DR_CLK_REF         : integer :=  1                                                               ; --! Discrete input index, signal: i_clk_ref
 constant c_DR_D_CLK           : integer :=  2                                                               ; --! Discrete input index, signal: i_d_clk
 constant c_DR_D_CLK_SQ1_ADC   : integer :=  3                                                               ; --! Discrete input index, signal: i_d_clk_sq1_adc
-constant c_DR_D_CLK_SQ1_PLS_SH: integer :=  4                                                               ; --! Discrete input index, signal: i_d_clk_sq1_pls_shape
+constant c_DR_D_CLK_SQ1_PLS_SH: integer :=  4                                                               ; --! Discrete input index, signal: i_d_clk_sq1_pls_shap
 constant c_DR_EP_CMD_BUSY_N   : integer :=  5                                                               ; --! Discrete input index, signal: i_ep_cmd_busy_n
 constant c_DR_EP_DATA_RX_RDY  : integer :=  6                                                               ; --! Discrete input index, signal: i_ep_data_rx_rdy
+constant c_DR_D_RST_SQ1_ADC   : integer :=  7                                                               ; --! Discrete input index, signal: i_d_rst_sq1_adc
+constant c_DR_D_RST_SQ1_PLS_SH: integer :=  8                                                               ; --! Discrete input index, signal: i_d_rst_sq1_pls_shap
 
-constant c_DR_S               : integer :=  7                                                               ; --! Discrete input size
+constant c_DR_S               : integer :=  9                                                               ; --! Discrete input size
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Parser discrete output index
@@ -148,6 +150,9 @@ constant c_SYNC_HIGH          : time    :=      10 * c_CLK_REF_PER_DEF          
          i_c3_sq1_dac_sleep   : in     std_logic                                                            ; --! SQUID1 DAC, col. 3 - Sleep ('0' = Inactive, '1' = Active)
 
          i_d_rst              : in     std_logic                                                            ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
+         i_d_rst_sq1_adc      : in     std_logic                                                            ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
+         i_d_rst_sq1_pls_shap : in     std_logic                                                            ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
+
          i_d_clk              : in     std_logic                                                            ; --! Internal design: System Clock
          i_d_clk_sq1_adc      : in     std_logic                                                            ; --! Internal design: SQUID1 ADC Clock (MSB SQUID1 ADC Clocks vector)
          i_d_clk_sq1_pls_shap : in     std_logic                                                            ; --! Internal design: SQUID1 pulse shaping Clock

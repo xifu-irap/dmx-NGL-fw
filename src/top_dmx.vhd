@@ -135,6 +135,9 @@ end entity top_dmx;
 
 architecture RTL of top_dmx is
 signal   rst                  : std_logic                                                                   ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+signal   rst_sq1_pls_shape    : std_logic                                                                   ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+signal   rst_sq1_adc          : std_logic                                                                   ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+
 signal   clk                  : std_logic                                                                   ; --! System Clock
 signal   clk_sq1_adc          : std_logic                                                                   ; --! SQUID1 ADC Clock (MSB SQUID1 ADC Clocks vector)
 signal   clk_sq1_adc_v        : std_logic_vector(c_DMX_NB_COL   downto 0)                                   ; --! SQUID1 ADC Clocks vector
@@ -188,6 +191,9 @@ begin
          i_cmd_ck_sq1_rpls    => cmd_ck_sq1_rpls      , -- in     std_logic_vector(c_DMX_NB_COL-1 downto 0) ; --! SQUID1 DAC Clocks switch commands (for each column: '0' = Inactive, '1' = Active)
 
          o_rst                => rst                  , -- out    std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+         o_rst_sq1_pls_shape  => rst_sq1_pls_shape    , -- out    std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+         o_rst_sq1_adc        => rst_sq1_adc          , -- out    std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+
          o_clk                => clk                  , -- out    std_logic                                 ; --! System Clock
          o_clk_sq1_pls_shape  => clk_sq1_pls_shape    , -- out    std_logic                                 ; --! SQUID1 pulse shaping Clock
          o_clk_sq1_adc        => clk_sq1_adc_v        , -- out    std_logic_vector(c_DMX_NB_COL   downto 0) ; --! SQUID1 ADC Clocks, no clock switch for MSB clock bit
@@ -245,7 +251,7 @@ begin
    --!   Data resynchronization on SQUID1 ADC Clock
    -- ------------------------------------------------------------------------------------------------------
    I_in_rs_clk_sq1_adc: entity work.in_rs_clk_sq1_adc port map
-   (     i_rst                => rst                  , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+   (     i_rst_sq1_adc        => rst_sq1_adc          , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk_sq1_adc        => clk_sq1_adc          , -- in     std_logic                                 ; --! SQUID1 ADC Clock
 
          i_sync               => i_sync               , -- in     std_logic                                 ; --! Pixel sequence synchronization (R.E. detected = position sequence to the first pixel)
@@ -267,7 +273,7 @@ begin
    --!   Data resynchronization on SQUID1 pulse shaping Clock
    -- ------------------------------------------------------------------------------------------------------
    I_in_rs_clk_sq1_pls: entity work.in_rs_clk_sq1_pls port map
-   (     i_rst                => rst                  , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+   (     i_rst_sq1_pls_shape  => rst_sq1_pls_shape    , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk_sq1_pls_shape  => clk_sq1_pls_shape    , -- in     std_logic                                 ; --! SQUID1 pulse shaping Clock
 
          i_sync               => i_sync               , -- in     std_logic                                 ; --! Pixel sequence synchronization (R.E. detected = position sequence to the first pixel)

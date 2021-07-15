@@ -218,6 +218,8 @@ proc run_utest {args} {
          add wave -format Logic                    -group "Inputs"                              sim:/top_dmx_tb/I_top_dmx/i_arst_n
          add wave -format Logic                    -group "Inputs"                              sim:/top_dmx_tb/I_top_dmx/i_clk_ref
          add wave -format Logic                                                                 sim:/top_dmx_tb/I_top_dmx/rst
+         add wave -format Logic                                                                 sim:/top_dmx_tb/I_top_dmx/rst_sq1_adc
+         add wave -format Logic                                                                 sim:/top_dmx_tb/I_top_dmx/rst_sq1_pls_shape
          add wave -format Logic                                                                 sim:/top_dmx_tb/I_top_dmx/clk
          add wave -format Logic                                                                 sim:/top_dmx_tb/I_top_dmx/clk_sq1_adc
          add wave -format Logic                                                                 sim:/top_dmx_tb/I_top_dmx/clk_sq1_pls_shape

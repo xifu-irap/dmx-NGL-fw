@@ -31,7 +31,7 @@ library work;
 use     work.pkg_project.all;
 
 entity in_rs_clk_sq1_pls is port
-   (     i_rst                : in     std_logic                                                            ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+   (     i_rst_sq1_pls_shape  : in     std_logic                                                            ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk_sq1_pls_shape  : in     std_logic                                                            ; --! SQUID1 pulse shaping Clock
 
          i_sync               : in     std_logic                                                            ; --! Pixel sequence synchronization (R.E. detected = position sequence to the first pixel)
@@ -47,10 +47,10 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   Resynchronization
    -- ------------------------------------------------------------------------------------------------------
-   P_rsync : process (i_rst, i_clk_sq1_pls_shape)
+   P_rsync : process (i_rst_sq1_pls_shape, i_clk_sq1_pls_shape)
    begin
 
-      if i_rst = '1' then
+      if i_rst_sq1_pls_shape = '1' then
          sync_r <= (others => c_I_SYNC_DEF);
 
       elsif rising_edge(i_clk_sq1_pls_shape) then

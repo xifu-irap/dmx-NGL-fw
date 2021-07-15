@@ -19,42 +19,40 @@
 #             (80000 ps) ==============================================================================================
 #             (80000 ps)   Wait internal reset deactivated
 #             (80000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (7017228 ps) Waiting event rst = '0' for 6937228 ps
-#             (7017228 ps) 
-#             (7017228 ps) ==============================================================================================
-#             (7017228 ps)   Check internal reset de-assertion synchronization with clk_ref and internal clocks:
-#             (7017228 ps)     clk, clk_sq1_adc and clk_sq1_pls_shape
-#             (7017228 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (7017228 ps) Check time, clk_ref last event: PASS
-# ** Note   : (7017228 ps)  * clk_ref last event 0 ps equal to expected value 0 ps
-# ** Note   : (7017228 ps) Check time, clk last event: PASS
-# ** Note   : (7017228 ps)  * clk last event 0 ps equal to expected value 0 ps
-# ** Note   : (7017228 ps) Check time, clk_sq1_adc last event: PASS
-# ** Note   : (7017228 ps)  * clk_sq1_adc last event 0 ps equal to expected value 0 ps
-# ** Note   : (7017228 ps) Check time, clk_sq1_pls_shape last event: PASS
-# ** Note   : (7017228 ps)  * clk_sq1_pls_shape last event 0 ps equal to expected value 0 ps
-# ** Note   : (7017228 ps) Check discrete level: PASS
-# ** Note   : (7017228 ps)  * Read discrete: clk_ref, value '1', expected '1'
-# ** Note   : (7017228 ps) Check discrete level: PASS
-# ** Note   : (7017228 ps)  * Read discrete: clk, value '1', expected '1'
-# ** Note   : (7017228 ps) Check discrete level: PASS
-# ** Note   : (7017228 ps)  * Read discrete: clk_sq1_adc, value '1', expected '1'
-# ** Note   : (7017228 ps) Check discrete level: PASS
-# ** Note   : (7017228 ps)  * Read discrete: clk_sq1_pls_shape, value '1', expected '1'
-#             (7017228 ps) 
-#             (7017228 ps) ==============================================================================================
-#             (7017228 ps)   Check 4 clk periods (frequency 59,995MHz)
-#             (7017228 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (7017228 ps) Record current time
-# ** Note   : (7025562 ps) Waiting event clk = '0' for 8334 ps
-# ** Note   : (7033896 ps) Waiting event clk = '1' for 8334 ps
-# ** Note   : (7033896 ps) Check time, record time: PASS
-# ** Note   : (7033896 ps)  * record time 16668 ps equal to expected value 16668 ps
-# ** Note   : (7033896 ps) Record current time
-# ** Note   : (7042230 ps) Waiting event clk = '0' for 8334 ps
-# ** Note   : (7050564 ps) Waiting event clk = '1' for 8334 ps
-# ** Note   : (7050564 ps) Check time, record time: PASS
-# ** Note   : (7050564 ps)  * record time 16668 ps equal to expected value 16668 ps
+# ** Note   : (7050564 ps) Waiting event rst_sq1_adc = '0' for 6970564 ps
+#             (7050564 ps) 
+#             (7050564 ps) ==============================================================================================
+#             (7050564 ps)   Check internal resets de-assertion synchronization with clk_ref and internal clocks:
+#             (7050564 ps)     clk, clk_sq1_adc and clk_sq1_pls_shape
+#             (7050564 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (7050564 ps) Check time, rst last event: PASS
+# ** Note   : (7050564 ps)  * rst last event 0 ps equal to expected value 0 ps
+# ** Note   : (7050564 ps) Check time, rst_sq1_pls_shape last event: PASS
+# ** Note   : (7050564 ps)  * rst_sq1_pls_shape last event 0 ps equal to expected value 0 ps
+# ** Note   : (7050564 ps) Check time, clk_ref last event: PASS
+# ** Note   : (7050564 ps)  * clk_ref last event 0 ps equal to expected value 0 ps
+# ** Note   : (7050564 ps) Check time, clk last event: PASS
+# ** Note   : (7050564 ps)  * clk last event 0 ps equal to expected value 0 ps
+# ** Note   : (7050564 ps) Check time, clk_sq1_adc last event: PASS
+# ** Note   : (7050564 ps)  * clk_sq1_adc last event 0 ps equal to expected value 0 ps
+# ** Note   : (7050564 ps) Check time, clk_sq1_pls_shape last event: PASS
+# ** Note   : (7050564 ps)  * clk_sq1_pls_shape last event 0 ps equal to expected value 0 ps
+# ** Note   : (7050564 ps) Check discrete level: PASS
+# ** Note   : (7050564 ps)  * Read discrete: rst, value '0', expected '0'
+# ** Note   : (7050564 ps) Check discrete level: PASS
+# ** Note   : (7050564 ps)  * Read discrete: rst_sq1_pls_shape, value '0', expected '0'
+# ** Note   : (7050564 ps) Check discrete level: PASS
+# ** Note   : (7050564 ps)  * Read discrete: clk_ref, value '1', expected '1'
+# ** Note   : (7050564 ps) Check discrete level: PASS
+# ** Note   : (7050564 ps)  * Read discrete: clk, value '1', expected '1'
+# ** Note   : (7050564 ps) Check discrete level: PASS
+# ** Note   : (7050564 ps)  * Read discrete: clk_sq1_adc, value '1', expected '1'
+# ** Note   : (7050564 ps) Check discrete level: PASS
+# ** Note   : (7050564 ps)  * Read discrete: clk_sq1_pls_shape, value '1', expected '1'
+#             (7050564 ps) 
+#             (7050564 ps) ==============================================================================================
+#             (7050564 ps)   Check 4 clk periods (frequency 59,995MHz)
+#             (7050564 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (7050564 ps) Record current time
 # ** Note   : (7058898 ps) Waiting event clk = '0' for 8334 ps
 # ** Note   : (7067232 ps) Waiting event clk = '1' for 8334 ps
@@ -65,68 +63,78 @@
 # ** Note   : (7083900 ps) Waiting event clk = '1' for 8334 ps
 # ** Note   : (7083900 ps) Check time, record time: PASS
 # ** Note   : (7083900 ps)  * record time 16668 ps equal to expected value 16668 ps
-#             (7083900 ps) 
-#             (7083900 ps) ==============================================================================================
-#             (7083900 ps)   Position on clk_sq1_adc rising edge
-#             (7083900 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (7083900 ps) Waiting event clk_sq1_adc = '1' for 0 ps
-# ** Note   : (7088067 ps) Waiting event clk_sq1_adc = '0' for 4167 ps
-# ** Note   : (7092234 ps) Waiting event clk_sq1_adc = '1' for 4167 ps
-#             (7092234 ps) 
-#             (7092234 ps) ==============================================================================================
-#             (7092234 ps)   Check 4 clk_sq1_adc periods (frequency 119,99MHz)
-#             (7092234 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (7092234 ps) Record current time
-# ** Note   : (7096401 ps) Waiting event clk_sq1_adc = '0' for 4167 ps
-# ** Note   : (7100568 ps) Waiting event clk_sq1_adc = '1' for 4167 ps
+# ** Note   : (7083900 ps) Record current time
+# ** Note   : (7092234 ps) Waiting event clk = '0' for 8334 ps
+# ** Note   : (7100568 ps) Waiting event clk = '1' for 8334 ps
 # ** Note   : (7100568 ps) Check time, record time: PASS
-# ** Note   : (7100568 ps)  * record time 8334 ps equal to expected value 8334 ps
+# ** Note   : (7100568 ps)  * record time 16668 ps equal to expected value 16668 ps
 # ** Note   : (7100568 ps) Record current time
-# ** Note   : (7104735 ps) Waiting event clk_sq1_adc = '0' for 4167 ps
-# ** Note   : (7108902 ps) Waiting event clk_sq1_adc = '1' for 4167 ps
-# ** Note   : (7108902 ps) Check time, record time: PASS
-# ** Note   : (7108902 ps)  * record time 8334 ps equal to expected value 8334 ps
-# ** Note   : (7108902 ps) Record current time
-# ** Note   : (7113069 ps) Waiting event clk_sq1_adc = '0' for 4167 ps
-# ** Note   : (7117236 ps) Waiting event clk_sq1_adc = '1' for 4167 ps
+# ** Note   : (7108902 ps) Waiting event clk = '0' for 8334 ps
+# ** Note   : (7117236 ps) Waiting event clk = '1' for 8334 ps
 # ** Note   : (7117236 ps) Check time, record time: PASS
-# ** Note   : (7117236 ps)  * record time 8334 ps equal to expected value 8334 ps
-# ** Note   : (7117236 ps) Record current time
+# ** Note   : (7117236 ps)  * record time 16668 ps equal to expected value 16668 ps
+#             (7117236 ps) 
+#             (7117236 ps) ==============================================================================================
+#             (7117236 ps)   Position on clk_sq1_adc rising edge
+#             (7117236 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (7117236 ps) Waiting event clk_sq1_adc = '1' for 0 ps
 # ** Note   : (7121403 ps) Waiting event clk_sq1_adc = '0' for 4167 ps
 # ** Note   : (7125570 ps) Waiting event clk_sq1_adc = '1' for 4167 ps
-# ** Note   : (7125570 ps) Check time, record time: PASS
-# ** Note   : (7125570 ps)  * record time 8334 ps equal to expected value 8334 ps
 #             (7125570 ps) 
 #             (7125570 ps) ==============================================================================================
-#             (7125570 ps)   Position on clk_sq1_pls_shape rising edge
+#             (7125570 ps)   Check 4 clk_sq1_adc periods (frequency 119,99MHz)
 #             (7125570 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (7133904 ps) Waiting event clk_sq1_pls_shape = '1' for 8334 ps
-# ** Note   : (7138071 ps) Waiting event clk_sq1_pls_shape = '0' for 4167 ps
-# ** Note   : (7142238 ps) Waiting event clk_sq1_pls_shape = '1' for 4167 ps
-#             (7142238 ps) 
-#             (7142238 ps) ==============================================================================================
-#             (7142238 ps)   Check 4 clk_sq1_pls_shape periods (frequency 119,99MHz)
-#             (7142238 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (7125570 ps) Record current time
+# ** Note   : (7129737 ps) Waiting event clk_sq1_adc = '0' for 4167 ps
+# ** Note   : (7133904 ps) Waiting event clk_sq1_adc = '1' for 4167 ps
+# ** Note   : (7133904 ps) Check time, record time: PASS
+# ** Note   : (7133904 ps)  * record time 8334 ps equal to expected value 8334 ps
+# ** Note   : (7133904 ps) Record current time
+# ** Note   : (7138071 ps) Waiting event clk_sq1_adc = '0' for 4167 ps
+# ** Note   : (7142238 ps) Waiting event clk_sq1_adc = '1' for 4167 ps
+# ** Note   : (7142238 ps) Check time, record time: PASS
+# ** Note   : (7142238 ps)  * record time 8334 ps equal to expected value 8334 ps
 # ** Note   : (7142238 ps) Record current time
-# ** Note   : (7146405 ps) Waiting event clk_sq1_pls_shape = '0' for 4167 ps
-# ** Note   : (7150572 ps) Waiting event clk_sq1_pls_shape = '1' for 4167 ps
+# ** Note   : (7146405 ps) Waiting event clk_sq1_adc = '0' for 4167 ps
+# ** Note   : (7150572 ps) Waiting event clk_sq1_adc = '1' for 4167 ps
 # ** Note   : (7150572 ps) Check time, record time: PASS
 # ** Note   : (7150572 ps)  * record time 8334 ps equal to expected value 8334 ps
 # ** Note   : (7150572 ps) Record current time
-# ** Note   : (7154739 ps) Waiting event clk_sq1_pls_shape = '0' for 4167 ps
-# ** Note   : (7158906 ps) Waiting event clk_sq1_pls_shape = '1' for 4167 ps
+# ** Note   : (7154739 ps) Waiting event clk_sq1_adc = '0' for 4167 ps
+# ** Note   : (7158906 ps) Waiting event clk_sq1_adc = '1' for 4167 ps
 # ** Note   : (7158906 ps) Check time, record time: PASS
 # ** Note   : (7158906 ps)  * record time 8334 ps equal to expected value 8334 ps
-# ** Note   : (7158906 ps) Record current time
-# ** Note   : (7163073 ps) Waiting event clk_sq1_pls_shape = '0' for 4167 ps
-# ** Note   : (7167240 ps) Waiting event clk_sq1_pls_shape = '1' for 4167 ps
-# ** Note   : (7167240 ps) Check time, record time: PASS
-# ** Note   : (7167240 ps)  * record time 8334 ps equal to expected value 8334 ps
-# ** Note   : (7167240 ps) Record current time
+#             (7158906 ps) 
+#             (7158906 ps) ==============================================================================================
+#             (7158906 ps)   Position on clk_sq1_pls_shape rising edge
+#             (7158906 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (7167240 ps) Waiting event clk_sq1_pls_shape = '1' for 8334 ps
 # ** Note   : (7171407 ps) Waiting event clk_sq1_pls_shape = '0' for 4167 ps
 # ** Note   : (7175574 ps) Waiting event clk_sq1_pls_shape = '1' for 4167 ps
-# ** Note   : (7175574 ps) Check time, record time: PASS
-# ** Note   : (7175574 ps)  * record time 8334 ps equal to expected value 8334 ps
+#             (7175574 ps) 
+#             (7175574 ps) ==============================================================================================
+#             (7175574 ps)   Check 4 clk_sq1_pls_shape periods (frequency 119,99MHz)
+#             (7175574 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (7175574 ps) Record current time
+# ** Note   : (7179741 ps) Waiting event clk_sq1_pls_shape = '0' for 4167 ps
+# ** Note   : (7183908 ps) Waiting event clk_sq1_pls_shape = '1' for 4167 ps
+# ** Note   : (7183908 ps) Check time, record time: PASS
+# ** Note   : (7183908 ps)  * record time 8334 ps equal to expected value 8334 ps
+# ** Note   : (7183908 ps) Record current time
+# ** Note   : (7188075 ps) Waiting event clk_sq1_pls_shape = '0' for 4167 ps
+# ** Note   : (7192242 ps) Waiting event clk_sq1_pls_shape = '1' for 4167 ps
+# ** Note   : (7192242 ps) Check time, record time: PASS
+# ** Note   : (7192242 ps)  * record time 8334 ps equal to expected value 8334 ps
+# ** Note   : (7192242 ps) Record current time
+# ** Note   : (7196409 ps) Waiting event clk_sq1_pls_shape = '0' for 4167 ps
+# ** Note   : (7200576 ps) Waiting event clk_sq1_pls_shape = '1' for 4167 ps
+# ** Note   : (7200576 ps) Check time, record time: PASS
+# ** Note   : (7200576 ps)  * record time 8334 ps equal to expected value 8334 ps
+# ** Note   : (7200576 ps) Record current time
+# ** Note   : (7204743 ps) Waiting event clk_sq1_pls_shape = '0' for 4167 ps
+# ** Note   : (7208910 ps) Waiting event clk_sq1_pls_shape = '1' for 4167 ps
+# ** Note   : (7208910 ps) Check time, record time: PASS
+# ** Note   : (7208910 ps)  * record time 8334 ps equal to expected value 8334 ps
 # ------------------------------------------------------------------------------------------------------------------------------------------------------
 # Error simulation time         : '0'
 # Error check discrete level    : '0'
