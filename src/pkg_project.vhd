@@ -34,7 +34,13 @@ package pkg_project is
 
    -- ------------------------------------------------------------------------------------------------------
    --    System parameters
+   --    @Req : DRE-DMX-FW-REQ-0040
+   --    @Req : DRE-DMX-FW-REQ-0120
+   --    @Req : DRE-DMX-FW-REQ-0270
+   --    @Req : DRE-DMX-FW-REQ-0520
    -- ------------------------------------------------------------------------------------------------------
+constant c_FW_VERSION         : integer   :=  1                                                             ; --! Firmware version
+
 constant c_FF_RST_NB          : integer   := 3                                                              ; --! Flip-Flop number used for internal reset: System Clock
 constant c_FF_RST_SQ1_DAC_NB  : integer   := 6                                                              ; --! Flip-Flop number used for internal reset: DAC Clock
 constant c_FF_RST_SQ1_ADC_NB  : integer   := 6                                                              ; --! Flip-Flop number used for internal reset: ADC Clock
@@ -93,19 +99,17 @@ constant c_I_SYNC_DEF         : std_logic := '0'                                
 
    -- ------------------------------------------------------------------------------------------------------
    --    Project parameters
+   --    @Req : DRE-DMX-FW-REQ-0070
+   --    @Req : DRE-DMX-FW-REQ-0080
    -- ------------------------------------------------------------------------------------------------------
-constant c_FW_VERSION         : integer   :=  1                                                             ; --! Firmware version
-constant c_DMX_MUX_FACT       : integer   := 34                                                             ; --! DEMUX: multiplexing factor
-constant c_DMX_NB_COL         : integer   := 4                                                              ; --! DEMUX: column number
-constant c_DRE_PIX_NPER_COM   : integer   := 4                                                              ; --! DRE: period number of clock common to main clocks allocated to one sequence pixel (TBC)
+constant c_MUX_FACT           : integer   := 34                                                             ; --! DEMUX: multiplexing factor
+constant c_NB_COL             : integer   := 4                                                              ; --! DEMUX: column number
 
    -- ------------------------------------------------------------------------------------------------------
    --    SQUID1 ADC parameters
    -- ------------------------------------------------------------------------------------------------------
 constant c_ADC_DATA_NPER      : integer   := 13                                                             ; --! Clock period number between the acquisition start and data output by the ADC
 constant c_ADC_DATA_IO_NPER   : integer   := 1                                                              ; --! Clock period number applied on FPGA inputs for phasing ADC data with o_clk_sq1_adc
-
-constant c_PIX_SEQ_NPER_ADC   : integer   := c_CLK_ADC_MULT * c_DRE_PIX_NPER_COM                            ; --! Period number of ADC clock allocated to one sequence pixel
 
    -- ------------------------------------------------------------------------------------------------------
    --    Global types

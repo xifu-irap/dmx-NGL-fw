@@ -306,10 +306,12 @@ proc run_utest {args} {
          add wave -format Logic                    -group "3 - Squid2 DAC" -group "SPI"         sim:/top_dmx_tb/I_top_dmx/o_c3_sq2_dac_sync_n
 
          add wave -noupdate -divider
-         add wave -format Logic                    -group "Science"                             sim:/top_dmx_tb/I_top_dmx/o_clk_science
-         add wave -format Logic                    -group "Science"                             sim:/top_dmx_tb/I_top_dmx/o_science_ctrl
+         add wave -format Logic                    -group "Science"                             sim:/top_dmx_tb/I_top_dmx/o_clk_science_01
+         add wave -format Logic                    -group "Science"                             sim:/top_dmx_tb/I_top_dmx/o_science_ctrl_01
          add wave -format Logic                    -group "Science"                             sim:/top_dmx_tb/I_top_dmx/o_c0_science_data
          add wave -format Logic                    -group "Science"                             sim:/top_dmx_tb/I_top_dmx/o_c1_science_data
+         add wave -format Logic                    -group "Science"                             sim:/top_dmx_tb/I_top_dmx/o_clk_science_23
+         add wave -format Logic                    -group "Science"                             sim:/top_dmx_tb/I_top_dmx/o_science_ctrl_23
          add wave -format Logic                    -group "Science"                             sim:/top_dmx_tb/I_top_dmx/o_c2_science_data
          add wave -format Logic                    -group "Science"                             sim:/top_dmx_tb/I_top_dmx/o_c3_science_data
 

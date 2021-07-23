@@ -69,10 +69,15 @@ begin
 
       elsif rising_edge(i_clk) then
          case i_ep_cmd_rx_wd_add is
-              when c_EP_CMD_ADD_VERSION  =>
+
+            -- @Req : REG_Version
+            -- @Req : DRE-DMX-FW-REQ-0520
+            -- @Req : DRE-DMX-FW-REQ-0530
+            when c_EP_CMD_ADD_VERSION  =>
                o_ep_cmd_tx_wd_rd_rg <= std_logic_vector(to_unsigned(c_FW_VERSION, c_FW_VERSION_S)) & i_brd_model_rs & i_brd_ref_rs;
 
-              when others                =>
+            -- @Req : REG_Status
+            when others                =>
                o_ep_cmd_tx_wd_rd_rg <= i_ep_cmd_sts_rg;
 
            end case;

@@ -59,7 +59,7 @@ entity in_rs_clk is port
          o_ep_spi_sclk_rs     : out    std_logic                                                            ; --! EP - SPI Serial Clock (CPOL = ‘0’, CPHA = ’0’), synchronized on System Clock
          o_ep_spi_cs_n_rs     : out    std_logic                                                            ; --! EP - SPI Chip Select ('0' = Active, '1' = Inactive), synchronized on System Clock
 
-         o_sq1_adc_spi_sdio_rs: out    std_logic_vector(c_DMX_NB_COL-1 downto 0)                              --! SQUID1 ADC - SPI Serial Data In Out, synchronized on System Clock
+         o_sq1_adc_spi_sdio_rs: out    std_logic_vector(c_NB_COL-1 downto 0)                                  --! SQUID1 ADC - SPI Serial Data In Out, synchronized on System Clock
    );
 end entity in_rs_clk;
 

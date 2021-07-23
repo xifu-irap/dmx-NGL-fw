@@ -141,7 +141,7 @@ begin
             ep_cmd_rx_wd_add <= '0' & c_EP_CMD_ADD_STATUS(ep_cmd_rx_wd_add'high-1 downto 0);
 
          end if;
-         
+
          ep_cmd_rx_wd_add_rdy <= '0';
          ep_cmd_rx_add_err_rdy<= (others => '0');
          ep_cmd_rx_wd_data    <= (others => c_EP_CMD_ERR_CLR);
@@ -209,11 +209,11 @@ begin
       ep_cmd_tx_wd_add(ep_cmd_tx_wd_add'high)            <= c_EP_CMD_ADD_RW_R;
       ep_cmd_tx_wd_add(ep_cmd_tx_wd_add'high-1 downto 0) <= c_EP_CMD_ADD_STATUS(ep_cmd_tx_wd_add'high-1 downto 0) when ep_cmd_rx_wd_add(c_EP_CMD_ADD_RW_POS) = c_EP_CMD_ADD_RW_W else
                                                             c_EP_CMD_ADD_STATUS(ep_cmd_tx_wd_add'high-1 downto 0) when ep_cmd_all_err_data = c_EP_CMD_ERR_SET else
-                                                            ep_cmd_rx_wd_add(   ep_cmd_tx_wd_add'high-1 downto 0);      
+                                                            ep_cmd_rx_wd_add(   ep_cmd_tx_wd_add'high-1 downto 0);
    end generate G_add_tw_pos_neq_nul;
 
    ep_cmd_tx_wd_data    <= ep_cmd_sts_rg when ep_cmd_rx_wd_add(c_EP_CMD_ADD_RW_POS) = c_EP_CMD_ADD_RW_W else
-                           ep_cmd_sts_rg when ep_cmd_all_err = '1' else
+                           ep_cmd_sts_rg when ep_cmd_all_err = c_EP_CMD_ERR_SET else
                            i_ep_cmd_tx_wd_rd_rg;
 
    ep_spi_data_tx_wd    <= ep_cmd_tx_wd_add when ep_spi_data_tx_wd_nb = std_logic_vector(to_unsigned(c_EP_CMD_WD_ADD_POS, ep_spi_data_tx_wd_nb'length)) else
@@ -221,6 +221,7 @@ begin
 
    -- ------------------------------------------------------------------------------------------------------
    --!   EP command: Status, error invalid address
+   --    @Req : REG_EP_CMD_ERR_ADD
    -- ------------------------------------------------------------------------------------------------------
    I_sts_err_add_mgt: entity work.sts_err_add_mgt port map
    (     i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
@@ -232,12 +233,14 @@ begin
 
    -- ------------------------------------------------------------------------------------------------------
    --!   EP command: Status, error SPI command length not complete
+   --    @Req : REG_EP_CMD_ERR_LGT
    -- ------------------------------------------------------------------------------------------------------
    ep_cmd_sts_err_lgt <= c_EP_CMD_ERR_CLR when (ep_spi_data_rx_wd_nb & ep_spi_data_rx_wd_lg)=std_logic_vector(to_unsigned(c_EP_CMD_S-1, ep_spi_data_rx_wd_nb'length+ep_spi_data_rx_wd_lg'length)) else
                          c_EP_CMD_ERR_SET;
 
    -- ------------------------------------------------------------------------------------------------------
-   --!   EP command: Status, error invalid address
+   --!   EP command: Status, error try to write in a read only register
+   --    @Req : REG_EP_CMD_ERR_WRT
    -- ------------------------------------------------------------------------------------------------------
    I_sts_err_wrt_mgt: entity work.sts_err_wrt_mgt port map
    (     i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
@@ -267,6 +270,7 @@ begin
 
    -- ------------------------------------------------------------------------------------------------------
    --!   EP command: Status register management
+   --    @Req : REG_Status
    -- ------------------------------------------------------------------------------------------------------
    ep_cmd_sts_rg(c_EP_CMD_ERR_FST_POS-1 downto 0) <= (others => c_EP_CMD_ERR_CLR);
 

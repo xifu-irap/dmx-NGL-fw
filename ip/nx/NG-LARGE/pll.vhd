@@ -41,13 +41,13 @@ entity pll is port
    (     i_arst_n             : in     std_logic                                                            ; --! Asynchronous reset ('0' = Active, '1' = Inactive)
          i_clk_ref            : in     std_logic                                                            ; --! Reference Clock
 
-         i_cmd_ck_sq1_radc    : in     std_logic_vector(c_DMX_NB_COL-1 downto 0)                            ; --! SQUID1 ADC Clocks switch commands (for each column: '0' = Inactive, '1' = Active)
-         i_cmd_ck_sq1_rpls    : in     std_logic_vector(c_DMX_NB_COL-1 downto 0)                            ; --! SQUID1 DAC Clocks switch commands (for each column: '0' = Inactive, '1' = Active)
+         i_cmd_ck_sq1_radc    : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! SQUID1 ADC Clocks switch commands (for each column: '0' = Inactive, '1' = Active)
+         i_cmd_ck_sq1_rpls    : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! SQUID1 DAC Clocks switch commands (for each column: '0' = Inactive, '1' = Active)
 
          o_clk                : out    std_logic                                                            ; --! System Clock
          o_clk_sq1_pls_shape  : out    std_logic                                                            ; --! SQUID1 pulse shaping Clock
-         o_clk_sq1_adc        : out    std_logic_vector(c_DMX_NB_COL   downto 0)                            ; --! SQUID1 ADC Clocks, no clock switch for MSB clock bit
-         o_clk_sq1_dac        : out    std_logic_vector(c_DMX_NB_COL-1 downto 0)                            ; --! SQUID1 DAC Clocks
+         o_clk_sq1_adc        : out    std_logic_vector(c_NB_COL   downto 0)                                ; --! SQUID1 ADC Clocks, no clock switch for MSB clock bit
+         o_clk_sq1_dac        : out    std_logic_vector(c_NB_COL-1 downto 0)                                ; --! SQUID1 DAC Clocks
          o_clk_science        : out    std_logic                                                            ; --! Science Data Clock
          o_pll_main_lock      : out    std_logic                                                              --! Main Pll Status ('0' = Pll not locked, '1' = Pll locked)
    );
@@ -198,6 +198,7 @@ begin
 
    -- ------------------------------------------------------------------------------------------------------
    --!  SQUID1 ADC Clock generation
+   --    @Req : DRE-DMX-FW-REQ-0120
    -- ------------------------------------------------------------------------------------------------------
    I_wfg_clk_adc: entity nx.nx_wfg_l generic map
    (     WFG_EDGE             => c_WFG_EDGE_INV_N     , -- bit                                              ; --! Input clock inverted ('0' = No, '1' = Yes)
@@ -219,8 +220,9 @@ begin
 
    -- ------------------------------------------------------------------------------------------------------
    --!  SQUID1 ADC Clock switchs
+   --    @Req : DRE-DMX-FW-REQ-0110
    -- ------------------------------------------------------------------------------------------------------
-   G_cks_clk_sq1_adc: for k in 0 to c_DMX_NB_COL-1 generate
+   G_cks_clk_sq1_adc: for k in 0 to c_NB_COL-1 generate
    begin
 
       I_cks_clk_sq1_adc: entity nx.nx_cks port map
@@ -252,6 +254,7 @@ begin
 
    -- ------------------------------------------------------------------------------------------------------
    --!  SQUID1 DAC Clock generation
+   --    @Req : DRE-DMX-FW-REQ-0270
    -- ------------------------------------------------------------------------------------------------------
    I_wfg_clk_dac: entity nx.nx_wfg_l generic map
    (     WFG_EDGE             => c_WFG_EDGE_INV_N     , -- bit                                              ; --! Input clock inverted ('0' = No, '1' = Yes)
@@ -271,8 +274,9 @@ begin
 
    -- ------------------------------------------------------------------------------------------------------
    --!  SQUID1 DAC Clock switchs
+   --    @Req : DRE-DMX-FW-REQ-0260
    -- ------------------------------------------------------------------------------------------------------
-   G_cks_clk_sq1_dac: for k in 0 to c_DMX_NB_COL-1 generate
+   G_cks_clk_sq1_dac: for k in 0 to c_NB_COL-1 generate
    begin
 
       I_cks_clk_sq1_dac: entity nx.nx_cks port map

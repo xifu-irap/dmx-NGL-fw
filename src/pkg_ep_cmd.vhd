@@ -44,6 +44,7 @@ constant c_EP_CMD_ADD_RW_POS  : integer   := 0                                  
 
    -- ------------------------------------------------------------------------------------------------------
    --    EP command: Status error
+   --    @Req : REG_Status
    -- ------------------------------------------------------------------------------------------------------
 constant c_EP_CMD_ERR_SET     : std_logic := '1'                                                            ; --! EP command: Status, error set value
 constant c_EP_CMD_ERR_CLR     : std_logic := not(c_EP_CMD_ERR_SET)                                          ; --! EP command: Status, error clear value

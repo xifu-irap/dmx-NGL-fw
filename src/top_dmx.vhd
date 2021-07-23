@@ -42,7 +42,8 @@ entity top_dmx is port
          o_c1_clk_sq1_dac     : out    std_logic                                                            ; --! SQUID1 DAC, col. 1 - Clock
          o_c2_clk_sq1_dac     : out    std_logic                                                            ; --! SQUID1 DAC, col. 2 - Clock
          o_c3_clk_sq1_dac     : out    std_logic                                                            ; --! SQUID1 DAC, col. 3 - Clock
-         o_clk_science        : out    std_logic                                                            ; --! Science Data - Clock
+         o_clk_science_01     : out    std_logic                                                            ; --! Science Data - Clock channel 0/1
+         o_clk_science_23     : out    std_logic                                                            ; --! Science Data - Clock channel 2/3
 
          i_brd_ref            : in     std_logic_vector(     c_BRD_REF_S-1 downto 0)                        ; --! Board reference
          i_brd_model          : in     std_logic_vector(   c_BRD_MODEL_S-1 downto 0)                        ; --! Board model
@@ -62,7 +63,8 @@ entity top_dmx is port
          o_c2_sq1_dac_data    : out    std_logic_vector(c_SQ1_DAC_DATA_S-1 downto 0)                        ; --! SQUID1 DAC, col. 2 - Data
          o_c3_sq1_dac_data    : out    std_logic_vector(c_SQ1_DAC_DATA_S-1 downto 0)                        ; --! SQUID1 DAC, col. 3 - Data
 
-         o_science_ctrl       : out    std_logic                                                            ; --! Science Data – Control
+         o_science_ctrl_01    : out    std_logic                                                            ; --! Science Data – Control channel 0/1
+         o_science_ctrl_23    : out    std_logic                                                            ; --! Science Data – Control channel 2/3
          o_c0_science_data    : out    std_logic_vector(c_SC_DATA_SER_NB-1 downto 0)                        ; --! Science Data, col. 0 – Serial Data
          o_c1_science_data    : out    std_logic_vector(c_SC_DATA_SER_NB-1 downto 0)                        ; --! Science Data, col. 1 – Serial Data
          o_c2_science_data    : out    std_logic_vector(c_SC_DATA_SER_NB-1 downto 0)                        ; --! Science Data, col. 2 – Serial Data
@@ -140,8 +142,8 @@ signal   rst_sq1_adc          : std_logic                                       
 
 signal   clk                  : std_logic                                                                   ; --! System Clock
 signal   clk_sq1_adc          : std_logic                                                                   ; --! SQUID1 ADC Clock (MSB SQUID1 ADC Clocks vector)
-signal   clk_sq1_adc_v        : std_logic_vector(c_DMX_NB_COL   downto 0)                                   ; --! SQUID1 ADC Clocks vector
-signal   clk_sq1_dac_v        : std_logic_vector(c_DMX_NB_COL-1 downto 0)                                   ; --! SQUID1 DAC Clocks
+signal   clk_sq1_adc_v        : std_logic_vector(c_NB_COL   downto 0)                                       ; --! SQUID1 ADC Clocks vector
+signal   clk_sq1_dac_v        : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! SQUID1 DAC Clocks
 signal   clk_sq1_pls_shape    : std_logic                                                                   ; --! SQUID1 pulse shaping Clock
 
 signal   brd_ref_rs           : std_logic_vector(  c_BRD_REF_S-1 downto 0)                                  ; --! Board reference, synchronized on System Clock
@@ -152,19 +154,21 @@ signal   hk2_spi_miso_rs      : std_logic                                       
 signal   ep_spi_mosi_rs       : std_logic                                                                   ; --! EP - SPI Master Input Slave Output (MSB first), synchronized on System Clock
 signal   ep_spi_sclk_rs       : std_logic                                                                   ; --! EP - SPI Serial Clock (CPOL = ‘0’, CPHA = ’0’), synchronized on System Clock
 signal   ep_spi_cs_n_rs       : std_logic                                                                   ; --! EP - SPI Chip Select ('0' = Active, '1' = Inactive), synchronized on System Clock
-signal   sq1_adc_spi_sdio_rs  : std_logic_vector(c_DMX_NB_COL-1 downto 0)                                   ; --! SQUID1 ADC - SPI Serial Data In Out, synchronized on System Clock
+signal   sq1_adc_spi_sdio_rs  : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! SQUID1 ADC - SPI Serial Data In Out, synchronized on System Clock
 
-signal   cmd_ck_sq1_radc      : std_logic_vector(c_DMX_NB_COL-1 downto 0)                                   ; --! SQUID1 ADC Clocks switch commands, synchronized on SQUID1 ADC Clock
+signal   cmd_ck_sq1_radc      : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! SQUID1 ADC Clocks switch commands, synchronized on SQUID1 ADC Clock
 signal   sync_radc            : std_logic                                                                   ; --! Pixel sequence synchronization, synchronized on SQUID1 ADC Clock
-signal   sq1_adc_data_radc    : t_sq1_adc_data_v(0 to c_DMX_NB_COL-1)                                       ; --! SQUID1 ADC - Data, synchronized on SQUID1 ADC Clock
-signal   sq1_adc_oor_radc     : std_logic_vector(c_DMX_NB_COL-1 downto 0)                                   ; --! SQUID1 ADC - Out of range, sync. on SQUID1 ADC Clock (‘0’= No, ‘1’= under/over range)
+signal   sq1_adc_data_radc    : t_sq1_adc_data_v(0 to c_NB_COL-1)                                           ; --! SQUID1 ADC - Data, synchronized on SQUID1 ADC Clock
+signal   sq1_adc_oor_radc     : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! SQUID1 ADC - Out of range, sync. on SQUID1 ADC Clock (‘0’= No, ‘1’= under/over range)
 
-signal   cmd_ck_sq1_rpls      : std_logic_vector(c_DMX_NB_COL-1 downto 0)                                   ; --! SQUID1 DAC Clocks switch commands, synchronized on pulse shaping Clock
+signal   cmd_ck_sq1_rpls      : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! SQUID1 DAC Clocks switch commands, synchronized on pulse shaping Clock
 signal   sync_rpls            : std_logic                                                                   ; --! Pixel sequence synchronization, synchronized on SQUID1 pulse shaping Clock
 
+signal   clk_science          : std_logic                                                                   ; --! Science Data - Clock channel
+signal   science_ctrl         : std_logic                                                                   ; --! Science Data – Control channel
 signal   science_data_tx_ena  : std_logic                                                                   ; --! Science Data transmit enable
-signal   science_data         : t_sc_data_w(0 to c_DMX_NB_COL*c_SC_DATA_SER_NB)                             ; --! Science Data word
-signal   science_data_ser     : std_logic_vector(c_DMX_NB_COL*c_SC_DATA_SER_NB downto 0)                    ; --! Science Data – Serial Data
+signal   science_data         : t_sc_data_w(0 to c_NB_COL*c_SC_DATA_SER_NB)                                 ; --! Science Data word
+signal   science_data_ser     : std_logic_vector(c_NB_COL*c_SC_DATA_SER_NB downto 0)                        ; --! Science Data – Serial Data
 
 signal   ep_cmd_sts_err_out   : std_logic                                                                   ; --! EP command: Status, error SPI data out of range
 signal   ep_cmd_sts_err_nin   : std_logic                                                                   ; --! EP command: Status, error parameter to read not initialized yet
@@ -187,8 +191,8 @@ begin
    (     i_arst_n             => i_arst_n             , -- in     std_logic                                 ; --! Asynchronous reset ('0' = Active, '1' = Inactive)
          i_clk_ref            => i_clk_ref            , -- in     std_logic                                 ; --! Reference Clock
 
-         i_cmd_ck_sq1_radc    => cmd_ck_sq1_radc      , -- in     std_logic_vector(c_DMX_NB_COL-1 downto 0) ; --! SQUID1 ADC Clocks switch commands (for each column: '0' = Inactive, '1' = Active)
-         i_cmd_ck_sq1_rpls    => cmd_ck_sq1_rpls      , -- in     std_logic_vector(c_DMX_NB_COL-1 downto 0) ; --! SQUID1 DAC Clocks switch commands (for each column: '0' = Inactive, '1' = Active)
+         i_cmd_ck_sq1_radc    => cmd_ck_sq1_radc      , -- in     std_logic_vector(c_NB_COL-1 downto 0)     ; --! SQUID1 ADC Clocks switch commands (for each column: '0' = Inactive, '1' = Active)
+         i_cmd_ck_sq1_rpls    => cmd_ck_sq1_rpls      , -- in     std_logic_vector(c_NB_COL-1 downto 0)     ; --! SQUID1 DAC Clocks switch commands (for each column: '0' = Inactive, '1' = Active)
 
          o_rst                => rst                  , -- out    std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          o_rst_sq1_pls_shape  => rst_sq1_pls_shape    , -- out    std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
@@ -196,9 +200,9 @@ begin
 
          o_clk                => clk                  , -- out    std_logic                                 ; --! System Clock
          o_clk_sq1_pls_shape  => clk_sq1_pls_shape    , -- out    std_logic                                 ; --! SQUID1 pulse shaping Clock
-         o_clk_sq1_adc        => clk_sq1_adc_v        , -- out    std_logic_vector(c_DMX_NB_COL   downto 0) ; --! SQUID1 ADC Clocks, no clock switch for MSB clock bit
-         o_clk_sq1_dac        => clk_sq1_dac_v        , -- out    std_logic_vector(c_DMX_NB_COL-1 downto 0) ; --! SQUID1 DAC Clocks
-         o_clk_science        => o_clk_science          -- out    std_logic                                   --! Science Data Clock
+         o_clk_sq1_adc        => clk_sq1_adc_v        , -- out    std_logic_vector(c_NB_COL   downto 0)     ; --! SQUID1 ADC Clocks, no clock switch for MSB clock bit
+         o_clk_sq1_dac        => clk_sq1_dac_v        , -- out    std_logic_vector(c_NB_COL-1 downto 0)     ; --! SQUID1 DAC Clocks
+         o_clk_science        => clk_science            -- out    std_logic                                   --! Science Data Clock
    );
 
    o_c0_clk_sq1_adc <= clk_sq1_adc_v(0);
@@ -211,6 +215,9 @@ begin
    o_c1_clk_sq1_dac <= clk_sq1_dac_v(1);
    o_c2_clk_sq1_dac <= clk_sq1_dac_v(2);
    o_c3_clk_sq1_dac <= clk_sq1_dac_v(3);
+
+   o_clk_science_01 <= clk_science;
+   o_clk_science_23 <= clk_science;
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Data resynchronization on System Clock
@@ -244,7 +251,7 @@ begin
          o_ep_spi_sclk_rs     => ep_spi_sclk_rs       , -- out    std_logic                                 ; --! EP - SPI Serial Clock (CPOL = ‘0’, CPHA = ’0’), synchronized on System Clock
          o_ep_spi_cs_n_rs     => ep_spi_cs_n_rs       , -- out    std_logic                                 ; --! EP - SPI Chip Select ('0' = Active, '1' = Inactive), synchronized on System Clock
 
-         o_sq1_adc_spi_sdio_rs=> sq1_adc_spi_sdio_rs    -- out    std_logic_vector(c_DMX_NB_COL-1 downto 0)   --! SQUID1 ADC - SPI Serial Data In Out, synchronized on System Clock
+         o_sq1_adc_spi_sdio_rs=> sq1_adc_spi_sdio_rs    -- out    std_logic_vector(c_NB_COL-1 downto 0)       --! SQUID1 ADC - SPI Serial Data In Out, synchronized on System Clock
    );
 
    -- ------------------------------------------------------------------------------------------------------
@@ -265,8 +272,8 @@ begin
          i_c3_sq1_adc_oor     => i_c3_sq1_adc_oor     , -- in     std_logic                                 ; --! SQUID1 ADC, col. 3 - Out of range (‘0’ = No, ‘1’ = under/over range)
 
          o_sync_radc          => sync_radc            , -- out    std_logic                                 ; --! Pixel sequence synchronization, synchronized on SQUID1 ADC Clock
-         o_sq1_adc_data_radc  => sq1_adc_data_radc    , -- out    t_sq1_adc_data_v(0 to c_DMX_NB_COL-1)     ; --! SQUID1 ADC - Data, synchronized on SQUID1 ADC Clock
-         o_sq1_adc_oor_radc   => sq1_adc_oor_radc       -- out    std_logic_vector(c_DMX_NB_COL-1 downto 0)   --! SQUID1 ADC - Out of range, sync. on SQUID1 ADC Clock (‘0’= No, ‘1’= under/over range)
+         o_sq1_adc_data_radc  => sq1_adc_data_radc    , -- out    t_sq1_adc_data_v(0 to c_NB_COL-1)         ; --! SQUID1 ADC - Data, synchronized on SQUID1 ADC Clock
+         o_sq1_adc_oor_radc   => sq1_adc_oor_radc       -- out    std_logic_vector(c_NB_COL-1 downto 0)       --! SQUID1 ADC - Out of range, sync. on SQUID1 ADC Clock (‘0’= No, ‘1’= under/over range)
    );
 
    -- ------------------------------------------------------------------------------------------------------
@@ -282,21 +289,23 @@ begin
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Science Data Transmit
+   --    @Req : DRE-DMX-FW-REQ-0590
    -- ------------------------------------------------------------------------------------------------------
    I_science_data_tx: entity work.science_data_tx port map
    (     i_rst                => rst                  , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                => clk                  , -- in     std_logic                                 ; --! System Clock
 
          i_science_data_tx_ena=> science_data_tx_ena  , -- in     std_logic                                 ; --! Science Data transmit enable
-         i_science_data       => science_data         , -- in     t_sc_data_w c_DMX_NB_COL*c_SC_DATA_SER_NB ; --! Science Data word
-         o_science_data_ser   => science_data_ser       -- out    slv         c_DMX_NB_COL*c_SC_DATA_SER_NB   --! Science Data – Serial Data
+         i_science_data       => science_data         , -- in     t_sc_data_w c_NB_COL*c_SC_DATA_SER_NB     ; --! Science Data word
+         o_science_data_ser   => science_data_ser       -- out    slv         c_NB_COL*c_SC_DATA_SER_NB       --! Science Data – Serial Data
    );
 
    o_c0_science_data    <= science_data_ser(1*c_SC_DATA_SER_NB-1 downto 0*c_SC_DATA_SER_NB);
    o_c1_science_data    <= science_data_ser(2*c_SC_DATA_SER_NB-1 downto 1*c_SC_DATA_SER_NB);
    o_c2_science_data    <= science_data_ser(3*c_SC_DATA_SER_NB-1 downto 2*c_SC_DATA_SER_NB);
    o_c3_science_data    <= science_data_ser(4*c_SC_DATA_SER_NB-1 downto 3*c_SC_DATA_SER_NB);
-   o_science_ctrl       <= science_data_ser(4*c_SC_DATA_SER_NB);
+   o_science_ctrl_01    <= science_data_ser(4*c_SC_DATA_SER_NB);
+   o_science_ctrl_23    <= science_data_ser(4*c_SC_DATA_SER_NB);
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Registers management

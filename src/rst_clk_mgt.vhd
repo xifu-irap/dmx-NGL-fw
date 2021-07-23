@@ -34,8 +34,8 @@ entity rst_clk_mgt is port
    (     i_arst_n             : in     std_logic                                                            ; --! Asynchronous reset ('0' = Active, '1' = Inactive)
          i_clk_ref            : in     std_logic                                                            ; --! Reference Clock
 
-         i_cmd_ck_sq1_radc    : in     std_logic_vector(c_DMX_NB_COL-1 downto 0)                            ; --! SQUID1 ADC Clocks switch commands, synchronized on SQUID1 ADC Clock
-         i_cmd_ck_sq1_rpls    : in     std_logic_vector(c_DMX_NB_COL-1 downto 0)                            ; --! SQUID1 DAC Clocks switch commands, synchronized on pulse shaping Clock
+         i_cmd_ck_sq1_radc    : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! SQUID1 ADC Clocks switch commands, synchronized on SQUID1 ADC Clock
+         i_cmd_ck_sq1_rpls    : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! SQUID1 DAC Clocks switch commands, synchronized on pulse shaping Clock
 
          o_rst                : out    std_logic                                                            ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          o_rst_sq1_pls_shape  : out    std_logic                                                            ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
@@ -43,8 +43,8 @@ entity rst_clk_mgt is port
 
          o_clk                : out    std_logic                                                            ; --! System Clock
          o_clk_sq1_pls_shape  : out    std_logic                                                            ; --! SQUID1 pulse shaping Clock
-         o_clk_sq1_adc        : out    std_logic_vector(c_DMX_NB_COL   downto 0)                            ; --! SQUID1 ADC Clocks, no clock switch for MSB clock bit
-         o_clk_sq1_dac        : out    std_logic_vector(c_DMX_NB_COL-1 downto 0)                            ; --! SQUID1 DAC Clocks
+         o_clk_sq1_adc        : out    std_logic_vector(c_NB_COL   downto 0)                                ; --! SQUID1 ADC Clocks, no clock switch for MSB clock bit
+         o_clk_sq1_dac        : out    std_logic_vector(c_NB_COL-1 downto 0)                                ; --! SQUID1 DAC Clocks
          o_clk_science        : out    std_logic                                                              --! Science Data Clock
    );
 end entity rst_clk_mgt;
@@ -52,7 +52,7 @@ end entity rst_clk_mgt;
 architecture RTL of rst_clk_mgt is
 signal   clk                  : std_logic                                                                   ; --! System Clock (internal)
 signal   clk_sq1_pls_shape    : std_logic                                                                   ; --! SQUID1 pulse shaping Clock (internal)
-signal   clk_sq1_adc          : std_logic_vector(c_DMX_NB_COL   downto 0)                                   ; --! SQUID1 ADC Clocks, no clock switch for MSB clock bit (internal)
+signal   clk_sq1_adc          : std_logic_vector(c_NB_COL   downto 0)                                       ; --! SQUID1 ADC Clocks, no clock switch for MSB clock bit (internal)
 
 signal   arst_n               : std_logic                                                                   ; --! Asynchronous reset internal ('0' = Active, '1' = Inactive)
 signal   pll_main_lock        : std_logic                                                                   ; --! Main Pll Status ('0' = Pll not locked, '1' = Pll locked)
@@ -69,12 +69,12 @@ begin
    I_pll: entity work.pll port map
    (     i_arst_n             => i_arst_n             , -- in     std_logic                                 ; --! Asynchronous reset ('0' = Active, '1' = Inactive)
          i_clk_ref            => i_clk_ref            , -- in     std_logic                                 ; --! Reference Clock
-         i_cmd_ck_sq1_radc    => i_cmd_ck_sq1_radc    , -- in     std_logic_vector(c_DMX_NB_COL-1 downto 0) ; --! SQUID1 ADC Clocks switch commands (for each column: '0' = Inactive, '1' = Active)
-         i_cmd_ck_sq1_rpls    => i_cmd_ck_sq1_rpls    , -- in     std_logic_vector(c_DMX_NB_COL-1 downto 0) ; --! SQUID1 DAC Clocks switch commands (for each column: '0' = Inactive, '1' = Active)
+         i_cmd_ck_sq1_radc    => i_cmd_ck_sq1_radc    , -- in     std_logic_vector(c_NB_COL-1 downto 0)     ; --! SQUID1 ADC Clocks switch commands (for each column: '0' = Inactive, '1' = Active)
+         i_cmd_ck_sq1_rpls    => i_cmd_ck_sq1_rpls    , -- in     std_logic_vector(c_NB_COL-1 downto 0)     ; --! SQUID1 DAC Clocks switch commands (for each column: '0' = Inactive, '1' = Active)
          o_clk                => clk                  , -- out    std_logic                                 ; --! System Clock
          o_clk_sq1_pls_shape  => clk_sq1_pls_shape    , -- out    std_logic                                 ; --! SQUID1 pulse shaping Clock
-         o_clk_sq1_adc        => clk_sq1_adc          , -- out    std_logic_vector(c_DMX_NB_COL   downto 0) ; --! SQUID1 ADC Clocks, no clock switch for MSB clock bit
-         o_clk_sq1_dac        => o_clk_sq1_dac        , -- out    std_logic_vector(c_DMX_NB_COL-1 downto 0) ; --! SQUID1 DAC Clocks
+         o_clk_sq1_adc        => clk_sq1_adc          , -- out    std_logic_vector(c_NB_COL   downto 0)     ; --! SQUID1 ADC Clocks, no clock switch for MSB clock bit
+         o_clk_sq1_dac        => o_clk_sq1_dac        , -- out    std_logic_vector(c_NB_COL-1 downto 0)     ; --! SQUID1 DAC Clocks
          o_clk_science        => o_clk_science        , -- out    std_logic                                 ; --! Science Data Clock
          o_pll_main_lock      => pll_main_lock          -- out    std_logic                                   --! Main Pll Status ('0' = Pll not locked, '1' = Pll locked)
    );
@@ -85,11 +85,13 @@ begin
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Asynchronous reset internal
+   --    @Req : DRE-DMX-FW-REQ-0050
    -- ------------------------------------------------------------------------------------------------------
    arst_n <= i_arst_n and pll_main_lock;
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Reset on system clock generation
+   --    @Req : DRE-DMX-FW-REQ-0050
    -- ------------------------------------------------------------------------------------------------------
    P_rst : process (arst_n, clk)
    begin
@@ -108,6 +110,7 @@ begin
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Reset on SQUID1 pulse shaping Clock generation
+   --    @Req : DRE-DMX-FW-REQ-0050
    -- ------------------------------------------------------------------------------------------------------
    P_rst_sq1_pls_shape : process (arst_n, clk_sq1_pls_shape)
    begin
@@ -126,6 +129,7 @@ begin
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Reset on SQUID1 pulse shaping Clock generation
+   --    @Req : DRE-DMX-FW-REQ-0050
    -- ------------------------------------------------------------------------------------------------------
    P_rst_sq1_adc : process (arst_n, clk_sq1_adc(clk_sq1_adc'high))
    begin

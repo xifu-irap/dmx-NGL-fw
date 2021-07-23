@@ -37,8 +37,8 @@ entity science_data_tx is port
          i_clk                : in     std_logic                                                            ; --! System Clock
 
          i_science_data_tx_ena: in     std_logic                                                            ; --! Science Data transmit enable
-         i_science_data       : in     t_sc_data_w(0 to c_DMX_NB_COL*c_SC_DATA_SER_NB)                      ; --! Science Data word
-         o_science_data_ser   : out    std_logic_vector(c_DMX_NB_COL*c_SC_DATA_SER_NB downto 0)               --! Science Data – Serial Data
+         i_science_data       : in     t_sc_data_w(0 to c_NB_COL*c_SC_DATA_SER_NB)                          ; --! Science Data word
+         o_science_data_ser   : out    std_logic_vector(c_NB_COL*c_SC_DATA_SER_NB downto 0)                   --! Science Data – Serial Data
    );
 end entity science_data_tx;
 
@@ -48,7 +48,7 @@ constant c_SER_BIT_CNT_MAX_VAL: integer:= c_SER_BIT_CNT_NB_VAL-2                
 constant c_SER_BIT_CNT_S      : integer:= log2_ceil(c_SER_BIT_CNT_MAX_VAL+1)+1                              ; --! Serial bit counter: size bus (signed)
 
 signal   ser_bit_cnt          : std_logic_vector(c_SER_BIT_CNT_S-1 downto 0)                                ; --! Serial bit counter
-signal   science_data_ser     : t_sc_data_w(0 to c_DMX_NB_COL*c_SC_DATA_SER_NB)                             ; --! Science Data – Serial Data
+signal   science_data_ser     : t_sc_data_w(0 to c_NB_COL*c_SC_DATA_SER_NB)                                 ; --! Science Data – Serial Data
 
 begin
 

@@ -45,8 +45,8 @@ entity in_rs_clk_sq1_adc is port
          i_c3_sq1_adc_oor     : in     std_logic                                                            ; --! SQUID1 ADC, col. 3 - Out of range (‘0’ = No, ‘1’ = under/over range)
 
          o_sync_radc          : out    std_logic                                                            ; --! Pixel sequence synchronization, synchronized on SQUID1 ADC Clock
-         o_sq1_adc_data_radc  : out    t_sq1_adc_data_v(0 to c_DMX_NB_COL-1)                                ; --! SQUID1 ADC - Data, synchronized on SQUID1 ADC Clock
-         o_sq1_adc_oor_radc   : out    std_logic_vector(c_DMX_NB_COL-1 downto 0)                              --! SQUID1 ADC - Out of range, sync. on SQUID1 ADC Clock (‘0’= No, ‘1’= under/over range)
+         o_sq1_adc_data_radc  : out    t_sq1_adc_data_v(0 to c_NB_COL-1)                                    ; --! SQUID1 ADC - Data, synchronized on SQUID1 ADC Clock
+         o_sq1_adc_oor_radc   : out    std_logic_vector(c_NB_COL-1 downto 0)                                  --! SQUID1 ADC - Out of range, sync. on SQUID1 ADC Clock (‘0’= No, ‘1’= under/over range)
    );
 end entity in_rs_clk_sq1_adc;
 

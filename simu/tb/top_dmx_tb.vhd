@@ -47,7 +47,8 @@ signal   c0_clk_sq1_dac       : std_logic                                       
 signal   c1_clk_sq1_dac       : std_logic                                                                   ; --! SQUID1 DAC, col. 1 - Clock
 signal   c2_clk_sq1_dac       : std_logic                                                                   ; --! SQUID1 DAC, col. 2 - Clock
 signal   c3_clk_sq1_dac       : std_logic                                                                   ; --! SQUID1 DAC, col. 3 - Clock
-signal   clk_science          : std_logic                                                                   ; --! Science Data - Clock
+signal   clk_science_01       : std_logic                                                                   ; --! Science Data - Clock channel 0/1
+signal   clk_science_23       : std_logic                                                                   ; --! Science Data - Clock channel 2/3
 
 signal   brd_ref              : std_logic_vector(     c_BRD_REF_S-1 downto 0)                               ; --! Board reference
 signal   brd_model            : std_logic_vector(   c_BRD_MODEL_S-1 downto 0)                               ; --! Board model
@@ -67,7 +68,8 @@ signal   c1_sq1_dac_data      : std_logic_vector(c_SQ1_DAC_DATA_S-1 downto 0)   
 signal   c2_sq1_dac_data      : std_logic_vector(c_SQ1_DAC_DATA_S-1 downto 0)                               ; --! SQUID1 DAC, col. 2 - Data
 signal   c3_sq1_dac_data      : std_logic_vector(c_SQ1_DAC_DATA_S-1 downto 0)                               ; --! SQUID1 DAC, col. 3 - Data
 
-signal   science_ctrl         : std_logic                                                                   ; --! Science Data – Control
+signal   science_ctrl_01      : std_logic                                                                   ; --! Science Data – Control channel 0/1
+signal   science_ctrl_23      : std_logic                                                                   ; --! Science Data – Control channel 2/3
 signal   c0_science_data      : std_logic_vector(c_SC_DATA_SER_NB-1 downto 0)                               ; --! Science Data, col. 0 – Serial Data
 signal   c1_science_data      : std_logic_vector(c_SC_DATA_SER_NB-1 downto 0)                               ; --! Science Data, col. 1 – Serial Data
 signal   c2_science_data      : std_logic_vector(c_SC_DATA_SER_NB-1 downto 0)                               ; --! Science Data, col. 2 – Serial Data
@@ -168,7 +170,8 @@ begin
          o_c1_clk_sq1_dac     => c1_clk_sq1_dac       , -- out    std_logic                                 ; --! SQUID1 DAC, col. 1 - Clock
          o_c2_clk_sq1_dac     => c2_clk_sq1_dac       , -- out    std_logic                                 ; --! SQUID1 DAC, col. 2 - Clock
          o_c3_clk_sq1_dac     => c3_clk_sq1_dac       , -- out    std_logic                                 ; --! SQUID1 DAC, col. 3 - Clock
-         o_clk_science        => clk_science          , -- out    std_logic                                 ; --! Science Data - Clock
+         o_clk_science_01     => clk_science_01       , -- out    std_logic                                 ; --! Science Data - Clock channel 0/1
+         o_clk_science_23     => clk_science_23       , -- out    std_logic                                 ; --! Science Data - Clock channel 2/3
 
          i_brd_ref            => brd_ref              , -- in     std_logic_vector(  c_BRD_REF_S-1 downto 0); --! Board reference
          i_brd_model          => brd_model            , -- in     std_logic_vector(c_BRD_MODEL_S-1 downto 0); --! Board model
@@ -188,7 +191,8 @@ begin
          o_c2_sq1_dac_data    => c2_sq1_dac_data      , -- out    slv(c_SQ1_DAC_DATA_S-1 downto 0)          ; --! SQUID1 DAC, col. 2 - Data
          o_c3_sq1_dac_data    => c3_sq1_dac_data      , -- out    slv(c_SQ1_DAC_DATA_S-1 downto 0)          ; --! SQUID1 DAC, col. 3 - Data
 
-         o_science_ctrl       => science_ctrl         , -- out    std_logic                                 ; --! Science Data – Control
+         o_science_ctrl_01    => science_ctrl_01      , -- out    std_logic                                 ; --! Science Data – Control channel 0/1
+         o_science_ctrl_23    => science_ctrl_23      , -- out    std_logic                                 ; --! Science Data – Control channel 2/3
          o_c0_science_data    => c0_science_data      , -- out    slv(c_SCIENCE_DATA_S-1 downto 0)          ; --! Science Data, col. 0 – Serial Data
          o_c1_science_data    => c1_science_data      , -- out    slv(c_SCIENCE_DATA_S-1 downto 0)          ; --! Science Data, col. 1 – Serial Data
          o_c2_science_data    => c2_science_data      , -- out    slv(c_SCIENCE_DATA_S-1 downto 0)          ; --! Science Data, col. 2 – Serial Data
