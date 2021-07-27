@@ -67,6 +67,10 @@ quietly set SRC_FILES {
    register_mgt.vhd
    spi_master.vhd
    science_data_tx.vhd
+   hk_mgt.vhd
+   squid_adc_mgt.vhd
+   squid_dac_mgt.vhd
+   squid_spi_mgt.vhd
    top_dmx.vhd
 }
 

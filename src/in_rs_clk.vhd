@@ -44,11 +44,6 @@ entity in_rs_clk is port
          i_ep_spi_sclk        : in     std_logic                                                            ; --! EP - SPI Serial Clock (CPOL = ‘0’, CPHA = ’0’)
          i_ep_spi_cs_n        : in     std_logic                                                            ; --! EP - SPI Chip Select ('0' = Active, '1' = Inactive)
 
-         i_c0_sq1_adc_spi_sdio: in     std_logic                                                            ; --! SQUID1 ADC, col. 0 - SPI Serial Data In Out
-         i_c1_sq1_adc_spi_sdio: in     std_logic                                                            ; --! SQUID1 ADC, col. 1 - SPI Serial Data In Out
-         i_c2_sq1_adc_spi_sdio: in     std_logic                                                            ; --! SQUID1 ADC, col. 2 - SPI Serial Data In Out
-         i_c3_sq1_adc_spi_sdio: in     std_logic                                                            ; --! SQUID1 ADC, col. 3 - SPI Serial Data In Out
-
          o_brd_ref_rs         : out    std_logic_vector(     c_BRD_REF_S-1 downto 0)                        ; --! Board reference, synchronized on System Clock
          o_brd_model_rs       : out    std_logic_vector(   c_BRD_MODEL_S-1 downto 0)                        ; --! Board model, synchronized on System Clock
          o_sync_rs            : out    std_logic                                                            ; --! Pixel sequence synchronization, synchronized on System Clock
@@ -57,9 +52,7 @@ entity in_rs_clk is port
 
          o_ep_spi_mosi_rs     : out    std_logic                                                            ; --! EP - SPI Master Input Slave Output (MSB first), synchronized on System Clock
          o_ep_spi_sclk_rs     : out    std_logic                                                            ; --! EP - SPI Serial Clock (CPOL = ‘0’, CPHA = ’0’), synchronized on System Clock
-         o_ep_spi_cs_n_rs     : out    std_logic                                                            ; --! EP - SPI Chip Select ('0' = Active, '1' = Inactive), synchronized on System Clock
-
-         o_sq1_adc_spi_sdio_rs: out    std_logic_vector(c_NB_COL-1 downto 0)                                  --! SQUID1 ADC - SPI Serial Data In Out, synchronized on System Clock
+         o_ep_spi_cs_n_rs     : out    std_logic                                                              --! EP - SPI Chip Select ('0' = Active, '1' = Inactive), synchronized on System Clock
    );
 end entity in_rs_clk;
 
@@ -76,11 +69,6 @@ signal   hk1_spi_miso_r       : std_logic_vector(c_FF_RSYNC_NB-1 downto 0)      
 signal   ep_spi_mosi_r        : std_logic_vector(c_FF_RSYNC_NB-1 downto 0)                                  ; --! EP - SPI Master Input Slave Output register (MSB first)
 signal   ep_spi_sclk_r        : std_logic_vector(c_FF_RSYNC_NB-1 downto 0)                                  ; --! EP - SPI Serial Clock register (CPOL = ‘0’, CPHA = ’0’)
 signal   ep_spi_cs_n_r        : std_logic_vector(c_FF_RSYNC_NB-1 downto 0)                                  ; --! EP - SPI Chip Select register ('0' = Active, '1' = Inactive)
-
-signal   c0_sq1_adc_spi_sdio_r: std_logic_vector(c_FF_RSYNC_NB-1 downto 0)                                  ; --! SQUID1 ADC, col. 0 - SPI Serial Data In Out register
-signal   c1_sq1_adc_spi_sdio_r: std_logic_vector(c_FF_RSYNC_NB-1 downto 0)                                  ; --! SQUID1 ADC, col. 1 - SPI Serial Data In Out register
-signal   c2_sq1_adc_spi_sdio_r: std_logic_vector(c_FF_RSYNC_NB-1 downto 0)                                  ; --! SQUID1 ADC, col. 2 - SPI Serial Data In Out register
-signal   c3_sq1_adc_spi_sdio_r: std_logic_vector(c_FF_RSYNC_NB-1 downto 0)                                  ; --! SQUID1 ADC, col. 3 - SPI Serial Data In Out register
 
 begin
 
@@ -100,11 +88,6 @@ begin
          ep_spi_sclk_r        <= (others => c_I_SPI_SCLK_DEF);
          ep_spi_cs_n_r        <= (others => c_I_SPI_CS_N_DEF);
 
-         c0_sq1_adc_spi_sdio_r<= (others => c_I_SPI_DATA_DEF);
-         c1_sq1_adc_spi_sdio_r<= (others => c_I_SPI_DATA_DEF);
-         c2_sq1_adc_spi_sdio_r<= (others => c_I_SPI_DATA_DEF);
-         c3_sq1_adc_spi_sdio_r<= (others => c_I_SPI_DATA_DEF);
-
       elsif rising_edge(i_clk) then
          brd_ref_r            <= i_brd_ref   & brd_ref_r(  0 to brd_ref_r'high-1);
          brd_model_r          <= i_brd_model & brd_model_r(0 to brd_model_r'high-1);
@@ -114,11 +97,6 @@ begin
          ep_spi_mosi_r        <= ep_spi_mosi_r(ep_spi_mosi_r'high-1 downto 0) & i_ep_spi_mosi;
          ep_spi_sclk_r        <= ep_spi_sclk_r(ep_spi_sclk_r'high-1 downto 0) & i_ep_spi_sclk;
          ep_spi_cs_n_r        <= ep_spi_cs_n_r(ep_spi_cs_n_r'high-1 downto 0) & i_ep_spi_cs_n;
-
-         c0_sq1_adc_spi_sdio_r<= c0_sq1_adc_spi_sdio_r(c0_sq1_adc_spi_sdio_r'high-1 downto 0) & i_c0_sq1_adc_spi_sdio;
-         c1_sq1_adc_spi_sdio_r<= c1_sq1_adc_spi_sdio_r(c1_sq1_adc_spi_sdio_r'high-1 downto 0) & i_c1_sq1_adc_spi_sdio;
-         c2_sq1_adc_spi_sdio_r<= c2_sq1_adc_spi_sdio_r(c2_sq1_adc_spi_sdio_r'high-1 downto 0) & i_c2_sq1_adc_spi_sdio;
-         c3_sq1_adc_spi_sdio_r<= c3_sq1_adc_spi_sdio_r(c3_sq1_adc_spi_sdio_r'high-1 downto 0) & i_c3_sq1_adc_spi_sdio;
 
       end if;
 
@@ -132,10 +110,5 @@ begin
    o_ep_spi_mosi_rs        <= ep_spi_mosi_r(ep_spi_mosi_r'high);
    o_ep_spi_sclk_rs        <= ep_spi_sclk_r(ep_spi_sclk_r'high);
    o_ep_spi_cs_n_rs        <= ep_spi_cs_n_r(ep_spi_cs_n_r'high);
-
-   o_sq1_adc_spi_sdio_rs(0)<= c0_sq1_adc_spi_sdio_r(c0_sq1_adc_spi_sdio_r'high);
-   o_sq1_adc_spi_sdio_rs(1)<= c1_sq1_adc_spi_sdio_r(c1_sq1_adc_spi_sdio_r'high);
-   o_sq1_adc_spi_sdio_rs(2)<= c2_sq1_adc_spi_sdio_r(c2_sq1_adc_spi_sdio_r'high);
-   o_sq1_adc_spi_sdio_rs(3)<= c3_sq1_adc_spi_sdio_r(c3_sq1_adc_spi_sdio_r'high);
 
 end architecture rtl;
