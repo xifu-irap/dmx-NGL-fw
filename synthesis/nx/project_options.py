@@ -57,7 +57,7 @@ def common_options(p,option):
         'OptimizedMux': 'Yes',
         'PolishingEffort': 'Medium',
         'RoutingEffort': 'High',
-        'TimingDriven': 'Yes',
+        'TimingDriven': 'No',
         'UnusedPads': 'Floating',
         'VariantAwareSynthesis': 'Yes'
     })

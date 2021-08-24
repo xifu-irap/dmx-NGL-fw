@@ -41,12 +41,13 @@ entity pll is port
    (     i_arst_n             : in     std_logic                                                            ; --! Asynchronous reset ('0' = Active, '1' = Inactive)
          i_clk_ref            : in     std_logic                                                            ; --! Reference Clock
 
-         i_cmd_ck_sq1_radc    : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! SQUID1 ADC Clocks switch commands (for each column: '0' = Inactive, '1' = Active)
-         i_cmd_ck_sq1_rpls    : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! SQUID1 DAC Clocks switch commands (for each column: '0' = Inactive, '1' = Active)
+         i_cmd_ck_sq1_adc     : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! SQUID1 ADC Clocks switch commands (for each column: '0' = Inactive, '1' = Active)
+         i_cmd_ck_sq1_dac     : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! SQUID1 DAC Clocks switch commands (for each column: '0' = Inactive, '1' = Active)
 
          o_clk                : out    std_logic                                                            ; --! System Clock
+         o_clk_sq1_adc_acq    : out    std_logic                                                            ; --! SQUID1 ADC acquisition Clock
          o_clk_sq1_pls_shape  : out    std_logic                                                            ; --! SQUID1 pulse shaping Clock
-         o_clk_sq1_adc        : out    std_logic_vector(c_NB_COL   downto 0)                                ; --! SQUID1 ADC Clocks, no clock switch for MSB clock bit
+         o_clk_sq1_adc        : out    std_logic_vector(c_NB_COL-1 downto 0)                                ; --! SQUID1 ADC Clocks
          o_clk_sq1_dac        : out    std_logic_vector(c_NB_COL-1 downto 0)                                ; --! SQUID1 DAC Clocks
          o_clk_science        : out    std_logic                                                            ; --! Science Data Clock
          o_pll_main_lock      : out    std_logic                                                              --! Main Pll Status ('0' = Pll not locked, '1' = Pll locked)
@@ -96,6 +97,7 @@ signal   clk_sq1_dac          : std_logic                                       
 signal   clk_sync_ref_end_seq : std_logic                                                                   ; --! Clock synchronous Ref. clock: End pattern sequence ('0': No, '1': Yes)
 signal   clk_end_seq          : std_logic                                                                   ; --! System clock: End pattern sequence ('0': No, '1': Yes)
 signal   clk_adc_end_seq      : std_logic                                                                   ; --! SQUID1 ADC Clock: End pattern sequence ('0': No, '1': Yes)
+signal   clk_adc_acq_end_seq  : std_logic                                                                   ; --! SQUID1 ADC acquisition Clock: End pattern sequence ('0': No, '1': Yes)
 signal   clk_dac_end_seq      : std_logic                                                                   ; --! SQUID1 DAC Clock: End pattern sequence ('0': No, '1': Yes)
 
 begin
@@ -197,13 +199,32 @@ begin
    );
 
    -- ------------------------------------------------------------------------------------------------------
+   --!  SQUID1 ADC acquisition Clock generation
+   -- ------------------------------------------------------------------------------------------------------
+   I_wfg_clk_adc_acq: entity nx.nx_wfg_l generic map
+   (     WFG_EDGE             => c_WFG_EDGE_INV_N     , -- bit                                              ; --! Input clock inverted ('0' = No, '1' = Yes)
+         DELAY_ON             => c_DEL_OFF            , -- bit                                              ; --! Delay on generated clock ('0' = No, '1' = Yes)
+         DELAY                => c_PRM_NU             , -- integer range 0 to 63                            ; --! Number of delay taps on generated clock (steps of 160 ps)
+         MODE                 => c_WFG_PATTERN_ON     , -- bit                                              ; --! WFG pattern used ('0' = No, '1' = Yes)
+         PATTERN_END          => c_CLK_ADC_N_PAT      , -- integer range 0 to 15                            ; --! Number of pattern to apply to generated clock
+         PATTERN              => c_CLK_ADC_PAT          -- bit_vector(0 to 15)                                --! Pattern applied to generated clock: use only PATTERN_END+1 MSB bits
+   )     port map
+   (     r                    => arst                 , -- in     std_logic                                 ; --! Reset ('0' = Inactive, '1' = Active)
+         si                   => clk_adc_acq_end_seq  , -- in     std_logic                                 ; --! Reset pattern sequence  ('0' = Inactive, '1' = Active)
+         zi                   => pll_main_vco         , -- in     std_logic                                 ; --! Input clock (connected to PLL VCO or D1, D2 or D3 output)
+         rdy                  => pll_main_lock        , -- in     std_logic                                 ; --! '1' for the WFG generating PLL clock on external feedback, pll_locked pin otherwise
+         so                   => clk_adc_acq_end_seq  , -- out    std_logic                                 ; --! End pattern sequence ('0': No, '1': Yes)
+         zo                   => o_clk_sq1_adc_acq      -- out    std_logic                                   --! Generated clock, connected to clock tree
+   );
+
+   -- ------------------------------------------------------------------------------------------------------
    --!  SQUID1 ADC Clock generation
    --    @Req : DRE-DMX-FW-REQ-0120
    -- ------------------------------------------------------------------------------------------------------
    I_wfg_clk_adc: entity nx.nx_wfg_l generic map
    (     WFG_EDGE             => c_WFG_EDGE_INV_N     , -- bit                                              ; --! Input clock inverted ('0' = No, '1' = Yes)
-         DELAY_ON             => c_DEL_OFF            , -- bit                                              ; --! Delay on generated clock ('0' = No, '1' = Yes)
-         DELAY                => c_PRM_NU             , -- integer range 0 to 63                            ; --! Number of delay taps on generated clock (steps of 160 ps)
+         DELAY_ON             => c_DEL_ON             , -- bit                                              ; --! Delay on generated clock ('0' = No, '1' = Yes)
+         DELAY                => c_CLK_ADC_DEL_STEP   , -- integer range 0 to 63                            ; --! Number of delay taps on generated clock (steps of 160 ps)
          MODE                 => c_WFG_PATTERN_ON     , -- bit                                              ; --! WFG pattern used ('0' = No, '1' = Yes)
          PATTERN_END          => c_CLK_ADC_N_PAT      , -- integer range 0 to 15                            ; --! Number of pattern to apply to generated clock
          PATTERN              => c_CLK_ADC_PAT          -- bit_vector(0 to 15)                                --! Pattern applied to generated clock: use only PATTERN_END+1 MSB bits
@@ -216,8 +237,6 @@ begin
          zo                   => clk_sq1_adc            -- out    std_logic                                   --! Generated clock, connected to clock tree
    );
 
-   o_clk_sq1_adc(o_clk_sq1_adc'high) <= clk_sq1_adc;
-
    -- ------------------------------------------------------------------------------------------------------
    --!  SQUID1 ADC Clock switchs
    --    @Req : DRE-DMX-FW-REQ-0110
@@ -227,7 +246,7 @@ begin
 
       I_cks_clk_sq1_adc: entity nx.nx_cks port map
       (  cki                  => clk_sq1_adc          , -- in     std_logic                                 ; --! Clock input
-         cmd                  => i_cmd_ck_sq1_radc(k) , -- in     std_logic                                 ; --! Switch command ('0' = Inactive, '1' = Active)
+         cmd                  => i_cmd_ck_sq1_adc(k)  , -- in     std_logic                                 ; --! Switch command ('0' = Inactive, '1' = Active)
          cko                  => o_clk_sq1_adc(k)       -- out    std_logic                                   --! Clock output
       );
 
@@ -281,7 +300,7 @@ begin
 
       I_cks_clk_sq1_dac: entity nx.nx_cks port map
       (  cki                  => clk_sq1_dac          , -- in     std_logic                                 ; --! Clock input
-         cmd                  => i_cmd_ck_sq1_rpls(k) , -- in     std_logic                                 ; --! Switch command ('0' = Inactive, '1' = Active)
+         cmd                  => i_cmd_ck_sq1_dac(k)  , -- in     std_logic                                 ; --! Switch command ('0' = Inactive, '1' = Active)
          cko                  => o_clk_sq1_dac(k)       -- out    std_logic                                   --! Clock output
       );
 

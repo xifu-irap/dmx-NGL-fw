@@ -144,8 +144,8 @@ signal   rst_sq1_pls_shape    : std_logic                                       
 signal   rst_sq1_adc          : std_logic                                                                   ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
 
 signal   clk                  : std_logic                                                                   ; --! System Clock
-signal   clk_sq1_adc          : std_logic                                                                   ; --! SQUID1 ADC Clock (MSB SQUID1 ADC Clocks vector)
-signal   clk_sq1_adc_v        : std_logic_vector(c_NB_COL   downto 0)                                       ; --! SQUID1 ADC Clocks vector
+signal   clk_sq1_adc_acq      : std_logic                                                                   ; --! SQUID1 ADC acquisition Clock
+signal   clk_sq1_adc_v        : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! SQUID1 ADC Clocks vector
 signal   clk_sq1_dac_v        : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! SQUID1 DAC Clocks
 signal   clk_sq1_pls_shape    : std_logic                                                                   ; --! SQUID1 pulse shaping Clock
 
@@ -158,12 +158,13 @@ signal   ep_spi_mosi_rs       : std_logic                                       
 signal   ep_spi_sclk_rs       : std_logic                                                                   ; --! EP - SPI Serial Clock (CPOL = ‘0’, CPHA = ’0’), synchronized on System Clock
 signal   ep_spi_cs_n_rs       : std_logic                                                                   ; --! EP - SPI Chip Select ('0' = Active, '1' = Inactive), synchronized on System Clock
 
-signal   cmd_ck_sq1_radc      : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! SQUID1 ADC Clocks switch commands, synchronized on SQUID1 ADC Clock
+signal   cmd_ck_sq1_adc       : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! SQUID1 ADC Clocks switch commands
+signal   cmd_ck_sq1_dac       : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! SQUID1 DAC Clocks switch commands
+
 signal   sync_radc            : std_logic                                                                   ; --! Pixel sequence synchronization, synchronized on SQUID1 ADC Clock
 signal   sq1_adc_data_radc    : t_sq1_adc_data_v(0 to c_NB_COL-1)                                           ; --! SQUID1 ADC - Data, synchronized on SQUID1 ADC Clock
 signal   sq1_adc_oor_radc     : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! SQUID1 ADC - Out of range, sync. on SQUID1 ADC Clock (‘0’= No, ‘1’= under/over range)
 
-signal   cmd_ck_sq1_rpls      : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! SQUID1 DAC Clocks switch commands, synchronized on pulse shaping Clock
 signal   sync_rpls            : std_logic                                                                   ; --! Pixel sequence synchronization, synchronized on SQUID1 pulse shaping Clock
 signal   sq1_dac_data         : t_sq1_dac_data_v(0 to c_NB_COL-1)                                           ; --! SQUID1 DAC - Data
 signal   sq2_dac_mux          : t_sq2_dac_mux_v( 0 to c_NB_COL-1)                                           ; --! SQUID2 DAC - Multiplexer
@@ -203,21 +204,20 @@ begin
    (     i_arst_n             => i_arst_n             , -- in     std_logic                                 ; --! Asynchronous reset ('0' = Active, '1' = Inactive)
          i_clk_ref            => i_clk_ref            , -- in     std_logic                                 ; --! Reference Clock
 
-         i_cmd_ck_sq1_radc    => cmd_ck_sq1_radc      , -- in     std_logic_vector(c_NB_COL-1 downto 0)     ; --! SQUID1 ADC Clocks switch commands (for each column: '0' = Inactive, '1' = Active)
-         i_cmd_ck_sq1_rpls    => cmd_ck_sq1_rpls      , -- in     std_logic_vector(c_NB_COL-1 downto 0)     ; --! SQUID1 DAC Clocks switch commands (for each column: '0' = Inactive, '1' = Active)
+         i_cmd_ck_sq1_adc     => cmd_ck_sq1_adc       , -- in     std_logic_vector(c_NB_COL-1 downto 0)     ; --! SQUID1 ADC Clocks switch commands (for each column: '0' = Inactive, '1' = Active)
+         i_cmd_ck_sq1_dac     => cmd_ck_sq1_dac       , -- in     std_logic_vector(c_NB_COL-1 downto 0)     ; --! SQUID1 DAC Clocks switch commands (for each column: '0' = Inactive, '1' = Active)
 
          o_rst                => rst                  , -- out    std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          o_rst_sq1_pls_shape  => rst_sq1_pls_shape    , -- out    std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          o_rst_sq1_adc        => rst_sq1_adc          , -- out    std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
 
          o_clk                => clk                  , -- out    std_logic                                 ; --! System Clock
+         o_clk_sq1_adc_acq    => clk_sq1_adc_acq      , -- out    std_logic                                 ; --! SQUID1 ADC acquisition Clock
          o_clk_sq1_pls_shape  => clk_sq1_pls_shape    , -- out    std_logic                                 ; --! SQUID1 pulse shaping Clock
-         o_clk_sq1_adc        => clk_sq1_adc_v        , -- out    std_logic_vector(c_NB_COL   downto 0)     ; --! SQUID1 ADC Clocks, no clock switch for MSB clock bit
+         o_clk_sq1_adc        => clk_sq1_adc_v        , -- out    std_logic_vector(c_NB_COL-1 downto 0)     ; --! SQUID1 ADC Clocks
          o_clk_sq1_dac        => clk_sq1_dac_v        , -- out    std_logic_vector(c_NB_COL-1 downto 0)     ; --! SQUID1 DAC Clocks
          o_clk_science        => clk_science            -- out    std_logic                                   --! Science Data Clock
    );
-
-   clk_sq1_adc      <= clk_sq1_adc_v(clk_sq1_adc_v'high);
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Data resynchronization on System Clock
@@ -252,7 +252,7 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    I_in_rs_clk_sq1_adc: entity work.in_rs_clk_sq1_adc port map
    (     i_rst_sq1_adc        => rst_sq1_adc          , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
-         i_clk_sq1_adc        => clk_sq1_adc          , -- in     std_logic                                 ; --! SQUID1 ADC Clock
+         i_clk_sq1_adc_acq    => clk_sq1_adc_acq      , -- in     std_logic                                 ; --! SQUID1 ADC acquisition Clock
 
          i_sync               => i_sync               , -- in     std_logic                                 ; --! Pixel sequence synchronization (R.E. detected = position sequence to the first pixel)
          i_c0_sq1_adc_data    => i_c0_sq1_adc_data    , -- in     slv(c_SQ1_ADC_DATA_S-1 downto 0)          ; --! SQUID1 ADC, col. 0 - Data
@@ -313,7 +313,9 @@ begin
          i_ep_cmd_rx_rw       => ep_cmd_rx_rw         , -- in     std_logic                                 ; --! EP command receipted: read/write bit
          i_ep_cmd_rx_noerr_rdy=> ep_cmd_rx_noerr_rdy  , -- in     std_logic                                 ; --! EP command receipted with no address/length error ready ('0'= Not ready, '1'= Ready)
 
-         o_ep_cmd_tx_wd_rd_rg => ep_cmd_tx_wd_rd_rg     -- out    std_logic_vector(c_EP_SPI_WD_S-1 downto 0)  --! EP command to transmit: read register word
+         o_ep_cmd_tx_wd_rd_rg => ep_cmd_tx_wd_rd_rg   , -- out    std_logic_vector(c_EP_SPI_WD_S-1 downto 0); --! EP command to transmit: read register word
+         o_cmd_ck_sq1_adc     => cmd_ck_sq1_adc       , -- out    std_logic_vector(c_NB_COL-1 downto 0)     ; --! SQUID1 ADC Clocks switch commands (for each column: '0' = Inactive, '1' = Active)
+         o_cmd_ck_sq1_dac     => cmd_ck_sq1_dac         -- out    std_logic_vector(c_NB_COL-1 downto 0)       --! SQUID1 DAC Clocks switch commands (for each column: '0' = Inactive, '1' = Active)
    );
 
    -- ------------------------------------------------------------------------------------------------------
@@ -363,23 +365,21 @@ begin
    G_column_mgt: for k in 0 to c_NB_COL-1 generate
    begin
 
-      I_squid_adc_mgt: entity work.squid_adc_mgt port map
-      (  i_rst_sq1_adc        => rst_sq1_adc          , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
-         i_clk_sq1_adc        => clk_sq1_adc          , -- in     std_logic                                 ; --! SQUID1 ADC Clock
-
-         i_sync_radc          => sync_radc            , -- in     std_logic                                 ; --! Pixel sequence synchronization, synchronized on SQUID1 ADC Clock
-         i_sq1_adc_data_radc  => sq1_adc_data_radc(k) , -- in     slv(c_SQ1_ADC_DATA_S-1 downto 0)          ; --! SQUID1 ADC - Data, synchronized on SQUID1 ADC Clock
-         i_sq1_adc_oor_radc   => sq1_adc_oor_radc(k)  , -- in     std_logic                                 ; --! SQUID1 ADC - Out of range, sync. on SQUID1 ADC Clock (‘0’= No, ‘1’= under/over range)
-
-         o_cmd_ck_sq1_radc    => cmd_ck_sq1_radc(k)     -- out    std_logic                                   --! SQUID1 ADC Clock switch command, synchronized on SQUID1 ADC Clock
-      );
+--TODO
+--      I_squid_adc_mgt: entity work.squid_adc_mgt port map
+--      (  i_rst_sq1_adc        => rst_sq1_adc          , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+--         i_clk_sq1_adc_acq    => clk_sq1_adc_acq      , -- in     std_logic                                 ; --! SQUID1 ADC acquisitionClock
+--
+--         i_sync_radc          => sync_radc            , -- in     std_logic                                 ; --! Pixel sequence synchronization, synchronized on SQUID1 ADC Clock
+--         i_sq1_adc_data_radc  => sq1_adc_data_radc(k) , -- in     slv(c_SQ1_ADC_DATA_S-1 downto 0)          ; --! SQUID1 ADC - Data, synchronized on SQUID1 ADC Clock
+--         i_sq1_adc_oor_radc   => sq1_adc_oor_radc(k)    -- in     std_logic                                 ; --! SQUID1 ADC - Out of range, sync. on SQUID1 ADC Clock (‘0’= No, ‘1’= under/over range)
+--      );
 
       I_squid_dac_mgt: entity work.squid_dac_mgt port map
       (  i_rst_sq1_pls_shape  => rst_sq1_pls_shape    , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk_sq1_pls_shape  => clk_sq1_pls_shape    , -- in     std_logic                                 ; --! SQUID1 pulse shaping Clock
 
          i_sync_rpls          => sync_rpls            , -- in     std_logic                                 ; --! Pixel sequence synchronization, synchronized on pulse shaping Clock
-         o_cmd_ck_sq1_rpls    => cmd_ck_sq1_rpls(k)   , -- out    std_logic                                 ; --! SQUID1 DAC Clock switch command, synchronized on pulse shaping Clock
 
          o_sq1_dac_data       => sq1_dac_data(k)      , -- out    slv(c_SQ1_DAC_DATA_S-1 downto 0)          ; --! SQUID1 DAC - Data
          o_sq2_dac_mux        => sq2_dac_mux(k)         -- out    slv(c_SQ2_DAC_MUX_S -1 downto 0)          ; --!	SQUID2 DAC - Multiplexer
@@ -408,10 +408,10 @@ begin
    o_c2_clk_sq1_adc     <= clk_sq1_adc_v(2);
    o_c3_clk_sq1_adc     <= clk_sq1_adc_v(3);
 
-   o_c0_sq1_adc_pwdn    <= not(cmd_ck_sq1_radc(0));
-   o_c1_sq1_adc_pwdn    <= not(cmd_ck_sq1_radc(1));
-   o_c2_sq1_adc_pwdn    <= not(cmd_ck_sq1_radc(2));
-   o_c3_sq1_adc_pwdn    <= not(cmd_ck_sq1_radc(3));
+   o_c0_sq1_adc_pwdn    <= not(cmd_ck_sq1_adc(0));
+   o_c1_sq1_adc_pwdn    <= not(cmd_ck_sq1_adc(1));
+   o_c2_sq1_adc_pwdn    <= not(cmd_ck_sq1_adc(2));
+   o_c3_sq1_adc_pwdn    <= not(cmd_ck_sq1_adc(3));
 
    b_c0_sq1_adc_spi_sdio<= sq1_adc_spi_mosi(0);
    b_c1_sq1_adc_spi_sdio<= sq1_adc_spi_mosi(1);
@@ -441,10 +441,10 @@ begin
    o_c2_sq1_dac_data    <= sq1_dac_data(2);
    o_c3_sq1_dac_data    <= sq1_dac_data(3);
 
-   o_c0_sq1_dac_sleep   <= not(cmd_ck_sq1_rpls(0));
-   o_c1_sq1_dac_sleep   <= not(cmd_ck_sq1_rpls(1));
-   o_c2_sq1_dac_sleep   <= not(cmd_ck_sq1_rpls(2));
-   o_c3_sq1_dac_sleep   <= not(cmd_ck_sq1_rpls(3));
+   o_c0_sq1_dac_sleep   <= not(cmd_ck_sq1_dac(0));
+   o_c1_sq1_dac_sleep   <= not(cmd_ck_sq1_dac(1));
+   o_c2_sq1_dac_sleep   <= not(cmd_ck_sq1_dac(2));
+   o_c3_sq1_dac_sleep   <= not(cmd_ck_sq1_dac(3));
 
    -- ------------------------------------------------------------------------------------------------------
    --!   SQUID2 DAC outputs association
@@ -475,7 +475,7 @@ begin
    o_c3_sq2_dac_sync_n  <= sq2_dac_sync_n(3);
 
    -- ------------------------------------------------------------------------------------------------------
-   --!   SQUID2 DAC outputs association
+   --!   Science Data outputs association
    -- ------------------------------------------------------------------------------------------------------
    o_clk_science_01     <= clk_science;
    o_clk_science_23     <= clk_science;

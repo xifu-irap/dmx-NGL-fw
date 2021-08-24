@@ -61,7 +61,7 @@ entity parser is generic
          i_d_rst_sq1_pls_shap : in     std_logic                                                            ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
 
          i_d_clk              : in     std_logic                                                            ; --! Internal design: System Clock
-         i_d_clk_sq1_adc      : in     std_logic                                                            ; --! Internal design: SQUID1 ADC Clock (MSB SQUID1 ADC Clocks vector)
+         i_d_clk_sq1_adc_acq  : in     std_logic                                                            ; --! Internal design: SQUID1 ADC acquisition Clock
          i_d_clk_sq1_pls_shap : in     std_logic                                                            ; --! Internal design: SQUID1 pulse shaping Clock
 
          i_ep_data_rx         : in     std_logic_vector(c_EP_CMD_S-1 downto 0)                              ; --! EP - Receipted data
@@ -104,7 +104,7 @@ begin
    discrete_r(c_DR_D_RST)           <= i_d_rst;
    discrete_r(c_DR_CLK_REF)         <= i_clk_ref;
    discrete_r(c_DR_D_CLK)           <= i_d_clk;
-   discrete_r(c_DR_D_CLK_SQ1_ADC)   <= i_d_clk_sq1_adc;
+   discrete_r(c_DR_D_CLK_SQ1_ADC)   <= i_d_clk_sq1_adc_acq;
    discrete_r(c_DR_D_CLK_SQ1_PLS_SH)<= i_d_clk_sq1_pls_shap;
    discrete_r(c_DR_EP_CMD_BUSY_N)   <= i_ep_cmd_busy_n;
    discrete_r(c_DR_EP_DATA_RX_RDY)  <= i_ep_data_rx_rdy;
@@ -119,7 +119,7 @@ begin
    dr_last_event(c_DR_D_RST)           <= i_d_rst'last_event;
    dr_last_event(c_DR_CLK_REF)         <= i_clk_ref'last_event;
    dr_last_event(c_DR_D_CLK)           <= i_d_clk'last_event;
-   dr_last_event(c_DR_D_CLK_SQ1_ADC)   <= i_d_clk_sq1_adc'last_event;
+   dr_last_event(c_DR_D_CLK_SQ1_ADC)   <= i_d_clk_sq1_adc_acq'last_event;
    dr_last_event(c_DR_D_CLK_SQ1_PLS_SH)<= i_d_clk_sq1_pls_shap'last_event;
    dr_last_event(c_DR_EP_CMD_BUSY_N)   <= i_ep_cmd_busy_n'last_event;
    dr_last_event(c_DR_EP_DATA_RX_RDY)  <= i_ep_data_rx_rdy'last_event;

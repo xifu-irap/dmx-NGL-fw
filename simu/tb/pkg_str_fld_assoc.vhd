@@ -158,7 +158,7 @@ constant c_RET_UKWN           : std_logic_vector(c_EP_SPI_WD_S-1 downto 0) := (o
          when "clk                 "   =>
             o_fld_dr_ind := c_DR_D_CLK;
 
-         when "clk_sq1_adc         "   =>
+         when "clk_sq1_adc_acq     "   =>
             o_fld_dr_ind := c_DR_D_CLK_SQ1_ADC;
 
          when "clk_sq1_pls_shape   "   =>

@@ -49,7 +49,10 @@ entity register_mgt is port
          i_ep_cmd_rx_rw       : in     std_logic                                                            ; --! EP command receipted: read/write bit
          i_ep_cmd_rx_noerr_rdy: in     std_logic                                                            ; --! EP command receipted with no address/length error ready ('0'= Not ready, '1'= Ready)
 
-         o_ep_cmd_tx_wd_rd_rg : out    std_logic_vector(c_EP_SPI_WD_S-1 downto 0)                             --! EP command to transmit: read register word
+         o_ep_cmd_tx_wd_rd_rg : out    std_logic_vector(c_EP_SPI_WD_S-1 downto 0)                           ; --! EP command to transmit: read register word
+         o_cmd_ck_sq1_adc     : out    std_logic_vector(c_NB_COL-1 downto 0)                                ; --! SQUID1 ADC Clocks switch commands (for each column: '0' = Inactive, '1' = Active)
+         o_cmd_ck_sq1_dac     : out    std_logic_vector(c_NB_COL-1 downto 0)                                  --! SQUID1 DAC Clocks switch commands (for each column: '0' = Inactive, '1' = Active)
+
    );
 end entity register_mgt;
 
@@ -90,5 +93,7 @@ begin
    o_ep_cmd_sts_err_nin   <= '0';
    o_ep_cmd_sts_err_dis   <= '0';
    o_ep_cmd_sts_err_out   <= '0';
+   o_cmd_ck_sq1_adc       <= (others => '1');
+   o_cmd_ck_sq1_dac       <= (others => '1');
 
 end architecture RTL;

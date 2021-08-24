@@ -32,7 +32,7 @@ use     work.pkg_project.all;
 
 entity in_rs_clk_sq1_adc is port
    (     i_rst_sq1_adc        : in     std_logic                                                            ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
-         i_clk_sq1_adc        : in     std_logic                                                            ; --! SQUID1 ADC Clock
+         i_clk_sq1_adc_acq    : in     std_logic                                                            ; --! SQUID1 ADC acquisition Clock
 
          i_sync               : in     std_logic                                                            ; --! Pixel sequence synchronization (R.E. detected = position sequence to the first pixel)
          i_c0_sq1_adc_data    : in     std_logic_vector(c_SQ1_ADC_DATA_S-1 downto 0)                        ; --! SQUID1 ADC, col. 0 - Data
@@ -68,7 +68,7 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   Resynchronization
    -- ------------------------------------------------------------------------------------------------------
-   P_rsync : process (i_rst_sq1_adc, i_clk_sq1_adc)
+   P_rsync : process (i_rst_sq1_adc, i_clk_sq1_adc_acq)
    begin
 
       if i_rst_sq1_adc = '1' then
@@ -84,13 +84,13 @@ begin
          c2_sq1_adc_oor_r  <= (others => c_I_SQ1_ADC_OOR_DEF);
          c3_sq1_adc_oor_r  <= (others => c_I_SQ1_ADC_OOR_DEF);
 
-      elsif rising_edge(i_clk_sq1_adc) then
+      elsif rising_edge(i_clk_sq1_adc_acq) then
          sync_r            <= sync_r(                      sync_r'high-1 downto 0) & i_sync;
 
          c0_sq1_adc_data_r <= i_c0_sq1_adc_data & c0_sq1_adc_data_r(0 to c0_sq1_adc_data_r'high-1);
          c1_sq1_adc_data_r <= i_c1_sq1_adc_data & c1_sq1_adc_data_r(0 to c1_sq1_adc_data_r'high-1);
          c2_sq1_adc_data_r <= i_c2_sq1_adc_data & c2_sq1_adc_data_r(0 to c2_sq1_adc_data_r'high-1);
-         c3_sq1_adc_data_r <= i_c3_sq1_adc_data & c3_sq1_adc_data_r(0 to c3_sq1_adc_data_r'high-1);         
+         c3_sq1_adc_data_r <= i_c3_sq1_adc_data & c3_sq1_adc_data_r(0 to c3_sq1_adc_data_r'high-1);
 
          c0_sq1_adc_oor_r  <= c0_sq1_adc_oor_r(c0_sq1_adc_oor_r'high-1 downto 0) & i_c0_sq1_adc_oor;
          c1_sq1_adc_oor_r  <= c1_sq1_adc_oor_r(c1_sq1_adc_oor_r'high-1 downto 0) & i_c1_sq1_adc_oor;

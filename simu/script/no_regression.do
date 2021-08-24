@@ -225,7 +225,7 @@ proc run_utest {args} {
          add wave -format Logic                                                                 sim:/top_dmx_tb/I_top_dmx/rst_sq1_adc
          add wave -format Logic                                                                 sim:/top_dmx_tb/I_top_dmx/rst_sq1_pls_shape
          add wave -format Logic                                                                 sim:/top_dmx_tb/I_top_dmx/clk
-         add wave -format Logic                                                                 sim:/top_dmx_tb/I_top_dmx/clk_sq1_adc
+         add wave -format Logic                                                                 sim:/top_dmx_tb/I_top_dmx/clk_sq1_adc_acq
          add wave -format Logic                                                                 sim:/top_dmx_tb/I_top_dmx/clk_sq1_pls_shape
          add wave -format Logic                                                                 sim:/top_dmx_tb/I_top_dmx/i_sync
 

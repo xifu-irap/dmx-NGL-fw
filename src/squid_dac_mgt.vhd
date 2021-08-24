@@ -35,7 +35,6 @@ entity squid_dac_mgt is port
          i_clk_sq1_pls_shape  : in     std_logic                                                            ; --! SQUID1 pulse shaping Clock
 
          i_sync_rpls          : in     std_logic                                                            ; --! Pixel sequence synchronization, synchronized on pulse shaping Clock
-         o_cmd_ck_sq1_rpls    : out    std_logic                                                            ; --! SQUID1 DAC Clock switch command, synchronized on pulse shaping Clock
 
          o_sq1_dac_data       : out    std_logic_vector(c_SQ1_DAC_DATA_S-1 downto 0)                        ; --! SQUID1 DAC - Data
          o_sq2_dac_mux        : out    std_logic_vector(c_SQ2_DAC_MUX_S -1 downto 0)                          --! SQUID2 DAC - Multiplexer
@@ -48,7 +47,6 @@ architecture RTL of squid_dac_mgt is
 begin
 
    -- TODO
-   o_cmd_ck_sq1_rpls <= '1';
    o_sq1_dac_data    <= (others => '0');
    o_sq2_dac_mux     <= (others => '0');
 

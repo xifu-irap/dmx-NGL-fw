@@ -29,6 +29,7 @@ use     ieee.std_logic_1164.all;
 
 library work;
 use     work.pkg_func_math.all;
+use     work.pkg_fpga_tech.all;
 
 package pkg_project is
 
@@ -66,6 +67,8 @@ constant c_CLK_FREQ           : integer   := c_CLK_MULT          * c_CLK_COM_FRE
 constant c_CLK_ADC_FREQ       : integer   := c_CLK_ADC_MULT      * c_CLK_COM_FREQ                           ; --! ADC Clock frequency (Hz)
 constant c_CLK_DAC_FREQ       : integer   := c_CLK_DAC_MULT      * c_CLK_COM_FREQ                           ; --! DAC Clock frequency (Hz)
 constant c_PLL_MAIN_VCO_FREQ  : integer   := c_PLL_MAIN_VCO_MULT * c_CLK_COM_FREQ                           ; --! PLL main VCO frequency (Hz)
+
+constant c_CLK_ADC_DEL_STEP   : integer   := div_floor(15*10**5/(c_CLK_ADC_FREQ/10**6) - 4400,c_IO_DEL_STEP); --! ADC Clock propagation delay step number
 
    -- ------------------------------------------------------------------------------------------------------
    --    Interface parameters
