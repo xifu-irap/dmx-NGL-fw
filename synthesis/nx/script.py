@@ -113,9 +113,6 @@ def __main__(Variant,TopCellLib,TopCellName,Option=None,Embedded=False):
 
     ############################################TIMING ANALYSIS#########################################
 
-    #standard
-    Timing_analysis = p.createAnalyzer()
-    Timing_analysis.launch({'conditions': 'typical', 'maximumSlack': 500, 'searchPathsLimit': 10})
     #Worstcase
     Timing_analysis = p.createAnalyzer()
     Timing_analysis.launch({'conditions': 'worstcase', 'maximumSlack': 500, 'searchPathsLimit': 10})

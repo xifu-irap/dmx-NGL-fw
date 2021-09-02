@@ -59,10 +59,20 @@ constant c_DR_D_CLK_SQ1_ADC   : integer :=  3                                   
 constant c_DR_D_CLK_SQ1_PLS_SH: integer :=  4                                                               ; --! Discrete input index, signal: i_d_clk_sq1_pls_shap
 constant c_DR_EP_CMD_BUSY_N   : integer :=  5                                                               ; --! Discrete input index, signal: i_ep_cmd_busy_n
 constant c_DR_EP_DATA_RX_RDY  : integer :=  6                                                               ; --! Discrete input index, signal: i_ep_data_rx_rdy
-constant c_DR_D_RST_SQ1_ADC   : integer :=  7                                                               ; --! Discrete input index, signal: i_d_rst_sq1_adc
-constant c_DR_D_RST_SQ1_PLS_SH: integer :=  8                                                               ; --! Discrete input index, signal: i_d_rst_sq1_pls_shap
+constant c_DR_D_RST_SQ1_ADC_0 : integer :=  7                                                               ; --! Discrete input index, signal: i_d_rst_sq1_adc(0)
+constant c_DR_D_RST_SQ1_ADC_1 : integer :=  8                                                               ; --! Discrete input index, signal: i_d_rst_sq1_adc(1)
+constant c_DR_D_RST_SQ1_ADC_2 : integer :=  9                                                               ; --! Discrete input index, signal: i_d_rst_sq1_adc(2)
+constant c_DR_D_RST_SQ1_ADC_3 : integer :=  10                                                              ; --! Discrete input index, signal: i_d_rst_sq1_adc(3)
+constant c_DR_D_RST_SQ1_DAC_0 : integer :=  11                                                              ; --! Discrete input index, signal: i_d_rst_sq1_dac(0)
+constant c_DR_D_RST_SQ1_DAC_1 : integer :=  12                                                              ; --! Discrete input index, signal: i_d_rst_sq1_dac(1)
+constant c_DR_D_RST_SQ1_DAC_2 : integer :=  13                                                              ; --! Discrete input index, signal: i_d_rst_sq1_dac(2)
+constant c_DR_D_RST_SQ1_DAC_3 : integer :=  14                                                              ; --! Discrete input index, signal: i_d_rst_sq1_dac(3)
+constant c_DR_D_RST_SQ2_MUX_0 : integer :=  15                                                              ; --! Discrete input index, signal: i_d_rst_sq2_mux(0)
+constant c_DR_D_RST_SQ2_MUX_1 : integer :=  16                                                              ; --! Discrete input index, signal: i_d_rst_sq2_mux(1)
+constant c_DR_D_RST_SQ2_MUX_2 : integer :=  17                                                              ; --! Discrete input index, signal: i_d_rst_sq2_mux(2)
+constant c_DR_D_RST_SQ2_MUX_3 : integer :=  18                                                              ; --! Discrete input index, signal: i_d_rst_sq2_mux(3)
 
-constant c_DR_S               : integer :=  9                                                               ; --! Discrete input size
+constant c_DR_S               : integer :=  19                                                              ; --! Discrete input size
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Parser discrete output index
@@ -84,8 +94,9 @@ constant c_TST_NUM_DEF        : string  := "XXXX"                               
    --    - c_CLK_REF_PER_DEF is chosen in order main pll period is a simulation time resolution multiple
    -- ------------------------------------------------------------------------------------------------------
 constant c_CLK_REF_PER_DEF    : time    := (16668 ps /c_PLL_MAIN_VCO_MULT) * c_PLL_MAIN_VCO_MULT            ; --! Reference Clock period default value
-constant c_SYNC_PER_DEF       : time    := 34 * 12 * c_CLK_REF_PER_DEF                                      ; --! Pixel sequence synchronization period default value
-constant c_SYNC_SHIFT_DEF     : time    :=       1 * c_CLK_REF_PER_DEF                                      ; --! Pixel sequence synchronization shift default value
+constant c_SYNC_PER_DEF       : time    := c_MUX_FACT * c_PIXEL_ADC_NB_CYC * c_CLK_REF_MULT / c_CLK_ADC_MULT
+                                              * c_CLK_REF_PER_DEF                                           ; --! Pixel sequence synchronization period default value
+constant c_SYNC_SHIFT_DEF     : time    :=  1 * c_CLK_REF_PER_DEF                                           ; --! Pixel sequence synchronization shift default value
 
 constant c_EP_CLK_PER_DEF     : time    := 20000 ps                                                         ; --! EP - System clock period default value
 constant c_EP_CLK_PER_SHFT_DEF: time    := 3 ns                                                             ; --! EP - Clock period shift
@@ -150,8 +161,9 @@ constant c_SYNC_HIGH          : time    :=      10 * c_CLK_REF_PER_DEF          
          i_c3_sq1_dac_sleep   : in     std_logic                                                            ; --! SQUID1 DAC, col. 3 - Sleep ('0' = Inactive, '1' = Active)
 
          i_d_rst              : in     std_logic                                                            ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
-         i_d_rst_sq1_adc      : in     std_logic                                                            ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
-         i_d_rst_sq1_pls_shap : in     std_logic                                                            ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
+         i_d_rst_sq1_adc      : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
+         i_d_rst_sq1_dac      : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
+         i_d_rst_sq2_mux      : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
 
          i_d_clk              : in     std_logic                                                            ; --! Internal design: System Clock
          i_d_clk_sq1_adc_acq  : in     std_logic                                                            ; --! Internal design: SQUID1 ADC acquisition Clock

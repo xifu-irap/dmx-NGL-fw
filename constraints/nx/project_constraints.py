@@ -30,7 +30,21 @@ def NG_MEDIUM_constraints(p,option):
     print("No NG-MEDIUM constraints")
 
 def NG_LARGE_constraints(p,option):
-    print("No NG-LARGE constraints")
+    print("NG-LARGE Regions definition")
+
+    p.constrainModule('|-> science_data_tx [ I_science_data_tx ]', 'science_data_tx', 'Soft', 36, 22, 1, 1, 'SCIENCE_DATA_TX', False)
+    p.constrainModule('|-> ep_cmd [ I_ep_cmd ]', 'ep_cmd', 'Soft', 48, 10, 1, 1, 'EP_CMD', False)
+    p.constrainModule('|-> register_mgt [ I_register_mgt ]', 'register_mgt', 'Soft', 47, 10, 2, 1, 'REGISTER_MGT', False)
+    p.constrainModule('|-> hk_mgt [ I_hk_mgt ]', 'hk_mgt', 'Soft', 48, 6, 1, 1, 'HK_MGT', False)
+    p.constrainModule('|-> squid_adc_mgt [ G_column_mgt[0].I_squid_adc_mgt ]', 'squid_adc_mgt_0', 'Soft', 37,  1, 1, 4, 'SQUID1_DAC_0', False)
+    p.constrainModule('|-> squid_adc_mgt [ G_column_mgt[1].I_squid_adc_mgt ]', 'squid_adc_mgt_1', 'Soft', 27, 20, 1, 4, 'SQUID1_DAC_1', False)
+    p.constrainModule('|-> squid_adc_mgt [ G_column_mgt[2].I_squid_adc_mgt ]', 'squid_adc_mgt_2', 'Soft', 13, 20, 1, 4, 'SQUID1_DAC_2', False)
+    p.constrainModule('|-> squid_adc_mgt [ G_column_mgt[3].I_squid_adc_mgt ]', 'squid_adc_mgt_3', 'Soft', 12,  1, 1, 4, 'SQUID1_DAC_3', False)
+    p.constrainModule('|-> squid2_dac_mgt [ G_column_mgt[0].I_squid2_dac_mgt ]', 'squid2_dac_mgt_0', 'Soft', 1,  6, 1, 1, 'SQUID2_DAC', False)
+    p.constrainModule('|-> squid2_dac_mgt [ G_column_mgt[1].I_squid2_dac_mgt ]', 'squid2_dac_mgt_1', 'Soft', 1,  6, 1, 1, 'SQUID2_DAC', False)
+    p.constrainModule('|-> squid2_dac_mgt [ G_column_mgt[2].I_squid2_dac_mgt ]', 'squid2_dac_mgt_2', 'Soft', 1,  6, 1, 1, 'SQUID2_DAC', False)
+    p.constrainModule('|-> squid2_dac_mgt [ G_column_mgt[3].I_squid2_dac_mgt ]', 'squid2_dac_mgt_3', 'Soft', 1,  6, 1, 1, 'SQUID2_DAC', False)
+
 
 def NG_ULTRA_constraints(p,option):
     print("No NG_ULTRA constraints")

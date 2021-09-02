@@ -170,11 +170,41 @@ constant c_RET_UKWN           : std_logic_vector(c_EP_SPI_WD_S-1 downto 0) := (o
          when "ep_data_rx_rdy      "   =>
             o_fld_dr_ind := c_DR_EP_DATA_RX_RDY;
 
-         when "rst_sq1_adc         "   =>
-            o_fld_dr_ind := c_DR_D_RST_SQ1_ADC;
+         when "rst_sq1_adc(0)      "   =>
+            o_fld_dr_ind := c_DR_D_RST_SQ1_ADC_0;
 
-         when "rst_sq1_pls_shape   "   =>
-            o_fld_dr_ind := c_DR_D_RST_SQ1_PLS_SH;
+         when "rst_sq1_adc(1)      "   =>
+            o_fld_dr_ind := c_DR_D_RST_SQ1_ADC_1;
+
+         when "rst_sq1_adc(2)      "   =>
+            o_fld_dr_ind := c_DR_D_RST_SQ1_ADC_2;
+
+         when "rst_sq1_adc(3)      "   =>
+            o_fld_dr_ind := c_DR_D_RST_SQ1_ADC_3;
+
+         when "rst_sq1_dac(0)      "   =>
+            o_fld_dr_ind := c_DR_D_RST_SQ1_DAC_0;
+
+         when "rst_sq1_dac(1)      "   =>
+            o_fld_dr_ind := c_DR_D_RST_SQ1_DAC_1;
+
+         when "rst_sq1_dac(2)      "   =>
+            o_fld_dr_ind := c_DR_D_RST_SQ1_DAC_2;
+
+         when "rst_sq1_dac(3)      "   =>
+            o_fld_dr_ind := c_DR_D_RST_SQ1_DAC_3;
+
+         when "rst_sq2_mux(0)      "   =>
+            o_fld_dr_ind := c_DR_D_RST_SQ2_MUX_0;
+
+         when "rst_sq2_mux(1)      "   =>
+            o_fld_dr_ind := c_DR_D_RST_SQ2_MUX_1;
+
+         when "rst_sq2_mux(2)      "   =>
+            o_fld_dr_ind := c_DR_D_RST_SQ2_MUX_2;
+
+         when "rst_sq2_mux(3)      "   =>
+            o_fld_dr_ind := c_DR_D_RST_SQ2_MUX_3;
 
          when others                   =>
             o_fld_dr_ind := c_DR_S;

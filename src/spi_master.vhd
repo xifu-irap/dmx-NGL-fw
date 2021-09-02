@@ -72,7 +72,7 @@ architecture RTL of spi_master is
 constant c_PULSE_GEN_L_MAX_VAL: integer:= g_N_CLK_PER_SCLK_L-2                                              ; --! Pulse generator: maximal value for elaborating SPI Serial Clock low  level
 constant c_PULSE_GEN_H_MAX_VAL: integer:= g_N_CLK_PER_SCLK_H-2                                              ; --! Pulse generator: maximal value for elaborating SPI Serial Clock high level
 constant c_PULSE_GEN_MAX_VAL  : integer:= max(1, max(c_PULSE_GEN_H_MAX_VAL, c_PULSE_GEN_L_MAX_VAL))         ; --! Pulse generator: maximal value
-constant c_PULSE_GEN_S        : integer:= integer(ceil(log2(real(c_PULSE_GEN_MAX_VAL+1))))+1                ; --! Pulse generator: size bus (signed bus)
+constant c_PULSE_GEN_S        : integer:= integer(ceil(log2(real(c_PULSE_GEN_MAX_VAL+1))))+1                ; --! Pulse generator: size bus (signed)
 
 constant c_PLS_STE_CNT_NB_VAL : integer:= 2 * g_DATA_S                                                      ; --! Pulse state counter: number of value
 constant c_PLS_STE_CNT_MAX_VAL: integer:= c_PLS_STE_CNT_NB_VAL-1                                            ; --! Pulse state counter: maximal value

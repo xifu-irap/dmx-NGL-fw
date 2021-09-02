@@ -57,8 +57,9 @@ entity parser is generic
          i_c3_sq1_dac_sleep   : in     std_logic                                                            ; --! SQUID1 DAC, col. 3 - Sleep ('0' = Inactive, '1' = Active)
 
          i_d_rst              : in     std_logic                                                            ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
-         i_d_rst_sq1_adc      : in     std_logic                                                            ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
-         i_d_rst_sq1_pls_shap : in     std_logic                                                            ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
+         i_d_rst_sq1_adc      : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
+         i_d_rst_sq1_dac      : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
+         i_d_rst_sq2_mux      : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
 
          i_d_clk              : in     std_logic                                                            ; --! Internal design: System Clock
          i_d_clk_sq1_adc_acq  : in     std_logic                                                            ; --! Internal design: SQUID1 ADC acquisition Clock
@@ -108,8 +109,18 @@ begin
    discrete_r(c_DR_D_CLK_SQ1_PLS_SH)<= i_d_clk_sq1_pls_shap;
    discrete_r(c_DR_EP_CMD_BUSY_N)   <= i_ep_cmd_busy_n;
    discrete_r(c_DR_EP_DATA_RX_RDY)  <= i_ep_data_rx_rdy;
-   discrete_r(c_DR_D_RST_SQ1_ADC)   <= i_d_rst_sq1_adc;
-   discrete_r(c_DR_D_RST_SQ1_PLS_SH)<= i_d_rst_sq1_pls_shap;
+   discrete_r(c_DR_D_RST_SQ1_ADC_0) <= i_d_rst_sq1_adc(0);
+   discrete_r(c_DR_D_RST_SQ1_ADC_1) <= i_d_rst_sq1_adc(1);
+   discrete_r(c_DR_D_RST_SQ1_ADC_2) <= i_d_rst_sq1_adc(2);
+   discrete_r(c_DR_D_RST_SQ1_ADC_3) <= i_d_rst_sq1_adc(3);
+   discrete_r(c_DR_D_RST_SQ1_DAC_0) <= i_d_rst_sq1_dac(0);
+   discrete_r(c_DR_D_RST_SQ1_DAC_1) <= i_d_rst_sq1_dac(1);
+   discrete_r(c_DR_D_RST_SQ1_DAC_2) <= i_d_rst_sq1_dac(2);
+   discrete_r(c_DR_D_RST_SQ1_DAC_3) <= i_d_rst_sq1_dac(3);
+   discrete_r(c_DR_D_RST_SQ2_MUX_0) <= i_d_rst_sq2_mux(0);
+   discrete_r(c_DR_D_RST_SQ2_MUX_1) <= i_d_rst_sq2_mux(1);
+   discrete_r(c_DR_D_RST_SQ2_MUX_2) <= i_d_rst_sq2_mux(2);
+   discrete_r(c_DR_D_RST_SQ2_MUX_3) <= i_d_rst_sq2_mux(3);
 
    discrete_r(discrete_r'high downto c_DR_S) <= (others => '0');
 
@@ -123,8 +134,18 @@ begin
    dr_last_event(c_DR_D_CLK_SQ1_PLS_SH)<= i_d_clk_sq1_pls_shap'last_event;
    dr_last_event(c_DR_EP_CMD_BUSY_N)   <= i_ep_cmd_busy_n'last_event;
    dr_last_event(c_DR_EP_DATA_RX_RDY)  <= i_ep_data_rx_rdy'last_event;
-   dr_last_event(c_DR_D_RST_SQ1_ADC)   <= i_d_rst_sq1_adc'last_event;
-   dr_last_event(c_DR_D_RST_SQ1_PLS_SH)<= i_d_rst_sq1_pls_shap'last_event;
+   dr_last_event(c_DR_D_RST_SQ1_ADC_0) <= i_d_rst_sq1_adc'last_event;
+   dr_last_event(c_DR_D_RST_SQ1_ADC_1) <= i_d_rst_sq1_adc'last_event;
+   dr_last_event(c_DR_D_RST_SQ1_ADC_2) <= i_d_rst_sq1_adc'last_event;
+   dr_last_event(c_DR_D_RST_SQ1_ADC_3) <= i_d_rst_sq1_adc'last_event;
+   dr_last_event(c_DR_D_RST_SQ1_DAC_0) <= i_d_rst_sq1_dac'last_event;
+   dr_last_event(c_DR_D_RST_SQ1_DAC_1) <= i_d_rst_sq1_dac'last_event;
+   dr_last_event(c_DR_D_RST_SQ1_DAC_2) <= i_d_rst_sq1_dac'last_event;
+   dr_last_event(c_DR_D_RST_SQ1_DAC_3) <= i_d_rst_sq1_dac'last_event;
+   dr_last_event(c_DR_D_RST_SQ2_MUX_0) <= i_d_rst_sq2_mux'last_event;
+   dr_last_event(c_DR_D_RST_SQ2_MUX_1) <= i_d_rst_sq2_mux'last_event;
+   dr_last_event(c_DR_D_RST_SQ2_MUX_2) <= i_d_rst_sq2_mux'last_event;
+   dr_last_event(c_DR_D_RST_SQ2_MUX_3) <= i_d_rst_sq2_mux'last_event;
 
    dr_last_event(dr_last_event'high downto c_DR_S) <= (others => 0 ns);
 

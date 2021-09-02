@@ -17,37 +17,44 @@
 --                            along with this program.  If not, see <https://www.gnu.org/licenses/>.
 -- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --    email                   slaurent@nanoxplore.com
---!   @file                   squid_dac_mgt.vhd
+--!   @file                   squid_data_proc.vhd
 -- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --    Automatic Generation    No
 --    Code Rules Reference    SOC of design and VHDL handbook for VLSI development, CNES Edition (v2.1)
 -- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
---!   @details                Squid DAC management
+--!   @details                Squid Data process
 -- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 library ieee;
 use     ieee.std_logic_1164.all;
+use     ieee.numeric_std.all;
 
 library work;
 use     work.pkg_project.all;
 
-entity squid_dac_mgt is port
-   (     i_rst_sq1_pls_shape  : in     std_logic                                                            ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
-         i_clk_sq1_pls_shape  : in     std_logic                                                            ; --! SQUID1 pulse shaping Clock
+entity squid_data_proc is port
+   (     i_rst                : in     std_logic                                                            ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+         i_clk                : in     std_logic                                                            ; --! Clock
 
-         i_sync_rpls          : in     std_logic                                                            ; --! Pixel sequence synchronization, synchronized on pulse shaping Clock
-
-         o_sq1_dac_data       : out    std_logic_vector(c_SQ1_DAC_DATA_S-1 downto 0)                        ; --! SQUID1 DAC - Data
-         o_sq2_dac_mux        : out    std_logic_vector(c_SQ2_DAC_MUX_S -1 downto 0)                          --! SQUID2 DAC - Multiplexer
-
+         i_sq1_data_err       : in     std_logic_vector(c_SQ1_DATA_ERR_S-1 downto 0)                        ; --! SQUID1 Data error
+         o_sq1_data_fbk       : out    std_logic_vector(c_SQ1_DATA_FBK_S-1 downto 0)                          --! SQUID1 Data feedback
    );
-end entity squid_dac_mgt;
+end entity squid_data_proc;
 
-architecture RTL of squid_dac_mgt is
-
+architecture RTL of squid_data_proc is
 begin
 
    -- TODO
-   o_sq1_dac_data    <= (others => '0');
-   o_sq2_dac_mux     <= (others => '0');
+   P_todo : process (i_rst, i_clk)
+   begin
+
+      if i_rst = '1' then
+         o_sq1_data_fbk <= (others => '0');
+
+      elsif rising_edge(i_clk) then
+         o_sq1_data_fbk <= i_sq1_data_err(c_SQ1_DATA_FBK_S-1 downto 0);
+
+      end if;
+
+   end process P_todo;
 
 end architecture RTL;

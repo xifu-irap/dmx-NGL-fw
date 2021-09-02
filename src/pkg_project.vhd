@@ -72,16 +72,31 @@ constant c_CLK_ADC_DEL_STEP   : integer   := div_floor(15*10**5/(c_CLK_ADC_FREQ/
 
    -- ------------------------------------------------------------------------------------------------------
    --    Interface parameters
+   --    @Req : DRE-DMX-FW-REQ-0340
+   --    @Req : DRE-DMX-FW-REQ-0550
    -- ------------------------------------------------------------------------------------------------------
 constant c_BRD_REF_S          : integer   := 5                                                              ; --! Board reference
 constant c_BRD_MODEL_S        : integer   := 2                                                              ; --! Board model
 
 constant c_SQ1_ADC_DATA_S     : integer   := 14                                                             ; --! SQUID1 ADC data size bus
 constant c_SQ1_DAC_DATA_S     : integer   := 14                                                             ; --! SQUID1 DAC data size bus
+
+constant c_SQ2_SPI_CPOL       : std_logic := '0'                                                            ; --! SQUID2 DAC SPI: Clock polarity
+constant c_SQ2_SPI_CPHA       : std_logic := '0'                                                            ; --! SQUID2 DAC SPI: Clock phase
+constant c_SQ2_SPI_SER_WD_S   : integer   := 16                                                             ; --! SQUID2 DAC SPI: Data bus size
+constant c_SQ2_SPI_SCLK_L     : integer   := 1                                                              ; --! SQUID2 DAC SPI: Number of clock period for elaborating SPI Serial Clock low level
+constant c_SQ2_SPI_SCLK_H     : integer   := 1                                                              ; --! SQUID2 DAC SPI: Number of clock period for elaborating SPI Serial Clock high level
 constant c_SQ2_DAC_MUX_S      : integer   := 3                                                              ; --! SQUID2 DAC  Multiplexer size
+
 constant c_SC_DATA_SER_W_S    : integer   := 8                                                              ; --! Science data serial word size
 constant c_SC_DATA_SER_NB     : integer   := 2                                                              ; --! Science data serial link number by DEMUX column
-constant c_HK1_MUX_S          : integer   := 3                                                              ; --! HouseKeeping 1 Multiplexer size
+
+constant c_HK_SPI_CPOL        : std_logic := '1'                                                            ; --! HK SPI: Clock polarity
+constant c_HK_SPI_CPHA        : std_logic := '1'                                                            ; --! HK SPI: Clock phase
+constant c_HK_SPI_SER_WD_S    : integer   := 16                                                             ; --! HK SPI: Data bus size
+constant c_HK_SPI_SCLK_L      : integer   := 2                                                              ; --! HK SPI: Number of clock period for elaborating SPI Serial Clock low level
+constant c_HK_SPI_SCLK_H      : integer   := 2                                                              ; --! HK SPI: Number of clock period for elaborating SPI Serial Clock high level
+constant c_HK_MUX_S           : integer   := 3                                                              ; --! HK Multiplexer size
 
 constant c_EP_CMD_S           : integer   := 32                                                             ; --! EP command bus size
 constant c_EP_SPI_CPOL        : std_logic := '0'                                                            ; --! EP SPI Clock polarity
@@ -108,16 +123,23 @@ constant c_I_SYNC_DEF         : std_logic := '0'                                
 constant c_MUX_FACT           : integer   := 34                                                             ; --! DEMUX: multiplexing factor
 constant c_NB_COL             : integer   := 4                                                              ; --! DEMUX: column number
 
+constant c_SQ1_DATA_ERR_S     : integer   := 18                                                             ; --! SQUID1 Data error bus size
+constant c_SQ1_DATA_FBK_S     : integer   := 16                                                             ; --! SQUID1 Data feedback bus size (<= c_MULT_ALU_PORTB_S-1)
+constant c_SQ1_PLS_SHP_A_EXP  : integer   := 16                                                             ; --! Pulse shaping: Filter exponent parameter (<=c_MULT_ALU_PORTC_S-c_SQ1_PLS_SHP_X_K_S-1)
+
    -- ------------------------------------------------------------------------------------------------------
    --    SQUID1 ADC parameters
+   --    @Req : DRE-DMX-FW-REQ-0130
    -- ------------------------------------------------------------------------------------------------------
-constant c_ADC_DATA_NPER      : integer   := 13                                                             ; --! Clock period number between the acquisition start and data output by the ADC
-constant c_ADC_DATA_IO_NPER   : integer   := 1                                                              ; --! Clock period number applied on FPGA inputs for phasing ADC data with o_clk_sq1_adc
+constant c_PIXEL_ADC_NB_CYC   : integer   := 22                                                             ; --! ADC clock period number allocated to one pixel acquisition
+constant c_ADC_DATA_NPER      : integer   := 13                                                             ; --! ADC Clock period number between the acquisition start and data output by the ADC
 
    -- ------------------------------------------------------------------------------------------------------
    --    Global types
    -- ------------------------------------------------------------------------------------------------------
 type     t_sq1_adc_data_v      is array (natural range <>) of std_logic_vector(c_SQ1_ADC_DATA_S-1  downto 0); --! SQUID1 ADC data vector type
+type     t_sq1_data_err_v      is array (natural range <>) of std_logic_vector(c_SQ1_DATA_ERR_S-1  downto 0); --! SQUID1 Data error vector type
+type     t_sq1_data_fbk_v      is array (natural range <>) of std_logic_vector(c_SQ1_DATA_FBK_S-1  downto 0); --! SQUID1 Data feedback vector type
 type     t_sc_data_w           is array (natural range <>) of std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0); --! Science data word type
 
 end pkg_project;

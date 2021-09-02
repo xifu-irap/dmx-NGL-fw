@@ -71,9 +71,10 @@ DRE-DEMUX TDM firmware.
    - Position 4: **clk_sq1_pls_shape**, Internal DRE-DEMUX: SQUID1 pulse shaping Clock
    - Position 5: **ep_cmd_busy_n**, EP SPI model output, EP - Command transmit busy ('0' = Busy, '1' = Not Busy)
    - Position 6: **ep_data_rx_rdy**, EP SPI model output, EP - Receipted data ready ('0' = Not ready, '1' = Ready)
-   - Position 7: **rst_sq1_adc**, Internal DRE-DEMUX: Reset asynchronous assertion, synchronous de-assertion on SQUID1 ADC
-   - Position 8: **rst_sq1_pls_shape**, Internal DRE-DEMUX: Reset asynchronous assertion, synchronous de-assertion on SQUID1 pulse shaping Clock
-   - Position 63-9: Not Used
+   - Position 7+x:  **rst_sq1_adc(x)**, Internal DRE-DEMUX: Local reset asynchronous assertion, synchronous de-assertion on SQUID1 ADC channel 'x'
+   - Position 11+x: **rst_sq1_dac(x)**, Internal DRE-DEMUX: Local reset asynchronous assertion, synchronous de-assertion on SQUID1 DAC channel 'x'
+   - Position 15+x: **rst_sq2_mux(x)**, Internal DRE-DEMUX: Local reset asynchronous assertion, synchronous de-assertion on SQUID2 MUX channel 'x'
+   - Position 63-19: Not Used
 
 ## 5. Discrete outputs description (seen from simulation pilot side)
 

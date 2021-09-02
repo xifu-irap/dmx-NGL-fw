@@ -79,7 +79,7 @@ signal   hk1_spi_miso         : std_logic                                       
 signal   hk1_spi_mosi         : std_logic                                                                   ; --! HouseKeeping 1 - SPI Master Output Slave Input
 signal   hk1_spi_sclk         : std_logic                                                                   ; --! HouseKeeping 1 - SPI Serial Clock (CPOL = ‘0’, CPHA = ’0’)
 signal   hk1_spi_cs_n         : std_logic                                                                   ; --! HouseKeeping 1 - SPI Chip Select ('0' = Active, '1' = Inactive)
-signal   hk1_mux	            : std_logic_vector(     c_HK1_MUX_S-1 downto 0)                               ; --! HouseKeeping 1 - Multiplexer
+signal   hk1_mux              : std_logic_vector(      c_HK_MUX_S-1 downto 0)                               ; --! HouseKeeping 1 - Multiplexer
 signal   hk1_mux_ena_n	      : std_logic                                                                   ; --! HouseKeeping 1 - Multiplexer Enable ('0' = Active, '1' = Inactive)
 
 signal   ep_spi_mosi          : std_logic                                                                   ; --! EP - SPI Master Input Slave Output (MSB first)
@@ -138,8 +138,9 @@ signal   c3_sq2_dac_mux       : std_logic_vector( c_SQ2_DAC_MUX_S-1 downto 0)   
 signal   c3_sq2_dac_mx_en_n   : std_logic                                                                   ; --!	SQUID2 DAC, col. 3 - Multiplexer Enable ('0' = Active, '1' = Inactive)
 
 signal   d_rst                : std_logic                                                                   ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
-signal   d_rst_sq1_adc        : std_logic                                                                   ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
-signal   d_rst_sq1_pls_shape  : std_logic                                                                   ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
+signal   d_rst_sq1_adc        : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
+signal   d_rst_sq1_dac        : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
+signal   d_rst_sq2_mux        : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
 
 signal   d_clk                : std_logic                                                                   ; --! Internal design: System Clock
 signal   d_clk_sq1_adc_acq    : std_logic                                                                   ; --! Internal design: SQUID1 ADC acquisition Clock
@@ -267,16 +268,61 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    G_get_top_level_sig: if true generate
    alias td_rst               : std_logic is <<signal .top_dmx_tb.I_top_dmx.rst              : std_logic>>  ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
-   alias td_rst_sq1_adc       : std_logic is <<signal .top_dmx_tb.I_top_dmx.rst_sq1_adc      : std_logic>>  ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
-   alias td_rst_sq1_pls_shape : std_logic is <<signal .top_dmx_tb.I_top_dmx.rst_sq1_pls_shape: std_logic>>  ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
+   alias td_rst_sq1_adc_0     : std_logic is <<signal 
+                                .top_dmx_tb.I_top_dmx.G_column_mgt(0).I_squid_adc_mgt.rst_sq1_adc
+                                                                                             : std_logic>>  ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
+   alias td_rst_sq1_adc_1     : std_logic is <<signal 
+                                .top_dmx_tb.I_top_dmx.G_column_mgt(1).I_squid_adc_mgt.rst_sq1_adc
+                                                                                             : std_logic>>  ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
+   alias td_rst_sq1_adc_2     : std_logic is <<signal
+                                .top_dmx_tb.I_top_dmx.G_column_mgt(2).I_squid_adc_mgt.rst_sq1_adc
+                                                                                             : std_logic>>  ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
+   alias td_rst_sq1_adc_3     : std_logic is <<signal 
+                                .top_dmx_tb.I_top_dmx.G_column_mgt(3).I_squid_adc_mgt.rst_sq1_adc
+                                                                                             : std_logic>>  ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
+   alias td_rst_sq1_dac_0     : std_logic is <<signal 
+                                .top_dmx_tb.I_top_dmx.G_column_mgt(0).I_squid1_dac_mgt.rst_sq1_pls_shape
+                                                                                             : std_logic>>  ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
+   alias td_rst_sq1_dac_1     : std_logic is <<signal 
+                                .top_dmx_tb.I_top_dmx.G_column_mgt(1).I_squid1_dac_mgt.rst_sq1_pls_shape
+                                                                                             : std_logic>>  ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
+   alias td_rst_sq1_dac_2     : std_logic is <<signal 
+                                .top_dmx_tb.I_top_dmx.G_column_mgt(2).I_squid1_dac_mgt.rst_sq1_pls_shape
+                                                                                             : std_logic>>  ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
+   alias td_rst_sq1_dac_3     : std_logic is <<signal 
+                                .top_dmx_tb.I_top_dmx.G_column_mgt(3).I_squid1_dac_mgt.rst_sq1_pls_shape
+                                                                                             : std_logic>>  ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
+   alias td_rst_sq2_mux_0     : std_logic is <<signal 
+                                .top_dmx_tb.I_top_dmx.G_column_mgt(0).I_squid2_dac_mgt.rst_sq1_pls_shape
+                                                                                             : std_logic>>  ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
+   alias td_rst_sq2_mux_1     : std_logic is <<signal 
+                                .top_dmx_tb.I_top_dmx.G_column_mgt(1).I_squid2_dac_mgt.rst_sq1_pls_shape
+                                                                                             : std_logic>>  ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
+   alias td_rst_sq2_mux_2     : std_logic is <<signal 
+                                .top_dmx_tb.I_top_dmx.G_column_mgt(2).I_squid2_dac_mgt.rst_sq1_pls_shape
+                                                                                             : std_logic>>  ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
+   alias td_rst_sq2_mux_3     : std_logic is <<signal 
+                                .top_dmx_tb.I_top_dmx.G_column_mgt(3).I_squid2_dac_mgt.rst_sq1_pls_shape
+                                                                                             : std_logic>>  ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
    alias td_clk               : std_logic is <<signal .top_dmx_tb.I_top_dmx.clk              : std_logic>>  ; --! Internal design: System Clock
    alias td_clk_sq1_adc_acq   : std_logic is <<signal .top_dmx_tb.I_top_dmx.clk_sq1_adc_acq  : std_logic>>  ; --! Internal design: SQUID1 ADC acquisition Clock
    alias td_clk_sq1_pls_shape : std_logic is <<signal .top_dmx_tb.I_top_dmx.clk_sq1_pls_shape: std_logic>>  ; --! Internal design: SQUID1 pulse shaping Clock
    begin
 
+
       d_rst                <= td_rst;
-      d_rst_sq1_adc        <= td_rst_sq1_adc;
-      d_rst_sq1_pls_shape  <= td_rst_sq1_pls_shape;
+      d_rst_sq1_adc(0)     <= td_rst_sq1_adc_0;
+      d_rst_sq1_adc(1)     <= td_rst_sq1_adc_1;
+      d_rst_sq1_adc(2)     <= td_rst_sq1_adc_2;
+      d_rst_sq1_adc(3)     <= td_rst_sq1_adc_3;
+      d_rst_sq1_dac(0)     <= td_rst_sq1_dac_0;
+      d_rst_sq1_dac(1)     <= td_rst_sq1_dac_1;
+      d_rst_sq1_dac(2)     <= td_rst_sq1_dac_2;
+      d_rst_sq1_dac(3)     <= td_rst_sq1_dac_3;
+      d_rst_sq2_mux(0)     <= td_rst_sq2_mux_0;
+      d_rst_sq2_mux(1)     <= td_rst_sq2_mux_1;
+      d_rst_sq2_mux(2)     <= td_rst_sq2_mux_2;
+      d_rst_sq2_mux(3)     <= td_rst_sq2_mux_3;
       d_clk                <= td_clk;
       d_clk_sq1_adc_acq    <= td_clk_sq1_adc_acq;
       d_clk_sq1_pls_shape  <= td_clk_sq1_pls_shape;
@@ -328,8 +374,9 @@ begin
          i_c3_sq1_dac_sleep   => c3_sq1_dac_sleep     , -- in     std_logic                                 ; --! SQUID1 DAC, col. 3 - Sleep ('0' = Inactive, '1' = Active)
 
          i_d_rst              => d_rst                , -- in     std_logic                                 ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
-         i_d_rst_sq1_adc      => d_rst_sq1_adc        , -- in     std_logic                                 ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
-         i_d_rst_sq1_pls_shap => d_rst_sq1_pls_shape  , -- in     std_logic                                 ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
+         i_d_rst_sq1_adc      => d_rst_sq1_adc        , -- in     std_logic_vector(c_NB_COL-1 downto 0)     ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
+         i_d_rst_sq1_dac      => d_rst_sq1_dac        , -- in     std_logic_vector(c_NB_COL-1 downto 0)     ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
+         i_d_rst_sq2_mux      => d_rst_sq2_mux        , -- in     std_logic_vector(c_NB_COL-1 downto 0)     ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
 
          i_d_clk              => d_clk                , -- in     std_logic                                 ; --! Internal design: System Clock
          i_d_clk_sq1_adc_acq  => d_clk_sq1_adc_acq    , -- in     std_logic                                 ; --! Internal design: SQUID1 ADC acquisition Clock

@@ -45,6 +45,7 @@ quietly set PKG_IP_FILES {
 #### Ip files list ####
 quietly set IP_FILES {
    pll.vhd
+   pulse_shaping.vhd
 }
 
 #### Package source files list ####
@@ -56,10 +57,9 @@ quietly set PKG_SRC_FILES {
 
 #### Source files list ####
 quietly set SRC_FILES {
+   reset_gen.vhd
    rst_clk_mgt.vhd
    in_rs_clk.vhd
-   in_rs_clk_sq1_adc.vhd
-   in_rs_clk_sq1_pls.vhd
    spi_slave.vhd
    sts_err_add_mgt.vhd
    sts_err_wrt_mgt.vhd
@@ -69,7 +69,9 @@ quietly set SRC_FILES {
    science_data_tx.vhd
    hk_mgt.vhd
    squid_adc_mgt.vhd
-   squid_dac_mgt.vhd
+   squid_data_proc.vhd
+   squid1_dac_mgt.vhd
+   squid2_dac_mgt.vhd
    squid_spi_mgt.vhd
    top_dmx.vhd
 }
@@ -221,9 +223,21 @@ proc run_utest {args} {
 
          add wave -format Logic                    -group "Inputs"                              sim:/top_dmx_tb/I_top_dmx/i_arst_n
          add wave -format Logic                    -group "Inputs"                              sim:/top_dmx_tb/I_top_dmx/i_clk_ref
+
+         add wave -format Logic                    -group "Local Resets"                        sim:/top_dmx_tb/I_top_dmx/G_column_mgt(0)/I_squid_adc_mgt/rst_sq1_adc
+         add wave -format Logic                    -group "Local Resets"                        sim:/top_dmx_tb/I_top_dmx/G_column_mgt(1)/I_squid_adc_mgt/rst_sq1_adc
+         add wave -format Logic                    -group "Local Resets"                        sim:/top_dmx_tb/I_top_dmx/G_column_mgt(2)/I_squid_adc_mgt/rst_sq1_adc
+         add wave -format Logic                    -group "Local Resets"                        sim:/top_dmx_tb/I_top_dmx/G_column_mgt(3)/I_squid_adc_mgt/rst_sq1_adc
+         add wave -format Logic                    -group "Local Resets"                        sim:/top_dmx_tb/I_top_dmx/G_column_mgt(0)/I_squid1_dac_mgt/rst_sq1_pls_shape
+         add wave -format Logic                    -group "Local Resets"                        sim:/top_dmx_tb/I_top_dmx/G_column_mgt(1)/I_squid1_dac_mgt/rst_sq1_pls_shape
+         add wave -format Logic                    -group "Local Resets"                        sim:/top_dmx_tb/I_top_dmx/G_column_mgt(2)/I_squid1_dac_mgt/rst_sq1_pls_shape
+         add wave -format Logic                    -group "Local Resets"                        sim:/top_dmx_tb/I_top_dmx/G_column_mgt(3)/I_squid1_dac_mgt/rst_sq1_pls_shape
+         add wave -format Logic                    -group "Local Resets"                        sim:/top_dmx_tb/I_top_dmx/G_column_mgt(0)/I_squid2_dac_mgt/rst_sq1_pls_shape
+         add wave -format Logic                    -group "Local Resets"                        sim:/top_dmx_tb/I_top_dmx/G_column_mgt(1)/I_squid2_dac_mgt/rst_sq1_pls_shape
+         add wave -format Logic                    -group "Local Resets"                        sim:/top_dmx_tb/I_top_dmx/G_column_mgt(2)/I_squid2_dac_mgt/rst_sq1_pls_shape
+         add wave -format Logic                    -group "Local Resets"                        sim:/top_dmx_tb/I_top_dmx/G_column_mgt(3)/I_squid2_dac_mgt/rst_sq1_pls_shape
+
          add wave -format Logic                                                                 sim:/top_dmx_tb/I_top_dmx/rst
-         add wave -format Logic                                                                 sim:/top_dmx_tb/I_top_dmx/rst_sq1_adc
-         add wave -format Logic                                                                 sim:/top_dmx_tb/I_top_dmx/rst_sq1_pls_shape
          add wave -format Logic                                                                 sim:/top_dmx_tb/I_top_dmx/clk
          add wave -format Logic                                                                 sim:/top_dmx_tb/I_top_dmx/clk_sq1_adc_acq
          add wave -format Logic                                                                 sim:/top_dmx_tb/I_top_dmx/clk_sq1_pls_shape
