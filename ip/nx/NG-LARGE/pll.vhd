@@ -50,7 +50,10 @@ entity pll is port
          o_clk_sq1_adc        : out    std_logic_vector(c_NB_COL-1 downto 0)                                ; --! SQUID1 ADC Clocks
          o_clk_sq1_dac        : out    std_logic_vector(c_NB_COL-1 downto 0)                                ; --! SQUID1 DAC Clocks
          o_clk_science        : out    std_logic                                                            ; --! Science Data Clock
-         o_pll_main_lock      : out    std_logic                                                              --! Main Pll Status ('0' = Pll not locked, '1' = Pll locked)
+         o_pll_main_lock      : out    std_logic                                                            ; --! Main Pll Status ('0' = Pll not locked, '1' = Pll locked)
+
+         o_sq1_adc_pwdn	      : out    std_logic_vector(c_NB_COL-1 downto 0)                                ; --! SQUID1 ADC – Power Down ('0' = Inactive, '1' = Active)
+         o_sq1_dac_sleep      : out    std_logic_vector(c_NB_COL-1 downto 0)                                  --! SQUID1 DAC - Sleep ('0' = Inactive, '1' = Active)
    );
 end entity pll;
 
@@ -85,7 +88,11 @@ constant c_CLK_DAC_N_PAT      : integer := c_PLL_MAIN_VCO_MULT/c_CLK_DAC_MULT - 
 constant c_CLK_PLS_SHAPE_PAT  : bit_vector(0 to c_WFG_PAT_S-1) := c_WFG_PAT_ONE_SEQ(c_CLK_DAC_N_PAT)        ; --! SQUID1 pulse shaping Clock: Pattern, use only the number of vco cycles+1 MSB bits
 constant c_CLK_DAC_PAT        : bit_vector(0 to c_WFG_PAT_S-1) := not(c_CLK_PLS_SHAPE_PAT)                  ; --! SQUID1 DAC Clock: Pattern, use only the number of vco cycles+1 MSB bits
 
+type     t_cmd_ck_sq1_v        is array (natural range <>) of std_logic_vector(c_NB_COL-1  downto 0)        ; --! SQUID1 Clocks switch commands vector type
+
 signal   arst                 : std_logic                                                                   ; --! Asynchronous reset ('0' = Inactive, '1' = Active)
+signal   rst_sq1_adc          : std_logic                                                                   ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+signal   rst_sq1_dac          : std_logic                                                                   ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
 
 signal   pll_main_vco         : std_logic                                                                   ; --! Pll main VCO
 signal   pll_main_lock        : std_logic                                                                   ; --! Pll main Status ('0' = Pll not locked, '1' = Pll locked)
@@ -100,10 +107,13 @@ signal   clk_adc_end_seq      : std_logic                                       
 signal   clk_adc_acq_end_seq  : std_logic                                                                   ; --! SQUID1 ADC acquisition Clock: End pattern sequence ('0': No, '1': Yes)
 signal   clk_dac_end_seq      : std_logic                                                                   ; --! SQUID1 DAC Clock: End pattern sequence ('0': No, '1': Yes)
 
+signal   cmd_ck_sq1_adc_rs    : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! SQUID1 ADC Clocks switch commands synchronized on clk_sq1_adc
+signal   cmd_ck_sq1_dac_rs    : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! SQUID1 DAC Clocks switch commands synchronized on clk_sq1_dac
+
 begin
 
    -- ------------------------------------------------------------------------------------------------------
-   --  Internal reset
+   --  Internal resets
    -- ------------------------------------------------------------------------------------------------------
    arst <= not(i_arst_n);
 
@@ -244,9 +254,23 @@ begin
    G_cks_clk_sq1_adc: for k in 0 to c_NB_COL-1 generate
    begin
 
+      I_cmd_ck_rs: entity work.cmd_ck_rs generic map
+      (  g_FF_RESET_NB        => c_FF_RSYNC_NB        , -- integer                                          ; --! Flip-Flop number used for generated reset
+         g_FF_RSYNC_NB        => c_FF_RSYNC_NB        , -- integer                                          ; --! Flip-Flop number used for resynchronization
+         g_PLS_CK_SW_NB       => c_PLS_CK_SW_NB       , -- integer                                          ; --! Clock pulse number between clock switch command and output clock
+         g_CK_CMD_DEF         => '0'                    -- std_logic                                          --! Clock switch command default value at reset
+      ) port map
+      (  i_arst_n             => i_arst_n             , -- in     std_logic                                 ; --! Asynchronous reset ('0' = Active, '1' = Inactive)
+         i_clock              => clk_sq1_adc          , -- in     std_logic                                 ; --! Clock
+         i_ck_rdy             => pll_main_lock        , -- in     std_logic                                 ; --! Clock ready ('0' = Not ready, '1' = Ready)
+         i_ck_cmd             => i_cmd_ck_sq1_adc(k)  , -- in     std_logic                                 ; --! Clock switch command ('0' = Inactive, '1' = Active)
+         o_ck_cmd_rs          => cmd_ck_sq1_adc_rs(k) , -- out    std_logic                                 ; --! Clock switch command, synchronized on Clock
+         o_ck_cmd_sleep       => o_sq1_adc_pwdn(k)      -- out    std_logic                                   --! Clock switch command sleep ('0' = Inactive, '1' = Active)
+      );
+
       I_cks_clk_sq1_adc: entity nx.nx_cks port map
       (  cki                  => clk_sq1_adc          , -- in     std_logic                                 ; --! Clock input
-         cmd                  => i_cmd_ck_sq1_adc(k)  , -- in     std_logic                                 ; --! Switch command ('0' = Inactive, '1' = Active)
+         cmd                  => cmd_ck_sq1_adc_rs(k) , -- in     std_logic                                 ; --! Switch command ('0' = Inactive, '1' = Active)
          cko                  => o_clk_sq1_adc(k)       -- out    std_logic                                   --! Clock output
       );
 
@@ -298,9 +322,23 @@ begin
    G_cks_clk_sq1_dac: for k in 0 to c_NB_COL-1 generate
    begin
 
+      I_cmd_ck_rs: entity work.cmd_ck_rs generic map
+      (  g_FF_RESET_NB        => c_FF_RSYNC_NB        , -- integer                                          ; --! Flip-Flop number used for generated reset
+         g_FF_RSYNC_NB        => c_FF_RSYNC_NB        , -- integer                                          ; --! Flip-Flop number used for resynchronization
+         g_PLS_CK_SW_NB       => c_PLS_CK_SW_NB       , -- integer                                          ; --! Clock pulse number between clock switch command and output clock
+         g_CK_CMD_DEF         => '0'                    -- std_logic                                          --! Clock switch command default value at reset
+      ) port map
+      (  i_arst_n             => i_arst_n             , -- in     std_logic                                 ; --! Asynchronous reset ('0' = Active, '1' = Inactive)
+         i_clock              => clk_sq1_dac          , -- in     std_logic                                 ; --! Clock
+         i_ck_rdy             => pll_main_lock        , -- in     std_logic                                 ; --! Clock ready ('0' = Not ready, '1' = Ready)
+         i_ck_cmd             => i_cmd_ck_sq1_dac(k)  , -- in     std_logic                                 ; --! Clock switch command ('0' = Inactive, '1' = Active)
+         o_ck_cmd_rs          => cmd_ck_sq1_dac_rs(k) , -- out    std_logic                                 ; --! Clock switch command, synchronized on Clock
+         o_ck_cmd_sleep       => o_sq1_dac_sleep(k)     -- out    std_logic                                   --! Clock switch command sleep ('0' = Inactive, '1' = Active)
+      );
+
       I_cks_clk_sq1_dac: entity nx.nx_cks port map
       (  cki                  => clk_sq1_dac          , -- in     std_logic                                 ; --! Clock input
-         cmd                  => i_cmd_ck_sq1_dac(k)  , -- in     std_logic                                 ; --! Switch command ('0' = Inactive, '1' = Active)
+         cmd                  => cmd_ck_sq1_dac_rs(k) , -- in     std_logic                                 ; --! Switch command ('0' = Inactive, '1' = Active)
          cko                  => o_clk_sq1_dac(k)       -- out    std_logic                                   --! Clock output
       );
 

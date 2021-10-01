@@ -1,6 +1,13 @@
 COMM **********************************************************************************************
-COMM   Test: generated clocks
+COMM   Test: internal clocks and resets
 COMM **********************************************************************************************
+COMM
+COMM ==============================================================================================
+COMM   Enable internal clock reports display
+COMM ----------------------------------------------------------------------------------------------
+CCPE clk
+CCPE clk_sq1_adc
+CCPE clk_sq1_pls_shape
 COMM
 COMM ==============================================================================================
 COMM   Asynchronous reset activated
@@ -51,80 +58,3 @@ CDIS rst_sq2_mux(1) 0
 CDIS rst_sq2_mux(2) 0
 CDIS rst_sq2_mux(3) 0
 CDIS clk_ref 1
-CDIS clk 1
-CDIS clk_sq1_adc_acq 1
-CDIS clk_sq1_pls_shape 1
-COMM
-COMM ==============================================================================================
-COMM   Check 4 clk periods (frequency 59,995MHz)
-COMM ----------------------------------------------------------------------------------------------
-RTIM
-WUDI clk 0
-WUDI clk 1
-CTLR == 16668 ps
-RTIM
-WUDI clk 0
-WUDI clk 1
-CTLR == 16668 ps
-RTIM
-WUDI clk 0
-WUDI clk 1
-CTLR == 16668 ps
-RTIM
-WUDI clk 0
-WUDI clk 1
-CTLR == 16668 ps
-COMM
-COMM ==============================================================================================
-COMM   Position on clk_sq1_adc_acq rising edge
-COMM ----------------------------------------------------------------------------------------------
-WUDI clk_sq1_adc_acq 1
-WUDI clk_sq1_adc_acq 0
-WUDI clk_sq1_adc_acq 1
-COMM
-COMM ==============================================================================================
-COMM   Check 4 clk_sq1_adc_acq periods (frequency 119,99MHz)
-COMM ----------------------------------------------------------------------------------------------
-RTIM
-WUDI clk_sq1_adc_acq 0
-WUDI clk_sq1_adc_acq 1
-CTLR == 8334 ps
-RTIM
-WUDI clk_sq1_adc_acq 0
-WUDI clk_sq1_adc_acq 1
-CTLR == 8334 ps
-RTIM
-WUDI clk_sq1_adc_acq 0
-WUDI clk_sq1_adc_acq 1
-CTLR == 8334 ps
-RTIM
-WUDI clk_sq1_adc_acq 0
-WUDI clk_sq1_adc_acq 1
-CTLR == 8334 ps
-COMM
-COMM ==============================================================================================
-COMM   Position on clk_sq1_pls_shape rising edge
-COMM ----------------------------------------------------------------------------------------------
-WUDI clk_sq1_pls_shape 1
-WUDI clk_sq1_pls_shape 0
-WUDI clk_sq1_pls_shape 1
-COMM
-COMM ==============================================================================================
-COMM   Check 4 clk_sq1_pls_shape periods (frequency 119,99MHz)
-COMM ----------------------------------------------------------------------------------------------
-RTIM
-WUDI clk_sq1_pls_shape 0
-WUDI clk_sq1_pls_shape 1
-CTLR == 8334 ps
-RTIM
-WUDI clk_sq1_pls_shape 0
-WUDI clk_sq1_pls_shape 1
-CTLR == 8334 ps
-RTIM
-WUDI clk_sq1_pls_shape 0
-WUDI clk_sq1_pls_shape 1
-CTLR == 8334 ps
-RTIM
-WUDI clk_sq1_pls_shape 0
-WUDI clk_sq1_pls_shape 1
-CTLR == 8334 ps

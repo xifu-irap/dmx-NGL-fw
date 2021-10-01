@@ -1,0 +1,229 @@
+COMM **********************************************************************************************
+COMM   Test: EP command, SQ2_FB_MODE register
+COMM **********************************************************************************************
+COMM
+COMM ==============================================================================================
+COMM   Asynchronous reset activated
+COMM ----------------------------------------------------------------------------------------------
+WDIS arst_n 0
+WAIT 80 ns
+COMM
+COMM ==============================================================================================
+COMM   Asynchronous reset deactivated
+COMM ----------------------------------------------------------------------------------------------
+WDIS arst_n 1
+COMM
+COMM ==============================================================================================
+COMM   Wait internal reset deactivated
+COMM ----------------------------------------------------------------------------------------------
+WUDI rst 0
+COMM
+COMM ==============================================================================================
+COMM   Start SQ2_FB_MODE register test
+COMM ----------------------------------------------------------------------------------------------
+WCMD R-SQ2_FB_MODE-XXXX W     # Command 0
+WCMD W-SQ2_FB_MODE-8XXX W     # Command 1
+WCMD R-SQ2_FB_MODE-XXXX R     # Command 2
+COMM
+COMM ==============================================================================================
+COMM   Check SQ2_FB_MODE content at start:
+COMM   Col(3)->Off, Col(2)->Off, Col(1)->Off, Col(0)->Off
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-SQ2_FB_MODE-0000 W     # Return Command 0
+WCMD W-SQ2_FB_MODE-4XXX R     # Command 3
+COMM
+COMM ==============================================================================================
+COMM   Check error position SPI data out of range detected
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-Status-1000 W          # Return Command 1
+WCMD R-SQ2_FB_MODE-XXXX R     # Command 4
+COMM
+COMM ==============================================================================================
+COMM   Check SQ2_FB_MODE no change
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-SQ2_FB_MODE-0000 W     # Return Command 2
+WCMD W-SQ2_FB_MODE-X8XX R     # Command 5
+COMM
+COMM ==============================================================================================
+COMM   Check error position SPI data out of range detected
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-Status-1000 W          # Return Command 3
+WCMD R-SQ2_FB_MODE-XXXX R     # Command 6
+COMM
+COMM ==============================================================================================
+COMM   Check SQ2_FB_MODE no change
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-SQ2_FB_MODE-0000 W     # Return Command 4
+WCMD W-SQ2_FB_MODE-X4XX R     # Command 7
+COMM
+COMM ==============================================================================================
+COMM   Check error position SPI data out of range detected
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-Status-1000 W          # Return Command 5
+WCMD R-SQ2_FB_MODE-XXXX R     # Command 8
+COMM
+COMM ==============================================================================================
+COMM   Check SQ2_FB_MODE no change
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-SQ2_FB_MODE-0000 W     # Return Command 6
+WCMD W-SQ2_FB_MODE-XX8X R     # Command 9
+COMM
+COMM ==============================================================================================
+COMM   Check error position SPI data out of range detected
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-Status-1000 W          # Return Command 7
+WCMD R-SQ2_FB_MODE-XXXX R     # Command 10
+COMM
+COMM ==============================================================================================
+COMM   Check SQ2_FB_MODE no change
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-SQ2_FB_MODE-0000 W     # Return Command 8
+WCMD W-SQ2_FB_MODE-XX4X R     # Command 11
+COMM
+COMM ==============================================================================================
+COMM   Check error position SPI data out of range detected
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-Status-1000 W          # Return Command 9
+WCMD R-SQ2_FB_MODE-XXXX R     # Command 12
+COMM
+COMM ==============================================================================================
+COMM   Check SQ2_FB_MODE no change
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-SQ2_FB_MODE-0000 W     # Return Command 10
+WCMD W-SQ2_FB_MODE-XXX8 R     # Command 13
+COMM
+COMM ==============================================================================================
+COMM   Check error position SPI data out of range detected
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-Status-1000 W          # Return Command 11
+WCMD R-SQ2_FB_MODE-XXXX R     # Command 14
+COMM
+COMM ==============================================================================================
+COMM   Check SQ2_FB_MODE no change
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-SQ2_FB_MODE-0000 W     # Return Command 12
+WCMD W-SQ2_FB_MODE-XXX4 R     # Command 15
+COMM
+COMM ==============================================================================================
+COMM   Check error position SPI data out of range detected
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-Status-1000 W          # Return Command 13
+WCMD R-SQ2_FB_MODE-XXXX R     # Command 16
+COMM
+COMM ==============================================================================================
+COMM   Check SQ2_FB_MODE no change
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-SQ2_FB_MODE-0000 W     # Return Command 14
+WCMD W-SQ2_FB_MODE-0223 R     # Command 17
+COMM
+COMM ==============================================================================================
+COMM   Check error position SPI data out of range detected
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-Status-1000 W          # Return Command 15
+WCMD R-SQ2_FB_MODE-XXXX R     # Command 18
+COMM
+COMM ==============================================================================================
+COMM   Check SQ2_FB_MODE no change
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-SQ2_FB_MODE-0000 W     # Return Command 16
+WCMD W-SQ2_FB_MODE-3320 R     # Command 19
+COMM
+COMM ==============================================================================================
+COMM   Check no error
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-Status-0000 W          # Return Command 17
+WCMD R-SQ2_FB_MODE-XXXX R     # Command 20
+COMM
+COMM ==============================================================================================
+COMM   Check SQ2_FB_MODE content:
+COMM   Col(3)->Off, Col(2)->Open loop, Col(1)->Open loop, Col(0)->Test pattern
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-SQ2_FB_MODE-0223 W     # Return Command 18
+WCMD W-SQ2_FB_MODE-2030 R     # Command 21
+COMM
+COMM ==============================================================================================
+COMM   Check no error
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-Status-0000 W          # Return Command 19
+WCMD R-SQ2_FB_MODE-XXXX R     # Command 22
+COMM
+COMM ==============================================================================================
+COMM   Check SQ2_FB_MODE content:
+COMM   Col(3)->Test pattern, Col(2)->Test pattern, Col(1)->Open loop, Col(0)->Off
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-SQ2_FB_MODE-3320 W     # Return Command 20
+WCMD W-SQ2_FB_MODE-2302 R     # Command 23
+COMM
+COMM ==============================================================================================
+COMM   Check no error
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-Status-0000 W          # Return Command 21
+WCMD R-SQ2_FB_MODE-XXXX R     # Command 24
+COMM
+COMM ==============================================================================================
+COMM   Check SQ2_FB_MODE content:
+COMM   Col(3)->Open loop, Col(2)->Off, Col(1)->Test pattern, Col(0)->Off
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-SQ2_FB_MODE-2030 W     # Return Command 22
+WCMD W-SQ2_FB_MODE-1XXX R     # Command 25
+COMM
+COMM ==============================================================================================
+COMM   Check no error
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-Status-0000 W          # Return Command 23
+WCMD R-SQ2_FB_MODE-XXXX R     # Command 26
+COMM
+COMM ==============================================================================================
+COMM   Check SQ2_FB_MODE content:
+COMM   Col(3)->Open loop, Col(2)->Test pattern, Col(1)->Off, Col(0)->Open loop
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-SQ2_FB_MODE-2302 W     # Return Command 24
+WCMD W-SQ2_FB_MODE-X1XX R     # Command 27
+COMM
+COMM ==============================================================================================
+COMM   Check error position SPI data out of range detected
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-Status-1000 W          # Return Command 25
+WCMD R-SQ2_FB_MODE-XXXX R     # Command 28
+COMM
+COMM ==============================================================================================
+COMM   Check SQ2_FB_MODE no change
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-SQ2_FB_MODE-2302 W     # Return Command 26
+WCMD W-SQ2_FB_MODE-XX1X R     # Command 29
+COMM
+COMM ==============================================================================================
+COMM   Check error position SPI data out of range detected
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-Status-1000 W          # Return Command 27
+WCMD R-SQ2_FB_MODE-XXXX R     # Command 30
+COMM
+COMM ==============================================================================================
+COMM   Check SQ2_FB_MODE no change
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-SQ2_FB_MODE-2302 W     # Return Command 28
+WCMD W-SQ2_FB_MODE-XXX1 R     # Command 31
+COMM
+COMM ==============================================================================================
+COMM   Check error position SPI data out of range detected
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-Status-1000 W          # Return Command 29
+WCMD R-SQ2_FB_MODE-XXXX R     # Command 32
+COMM
+COMM ==============================================================================================
+COMM   Check SQ2_FB_MODE no change
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-SQ2_FB_MODE-2302 W     # Return Command 30
+WCMD W-SQ2_FB_MODE-0000 R     # Command 33
+COMM
+COMM ==============================================================================================
+COMM   Check error position SPI data out of range detected
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-Status-1000 W          # Return Command 31
+WCMD R-SQ2_FB_MODE-XXXX R     # Command 33
+COMM
+COMM ==============================================================================================
+COMM   Check SQ2_FB_MODE no change
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-SQ2_FB_MODE-2302 W     # Return Command 32
+WCMD W-SQ2_FB_MODE-0000 R     # Command 34

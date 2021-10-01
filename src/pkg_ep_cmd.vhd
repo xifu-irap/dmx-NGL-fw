@@ -26,6 +26,7 @@
 -- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 library ieee;
 use     ieee.std_logic_1164.all;
+use     ieee.numeric_std.all;
 
 library work;
 use     work.pkg_project.all;
@@ -61,13 +62,76 @@ constant c_EP_CMD_ERR_FST_POS : integer   := 10                                 
    -- ------------------------------------------------------------------------------------------------------
    --    EP command: Address
    -- ------------------------------------------------------------------------------------------------------
+constant c_EP_CMD_ADD_TM_MODE : std_logic_vector(c_EP_SPI_WD_S-1 downto 0):= x"4000"                        ; --! EP command: Address, TM_MODE
+constant c_EP_CMD_ADD_SQ1FBMD : std_logic_vector(c_EP_SPI_WD_S-1 downto 0):= x"4001"                        ; --! EP command: Address, SQ1_FB_MODE
+constant c_EP_CMD_ADD_SQ2FBMD : std_logic_vector(c_EP_SPI_WD_S-1 downto 0):= x"4002"                        ; --! EP command: Address, SQ2_FB_MODE
+
 constant c_EP_CMD_ADD_STATUS  : std_logic_vector(c_EP_SPI_WD_S-1 downto 0):= x"6000"                        ; --! EP command: Address, Status
 constant c_EP_CMD_ADD_VERSION : std_logic_vector(c_EP_SPI_WD_S-1 downto 0):= x"6001"                        ; --! EP command: Address, Version
 
    -- ------------------------------------------------------------------------------------------------------
    --    EP command: Write register authorization
    -- ------------------------------------------------------------------------------------------------------
+constant c_EP_CMD_AUTH_TM_MODE: std_logic := c_EP_CMD_ERR_CLR                                               ; --! EP command: Authorization, TM_MODE
+constant c_EP_CMD_AUTH_SQ1FBMD: std_logic := c_EP_CMD_ERR_CLR                                               ; --! EP command: Authorization, SQ1_FB_MODE
+constant c_EP_CMD_AUTH_SQ2FBMD: std_logic := c_EP_CMD_ERR_CLR                                               ; --! EP command: Authorization, SQ2_FB_MODE
+
 constant c_EP_CMD_AUTH_STATUS : std_logic := c_EP_CMD_ERR_SET                                               ; --! EP command: Authorization, Status
 constant c_EP_CMD_AUTH_VERSION: std_logic := c_EP_CMD_ERR_SET                                               ; --! EP command: Authorization, Version
+
+   -- ------------------------------------------------------------------------------------------------------
+   --    EP command: Data field bus size
+   -- ------------------------------------------------------------------------------------------------------
+constant c_DFLD_TM_MODE_DUR_S : integer   :=  8                                                             ; --! EP command: Data field, TM_MODE Duration bus size
+constant c_DFLD_TM_MODE_COL_S : integer   :=  2                                                             ; --! EP command: Data field, TM_MODE by column bus size
+constant c_DFLD_SQ1FBMD_COL_S : integer   :=  2                                                             ; --! EP command: Data field, SQ1_FB_MODE by column bus size
+constant c_DFLD_SQ2FBMD_COL_S : integer   :=  2                                                             ; --! EP command: Data field, SQ2_FB_MODE by column bus size
+
+   -- ------------------------------------------------------------------------------------------------------
+   --    EP command: Data state
+   -- ------------------------------------------------------------------------------------------------------
+constant c_DST_TM_MODE_DUMP   : std_logic_vector(c_DFLD_TM_MODE_COL_S-1 downto 0):= "00"                    ; --! EP command: Data state, TM_MODE "Dump"
+constant c_DST_TM_MODE_IDLE   : std_logic_vector(c_DFLD_TM_MODE_COL_S-1 downto 0):= "01"                    ; --! EP command: Data state, TM_MODE "Idle"
+constant c_DST_TM_MODE_NORM   : std_logic_vector(c_DFLD_TM_MODE_COL_S-1 downto 0):= "10"                    ; --! EP command: Data state, TM_MODE "Normal"
+constant c_DST_TM_MODE_TEST   : std_logic_vector(c_DFLD_TM_MODE_COL_S-1 downto 0):= "11"                    ; --! EP command: Data state, TM_MODE "Test Pattern"
+
+constant c_DST_SQ1FBMD_OFF    : std_logic_vector(c_DFLD_SQ1FBMD_COL_S-1 downto 0):= "00"                    ; --! EP command: Data state, SQ1_FB_MODE "Off"
+constant c_DST_SQ1FBMD_OPEN   : std_logic_vector(c_DFLD_SQ1FBMD_COL_S-1 downto 0):= "01"                    ; --! EP command: Data state, SQ1_FB_MODE "Open Loop"
+constant c_DST_SQ1FBMD_CLOSE  : std_logic_vector(c_DFLD_SQ1FBMD_COL_S-1 downto 0):= "10"                    ; --! EP command: Data state, SQ1_FB_MODE "Closed Loop"
+constant c_DST_SQ1FBMD_TEST   : std_logic_vector(c_DFLD_SQ1FBMD_COL_S-1 downto 0):= "11"                    ; --! EP command: Data state, SQ1_FB_MODE "Test Pattern"
+
+constant c_DST_SQ2FBMD_OFF    : std_logic_vector(c_DFLD_SQ2FBMD_COL_S-1 downto 0):= "00"                    ; --! EP command: Data state, SQ2_FB_MODE "Off"
+constant c_DST_SQ2FBMD_OPEN   : std_logic_vector(c_DFLD_SQ2FBMD_COL_S-1 downto 0):= "10"                    ; --! EP command: Data state, SQ2_FB_MODE "Open Loop"
+constant c_DST_SQ2FBMD_TEST   : std_logic_vector(c_DFLD_SQ2FBMD_COL_S-1 downto 0):= "11"                    ; --! EP command: Data state, SQ2_FB_MODE "Test Pattern"
+
+   -- ------------------------------------------------------------------------------------------------------
+   --    EP command: Data value
+   -- ------------------------------------------------------------------------------------------------------
+constant c_D_TM_MODE_DUR_DUMP : integer   :=  2                                                             ; --! EP command: Data value, TM_MODE "Duration" during Dump mode
+constant c_D_TM_MODE_DUR_INF  : integer   :=  0                                                             ; --! EP command: Data value, TM_MODE "Duration" infinity value
+
+   -- ------------------------------------------------------------------------------------------------------
+   --    EP command: Default value
+   -- ------------------------------------------------------------------------------------------------------
+constant c_EP_CMD_DEF_TMDE_DR : integer   :=  0                                                             ; --! EP command: Default value, TM_MODE "Duration"
+constant c_EP_CMD_DEF_TM_MODE : std_logic_vector(c_DFLD_TM_MODE_COL_S-1 downto 0):= c_DST_TM_MODE_IDLE      ; --! EP command: Default value, TM_MODE by column
+
+constant c_EP_CMD_DEF_SQ1FBMD : std_logic_vector(c_EP_SPI_WD_S-1 downto 0):=
+                                "00" & c_DST_SQ1FBMD_OFF & "00" & c_DST_SQ1FBMD_OFF &
+                                "00" & c_DST_SQ1FBMD_OFF & "00" & c_DST_SQ1FBMD_OFF                         ; --! EP command: Default value, SQ1_FB_MODE
+
+constant c_EP_CMD_DEF_SQ2FBMD : std_logic_vector(c_EP_SPI_WD_S-1 downto 0):=
+                                "00" & c_DST_SQ2FBMD_OFF & "00" & c_DST_SQ2FBMD_OFF &
+                                "00" & c_DST_SQ2FBMD_OFF & "00" & c_DST_SQ2FBMD_OFF                         ; --! EP command: Default value, SQ2_FB_MODE
+
+   -- ------------------------------------------------------------------------------------------------------
+   --    EP command: type
+   -- ------------------------------------------------------------------------------------------------------
+type     t_rg_tm_mode          is array (natural range <>) of
+                               std_logic_vector(c_DFLD_TM_MODE_COL_S-1 downto 0)                            ; --! EP command: register TM_MODE by column
+type     t_rg_sq1fbmd          is array (natural range <>) of
+                               std_logic_vector(c_DFLD_SQ1FBMD_COL_S-1 downto 0)                            ; --! EP command: register SQ1_FB_MODE by column
+type     t_rg_sq2fbmd          is array (natural range <>) of
+                               std_logic_vector(c_DFLD_SQ2FBMD_COL_S-1 downto 0)                            ; --! EP command: register SQ2_FB_MODE by column
 
 end pkg_ep_cmd;

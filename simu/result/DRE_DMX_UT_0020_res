@@ -317,6 +317,7 @@
 # Error check discrete level    : '0'
 # Error check command return    : '0'
 # Error check time              : '0'
+# Error check clocks parameters : '0'
 # ------------------------------------------------------------------------------------------------------------------------------------------------------
 # Simulation time               : 170000000 ps
 # Simulation status             : PASS

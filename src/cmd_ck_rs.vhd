@@ -17,89 +17,68 @@
 --                            along with this program.  If not, see <https://www.gnu.org/licenses/>.
 -- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --    email                   slaurent@nanoxplore.com
---!   @file                   squid2_dac_mgt.vhd
+--!   @file                   cmd_ck_rs.vhd
 -- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --    Automatic Generation    No
 --    Code Rules Reference    SOC of design and VHDL handbook for VLSI development, CNES Edition (v2.1)
 -- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
---!   @details                Squid2 DAC management
+--!   @details                Clock switch command clock resynchronization with local reset
 -- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 library ieee;
 use     ieee.std_logic_1164.all;
-use     ieee.numeric_std.all;
 
-library work;
-use     work.pkg_project.all;
-
-entity squid2_dac_mgt is port
-      (  i_arst_n             : in     std_logic                                                            ; --! Asynchronous reset ('0' = Active, '1' = Inactive)
+entity cmd_ck_rs is generic
+   (     g_FF_RESET_NB        : integer                                                                     ; --! Flip-Flop number used for generated reset
+         g_FF_RSYNC_NB        : integer                                                                     ; --! Flip-Flop number used for resynchronization
+         g_PLS_CK_SW_NB       : integer                                                                     ; --! Clock pulse number between clock switch command and output clock
+         g_CK_CMD_DEF         : std_logic                                                                     --! Clock switch command default value at reset
+   ); port
+   (     i_arst_n             : in     std_logic                                                            ; --! Asynchronous reset ('0' = Active, '1' = Inactive)
+         i_clock              : in     std_logic                                                            ; --! Clock
          i_ck_rdy             : in     std_logic                                                            ; --! Clock ready ('0' = Not ready, '1' = Ready)
-         i_clk_sq1_pls_shape  : in     std_logic                                                            ; --! SQUID1 pulse shaping Clock
+         i_ck_cmd             : in     std_logic                                                            ; --! Clock switch command ('0' = Inactive, '1' = Active)
 
-         i_sync_rs            : in     std_logic                                                            ; --! Pixel sequence synchronization, synchronized on System Clock
-
-         o_sq2_dac_mux        : out    std_logic_vector(c_SQ2_DAC_MUX_S -1 downto 0)                          --! SQUID2 DAC - Multiplexer
-
+         o_ck_cmd_rs          : out    std_logic                                                            ; --! Clock switch command, synchronized on Clock
+         o_ck_cmd_sleep       : out    std_logic                                                              --! Clock switch command sleep ('0' = Inactive, '1' = Active)
    );
-end entity squid2_dac_mgt;
+end entity cmd_ck_rs;
 
-architecture RTL of squid2_dac_mgt is
-signal   rst_sq1_pls_shape    : std_logic                                                                   ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+architecture RTL of cmd_ck_rs is
+signal   reset                : std_logic                                                                   ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+signal   ck_cmd_r             : std_logic_vector(g_PLS_CK_SW_NB+g_FF_RSYNC_NB-1 downto 0)                   ; --! Clock switch command register
 
-signal   sync_r               : std_logic_vector(c_FF_RSYNC_NB-1 downto 0)                                  ; --! Pixel sequence sync. register (R.E. detected = position sequence to the first pixel)
-
-signal   sq2_dac_mux	         : std_logic_vector(c_SQ2_DAC_MUX_S-1 downto 0)                                ; --! SQUID2 DAC - Multiplexer
 begin
 
    -- ------------------------------------------------------------------------------------------------------
-   --!   Reset on SQUID1 pulse shaping Clock generation
-   --!     Necessity to generate local reset in order to reach expected frequency
-   --    @Req : DRE-DMX-FW-REQ-0050
+   --!   Local Reset generation
    -- ------------------------------------------------------------------------------------------------------
-   I_rst_sq1_pls_shape: entity work.reset_gen generic map
-   (     g_FF_RESET_NB        => c_FF_RST_SQ1_ADC_NB    -- integer                                            --! Flip-Flop number used for generated reset
+   I_reset_gen: entity work.reset_gen generic map
+   (     g_FF_RESET_NB        => g_FF_RESET_NB          -- integer                                            --! Flip-Flop number used for generated reset
    ) port map
    (     i_arst_n             => i_arst_n             , -- in     std_logic                                 ; --! Asynchronous reset ('0' = Active, '1' = Inactive)
-         i_clock              => i_clk_sq1_pls_shape  , -- in     std_logic                                 ; --! Main Pll Status ('0' = Pll not locked, '1' = Pll locked)
+         i_clock              => i_clock              , -- in     std_logic                                 ; --! Clock
          i_ck_rdy             => i_ck_rdy             , -- in     std_logic                                 ; --! Clock ready ('0' = Not ready, '1' = Ready)
 
-         o_reset              => rst_sq1_pls_shape      -- out    std_logic                                   --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+         o_reset              => reset                  -- out    std_logic                                   --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
    );
 
    -- ------------------------------------------------------------------------------------------------------
-   --!   Inputs Resynchronization
+   --!   Reset generation
    -- ------------------------------------------------------------------------------------------------------
-   P_rsync : process (rst_sq1_pls_shape, i_clk_sq1_pls_shape)
+   P_ck_cmd_r : process (reset, i_clock)
    begin
 
-      if rst_sq1_pls_shape = '1' then
-         sync_r <= (others => c_I_SYNC_DEF);
+      if reset = '1' then
+         ck_cmd_r  <= (others => g_CK_CMD_DEF);
 
-      elsif rising_edge(i_clk_sq1_pls_shape) then
-         sync_r <= sync_r(sync_r'high-1 downto 0) & i_sync_rs;
+      elsif rising_edge(i_clock) then
+         ck_cmd_r  <= ck_cmd_r(ck_cmd_r'high-1 downto 0) & i_ck_cmd;
 
       end if;
 
-   end process P_rsync;
+   end process P_ck_cmd_r;
 
-   -- ------------------------------------------------------------------------------------------------------
-   --!   SQUID2 DAC - Multiplexer
-   --    @Req : DRE-DMX-FW-REQ-0560
-   -- ------------------------------------------------------------------------------------------------------
-   o_sq2_dac_mux <= sq2_dac_mux;
-
-   -- TODO
-   P_todo : process (rst_sq1_pls_shape, i_clk_sq1_pls_shape)
-   begin
-
-      if rst_sq1_pls_shape = '1' then
-         sq2_dac_mux <= (others => '0');
-
-      elsif rising_edge(i_clk_sq1_pls_shape) then
-         sq2_dac_mux <= std_logic_vector(unsigned(sq2_dac_mux) + 1);
-
-      end if;
-
-   end process P_todo;
+   o_ck_cmd_rs    <=     ck_cmd_r(g_FF_RSYNC_NB-1);
+   o_ck_cmd_sleep <= not(ck_cmd_r(ck_cmd_r'high));
 
 end architecture RTL;

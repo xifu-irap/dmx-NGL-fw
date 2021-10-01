@@ -36,7 +36,7 @@ entity squid1_dac_mgt is port
          i_ck_rdy             : in     std_logic                                                            ; --! Clock ready ('0' = Not ready, '1' = Ready)
          i_clk_sq1_pls_shape  : in     std_logic                                                            ; --! SQUID1 pulse shaping Clock
 
-         i_sync               : in     std_logic                                                            ; --! Pixel sequence sync., no rsync (R.E. detected = position sequence to the first pixel)
+         i_sync_rs            : in     std_logic                                                            ; --! Pixel sequence synchronization, synchronized on System Clock
          i_sq1_data_fbk       : in     std_logic_vector(c_SQ1_DATA_FBK_S-1 downto 0)                        ; --! SQUID1 Data feedback
 
          o_sq1_dac_data       : out    std_logic_vector(c_SQ1_DAC_DATA_S-1 downto 0)                          --! SQUID1 DAC - Data
@@ -78,7 +78,7 @@ begin
          sync_r <= (others => c_I_SYNC_DEF);
 
       elsif rising_edge(i_clk_sq1_pls_shape) then
-         sync_r <= sync_r(sync_r'high-1 downto 0) & i_sync;
+         sync_r <= sync_r(sync_r'high-1 downto 0) & i_sync_rs;
 
       end if;
 

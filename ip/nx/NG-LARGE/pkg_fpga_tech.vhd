@@ -33,6 +33,7 @@ package pkg_fpga_tech is
    --!   Global parameters
    -- ------------------------------------------------------------------------------------------------------
 constant c_IO_DEL_STEP        : integer   := 160                                                            ; --! FPGA I/O delay by step value (ps)
+constant c_PLS_CK_SW_NB       : integer   := 2                                                              ; --! Clock pulse number between clock switch command and output clock
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Wave Form Generator parameters
@@ -78,9 +79,9 @@ constant c_MULT_ALU_SIGNED    : bit       := '1'                                
 
    -- ------------------------------------------------------------------------------------------------------
    --!   ALU operation commands:
-   --!    + MUX_ALU_OP -> A 
-   --!    + MUX_MULT   -> B 
-   --!    + MUX_CARRY  -> CI 
+   --!    + MUX_ALU_OP -> A
+   --!    + MUX_MULT   -> B
+   --!    + MUX_CARRY  -> CI
    -- ------------------------------------------------------------------------------------------------------
 constant c_MULT_ALU_OP_ADD    : bit_vector(c_MULT_ALU_OP_S-1 downto 0) := "000000"                          ; --! Multiplier and ALU Operation: A + B
 constant c_MULT_ALU_OP_ADDC   : bit_vector(c_MULT_ALU_OP_S-1 downto 0) := "000001"                          ; --! Multiplier and ALU Operation: A + B + CI
@@ -93,7 +94,7 @@ constant c_MULT_ALU_OP_NOTA   : bit_vector(c_MULT_ALU_OP_S-1 downto 0) := "11000
 constant c_MULT_ALU_OP_AND    : bit_vector(c_MULT_ALU_OP_S-1 downto 0) := "100001"                          ; --! Multiplier and ALU Operation: A and B
 constant c_MULT_ALU_OP_ANDNB  : bit_vector(c_MULT_ALU_OP_S-1 downto 0) := "101001"                          ; --! Multiplier and ALU Operation: A and ~B
 constant c_MULT_ALU_OP_NAND   : bit_vector(c_MULT_ALU_OP_S-1 downto 0) := "110001"                          ; --! Multiplier and ALU Operation: ~(A and B)
-constant c_MULT_ALU_OP_OR     : bit_vector(c_MULT_ALU_OP_S-1 downto 0) := "100010"                          ; --! Multiplier and ALU Operation: A or B 
+constant c_MULT_ALU_OP_OR     : bit_vector(c_MULT_ALU_OP_S-1 downto 0) := "100010"                          ; --! Multiplier and ALU Operation: A or B
 constant c_MULT_ALU_OP_ORNOTB : bit_vector(c_MULT_ALU_OP_S-1 downto 0) := "101010"                          ; --! Multiplier and ALU Operation: A or ~B
 constant c_MULT_ALU_OP_NOR    : bit_vector(c_MULT_ALU_OP_S-1 downto 0) := "110010"                          ; --! Multiplier and ALU Operation: ~(A or B)
 constant c_MULT_ALU_OP_XOR    : bit_vector(c_MULT_ALU_OP_S-1 downto 0) := "100011"                          ; --! Multiplier and ALU Operation: A xor B

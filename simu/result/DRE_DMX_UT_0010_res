@@ -2,8 +2,15 @@
 # Simulation DRE_DMX_UT_0010
 # ------------------------------------------------------------------------------------------------------------------------------------------------------
 #             (0 ps) **********************************************************************************************
-#             (0 ps)   Test: generated clocks
+#             (0 ps)   Test: internal clocks and resets
 #             (0 ps) **********************************************************************************************
+#             (0 ps) 
+#             (0 ps) ==============================================================================================
+#             (0 ps)   Enable internal clock reports display
+#             (0 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (0 ps) Clock report display activated: clk
+# ** Note   : (0 ps) Clock report display activated: clk_sq1_adc
+# ** Note   : (0 ps) Clock report display activated: clk_sq1_pls_shape
 #             (0 ps) 
 #             (0 ps) ==============================================================================================
 #             (0 ps)   Asynchronous reset activated
@@ -83,103 +90,36 @@
 # ** Note   : (7050564 ps)  * Read discrete: rst_sq2_mux(3), value '0', expected '0'
 # ** Note   : (7050564 ps) Check discrete level: PASS
 # ** Note   : (7050564 ps)  * Read discrete: clk_ref, value '1', expected '1'
-# ** Note   : (7050564 ps) Check discrete level: PASS
-# ** Note   : (7050564 ps)  * Read discrete: clk, value '1', expected '1'
-# ** Note   : (7050564 ps) Check discrete level: PASS
-# ** Note   : (7050564 ps)  * Read discrete: clk_sq1_adc_acq, value '1', expected '1'
-# ** Note   : (7050564 ps) Check discrete level: PASS
-# ** Note   : (7050564 ps)  * Read discrete: clk_sq1_pls_shape, value '1', expected '1'
-#             (7050564 ps) 
-#             (7050564 ps) ==============================================================================================
-#             (7050564 ps)   Check 4 clk periods (frequency 59,995MHz)
-#             (7050564 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (7050564 ps) Record current time
-# ** Note   : (7058898 ps) Waiting event clk = '0' for 8334 ps
-# ** Note   : (7067232 ps) Waiting event clk = '1' for 8334 ps
-# ** Note   : (7067232 ps) Check time, record time: PASS
-# ** Note   : (7067232 ps)  * record time 16668 ps equal to expected value 16668 ps
-# ** Note   : (7067232 ps) Record current time
-# ** Note   : (7075566 ps) Waiting event clk = '0' for 8334 ps
-# ** Note   : (7083900 ps) Waiting event clk = '1' for 8334 ps
-# ** Note   : (7083900 ps) Check time, record time: PASS
-# ** Note   : (7083900 ps)  * record time 16668 ps equal to expected value 16668 ps
-# ** Note   : (7083900 ps) Record current time
-# ** Note   : (7092234 ps) Waiting event clk = '0' for 8334 ps
-# ** Note   : (7100568 ps) Waiting event clk = '1' for 8334 ps
-# ** Note   : (7100568 ps) Check time, record time: PASS
-# ** Note   : (7100568 ps)  * record time 16668 ps equal to expected value 16668 ps
-# ** Note   : (7100568 ps) Record current time
-# ** Note   : (7108902 ps) Waiting event clk = '0' for 8334 ps
-# ** Note   : (7117236 ps) Waiting event clk = '1' for 8334 ps
-# ** Note   : (7117236 ps) Check time, record time: PASS
-# ** Note   : (7117236 ps)  * record time 16668 ps equal to expected value 16668 ps
-#             (7117236 ps) 
-#             (7117236 ps) ==============================================================================================
-#             (7117236 ps)   Position on clk_sq1_adc_acq rising edge
-#             (7117236 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (7125570 ps) Waiting event clk_sq1_adc_acq = '1' for 8334 ps
-# ** Note   : (7129737 ps) Waiting event clk_sq1_adc_acq = '0' for 4167 ps
-# ** Note   : (7133904 ps) Waiting event clk_sq1_adc_acq = '1' for 4167 ps
-#             (7133904 ps) 
-#             (7133904 ps) ==============================================================================================
-#             (7133904 ps)   Check 4 clk_sq1_adc_acq periods (frequency 119,99MHz)
-#             (7133904 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (7133904 ps) Record current time
-# ** Note   : (7138071 ps) Waiting event clk_sq1_adc_acq = '0' for 4167 ps
-# ** Note   : (7142238 ps) Waiting event clk_sq1_adc_acq = '1' for 4167 ps
-# ** Note   : (7142238 ps) Check time, record time: PASS
-# ** Note   : (7142238 ps)  * record time 8334 ps equal to expected value 8334 ps
-# ** Note   : (7142238 ps) Record current time
-# ** Note   : (7146405 ps) Waiting event clk_sq1_adc_acq = '0' for 4167 ps
-# ** Note   : (7150572 ps) Waiting event clk_sq1_adc_acq = '1' for 4167 ps
-# ** Note   : (7150572 ps) Check time, record time: PASS
-# ** Note   : (7150572 ps)  * record time 8334 ps equal to expected value 8334 ps
-# ** Note   : (7150572 ps) Record current time
-# ** Note   : (7154739 ps) Waiting event clk_sq1_adc_acq = '0' for 4167 ps
-# ** Note   : (7158906 ps) Waiting event clk_sq1_adc_acq = '1' for 4167 ps
-# ** Note   : (7158906 ps) Check time, record time: PASS
-# ** Note   : (7158906 ps)  * record time 8334 ps equal to expected value 8334 ps
-# ** Note   : (7158906 ps) Record current time
-# ** Note   : (7163073 ps) Waiting event clk_sq1_adc_acq = '0' for 4167 ps
-# ** Note   : (7167240 ps) Waiting event clk_sq1_adc_acq = '1' for 4167 ps
-# ** Note   : (7167240 ps) Check time, record time: PASS
-# ** Note   : (7167240 ps)  * record time 8334 ps equal to expected value 8334 ps
-#             (7167240 ps) 
-#             (7167240 ps) ==============================================================================================
-#             (7167240 ps)   Position on clk_sq1_pls_shape rising edge
-#             (7167240 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (7175574 ps) Waiting event clk_sq1_pls_shape = '1' for 8334 ps
-# ** Note   : (7179741 ps) Waiting event clk_sq1_pls_shape = '0' for 4167 ps
-# ** Note   : (7183908 ps) Waiting event clk_sq1_pls_shape = '1' for 4167 ps
-#             (7183908 ps) 
-#             (7183908 ps) ==============================================================================================
-#             (7183908 ps)   Check 4 clk_sq1_pls_shape periods (frequency 119,99MHz)
-#             (7183908 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (7183908 ps) Record current time
-# ** Note   : (7188075 ps) Waiting event clk_sq1_pls_shape = '0' for 4167 ps
-# ** Note   : (7192242 ps) Waiting event clk_sq1_pls_shape = '1' for 4167 ps
-# ** Note   : (7192242 ps) Check time, record time: PASS
-# ** Note   : (7192242 ps)  * record time 8334 ps equal to expected value 8334 ps
-# ** Note   : (7192242 ps) Record current time
-# ** Note   : (7196409 ps) Waiting event clk_sq1_pls_shape = '0' for 4167 ps
-# ** Note   : (7200576 ps) Waiting event clk_sq1_pls_shape = '1' for 4167 ps
-# ** Note   : (7200576 ps) Check time, record time: PASS
-# ** Note   : (7200576 ps)  * record time 8334 ps equal to expected value 8334 ps
-# ** Note   : (7200576 ps) Record current time
-# ** Note   : (7204743 ps) Waiting event clk_sq1_pls_shape = '0' for 4167 ps
-# ** Note   : (7208910 ps) Waiting event clk_sq1_pls_shape = '1' for 4167 ps
-# ** Note   : (7208910 ps) Check time, record time: PASS
-# ** Note   : (7208910 ps)  * record time 8334 ps equal to expected value 8334 ps
-# ** Note   : (7208910 ps) Record current time
-# ** Note   : (7213077 ps) Waiting event clk_sq1_pls_shape = '0' for 4167 ps
-# ** Note   : (7217244 ps) Waiting event clk_sq1_pls_shape = '1' for 4167 ps
-# ** Note   : (7217244 ps) Check time, record time: PASS
-# ** Note   : (7217244 ps)  * record time 8334 ps equal to expected value 8334 ps
+# ----------------------------------------------------------------------------------------------------
+# Parameters check, clock clk              
+# ----------------------------------------------------------------------------------------------------
+# Error number of clock oscillation when enable is inactive : 0, inactive parameter (no check)
+# Error number of high level clock period timing :            0, expected timing: 8334 ps
+# Error number of low  level clock period timing :            0, expected timing: 8334 ps
+# Error number of clock state when enable goes to inactive :  0, expected state:  '1'
+# Error number of clock state when enable goes to active   :  0, expected state:  '0'
+# ----------------------------------------------------------------------------------------------------
+# Parameters check, clock clk_sq1_adc      
+# ----------------------------------------------------------------------------------------------------
+# Error number of clock oscillation when enable is inactive : 0, inactive parameter (no check)
+# Error number of high level clock period timing :            0, expected timing: 4167 ps
+# Error number of low  level clock period timing :            0, expected timing: 4167 ps
+# Error number of clock state when enable goes to inactive :  0, expected state:  '1'
+# Error number of clock state when enable goes to active   :  0, expected state:  '0'
+# ----------------------------------------------------------------------------------------------------
+# Parameters check, clock clk_sq1_pls_shape
+# ----------------------------------------------------------------------------------------------------
+# Error number of clock oscillation when enable is inactive : 0, inactive parameter (no check)
+# Error number of high level clock period timing :            0, expected timing: 4167 ps
+# Error number of low  level clock period timing :            0, expected timing: 4167 ps
+# Error number of clock state when enable goes to inactive :  0, expected state:  '1'
+# Error number of clock state when enable goes to active   :  0, expected state:  '0'
 # ------------------------------------------------------------------------------------------------------------------------------------------------------
 # Error simulation time         : '0'
 # Error check discrete level    : '0'
 # Error check command return    : '0'
 # Error check time              : '0'
+# Error check clocks parameters : '0'
 # ------------------------------------------------------------------------------------------------------------------------------------------------------
 # Simulation time               : 8000000 ps
 # Simulation status             : PASS

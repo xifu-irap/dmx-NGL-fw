@@ -37,57 +37,6 @@ quietly set TB_DIR "${PR_DIR}/simu/tb"
 quietly set CFG_DIR "${PR_DIR}/simu/conf"
 quietly set RES_DIR "${PR_DIR}/simu/result"
 
-#### Package ip files list ####
-quietly set PKG_IP_FILES {
-   pkg_fpga_tech.vhd
-}
-
-#### Ip files list ####
-quietly set IP_FILES {
-   pll.vhd
-   pulse_shaping.vhd
-}
-
-#### Package source files list ####
-quietly set PKG_SRC_FILES {
-   pkg_func_math.vhd
-   pkg_project.vhd
-   pkg_ep_cmd.vhd
-}
-
-#### Source files list ####
-quietly set SRC_FILES {
-   reset_gen.vhd
-   rst_clk_mgt.vhd
-   in_rs_clk.vhd
-   spi_slave.vhd
-   sts_err_add_mgt.vhd
-   sts_err_wrt_mgt.vhd
-   ep_cmd.vhd
-   register_mgt.vhd
-   spi_master.vhd
-   science_data_tx.vhd
-   hk_mgt.vhd
-   squid_adc_mgt.vhd
-   squid_data_proc.vhd
-   squid1_dac_mgt.vhd
-   squid2_dac_mgt.vhd
-   squid_spi_mgt.vhd
-   top_dmx.vhd
-}
-
-#### Testbench files list ####
-quietly set TB_FILES {
-   pkg_model.vhd
-   pkg_mess.vhd
-   pkg_str_fld_assoc.vhd
-   pkg_func_cmd_script.vhd
-   clock_model.vhd
-   ep_spi_model.vhd
-   parser.vhd
-   top_dmx_tb.vhd
-}
-
 # Compile library linked to the FPGA technology
 vlib nx
 if {${VARIANT} == "NG-MEDIUM" || ${VARIANT} == "NG-MEDIUM-EMBEDDED"} {
@@ -107,37 +56,49 @@ proc run_utest {args} {
    global CFG_DIR
    global RES_DIR
    global NR_FILE
-   global PKG_IP_FILES
-   global IP_FILES
-   global PKG_SRC_FILES
-   global SRC_FILES
-   global TB_FILES
 
    vlib work
-   # Compile all package ip files
-	foreach file ${PKG_IP_FILES} {
-      vcom -work work -93 ${IP_DIR}/$file
-	}
+   vcom -work work -93                    \
+      ${IP_DIR}/pkg_fpga_tech.vhd         \
+      ${SRC_DIR}/pkg_func_math.vhd        \
+      ${SRC_DIR}/pkg_project.vhd          \
+      ${SRC_DIR}/pkg_ep_cmd.vhd           \
+      ${SRC_DIR}/reset_gen.vhd            \
+      ${SRC_DIR}/cmd_ck_rs.vhd            \
+      ${IP_DIR}/pll.vhd                   \
+      ${IP_DIR}/pulse_shaping.vhd         \
+      ${SRC_DIR}/rst_clk_mgt.vhd          \
+      ${SRC_DIR}/in_rs_clk.vhd            \
+      ${SRC_DIR}/spi_slave.vhd            \
+      ${SRC_DIR}/sts_err_add_mgt.vhd      \
+      ${SRC_DIR}/sts_err_wrt_mgt.vhd      \
+      ${SRC_DIR}/sts_err_out_mgt.vhd      \
+      ${SRC_DIR}/sts_err_dis_mgt.vhd      \
+      ${SRC_DIR}/rg_tm_mode_mgt.vhd       \
+      ${SRC_DIR}/ep_cmd.vhd               \
+      ${SRC_DIR}/register_mgt.vhd         \
+      ${SRC_DIR}/dmx_cmd.vhd              \
+      ${SRC_DIR}/spi_master.vhd           \
+      ${SRC_DIR}/science_data_tx.vhd      \
+      ${SRC_DIR}/hk_mgt.vhd               \
+      ${SRC_DIR}/squid_adc_mgt.vhd        \
+      ${SRC_DIR}/squid_data_proc.vhd      \
+      ${SRC_DIR}/squid1_dac_mgt.vhd       \
+      ${SRC_DIR}/squid2_dac_mgt.vhd       \
+      ${SRC_DIR}/squid_spi_mgt.vhd        \
+      ${SRC_DIR}/top_dmx.vhd
 
-   # Compile all package source files
-	foreach file ${PKG_SRC_FILES} {
-      vcom -work work -93 ${SRC_DIR}/$file
-	}
-
-   # Compile all ip files
-	foreach file ${IP_FILES} {
-      vcom -work work -93 ${IP_DIR}/$file
-	}
-
-   # Compile all source files
-	foreach file ${SRC_FILES} {
-      vcom -work work -93 ${SRC_DIR}/$file
-	}
-
-   # Compile all testbench files
-	foreach file ${TB_FILES} {
-      vcom -work work -2008 ${TB_DIR}/$file
-	}
+   vcom -work work -2008                  \
+      ${TB_DIR}/pkg_model.vhd             \
+      ${TB_DIR}/pkg_mess.vhd              \
+      ${TB_DIR}/pkg_str_fld_assoc.vhd     \
+      ${TB_DIR}/pkg_func_cmd_script.vhd   \
+      ${TB_DIR}/clock_check.vhd           \
+      ${TB_DIR}/clock_check_model.vhd     \
+      ${TB_DIR}/clock_model.vhd           \
+      ${TB_DIR}/ep_spi_model.vhd          \
+      ${TB_DIR}/parser.vhd                \
+      ${TB_DIR}/top_dmx_tb.vhd
 
    # Test the argument number
    if {[llength $args] == 0} {
@@ -223,6 +184,7 @@ proc run_utest {args} {
 
          add wave -format Logic                    -group "Inputs"                              sim:/top_dmx_tb/I_top_dmx/i_arst_n
          add wave -format Logic                    -group "Inputs"                              sim:/top_dmx_tb/I_top_dmx/i_clk_ref
+         add wave -format Logic                    -group "Inputs"                              sim:/top_dmx_tb/I_top_dmx/i_sync
 
          add wave -format Logic                    -group "Local Resets"                        sim:/top_dmx_tb/I_top_dmx/G_column_mgt(0)/I_squid_adc_mgt/rst_sq1_adc
          add wave -format Logic                    -group "Local Resets"                        sim:/top_dmx_tb/I_top_dmx/G_column_mgt(1)/I_squid_adc_mgt/rst_sq1_adc
@@ -241,11 +203,13 @@ proc run_utest {args} {
          add wave -format Logic                                                                 sim:/top_dmx_tb/I_top_dmx/clk
          add wave -format Logic                                                                 sim:/top_dmx_tb/I_top_dmx/clk_sq1_adc_acq
          add wave -format Logic                                                                 sim:/top_dmx_tb/I_top_dmx/clk_sq1_pls_shape
-         add wave -format Logic                                                                 sim:/top_dmx_tb/I_top_dmx/i_sync
+         add wave -format Logic                                                                 sim:/top_dmx_tb/I_top_dmx/sync_re
+         add wave -format Logic -Radix decimal                                                  sim:/top_dmx_tb/I_top_dmx/I_dmx_cmd/ck_pls_cnt
+         add wave -format Logic -Radix decimal                                                  sim:/top_dmx_tb/I_top_dmx/I_dmx_cmd/pixel_pos
 
          add wave -noupdate -divider "Channel 0"
-         add wave -format Logic                    -group "0 - Squid1 ADC"                      sim:/top_dmx_tb/I_top_dmx/o_c0_sq1_adc_pwdn
-         add wave -format Logic                    -group "0 - Squid1 ADC"                      sim:/top_dmx_tb/I_top_dmx/o_c0_clk_sq1_adc
+         add wave -format Logic                    -group "0 - Squid1 ADC"                      sim:/top_dmx_tb/c0_sq1_adc_pwdn
+         add wave -format Logic                    -group "0 - Squid1 ADC"                      sim:/top_dmx_tb/c0_clk_sq1_adc
          add wave -format Logic -Radix unsigned    -group "0 - Squid1 ADC"                      sim:/top_dmx_tb/I_top_dmx/i_c0_sq1_adc_data
          add wave -format Logic                    -group "0 - Squid1 ADC"                      sim:/top_dmx_tb/I_top_dmx/i_c0_sq1_adc_oor
 
@@ -264,8 +228,8 @@ proc run_utest {args} {
          add wave -format Logic                    -group "0 - Squid2 DAC" -group "SPI"         sim:/top_dmx_tb/I_top_dmx/o_c0_sq2_dac_sync_n
 
          add wave -noupdate -divider "Channel 1"
-         add wave -format Logic                    -group "1 - Squid1 ADC"                      sim:/top_dmx_tb/I_top_dmx/o_c1_sq1_adc_pwdn
-         add wave -format Logic                    -group "1 - Squid1 ADC"                      sim:/top_dmx_tb/I_top_dmx/o_c1_clk_sq1_adc
+         add wave -format Logic                    -group "1 - Squid1 ADC"                      sim:/top_dmx_tb/c1_sq1_adc_pwdn
+         add wave -format Logic                    -group "1 - Squid1 ADC"                      sim:/top_dmx_tb/c1_clk_sq1_adc
          add wave -format Logic -Radix unsigned    -group "1 - Squid1 ADC"                      sim:/top_dmx_tb/I_top_dmx/i_c1_sq1_adc_data
          add wave -format Logic                    -group "1 - Squid1 ADC"                      sim:/top_dmx_tb/I_top_dmx/i_c1_sq1_adc_oor
 
@@ -284,8 +248,8 @@ proc run_utest {args} {
          add wave -format Logic                    -group "1 - Squid2 DAC" -group "SPI"         sim:/top_dmx_tb/I_top_dmx/o_c1_sq2_dac_sync_n
 
          add wave -noupdate -divider "Channel 2"
-         add wave -format Logic                    -group "2 - Squid1 ADC"                      sim:/top_dmx_tb/I_top_dmx/o_c2_sq1_adc_pwdn
-         add wave -format Logic                    -group "2 - Squid1 ADC"                      sim:/top_dmx_tb/I_top_dmx/o_c2_clk_sq1_adc
+         add wave -format Logic                    -group "2 - Squid1 ADC"                      sim:/top_dmx_tb/c2_sq1_adc_pwdn
+         add wave -format Logic                    -group "2 - Squid1 ADC"                      sim:/top_dmx_tb/c2_clk_sq1_adc
          add wave -format Logic -Radix unsigned    -group "2 - Squid1 ADC"                      sim:/top_dmx_tb/I_top_dmx/i_c2_sq1_adc_data
          add wave -format Logic                    -group "2 - Squid1 ADC"                      sim:/top_dmx_tb/I_top_dmx/i_c2_sq1_adc_oor
 
@@ -304,8 +268,8 @@ proc run_utest {args} {
          add wave -format Logic                    -group "2 - Squid2 DAC" -group "SPI"         sim:/top_dmx_tb/I_top_dmx/o_c2_sq2_dac_sync_n
 
          add wave -noupdate -divider "Channel 3"
-         add wave -format Logic                    -group "3 - Squid1 ADC"                      sim:/top_dmx_tb/I_top_dmx/o_c3_sq1_adc_pwdn
-         add wave -format Logic                    -group "3 - Squid1 ADC"                      sim:/top_dmx_tb/I_top_dmx/o_c3_clk_sq1_adc
+         add wave -format Logic                    -group "3 - Squid1 ADC"                      sim:/top_dmx_tb/c3_sq1_adc_pwdn
+         add wave -format Logic                    -group "3 - Squid1 ADC"                      sim:/top_dmx_tb/c3_clk_sq1_adc
          add wave -format Logic -Radix unsigned    -group "3 - Squid1 ADC"                      sim:/top_dmx_tb/I_top_dmx/i_c3_sq1_adc_data
          add wave -format Logic                    -group "3 - Squid1 ADC"                      sim:/top_dmx_tb/I_top_dmx/i_c3_sq1_adc_oor
 
@@ -333,23 +297,21 @@ proc run_utest {args} {
          add wave -format Logic                    -group "Science"                             sim:/top_dmx_tb/I_top_dmx/o_c2_science_data
          add wave -format Logic                    -group "Science"                             sim:/top_dmx_tb/I_top_dmx/o_c3_science_data
 
-         add wave -format Logic -Radix unsigned    -group "Command"                             sim:/top_dmx_tb/ep_cmd_ser_wd_s
-         add wave -format Logic -Radix hexadecimal -group "Command"                             sim:/top_dmx_tb/ep_cmd
-         add wave -format Logic                    -group "Command"                             sim:/top_dmx_tb/ep_cmd_start
-         add wave -format Logic                    -group "Command"                             sim:/top_dmx_tb/ep_cmd_busy_n
-         add wave -format Logic -Radix hexadecimal -group "Command"                             sim:/top_dmx_tb/ep_data_rx
-         add wave -format Logic                    -group "Command"                             sim:/top_dmx_tb/ep_data_rx_rdy
-         add wave -format Logic                    -group "Command"                             sim:/top_dmx_tb/I_top_dmx/i_ep_spi_mosi
-         add wave -format Logic                    -group "Command"                             sim:/top_dmx_tb/I_top_dmx/o_ep_spi_miso
-         add wave -format Logic                    -group "Command"                             sim:/top_dmx_tb/I_top_dmx/i_ep_spi_sclk
-         add wave -format Logic                    -group "Command"                             sim:/top_dmx_tb/I_top_dmx/i_ep_spi_cs_n
-#TODO
+         add wave -format Logic -Radix unsigned    -group "Command" -group "EP"                 sim:/top_dmx_tb/ep_cmd_ser_wd_s
+         add wave -format Logic -Radix hexadecimal -group "Command" -group "EP"                 sim:/top_dmx_tb/ep_cmd
+         add wave -format Logic                    -group "Command" -group "EP"                 sim:/top_dmx_tb/ep_cmd_start
+         add wave -format Logic                    -group "Command" -group "EP"                 sim:/top_dmx_tb/ep_cmd_busy_n
+         add wave -format Logic -Radix hexadecimal -group "Command" -group "EP"                 sim:/top_dmx_tb/ep_data_rx
+         add wave -format Logic                    -group "Command" -group "EP"                 sim:/top_dmx_tb/ep_data_rx_rdy
+         add wave -format Logic                    -group "Command" -group "SPI"                sim:/top_dmx_tb/I_top_dmx/i_ep_spi_mosi
+         add wave -format Logic                    -group "Command" -group "SPI"                sim:/top_dmx_tb/I_top_dmx/o_ep_spi_miso
+         add wave -format Logic                    -group "Command" -group "SPI"                sim:/top_dmx_tb/I_top_dmx/i_ep_spi_sclk
+         add wave -format Logic                    -group "Command" -group "SPI"                sim:/top_dmx_tb/I_top_dmx/i_ep_spi_cs_n
          add wave -format Logic -Radix hexadecimal -group "Command"                             sim:/top_dmx_tb/I_top_dmx/ep_cmd_sts_rg
-
          add wave -format Logic -Radix hexadecimal -group "Command"                             sim:/top_dmx_tb/I_top_dmx/ep_cmd_rx_wd_add
          add wave -format Logic -Radix hexadecimal -group "Command"                             sim:/top_dmx_tb/I_top_dmx/ep_cmd_rx_wd_data
          add wave -format Logic                    -group "Command"                             sim:/top_dmx_tb/I_top_dmx/ep_cmd_rx_rw
-         add wave -format Logic                    -group "Command"                             sim:/top_dmx_tb/I_top_dmx/ep_cmd_rx_noerr_rdy
+         add wave -format Logic                    -group "Command"                             sim:/top_dmx_tb/I_top_dmx/ep_cmd_rx_nerr_rdy
 
          add wave -format Logic                    -group "HouseKeeping"                        sim:/top_dmx_tb/I_top_dmx/i_hk1_spi_miso
          add wave -format Logic                    -group "HouseKeeping"                        sim:/top_dmx_tb/I_top_dmx/o_hk1_spi_mosi

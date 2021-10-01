@@ -1,0 +1,983 @@
+COMM **********************************************************************************************
+COMM   Test: ADC Power Down and ADC clock signals behavior
+COMM **********************************************************************************************
+COMM
+COMM ==============================================================================================
+COMM   Enable Squid1 ADC clocks reports display
+COMM ----------------------------------------------------------------------------------------------
+CCPE clk_sq1_adc(0)
+CCPE clk_sq1_adc(1)
+CCPE clk_sq1_adc(2)
+CCPE clk_sq1_adc(3)
+COMM
+COMM ==============================================================================================
+COMM   Check ADC Power Down at start
+COMM ----------------------------------------------------------------------------------------------
+CDIS sq1_adc_pwdn(0) 1
+CDIS sq1_adc_pwdn(1) 1
+CDIS sq1_adc_pwdn(2) 1
+CDIS sq1_adc_pwdn(3) 1
+COMM
+COMM ==============================================================================================
+COMM   Asynchronous reset activated
+COMM ----------------------------------------------------------------------------------------------
+WDIS arst_n 0
+WAIT 80 ns
+COMM
+COMM ==============================================================================================
+COMM   Asynchronous reset deactivated
+COMM ----------------------------------------------------------------------------------------------
+WDIS arst_n 1
+COMM
+COMM ==============================================================================================
+COMM   Wait internal reset deactivated
+COMM ----------------------------------------------------------------------------------------------
+WUDI rst 0
+COMM
+COMM ==============================================================================================
+COMM   Send command TM_MODE column 0 to Normal for o_c0_sq1_adc_pwdn deactivation
+COMM ----------------------------------------------------------------------------------------------
+WUDI sync 1
+WCMD W-TM_MODE-56XX N
+COMM
+COMM ==============================================================================================
+COMM   Check no event is appeared on o_c0_sq1_adc_pwdn and wait o_c0_sq1_adc_pwdn deactivation
+COMM ----------------------------------------------------------------------------------------------
+CTLE sq1_adc_pwdn(0) == 12524332 ps     # TODO: replace by 'now' on the next commit
+WUDI sq1_adc_pwdn(0) 0
+COMM
+COMM ==============================================================================================
+COMM   Check indirectly timing between o_c0_clk_sq1_adc rising edge
+COMM    and internal SQUID1 ADC clock falling edge
+COMM ----------------------------------------------------------------------------------------------
+WUDI clk_sq1_adc_acq 1
+WUDI clk_sq1_adc_acq 0
+CTLE sq1_adc_pwdn(0) >= 4400 ps
+CTLE sq1_adc_pwdn(0) << 4560 ps
+COMM
+COMM ==============================================================================================
+COMM   Check timing between o_c0_sq1_adc_pwdn deactivation and i_sync rising edge
+COMM     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
+COMM ----------------------------------------------------------------------------------------------
+WUDI sync 1
+CTLE sq1_adc_pwdn(0) >= 183348 ps
+COMM
+COMM ==============================================================================================
+COMM   Send command TM_MODE column 0 to Test pattern for o_c0_sq1_adc_pwdn activation
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-TM_MODE-5700 W
+COMM
+COMM ==============================================================================================
+COMM    Wait i_sync rising edge and check o_c0_sq1_adc_pwdn remains to deactivated
+COMM ----------------------------------------------------------------------------------------------
+WUDI sync 1
+RTIM
+CDIS sq1_adc_pwdn(0) 0
+COMM
+COMM ==============================================================================================
+COMM   Check timing between i_sync rising edge and o_c0_sq1_adc_pwdn activation
+COMM     (c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ < .. < 2*c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
+COMM ----------------------------------------------------------------------------------------------
+WUDI sq1_adc_pwdn(0) 1
+CTLR << 366696 ps
+CTLR >> 183348 ps
+COMM
+COMM ==============================================================================================
+COMM   Send command TM_MODE column 0 to Dump for o_c0_sq1_adc_pwdn deactivation
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-TM_MODE-54XX N
+COMM
+COMM ==============================================================================================
+COMM   Check no event is appeared on o_c0_sq1_adc_pwdn and wait o_c0_sq1_adc_pwdn deactivation
+COMM ----------------------------------------------------------------------------------------------
+CDIS sq1_adc_pwdn(0) 1
+WUDI sq1_adc_pwdn(0) 0
+COMM
+COMM ==============================================================================================
+COMM   Check indirectly timing between o_c0_clk_sq1_adc rising edge
+COMM    and internal SQUID1 ADC clock falling edge
+COMM ----------------------------------------------------------------------------------------------
+WUDI clk_sq1_adc_acq 1
+WUDI clk_sq1_adc_acq 0
+CTLE sq1_adc_pwdn(0) >= 4400 ps
+CTLE sq1_adc_pwdn(0) << 4560 ps
+COMM
+COMM ==============================================================================================
+COMM   Check timing between o_c0_sq1_adc_pwdn deactivation and i_sync rising edge
+COMM     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
+COMM ----------------------------------------------------------------------------------------------
+WUDI sync 1
+CTLE sq1_adc_pwdn(0) >= 183348 ps
+COMM
+COMM ==============================================================================================
+COMM    Wait TM_MODE column 0 goes automatically to Idle and
+COMM     check o_c0_sq1_adc_pwdn remains to deactivated
+COMM ----------------------------------------------------------------------------------------------
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+RTIM
+CDIS sq1_adc_pwdn(0) 0
+COMM
+COMM ==============================================================================================
+COMM   Check timing between i_sync rising edge and o_c0_sq1_adc_pwdn activation
+COMM     (c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ < .. < 2*c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
+COMM ----------------------------------------------------------------------------------------------
+WUDI sq1_adc_pwdn(0) 1
+CTLR << 366696 ps
+CTLR >> 183348 ps
+COMM
+COMM ==============================================================================================
+COMM   Send command SQ1_FB_MODE column 0 to Closed loop for o_c0_sq1_adc_pwdn deactivation
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-SQ1_FB_MODE-0002 N
+COMM
+COMM ==============================================================================================
+COMM   Check no event is appeared on o_c0_sq1_adc_pwdn and wait o_c0_sq1_adc_pwdn deactivation
+COMM ----------------------------------------------------------------------------------------------
+CDIS sq1_adc_pwdn(0) 1
+WUDI sq1_adc_pwdn(0) 0
+COMM
+COMM ==============================================================================================
+COMM   Check indirectly timing between o_c0_clk_sq1_adc rising edge
+COMM    and internal SQUID1 ADC clock falling edge
+COMM ----------------------------------------------------------------------------------------------
+WUDI clk_sq1_adc_acq 1
+WUDI clk_sq1_adc_acq 0
+CTLE sq1_adc_pwdn(0) >= 4400 ps
+CTLE sq1_adc_pwdn(0) << 4560 ps
+COMM
+COMM ==============================================================================================
+COMM   Check timing between o_c0_sq1_adc_pwdn deactivation and i_sync rising edge
+COMM     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
+COMM ----------------------------------------------------------------------------------------------
+WUDI sync 1
+CTLE sq1_adc_pwdn(0) >= 183348 ps
+COMM
+COMM ==============================================================================================
+COMM   Send command SQ1_FB_MODE column 0 to Off loop for o_c0_sq1_adc_pwdn activation
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-SQ1_FB_MODE-0000 W
+COMM
+COMM ==============================================================================================
+COMM    Wait i_sync rising edge and check o_c0_sq1_adc_pwdn remains to deactivated
+COMM ----------------------------------------------------------------------------------------------
+WUDI sync 1
+RTIM
+CDIS sq1_adc_pwdn(0) 0
+COMM
+COMM ==============================================================================================
+COMM   Check timing between i_sync rising edge and o_c0_sq1_adc_pwdn activation
+COMM     (c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ < .. < 2*c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
+COMM ----------------------------------------------------------------------------------------------
+WUDI sq1_adc_pwdn(0) 1
+CTLR << 366696 ps
+CTLR >> 183348 ps
+COMM
+COMM ==============================================================================================
+COMM   Send command SQ1_FB_MODE column 0 to Closed loop for o_c0_sq1_adc_pwdn deactivation
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-SQ1_FB_MODE-0002 N
+COMM
+COMM ==============================================================================================
+COMM   Check no event is appeared on o_c0_sq1_adc_pwdn and wait o_c0_sq1_adc_pwdn deactivation
+COMM ----------------------------------------------------------------------------------------------
+CDIS sq1_adc_pwdn(0) 1
+WUDI sq1_adc_pwdn(0) 0
+COMM
+COMM ==============================================================================================
+COMM   Check indirectly timing between o_c0_clk_sq1_adc rising edge
+COMM    and internal SQUID1 ADC clock falling edge
+COMM ----------------------------------------------------------------------------------------------
+WUDI clk_sq1_adc_acq 1
+WUDI clk_sq1_adc_acq 0
+CTLE sq1_adc_pwdn(0) >= 4400 ps
+CTLE sq1_adc_pwdn(0) << 4560 ps
+COMM
+COMM ==============================================================================================
+COMM   Check timing between o_c0_sq1_adc_pwdn deactivation and i_sync rising edge
+COMM     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
+COMM ----------------------------------------------------------------------------------------------
+WUDI sync 1
+CTLE sq1_adc_pwdn(0) >= 183348 ps
+COMM
+COMM ==============================================================================================
+COMM   Send command SQ1_FB_MODE column 0 to Open loop for o_c0_sq1_adc_pwdn activation
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-SQ1_FB_MODE-0001 W
+COMM
+COMM ==============================================================================================
+COMM    Wait i_sync rising edge and check o_c0_sq1_adc_pwdn remains to deactivated
+COMM ----------------------------------------------------------------------------------------------
+WUDI sync 1
+RTIM
+CDIS sq1_adc_pwdn(0) 0
+COMM
+COMM ==============================================================================================
+COMM   Check timing between i_sync rising edge and o_c0_sq1_adc_pwdn activation
+COMM     (c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ < .. < 2*c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
+COMM ----------------------------------------------------------------------------------------------
+WUDI sq1_adc_pwdn(0) 1
+CTLR << 366696 ps
+CTLR >> 183348 ps
+COMM
+COMM ==============================================================================================
+COMM   Send command SQ1_FB_MODE column 0 to Closed loop for o_c0_sq1_adc_pwdn deactivation
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-SQ1_FB_MODE-0002 N
+COMM
+COMM ==============================================================================================
+COMM   Check no event is appeared on o_c0_sq1_adc_pwdn and wait o_c0_sq1_adc_pwdn deactivation
+COMM ----------------------------------------------------------------------------------------------
+CDIS sq1_adc_pwdn(0) 1
+WUDI sq1_adc_pwdn(0) 0
+COMM
+COMM ==============================================================================================
+COMM   Check indirectly timing between o_c0_clk_sq1_adc rising edge
+COMM    and internal SQUID1 ADC clock falling edge
+COMM ----------------------------------------------------------------------------------------------
+WUDI clk_sq1_adc_acq 1
+WUDI clk_sq1_adc_acq 0
+CTLE sq1_adc_pwdn(0) >= 4400 ps
+CTLE sq1_adc_pwdn(0) << 4560 ps
+COMM
+COMM ==============================================================================================
+COMM   Check timing between o_c0_sq1_adc_pwdn deactivation and i_sync rising edge
+COMM     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
+COMM ----------------------------------------------------------------------------------------------
+WUDI sync 1
+CTLE sq1_adc_pwdn(0) >= 183348 ps
+COMM
+COMM ==============================================================================================
+COMM   Send command SQ1_FB_MODE column 0 to Test pattern for o_c0_sq1_adc_pwdn activation
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-SQ1_FB_MODE-0003 W
+COMM
+COMM ==============================================================================================
+COMM    Wait i_sync rising edge and check o_c0_sq1_adc_pwdn remains to deactivated
+COMM ----------------------------------------------------------------------------------------------
+WUDI sync 1
+RTIM
+CDIS sq1_adc_pwdn(0) 0
+COMM
+COMM ==============================================================================================
+COMM   Check timing between i_sync rising edge and o_c0_sq1_adc_pwdn activation
+COMM     (c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ < .. < 2*c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
+COMM ----------------------------------------------------------------------------------------------
+WUDI sq1_adc_pwdn(0) 1
+CTLR << 366696 ps
+CTLR >> 183348 ps
+COMM
+COMM ==============================================================================================
+COMM   Send command TM_MODE column 1 to Normal for o_c1_sq1_adc_pwdn deactivation
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-TM_MODE-59XX N
+COMM
+COMM ==============================================================================================
+COMM   Check no event is appeared on o_c1_sq1_adc_pwdn and wait o_c1_sq1_adc_pwdn deactivation
+COMM ----------------------------------------------------------------------------------------------
+CTLE sq1_adc_pwdn(1) == 81362838 ps     # TODO: replace by 'now' on the next commit
+WUDI sq1_adc_pwdn(1) 0
+COMM
+COMM ==============================================================================================
+COMM   Check indirectly timing between o_c1_clk_sq1_adc rising edge
+COMM    and internal SQUID1 ADC clock falling edge
+COMM ----------------------------------------------------------------------------------------------
+WUDI clk_sq1_adc_acq 1
+WUDI clk_sq1_adc_acq 0
+CTLE sq1_adc_pwdn(1) >= 4400 ps
+CTLE sq1_adc_pwdn(1) << 4560 ps
+COMM
+COMM ==============================================================================================
+COMM   Check timing between o_c1_sq1_adc_pwdn deactivation and i_sync rising edge
+COMM     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
+COMM ----------------------------------------------------------------------------------------------
+WUDI sync 1
+CTLE sq1_adc_pwdn(1) >= 183348 ps
+COMM
+COMM ==============================================================================================
+COMM   Send command TM_MODE column 1 to Test pattern for o_c1_sq1_adc_pwdn activation
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-TM_MODE-5D00 W
+COMM
+COMM ==============================================================================================
+COMM    Wait i_sync rising edge and check o_c1_sq1_adc_pwdn remains to deactivated
+COMM ----------------------------------------------------------------------------------------------
+WUDI sync 1
+RTIM
+CDIS sq1_adc_pwdn(1) 0
+COMM
+COMM ==============================================================================================
+COMM   Check timing between i_sync rising edge and o_c1_sq1_adc_pwdn activation
+COMM     (c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ < .. < 2*c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
+COMM ----------------------------------------------------------------------------------------------
+WUDI sq1_adc_pwdn(1) 1
+CTLR << 366696 ps
+CTLR >> 183348 ps
+COMM
+COMM ==============================================================================================
+COMM   Send command TM_MODE column 1 to Dump for o_c1_sq1_adc_pwdn deactivation
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-TM_MODE-51XX N
+COMM
+COMM ==============================================================================================
+COMM   Check no event is appeared on o_c1_sq1_adc_pwdn and wait o_c1_sq1_adc_pwdn deactivation
+COMM ----------------------------------------------------------------------------------------------
+CDIS sq1_adc_pwdn(1) 1
+WUDI sq1_adc_pwdn(1) 0
+COMM
+COMM ==============================================================================================
+COMM   Check indirectly timing between o_c1_clk_sq1_adc rising edge
+COMM    and internal SQUID1 ADC clock falling edge
+COMM ----------------------------------------------------------------------------------------------
+WUDI clk_sq1_adc_acq 1
+WUDI clk_sq1_adc_acq 0
+CTLE sq1_adc_pwdn(1) >= 4400 ps
+CTLE sq1_adc_pwdn(1) << 4560 ps
+COMM
+COMM ==============================================================================================
+COMM   Check timing between o_c1_sq1_adc_pwdn deactivation and i_sync rising edge
+COMM     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
+COMM ----------------------------------------------------------------------------------------------
+WUDI sync 1
+CTLE sq1_adc_pwdn(1) >= 183348 ps
+COMM
+COMM ==============================================================================================
+COMM    Wait TM_MODE column 1 goes automatically to Idle and
+COMM     check o_c1_sq1_adc_pwdn remains to deactivated
+COMM ----------------------------------------------------------------------------------------------
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+RTIM
+CDIS sq1_adc_pwdn(1) 0
+COMM
+COMM ==============================================================================================
+COMM   Check timing between i_sync rising edge and o_c1_sq1_adc_pwdn activation
+COMM     (c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ < .. < 2*c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
+COMM ----------------------------------------------------------------------------------------------
+WUDI sq1_adc_pwdn(1) 1
+CTLR << 366696 ps
+CTLR >> 183348 ps
+COMM
+COMM ==============================================================================================
+COMM   Send command SQ1_FB_MODE column 1 to Closed loop for o_c1_sq1_adc_pwdn deactivation
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-SQ1_FB_MODE-0020 N
+COMM
+COMM ==============================================================================================
+COMM   Check no event is appeared on o_c1_sq1_adc_pwdn and wait o_c1_sq1_adc_pwdn deactivation
+COMM ----------------------------------------------------------------------------------------------
+CDIS sq1_adc_pwdn(1) 1
+WUDI sq1_adc_pwdn(1) 0
+COMM
+COMM ==============================================================================================
+COMM   Check indirectly timing between o_c1_clk_sq1_adc rising edge
+COMM    and internal SQUID1 ADC clock falling edge
+COMM ----------------------------------------------------------------------------------------------
+WUDI clk_sq1_adc_acq 1
+WUDI clk_sq1_adc_acq 0
+CTLE sq1_adc_pwdn(1) >= 4400 ps
+CTLE sq1_adc_pwdn(1) << 4560 ps
+COMM
+COMM ==============================================================================================
+COMM   Check timing between o_c1_sq1_adc_pwdn deactivation and i_sync rising edge
+COMM     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
+COMM ----------------------------------------------------------------------------------------------
+WUDI sync 1
+CTLE sq1_adc_pwdn(1) >= 183348 ps
+COMM
+COMM ==============================================================================================
+COMM   Send command SQ1_FB_MODE column 1 to Off loop for o_c1_sq1_adc_pwdn activation
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-SQ1_FB_MODE-0000 W
+COMM
+COMM ==============================================================================================
+COMM    Wait i_sync rising edge and check o_c1_sq1_adc_pwdn remains to deactivated
+COMM ----------------------------------------------------------------------------------------------
+WUDI sync 1
+RTIM
+CDIS sq1_adc_pwdn(1) 0
+COMM
+COMM ==============================================================================================
+COMM   Check timing between i_sync rising edge and o_c1_sq1_adc_pwdn activation
+COMM     (c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ < .. < 2*c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
+COMM ----------------------------------------------------------------------------------------------
+WUDI sq1_adc_pwdn(1) 1
+CTLR << 366696 ps
+CTLR >> 183348 ps
+COMM
+COMM ==============================================================================================
+COMM   Send command SQ1_FB_MODE column 1 to Closed loop for o_c1_sq1_adc_pwdn deactivation
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-SQ1_FB_MODE-0020 N
+COMM
+COMM ==============================================================================================
+COMM   Check no event is appeared on o_c1_sq1_adc_pwdn and wait o_c1_sq1_adc_pwdn deactivation
+COMM ----------------------------------------------------------------------------------------------
+CDIS sq1_adc_pwdn(1) 1
+WUDI sq1_adc_pwdn(1) 0
+COMM
+COMM ==============================================================================================
+COMM   Check indirectly timing between o_c1_clk_sq1_adc rising edge
+COMM    and internal SQUID1 ADC clock falling edge
+COMM ----------------------------------------------------------------------------------------------
+WUDI clk_sq1_adc_acq 1
+WUDI clk_sq1_adc_acq 0
+CTLE sq1_adc_pwdn(1) >= 4400 ps
+CTLE sq1_adc_pwdn(1) << 4560 ps
+COMM
+COMM ==============================================================================================
+COMM   Check timing between o_c1_sq1_adc_pwdn deactivation and i_sync rising edge
+COMM     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
+COMM ----------------------------------------------------------------------------------------------
+WUDI sync 1
+CTLE sq1_adc_pwdn(1) >= 183348 ps
+COMM
+COMM ==============================================================================================
+COMM   Send command SQ1_FB_MODE column 1 to Open loop for o_c1_sq1_adc_pwdn activation
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-SQ1_FB_MODE-0010 W
+COMM
+COMM ==============================================================================================
+COMM    Wait i_sync rising edge and check o_c1_sq1_adc_pwdn remains to deactivated
+COMM ----------------------------------------------------------------------------------------------
+WUDI sync 1
+RTIM
+CDIS sq1_adc_pwdn(1) 0
+COMM
+COMM ==============================================================================================
+COMM   Check timing between i_sync rising edge and o_c1_sq1_adc_pwdn activation
+COMM     (c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ < .. < 2*c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
+COMM ----------------------------------------------------------------------------------------------
+WUDI sq1_adc_pwdn(1) 1
+CTLR << 366696 ps
+CTLR >> 183348 ps
+COMM
+COMM ==============================================================================================
+COMM   Send command SQ1_FB_MODE column 1 to Closed loop for o_c1_sq1_adc_pwdn deactivation
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-SQ1_FB_MODE-0020 N
+COMM
+COMM ==============================================================================================
+COMM   Check no event is appeared on o_c1_sq1_adc_pwdn and wait o_c1_sq1_adc_pwdn deactivation
+COMM ----------------------------------------------------------------------------------------------
+CDIS sq1_adc_pwdn(1) 1
+WUDI sq1_adc_pwdn(1) 0
+COMM
+COMM ==============================================================================================
+COMM   Check indirectly timing between o_c1_clk_sq1_adc rising edge
+COMM    and internal SQUID1 ADC clock falling edge
+COMM ----------------------------------------------------------------------------------------------
+WUDI clk_sq1_adc_acq 1
+WUDI clk_sq1_adc_acq 0
+CTLE sq1_adc_pwdn(1) >= 4400 ps
+CTLE sq1_adc_pwdn(1) << 4560 ps
+COMM
+COMM ==============================================================================================
+COMM   Check timing between o_c1_sq1_adc_pwdn deactivation and i_sync rising edge
+COMM     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
+COMM ----------------------------------------------------------------------------------------------
+WUDI sync 1
+CTLE sq1_adc_pwdn(1) >= 183348 ps
+COMM
+COMM ==============================================================================================
+COMM   Send command SQ1_FB_MODE column 1 to Test pattern for o_c1_sq1_adc_pwdn activation
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-SQ1_FB_MODE-0030 W
+COMM
+COMM ==============================================================================================
+COMM    Wait i_sync rising edge and check o_c1_sq1_adc_pwdn remains to deactivated
+COMM ----------------------------------------------------------------------------------------------
+WUDI sync 1
+RTIM
+CDIS sq1_adc_pwdn(1) 0
+COMM
+COMM ==============================================================================================
+COMM   Check timing between i_sync rising edge and o_c1_sq1_adc_pwdn activation
+COMM     (c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ < .. < 2*c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
+COMM ----------------------------------------------------------------------------------------------
+WUDI sq1_adc_pwdn(1) 1
+CTLR << 366696 ps
+CTLR >> 183348 ps
+COMM
+COMM ==============================================================================================
+COMM   Send command TM_MODE column 2 to Normal for o_c2_sq1_adc_pwdn deactivation
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-TM_MODE-65XX N
+COMM
+COMM ==============================================================================================
+COMM   Check no event is appeared on o_c2_sq1_adc_pwdn and wait o_c2_sq1_adc_pwdn deactivation
+COMM ----------------------------------------------------------------------------------------------
+CTLE sq1_adc_pwdn(2) == 149934990 ps    # TODO: replace by 'now' on the next commit
+WUDI sq1_adc_pwdn(2) 0
+COMM
+COMM ==============================================================================================
+COMM   Check indirectly timing between o_c2_clk_sq1_adc rising edge
+COMM    and internal SQUID1 ADC clock falling edge
+COMM ----------------------------------------------------------------------------------------------
+WUDI clk_sq1_adc_acq 1
+WUDI clk_sq1_adc_acq 0
+CTLE sq1_adc_pwdn(2) >= 4400 ps
+CTLE sq1_adc_pwdn(2) << 4560 ps
+COMM
+COMM ==============================================================================================
+COMM   Check timing between o_c2_sq1_adc_pwdn deactivation and i_sync rising edge
+COMM     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
+COMM ----------------------------------------------------------------------------------------------
+WUDI sync 1
+CTLE sq1_adc_pwdn(2) >= 183348 ps
+COMM
+COMM ==============================================================================================
+COMM   Send command TM_MODE column 2 to Test pattern for o_c2_sq1_adc_pwdn activation
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-TM_MODE-7500 W
+COMM
+COMM ==============================================================================================
+COMM    Wait i_sync rising edge and check o_c2_sq1_adc_pwdn remains to deactivated
+COMM ----------------------------------------------------------------------------------------------
+WUDI sync 1
+RTIM
+CDIS sq1_adc_pwdn(2) 0
+COMM
+COMM ==============================================================================================
+COMM   Check timing between i_sync rising edge and o_c2_sq1_adc_pwdn activation
+COMM     (c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ < .. < 2*c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
+COMM ----------------------------------------------------------------------------------------------
+WUDI sq1_adc_pwdn(2) 1
+CTLR << 366696 ps
+CTLR >> 183348 ps
+COMM
+COMM ==============================================================================================
+COMM   Send command TM_MODE column 2 to Dump for o_c2_sq1_adc_pwdn deactivation
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-TM_MODE-45XX N
+COMM
+COMM ==============================================================================================
+COMM   Check no event is appeared on o_c2_sq1_adc_pwdn and wait o_c2_sq1_adc_pwdn deactivation
+COMM ----------------------------------------------------------------------------------------------
+CDIS sq1_adc_pwdn(2) 1
+WUDI sq1_adc_pwdn(2) 0
+COMM
+COMM ==============================================================================================
+COMM   Check indirectly timing between o_c2_clk_sq1_adc rising edge
+COMM    and internal SQUID1 ADC clock falling edge
+COMM ----------------------------------------------------------------------------------------------
+WUDI clk_sq1_adc_acq 1
+WUDI clk_sq1_adc_acq 0
+CTLE sq1_adc_pwdn(2) >= 4400 ps
+CTLE sq1_adc_pwdn(2) << 4560 ps
+COMM
+COMM ==============================================================================================
+COMM   Check timing between o_c2_sq1_adc_pwdn deactivation and i_sync rising edge
+COMM     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
+COMM ----------------------------------------------------------------------------------------------
+WUDI sync 1
+CTLE sq1_adc_pwdn(2) >= 183348 ps
+COMM
+COMM ==============================================================================================
+COMM    Wait TM_MODE column 2 goes automatically to Idle and
+COMM     check o_c2_sq1_adc_pwdn remains to deactivated
+COMM ----------------------------------------------------------------------------------------------
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+RTIM
+CDIS sq1_adc_pwdn(2) 0
+COMM
+COMM ==============================================================================================
+COMM   Check timing between i_sync rising edge and o_c2_sq1_adc_pwdn activation
+COMM     (c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ < .. < 2*c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
+COMM ----------------------------------------------------------------------------------------------
+WUDI sq1_adc_pwdn(2) 1
+CTLR << 366696 ps
+CTLR >> 183348 ps
+COMM
+COMM ==============================================================================================
+COMM   Send command SQ1_FB_MODE column 2 to Closed loop for o_c2_sq1_adc_pwdn deactivation
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-SQ1_FB_MODE-0200 N
+COMM
+COMM ==============================================================================================
+COMM   Check no event is appeared on o_c2_sq1_adc_pwdn and wait o_c2_sq1_adc_pwdn deactivation
+COMM ----------------------------------------------------------------------------------------------
+CDIS sq1_adc_pwdn(2) 1
+WUDI sq1_adc_pwdn(2) 0
+COMM
+COMM ==============================================================================================
+COMM   Check indirectly timing between o_c2_clk_sq1_adc rising edge
+COMM    and internal SQUID1 ADC clock falling edge
+COMM ----------------------------------------------------------------------------------------------
+WUDI clk_sq1_adc_acq 1
+WUDI clk_sq1_adc_acq 0
+CTLE sq1_adc_pwdn(2) >= 4400 ps
+CTLE sq1_adc_pwdn(2) << 4560 ps
+COMM
+COMM ==============================================================================================
+COMM   Check timing between o_c2_sq1_adc_pwdn deactivation and i_sync rising edge
+COMM     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
+COMM ----------------------------------------------------------------------------------------------
+WUDI sync 1
+CTLE sq1_adc_pwdn(2) >= 183348 ps
+COMM
+COMM ==============================================================================================
+COMM   Send command SQ1_FB_MODE column 2 to Off loop for o_c2_sq1_adc_pwdn activation
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-SQ1_FB_MODE-0000 W
+COMM
+COMM ==============================================================================================
+COMM    Wait i_sync rising edge and check o_c2_sq1_adc_pwdn remains to deactivated
+COMM ----------------------------------------------------------------------------------------------
+WUDI sync 1
+RTIM
+CDIS sq1_adc_pwdn(2) 0
+COMM
+COMM ==============================================================================================
+COMM   Check timing between i_sync rising edge and o_c2_sq1_adc_pwdn activation
+COMM     (c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ < .. < 2*c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
+COMM ----------------------------------------------------------------------------------------------
+WUDI sq1_adc_pwdn(2) 1
+CTLR << 366696 ps
+CTLR >> 183348 ps
+COMM
+COMM ==============================================================================================
+COMM   Send command SQ1_FB_MODE column 2 to Closed loop for o_c2_sq1_adc_pwdn deactivation
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-SQ1_FB_MODE-0200 N
+COMM
+COMM ==============================================================================================
+COMM   Check no event is appeared on o_c2_sq1_adc_pwdn and wait o_c2_sq1_adc_pwdn deactivation
+COMM ----------------------------------------------------------------------------------------------
+CDIS sq1_adc_pwdn(2) 1
+WUDI sq1_adc_pwdn(2) 0
+COMM
+COMM ==============================================================================================
+COMM   Check indirectly timing between o_c2_clk_sq1_adc rising edge
+COMM    and internal SQUID1 ADC clock falling edge
+COMM ----------------------------------------------------------------------------------------------
+WUDI clk_sq1_adc_acq 1
+WUDI clk_sq1_adc_acq 0
+CTLE sq1_adc_pwdn(2) >= 4400 ps
+CTLE sq1_adc_pwdn(2) << 4560 ps
+COMM
+COMM ==============================================================================================
+COMM   Check timing between o_c2_sq1_adc_pwdn deactivation and i_sync rising edge
+COMM     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
+COMM ----------------------------------------------------------------------------------------------
+WUDI sync 1
+CTLE sq1_adc_pwdn(2) >= 183348 ps
+COMM
+COMM ==============================================================================================
+COMM   Send command SQ1_FB_MODE column 2 to Open loop for o_c2_sq1_adc_pwdn activation
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-SQ1_FB_MODE-0100 W
+COMM
+COMM ==============================================================================================
+COMM    Wait i_sync rising edge and check o_c2_sq1_adc_pwdn remains to deactivated
+COMM ----------------------------------------------------------------------------------------------
+WUDI sync 1
+RTIM
+CDIS sq1_adc_pwdn(2) 0
+COMM
+COMM ==============================================================================================
+COMM   Check timing between i_sync rising edge and o_c2_sq1_adc_pwdn activation
+COMM     (c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ < .. < 2*c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
+COMM ----------------------------------------------------------------------------------------------
+WUDI sq1_adc_pwdn(2) 1
+CTLR << 366696 ps
+CTLR >> 183348 ps
+COMM
+COMM ==============================================================================================
+COMM   Send command SQ1_FB_MODE column 2 to Closed loop for o_c2_sq1_adc_pwdn deactivation
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-SQ1_FB_MODE-0200 N
+COMM
+COMM ==============================================================================================
+COMM   Check no event is appeared on o_c2_sq1_adc_pwdn and wait o_c2_sq1_adc_pwdn deactivation
+COMM ----------------------------------------------------------------------------------------------
+CDIS sq1_adc_pwdn(2) 1
+WUDI sq1_adc_pwdn(2) 0
+COMM
+COMM ==============================================================================================
+COMM   Check indirectly timing between o_c2_clk_sq1_adc rising edge
+COMM    and internal SQUID1 ADC clock falling edge
+COMM ----------------------------------------------------------------------------------------------
+WUDI clk_sq1_adc_acq 1
+WUDI clk_sq1_adc_acq 0
+CTLE sq1_adc_pwdn(2) >= 4400 ps
+CTLE sq1_adc_pwdn(2) << 4560 ps
+COMM
+COMM ==============================================================================================
+COMM   Check timing between o_c2_sq1_adc_pwdn deactivation and i_sync rising edge
+COMM     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
+COMM ----------------------------------------------------------------------------------------------
+WUDI sync 1
+CTLE sq1_adc_pwdn(2) >= 183348 ps
+COMM
+COMM ==============================================================================================
+COMM   Send command SQ1_FB_MODE column 2 to Test pattern for o_c2_sq1_adc_pwdn activation
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-SQ1_FB_MODE-0300 W
+COMM
+COMM ==============================================================================================
+COMM    Wait i_sync rising edge and check o_c2_sq1_adc_pwdn remains to deactivated
+COMM ----------------------------------------------------------------------------------------------
+WUDI sync 1
+RTIM
+CDIS sq1_adc_pwdn(2) 0
+COMM
+COMM ==============================================================================================
+COMM   Check timing between i_sync rising edge and o_c2_sq1_adc_pwdn activation
+COMM     (c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ < .. < 2*c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
+COMM ----------------------------------------------------------------------------------------------
+WUDI sq1_adc_pwdn(2) 1
+CTLR << 366696 ps
+CTLR >> 183348 ps
+COMM
+COMM ==============================================================================================
+COMM   Send command TM_MODE column 3 to Normal for o_c3_sq1_adc_pwdn deactivation
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-TM_MODE-95XX N
+COMM
+COMM ==============================================================================================
+COMM   Check no event is appeared on o_c3_sq1_adc_pwdn and wait o_c3_sq1_adc_pwdn deactivation
+COMM ----------------------------------------------------------------------------------------------
+CTLE sq1_adc_pwdn(3) == 218507142 ps    # TODO: replace by 'now' on the next commit
+WUDI sq1_adc_pwdn(3) 0
+COMM
+COMM ==============================================================================================
+COMM   Check indirectly timing between o_c3_clk_sq1_adc rising edge
+COMM    and internal SQUID1 ADC clock falling edge
+COMM ----------------------------------------------------------------------------------------------
+WUDI clk_sq1_adc_acq 1
+WUDI clk_sq1_adc_acq 0
+CTLE sq1_adc_pwdn(3) >= 4400 ps
+CTLE sq1_adc_pwdn(3) << 4560 ps
+COMM
+COMM ==============================================================================================
+COMM   Check timing between o_c3_sq1_adc_pwdn deactivation and i_sync rising edge
+COMM     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
+COMM ----------------------------------------------------------------------------------------------
+WUDI sync 1
+CTLE sq1_adc_pwdn(3) >= 183348 ps
+COMM
+COMM ==============================================================================================
+COMM   Send command TM_MODE column 3 to Test pattern for o_c3_sq1_adc_pwdn activation
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-TM_MODE-D500 W
+COMM
+COMM ==============================================================================================
+COMM    Wait i_sync rising edge and check o_c3_sq1_adc_pwdn remains to deactivated
+COMM ----------------------------------------------------------------------------------------------
+WUDI sync 1
+RTIM
+CDIS sq1_adc_pwdn(3) 0
+COMM
+COMM ==============================================================================================
+COMM   Check timing between i_sync rising edge and o_c3_sq1_adc_pwdn activation
+COMM     (c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ < .. < 2*c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
+COMM ----------------------------------------------------------------------------------------------
+WUDI sq1_adc_pwdn(3) 1
+CTLR << 366696 ps
+CTLR >> 183348 ps
+COMM
+COMM ==============================================================================================
+COMM   Send command TM_MODE column 3 to Dump for o_c3_sq1_adc_pwdn deactivation
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-TM_MODE-15XX N
+COMM
+COMM ==============================================================================================
+COMM   Check no event is appeared on o_c3_sq1_adc_pwdn and wait o_c3_sq1_adc_pwdn deactivation
+COMM ----------------------------------------------------------------------------------------------
+CDIS sq1_adc_pwdn(3) 1
+WUDI sq1_adc_pwdn(3) 0
+COMM
+COMM ==============================================================================================
+COMM   Check indirectly timing between o_c3_clk_sq1_adc rising edge
+COMM    and internal SQUID1 ADC clock falling edge
+COMM ----------------------------------------------------------------------------------------------
+WUDI clk_sq1_adc_acq 1
+WUDI clk_sq1_adc_acq 0
+CTLE sq1_adc_pwdn(3) >= 4400 ps
+CTLE sq1_adc_pwdn(3) << 4560 ps
+COMM
+COMM ==============================================================================================
+COMM   Check timing between o_c3_sq1_adc_pwdn deactivation and i_sync rising edge
+COMM     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
+COMM ----------------------------------------------------------------------------------------------
+WUDI sync 1
+CTLE sq1_adc_pwdn(3) >= 183348 ps
+COMM
+COMM ==============================================================================================
+COMM    Wait TM_MODE column 3 goes automatically to Idle and
+COMM     check o_c3_sq1_adc_pwdn remains to deactivated
+COMM ----------------------------------------------------------------------------------------------
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+RTIM
+CDIS sq1_adc_pwdn(3) 0
+COMM
+COMM ==============================================================================================
+COMM   Check timing between i_sync rising edge and o_c3_sq1_adc_pwdn activation
+COMM     (c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ < .. < 2*c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
+COMM ----------------------------------------------------------------------------------------------
+WUDI sq1_adc_pwdn(3) 1
+CTLR << 366696 ps
+CTLR >> 183348 ps
+COMM
+COMM ==============================================================================================
+COMM   Send command SQ1_FB_MODE column 3 to Closed loop for o_c3_sq1_adc_pwdn deactivation
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-SQ1_FB_MODE-2000 N
+COMM
+COMM ==============================================================================================
+COMM   Check no event is appeared on o_c3_sq1_adc_pwdn and wait o_c3_sq1_adc_pwdn deactivation
+COMM ----------------------------------------------------------------------------------------------
+CDIS sq1_adc_pwdn(3) 1
+WUDI sq1_adc_pwdn(3) 0
+COMM
+COMM ==============================================================================================
+COMM   Check indirectly timing between o_c3_clk_sq1_adc rising edge
+COMM    and internal SQUID1 ADC clock falling edge
+COMM ----------------------------------------------------------------------------------------------
+WUDI clk_sq1_adc_acq 1
+WUDI clk_sq1_adc_acq 0
+CTLE sq1_adc_pwdn(3) >= 4400 ps
+CTLE sq1_adc_pwdn(3) << 4560 ps
+COMM
+COMM ==============================================================================================
+COMM   Check timing between o_c3_sq1_adc_pwdn deactivation and i_sync rising edge
+COMM     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
+COMM ----------------------------------------------------------------------------------------------
+WUDI sync 1
+CTLE sq1_adc_pwdn(3) >= 183348 ps
+COMM
+COMM ==============================================================================================
+COMM   Send command SQ1_FB_MODE column 3 to Off loop for o_c3_sq1_adc_pwdn activation
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-SQ1_FB_MODE-0000 W
+COMM
+COMM ==============================================================================================
+COMM    Wait i_sync rising edge and check o_c3_sq1_adc_pwdn remains to deactivated
+COMM ----------------------------------------------------------------------------------------------
+WUDI sync 1
+RTIM
+CDIS sq1_adc_pwdn(3) 0
+COMM
+COMM ==============================================================================================
+COMM   Check timing between i_sync rising edge and o_c3_sq1_adc_pwdn activation
+COMM     (c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ < .. < 2*c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
+COMM ----------------------------------------------------------------------------------------------
+WUDI sq1_adc_pwdn(3) 1
+CTLR << 366696 ps
+CTLR >> 183348 ps
+COMM
+COMM ==============================================================================================
+COMM   Send command SQ1_FB_MODE column 3 to Closed loop for o_c3_sq1_adc_pwdn deactivation
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-SQ1_FB_MODE-2000 N
+COMM
+COMM ==============================================================================================
+COMM   Check no event is appeared on o_c3_sq1_adc_pwdn and wait o_c3_sq1_adc_pwdn deactivation
+COMM ----------------------------------------------------------------------------------------------
+CDIS sq1_adc_pwdn(3) 1
+WUDI sq1_adc_pwdn(3) 0
+COMM
+COMM ==============================================================================================
+COMM   Check indirectly timing between o_c3_clk_sq1_adc rising edge
+COMM    and internal SQUID1 ADC clock falling edge
+COMM ----------------------------------------------------------------------------------------------
+WUDI clk_sq1_adc_acq 1
+WUDI clk_sq1_adc_acq 0
+CTLE sq1_adc_pwdn(3) >= 4400 ps
+CTLE sq1_adc_pwdn(3) << 4560 ps
+COMM
+COMM ==============================================================================================
+COMM   Check timing between o_c3_sq1_adc_pwdn deactivation and i_sync rising edge
+COMM     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
+COMM ----------------------------------------------------------------------------------------------
+WUDI sync 1
+CTLE sq1_adc_pwdn(3) >= 183348 ps
+COMM
+COMM ==============================================================================================
+COMM   Send command SQ1_FB_MODE column 3 to Open loop for o_c3_sq1_adc_pwdn activation
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-SQ1_FB_MODE-1000 W
+COMM
+COMM ==============================================================================================
+COMM    Wait i_sync rising edge and check o_c3_sq1_adc_pwdn remains to deactivated
+COMM ----------------------------------------------------------------------------------------------
+WUDI sync 1
+RTIM
+CDIS sq1_adc_pwdn(3) 0
+COMM
+COMM ==============================================================================================
+COMM   Check timing between i_sync rising edge and o_c3_sq1_adc_pwdn activation
+COMM     (c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ < .. < 2*c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
+COMM ----------------------------------------------------------------------------------------------
+WUDI sq1_adc_pwdn(3) 1
+CTLR << 366696 ps
+CTLR >> 183348 ps
+COMM
+COMM ==============================================================================================
+COMM   Send command SQ1_FB_MODE column 3 to Closed loop for o_c3_sq1_adc_pwdn deactivation
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-SQ1_FB_MODE-2000 N
+COMM
+COMM ==============================================================================================
+COMM   Check no event is appeared on o_c3_sq1_adc_pwdn and wait o_c3_sq1_adc_pwdn deactivation
+COMM ----------------------------------------------------------------------------------------------
+CDIS sq1_adc_pwdn(3) 1
+WUDI sq1_adc_pwdn(3) 0
+COMM
+COMM ==============================================================================================
+COMM   Check indirectly timing between o_c3_clk_sq1_adc rising edge
+COMM    and internal SQUID1 ADC clock falling edge
+COMM ----------------------------------------------------------------------------------------------
+WUDI clk_sq1_adc_acq 1
+WUDI clk_sq1_adc_acq 0
+CTLE sq1_adc_pwdn(3) >= 4400 ps
+CTLE sq1_adc_pwdn(3) << 4560 ps
+COMM
+COMM ==============================================================================================
+COMM   Check timing between o_c3_sq1_adc_pwdn deactivation and i_sync rising edge
+COMM     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
+COMM ----------------------------------------------------------------------------------------------
+WUDI sync 1
+CTLE sq1_adc_pwdn(3) >= 183348 ps
+COMM
+COMM ==============================================================================================
+COMM   Send command SQ1_FB_MODE column 3 to Test pattern for o_c3_sq1_adc_pwdn activation
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-SQ1_FB_MODE-3000 W
+COMM
+COMM ==============================================================================================
+COMM    Wait i_sync rising edge and check o_c3_sq1_adc_pwdn remains to deactivated
+COMM ----------------------------------------------------------------------------------------------
+WUDI sync 1
+RTIM
+CDIS sq1_adc_pwdn(3) 0
+COMM
+COMM ==============================================================================================
+COMM   Check timing between i_sync rising edge and o_c3_sq1_adc_pwdn activation
+COMM     (c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ < .. < 2*c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
+COMM ----------------------------------------------------------------------------------------------
+WUDI sq1_adc_pwdn(3) 1
+CTLR << 366696 ps
+CTLR >> 183348 ps
+COMM
+COMM ==============================================================================================
+COMM   Check no events are appeared on the others channels
+COMM    (time checking multiple of 11 * c_MUX_FACT * c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
+COMM ----------------------------------------------------------------------------------------------
+CDIS sq1_adc_pwdn(0) 1
+CTLE sq1_adc_pwdn(0) >= 205716456 ps  # Factor 3
+CDIS sq1_adc_pwdn(1) 1
+CTLE sq1_adc_pwdn(1) >= 137144304 ps  # Factor 2
+CDIS sq1_adc_pwdn(2) 1
+CTLE sq1_adc_pwdn(2) >= 68572152 ps   # Factor 1

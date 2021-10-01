@@ -67,14 +67,17 @@ DRE-DEMUX TDM firmware.
    - Position 0: **rst**, Internal DRE-DEMUX: Reset asynchronous assertion, synchronous de-assertion on System Clock
    - Position 1: **clk_ref**, DRE-DEMUX input, Reference Clock
    - Position 2: **clk**, Internal DRE-DEMUX: System Clock
-   - Position 3: **clk_sq1_adc**, Internal DRE-DEMUX: SQUID1 ADC Clock
+   - Position 3: **clk_sq1_adc_acq**, Internal DRE-DEMUX: SQUID1 ADC Clock
    - Position 4: **clk_sq1_pls_shape**, Internal DRE-DEMUX: SQUID1 pulse shaping Clock
    - Position 5: **ep_cmd_busy_n**, EP SPI model output, EP - Command transmit busy ('0' = Busy, '1' = Not Busy)
    - Position 6: **ep_data_rx_rdy**, EP SPI model output, EP - Receipted data ready ('0' = Not ready, '1' = Ready)
-   - Position 7+x:  **rst_sq1_adc(x)**, Internal DRE-DEMUX: Local reset asynchronous assertion, synchronous de-assertion on SQUID1 ADC channel 'x'
-   - Position 11+x: **rst_sq1_dac(x)**, Internal DRE-DEMUX: Local reset asynchronous assertion, synchronous de-assertion on SQUID1 DAC channel 'x'
-   - Position 15+x: **rst_sq2_mux(x)**, Internal DRE-DEMUX: Local reset asynchronous assertion, synchronous de-assertion on SQUID2 MUX channel 'x'
-   - Position 63-19: Not Used
+   - Position 7+x:  **rst_sq1_adc(x)**, Internal DRE-DEMUX: Local reset asynchronous assertion, synchronous de-assertion on SQUID1 ADC column 'x' (0->3)
+   - Position 11+x: **rst_sq1_dac(x)**, Internal DRE-DEMUX: Local reset asynchronous assertion, synchronous de-assertion on SQUID1 DAC column 'x' (0->3)
+   - Position 15+x: **rst_sq2_mux(x)**, Internal DRE-DEMUX: Local reset asynchronous assertion, synchronous de-assertion on SQUID2 MUX column 'x' (0->3)
+   - Position 19: **sync**, Pixel sequence synchronization (R.E. detected = position sequence to the first pixel)
+   - Position 20+x: **sq1_adc_pwdn(x)**, SQUID1 ADC column 'x' (0->3) – ADC Power Down ('0' = Inactive, '1' = Active)
+   - Position 24+x: **sq1_dac_sleep(x)**, SQUID1 DAC column 'x' (0->3) – DAC Sleep ('0' = Inactive, '1' = Active)
+   - Position 63-28: Not Used
 
 ## 5. Discrete outputs description (seen from simulation pilot side)
 
@@ -83,7 +86,20 @@ DRE-DEMUX TDM firmware.
   - Position 1: **brd_model(0)**, DRE-DEMUX input, Board model bit 0
   - Position 2: **brd_model(1)**, DRE-DEMUX input, Board model bit 1
 
-## 6. Unitary test script commands description
+## 6. Check clock parameters enable (seen from simulation pilot side)
+
+   Enable the display in result file of the report about the check clock parameters.
+   Enables are grouped together in a 64 bits field (bit position 63 is the MSB, bit position 0 is the LSB):
+   - Position 0: **clk**, Internal DRE-DEMUX: System Clock
+   - Position 1: **clk_sq1_adc**, Internal DRE-DEMUX: SQUID1 ADC Clock
+   - Position 2: **clk_sq1_pls_shape**, Internal DRE-DEMUX: SQUID1 pulse shaping Clock
+   - Position 3+x: **clk_sq1_adc(x)**, Clock SQUID1 ADC column 'x' (0->3)
+   - Position 7+x: **clk_sq1_dac(x)**, Clock SQUID1 DAC column 'x' (0->3)
+   - Position 11: **clk_science_01**, Science Data - Clock channel 0/1
+   - Position 12: **clk_science_23**, Science Data - Clock channel 2/3
+
+
+## 7. Unitary test script commands description
 
    The /simu/tb/parser.vhd file interprets the 4 characters commands located in the unitary test script.
 
@@ -100,6 +116,10 @@ DRE-DEMUX TDM firmware.
       + Parameter **end**:
          * Value *W*: wait the end of EP command transmit before handle a new command script
          * Value *N*: no wait time
+
+
+   - Command CCPE **clock_report** : Enable the display in result file of the report about the check clock parameters
+      + Parameter **clock_report** : clock parameters report select (see 6 on check clock parameters enable description)
 
 
    - Command CDIS **discrete_r** **value**: check discrete input
@@ -162,7 +182,7 @@ DRE-DEMUX TDM firmware.
       + Parameter **mask** : 64 bits hexa (underscore can be inserted), selection mask on discrete inputs (see 4 on discrete inputs description)
       + Parameter **data** : 64 bits hexa (underscore can be inserted), discrete inputs value expected
 
-## 7. Unitary test result
+## 8. Unitary test result
 
    The unitary test result file is considered as pass when the last line mention "Simulation status: PASS" (FAIL otherwise).
 

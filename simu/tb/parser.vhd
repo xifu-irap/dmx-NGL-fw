@@ -46,6 +46,13 @@ entity parser is generic
          i_clk_ref            : in     std_logic                                                            ; --! Reference Clock
          i_sync               : in     std_logic                                                            ; --! Pixel sequence synchronization (R.E. detected = position sequence to the first pixel)
 
+         i_err_chk_rpt        : in     t_err_n_clk_chk_arr(0 to c_CE_S-1)                                   ; --! Clock check error reports
+
+         i_c0_sq1_adc_pwdn	   : in     std_logic                                                            ; --! SQUID1 ADC, col. 0 – Power Down ('0' = Inactive, '1' = Active)
+         i_c1_sq1_adc_pwdn	   : in     std_logic                                                            ; --! SQUID1 ADC, col. 1 – Power Down ('0' = Inactive, '1' = Active)
+         i_c2_sq1_adc_pwdn	   : in     std_logic                                                            ; --! SQUID1 ADC, col. 2 – Power Down ('0' = Inactive, '1' = Active)
+         i_c3_sq1_adc_pwdn	   : in     std_logic                                                            ; --! SQUID1 ADC, col. 3 – Power Down ('0' = Inactive, '1' = Active)
+
          i_c0_sq1_dac_data    : in     std_logic_vector(c_SQ1_DAC_DATA_S-1 downto 0)                        ; --! SQUID1 DAC, col. 0 - Data
          i_c1_sq1_dac_data    : in     std_logic_vector(c_SQ1_DAC_DATA_S-1 downto 0)                        ; --! SQUID1 DAC, col. 1 - Data
          i_c2_sq1_dac_data    : in     std_logic_vector(c_SQ1_DAC_DATA_S-1 downto 0)                        ; --! SQUID1 DAC, col. 2 - Data
@@ -81,14 +88,54 @@ end entity parser;
 architecture Simulation of parser is
 constant c_SIM_NAME           : string    := c_CMD_FILE_ROOT & g_TST_NUM                                    ; --! Simulation name
 
-type     t_last_event_arr       is array (natural range <>) of time                                         ; --! Last event array type
-
 signal   discrete_w           : std_logic_vector(c_CMD_FILE_FLD_DATA_S-1 downto 0)                          ; --! Discrete write
 signal   discrete_r           : std_logic_vector(c_CMD_FILE_FLD_DATA_S-1 downto 0)                          ; --! Discrete read
-signal   dr_last_event        : t_last_event_arr(c_CMD_FILE_FLD_DATA_S-1 downto 0)                          ; --! Discrete read last event
 
 file     cmd_file             : text                                                                        ; --! Command file
 file     res_file             : text                                                                        ; --! Result file
+
+   -- ------------------------------------------------------------------------------------------------------
+   --! Return the last event time of the signal indexed in discrete read bus
+   -- ------------------------------------------------------------------------------------------------------
+   function dis_read_last_event (
+         discrete_r_index     : integer                                                                       -- Discrete read index
+   ) return time is
+   begin
+
+      case discrete_r_index is
+         when  c_DR_D_RST              => return i_d_rst'last_event;
+         when  c_DR_CLK_REF            => return i_clk_ref'last_event;
+         when  c_DR_D_CLK              => return i_d_clk'last_event;
+         when  c_DR_D_CLK_SQ1_ADC      => return i_d_clk_sq1_adc_acq'last_event;
+         when  c_DR_D_CLK_SQ1_PLS_SH   => return i_d_clk_sq1_pls_shap'last_event;
+         when  c_DR_EP_CMD_BUSY_N      => return i_ep_cmd_busy_n'last_event;
+         when  c_DR_EP_DATA_RX_RDY     => return i_ep_data_rx_rdy'last_event;
+         when  c_DR_D_RST_SQ1_ADC_0    => return i_d_rst_sq1_adc'last_event;
+         when  c_DR_D_RST_SQ1_ADC_1    => return i_d_rst_sq1_adc'last_event;
+         when  c_DR_D_RST_SQ1_ADC_2    => return i_d_rst_sq1_adc'last_event;
+         when  c_DR_D_RST_SQ1_ADC_3    => return i_d_rst_sq1_adc'last_event;
+         when  c_DR_D_RST_SQ1_DAC_0    => return i_d_rst_sq1_dac'last_event;
+         when  c_DR_D_RST_SQ1_DAC_1    => return i_d_rst_sq1_dac'last_event;
+         when  c_DR_D_RST_SQ1_DAC_2    => return i_d_rst_sq1_dac'last_event;
+         when  c_DR_D_RST_SQ1_DAC_3    => return i_d_rst_sq1_dac'last_event;
+         when  c_DR_D_RST_SQ2_MUX_0    => return i_d_rst_sq2_mux'last_event;
+         when  c_DR_D_RST_SQ2_MUX_1    => return i_d_rst_sq2_mux'last_event;
+         when  c_DR_D_RST_SQ2_MUX_2    => return i_d_rst_sq2_mux'last_event;
+         when  c_DR_D_RST_SQ2_MUX_3    => return i_d_rst_sq2_mux'last_event;
+         when  c_DR_SYNC               => return i_sync'last_event;
+         when  c_DR_SQ1_ADC_PWDN_0     => return i_c0_sq1_adc_pwdn'last_event;
+         when  c_DR_SQ1_ADC_PWDN_1     => return i_c1_sq1_adc_pwdn'last_event;
+         when  c_DR_SQ1_ADC_PWDN_2     => return i_c2_sq1_adc_pwdn'last_event;
+         when  c_DR_SQ1_ADC_PWDN_3     => return i_c3_sq1_adc_pwdn'last_event;
+         when  c_DR_SQ1_DAC_SLEEP_0    => return i_c0_sq1_dac_sleep'last_event;
+         when  c_DR_SQ1_DAC_SLEEP_1    => return i_c1_sq1_dac_sleep'last_event;
+         when  c_DR_SQ1_DAC_SLEEP_2    => return i_c2_sq1_dac_sleep'last_event;
+         when  c_DR_SQ1_DAC_SLEEP_3    => return i_c3_sq1_dac_sleep'last_event;
+         when others                   => return time'low;
+
+      end case;
+
+   end function;
 
 begin
 
@@ -121,44 +168,30 @@ begin
    discrete_r(c_DR_D_RST_SQ2_MUX_1) <= i_d_rst_sq2_mux(1);
    discrete_r(c_DR_D_RST_SQ2_MUX_2) <= i_d_rst_sq2_mux(2);
    discrete_r(c_DR_D_RST_SQ2_MUX_3) <= i_d_rst_sq2_mux(3);
+   discrete_r(c_DR_SYNC)            <= i_sync;
+   discrete_r(c_DR_SQ1_ADC_PWDN_0)  <= i_c0_sq1_adc_pwdn;
+   discrete_r(c_DR_SQ1_ADC_PWDN_1)  <= i_c1_sq1_adc_pwdn;
+   discrete_r(c_DR_SQ1_ADC_PWDN_2)  <= i_c2_sq1_adc_pwdn;
+   discrete_r(c_DR_SQ1_ADC_PWDN_3)  <= i_c3_sq1_adc_pwdn;
+   discrete_r(c_DR_SQ1_DAC_SLEEP_0) <= i_c0_sq1_dac_sleep;
+   discrete_r(c_DR_SQ1_DAC_SLEEP_1) <= i_c1_sq1_dac_sleep;
+   discrete_r(c_DR_SQ1_DAC_SLEEP_2) <= i_c2_sq1_dac_sleep;
+   discrete_r(c_DR_SQ1_DAC_SLEEP_3) <= i_c3_sq1_dac_sleep;
 
    discrete_r(discrete_r'high downto c_DR_S) <= (others => '0');
-
-   -- ------------------------------------------------------------------------------------------------------
-   --!   Discrete read last event association
-   -- ------------------------------------------------------------------------------------------------------
-   dr_last_event(c_DR_D_RST)           <= i_d_rst'last_event;
-   dr_last_event(c_DR_CLK_REF)         <= i_clk_ref'last_event;
-   dr_last_event(c_DR_D_CLK)           <= i_d_clk'last_event;
-   dr_last_event(c_DR_D_CLK_SQ1_ADC)   <= i_d_clk_sq1_adc_acq'last_event;
-   dr_last_event(c_DR_D_CLK_SQ1_PLS_SH)<= i_d_clk_sq1_pls_shap'last_event;
-   dr_last_event(c_DR_EP_CMD_BUSY_N)   <= i_ep_cmd_busy_n'last_event;
-   dr_last_event(c_DR_EP_DATA_RX_RDY)  <= i_ep_data_rx_rdy'last_event;
-   dr_last_event(c_DR_D_RST_SQ1_ADC_0) <= i_d_rst_sq1_adc'last_event;
-   dr_last_event(c_DR_D_RST_SQ1_ADC_1) <= i_d_rst_sq1_adc'last_event;
-   dr_last_event(c_DR_D_RST_SQ1_ADC_2) <= i_d_rst_sq1_adc'last_event;
-   dr_last_event(c_DR_D_RST_SQ1_ADC_3) <= i_d_rst_sq1_adc'last_event;
-   dr_last_event(c_DR_D_RST_SQ1_DAC_0) <= i_d_rst_sq1_dac'last_event;
-   dr_last_event(c_DR_D_RST_SQ1_DAC_1) <= i_d_rst_sq1_dac'last_event;
-   dr_last_event(c_DR_D_RST_SQ1_DAC_2) <= i_d_rst_sq1_dac'last_event;
-   dr_last_event(c_DR_D_RST_SQ1_DAC_3) <= i_d_rst_sq1_dac'last_event;
-   dr_last_event(c_DR_D_RST_SQ2_MUX_0) <= i_d_rst_sq2_mux'last_event;
-   dr_last_event(c_DR_D_RST_SQ2_MUX_1) <= i_d_rst_sq2_mux'last_event;
-   dr_last_event(c_DR_D_RST_SQ2_MUX_2) <= i_d_rst_sq2_mux'last_event;
-   dr_last_event(c_DR_D_RST_SQ2_MUX_3) <= i_d_rst_sq2_mux'last_event;
-
-   dr_last_event(dr_last_event'high downto c_DR_S) <= (others => 0 ns);
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Parser sequence: read command file and write result file
    -- ------------------------------------------------------------------------------------------------------
    P_parser_seq: process
-   constant c_ERROR_CAT_NB    : integer   := 4                                                              ; --! Error category number
+   constant c_ERROR_CAT_NB    : integer   := 5                                                              ; --! Error category number
    variable v_error_cat       : std_logic_vector(c_ERROR_CAT_NB-1 downto 0)                                 ; --! Error category
    alias    v_err_sim_time    : std_logic is v_error_cat(0)                                                 ; --! Error simulation time ('0' = No error, '1' = Error: Simulation time not long enough)
    alias    v_err_chk_dis_r   : std_logic is v_error_cat(1)                                                 ; --! Error check discrete read  ('0' = No error, '1' = Error)
    alias    v_err_chk_cmd_r   : std_logic is v_error_cat(2)                                                 ; --! Error check command return ('0' = No error, '1' = Error)
    alias    v_err_chk_time    : std_logic is v_error_cat(3)                                                 ; --! Error check time           ('0' = No error, '1' = Error)
+   alias    v_err_chk_clk_prm : std_logic is v_error_cat(4)                                                 ; --! Error check clocks parameters ('0' = No error, '1' = Error)
+   variable v_chk_clk_prm_ena : std_logic_vector(c_CMD_FILE_FLD_DATA_S-1 downto 0)                          ; --! Check clock parameters enable
 
    variable v_line_cnt        : integer                                                                     ; --! Command file line counter
    variable v_head_mess_stdout: line                                                                        ; --! Header message output stream stdout
@@ -193,6 +226,7 @@ begin
       o_ep_cmd          <= (others => '0');
       o_ep_cmd_start    <= '0';
       v_error_cat       := (others => '0');
+      v_chk_clk_prm_ena := (others => '0');
       v_line_cnt        := 1;
       v_record_time     := 0 ns;
 
@@ -245,7 +279,24 @@ begin
                      -- Check the simulation end
                      chk_sim_end(g_SIM_TIME, now-v_fld_time, "SPI command end", v_err_sim_time, res_file);
 
+                  else
+                     null;
+
                   end if;
+
+               -- ------------------------------------------------------------------------------------------------------
+               -- Command CCPE [clock_report]: Enable the display in result file of the report about the check clock parameters
+               -- ------------------------------------------------------------------------------------------------------
+               when "CCPE" =>
+
+                  -- Get parameters
+                  get_param_ccpe(v_cmd_file_line, v_head_mess_stdout.all, v_fld_dis, v_fld_dis_ind);
+
+                  -- Update discrete write signal
+                  v_chk_clk_prm_ena(v_fld_dis_ind) := '1';
+
+                  -- Display command
+                  fprintf(note , "Clock report display activated: " & v_fld_dis.all , res_file);
 
                -- ------------------------------------------------------------------------------------------------------
                -- Command CDIS [discrete_r] [value]: check discrete input
@@ -279,7 +330,7 @@ begin
                   get_param_ctle(v_cmd_file_line, v_head_mess_stdout.all, v_fld_dis, v_fld_dis_ind, v_fld_ope, v_fld_time);
 
                   -- Compare time between the current time and discrete input(s) last event
-                  cmp_time(v_fld_ope(1 to 2), dr_last_event(v_fld_dis_ind), v_fld_time, v_fld_dis.all & " last event" , v_head_mess_stdout.all & "[ope]", v_err_chk_time, res_file);
+                  cmp_time(v_fld_ope(1 to 2), dis_read_last_event(v_fld_dis_ind), v_fld_time, v_fld_dis.all & " last event" , v_head_mess_stdout.all & "[ope]", v_err_chk_time, res_file);
 
                -- ------------------------------------------------------------------------------------------------------
                -- Command CTLR [ope] [time]: check time from the last record time
@@ -453,6 +504,9 @@ begin
          -- Update line counter
          v_line_cnt := v_line_cnt + 1;
 
+         -- Wait end of delta cycles before new command handling
+         wait for 0 ps;
+
       end loop;
 
       -- Wait the simulation end
@@ -460,12 +514,57 @@ begin
          wait for g_SIM_TIME - now;
       end if;
 
+      -- Clocks parameters results
+      for k in 0 to c_CE_S-1 loop
+
+         -- Check if clock parameters check is enabled
+         if v_chk_clk_prm_ena(k) = '1' then
+
+            -- Write clock parameters check results
+            fprintf(none, c_RES_FILE_DIV_BAR & c_RES_FILE_DIV_BAR , res_file);
+            fprintf(none, "Parameters check, clock " & c_CCHK(k).clk_name , res_file);
+            fprintf(none, c_RES_FILE_DIV_BAR & c_RES_FILE_DIV_BAR , res_file);
+
+            -- Check if oscillation on clock when enable inactive parameter is disable
+            if c_CCHK(k).chk_osc_en = c_CHK_OSC_DIS then
+               fprintf(none, "Error number of clock oscillation when enable is inactive : " & integer'image(i_err_chk_rpt(k)(0)) &
+               ", inactive parameter (no check)", res_file);
+
+            else
+               fprintf(none, "Error number of clock oscillation when enable is inactive : " & integer'image(i_err_chk_rpt(k)(0))
+               , res_file);
+
+            end if;
+
+            fprintf(none, "Error number of high level clock period timing :            " & integer'image(i_err_chk_rpt(k)(1)) &
+            ", expected timing: " & time'image(c_CCHK(k).clk_per_h), res_file);
+
+            fprintf(none, "Error number of low  level clock period timing :            " & integer'image(i_err_chk_rpt(k)(2)) &
+            ", expected timing: " & time'image(c_CCHK(k).clk_per_l), res_file);
+
+            fprintf(none, "Error number of clock state when enable goes to inactive :  " & integer'image(i_err_chk_rpt(k)(3)) &
+            ", expected state:  " & std_logic'image(c_CCHK(k).clk_st_ena), res_file);
+
+            fprintf(none, "Error number of clock state when enable goes to active   :  " & integer'image(i_err_chk_rpt(k)(4)) &
+            ", expected state:  " & std_logic'image(not(c_CCHK(k).clk_st_ena)), res_file);
+
+            -- Set possible error
+            for j in 0 to c_ERR_N_CLK_CHK_S-1 loop
+               if i_err_chk_rpt(k)(j) /= 0 then
+                  v_err_chk_clk_prm := '1';
+               end if;
+            end loop;
+
+         end if;
+      end loop;
+
       -- Result file end
       fprintf(none, c_RES_FILE_DIV_BAR & c_RES_FILE_DIV_BAR & c_RES_FILE_DIV_BAR, res_file);
       fprintf(none, "Error simulation time         : " & std_logic'image(v_err_sim_time),   res_file);
       fprintf(none, "Error check discrete level    : " & std_logic'image(v_err_chk_dis_r),  res_file);
       fprintf(none, "Error check command return    : " & std_logic'image(v_err_chk_cmd_r),  res_file);
       fprintf(none, "Error check time              : " & std_logic'image(v_err_chk_time),   res_file);
+      fprintf(none, "Error check clocks parameters : " & std_logic'image(v_err_chk_clk_prm),res_file);
 
       fprintf(none, c_RES_FILE_DIV_BAR & c_RES_FILE_DIV_BAR & c_RES_FILE_DIV_BAR, res_file);
       fprintf(none, "Simulation time               : " & time'image(now), res_file);

@@ -45,7 +45,10 @@ entity rst_clk_mgt is port
          o_clk_sq1_pls_shape  : out    std_logic                                                            ; --! SQUID1 pulse shaping Clock
          o_clk_sq1_adc        : out    std_logic_vector(c_NB_COL-1 downto 0)                                ; --! SQUID1 ADC Clocks
          o_clk_sq1_dac        : out    std_logic_vector(c_NB_COL-1 downto 0)                                ; --! SQUID1 DAC Clocks
-         o_clk_science        : out    std_logic                                                              --! Science Data Clock
+         o_clk_science        : out    std_logic                                                            ; --! Science Data Clock
+
+         o_sq1_adc_pwdn	      : out    std_logic_vector(c_NB_COL-1 downto 0)                                ; --! SQUID1 ADC – Power Down ('0' = Inactive, '1' = Active)
+         o_sq1_dac_sleep      : out    std_logic_vector(c_NB_COL-1 downto 0)                                  --! SQUID1 DAC - Sleep ('0' = Inactive, '1' = Active)
    );
 end entity rst_clk_mgt;
 
@@ -72,7 +75,9 @@ begin
          o_clk_sq1_adc        => o_clk_sq1_adc        , -- out    std_logic_vector(c_NB_COL-1 downto 0)     ; --! SQUID1 ADC Clocks
          o_clk_sq1_dac        => o_clk_sq1_dac        , -- out    std_logic_vector(c_NB_COL-1 downto 0)     ; --! SQUID1 DAC Clocks
          o_clk_science        => o_clk_science        , -- out    std_logic                                 ; --! Science Data Clock
-         o_pll_main_lock      => pll_main_lock          -- out    std_logic                                   --! Main Pll Status ('0' = Pll not locked, '1' = Pll locked)
+         o_pll_main_lock      => pll_main_lock        , -- out    std_logic                                 ; --! Main Pll Status ('0' = Pll not locked, '1' = Pll locked)
+         o_sq1_adc_pwdn	      => o_sq1_adc_pwdn       , -- out    std_logic_vector(c_NB_COL-1 downto 0)     ; --! SQUID1 ADC – Power Down ('0' = Inactive, '1' = Active)
+         o_sq1_dac_sleep      => o_sq1_dac_sleep        -- out    std_logic_vector(c_NB_COL-1 downto 0)       --! SQUID1 DAC - Sleep ('0' = Inactive, '1' = Active)
    );
 
    o_clk               <= clk;

@@ -1,0 +1,199 @@
+COMM **********************************************************************************************
+COMM   Test: EP command, SQ1_FB_MODE register
+COMM **********************************************************************************************
+COMM
+COMM ==============================================================================================
+COMM   Enable Squid1 ADC/DAC clocks reports display
+COMM ----------------------------------------------------------------------------------------------
+CCPE clk_sq1_adc(0)
+CCPE clk_sq1_adc(1)
+CCPE clk_sq1_adc(2)
+CCPE clk_sq1_adc(3)
+CCPE clk_sq1_dac(0)
+CCPE clk_sq1_dac(1)
+CCPE clk_sq1_dac(2)
+CCPE clk_sq1_dac(3)
+COMM
+COMM ==============================================================================================
+COMM   Asynchronous reset activated
+COMM ----------------------------------------------------------------------------------------------
+WDIS arst_n 0
+WAIT 80 ns
+COMM
+COMM ==============================================================================================
+COMM   Asynchronous reset deactivated
+COMM ----------------------------------------------------------------------------------------------
+WDIS arst_n 1
+COMM
+COMM ==============================================================================================
+COMM   Wait internal reset deactivated
+COMM ----------------------------------------------------------------------------------------------
+WUDI rst 0
+COMM
+COMM ==============================================================================================
+COMM   Start SQ1_FB_MODE register test
+COMM ----------------------------------------------------------------------------------------------
+WCMD R-SQ1_FB_MODE-XXXX W     # Command 0
+WCMD W-SQ1_FB_MODE-8XXX W     # Command 1
+WCMD R-SQ1_FB_MODE-XXXX R     # Command 2
+COMM
+COMM ==============================================================================================
+COMM   Check SQ1_FB_MODE content at start:
+COMM   Col(3)->Off, Col(2)->Off, Col(1)->Off, Col(0)->Off
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-SQ1_FB_MODE-0000 W     # Return Command 0
+WCMD W-SQ1_FB_MODE-4XXX R     # Command 3
+COMM
+COMM ==============================================================================================
+COMM   Check error position SPI data out of range detected
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-Status-1000 W          # Return Command 1
+WCMD R-SQ1_FB_MODE-XXXX R     # Command 4
+COMM
+COMM ==============================================================================================
+COMM   Check SQ1_FB_MODE no change
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-SQ1_FB_MODE-0000 W     # Return Command 2
+WCMD W-SQ1_FB_MODE-X8XX R     # Command 5
+COMM
+COMM ==============================================================================================
+COMM   Check error position SPI data out of range detected
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-Status-1000 W          # Return Command 3
+WCMD R-SQ1_FB_MODE-XXXX R     # Command 6
+COMM
+COMM ==============================================================================================
+COMM   Check SQ1_FB_MODE no change
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-SQ1_FB_MODE-0000 W     # Return Command 4
+WCMD W-SQ1_FB_MODE-X4XX R     # Command 7
+COMM
+COMM ==============================================================================================
+COMM   Check error position SPI data out of range detected
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-Status-1000 W          # Return Command 5
+WCMD R-SQ1_FB_MODE-XXXX R     # Command 8
+COMM
+COMM ==============================================================================================
+COMM   Check SQ1_FB_MODE no change
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-SQ1_FB_MODE-0000 W     # Return Command 6
+WCMD W-SQ1_FB_MODE-XX8X R     # Command 9
+COMM
+COMM ==============================================================================================
+COMM   Check error position SPI data out of range detected
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-Status-1000 W          # Return Command 7
+WCMD R-SQ1_FB_MODE-XXXX R     # Command 10
+COMM
+COMM ==============================================================================================
+COMM   Check SQ1_FB_MODE no change
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-SQ1_FB_MODE-0000 W     # Return Command 8
+WCMD W-SQ1_FB_MODE-XX4X R     # Command 11
+COMM
+COMM ==============================================================================================
+COMM   Check error position SPI data out of range detected
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-Status-1000 W          # Return Command 9
+WCMD R-SQ1_FB_MODE-XXXX R     # Command 12
+COMM
+COMM ==============================================================================================
+COMM   Check SQ1_FB_MODE no change
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-SQ1_FB_MODE-0000 W     # Return Command 10
+WCMD W-SQ1_FB_MODE-XXX8 R     # Command 13
+COMM
+COMM ==============================================================================================
+COMM   Check error position SPI data out of range detected
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-Status-1000 W          # Return Command 11
+WCMD R-SQ1_FB_MODE-XXXX R     # Command 14
+COMM
+COMM ==============================================================================================
+COMM   Check SQ1_FB_MODE no change
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-SQ1_FB_MODE-0000 W     # Return Command 12
+WCMD W-SQ1_FB_MODE-XXX4 R     # Command 15
+COMM
+COMM ==============================================================================================
+COMM   Check error position SPI data out of range detected
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-Status-1000 W          # Return Command 13
+WCMD R-SQ1_FB_MODE-XXXX R     # Command 16
+COMM
+COMM ==============================================================================================
+COMM   Check SQ1_FB_MODE no change
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-SQ1_FB_MODE-0000 W     # Return Command 14
+WCMD W-SQ1_FB_MODE-0123 R     # Command 17
+COMM
+COMM ==============================================================================================
+COMM   Check error position SPI data out of range detected
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-Status-1000 W          # Return Command 15
+WCMD R-SQ1_FB_MODE-XXXX R     # Command 18
+COMM
+COMM ==============================================================================================
+COMM   Check SQ1_FB_MODE no change
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-SQ1_FB_MODE-0000 W     # Return Command 16
+WCMD W-SQ1_FB_MODE-3210 R     # Command 19
+COMM
+COMM ==============================================================================================
+COMM   Check no error
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-Status-0000 W          # Return Command 17
+WCMD R-SQ1_FB_MODE-XXXX R     # Command 20
+COMM
+COMM ==============================================================================================
+COMM   Check SQ1_FB_MODE content:
+COMM   Col(3)->Off, Col(2)->Open loop, Col(1)->Closed loop, Col(0)->Test pattern
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-SQ1_FB_MODE-0123 W     # Return Command 18
+WCMD W-SQ1_FB_MODE-1032 R     # Command 21
+COMM
+COMM ==============================================================================================
+COMM   Check no error
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-Status-0000 W          # Return Command 19
+WCMD R-SQ1_FB_MODE-XXXX R     # Command 22
+COMM
+COMM ==============================================================================================
+COMM   Check SQ1_FB_MODE content:
+COMM   Col(3)->Test pattern, Col(2)->Closed loop, Col(1)->Open loop, Col(0)->Off
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-SQ1_FB_MODE-3210 W     # Return Command 20
+WCMD W-SQ1_FB_MODE-2301 R     # Command 23
+COMM
+COMM ==============================================================================================
+COMM   Check no error
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-Status-0000 W          # Return Command 21
+WCMD R-SQ1_FB_MODE-XXXX R     # Command 24
+COMM
+COMM ==============================================================================================
+COMM   Check SQ1_FB_MODE content:
+COMM   Col(3)->Open loop, Col(2)->Off, Col(1)->Test pattern, Col(0)->Closed loop
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-SQ1_FB_MODE-1032 W     # Return Command 22
+WCMD W-SQ1_FB_MODE-2301 R     # Command 25
+COMM
+COMM ==============================================================================================
+COMM   Check no error
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-Status-0000 W          # Return Command 23
+WCMD R-SQ1_FB_MODE-XXXX R     # Command 26
+COMM
+COMM ==============================================================================================
+COMM   Check SQ1_FB_MODE content:
+COMM   Col(3)->Closed loop, Col(2)->Test pattern, Col(1)->Off, Col(0)->Open loop
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-SQ1_FB_MODE-2301 W     # Return Command 24
+WCMD W-SQ1_FB_MODE-2301 R     # Command 27
+COMM
+COMM ==============================================================================================
+COMM   Check no error
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-Status-0000 W          # Return Command 25
+WCMD R-SQ1_FB_MODE-XXXX R     # Command 28

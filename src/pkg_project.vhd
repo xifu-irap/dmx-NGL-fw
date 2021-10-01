@@ -113,7 +113,7 @@ constant c_I_SPI_SCLK_DEF     : std_logic := c_EP_SPI_CPOL                      
 constant c_I_SPI_CS_N_DEF     : std_logic := '1'                                                            ; --! SPI Chip Select input default value at reset
 constant c_I_SQ1_ADC_DATA_DEF : std_logic_vector(c_SQ1_ADC_DATA_S-1 downto 0):= (others =>'0')              ; --! SQUID1 ADC data input default value at reset
 constant c_I_SQ1_ADC_OOR_DEF  : std_logic := '0'                                                            ; --! SQUID1 ADC out of range input default value at reset
-constant c_I_SYNC_DEF         : std_logic := '0'                                                            ; --! Pixel sequence synchronization default value at reset
+constant c_I_SYNC_DEF         : std_logic := '1'                                                            ; --! Pixel sequence synchronization default value at reset
 
    -- ------------------------------------------------------------------------------------------------------
    --    Project parameters
@@ -127,12 +127,20 @@ constant c_SQ1_DATA_ERR_S     : integer   := 18                                 
 constant c_SQ1_DATA_FBK_S     : integer   := 16                                                             ; --! SQUID1 Data feedback bus size (<= c_MULT_ALU_PORTB_S-1)
 constant c_SQ1_PLS_SHP_A_EXP  : integer   := 16                                                             ; --! Pulse shaping: Filter exponent parameter (<=c_MULT_ALU_PORTC_S-c_SQ1_PLS_SHP_X_K_S-1)
 
+constant c_PIX_POS_SW_ON      : integer   := 2                                                              ; --! Pixel position for command switch clocks on
+constant c_PIX_POS_SW_ADC_OFF : integer   := c_MUX_FACT - 1                                                 ; --! Pixel position for command ADC switch clocks off
+
    -- ------------------------------------------------------------------------------------------------------
    --    SQUID1 ADC parameters
    --    @Req : DRE-DMX-FW-REQ-0130
    -- ------------------------------------------------------------------------------------------------------
 constant c_PIXEL_ADC_NB_CYC   : integer   := 22                                                             ; --! ADC clock period number allocated to one pixel acquisition
-constant c_ADC_DATA_NPER      : integer   := 13                                                             ; --! ADC Clock period number between the acquisition start and data output by the ADC
+constant c_ADC_DATA_NPER      : integer   := 13                                                             ; --! ADC clock period number between the acquisition start and data output by the ADC
+
+   -- ------------------------------------------------------------------------------------------------------
+   --    SQUID1 DAC parameters
+   -- ------------------------------------------------------------------------------------------------------
+constant c_PIXEL_DAC_NB_CYC   : integer   := c_PIXEL_ADC_NB_CYC                                             ; --! DAC clock period number allocated to one pixel acquisition
 
    -- ------------------------------------------------------------------------------------------------------
    --    Global types

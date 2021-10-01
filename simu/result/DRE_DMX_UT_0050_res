@@ -22,7 +22,7 @@
 # ** Note   : (7050564 ps) Waiting event rst = '0' for 6970564 ps
 #             (7050564 ps) 
 #             (7050564 ps) ==============================================================================================
-#             (7050564 ps)   Read register contents with no errors
+#             (7050564 ps)   Read register Version and Status with no errors
 #             (7050564 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (7050564 ps) Send SPI command value C002_XXXX (Version, mode Read, data XXXX)
 # ** Note   : (9627000 ps) Waiting SPI command end for 2536436 ps
@@ -103,6 +103,7 @@
 # Error check discrete level    : '0'
 # Error check command return    : '0'
 # Error check time              : '0'
+# Error check clocks parameters : '0'
 # ------------------------------------------------------------------------------------------------------------------------------------------------------
 # Simulation time               : 40000000 ps
 # Simulation status             : PASS

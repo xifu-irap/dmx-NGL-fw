@@ -17,12 +17,12 @@
 --                            along with this program.  If not, see <https://www.gnu.org/licenses/>.
 -- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --    email                   slaurent@nanoxplore.com
---!   @file                   sts_err_wrt_mgt.vhd
+--!   @file                   sts_err_out_mgt.vhd
 -- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --    Automatic Generation    No
 --    Code Rules Reference    SOC of design and VHDL handbook for VLSI development, CNES Edition (v2.1)
 -- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
---!   @details                EP command: Status, error try to write in a read only register management
+--!   @details                EP command: Status, error data out of range management
 -- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 library ieee;
 use     ieee.std_logic_1164.all;
@@ -32,58 +32,71 @@ library work;
 use     work.pkg_project.all;
 use     work.pkg_ep_cmd.all;
 
-entity sts_err_wrt_mgt is port
+entity sts_err_out_mgt is port
    (     i_rst                : in     std_logic                                                            ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                : in     std_logic                                                            ; --! Clock
 
          i_ep_cmd_rx_add_norw : in     std_logic_vector(c_EP_SPI_WD_S-1 downto 0)                           ; --! EP command receipted: address word, read/write bit cleared
+         i_ep_cmd_rx_wd_data  : in     std_logic_vector(c_EP_SPI_WD_S-1 downto 0)                           ; --! EP command receipted: data word
          i_ep_cmd_rx_rw       : in     std_logic                                                            ; --! EP command receipted: read/write bit
-         o_ep_cmd_sts_err_wrt : out    std_logic                                                              --! EP command: Status, error try to write in a read only register
+         i_ep_cmd_rx_out_rdy  : in     std_logic                                                            ; --! EP command receipted: error data out of range ready ('0' = Not ready, '1' = Ready)
+         o_ep_cmd_sts_err_out : out    std_logic                                                              --! EP command: Status, error data out of range
    );
-end entity sts_err_wrt_mgt;
+end entity sts_err_out_mgt;
 
-architecture RTL of sts_err_wrt_mgt is
+architecture RTL of sts_err_out_mgt is
+signal   cond_sq1fbmd         : std_logic                                                                   ; --! Error data out of range condition: SQ1_FB_MODE
+signal   cond_sq2fbmd         : std_logic                                                                   ; --! Error data out of range condition: SQ2_FB_MODE
+
 begin
 
    -- ------------------------------------------------------------------------------------------------------
-   --!   EP command: Status, error try to write in a read only register
+   --!   Error data out of range conditions
    -- ------------------------------------------------------------------------------------------------------
-   P_ep_cmd_sts_err_wrt : process (i_rst, i_clk)
+   cond_sq1fbmd <=   i_ep_cmd_rx_wd_data(15) or i_ep_cmd_rx_wd_data(14) or i_ep_cmd_rx_wd_data(11) or i_ep_cmd_rx_wd_data(10) or
+                     i_ep_cmd_rx_wd_data(7)  or i_ep_cmd_rx_wd_data(6)  or i_ep_cmd_rx_wd_data(3)  or i_ep_cmd_rx_wd_data(2);
+
+   cond_sq2fbmd <=   i_ep_cmd_rx_wd_data(15) or i_ep_cmd_rx_wd_data(14) or i_ep_cmd_rx_wd_data(11) or i_ep_cmd_rx_wd_data(10) or
+                     i_ep_cmd_rx_wd_data(7)  or i_ep_cmd_rx_wd_data(6)  or i_ep_cmd_rx_wd_data(3)  or i_ep_cmd_rx_wd_data(2) or
+                     ( not(i_ep_cmd_rx_wd_data(13)) and i_ep_cmd_rx_wd_data(12)) or
+                     ( not(i_ep_cmd_rx_wd_data(9))  and i_ep_cmd_rx_wd_data(8))  or
+                     ( not(i_ep_cmd_rx_wd_data(5))  and i_ep_cmd_rx_wd_data(4))  or
+                     ( not(i_ep_cmd_rx_wd_data(1))  and i_ep_cmd_rx_wd_data(0));
+
+   -- ------------------------------------------------------------------------------------------------------
+   --!   EP command: Status, error error data out of range
+   -- ------------------------------------------------------------------------------------------------------
+   P_ep_cmd_sts_err_out : process (i_rst, i_clk)
    begin
 
       if i_rst = '1' then
-         o_ep_cmd_sts_err_wrt <= c_EP_CMD_ERR_CLR;
+         o_ep_cmd_sts_err_out <= c_EP_CMD_ERR_CLR;
 
       elsif rising_edge(i_clk) then
-         if i_ep_cmd_rx_rw = c_EP_CMD_ADD_RW_R then
-            o_ep_cmd_sts_err_wrt <= c_EP_CMD_ERR_CLR;
+         if i_ep_cmd_rx_out_rdy = '1' then
+            if i_ep_cmd_rx_rw = c_EP_CMD_ADD_RW_R then
+               o_ep_cmd_sts_err_out <= c_EP_CMD_ERR_CLR;
 
-         else
-            case i_ep_cmd_rx_add_norw is
-               when c_EP_CMD_ADD_TM_MODE  =>
-                  o_ep_cmd_sts_err_wrt <= c_EP_CMD_AUTH_TM_MODE;
+            else
+               case i_ep_cmd_rx_add_norw is
 
-               when c_EP_CMD_ADD_SQ1FBMD  =>
-                  o_ep_cmd_sts_err_wrt <= c_EP_CMD_AUTH_SQ1FBMD;
+                  when c_EP_CMD_ADD_SQ1FBMD  =>
+                     o_ep_cmd_sts_err_out <= cond_sq1fbmd xor c_EP_CMD_ERR_CLR;
 
-               when c_EP_CMD_ADD_SQ2FBMD  =>
-                  o_ep_cmd_sts_err_wrt <= c_EP_CMD_AUTH_SQ2FBMD;
+                  when c_EP_CMD_ADD_SQ2FBMD  =>
+                     o_ep_cmd_sts_err_out <= cond_sq2fbmd xor c_EP_CMD_ERR_CLR;
 
-               when c_EP_CMD_ADD_STATUS   =>
-                  o_ep_cmd_sts_err_wrt <= c_EP_CMD_AUTH_STATUS;
+                  when others                =>
+                     o_ep_cmd_sts_err_out <= c_EP_CMD_ERR_CLR;
 
-               when c_EP_CMD_ADD_VERSION  =>
-                  o_ep_cmd_sts_err_wrt <= c_EP_CMD_AUTH_VERSION;
+               end case;
 
-               when others                =>
-                  o_ep_cmd_sts_err_wrt <= c_EP_CMD_ERR_CLR;
-
-            end case;
+            end if;
 
          end if;
 
       end if;
 
-   end process P_ep_cmd_sts_err_wrt;
+   end process P_ep_cmd_sts_err_out;
 
 end architecture RTL;

@@ -29,6 +29,7 @@ use     ieee.std_logic_1164.all;
 
 library work;
 use     work.pkg_project.all;
+use     work.pkg_ep_cmd.all;
 
 entity top_dmx is port
    (     i_arst_n             : in     std_logic                                                            ; --! Asynchronous reset ('0' = Active, '1' = Inactive)
@@ -141,6 +142,7 @@ type     t_sq2_dac_mux_v       is array (natural range <>) of std_logic_vector(c
 
 signal   ck_rdy               : std_logic                                                                   ; --! Clocks ready ('0' = Not ready, '1' = Ready)
 signal   rst                  : std_logic                                                                   ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+signal   sync_re              : std_logic                                                                   ; --! Pixel sequence synchronization, rising edge
 
 signal   clk                  : std_logic                                                                   ; --! System Clock
 signal   clk_sq1_adc_acq      : std_logic                                                                   ; --! SQUID1 ADC acquisition Clock
@@ -159,6 +161,8 @@ signal   ep_spi_cs_n_rs       : std_logic                                       
 
 signal   cmd_ck_sq1_adc       : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! SQUID1 ADC Clocks switch commands
 signal   cmd_ck_sq1_dac       : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! SQUID1 DAC Clocks switch commands
+signal   sq1_adc_pwdn         : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! SQUID1 ADC – Power Down ('0' = Inactive, '1' = Active)
+signal   sq1_dac_sleep        : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! SQUID1 DAC - Sleep ('0' = Inactive, '1' = Active)
 
 signal   sq1_adc_data         : t_sq1_adc_data_v(0 to c_NB_COL-1)                                           ; --! SQUID1 ADC - Data, no rsync
 signal   sq1_adc_oor          : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! SQUID1 ADC - Out of range, no rsync (‘0’= No, ‘1’= under/over range)
@@ -183,7 +187,6 @@ signal   science_data_tx_ena  : std_logic                                       
 signal   science_data         : t_sc_data_w(0 to c_NB_COL*c_SC_DATA_SER_NB)                                 ; --! Science Data word
 signal   science_data_ser     : std_logic_vector(c_NB_COL*c_SC_DATA_SER_NB downto 0)                        ; --! Science Data – Serial Data
 
-signal   ep_cmd_sts_err_out   : std_logic                                                                   ; --! EP command: Status, error SPI data out of range
 signal   ep_cmd_sts_err_nin   : std_logic                                                                   ; --! EP command: Status, error parameter to read not initialized yet
 signal   ep_cmd_sts_err_dis   : std_logic                                                                   ; --! EP command: Status, error last SPI command discarded
 signal   ep_cmd_sts_rg        : std_logic_vector(c_EP_SPI_WD_S-1 downto 0)                                  ; --! EP command: status register
@@ -191,9 +194,15 @@ signal   ep_cmd_sts_rg        : std_logic_vector(c_EP_SPI_WD_S-1 downto 0)      
 signal   ep_cmd_rx_wd_add     : std_logic_vector(c_EP_SPI_WD_S-1 downto 0)                                  ; --! EP command receipted: address word, read/write bit cleared
 signal   ep_cmd_rx_wd_data    : std_logic_vector(c_EP_SPI_WD_S-1 downto 0)                                  ; --! EP command receipted: data word
 signal   ep_cmd_rx_rw         : std_logic                                                                   ; --! EP command receipted: read/write bit
-signal   ep_cmd_rx_noerr_rdy  : std_logic                                                                   ; --! EP command receipted with no address/length error ready ('0'= Not ready, '1'= Ready)
+signal   ep_cmd_rx_nerr_rdy   : std_logic                                                                   ; --! EP command receipted with no error ready ('0'= Not ready, '1'= Ready)
 
 signal   ep_cmd_tx_wd_rd_rg   : std_logic_vector(c_EP_SPI_WD_S-1 downto 0)                                  ; --! EP command to transmit: read register word
+
+signal   tm_mode_sync         : std_logic                                                                   ; --! Telemetry mode synchronization
+
+signal   tm_mode              : t_rg_tm_mode(0 to c_NB_COL-1)                                               ; --! Telemetry mode
+signal   sq1_fb_mode          : t_rg_sq1fbmd(0 to c_NB_COL-1)                                               ; --! Squid 1 Feedback mode
+signal   sq2_fb_mode          : t_rg_sq2fbmd(0 to c_NB_COL-1)                                               ; --! Squid 2 Feedback mode
 
 begin
 
@@ -215,7 +224,10 @@ begin
          o_clk_sq1_pls_shape  => clk_sq1_pls_shape    , -- out    std_logic                                 ; --! SQUID1 pulse shaping Clock
          o_clk_sq1_adc        => clk_sq1_adc_v        , -- out    std_logic_vector(c_NB_COL-1 downto 0)     ; --! SQUID1 ADC Clocks
          o_clk_sq1_dac        => clk_sq1_dac_v        , -- out    std_logic_vector(c_NB_COL-1 downto 0)     ; --! SQUID1 DAC Clocks
-         o_clk_science        => clk_science            -- out    std_logic                                   --! Science Data Clock
+         o_clk_science        => clk_science          , -- out    std_logic                                   --! Science Data Clock
+
+         o_sq1_adc_pwdn	      => sq1_adc_pwdn         , -- out    std_logic_vector(c_NB_COL-1 downto 0)     ; --! SQUID1 ADC – Power Down ('0' = Inactive, '1' = Active)
+         o_sq1_dac_sleep      => sq1_dac_sleep          -- out    std_logic_vector(c_NB_COL-1 downto 0)       --! SQUID1 DAC - Sleep ('0' = Inactive, '1' = Active)
    );
 
    -- ------------------------------------------------------------------------------------------------------
@@ -266,10 +278,11 @@ begin
    (     i_rst                => rst                  , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                => clk                  , -- in     std_logic                                 ; --! System Clock
 
+         i_tm_mode_sync       => tm_mode_sync         , -- in     std_logic                                 ; --! Telemetry mode synchronization
+
          i_brd_ref_rs         => brd_ref_rs           , -- in     std_logic_vector(  c_BRD_REF_S-1 downto 0); --! Board reference, synchronized on System Clock
          i_brd_model_rs       => brd_model_rs         , -- in     std_logic_vector(c_BRD_MODEL_S-1 downto 0); --! Board model, synchronized on System Clock
 
-         o_ep_cmd_sts_err_out => ep_cmd_sts_err_out   , -- out    std_logic                                 ; --! EP command: Status, error SPI data out of range
          o_ep_cmd_sts_err_nin => ep_cmd_sts_err_nin   , -- out    std_logic                                 ; --! EP command: Status, error parameter to read not initialized yet
          o_ep_cmd_sts_err_dis => ep_cmd_sts_err_dis   , -- out    std_logic                                 ; --! EP command: Status, error last SPI command discarded
          i_ep_cmd_sts_rg      => ep_cmd_sts_rg        , -- in     std_logic_vector(c_EP_SPI_WD_S-1 downto 0); --! EP command: Status register
@@ -277,11 +290,13 @@ begin
          i_ep_cmd_rx_wd_add   => ep_cmd_rx_wd_add     , -- in     std_logic_vector(c_EP_SPI_WD_S-1 downto 0); --! EP command receipted: address word, read/write bit cleared
          i_ep_cmd_rx_wd_data  => ep_cmd_rx_wd_data    , -- in     std_logic_vector(c_EP_SPI_WD_S-1 downto 0); --! EP command receipted: data word
          i_ep_cmd_rx_rw       => ep_cmd_rx_rw         , -- in     std_logic                                 ; --! EP command receipted: read/write bit
-         i_ep_cmd_rx_noerr_rdy=> ep_cmd_rx_noerr_rdy  , -- in     std_logic                                 ; --! EP command receipted with no address/length error ready ('0'= Not ready, '1'= Ready)
+         i_ep_cmd_rx_nerr_rdy => ep_cmd_rx_nerr_rdy   , -- in     std_logic                                 ; --! EP command receipted with no error ready ('0'= Not ready, '1'= Ready)
 
          o_ep_cmd_tx_wd_rd_rg => ep_cmd_tx_wd_rd_rg   , -- out    std_logic_vector(c_EP_SPI_WD_S-1 downto 0); --! EP command to transmit: read register word
-         o_cmd_ck_sq1_adc     => cmd_ck_sq1_adc       , -- out    std_logic_vector(c_NB_COL-1 downto 0)     ; --! SQUID1 ADC Clocks switch commands (for each column: '0' = Inactive, '1' = Active)
-         o_cmd_ck_sq1_dac     => cmd_ck_sq1_dac         -- out    std_logic_vector(c_NB_COL-1 downto 0)       --! SQUID1 DAC Clocks switch commands (for each column: '0' = Inactive, '1' = Active)
+
+         o_tm_mode            => tm_mode              , -- out    t_rg_tm_mode(0 to c_NB_COL-1)             ; --! Telemetry mode
+         o_sq1_fb_mode        => sq1_fb_mode          , -- out    t_rg_sq1fbmd(0 to c_NB_COL-1)             ; --! Squid 1 Feedback mode
+         o_sq2_fb_mode        => sq2_fb_mode            -- out    t_rg_sq2fbmd(0 to c_NB_COL-1)               --! Squid 2 Feedback mode
    );
 
    -- ------------------------------------------------------------------------------------------------------
@@ -291,7 +306,6 @@ begin
    (     i_rst                => rst                  , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                => clk                  , -- in     std_logic                                 ; --! System Clock
 
-         i_ep_cmd_sts_err_out => ep_cmd_sts_err_out   , -- in     std_logic                                 ; --! EP command: Status, error SPI data out of range
          i_ep_cmd_sts_err_nin => ep_cmd_sts_err_nin   , -- in     std_logic                                 ; --! EP command: Status, error parameter to read not initialized yet
          i_ep_cmd_sts_err_dis => ep_cmd_sts_err_dis   , -- in     std_logic                                 ; --! EP command: Status, error last SPI command discarded
          o_ep_cmd_sts_rg      => ep_cmd_sts_rg        , -- out    std_logic_vector(c_EP_SPI_WD_S-1 downto 0); --! EP command: Status register
@@ -299,7 +313,7 @@ begin
          o_ep_cmd_rx_wd_add   => ep_cmd_rx_wd_add     , -- out    std_logic_vector(c_EP_SPI_WD_S-1 downto 0); --! EP command receipted: address word, read/write bit cleared
          o_ep_cmd_rx_wd_data  => ep_cmd_rx_wd_data    , -- out    std_logic_vector(c_EP_SPI_WD_S-1 downto 0); --! EP command receipted: data word
          o_ep_cmd_rx_rw       => ep_cmd_rx_rw         , -- out    std_logic                                 ; --! EP command receipted: read/write bit
-         o_ep_cmd_rx_noerr_rdy=> ep_cmd_rx_noerr_rdy  , -- out    std_logic                                 ; --! EP command receipted with no address/length error ready ('0'= Not ready, '1'= Ready)
+         o_ep_cmd_rx_nerr_rdy => ep_cmd_rx_nerr_rdy   , -- out    std_logic                                 ; --! EP command receipted with no error ready ('0'= Not ready, '1'= Ready)
 
          i_ep_cmd_tx_wd_rd_rg => ep_cmd_tx_wd_rd_rg   , -- in     std_logic_vector(c_EP_SPI_WD_S-1 downto 0); --! EP command to transmit: read register word
 
@@ -307,6 +321,22 @@ begin
          i_ep_spi_mosi_rs     => ep_spi_mosi_rs       , -- in     std_logic                                 ; --! EP - SPI Master Input Slave Output (MSB first), synchronized on System Clock
          i_ep_spi_sclk_rs     => ep_spi_sclk_rs       , -- in     std_logic                                 ; --! EP - SPI Serial Clock (CPOL = ‘0’, CPHA = ’0’), synchronized on System Clock
          i_ep_spi_cs_n_rs     => ep_spi_cs_n_rs         -- in     std_logic                                   --! EP - SPI Chip Select ('0' = Active, '1' = Inactive), synchronized on System Clock
+   );
+
+   -- ------------------------------------------------------------------------------------------------------
+   --!   DEMUX commands
+   -- ------------------------------------------------------------------------------------------------------
+   I_dmx_cmd: entity work.dmx_cmd port map
+   (     i_rst                => rst                  , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+         i_clk                => clk                  , -- in     std_logic                                 ; --! System Clock
+         i_sync_rs            => sync_rs              , -- in     std_logic                                 ; --! Pixel sequence synchronization, synchronized on System Clock
+         i_tm_mode            => tm_mode              , -- in     t_rg_tm_mode(0 to c_NB_COL-1)             ; --! Telemetry mode
+         i_sq1_fb_mode        => sq1_fb_mode          , -- in     t_rg_sq1fbmd(0 to c_NB_COL-1)             ; --! Squid 1 Feedback mode
+         i_sq2_fb_mode        => sq2_fb_mode          , -- in     t_rg_sq2fbmd(0 to c_NB_COL-1)             ; --! Squid 2 Feedback mode
+         o_sync_re            => sync_re              , -- out    std_logic                                 ; --! Pixel sequence synchronization, rising edge
+         o_tm_mode_sync       => tm_mode_sync         , -- out    std_logic                                 ; --! Telemetry mode synchronization
+         o_cmd_ck_sq1_adc     => cmd_ck_sq1_adc       , -- out    std_logic_vector(c_NB_COL-1 downto 0)     ; --! SQUID1 ADC Clocks switch commands, synchronized on SQUID1 ADC Clock
+         o_cmd_ck_sq1_dac     => cmd_ck_sq1_dac         -- out    std_logic_vector(c_NB_COL-1 downto 0)       --! SQUID1 DAC Clocks switch commands, synchronized on pulse shaping Clock
    );
 
    -- ------------------------------------------------------------------------------------------------------
@@ -339,7 +369,7 @@ begin
          i_rst                => rst                  , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                => clk                  , -- in     std_logic                                 ; --! System Clock
 
-         i_sync               => i_sync               , -- in     std_logic                                 ; --! Pixel sequence synchronization, no rsync
+         i_sync_rs            => sync_rs              , -- in     std_logic                                 ; --! Pixel sequence synchronization, synchronized on System Clock
          i_sq1_adc_data       => sq1_adc_data(k)      , -- in     slv(c_SQ1_ADC_DATA_S-1 downto 0)          ; --! SQUID1 ADC - Data, no rsync
          i_sq1_adc_oor        => sq1_adc_oor(k)       , -- in     std_logic                                 ; --! SQUID1 ADC - Out of range, no rsync (‘0’= No, ‘1’= under/over range)
 
@@ -359,7 +389,7 @@ begin
          i_ck_rdy             => ck_rdy               , -- in     std_logic                                 ; --! Clock ready ('0' = Not ready, '1' = Ready)
          i_clk_sq1_pls_shape  => clk_sq1_pls_shape    , -- in     std_logic                                 ; --! SQUID1 pulse shaping Clock
 
-         i_sync               => i_sync               , -- in     std_logic                                 ; --! Pixel sequence sync., no rsync (R.E. detected = position sequence to the first pixel)         i_sq1_data_fbk       : in     std_logic_vector(c_SQ1_DATA_FBK_S-1 downto 0)                        ; --! SQUID1 Data feedback
+         i_sync_rs            => sync_rs              , -- in     std_logic                                 ; --! Pixel sequence synchronization, synchronized on System Clock
          i_sq1_data_fbk       => sq1_data_fbk(k)      , -- out    slv(c_SQ1_DATA_FBK_S-1 downto 0)          ; --! SQUID1 Data feedback
 
          o_sq1_dac_data       => sq1_dac_data(k)        -- out    slv(c_SQ1_DAC_DATA_S-1 downto 0)            --! SQUID1 DAC - Data
@@ -370,7 +400,7 @@ begin
          i_ck_rdy             => ck_rdy               , -- in     std_logic                                 ; --! Clock ready ('0' = Not ready, '1' = Ready)
          i_clk_sq1_pls_shape  => clk_sq1_pls_shape    , -- in     std_logic                                 ; --! SQUID1 pulse shaping Clock
 
-         i_sync               => i_sync               , -- in     std_logic                                 ; --! Pixel sequence sync., no rsync (R.E. detected = position sequence to the first pixel)         i_sq1_data_fbk       : in     std_logic_vector(c_SQ1_DATA_FBK_S-1 downto 0)                        ; --! SQUID1 Data feedback
+         i_sync_rs            => sync_rs              , -- in     std_logic                                 ; --! Pixel sequence synchronization, synchronized on System Clock
 
          o_sq2_dac_mux        => sq2_dac_mux(k)         -- out    slv(c_SQ2_DAC_MUX_S -1 downto 0)          ; --!	SQUID2 DAC - Multiplexer
       );
@@ -408,10 +438,10 @@ begin
    o_c2_clk_sq1_adc     <= clk_sq1_adc_v(2);
    o_c3_clk_sq1_adc     <= clk_sq1_adc_v(3);
 
-   o_c0_sq1_adc_pwdn    <= not(cmd_ck_sq1_adc(0));
-   o_c1_sq1_adc_pwdn    <= not(cmd_ck_sq1_adc(1));
-   o_c2_sq1_adc_pwdn    <= not(cmd_ck_sq1_adc(2));
-   o_c3_sq1_adc_pwdn    <= not(cmd_ck_sq1_adc(3));
+   o_c0_sq1_adc_pwdn    <= sq1_adc_pwdn(0);
+   o_c1_sq1_adc_pwdn    <= sq1_adc_pwdn(1);
+   o_c2_sq1_adc_pwdn    <= sq1_adc_pwdn(2);
+   o_c3_sq1_adc_pwdn    <= sq1_adc_pwdn(3);
 
    b_c0_sq1_adc_spi_sdio<= sq1_adc_spi_mosi(0);
    b_c1_sq1_adc_spi_sdio<= sq1_adc_spi_mosi(1);
@@ -441,10 +471,10 @@ begin
    o_c2_sq1_dac_data    <= sq1_dac_data(2);
    o_c3_sq1_dac_data    <= sq1_dac_data(3);
 
-   o_c0_sq1_dac_sleep   <= not(cmd_ck_sq1_dac(0));
-   o_c1_sq1_dac_sleep   <= not(cmd_ck_sq1_dac(1));
-   o_c2_sq1_dac_sleep   <= not(cmd_ck_sq1_dac(2));
-   o_c3_sq1_dac_sleep   <= not(cmd_ck_sq1_dac(3));
+   o_c0_sq1_dac_sleep   <= sq1_dac_sleep(0);
+   o_c1_sq1_dac_sleep   <= sq1_dac_sleep(1);
+   o_c2_sq1_dac_sleep   <= sq1_dac_sleep(2);
+   o_c3_sq1_dac_sleep   <= sq1_dac_sleep(3);
 
    -- ------------------------------------------------------------------------------------------------------
    --!   SQUID2 DAC outputs association

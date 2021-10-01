@@ -60,6 +60,16 @@ package pkg_str_fld_assoc is
    );
 
    -- ------------------------------------------------------------------------------------------------------
+   --! Get the first field (check clock parameters enable name) included in line and
+   --!  get the associated check clock parameters enable index
+   -- ------------------------------------------------------------------------------------------------------
+   procedure get_ce_index
+   (     b_line               : inout  line                                                                 ; --  Line to analysis
+         o_fld_ce             : out    line                                                                 ; --  Field check clock parameters enable
+         o_fld_ce_ind         : out    integer range 0 to c_CE_S                                              --  Field check clock parameters enable index (equal to c_CE_S if field not recognized)
+   );
+
+   -- ------------------------------------------------------------------------------------------------------
    --! Get the first field (command address) included in line and
    --!  get the associated address value
    -- ------------------------------------------------------------------------------------------------------
@@ -206,6 +216,33 @@ constant c_RET_UKWN           : std_logic_vector(c_EP_SPI_WD_S-1 downto 0) := (o
          when "rst_sq2_mux(3)      "   =>
             o_fld_dr_ind := c_DR_D_RST_SQ2_MUX_3;
 
+         when "sync                "   =>
+            o_fld_dr_ind := c_DR_SYNC;
+
+         when "sq1_adc_pwdn(0)     "   =>
+            o_fld_dr_ind := c_DR_SQ1_ADC_PWDN_0;
+
+         when "sq1_adc_pwdn(1)     "   =>
+            o_fld_dr_ind := c_DR_SQ1_ADC_PWDN_1;
+
+         when "sq1_adc_pwdn(2)     "   =>
+            o_fld_dr_ind := c_DR_SQ1_ADC_PWDN_2;
+
+         when "sq1_adc_pwdn(3)     "   =>
+            o_fld_dr_ind := c_DR_SQ1_ADC_PWDN_3;
+
+         when "sq1_dac_sleep(0)    "   =>
+            o_fld_dr_ind := c_DR_SQ1_DAC_SLEEP_0;
+
+         when "sq1_dac_sleep(1)    "   =>
+            o_fld_dr_ind := c_DR_SQ1_DAC_SLEEP_1;
+
+         when "sq1_dac_sleep(2)    "   =>
+            o_fld_dr_ind := c_DR_SQ1_DAC_SLEEP_2;
+
+         when "sq1_dac_sleep(3)    "   =>
+            o_fld_dr_ind := c_DR_SQ1_DAC_SLEEP_3;
+
          when others                   =>
             o_fld_dr_ind := c_DR_S;
 
@@ -215,6 +252,72 @@ constant c_RET_UKWN           : std_logic_vector(c_EP_SPI_WD_S-1 downto 0) := (o
       drop_line_char(v_fld_dr_pad, c_PAD, o_fld_dr);
 
    end get_dr_index;
+
+   -- ------------------------------------------------------------------------------------------------------
+   --! Get the first field (check clock parameters enable name) included in line and
+   --!  get the associated check clock parameters enable index
+   -- ------------------------------------------------------------------------------------------------------
+   procedure get_ce_index
+   (     b_line               : inout  line                                                                 ; --  Line to analysis
+         o_fld_ce             : out    line                                                                 ; --  Field check clock parameters enable
+         o_fld_ce_ind         : out    integer range 0 to c_CE_S                                              --  Field check clock parameters enable index (equal to c_CE_S if field not recognized)
+   ) is
+   variable v_fld_ce_pad      : line                                                                        ; --  Field check clock parameters enable with padding
+   begin
+
+      -- Get the check clock parameters enable name
+      rfield_pad(b_line, c_PAD, c_SIG_NAME_STR_MAX_S, v_fld_ce_pad);
+
+      -- Return field discrete output index
+      case v_fld_ce_pad(1 to c_SIG_NAME_STR_MAX_S) is
+         when "clk                 "   =>
+            o_fld_ce_ind := c_CE_CLK;
+
+         when "clk_sq1_adc         "   =>
+            o_fld_ce_ind := c_CE_CK1_ADC;
+
+         when "clk_sq1_pls_shape   "   =>
+            o_fld_ce_ind := c_CE_CK1_PLS;
+
+         when "clk_sq1_adc(0)      "   =>
+            o_fld_ce_ind := c_CE_C0_CK1_ADC;
+
+         when "clk_sq1_adc(1)      "   =>
+            o_fld_ce_ind := c_CE_C1_CK1_ADC;
+
+         when "clk_sq1_adc(2)      "   =>
+            o_fld_ce_ind := c_CE_C2_CK1_ADC;
+
+         when "clk_sq1_adc(3)      "   =>
+            o_fld_ce_ind := c_CE_C3_CK1_ADC;
+
+         when "clk_sq1_dac(0)      "   =>
+            o_fld_ce_ind := c_CE_C0_CK1_DAC;
+
+         when "clk_sq1_dac(1)      "   =>
+            o_fld_ce_ind := c_CE_C1_CK1_DAC;
+
+         when "clk_sq1_dac(2)      "   =>
+            o_fld_ce_ind := c_CE_C2_CK1_DAC;
+
+         when "clk_sq1_dac(3)      "   =>
+            o_fld_ce_ind := c_CE_C3_CK1_DAC;
+
+         when "clk_science_01      "   =>
+            o_fld_ce_ind := c_CE_CLK_SC_01;
+
+         when "clk_science_23      "   =>
+            o_fld_ce_ind := c_CE_CLK_SC_23;
+
+         when others                   =>
+            o_fld_ce_ind := c_CE_S;
+
+      end case;
+
+      -- Drop padding character(s)
+      drop_line_char(v_fld_ce_pad, c_PAD, o_fld_ce);
+
+   end get_ce_index;
 
    -- ------------------------------------------------------------------------------------------------------
    --! Get the first field (command address) included in line and
@@ -233,6 +336,15 @@ constant c_RET_UKWN           : std_logic_vector(c_EP_SPI_WD_S-1 downto 0) := (o
 
       -- Return address value
       case v_fld_add_pad(1 to c_CMD_NAME_STR_MAX_S) is
+         when "TM_MODE                       "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_TM_MODE;
+
+         when "SQ1_FB_MODE                   "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_SQ1FBMD;
+
+         when "SQ2_FB_MODE                   "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_SQ2FBMD;
+
          when "Status                        "  =>
             o_fld_add_val:= c_EP_CMD_ADD_STATUS;
 

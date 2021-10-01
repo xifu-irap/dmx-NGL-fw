@@ -17,66 +17,28 @@
 --                            along with this program.  If not, see <https://www.gnu.org/licenses/>.
 -- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --    email                   slaurent@nanoxplore.com
---!   @file                   sts_err_add_mgt.vhd
+--!   @file                   DRE_DMX_UT_0060_cfg.vhd
 -- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --    Automatic Generation    No
 --    Code Rules Reference    SOC of design and VHDL handbook for VLSI development, CNES Edition (v2.1)
 -- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
---!   @details                EP command: Status, error invalid address management
+--!   @details                DRE DEMUX Unitary Test configuration file
 -- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-library ieee;
-use     ieee.std_logic_1164.all;
-use     ieee.numeric_std.all;
+configuration DRE_DMX_UT_0060_cfg of top_dmx_tb is
 
-library work;
-use     work.pkg_project.all;
-use     work.pkg_ep_cmd.all;
+   for Simulation
 
-entity sts_err_add_mgt is port
-   (     i_rst                : in     std_logic                                                            ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
-         i_clk                : in     std_logic                                                            ; --! Clock
+      -- ------------------------------------------------------------------------------------------------------
+      --!   Parser configuration
+      -- ------------------------------------------------------------------------------------------------------
+      for I_parser : parser
+         use entity work.parser generic map
+         (
+            g_SIM_TIME           => 350000 ns            , -- time    := c_SIM_TIME_DEF                     ; --! Simulation time
+            g_TST_NUM            => "0060"                 -- string  := c_TST_NUM_DEF                        --! Test number
+         );
+      end for;
 
-         i_ep_cmd_rx_add_norw : in     std_logic_vector(c_EP_SPI_WD_S-1 downto 0)                           ; --! EP command receipted: address word, read/write bit cleared
-         o_ep_cmd_sts_err_add : out    std_logic                                                              --! EP command: Status, error invalid address
-   );
-end entity sts_err_add_mgt;
+   end for;
 
-architecture RTL of sts_err_add_mgt is
-begin
-
-   -- ------------------------------------------------------------------------------------------------------
-   --!   EP command: Status, error invalid address
-   -- ------------------------------------------------------------------------------------------------------
-   P_ep_cmd_sts_err_add : process (i_rst, i_clk)
-   begin
-
-      if i_rst = '1' then
-         o_ep_cmd_sts_err_add <= c_EP_CMD_ERR_CLR;
-
-      elsif rising_edge(i_clk) then
-         case i_ep_cmd_rx_add_norw is
-            when c_EP_CMD_ADD_TM_MODE  =>
-               o_ep_cmd_sts_err_add <= c_EP_CMD_ERR_CLR;
-
-            when c_EP_CMD_ADD_SQ1FBMD  =>
-               o_ep_cmd_sts_err_add <= c_EP_CMD_ERR_CLR;
-
-            when c_EP_CMD_ADD_SQ2FBMD  =>
-               o_ep_cmd_sts_err_add <= c_EP_CMD_ERR_CLR;
-
-            when c_EP_CMD_ADD_STATUS   =>
-               o_ep_cmd_sts_err_add <= c_EP_CMD_ERR_CLR;
-
-            when c_EP_CMD_ADD_VERSION  =>
-               o_ep_cmd_sts_err_add <= c_EP_CMD_ERR_CLR;
-
-            when others                =>
-               o_ep_cmd_sts_err_add <= c_EP_CMD_ERR_SET;
-
-         end case;
-
-      end if;
-
-   end process P_ep_cmd_sts_err_add;
-
-end architecture RTL;
+end configuration DRE_DMX_UT_0060_cfg;

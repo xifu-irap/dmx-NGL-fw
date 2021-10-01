@@ -1,0 +1,586 @@
+COMM **********************************************************************************************
+COMM   Test: DAC Sleep and DAC clock signals behavior
+COMM **********************************************************************************************
+COMM
+COMM ==============================================================================================
+COMM   Enable Squid1 DAC clocks reports display
+COMM ----------------------------------------------------------------------------------------------
+CCPE clk_sq1_dac(0)
+CCPE clk_sq1_dac(1)
+CCPE clk_sq1_dac(2)
+CCPE clk_sq1_dac(3)
+COMM
+COMM ==============================================================================================
+COMM   Check DAC Sleeps at start
+COMM ----------------------------------------------------------------------------------------------
+CDIS sq1_dac_sleep(0) 1
+CDIS sq1_dac_sleep(1) 1
+CDIS sq1_dac_sleep(2) 1
+CDIS sq1_dac_sleep(3) 1
+COMM
+COMM ==============================================================================================
+COMM   Asynchronous reset activated
+COMM ----------------------------------------------------------------------------------------------
+WDIS arst_n 0
+WAIT 80 ns
+COMM
+COMM ==============================================================================================
+COMM   Asynchronous reset deactivated
+COMM ----------------------------------------------------------------------------------------------
+WDIS arst_n 1
+COMM
+COMM ==============================================================================================
+COMM   Wait internal reset deactivated
+COMM ----------------------------------------------------------------------------------------------
+WUDI rst 0
+COMM
+COMM ==============================================================================================
+COMM   Send command SQ1_FB_MODE column 0 to open loop for o_c0_sq1_dac_sleep deactivation
+COMM ----------------------------------------------------------------------------------------------
+WUDI sync 1
+WCMD W-SQ1_FB_MODE-0001 N
+COMM
+COMM ==============================================================================================
+COMM   Check no event is appeared on o_c0_sq1_dac_sleep and wait o_c0_sq1_dac_sleep deactivation
+COMM ----------------------------------------------------------------------------------------------
+CTLE sq1_dac_sleep(0) == 12524332 ps     # TODO: replace by 'now' on the next commit
+WUDI sq1_dac_sleep(0) 0
+COMM
+COMM ==============================================================================================
+COMM   Check indirectly timing between o_c0_clk_sq1_dac rising edge
+COMM    and SQUID1 pulse shaping clock rising edge
+COMM ----------------------------------------------------------------------------------------------
+WUDI clk_sq1_pls_shape 1
+CTLE sq1_dac_sleep(0) == 4167 ps
+COMM
+COMM ==============================================================================================
+COMM   Check timing between o_c0_sq1_dac_sleep deactivation and i_sync rising edge
+COMM     (>= c_PIXEL_DAC_NB_CYC / c_CLK_DAC_FREQ)
+COMM ----------------------------------------------------------------------------------------------
+WUDI sync 1
+CTLE sq1_dac_sleep(0) >= 183348 ps
+COMM
+COMM ==============================================================================================
+COMM   Send command SQ1_FB_MODE column 0 to open loop for o_c0_sq1_dac_sleep activation
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-SQ1_FB_MODE-0000 W
+COMM
+COMM ==============================================================================================
+COMM    Wait i_sync rising edge and check o_c0_sq1_dac_sleep remains to deactivated
+COMM ----------------------------------------------------------------------------------------------
+WUDI sync 1
+RTIM
+CDIS sq1_dac_sleep(0) 0
+COMM
+COMM ==============================================================================================
+COMM   Check timing between i_sync rising edge and o_c0_sq1_dac_sleep activation
+COMM     (< c_PIXEL_DAC_NB_CYC / c_CLK_DAC_FREQ)
+COMM ----------------------------------------------------------------------------------------------
+WUDI sq1_dac_sleep(0) 1
+CTLR << 183348 ps
+COMM
+COMM ==============================================================================================
+COMM   Send command SQ1_FB_MODE column 0 to closed loop for o_c0_sq1_dac_sleep deactivation
+COMM ----------------------------------------------------------------------------------------------
+WUDI sync 1
+WCMD W-SQ1_FB_MODE-0002 N
+COMM
+COMM ==============================================================================================
+COMM   check o_c0_sq1_dac_sleep remains to activated and wait o_c0_sq1_dac_sleep deactivation
+COMM ----------------------------------------------------------------------------------------------
+CDIS sq1_dac_sleep(0) 1
+WUDI sq1_dac_sleep(0) 0
+COMM
+COMM ==============================================================================================
+COMM   Check indirectly timing between o_c0_clk_sq1_dac rising edge
+COMM    and SQUID1 pulse shaping clock rising edge
+COMM ----------------------------------------------------------------------------------------------
+WUDI clk_sq1_pls_shape 1
+CTLE sq1_dac_sleep(0) == 4167 ps
+COMM
+COMM ==============================================================================================
+COMM   Check timing between o_c0_sq1_dac_sleep deactivation and i_sync rising edge
+COMM     (>= c_PIXEL_DAC_NB_CYC / c_CLK_DAC_FREQ)
+COMM ----------------------------------------------------------------------------------------------
+WUDI sync 1
+CTLE sq1_dac_sleep(0) >= 183348 ps
+COMM
+COMM ==============================================================================================
+COMM   Send command SQ1_FB_MODE column 0 to open loop for o_c0_sq1_dac_sleep activation
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-SQ1_FB_MODE-0000 W
+COMM
+COMM ==============================================================================================
+COMM    Wait i_sync rising edge and check o_c0_sq1_dac_sleep remains to deactivated
+COMM ----------------------------------------------------------------------------------------------
+WUDI sync 1
+RTIM
+CDIS sq1_dac_sleep(0) 0
+COMM
+COMM ==============================================================================================
+COMM   Check timing between i_sync rising edge and o_c0_sq1_dac_sleep activation
+COMM     (< c_PIXEL_DAC_NB_CYC / c_CLK_DAC_FREQ)
+COMM ----------------------------------------------------------------------------------------------
+WUDI sq1_dac_sleep(0) 1
+CTLR << 183348 ps
+COMM
+COMM ==============================================================================================
+COMM   Send command SQ1_FB_MODE column 0 to Test pattern for o_c0_sq1_dac_sleep deactivation
+COMM ----------------------------------------------------------------------------------------------
+WUDI sync 1
+WCMD W-SQ1_FB_MODE-0003 N
+COMM
+COMM ==============================================================================================
+COMM   check o_c0_sq1_dac_sleep remains to activated and wait o_c0_sq1_dac_sleep deactivation
+COMM ----------------------------------------------------------------------------------------------
+CDIS sq1_dac_sleep(0) 1
+WUDI sq1_dac_sleep(0) 0
+COMM
+COMM ==============================================================================================
+COMM   Check indirectly timing between o_c0_clk_sq1_dac rising edge
+COMM    and SQUID1 pulse shaping clock rising edge
+COMM ----------------------------------------------------------------------------------------------
+WUDI clk_sq1_pls_shape 1
+CTLE sq1_dac_sleep(0) == 4167 ps
+COMM
+COMM ==============================================================================================
+COMM   Check timing between o_c0_sq1_dac_sleep deactivation and i_sync rising edge
+COMM     (>= c_PIXEL_DAC_NB_CYC / c_CLK_DAC_FREQ)
+COMM ----------------------------------------------------------------------------------------------
+WUDI sync 1
+CTLE sq1_dac_sleep(0) >= 183348 ps
+COMM
+COMM ==============================================================================================
+COMM   Send command SQ1_FB_MODE column 0 to open loop for o_c0_sq1_dac_sleep activation
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-SQ1_FB_MODE-0000 W
+COMM
+COMM ==============================================================================================
+COMM    Wait i_sync rising edge and check o_c0_sq1_dac_sleep remains to deactivated
+COMM ----------------------------------------------------------------------------------------------
+WUDI sync 1
+RTIM
+CDIS sq1_dac_sleep(0) 0
+COMM
+COMM ==============================================================================================
+COMM   Check timing between i_sync rising edge and o_c0_sq1_dac_sleep activation
+COMM     (< c_PIXEL_DAC_NB_CYC / c_CLK_DAC_FREQ)
+COMM ----------------------------------------------------------------------------------------------
+WUDI sq1_dac_sleep(0) 1
+CTLR << 183348 ps
+COMM
+COMM ==============================================================================================
+COMM   Send command SQ1_FB_MODE column 1 to open loop for o_c1_sq1_dac_sleep deactivation
+COMM ----------------------------------------------------------------------------------------------
+WUDI sync 1
+WCMD W-SQ1_FB_MODE-0010 N
+COMM
+COMM ==============================================================================================
+COMM   Check no event is appeared on o_c1_sq1_dac_sleep and wait o_c1_sq1_dac_sleep deactivation
+COMM ----------------------------------------------------------------------------------------------
+CTLE sq1_dac_sleep(1) == 50010664 ps     # TODO: replace by 'now' on the next commit
+WUDI sq1_dac_sleep(1) 0
+COMM
+COMM ==============================================================================================
+COMM   Check indirectly timing between o_c1_clk_sq1_dac rising edge
+COMM    and SQUID1 pulse shaping clock rising edge
+COMM ----------------------------------------------------------------------------------------------
+WUDI clk_sq1_pls_shape 1
+CTLE sq1_dac_sleep(1) == 4167 ps
+COMM
+COMM ==============================================================================================
+COMM   Check timing between o_c1_sq1_dac_sleep deactivation and i_sync rising edge
+COMM     (>= c_PIXEL_DAC_NB_CYC / c_CLK_DAC_FREQ)
+COMM ----------------------------------------------------------------------------------------------
+WUDI sync 1
+CTLE sq1_dac_sleep(1) >= 183348 ps
+COMM
+COMM ==============================================================================================
+COMM   Send command SQ1_FB_MODE column 1 to open loop for o_c1_sq1_dac_sleep activation
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-SQ1_FB_MODE-0000 W
+COMM
+COMM ==============================================================================================
+COMM    Wait i_sync rising edge and check o_c1_sq1_dac_sleep remains to deactivated
+COMM ----------------------------------------------------------------------------------------------
+WUDI sync 1
+RTIM
+CDIS sq1_dac_sleep(1) 0
+COMM
+COMM ==============================================================================================
+COMM   Check timing between i_sync rising edge and o_c1_sq1_dac_sleep activation
+COMM     (< c_PIXEL_DAC_NB_CYC / c_CLK_DAC_FREQ)
+COMM ----------------------------------------------------------------------------------------------
+WUDI sq1_dac_sleep(1) 1
+CTLR << 183348 ps
+COMM
+COMM ==============================================================================================
+COMM   Send command SQ1_FB_MODE column 1 to closed loop for o_c1_sq1_dac_sleep deactivation
+COMM ----------------------------------------------------------------------------------------------
+WUDI sync 1
+WCMD W-SQ1_FB_MODE-0020 N
+COMM
+COMM ==============================================================================================
+COMM   check o_c1_sq1_dac_sleep remains to activated and wait o_c1_sq1_dac_sleep deactivation
+COMM ----------------------------------------------------------------------------------------------
+CDIS sq1_dac_sleep(1) 1
+WUDI sq1_dac_sleep(1) 0
+COMM
+COMM ==============================================================================================
+COMM   Check indirectly timing between o_c1_clk_sq1_dac rising edge
+COMM    and SQUID1 pulse shaping clock rising edge
+COMM ----------------------------------------------------------------------------------------------
+WUDI clk_sq1_pls_shape 1
+CTLE sq1_dac_sleep(1) == 4167 ps
+COMM
+COMM ==============================================================================================
+COMM   Check timing between o_c1_sq1_dac_sleep deactivation and i_sync rising edge
+COMM     (>= c_PIXEL_DAC_NB_CYC / c_CLK_DAC_FREQ)
+COMM ----------------------------------------------------------------------------------------------
+WUDI sync 1
+CTLE sq1_dac_sleep(1) >= 183348 ps
+COMM
+COMM ==============================================================================================
+COMM   Send command SQ1_FB_MODE column 1 to open loop for o_c1_sq1_dac_sleep activation
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-SQ1_FB_MODE-0000 W
+COMM
+COMM ==============================================================================================
+COMM    Wait i_sync rising edge and check o_c1_sq1_dac_sleep remains to deactivated
+COMM ----------------------------------------------------------------------------------------------
+WUDI sync 1
+RTIM
+CDIS sq1_dac_sleep(1) 0
+COMM
+COMM ==============================================================================================
+COMM   Check timing between i_sync rising edge and o_c1_sq1_dac_sleep activation
+COMM     (< c_PIXEL_DAC_NB_CYC / c_CLK_DAC_FREQ)
+COMM ----------------------------------------------------------------------------------------------
+WUDI sq1_dac_sleep(1) 1
+CTLR << 183348 ps
+COMM
+COMM ==============================================================================================
+COMM   Send command SQ1_FB_MODE column 1 to Test pattern for o_c1_sq1_dac_sleep deactivation
+COMM ----------------------------------------------------------------------------------------------
+WUDI sync 1
+WCMD W-SQ1_FB_MODE-0030 N
+COMM
+COMM ==============================================================================================
+COMM   check o_c1_sq1_dac_sleep remains to activated and wait o_c1_sq1_dac_sleep deactivation
+COMM ----------------------------------------------------------------------------------------------
+CDIS sq1_dac_sleep(1) 1
+WUDI sq1_dac_sleep(1) 0
+COMM
+COMM ==============================================================================================
+COMM   Check indirectly timing between o_c1_clk_sq1_dac rising edge
+COMM    and SQUID1 pulse shaping clock rising edge
+COMM ----------------------------------------------------------------------------------------------
+WUDI clk_sq1_pls_shape 1
+CTLE sq1_dac_sleep(1) == 4167 ps
+COMM
+COMM ==============================================================================================
+COMM   Check timing between o_c1_sq1_dac_sleep deactivation and i_sync rising edge
+COMM     (>= c_PIXEL_DAC_NB_CYC / c_CLK_DAC_FREQ)
+COMM ----------------------------------------------------------------------------------------------
+WUDI sync 1
+CTLE sq1_dac_sleep(1) >= 183348 ps
+COMM
+COMM ==============================================================================================
+COMM   Send command SQ1_FB_MODE column 1 to open loop for o_c1_sq1_dac_sleep activation
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-SQ1_FB_MODE-0000 W
+COMM
+COMM ==============================================================================================
+COMM    Wait i_sync rising edge and check o_c1_sq1_dac_sleep remains to deactivated
+COMM ----------------------------------------------------------------------------------------------
+WUDI sync 1
+RTIM
+CDIS sq1_dac_sleep(1) 0
+COMM
+COMM ==============================================================================================
+COMM   Check timing between i_sync rising edge and o_c1_sq1_dac_sleep activation
+COMM     (< c_PIXEL_DAC_NB_CYC / c_CLK_DAC_FREQ)
+COMM ----------------------------------------------------------------------------------------------
+WUDI sq1_dac_sleep(1) 1
+CTLR << 183348 ps
+COMM
+COMM ==============================================================================================
+COMM   Send command SQ1_FB_MODE column 2 to open loop for o_c2_sq1_dac_sleep deactivation
+COMM ----------------------------------------------------------------------------------------------
+WUDI sync 1
+WCMD W-SQ1_FB_MODE-0100 N
+COMM
+COMM ==============================================================================================
+COMM   Check no event is appeared on o_c2_sq1_dac_sleep and wait o_c2_sq1_dac_sleep deactivation
+COMM ----------------------------------------------------------------------------------------------
+CTLE sq1_dac_sleep(2) == 87413656 ps     # TODO: replace by 'now' on the next commit
+WUDI sq1_dac_sleep(2) 0
+COMM
+COMM ==============================================================================================
+COMM   Check indirectly timing between o_c2_clk_sq1_dac rising edge
+COMM    and SQUID1 pulse shaping clock rising edge
+COMM ----------------------------------------------------------------------------------------------
+WUDI clk_sq1_pls_shape 1
+CTLE sq1_dac_sleep(2) == 4167 ps
+COMM
+COMM ==============================================================================================
+COMM   Check timing between o_c2_sq1_dac_sleep deactivation and i_sync rising edge
+COMM     (>= c_PIXEL_DAC_NB_CYC / c_CLK_DAC_FREQ)
+COMM ----------------------------------------------------------------------------------------------
+WUDI sync 1
+CTLE sq1_dac_sleep(2) >= 183348 ps
+COMM
+COMM ==============================================================================================
+COMM   Send command SQ1_FB_MODE column 2 to open loop for o_c2_sq1_dac_sleep activation
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-SQ1_FB_MODE-0000 W
+COMM
+COMM ==============================================================================================
+COMM    Wait i_sync rising edge and check o_c2_sq1_dac_sleep remains to deactivated
+COMM ----------------------------------------------------------------------------------------------
+WUDI sync 1
+RTIM
+CDIS sq1_dac_sleep(2) 0
+COMM
+COMM ==============================================================================================
+COMM   Check timing between i_sync rising edge and o_c2_sq1_dac_sleep activation
+COMM     (< c_PIXEL_DAC_NB_CYC / c_CLK_DAC_FREQ)
+COMM ----------------------------------------------------------------------------------------------
+WUDI sq1_dac_sleep(2) 1
+CTLR << 183348 ps
+COMM
+COMM ==============================================================================================
+COMM   Send command SQ1_FB_MODE column 2 to closed loop for o_c2_sq1_dac_sleep deactivation
+COMM ----------------------------------------------------------------------------------------------
+WUDI sync 1
+WCMD W-SQ1_FB_MODE-0200 N
+COMM
+COMM ==============================================================================================
+COMM   check o_c2_sq1_dac_sleep remains to activated and wait o_c2_sq1_dac_sleep deactivation
+COMM ----------------------------------------------------------------------------------------------
+CDIS sq1_dac_sleep(2) 1
+WUDI sq1_dac_sleep(2) 0
+COMM
+COMM ==============================================================================================
+COMM   Check indirectly timing between o_c2_clk_sq1_dac rising edge
+COMM    and SQUID1 pulse shaping clock rising edge
+COMM ----------------------------------------------------------------------------------------------
+WUDI clk_sq1_pls_shape 1
+CTLE sq1_dac_sleep(2) == 4167 ps
+COMM
+COMM ==============================================================================================
+COMM   Check timing between o_c2_sq1_dac_sleep deactivation and i_sync rising edge
+COMM     (>= c_PIXEL_DAC_NB_CYC / c_CLK_DAC_FREQ)
+COMM ----------------------------------------------------------------------------------------------
+WUDI sync 1
+CTLE sq1_dac_sleep(2) >= 183348 ps
+COMM
+COMM ==============================================================================================
+COMM   Send command SQ1_FB_MODE column 2 to open loop for o_c2_sq1_dac_sleep activation
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-SQ1_FB_MODE-0000 W
+COMM
+COMM ==============================================================================================
+COMM    Wait i_sync rising edge and check o_c2_sq1_dac_sleep remains to deactivated
+COMM ----------------------------------------------------------------------------------------------
+WUDI sync 1
+RTIM
+CDIS sq1_dac_sleep(2) 0
+COMM
+COMM ==============================================================================================
+COMM   Check timing between i_sync rising edge and o_c2_sq1_dac_sleep activation
+COMM     (< c_PIXEL_DAC_NB_CYC / c_CLK_DAC_FREQ)
+COMM ----------------------------------------------------------------------------------------------
+WUDI sq1_dac_sleep(2) 1
+CTLR << 183348 ps
+COMM
+COMM ==============================================================================================
+COMM   Send command SQ1_FB_MODE column 2 to Test pattern for o_c2_sq1_dac_sleep deactivation
+COMM ----------------------------------------------------------------------------------------------
+WUDI sync 1
+WCMD W-SQ1_FB_MODE-0300 N
+COMM
+COMM ==============================================================================================
+COMM   check o_c2_sq1_dac_sleep remains to activated and wait o_c2_sq1_dac_sleep deactivation
+COMM ----------------------------------------------------------------------------------------------
+CDIS sq1_dac_sleep(2) 1
+WUDI sq1_dac_sleep(2) 0
+COMM
+COMM ==============================================================================================
+COMM   Check indirectly timing between o_c2_clk_sq1_dac rising edge
+COMM    and SQUID1 pulse shaping clock rising edge
+COMM ----------------------------------------------------------------------------------------------
+WUDI clk_sq1_pls_shape 1
+CTLE sq1_dac_sleep(2) == 4167 ps
+COMM
+COMM ==============================================================================================
+COMM   Check timing between o_c2_sq1_dac_sleep deactivation and i_sync rising edge
+COMM     (>= c_PIXEL_DAC_NB_CYC / c_CLK_DAC_FREQ)
+COMM ----------------------------------------------------------------------------------------------
+WUDI sync 1
+CTLE sq1_dac_sleep(2) >= 183348 ps
+COMM
+COMM ==============================================================================================
+COMM   Send command SQ1_FB_MODE column 2 to open loop for o_c2_sq1_dac_sleep activation
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-SQ1_FB_MODE-0000 W
+COMM
+COMM ==============================================================================================
+COMM    Wait i_sync rising edge and check o_c2_sq1_dac_sleep remains to deactivated
+COMM ----------------------------------------------------------------------------------------------
+WUDI sync 1
+RTIM
+CDIS sq1_dac_sleep(2) 0
+COMM
+COMM ==============================================================================================
+COMM   Check timing between i_sync rising edge and o_c2_sq1_dac_sleep activation
+COMM     (< c_PIXEL_DAC_NB_CYC / c_CLK_DAC_FREQ)
+COMM ----------------------------------------------------------------------------------------------
+WUDI sq1_dac_sleep(2) 1
+CTLR << 183348 ps
+COMM
+COMM ==============================================================================================
+COMM   Send command SQ1_FB_MODE column 3 to open loop for o_c3_sq1_dac_sleep deactivation
+COMM ----------------------------------------------------------------------------------------------
+WUDI sync 1
+WCMD W-SQ1_FB_MODE-1000 N
+COMM
+COMM ==============================================================================================
+COMM   Check no event is appeared on o_c3_sq1_dac_sleep and wait o_c3_sq1_dac_sleep deactivation
+COMM ----------------------------------------------------------------------------------------------
+CTLE sq1_dac_sleep(3) == 124816648 ps    # TODO: replace by 'now' on the next commit
+WUDI sq1_dac_sleep(3) 0
+COMM
+COMM ==============================================================================================
+COMM   Check indirectly timing between o_c3_clk_sq1_dac rising edge
+COMM    and SQUID1 pulse shaping clock rising edge
+COMM ----------------------------------------------------------------------------------------------
+WUDI clk_sq1_pls_shape 1
+CTLE sq1_dac_sleep(3) == 4167 ps
+COMM
+COMM ==============================================================================================
+COMM   Check timing between o_c3_sq1_dac_sleep deactivation and i_sync rising edge
+COMM     (>= c_PIXEL_DAC_NB_CYC / c_CLK_DAC_FREQ)
+COMM ----------------------------------------------------------------------------------------------
+WUDI sync 1
+CTLE sq1_dac_sleep(3) >= 183348 ps
+COMM
+COMM ==============================================================================================
+COMM   Send command SQ1_FB_MODE column 3 to open loop for o_c3_sq1_dac_sleep activation
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-SQ1_FB_MODE-0000 W
+COMM
+COMM ==============================================================================================
+COMM    Wait i_sync rising edge and check o_c3_sq1_dac_sleep remains to deactivated
+COMM ----------------------------------------------------------------------------------------------
+WUDI sync 1
+RTIM
+CDIS sq1_dac_sleep(3) 0
+COMM
+COMM ==============================================================================================
+COMM   Check timing between i_sync rising edge and o_c3_sq1_dac_sleep activation
+COMM     (< c_PIXEL_DAC_NB_CYC / c_CLK_DAC_FREQ)
+COMM ----------------------------------------------------------------------------------------------
+WUDI sq1_dac_sleep(3) 1
+CTLR << 183348 ps
+COMM
+COMM ==============================================================================================
+COMM   Send command SQ1_FB_MODE column 3 to closed loop for o_c3_sq1_dac_sleep deactivation
+COMM ----------------------------------------------------------------------------------------------
+WUDI sync 1
+WCMD W-SQ1_FB_MODE-2000 N
+COMM
+COMM ==============================================================================================
+COMM   check o_c3_sq1_dac_sleep remains to activated and wait o_c3_sq1_dac_sleep deactivation
+COMM ----------------------------------------------------------------------------------------------
+CDIS sq1_dac_sleep(3) 1
+WUDI sq1_dac_sleep(3) 0
+COMM
+COMM ==============================================================================================
+COMM   Check indirectly timing between o_c3_clk_sq1_dac rising edge
+COMM    and SQUID1 pulse shaping clock rising edge
+COMM ----------------------------------------------------------------------------------------------
+WUDI clk_sq1_pls_shape 1
+CTLE sq1_dac_sleep(3) == 4167 ps
+COMM
+COMM ==============================================================================================
+COMM   Check timing between o_c3_sq1_dac_sleep deactivation and i_sync rising edge
+COMM     (>= c_PIXEL_DAC_NB_CYC / c_CLK_DAC_FREQ)
+COMM ----------------------------------------------------------------------------------------------
+WUDI sync 1
+CTLE sq1_dac_sleep(3) >= 183348 ps
+COMM
+COMM ==============================================================================================
+COMM   Send command SQ1_FB_MODE column 3 to open loop for o_c3_sq1_dac_sleep activation
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-SQ1_FB_MODE-0000 W
+COMM
+COMM ==============================================================================================
+COMM    Wait i_sync rising edge and check o_c3_sq1_dac_sleep remains to deactivated
+COMM ----------------------------------------------------------------------------------------------
+WUDI sync 1
+RTIM
+CDIS sq1_dac_sleep(3) 0
+COMM
+COMM ==============================================================================================
+COMM   Check timing between i_sync rising edge and o_c3_sq1_dac_sleep activation
+COMM     (< c_PIXEL_DAC_NB_CYC / c_CLK_DAC_FREQ)
+COMM ----------------------------------------------------------------------------------------------
+WUDI sq1_dac_sleep(3) 1
+CTLR << 183348 ps
+COMM
+COMM ==============================================================================================
+COMM   Send command SQ1_FB_MODE column 3 to Test pattern for o_c3_sq1_dac_sleep deactivation
+COMM ----------------------------------------------------------------------------------------------
+WUDI sync 1
+WCMD W-SQ1_FB_MODE-3000 N
+COMM
+COMM ==============================================================================================
+COMM   check o_c3_sq1_dac_sleep remains to activated and wait o_c3_sq1_dac_sleep deactivation
+COMM ----------------------------------------------------------------------------------------------
+CDIS sq1_dac_sleep(3) 1
+WUDI sq1_dac_sleep(3) 0
+COMM
+COMM ==============================================================================================
+COMM   Check indirectly timing between o_c3_clk_sq1_dac rising edge
+COMM    and SQUID1 pulse shaping clock rising edge
+COMM ----------------------------------------------------------------------------------------------
+WUDI clk_sq1_pls_shape 1
+CTLE sq1_dac_sleep(3) == 4167 ps
+COMM
+COMM ==============================================================================================
+COMM   Check timing between o_c3_sq1_dac_sleep deactivation and i_sync rising edge
+COMM     (>= c_PIXEL_DAC_NB_CYC / c_CLK_DAC_FREQ)
+COMM ----------------------------------------------------------------------------------------------
+WUDI sync 1
+CTLE sq1_dac_sleep(3) >= 183348 ps
+COMM
+COMM ==============================================================================================
+COMM   Send command SQ1_FB_MODE column 3 to open loop for o_c3_sq1_dac_sleep activation
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-SQ1_FB_MODE-0000 W
+COMM
+COMM ==============================================================================================
+COMM    Wait i_sync rising edge and check o_c3_sq1_dac_sleep remains to deactivated
+COMM ----------------------------------------------------------------------------------------------
+WUDI sync 1
+RTIM
+CDIS sq1_dac_sleep(3) 0
+COMM
+COMM ==============================================================================================
+COMM   Check timing between i_sync rising edge and o_c3_sq1_dac_sleep activation
+COMM     (< c_PIXEL_DAC_NB_CYC / c_CLK_DAC_FREQ)
+COMM ----------------------------------------------------------------------------------------------
+WUDI sq1_dac_sleep(3) 1
+CTLR << 183348 ps
+COMM
+COMM ==============================================================================================
+COMM   Check no events are appeared on the others channels
+COMM    (time checking multiple of 6 * c_MUX_FACT * c_PIXEL_DAC_NB_CYC / c_CLK_DAC_FREQ)
+COMM ----------------------------------------------------------------------------------------------
+CDIS sq1_dac_sleep(0) 1
+CTLE sq1_dac_sleep(0) >= 112208976 ps  # Factor 3
+CDIS sq1_dac_sleep(1) 1
+CTLE sq1_dac_sleep(1) >= 74805984 ps   # Factor 2
+CDIS sq1_dac_sleep(2) 1
+CTLE sq1_dac_sleep(2) >= 37402992 ps   # Factor 1

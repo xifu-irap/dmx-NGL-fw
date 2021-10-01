@@ -48,7 +48,7 @@ type     t_wait_cmd_end         is (none, wait_cmd_end_tx, wait_rcmd_end_rx)    
          i_time_right         : in     time                                                                 ; --  Time right operator
          i_mess_header        : in     string                                                               ; --  Message header
          i_mess_header_assert : in     string                                                               ; --  Message header assaert
-         o_err_chk_time       : out    std_logic                                                            ; --  Error check time
+         b_err_chk_time       : inout  std_logic                                                            ; --  Error check time
          file file_out        : text                                                                          --  File output
    );
 
@@ -72,6 +72,17 @@ type     t_wait_cmd_end         is (none, wait_cmd_end_tx, wait_rcmd_end_rx)    
          o_mess_spi_cmd       : out    line                                                                 ; --  Message SPI command
          o_fld_spi_cmd        : out    std_logic_vector                                                     ; --! Field SPI command
          o_wait_end           : out    t_wait_cmd_end                                                         --  Wait command end
+   );
+
+   -- ------------------------------------------------------------------------------------------------------
+   --! Get parameters command CCPE [clock_report]: enable the display in result file of the report
+   --!  about the check clock parameters
+   -- ------------------------------------------------------------------------------------------------------
+   procedure get_param_ccpe
+   (     b_cmd_file_line      : inout  line                                                                 ; --  Command file line
+         i_mess_header        : in     string                                                               ; --  Message header
+         o_fld_ce             : out    line                                                                 ; --  Field check clock parameters enable
+         o_fld_ce_ind         : out    integer range 0 to c_CE_S                                              --  Field check clock parameters enable index (equal to c_CE_S if field not recognized)
    );
 
    -- ------------------------------------------------------------------------------------------------------
@@ -175,13 +186,10 @@ package body pkg_func_cmd_script is
          i_time_right         : in     time                                                                 ; --  Time right operator
          i_mess_header        : in     string                                                               ; --  Message header
          i_mess_header_assert : in     string                                                               ; --  Message header assert
-         o_err_chk_time       : out    std_logic                                                            ; --  Error check time
+         b_err_chk_time       : inout  std_logic                                                            ; --  Error check time
          file file_out        : text                                                                          --  File output
    ) is
    begin
-
-      -- Initialize error flagreached
-      o_err_chk_time := '0';
 
       -- [ope] analysis
       case i_ope is
@@ -195,7 +203,7 @@ package body pkg_func_cmd_script is
                fprintf(note , " * " & i_mess_header & " " & time'image(i_time_left) & " not equal to expected value " & time'image(i_time_right), file_out);
 
                -- Activate error flag
-               o_err_chk_time := '1';
+               b_err_chk_time := '1';
 
             end if;
 
@@ -209,7 +217,7 @@ package body pkg_func_cmd_script is
                fprintf(note , " * " & i_mess_header & " " & time'image(i_time_left) & " equal to expected value " & time'image(i_time_right), file_out);
 
                -- Activate error flag
-               o_err_chk_time := '1';
+               b_err_chk_time := '1';
 
             end if;
 
@@ -223,7 +231,7 @@ package body pkg_func_cmd_script is
                fprintf(note , " * " & i_mess_header & " " & time'image(i_time_left) & " not strictly less than expected value " & time'image(i_time_right), file_out);
 
                -- Activate error flag
-               o_err_chk_time := '1';
+               b_err_chk_time := '1';
 
             end if;
 
@@ -237,7 +245,7 @@ package body pkg_func_cmd_script is
                fprintf(note , " * " & i_mess_header & " " & time'image(i_time_left) & " not less than or equal to expected value " & time'image(i_time_right), file_out);
 
                -- Activate error flag
-               o_err_chk_time := '1';
+               b_err_chk_time := '1';
 
             end if;
 
@@ -251,7 +259,7 @@ package body pkg_func_cmd_script is
                fprintf(note , " * " & i_mess_header & " " & time'image(i_time_left) & " not strictly greater than expected value " & time'image(i_time_right), file_out);
 
                -- Activate error flag
-               o_err_chk_time := '1';
+               b_err_chk_time := '1';
 
             end if;
 
@@ -265,7 +273,7 @@ package body pkg_func_cmd_script is
                fprintf(note , " * " & i_mess_header & " " & time'image(i_time_left) & " not greater than or equal to expected value " & time'image(i_time_right), file_out);
 
                -- Activate error flag
-               o_err_chk_time := '1';
+               b_err_chk_time := '1';
 
             end if;
 
@@ -337,6 +345,24 @@ package body pkg_func_cmd_script is
       end case;
 
    end get_param_ccmd;
+
+   -- ------------------------------------------------------------------------------------------------------
+   --! Get parameters command CCPE [clock_report]: enable the display in result file of the report
+   --!  about the check clock parameters
+   -- ------------------------------------------------------------------------------------------------------
+   procedure get_param_ccpe
+   (     b_cmd_file_line      : inout  line                                                                 ; --  Command file line
+         i_mess_header        : in     string                                                               ; --  Message header
+         o_fld_ce             : out    line                                                                 ; --  Field check clock parameters enable
+         o_fld_ce_ind         : out    integer range 0 to c_CE_S                                              --  Field check clock parameters enable index (equal to c_CE_S if field not recognized)
+   ) is
+   begin
+
+      -- Get [clock_report]
+      get_ce_index(b_cmd_file_line, o_fld_ce, o_fld_ce_ind);
+      assert o_fld_ce_ind /= c_CE_S report i_mess_header & "[clock_report]" & c_MESS_ERR_UNKNOWN severity failure;
+
+   end get_param_ccpe;
 
    -- ------------------------------------------------------------------------------------------------------
    --! Get parameters command CDIS [discrete_r] [value]: check discrete input

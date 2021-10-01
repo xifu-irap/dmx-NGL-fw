@@ -1,0 +1,344 @@
+# ------------------------------------------------------------------------------------------------------------------------------------------------------
+# Simulation DRE_DMX_UT_0100
+# ------------------------------------------------------------------------------------------------------------------------------------------------------
+#             (0 ps) **********************************************************************************************
+#             (0 ps)   Test: EP command, SQ2_FB_MODE register
+#             (0 ps) **********************************************************************************************
+#             (0 ps) 
+#             (0 ps) ==============================================================================================
+#             (0 ps)   Asynchronous reset activated
+#             (0 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (0 ps) Write discrete: arst_n = '0'
+# ** Note   : (80000 ps) Waiting time for 80000 ps
+#             (80000 ps) 
+#             (80000 ps) ==============================================================================================
+#             (80000 ps)   Asynchronous reset deactivated
+#             (80000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (80000 ps) Write discrete: arst_n = '1'
+#             (80000 ps) 
+#             (80000 ps) ==============================================================================================
+#             (80000 ps)   Wait internal reset deactivated
+#             (80000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (7050564 ps) Waiting event rst = '0' for 6970564 ps
+#             (7050564 ps) 
+#             (7050564 ps) ==============================================================================================
+#             (7050564 ps)   Start SQ2_FB_MODE register test
+#             (7050564 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (7050564 ps) Send SPI command value 8004_XXXX (SQ2_FB_MODE, mode Read, data XXXX)
+# ** Note   : (9627000 ps) Waiting SPI command end for 2536436 ps
+# ** Note   : (9627000 ps) Send SPI command value 8005_8XXX (SQ2_FB_MODE, mode Write, data 8XXX)
+# ** Note   : (12207000 ps) Waiting SPI command end for 2540000 ps
+# ** Note   : (12207000 ps) Send SPI command value 8004_XXXX (SQ2_FB_MODE, mode Read, data XXXX)
+# ** Note   : (12287000 ps) Waiting SPI command return end for 40000 ps
+#             (12287000 ps) 
+#             (12287000 ps) ==============================================================================================
+#             (12287000 ps)   Check SQ2_FB_MODE content at start:
+#             (12287000 ps)   Col(3)->Off, Col(2)->Off, Col(1)->Off, Col(0)->Off
+#             (12287000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (12307000 ps) Check command return: PASS
+# ** Note   : (12307000 ps)  * Read 8004_0000, expected value 8004_0000 (SQ2_FB_MODE, mode Read, data 0000)
+# ** Note   : (14787000 ps) Waiting SPI command end for 2480000 ps
+# ** Note   : (14787000 ps) Send SPI command value 8005_4XXX (SQ2_FB_MODE, mode Write, data 4XXX)
+# ** Note   : (14867000 ps) Waiting SPI command return end for 40000 ps
+#             (14867000 ps) 
+#             (14867000 ps) ==============================================================================================
+#             (14867000 ps)   Check error position SPI data out of range detected
+#             (14867000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (14887000 ps) Check command return: PASS
+# ** Note   : (14887000 ps)  * Read C000_1000, expected value C000_1000 (Status, mode Read, data 1000)
+# ** Note   : (17367000 ps) Waiting SPI command end for 2480000 ps
+# ** Note   : (17367000 ps) Send SPI command value 8004_XXXX (SQ2_FB_MODE, mode Read, data XXXX)
+# ** Note   : (17447000 ps) Waiting SPI command return end for 40000 ps
+#             (17447000 ps) 
+#             (17447000 ps) ==============================================================================================
+#             (17447000 ps)   Check SQ2_FB_MODE no change
+#             (17447000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (17467000 ps) Check command return: PASS
+# ** Note   : (17467000 ps)  * Read 8004_0000, expected value 8004_0000 (SQ2_FB_MODE, mode Read, data 0000)
+# ** Note   : (19947000 ps) Waiting SPI command end for 2480000 ps
+# ** Note   : (19947000 ps) Send SPI command value 8005_X8XX (SQ2_FB_MODE, mode Write, data X8XX)
+# ** Note   : (20027000 ps) Waiting SPI command return end for 40000 ps
+#             (20027000 ps) 
+#             (20027000 ps) ==============================================================================================
+#             (20027000 ps)   Check error position SPI data out of range detected
+#             (20027000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (20047000 ps) Check command return: PASS
+# ** Note   : (20047000 ps)  * Read C000_1000, expected value C000_1000 (Status, mode Read, data 1000)
+# ** Note   : (22527000 ps) Waiting SPI command end for 2480000 ps
+# ** Note   : (22527000 ps) Send SPI command value 8004_XXXX (SQ2_FB_MODE, mode Read, data XXXX)
+# ** Note   : (22607000 ps) Waiting SPI command return end for 40000 ps
+#             (22607000 ps) 
+#             (22607000 ps) ==============================================================================================
+#             (22607000 ps)   Check SQ2_FB_MODE no change
+#             (22607000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (22627000 ps) Check command return: PASS
+# ** Note   : (22627000 ps)  * Read 8004_0000, expected value 8004_0000 (SQ2_FB_MODE, mode Read, data 0000)
+# ** Note   : (25107000 ps) Waiting SPI command end for 2480000 ps
+# ** Note   : (25107000 ps) Send SPI command value 8005_X4XX (SQ2_FB_MODE, mode Write, data X4XX)
+# ** Note   : (25187000 ps) Waiting SPI command return end for 40000 ps
+#             (25187000 ps) 
+#             (25187000 ps) ==============================================================================================
+#             (25187000 ps)   Check error position SPI data out of range detected
+#             (25187000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (25207000 ps) Check command return: PASS
+# ** Note   : (25207000 ps)  * Read C000_1000, expected value C000_1000 (Status, mode Read, data 1000)
+# ** Note   : (27687000 ps) Waiting SPI command end for 2480000 ps
+# ** Note   : (27687000 ps) Send SPI command value 8004_XXXX (SQ2_FB_MODE, mode Read, data XXXX)
+# ** Note   : (27767000 ps) Waiting SPI command return end for 40000 ps
+#             (27767000 ps) 
+#             (27767000 ps) ==============================================================================================
+#             (27767000 ps)   Check SQ2_FB_MODE no change
+#             (27767000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (27787000 ps) Check command return: PASS
+# ** Note   : (27787000 ps)  * Read 8004_0000, expected value 8004_0000 (SQ2_FB_MODE, mode Read, data 0000)
+# ** Note   : (30267000 ps) Waiting SPI command end for 2480000 ps
+# ** Note   : (30267000 ps) Send SPI command value 8005_XX8X (SQ2_FB_MODE, mode Write, data XX8X)
+# ** Note   : (30347000 ps) Waiting SPI command return end for 40000 ps
+#             (30347000 ps) 
+#             (30347000 ps) ==============================================================================================
+#             (30347000 ps)   Check error position SPI data out of range detected
+#             (30347000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (30367000 ps) Check command return: PASS
+# ** Note   : (30367000 ps)  * Read C000_1000, expected value C000_1000 (Status, mode Read, data 1000)
+# ** Note   : (32847000 ps) Waiting SPI command end for 2480000 ps
+# ** Note   : (32847000 ps) Send SPI command value 8004_XXXX (SQ2_FB_MODE, mode Read, data XXXX)
+# ** Note   : (32927000 ps) Waiting SPI command return end for 40000 ps
+#             (32927000 ps) 
+#             (32927000 ps) ==============================================================================================
+#             (32927000 ps)   Check SQ2_FB_MODE no change
+#             (32927000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (32947000 ps) Check command return: PASS
+# ** Note   : (32947000 ps)  * Read 8004_0000, expected value 8004_0000 (SQ2_FB_MODE, mode Read, data 0000)
+# ** Note   : (35427000 ps) Waiting SPI command end for 2480000 ps
+# ** Note   : (35427000 ps) Send SPI command value 8005_XX4X (SQ2_FB_MODE, mode Write, data XX4X)
+# ** Note   : (35507000 ps) Waiting SPI command return end for 40000 ps
+#             (35507000 ps) 
+#             (35507000 ps) ==============================================================================================
+#             (35507000 ps)   Check error position SPI data out of range detected
+#             (35507000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (35527000 ps) Check command return: PASS
+# ** Note   : (35527000 ps)  * Read C000_1000, expected value C000_1000 (Status, mode Read, data 1000)
+# ** Note   : (38007000 ps) Waiting SPI command end for 2480000 ps
+# ** Note   : (38007000 ps) Send SPI command value 8004_XXXX (SQ2_FB_MODE, mode Read, data XXXX)
+# ** Note   : (38087000 ps) Waiting SPI command return end for 40000 ps
+#             (38087000 ps) 
+#             (38087000 ps) ==============================================================================================
+#             (38087000 ps)   Check SQ2_FB_MODE no change
+#             (38087000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (38107000 ps) Check command return: PASS
+# ** Note   : (38107000 ps)  * Read 8004_0000, expected value 8004_0000 (SQ2_FB_MODE, mode Read, data 0000)
+# ** Note   : (40587000 ps) Waiting SPI command end for 2480000 ps
+# ** Note   : (40587000 ps) Send SPI command value 8005_XXX8 (SQ2_FB_MODE, mode Write, data XXX8)
+# ** Note   : (40667000 ps) Waiting SPI command return end for 40000 ps
+#             (40667000 ps) 
+#             (40667000 ps) ==============================================================================================
+#             (40667000 ps)   Check error position SPI data out of range detected
+#             (40667000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (40687000 ps) Check command return: PASS
+# ** Note   : (40687000 ps)  * Read C000_1000, expected value C000_1000 (Status, mode Read, data 1000)
+# ** Note   : (43167000 ps) Waiting SPI command end for 2480000 ps
+# ** Note   : (43167000 ps) Send SPI command value 8004_XXXX (SQ2_FB_MODE, mode Read, data XXXX)
+# ** Note   : (43247000 ps) Waiting SPI command return end for 40000 ps
+#             (43247000 ps) 
+#             (43247000 ps) ==============================================================================================
+#             (43247000 ps)   Check SQ2_FB_MODE no change
+#             (43247000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (43267000 ps) Check command return: PASS
+# ** Note   : (43267000 ps)  * Read 8004_0000, expected value 8004_0000 (SQ2_FB_MODE, mode Read, data 0000)
+# ** Note   : (45747000 ps) Waiting SPI command end for 2480000 ps
+# ** Note   : (45747000 ps) Send SPI command value 8005_XXX4 (SQ2_FB_MODE, mode Write, data XXX4)
+# ** Note   : (45827000 ps) Waiting SPI command return end for 40000 ps
+#             (45827000 ps) 
+#             (45827000 ps) ==============================================================================================
+#             (45827000 ps)   Check error position SPI data out of range detected
+#             (45827000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (45847000 ps) Check command return: PASS
+# ** Note   : (45847000 ps)  * Read C000_1000, expected value C000_1000 (Status, mode Read, data 1000)
+# ** Note   : (48327000 ps) Waiting SPI command end for 2480000 ps
+# ** Note   : (48327000 ps) Send SPI command value 8004_XXXX (SQ2_FB_MODE, mode Read, data XXXX)
+# ** Note   : (48407000 ps) Waiting SPI command return end for 40000 ps
+#             (48407000 ps) 
+#             (48407000 ps) ==============================================================================================
+#             (48407000 ps)   Check SQ2_FB_MODE no change
+#             (48407000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (48427000 ps) Check command return: PASS
+# ** Note   : (48427000 ps)  * Read 8004_0000, expected value 8004_0000 (SQ2_FB_MODE, mode Read, data 0000)
+# ** Note   : (50907000 ps) Waiting SPI command end for 2480000 ps
+# ** Note   : (50907000 ps) Send SPI command value 8005_0223 (SQ2_FB_MODE, mode Write, data 0223)
+# ** Note   : (50987000 ps) Waiting SPI command return end for 40000 ps
+#             (50987000 ps) 
+#             (50987000 ps) ==============================================================================================
+#             (50987000 ps)   Check error position SPI data out of range detected
+#             (50987000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (51007000 ps) Check command return: PASS
+# ** Note   : (51007000 ps)  * Read C000_1000, expected value C000_1000 (Status, mode Read, data 1000)
+# ** Note   : (53487000 ps) Waiting SPI command end for 2480000 ps
+# ** Note   : (53487000 ps) Send SPI command value 8004_XXXX (SQ2_FB_MODE, mode Read, data XXXX)
+# ** Note   : (53567000 ps) Waiting SPI command return end for 40000 ps
+#             (53567000 ps) 
+#             (53567000 ps) ==============================================================================================
+#             (53567000 ps)   Check SQ2_FB_MODE no change
+#             (53567000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (53587000 ps) Check command return: PASS
+# ** Note   : (53587000 ps)  * Read 8004_0000, expected value 8004_0000 (SQ2_FB_MODE, mode Read, data 0000)
+# ** Note   : (56067000 ps) Waiting SPI command end for 2480000 ps
+# ** Note   : (56067000 ps) Send SPI command value 8005_3320 (SQ2_FB_MODE, mode Write, data 3320)
+# ** Note   : (56147000 ps) Waiting SPI command return end for 40000 ps
+#             (56147000 ps) 
+#             (56147000 ps) ==============================================================================================
+#             (56147000 ps)   Check no error
+#             (56147000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (56167000 ps) Check command return: PASS
+# ** Note   : (56167000 ps)  * Read C000_0000, expected value C000_0000 (Status, mode Read, data 0000)
+# ** Note   : (58647000 ps) Waiting SPI command end for 2480000 ps
+# ** Note   : (58647000 ps) Send SPI command value 8004_XXXX (SQ2_FB_MODE, mode Read, data XXXX)
+# ** Note   : (58727000 ps) Waiting SPI command return end for 40000 ps
+#             (58727000 ps) 
+#             (58727000 ps) ==============================================================================================
+#             (58727000 ps)   Check SQ2_FB_MODE content:
+#             (58727000 ps)   Col(3)->Off, Col(2)->Open loop, Col(1)->Open loop, Col(0)->Test pattern
+#             (58727000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (58747000 ps) Check command return: PASS
+# ** Note   : (58747000 ps)  * Read 8004_0223, expected value 8004_0223 (SQ2_FB_MODE, mode Read, data 0223)
+# ** Note   : (61227000 ps) Waiting SPI command end for 2480000 ps
+# ** Note   : (61227000 ps) Send SPI command value 8005_2030 (SQ2_FB_MODE, mode Write, data 2030)
+# ** Note   : (61307000 ps) Waiting SPI command return end for 40000 ps
+#             (61307000 ps) 
+#             (61307000 ps) ==============================================================================================
+#             (61307000 ps)   Check no error
+#             (61307000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (61327000 ps) Check command return: PASS
+# ** Note   : (61327000 ps)  * Read C000_0000, expected value C000_0000 (Status, mode Read, data 0000)
+# ** Note   : (63807000 ps) Waiting SPI command end for 2480000 ps
+# ** Note   : (63807000 ps) Send SPI command value 8004_XXXX (SQ2_FB_MODE, mode Read, data XXXX)
+# ** Note   : (63887000 ps) Waiting SPI command return end for 40000 ps
+#             (63887000 ps) 
+#             (63887000 ps) ==============================================================================================
+#             (63887000 ps)   Check SQ2_FB_MODE content:
+#             (63887000 ps)   Col(3)->Test pattern, Col(2)->Test pattern, Col(1)->Open loop, Col(0)->Off
+#             (63887000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (63907000 ps) Check command return: PASS
+# ** Note   : (63907000 ps)  * Read 8004_3320, expected value 8004_3320 (SQ2_FB_MODE, mode Read, data 3320)
+# ** Note   : (66387000 ps) Waiting SPI command end for 2480000 ps
+# ** Note   : (66387000 ps) Send SPI command value 8005_2302 (SQ2_FB_MODE, mode Write, data 2302)
+# ** Note   : (66467000 ps) Waiting SPI command return end for 40000 ps
+#             (66467000 ps) 
+#             (66467000 ps) ==============================================================================================
+#             (66467000 ps)   Check no error
+#             (66467000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (66487000 ps) Check command return: PASS
+# ** Note   : (66487000 ps)  * Read C000_0000, expected value C000_0000 (Status, mode Read, data 0000)
+# ** Note   : (68967000 ps) Waiting SPI command end for 2480000 ps
+# ** Note   : (68967000 ps) Send SPI command value 8004_XXXX (SQ2_FB_MODE, mode Read, data XXXX)
+# ** Note   : (69047000 ps) Waiting SPI command return end for 40000 ps
+#             (69047000 ps) 
+#             (69047000 ps) ==============================================================================================
+#             (69047000 ps)   Check SQ2_FB_MODE content:
+#             (69047000 ps)   Col(3)->Open loop, Col(2)->Off, Col(1)->Test pattern, Col(0)->Off
+#             (69047000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (69067000 ps) Check command return: PASS
+# ** Note   : (69067000 ps)  * Read 8004_2030, expected value 8004_2030 (SQ2_FB_MODE, mode Read, data 2030)
+# ** Note   : (71547000 ps) Waiting SPI command end for 2480000 ps
+# ** Note   : (71547000 ps) Send SPI command value 8005_1XXX (SQ2_FB_MODE, mode Write, data 1XXX)
+# ** Note   : (71627000 ps) Waiting SPI command return end for 40000 ps
+#             (71627000 ps) 
+#             (71627000 ps) ==============================================================================================
+#             (71627000 ps)   Check no error
+#             (71627000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (71647000 ps) Check command return: PASS
+# ** Note   : (71647000 ps)  * Read C000_0000, expected value C000_0000 (Status, mode Read, data 0000)
+# ** Note   : (74127000 ps) Waiting SPI command end for 2480000 ps
+# ** Note   : (74127000 ps) Send SPI command value 8004_XXXX (SQ2_FB_MODE, mode Read, data XXXX)
+# ** Note   : (74207000 ps) Waiting SPI command return end for 40000 ps
+#             (74207000 ps) 
+#             (74207000 ps) ==============================================================================================
+#             (74207000 ps)   Check SQ2_FB_MODE content:
+#             (74207000 ps)   Col(3)->Open loop, Col(2)->Test pattern, Col(1)->Off, Col(0)->Open loop
+#             (74207000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (74227000 ps) Check command return: PASS
+# ** Note   : (74227000 ps)  * Read 8004_2302, expected value 8004_2302 (SQ2_FB_MODE, mode Read, data 2302)
+# ** Note   : (76707000 ps) Waiting SPI command end for 2480000 ps
+# ** Note   : (76707000 ps) Send SPI command value 8005_X1XX (SQ2_FB_MODE, mode Write, data X1XX)
+# ** Note   : (76787000 ps) Waiting SPI command return end for 40000 ps
+#             (76787000 ps) 
+#             (76787000 ps) ==============================================================================================
+#             (76787000 ps)   Check error position SPI data out of range detected
+#             (76787000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (76807000 ps) Check command return: PASS
+# ** Note   : (76807000 ps)  * Read C000_1000, expected value C000_1000 (Status, mode Read, data 1000)
+# ** Note   : (79287000 ps) Waiting SPI command end for 2480000 ps
+# ** Note   : (79287000 ps) Send SPI command value 8004_XXXX (SQ2_FB_MODE, mode Read, data XXXX)
+# ** Note   : (79367000 ps) Waiting SPI command return end for 40000 ps
+#             (79367000 ps) 
+#             (79367000 ps) ==============================================================================================
+#             (79367000 ps)   Check SQ2_FB_MODE no change
+#             (79367000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (79387000 ps) Check command return: PASS
+# ** Note   : (79387000 ps)  * Read 8004_2302, expected value 8004_2302 (SQ2_FB_MODE, mode Read, data 2302)
+# ** Note   : (81867000 ps) Waiting SPI command end for 2480000 ps
+# ** Note   : (81867000 ps) Send SPI command value 8005_XX1X (SQ2_FB_MODE, mode Write, data XX1X)
+# ** Note   : (81947000 ps) Waiting SPI command return end for 40000 ps
+#             (81947000 ps) 
+#             (81947000 ps) ==============================================================================================
+#             (81947000 ps)   Check error position SPI data out of range detected
+#             (81947000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (81967000 ps) Check command return: PASS
+# ** Note   : (81967000 ps)  * Read C000_1000, expected value C000_1000 (Status, mode Read, data 1000)
+# ** Note   : (84447000 ps) Waiting SPI command end for 2480000 ps
+# ** Note   : (84447000 ps) Send SPI command value 8004_XXXX (SQ2_FB_MODE, mode Read, data XXXX)
+# ** Note   : (84527000 ps) Waiting SPI command return end for 40000 ps
+#             (84527000 ps) 
+#             (84527000 ps) ==============================================================================================
+#             (84527000 ps)   Check SQ2_FB_MODE no change
+#             (84527000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (84547000 ps) Check command return: PASS
+# ** Note   : (84547000 ps)  * Read 8004_2302, expected value 8004_2302 (SQ2_FB_MODE, mode Read, data 2302)
+# ** Note   : (87027000 ps) Waiting SPI command end for 2480000 ps
+# ** Note   : (87027000 ps) Send SPI command value 8005_XXX1 (SQ2_FB_MODE, mode Write, data XXX1)
+# ** Note   : (87107000 ps) Waiting SPI command return end for 40000 ps
+#             (87107000 ps) 
+#             (87107000 ps) ==============================================================================================
+#             (87107000 ps)   Check error position SPI data out of range detected
+#             (87107000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (87127000 ps) Check command return: PASS
+# ** Note   : (87127000 ps)  * Read C000_1000, expected value C000_1000 (Status, mode Read, data 1000)
+# ** Note   : (89607000 ps) Waiting SPI command end for 2480000 ps
+# ** Note   : (89607000 ps) Send SPI command value 8004_XXXX (SQ2_FB_MODE, mode Read, data XXXX)
+# ** Note   : (89687000 ps) Waiting SPI command return end for 40000 ps
+#             (89687000 ps) 
+#             (89687000 ps) ==============================================================================================
+#             (89687000 ps)   Check SQ2_FB_MODE no change
+#             (89687000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (89707000 ps) Check command return: PASS
+# ** Note   : (89707000 ps)  * Read 8004_2302, expected value 8004_2302 (SQ2_FB_MODE, mode Read, data 2302)
+# ** Note   : (92187000 ps) Waiting SPI command end for 2480000 ps
+# ** Note   : (92187000 ps) Send SPI command value 8005_0000 (SQ2_FB_MODE, mode Write, data 0000)
+# ** Note   : (92267000 ps) Waiting SPI command return end for 40000 ps
+#             (92267000 ps) 
+#             (92267000 ps) ==============================================================================================
+#             (92267000 ps)   Check error position SPI data out of range detected
+#             (92267000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (92287000 ps) Check command return: PASS
+# ** Note   : (92287000 ps)  * Read C000_1000, expected value C000_1000 (Status, mode Read, data 1000)
+# ** Note   : (94767000 ps) Waiting SPI command end for 2480000 ps
+# ** Note   : (94767000 ps) Send SPI command value 8004_XXXX (SQ2_FB_MODE, mode Read, data XXXX)
+# ** Note   : (94847000 ps) Waiting SPI command return end for 40000 ps
+#             (94847000 ps) 
+#             (94847000 ps) ==============================================================================================
+#             (94847000 ps)   Check SQ2_FB_MODE no change
+#             (94847000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (94867000 ps) Check command return: PASS
+# ** Note   : (94867000 ps)  * Read 8004_2302, expected value 8004_2302 (SQ2_FB_MODE, mode Read, data 2302)
+# ** Note   : (97347000 ps) Waiting SPI command end for 2480000 ps
+# ** Note   : (97347000 ps) Send SPI command value 8005_0000 (SQ2_FB_MODE, mode Write, data 0000)
+# ** Note   : (97427000 ps) Waiting SPI command return end for 40000 ps
+# ------------------------------------------------------------------------------------------------------------------------------------------------------
+# Error simulation time         : '0'
+# Error check discrete level    : '0'
+# Error check command return    : '0'
+# Error check time              : '0'
+# Error check clocks parameters : '0'
+# ------------------------------------------------------------------------------------------------------------------------------------------------------
+# Simulation time               : 100000000 ps
+# Simulation status             : PASS
+# ------------------------------------------------------------------------------------------------------------------------------------------------------

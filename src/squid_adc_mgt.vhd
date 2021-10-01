@@ -39,7 +39,7 @@ entity squid_adc_mgt is port
          i_rst                : in     std_logic                                                            ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                : in     std_logic                                                            ; --! System Clock
 
-         i_sync               : in     std_logic                                                            ; --! Pixel sequence synchronization, no rsync
+         i_sync_rs            : in     std_logic                                                            ; --! Pixel sequence synchronization, synchronized on System Clock
          i_sq1_adc_data       : in     std_logic_vector(c_SQ1_ADC_DATA_S-1 downto 0)                        ; --! SQUID1 ADC - Data, no rsync
          i_sq1_adc_oor        : in     std_logic                                                            ; --! SQUID1 ADC - Out of range, no rsync (‘0’= No, ‘1’= under/over range)
 
@@ -89,7 +89,7 @@ begin
          sq1_adc_oor_r     <= (others => c_I_SQ1_ADC_OOR_DEF);
 
       elsif rising_edge(i_clk_sq1_adc_acq) then
-         sync_r            <= sync_r(sync_r'high-1 downto 0) & i_sync;
+         sync_r            <= sync_r(sync_r'high-1 downto 0) & i_sync_rs;
          sq1_adc_data_r    <= i_sq1_adc_data & sq1_adc_data_r(0 to sq1_adc_data_r'high-1);
          sq1_adc_oor_r     <= sq1_adc_oor_r(sq1_adc_oor_r'high-1 downto 0) & i_sq1_adc_oor;
 
