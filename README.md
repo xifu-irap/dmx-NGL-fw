@@ -2,9 +2,9 @@
 DRE-DEMUX TDM firmware.
 
    - FPGA target: NG-LARGE (NanoXplore)
-   - Synthesis tool: Nxmap v3.7.0.3
+   - Synthesis tool: Nxmap v3.9.0.5
    - Firmware specification:
-      + IRAP/XIFU-DRE/FM/SP/0065 - DRE TDM firmware requirements, ed. 0.8
+      + IRAP/XIFU-DRE/FM/SP/0065 - DRE TDM firmware requirements, ed. 0.10
       + IRAP/XIFU-DRE/FM/SP/0069 - DRE Inter-Modules Telemetry And Commands Definition, ed. 1.0
 
 ## 1. Directories and files description
@@ -49,6 +49,14 @@ DRE-DEMUX TDM firmware.
       3. Run command: do ../../simu/script/no_regression.do
       4. Run function (XXXX: unitary test number on 4 characters): run_utest DRE_DMX_UT_XXXX_cfg
       5. The unitary test result is stored in directory /simu/result
+
+
+   - Requirement Traceability Matrix
+      1. Open Powershell
+      2. Position to the root path directory
+      3. Position to the path /simu/script/no_regression
+      4. Run gen_trace_matrix.ps1
+      5. The Requirement Traceability Matrix is stored in directory /simu/result
 
 
 ## 3. New unitary test creation

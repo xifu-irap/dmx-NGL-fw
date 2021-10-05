@@ -43,7 +43,7 @@ COMM
 COMM ==============================================================================================
 COMM   Check no event is appeared on o_c0_sq1_dac_sleep and wait o_c0_sq1_dac_sleep deactivation
 COMM ----------------------------------------------------------------------------------------------
-CTLE sq1_dac_sleep(0) == 12524332 ps     # TODO: replace by 'now' on the next commit
+CTLE sq1_dac_sleep(0) == now
 WUDI sq1_dac_sleep(0) 0
 COMM
 COMM ==============================================================================================
@@ -178,7 +178,7 @@ COMM
 COMM ==============================================================================================
 COMM   Check no event is appeared on o_c1_sq1_dac_sleep and wait o_c1_sq1_dac_sleep deactivation
 COMM ----------------------------------------------------------------------------------------------
-CTLE sq1_dac_sleep(1) == 50010664 ps     # TODO: replace by 'now' on the next commit
+CTLE sq1_dac_sleep(1) == now
 WUDI sq1_dac_sleep(1) 0
 COMM
 COMM ==============================================================================================
@@ -313,7 +313,7 @@ COMM
 COMM ==============================================================================================
 COMM   Check no event is appeared on o_c2_sq1_dac_sleep and wait o_c2_sq1_dac_sleep deactivation
 COMM ----------------------------------------------------------------------------------------------
-CTLE sq1_dac_sleep(2) == 87413656 ps     # TODO: replace by 'now' on the next commit
+CTLE sq1_dac_sleep(2) == now
 WUDI sq1_dac_sleep(2) 0
 COMM
 COMM ==============================================================================================
@@ -448,7 +448,7 @@ COMM
 COMM ==============================================================================================
 COMM   Check no event is appeared on o_c3_sq1_dac_sleep and wait o_c3_sq1_dac_sleep deactivation
 COMM ----------------------------------------------------------------------------------------------
-CTLE sq1_dac_sleep(3) == 124816648 ps    # TODO: replace by 'now' on the next commit
+CTLE sq1_dac_sleep(3) == now
 WUDI sq1_dac_sleep(3) 0
 COMM
 COMM ==============================================================================================

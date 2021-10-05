@@ -130,32 +130,32 @@ begin
          ENABLE_PR_Z_RST      => c_MULT_ALU_PRM_ENA     -- bit                                                --! Multiplexer ALU            register reset ('0' = Disable, '1' = Enable)
 
    )     port map
-   (     ck	                  => i_clk_sq1_pls_shape  , -- in     std_logic                                 ; --! Clock
-         r	                  => i_rst_sq1_pls_shape  , -- in     std_logic                                 ; --! Reset pipeline registers ('0' = Inactive, '1' = Active)
-         rz	                  => i_rst_sq1_pls_shape  , -- in     std_logic                                 ; --! Reset Z output register  ('0' = Inactive, '1' = Active)
-         we	                  => '1'                  , -- in     std_logic                                 ; --! Write Enable ('0' = Internal registers frozen, '1' = Normal operation)
+   (     ck                   => i_clk_sq1_pls_shape  , -- in     std_logic                                 ; --! Clock
+         r                    => i_rst_sq1_pls_shape  , -- in     std_logic                                 ; --! Reset pipeline registers ('0' = Inactive, '1' = Active)
+         rz                   => i_rst_sq1_pls_shape  , -- in     std_logic                                 ; --! Reset Z output register  ('0' = Inactive, '1' = Active)
+         we                   => '1'                  , -- in     std_logic                                 ; --! Write Enable ('0' = Internal registers frozen, '1' = Normal operation)
 
-         ci	                  => '0'                  , -- in     std_logic                                 ; --! ALU Carry In
+         ci                   => '0'                  , -- in     std_logic                                 ; --! ALU Carry In
          a                    => a_mant_k_rsize       , -- in     slv( MULT_ALU_PORTA_S-1 downto 0)         ; --! Port A
-         b	                  => x_init_rsize         , -- in     slv( MULT_ALU_PORTB_S-1 downto 0)         ; --! Port B
-         c	                  => x_final_shift        , -- in     slv( MULT_ALU_PORTC_S-1 downto 0)         ; --! Port C
-         d	                  => x_final_rsize        , -- in     slv( MULT_ALU_PORTD_S-1 downto 0)         ; --! Port D
+         b                    => x_init_rsize         , -- in     slv( MULT_ALU_PORTB_S-1 downto 0)         ; --! Port B
+         c                    => x_final_shift        , -- in     slv( MULT_ALU_PORTC_S-1 downto 0)         ; --! Port C
+         d                    => x_final_rsize        , -- in     slv( MULT_ALU_PORTD_S-1 downto 0)         ; --! Port D
 
          cci                  => '0'                  , -- in     std_logic                                 ; --! Cascaded ALU Carry In
-         cai	               => (others => '0')      , -- in     slv(MULT_ALU_CPORTA_S-1 downto 0)         ; --! Cascaded Port A
-         cbi	               => (others => '0')      , -- in     slv( MULT_ALU_PORTB_S-1 downto 0)         ; --! Cascaded Port B
-         czi	               => (others => '0')      , -- in     slv(MULT_ALU_RESULT_S-1 downto 0)         ; --! Cascaded Result Input
+         cai                  => (others => '0')      , -- in     slv(MULT_ALU_CPORTA_S-1 downto 0)         ; --! Cascaded Port A
+         cbi                  => (others => '0')      , -- in     slv( MULT_ALU_PORTB_S-1 downto 0)         ; --! Cascaded Port B
+         czi                  => (others => '0')      , -- in     slv(MULT_ALU_RESULT_S-1 downto 0)         ; --! Cascaded Result Input
 
-         co	                  => open                 , -- out    std_logic                                 ; --! ALU Carry buffer           (MUX_CARRY_OUT registered output)
-         co36	               => open                 , -- out    std_logic                                 ; --! Carry Output: Result bit 36
-         co56	               => open                 , -- out    std_logic                                 ; --! Carry Output: Result bit 56
-         ovf	               => open                 , -- out    std_logic                                 ; --! Overflow ('0' = No, '1' = Yes)
-         z	                  => w_k                  , -- out    slv(MULT_ALU_RESULT_S-1 downto 0)         ; --! Result buffer              (MUX_ALU       registered output)
+         co                   => open                 , -- out    std_logic                                 ; --! ALU Carry buffer           (MUX_CARRY_OUT registered output)
+         co36                 => open                 , -- out    std_logic                                 ; --! Carry Output: Result bit 36
+         co56                 => open                 , -- out    std_logic                                 ; --! Carry Output: Result bit 56
+         ovf                  => open                 , -- out    std_logic                                 ; --! Overflow ('0' = No, '1' = Yes)
+         z                    => w_k                  , -- out    slv(MULT_ALU_RESULT_S-1 downto 0)         ; --! Result buffer              (MUX_ALU       registered output)
 
-         cco	               => open                 , -- out    std_logic                                 ; --! Cascaded ALU Carry buffer  (MUX_CARRY_OUT registered output)
-         cao	               => open                 , -- out    slv(MULT_ALU_CPORTA_S-1 downto 0)         ; --! Cascaded Port A buffer     (MUX_PORTA     registered output)
-         cbo	               => open                 , -- out    slv(MULT_ALU_PORTB_S -1 downto 0)         ; --! Cascaded Port B buffer     (MUX_PORTB     registered output)
-         czo	               => open                   -- out    slv(MULT_ALU_RESULT_S-1 downto 0)           --! Cascaded Result buffer     (MUX_ALU       registered output)
+         cco                  => open                 , -- out    std_logic                                 ; --! Cascaded ALU Carry buffer  (MUX_CARRY_OUT registered output)
+         cao                  => open                 , -- out    slv(MULT_ALU_CPORTA_S-1 downto 0)         ; --! Cascaded Port A buffer     (MUX_PORTA     registered output)
+         cbo                  => open                 , -- out    slv(MULT_ALU_PORTB_S -1 downto 0)         ; --! Cascaded Port B buffer     (MUX_PORTB     registered output)
+         czo                  => open                   -- out    slv(MULT_ALU_RESULT_S-1 downto 0)           --! Cascaded Result buffer     (MUX_ALU       registered output)
    );
 
    o_y_k <= w_k(g_A_EXP + g_X_K_S - 1 downto g_A_EXP + g_X_K_S - g_Y_K_S);

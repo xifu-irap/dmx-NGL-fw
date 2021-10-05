@@ -108,7 +108,7 @@ proc run_utest {args} {
 
       # No regression file initialization
       set file_nr [open ${RES_DIR}/${NR_FILE} w]
-      puts $file_nr "Test result number; Final Status"
+      puts $file_nr "Test result number; Test Title; Final Status"
 
       foreach file [lsort -dictionary [glob -directory ${CFG_DIR} *.vhd]] {
 
@@ -134,24 +134,34 @@ proc run_utest {args} {
          if { [file exists ${RES_DIR}/${root_file_name}_res] == 0} {
 
             # If result file does not exist, write test fail in no regression file
-            puts $file_nr "${root_file_name}; FAIL"
+            puts $file_nr "${root_file_name};"No result files";FAIL"
 
          } else {
 
-            # Check the final simulation status
             set res_file [open ${RES_DIR}/${root_file_name}_res]
-				while {[gets $res_file line] != -1} {
+            set title ""
+
+            # Get the test title
+            while {[gets $res_file line] != -1} {
+               if {[regexp {Test: } $line]} {
+                  set title [string range $line [expr {[string last ":" $line] + 2}] end]
+                  break
+               }
+            }
+
+            # Check the final simulation status
+            while {[gets $res_file line] != -1} {
 
                # If final simulation status is pass, write test pass in non regression file
-					if {[regexp {# Simulation status             : PASS} $line]} {
-                  puts $file_nr "${root_file_name};PASS"
+               if {[regexp {# Simulation status             : PASS} $line]} {
+                  puts $file_nr "${root_file_name};${title};PASS"
                   break
-					}
-				}
+               }
+            }
 
-            # If final simulation status pass is not detetected, write test fail in non regression file
+            # If final simulation status pass is not detected, write test fail in non regression file
             if {[gets $res_file line] == -1} {
-               puts $file_nr "${root_file_name};FAIL"
+               puts $file_nr "${root_file_name};${title};FAIL"
             }
          }
       }

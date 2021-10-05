@@ -48,11 +48,11 @@ signal   rst_sq1_pls_shape    : std_logic                                       
 
 signal   sync_r               : std_logic_vector(c_FF_RSYNC_NB-1 downto 0)                                  ; --! Pixel sequence sync. register (R.E. detected = position sequence to the first pixel)
 
-signal   sq2_dac_mux	         : std_logic_vector(c_SQ2_DAC_MUX_S-1 downto 0)                                ; --! SQUID2 DAC - Multiplexer
+signal   sq2_dac_mux          : std_logic_vector(c_SQ2_DAC_MUX_S-1 downto 0)                                ; --! SQUID2 DAC - Multiplexer
 begin
 
    -- ------------------------------------------------------------------------------------------------------
-   --!   Reset on SQUID1 pulse shaping Clock generation
+   --!   Reset on SQUID2 pulse shaping Clock generation
    --!     Necessity to generate local reset in order to reach expected frequency
    --    @Req : DRE-DMX-FW-REQ-0050
    -- ------------------------------------------------------------------------------------------------------
@@ -84,7 +84,6 @@ begin
 
    -- ------------------------------------------------------------------------------------------------------
    --!   SQUID2 DAC - Multiplexer
-   --    @Req : DRE-DMX-FW-REQ-0560
    -- ------------------------------------------------------------------------------------------------------
    o_sq2_dac_mux <= sq2_dac_mux;
 

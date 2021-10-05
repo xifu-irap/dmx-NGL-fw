@@ -40,9 +40,9 @@ entity squid_spi_mgt is port
          o_sq1_adc_spi_sclk   : out    std_logic                                                            ; --! SQUID1 ADC - SPI Serial Clock (CPOL = ‘0’, CPHA = ’0’)
          o_sq1_adc_spi_cs_n   : out    std_logic                                                            ; --! SQUID1 ADC - SPI Chip Select ('0' = Active, '1' = Inactive)
 
-         o_sq2_dac_data       : out    std_logic                                                            ; --!	SQUID2 DAC - Serial Data
-         o_sq2_dac_sclk       : out    std_logic                                                            ; --!	SQUID2 DAC - Serial Clock
-         o_sq2_dac_sync_n     : out    std_logic                                                              --!	SQUID2 DAC - Frame Synchronization ('0' = Active, '1' = Inactive)
+         o_sq2_dac_data       : out    std_logic                                                            ; --! SQUID2 DAC - Serial Data
+         o_sq2_dac_sclk       : out    std_logic                                                            ; --! SQUID2 DAC - Serial Clock
+         o_sq2_dac_sync_n     : out    std_logic                                                              --! SQUID2 DAC - Frame Synchronization ('0' = Active, '1' = Inactive)
 
    );
 end entity squid_spi_mgt;

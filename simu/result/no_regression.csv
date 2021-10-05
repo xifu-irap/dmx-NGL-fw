@@ -1,11 +1,11 @@
-Test result number; Final Status
-DRE_DMX_UT_0010;PASS
-DRE_DMX_UT_0020;PASS
-DRE_DMX_UT_0030;PASS
-DRE_DMX_UT_0040;PASS
-DRE_DMX_UT_0050;PASS
-DRE_DMX_UT_0060;PASS
-DRE_DMX_UT_0070;PASS
-DRE_DMX_UT_0080;PASS
-DRE_DMX_UT_0090;PASS
-DRE_DMX_UT_0100;PASS
+Test result number; Test Title; Final Status
+DRE_DMX_UT_0010;internal clocks and resets;PASS
+DRE_DMX_UT_0020;EP command error, SPI command length;PASS
+DRE_DMX_UT_0030;EP command error, try to write in a read only register;PASS
+DRE_DMX_UT_0040;EP command error, invalid address;PASS
+DRE_DMX_UT_0050;EP command, read register Version and Status with no errors;PASS
+DRE_DMX_UT_0060;EP command, TM_MODE register;PASS
+DRE_DMX_UT_0070;EP command, SQ1_FB_MODE register;PASS
+DRE_DMX_UT_0080;ADC Power Down and ADC clock signals behavior;PASS
+DRE_DMX_UT_0090;DAC Sleep and DAC clock signals behavior;PASS
+DRE_DMX_UT_0100;EP command, SQ2_FB_MODE register;PASS

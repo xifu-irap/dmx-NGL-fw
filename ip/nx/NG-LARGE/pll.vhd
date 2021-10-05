@@ -52,7 +52,7 @@ entity pll is port
          o_clk_science        : out    std_logic                                                            ; --! Science Data Clock
          o_pll_main_lock      : out    std_logic                                                            ; --! Main Pll Status ('0' = Pll not locked, '1' = Pll locked)
 
-         o_sq1_adc_pwdn	      : out    std_logic_vector(c_NB_COL-1 downto 0)                                ; --! SQUID1 ADC – Power Down ('0' = Inactive, '1' = Active)
+         o_sq1_adc_pwdn       : out    std_logic_vector(c_NB_COL-1 downto 0)                                ; --! SQUID1 ADC – Power Down ('0' = Inactive, '1' = Active)
          o_sq1_dac_sleep      : out    std_logic_vector(c_NB_COL-1 downto 0)                                  --! SQUID1 DAC - Sleep ('0' = Inactive, '1' = Active)
    );
 end entity pll;
@@ -317,6 +317,7 @@ begin
 
    -- ------------------------------------------------------------------------------------------------------
    --!  SQUID1 DAC Clock switchs
+   --    @Req : DRE-DMX-FW-REQ-0250
    --    @Req : DRE-DMX-FW-REQ-0260
    -- ------------------------------------------------------------------------------------------------------
    G_cks_clk_sq1_dac: for k in 0 to c_NB_COL-1 generate

@@ -72,10 +72,10 @@ constant c_DR_D_RST_SQ2_MUX_1 : integer :=  16                                  
 constant c_DR_D_RST_SQ2_MUX_2 : integer :=  17                                                              ; --! Discrete input index, signal: i_d_rst_sq2_mux(2)
 constant c_DR_D_RST_SQ2_MUX_3 : integer :=  18                                                              ; --! Discrete input index, signal: i_d_rst_sq2_mux(3)
 constant c_DR_SYNC            : integer :=  19                                                              ; --! Discrete input index, signal: i_sync
-constant c_DR_SQ1_ADC_PWDN_0	: integer :=  20                                                              ; --! Discrete input index, signal: i_c0_sq1_adc_pwdn
-constant c_DR_SQ1_ADC_PWDN_1	: integer :=  21                                                              ; --! Discrete input index, signal: i_c1_sq1_adc_pwdn
-constant c_DR_SQ1_ADC_PWDN_2	: integer :=  22                                                              ; --! Discrete input index, signal: i_c2_sq1_adc_pwdn
-constant c_DR_SQ1_ADC_PWDN_3	: integer :=  23                                                              ; --! Discrete input index, signal: i_c3_sq1_adc_pwdn
+constant c_DR_SQ1_ADC_PWDN_0  : integer :=  20                                                              ; --! Discrete input index, signal: i_c0_sq1_adc_pwdn
+constant c_DR_SQ1_ADC_PWDN_1  : integer :=  21                                                              ; --! Discrete input index, signal: i_c1_sq1_adc_pwdn
+constant c_DR_SQ1_ADC_PWDN_2  : integer :=  22                                                              ; --! Discrete input index, signal: i_c2_sq1_adc_pwdn
+constant c_DR_SQ1_ADC_PWDN_3  : integer :=  23                                                              ; --! Discrete input index, signal: i_c3_sq1_adc_pwdn
 constant c_DR_SQ1_DAC_SLEEP_0 : integer :=  24                                                              ; --! Discrete input index, signal: i_c0_sq1_dac_sleep
 constant c_DR_SQ1_DAC_SLEEP_1 : integer :=  25                                                              ; --! Discrete input index, signal: i_c1_sq1_dac_sleep
 constant c_DR_SQ1_DAC_SLEEP_2 : integer :=  26                                                              ; --! Discrete input index, signal: i_c2_sq1_dac_sleep
@@ -238,10 +238,10 @@ constant c_CCHK               : t_clk_chk_prm_arr(0 to c_CE_S-1) :=
 
          i_err_chk_rpt        : in     t_err_n_clk_chk_arr(0 to c_CE_S-1)                                   ; --! Clock check error reports
 
-         i_c0_sq1_adc_pwdn	   : in     std_logic                                                            ; --! SQUID1 ADC, col. 0 – Power Down ('0' = Inactive, '1' = Active)
-         i_c1_sq1_adc_pwdn	   : in     std_logic                                                            ; --! SQUID1 ADC, col. 1 – Power Down ('0' = Inactive, '1' = Active)
-         i_c2_sq1_adc_pwdn	   : in     std_logic                                                            ; --! SQUID1 ADC, col. 2 – Power Down ('0' = Inactive, '1' = Active)
-         i_c3_sq1_adc_pwdn	   : in     std_logic                                                            ; --! SQUID1 ADC, col. 3 – Power Down ('0' = Inactive, '1' = Active)
+         i_c0_sq1_adc_pwdn    : in     std_logic                                                            ; --! SQUID1 ADC, col. 0 – Power Down ('0' = Inactive, '1' = Active)
+         i_c1_sq1_adc_pwdn    : in     std_logic                                                            ; --! SQUID1 ADC, col. 1 – Power Down ('0' = Inactive, '1' = Active)
+         i_c2_sq1_adc_pwdn    : in     std_logic                                                            ; --! SQUID1 ADC, col. 2 – Power Down ('0' = Inactive, '1' = Active)
+         i_c3_sq1_adc_pwdn    : in     std_logic                                                            ; --! SQUID1 ADC, col. 3 – Power Down ('0' = Inactive, '1' = Active)
 
          i_c0_sq1_dac_data    : in     std_logic_vector(c_SQ1_DAC_DATA_S-1 downto 0)                        ; --! SQUID1 DAC, col. 0 - Data
          i_c1_sq1_dac_data    : in     std_logic_vector(c_SQ1_DAC_DATA_S-1 downto 0)                        ; --! SQUID1 DAC, col. 1 - Data

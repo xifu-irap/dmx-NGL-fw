@@ -83,7 +83,7 @@ signal   hk1_spi_mosi         : std_logic                                       
 signal   hk1_spi_sclk         : std_logic                                                                   ; --! HouseKeeping 1 - SPI Serial Clock (CPOL = ‘0’, CPHA = ’0’)
 signal   hk1_spi_cs_n         : std_logic                                                                   ; --! HouseKeeping 1 - SPI Chip Select ('0' = Active, '1' = Inactive)
 signal   hk1_mux              : std_logic_vector(      c_HK_MUX_S-1 downto 0)                               ; --! HouseKeeping 1 - Multiplexer
-signal   hk1_mux_ena_n	      : std_logic                                                                   ; --! HouseKeeping 1 - Multiplexer Enable ('0' = Active, '1' = Inactive)
+signal   hk1_mux_ena_n        : std_logic                                                                   ; --! HouseKeeping 1 - Multiplexer Enable ('0' = Active, '1' = Inactive)
 
 signal   ep_spi_mosi          : std_logic                                                                   ; --! EP - SPI Master Input Slave Output (MSB first)
 signal   ep_spi_miso          : std_logic                                                                   ; --! EP - SPI Master Output Slave Input (MSB first)
@@ -106,39 +106,39 @@ signal   c3_sq1_adc_spi_sdio  : std_logic                                       
 signal   c3_sq1_adc_spi_sclk  : std_logic                                                                   ; --! SQUID1 ADC, col. 3 - SPI Serial Clock (CPOL = ‘0’, CPHA = ’0’)
 signal   c3_sq1_adc_spi_cs_n  : std_logic                                                                   ; --! SQUID1 ADC, col. 3 - SPI Chip Select ('0' = Active, '1' = Inactive)
 
-signal   c0_sq1_adc_pwdn	   : std_logic                                                                   ; --! SQUID1 ADC, col. 0 – Power Down ('0' = Inactive, '1' = Active)
-signal   c1_sq1_adc_pwdn	   : std_logic                                                                   ; --! SQUID1 ADC, col. 1 – Power Down ('0' = Inactive, '1' = Active)
-signal   c2_sq1_adc_pwdn	   : std_logic                                                                   ; --! SQUID1 ADC, col. 2 – Power Down ('0' = Inactive, '1' = Active)
-signal   c3_sq1_adc_pwdn	   : std_logic                                                                   ; --! SQUID1 ADC, col. 3 – Power Down ('0' = Inactive, '1' = Active)
+signal   c0_sq1_adc_pwdn      : std_logic                                                                   ; --! SQUID1 ADC, col. 0 – Power Down ('0' = Inactive, '1' = Active)
+signal   c1_sq1_adc_pwdn      : std_logic                                                                   ; --! SQUID1 ADC, col. 1 – Power Down ('0' = Inactive, '1' = Active)
+signal   c2_sq1_adc_pwdn      : std_logic                                                                   ; --! SQUID1 ADC, col. 2 – Power Down ('0' = Inactive, '1' = Active)
+signal   c3_sq1_adc_pwdn      : std_logic                                                                   ; --! SQUID1 ADC, col. 3 – Power Down ('0' = Inactive, '1' = Active)
 
 signal   c0_sq1_dac_sleep     : std_logic                                                                   ; --! SQUID1 DAC, col. 0 - Sleep ('0' = Inactive, '1' = Active)
 signal   c1_sq1_dac_sleep     : std_logic                                                                   ; --! SQUID1 DAC, col. 1 - Sleep ('0' = Inactive, '1' = Active)
 signal   c2_sq1_dac_sleep     : std_logic                                                                   ; --! SQUID1 DAC, col. 2 - Sleep ('0' = Inactive, '1' = Active)
 signal   c3_sq1_dac_sleep     : std_logic                                                                   ; --! SQUID1 DAC, col. 3 - Sleep ('0' = Inactive, '1' = Active)
 
-signal   c0_sq2_dac_data      : std_logic                                                                   ; --!	SQUID2 DAC, col. 0 - Serial Data
-signal   c0_sq2_dac_sclk      : std_logic                                                                   ; --!	SQUID2 DAC, col. 0 - Serial Clock
-signal   c0_sq2_dac_sync_n    : std_logic                                                                   ; --!	SQUID2 DAC, col. 0 - Frame Synchronization ('0' = Active, '1' = Inactive)
-signal   c0_sq2_dac_mux       : std_logic_vector( c_SQ2_DAC_MUX_S-1 downto 0)                               ; --!	SQUID2 DAC, col. 0 - Multiplexer
-signal   c0_sq2_dac_mx_en_n   : std_logic                                                                   ; --!	SQUID2 DAC, col. 0 - Multiplexer Enable ('0' = Active, '1' = Inactive)
+signal   c0_sq2_dac_data      : std_logic                                                                   ; --! SQUID2 DAC, col. 0 - Serial Data
+signal   c0_sq2_dac_sclk      : std_logic                                                                   ; --! SQUID2 DAC, col. 0 - Serial Clock
+signal   c0_sq2_dac_sync_n    : std_logic                                                                   ; --! SQUID2 DAC, col. 0 - Frame Synchronization ('0' = Active, '1' = Inactive)
+signal   c0_sq2_dac_mux       : std_logic_vector( c_SQ2_DAC_MUX_S-1 downto 0)                               ; --! SQUID2 DAC, col. 0 - Multiplexer
+signal   c0_sq2_dac_mx_en_n   : std_logic                                                                   ; --! SQUID2 DAC, col. 0 - Multiplexer Enable ('0' = Active, '1' = Inactive)
 
-signal   c1_sq2_dac_data      : std_logic                                                                   ; --!	SQUID2 DAC, col. 1 - Serial Data
-signal   c1_sq2_dac_sclk      : std_logic                                                                   ; --!	SQUID2 DAC, col. 1 - Serial Clock
-signal   c1_sq2_dac_sync_n    : std_logic                                                                   ; --!	SQUID2 DAC, col. 1 - Frame Synchronization ('0' = Active, '1' = Inactive)
-signal   c1_sq2_dac_mux       : std_logic_vector( c_SQ2_DAC_MUX_S-1 downto 0)                               ; --!	SQUID2 DAC, col. 1 - Multiplexer
-signal   c1_sq2_dac_mx_en_n   : std_logic                                                                   ; --!	SQUID2 DAC, col. 1 - Multiplexer Enable ('0' = Active, '1' = Inactive)
+signal   c1_sq2_dac_data      : std_logic                                                                   ; --! SQUID2 DAC, col. 1 - Serial Data
+signal   c1_sq2_dac_sclk      : std_logic                                                                   ; --! SQUID2 DAC, col. 1 - Serial Clock
+signal   c1_sq2_dac_sync_n    : std_logic                                                                   ; --! SQUID2 DAC, col. 1 - Frame Synchronization ('0' = Active, '1' = Inactive)
+signal   c1_sq2_dac_mux       : std_logic_vector( c_SQ2_DAC_MUX_S-1 downto 0)                               ; --! SQUID2 DAC, col. 1 - Multiplexer
+signal   c1_sq2_dac_mx_en_n   : std_logic                                                                   ; --! SQUID2 DAC, col. 1 - Multiplexer Enable ('0' = Active, '1' = Inactive)
 
-signal   c2_sq2_dac_data      : std_logic                                                                   ; --!	SQUID2 DAC, col. 2 - Serial Data
-signal   c2_sq2_dac_sclk      : std_logic                                                                   ; --!	SQUID2 DAC, col. 2 - Serial Clock
-signal   c2_sq2_dac_sync_n    : std_logic                                                                   ; --!	SQUID2 DAC, col. 2 - Frame Synchronization ('0' = Active, '1' = Inactive)
-signal   c2_sq2_dac_mux       : std_logic_vector( c_SQ2_DAC_MUX_S-1 downto 0)                               ; --!	SQUID2 DAC, col. 2 - Multiplexer
-signal   c2_sq2_dac_mx_en_n   : std_logic                                                                   ; --!	SQUID2 DAC, col. 2 - Multiplexer Enable ('0' = Active, '1' = Inactive)
+signal   c2_sq2_dac_data      : std_logic                                                                   ; --! SQUID2 DAC, col. 2 - Serial Data
+signal   c2_sq2_dac_sclk      : std_logic                                                                   ; --! SQUID2 DAC, col. 2 - Serial Clock
+signal   c2_sq2_dac_sync_n    : std_logic                                                                   ; --! SQUID2 DAC, col. 2 - Frame Synchronization ('0' = Active, '1' = Inactive)
+signal   c2_sq2_dac_mux       : std_logic_vector( c_SQ2_DAC_MUX_S-1 downto 0)                               ; --! SQUID2 DAC, col. 2 - Multiplexer
+signal   c2_sq2_dac_mx_en_n   : std_logic                                                                   ; --! SQUID2 DAC, col. 2 - Multiplexer Enable ('0' = Active, '1' = Inactive)
 
-signal   c3_sq2_dac_data      : std_logic                                                                   ; --!	SQUID2 DAC, col. 3 - Serial Data
-signal   c3_sq2_dac_sclk      : std_logic                                                                   ; --!	SQUID2 DAC, col. 3 - Serial Clock
-signal   c3_sq2_dac_sync_n    : std_logic                                                                   ; --!	SQUID2 DAC, col. 3 - Frame Synchronization ('0' = Active, '1' = Inactive)
-signal   c3_sq2_dac_mux       : std_logic_vector( c_SQ2_DAC_MUX_S-1 downto 0)                               ; --!	SQUID2 DAC, col. 3 - Multiplexer
-signal   c3_sq2_dac_mx_en_n   : std_logic                                                                   ; --!	SQUID2 DAC, col. 3 - Multiplexer Enable ('0' = Active, '1' = Inactive)
+signal   c3_sq2_dac_data      : std_logic                                                                   ; --! SQUID2 DAC, col. 3 - Serial Data
+signal   c3_sq2_dac_sclk      : std_logic                                                                   ; --! SQUID2 DAC, col. 3 - Serial Clock
+signal   c3_sq2_dac_sync_n    : std_logic                                                                   ; --! SQUID2 DAC, col. 3 - Frame Synchronization ('0' = Active, '1' = Inactive)
+signal   c3_sq2_dac_mux       : std_logic_vector( c_SQ2_DAC_MUX_S-1 downto 0)                               ; --! SQUID2 DAC, col. 3 - Multiplexer
+signal   c3_sq2_dac_mx_en_n   : std_logic                                                                   ; --! SQUID2 DAC, col. 3 - Multiplexer Enable ('0' = Active, '1' = Inactive)
 
 signal   d_rst                : std_logic                                                                   ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
 signal   d_rst_sq1_adc        : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
@@ -230,8 +230,8 @@ begin
          o_hk1_spi_mosi       => hk1_spi_mosi         , -- out    std_logic                                 ; --! HouseKeeping 1 - SPI Master Output Slave Input
          o_hk1_spi_sclk       => hk1_spi_sclk         , -- out    std_logic                                 ; --! HouseKeeping 1 - SPI Serial Clock (CPOL = ‘0’, CPHA = ’0’)
          o_hk1_spi_cs_n       => hk1_spi_cs_n         , -- out    std_logic                                 ; --! HouseKeeping 1 - SPI Chip Select ('0' = Active, '1' = Inactive)
-         o_hk1_mux	         => hk1_mux              , -- out    std_logic_vector(c_HK1_MUX_S-1 downto 0)  ; --! HouseKeeping 1 - Multiplexer
-         o_hk1_mux_ena_n	   => hk1_mux_ena_n        , -- out    std_logic                                 ; --! HouseKeeping 1 - Multiplexer Enable ('0' = Active, '1' = Inactive)
+         o_hk1_mux            => hk1_mux              , -- out    std_logic_vector(c_HK1_MUX_S-1 downto 0)  ; --! HouseKeeping 1 - Multiplexer
+         o_hk1_mux_ena_n      => hk1_mux_ena_n        , -- out    std_logic                                 ; --! HouseKeeping 1 - Multiplexer Enable ('0' = Active, '1' = Inactive)
 
          i_ep_spi_mosi        => ep_spi_mosi          , -- in     std_logic                                 ; --! EP - SPI Master Input Slave Output (MSB first)
          o_ep_spi_miso        => ep_spi_miso          , -- out    std_logic                                 ; --! EP - SPI Master Output Slave Input (MSB first)
@@ -254,39 +254,39 @@ begin
          o_c3_sq1_adc_spi_sclk=> c3_sq1_adc_spi_sclk  , -- out    std_logic                                 ; --! SQUID1 ADC, col. 3 - SPI Serial Clock (CPOL = ‘0’, CPHA = ’0’)
          o_c3_sq1_adc_spi_cs_n=> c3_sq1_adc_spi_cs_n  , -- out    std_logic                                 ; --! SQUID1 ADC, col. 3 - SPI Chip Select ('0' = Active, '1' = Inactive)
 
-         o_c0_sq1_adc_pwdn	   => c0_sq1_adc_pwdn_byp  , -- out    std_logic                                 ; --! SQUID1 ADC, col. 0 – Power Down ('0' = Inactive, '1' = Active)
-         o_c1_sq1_adc_pwdn	   => c1_sq1_adc_pwdn_byp  , -- out    std_logic                                 ; --! SQUID1 ADC, col. 1 – Power Down ('0' = Inactive, '1' = Active)
-         o_c2_sq1_adc_pwdn	   => c2_sq1_adc_pwdn_byp  , -- out    std_logic                                 ; --! SQUID1 ADC, col. 2 – Power Down ('0' = Inactive, '1' = Active)
-         o_c3_sq1_adc_pwdn	   => c3_sq1_adc_pwdn_byp  , -- out    std_logic                                 ; --! SQUID1 ADC, col. 3 – Power Down ('0' = Inactive, '1' = Active)
+         o_c0_sq1_adc_pwdn    => c0_sq1_adc_pwdn_byp  , -- out    std_logic                                 ; --! SQUID1 ADC, col. 0 – Power Down ('0' = Inactive, '1' = Active)
+         o_c1_sq1_adc_pwdn    => c1_sq1_adc_pwdn_byp  , -- out    std_logic                                 ; --! SQUID1 ADC, col. 1 – Power Down ('0' = Inactive, '1' = Active)
+         o_c2_sq1_adc_pwdn    => c2_sq1_adc_pwdn_byp  , -- out    std_logic                                 ; --! SQUID1 ADC, col. 2 – Power Down ('0' = Inactive, '1' = Active)
+         o_c3_sq1_adc_pwdn    => c3_sq1_adc_pwdn_byp  , -- out    std_logic                                 ; --! SQUID1 ADC, col. 3 – Power Down ('0' = Inactive, '1' = Active)
 
          o_c0_sq1_dac_sleep   => c0_sq1_dac_sleep     , -- out    std_logic                                 ; --! SQUID1 DAC, col. 0 - Sleep ('0' = Inactive, '1' = Active)
          o_c1_sq1_dac_sleep   => c1_sq1_dac_sleep     , -- out    std_logic                                 ; --! SQUID1 DAC, col. 1 - Sleep ('0' = Inactive, '1' = Active)
          o_c2_sq1_dac_sleep   => c2_sq1_dac_sleep     , -- out    std_logic                                 ; --! SQUID1 DAC, col. 2 - Sleep ('0' = Inactive, '1' = Active)
          o_c3_sq1_dac_sleep   => c3_sq1_dac_sleep     , -- out    std_logic                                 ; --! SQUID1 DAC, col. 3 - Sleep ('0' = Inactive, '1' = Active)
 
-         o_c0_sq2_dac_data    => c0_sq2_dac_data      , -- out    std_logic                                 ; --!	SQUID2 DAC, col. 0 - Serial Data
-         o_c0_sq2_dac_sclk    => c0_sq2_dac_sclk      , -- out    std_logic                                 ; --!	SQUID2 DAC, col. 0 - Serial Clock
-         o_c0_sq2_dac_sync_n  => c0_sq2_dac_sync_n    , -- out    std_logic                                 ; --!	SQUID2 DAC, col. 0 - Frame Synchronization ('0' = Active, '1' = Inactive)
-         o_c0_sq2_dac_mux     => c0_sq2_dac_mux       , -- out    slv(c_SQ2_DAC_MUX_S-1 downto 0)           ; --!	SQUID2 DAC, col. 0 - Multiplexer
-         o_c0_sq2_dac_mx_en_n => c0_sq2_dac_mx_en_n   , -- out    std_logic                                 ; --!	SQUID2 DAC, col. 0 - Multiplexer Enable ('0' = Active, '1' = Inactive)
+         o_c0_sq2_dac_data    => c0_sq2_dac_data      , -- out    std_logic                                 ; --! SQUID2 DAC, col. 0 - Serial Data
+         o_c0_sq2_dac_sclk    => c0_sq2_dac_sclk      , -- out    std_logic                                 ; --! SQUID2 DAC, col. 0 - Serial Clock
+         o_c0_sq2_dac_sync_n  => c0_sq2_dac_sync_n    , -- out    std_logic                                 ; --! SQUID2 DAC, col. 0 - Frame Synchronization ('0' = Active, '1' = Inactive)
+         o_c0_sq2_dac_mux     => c0_sq2_dac_mux       , -- out    slv(c_SQ2_DAC_MUX_S-1 downto 0)           ; --! SQUID2 DAC, col. 0 - Multiplexer
+         o_c0_sq2_dac_mx_en_n => c0_sq2_dac_mx_en_n   , -- out    std_logic                                 ; --! SQUID2 DAC, col. 0 - Multiplexer Enable ('0' = Active, '1' = Inactive)
 
-         o_c1_sq2_dac_data    => c1_sq2_dac_data      , -- out    std_logic                                 ; --!	SQUID2 DAC, col. 1 - Serial Data
-         o_c1_sq2_dac_sclk    => c1_sq2_dac_sclk      , -- out    std_logic                                 ; --!	SQUID2 DAC, col. 1 - Serial Clock
-         o_c1_sq2_dac_sync_n  => c1_sq2_dac_sync_n    , -- out    std_logic                                 ; --!	SQUID2 DAC, col. 1 - Frame Synchronization ('0' = Active, '1' = Inactive)
-         o_c1_sq2_dac_mux     => c1_sq2_dac_mux       , -- out    slv(c_SQ2_DAC_MUX_S-1 downto 0)           ; --!	SQUID2 DAC, col. 1 - Multiplexer
-         o_c1_sq2_dac_mx_en_n => c1_sq2_dac_mx_en_n   , -- out    std_logic                                 ; --!	SQUID2 DAC, col. 1 - Multiplexer Enable ('0' = Active, '1' = Inactive)
+         o_c1_sq2_dac_data    => c1_sq2_dac_data      , -- out    std_logic                                 ; --! SQUID2 DAC, col. 1 - Serial Data
+         o_c1_sq2_dac_sclk    => c1_sq2_dac_sclk      , -- out    std_logic                                 ; --! SQUID2 DAC, col. 1 - Serial Clock
+         o_c1_sq2_dac_sync_n  => c1_sq2_dac_sync_n    , -- out    std_logic                                 ; --! SQUID2 DAC, col. 1 - Frame Synchronization ('0' = Active, '1' = Inactive)
+         o_c1_sq2_dac_mux     => c1_sq2_dac_mux       , -- out    slv(c_SQ2_DAC_MUX_S-1 downto 0)           ; --! SQUID2 DAC, col. 1 - Multiplexer
+         o_c1_sq2_dac_mx_en_n => c1_sq2_dac_mx_en_n   , -- out    std_logic                                 ; --! SQUID2 DAC, col. 1 - Multiplexer Enable ('0' = Active, '1' = Inactive)
 
-         o_c2_sq2_dac_data    => c2_sq2_dac_data      , -- out    std_logic                                 ; --!	SQUID2 DAC, col. 2 - Serial Data
-         o_c2_sq2_dac_sclk    => c2_sq2_dac_sclk      , -- out    std_logic                                 ; --!	SQUID2 DAC, col. 2 - Serial Clock
-         o_c2_sq2_dac_sync_n  => c2_sq2_dac_sync_n    , -- out    std_logic                                 ; --!	SQUID2 DAC, col. 2 - Frame Synchronization ('0' = Active, '1' = Inactive)
-         o_c2_sq2_dac_mux     => c2_sq2_dac_mux       , -- out    slv(c_SQ2_DAC_MUX_S-1 downto 0)           ; --!	SQUID2 DAC, col. 2 - Multiplexer
-         o_c2_sq2_dac_mx_en_n => c2_sq2_dac_mx_en_n   , -- out    std_logic                                 ; --!	SQUID2 DAC, col. 2 - Multiplexer Enable ('0' = Active, '1' = Inactive)
+         o_c2_sq2_dac_data    => c2_sq2_dac_data      , -- out    std_logic                                 ; --! SQUID2 DAC, col. 2 - Serial Data
+         o_c2_sq2_dac_sclk    => c2_sq2_dac_sclk      , -- out    std_logic                                 ; --! SQUID2 DAC, col. 2 - Serial Clock
+         o_c2_sq2_dac_sync_n  => c2_sq2_dac_sync_n    , -- out    std_logic                                 ; --! SQUID2 DAC, col. 2 - Frame Synchronization ('0' = Active, '1' = Inactive)
+         o_c2_sq2_dac_mux     => c2_sq2_dac_mux       , -- out    slv(c_SQ2_DAC_MUX_S-1 downto 0)           ; --! SQUID2 DAC, col. 2 - Multiplexer
+         o_c2_sq2_dac_mx_en_n => c2_sq2_dac_mx_en_n   , -- out    std_logic                                 ; --! SQUID2 DAC, col. 2 - Multiplexer Enable ('0' = Active, '1' = Inactive)
 
-         o_c3_sq2_dac_data    => c3_sq2_dac_data      , -- out    std_logic                                 ; --!	SQUID2 DAC, col. 3 - Serial Data
-         o_c3_sq2_dac_sclk    => c3_sq2_dac_sclk      , -- out    std_logic                                 ; --!	SQUID2 DAC, col. 3 - Serial Clock
-         o_c3_sq2_dac_sync_n  => c3_sq2_dac_sync_n    , -- out    std_logic                                 ; --!	SQUID2 DAC, col. 3 - Frame Synchronization ('0' = Active, '1' = Inactive)
-         o_c3_sq2_dac_mux     => c3_sq2_dac_mux       , -- out    slv(c_SQ2_DAC_MUX_S-1 downto 0)           ; --!	SQUID2 DAC, col. 3 - Multiplexer
-         o_c3_sq2_dac_mx_en_n => c3_sq2_dac_mx_en_n     -- out    std_logic                                   --!	SQUID2 DAC, col. 3 - Multiplexer Enable ('0' = Active, '1' = Inactive)
+         o_c3_sq2_dac_data    => c3_sq2_dac_data      , -- out    std_logic                                 ; --! SQUID2 DAC, col. 3 - Serial Data
+         o_c3_sq2_dac_sclk    => c3_sq2_dac_sclk      , -- out    std_logic                                 ; --! SQUID2 DAC, col. 3 - Serial Clock
+         o_c3_sq2_dac_sync_n  => c3_sq2_dac_sync_n    , -- out    std_logic                                 ; --! SQUID2 DAC, col. 3 - Frame Synchronization ('0' = Active, '1' = Inactive)
+         o_c3_sq2_dac_mux     => c3_sq2_dac_mux       , -- out    slv(c_SQ2_DAC_MUX_S-1 downto 0)           ; --! SQUID2 DAC, col. 3 - Multiplexer
+         o_c3_sq2_dac_mx_en_n => c3_sq2_dac_mx_en_n     -- out    std_logic                                   --! SQUID2 DAC, col. 3 - Multiplexer Enable ('0' = Active, '1' = Inactive)
 
    );
 
@@ -374,10 +374,10 @@ begin
          i_clk_science_23     => clk_science_23       , -- in     std_logic                                 ; --! Science Data - Clock channel 2/3
 
          i_rst                => d_rst                , -- in     std_logic                                 ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
-         i_c0_sq1_adc_pwdn	   => c0_sq1_adc_pwdn_byp  , -- in     std_logic                                 ; --! SQUID1 ADC, col. 0 – Power Down ('0' = Inactive, '1' = Active)
-         i_c1_sq1_adc_pwdn	   => c1_sq1_adc_pwdn_byp  , -- in     std_logic                                 ; --! SQUID1 ADC, col. 1 – Power Down ('0' = Inactive, '1' = Active)
-         i_c2_sq1_adc_pwdn	   => c2_sq1_adc_pwdn_byp  , -- in     std_logic                                 ; --! SQUID1 ADC, col. 2 – Power Down ('0' = Inactive, '1' = Active)
-         i_c3_sq1_adc_pwdn	   => c3_sq1_adc_pwdn_byp  , -- in     std_logic                                 ; --! SQUID1 ADC, col. 3 – Power Down ('0' = Inactive, '1' = Active)
+         i_c0_sq1_adc_pwdn    => c0_sq1_adc_pwdn_byp  , -- in     std_logic                                 ; --! SQUID1 ADC, col. 0 – Power Down ('0' = Inactive, '1' = Active)
+         i_c1_sq1_adc_pwdn    => c1_sq1_adc_pwdn_byp  , -- in     std_logic                                 ; --! SQUID1 ADC, col. 1 – Power Down ('0' = Inactive, '1' = Active)
+         i_c2_sq1_adc_pwdn    => c2_sq1_adc_pwdn_byp  , -- in     std_logic                                 ; --! SQUID1 ADC, col. 2 – Power Down ('0' = Inactive, '1' = Active)
+         i_c3_sq1_adc_pwdn    => c3_sq1_adc_pwdn_byp  , -- in     std_logic                                 ; --! SQUID1 ADC, col. 3 – Power Down ('0' = Inactive, '1' = Active)
          i_c0_sq1_dac_sleep   => c0_sq1_dac_sleep     , -- in     std_logic                                 ; --! SQUID1 DAC, col. 0 - Sleep ('0' = Inactive, '1' = Active)
          i_c1_sq1_dac_sleep   => c1_sq1_dac_sleep     , -- in     std_logic                                 ; --! SQUID1 DAC, col. 1 - Sleep ('0' = Inactive, '1' = Active)
          i_c2_sq1_dac_sleep   => c2_sq1_dac_sleep     , -- in     std_logic                                 ; --! SQUID1 DAC, col. 2 - Sleep ('0' = Inactive, '1' = Active)
@@ -422,10 +422,10 @@ begin
 
          i_err_chk_rpt        => err_chk_rpt          , -- in     t_err_n_clk_chk_arr(0 to c_CE_S-1)        ; --! Clock check error reports
 
-         i_c0_sq1_adc_pwdn	   => c0_sq1_adc_pwdn      , -- in     std_logic                                 ; --! SQUID1 ADC, col. 0 – Power Down ('0' = Inactive, '1' = Active)
-         i_c1_sq1_adc_pwdn	   => c1_sq1_adc_pwdn      , -- in     std_logic                                 ; --! SQUID1 ADC, col. 1 – Power Down ('0' = Inactive, '1' = Active)
-         i_c2_sq1_adc_pwdn	   => c2_sq1_adc_pwdn      , -- in     std_logic                                 ; --! SQUID1 ADC, col. 2 – Power Down ('0' = Inactive, '1' = Active)
-         i_c3_sq1_adc_pwdn	   => c3_sq1_adc_pwdn      , -- in     std_logic                                 ; --! SQUID1 ADC, col. 3 – Power Down ('0' = Inactive, '1' = Active)
+         i_c0_sq1_adc_pwdn    => c0_sq1_adc_pwdn      , -- in     std_logic                                 ; --! SQUID1 ADC, col. 0 – Power Down ('0' = Inactive, '1' = Active)
+         i_c1_sq1_adc_pwdn    => c1_sq1_adc_pwdn      , -- in     std_logic                                 ; --! SQUID1 ADC, col. 1 – Power Down ('0' = Inactive, '1' = Active)
+         i_c2_sq1_adc_pwdn    => c2_sq1_adc_pwdn      , -- in     std_logic                                 ; --! SQUID1 ADC, col. 2 – Power Down ('0' = Inactive, '1' = Active)
+         i_c3_sq1_adc_pwdn    => c3_sq1_adc_pwdn      , -- in     std_logic                                 ; --! SQUID1 ADC, col. 3 – Power Down ('0' = Inactive, '1' = Active)
 
          i_c0_sq1_dac_data    => c0_sq1_dac_data      , -- in     slv(c_SQ1_DAC_DATA_S-1 downto 0)          ; --! SQUID1 DAC, col. 0 - Data
          i_c1_sq1_dac_data    => c1_sq1_dac_data      , -- in     slv(c_SQ1_DAC_DATA_S-1 downto 0)          ; --! SQUID1 DAC, col. 1 - Data

@@ -73,10 +73,12 @@ constant c_CLK_ADC_DEL_STEP   : integer   := div_floor(15*10**5/(c_CLK_ADC_FREQ/
    -- ------------------------------------------------------------------------------------------------------
    --    Interface parameters
    --    @Req : DRE-DMX-FW-REQ-0340
+   --    @Req : DRE-DMX-FW-REQ-0530
    --    @Req : DRE-DMX-FW-REQ-0550
+   --    @Req : DRE-DMX-FW-REQ-0560
    -- ------------------------------------------------------------------------------------------------------
-constant c_BRD_REF_S          : integer   := 5                                                              ; --! Board reference
-constant c_BRD_MODEL_S        : integer   := 2                                                              ; --! Board model
+constant c_BRD_REF_S          : integer   := 5                                                              ; --! Board reference size bus
+constant c_BRD_MODEL_S        : integer   := 2                                                              ; --! Board model size bus
 
 constant c_SQ1_ADC_DATA_S     : integer   := 14                                                             ; --! SQUID1 ADC data size bus
 constant c_SQ1_DAC_DATA_S     : integer   := 14                                                             ; --! SQUID1 DAC data size bus

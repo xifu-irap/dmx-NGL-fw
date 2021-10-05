@@ -349,14 +349,33 @@ package body pkg_mess is
          i_mess_header        : in     string                                                               ; --  Message header
          o_field              : out    time                                                                   --  Field found
    ) is
+   variable v_field           : line                                                                        ; --! First  field found
+   variable v_field2          : line                                                                        ; --! Second field found
+   variable v_field_s         : integer                                                                     ; --! Field size
    variable v_field_status    : boolean                                                                     ; --! Field status
    begin
 
-      -- Get field
-      read(b_line, o_field, v_field_status);
+      -- Get first field
+      get_field_line(b_line, ' ', v_field, v_field_s);
 
-      -- Check the field format
-      assert v_field_status = true report i_mess_header & c_MESS_FORMAT_TIME & c_MESS_ERR_FORMAT severity failure;
+      -- Check if field corresponds to 'now'
+      if v_field_s = 3 and v_field(1 to 3) = "now" then
+         o_field := now;
+
+      else
+
+         -- Otherwise get second field
+         get_field_line(b_line, ' ', v_field2, v_field_s);
+
+         -- Convert fields in time format
+         write(v_field, ' ');
+         write(v_field, v_field2.all);
+         read(v_field, o_field, v_field_status);
+
+         -- Check the field format
+         assert v_field_status = true report i_mess_header & c_MESS_FORMAT_TIME & c_MESS_ERR_FORMAT severity failure;
+
+      end if;
 
    end rfield;
 
