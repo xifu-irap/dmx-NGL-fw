@@ -53,6 +53,8 @@ entity register_mgt is port
          o_ep_cmd_tx_wd_rd_rg : out    std_logic_vector(c_EP_SPI_WD_S-1 downto 0)                           ; --! EP command to transmit: read register word
 
          o_tm_mode            : out    t_rg_tm_mode(0 to c_NB_COL-1)                                        ; --! Telemetry mode
+         o_tm_mode_dmp_cmp    : out    std_logic_vector(c_NB_COL-1 downto 0)                                ; --! Telemetry mode, status "Dump" compared ('0' = Inactive, '1' = Active)
+
          o_sq1_fb_mode        : out    t_rg_sq1fbmd(0 to c_NB_COL-1)                                        ; --! Squid 1 Feedback mode
          o_sq2_fb_mode        : out    t_rg_sq2fbmd(0 to c_NB_COL-1)                                          --! Squid 2 Feedback mode
 
@@ -73,6 +75,7 @@ begin
 
    -- ------------------------------------------------------------------------------------------------------
    --!   EP command: Register writing management
+   --    @Req : DRE-DMX-FW-REQ-0500
    -- ------------------------------------------------------------------------------------------------------
    P_ep_cmd_wr_rg : process (i_rst, i_clk)
    begin
@@ -104,6 +107,7 @@ begin
 
    -- ------------------------------------------------------------------------------------------------------
    --!   EP command: Register to transmit management
+   --    @Req : DRE-DMX-FW-REQ-0510
    -- ------------------------------------------------------------------------------------------------------
    P_ep_cmd_tx_wd_rd_rg : process (i_rst, i_clk)
    begin
@@ -144,6 +148,7 @@ begin
 
    -- ------------------------------------------------------------------------------------------------------
    --!   EP command: TM_MODE Register writing management
+   --    @Req : DRE-DMX-FW-REQ-0580
    --    @Req : REG_TM_MODE
    -- ------------------------------------------------------------------------------------------------------
    I_rg_tm_mode_mgt: entity work.rg_tm_mode_mgt port map
@@ -156,6 +161,7 @@ begin
          i_ep_cmd_rx_nerr_rdy => i_ep_cmd_rx_nerr_rdy , -- in     std_logic                                 ; --! EP command receipted with no error ready ('0'= Not ready, '1'= Ready)
          o_tm_mode_dur        => tm_mode_dur          , -- out    slv(c_DFLD_TM_MODE_DUR_S-1 downto 0)      ; --! Telemetry mode, duration field
          o_tm_mode            => tm_mode              , -- out    t_rg_tm_mode(0 to c_NB_COL-1)             ; --! Telemetry mode
+         o_tm_mode_dmp_cmp    => o_tm_mode_dmp_cmp    , -- out    std_logic_vector(c_NB_COL-1 downto 0)     ; --! Telemetry mode, status "Dump" compared ('0' = Inactive, '1' = Active)
          o_tm_mode_st_dump    => tm_mode_st_dump        -- out    std_logic                                   --! Telemetry mode, status "Dump" ('0' = Inactive, '1' = Active)
    );
 
@@ -176,6 +182,8 @@ begin
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Outputs association
+   --    @Req : DRE-DMX-FW-REQ-0210
+   --    @Req : DRE-DMX-FW-REQ-0330
    -- ------------------------------------------------------------------------------------------------------
    G_sqx_fb_mode: for k in 0 to c_NB_COL-1 generate
    begin

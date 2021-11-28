@@ -46,8 +46,8 @@ entity dmx_cmd is port
          o_sync_re            : out    std_logic                                                            ; --! Pixel sequence synchronization, rising edge
 
          o_tm_mode_sync       : out    std_logic                                                            ; --! Telemetry mode synchronization
-         o_cmd_ck_sq1_adc     : out    std_logic_vector(c_NB_COL-1 downto 0)                                ; --! SQUID1 ADC Clocks switch commands, synchronized on SQUID1 ADC Clock
-         o_cmd_ck_sq1_dac     : out    std_logic_vector(c_NB_COL-1 downto 0)                                  --! SQUID1 DAC Clocks switch commands, synchronized on pulse shaping Clock
+         o_cmd_ck_sq1_adc     : out    std_logic_vector(c_NB_COL-1 downto 0)                                ; --! SQUID1 ADC Clocks switch commands
+         o_cmd_ck_sq1_dac     : out    std_logic_vector(c_NB_COL-1 downto 0)                                  --! SQUID1 DAC Clocks switch commands
    );
 end entity dmx_cmd;
 

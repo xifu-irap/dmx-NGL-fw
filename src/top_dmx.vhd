@@ -137,9 +137,6 @@ entity top_dmx is port
 end entity top_dmx;
 
 architecture RTL of top_dmx is
-type     t_sq1_dac_data_v      is array (natural range <>) of std_logic_vector(c_SQ1_DAC_DATA_S-1  downto 0); --! SQUID1 DAC data vector type
-type     t_sq2_dac_mux_v       is array (natural range <>) of std_logic_vector(c_SQ2_DAC_MUX_S -1  downto 0); --! SQUID2 DAC multiplexer vector type
-
 signal   ck_rdy               : std_logic                                                                   ; --! Clocks ready ('0' = Not ready, '1' = Ready)
 signal   rst                  : std_logic                                                                   ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
 signal   sync_re              : std_logic                                                                   ; --! Pixel sequence synchronization, rising edge
@@ -154,7 +151,6 @@ signal   brd_ref_rs           : std_logic_vector(  c_BRD_REF_S-1 downto 0)      
 signal   brd_model_rs         : std_logic_vector(c_BRD_MODEL_S-1 downto 0)                                  ; --! Board model, synchronized on System Clock
 signal   sync_rs              : std_logic                                                                   ; --! Pixel sequence synchronization, synchronized on System Clock
 signal   hk1_spi_miso_rs      : std_logic                                                                   ; --! HouseKeeping 1 - SPI Master Input Slave Output, synchronized on System Clock
-signal   hk2_spi_miso_rs      : std_logic                                                                   ; --! HouseKeeping 2 - SPI Master Input Slave Output, synchronized on System Clock
 signal   ep_spi_mosi_rs       : std_logic                                                                   ; --! EP - SPI Master Input Slave Output (MSB first), synchronized on System Clock
 signal   ep_spi_sclk_rs       : std_logic                                                                   ; --! EP - SPI Serial Clock (CPOL = ‘0’, CPHA = ’0’), synchronized on System Clock
 signal   ep_spi_cs_n_rs       : std_logic                                                                   ; --! EP - SPI Chip Select ('0' = Active, '1' = Inactive), synchronized on System Clock
@@ -167,7 +163,14 @@ signal   sq1_dac_sleep        : std_logic_vector(c_NB_COL-1 downto 0)           
 signal   sq1_adc_data         : t_sq1_adc_data_v(0 to c_NB_COL-1)                                           ; --! SQUID1 ADC - Data, no rsync
 signal   sq1_adc_oor          : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! SQUID1 ADC - Out of range, no rsync (‘0’= No, ‘1’= under/over range)
 
+signal   sq1_mem_dump_add     : std_logic_vector( c_MEM_DUMP_ADD_S-1 downto 0)                              ; --! SQUID1 Memory Dump: address
+signal   sq1_mem_dump_cs      : std_logic                                                                   ; --! SQUID1 Memory Dump: chip select ('0' = Inactive, '1' = Active)
+signal   sq1_mem_dump_data    : t_sq1_mem_dump_dta_v(0 to c_NB_COL-1)                                       ; --! SQUID1 Memory Dump: data
+signal   sq1_mem_dump_bsy     : std_logic_vector(         c_NB_COL-1 downto 0)                              ; --! SQUID1 Memory Dump: data busy ('0' = no data dump, '1' = data dump in progress)
+
 signal   sq1_data_err         : t_sq1_data_err_v(0 to c_NB_COL-1)                                           ; --! SQUID1 Data error
+signal   sq1_data_sc_msb      : t_sc_data_w(     0 to c_NB_COL-1)                                           ; --! SQUID1 Data science MSB
+signal   sq1_data_sc_lsb      : t_sc_data_w(     0 to c_NB_COL-1)                                           ; --! SQUID1 Data science LSB
 signal   sq1_data_fbk         : t_sq1_data_fbk_v(0 to c_NB_COL-1)                                           ; --! SQUID1 Data feedback
 
 signal   sq1_dac_data         : t_sq1_dac_data_v(0 to c_NB_COL-1)                                           ; --! SQUID1 DAC - Data
@@ -183,8 +186,6 @@ signal   sq2_dac_sync_n       : std_logic_vector(c_NB_COL-1 downto 0)           
 
 signal   clk_science          : std_logic                                                                   ; --! Science Data - Clock channel
 signal   science_ctrl         : std_logic                                                                   ; --! Science Data – Control channel
-signal   science_data_tx_ena  : std_logic                                                                   ; --! Science Data transmit enable
-signal   science_data         : t_sc_data_w(0 to c_NB_COL*c_SC_DATA_SER_NB)                                 ; --! Science Data word
 signal   science_data_ser     : std_logic_vector(c_NB_COL*c_SC_DATA_SER_NB downto 0)                        ; --! Science Data – Serial Data
 
 signal   ep_cmd_sts_err_nin   : std_logic                                                                   ; --! EP command: Status, error parameter to read not initialized yet
@@ -201,6 +202,8 @@ signal   ep_cmd_tx_wd_rd_rg   : std_logic_vector(c_EP_SPI_WD_S-1 downto 0)      
 signal   tm_mode_sync         : std_logic                                                                   ; --! Telemetry mode synchronization
 
 signal   tm_mode              : t_rg_tm_mode(0 to c_NB_COL-1)                                               ; --! Telemetry mode
+signal   tm_mode_dmp_cmp      : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! Telemetry mode, status "Dump" compared ('0' = Inactive, '1' = Active)
+
 signal   sq1_fb_mode          : t_rg_sq1fbmd(0 to c_NB_COL-1)                                               ; --! Squid 1 Feedback mode
 signal   sq2_fb_mode          : t_rg_sq2fbmd(0 to c_NB_COL-1)                                               ; --! Squid 2 Feedback mode
 
@@ -259,15 +262,22 @@ begin
    );
 
    -- ------------------------------------------------------------------------------------------------------
-   --!   Science Data Transmit
-   --    @Req : DRE-DMX-FW-REQ-0590
+   --!   Science Data Management
    -- ------------------------------------------------------------------------------------------------------
-   I_science_data_tx: entity work.science_data_tx port map
+   I_science_data_mgt: entity work.science_data_mgt port map
    (     i_rst                => rst                  , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                => clk                  , -- in     std_logic                                 ; --! System Clock
 
-         i_science_data_tx_ena=> science_data_tx_ena  , -- in     std_logic                                 ; --! Science Data transmit enable
-         i_science_data       => science_data         , -- in     t_sc_data_w c_NB_COL*c_SC_DATA_SER_NB     ; --! Science Data word
+         i_tm_mode            => tm_mode              , -- in     t_rg_tm_mode(        0 to c_NB_COL-1)     ; --! Telemetry mode
+
+         i_sq1_data_sc_msb    => sq1_data_sc_msb      , -- in     t_sc_data_w(         0 to c_NB_COL-1)     ; --! SQUID1 Data science MSB
+         i_sq1_data_sc_lsb    => sq1_data_sc_lsb      , -- in     t_sc_data_w(         0 to c_NB_COL-1)     ; --! SQUID1 Data science LSB
+
+         i_sq1_mem_dump_bsy   => sq1_mem_dump_bsy     , -- in     slv(        c_NB_COL-1 downto 0)          ; --! SQUID1 Memory Dump: data busy ('0' = no data dump, '1' = data dump in progress)
+         o_sq1_mem_dump_add   => sq1_mem_dump_add     , -- out    slv(c_MEM_DUMP_ADD_S-1 downto 0)          ; --! SQUID1 Memory Dump: address
+         o_sq1_mem_dump_cs    => sq1_mem_dump_cs      , -- out    slv(        c_NB_COL-1 downto 0)          ; --! SQUID1 Memory Dump: chip select ('0' = Inactive, '1' = Active)
+         i_sq1_mem_dump_data  => sq1_mem_dump_data    , -- in     t_sq1_mem_dump_dta_v(0 to c_NB_COL-1)     ; --! SQUID1 Memory Dump: data
+
          o_science_data_ser   => science_data_ser       -- out    slv         c_NB_COL*c_SC_DATA_SER_NB       --! Science Data – Serial Data
    );
 
@@ -295,6 +305,8 @@ begin
          o_ep_cmd_tx_wd_rd_rg => ep_cmd_tx_wd_rd_rg   , -- out    std_logic_vector(c_EP_SPI_WD_S-1 downto 0); --! EP command to transmit: read register word
 
          o_tm_mode            => tm_mode              , -- out    t_rg_tm_mode(0 to c_NB_COL-1)             ; --! Telemetry mode
+         o_tm_mode_dmp_cmp    => tm_mode_dmp_cmp      , -- out    std_logic_vector(c_NB_COL-1 downto 0)     ; --! Telemetry mode, status "Dump" compared ('0' = Inactive, '1' = Active)
+
          o_sq1_fb_mode        => sq1_fb_mode          , -- out    t_rg_sq1fbmd(0 to c_NB_COL-1)             ; --! Squid 1 Feedback mode
          o_sq2_fb_mode        => sq2_fb_mode            -- out    t_rg_sq2fbmd(0 to c_NB_COL-1)               --! Squid 2 Feedback mode
    );
@@ -335,8 +347,8 @@ begin
          i_sq2_fb_mode        => sq2_fb_mode          , -- in     t_rg_sq2fbmd(0 to c_NB_COL-1)             ; --! Squid 2 Feedback mode
          o_sync_re            => sync_re              , -- out    std_logic                                 ; --! Pixel sequence synchronization, rising edge
          o_tm_mode_sync       => tm_mode_sync         , -- out    std_logic                                 ; --! Telemetry mode synchronization
-         o_cmd_ck_sq1_adc     => cmd_ck_sq1_adc       , -- out    std_logic_vector(c_NB_COL-1 downto 0)     ; --! SQUID1 ADC Clocks switch commands, synchronized on SQUID1 ADC Clock
-         o_cmd_ck_sq1_dac     => cmd_ck_sq1_dac         -- out    std_logic_vector(c_NB_COL-1 downto 0)       --! SQUID1 DAC Clocks switch commands, synchronized on pulse shaping Clock
+         o_cmd_ck_sq1_adc     => cmd_ck_sq1_adc       , -- out    std_logic_vector(c_NB_COL-1 downto 0)     ; --! SQUID1 ADC Clocks switch commands
+         o_cmd_ck_sq1_dac     => cmd_ck_sq1_dac         -- out    std_logic_vector(c_NB_COL-1 downto 0)       --! SQUID1 DAC Clocks switch commands
    );
 
    -- ------------------------------------------------------------------------------------------------------
@@ -370,8 +382,14 @@ begin
          i_clk                => clk                  , -- in     std_logic                                 ; --! System Clock
 
          i_sync_rs            => sync_rs              , -- in     std_logic                                 ; --! Pixel sequence synchronization, synchronized on System Clock
+         i_tm_mode_dmp_cmp    => tm_mode_dmp_cmp(k)   , -- out    std_logic                                 ; --! Telemetry mode, status "Dump" compared ('0' = Inactive, '1' = Active)
          i_sq1_adc_data       => sq1_adc_data(k)      , -- in     slv(c_SQ1_ADC_DATA_S-1 downto 0)          ; --! SQUID1 ADC - Data, no rsync
          i_sq1_adc_oor        => sq1_adc_oor(k)       , -- in     std_logic                                 ; --! SQUID1 ADC - Out of range, no rsync (‘0’= No, ‘1’= under/over range)
+
+         i_sq1_mem_dump_add   => sq1_mem_dump_add     , -- in     slv(c_MEM_DUMP_ADD_S-1 downto 0)          ; --! SQUID1 Memory Dump: address
+         i_sq1_mem_dump_cs    => sq1_mem_dump_cs      , -- in     std_logic                                 ; --! SQUID1 Memory Dump: chip select ('0' = Inactive, '1' = Active)
+         o_sq1_mem_dump_data  => sq1_mem_dump_data(k) , -- out    slv(c_SQ1_ADC_DATA_S+1 downto 0)          ; --! SQUID1 Memory Dump: data
+         o_sq1_mem_dump_bsy   => sq1_mem_dump_bsy(k)  , -- out    std_logic                                 ; --! SQUID1 Memory Dump: data busy ('0' = no data dump, '1' = data dump in progress)
 
          o_sq1_data_err       => sq1_data_err(k)        -- out    slv(c_SQ1_DATA_ERR_S-1 downto 0)          ; --! SQUID1 Data error
       );
@@ -381,7 +399,10 @@ begin
          i_clk                => clk                  , -- in     std_logic                                 ; --! System Clock
 
          i_sq1_data_err       => sq1_data_err(k)      , -- in     slv(c_SQ1_DATA_ERR_S-1 downto 0)          ; --! SQUID1 Data error
-         o_sq1_data_fbk       => sq1_data_fbk(k)        -- out    slv(c_SQ1_DATA_FBK_S-1 downto 0)            --! SQUID1 Data feedback
+
+         o_sq1_data_sc_msb    => sq1_data_sc_msb(k)   , -- out    slv(c_SC_DATA_SER_W_S-1 downto 0)         ; --! SQUID1 Data science MSB
+         o_sq1_data_sc_lsb    => sq1_data_sc_lsb(k)   , -- out    slv(c_SC_DATA_SER_W_S-1 downto 0)         ; --! SQUID1 Data science LSB
+         o_sq1_data_fbk       => sq1_data_fbk(k)        -- out    slv( c_SQ1_DATA_FBK_S-1 downto 0)           --! SQUID1 Data feedback
       );
 
       I_squid1_dac_mgt: entity work.squid1_dac_mgt port map
@@ -517,17 +538,5 @@ begin
    o_c1_science_data    <= science_data_ser(2*c_SC_DATA_SER_NB-1 downto 1*c_SC_DATA_SER_NB);
    o_c2_science_data    <= science_data_ser(3*c_SC_DATA_SER_NB-1 downto 2*c_SC_DATA_SER_NB);
    o_c3_science_data    <= science_data_ser(4*c_SC_DATA_SER_NB-1 downto 3*c_SC_DATA_SER_NB);
-
-   -- TODO
-   science_data_tx_ena  <= '1';
-   science_data(0)      <= "10101010";
-   science_data(1)      <= "01010101";
-   science_data(2)      <= "01110010";
-   science_data(3)      <= "00011000";
-   science_data(4)      <= "10001101";
-   science_data(5)      <= "11100111";
-   science_data(6)      <= "11000001";
-   science_data(7)      <= "01001011";
-   science_data(8)      <= "11000000";
 
 end architecture rtl;

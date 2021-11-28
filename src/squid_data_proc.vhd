@@ -36,7 +36,10 @@ entity squid_data_proc is port
          i_clk                : in     std_logic                                                            ; --! Clock
 
          i_sq1_data_err       : in     std_logic_vector(c_SQ1_DATA_ERR_S-1 downto 0)                        ; --! SQUID1 Data error
-         o_sq1_data_fbk       : out    std_logic_vector(c_SQ1_DATA_FBK_S-1 downto 0)                          --! SQUID1 Data feedback
+
+         o_sq1_data_sc_msb    : out    std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0)                       ; --! SQUID1 Data science MSB
+         o_sq1_data_sc_lsb    : out    std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0)                       ; --! SQUID1 Data science LSB
+         o_sq1_data_fbk       : out    std_logic_vector( c_SQ1_DATA_FBK_S-1 downto 0)                         --! SQUID1 Data feedback
    );
 end entity squid_data_proc;
 
@@ -44,6 +47,9 @@ architecture RTL of squid_data_proc is
 begin
 
    -- TODO
+   o_sq1_data_sc_msb <= (others => '0');
+   o_sq1_data_sc_lsb <= (others => '0');
+
    P_todo : process (i_rst, i_clk)
    begin
 

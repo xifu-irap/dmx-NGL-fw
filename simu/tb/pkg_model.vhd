@@ -30,6 +30,7 @@ use     ieee.std_logic_1164.all;
 library work;
 use     work.pkg_func_math.all;
 use     work.pkg_project.all;
+use     work.pkg_ep_cmd.all;
 
 package pkg_model is
 
@@ -42,6 +43,7 @@ constant c_DIR_RES_FILE       : string  := c_DIR_ROOT & "simu/result/"          
 constant c_CMD_FILE_ROOT      : string  := "DRE_DMX_UT_"                                                    ; --! Command file root
 constant c_CMD_FILE_SFX       : string  := ""                                                               ; --! Command file suffix
 constant c_RES_FILE_SFX       : string  := "_res"                                                           ; --! Result file suffix
+constant c_SCD_FILE_SFX       : string  := "_scd"                                                           ; --! Science data result file suffix
 
 constant c_CMD_FILE_CMD_S     : integer := 4                                                                ; --! Command file: command size
 constant c_CMD_FILE_FLD_DATA_S: integer := 64                                                               ; --! Command file: field data size (multiple of 16)
@@ -127,9 +129,12 @@ constant c_SYNC_PER_DEF       : time    := c_MUX_FACT * c_PIXEL_ADC_NB_CYC * c_C
 constant c_SYNC_SHIFT_DEF     : time    :=  1 * c_CLK_REF_PER_DEF                                           ; --! Pixel sequence synchronization shift default value
 
 constant c_EP_CLK_PER_DEF     : time    := 20000 ps                                                         ; --! EP - System clock period default value
-constant c_EP_CLK_PER_SHFT_DEF: time    := 3 ns                                                             ; --! EP - Clock period shift
-constant c_EP_SCLK_L_DEF      : integer := 3                                                                ; --! EP - Number of clock period for elaborating SPI Serial Clock low  level
-constant c_EP_SCLK_H_DEF      : integer := 1                                                                ; --! EP - Number of clock period for elaborating SPI Serial Clock high level
+constant c_EP_CLK_PER_SHFT_DEF: time    := 3 ns                                                             ; --! EP - Clock period shift default value
+constant c_EP_SCLK_L_DEF      : integer := 3                                                                ; --! EP - Number of clock period for elaborating SPI Serial Clock low  level default value
+constant c_EP_SCLK_H_DEF      : integer := 1                                                                ; --! EP - Number of clock period for elaborating SPI Serial Clock high level default value
+
+constant c_CLK_ADC_PER_DEF    : time    := c_CLK_REF_PER_DEF / c_CLK_ADC_MULT                               ; --! SQUID1 ADC - Clock period default value
+constant c_TIM_ADC_TPD_DEF    : time    :=  3900 ps                                                         ; --! SQUID1 ADC - Time, Data Propagation Delay default value
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Model constants
@@ -151,6 +156,8 @@ constant c_CLK_CX_DAC_ST      : std_logic := '1'                                
 constant c_CLK_SC_ST          : std_logic := '0'                                                            ; --! Science Data Clock state value when the enable signal goes to active
 
 constant c_SYNC_HIGH          : time    :=      10 * c_CLK_REF_PER_DEF                                      ; --! Pixel sequence synchronization high level time
+
+constant c_SQ1_ADC_VREF       : real    := 1.0                                                              ; --! SQUID1 ADC - Voltage reference (Volt)
 
    -- ------------------------------------------------------------------------------------------------------
    --    Model types
@@ -178,6 +185,8 @@ type     t_clk_chk_prm_arr      is array (natural range <>) of t_clk_chk_prm    
 
    -- ------------------------------------------------------------------------------------------------------
    --    Clock Check parameters project
+   --      TODO: Bug on cX_clk_sq1_dac (1 glitch detected as soon as clk_sq1_dac activated)
+   --            Bypass by no Check oscillation on clock when enable inactive
    -- ------------------------------------------------------------------------------------------------------
 constant c_CCHK               : t_clk_chk_prm_arr(0 to c_CE_S-1) :=
                                 (("clk              " , c_CLK_HPER,     c_CLK_HPER,     c_CLK_ST,        c_CHK_OSC_DIS),
@@ -187,10 +196,10 @@ constant c_CCHK               : t_clk_chk_prm_arr(0 to c_CE_S-1) :=
                                  ("c1_clk_sq1_adc   " , c_CLK_ADC_HPER, c_CLK_ADC_HPER, c_CLK_CX_ADC_ST, c_CHK_OSC_ENA),
                                  ("c2_clk_sq1_adc   " , c_CLK_ADC_HPER, c_CLK_ADC_HPER, c_CLK_CX_ADC_ST, c_CHK_OSC_ENA),
                                  ("c3_clk_sq1_adc   " , c_CLK_ADC_HPER, c_CLK_ADC_HPER, c_CLK_CX_ADC_ST, c_CHK_OSC_ENA),
-                                 ("c0_clk_sq1_dac   " , c_CLK_DAC_HPER, c_CLK_DAC_HPER, c_CLK_CX_DAC_ST, c_CHK_OSC_ENA),
-                                 ("c1_clk_sq1_dac   " , c_CLK_DAC_HPER, c_CLK_DAC_HPER, c_CLK_CX_DAC_ST, c_CHK_OSC_ENA),
-                                 ("c2_clk_sq1_dac   " , c_CLK_DAC_HPER, c_CLK_DAC_HPER, c_CLK_CX_DAC_ST, c_CHK_OSC_ENA),
-                                 ("c3_clk_sq1_dac   " , c_CLK_DAC_HPER, c_CLK_DAC_HPER, c_CLK_CX_DAC_ST, c_CHK_OSC_ENA),
+                                 ("c0_clk_sq1_dac   " , c_CLK_DAC_HPER, c_CLK_DAC_HPER, c_CLK_CX_DAC_ST, c_CHK_OSC_DIS),
+                                 ("c1_clk_sq1_dac   " , c_CLK_DAC_HPER, c_CLK_DAC_HPER, c_CLK_CX_DAC_ST, c_CHK_OSC_DIS),
+                                 ("c2_clk_sq1_dac   " , c_CLK_DAC_HPER, c_CLK_DAC_HPER, c_CLK_CX_DAC_ST, c_CHK_OSC_DIS),
+                                 ("c3_clk_sq1_dac   " , c_CLK_DAC_HPER, c_CLK_DAC_HPER, c_CLK_CX_DAC_ST, c_CHK_OSC_DIS),
                                  ("clk_science_01   " , c_CLK_SC_HPER,  c_CLK_SC_HPER,  c_CLK_SC_ST,     c_CHK_OSC_DIS),
                                  ("clk_science_23   " , c_CLK_SC_HPER,  c_CLK_SC_HPER,  c_CLK_SC_ST,     c_CHK_OSC_DIS));
 
@@ -228,6 +237,33 @@ constant c_CCHK               : t_clk_chk_prm_arr(0 to c_CE_S-1) :=
    );
    end component;
 
+   component squid_model is generic
+   (     g_NB_COL             : integer                                                                     ; --! Column number
+         g_CLK_ADC_PER        : time  := c_CLK_ADC_PER_DEF                                                  ; --! SQUID1 ADC - Clock period
+         g_TIM_ADC_TPD        : time  := c_TIM_ADC_TPD_DEF                                                    --! SQUID1 ADC - Time, Data Propagation Delay
+   ); port
+   (     i_sync               : in     std_logic                                                            ; --! Pixel sequence synchronization (R.E. detected = position sequence to the first pixel)
+         i_clk_sq1_adc        : in     std_logic                                                            ; --! SQUID1 ADC - Clock
+         i_sq1_adc_pwdn       : in     std_logic                                                            ; --! SQUID1 ADC – Power Down ('0' = Inactive, '1' = Active)
+         b_sq1_adc_spi_sdio   : inout  std_logic                                                            ; --! SQUID1 ADC - SPI Serial Data In Out
+         i_sq1_adc_spi_sclk   : in     std_logic                                                            ; --! SQUID1 ADC - SPI Serial Clock (CPOL = ‘0’, CPHA = ’0’)
+         i_sq1_adc_spi_cs_n   : in     std_logic                                                            ; --! SQUID1 ADC - SPI Chip Select ('0' = Active, '1' = Inactive)
+
+         o_sq1_adc_data       : out    std_logic_vector(c_SQ1_ADC_DATA_S-1 downto 0)                        ; --! SQUID1 ADC - Data
+         o_sq1_adc_oor        : out    std_logic                                                            ; --! SQUID1 ADC - Out of range (‘0’ = No, ‘1’ = under/over range)
+
+         i_clk_sq1_dac        : in     std_logic                                                            ; --! SQUID1 DAC - Clock
+         i_sq1_dac_data       : in     std_logic_vector(c_SQ1_DAC_DATA_S-1 downto 0)                        ; --! SQUID1 DAC - Data
+         i_sq1_dac_sleep      : in     std_logic                                                            ; --! SQUID1 DAC - Sleep ('0' = Inactive, '1' = Active)
+
+         i_sq2_dac_data       : in     std_logic                                                            ; --! SQUID2 DAC - Serial Data
+         i_sq2_dac_sclk       : in     std_logic                                                            ; --! SQUID2 DAC - Serial Clock
+         i_sq2_dac_sync_n     : in     std_logic                                                            ; --! SQUID2 DAC - Frame Synchronization ('0' = Active, '1' = Inactive)
+         i_sq2_dac_mux        : in     std_logic_vector( c_SQ2_DAC_MUX_S-1 downto 0)                        ; --! SQUID2 DAC - Multiplexer
+         i_sq2_dac_mx_en_n    : in     std_logic                                                              --! SQUID2 DAC - Multiplexer Enable ('0' = Active, '1' = Inactive)
+   );
+   end component;
+
    component parser is generic
    (     g_SIM_TIME           : time    := c_SIM_TIME_DEF                                                   ; --! Simulation time
          g_TST_NUM            : string  := c_TST_NUM_DEF                                                      --! Test number
@@ -262,6 +298,9 @@ constant c_CCHK               : t_clk_chk_prm_arr(0 to c_CE_S-1) :=
          i_d_clk_sq1_adc_acq  : in     std_logic                                                            ; --! Internal design: SQUID1 ADC acquisition Clock
          i_d_clk_sq1_pls_shap : in     std_logic                                                            ; --! Internal design: SQUID1 pulse shaping Clock
 
+         i_sc_pkt_type        : in     std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0)                       ; --! Science packet type
+         i_sc_pkt_err         : in     std_logic                                                            ; --! Science packet error ('0' = No error, '1' = Error)
+
          i_ep_data_rx         : in     std_logic_vector(c_EP_CMD_S-1 downto 0)                              ; --! EP - Receipted data
          i_ep_data_rx_rdy     : in     std_logic                                                            ; --! EP - Receipted data ready ('0' = Not ready, '1' = Ready)
          o_ep_cmd             : out    std_logic_vector(c_EP_CMD_S-1 downto 0)                              ; --! EP - Command to send
@@ -271,6 +310,32 @@ constant c_CCHK               : t_clk_chk_prm_arr(0 to c_CE_S-1) :=
 
          o_brd_ref            : out    std_logic_vector(  c_BRD_REF_S-1 downto 0)                           ; --! Board reference
          o_brd_model          : out    std_logic_vector(c_BRD_MODEL_S-1 downto 0)                             --! Board model
+   );
+   end component;
+
+   component science_data_model is generic
+   (     g_SIM_TIME           : time    := c_SIM_TIME_DEF                                                   ; --! Simulation time
+         g_TST_NUM            : string  := c_TST_NUM_DEF                                                      --! Test number
+   ); port
+   (     i_arst_n             : in     std_logic                                                            ; --! Asynchronous reset ('0' = Active, '1' = Inactive)
+         i_clk_sq1_adc_acq    : in     std_logic                                                            ; --! SQUID1 ADC acquisition Clock
+         i_clk_science        : in     std_logic                                                            ; --! Science Clock
+
+         i_science_ctrl_01    : in     std_logic                                                            ; --! Science Data – Control channel 0/1
+         i_science_ctrl_23    : in     std_logic                                                            ; --! Science Data – Control channel 2/3
+         i_c0_science_data    : in     std_logic_vector(c_SC_DATA_SER_NB-1 downto 0)                        ; --! Science Data, col. 0 – Serial Data
+         i_c1_science_data    : in     std_logic_vector(c_SC_DATA_SER_NB-1 downto 0)                        ; --! Science Data, col. 1 – Serial Data
+         i_c2_science_data    : in     std_logic_vector(c_SC_DATA_SER_NB-1 downto 0)                        ; --! Science Data, col. 2 – Serial Data
+         i_c3_science_data    : in     std_logic_vector(c_SC_DATA_SER_NB-1 downto 0)                        ; --! Science Data, col. 3 – Serial Data
+
+         i_sync               : in     std_logic                                                            ; --! Pixel sequence synchronization (R.E. detected = position sequence to the first pixel)
+         i_tm_mode            : in     t_rg_tm_mode(0 to c_NB_COL-1)                                        ; --! Telemetry mode
+
+         i_sq1_adc_data       : in     t_sq1_adc_data_v(c_NB_COL-1 downto 0)                                ; --! SQUID1 ADC - Data buses
+         i_sq1_adc_oor        : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! SQUID1 ADC - Out of range (‘0’ = No, ‘1’ = under/over range)
+
+         o_sc_pkt_type        : out    std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0)                       ; --! Science packet type
+         o_sc_pkt_err         : out    std_logic                                                              --! Science packet error ('0' = No error, '1' = Error)
    );
    end component;
 

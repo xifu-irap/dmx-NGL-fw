@@ -38,6 +38,7 @@ library std;
 use std.textio.all;
 
 package pkg_str_fld_assoc is
+constant c_RET_UKWN           : std_logic_vector(c_EP_SPI_WD_S-1 downto 0) := (others => '1')               ; --! Return unknown value
 
    -- ------------------------------------------------------------------------------------------------------
    --! Get the first field (discrete output name) included in line and
@@ -90,6 +91,16 @@ package pkg_str_fld_assoc is
    );
 
    -- ------------------------------------------------------------------------------------------------------
+   --! Get the first field (science packet type) included in line and
+   --!  get the associated data value
+   -- ------------------------------------------------------------------------------------------------------
+   procedure get_sc_pkt_type
+   (     b_line               : inout  line                                                                 ; --  Line to analysis
+         o_fld_sc_pkt         : out    line                                                                 ; --  Field science packet type
+         o_fld_sc_pkt_val     : out    std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0)                         --  Field science packet type value
+   );
+
+   -- ------------------------------------------------------------------------------------------------------
    --! Parse spi command [access] [address] [data]
    -- ------------------------------------------------------------------------------------------------------
    procedure parse_spi_cmd
@@ -104,7 +115,6 @@ end pkg_str_fld_assoc;
 package body pkg_str_fld_assoc is
 constant c_CMD_DEL            : character := '-'                                                            ; --  Command delimiter character
 constant c_PAD                : character := ' '                                                            ; --  Padding character
-constant c_RET_UKWN           : std_logic_vector(c_EP_SPI_WD_S-1 downto 0) := (others => '1')               ; --! Return unknown value
 
    -- ------------------------------------------------------------------------------------------------------
    --! Get the first field (discrete output name) included in line and
@@ -390,6 +400,51 @@ constant c_RET_UKWN           : std_logic_vector(c_EP_SPI_WD_S-1 downto 0) := (o
       drop_line_char(v_fld_data_pad, c_PAD, o_fld_data);
 
    end get_cmd_data;
+
+   -- ------------------------------------------------------------------------------------------------------
+   --! Get the first field (science packet type) included in line and
+   --!  get the associated data value
+   -- ------------------------------------------------------------------------------------------------------
+   procedure get_sc_pkt_type
+   (     b_line               : inout  line                                                                 ; --  Line to analysis
+         o_fld_sc_pkt         : out    line                                                                 ; --  Field science packet type
+         o_fld_sc_pkt_val     : out    std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0)                         --  Field science packet type value
+   ) is
+   variable v_fld_sc_pkt_pad  : line                                                                        ; --  Field science packet type with padding
+   begin
+
+      -- Get the science packet type name
+      rfield_pad(b_line, c_PAD, c_CMD_NAME_STR_MAX_S, v_fld_sc_pkt_pad);
+
+      -- Return the science packet type value
+      case v_fld_sc_pkt_pad(1 to c_CMD_NAME_STR_MAX_S) is
+         when "science_data                  "  =>
+            o_fld_sc_pkt_val:= c_SC_CTRL_SC_DTA;
+
+         when "test_pattern                  "  =>
+            o_fld_sc_pkt_val:= c_SC_CTRL_TST_PAT;
+
+         when "adc_dump(0)                   "  =>
+            o_fld_sc_pkt_val:= c_SC_CTRL_ADC_DMP(0);
+
+         when "adc_dump(1)                   "  =>
+            o_fld_sc_pkt_val:= c_SC_CTRL_ADC_DMP(1);
+
+         when "adc_dump(2)                   "  =>
+            o_fld_sc_pkt_val:= c_SC_CTRL_ADC_DMP(2);
+
+         when "adc_dump(3)                   "  =>
+            o_fld_sc_pkt_val:= c_SC_CTRL_ADC_DMP(3);
+
+         when others                            =>
+            o_fld_sc_pkt_val:= c_RET_UKWN(o_fld_sc_pkt_val'range);
+
+      end case;
+
+      -- Drop padding character(s)
+      drop_line_char(v_fld_sc_pkt_pad, c_PAD, o_fld_sc_pkt);
+
+   end get_sc_pkt_type;
 
    -- ------------------------------------------------------------------------------------------------------
    --! Parse spi command [access] [address] [data]

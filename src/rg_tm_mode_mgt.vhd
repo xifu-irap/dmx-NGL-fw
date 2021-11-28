@@ -46,6 +46,7 @@ entity rg_tm_mode_mgt is port
          o_tm_mode_dur        : out    std_logic_vector(c_DFLD_TM_MODE_DUR_S-1 downto 0)                    ; --! Telemetry mode, duration field
          o_tm_mode            : out    t_rg_tm_mode(0 to c_NB_COL-1)                                        ; --! Telemetry mode
 
+         o_tm_mode_dmp_cmp    : out    std_logic_vector(c_NB_COL-1 downto 0)                                ; --! Telemetry mode, status "Dump" compared ('0' = Inactive, '1' = Active)
          o_tm_mode_st_dump    : out    std_logic                                                              --! Telemetry mode, status "Dump" ('0' = Inactive, '1' = Active)
    );
 end entity rg_tm_mode_mgt;
@@ -200,7 +201,8 @@ begin
       begin
 
          if i_rst = '1' then
-            rg_tm_mode(k)  <= c_EP_CMD_DEF_TM_MODE;
+            rg_tm_mode(k)        <= c_EP_CMD_DEF_TM_MODE;
+            o_tm_mode_dmp_cmp(k) <= '0';
 
          elsif rising_edge(i_clk) then
 
@@ -224,13 +226,16 @@ begin
                rg_tm_mode(k) <= rg_tm_mode_req(k);
 
             end if;
+
+            o_tm_mode_dmp_cmp(k) <= tm_mode_dmp_cmp(k);
+
          end if;
 
       end process P_rg_tm_mode;
 
    end generate G_rg_tm_mode;
 
-   o_tm_mode <= rg_tm_mode;
+   o_tm_mode   <= rg_tm_mode;
 
    -- ------------------------------------------------------------------------------------------------------
    --!   EP register: Telemetry mode duration

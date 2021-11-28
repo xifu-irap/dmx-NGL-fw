@@ -162,9 +162,21 @@ WCMD W-TM_MODE-XXXX R   # Command 19
 COMM
 COMM ==============================================================================================
 COMM   Check "Dump" TM_MODE content after sync signal activation:
-COMM   Col(3)->Idle, Col(2)->Idle, Col(1)->Idle, Col(0)->Dump, Duration->2
+COMM   Col(3)->Idle, Col(2)->Idle, Col(1)->Idle, Col(0)->Dump, Duration->8
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-TM_MODE-5402 N   # Return Command 18
+CCMD R-TM_MODE-5408 N   # Return Command 18
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
 WUDI sync 1
 WCMD R-TM_MODE-XXXX R   # Command 20
 COMM
@@ -192,9 +204,21 @@ WCMD W-TM_MODE-XXXX R   # Command 23
 COMM
 COMM ==============================================================================================
 COMM   Check "Dump" TM_MODE content after sync signal activation:
-COMM   Col(3)->Idle, Col(2)->Idle, Col(1)->Dump, Col(0)->Idle, Duration->2
+COMM   Col(3)->Idle, Col(2)->Idle, Col(1)->Dump, Col(0)->Idle, Duration->8
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-TM_MODE-5102 N   # Return Command 22
+CCMD R-TM_MODE-5108 N   # Return Command 22
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
 WUDI sync 1
 WCMD R-TM_MODE-XXXX R   # Command 24
 COMM
@@ -222,9 +246,21 @@ WCMD W-TM_MODE-XXXX R   # Command 27
 COMM
 COMM ==============================================================================================
 COMM   Check "Dump" TM_MODE content after sync signal activation:
-COMM   Col(3)->Idle, Col(2)->Dump, Col(1)->Idle, Col(0)->Idle, Duration->2
+COMM   Col(3)->Idle, Col(2)->Dump, Col(1)->Idle, Col(0)->Idle, Duration->8
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-TM_MODE-4502 N   # Return Command 26
+CCMD R-TM_MODE-4508 N   # Return Command 26
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
 WUDI sync 1
 WCMD R-TM_MODE-XXXX R   # Command 28
 COMM
@@ -252,9 +288,21 @@ WCMD W-TM_MODE-XXXX R   # Command 31
 COMM
 COMM ==============================================================================================
 COMM   Check "Dump" TM_MODE content after sync signal activation:
-COMM   Col(3)->Dump, Col(2)->Idle, Col(1)->Idle, Col(0)->Idle, Duration->2
+COMM   Col(3)->Dump, Col(2)->Idle, Col(1)->Idle, Col(0)->Idle, Duration->8
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-TM_MODE-1502 N   # Return Command 30
+CCMD R-TM_MODE-1508 N   # Return Command 30
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
 WUDI sync 1
 WCMD R-TM_MODE-XXXX R   # Command 32
 COMM
@@ -304,9 +352,21 @@ WCMD W-TM_MODE-XXXX R   # Command 38
 COMM
 COMM ==============================================================================================
 COMM   Check "Dump" TM_MODE content after sync signal activation:
-COMM   Col(3)->Idle, Col(2)->Idle, Col(1)->Idle, Col(0)->Dump, Duration->2
+COMM   Col(3)->Idle, Col(2)->Idle, Col(1)->Idle, Col(0)->Dump, Duration->8
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-TM_MODE-5402 N   # Return Command 37
+CCMD R-TM_MODE-5408 N   # Return Command 37
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
 WUDI sync 1
 WCMD R-TM_MODE-XXXX R   # Command 39
 COMM
@@ -334,9 +394,21 @@ WCMD W-TM_MODE-XXXX R   # Command 42
 COMM
 COMM ==============================================================================================
 COMM   Check "Dump" TM_MODE content after sync signal activation:
-COMM   Col(3)->Idle, Col(2)->Dump, Col(1)->Idle, Col(0)->Idle, Duration->2
+COMM   Col(3)->Idle, Col(2)->Dump, Col(1)->Idle, Col(0)->Idle, Duration->8
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-TM_MODE-4502 N   # Return Command 41
+CCMD R-TM_MODE-4508 N   # Return Command 41
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
 WUDI sync 1
 WCMD R-TM_MODE-XXXX R   # Command 43
 COMM
@@ -364,9 +436,21 @@ WCMD W-TM_MODE-XXXX R   # Command 46
 COMM
 COMM ==============================================================================================
 COMM   Check "Dump" TM_MODE content after sync signal activation:
-COMM   Col(3)->Dump, Col(2)->Idle, Col(1)->Idle, Col(0)->Idle, Duration->2
+COMM   Col(3)->Dump, Col(2)->Idle, Col(1)->Idle, Col(0)->Idle, Duration->8
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-TM_MODE-1502 N   # Return Command 45
+CCMD R-TM_MODE-1508 N   # Return Command 45
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
 WUDI sync 1
 WCMD R-TM_MODE-XXXX R   # Command 47
 COMM
@@ -412,9 +496,21 @@ WCMD W-TM_MODE-XXXX R   # Command 52
 COMM
 COMM ==============================================================================================
 COMM   Check "Dump" TM_MODE content after sync signal activation:
-COMM   Col(3)->Idle, Col(2)->Idle, Col(1)->Dump, Col(0)->Idle, Duration->2
+COMM   Col(3)->Idle, Col(2)->Idle, Col(1)->Dump, Col(0)->Idle, Duration->8
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-TM_MODE-5102 N   # Return Command 51
+CCMD R-TM_MODE-5108 N   # Return Command 51
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
 WUDI sync 1
 WCMD R-TM_MODE-XXXX R   # Command 53
 COMM
@@ -442,9 +538,21 @@ WCMD W-TM_MODE-XXXX R   # Command 56
 COMM
 COMM ==============================================================================================
 COMM   Check "Dump" TM_MODE content after sync signal activation:
-COMM   Col(3)->Dump, Col(2)->Idle, Col(1)->Idle, Col(0)->Idle, Duration->2
+COMM   Col(3)->Dump, Col(2)->Idle, Col(1)->Idle, Col(0)->Idle, Duration->8
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-TM_MODE-1502 N   # Return Command 55
+CCMD R-TM_MODE-1508 N   # Return Command 55
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
 WUDI sync 1
 WCMD R-TM_MODE-XXXX R   # Command 57
 COMM
@@ -512,9 +620,21 @@ WCMD W-TM_MODE-XXXX R   # Command 65
 COMM
 COMM ==============================================================================================
 COMM   Check "Dump" TM_MODE content after sync signal activation:
-COMM   Col(3)->Idle, Col(2)->Dump, Col(1)->Idle, Col(0)->Idle, Duration->2
+COMM   Col(3)->Idle, Col(2)->Dump, Col(1)->Idle, Col(0)->Idle, Duration->8
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-TM_MODE-4502 N   # Return Command 64
+CCMD R-TM_MODE-4508 N   # Return Command 64
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
 WUDI sync 1
 WCMD R-TM_MODE-XXXX R   # Command 66
 COMM
@@ -542,9 +662,21 @@ WCMD W-TM_MODE-XXXX R   # Command 69
 COMM
 COMM ==============================================================================================
 COMM   Check "Dump" TM_MODE content after sync signal activation:
-COMM   Col(3)->Dump, Col(2)->Idle, Col(1)->Idle, Col(0)->Idle, Duration->2
+COMM   Col(3)->Dump, Col(2)->Idle, Col(1)->Idle, Col(0)->Idle, Duration->8
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-TM_MODE-1502 N   # Return Command 68
+CCMD R-TM_MODE-1508 N   # Return Command 68
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
 WUDI sync 1
 WCMD R-TM_MODE-XXXX R   # Command 70
 COMM
@@ -590,9 +722,21 @@ WCMD W-TM_MODE-XXXX R   # Command 75
 COMM
 COMM ==============================================================================================
 COMM   Check "Dump" TM_MODE content after sync signal activation:
-COMM   Col(3)->Idle, Col(2)->Idle, Col(1)->Idle, Col(0)->Dump, Duration->2
+COMM   Col(3)->Idle, Col(2)->Idle, Col(1)->Idle, Col(0)->Dump, Duration->8
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-TM_MODE-5402 N   # Return Command 74
+CCMD R-TM_MODE-5408 N   # Return Command 74
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
 WUDI sync 1
 WCMD R-TM_MODE-XXXX R   # Command 76
 COMM
@@ -638,9 +782,21 @@ WCMD W-TM_MODE-XXXX R   # Command 81
 COMM
 COMM ==============================================================================================
 COMM   Check "Dump" TM_MODE content after sync signal activation:
-COMM   Col(3)->Idle, Col(2)->Idle, Col(1)->Dump, Col(0)->Idle, Duration->2
+COMM   Col(3)->Idle, Col(2)->Idle, Col(1)->Dump, Col(0)->Idle, Duration->8
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-TM_MODE-5102 N   # Return Command 80
+CCMD R-TM_MODE-5108 N   # Return Command 80
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
 WUDI sync 1
 WCMD R-TM_MODE-XXXX R   # Command 82
 COMM
@@ -686,9 +842,21 @@ WCMD W-TM_MODE-XXXX R   # Command 87
 COMM
 COMM ==============================================================================================
 COMM   Check "Dump" TM_MODE content after sync signal activation:
-COMM   Col(3)->Idle, Col(2)->Dump, Col(1)->Idle, Col(0)->Idle, Duration->2
+COMM   Col(3)->Idle, Col(2)->Dump, Col(1)->Idle, Col(0)->Idle, Duration->8
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-TM_MODE-4502 N   # Return Command 86
+CCMD R-TM_MODE-4508 N   # Return Command 86
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
 WUDI sync 1
 WCMD R-TM_MODE-XXXX R   # Command 88
 COMM
@@ -734,9 +902,21 @@ WCMD W-TM_MODE-XXXX R   # Command 93
 COMM
 COMM ==============================================================================================
 COMM   Check "Dump" TM_MODE content after sync signal activation:
-COMM   Col(3)->Dump, Col(2)->Idle, Col(1)->Idle, Col(0)->Idle, Duration->2
+COMM   Col(3)->Dump, Col(2)->Idle, Col(1)->Idle, Col(0)->Idle, Duration->8
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-TM_MODE-1502 N   # Return Command 92
+CCMD R-TM_MODE-1508 N   # Return Command 92
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
 WUDI sync 1
 WCMD R-TM_MODE-XXXX R   # Command 94
 COMM

@@ -1,0 +1,258 @@
+COMM **********************************************************************************************
+COMM   Test: ADC Dump on science data telemetry
+COMM **********************************************************************************************
+COMM
+COMM ==============================================================================================
+COMM   Enable Squid1 ADC/DAC clocks reports display
+COMM ----------------------------------------------------------------------------------------------
+CCPE clk_science_01
+CCPE clk_science_23
+COMM
+COMM ==============================================================================================
+COMM   Asynchronous reset activated
+COMM ----------------------------------------------------------------------------------------------
+WDIS arst_n 0
+WAIT 80 ns
+COMM
+COMM ==============================================================================================
+COMM   Asynchronous reset deactivated
+COMM ----------------------------------------------------------------------------------------------
+WDIS arst_n 1
+COMM
+COMM ==============================================================================================
+COMM   Wait internal reset deactivated
+COMM ----------------------------------------------------------------------------------------------
+WUDI rst 0
+COMM
+COMM ==============================================================================================
+COMM   Send command TM_MODE, Dump on all channels
+COMM ----------------------------------------------------------------------------------------------
+WUDI sync 1
+WCMD W-TM_MODE-00XX W
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+COMM ==============================================================================================
+COMM   Check the science packet type currently transfered
+COMM ----------------------------------------------------------------------------------------------
+CSCP adc_dump(0)
+COMM
+COMM ==============================================================================================
+COMM   Wait the end of the science packet transfer
+COMM ----------------------------------------------------------------------------------------------
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+COMM ==============================================================================================
+COMM   Check the science packet type currently transfered
+COMM ----------------------------------------------------------------------------------------------
+CSCP adc_dump(1)
+COMM
+COMM ==============================================================================================
+COMM   Wait the end of the science packet transfer
+COMM ----------------------------------------------------------------------------------------------
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+COMM ==============================================================================================
+COMM   Check the science packet type currently transfered
+COMM ----------------------------------------------------------------------------------------------
+CSCP adc_dump(2)
+COMM
+COMM ==============================================================================================
+COMM   Wait the end of the science packet transfer
+COMM ----------------------------------------------------------------------------------------------
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+COMM ==============================================================================================
+COMM   Check the science packet type currently transfered
+COMM ----------------------------------------------------------------------------------------------
+CSCP adc_dump(3)
+COMM
+COMM ==============================================================================================
+COMM   Wait the end of the science packet transfer
+COMM ----------------------------------------------------------------------------------------------
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+COMM ==============================================================================================
+COMM   Send command TM_MODE, Dump on channel 0, Idle on others channels
+COMM ----------------------------------------------------------------------------------------------
+WUDI sync 1
+WCMD W-TM_MODE-54XX W
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+COMM ==============================================================================================
+COMM   Check the science packet type currently transfered
+COMM ----------------------------------------------------------------------------------------------
+CSCP adc_dump(0)
+COMM
+COMM ==============================================================================================
+COMM   Wait the end of the science packet transfer
+COMM ----------------------------------------------------------------------------------------------
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+COMM ==============================================================================================
+COMM   Send command TM_MODE, Dump on channel 1, Idle on others channels
+COMM ----------------------------------------------------------------------------------------------
+WUDI sync 1
+WCMD W-TM_MODE-51XX W
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+COMM ==============================================================================================
+COMM   Check the science packet type currently transfered
+COMM ----------------------------------------------------------------------------------------------
+CSCP adc_dump(1)
+COMM
+COMM ==============================================================================================
+COMM   Wait the end of the science packet transfer
+COMM ----------------------------------------------------------------------------------------------
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+COMM ==============================================================================================
+COMM   Send command TM_MODE, Dump on channel 2, Idle on others channels
+COMM ----------------------------------------------------------------------------------------------
+WUDI sync 1
+WCMD W-TM_MODE-45XX W
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+COMM ==============================================================================================
+COMM   Check the science packet type currently transfered
+COMM ----------------------------------------------------------------------------------------------
+CSCP adc_dump(2)
+COMM
+COMM ==============================================================================================
+COMM   Wait the end of the science packet transfer
+COMM ----------------------------------------------------------------------------------------------
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+COMM ==============================================================================================
+COMM   Send command TM_MODE, Dump on channel 3, Idle on others channels
+COMM ----------------------------------------------------------------------------------------------
+WUDI sync 1
+WCMD W-TM_MODE-15XX W
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+COMM ==============================================================================================
+COMM   Check the science packet type currently transfered
+COMM ----------------------------------------------------------------------------------------------
+CSCP adc_dump(3)
+COMM
+COMM ==============================================================================================
+COMM   Wait the end of the science packet transfer
+COMM ----------------------------------------------------------------------------------------------
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1

@@ -17,14 +17,14 @@
 --                            along with this program.  If not, see <https://www.gnu.org/licenses/>.
 -- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --    email                   slaurent@nanoxplore.com
---!   @file                   DRE_DMX_UT_0080_cfg.vhd
+--!   @file                   DRE_DMX_UT_0110_cfg.vhd
 -- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --    Automatic Generation    No
 --    Code Rules Reference    SOC of design and VHDL handbook for VLSI development, CNES Edition (v2.1)
 -- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --!   @details                DRE DEMUX Unitary Test configuration file
 -- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-configuration DRE_DMX_UT_0080_cfg of top_dmx_tb is
+configuration DRE_DMX_UT_0110_cfg of top_dmx_tb is
 
    for Simulation
 
@@ -34,11 +34,22 @@ configuration DRE_DMX_UT_0080_cfg of top_dmx_tb is
       for I_parser : parser
          use entity work.parser generic map
          (
-            g_SIM_TIME           => 440000 ns            , -- time    := c_SIM_TIME_DEF                     ; --! Simulation time
-            g_TST_NUM            => "0080"                 -- string  := c_TST_NUM_DEF                        --! Test number
+            g_SIM_TIME           => 475000 ns            , -- time    := c_SIM_TIME_DEF                     ; --! Simulation time
+            g_TST_NUM            => "0110"                 -- string  := c_TST_NUM_DEF                        --! Test number
+         );
+      end for;
+
+      -- ------------------------------------------------------------------------------------------------------
+      --!   Science data model configuration
+      -- ------------------------------------------------------------------------------------------------------
+      for I_science_data_model: science_data_model
+         use entity work.science_data_model generic map
+         (
+            g_SIM_TIME           => 475000 ns            , -- time    := c_SIM_TIME_DEF                     ; --! Simulation time
+            g_TST_NUM            => "0110"                 -- string  := c_TST_NUM_DEF                        --! Test number
          );
       end for;
 
    end for;
 
-end configuration DRE_DMX_UT_0080_cfg;
+end configuration DRE_DMX_UT_0110_cfg;

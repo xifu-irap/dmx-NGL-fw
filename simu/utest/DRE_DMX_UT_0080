@@ -117,6 +117,18 @@ WUDI sync 0
 WUDI sync 1
 WUDI sync 0
 WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
 RTIM
 CDIS sq1_adc_pwdn(0) 0
 COMM
@@ -347,6 +359,18 @@ COMM ===========================================================================
 COMM    Wait TM_MODE column 1 goes automatically to Idle and
 COMM     check o_c1_sq1_adc_pwdn remains to deactivated
 COMM ----------------------------------------------------------------------------------------------
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
 WUDI sync 0
 WUDI sync 1
 WUDI sync 0
@@ -585,6 +609,18 @@ WUDI sync 0
 WUDI sync 1
 WUDI sync 0
 WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
 RTIM
 CDIS sq1_adc_pwdn(2) 0
 COMM
@@ -815,6 +851,18 @@ COMM ===========================================================================
 COMM    Wait TM_MODE column 3 goes automatically to Idle and
 COMM     check o_c3_sq1_adc_pwdn remains to deactivated
 COMM ----------------------------------------------------------------------------------------------
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
 WUDI sync 0
 WUDI sync 1
 WUDI sync 0

@@ -67,10 +67,10 @@ type     t_wait_cmd_end         is (none, wait_cmd_end_tx, wait_rcmd_end_rx)    
    --! Get parameters command CCMD [cmd] [end]: check the EP command return
    -- ------------------------------------------------------------------------------------------------------
    procedure get_param_ccmd
-   (     b_cmd_file_line      : inout  line                                                                 ; --! Command file line
+   (     b_cmd_file_line      : inout  line                                                                 ; --  Command file line
          i_mess_header        : in     string                                                               ; --  Message header
          o_mess_spi_cmd       : out    line                                                                 ; --  Message SPI command
-         o_fld_spi_cmd        : out    std_logic_vector                                                     ; --! Field SPI command
+         o_fld_spi_cmd        : out    std_logic_vector                                                     ; --  Field SPI command
          o_wait_end           : out    t_wait_cmd_end                                                         --  Wait command end
    );
 
@@ -94,6 +94,16 @@ type     t_wait_cmd_end         is (none, wait_cmd_end_tx, wait_rcmd_end_rx)    
          o_fld_dr             : out    line                                                                 ; --  Field discrete input
          o_fld_dr_ind         : out    integer range 0 to c_DR_S                                            ; --  Field discrete input index (equal to c_DR_S if field not recognized)
          o_fld_value          : out    std_logic                                                              --  Field value
+   );
+
+   -- ------------------------------------------------------------------------------------------------------
+   --! Get parameters command CSCP [science_packet] : check the science packet type
+   -- ------------------------------------------------------------------------------------------------------
+   procedure get_param_cscp
+   (     b_cmd_file_line      : inout  line                                                                 ; --  Command file line
+         i_mess_header        : in     string                                                               ; --  Message header
+         o_fld_sc_pkt         : out    line                                                                 ; --  Field science packet type
+         o_fld_sc_pkt_val     : out    std_logic_vector                                                       --  Field science packet type value
    );
 
    -- ------------------------------------------------------------------------------------------------------
@@ -384,6 +394,23 @@ package body pkg_func_cmd_script is
       brfield(b_cmd_file_line, i_mess_header & "[value]", o_fld_value);
 
    end get_param_cdis;
+
+   -- ------------------------------------------------------------------------------------------------------
+   --! Get parameters command CSCP [science_packet] : check the science packet type
+   -- ------------------------------------------------------------------------------------------------------
+   procedure get_param_cscp
+   (     b_cmd_file_line      : inout  line                                                                 ; --  Command file line
+         i_mess_header        : in     string                                                               ; --  Message header
+         o_fld_sc_pkt         : out    line                                                                 ; --  Field science packet type
+         o_fld_sc_pkt_val     : out    std_logic_vector                                                       --  Field science packet type value
+   ) is
+   begin
+
+      -- Get [science_packet]
+      get_sc_pkt_type(b_cmd_file_line, o_fld_sc_pkt, o_fld_sc_pkt_val);
+      assert o_fld_sc_pkt_val /= c_RET_UKWN(o_fld_sc_pkt_val'range) report i_mess_header & "[science_packet]" & c_MESS_ERR_UNKNOWN severity failure;
+
+   end get_param_cscp;
 
    -- ------------------------------------------------------------------------------------------------------
    --! Get parameters command CTLE [discrete_r] [ope] [time]: check time between the current time

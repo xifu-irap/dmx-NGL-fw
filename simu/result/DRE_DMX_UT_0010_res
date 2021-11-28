@@ -26,70 +26,70 @@
 #             (80000 ps) ==============================================================================================
 #             (80000 ps)   Wait internal reset deactivated
 #             (80000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (7050564 ps) Waiting event rst_sq1_adc(0) = '0' for 6970564 ps
-#             (7050564 ps) 
-#             (7050564 ps) ==============================================================================================
-#             (7050564 ps)   Check internal resets de-assertion synchronization with clk_ref and internal clocks:
-#             (7050564 ps)     clk, clk_sq1_adc_acq and clk_sq1_pls_shape
-#             (7050564 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (7050564 ps) Check time, rst last event: PASS
-# ** Note   : (7050564 ps)  * rst last event 0 ps equal to expected value 0 ps
-# ** Note   : (7050564 ps) Check time, rst_sq1_adc(1) last event: PASS
-# ** Note   : (7050564 ps)  * rst_sq1_adc(1) last event 0 ps equal to expected value 0 ps
-# ** Note   : (7050564 ps) Check time, rst_sq1_adc(2) last event: PASS
-# ** Note   : (7050564 ps)  * rst_sq1_adc(2) last event 0 ps equal to expected value 0 ps
-# ** Note   : (7050564 ps) Check time, rst_sq1_adc(3) last event: PASS
-# ** Note   : (7050564 ps)  * rst_sq1_adc(3) last event 0 ps equal to expected value 0 ps
-# ** Note   : (7050564 ps) Check time, rst_sq1_dac(0) last event: PASS
-# ** Note   : (7050564 ps)  * rst_sq1_dac(0) last event 0 ps equal to expected value 0 ps
-# ** Note   : (7050564 ps) Check time, rst_sq1_dac(1) last event: PASS
-# ** Note   : (7050564 ps)  * rst_sq1_dac(1) last event 0 ps equal to expected value 0 ps
-# ** Note   : (7050564 ps) Check time, rst_sq1_dac(2) last event: PASS
-# ** Note   : (7050564 ps)  * rst_sq1_dac(2) last event 0 ps equal to expected value 0 ps
-# ** Note   : (7050564 ps) Check time, rst_sq1_dac(3) last event: PASS
-# ** Note   : (7050564 ps)  * rst_sq1_dac(3) last event 0 ps equal to expected value 0 ps
-# ** Note   : (7050564 ps) Check time, rst_sq2_mux(0) last event: PASS
-# ** Note   : (7050564 ps)  * rst_sq2_mux(0) last event 0 ps equal to expected value 0 ps
-# ** Note   : (7050564 ps) Check time, rst_sq2_mux(1) last event: PASS
-# ** Note   : (7050564 ps)  * rst_sq2_mux(1) last event 0 ps equal to expected value 0 ps
-# ** Note   : (7050564 ps) Check time, rst_sq2_mux(2) last event: PASS
-# ** Note   : (7050564 ps)  * rst_sq2_mux(2) last event 0 ps equal to expected value 0 ps
-# ** Note   : (7050564 ps) Check time, rst_sq2_mux(3) last event: PASS
-# ** Note   : (7050564 ps)  * rst_sq2_mux(3) last event 0 ps equal to expected value 0 ps
-# ** Note   : (7050564 ps) Check time, clk_ref last event: PASS
-# ** Note   : (7050564 ps)  * clk_ref last event 0 ps equal to expected value 0 ps
-# ** Note   : (7050564 ps) Check time, clk last event: PASS
-# ** Note   : (7050564 ps)  * clk last event 0 ps equal to expected value 0 ps
-# ** Note   : (7050564 ps) Check time, clk_sq1_adc_acq last event: PASS
-# ** Note   : (7050564 ps)  * clk_sq1_adc_acq last event 0 ps equal to expected value 0 ps
-# ** Note   : (7050564 ps) Check time, clk_sq1_pls_shape last event: PASS
-# ** Note   : (7050564 ps)  * clk_sq1_pls_shape last event 0 ps equal to expected value 0 ps
-# ** Note   : (7050564 ps) Check discrete level: PASS
-# ** Note   : (7050564 ps)  * Read discrete: rst, value '0', expected '0'
-# ** Note   : (7050564 ps) Check discrete level: PASS
-# ** Note   : (7050564 ps)  * Read discrete: rst_sq1_adc(1), value '0', expected '0'
-# ** Note   : (7050564 ps) Check discrete level: PASS
-# ** Note   : (7050564 ps)  * Read discrete: rst_sq1_adc(2), value '0', expected '0'
-# ** Note   : (7050564 ps) Check discrete level: PASS
-# ** Note   : (7050564 ps)  * Read discrete: rst_sq1_adc(3), value '0', expected '0'
-# ** Note   : (7050564 ps) Check discrete level: PASS
-# ** Note   : (7050564 ps)  * Read discrete: rst_sq1_dac(0), value '0', expected '0'
-# ** Note   : (7050564 ps) Check discrete level: PASS
-# ** Note   : (7050564 ps)  * Read discrete: rst_sq1_dac(1), value '0', expected '0'
-# ** Note   : (7050564 ps) Check discrete level: PASS
-# ** Note   : (7050564 ps)  * Read discrete: rst_sq1_dac(2), value '0', expected '0'
-# ** Note   : (7050564 ps) Check discrete level: PASS
-# ** Note   : (7050564 ps)  * Read discrete: rst_sq1_dac(3), value '0', expected '0'
-# ** Note   : (7050564 ps) Check discrete level: PASS
-# ** Note   : (7050564 ps)  * Read discrete: rst_sq2_mux(0), value '0', expected '0'
-# ** Note   : (7050564 ps) Check discrete level: PASS
-# ** Note   : (7050564 ps)  * Read discrete: rst_sq2_mux(1), value '0', expected '0'
-# ** Note   : (7050564 ps) Check discrete level: PASS
-# ** Note   : (7050564 ps)  * Read discrete: rst_sq2_mux(2), value '0', expected '0'
-# ** Note   : (7050564 ps) Check discrete level: PASS
-# ** Note   : (7050564 ps)  * Read discrete: rst_sq2_mux(3), value '0', expected '0'
-# ** Note   : (7050564 ps) Check discrete level: PASS
-# ** Note   : (7050564 ps)  * Read discrete: clk_ref, value '1', expected '1'
+# ** Note   : (6983892 ps) Waiting event rst_sq1_adc(0) = '0' for 6903892 ps
+#             (6983892 ps) 
+#             (6983892 ps) ==============================================================================================
+#             (6983892 ps)   Check internal resets de-assertion synchronization with clk_ref and internal clocks:
+#             (6983892 ps)     clk, clk_sq1_adc_acq and clk_sq1_pls_shape
+#             (6983892 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (6983892 ps) Check time, rst last event: PASS
+# ** Note   : (6983892 ps)  * rst last event 0 ps equal to expected value 0 ps
+# ** Note   : (6983892 ps) Check time, rst_sq1_adc(1) last event: PASS
+# ** Note   : (6983892 ps)  * rst_sq1_adc(1) last event 0 ps equal to expected value 0 ps
+# ** Note   : (6983892 ps) Check time, rst_sq1_adc(2) last event: PASS
+# ** Note   : (6983892 ps)  * rst_sq1_adc(2) last event 0 ps equal to expected value 0 ps
+# ** Note   : (6983892 ps) Check time, rst_sq1_adc(3) last event: PASS
+# ** Note   : (6983892 ps)  * rst_sq1_adc(3) last event 0 ps equal to expected value 0 ps
+# ** Note   : (6983892 ps) Check time, rst_sq1_dac(0) last event: PASS
+# ** Note   : (6983892 ps)  * rst_sq1_dac(0) last event 0 ps equal to expected value 0 ps
+# ** Note   : (6983892 ps) Check time, rst_sq1_dac(1) last event: PASS
+# ** Note   : (6983892 ps)  * rst_sq1_dac(1) last event 0 ps equal to expected value 0 ps
+# ** Note   : (6983892 ps) Check time, rst_sq1_dac(2) last event: PASS
+# ** Note   : (6983892 ps)  * rst_sq1_dac(2) last event 0 ps equal to expected value 0 ps
+# ** Note   : (6983892 ps) Check time, rst_sq1_dac(3) last event: PASS
+# ** Note   : (6983892 ps)  * rst_sq1_dac(3) last event 0 ps equal to expected value 0 ps
+# ** Note   : (6983892 ps) Check time, rst_sq2_mux(0) last event: PASS
+# ** Note   : (6983892 ps)  * rst_sq2_mux(0) last event 0 ps equal to expected value 0 ps
+# ** Note   : (6983892 ps) Check time, rst_sq2_mux(1) last event: PASS
+# ** Note   : (6983892 ps)  * rst_sq2_mux(1) last event 0 ps equal to expected value 0 ps
+# ** Note   : (6983892 ps) Check time, rst_sq2_mux(2) last event: PASS
+# ** Note   : (6983892 ps)  * rst_sq2_mux(2) last event 0 ps equal to expected value 0 ps
+# ** Note   : (6983892 ps) Check time, rst_sq2_mux(3) last event: PASS
+# ** Note   : (6983892 ps)  * rst_sq2_mux(3) last event 0 ps equal to expected value 0 ps
+# ** Note   : (6983892 ps) Check time, clk_ref last event: PASS
+# ** Note   : (6983892 ps)  * clk_ref last event 0 ps equal to expected value 0 ps
+# ** Note   : (6983892 ps) Check time, clk last event: PASS
+# ** Note   : (6983892 ps)  * clk last event 0 ps equal to expected value 0 ps
+# ** Note   : (6983892 ps) Check time, clk_sq1_adc_acq last event: PASS
+# ** Note   : (6983892 ps)  * clk_sq1_adc_acq last event 0 ps equal to expected value 0 ps
+# ** Note   : (6983892 ps) Check time, clk_sq1_pls_shape last event: PASS
+# ** Note   : (6983892 ps)  * clk_sq1_pls_shape last event 0 ps equal to expected value 0 ps
+# ** Note   : (6983892 ps) Check discrete level: PASS
+# ** Note   : (6983892 ps)  * Read discrete: rst, value '0', expected '0'
+# ** Note   : (6983892 ps) Check discrete level: PASS
+# ** Note   : (6983892 ps)  * Read discrete: rst_sq1_adc(1), value '0', expected '0'
+# ** Note   : (6983892 ps) Check discrete level: PASS
+# ** Note   : (6983892 ps)  * Read discrete: rst_sq1_adc(2), value '0', expected '0'
+# ** Note   : (6983892 ps) Check discrete level: PASS
+# ** Note   : (6983892 ps)  * Read discrete: rst_sq1_adc(3), value '0', expected '0'
+# ** Note   : (6983892 ps) Check discrete level: PASS
+# ** Note   : (6983892 ps)  * Read discrete: rst_sq1_dac(0), value '0', expected '0'
+# ** Note   : (6983892 ps) Check discrete level: PASS
+# ** Note   : (6983892 ps)  * Read discrete: rst_sq1_dac(1), value '0', expected '0'
+# ** Note   : (6983892 ps) Check discrete level: PASS
+# ** Note   : (6983892 ps)  * Read discrete: rst_sq1_dac(2), value '0', expected '0'
+# ** Note   : (6983892 ps) Check discrete level: PASS
+# ** Note   : (6983892 ps)  * Read discrete: rst_sq1_dac(3), value '0', expected '0'
+# ** Note   : (6983892 ps) Check discrete level: PASS
+# ** Note   : (6983892 ps)  * Read discrete: rst_sq2_mux(0), value '0', expected '0'
+# ** Note   : (6983892 ps) Check discrete level: PASS
+# ** Note   : (6983892 ps)  * Read discrete: rst_sq2_mux(1), value '0', expected '0'
+# ** Note   : (6983892 ps) Check discrete level: PASS
+# ** Note   : (6983892 ps)  * Read discrete: rst_sq2_mux(2), value '0', expected '0'
+# ** Note   : (6983892 ps) Check discrete level: PASS
+# ** Note   : (6983892 ps)  * Read discrete: rst_sq2_mux(3), value '0', expected '0'
+# ** Note   : (6983892 ps) Check discrete level: PASS
+# ** Note   : (6983892 ps)  * Read discrete: clk_ref, value '1', expected '1'
 # ----------------------------------------------------------------------------------------------------
 # Parameters check, clock clk              
 # ----------------------------------------------------------------------------------------------------
@@ -120,6 +120,7 @@
 # Error check command return    : '0'
 # Error check time              : '0'
 # Error check clocks parameters : '0'
+# Error check science packets   : '0'
 # ------------------------------------------------------------------------------------------------------------------------------------------------------
 # Simulation time               : 8000000 ps
 # Simulation status             : PASS

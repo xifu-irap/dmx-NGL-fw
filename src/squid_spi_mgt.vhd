@@ -61,8 +61,8 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   Squid 1 ADC, static configuration without SPI
    -- ------------------------------------------------------------------------------------------------------
-   o_sq1_adc_spi_mosi   <= '0';     -- Data format ('0' = Binary, '1' = Twos complement)
-   o_sq1_adc_spi_sclk   <= '1';     -- Duty Cycle Stabilizer ('0' = Disable, '1' = Enable)
+   o_sq1_adc_spi_mosi   <= '1';     -- Duty Cycle Stabilizer ('0' = Disable, '1' = Enable)
+   o_sq1_adc_spi_sclk   <= '0';     -- Data format ('0' = Binary, '1' = Twos complement)
    o_sq1_adc_spi_cs_n   <= '1';     -- Static configuration ('0' = No, '1' = Yes)
 
    -- ------------------------------------------------------------------------------------------------------

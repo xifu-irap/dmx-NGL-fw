@@ -34,8 +34,8 @@ entity rst_clk_mgt is port
    (     i_arst_n             : in     std_logic                                                            ; --! Asynchronous reset ('0' = Active, '1' = Inactive)
          i_clk_ref            : in     std_logic                                                            ; --! Reference Clock
 
-         i_cmd_ck_sq1_adc     : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! SQUID1 ADC Clocks switch commands, synchronized on SQUID1 ADC Clock
-         i_cmd_ck_sq1_dac     : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! SQUID1 DAC Clocks switch commands, synchronized on pulse shaping Clock
+         i_cmd_ck_sq1_adc     : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! SQUID1 ADC Clocks switch commands
+         i_cmd_ck_sq1_dac     : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! SQUID1 DAC Clocks switch commands
 
          o_ck_rdy             : out    std_logic                                                            ; --! Clocks ready ('0' = Not ready, '1' = Ready)
          o_rst                : out    std_logic                                                            ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)

@@ -43,8 +43,8 @@ package pkg_project is
 constant c_FW_VERSION         : integer   :=  1                                                             ; --! Firmware version
 
 constant c_FF_RST_NB          : integer   := 3                                                              ; --! Flip-Flop number used for internal reset: System Clock
-constant c_FF_RST_SQ1_DAC_NB  : integer   := 6                                                              ; --! Flip-Flop number used for internal reset: DAC Clock
-constant c_FF_RST_SQ1_ADC_NB  : integer   := 6                                                              ; --! Flip-Flop number used for internal reset: ADC Clock
+constant c_FF_RST_SQ1_DAC_NB  : integer   := 5                                                              ; --! Flip-Flop number used for internal reset: DAC Clock
+constant c_FF_RST_SQ1_ADC_NB  : integer   := 5                                                              ; --! Flip-Flop number used for internal reset: ADC Clock
 constant c_FF_RSYNC_NB        : integer   := 2                                                              ; --! Flip-Flop number used for FPGA input resynchronization
 
 constant c_CLK_REF_MULT       : integer   := 1                                                              ; --! Reference Clock multiplier frequency factor
@@ -117,6 +117,9 @@ constant c_I_SQ1_ADC_DATA_DEF : std_logic_vector(c_SQ1_ADC_DATA_S-1 downto 0):= 
 constant c_I_SQ1_ADC_OOR_DEF  : std_logic := '0'                                                            ; --! SQUID1 ADC out of range input default value at reset
 constant c_I_SYNC_DEF         : std_logic := '1'                                                            ; --! Pixel sequence synchronization default value at reset
 
+constant c_CMD_CK_SQ1_ADC_DEF : std_logic := '0'                                                            ; --! SQUID1 ADC clock switch command default value at reset
+constant c_CMD_CK_SQ1_DAC_DEF : std_logic := '0'                                                            ; --! SQUID1 DAC clock switch command default value at reset
+
    -- ------------------------------------------------------------------------------------------------------
    --    Project parameters
    --    @Req : DRE-DMX-FW-REQ-0070
@@ -124,6 +127,7 @@ constant c_I_SYNC_DEF         : std_logic := '1'                                
    -- ------------------------------------------------------------------------------------------------------
 constant c_MUX_FACT           : integer   := 34                                                             ; --! DEMUX: multiplexing factor
 constant c_NB_COL             : integer   := 4                                                              ; --! DEMUX: column number
+constant c_DMP_SEQ_ACQ_NB     : integer   := 2                                                              ; --! DEMUX: sequence acquisition number for the ADC data dump mode
 
 constant c_SQ1_DATA_ERR_S     : integer   := 18                                                             ; --! SQUID1 Data error bus size
 constant c_SQ1_DATA_FBK_S     : integer   := 16                                                             ; --! SQUID1 Data feedback bus size (<= c_MULT_ALU_PORTB_S-1)
@@ -137,19 +141,43 @@ constant c_PIX_POS_SW_ADC_OFF : integer   := c_MUX_FACT - 1                     
    --    @Req : DRE-DMX-FW-REQ-0130
    -- ------------------------------------------------------------------------------------------------------
 constant c_PIXEL_ADC_NB_CYC   : integer   := 22                                                             ; --! ADC clock period number allocated to one pixel acquisition
-constant c_ADC_DATA_NPER      : integer   := 13                                                             ; --! ADC clock period number between the acquisition start and data output by the ADC
+constant c_ADC_DATA_NPER      : integer   := 12                                                             ; --! ADC clock period number between the acquisition start and data output by the ADC
+
+constant c_ADC_SYNC_RDY_NPER  : integer   := (c_FF_RSYNC_NB - 1)*(c_CLK_ADC_MULT/c_CLK_MULT) + c_FF_RSYNC_NB; --! ADC clock period number for getting pixel sequence synchronization, synchronized
+constant c_ADC_DATA_RDY_NPER  : integer   := c_ADC_DATA_NPER + c_FF_RSYNC_NB - 1                            ; --! ADC clock period number between the ADC acquisition start and ADC data ready
+
+constant c_MEM_DUMP_ADD_S     : integer := c_RAM_ECC_ADD_S                                                  ; --! Memory Dump: address bus size (<= c_RAM_ECC_ADD_S)
 
    -- ------------------------------------------------------------------------------------------------------
    --    SQUID1 DAC parameters
    -- ------------------------------------------------------------------------------------------------------
-constant c_PIXEL_DAC_NB_CYC   : integer   := c_PIXEL_ADC_NB_CYC                                             ; --! DAC clock period number allocated to one pixel acquisition
+constant c_PIXEL_DAC_NPER     : integer   := c_PIXEL_ADC_NB_CYC                                             ; --! DAC clock period number allocated to one pixel acquisition
+constant c_DAC_SYNC_RDY_NPER  : integer   := (c_FF_RSYNC_NB - 1)*(c_CLK_ADC_MULT/c_CLK_MULT) + c_FF_RSYNC_NB; --! DAC clock period number for getting pixel sequence synchronization, synchronized
 
    -- ------------------------------------------------------------------------------------------------------
    --    Global types
    -- ------------------------------------------------------------------------------------------------------
+type     t_sq1_mem_dump_dta_v  is array (natural range <>) of std_logic_vector(c_SQ1_ADC_DATA_S+1  downto 0); --! SQUID1 Memory Dump: data vector type
 type     t_sq1_adc_data_v      is array (natural range <>) of std_logic_vector(c_SQ1_ADC_DATA_S-1  downto 0); --! SQUID1 ADC data vector type
 type     t_sq1_data_err_v      is array (natural range <>) of std_logic_vector(c_SQ1_DATA_ERR_S-1  downto 0); --! SQUID1 Data error vector type
 type     t_sq1_data_fbk_v      is array (natural range <>) of std_logic_vector(c_SQ1_DATA_FBK_S-1  downto 0); --! SQUID1 Data feedback vector type
+type     t_sq1_dac_data_v      is array (natural range <>) of std_logic_vector(c_SQ1_DAC_DATA_S-1  downto 0); --! SQUID1 DAC data vector type
+type     t_sq2_dac_mux_v       is array (natural range <>) of std_logic_vector(c_SQ2_DAC_MUX_S -1  downto 0); --! SQUID2 DAC multiplexer vector type
 type     t_sc_data_w           is array (natural range <>) of std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0); --! Science data word type
+type     t_sc_data             is array (natural range <>) of
+                               std_logic_vector(c_SC_DATA_SER_NB*c_SC_DATA_SER_W_S-1 downto 0)              ; --! Science data type
+
+   -- ------------------------------------------------------------------------------------------------------
+   --!   Science Data Transmit parameters
+   --    @Req : DRE-DMX-FW-REQ-0590
+   -- ------------------------------------------------------------------------------------------------------
+constant c_SC_CTRL_DTA_W      : std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0) := "11000000"                ; --! Science data, control word value: Data Word
+constant c_SC_CTRL_SC_DTA     : std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0) := "11000010"                ; --! Science data, control word value: Science data packet first word
+constant c_SC_CTRL_TST_PAT    : std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0) := "11101000"                ; --! Science data, control word value: Test pattern packet first word
+constant c_SC_CTRL_EOD        : std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0) := "11101010"                ; --! Science data, control word value: End of Data
+constant c_SC_CTRL_ADC_DMP    : t_sc_data_w(0 to c_NB_COL-1) :=
+                                ("11001000", "11001010", "11100000", "11100010")                            ; --! Science data, control word value: SQUID1 ADC by column dump packet first word
+
+constant c_SC_DATA_IDLE_VAL   : std_logic_vector(c_SC_DATA_SER_W_S*c_SC_DATA_SER_NB-1 downto 0) := x"0000"  ; --! Science data: word sent when telemetry mode on one column is in Idle
 
 end pkg_project;

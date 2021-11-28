@@ -29,6 +29,7 @@ use     ieee.std_logic_1164.all;
 use     ieee.numeric_std.all;
 
 library work;
+use     work.pkg_func_math.all;
 use     work.pkg_project.all;
 
 package pkg_ep_cmd is
@@ -107,7 +108,8 @@ constant c_DST_SQ2FBMD_TEST   : std_logic_vector(c_DFLD_SQ2FBMD_COL_S-1 downto 0
    -- ------------------------------------------------------------------------------------------------------
    --    EP command: Data value
    -- ------------------------------------------------------------------------------------------------------
-constant c_D_TM_MODE_DUR_DUMP : integer   :=  2                                                             ; --! EP command: Data value, TM_MODE "Duration" during Dump mode
+constant c_D_TM_MODE_DUR_DUMP : integer   := c_DMP_SEQ_ACQ_NB * 2**(log2_ceil(c_SQ1_ADC_DATA_S)) *
+                                             c_CLK_ADC_MULT / (c_CLK_MULT * c_NB_COL * c_SC_DATA_SER_NB)    ; --! EP command: Data value, TM_MODE "Duration" during Dump mode
 constant c_D_TM_MODE_DUR_INF  : integer   :=  0                                                             ; --! EP command: Data value, TM_MODE "Duration" infinity value
 
    -- ------------------------------------------------------------------------------------------------------

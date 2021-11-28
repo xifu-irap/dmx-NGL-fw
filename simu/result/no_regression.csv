@@ -9,3 +9,4 @@ DRE_DMX_UT_0070;EP command, SQ1_FB_MODE register;PASS
 DRE_DMX_UT_0080;ADC Power Down and ADC clock signals behavior;PASS
 DRE_DMX_UT_0090;DAC Sleep and DAC clock signals behavior;PASS
 DRE_DMX_UT_0100;EP command, SQ2_FB_MODE register;PASS
+DRE_DMX_UT_0110;ADC Dump on science data telemetry;PASS

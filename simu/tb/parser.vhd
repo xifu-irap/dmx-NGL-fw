@@ -72,6 +72,9 @@ entity parser is generic
          i_d_clk_sq1_adc_acq  : in     std_logic                                                            ; --! Internal design: SQUID1 ADC acquisition Clock
          i_d_clk_sq1_pls_shap : in     std_logic                                                            ; --! Internal design: SQUID1 pulse shaping Clock
 
+         i_sc_pkt_type        : in     std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0)                       ; --! Science packet type
+         i_sc_pkt_err         : in     std_logic                                                            ; --! Science packet error ('0' = No error, '1' = Error)
+
          i_ep_data_rx         : in     std_logic_vector(c_EP_CMD_S-1 downto 0)                              ; --! EP - Receipted data
          i_ep_data_rx_rdy     : in     std_logic                                                            ; --! EP - Receipted data ready ('0' = Not ready, '1' = Ready)
          o_ep_cmd             : out    std_logic_vector(c_EP_CMD_S-1 downto 0)                              ; --! EP - Command to send
@@ -184,13 +187,14 @@ begin
    --!   Parser sequence: read command file and write result file
    -- ------------------------------------------------------------------------------------------------------
    P_parser_seq: process
-   constant c_ERROR_CAT_NB    : integer   := 5                                                              ; --! Error category number
+   constant c_ERROR_CAT_NB    : integer   := 6                                                              ; --! Error category number
    variable v_error_cat       : std_logic_vector(c_ERROR_CAT_NB-1 downto 0)                                 ; --! Error category
    alias    v_err_sim_time    : std_logic is v_error_cat(0)                                                 ; --! Error simulation time ('0' = No error, '1' = Error: Simulation time not long enough)
    alias    v_err_chk_dis_r   : std_logic is v_error_cat(1)                                                 ; --! Error check discrete read  ('0' = No error, '1' = Error)
    alias    v_err_chk_cmd_r   : std_logic is v_error_cat(2)                                                 ; --! Error check command return ('0' = No error, '1' = Error)
    alias    v_err_chk_time    : std_logic is v_error_cat(3)                                                 ; --! Error check time           ('0' = No error, '1' = Error)
    alias    v_err_chk_clk_prm : std_logic is v_error_cat(4)                                                 ; --! Error check clocks parameters ('0' = No error, '1' = Error)
+   alias    v_err_chk_sc_pkt  : std_logic is v_error_cat(5)                                                 ; --! Error check science packet ('0' = No error, '1' = Error)
    variable v_chk_clk_prm_ena : std_logic_vector(c_CMD_FILE_FLD_DATA_S-1 downto 0)                          ; --! Check clock parameters enable
 
    variable v_line_cnt        : integer                                                                     ; --! Command file line counter
@@ -208,6 +212,8 @@ begin
    variable v_fld_mask        : std_logic_vector(c_CMD_FILE_FLD_DATA_S-1 downto 0)                          ; --! Field mask
    variable v_record_time     : time                                                                        ; --! Record time
    variable v_fld_time        : time                                                                        ; --! Field time
+   variable v_fld_sc_pkt      : line                                                                        ; --! Field science packet type
+   variable v_fld_sc_pkt_val  : std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0)                              ; --! Field science packet type value
    begin
 
       -- Open Command and Result files
@@ -320,6 +326,29 @@ begin
 
                   -- Display result
                   fprintf(note , " * Read discrete: " & v_fld_dis.all & ", value " & std_logic'image(discrete_r(v_fld_dis_ind)) & ", expected " & std_logic'image(v_fld_value), res_file);
+
+               -- ------------------------------------------------------------------------------------------------------
+               -- Command CSCP [science_packet] : check the science packet type
+               -- ------------------------------------------------------------------------------------------------------
+               when "CSCP" =>
+
+                  -- Get parameters
+                  get_param_cscp(v_cmd_file_line, v_head_mess_stdout.all, v_fld_sc_pkt, v_fld_sc_pkt_val);
+
+                  -- Check result
+                  if v_fld_sc_pkt_val = i_sc_pkt_type then
+                     fprintf(note , "Check science packet type: PASS", res_file);
+
+                  else
+                     fprintf(error, "Check science packet type: FAIL", res_file);
+
+                     -- Activate error flag
+                     v_err_chk_sc_pkt := '1';
+
+                  end if;
+
+                  -- Display result
+                  fprintf(note , " * Science packet type: " & v_fld_sc_pkt.all & ", value " & to_string(i_sc_pkt_type) & ", expected " & to_string(v_fld_sc_pkt_val), res_file);
 
                -- ------------------------------------------------------------------------------------------------------
                -- Command CTLE [mask] [ope] [time]: check time between the current time and discrete input(s) last event
@@ -565,12 +594,13 @@ begin
       fprintf(none, "Error check command return    : " & std_logic'image(v_err_chk_cmd_r),  res_file);
       fprintf(none, "Error check time              : " & std_logic'image(v_err_chk_time),   res_file);
       fprintf(none, "Error check clocks parameters : " & std_logic'image(v_err_chk_clk_prm),res_file);
+      fprintf(none, "Error check science packets   : " & std_logic'image(v_err_chk_sc_pkt or i_sc_pkt_err), res_file);
 
       fprintf(none, c_RES_FILE_DIV_BAR & c_RES_FILE_DIV_BAR & c_RES_FILE_DIV_BAR, res_file);
       fprintf(none, "Simulation time               : " & time'image(now), res_file);
 
       -- Final test status
-      if v_error_cat = std_logic_vector(to_unsigned(0, v_error_cat'length)) then
+      if v_error_cat = std_logic_vector(to_unsigned(0, v_error_cat'length)) and i_sc_pkt_err = '0' then
          fprintf(none, "Simulation status             : PASS", res_file);
 
       else

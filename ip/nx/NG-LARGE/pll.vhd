@@ -249,6 +249,8 @@ begin
 
    -- ------------------------------------------------------------------------------------------------------
    --!  SQUID1 ADC Clock switchs
+   --    @Req : DRE-DMX-FW-REQ-0050
+   --    @Req : DRE-DMX-FW-REQ-0100
    --    @Req : DRE-DMX-FW-REQ-0110
    -- ------------------------------------------------------------------------------------------------------
    G_cks_clk_sq1_adc: for k in 0 to c_NB_COL-1 generate
@@ -258,7 +260,7 @@ begin
       (  g_FF_RESET_NB        => c_FF_RSYNC_NB        , -- integer                                          ; --! Flip-Flop number used for generated reset
          g_FF_RSYNC_NB        => c_FF_RSYNC_NB        , -- integer                                          ; --! Flip-Flop number used for resynchronization
          g_PLS_CK_SW_NB       => c_PLS_CK_SW_NB       , -- integer                                          ; --! Clock pulse number between clock switch command and output clock
-         g_CK_CMD_DEF         => '0'                    -- std_logic                                          --! Clock switch command default value at reset
+         g_CK_CMD_DEF         => c_CMD_CK_SQ1_ADC_DEF   -- std_logic                                          --! Clock switch command default value at reset
       ) port map
       (  i_arst_n             => i_arst_n             , -- in     std_logic                                 ; --! Asynchronous reset ('0' = Active, '1' = Inactive)
          i_clock              => clk_sq1_adc          , -- in     std_logic                                 ; --! Clock
@@ -317,6 +319,8 @@ begin
 
    -- ------------------------------------------------------------------------------------------------------
    --!  SQUID1 DAC Clock switchs
+   --    @Req : DRE-DMX-FW-REQ-0050
+   --    @Req : DRE-DMX-FW-REQ-0240
    --    @Req : DRE-DMX-FW-REQ-0250
    --    @Req : DRE-DMX-FW-REQ-0260
    -- ------------------------------------------------------------------------------------------------------
@@ -327,7 +331,7 @@ begin
       (  g_FF_RESET_NB        => c_FF_RSYNC_NB        , -- integer                                          ; --! Flip-Flop number used for generated reset
          g_FF_RSYNC_NB        => c_FF_RSYNC_NB        , -- integer                                          ; --! Flip-Flop number used for resynchronization
          g_PLS_CK_SW_NB       => c_PLS_CK_SW_NB       , -- integer                                          ; --! Clock pulse number between clock switch command and output clock
-         g_CK_CMD_DEF         => '0'                    -- std_logic                                          --! Clock switch command default value at reset
+         g_CK_CMD_DEF         => c_CMD_CK_SQ1_DAC_DEF   -- std_logic                                          --! Clock switch command default value at reset
       ) port map
       (  i_arst_n             => i_arst_n             , -- in     std_logic                                 ; --! Asynchronous reset ('0' = Active, '1' = Inactive)
          i_clock              => clk_sq1_dac          , -- in     std_logic                                 ; --! Clock
