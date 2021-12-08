@@ -207,7 +207,7 @@ begin
       begin
          if rising_edge(i_clk_science) then
             if (science_data_rdy = '1') then
-               mem_dump_sc_data_out(k) <= mem_dump(k)(to_integer(signed(mem_dump_sc_add)));
+               mem_dump_sc_data_out(k) <= mem_dump(k)(to_integer(unsigned(mem_dump_sc_add)));
 
             end if;
          end if;

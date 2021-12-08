@@ -33,8 +33,8 @@ def NG_LARGE_constraints(p,option):
     print("NG-LARGE Regions definition")
 
     p.constrainModule('|-> in_rs_clk [ I_in_rs_clk ]', 'in_rs_clk', 'Soft', 25, 12, 1, 1, 'IN_RS_CLK', False)
-    p.constrainModule('|-> science_data_mgt [ I_science_data_mgt ]', 'science_data_mgt', 'Soft', 25, 12, 1, 1, 'SCIENCE_DATA_MGT', False)
-    p.constrainModule('|-> ep_cmd [ I_ep_cmd ]', 'ep_cmd', 'Soft', 27, 12, 1, 1, 'EP_CMD', False)
+    p.constrainModule('|-> science_data_mgt [ I_science_data_mgt ]', 'science_data_mgt', 'Soft', 26, 12, 2, 1, 'SCIENCE_DATA_MGT', False)
+    p.constrainModule('|-> ep_cmd [ I_ep_cmd ]', 'ep_cmd', 'Soft', 28, 12, 1, 1, 'EP_CMD', False)
     p.constrainModule('|-> register_mgt [ I_register_mgt ]', 'register_mgt', 'Soft', 26, 12, 2, 1, 'REGISTER_MGT', False)
     p.constrainModule('|-> hk_mgt [ I_hk_mgt ]', 'hk_mgt', 'Soft', 48, 6, 1, 1, 'HK_MGT', False)
     p.constrainModule('|-> squid_adc_mgt [ G_column_mgt[0].I_squid_adc_mgt ]', 'squid_adc_mgt_0', 'Soft', 26,  6, 1, 4, 'SQUID1_DAC_0', False)

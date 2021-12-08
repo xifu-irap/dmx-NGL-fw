@@ -171,6 +171,10 @@ signal   sq1_mem_dump_bsy     : std_logic_vector(         c_NB_COL-1 downto 0)  
 signal   sq1_data_err         : t_sq1_data_err_v(0 to c_NB_COL-1)                                           ; --! SQUID1 Data error
 signal   sq1_data_sc_msb      : t_sc_data_w(     0 to c_NB_COL-1)                                           ; --! SQUID1 Data science MSB
 signal   sq1_data_sc_lsb      : t_sc_data_w(     0 to c_NB_COL-1)                                           ; --! SQUID1 Data science LSB
+signal   sq1_data_sc_first    : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! SQUID1 Data science first pixel ('0' = No, '1' = Yes)
+signal   sq1_data_sc_last     : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! SQUID1 Data science last pixel ('0' = No, '1' = Yes)
+signal   sq1_data_sc_rdy      : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! SQUID1 Data science ready ('0' = Not ready, '1' = Ready)
+
 signal   sq1_data_fbk         : t_sq1_data_fbk_v(0 to c_NB_COL-1)                                           ; --! SQUID1 Data feedback
 
 signal   sq1_dac_data         : t_sq1_dac_data_v(0 to c_NB_COL-1)                                           ; --! SQUID1 DAC - Data
@@ -272,6 +276,9 @@ begin
 
          i_sq1_data_sc_msb    => sq1_data_sc_msb      , -- in     t_sc_data_w(         0 to c_NB_COL-1)     ; --! SQUID1 Data science MSB
          i_sq1_data_sc_lsb    => sq1_data_sc_lsb      , -- in     t_sc_data_w(         0 to c_NB_COL-1)     ; --! SQUID1 Data science LSB
+         i_sq1_data_sc_first  => sq1_data_sc_first    , -- in     std_logic_vector(c_NB_COL-1 downto 0)     ; --! SQUID1 Data science first pixel ('0' = No, '1' = Yes)
+         i_sq1_data_sc_last   => sq1_data_sc_last     , -- in     std_logic_vector(c_NB_COL-1 downto 0)     ; --! SQUID1 Data science last pixel ('0' = No, '1' = Yes)
+         i_sq1_data_sc_rdy    => sq1_data_sc_rdy      , -- in     std_logic_vector(c_NB_COL-1 downto 0)     ; --! SQUID1 Data science ready ('0' = Not ready, '1' = Ready)
 
          i_sq1_mem_dump_bsy   => sq1_mem_dump_bsy     , -- in     slv(        c_NB_COL-1 downto 0)          ; --! SQUID1 Memory Dump: data busy ('0' = no data dump, '1' = data dump in progress)
          o_sq1_mem_dump_add   => sq1_mem_dump_add     , -- out    slv(c_MEM_DUMP_ADD_S-1 downto 0)          ; --! SQUID1 Memory Dump: address
@@ -402,6 +409,10 @@ begin
 
          o_sq1_data_sc_msb    => sq1_data_sc_msb(k)   , -- out    slv(c_SC_DATA_SER_W_S-1 downto 0)         ; --! SQUID1 Data science MSB
          o_sq1_data_sc_lsb    => sq1_data_sc_lsb(k)   , -- out    slv(c_SC_DATA_SER_W_S-1 downto 0)         ; --! SQUID1 Data science LSB
+         o_sq1_data_sc_first  => sq1_data_sc_first(k) , -- out    std_logic                                 ; --! SQUID1 Data science first pixel ('0' = No, '1' = Yes)
+         o_sq1_data_sc_last   => sq1_data_sc_last(k)  , -- out    std_logic                                 ; --! SQUID1 Data science last pixel ('0' = No, '1' = Yes)
+         o_sq1_data_sc_rdy    => sq1_data_sc_rdy(k)   , -- out    std_logic                                 ; --! SQUID1 Data science ready ('0' = Not ready, '1' = Ready)
+
          o_sq1_data_fbk       => sq1_data_fbk(k)        -- out    slv( c_SQ1_DATA_FBK_S-1 downto 0)           --! SQUID1 Data feedback
       );
 
