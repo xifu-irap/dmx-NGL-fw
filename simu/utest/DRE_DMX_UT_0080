@@ -141,9 +141,9 @@ CTLR << 366696 ps
 CTLR >> 183348 ps
 COMM
 COMM ==============================================================================================
-COMM   Send command SQ1_FB_MODE column 0 to Closed loop for o_c0_sq1_adc_pwdn deactivation
+COMM   Send command SQ1_FB_MODE column 0 to On for o_c0_sq1_adc_pwdn deactivation
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-SQ1_FB_MODE-0002 N
+WCMD W-SQ1_FB_MODE-0001 N
 COMM
 COMM ==============================================================================================
 COMM   Check no event is appeared on o_c0_sq1_adc_pwdn and wait o_c0_sq1_adc_pwdn deactivation
@@ -188,9 +188,9 @@ CTLR << 366696 ps
 CTLR >> 183348 ps
 COMM
 COMM ==============================================================================================
-COMM   Send command SQ1_FB_MODE column 0 to Closed loop for o_c0_sq1_adc_pwdn deactivation
+COMM   Send command SQ1_FB_MODE column 0 to On for o_c0_sq1_adc_pwdn deactivation
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-SQ1_FB_MODE-0002 N
+WCMD W-SQ1_FB_MODE-0001 N
 COMM
 COMM ==============================================================================================
 COMM   Check no event is appeared on o_c0_sq1_adc_pwdn and wait o_c0_sq1_adc_pwdn deactivation
@@ -215,9 +215,9 @@ WUDI sync 1
 CTLE sq1_adc_pwdn(0) >= 183348 ps
 COMM
 COMM ==============================================================================================
-COMM   Send command SQ1_FB_MODE column 0 to Open loop for o_c0_sq1_adc_pwdn activation
+COMM   Send command SQ1_FB_MODE column 0 to Off for o_c0_sq1_adc_pwdn activation
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-SQ1_FB_MODE-0001 W
+WCMD W-SQ1_FB_MODE-0000 W
 COMM
 COMM ==============================================================================================
 COMM    Wait i_sync rising edge and check o_c0_sq1_adc_pwdn remains to deactivated
@@ -235,9 +235,9 @@ CTLR << 366696 ps
 CTLR >> 183348 ps
 COMM
 COMM ==============================================================================================
-COMM   Send command SQ1_FB_MODE column 0 to Closed loop for o_c0_sq1_adc_pwdn deactivation
+COMM   Send command SQ1_FB_MODE column 0 to On for o_c0_sq1_adc_pwdn deactivation
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-SQ1_FB_MODE-0002 N
+WCMD W-SQ1_FB_MODE-0001 N
 COMM
 COMM ==============================================================================================
 COMM   Check no event is appeared on o_c0_sq1_adc_pwdn and wait o_c0_sq1_adc_pwdn deactivation
@@ -262,9 +262,9 @@ WUDI sync 1
 CTLE sq1_adc_pwdn(0) >= 183348 ps
 COMM
 COMM ==============================================================================================
-COMM   Send command SQ1_FB_MODE column 0 to Test pattern for o_c0_sq1_adc_pwdn activation
+COMM   Send command SQ1_FB_MODE column 0 to Off for o_c0_sq1_adc_pwdn activation
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-SQ1_FB_MODE-0003 W
+WCMD W-SQ1_FB_MODE-0000 W
 COMM
 COMM ==============================================================================================
 COMM    Wait i_sync rising edge and check o_c0_sq1_adc_pwdn remains to deactivated
@@ -387,9 +387,9 @@ CTLR << 366696 ps
 CTLR >> 183348 ps
 COMM
 COMM ==============================================================================================
-COMM   Send command SQ1_FB_MODE column 1 to Closed loop for o_c1_sq1_adc_pwdn deactivation
+COMM   Send command SQ1_FB_MODE column 1 to On for o_c1_sq1_adc_pwdn deactivation
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-SQ1_FB_MODE-0020 N
+WCMD W-SQ1_FB_MODE-0010 N
 COMM
 COMM ==============================================================================================
 COMM   Check no event is appeared on o_c1_sq1_adc_pwdn and wait o_c1_sq1_adc_pwdn deactivation
@@ -434,9 +434,9 @@ CTLR << 366696 ps
 CTLR >> 183348 ps
 COMM
 COMM ==============================================================================================
-COMM   Send command SQ1_FB_MODE column 1 to Closed loop for o_c1_sq1_adc_pwdn deactivation
+COMM   Send command SQ1_FB_MODE column 1 to On for o_c1_sq1_adc_pwdn deactivation
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-SQ1_FB_MODE-0020 N
+WCMD W-SQ1_FB_MODE-0010 N
 COMM
 COMM ==============================================================================================
 COMM   Check no event is appeared on o_c1_sq1_adc_pwdn and wait o_c1_sq1_adc_pwdn deactivation
@@ -461,9 +461,9 @@ WUDI sync 1
 CTLE sq1_adc_pwdn(1) >= 183348 ps
 COMM
 COMM ==============================================================================================
-COMM   Send command SQ1_FB_MODE column 1 to Open loop for o_c1_sq1_adc_pwdn activation
+COMM   Send command SQ1_FB_MODE column 1 to Off for o_c1_sq1_adc_pwdn activation
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-SQ1_FB_MODE-0010 W
+WCMD W-SQ1_FB_MODE-0000 W
 COMM
 COMM ==============================================================================================
 COMM    Wait i_sync rising edge and check o_c1_sq1_adc_pwdn remains to deactivated
@@ -481,9 +481,9 @@ CTLR << 366696 ps
 CTLR >> 183348 ps
 COMM
 COMM ==============================================================================================
-COMM   Send command SQ1_FB_MODE column 1 to Closed loop for o_c1_sq1_adc_pwdn deactivation
+COMM   Send command SQ1_FB_MODE column 1 to On for o_c1_sq1_adc_pwdn deactivation
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-SQ1_FB_MODE-0020 N
+WCMD W-SQ1_FB_MODE-0010 N
 COMM
 COMM ==============================================================================================
 COMM   Check no event is appeared on o_c1_sq1_adc_pwdn and wait o_c1_sq1_adc_pwdn deactivation
@@ -508,9 +508,9 @@ WUDI sync 1
 CTLE sq1_adc_pwdn(1) >= 183348 ps
 COMM
 COMM ==============================================================================================
-COMM   Send command SQ1_FB_MODE column 1 to Test pattern for o_c1_sq1_adc_pwdn activation
+COMM   Send command SQ1_FB_MODE column 1 to Off for o_c1_sq1_adc_pwdn activation
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-SQ1_FB_MODE-0030 W
+WCMD W-SQ1_FB_MODE-0000 W
 COMM
 COMM ==============================================================================================
 COMM    Wait i_sync rising edge and check o_c1_sq1_adc_pwdn remains to deactivated
@@ -633,9 +633,9 @@ CTLR << 366696 ps
 CTLR >> 183348 ps
 COMM
 COMM ==============================================================================================
-COMM   Send command SQ1_FB_MODE column 2 to Closed loop for o_c2_sq1_adc_pwdn deactivation
+COMM   Send command SQ1_FB_MODE column 2 to On for o_c2_sq1_adc_pwdn deactivation
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-SQ1_FB_MODE-0200 N
+WCMD W-SQ1_FB_MODE-0100 N
 COMM
 COMM ==============================================================================================
 COMM   Check no event is appeared on o_c2_sq1_adc_pwdn and wait o_c2_sq1_adc_pwdn deactivation
@@ -680,9 +680,9 @@ CTLR << 366696 ps
 CTLR >> 183348 ps
 COMM
 COMM ==============================================================================================
-COMM   Send command SQ1_FB_MODE column 2 to Closed loop for o_c2_sq1_adc_pwdn deactivation
+COMM   Send command SQ1_FB_MODE column 2 to On for o_c2_sq1_adc_pwdn deactivation
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-SQ1_FB_MODE-0200 N
+WCMD W-SQ1_FB_MODE-0100 N
 COMM
 COMM ==============================================================================================
 COMM   Check no event is appeared on o_c2_sq1_adc_pwdn and wait o_c2_sq1_adc_pwdn deactivation
@@ -707,9 +707,9 @@ WUDI sync 1
 CTLE sq1_adc_pwdn(2) >= 183348 ps
 COMM
 COMM ==============================================================================================
-COMM   Send command SQ1_FB_MODE column 2 to Open loop for o_c2_sq1_adc_pwdn activation
+COMM   Send command SQ1_FB_MODE column 2 to Off for o_c2_sq1_adc_pwdn activation
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-SQ1_FB_MODE-0100 W
+WCMD W-SQ1_FB_MODE-0000 W
 COMM
 COMM ==============================================================================================
 COMM    Wait i_sync rising edge and check o_c2_sq1_adc_pwdn remains to deactivated
@@ -727,9 +727,9 @@ CTLR << 366696 ps
 CTLR >> 183348 ps
 COMM
 COMM ==============================================================================================
-COMM   Send command SQ1_FB_MODE column 2 to Closed loop for o_c2_sq1_adc_pwdn deactivation
+COMM   Send command SQ1_FB_MODE column 2 to On for o_c2_sq1_adc_pwdn deactivation
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-SQ1_FB_MODE-0200 N
+WCMD W-SQ1_FB_MODE-0100 N
 COMM
 COMM ==============================================================================================
 COMM   Check no event is appeared on o_c2_sq1_adc_pwdn and wait o_c2_sq1_adc_pwdn deactivation
@@ -754,9 +754,9 @@ WUDI sync 1
 CTLE sq1_adc_pwdn(2) >= 183348 ps
 COMM
 COMM ==============================================================================================
-COMM   Send command SQ1_FB_MODE column 2 to Test pattern for o_c2_sq1_adc_pwdn activation
+COMM   Send command SQ1_FB_MODE column 2 to Off for o_c2_sq1_adc_pwdn activation
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-SQ1_FB_MODE-0300 W
+WCMD W-SQ1_FB_MODE-0000 W
 COMM
 COMM ==============================================================================================
 COMM    Wait i_sync rising edge and check o_c2_sq1_adc_pwdn remains to deactivated
@@ -879,9 +879,9 @@ CTLR << 366696 ps
 CTLR >> 183348 ps
 COMM
 COMM ==============================================================================================
-COMM   Send command SQ1_FB_MODE column 3 to Closed loop for o_c3_sq1_adc_pwdn deactivation
+COMM   Send command SQ1_FB_MODE column 3 to On for o_c3_sq1_adc_pwdn deactivation
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-SQ1_FB_MODE-2000 N
+WCMD W-SQ1_FB_MODE-1000 N
 COMM
 COMM ==============================================================================================
 COMM   Check no event is appeared on o_c3_sq1_adc_pwdn and wait o_c3_sq1_adc_pwdn deactivation
@@ -926,9 +926,9 @@ CTLR << 366696 ps
 CTLR >> 183348 ps
 COMM
 COMM ==============================================================================================
-COMM   Send command SQ1_FB_MODE column 3 to Closed loop for o_c3_sq1_adc_pwdn deactivation
+COMM   Send command SQ1_FB_MODE column 3 to On for o_c3_sq1_adc_pwdn deactivation
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-SQ1_FB_MODE-2000 N
+WCMD W-SQ1_FB_MODE-1000 N
 COMM
 COMM ==============================================================================================
 COMM   Check no event is appeared on o_c3_sq1_adc_pwdn and wait o_c3_sq1_adc_pwdn deactivation
@@ -953,9 +953,9 @@ WUDI sync 1
 CTLE sq1_adc_pwdn(3) >= 183348 ps
 COMM
 COMM ==============================================================================================
-COMM   Send command SQ1_FB_MODE column 3 to Open loop for o_c3_sq1_adc_pwdn activation
+COMM   Send command SQ1_FB_MODE column 3 to Off for o_c3_sq1_adc_pwdn activation
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-SQ1_FB_MODE-1000 W
+WCMD W-SQ1_FB_MODE-0000 W
 COMM
 COMM ==============================================================================================
 COMM    Wait i_sync rising edge and check o_c3_sq1_adc_pwdn remains to deactivated
@@ -973,9 +973,9 @@ CTLR << 366696 ps
 CTLR >> 183348 ps
 COMM
 COMM ==============================================================================================
-COMM   Send command SQ1_FB_MODE column 3 to Closed loop for o_c3_sq1_adc_pwdn deactivation
+COMM   Send command SQ1_FB_MODE column 3 to On for o_c3_sq1_adc_pwdn deactivation
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-SQ1_FB_MODE-2000 N
+WCMD W-SQ1_FB_MODE-1000 N
 COMM
 COMM ==============================================================================================
 COMM   Check no event is appeared on o_c3_sq1_adc_pwdn and wait o_c3_sq1_adc_pwdn deactivation
@@ -1000,9 +1000,9 @@ WUDI sync 1
 CTLE sq1_adc_pwdn(3) >= 183348 ps
 COMM
 COMM ==============================================================================================
-COMM   Send command SQ1_FB_MODE column 3 to Test pattern for o_c3_sq1_adc_pwdn activation
+COMM   Send command SQ1_FB_MODE column 3 to Off for o_c3_sq1_adc_pwdn activation
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-SQ1_FB_MODE-3000 W
+WCMD W-SQ1_FB_MODE-0000 W
 COMM
 COMM ==============================================================================================
 COMM    Wait i_sync rising edge and check o_c3_sq1_adc_pwdn remains to deactivated

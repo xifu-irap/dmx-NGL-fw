@@ -85,7 +85,7 @@ constant c_EP_CMD_AUTH_VERSION: std_logic := c_EP_CMD_ERR_SET                   
    -- ------------------------------------------------------------------------------------------------------
 constant c_DFLD_TM_MODE_DUR_S : integer   :=  8                                                             ; --! EP command: Data field, TM_MODE Duration bus size
 constant c_DFLD_TM_MODE_COL_S : integer   :=  2                                                             ; --! EP command: Data field, TM_MODE by column bus size
-constant c_DFLD_SQ1FBMD_COL_S : integer   :=  2                                                             ; --! EP command: Data field, SQ1_FB_MODE by column bus size
+constant c_DFLD_SQ1FBMD_COL_S : integer   :=  1                                                             ; --! EP command: Data field, SQ1_FB_MODE by column bus size
 constant c_DFLD_SQ2FBMD_COL_S : integer   :=  2                                                             ; --! EP command: Data field, SQ2_FB_MODE by column bus size
 
    -- ------------------------------------------------------------------------------------------------------
@@ -96,13 +96,12 @@ constant c_DST_TM_MODE_IDLE   : std_logic_vector(c_DFLD_TM_MODE_COL_S-1 downto 0
 constant c_DST_TM_MODE_NORM   : std_logic_vector(c_DFLD_TM_MODE_COL_S-1 downto 0):= "10"                    ; --! EP command: Data state, TM_MODE "Normal"
 constant c_DST_TM_MODE_TEST   : std_logic_vector(c_DFLD_TM_MODE_COL_S-1 downto 0):= "11"                    ; --! EP command: Data state, TM_MODE "Test Pattern"
 
-constant c_DST_SQ1FBMD_OFF    : std_logic_vector(c_DFLD_SQ1FBMD_COL_S-1 downto 0):= "00"                    ; --! EP command: Data state, SQ1_FB_MODE "Off"
-constant c_DST_SQ1FBMD_OPEN   : std_logic_vector(c_DFLD_SQ1FBMD_COL_S-1 downto 0):= "01"                    ; --! EP command: Data state, SQ1_FB_MODE "Open Loop"
-constant c_DST_SQ1FBMD_CLOSE  : std_logic_vector(c_DFLD_SQ1FBMD_COL_S-1 downto 0):= "10"                    ; --! EP command: Data state, SQ1_FB_MODE "Closed Loop"
-constant c_DST_SQ1FBMD_TEST   : std_logic_vector(c_DFLD_SQ1FBMD_COL_S-1 downto 0):= "11"                    ; --! EP command: Data state, SQ1_FB_MODE "Test Pattern"
+constant c_DST_SQ1FBMD_OFF    : std_logic_vector(c_DFLD_SQ1FBMD_COL_S-1 downto 0):= "0"                     ; --! EP command: Data state, SQ1_FB_MODE "Off"
+constant c_DST_SQ1FBMD_ON     : std_logic_vector(c_DFLD_SQ1FBMD_COL_S-1 downto 0):= "1"                     ; --! EP command: Data state, SQ1_FB_MODE "Test Pattern"
 
 constant c_DST_SQ2FBMD_OFF    : std_logic_vector(c_DFLD_SQ2FBMD_COL_S-1 downto 0):= "00"                    ; --! EP command: Data state, SQ2_FB_MODE "Off"
-constant c_DST_SQ2FBMD_OPEN   : std_logic_vector(c_DFLD_SQ2FBMD_COL_S-1 downto 0):= "10"                    ; --! EP command: Data state, SQ2_FB_MODE "Open Loop"
+constant c_DST_SQ2FBMD_OPEN   : std_logic_vector(c_DFLD_SQ2FBMD_COL_S-1 downto 0):= "01"                    ; --! EP command: Data state, SQ2_FB_MODE "Open Loop"
+constant c_DST_SQ2FBMD_CLOSE  : std_logic_vector(c_DFLD_SQ2FBMD_COL_S-1 downto 0):= "10"                    ; --! EP command: Data state, SQ2_FB_MODE "Open Loop"
 constant c_DST_SQ2FBMD_TEST   : std_logic_vector(c_DFLD_SQ2FBMD_COL_S-1 downto 0):= "11"                    ; --! EP command: Data state, SQ2_FB_MODE "Test Pattern"
 
    -- ------------------------------------------------------------------------------------------------------
@@ -119,8 +118,8 @@ constant c_EP_CMD_DEF_TMDE_DR : integer   :=  0                                 
 constant c_EP_CMD_DEF_TM_MODE : std_logic_vector(c_DFLD_TM_MODE_COL_S-1 downto 0):= c_DST_TM_MODE_IDLE      ; --! EP command: Default value, TM_MODE by column
 
 constant c_EP_CMD_DEF_SQ1FBMD : std_logic_vector(c_EP_SPI_WD_S-1 downto 0):=
-                                "00" & c_DST_SQ1FBMD_OFF & "00" & c_DST_SQ1FBMD_OFF &
-                                "00" & c_DST_SQ1FBMD_OFF & "00" & c_DST_SQ1FBMD_OFF                         ; --! EP command: Default value, SQ1_FB_MODE
+                                "000" & c_DST_SQ1FBMD_OFF & "000" & c_DST_SQ1FBMD_OFF &
+                                "000" & c_DST_SQ1FBMD_OFF & "000" & c_DST_SQ1FBMD_OFF                       ; --! EP command: Default value, SQ1_FB_MODE
 
 constant c_EP_CMD_DEF_SQ2FBMD : std_logic_vector(c_EP_SPI_WD_S-1 downto 0):=
                                 "00" & c_DST_SQ2FBMD_OFF & "00" & c_DST_SQ2FBMD_OFF &

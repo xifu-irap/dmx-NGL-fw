@@ -125,7 +125,7 @@ begin
    begin
       cmd_ck_sq1_adc_ena(k) <=   '1' when i_tm_mode(k)     = c_DST_TM_MODE_DUMP  else
                                  '1' when i_tm_mode(k)     = c_DST_TM_MODE_NORM  else
-                                 '1' when i_sq1_fb_mode(k) = c_DST_SQ1FBMD_CLOSE else '0';
+                                 '1' when i_sq1_fb_mode(k) = c_DST_SQ1FBMD_ON    else '0';
       cmd_ck_sq1_dac_ena(k) <=   '0' when i_sq1_fb_mode(k) = c_DST_SQ1FBMD_OFF   else '1';
 
       P_cmd_ck_sq1 : process (i_rst, i_clk)

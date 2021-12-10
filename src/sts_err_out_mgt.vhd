@@ -53,15 +53,13 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   Error data out of range conditions
    -- ------------------------------------------------------------------------------------------------------
-   cond_sq1fbmd <=   i_ep_cmd_rx_wd_data(15) or i_ep_cmd_rx_wd_data(14) or i_ep_cmd_rx_wd_data(11) or i_ep_cmd_rx_wd_data(10) or
-                     i_ep_cmd_rx_wd_data(7)  or i_ep_cmd_rx_wd_data(6)  or i_ep_cmd_rx_wd_data(3)  or i_ep_cmd_rx_wd_data(2);
+   cond_sq1fbmd <=   i_ep_cmd_rx_wd_data(15) or i_ep_cmd_rx_wd_data(14) or i_ep_cmd_rx_wd_data(13) or
+                     i_ep_cmd_rx_wd_data(11) or i_ep_cmd_rx_wd_data(10) or i_ep_cmd_rx_wd_data(9)  or
+                     i_ep_cmd_rx_wd_data(7)  or i_ep_cmd_rx_wd_data(6)  or i_ep_cmd_rx_wd_data(5)  or
+                     i_ep_cmd_rx_wd_data(3)  or i_ep_cmd_rx_wd_data(2)  or i_ep_cmd_rx_wd_data(1);
 
    cond_sq2fbmd <=   i_ep_cmd_rx_wd_data(15) or i_ep_cmd_rx_wd_data(14) or i_ep_cmd_rx_wd_data(11) or i_ep_cmd_rx_wd_data(10) or
-                     i_ep_cmd_rx_wd_data(7)  or i_ep_cmd_rx_wd_data(6)  or i_ep_cmd_rx_wd_data(3)  or i_ep_cmd_rx_wd_data(2) or
-                     ( not(i_ep_cmd_rx_wd_data(13)) and i_ep_cmd_rx_wd_data(12)) or
-                     ( not(i_ep_cmd_rx_wd_data(9))  and i_ep_cmd_rx_wd_data(8))  or
-                     ( not(i_ep_cmd_rx_wd_data(5))  and i_ep_cmd_rx_wd_data(4))  or
-                     ( not(i_ep_cmd_rx_wd_data(1))  and i_ep_cmd_rx_wd_data(0));
+                     i_ep_cmd_rx_wd_data(7)  or i_ep_cmd_rx_wd_data(6)  or i_ep_cmd_rx_wd_data(3)  or i_ep_cmd_rx_wd_data(2);
 
    -- ------------------------------------------------------------------------------------------------------
    --!   EP command: Status, error error data out of range

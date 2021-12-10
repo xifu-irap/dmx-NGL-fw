@@ -136,7 +136,7 @@ WCMD R-SQ2_FB_MODE-XXXX R     # Command 20
 COMM
 COMM ==============================================================================================
 COMM   Check SQ2_FB_MODE content:
-COMM   Col(3)->Off, Col(2)->Open loop, Col(1)->Open loop, Col(0)->Test pattern
+COMM   Col(3)->Off, Col(2)->Close loop, Col(1)->Close loop, Col(0)->Test pattern
 COMM ----------------------------------------------------------------------------------------------
 CCMD R-SQ2_FB_MODE-0223 W     # Return Command 18
 WCMD W-SQ2_FB_MODE-2030 R     # Command 21
@@ -149,7 +149,7 @@ WCMD R-SQ2_FB_MODE-XXXX R     # Command 22
 COMM
 COMM ==============================================================================================
 COMM   Check SQ2_FB_MODE content:
-COMM   Col(3)->Test pattern, Col(2)->Test pattern, Col(1)->Open loop, Col(0)->Off
+COMM   Col(3)->Test pattern, Col(2)->Test pattern, Col(1)->Close loop, Col(0)->Off
 COMM ----------------------------------------------------------------------------------------------
 CCMD R-SQ2_FB_MODE-3320 W     # Return Command 20
 WCMD W-SQ2_FB_MODE-2302 R     # Command 23
@@ -162,10 +162,10 @@ WCMD R-SQ2_FB_MODE-XXXX R     # Command 24
 COMM
 COMM ==============================================================================================
 COMM   Check SQ2_FB_MODE content:
-COMM   Col(3)->Open loop, Col(2)->Off, Col(1)->Test pattern, Col(0)->Off
+COMM   Col(3)->Close loop, Col(2)->Off, Col(1)->Test pattern, Col(0)->Off
 COMM ----------------------------------------------------------------------------------------------
 CCMD R-SQ2_FB_MODE-2030 W     # Return Command 22
-WCMD W-SQ2_FB_MODE-1XXX R     # Command 25
+WCMD W-SQ2_FB_MODE-1203 R     # Command 25
 COMM
 COMM ==============================================================================================
 COMM   Check no error
@@ -175,55 +175,59 @@ WCMD R-SQ2_FB_MODE-XXXX R     # Command 26
 COMM
 COMM ==============================================================================================
 COMM   Check SQ2_FB_MODE content:
-COMM   Col(3)->Open loop, Col(2)->Test pattern, Col(1)->Off, Col(0)->Open loop
+COMM   Col(3)->Close loop, Col(2)->Test pattern, Col(1)->Off, Col(0)->Close loop
 COMM ----------------------------------------------------------------------------------------------
 CCMD R-SQ2_FB_MODE-2302 W     # Return Command 24
-WCMD W-SQ2_FB_MODE-X1XX R     # Command 27
+WCMD W-SQ2_FB_MODE-3120 R     # Command 27
 COMM
 COMM ==============================================================================================
-COMM   Check error position SPI data out of range detected
+COMM   Check no error
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-Status-1000 W          # Return Command 25
+CCMD R-Status-0000 W          # Return Command 25
 WCMD R-SQ2_FB_MODE-XXXX R     # Command 28
 COMM
 COMM ==============================================================================================
-COMM   Check SQ2_FB_MODE no change
+COMM   Check SQ2_FB_MODE content:
+COMM   Col(3)->Open loop, Col(2)->Close loop, Col(1)->Off, Col(0)->Test pattern
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-SQ2_FB_MODE-2302 W     # Return Command 26
-WCMD W-SQ2_FB_MODE-XX1X R     # Command 29
+CCMD R-SQ2_FB_MODE-1203 W     # Return Command 26
+WCMD W-SQ2_FB_MODE-0312 R     # Command 29
 COMM
 COMM ==============================================================================================
-COMM   Check error position SPI data out of range detected
+COMM   Check no error
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-Status-1000 W          # Return Command 27
+CCMD R-Status-0000 W          # Return Command 27
 WCMD R-SQ2_FB_MODE-XXXX R     # Command 30
 COMM
 COMM ==============================================================================================
-COMM   Check SQ2_FB_MODE no change
+COMM   Check SQ2_FB_MODE content:
+COMM   Col(3)->Test pattern, Col(2)->Open loop, Col(1)->Close loop, Col(0)->Off 
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-SQ2_FB_MODE-2302 W     # Return Command 28
-WCMD W-SQ2_FB_MODE-XXX1 R     # Command 31
+CCMD R-SQ2_FB_MODE-3120 W     # Return Command 28
+WCMD W-SQ2_FB_MODE-2031 R     # Command 31
 COMM
 COMM ==============================================================================================
-COMM   Check error position SPI data out of range detected
+COMM   Check no error
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-Status-1000 W          # Return Command 29
+CCMD R-Status-0000 W          # Return Command 29
 WCMD R-SQ2_FB_MODE-XXXX R     # Command 32
 COMM
 COMM ==============================================================================================
-COMM   Check SQ2_FB_MODE no change
+COMM   Check SQ2_FB_MODE content:
+COMM   Col(3)->Off, Col(2)->Test pattern, Col(1)->Open loop, Col(0)->Close loop
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-SQ2_FB_MODE-2302 W     # Return Command 30
+CCMD R-SQ2_FB_MODE-0312 W     # Return Command 30
 WCMD W-SQ2_FB_MODE-0000 R     # Command 33
 COMM
 COMM ==============================================================================================
-COMM   Check error position SPI data out of range detected
+COMM   Check no error
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-Status-1000 W          # Return Command 31
+CCMD R-Status-0000 W          # Return Command 31
 WCMD R-SQ2_FB_MODE-XXXX R     # Command 33
 COMM
 COMM ==============================================================================================
-COMM   Check SQ2_FB_MODE no change
+COMM   Check SQ2_FB_MODE content:
+COMM   Col(3)->Close loop, Col(2)->Off, Col(1)->Test pattern, Col(0)->Open loop
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-SQ2_FB_MODE-2302 W     # Return Command 32
+CCMD R-SQ2_FB_MODE-2031 W     # Return Command 32
 WCMD W-SQ2_FB_MODE-0000 R     # Command 34

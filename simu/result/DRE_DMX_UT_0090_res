@@ -42,7 +42,7 @@
 # ** Note   : (6983892 ps) Waiting event rst = '0' for 6903892 ps
 #             (6983892 ps) 
 #             (6983892 ps) ==============================================================================================
-#             (6983892 ps)   Send command SQ1_FB_MODE column 0 to open loop for o_c0_sq1_dac_sleep deactivation
+#             (6983892 ps)   Send command SQ1_FB_MODE column 0 to On for o_c0_sq1_dac_sleep deactivation
 #             (6983892 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (12484332 ps) Waiting event sync = '1' for 5500440 ps
 # ** Note   : (12484332 ps) Send SPI command value 8003_0001 (SQ1_FB_MODE, mode Write, data 0001)
@@ -71,7 +71,7 @@
 # ** Note   : (18718164 ps)  * sq1_dac_sleep(0) last event 287523 ps greater than or equal to expected value 183348 ps
 #             (18718164 ps) 
 #             (18718164 ps) ==============================================================================================
-#             (18718164 ps)   Send command SQ1_FB_MODE column 0 to open loop for o_c0_sq1_dac_sleep activation
+#             (18718164 ps)   Send command SQ1_FB_MODE column 0 to Off for o_c0_sq1_dac_sleep activation
 #             (18718164 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (18718164 ps) Send SPI command value 8003_0000 (SQ1_FB_MODE, mode Write, data 0000)
 # ** Note   : (21287000 ps) Waiting SPI command end for 2528836 ps
@@ -93,10 +93,10 @@
 # ** Note   : (25031169 ps)  * record time 79173 ps strictly less than expected value 183348 ps
 #             (25031169 ps) 
 #             (25031169 ps) ==============================================================================================
-#             (25031169 ps)   Send command SQ1_FB_MODE column 0 to closed loop for o_c0_sq1_dac_sleep deactivation
+#             (25031169 ps)   Send command SQ1_FB_MODE column 0 to On for o_c0_sq1_dac_sleep deactivation
 #             (25031169 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (25035336 ps) Waiting event sync = '1' for 4167 ps
-# ** Note   : (25035336 ps) Send SPI command value 8003_0002 (SQ1_FB_MODE, mode Write, data 0002)
+# ** Note   : (25035336 ps) Send SPI command value 8003_0001 (SQ1_FB_MODE, mode Write, data 0001)
 #             (25075336 ps) 
 #             (25075336 ps) ==============================================================================================
 #             (25075336 ps)   check o_c0_sq1_dac_sleep remains to activated and wait o_c0_sq1_dac_sleep deactivation
@@ -122,7 +122,7 @@
 # ** Note   : (31185828 ps)  * sq1_dac_sleep(0) last event 287523 ps greater than or equal to expected value 183348 ps
 #             (31185828 ps) 
 #             (31185828 ps) ==============================================================================================
-#             (31185828 ps)   Send command SQ1_FB_MODE column 0 to open loop for o_c0_sq1_dac_sleep activation
+#             (31185828 ps)   Send command SQ1_FB_MODE column 0 to Off for o_c0_sq1_dac_sleep activation
 #             (31185828 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (31185828 ps) Send SPI command value 8003_0000 (SQ1_FB_MODE, mode Write, data 0000)
 # ** Note   : (33747000 ps) Waiting SPI command end for 2521172 ps
@@ -144,10 +144,10 @@
 # ** Note   : (37498833 ps)  * record time 79173 ps strictly less than expected value 183348 ps
 #             (37498833 ps) 
 #             (37498833 ps) ==============================================================================================
-#             (37498833 ps)   Send command SQ1_FB_MODE column 0 to Test pattern for o_c0_sq1_dac_sleep deactivation
+#             (37498833 ps)   Send command SQ1_FB_MODE column 0 to On for o_c0_sq1_dac_sleep deactivation
 #             (37498833 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (37503000 ps) Waiting event sync = '1' for 4167 ps
-# ** Note   : (37503000 ps) Send SPI command value 8003_0003 (SQ1_FB_MODE, mode Write, data 0003)
+# ** Note   : (37503000 ps) Send SPI command value 8003_0001 (SQ1_FB_MODE, mode Write, data 0001)
 #             (37543000 ps) 
 #             (37543000 ps) ==============================================================================================
 #             (37543000 ps)   check o_c0_sq1_dac_sleep remains to activated and wait o_c0_sq1_dac_sleep deactivation
@@ -173,7 +173,7 @@
 # ** Note   : (43653492 ps)  * sq1_dac_sleep(0) last event 287523 ps greater than or equal to expected value 183348 ps
 #             (43653492 ps) 
 #             (43653492 ps) ==============================================================================================
-#             (43653492 ps)   Send command SQ1_FB_MODE column 0 to open loop for o_c0_sq1_dac_sleep activation
+#             (43653492 ps)   Send command SQ1_FB_MODE column 0 to Off for o_c0_sq1_dac_sleep activation
 #             (43653492 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (43653492 ps) Send SPI command value 8003_0000 (SQ1_FB_MODE, mode Write, data 0000)
 # ** Note   : (46227000 ps) Waiting SPI command end for 2533508 ps
@@ -195,7 +195,7 @@
 # ** Note   : (49966497 ps)  * record time 79173 ps strictly less than expected value 183348 ps
 #             (49966497 ps) 
 #             (49966497 ps) ==============================================================================================
-#             (49966497 ps)   Send command SQ1_FB_MODE column 1 to open loop for o_c1_sq1_dac_sleep deactivation
+#             (49966497 ps)   Send command SQ1_FB_MODE column 1 to On for o_c1_sq1_dac_sleep deactivation
 #             (49966497 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (49970664 ps) Waiting event sync = '1' for 4167 ps
 # ** Note   : (49970664 ps) Send SPI command value 8003_0010 (SQ1_FB_MODE, mode Write, data 0010)
@@ -224,7 +224,7 @@
 # ** Note   : (56121156 ps)  * sq1_dac_sleep(1) last event 287523 ps greater than or equal to expected value 183348 ps
 #             (56121156 ps) 
 #             (56121156 ps) ==============================================================================================
-#             (56121156 ps)   Send command SQ1_FB_MODE column 1 to open loop for o_c1_sq1_dac_sleep activation
+#             (56121156 ps)   Send command SQ1_FB_MODE column 1 to Off for o_c1_sq1_dac_sleep activation
 #             (56121156 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (56121156 ps) Send SPI command value 8003_0000 (SQ1_FB_MODE, mode Write, data 0000)
 # ** Note   : (58687000 ps) Waiting SPI command end for 2525844 ps
@@ -246,10 +246,10 @@
 # ** Note   : (62434161 ps)  * record time 79173 ps strictly less than expected value 183348 ps
 #             (62434161 ps) 
 #             (62434161 ps) ==============================================================================================
-#             (62434161 ps)   Send command SQ1_FB_MODE column 1 to closed loop for o_c1_sq1_dac_sleep deactivation
+#             (62434161 ps)   Send command SQ1_FB_MODE column 1 to On for o_c1_sq1_dac_sleep deactivation
 #             (62434161 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (62438328 ps) Waiting event sync = '1' for 4167 ps
-# ** Note   : (62438328 ps) Send SPI command value 8003_0020 (SQ1_FB_MODE, mode Write, data 0020)
+# ** Note   : (62438328 ps) Send SPI command value 8003_0010 (SQ1_FB_MODE, mode Write, data 0010)
 #             (62478328 ps) 
 #             (62478328 ps) ==============================================================================================
 #             (62478328 ps)   check o_c1_sq1_dac_sleep remains to activated and wait o_c1_sq1_dac_sleep deactivation
@@ -275,7 +275,7 @@
 # ** Note   : (68588820 ps)  * sq1_dac_sleep(1) last event 287523 ps greater than or equal to expected value 183348 ps
 #             (68588820 ps) 
 #             (68588820 ps) ==============================================================================================
-#             (68588820 ps)   Send command SQ1_FB_MODE column 1 to open loop for o_c1_sq1_dac_sleep activation
+#             (68588820 ps)   Send command SQ1_FB_MODE column 1 to Off for o_c1_sq1_dac_sleep activation
 #             (68588820 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (68588820 ps) Send SPI command value 8003_0000 (SQ1_FB_MODE, mode Write, data 0000)
 # ** Note   : (71167000 ps) Waiting SPI command end for 2538180 ps
@@ -297,10 +297,10 @@
 # ** Note   : (74901825 ps)  * record time 79173 ps strictly less than expected value 183348 ps
 #             (74901825 ps) 
 #             (74901825 ps) ==============================================================================================
-#             (74901825 ps)   Send command SQ1_FB_MODE column 1 to Test pattern for o_c1_sq1_dac_sleep deactivation
+#             (74901825 ps)   Send command SQ1_FB_MODE column 1 to On for o_c1_sq1_dac_sleep deactivation
 #             (74901825 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (74905992 ps) Waiting event sync = '1' for 4167 ps
-# ** Note   : (74905992 ps) Send SPI command value 8003_0030 (SQ1_FB_MODE, mode Write, data 0030)
+# ** Note   : (74905992 ps) Send SPI command value 8003_0010 (SQ1_FB_MODE, mode Write, data 0010)
 #             (74945992 ps) 
 #             (74945992 ps) ==============================================================================================
 #             (74945992 ps)   check o_c1_sq1_dac_sleep remains to activated and wait o_c1_sq1_dac_sleep deactivation
@@ -326,7 +326,7 @@
 # ** Note   : (81056484 ps)  * sq1_dac_sleep(1) last event 287523 ps greater than or equal to expected value 183348 ps
 #             (81056484 ps) 
 #             (81056484 ps) ==============================================================================================
-#             (81056484 ps)   Send command SQ1_FB_MODE column 1 to open loop for o_c1_sq1_dac_sleep activation
+#             (81056484 ps)   Send command SQ1_FB_MODE column 1 to Off for o_c1_sq1_dac_sleep activation
 #             (81056484 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (81056484 ps) Send SPI command value 8003_0000 (SQ1_FB_MODE, mode Write, data 0000)
 # ** Note   : (83627000 ps) Waiting SPI command end for 2530516 ps
@@ -348,7 +348,7 @@
 # ** Note   : (87369489 ps)  * record time 79173 ps strictly less than expected value 183348 ps
 #             (87369489 ps) 
 #             (87369489 ps) ==============================================================================================
-#             (87369489 ps)   Send command SQ1_FB_MODE column 2 to open loop for o_c2_sq1_dac_sleep deactivation
+#             (87369489 ps)   Send command SQ1_FB_MODE column 2 to On for o_c2_sq1_dac_sleep deactivation
 #             (87369489 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (87373656 ps) Waiting event sync = '1' for 4167 ps
 # ** Note   : (87373656 ps) Send SPI command value 8003_0100 (SQ1_FB_MODE, mode Write, data 0100)
@@ -377,7 +377,7 @@
 # ** Note   : (93524148 ps)  * sq1_dac_sleep(2) last event 287523 ps greater than or equal to expected value 183348 ps
 #             (93524148 ps) 
 #             (93524148 ps) ==============================================================================================
-#             (93524148 ps)   Send command SQ1_FB_MODE column 2 to open loop for o_c2_sq1_dac_sleep activation
+#             (93524148 ps)   Send command SQ1_FB_MODE column 2 to Off for o_c2_sq1_dac_sleep activation
 #             (93524148 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (93524148 ps) Send SPI command value 8003_0000 (SQ1_FB_MODE, mode Write, data 0000)
 # ** Note   : (96087000 ps) Waiting SPI command end for 2522852 ps
@@ -399,10 +399,10 @@
 # ** Note   : (99837153 ps)  * record time 79173 ps strictly less than expected value 183348 ps
 #             (99837153 ps) 
 #             (99837153 ps) ==============================================================================================
-#             (99837153 ps)   Send command SQ1_FB_MODE column 2 to closed loop for o_c2_sq1_dac_sleep deactivation
+#             (99837153 ps)   Send command SQ1_FB_MODE column 2 to On for o_c2_sq1_dac_sleep deactivation
 #             (99837153 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (99841320 ps) Waiting event sync = '1' for 4167 ps
-# ** Note   : (99841320 ps) Send SPI command value 8003_0200 (SQ1_FB_MODE, mode Write, data 0200)
+# ** Note   : (99841320 ps) Send SPI command value 8003_0100 (SQ1_FB_MODE, mode Write, data 0100)
 #             (99881320 ps) 
 #             (99881320 ps) ==============================================================================================
 #             (99881320 ps)   check o_c2_sq1_dac_sleep remains to activated and wait o_c2_sq1_dac_sleep deactivation
@@ -428,7 +428,7 @@
 # ** Note   : (105991812 ps)  * sq1_dac_sleep(2) last event 287523 ps greater than or equal to expected value 183348 ps
 #             (105991812 ps) 
 #             (105991812 ps) ==============================================================================================
-#             (105991812 ps)   Send command SQ1_FB_MODE column 2 to open loop for o_c2_sq1_dac_sleep activation
+#             (105991812 ps)   Send command SQ1_FB_MODE column 2 to Off for o_c2_sq1_dac_sleep activation
 #             (105991812 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (105991812 ps) Send SPI command value 8003_0000 (SQ1_FB_MODE, mode Write, data 0000)
 # ** Note   : (108567000 ps) Waiting SPI command end for 2535188 ps
@@ -450,10 +450,10 @@
 # ** Note   : (112304817 ps)  * record time 79173 ps strictly less than expected value 183348 ps
 #             (112304817 ps) 
 #             (112304817 ps) ==============================================================================================
-#             (112304817 ps)   Send command SQ1_FB_MODE column 2 to Test pattern for o_c2_sq1_dac_sleep deactivation
+#             (112304817 ps)   Send command SQ1_FB_MODE column 2 to On for o_c2_sq1_dac_sleep deactivation
 #             (112304817 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (112308984 ps) Waiting event sync = '1' for 4167 ps
-# ** Note   : (112308984 ps) Send SPI command value 8003_0300 (SQ1_FB_MODE, mode Write, data 0300)
+# ** Note   : (112308984 ps) Send SPI command value 8003_0100 (SQ1_FB_MODE, mode Write, data 0100)
 #             (112348984 ps) 
 #             (112348984 ps) ==============================================================================================
 #             (112348984 ps)   check o_c2_sq1_dac_sleep remains to activated and wait o_c2_sq1_dac_sleep deactivation
@@ -479,7 +479,7 @@
 # ** Note   : (118459476 ps)  * sq1_dac_sleep(2) last event 287523 ps greater than or equal to expected value 183348 ps
 #             (118459476 ps) 
 #             (118459476 ps) ==============================================================================================
-#             (118459476 ps)   Send command SQ1_FB_MODE column 2 to open loop for o_c2_sq1_dac_sleep activation
+#             (118459476 ps)   Send command SQ1_FB_MODE column 2 to Off for o_c2_sq1_dac_sleep activation
 #             (118459476 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (118459476 ps) Send SPI command value 8003_0000 (SQ1_FB_MODE, mode Write, data 0000)
 # ** Note   : (121027000 ps) Waiting SPI command end for 2527524 ps
@@ -501,7 +501,7 @@
 # ** Note   : (124772481 ps)  * record time 79173 ps strictly less than expected value 183348 ps
 #             (124772481 ps) 
 #             (124772481 ps) ==============================================================================================
-#             (124772481 ps)   Send command SQ1_FB_MODE column 3 to open loop for o_c3_sq1_dac_sleep deactivation
+#             (124772481 ps)   Send command SQ1_FB_MODE column 3 to On for o_c3_sq1_dac_sleep deactivation
 #             (124772481 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (124776648 ps) Waiting event sync = '1' for 4167 ps
 # ** Note   : (124776648 ps) Send SPI command value 8003_1000 (SQ1_FB_MODE, mode Write, data 1000)
@@ -530,7 +530,7 @@
 # ** Note   : (130927140 ps)  * sq1_dac_sleep(3) last event 287523 ps greater than or equal to expected value 183348 ps
 #             (130927140 ps) 
 #             (130927140 ps) ==============================================================================================
-#             (130927140 ps)   Send command SQ1_FB_MODE column 3 to open loop for o_c3_sq1_dac_sleep activation
+#             (130927140 ps)   Send command SQ1_FB_MODE column 3 to Off for o_c3_sq1_dac_sleep activation
 #             (130927140 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (130927140 ps) Send SPI command value 8003_0000 (SQ1_FB_MODE, mode Write, data 0000)
 # ** Note   : (133507000 ps) Waiting SPI command end for 2539860 ps
@@ -552,10 +552,10 @@
 # ** Note   : (137240145 ps)  * record time 79173 ps strictly less than expected value 183348 ps
 #             (137240145 ps) 
 #             (137240145 ps) ==============================================================================================
-#             (137240145 ps)   Send command SQ1_FB_MODE column 3 to closed loop for o_c3_sq1_dac_sleep deactivation
+#             (137240145 ps)   Send command SQ1_FB_MODE column 3 to On for o_c3_sq1_dac_sleep deactivation
 #             (137240145 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (137244312 ps) Waiting event sync = '1' for 4167 ps
-# ** Note   : (137244312 ps) Send SPI command value 8003_2000 (SQ1_FB_MODE, mode Write, data 2000)
+# ** Note   : (137244312 ps) Send SPI command value 8003_1000 (SQ1_FB_MODE, mode Write, data 1000)
 #             (137284312 ps) 
 #             (137284312 ps) ==============================================================================================
 #             (137284312 ps)   check o_c3_sq1_dac_sleep remains to activated and wait o_c3_sq1_dac_sleep deactivation
@@ -581,7 +581,7 @@
 # ** Note   : (143394804 ps)  * sq1_dac_sleep(3) last event 287523 ps greater than or equal to expected value 183348 ps
 #             (143394804 ps) 
 #             (143394804 ps) ==============================================================================================
-#             (143394804 ps)   Send command SQ1_FB_MODE column 3 to open loop for o_c3_sq1_dac_sleep activation
+#             (143394804 ps)   Send command SQ1_FB_MODE column 3 to Off for o_c3_sq1_dac_sleep activation
 #             (143394804 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (143394804 ps) Send SPI command value 8003_0000 (SQ1_FB_MODE, mode Write, data 0000)
 # ** Note   : (145967000 ps) Waiting SPI command end for 2532196 ps
@@ -603,10 +603,10 @@
 # ** Note   : (149707809 ps)  * record time 79173 ps strictly less than expected value 183348 ps
 #             (149707809 ps) 
 #             (149707809 ps) ==============================================================================================
-#             (149707809 ps)   Send command SQ1_FB_MODE column 3 to Test pattern for o_c3_sq1_dac_sleep deactivation
+#             (149707809 ps)   Send command SQ1_FB_MODE column 3 to On for o_c3_sq1_dac_sleep deactivation
 #             (149707809 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (149711976 ps) Waiting event sync = '1' for 4167 ps
-# ** Note   : (149711976 ps) Send SPI command value 8003_3000 (SQ1_FB_MODE, mode Write, data 3000)
+# ** Note   : (149711976 ps) Send SPI command value 8003_1000 (SQ1_FB_MODE, mode Write, data 1000)
 #             (149751976 ps) 
 #             (149751976 ps) ==============================================================================================
 #             (149751976 ps)   check o_c3_sq1_dac_sleep remains to activated and wait o_c3_sq1_dac_sleep deactivation
@@ -632,7 +632,7 @@
 # ** Note   : (155862468 ps)  * sq1_dac_sleep(3) last event 287523 ps greater than or equal to expected value 183348 ps
 #             (155862468 ps) 
 #             (155862468 ps) ==============================================================================================
-#             (155862468 ps)   Send command SQ1_FB_MODE column 3 to open loop for o_c3_sq1_dac_sleep activation
+#             (155862468 ps)   Send command SQ1_FB_MODE column 3 to Off for o_c3_sq1_dac_sleep activation
 #             (155862468 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (155862468 ps) Send SPI command value 8003_0000 (SQ1_FB_MODE, mode Write, data 0000)
 # ** Note   : (158427000 ps) Waiting SPI command end for 2524532 ps

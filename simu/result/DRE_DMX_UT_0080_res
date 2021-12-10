@@ -163,9 +163,9 @@
 # ** Note   : (81322838 ps)  * record time 266354 ps strictly greater than expected value 183348 ps
 #             (81322838 ps) 
 #             (81322838 ps) ==============================================================================================
-#             (81322838 ps)   Send command SQ1_FB_MODE column 0 to Closed loop for o_c0_sq1_adc_pwdn deactivation
+#             (81322838 ps)   Send command SQ1_FB_MODE column 0 to On for o_c0_sq1_adc_pwdn deactivation
 #             (81322838 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (81322838 ps) Send SPI command value 8003_0002 (SQ1_FB_MODE, mode Write, data 0002)
+# ** Note   : (81322838 ps) Send SPI command value 8003_0001 (SQ1_FB_MODE, mode Write, data 0001)
 #             (81362838 ps) 
 #             (81362838 ps) ==============================================================================================
 #             (81362838 ps)   Check no event is appeared on o_c0_sq1_adc_pwdn and wait o_c0_sq1_adc_pwdn deactivation
@@ -218,9 +218,9 @@
 # ** Note   : (93790502 ps)  * record time 266354 ps strictly greater than expected value 183348 ps
 #             (93790502 ps) 
 #             (93790502 ps) ==============================================================================================
-#             (93790502 ps)   Send command SQ1_FB_MODE column 0 to Closed loop for o_c0_sq1_adc_pwdn deactivation
+#             (93790502 ps)   Send command SQ1_FB_MODE column 0 to On for o_c0_sq1_adc_pwdn deactivation
 #             (93790502 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (93790502 ps) Send SPI command value 8003_0002 (SQ1_FB_MODE, mode Write, data 0002)
+# ** Note   : (93790502 ps) Send SPI command value 8003_0001 (SQ1_FB_MODE, mode Write, data 0001)
 #             (93830502 ps) 
 #             (93830502 ps) ==============================================================================================
 #             (93830502 ps)   Check no event is appeared on o_c0_sq1_adc_pwdn and wait o_c0_sq1_adc_pwdn deactivation
@@ -249,9 +249,9 @@
 # ** Note   : (99757980 ps)  * sq1_adc_pwdn(0) last event 283690 ps greater than or equal to expected value 183348 ps
 #             (99757980 ps) 
 #             (99757980 ps) ==============================================================================================
-#             (99757980 ps)   Send command SQ1_FB_MODE column 0 to Open loop for o_c0_sq1_adc_pwdn activation
+#             (99757980 ps)   Send command SQ1_FB_MODE column 0 to Off for o_c0_sq1_adc_pwdn activation
 #             (99757980 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (99757980 ps) Send SPI command value 8003_0001 (SQ1_FB_MODE, mode Write, data 0001)
+# ** Note   : (99757980 ps) Send SPI command value 8003_0000 (SQ1_FB_MODE, mode Write, data 0000)
 # ** Note   : (102327000 ps) Waiting SPI command end for 2529020 ps
 #             (102327000 ps) 
 #             (102327000 ps) ==============================================================================================
@@ -273,9 +273,9 @@
 # ** Note   : (106258166 ps)  * record time 266354 ps strictly greater than expected value 183348 ps
 #             (106258166 ps) 
 #             (106258166 ps) ==============================================================================================
-#             (106258166 ps)   Send command SQ1_FB_MODE column 0 to Closed loop for o_c0_sq1_adc_pwdn deactivation
+#             (106258166 ps)   Send command SQ1_FB_MODE column 0 to On for o_c0_sq1_adc_pwdn deactivation
 #             (106258166 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (106258166 ps) Send SPI command value 8003_0002 (SQ1_FB_MODE, mode Write, data 0002)
+# ** Note   : (106258166 ps) Send SPI command value 8003_0001 (SQ1_FB_MODE, mode Write, data 0001)
 #             (106298166 ps) 
 #             (106298166 ps) ==============================================================================================
 #             (106298166 ps)   Check no event is appeared on o_c0_sq1_adc_pwdn and wait o_c0_sq1_adc_pwdn deactivation
@@ -304,9 +304,9 @@
 # ** Note   : (112225644 ps)  * sq1_adc_pwdn(0) last event 283690 ps greater than or equal to expected value 183348 ps
 #             (112225644 ps) 
 #             (112225644 ps) ==============================================================================================
-#             (112225644 ps)   Send command SQ1_FB_MODE column 0 to Test pattern for o_c0_sq1_adc_pwdn activation
+#             (112225644 ps)   Send command SQ1_FB_MODE column 0 to Off for o_c0_sq1_adc_pwdn activation
 #             (112225644 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (112225644 ps) Send SPI command value 8003_0003 (SQ1_FB_MODE, mode Write, data 0003)
+# ** Note   : (112225644 ps) Send SPI command value 8003_0000 (SQ1_FB_MODE, mode Write, data 0000)
 # ** Note   : (114787000 ps) Waiting SPI command end for 2521356 ps
 #             (114787000 ps) 
 #             (114787000 ps) ==============================================================================================
@@ -448,9 +448,9 @@
 # ** Note   : (187297982 ps)  * record time 266354 ps strictly greater than expected value 183348 ps
 #             (187297982 ps) 
 #             (187297982 ps) ==============================================================================================
-#             (187297982 ps)   Send command SQ1_FB_MODE column 1 to Closed loop for o_c1_sq1_adc_pwdn deactivation
+#             (187297982 ps)   Send command SQ1_FB_MODE column 1 to On for o_c1_sq1_adc_pwdn deactivation
 #             (187297982 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (187297982 ps) Send SPI command value 8003_0020 (SQ1_FB_MODE, mode Write, data 0020)
+# ** Note   : (187297982 ps) Send SPI command value 8003_0010 (SQ1_FB_MODE, mode Write, data 0010)
 #             (187337982 ps) 
 #             (187337982 ps) ==============================================================================================
 #             (187337982 ps)   Check no event is appeared on o_c1_sq1_adc_pwdn and wait o_c1_sq1_adc_pwdn deactivation
@@ -503,9 +503,9 @@
 # ** Note   : (199765646 ps)  * record time 266354 ps strictly greater than expected value 183348 ps
 #             (199765646 ps) 
 #             (199765646 ps) ==============================================================================================
-#             (199765646 ps)   Send command SQ1_FB_MODE column 1 to Closed loop for o_c1_sq1_adc_pwdn deactivation
+#             (199765646 ps)   Send command SQ1_FB_MODE column 1 to On for o_c1_sq1_adc_pwdn deactivation
 #             (199765646 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (199765646 ps) Send SPI command value 8003_0020 (SQ1_FB_MODE, mode Write, data 0020)
+# ** Note   : (199765646 ps) Send SPI command value 8003_0010 (SQ1_FB_MODE, mode Write, data 0010)
 #             (199805646 ps) 
 #             (199805646 ps) ==============================================================================================
 #             (199805646 ps)   Check no event is appeared on o_c1_sq1_adc_pwdn and wait o_c1_sq1_adc_pwdn deactivation
@@ -534,9 +534,9 @@
 # ** Note   : (205733124 ps)  * sq1_adc_pwdn(1) last event 283690 ps greater than or equal to expected value 183348 ps
 #             (205733124 ps) 
 #             (205733124 ps) ==============================================================================================
-#             (205733124 ps)   Send command SQ1_FB_MODE column 1 to Open loop for o_c1_sq1_adc_pwdn activation
+#             (205733124 ps)   Send command SQ1_FB_MODE column 1 to Off for o_c1_sq1_adc_pwdn activation
 #             (205733124 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (205733124 ps) Send SPI command value 8003_0010 (SQ1_FB_MODE, mode Write, data 0010)
+# ** Note   : (205733124 ps) Send SPI command value 8003_0000 (SQ1_FB_MODE, mode Write, data 0000)
 # ** Note   : (208307000 ps) Waiting SPI command end for 2533876 ps
 #             (208307000 ps) 
 #             (208307000 ps) ==============================================================================================
@@ -558,9 +558,9 @@
 # ** Note   : (212233310 ps)  * record time 266354 ps strictly greater than expected value 183348 ps
 #             (212233310 ps) 
 #             (212233310 ps) ==============================================================================================
-#             (212233310 ps)   Send command SQ1_FB_MODE column 1 to Closed loop for o_c1_sq1_adc_pwdn deactivation
+#             (212233310 ps)   Send command SQ1_FB_MODE column 1 to On for o_c1_sq1_adc_pwdn deactivation
 #             (212233310 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (212233310 ps) Send SPI command value 8003_0020 (SQ1_FB_MODE, mode Write, data 0020)
+# ** Note   : (212233310 ps) Send SPI command value 8003_0010 (SQ1_FB_MODE, mode Write, data 0010)
 #             (212273310 ps) 
 #             (212273310 ps) ==============================================================================================
 #             (212273310 ps)   Check no event is appeared on o_c1_sq1_adc_pwdn and wait o_c1_sq1_adc_pwdn deactivation
@@ -589,9 +589,9 @@
 # ** Note   : (218200788 ps)  * sq1_adc_pwdn(1) last event 283690 ps greater than or equal to expected value 183348 ps
 #             (218200788 ps) 
 #             (218200788 ps) ==============================================================================================
-#             (218200788 ps)   Send command SQ1_FB_MODE column 1 to Test pattern for o_c1_sq1_adc_pwdn activation
+#             (218200788 ps)   Send command SQ1_FB_MODE column 1 to Off for o_c1_sq1_adc_pwdn activation
 #             (218200788 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (218200788 ps) Send SPI command value 8003_0030 (SQ1_FB_MODE, mode Write, data 0030)
+# ** Note   : (218200788 ps) Send SPI command value 8003_0000 (SQ1_FB_MODE, mode Write, data 0000)
 # ** Note   : (220767000 ps) Waiting SPI command end for 2526212 ps
 #             (220767000 ps) 
 #             (220767000 ps) ==============================================================================================
@@ -733,9 +733,9 @@
 # ** Note   : (293273126 ps)  * record time 266354 ps strictly greater than expected value 183348 ps
 #             (293273126 ps) 
 #             (293273126 ps) ==============================================================================================
-#             (293273126 ps)   Send command SQ1_FB_MODE column 2 to Closed loop for o_c2_sq1_adc_pwdn deactivation
+#             (293273126 ps)   Send command SQ1_FB_MODE column 2 to On for o_c2_sq1_adc_pwdn deactivation
 #             (293273126 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (293273126 ps) Send SPI command value 8003_0200 (SQ1_FB_MODE, mode Write, data 0200)
+# ** Note   : (293273126 ps) Send SPI command value 8003_0100 (SQ1_FB_MODE, mode Write, data 0100)
 #             (293313126 ps) 
 #             (293313126 ps) ==============================================================================================
 #             (293313126 ps)   Check no event is appeared on o_c2_sq1_adc_pwdn and wait o_c2_sq1_adc_pwdn deactivation
@@ -788,9 +788,9 @@
 # ** Note   : (305740790 ps)  * record time 266354 ps strictly greater than expected value 183348 ps
 #             (305740790 ps) 
 #             (305740790 ps) ==============================================================================================
-#             (305740790 ps)   Send command SQ1_FB_MODE column 2 to Closed loop for o_c2_sq1_adc_pwdn deactivation
+#             (305740790 ps)   Send command SQ1_FB_MODE column 2 to On for o_c2_sq1_adc_pwdn deactivation
 #             (305740790 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (305740790 ps) Send SPI command value 8003_0200 (SQ1_FB_MODE, mode Write, data 0200)
+# ** Note   : (305740790 ps) Send SPI command value 8003_0100 (SQ1_FB_MODE, mode Write, data 0100)
 #             (305780790 ps) 
 #             (305780790 ps) ==============================================================================================
 #             (305780790 ps)   Check no event is appeared on o_c2_sq1_adc_pwdn and wait o_c2_sq1_adc_pwdn deactivation
@@ -819,9 +819,9 @@
 # ** Note   : (311708268 ps)  * sq1_adc_pwdn(2) last event 283690 ps greater than or equal to expected value 183348 ps
 #             (311708268 ps) 
 #             (311708268 ps) ==============================================================================================
-#             (311708268 ps)   Send command SQ1_FB_MODE column 2 to Open loop for o_c2_sq1_adc_pwdn activation
+#             (311708268 ps)   Send command SQ1_FB_MODE column 2 to Off for o_c2_sq1_adc_pwdn activation
 #             (311708268 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (311708268 ps) Send SPI command value 8003_0100 (SQ1_FB_MODE, mode Write, data 0100)
+# ** Note   : (311708268 ps) Send SPI command value 8003_0000 (SQ1_FB_MODE, mode Write, data 0000)
 # ** Note   : (314287000 ps) Waiting SPI command end for 2538732 ps
 #             (314287000 ps) 
 #             (314287000 ps) ==============================================================================================
@@ -843,9 +843,9 @@
 # ** Note   : (318208454 ps)  * record time 266354 ps strictly greater than expected value 183348 ps
 #             (318208454 ps) 
 #             (318208454 ps) ==============================================================================================
-#             (318208454 ps)   Send command SQ1_FB_MODE column 2 to Closed loop for o_c2_sq1_adc_pwdn deactivation
+#             (318208454 ps)   Send command SQ1_FB_MODE column 2 to On for o_c2_sq1_adc_pwdn deactivation
 #             (318208454 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (318208454 ps) Send SPI command value 8003_0200 (SQ1_FB_MODE, mode Write, data 0200)
+# ** Note   : (318208454 ps) Send SPI command value 8003_0100 (SQ1_FB_MODE, mode Write, data 0100)
 #             (318248454 ps) 
 #             (318248454 ps) ==============================================================================================
 #             (318248454 ps)   Check no event is appeared on o_c2_sq1_adc_pwdn and wait o_c2_sq1_adc_pwdn deactivation
@@ -874,9 +874,9 @@
 # ** Note   : (324175932 ps)  * sq1_adc_pwdn(2) last event 283690 ps greater than or equal to expected value 183348 ps
 #             (324175932 ps) 
 #             (324175932 ps) ==============================================================================================
-#             (324175932 ps)   Send command SQ1_FB_MODE column 2 to Test pattern for o_c2_sq1_adc_pwdn activation
+#             (324175932 ps)   Send command SQ1_FB_MODE column 2 to Off for o_c2_sq1_adc_pwdn activation
 #             (324175932 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (324175932 ps) Send SPI command value 8003_0300 (SQ1_FB_MODE, mode Write, data 0300)
+# ** Note   : (324175932 ps) Send SPI command value 8003_0000 (SQ1_FB_MODE, mode Write, data 0000)
 # ** Note   : (326747000 ps) Waiting SPI command end for 2531068 ps
 #             (326747000 ps) 
 #             (326747000 ps) ==============================================================================================
@@ -1018,9 +1018,9 @@
 # ** Note   : (399248270 ps)  * record time 266354 ps strictly greater than expected value 183348 ps
 #             (399248270 ps) 
 #             (399248270 ps) ==============================================================================================
-#             (399248270 ps)   Send command SQ1_FB_MODE column 3 to Closed loop for o_c3_sq1_adc_pwdn deactivation
+#             (399248270 ps)   Send command SQ1_FB_MODE column 3 to On for o_c3_sq1_adc_pwdn deactivation
 #             (399248270 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (399248270 ps) Send SPI command value 8003_2000 (SQ1_FB_MODE, mode Write, data 2000)
+# ** Note   : (399248270 ps) Send SPI command value 8003_1000 (SQ1_FB_MODE, mode Write, data 1000)
 #             (399288270 ps) 
 #             (399288270 ps) ==============================================================================================
 #             (399288270 ps)   Check no event is appeared on o_c3_sq1_adc_pwdn and wait o_c3_sq1_adc_pwdn deactivation
@@ -1073,9 +1073,9 @@
 # ** Note   : (411715934 ps)  * record time 266354 ps strictly greater than expected value 183348 ps
 #             (411715934 ps) 
 #             (411715934 ps) ==============================================================================================
-#             (411715934 ps)   Send command SQ1_FB_MODE column 3 to Closed loop for o_c3_sq1_adc_pwdn deactivation
+#             (411715934 ps)   Send command SQ1_FB_MODE column 3 to On for o_c3_sq1_adc_pwdn deactivation
 #             (411715934 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (411715934 ps) Send SPI command value 8003_2000 (SQ1_FB_MODE, mode Write, data 2000)
+# ** Note   : (411715934 ps) Send SPI command value 8003_1000 (SQ1_FB_MODE, mode Write, data 1000)
 #             (411755934 ps) 
 #             (411755934 ps) ==============================================================================================
 #             (411755934 ps)   Check no event is appeared on o_c3_sq1_adc_pwdn and wait o_c3_sq1_adc_pwdn deactivation
@@ -1104,9 +1104,9 @@
 # ** Note   : (417683412 ps)  * sq1_adc_pwdn(3) last event 283690 ps greater than or equal to expected value 183348 ps
 #             (417683412 ps) 
 #             (417683412 ps) ==============================================================================================
-#             (417683412 ps)   Send command SQ1_FB_MODE column 3 to Open loop for o_c3_sq1_adc_pwdn activation
+#             (417683412 ps)   Send command SQ1_FB_MODE column 3 to Off for o_c3_sq1_adc_pwdn activation
 #             (417683412 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (417683412 ps) Send SPI command value 8003_1000 (SQ1_FB_MODE, mode Write, data 1000)
+# ** Note   : (417683412 ps) Send SPI command value 8003_0000 (SQ1_FB_MODE, mode Write, data 0000)
 # ** Note   : (420247000 ps) Waiting SPI command end for 2523588 ps
 #             (420247000 ps) 
 #             (420247000 ps) ==============================================================================================
@@ -1128,9 +1128,9 @@
 # ** Note   : (424183598 ps)  * record time 266354 ps strictly greater than expected value 183348 ps
 #             (424183598 ps) 
 #             (424183598 ps) ==============================================================================================
-#             (424183598 ps)   Send command SQ1_FB_MODE column 3 to Closed loop for o_c3_sq1_adc_pwdn deactivation
+#             (424183598 ps)   Send command SQ1_FB_MODE column 3 to On for o_c3_sq1_adc_pwdn deactivation
 #             (424183598 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (424183598 ps) Send SPI command value 8003_2000 (SQ1_FB_MODE, mode Write, data 2000)
+# ** Note   : (424183598 ps) Send SPI command value 8003_1000 (SQ1_FB_MODE, mode Write, data 1000)
 #             (424223598 ps) 
 #             (424223598 ps) ==============================================================================================
 #             (424223598 ps)   Check no event is appeared on o_c3_sq1_adc_pwdn and wait o_c3_sq1_adc_pwdn deactivation
@@ -1159,9 +1159,9 @@
 # ** Note   : (430151076 ps)  * sq1_adc_pwdn(3) last event 283690 ps greater than or equal to expected value 183348 ps
 #             (430151076 ps) 
 #             (430151076 ps) ==============================================================================================
-#             (430151076 ps)   Send command SQ1_FB_MODE column 3 to Test pattern for o_c3_sq1_adc_pwdn activation
+#             (430151076 ps)   Send command SQ1_FB_MODE column 3 to Off for o_c3_sq1_adc_pwdn activation
 #             (430151076 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (430151076 ps) Send SPI command value 8003_3000 (SQ1_FB_MODE, mode Write, data 3000)
+# ** Note   : (430151076 ps) Send SPI command value 8003_0000 (SQ1_FB_MODE, mode Write, data 0000)
 # ** Note   : (432727000 ps) Waiting SPI command end for 2535924 ps
 #             (432727000 ps) 
 #             (432727000 ps) ==============================================================================================

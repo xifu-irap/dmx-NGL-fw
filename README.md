@@ -5,7 +5,7 @@ DRE-DEMUX TDM firmware.
    - Synthesis tool: Nxmap v3.9.0.5
    - Firmware specification:
       + IRAP/XIFU-DRE/FM/SP/0065 - DRE TDM firmware requirements, ed. 0.11
-      + IRAP/XIFU-DRE/FM/SP/0069 - DRE Inter-Modules Telemetry And Commands Definition, ed. 0.4
+      + IRAP/XIFU-DRE/FM/SP/0069 - DRE Inter-Modules Telemetry And Commands Definition, ed. 0.5
 
 ## 1. Directories and files description
 
