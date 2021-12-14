@@ -37,7 +37,8 @@ entity ep_spi_model is generic
    (     g_EP_CLK_PER         : time    := c_EP_CLK_PER_DEF                                                 ; --! EP - System clock period (ps)
          g_EP_CLK_PER_SHIFT   : time    := c_EP_CLK_PER_SHFT_DEF                                            ; --! EP - Clock period shift
          g_EP_N_CLK_PER_SCLK_L: integer := c_EP_SCLK_L_DEF                                                  ; --! EP - Number of clock period for elaborating SPI Serial Clock low  level
-         g_EP_N_CLK_PER_SCLK_H: integer := c_EP_SCLK_H_DEF                                                    --! EP - Number of clock period for elaborating SPI Serial Clock high level
+         g_EP_N_CLK_PER_SCLK_H: integer := c_EP_SCLK_H_DEF                                                  ; --! EP - Number of clock period for elaborating SPI Serial Clock high level
+         g_EP_BUF_DEL         : time    := c_EP_BUF_DEL_DEF                                                   --! EP - Delay introduced by buffer
    ); port
    (     i_ep_cmd_ser_wd_s    : in     std_logic_vector(log2_ceil(2*c_EP_CMD_S+1)-1 downto 0)               ; --! EP - Serial word size
          i_ep_cmd_start       : in     std_logic                                                            ; --! EP - Start command transmit ('0' = Inactive, '1' = Active)
@@ -75,6 +76,10 @@ signal   ep_cmd_ser_wd_s_strt2: std_logic_vector(log2_ceil(2*c_EP_CMD_S+1)-1 dow
 signal   ep_data_rx_mux       : std_logic_vector( c_SER_WD_MAX_S   *c_EP_CMD_S-1 downto 0)                  ; --! EP - Receipted data multiplexer
 signal   ep_data_rx_mux_or    : std_logic_vector((c_SER_WD_MAX_S+1)*c_EP_CMD_S-1 downto 0)                  ; --! EP - Receipted data multiplexer or
 
+signal   ep_spi_mosi_bf_buf   : std_logic                                                                   ; --! EP - SPI Master Input Slave Output before buffer (MSB first)
+signal   ep_spi_miso_bf_buf   : std_logic                                                                   ; --! EP - SPI Master Output Slave Input before buffer (MSB first)
+signal   ep_spi_sclk_bf_buf   : std_logic                                                                   ; --! EP - SPI Serial Clock before buffer (CPOL = ‘0’, CPHA = ’0’), period = 2*g_EP_CLK_PER
+signal   ep_spi_cs_n_bf_buf   : std_logic                                                                   ; --! EP - SPI Chip Select before buffer ('0' = Active, '1' = Inactive)
 begin
 
    -- ------------------------------------------------------------------------------------------------------
@@ -99,6 +104,14 @@ begin
    end process P_clk;
 
    -- ------------------------------------------------------------------------------------------------------
+   --!   EP - SPI links delay introduced by buffer
+   -- ------------------------------------------------------------------------------------------------------
+   ep_spi_miso_bf_buf   <= transport i_ep_spi_miso      after g_EP_BUF_DEL when ep_spi_cs_n_bf_buf = '0' else '0';
+   o_ep_spi_mosi        <= transport ep_spi_mosi_bf_buf after g_EP_BUF_DEL when now > g_EP_BUF_DEL else '0';
+   o_ep_spi_sclk        <= transport ep_spi_sclk_bf_buf after g_EP_BUF_DEL when now > g_EP_BUF_DEL else '0';
+   o_ep_spi_cs_n        <= transport ep_spi_cs_n_bf_buf after g_EP_BUF_DEL when now > g_EP_BUF_DEL else '1';
+
+   -- ------------------------------------------------------------------------------------------------------
    --!   EP - SPI Master Output Slave Input delay management
    -- ------------------------------------------------------------------------------------------------------
    P_ep_spi_miso_del : process (rst, clk)
@@ -108,7 +121,7 @@ begin
          ep_spi_miso_r <= (others => '0');
 
       elsif rising_edge(clk) then
-         ep_spi_miso_r <= ep_spi_miso_r(ep_spi_miso_r'high-1 downto 0) & i_ep_spi_miso;
+         ep_spi_miso_r <= ep_spi_miso_r(ep_spi_miso_r'high-1 downto 0) & ep_spi_miso_bf_buf;
 
       end if;
 
@@ -194,9 +207,9 @@ begin
          o_data_rx_rdy        => o_ep_data_rx_rdy     , -- out    std_logic                                 ; --! Receipted data ready ('0' = Not ready, '1' = Ready)
 
          i_miso               => ep_spi_miso_r_msb    , -- in     std_logic                                 ; --! SPI Master Input Slave Output
-         o_mosi               => o_ep_spi_mosi        , -- out    std_logic                                 ; --! SPI Master Output Slave Input
-         o_sclk               => o_ep_spi_sclk        , -- out    std_logic                                 ; --! SPI Serial Clock
-         o_cs_n               => o_ep_spi_cs_n          -- out    std_logic                                   --! SPI Chip Select ('0' = Active, '1' = Inactive)
+         o_mosi               => ep_spi_mosi_bf_buf   , -- out    std_logic                                 ; --! SPI Master Output Slave Input
+         o_sclk               => ep_spi_sclk_bf_buf   , -- out    std_logic                                 ; --! SPI Serial Clock
+         o_cs_n               => ep_spi_cs_n_bf_buf     -- out    std_logic                                   --! SPI Chip Select ('0' = Active, '1' = Inactive)
    );
 
 end architecture rtl;

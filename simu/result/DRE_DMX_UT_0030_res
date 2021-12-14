@@ -25,26 +25,26 @@
 #             (6983892 ps)   Send commands in write on read only register
 #             (6983892 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (6983892 ps) Send SPI command value C001_XXXX (Status, mode Write, data XXXX)
-# ** Note   : (9547000 ps) Waiting SPI command end for 2523108 ps
-# ** Note   : (9547000 ps) Send SPI command value C003_XXXX (Version, mode Write, data XXXX)
-# ** Note   : (9627000 ps) Waiting SPI command return end for 40000 ps
-# ** Note   : (9647000 ps) Check command return: PASS
-# ** Note   : (9647000 ps)  * Read C000_0000, expected value C000_0000 (Status, mode Read, data 0000)
-# ** Note   : (12127000 ps) Waiting SPI command end for 2480000 ps
-# ** Note   : (12127000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
-# ** Note   : (12207000 ps) Waiting SPI command return end for 40000 ps
-# ** Note   : (12227000 ps) Check command return: PASS
-# ** Note   : (12227000 ps)  * Read C000_2000, expected value C000_2000 (Status, mode Read, data 2000)
-# ** Note   : (14707000 ps) Waiting SPI command end for 2480000 ps
-# ** Note   : (14707000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
-# ** Note   : (14787000 ps) Waiting SPI command return end for 40000 ps
-# ** Note   : (14807000 ps) Check command return: PASS
-# ** Note   : (14807000 ps)  * Read C000_2000, expected value C000_2000 (Status, mode Read, data 2000)
-# ** Note   : (17287000 ps) Waiting SPI command end for 2480000 ps
-# ** Note   : (17287000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
-# ** Note   : (17367000 ps) Waiting SPI command return end for 40000 ps
-# ** Note   : (17387000 ps) Check command return: PASS
-# ** Note   : (17387000 ps)  * Read C000_0000, expected value C000_0000 (Status, mode Read, data 0000)
+# ** Note   : (14667000 ps) Waiting SPI command end for 7643108 ps
+# ** Note   : (14667000 ps) Send SPI command value C003_XXXX (Version, mode Write, data XXXX)
+# ** Note   : (14747000 ps) Waiting SPI command return end for 40000 ps
+# ** Note   : (14767000 ps) Check command return: PASS
+# ** Note   : (14767000 ps)  * Read C000_0000, expected value C000_0000 (Status, mode Read, data 0000)
+# ** Note   : (22367000 ps) Waiting SPI command end for 7600000 ps
+# ** Note   : (22367000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (22447000 ps) Waiting SPI command return end for 40000 ps
+# ** Note   : (22467000 ps) Check command return: PASS
+# ** Note   : (22467000 ps)  * Read C000_2000, expected value C000_2000 (Status, mode Read, data 2000)
+# ** Note   : (30067000 ps) Waiting SPI command end for 7600000 ps
+# ** Note   : (30067000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (30147000 ps) Waiting SPI command return end for 40000 ps
+# ** Note   : (30167000 ps) Check command return: PASS
+# ** Note   : (30167000 ps)  * Read C000_2000, expected value C000_2000 (Status, mode Read, data 2000)
+# ** Note   : (37767000 ps) Waiting SPI command end for 7600000 ps
+# ** Note   : (37767000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (37847000 ps) Waiting SPI command return end for 40000 ps
+# ** Note   : (37867000 ps) Check command return: PASS
+# ** Note   : (37867000 ps)  * Read C000_0000, expected value C000_0000 (Status, mode Read, data 0000)
 # ------------------------------------------------------------------------------------------------------------------------------------------------------
 # Error simulation time         : '0'
 # Error check discrete level    : '0'
@@ -53,6 +53,6 @@
 # Error check clocks parameters : '0'
 # Error check science packets   : '0'
 # ------------------------------------------------------------------------------------------------------------------------------------------------------
-# Simulation time               : 18000000 ps
+# Simulation time               : 40000000 ps
 # Simulation status             : PASS
 # ------------------------------------------------------------------------------------------------------------------------------------------------------

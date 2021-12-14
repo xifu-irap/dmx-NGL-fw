@@ -130,8 +130,9 @@ constant c_SYNC_SHIFT_DEF     : time    :=  1 * c_CLK_REF_PER_DEF               
 
 constant c_EP_CLK_PER_DEF     : time    := 20000 ps                                                         ; --! EP - System clock period default value
 constant c_EP_CLK_PER_SHFT_DEF: time    := 3 ns                                                             ; --! EP - Clock period shift default value
-constant c_EP_SCLK_L_DEF      : integer := 3                                                                ; --! EP - Number of clock period for elaborating SPI Serial Clock low  level default value
+constant c_EP_SCLK_L_DEF      : integer := 11                                                               ; --! EP - Number of clock period for elaborating SPI Serial Clock low  level default value
 constant c_EP_SCLK_H_DEF      : integer := 1                                                                ; --! EP - Number of clock period for elaborating SPI Serial Clock high level default value
+constant c_EP_BUF_DEL_DEF     : time    := 80 ns                                                            ; --! EP - Delay introduced by buffer
 
 constant c_CLK_ADC_PER_DEF    : time    := c_CLK_REF_PER_DEF / c_CLK_ADC_MULT                               ; --! SQUID1 ADC - Clock period default value
 constant c_TIM_ADC_TPD_DEF    : time    :=  3900 ps                                                         ; --! SQUID1 ADC - Time, Data Propagation Delay default value
@@ -220,7 +221,8 @@ constant c_CCHK               : t_clk_chk_prm_arr(0 to c_CE_S-1) :=
    (     g_EP_CLK_PER         : time    := c_EP_CLK_PER_DEF                                                 ; --! EP - System clock period (ps)
          g_EP_CLK_PER_SHIFT   : time    := c_EP_CLK_PER_SHFT_DEF                                            ; --! EP - Clock period shift
          g_EP_N_CLK_PER_SCLK_L: integer := c_EP_SCLK_L_DEF                                                  ; --! EP - Number of clock period for elaborating SPI Serial Clock low  level
-         g_EP_N_CLK_PER_SCLK_H: integer := c_EP_SCLK_H_DEF                                                    --! EP - Number of clock period for elaborating SPI Serial Clock high level
+         g_EP_N_CLK_PER_SCLK_H: integer := c_EP_SCLK_H_DEF                                                  ; --! EP - Number of clock period for elaborating SPI Serial Clock high level
+         g_EP_BUF_DEL         : time    := c_EP_BUF_DEL_DEF                                                   --! EP - Delay introduced by buffer
    ); port
    (     i_ep_cmd_ser_wd_s    : in     std_logic_vector(log2_ceil(2*c_EP_CMD_S+1)-1 downto 0)               ; --! EP - Serial word size
          i_ep_cmd_start       : in     std_logic                                                            ; --! EP - Start command transmit ('0' = Inactive, '1' = Active)

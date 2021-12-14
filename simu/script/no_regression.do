@@ -335,10 +335,14 @@ proc run_utest {args} {
          add wave -format Logic                    -group "Command" -group "EP"                 sim:/top_dmx_tb/ep_cmd_busy_n
          add wave -format Logic -Radix hexadecimal -group "Command" -group "EP"                 sim:/top_dmx_tb/ep_data_rx
          add wave -format Logic                    -group "Command" -group "EP"                 sim:/top_dmx_tb/ep_data_rx_rdy
-         add wave -format Logic                    -group "Command" -group "SPI"                sim:/top_dmx_tb/I_top_dmx/i_ep_spi_mosi
-         add wave -format Logic                    -group "Command" -group "SPI"                sim:/top_dmx_tb/I_top_dmx/o_ep_spi_miso
-         add wave -format Logic                    -group "Command" -group "SPI"                sim:/top_dmx_tb/I_top_dmx/i_ep_spi_sclk
-         add wave -format Logic                    -group "Command" -group "SPI"                sim:/top_dmx_tb/I_top_dmx/i_ep_spi_cs_n
+         add wave -format Logic                    -group "Command" -group "SPI-EP"             sim:/top_dmx_tb/I_ep_spi_model/ep_spi_mosi_bf_buf
+         add wave -format Logic                    -group "Command" -group "SPI-EP"             sim:/top_dmx_tb/I_ep_spi_model/ep_spi_miso_bf_buf
+         add wave -format Logic                    -group "Command" -group "SPI-EP"             sim:/top_dmx_tb/I_ep_spi_model/ep_spi_sclk_bf_buf
+         add wave -format Logic                    -group "Command" -group "SPI-EP"             sim:/top_dmx_tb/I_ep_spi_model/ep_spi_cs_n_bf_buf
+         add wave -format Logic                    -group "Command" -group "SPI-DMX"            sim:/top_dmx_tb/I_top_dmx/i_ep_spi_mosi
+         add wave -format Logic                    -group "Command" -group "SPI-DMX"            sim:/top_dmx_tb/I_top_dmx/o_ep_spi_miso
+         add wave -format Logic                    -group "Command" -group "SPI-DMX"            sim:/top_dmx_tb/I_top_dmx/i_ep_spi_sclk
+         add wave -format Logic                    -group "Command" -group "SPI-DMX"            sim:/top_dmx_tb/I_top_dmx/i_ep_spi_cs_n
          add wave -format Logic -Radix hexadecimal -group "Command"                             sim:/top_dmx_tb/I_top_dmx/ep_cmd_sts_rg
          add wave -format Logic -Radix hexadecimal -group "Command"                             sim:/top_dmx_tb/I_top_dmx/ep_cmd_rx_wd_add
          add wave -format Logic -Radix hexadecimal -group "Command"                             sim:/top_dmx_tb/I_top_dmx/ep_cmd_rx_wd_data
