@@ -123,14 +123,14 @@ constant c_TST_NUM_DEF        : string  := "XXXX"                               
    --  c_CLK_REF_PER_DEF condition to respect:
    --    - c_CLK_REF_PER_DEF is chosen in order main pll period is a simulation time resolution multiple
    -- ------------------------------------------------------------------------------------------------------
-constant c_CLK_REF_PER_DEF    : time    := (16668 ps /c_PLL_MAIN_VCO_MULT) * c_PLL_MAIN_VCO_MULT            ; --! Reference Clock period default value
+constant c_CLK_REF_PER_DEF    : time    := (16008 ps /c_PLL_MAIN_VCO_MULT) * c_PLL_MAIN_VCO_MULT            ; --! Reference Clock period default value
 constant c_SYNC_PER_DEF       : time    := c_MUX_FACT * c_PIXEL_ADC_NB_CYC * c_CLK_REF_MULT / c_CLK_ADC_MULT
                                               * c_CLK_REF_PER_DEF                                           ; --! Pixel sequence synchronization period default value
 constant c_SYNC_SHIFT_DEF     : time    :=  1 * c_CLK_REF_PER_DEF                                           ; --! Pixel sequence synchronization shift default value
 
-constant c_EP_CLK_PER_DEF     : time    := 20000 ps                                                         ; --! EP - System clock period default value
+constant c_EP_CLK_PER_DEF     : time    := 18000 ps                                                         ; --! EP - System clock period default value
 constant c_EP_CLK_PER_SHFT_DEF: time    := 3 ns                                                             ; --! EP - Clock period shift default value
-constant c_EP_SCLK_L_DEF      : integer := 11                                                               ; --! EP - Number of clock period for elaborating SPI Serial Clock low  level default value
+constant c_EP_SCLK_L_DEF      : integer := 12                                                               ; --! EP - Number of clock period for elaborating SPI Serial Clock low  level default value
 constant c_EP_SCLK_H_DEF      : integer := 1                                                                ; --! EP - Number of clock period for elaborating SPI Serial Clock high level default value
 constant c_EP_BUF_DEL_DEF     : time    := 80 ns                                                            ; --! EP - Delay introduced by buffer
 

@@ -24,7 +24,7 @@
 
 def common_parameters(p,option):
     print("Common parameters")
-    p.createClock('getClockNet(i_clk_ref)', 'clk', 16666, 0, 8333)
+    p.createClock('getClockNet(i_clk_ref)', 'clk', 16000, 0, 8000)
 
 def NG_MEDIUM_parameters(p,option):
     print("No NG-MEDIUM parameters")

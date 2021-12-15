@@ -61,7 +61,7 @@ constant c_CLK_DAC_MULT       : integer   := 2                                  
    -- ------------------------------------------------------------------------------------------------------
 constant c_PLL_MAIN_VCO_MULT  : integer   := 12                                                             ; --! PLL main VCO multiplier frequency factor
 
-constant c_CLK_COM_FREQ       : integer   := 60000000                                                       ; --! Clock frequency common to main clocks (Hz)
+constant c_CLK_COM_FREQ       : integer   := 62500000                                                       ; --! Clock frequency common to main clocks (Hz)
 constant c_CLK_REF_FREQ       : integer   := c_CLK_REF_MULT      * c_CLK_COM_FREQ                           ; --! Reference Clock frequency (Hz)
 constant c_CLK_FREQ           : integer   := c_CLK_MULT          * c_CLK_COM_FREQ                           ; --! System Clock frequency (Hz)
 constant c_CLK_ADC_FREQ       : integer   := c_CLK_ADC_MULT      * c_CLK_COM_FREQ                           ; --! ADC Clock frequency (Hz)
@@ -84,7 +84,7 @@ constant c_SQ1_ADC_DATA_S     : integer   := 14                                 
 constant c_SQ1_DAC_DATA_S     : integer   := 14                                                             ; --! SQUID1 DAC data size bus
 
 constant c_SQ2_SPI_CPOL       : std_logic := '0'                                                            ; --! SQUID2 DAC SPI: Clock polarity
-constant c_SQ2_SPI_CPHA       : std_logic := '0'                                                            ; --! SQUID2 DAC SPI: Clock phase
+constant c_SQ2_SPI_CPHA       : std_logic := '1'                                                            ; --! SQUID2 DAC SPI: Clock phase
 constant c_SQ2_SPI_SER_WD_S   : integer   := 16                                                             ; --! SQUID2 DAC SPI: Data bus size
 constant c_SQ2_SPI_SCLK_L     : integer   := 1                                                              ; --! SQUID2 DAC SPI: Number of clock period for elaborating SPI Serial Clock low level
 constant c_SQ2_SPI_SCLK_H     : integer   := 1                                                              ; --! SQUID2 DAC SPI: Number of clock period for elaborating SPI Serial Clock high level
@@ -140,7 +140,7 @@ constant c_PIX_POS_SW_ADC_OFF : integer   := c_MUX_FACT - 1                     
    --    SQUID1 ADC parameters
    --    @Req : DRE-DMX-FW-REQ-0130
    -- ------------------------------------------------------------------------------------------------------
-constant c_PIXEL_ADC_NB_CYC   : integer   := 22                                                             ; --! ADC clock period number allocated to one pixel acquisition
+constant c_PIXEL_ADC_NB_CYC   : integer   := 20                                                             ; --! ADC clock period number allocated to one pixel acquisition
 constant c_ADC_DATA_NPER      : integer   := 12                                                             ; --! ADC clock period number between the acquisition start and data output by the ADC
 
 constant c_ADC_SYNC_RDY_NPER  : integer   := (c_FF_RSYNC_NB - 1)*(c_CLK_ADC_MULT/c_CLK_MULT) + c_FF_RSYNC_NB; --! ADC clock period number for getting pixel sequence synchronization, synchronized

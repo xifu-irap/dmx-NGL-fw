@@ -27,1156 +27,1156 @@
 #             (80000 ps) ==============================================================================================
 #             (80000 ps)   Wait internal reset deactivated
 #             (80000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (6983892 ps) Waiting event rst = '0' for 6903892 ps
-#             (6983892 ps) 
-#             (6983892 ps) ==============================================================================================
-#             (6983892 ps)   Start TM_MODE register test
-#             (6983892 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (6983892 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
-# ** Note   : (9627000 ps) Waiting SPI command return end for 2603108 ps
-# ** Note   : (12484332 ps) Waiting event sync = '1' for 2857332 ps
-# ** Note   : (12484332 ps) Send SPI command value 8001_95XX (TM_MODE, mode Write, data 95XX)
-# ** Note   : (15127000 ps) Waiting SPI command return end for 2602668 ps
-#             (15127000 ps) 
-#             (15127000 ps) ==============================================================================================
-#             (15127000 ps)   Check TM_MODE content at start:
-#             (15127000 ps)   Col(3)->Idle, Col(2)->Idle, Col(1)->Idle, Col(0)->Idle, Duration->0
-#             (15127000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (15147000 ps) Check command return: PASS
-# ** Note   : (15147000 ps)  * Read 8000_5500, expected value 8000_5500 (TM_MODE, mode Read, data 5500)
-# ** Note   : (18718164 ps) Waiting event sync = '1' for 3571164 ps
-# ** Note   : (18718164 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
-# ** Note   : (21367000 ps) Waiting SPI command return end for 2608836 ps
-#             (21367000 ps) 
-#             (21367000 ps) ==============================================================================================
-#             (21367000 ps)   Check no error after write TM_MODE command
-#             (21367000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (21387000 ps) Check command return: PASS
-# ** Note   : (21387000 ps)  * Read C000_0000, expected value C000_0000 (Status, mode Read, data 0000)
-# ** Note   : (21387000 ps) Send SPI command value 8001_E502 (TM_MODE, mode Write, data E502)
-# ** Note   : (24047000 ps) Waiting SPI command return end for 2620000 ps
-#             (24047000 ps) 
-#             (24047000 ps) ==============================================================================================
-#             (24047000 ps)   Check new TM_MODE content after sync signal activation:
-#             (24047000 ps)   Col(3)->Normal, Col(2)->Idle, Col(1)->Idle, Col(0)->Idle, Duration->0
-#             (24047000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (24067000 ps) Check command return: PASS
-# ** Note   : (24067000 ps)  * Read 8000_9500, expected value 8000_9500 (TM_MODE, mode Read, data 9500)
-# ** Note   : (24951996 ps) Waiting event sync = '1' for 884996 ps
-# ** Note   : (24951996 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
-# ** Note   : (27607000 ps) Waiting SPI command return end for 2615004 ps
-#             (27607000 ps) 
-#             (27607000 ps) ==============================================================================================
-#             (27607000 ps)   Check no error after write TM_MODE command
-#             (27607000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (27627000 ps) Check command return: PASS
-# ** Note   : (27627000 ps)  * Read C000_0000, expected value C000_0000 (Status, mode Read, data 0000)
-# ** Note   : (27627000 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
-# ** Note   : (30287000 ps) Waiting SPI command return end for 2620000 ps
-#             (30287000 ps) 
-#             (30287000 ps) ==============================================================================================
-#             (30287000 ps)   Check new TM_MODE content after sync signal activation:
-#             (30287000 ps)   Col(3)->Test Pattern, Col(2)->Normal, Col(1)->Idle, Col(0)->Idle, Duration->2
-#             (30287000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (30307000 ps) Check command return: PASS
-# ** Note   : (30307000 ps)  * Read 8000_E502, expected value 8000_E502 (TM_MODE, mode Read, data E502)
-# ** Note   : (31185828 ps) Waiting event sync = '1' for 878828 ps
-# ** Note   : (31185828 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
-# ** Note   : (33827000 ps) Waiting SPI command return end for 2601172 ps
-#             (33827000 ps) 
-#             (33827000 ps) ==============================================================================================
-#             (33827000 ps)   Check TM_MODE duration decremented after new sync rising edge
-#             (33827000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (33847000 ps) Check command return: PASS
-# ** Note   : (33847000 ps)  * Read 8000_E501, expected value 8000_E501 (TM_MODE, mode Read, data E501)
-# ** Note   : (37419660 ps) Waiting event sync = '1' for 3572660 ps
-# ** Note   : (37419660 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
-# ** Note   : (40067000 ps) Waiting SPI command return end for 2607340 ps
-#             (40067000 ps) 
-#             (40067000 ps) ==============================================================================================
-#             (40067000 ps)   Check TM_MODE duration goes to 0 after new sync rising edge and
-#             (40067000 ps)     TM_MODE Col(3) goes from Test Pattern to Idle mode
-#             (40067000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (40087000 ps) Check command return: PASS
-# ** Note   : (40087000 ps)  * Read 8000_6500, expected value 8000_6500 (TM_MODE, mode Read, data 6500)
-# ** Note   : (43653492 ps) Waiting event sync = '1' for 3566492 ps
-# ** Note   : (43653492 ps) Send SPI command value 8001_B9FF (TM_MODE, mode Write, data B9FF)
-# ** Note   : (46307000 ps) Waiting SPI command return end for 2613508 ps
-#             (46307000 ps) 
-#             (46307000 ps) ==============================================================================================
-#             (46307000 ps)   Check TM_MODE no change
-#             (46307000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (46327000 ps) Check command return: PASS
-# ** Note   : (46327000 ps)  * Read 8000_6500, expected value 8000_6500 (TM_MODE, mode Read, data 6500)
-# ** Note   : (49887324 ps) Waiting event sync = '1' for 3560324 ps
-# ** Note   : (49887324 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
-# ** Note   : (52547000 ps) Waiting SPI command return end for 2619676 ps
-#             (52547000 ps) 
-#             (52547000 ps) ==============================================================================================
-#             (52547000 ps)   Check no error after write TM_MODE command
-#             (52547000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (52567000 ps) Check command return: PASS
-# ** Note   : (52567000 ps)  * Read C000_0000, expected value C000_0000 (Status, mode Read, data 0000)
-# ** Note   : (52567000 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
-# ** Note   : (55227000 ps) Waiting SPI command return end for 2620000 ps
-#             (55227000 ps) 
-#             (55227000 ps) ==============================================================================================
-#             (55227000 ps)   Check new TM_MODE content after sync signal activation:
-#             (55227000 ps)   Col(3)->Normal, Col(2)->Test Pattern, Col(1)->Normal, Col(0)->Idle, Duration->255
-#             (55227000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (55247000 ps) Check command return: PASS
-# ** Note   : (55247000 ps)  * Read 8000_B9FF, expected value 8000_B9FF (TM_MODE, mode Read, data B9FF)
-# ** Note   : (56121156 ps) Waiting event sync = '1' for 874156 ps
-# ** Note   : (56121156 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
-# ** Note   : (58767000 ps) Waiting SPI command return end for 2605844 ps
-#             (58767000 ps) 
-#             (58767000 ps) ==============================================================================================
-#             (58767000 ps)   Check TM_MODE duration decremented after new sync rising edge
-#             (58767000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (58787000 ps) Check command return: PASS
-# ** Note   : (58787000 ps)  * Read 8000_B9FE, expected value 8000_B9FE (TM_MODE, mode Read, data B9FE)
-# ** Note   : (62354988 ps) Waiting event sync = '1' for 3567988 ps
-# ** Note   : (62354988 ps) Send SPI command value 8001_AE00 (TM_MODE, mode Write, data AE00)
-# ** Note   : (65007000 ps) Waiting SPI command return end for 2612012 ps
-#             (65007000 ps) 
-#             (65007000 ps) ==============================================================================================
-#             (65007000 ps)   Check TM_MODE duration decremented after new sync rising edge
-#             (65007000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (65027000 ps) Check command return: PASS
-# ** Note   : (65027000 ps)  * Read 8000_B9FD, expected value 8000_B9FD (TM_MODE, mode Read, data B9FD)
-# ** Note   : (68588820 ps) Waiting event sync = '1' for 3561820 ps
-# ** Note   : (68588820 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
-# ** Note   : (71247000 ps) Waiting SPI command return end for 2618180 ps
-#             (71247000 ps) 
-#             (71247000 ps) ==============================================================================================
-#             (71247000 ps)   Check no error after write TM_MODE command
-#             (71247000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (71267000 ps) Check command return: PASS
-# ** Note   : (71267000 ps)  * Read C000_0000, expected value C000_0000 (Status, mode Read, data 0000)
-# ** Note   : (71267000 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
-# ** Note   : (73927000 ps) Waiting SPI command return end for 2620000 ps
-#             (73927000 ps) 
-#             (73927000 ps) ==============================================================================================
-#             (73927000 ps)   Check new TM_MODE content after sync signal activation:
-#             (73927000 ps)   Col(3)->Normal, Col(2)->Normal, Col(1)->Test Pattern, Col(0)->Normal, Duration->Infinity
-#             (73927000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (73947000 ps) Check command return: PASS
-# ** Note   : (73947000 ps)  * Read 8000_AE00, expected value 8000_AE00 (TM_MODE, mode Read, data AE00)
-# ** Note   : (74822652 ps) Waiting event sync = '1' for 875652 ps
-# ** Note   : (74822652 ps) Send SPI command value 8001_6B00 (TM_MODE, mode Write, data 6B00)
-# ** Note   : (77467000 ps) Waiting SPI command return end for 2604348 ps
-#             (77467000 ps) 
-#             (77467000 ps) ==============================================================================================
-#             (77467000 ps)   Check TM_MODE no change
-#             (77467000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (77487000 ps) Check command return: PASS
-# ** Note   : (77487000 ps)  * Read 8000_AE00, expected value 8000_AE00 (TM_MODE, mode Read, data AE00)
-# ** Note   : (81056484 ps) Waiting event sync = '1' for 3569484 ps
-# ** Note   : (81056484 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
-# ** Note   : (83707000 ps) Waiting SPI command return end for 2610516 ps
-#             (83707000 ps) 
-#             (83707000 ps) ==============================================================================================
-#             (83707000 ps)   Check no error after write TM_MODE command
-#             (83707000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (83727000 ps) Check command return: PASS
-# ** Note   : (83727000 ps)  * Read C000_0000, expected value C000_0000 (Status, mode Read, data 0000)
-# ** Note   : (83727000 ps) Send SPI command value 8001_00XX (TM_MODE, mode Write, data 00XX)
-# ** Note   : (86387000 ps) Waiting SPI command return end for 2620000 ps
-#             (86387000 ps) 
-#             (86387000 ps) ==============================================================================================
-#             (86387000 ps)   Check new TM_MODE content after sync signal activation:
-#             (86387000 ps)   Col(3)->Idle, Col(2)->Normal, Col(1)->Normal, Col(0)->Test Pattern, Duration->Infinity
-#             (86387000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (86407000 ps) Check command return: PASS
-# ** Note   : (86407000 ps)  * Read 8000_6B00, expected value 8000_6B00 (TM_MODE, mode Read, data 6B00)
-# ** Note   : (87290316 ps) Waiting event sync = '1' for 883316 ps
-# ** Note   : (87290316 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
-# ** Note   : (89947000 ps) Waiting SPI command return end for 2616684 ps
-#             (89947000 ps) 
-#             (89947000 ps) ==============================================================================================
-#             (89947000 ps)   Check no error after write TM_MODE command
-#             (89947000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (89967000 ps) Check command return: PASS
-# ** Note   : (89967000 ps)  * Read C000_0000, expected value C000_0000 (Status, mode Read, data 0000)
-# ** Note   : (89967000 ps) Send SPI command value 8001_XXXX (TM_MODE, mode Write, data XXXX)
-# ** Note   : (92627000 ps) Waiting SPI command return end for 2620000 ps
-#             (92627000 ps) 
-#             (92627000 ps) ==============================================================================================
-#             (92627000 ps)   Check "Dump" TM_MODE content after sync signal activation:
-#             (92627000 ps)   Col(3)->Idle, Col(2)->Idle, Col(1)->Idle, Col(0)->Dump, Duration->8
-#             (92627000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (92647000 ps) Check command return: PASS
-# ** Note   : (92647000 ps)  * Read 8000_5408, expected value 8000_5408 (TM_MODE, mode Read, data 5408)
-# ** Note   : (93524148 ps) Waiting event sync = '1' for 877148 ps
-# ** Note   : (93690828 ps) Waiting event sync = '0' for 166680 ps
-# ** Note   : (99757980 ps) Waiting event sync = '1' for 6067152 ps
-# ** Note   : (99924660 ps) Waiting event sync = '0' for 166680 ps
-# ** Note   : (105991812 ps) Waiting event sync = '1' for 6067152 ps
-# ** Note   : (106158492 ps) Waiting event sync = '0' for 166680 ps
-# ** Note   : (112225644 ps) Waiting event sync = '1' for 6067152 ps
-# ** Note   : (112392324 ps) Waiting event sync = '0' for 166680 ps
-# ** Note   : (118459476 ps) Waiting event sync = '1' for 6067152 ps
-# ** Note   : (118626156 ps) Waiting event sync = '0' for 166680 ps
-# ** Note   : (124693308 ps) Waiting event sync = '1' for 6067152 ps
-# ** Note   : (124859988 ps) Waiting event sync = '0' for 166680 ps
-# ** Note   : (130927140 ps) Waiting event sync = '1' for 6067152 ps
-# ** Note   : (130927140 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
-# ** Note   : (133587000 ps) Waiting SPI command return end for 2619860 ps
-#             (133587000 ps) 
-#             (133587000 ps) ==============================================================================================
-#             (133587000 ps)   Check error last SPI command discarded detected
-#             (133587000 ps)    after write TM_MODE command during "Dump" mode
-#             (133587000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (133607000 ps) Check command return: PASS
-# ** Note   : (133607000 ps)  * Read C000_0400, expected value C000_0400 (Status, mode Read, data 0400)
-# ** Note   : (133607000 ps) Send SPI command value 8001_XXXX (TM_MODE, mode Write, data XXXX)
-# ** Note   : (136267000 ps) Waiting SPI command return end for 2620000 ps
-#             (136267000 ps) 
-#             (136267000 ps) ==============================================================================================
-#             (136267000 ps)   Check "Dump" TM_MODE content after sync signal activation:
-#             (136267000 ps)   Col(3)->Idle, Col(2)->Idle, Col(1)->Idle, Col(0)->Dump, Duration->1
-#             (136267000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (136287000 ps) Check command return: PASS
-# ** Note   : (136287000 ps)  * Read 8000_5401, expected value 8000_5401 (TM_MODE, mode Read, data 5401)
-# ** Note   : (137160972 ps) Waiting event sync = '1' for 873972 ps
-# ** Note   : (137160972 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
-# ** Note   : (139807000 ps) Waiting SPI command return end for 2606028 ps
-#             (139807000 ps) 
-#             (139807000 ps) ==============================================================================================
-#             (139807000 ps)   Check error last SPI command discarded detected
-#             (139807000 ps)    after write TM_MODE command during "Dump" mode
-#             (139807000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (139827000 ps) Check command return: PASS
-# ** Note   : (139827000 ps)  * Read C000_0400, expected value C000_0400 (Status, mode Read, data 0400)
-# ** Note   : (139827000 ps) Send SPI command value 8001_XXXX (TM_MODE, mode Write, data XXXX)
-# ** Note   : (142487000 ps) Waiting SPI command return end for 2620000 ps
-#             (142487000 ps) 
-#             (142487000 ps) ==============================================================================================
-#             (142487000 ps)   Check "Dump" TM_MODE content after sync signal activation:
-#             (142487000 ps)   Col(3)->Idle, Col(2)->Idle, Col(1)->Dump, Col(0)->Idle, Duration->8
-#             (142487000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (142507000 ps) Check command return: PASS
-# ** Note   : (142507000 ps)  * Read 8000_5108, expected value 8000_5108 (TM_MODE, mode Read, data 5108)
-# ** Note   : (143394804 ps) Waiting event sync = '1' for 887804 ps
-# ** Note   : (143561484 ps) Waiting event sync = '0' for 166680 ps
-# ** Note   : (149628636 ps) Waiting event sync = '1' for 6067152 ps
-# ** Note   : (149795316 ps) Waiting event sync = '0' for 166680 ps
-# ** Note   : (155862468 ps) Waiting event sync = '1' for 6067152 ps
-# ** Note   : (156029148 ps) Waiting event sync = '0' for 166680 ps
-# ** Note   : (162096300 ps) Waiting event sync = '1' for 6067152 ps
-# ** Note   : (162262980 ps) Waiting event sync = '0' for 166680 ps
-# ** Note   : (168330132 ps) Waiting event sync = '1' for 6067152 ps
-# ** Note   : (168496812 ps) Waiting event sync = '0' for 166680 ps
-# ** Note   : (174563964 ps) Waiting event sync = '1' for 6067152 ps
-# ** Note   : (174730644 ps) Waiting event sync = '0' for 166680 ps
-# ** Note   : (180797796 ps) Waiting event sync = '1' for 6067152 ps
-# ** Note   : (180797796 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
-# ** Note   : (183447000 ps) Waiting SPI command return end for 2609204 ps
-#             (183447000 ps) 
-#             (183447000 ps) ==============================================================================================
-#             (183447000 ps)   Check error last SPI command discarded detected
-#             (183447000 ps)    after write TM_MODE command during "Dump" mode
-#             (183447000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (183467000 ps) Check command return: PASS
-# ** Note   : (183467000 ps)  * Read C000_0400, expected value C000_0400 (Status, mode Read, data 0400)
-# ** Note   : (183467000 ps) Send SPI command value 8001_XXXX (TM_MODE, mode Write, data XXXX)
-# ** Note   : (186127000 ps) Waiting SPI command return end for 2620000 ps
-#             (186127000 ps) 
-#             (186127000 ps) ==============================================================================================
-#             (186127000 ps)   Check "Dump" TM_MODE content after sync signal activation:
-#             (186127000 ps)   Col(3)->Idle, Col(2)->Idle, Col(1)->Dump, Col(0)->Idle, Duration->1
-#             (186127000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (186147000 ps) Check command return: PASS
-# ** Note   : (186147000 ps)  * Read 8000_5101, expected value 8000_5101 (TM_MODE, mode Read, data 5101)
-# ** Note   : (187031628 ps) Waiting event sync = '1' for 884628 ps
-# ** Note   : (187031628 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
-# ** Note   : (189687000 ps) Waiting SPI command return end for 2615372 ps
-#             (189687000 ps) 
-#             (189687000 ps) ==============================================================================================
-#             (189687000 ps)   Check error last SPI command discarded detected
-#             (189687000 ps)    after write TM_MODE command during "Dump" mode
-#             (189687000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (189707000 ps) Check command return: PASS
-# ** Note   : (189707000 ps)  * Read C000_0400, expected value C000_0400 (Status, mode Read, data 0400)
-# ** Note   : (189707000 ps) Send SPI command value 8001_XXXX (TM_MODE, mode Write, data XXXX)
-# ** Note   : (192367000 ps) Waiting SPI command return end for 2620000 ps
-#             (192367000 ps) 
-#             (192367000 ps) ==============================================================================================
-#             (192367000 ps)   Check "Dump" TM_MODE content after sync signal activation:
-#             (192367000 ps)   Col(3)->Idle, Col(2)->Dump, Col(1)->Idle, Col(0)->Idle, Duration->8
-#             (192367000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (192387000 ps) Check command return: PASS
-# ** Note   : (192387000 ps)  * Read 8000_4508, expected value 8000_4508 (TM_MODE, mode Read, data 4508)
-# ** Note   : (193265460 ps) Waiting event sync = '1' for 878460 ps
-# ** Note   : (193432140 ps) Waiting event sync = '0' for 166680 ps
-# ** Note   : (199499292 ps) Waiting event sync = '1' for 6067152 ps
-# ** Note   : (199665972 ps) Waiting event sync = '0' for 166680 ps
-# ** Note   : (205733124 ps) Waiting event sync = '1' for 6067152 ps
-# ** Note   : (205899804 ps) Waiting event sync = '0' for 166680 ps
-# ** Note   : (211966956 ps) Waiting event sync = '1' for 6067152 ps
-# ** Note   : (212133636 ps) Waiting event sync = '0' for 166680 ps
-# ** Note   : (218200788 ps) Waiting event sync = '1' for 6067152 ps
-# ** Note   : (218367468 ps) Waiting event sync = '0' for 166680 ps
-# ** Note   : (224434620 ps) Waiting event sync = '1' for 6067152 ps
-# ** Note   : (224601300 ps) Waiting event sync = '0' for 166680 ps
-# ** Note   : (230668452 ps) Waiting event sync = '1' for 6067152 ps
-# ** Note   : (230668452 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
-# ** Note   : (233327000 ps) Waiting SPI command return end for 2618548 ps
-#             (233327000 ps) 
-#             (233327000 ps) ==============================================================================================
-#             (233327000 ps)   Check error last SPI command discarded detected
-#             (233327000 ps)    after write TM_MODE command during "Dump" mode
-#             (233327000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (233347000 ps) Check command return: PASS
-# ** Note   : (233347000 ps)  * Read C000_0400, expected value C000_0400 (Status, mode Read, data 0400)
-# ** Note   : (233347000 ps) Send SPI command value 8001_XXXX (TM_MODE, mode Write, data XXXX)
-# ** Note   : (236007000 ps) Waiting SPI command return end for 2620000 ps
-#             (236007000 ps) 
-#             (236007000 ps) ==============================================================================================
-#             (236007000 ps)   Check "Dump" TM_MODE content after sync signal activation:
-#             (236007000 ps)   Col(3)->Idle, Col(2)->Dump, Col(1)->Idle, Col(0)->Idle, Duration->1
-#             (236007000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (236027000 ps) Check command return: PASS
-# ** Note   : (236027000 ps)  * Read 8000_4501, expected value 8000_4501 (TM_MODE, mode Read, data 4501)
-# ** Note   : (236902284 ps) Waiting event sync = '1' for 875284 ps
-# ** Note   : (236902284 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
-# ** Note   : (239547000 ps) Waiting SPI command return end for 2604716 ps
-#             (239547000 ps) 
-#             (239547000 ps) ==============================================================================================
-#             (239547000 ps)   Check error last SPI command discarded detected
-#             (239547000 ps)    after write TM_MODE command during "Dump" mode
-#             (239547000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (239567000 ps) Check command return: PASS
-# ** Note   : (239567000 ps)  * Read C000_0400, expected value C000_0400 (Status, mode Read, data 0400)
-# ** Note   : (239567000 ps) Send SPI command value 8001_XXXX (TM_MODE, mode Write, data XXXX)
-# ** Note   : (242227000 ps) Waiting SPI command return end for 2620000 ps
-#             (242227000 ps) 
-#             (242227000 ps) ==============================================================================================
-#             (242227000 ps)   Check "Dump" TM_MODE content after sync signal activation:
-#             (242227000 ps)   Col(3)->Dump, Col(2)->Idle, Col(1)->Idle, Col(0)->Idle, Duration->8
-#             (242227000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (242247000 ps) Check command return: PASS
-# ** Note   : (242247000 ps)  * Read 8000_1508, expected value 8000_1508 (TM_MODE, mode Read, data 1508)
-# ** Note   : (243136116 ps) Waiting event sync = '1' for 889116 ps
-# ** Note   : (243302796 ps) Waiting event sync = '0' for 166680 ps
-# ** Note   : (249369948 ps) Waiting event sync = '1' for 6067152 ps
-# ** Note   : (249536628 ps) Waiting event sync = '0' for 166680 ps
-# ** Note   : (255603780 ps) Waiting event sync = '1' for 6067152 ps
-# ** Note   : (255770460 ps) Waiting event sync = '0' for 166680 ps
-# ** Note   : (261837612 ps) Waiting event sync = '1' for 6067152 ps
-# ** Note   : (262004292 ps) Waiting event sync = '0' for 166680 ps
-# ** Note   : (268071444 ps) Waiting event sync = '1' for 6067152 ps
-# ** Note   : (268238124 ps) Waiting event sync = '0' for 166680 ps
-# ** Note   : (274305276 ps) Waiting event sync = '1' for 6067152 ps
-# ** Note   : (274471956 ps) Waiting event sync = '0' for 166680 ps
-# ** Note   : (280539108 ps) Waiting event sync = '1' for 6067152 ps
-# ** Note   : (280539108 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
-# ** Note   : (283187000 ps) Waiting SPI command return end for 2607892 ps
-#             (283187000 ps) 
-#             (283187000 ps) ==============================================================================================
-#             (283187000 ps)   Check error last SPI command discarded detected
-#             (283187000 ps)    after write TM_MODE command during "Dump" mode
-#             (283187000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (283207000 ps) Check command return: PASS
-# ** Note   : (283207000 ps)  * Read C000_0400, expected value C000_0400 (Status, mode Read, data 0400)
-# ** Note   : (283207000 ps) Send SPI command value 8001_XXXX (TM_MODE, mode Write, data XXXX)
-# ** Note   : (285867000 ps) Waiting SPI command return end for 2620000 ps
-#             (285867000 ps) 
-#             (285867000 ps) ==============================================================================================
-#             (285867000 ps)   Check "Dump" TM_MODE content after sync signal activation:
-#             (285867000 ps)   Col(3)->Dump, Col(2)->Idle, Col(1)->Idle, Col(0)->Idle, Duration->1
-#             (285867000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (285887000 ps) Check command return: PASS
-# ** Note   : (285887000 ps)  * Read 8000_1501, expected value 8000_1501 (TM_MODE, mode Read, data 1501)
-# ** Note   : (286772940 ps) Waiting event sync = '1' for 885940 ps
-# ** Note   : (286772940 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
-# ** Note   : (289427000 ps) Waiting SPI command return end for 2614060 ps
-#             (289427000 ps) 
-#             (289427000 ps) ==============================================================================================
-#             (289427000 ps)   Check error last SPI command discarded detected
-#             (289427000 ps)    after write TM_MODE command during "Dump" mode
-#             (289427000 ps) ----------------------------------------------------------------------------------------------
-#             (289427000 ps) CCMD R-Status-0400 N    # Return Command 33
-# ** Note   : (289427000 ps) Send SPI command value 8001_E5FF (TM_MODE, mode Write, data E5FF)
-# ** Note   : (292087000 ps) Waiting SPI command return end for 2620000 ps
-#             (292087000 ps) 
-#             (292087000 ps) ==============================================================================================
-#             (292087000 ps)   Check TM_MODE content goes back to previous modes after sync signal activation,
-#             (292087000 ps)   Check Col(0) goes back to Idle (previously "Test pattern" mode)
-#             (292087000 ps)   Col(3)->Idle, Col(2)->Normal, Col(1)->Normal, Col(0)->Idle, Duration->Infinity
-#             (292087000 ps) ----------------------------------------------------------------------------------------------
-#             (292087000 ps) CCMD R-TM_MODE-6900 N   # Return Command 34
-# ** Note   : (293006772 ps) Waiting event sync = '1' for 919772 ps
-# ** Note   : (293006772 ps) Send SPI command value 8001_08XX (TM_MODE, mode Write, data 08XX)
-# ** Note   : (295647000 ps) Waiting SPI command return end for 2600228 ps
-#             (295647000 ps) 
-#             (295647000 ps) ==============================================================================================
-#             (295647000 ps)   Check no error after write TM_MODE command
-#             (295647000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (295667000 ps) Check command return: PASS
-# ** Note   : (295667000 ps)  * Read C000_0000, expected value C000_0000 (Status, mode Read, data 0000)
-# ** Note   : (299240604 ps) Waiting event sync = '1' for 3573604 ps
-# ** Note   : (299240604 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
-# ** Note   : (301887000 ps) Waiting SPI command return end for 2606396 ps
-#             (301887000 ps) 
-#             (301887000 ps) ==============================================================================================
-#             (301887000 ps)   Check no error after write TM_MODE command
-#             (301887000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (301907000 ps) Check command return: PASS
-# ** Note   : (301907000 ps)  * Read C000_0000, expected value C000_0000 (Status, mode Read, data 0000)
-# ** Note   : (301907000 ps) Send SPI command value 8001_XXXX (TM_MODE, mode Write, data XXXX)
-# ** Note   : (304567000 ps) Waiting SPI command return end for 2620000 ps
-#             (304567000 ps) 
-#             (304567000 ps) ==============================================================================================
-#             (304567000 ps)   Check "Dump" TM_MODE content after sync signal activation:
-#             (304567000 ps)   Col(3)->Idle, Col(2)->Idle, Col(1)->Idle, Col(0)->Dump, Duration->8
-#             (304567000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (304587000 ps) Check command return: PASS
-# ** Note   : (304587000 ps)  * Read 8000_5408, expected value 8000_5408 (TM_MODE, mode Read, data 5408)
-# ** Note   : (305474436 ps) Waiting event sync = '1' for 887436 ps
-# ** Note   : (305641116 ps) Waiting event sync = '0' for 166680 ps
-# ** Note   : (311708268 ps) Waiting event sync = '1' for 6067152 ps
-# ** Note   : (311874948 ps) Waiting event sync = '0' for 166680 ps
-# ** Note   : (317942100 ps) Waiting event sync = '1' for 6067152 ps
-# ** Note   : (318108780 ps) Waiting event sync = '0' for 166680 ps
-# ** Note   : (324175932 ps) Waiting event sync = '1' for 6067152 ps
-# ** Note   : (324342612 ps) Waiting event sync = '0' for 166680 ps
-# ** Note   : (330409764 ps) Waiting event sync = '1' for 6067152 ps
-# ** Note   : (330576444 ps) Waiting event sync = '0' for 166680 ps
-# ** Note   : (336643596 ps) Waiting event sync = '1' for 6067152 ps
-# ** Note   : (336810276 ps) Waiting event sync = '0' for 166680 ps
-# ** Note   : (342877428 ps) Waiting event sync = '1' for 6067152 ps
-# ** Note   : (342877428 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
-# ** Note   : (345527000 ps) Waiting SPI command return end for 2609572 ps
-#             (345527000 ps) 
-#             (345527000 ps) ==============================================================================================
-#             (345527000 ps)   Check error last SPI command discarded detected
-#             (345527000 ps)    after write TM_MODE command during "Dump" mode
-#             (345527000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (345547000 ps) Check command return: PASS
-# ** Note   : (345547000 ps)  * Read C000_0400, expected value C000_0400 (Status, mode Read, data 0400)
-# ** Note   : (345547000 ps) Send SPI command value 8001_XXXX (TM_MODE, mode Write, data XXXX)
-# ** Note   : (348207000 ps) Waiting SPI command return end for 2620000 ps
-#             (348207000 ps) 
-#             (348207000 ps) ==============================================================================================
-#             (348207000 ps)   Check "Dump" TM_MODE content after sync signal activation:
-#             (348207000 ps)   Col(3)->Idle, Col(2)->Idle, Col(1)->Idle, Col(0)->Dump, Duration->1
-#             (348207000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (348227000 ps) Check command return: PASS
-# ** Note   : (348227000 ps)  * Read 8000_5401, expected value 8000_5401 (TM_MODE, mode Read, data 5401)
-# ** Note   : (349111260 ps) Waiting event sync = '1' for 884260 ps
-# ** Note   : (349111260 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
-# ** Note   : (351767000 ps) Waiting SPI command return end for 2615740 ps
-#             (351767000 ps) 
-#             (351767000 ps) ==============================================================================================
-#             (351767000 ps)   Check error last SPI command discarded detected
-#             (351767000 ps)    after write TM_MODE command during "Dump" mode
-#             (351767000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (351787000 ps) Check command return: PASS
-# ** Note   : (351787000 ps)  * Read C000_0400, expected value C000_0400 (Status, mode Read, data 0400)
-# ** Note   : (351787000 ps) Send SPI command value 8001_XXXX (TM_MODE, mode Write, data XXXX)
-# ** Note   : (354447000 ps) Waiting SPI command return end for 2620000 ps
-#             (354447000 ps) 
-#             (354447000 ps) ==============================================================================================
-#             (354447000 ps)   Check "Dump" TM_MODE content after sync signal activation:
-#             (354447000 ps)   Col(3)->Idle, Col(2)->Dump, Col(1)->Idle, Col(0)->Idle, Duration->8
-#             (354447000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (354467000 ps) Check command return: PASS
-# ** Note   : (354467000 ps)  * Read 8000_4508, expected value 8000_4508 (TM_MODE, mode Read, data 4508)
-# ** Note   : (355345092 ps) Waiting event sync = '1' for 878092 ps
-# ** Note   : (355511772 ps) Waiting event sync = '0' for 166680 ps
-# ** Note   : (361578924 ps) Waiting event sync = '1' for 6067152 ps
-# ** Note   : (361745604 ps) Waiting event sync = '0' for 166680 ps
-# ** Note   : (367812756 ps) Waiting event sync = '1' for 6067152 ps
-# ** Note   : (367979436 ps) Waiting event sync = '0' for 166680 ps
-# ** Note   : (374046588 ps) Waiting event sync = '1' for 6067152 ps
-# ** Note   : (374213268 ps) Waiting event sync = '0' for 166680 ps
-# ** Note   : (380280420 ps) Waiting event sync = '1' for 6067152 ps
-# ** Note   : (380447100 ps) Waiting event sync = '0' for 166680 ps
-# ** Note   : (386514252 ps) Waiting event sync = '1' for 6067152 ps
-# ** Note   : (386680932 ps) Waiting event sync = '0' for 166680 ps
-# ** Note   : (392748084 ps) Waiting event sync = '1' for 6067152 ps
-# ** Note   : (392748084 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
-# ** Note   : (395407000 ps) Waiting SPI command return end for 2618916 ps
-#             (395407000 ps) 
-#             (395407000 ps) ==============================================================================================
-#             (395407000 ps)   Check error last SPI command discarded detected
-#             (395407000 ps)    after write TM_MODE command during "Dump" mode
-#             (395407000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (395427000 ps) Check command return: PASS
-# ** Note   : (395427000 ps)  * Read C000_0400, expected value C000_0400 (Status, mode Read, data 0400)
-# ** Note   : (395427000 ps) Send SPI command value 8001_XXXX (TM_MODE, mode Write, data XXXX)
-# ** Note   : (398087000 ps) Waiting SPI command return end for 2620000 ps
-#             (398087000 ps) 
-#             (398087000 ps) ==============================================================================================
-#             (398087000 ps)   Check "Dump" TM_MODE content after sync signal activation:
-#             (398087000 ps)   Col(3)->Idle, Col(2)->Dump, Col(1)->Idle, Col(0)->Idle, Duration->1
-#             (398087000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (398107000 ps) Check command return: PASS
-# ** Note   : (398107000 ps)  * Read 8000_4501, expected value 8000_4501 (TM_MODE, mode Read, data 4501)
-# ** Note   : (398981916 ps) Waiting event sync = '1' for 874916 ps
-# ** Note   : (398981916 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
-# ** Note   : (401627000 ps) Waiting SPI command return end for 2605084 ps
-#             (401627000 ps) 
-#             (401627000 ps) ==============================================================================================
-#             (401627000 ps)   Check error last SPI command discarded detected
-#             (401627000 ps)    after write TM_MODE command during "Dump" mode
-#             (401627000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (401647000 ps) Check command return: PASS
-# ** Note   : (401647000 ps)  * Read C000_0400, expected value C000_0400 (Status, mode Read, data 0400)
-# ** Note   : (401647000 ps) Send SPI command value 8001_XXXX (TM_MODE, mode Write, data XXXX)
-# ** Note   : (404307000 ps) Waiting SPI command return end for 2620000 ps
-#             (404307000 ps) 
-#             (404307000 ps) ==============================================================================================
-#             (404307000 ps)   Check "Dump" TM_MODE content after sync signal activation:
-#             (404307000 ps)   Col(3)->Dump, Col(2)->Idle, Col(1)->Idle, Col(0)->Idle, Duration->8
-#             (404307000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (404327000 ps) Check command return: PASS
-# ** Note   : (404327000 ps)  * Read 8000_1508, expected value 8000_1508 (TM_MODE, mode Read, data 1508)
-# ** Note   : (405215748 ps) Waiting event sync = '1' for 888748 ps
-# ** Note   : (405382428 ps) Waiting event sync = '0' for 166680 ps
-# ** Note   : (411449580 ps) Waiting event sync = '1' for 6067152 ps
-# ** Note   : (411616260 ps) Waiting event sync = '0' for 166680 ps
-# ** Note   : (417683412 ps) Waiting event sync = '1' for 6067152 ps
-# ** Note   : (417850092 ps) Waiting event sync = '0' for 166680 ps
-# ** Note   : (423917244 ps) Waiting event sync = '1' for 6067152 ps
-# ** Note   : (424083924 ps) Waiting event sync = '0' for 166680 ps
-# ** Note   : (430151076 ps) Waiting event sync = '1' for 6067152 ps
-# ** Note   : (430317756 ps) Waiting event sync = '0' for 166680 ps
-# ** Note   : (436384908 ps) Waiting event sync = '1' for 6067152 ps
-# ** Note   : (436551588 ps) Waiting event sync = '0' for 166680 ps
-# ** Note   : (442618740 ps) Waiting event sync = '1' for 6067152 ps
-# ** Note   : (442618740 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
-# ** Note   : (445267000 ps) Waiting SPI command return end for 2608260 ps
-#             (445267000 ps) 
-#             (445267000 ps) ==============================================================================================
-#             (445267000 ps)   Check error last SPI command discarded detected
-#             (445267000 ps)    after write TM_MODE command during "Dump" mode
-#             (445267000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (445287000 ps) Check command return: PASS
-# ** Note   : (445287000 ps)  * Read C000_0400, expected value C000_0400 (Status, mode Read, data 0400)
-# ** Note   : (445287000 ps) Send SPI command value 8001_XXXX (TM_MODE, mode Write, data XXXX)
-# ** Note   : (447947000 ps) Waiting SPI command return end for 2620000 ps
-#             (447947000 ps) 
-#             (447947000 ps) ==============================================================================================
-#             (447947000 ps)   Check "Dump" TM_MODE content after sync signal activation:
-#             (447947000 ps)   Col(3)->Dump, Col(2)->Idle, Col(1)->Idle, Col(0)->Idle, Duration->1
-#             (447947000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (447967000 ps) Check command return: PASS
-# ** Note   : (447967000 ps)  * Read 8000_1501, expected value 8000_1501 (TM_MODE, mode Read, data 1501)
-# ** Note   : (448852572 ps) Waiting event sync = '1' for 885572 ps
-# ** Note   : (448852572 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
-# ** Note   : (451507000 ps) Waiting SPI command return end for 2614428 ps
-#             (451507000 ps) 
-#             (451507000 ps) ==============================================================================================
-#             (451507000 ps)   Check error last SPI command discarded detected
-#             (451507000 ps)    after write TM_MODE command during "Dump" mode
-#             (451507000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (451527000 ps) Check command return: PASS
-# ** Note   : (451527000 ps)  * Read C000_0400, expected value C000_0400 (Status, mode Read, data 0400)
-# ** Note   : (451527000 ps) Send SPI command value 8001_3203 (TM_MODE, mode Write, data 3203)
-# ** Note   : (454187000 ps) Waiting SPI command return end for 2620000 ps
-#             (454187000 ps) 
-#             (454187000 ps) ==============================================================================================
-#             (454187000 ps)   Check TM_MODE content after sync signal activation,
-#             (454187000 ps)   Check Col(0) goes back to previous mode: Idle
-#             (454187000 ps)   Check Col(1) goes to requested mode: Normal
-#             (454187000 ps)   Check Col(2) goes back to previous mode: Normal
-#             (454187000 ps)   Check Col(3) goes to Idle (previously "Test pattern" mode)
-#             (454187000 ps)   Check Duration goes to infinity (no "Test pattern" mode in the last receipted command)
-#             (454187000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (454207000 ps) Check command return: PASS
-# ** Note   : (454207000 ps)  * Read 8000_6900, expected value 8000_6900 (TM_MODE, mode Read, data 6900)
-# ** Note   : (455086404 ps) Waiting event sync = '1' for 879404 ps
-# ** Note   : (455086404 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
-# ** Note   : (457727000 ps) Waiting SPI command return end for 2600596 ps
-#             (457727000 ps) 
-#             (457727000 ps) ==============================================================================================
-#             (457727000 ps)   Check no error after write TM_MODE command
-#             (457727000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (457747000 ps) Check command return: PASS
-# ** Note   : (457747000 ps)  * Read C000_0000, expected value C000_0000 (Status, mode Read, data 0000)
-# ** Note   : (457747000 ps) Send SPI command value 8001_XXXX (TM_MODE, mode Write, data XXXX)
-# ** Note   : (460407000 ps) Waiting SPI command return end for 2620000 ps
-#             (460407000 ps) 
-#             (460407000 ps) ==============================================================================================
-#             (460407000 ps)   Check "Dump" TM_MODE content after sync signal activation:
-#             (460407000 ps)   Col(3)->Idle, Col(2)->Idle, Col(1)->Dump, Col(0)->Idle, Duration->8
-#             (460407000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (460427000 ps) Check command return: PASS
-# ** Note   : (460427000 ps)  * Read 8000_5108, expected value 8000_5108 (TM_MODE, mode Read, data 5108)
-# ** Note   : (461320236 ps) Waiting event sync = '1' for 893236 ps
-# ** Note   : (461486916 ps) Waiting event sync = '0' for 166680 ps
-# ** Note   : (467554068 ps) Waiting event sync = '1' for 6067152 ps
-# ** Note   : (467720748 ps) Waiting event sync = '0' for 166680 ps
-# ** Note   : (473787900 ps) Waiting event sync = '1' for 6067152 ps
-# ** Note   : (473954580 ps) Waiting event sync = '0' for 166680 ps
-# ** Note   : (480021732 ps) Waiting event sync = '1' for 6067152 ps
-# ** Note   : (480188412 ps) Waiting event sync = '0' for 166680 ps
-# ** Note   : (486255564 ps) Waiting event sync = '1' for 6067152 ps
-# ** Note   : (486422244 ps) Waiting event sync = '0' for 166680 ps
-# ** Note   : (492489396 ps) Waiting event sync = '1' for 6067152 ps
-# ** Note   : (492656076 ps) Waiting event sync = '0' for 166680 ps
-# ** Note   : (498723228 ps) Waiting event sync = '1' for 6067152 ps
-# ** Note   : (498723228 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
-# ** Note   : (501367000 ps) Waiting SPI command return end for 2603772 ps
-#             (501367000 ps) 
-#             (501367000 ps) ==============================================================================================
-#             (501367000 ps)   Check error last SPI command discarded detected
-#             (501367000 ps)    after write TM_MODE command during "Dump" mode
-#             (501367000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (501387000 ps) Check command return: PASS
-# ** Note   : (501387000 ps)  * Read C000_0400, expected value C000_0400 (Status, mode Read, data 0400)
-# ** Note   : (501387000 ps) Send SPI command value 8001_XXXX (TM_MODE, mode Write, data XXXX)
-# ** Note   : (504047000 ps) Waiting SPI command return end for 2620000 ps
-#             (504047000 ps) 
-#             (504047000 ps) ==============================================================================================
-#             (504047000 ps)   Check "Dump" TM_MODE content after sync signal activation:
-#             (504047000 ps)   Col(3)->Idle, Col(2)->Idle, Col(1)->Dump, Col(0)->Idle, Duration->1
-#             (504047000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (504067000 ps) Check command return: PASS
-# ** Note   : (504067000 ps)  * Read 8000_5101, expected value 8000_5101 (TM_MODE, mode Read, data 5101)
-# ** Note   : (504957060 ps) Waiting event sync = '1' for 890060 ps
-# ** Note   : (504957060 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
-# ** Note   : (507607000 ps) Waiting SPI command return end for 2609940 ps
-#             (507607000 ps) 
-#             (507607000 ps) ==============================================================================================
-#             (507607000 ps)   Check error last SPI command discarded detected
-#             (507607000 ps)    after write TM_MODE command during "Dump" mode
-#             (507607000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (507627000 ps) Check command return: PASS
-# ** Note   : (507627000 ps)  * Read C000_0400, expected value C000_0400 (Status, mode Read, data 0400)
-# ** Note   : (507627000 ps) Send SPI command value 8001_XXXX (TM_MODE, mode Write, data XXXX)
-# ** Note   : (510287000 ps) Waiting SPI command return end for 2620000 ps
-#             (510287000 ps) 
-#             (510287000 ps) ==============================================================================================
-#             (510287000 ps)   Check "Dump" TM_MODE content after sync signal activation:
-#             (510287000 ps)   Col(3)->Dump, Col(2)->Idle, Col(1)->Idle, Col(0)->Idle, Duration->8
-#             (510287000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (510307000 ps) Check command return: PASS
-# ** Note   : (510307000 ps)  * Read 8000_1508, expected value 8000_1508 (TM_MODE, mode Read, data 1508)
-# ** Note   : (511190892 ps) Waiting event sync = '1' for 883892 ps
-# ** Note   : (511357572 ps) Waiting event sync = '0' for 166680 ps
-# ** Note   : (517424724 ps) Waiting event sync = '1' for 6067152 ps
-# ** Note   : (517591404 ps) Waiting event sync = '0' for 166680 ps
-# ** Note   : (523658556 ps) Waiting event sync = '1' for 6067152 ps
-# ** Note   : (523825236 ps) Waiting event sync = '0' for 166680 ps
-# ** Note   : (529892388 ps) Waiting event sync = '1' for 6067152 ps
-# ** Note   : (530059068 ps) Waiting event sync = '0' for 166680 ps
-# ** Note   : (536126220 ps) Waiting event sync = '1' for 6067152 ps
-# ** Note   : (536292900 ps) Waiting event sync = '0' for 166680 ps
-# ** Note   : (542360052 ps) Waiting event sync = '1' for 6067152 ps
-# ** Note   : (542526732 ps) Waiting event sync = '0' for 166680 ps
-# ** Note   : (548593884 ps) Waiting event sync = '1' for 6067152 ps
-# ** Note   : (548593884 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
-# ** Note   : (551247000 ps) Waiting SPI command return end for 2613116 ps
-#             (551247000 ps) 
-#             (551247000 ps) ==============================================================================================
-#             (551247000 ps)   Check error last SPI command discarded detected
-#             (551247000 ps)    after write TM_MODE command during "Dump" mode
-#             (551247000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (551267000 ps) Check command return: PASS
-# ** Note   : (551267000 ps)  * Read C000_0400, expected value C000_0400 (Status, mode Read, data 0400)
-# ** Note   : (551267000 ps) Send SPI command value 8001_XXXX (TM_MODE, mode Write, data XXXX)
-# ** Note   : (553927000 ps) Waiting SPI command return end for 2620000 ps
-#             (553927000 ps) 
-#             (553927000 ps) ==============================================================================================
-#             (553927000 ps)   Check "Dump" TM_MODE content after sync signal activation:
-#             (553927000 ps)   Col(3)->Dump, Col(2)->Idle, Col(1)->Idle, Col(0)->Idle, Duration->1
-#             (553927000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (553947000 ps) Check command return: PASS
-# ** Note   : (553947000 ps)  * Read 8000_1501, expected value 8000_1501 (TM_MODE, mode Read, data 1501)
-# ** Note   : (554827716 ps) Waiting event sync = '1' for 880716 ps
-# ** Note   : (554827716 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
-# ** Note   : (557487000 ps) Waiting SPI command return end for 2619284 ps
-#             (557487000 ps) 
-#             (557487000 ps) ==============================================================================================
-#             (557487000 ps)   Check error last SPI command discarded detected
-#             (557487000 ps)    after write TM_MODE command during "Dump" mode
-#             (557487000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (557507000 ps) Check command return: PASS
-# ** Note   : (557507000 ps)  * Read C000_0400, expected value C000_0400 (Status, mode Read, data 0400)
-# ** Note   : (557507000 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
-# ** Note   : (560167000 ps) Waiting SPI command return end for 2620000 ps
-#             (560167000 ps) 
-#             (560167000 ps) ==============================================================================================
-#             (560167000 ps)   Check TM_MODE content after sync signal activation,
-#             (560167000 ps)   Check Col(0) goes to requested mode: Normal
-#             (560167000 ps)   Check Col(1) goes back to previous mode: Normal
-#             (560167000 ps)   Check Col(2) goes to requested mode: Test pattern
-#             (560167000 ps)   Check Col(3) goes back to previous mode: Idle
-#             (560167000 ps)   Check Duration goes to requested duration: 3
-#             (560167000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (560187000 ps) Check command return: PASS
-# ** Note   : (560187000 ps)  * Read 8000_7A03, expected value 8000_7A03 (TM_MODE, mode Read, data 7A03)
-# ** Note   : (561061548 ps) Waiting event sync = '1' for 874548 ps
-# ** Note   : (561061548 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
-# ** Note   : (563707000 ps) Waiting SPI command return end for 2605452 ps
-#             (563707000 ps) 
-#             (563707000 ps) ==============================================================================================
-#             (563707000 ps)   Check TM_MODE duration decremented after new sync rising edge
-#             (563707000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (563727000 ps) Check command return: PASS
-# ** Note   : (563727000 ps)  * Read 8000_7A02, expected value 8000_7A02 (TM_MODE, mode Read, data 7A02)
-# ** Note   : (567295380 ps) Waiting event sync = '1' for 3568380 ps
-# ** Note   : (567295380 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
-# ** Note   : (569947000 ps) Waiting SPI command return end for 2611620 ps
-#             (569947000 ps) 
-#             (569947000 ps) ==============================================================================================
-#             (569947000 ps)   Check TM_MODE duration decremented after new sync rising edge
-#             (569947000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (569967000 ps) Check command return: PASS
-# ** Note   : (569967000 ps)  * Read 8000_7A01, expected value 8000_7A01 (TM_MODE, mode Read, data 7A01)
-# ** Note   : (573529212 ps) Waiting event sync = '1' for 3562212 ps
-# ** Note   : (573529212 ps) Send SPI command value 8001_09XX (TM_MODE, mode Write, data 09XX)
-# ** Note   : (576187000 ps) Waiting SPI command return end for 2617788 ps
-#             (576187000 ps) 
-#             (576187000 ps) ==============================================================================================
-#             (576187000 ps)   Check TM_MODE duration goes to 0 after new sync rising edge and
-#             (576187000 ps)     TM_MODE Col(2) goes from Test Pattern to Idle mode
-#             (576187000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (576207000 ps) Check command return: PASS
-# ** Note   : (576207000 ps)  * Read 8000_5A00, expected value 8000_5A00 (TM_MODE, mode Read, data 5A00)
-# ** Note   : (579763044 ps) Waiting event sync = '1' for 3556044 ps
-# ** Note   : (579763044 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
-# ** Note   : (582407000 ps) Waiting SPI command return end for 2603956 ps
-#             (582407000 ps) 
-#             (582407000 ps) ==============================================================================================
-#             (582407000 ps)   Check no error after write TM_MODE command
-#             (582407000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (582427000 ps) Check command return: PASS
-# ** Note   : (582427000 ps)  * Read C000_0000, expected value C000_0000 (Status, mode Read, data 0000)
-# ** Note   : (582427000 ps) Send SPI command value 8001_XXXX (TM_MODE, mode Write, data XXXX)
-# ** Note   : (585087000 ps) Waiting SPI command return end for 2620000 ps
-#             (585087000 ps) 
-#             (585087000 ps) ==============================================================================================
-#             (585087000 ps)   Check "Dump" TM_MODE content after sync signal activation:
-#             (585087000 ps)   Col(3)->Idle, Col(2)->Dump, Col(1)->Idle, Col(0)->Idle, Duration->8
-#             (585087000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (585107000 ps) Check command return: PASS
-# ** Note   : (585107000 ps)  * Read 8000_4508, expected value 8000_4508 (TM_MODE, mode Read, data 4508)
-# ** Note   : (585996876 ps) Waiting event sync = '1' for 889876 ps
-# ** Note   : (586163556 ps) Waiting event sync = '0' for 166680 ps
-# ** Note   : (592230708 ps) Waiting event sync = '1' for 6067152 ps
-# ** Note   : (592397388 ps) Waiting event sync = '0' for 166680 ps
-# ** Note   : (598464540 ps) Waiting event sync = '1' for 6067152 ps
-# ** Note   : (598631220 ps) Waiting event sync = '0' for 166680 ps
-# ** Note   : (604698372 ps) Waiting event sync = '1' for 6067152 ps
-# ** Note   : (604865052 ps) Waiting event sync = '0' for 166680 ps
-# ** Note   : (610932204 ps) Waiting event sync = '1' for 6067152 ps
-# ** Note   : (611098884 ps) Waiting event sync = '0' for 166680 ps
-# ** Note   : (617166036 ps) Waiting event sync = '1' for 6067152 ps
-# ** Note   : (617332716 ps) Waiting event sync = '0' for 166680 ps
-# ** Note   : (623399868 ps) Waiting event sync = '1' for 6067152 ps
-# ** Note   : (623399868 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
-# ** Note   : (626047000 ps) Waiting SPI command return end for 2607132 ps
-#             (626047000 ps) 
-#             (626047000 ps) ==============================================================================================
-#             (626047000 ps)   Check error last SPI command discarded detected
-#             (626047000 ps)    after write TM_MODE command during "Dump" mode
-#             (626047000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (626067000 ps) Check command return: PASS
-# ** Note   : (626067000 ps)  * Read C000_0400, expected value C000_0400 (Status, mode Read, data 0400)
-# ** Note   : (626067000 ps) Send SPI command value 8001_XXXX (TM_MODE, mode Write, data XXXX)
-# ** Note   : (628727000 ps) Waiting SPI command return end for 2620000 ps
-#             (628727000 ps) 
-#             (628727000 ps) ==============================================================================================
-#             (628727000 ps)   Check "Dump" TM_MODE content after sync signal activation:
-#             (628727000 ps)   Col(3)->Idle, Col(2)->Dump, Col(1)->Idle, Col(0)->Idle, Duration->1
-#             (628727000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (628747000 ps) Check command return: PASS
-# ** Note   : (628747000 ps)  * Read 8000_4501, expected value 8000_4501 (TM_MODE, mode Read, data 4501)
-# ** Note   : (629633700 ps) Waiting event sync = '1' for 886700 ps
-# ** Note   : (629633700 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
-# ** Note   : (632287000 ps) Waiting SPI command return end for 2613300 ps
-#             (632287000 ps) 
-#             (632287000 ps) ==============================================================================================
-#             (632287000 ps)   Check error last SPI command discarded detected
-#             (632287000 ps)    after write TM_MODE command during "Dump" mode
-#             (632287000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (632307000 ps) Check command return: PASS
-# ** Note   : (632307000 ps)  * Read C000_0400, expected value C000_0400 (Status, mode Read, data 0400)
-# ** Note   : (632307000 ps) Send SPI command value 8001_XXXX (TM_MODE, mode Write, data XXXX)
-# ** Note   : (634967000 ps) Waiting SPI command return end for 2620000 ps
-#             (634967000 ps) 
-#             (634967000 ps) ==============================================================================================
-#             (634967000 ps)   Check "Dump" TM_MODE content after sync signal activation:
-#             (634967000 ps)   Col(3)->Dump, Col(2)->Idle, Col(1)->Idle, Col(0)->Idle, Duration->8
-#             (634967000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (634987000 ps) Check command return: PASS
-# ** Note   : (634987000 ps)  * Read 8000_1508, expected value 8000_1508 (TM_MODE, mode Read, data 1508)
-# ** Note   : (635867532 ps) Waiting event sync = '1' for 880532 ps
-# ** Note   : (636034212 ps) Waiting event sync = '0' for 166680 ps
-# ** Note   : (642101364 ps) Waiting event sync = '1' for 6067152 ps
-# ** Note   : (642268044 ps) Waiting event sync = '0' for 166680 ps
-# ** Note   : (648335196 ps) Waiting event sync = '1' for 6067152 ps
-# ** Note   : (648501876 ps) Waiting event sync = '0' for 166680 ps
-# ** Note   : (654569028 ps) Waiting event sync = '1' for 6067152 ps
-# ** Note   : (654735708 ps) Waiting event sync = '0' for 166680 ps
-# ** Note   : (660802860 ps) Waiting event sync = '1' for 6067152 ps
-# ** Note   : (660969540 ps) Waiting event sync = '0' for 166680 ps
-# ** Note   : (667036692 ps) Waiting event sync = '1' for 6067152 ps
-# ** Note   : (667203372 ps) Waiting event sync = '0' for 166680 ps
-# ** Note   : (673270524 ps) Waiting event sync = '1' for 6067152 ps
-# ** Note   : (673270524 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
-# ** Note   : (675927000 ps) Waiting SPI command return end for 2616476 ps
-#             (675927000 ps) 
-#             (675927000 ps) ==============================================================================================
-#             (675927000 ps)   Check error last SPI command discarded detected
-#             (675927000 ps)    after write TM_MODE command during "Dump" mode
-#             (675927000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (675947000 ps) Check command return: PASS
-# ** Note   : (675947000 ps)  * Read C000_0400, expected value C000_0400 (Status, mode Read, data 0400)
-# ** Note   : (675947000 ps) Send SPI command value 8001_XXXX (TM_MODE, mode Write, data XXXX)
-# ** Note   : (678607000 ps) Waiting SPI command return end for 2620000 ps
-#             (678607000 ps) 
-#             (678607000 ps) ==============================================================================================
-#             (678607000 ps)   Check "Dump" TM_MODE content after sync signal activation:
-#             (678607000 ps)   Col(3)->Dump, Col(2)->Idle, Col(1)->Idle, Col(0)->Idle, Duration->1
-#             (678607000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (678627000 ps) Check command return: PASS
-# ** Note   : (678627000 ps)  * Read 8000_1501, expected value 8000_1501 (TM_MODE, mode Read, data 1501)
-# ** Note   : (679504356 ps) Waiting event sync = '1' for 877356 ps
-# ** Note   : (679504356 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
-# ** Note   : (682147000 ps) Waiting SPI command return end for 2602644 ps
-#             (682147000 ps) 
-#             (682147000 ps) ==============================================================================================
-#             (682147000 ps)   Check error last SPI command discarded detected
-#             (682147000 ps)    after write TM_MODE command during "Dump" mode
-#             (682147000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (682167000 ps) Check command return: PASS
-# ** Note   : (682167000 ps)  * Read C000_0400, expected value C000_0400 (Status, mode Read, data 0400)
-# ** Note   : (682167000 ps) Send SPI command value 8001_E400 (TM_MODE, mode Write, data E400)
-# ** Note   : (684827000 ps) Waiting SPI command return end for 2620000 ps
-#             (684827000 ps) 
-#             (684827000 ps) ==============================================================================================
-#             (684827000 ps)   Check TM_MODE content after sync signal activation,
-#             (684827000 ps)   Check Col(0) goes to requested mode: Idle
-#             (684827000 ps)   Check Col(1) goes to requested mode: Normal
-#             (684827000 ps)   Check Col(2) goes back to previous mode: Idle
-#             (684827000 ps)   Check Col(3) goes back to previous mode: Idle
-#             (684827000 ps)   Check Duration goes to infinity (no "Test pattern" mode in the last receipted command)
-#             (684827000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (684847000 ps) Check command return: PASS
-# ** Note   : (684847000 ps)  * Read 8000_5900, expected value 8000_5900 (TM_MODE, mode Read, data 5900)
-# ** Note   : (685738188 ps) Waiting event sync = '1' for 891188 ps
-# ** Note   : (685738188 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
-# ** Note   : (688387000 ps) Waiting SPI command return end for 2608812 ps
-#             (688387000 ps) 
-#             (688387000 ps) ==============================================================================================
-#             (688387000 ps)   Check no error after write TM_MODE command
-#             (688387000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (688407000 ps) Check command return: PASS
-# ** Note   : (688407000 ps)  * Read C000_0000, expected value C000_0000 (Status, mode Read, data 0000)
-# ** Note   : (688407000 ps) Send SPI command value 8001_XXXX (TM_MODE, mode Write, data XXXX)
-# ** Note   : (691067000 ps) Waiting SPI command return end for 2620000 ps
-#             (691067000 ps) 
-#             (691067000 ps) ==============================================================================================
-#             (691067000 ps)   Check "Dump" TM_MODE content after sync signal activation:
-#             (691067000 ps)   Col(3)->Idle, Col(2)->Idle, Col(1)->Idle, Col(0)->Dump, Duration->8
-#             (691067000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (691087000 ps) Check command return: PASS
-# ** Note   : (691087000 ps)  * Read 8000_5408, expected value 8000_5408 (TM_MODE, mode Read, data 5408)
-# ** Note   : (691972020 ps) Waiting event sync = '1' for 885020 ps
-# ** Note   : (692138700 ps) Waiting event sync = '0' for 166680 ps
-# ** Note   : (698205852 ps) Waiting event sync = '1' for 6067152 ps
-# ** Note   : (698372532 ps) Waiting event sync = '0' for 166680 ps
-# ** Note   : (704439684 ps) Waiting event sync = '1' for 6067152 ps
-# ** Note   : (704606364 ps) Waiting event sync = '0' for 166680 ps
-# ** Note   : (710673516 ps) Waiting event sync = '1' for 6067152 ps
-# ** Note   : (710840196 ps) Waiting event sync = '0' for 166680 ps
-# ** Note   : (716907348 ps) Waiting event sync = '1' for 6067152 ps
-# ** Note   : (717074028 ps) Waiting event sync = '0' for 166680 ps
-# ** Note   : (723141180 ps) Waiting event sync = '1' for 6067152 ps
-# ** Note   : (723307860 ps) Waiting event sync = '0' for 166680 ps
-# ** Note   : (729375012 ps) Waiting event sync = '1' for 6067152 ps
-# ** Note   : (729375012 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
-# ** Note   : (732027000 ps) Waiting SPI command return end for 2611988 ps
-#             (732027000 ps) 
-#             (732027000 ps) ==============================================================================================
-#             (732027000 ps)   Check error last SPI command discarded detected
-#             (732027000 ps)    after write TM_MODE command during "Dump" mode
-#             (732027000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (732047000 ps) Check command return: PASS
-# ** Note   : (732047000 ps)  * Read C000_0400, expected value C000_0400 (Status, mode Read, data 0400)
-# ** Note   : (732047000 ps) Send SPI command value 8001_XXXX (TM_MODE, mode Write, data XXXX)
-# ** Note   : (734707000 ps) Waiting SPI command return end for 2620000 ps
-#             (734707000 ps) 
-#             (734707000 ps) ==============================================================================================
-#             (734707000 ps)   Check "Dump" TM_MODE content after sync signal activation:
-#             (734707000 ps)   Col(3)->Idle, Col(2)->Idle, Col(1)->Idle, Col(0)->Dump, Duration->1
-#             (734707000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (734727000 ps) Check command return: PASS
-# ** Note   : (734727000 ps)  * Read 8000_5401, expected value 8000_5401 (TM_MODE, mode Read, data 5401)
-# ** Note   : (735608844 ps) Waiting event sync = '1' for 881844 ps
-# ** Note   : (735608844 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
-# ** Note   : (738267000 ps) Waiting SPI command return end for 2618156 ps
-#             (738267000 ps) 
-#             (738267000 ps) ==============================================================================================
-#             (738267000 ps)   Check error last SPI command discarded detected
-#             (738267000 ps)    after write TM_MODE command during "Dump" mode
-#             (738267000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (738287000 ps) Check command return: PASS
-# ** Note   : (738287000 ps)  * Read C000_0400, expected value C000_0400 (Status, mode Read, data 0400)
-# ** Note   : (738287000 ps) Send SPI command value 8001_B105 (TM_MODE, mode Write, data B105)
-# ** Note   : (740947000 ps) Waiting SPI command return end for 2620000 ps
-#             (740947000 ps) 
-#             (740947000 ps) ==============================================================================================
-#             (740947000 ps)   Check TM_MODE content after sync signal activation,
-#             (740947000 ps)   Check Col(0) goes back to previous mode: Idle
-#             (740947000 ps)   Check Col(1) goes to requested mode: Idle
-#             (740947000 ps)   Check Col(2) goes to requested mode: Normal
-#             (740947000 ps)   Check Col(3) goes to requested mode: Test pattern
-#             (740947000 ps)   Check Duration goes to requested duration: infinity
-#             (740947000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (740967000 ps) Check command return: PASS
-# ** Note   : (740967000 ps)  * Read 8000_E500, expected value 8000_E500 (TM_MODE, mode Read, data E500)
-# ** Note   : (741842676 ps) Waiting event sync = '1' for 875676 ps
-# ** Note   : (741842676 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
-# ** Note   : (744487000 ps) Waiting SPI command return end for 2604324 ps
-#             (744487000 ps) 
-#             (744487000 ps) ==============================================================================================
-#             (744487000 ps)   Check no error after write TM_MODE command
-#             (744487000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (744507000 ps) Check command return: PASS
-# ** Note   : (744507000 ps)  * Read C000_0000, expected value C000_0000 (Status, mode Read, data 0000)
-# ** Note   : (744507000 ps) Send SPI command value 8001_XXXX (TM_MODE, mode Write, data XXXX)
-# ** Note   : (747167000 ps) Waiting SPI command return end for 2620000 ps
-#             (747167000 ps) 
-#             (747167000 ps) ==============================================================================================
-#             (747167000 ps)   Check "Dump" TM_MODE content after sync signal activation:
-#             (747167000 ps)   Col(3)->Idle, Col(2)->Idle, Col(1)->Dump, Col(0)->Idle, Duration->8
-#             (747167000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (747187000 ps) Check command return: PASS
-# ** Note   : (747187000 ps)  * Read 8000_5108, expected value 8000_5108 (TM_MODE, mode Read, data 5108)
-# ** Note   : (748076508 ps) Waiting event sync = '1' for 889508 ps
-# ** Note   : (748243188 ps) Waiting event sync = '0' for 166680 ps
-# ** Note   : (754310340 ps) Waiting event sync = '1' for 6067152 ps
-# ** Note   : (754477020 ps) Waiting event sync = '0' for 166680 ps
-# ** Note   : (760544172 ps) Waiting event sync = '1' for 6067152 ps
-# ** Note   : (760710852 ps) Waiting event sync = '0' for 166680 ps
-# ** Note   : (766778004 ps) Waiting event sync = '1' for 6067152 ps
-# ** Note   : (766944684 ps) Waiting event sync = '0' for 166680 ps
-# ** Note   : (773011836 ps) Waiting event sync = '1' for 6067152 ps
-# ** Note   : (773178516 ps) Waiting event sync = '0' for 166680 ps
-# ** Note   : (779245668 ps) Waiting event sync = '1' for 6067152 ps
-# ** Note   : (779412348 ps) Waiting event sync = '0' for 166680 ps
-# ** Note   : (785479500 ps) Waiting event sync = '1' for 6067152 ps
-# ** Note   : (785479500 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
-# ** Note   : (788127000 ps) Waiting SPI command return end for 2607500 ps
-#             (788127000 ps) 
-#             (788127000 ps) ==============================================================================================
-#             (788127000 ps)   Check error last SPI command discarded detected
-#             (788127000 ps)    after write TM_MODE command during "Dump" mode
-#             (788127000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (788147000 ps) Check command return: PASS
-# ** Note   : (788147000 ps)  * Read C000_0400, expected value C000_0400 (Status, mode Read, data 0400)
-# ** Note   : (788147000 ps) Send SPI command value 8001_XXXX (TM_MODE, mode Write, data XXXX)
-# ** Note   : (790807000 ps) Waiting SPI command return end for 2620000 ps
-#             (790807000 ps) 
-#             (790807000 ps) ==============================================================================================
-#             (790807000 ps)   Check "Dump" TM_MODE content after sync signal activation:
-#             (790807000 ps)   Col(3)->Idle, Col(2)->Idle, Col(1)->Dump, Col(0)->Idle, Duration->1
-#             (790807000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (790827000 ps) Check command return: PASS
-# ** Note   : (790827000 ps)  * Read 8000_5101, expected value 8000_5101 (TM_MODE, mode Read, data 5101)
-# ** Note   : (791713332 ps) Waiting event sync = '1' for 886332 ps
-# ** Note   : (791713332 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
-# ** Note   : (794367000 ps) Waiting SPI command return end for 2613668 ps
-#             (794367000 ps) 
-#             (794367000 ps) ==============================================================================================
-#             (794367000 ps)   Check error last SPI command discarded detected
-#             (794367000 ps)    after write TM_MODE command during "Dump" mode
-#             (794367000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (794387000 ps) Check command return: PASS
-# ** Note   : (794387000 ps)  * Read C000_0400, expected value C000_0400 (Status, mode Read, data 0400)
-# ** Note   : (794387000 ps) Send SPI command value 8001_C900 (TM_MODE, mode Write, data C900)
-# ** Note   : (797047000 ps) Waiting SPI command return end for 2620000 ps
-#             (797047000 ps) 
-#             (797047000 ps) ==============================================================================================
-#             (797047000 ps)   Check TM_MODE content after sync signal activation,
-#             (797047000 ps)   Check Col(0) goes to requested mode: Idle
-#             (797047000 ps)   Check Col(1) goes back to previous mode: Idle
-#             (797047000 ps)   Check Col(2) goes to requested mode: Test pattern
-#             (797047000 ps)   Check Col(3) goes to requested mode: Normal
-#             (797047000 ps)   Check Duration goes to requested duration: 5
-#             (797047000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (797067000 ps) Check command return: PASS
-# ** Note   : (797067000 ps)  * Read 8000_B505, expected value 8000_B505 (TM_MODE, mode Read, data B505)
-# ** Note   : (797947164 ps) Waiting event sync = '1' for 880164 ps
-# ** Note   : (797947164 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
-# ** Note   : (800607000 ps) Waiting SPI command return end for 2619836 ps
-#             (800607000 ps) 
-#             (800607000 ps) ==============================================================================================
-#             (800607000 ps)   Check no error after write TM_MODE command
-#             (800607000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (800627000 ps) Check command return: PASS
-# ** Note   : (800627000 ps)  * Read C000_0000, expected value C000_0000 (Status, mode Read, data 0000)
-# ** Note   : (800627000 ps) Send SPI command value 8001_XXXX (TM_MODE, mode Write, data XXXX)
-# ** Note   : (803287000 ps) Waiting SPI command return end for 2620000 ps
-#             (803287000 ps) 
-#             (803287000 ps) ==============================================================================================
-#             (803287000 ps)   Check "Dump" TM_MODE content after sync signal activation:
-#             (803287000 ps)   Col(3)->Idle, Col(2)->Dump, Col(1)->Idle, Col(0)->Idle, Duration->8
-#             (803287000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (803307000 ps) Check command return: PASS
-# ** Note   : (803307000 ps)  * Read 8000_4508, expected value 8000_4508 (TM_MODE, mode Read, data 4508)
-# ** Note   : (804180996 ps) Waiting event sync = '1' for 873996 ps
-# ** Note   : (804347676 ps) Waiting event sync = '0' for 166680 ps
-# ** Note   : (810414828 ps) Waiting event sync = '1' for 6067152 ps
-# ** Note   : (810581508 ps) Waiting event sync = '0' for 166680 ps
-# ** Note   : (816648660 ps) Waiting event sync = '1' for 6067152 ps
-# ** Note   : (816815340 ps) Waiting event sync = '0' for 166680 ps
-# ** Note   : (822882492 ps) Waiting event sync = '1' for 6067152 ps
-# ** Note   : (823049172 ps) Waiting event sync = '0' for 166680 ps
-# ** Note   : (829116324 ps) Waiting event sync = '1' for 6067152 ps
-# ** Note   : (829283004 ps) Waiting event sync = '0' for 166680 ps
-# ** Note   : (835350156 ps) Waiting event sync = '1' for 6067152 ps
-# ** Note   : (835516836 ps) Waiting event sync = '0' for 166680 ps
-# ** Note   : (841583988 ps) Waiting event sync = '1' for 6067152 ps
-# ** Note   : (841583988 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
-# ** Note   : (844227000 ps) Waiting SPI command return end for 2603012 ps
-#             (844227000 ps) 
-#             (844227000 ps) ==============================================================================================
-#             (844227000 ps)   Check error last SPI command discarded detected
-#             (844227000 ps)    after write TM_MODE command during "Dump" mode
-#             (844227000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (844247000 ps) Check command return: PASS
-# ** Note   : (844247000 ps)  * Read C000_0400, expected value C000_0400 (Status, mode Read, data 0400)
-# ** Note   : (844247000 ps) Send SPI command value 8001_XXXX (TM_MODE, mode Write, data XXXX)
-# ** Note   : (846907000 ps) Waiting SPI command return end for 2620000 ps
-#             (846907000 ps) 
-#             (846907000 ps) ==============================================================================================
-#             (846907000 ps)   Check "Dump" TM_MODE content after sync signal activation:
-#             (846907000 ps)   Col(3)->Idle, Col(2)->Dump, Col(1)->Idle, Col(0)->Idle, Duration->1
-#             (846907000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (846927000 ps) Check command return: PASS
-# ** Note   : (846927000 ps)  * Read 8000_4501, expected value 8000_4501 (TM_MODE, mode Read, data 4501)
-# ** Note   : (847817820 ps) Waiting event sync = '1' for 890820 ps
-# ** Note   : (847817820 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
-# ** Note   : (850467000 ps) Waiting SPI command return end for 2609180 ps
-#             (850467000 ps) 
-#             (850467000 ps) ==============================================================================================
-#             (850467000 ps)   Check error last SPI command discarded detected
-#             (850467000 ps)    after write TM_MODE command during "Dump" mode
-#             (850467000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (850487000 ps) Check command return: PASS
-# ** Note   : (850487000 ps)  * Read C000_0400, expected value C000_0400 (Status, mode Read, data 0400)
-# ** Note   : (850487000 ps) Send SPI command value 8001_2AFF (TM_MODE, mode Write, data 2AFF)
-# ** Note   : (853147000 ps) Waiting SPI command return end for 2620000 ps
-#             (853147000 ps) 
-#             (853147000 ps) ==============================================================================================
-#             (853147000 ps)   Check TM_MODE content after sync signal activation,
-#             (853147000 ps)   Check Col(0) goes to requested mode: Idle
-#             (853147000 ps)   Check Col(1) goes to requested mode: Normal
-#             (853147000 ps)   Check Col(2) goes to Idle (previously "Test pattern" mode)
-#             (853147000 ps)   Check Col(3) goes to requested mode: Test pattern
-#             (853147000 ps)   Check Duration goes to requested duration: infinity
-#             (853147000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (853167000 ps) Check command return: PASS
-# ** Note   : (853167000 ps)  * Read 8000_D900, expected value 8000_D900 (TM_MODE, mode Read, data D900)
-# ** Note   : (854051652 ps) Waiting event sync = '1' for 884652 ps
-# ** Note   : (854051652 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
-# ** Note   : (856707000 ps) Waiting SPI command return end for 2615348 ps
-#             (856707000 ps) 
-#             (856707000 ps) ==============================================================================================
-#             (856707000 ps)   Check no error after write TM_MODE command
-#             (856707000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (856727000 ps) Check command return: PASS
-# ** Note   : (856727000 ps)  * Read C000_0000, expected value C000_0000 (Status, mode Read, data 0000)
-# ** Note   : (856727000 ps) Send SPI command value 8001_XXXX (TM_MODE, mode Write, data XXXX)
-# ** Note   : (859387000 ps) Waiting SPI command return end for 2620000 ps
-#             (859387000 ps) 
-#             (859387000 ps) ==============================================================================================
-#             (859387000 ps)   Check "Dump" TM_MODE content after sync signal activation:
-#             (859387000 ps)   Col(3)->Dump, Col(2)->Idle, Col(1)->Idle, Col(0)->Idle, Duration->8
-#             (859387000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (859407000 ps) Check command return: PASS
-# ** Note   : (859407000 ps)  * Read 8000_1508, expected value 8000_1508 (TM_MODE, mode Read, data 1508)
-# ** Note   : (860285484 ps) Waiting event sync = '1' for 878484 ps
-# ** Note   : (860452164 ps) Waiting event sync = '0' for 166680 ps
-# ** Note   : (866519316 ps) Waiting event sync = '1' for 6067152 ps
-# ** Note   : (866685996 ps) Waiting event sync = '0' for 166680 ps
-# ** Note   : (872753148 ps) Waiting event sync = '1' for 6067152 ps
-# ** Note   : (872919828 ps) Waiting event sync = '0' for 166680 ps
-# ** Note   : (878986980 ps) Waiting event sync = '1' for 6067152 ps
-# ** Note   : (879153660 ps) Waiting event sync = '0' for 166680 ps
-# ** Note   : (885220812 ps) Waiting event sync = '1' for 6067152 ps
-# ** Note   : (885387492 ps) Waiting event sync = '0' for 166680 ps
-# ** Note   : (891454644 ps) Waiting event sync = '1' for 6067152 ps
-# ** Note   : (891621324 ps) Waiting event sync = '0' for 166680 ps
-# ** Note   : (897688476 ps) Waiting event sync = '1' for 6067152 ps
-# ** Note   : (897688476 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
-# ** Note   : (900347000 ps) Waiting SPI command return end for 2618524 ps
-#             (900347000 ps) 
-#             (900347000 ps) ==============================================================================================
-#             (900347000 ps)   Check error last SPI command discarded detected
-#             (900347000 ps)    after write TM_MODE command during "Dump" mode
-#             (900347000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (900367000 ps) Check command return: PASS
-# ** Note   : (900367000 ps)  * Read C000_0400, expected value C000_0400 (Status, mode Read, data 0400)
-# ** Note   : (900367000 ps) Send SPI command value 8001_XXXX (TM_MODE, mode Write, data XXXX)
-# ** Note   : (903027000 ps) Waiting SPI command return end for 2620000 ps
-#             (903027000 ps) 
-#             (903027000 ps) ==============================================================================================
-#             (903027000 ps)   Check "Dump" TM_MODE content after sync signal activation:
-#             (903027000 ps)   Col(3)->Dump, Col(2)->Idle, Col(1)->Idle, Col(0)->Idle, Duration->1
-#             (903027000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (903047000 ps) Check command return: PASS
-# ** Note   : (903047000 ps)  * Read 8000_1501, expected value 8000_1501 (TM_MODE, mode Read, data 1501)
-# ** Note   : (903922308 ps) Waiting event sync = '1' for 875308 ps
-# ** Note   : (903922308 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
-# ** Note   : (906567000 ps) Waiting SPI command return end for 2604692 ps
-#             (906567000 ps) 
-#             (906567000 ps) ==============================================================================================
-#             (906567000 ps)   Check error last SPI command discarded detected
-#             (906567000 ps)    after write TM_MODE command during "Dump" mode
-#             (906567000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (906587000 ps) Check command return: PASS
-# ** Note   : (906587000 ps)  * Read C000_0400, expected value C000_0400 (Status, mode Read, data 0400)
-# ** Note   : (906587000 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
-# ** Note   : (909247000 ps) Waiting SPI command return end for 2620000 ps
-#             (909247000 ps) 
-#             (909247000 ps) ==============================================================================================
-#             (909247000 ps)   Check TM_MODE content after sync signal activation,
-#             (909247000 ps)   Check Col(0) goes to requested mode: Normal
-#             (909247000 ps)   Check Col(1) goes to requested mode: Normal
-#             (909247000 ps)   Check Col(2) goes to requested mode: Normal
-#             (909247000 ps)   Check Col(3) goes to Idle (previously "Test pattern" mode)
-#             (909247000 ps)   Check Duration goes to infinity (no "Test pattern" mode in the last receipted command)
-#             (909247000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (909267000 ps) Check command return: PASS
-# ** Note   : (909267000 ps)  * Read 8000_6A00, expected value 8000_6A00 (TM_MODE, mode Read, data 6A00)
+# ** Note   : (6963480 ps) Waiting event rst = '0' for 6883480 ps
+#             (6963480 ps) 
+#             (6963480 ps) ==============================================================================================
+#             (6963480 ps)   Start TM_MODE register test
+#             (6963480 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (6963480 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
+# ** Note   : (9348000 ps) Waiting SPI command return end for 2348520 ps
+# ** Note   : (10901448 ps) Waiting event sync = '1' for 1553448 ps
+# ** Note   : (10901448 ps) Send SPI command value 8001_95XX (TM_MODE, mode Write, data 95XX)
+# ** Note   : (13290000 ps) Waiting SPI command return end for 2352552 ps
+#             (13290000 ps) 
+#             (13290000 ps) ==============================================================================================
+#             (13290000 ps)   Check TM_MODE content at start:
+#             (13290000 ps)   Col(3)->Idle, Col(2)->Idle, Col(1)->Idle, Col(0)->Idle, Duration->0
+#             (13290000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (13308000 ps) Check command return: PASS
+# ** Note   : (13308000 ps)  * Read 8000_5500, expected value 8000_5500 (TM_MODE, mode Read, data 5500)
+# ** Note   : (16344168 ps) Waiting event sync = '1' for 3036168 ps
+# ** Note   : (16344168 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
+# ** Note   : (18726000 ps) Waiting SPI command return end for 2345832 ps
+#             (18726000 ps) 
+#             (18726000 ps) ==============================================================================================
+#             (18726000 ps)   Check no error after write TM_MODE command
+#             (18726000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (18744000 ps) Check command return: PASS
+# ** Note   : (18744000 ps)  * Read C000_0000, expected value C000_0000 (Status, mode Read, data 0000)
+# ** Note   : (18744000 ps) Send SPI command value 8001_E502 (TM_MODE, mode Write, data E502)
+# ** Note   : (21138000 ps) Waiting SPI command return end for 2358000 ps
+#             (21138000 ps) 
+#             (21138000 ps) ==============================================================================================
+#             (21138000 ps)   Check new TM_MODE content after sync signal activation:
+#             (21138000 ps)   Col(3)->Normal, Col(2)->Idle, Col(1)->Idle, Col(0)->Idle, Duration->0
+#             (21138000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (21156000 ps) Check command return: PASS
+# ** Note   : (21156000 ps)  * Read 8000_9500, expected value 8000_9500 (TM_MODE, mode Read, data 9500)
+# ** Note   : (21786888 ps) Waiting event sync = '1' for 630888 ps
+# ** Note   : (21786888 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
+# ** Note   : (24180000 ps) Waiting SPI command return end for 2357112 ps
+#             (24180000 ps) 
+#             (24180000 ps) ==============================================================================================
+#             (24180000 ps)   Check no error after write TM_MODE command
+#             (24180000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (24198000 ps) Check command return: PASS
+# ** Note   : (24198000 ps)  * Read C000_0000, expected value C000_0000 (Status, mode Read, data 0000)
+# ** Note   : (24198000 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
+# ** Note   : (26592000 ps) Waiting SPI command return end for 2358000 ps
+#             (26592000 ps) 
+#             (26592000 ps) ==============================================================================================
+#             (26592000 ps)   Check new TM_MODE content after sync signal activation:
+#             (26592000 ps)   Col(3)->Test Pattern, Col(2)->Normal, Col(1)->Idle, Col(0)->Idle, Duration->2
+#             (26592000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (26610000 ps) Check command return: PASS
+# ** Note   : (26610000 ps)  * Read 8000_E502, expected value 8000_E502 (TM_MODE, mode Read, data E502)
+# ** Note   : (27229608 ps) Waiting event sync = '1' for 619608 ps
+# ** Note   : (27229608 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
+# ** Note   : (29616000 ps) Waiting SPI command return end for 2350392 ps
+#             (29616000 ps) 
+#             (29616000 ps) ==============================================================================================
+#             (29616000 ps)   Check TM_MODE duration decremented after new sync rising edge
+#             (29616000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (29634000 ps) Check command return: PASS
+# ** Note   : (29634000 ps)  * Read 8000_E501, expected value 8000_E501 (TM_MODE, mode Read, data E501)
+# ** Note   : (32672328 ps) Waiting event sync = '1' for 3038328 ps
+# ** Note   : (32672328 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
+# ** Note   : (35052000 ps) Waiting SPI command return end for 2343672 ps
+#             (35052000 ps) 
+#             (35052000 ps) ==============================================================================================
+#             (35052000 ps)   Check TM_MODE duration goes to 0 after new sync rising edge and
+#             (35052000 ps)     TM_MODE Col(3) goes from Test Pattern to Idle mode
+#             (35052000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (35070000 ps) Check command return: PASS
+# ** Note   : (35070000 ps)  * Read 8000_6500, expected value 8000_6500 (TM_MODE, mode Read, data 6500)
+# ** Note   : (38115048 ps) Waiting event sync = '1' for 3045048 ps
+# ** Note   : (38115048 ps) Send SPI command value 8001_B9FF (TM_MODE, mode Write, data B9FF)
+# ** Note   : (40506000 ps) Waiting SPI command return end for 2354952 ps
+#             (40506000 ps) 
+#             (40506000 ps) ==============================================================================================
+#             (40506000 ps)   Check TM_MODE no change
+#             (40506000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (40524000 ps) Check command return: PASS
+# ** Note   : (40524000 ps)  * Read 8000_6500, expected value 8000_6500 (TM_MODE, mode Read, data 6500)
+# ** Note   : (43557768 ps) Waiting event sync = '1' for 3033768 ps
+# ** Note   : (43557768 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
+# ** Note   : (45942000 ps) Waiting SPI command return end for 2348232 ps
+#             (45942000 ps) 
+#             (45942000 ps) ==============================================================================================
+#             (45942000 ps)   Check no error after write TM_MODE command
+#             (45942000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (45960000 ps) Check command return: PASS
+# ** Note   : (45960000 ps)  * Read C000_0000, expected value C000_0000 (Status, mode Read, data 0000)
+# ** Note   : (45960000 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
+# ** Note   : (48354000 ps) Waiting SPI command return end for 2358000 ps
+#             (48354000 ps) 
+#             (48354000 ps) ==============================================================================================
+#             (48354000 ps)   Check new TM_MODE content after sync signal activation:
+#             (48354000 ps)   Col(3)->Normal, Col(2)->Test Pattern, Col(1)->Normal, Col(0)->Idle, Duration->255
+#             (48354000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (48372000 ps) Check command return: PASS
+# ** Note   : (48372000 ps)  * Read 8000_B9FF, expected value 8000_B9FF (TM_MODE, mode Read, data B9FF)
+# ** Note   : (49000488 ps) Waiting event sync = '1' for 628488 ps
+# ** Note   : (49000488 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
+# ** Note   : (51378000 ps) Waiting SPI command return end for 2341512 ps
+#             (51378000 ps) 
+#             (51378000 ps) ==============================================================================================
+#             (51378000 ps)   Check TM_MODE duration decremented after new sync rising edge
+#             (51378000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (51396000 ps) Check command return: PASS
+# ** Note   : (51396000 ps)  * Read 8000_B9FE, expected value 8000_B9FE (TM_MODE, mode Read, data B9FE)
+# ** Note   : (54443208 ps) Waiting event sync = '1' for 3047208 ps
+# ** Note   : (54443208 ps) Send SPI command value 8001_AE00 (TM_MODE, mode Write, data AE00)
+# ** Note   : (56832000 ps) Waiting SPI command return end for 2352792 ps
+#             (56832000 ps) 
+#             (56832000 ps) ==============================================================================================
+#             (56832000 ps)   Check TM_MODE duration decremented after new sync rising edge
+#             (56832000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (56850000 ps) Check command return: PASS
+# ** Note   : (56850000 ps)  * Read 8000_B9FD, expected value 8000_B9FD (TM_MODE, mode Read, data B9FD)
+# ** Note   : (59885928 ps) Waiting event sync = '1' for 3035928 ps
+# ** Note   : (59885928 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
+# ** Note   : (62268000 ps) Waiting SPI command return end for 2346072 ps
+#             (62268000 ps) 
+#             (62268000 ps) ==============================================================================================
+#             (62268000 ps)   Check no error after write TM_MODE command
+#             (62268000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (62286000 ps) Check command return: PASS
+# ** Note   : (62286000 ps)  * Read C000_0000, expected value C000_0000 (Status, mode Read, data 0000)
+# ** Note   : (62286000 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
+# ** Note   : (64680000 ps) Waiting SPI command return end for 2358000 ps
+#             (64680000 ps) 
+#             (64680000 ps) ==============================================================================================
+#             (64680000 ps)   Check new TM_MODE content after sync signal activation:
+#             (64680000 ps)   Col(3)->Normal, Col(2)->Normal, Col(1)->Test Pattern, Col(0)->Normal, Duration->Infinity
+#             (64680000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (64698000 ps) Check command return: PASS
+# ** Note   : (64698000 ps)  * Read 8000_AE00, expected value 8000_AE00 (TM_MODE, mode Read, data AE00)
+# ** Note   : (65328648 ps) Waiting event sync = '1' for 630648 ps
+# ** Note   : (65328648 ps) Send SPI command value 8001_6B00 (TM_MODE, mode Write, data 6B00)
+# ** Note   : (67722000 ps) Waiting SPI command return end for 2357352 ps
+#             (67722000 ps) 
+#             (67722000 ps) ==============================================================================================
+#             (67722000 ps)   Check TM_MODE no change
+#             (67722000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (67740000 ps) Check command return: PASS
+# ** Note   : (67740000 ps)  * Read 8000_AE00, expected value 8000_AE00 (TM_MODE, mode Read, data AE00)
+# ** Note   : (70771368 ps) Waiting event sync = '1' for 3031368 ps
+# ** Note   : (70771368 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
+# ** Note   : (73158000 ps) Waiting SPI command return end for 2350632 ps
+#             (73158000 ps) 
+#             (73158000 ps) ==============================================================================================
+#             (73158000 ps)   Check no error after write TM_MODE command
+#             (73158000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (73176000 ps) Check command return: PASS
+# ** Note   : (73176000 ps)  * Read C000_0000, expected value C000_0000 (Status, mode Read, data 0000)
+# ** Note   : (73176000 ps) Send SPI command value 8001_00XX (TM_MODE, mode Write, data 00XX)
+# ** Note   : (75570000 ps) Waiting SPI command return end for 2358000 ps
+#             (75570000 ps) 
+#             (75570000 ps) ==============================================================================================
+#             (75570000 ps)   Check new TM_MODE content after sync signal activation:
+#             (75570000 ps)   Col(3)->Idle, Col(2)->Normal, Col(1)->Normal, Col(0)->Test Pattern, Duration->Infinity
+#             (75570000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (75588000 ps) Check command return: PASS
+# ** Note   : (75588000 ps)  * Read 8000_6B00, expected value 8000_6B00 (TM_MODE, mode Read, data 6B00)
+# ** Note   : (76214088 ps) Waiting event sync = '1' for 626088 ps
+# ** Note   : (76214088 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
+# ** Note   : (78594000 ps) Waiting SPI command return end for 2343912 ps
+#             (78594000 ps) 
+#             (78594000 ps) ==============================================================================================
+#             (78594000 ps)   Check no error after write TM_MODE command
+#             (78594000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (78612000 ps) Check command return: PASS
+# ** Note   : (78612000 ps)  * Read C000_0000, expected value C000_0000 (Status, mode Read, data 0000)
+# ** Note   : (78612000 ps) Send SPI command value 8001_XXXX (TM_MODE, mode Write, data XXXX)
+# ** Note   : (81006000 ps) Waiting SPI command return end for 2358000 ps
+#             (81006000 ps) 
+#             (81006000 ps) ==============================================================================================
+#             (81006000 ps)   Check "Dump" TM_MODE content after sync signal activation:
+#             (81006000 ps)   Col(3)->Idle, Col(2)->Idle, Col(1)->Idle, Col(0)->Dump, Duration->8
+#             (81006000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (81024000 ps) Check command return: PASS
+# ** Note   : (81024000 ps)  * Read 8000_5408, expected value 8000_5408 (TM_MODE, mode Read, data 5408)
+# ** Note   : (81656808 ps) Waiting event sync = '1' for 632808 ps
+# ** Note   : (81816888 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (87099528 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (87259608 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (92542248 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (92702328 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (97984968 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (98145048 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (103427688 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (103587768 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (108870408 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (109030488 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (114313128 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (114313128 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
+# ** Note   : (116700000 ps) Waiting SPI command return end for 2350872 ps
+#             (116700000 ps) 
+#             (116700000 ps) ==============================================================================================
+#             (116700000 ps)   Check error last SPI command discarded detected
+#             (116700000 ps)    after write TM_MODE command during "Dump" mode
+#             (116700000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (116718000 ps) Check command return: PASS
+# ** Note   : (116718000 ps)  * Read C000_0400, expected value C000_0400 (Status, mode Read, data 0400)
+# ** Note   : (116718000 ps) Send SPI command value 8001_XXXX (TM_MODE, mode Write, data XXXX)
+# ** Note   : (119112000 ps) Waiting SPI command return end for 2358000 ps
+#             (119112000 ps) 
+#             (119112000 ps) ==============================================================================================
+#             (119112000 ps)   Check "Dump" TM_MODE content after sync signal activation:
+#             (119112000 ps)   Col(3)->Idle, Col(2)->Idle, Col(1)->Idle, Col(0)->Dump, Duration->1
+#             (119112000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (119130000 ps) Check command return: PASS
+# ** Note   : (119130000 ps)  * Read 8000_5401, expected value 8000_5401 (TM_MODE, mode Read, data 5401)
+# ** Note   : (119755848 ps) Waiting event sync = '1' for 625848 ps
+# ** Note   : (119755848 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
+# ** Note   : (122136000 ps) Waiting SPI command return end for 2344152 ps
+#             (122136000 ps) 
+#             (122136000 ps) ==============================================================================================
+#             (122136000 ps)   Check error last SPI command discarded detected
+#             (122136000 ps)    after write TM_MODE command during "Dump" mode
+#             (122136000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (122154000 ps) Check command return: PASS
+# ** Note   : (122154000 ps)  * Read C000_0400, expected value C000_0400 (Status, mode Read, data 0400)
+# ** Note   : (122154000 ps) Send SPI command value 8001_XXXX (TM_MODE, mode Write, data XXXX)
+# ** Note   : (124548000 ps) Waiting SPI command return end for 2358000 ps
+#             (124548000 ps) 
+#             (124548000 ps) ==============================================================================================
+#             (124548000 ps)   Check "Dump" TM_MODE content after sync signal activation:
+#             (124548000 ps)   Col(3)->Idle, Col(2)->Idle, Col(1)->Dump, Col(0)->Idle, Duration->8
+#             (124548000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (124566000 ps) Check command return: PASS
+# ** Note   : (124566000 ps)  * Read 8000_5108, expected value 8000_5108 (TM_MODE, mode Read, data 5108)
+# ** Note   : (125198568 ps) Waiting event sync = '1' for 632568 ps
+# ** Note   : (125358648 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (130641288 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (130801368 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (136084008 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (136244088 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (141526728 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (141686808 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (146969448 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (147129528 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (152412168 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (152572248 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (157854888 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (157854888 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
+# ** Note   : (160242000 ps) Waiting SPI command return end for 2351112 ps
+#             (160242000 ps) 
+#             (160242000 ps) ==============================================================================================
+#             (160242000 ps)   Check error last SPI command discarded detected
+#             (160242000 ps)    after write TM_MODE command during "Dump" mode
+#             (160242000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (160260000 ps) Check command return: PASS
+# ** Note   : (160260000 ps)  * Read C000_0400, expected value C000_0400 (Status, mode Read, data 0400)
+# ** Note   : (160260000 ps) Send SPI command value 8001_XXXX (TM_MODE, mode Write, data XXXX)
+# ** Note   : (162654000 ps) Waiting SPI command return end for 2358000 ps
+#             (162654000 ps) 
+#             (162654000 ps) ==============================================================================================
+#             (162654000 ps)   Check "Dump" TM_MODE content after sync signal activation:
+#             (162654000 ps)   Col(3)->Idle, Col(2)->Idle, Col(1)->Dump, Col(0)->Idle, Duration->1
+#             (162654000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (162672000 ps) Check command return: PASS
+# ** Note   : (162672000 ps)  * Read 8000_5101, expected value 8000_5101 (TM_MODE, mode Read, data 5101)
+# ** Note   : (163297608 ps) Waiting event sync = '1' for 625608 ps
+# ** Note   : (163297608 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
+# ** Note   : (165678000 ps) Waiting SPI command return end for 2344392 ps
+#             (165678000 ps) 
+#             (165678000 ps) ==============================================================================================
+#             (165678000 ps)   Check error last SPI command discarded detected
+#             (165678000 ps)    after write TM_MODE command during "Dump" mode
+#             (165678000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (165696000 ps) Check command return: PASS
+# ** Note   : (165696000 ps)  * Read C000_0400, expected value C000_0400 (Status, mode Read, data 0400)
+# ** Note   : (165696000 ps) Send SPI command value 8001_XXXX (TM_MODE, mode Write, data XXXX)
+# ** Note   : (168090000 ps) Waiting SPI command return end for 2358000 ps
+#             (168090000 ps) 
+#             (168090000 ps) ==============================================================================================
+#             (168090000 ps)   Check "Dump" TM_MODE content after sync signal activation:
+#             (168090000 ps)   Col(3)->Idle, Col(2)->Dump, Col(1)->Idle, Col(0)->Idle, Duration->8
+#             (168090000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (168108000 ps) Check command return: PASS
+# ** Note   : (168108000 ps)  * Read 8000_4508, expected value 8000_4508 (TM_MODE, mode Read, data 4508)
+# ** Note   : (168740328 ps) Waiting event sync = '1' for 632328 ps
+# ** Note   : (168900408 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (174183048 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (174343128 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (179625768 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (179785848 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (185068488 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (185228568 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (190511208 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (190671288 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (195953928 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (196114008 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (201396648 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (201396648 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
+# ** Note   : (203784000 ps) Waiting SPI command return end for 2351352 ps
+#             (203784000 ps) 
+#             (203784000 ps) ==============================================================================================
+#             (203784000 ps)   Check error last SPI command discarded detected
+#             (203784000 ps)    after write TM_MODE command during "Dump" mode
+#             (203784000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (203802000 ps) Check command return: PASS
+# ** Note   : (203802000 ps)  * Read C000_0400, expected value C000_0400 (Status, mode Read, data 0400)
+# ** Note   : (203802000 ps) Send SPI command value 8001_XXXX (TM_MODE, mode Write, data XXXX)
+# ** Note   : (206196000 ps) Waiting SPI command return end for 2358000 ps
+#             (206196000 ps) 
+#             (206196000 ps) ==============================================================================================
+#             (206196000 ps)   Check "Dump" TM_MODE content after sync signal activation:
+#             (206196000 ps)   Col(3)->Idle, Col(2)->Dump, Col(1)->Idle, Col(0)->Idle, Duration->1
+#             (206196000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (206214000 ps) Check command return: PASS
+# ** Note   : (206214000 ps)  * Read 8000_4501, expected value 8000_4501 (TM_MODE, mode Read, data 4501)
+# ** Note   : (206839368 ps) Waiting event sync = '1' for 625368 ps
+# ** Note   : (206839368 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
+# ** Note   : (209220000 ps) Waiting SPI command return end for 2344632 ps
+#             (209220000 ps) 
+#             (209220000 ps) ==============================================================================================
+#             (209220000 ps)   Check error last SPI command discarded detected
+#             (209220000 ps)    after write TM_MODE command during "Dump" mode
+#             (209220000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (209238000 ps) Check command return: PASS
+# ** Note   : (209238000 ps)  * Read C000_0400, expected value C000_0400 (Status, mode Read, data 0400)
+# ** Note   : (209238000 ps) Send SPI command value 8001_XXXX (TM_MODE, mode Write, data XXXX)
+# ** Note   : (211632000 ps) Waiting SPI command return end for 2358000 ps
+#             (211632000 ps) 
+#             (211632000 ps) ==============================================================================================
+#             (211632000 ps)   Check "Dump" TM_MODE content after sync signal activation:
+#             (211632000 ps)   Col(3)->Dump, Col(2)->Idle, Col(1)->Idle, Col(0)->Idle, Duration->8
+#             (211632000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (211650000 ps) Check command return: PASS
+# ** Note   : (211650000 ps)  * Read 8000_1508, expected value 8000_1508 (TM_MODE, mode Read, data 1508)
+# ** Note   : (212282088 ps) Waiting event sync = '1' for 632088 ps
+# ** Note   : (212442168 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (217724808 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (217884888 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (223167528 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (223327608 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (228610248 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (228770328 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (234052968 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (234213048 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (239495688 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (239655768 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (244938408 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (244938408 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
+# ** Note   : (247326000 ps) Waiting SPI command return end for 2351592 ps
+#             (247326000 ps) 
+#             (247326000 ps) ==============================================================================================
+#             (247326000 ps)   Check error last SPI command discarded detected
+#             (247326000 ps)    after write TM_MODE command during "Dump" mode
+#             (247326000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (247344000 ps) Check command return: PASS
+# ** Note   : (247344000 ps)  * Read C000_0400, expected value C000_0400 (Status, mode Read, data 0400)
+# ** Note   : (247344000 ps) Send SPI command value 8001_XXXX (TM_MODE, mode Write, data XXXX)
+# ** Note   : (249738000 ps) Waiting SPI command return end for 2358000 ps
+#             (249738000 ps) 
+#             (249738000 ps) ==============================================================================================
+#             (249738000 ps)   Check "Dump" TM_MODE content after sync signal activation:
+#             (249738000 ps)   Col(3)->Dump, Col(2)->Idle, Col(1)->Idle, Col(0)->Idle, Duration->1
+#             (249738000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (249756000 ps) Check command return: PASS
+# ** Note   : (249756000 ps)  * Read 8000_1501, expected value 8000_1501 (TM_MODE, mode Read, data 1501)
+# ** Note   : (250381128 ps) Waiting event sync = '1' for 625128 ps
+# ** Note   : (250381128 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
+# ** Note   : (252762000 ps) Waiting SPI command return end for 2344872 ps
+#             (252762000 ps) 
+#             (252762000 ps) ==============================================================================================
+#             (252762000 ps)   Check error last SPI command discarded detected
+#             (252762000 ps)    after write TM_MODE command during "Dump" mode
+#             (252762000 ps) ----------------------------------------------------------------------------------------------
+#             (252762000 ps) CCMD R-Status-0400 N    # Return Command 33
+# ** Note   : (252762000 ps) Send SPI command value 8001_E5FF (TM_MODE, mode Write, data E5FF)
+# ** Note   : (255156000 ps) Waiting SPI command return end for 2358000 ps
+#             (255156000 ps) 
+#             (255156000 ps) ==============================================================================================
+#             (255156000 ps)   Check TM_MODE content goes back to previous modes after sync signal activation,
+#             (255156000 ps)   Check Col(0) goes back to Idle (previously "Test pattern" mode)
+#             (255156000 ps)   Col(3)->Idle, Col(2)->Normal, Col(1)->Normal, Col(0)->Idle, Duration->Infinity
+#             (255156000 ps) ----------------------------------------------------------------------------------------------
+#             (255156000 ps) CCMD R-TM_MODE-6900 N   # Return Command 34
+# ** Note   : (255823848 ps) Waiting event sync = '1' for 667848 ps
+# ** Note   : (255823848 ps) Send SPI command value 8001_08XX (TM_MODE, mode Write, data 08XX)
+# ** Note   : (258216000 ps) Waiting SPI command return end for 2356152 ps
+#             (258216000 ps) 
+#             (258216000 ps) ==============================================================================================
+#             (258216000 ps)   Check no error after write TM_MODE command
+#             (258216000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (258234000 ps) Check command return: PASS
+# ** Note   : (258234000 ps)  * Read C000_0000, expected value C000_0000 (Status, mode Read, data 0000)
+# ** Note   : (261266568 ps) Waiting event sync = '1' for 3032568 ps
+# ** Note   : (261266568 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
+# ** Note   : (263652000 ps) Waiting SPI command return end for 2349432 ps
+#             (263652000 ps) 
+#             (263652000 ps) ==============================================================================================
+#             (263652000 ps)   Check no error after write TM_MODE command
+#             (263652000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (263670000 ps) Check command return: PASS
+# ** Note   : (263670000 ps)  * Read C000_0000, expected value C000_0000 (Status, mode Read, data 0000)
+# ** Note   : (263670000 ps) Send SPI command value 8001_XXXX (TM_MODE, mode Write, data XXXX)
+# ** Note   : (266064000 ps) Waiting SPI command return end for 2358000 ps
+#             (266064000 ps) 
+#             (266064000 ps) ==============================================================================================
+#             (266064000 ps)   Check "Dump" TM_MODE content after sync signal activation:
+#             (266064000 ps)   Col(3)->Idle, Col(2)->Idle, Col(1)->Idle, Col(0)->Dump, Duration->8
+#             (266064000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (266082000 ps) Check command return: PASS
+# ** Note   : (266082000 ps)  * Read 8000_5408, expected value 8000_5408 (TM_MODE, mode Read, data 5408)
+# ** Note   : (266709288 ps) Waiting event sync = '1' for 627288 ps
+# ** Note   : (266869368 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (272152008 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (272312088 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (277594728 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (277754808 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (283037448 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (283197528 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (288480168 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (288640248 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (293922888 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (294082968 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (299365608 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (299365608 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
+# ** Note   : (301758000 ps) Waiting SPI command return end for 2356392 ps
+#             (301758000 ps) 
+#             (301758000 ps) ==============================================================================================
+#             (301758000 ps)   Check error last SPI command discarded detected
+#             (301758000 ps)    after write TM_MODE command during "Dump" mode
+#             (301758000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (301776000 ps) Check command return: PASS
+# ** Note   : (301776000 ps)  * Read C000_0400, expected value C000_0400 (Status, mode Read, data 0400)
+# ** Note   : (301776000 ps) Send SPI command value 8001_XXXX (TM_MODE, mode Write, data XXXX)
+# ** Note   : (304170000 ps) Waiting SPI command return end for 2358000 ps
+#             (304170000 ps) 
+#             (304170000 ps) ==============================================================================================
+#             (304170000 ps)   Check "Dump" TM_MODE content after sync signal activation:
+#             (304170000 ps)   Col(3)->Idle, Col(2)->Idle, Col(1)->Idle, Col(0)->Dump, Duration->1
+#             (304170000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (304188000 ps) Check command return: PASS
+# ** Note   : (304188000 ps)  * Read 8000_5401, expected value 8000_5401 (TM_MODE, mode Read, data 5401)
+# ** Note   : (304808328 ps) Waiting event sync = '1' for 620328 ps
+# ** Note   : (304808328 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
+# ** Note   : (307194000 ps) Waiting SPI command return end for 2349672 ps
+#             (307194000 ps) 
+#             (307194000 ps) ==============================================================================================
+#             (307194000 ps)   Check error last SPI command discarded detected
+#             (307194000 ps)    after write TM_MODE command during "Dump" mode
+#             (307194000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (307212000 ps) Check command return: PASS
+# ** Note   : (307212000 ps)  * Read C000_0400, expected value C000_0400 (Status, mode Read, data 0400)
+# ** Note   : (307212000 ps) Send SPI command value 8001_XXXX (TM_MODE, mode Write, data XXXX)
+# ** Note   : (309606000 ps) Waiting SPI command return end for 2358000 ps
+#             (309606000 ps) 
+#             (309606000 ps) ==============================================================================================
+#             (309606000 ps)   Check "Dump" TM_MODE content after sync signal activation:
+#             (309606000 ps)   Col(3)->Idle, Col(2)->Dump, Col(1)->Idle, Col(0)->Idle, Duration->8
+#             (309606000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (309624000 ps) Check command return: PASS
+# ** Note   : (309624000 ps)  * Read 8000_4508, expected value 8000_4508 (TM_MODE, mode Read, data 4508)
+# ** Note   : (310251048 ps) Waiting event sync = '1' for 627048 ps
+# ** Note   : (310411128 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (315693768 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (315853848 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (321136488 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (321296568 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (326579208 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (326739288 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (332021928 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (332182008 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (337464648 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (337624728 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (342907368 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (342907368 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
+# ** Note   : (345300000 ps) Waiting SPI command return end for 2356632 ps
+#             (345300000 ps) 
+#             (345300000 ps) ==============================================================================================
+#             (345300000 ps)   Check error last SPI command discarded detected
+#             (345300000 ps)    after write TM_MODE command during "Dump" mode
+#             (345300000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (345318000 ps) Check command return: PASS
+# ** Note   : (345318000 ps)  * Read C000_0400, expected value C000_0400 (Status, mode Read, data 0400)
+# ** Note   : (345318000 ps) Send SPI command value 8001_XXXX (TM_MODE, mode Write, data XXXX)
+# ** Note   : (347712000 ps) Waiting SPI command return end for 2358000 ps
+#             (347712000 ps) 
+#             (347712000 ps) ==============================================================================================
+#             (347712000 ps)   Check "Dump" TM_MODE content after sync signal activation:
+#             (347712000 ps)   Col(3)->Idle, Col(2)->Dump, Col(1)->Idle, Col(0)->Idle, Duration->1
+#             (347712000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (347730000 ps) Check command return: PASS
+# ** Note   : (347730000 ps)  * Read 8000_4501, expected value 8000_4501 (TM_MODE, mode Read, data 4501)
+# ** Note   : (348350088 ps) Waiting event sync = '1' for 620088 ps
+# ** Note   : (348350088 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
+# ** Note   : (350736000 ps) Waiting SPI command return end for 2349912 ps
+#             (350736000 ps) 
+#             (350736000 ps) ==============================================================================================
+#             (350736000 ps)   Check error last SPI command discarded detected
+#             (350736000 ps)    after write TM_MODE command during "Dump" mode
+#             (350736000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (350754000 ps) Check command return: PASS
+# ** Note   : (350754000 ps)  * Read C000_0400, expected value C000_0400 (Status, mode Read, data 0400)
+# ** Note   : (350754000 ps) Send SPI command value 8001_XXXX (TM_MODE, mode Write, data XXXX)
+# ** Note   : (353148000 ps) Waiting SPI command return end for 2358000 ps
+#             (353148000 ps) 
+#             (353148000 ps) ==============================================================================================
+#             (353148000 ps)   Check "Dump" TM_MODE content after sync signal activation:
+#             (353148000 ps)   Col(3)->Dump, Col(2)->Idle, Col(1)->Idle, Col(0)->Idle, Duration->8
+#             (353148000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (353166000 ps) Check command return: PASS
+# ** Note   : (353166000 ps)  * Read 8000_1508, expected value 8000_1508 (TM_MODE, mode Read, data 1508)
+# ** Note   : (353792808 ps) Waiting event sync = '1' for 626808 ps
+# ** Note   : (353952888 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (359235528 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (359395608 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (364678248 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (364838328 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (370120968 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (370281048 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (375563688 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (375723768 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (381006408 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (381166488 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (386449128 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (386449128 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
+# ** Note   : (388842000 ps) Waiting SPI command return end for 2356872 ps
+#             (388842000 ps) 
+#             (388842000 ps) ==============================================================================================
+#             (388842000 ps)   Check error last SPI command discarded detected
+#             (388842000 ps)    after write TM_MODE command during "Dump" mode
+#             (388842000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (388860000 ps) Check command return: PASS
+# ** Note   : (388860000 ps)  * Read C000_0400, expected value C000_0400 (Status, mode Read, data 0400)
+# ** Note   : (388860000 ps) Send SPI command value 8001_XXXX (TM_MODE, mode Write, data XXXX)
+# ** Note   : (391254000 ps) Waiting SPI command return end for 2358000 ps
+#             (391254000 ps) 
+#             (391254000 ps) ==============================================================================================
+#             (391254000 ps)   Check "Dump" TM_MODE content after sync signal activation:
+#             (391254000 ps)   Col(3)->Dump, Col(2)->Idle, Col(1)->Idle, Col(0)->Idle, Duration->1
+#             (391254000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (391272000 ps) Check command return: PASS
+# ** Note   : (391272000 ps)  * Read 8000_1501, expected value 8000_1501 (TM_MODE, mode Read, data 1501)
+# ** Note   : (391891848 ps) Waiting event sync = '1' for 619848 ps
+# ** Note   : (391891848 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
+# ** Note   : (394278000 ps) Waiting SPI command return end for 2350152 ps
+#             (394278000 ps) 
+#             (394278000 ps) ==============================================================================================
+#             (394278000 ps)   Check error last SPI command discarded detected
+#             (394278000 ps)    after write TM_MODE command during "Dump" mode
+#             (394278000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (394296000 ps) Check command return: PASS
+# ** Note   : (394296000 ps)  * Read C000_0400, expected value C000_0400 (Status, mode Read, data 0400)
+# ** Note   : (394296000 ps) Send SPI command value 8001_3203 (TM_MODE, mode Write, data 3203)
+# ** Note   : (396690000 ps) Waiting SPI command return end for 2358000 ps
+#             (396690000 ps) 
+#             (396690000 ps) ==============================================================================================
+#             (396690000 ps)   Check TM_MODE content after sync signal activation,
+#             (396690000 ps)   Check Col(0) goes back to previous mode: Idle
+#             (396690000 ps)   Check Col(1) goes to requested mode: Normal
+#             (396690000 ps)   Check Col(2) goes back to previous mode: Normal
+#             (396690000 ps)   Check Col(3) goes to Idle (previously "Test pattern" mode)
+#             (396690000 ps)   Check Duration goes to infinity (no "Test pattern" mode in the last receipted command)
+#             (396690000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (396708000 ps) Check command return: PASS
+# ** Note   : (396708000 ps)  * Read 8000_6900, expected value 8000_6900 (TM_MODE, mode Read, data 6900)
+# ** Note   : (397334568 ps) Waiting event sync = '1' for 626568 ps
+# ** Note   : (397334568 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
+# ** Note   : (399714000 ps) Waiting SPI command return end for 2343432 ps
+#             (399714000 ps) 
+#             (399714000 ps) ==============================================================================================
+#             (399714000 ps)   Check no error after write TM_MODE command
+#             (399714000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (399732000 ps) Check command return: PASS
+# ** Note   : (399732000 ps)  * Read C000_0000, expected value C000_0000 (Status, mode Read, data 0000)
+# ** Note   : (399732000 ps) Send SPI command value 8001_XXXX (TM_MODE, mode Write, data XXXX)
+# ** Note   : (402126000 ps) Waiting SPI command return end for 2358000 ps
+#             (402126000 ps) 
+#             (402126000 ps) ==============================================================================================
+#             (402126000 ps)   Check "Dump" TM_MODE content after sync signal activation:
+#             (402126000 ps)   Col(3)->Idle, Col(2)->Idle, Col(1)->Dump, Col(0)->Idle, Duration->8
+#             (402126000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (402144000 ps) Check command return: PASS
+# ** Note   : (402144000 ps)  * Read 8000_5108, expected value 8000_5108 (TM_MODE, mode Read, data 5108)
+# ** Note   : (402777288 ps) Waiting event sync = '1' for 633288 ps
+# ** Note   : (402937368 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (408220008 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (408380088 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (413662728 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (413822808 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (419105448 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (419265528 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (424548168 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (424708248 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (429990888 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (430150968 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (435433608 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (435433608 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
+# ** Note   : (437820000 ps) Waiting SPI command return end for 2350392 ps
+#             (437820000 ps) 
+#             (437820000 ps) ==============================================================================================
+#             (437820000 ps)   Check error last SPI command discarded detected
+#             (437820000 ps)    after write TM_MODE command during "Dump" mode
+#             (437820000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (437838000 ps) Check command return: PASS
+# ** Note   : (437838000 ps)  * Read C000_0400, expected value C000_0400 (Status, mode Read, data 0400)
+# ** Note   : (437838000 ps) Send SPI command value 8001_XXXX (TM_MODE, mode Write, data XXXX)
+# ** Note   : (440232000 ps) Waiting SPI command return end for 2358000 ps
+#             (440232000 ps) 
+#             (440232000 ps) ==============================================================================================
+#             (440232000 ps)   Check "Dump" TM_MODE content after sync signal activation:
+#             (440232000 ps)   Col(3)->Idle, Col(2)->Idle, Col(1)->Dump, Col(0)->Idle, Duration->1
+#             (440232000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (440250000 ps) Check command return: PASS
+# ** Note   : (440250000 ps)  * Read 8000_5101, expected value 8000_5101 (TM_MODE, mode Read, data 5101)
+# ** Note   : (440876328 ps) Waiting event sync = '1' for 626328 ps
+# ** Note   : (440876328 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
+# ** Note   : (443256000 ps) Waiting SPI command return end for 2343672 ps
+#             (443256000 ps) 
+#             (443256000 ps) ==============================================================================================
+#             (443256000 ps)   Check error last SPI command discarded detected
+#             (443256000 ps)    after write TM_MODE command during "Dump" mode
+#             (443256000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (443274000 ps) Check command return: PASS
+# ** Note   : (443274000 ps)  * Read C000_0400, expected value C000_0400 (Status, mode Read, data 0400)
+# ** Note   : (443274000 ps) Send SPI command value 8001_XXXX (TM_MODE, mode Write, data XXXX)
+# ** Note   : (445668000 ps) Waiting SPI command return end for 2358000 ps
+#             (445668000 ps) 
+#             (445668000 ps) ==============================================================================================
+#             (445668000 ps)   Check "Dump" TM_MODE content after sync signal activation:
+#             (445668000 ps)   Col(3)->Dump, Col(2)->Idle, Col(1)->Idle, Col(0)->Idle, Duration->8
+#             (445668000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (445686000 ps) Check command return: PASS
+# ** Note   : (445686000 ps)  * Read 8000_1508, expected value 8000_1508 (TM_MODE, mode Read, data 1508)
+# ** Note   : (446319048 ps) Waiting event sync = '1' for 633048 ps
+# ** Note   : (446479128 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (451761768 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (451921848 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (457204488 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (457364568 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (462647208 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (462807288 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (468089928 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (468250008 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (473532648 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (473692728 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (478975368 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (478975368 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
+# ** Note   : (481362000 ps) Waiting SPI command return end for 2350632 ps
+#             (481362000 ps) 
+#             (481362000 ps) ==============================================================================================
+#             (481362000 ps)   Check error last SPI command discarded detected
+#             (481362000 ps)    after write TM_MODE command during "Dump" mode
+#             (481362000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (481380000 ps) Check command return: PASS
+# ** Note   : (481380000 ps)  * Read C000_0400, expected value C000_0400 (Status, mode Read, data 0400)
+# ** Note   : (481380000 ps) Send SPI command value 8001_XXXX (TM_MODE, mode Write, data XXXX)
+# ** Note   : (483774000 ps) Waiting SPI command return end for 2358000 ps
+#             (483774000 ps) 
+#             (483774000 ps) ==============================================================================================
+#             (483774000 ps)   Check "Dump" TM_MODE content after sync signal activation:
+#             (483774000 ps)   Col(3)->Dump, Col(2)->Idle, Col(1)->Idle, Col(0)->Idle, Duration->1
+#             (483774000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (483792000 ps) Check command return: PASS
+# ** Note   : (483792000 ps)  * Read 8000_1501, expected value 8000_1501 (TM_MODE, mode Read, data 1501)
+# ** Note   : (484418088 ps) Waiting event sync = '1' for 626088 ps
+# ** Note   : (484418088 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
+# ** Note   : (486798000 ps) Waiting SPI command return end for 2343912 ps
+#             (486798000 ps) 
+#             (486798000 ps) ==============================================================================================
+#             (486798000 ps)   Check error last SPI command discarded detected
+#             (486798000 ps)    after write TM_MODE command during "Dump" mode
+#             (486798000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (486816000 ps) Check command return: PASS
+# ** Note   : (486816000 ps)  * Read C000_0400, expected value C000_0400 (Status, mode Read, data 0400)
+# ** Note   : (486816000 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
+# ** Note   : (489210000 ps) Waiting SPI command return end for 2358000 ps
+#             (489210000 ps) 
+#             (489210000 ps) ==============================================================================================
+#             (489210000 ps)   Check TM_MODE content after sync signal activation,
+#             (489210000 ps)   Check Col(0) goes to requested mode: Normal
+#             (489210000 ps)   Check Col(1) goes back to previous mode: Normal
+#             (489210000 ps)   Check Col(2) goes to requested mode: Test pattern
+#             (489210000 ps)   Check Col(3) goes back to previous mode: Idle
+#             (489210000 ps)   Check Duration goes to requested duration: 3
+#             (489210000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (489228000 ps) Check command return: PASS
+# ** Note   : (489228000 ps)  * Read 8000_7A03, expected value 8000_7A03 (TM_MODE, mode Read, data 7A03)
+# ** Note   : (489860808 ps) Waiting event sync = '1' for 632808 ps
+# ** Note   : (489860808 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
+# ** Note   : (492252000 ps) Waiting SPI command return end for 2355192 ps
+#             (492252000 ps) 
+#             (492252000 ps) ==============================================================================================
+#             (492252000 ps)   Check TM_MODE duration decremented after new sync rising edge
+#             (492252000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (492270000 ps) Check command return: PASS
+# ** Note   : (492270000 ps)  * Read 8000_7A02, expected value 8000_7A02 (TM_MODE, mode Read, data 7A02)
+# ** Note   : (495303528 ps) Waiting event sync = '1' for 3033528 ps
+# ** Note   : (495303528 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
+# ** Note   : (497688000 ps) Waiting SPI command return end for 2348472 ps
+#             (497688000 ps) 
+#             (497688000 ps) ==============================================================================================
+#             (497688000 ps)   Check TM_MODE duration decremented after new sync rising edge
+#             (497688000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (497706000 ps) Check command return: PASS
+# ** Note   : (497706000 ps)  * Read 8000_7A01, expected value 8000_7A01 (TM_MODE, mode Read, data 7A01)
+# ** Note   : (500746248 ps) Waiting event sync = '1' for 3040248 ps
+# ** Note   : (500746248 ps) Send SPI command value 8001_09XX (TM_MODE, mode Write, data 09XX)
+# ** Note   : (503124000 ps) Waiting SPI command return end for 2341752 ps
+#             (503124000 ps) 
+#             (503124000 ps) ==============================================================================================
+#             (503124000 ps)   Check TM_MODE duration goes to 0 after new sync rising edge and
+#             (503124000 ps)     TM_MODE Col(2) goes from Test Pattern to Idle mode
+#             (503124000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (503142000 ps) Check command return: PASS
+# ** Note   : (503142000 ps)  * Read 8000_5A00, expected value 8000_5A00 (TM_MODE, mode Read, data 5A00)
+# ** Note   : (506188968 ps) Waiting event sync = '1' for 3046968 ps
+# ** Note   : (506188968 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
+# ** Note   : (508578000 ps) Waiting SPI command return end for 2353032 ps
+#             (508578000 ps) 
+#             (508578000 ps) ==============================================================================================
+#             (508578000 ps)   Check no error after write TM_MODE command
+#             (508578000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (508596000 ps) Check command return: PASS
+# ** Note   : (508596000 ps)  * Read C000_0000, expected value C000_0000 (Status, mode Read, data 0000)
+# ** Note   : (508596000 ps) Send SPI command value 8001_XXXX (TM_MODE, mode Write, data XXXX)
+# ** Note   : (510990000 ps) Waiting SPI command return end for 2358000 ps
+#             (510990000 ps) 
+#             (510990000 ps) ==============================================================================================
+#             (510990000 ps)   Check "Dump" TM_MODE content after sync signal activation:
+#             (510990000 ps)   Col(3)->Idle, Col(2)->Dump, Col(1)->Idle, Col(0)->Idle, Duration->8
+#             (510990000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (511008000 ps) Check command return: PASS
+# ** Note   : (511008000 ps)  * Read 8000_4508, expected value 8000_4508 (TM_MODE, mode Read, data 4508)
+# ** Note   : (511631688 ps) Waiting event sync = '1' for 623688 ps
+# ** Note   : (511791768 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (517074408 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (517234488 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (522517128 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (522677208 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (527959848 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (528119928 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (533402568 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (533562648 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (538845288 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (539005368 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (544288008 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (544288008 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
+# ** Note   : (546666000 ps) Waiting SPI command return end for 2341992 ps
+#             (546666000 ps) 
+#             (546666000 ps) ==============================================================================================
+#             (546666000 ps)   Check error last SPI command discarded detected
+#             (546666000 ps)    after write TM_MODE command during "Dump" mode
+#             (546666000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (546684000 ps) Check command return: PASS
+# ** Note   : (546684000 ps)  * Read C000_0400, expected value C000_0400 (Status, mode Read, data 0400)
+# ** Note   : (546684000 ps) Send SPI command value 8001_XXXX (TM_MODE, mode Write, data XXXX)
+# ** Note   : (549078000 ps) Waiting SPI command return end for 2358000 ps
+#             (549078000 ps) 
+#             (549078000 ps) ==============================================================================================
+#             (549078000 ps)   Check "Dump" TM_MODE content after sync signal activation:
+#             (549078000 ps)   Col(3)->Idle, Col(2)->Dump, Col(1)->Idle, Col(0)->Idle, Duration->1
+#             (549078000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (549096000 ps) Check command return: PASS
+# ** Note   : (549096000 ps)  * Read 8000_4501, expected value 8000_4501 (TM_MODE, mode Read, data 4501)
+# ** Note   : (549730728 ps) Waiting event sync = '1' for 634728 ps
+# ** Note   : (549730728 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
+# ** Note   : (552120000 ps) Waiting SPI command return end for 2353272 ps
+#             (552120000 ps) 
+#             (552120000 ps) ==============================================================================================
+#             (552120000 ps)   Check error last SPI command discarded detected
+#             (552120000 ps)    after write TM_MODE command during "Dump" mode
+#             (552120000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (552138000 ps) Check command return: PASS
+# ** Note   : (552138000 ps)  * Read C000_0400, expected value C000_0400 (Status, mode Read, data 0400)
+# ** Note   : (552138000 ps) Send SPI command value 8001_XXXX (TM_MODE, mode Write, data XXXX)
+# ** Note   : (554532000 ps) Waiting SPI command return end for 2358000 ps
+#             (554532000 ps) 
+#             (554532000 ps) ==============================================================================================
+#             (554532000 ps)   Check "Dump" TM_MODE content after sync signal activation:
+#             (554532000 ps)   Col(3)->Dump, Col(2)->Idle, Col(1)->Idle, Col(0)->Idle, Duration->8
+#             (554532000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (554550000 ps) Check command return: PASS
+# ** Note   : (554550000 ps)  * Read 8000_1508, expected value 8000_1508 (TM_MODE, mode Read, data 1508)
+# ** Note   : (555173448 ps) Waiting event sync = '1' for 623448 ps
+# ** Note   : (555333528 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (560616168 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (560776248 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (566058888 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (566218968 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (571501608 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (571661688 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (576944328 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (577104408 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (582387048 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (582547128 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (587829768 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (587829768 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
+# ** Note   : (590208000 ps) Waiting SPI command return end for 2342232 ps
+#             (590208000 ps) 
+#             (590208000 ps) ==============================================================================================
+#             (590208000 ps)   Check error last SPI command discarded detected
+#             (590208000 ps)    after write TM_MODE command during "Dump" mode
+#             (590208000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (590226000 ps) Check command return: PASS
+# ** Note   : (590226000 ps)  * Read C000_0400, expected value C000_0400 (Status, mode Read, data 0400)
+# ** Note   : (590226000 ps) Send SPI command value 8001_XXXX (TM_MODE, mode Write, data XXXX)
+# ** Note   : (592620000 ps) Waiting SPI command return end for 2358000 ps
+#             (592620000 ps) 
+#             (592620000 ps) ==============================================================================================
+#             (592620000 ps)   Check "Dump" TM_MODE content after sync signal activation:
+#             (592620000 ps)   Col(3)->Dump, Col(2)->Idle, Col(1)->Idle, Col(0)->Idle, Duration->1
+#             (592620000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (592638000 ps) Check command return: PASS
+# ** Note   : (592638000 ps)  * Read 8000_1501, expected value 8000_1501 (TM_MODE, mode Read, data 1501)
+# ** Note   : (593272488 ps) Waiting event sync = '1' for 634488 ps
+# ** Note   : (593272488 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
+# ** Note   : (595662000 ps) Waiting SPI command return end for 2353512 ps
+#             (595662000 ps) 
+#             (595662000 ps) ==============================================================================================
+#             (595662000 ps)   Check error last SPI command discarded detected
+#             (595662000 ps)    after write TM_MODE command during "Dump" mode
+#             (595662000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (595680000 ps) Check command return: PASS
+# ** Note   : (595680000 ps)  * Read C000_0400, expected value C000_0400 (Status, mode Read, data 0400)
+# ** Note   : (595680000 ps) Send SPI command value 8001_E400 (TM_MODE, mode Write, data E400)
+# ** Note   : (598074000 ps) Waiting SPI command return end for 2358000 ps
+#             (598074000 ps) 
+#             (598074000 ps) ==============================================================================================
+#             (598074000 ps)   Check TM_MODE content after sync signal activation,
+#             (598074000 ps)   Check Col(0) goes to requested mode: Idle
+#             (598074000 ps)   Check Col(1) goes to requested mode: Normal
+#             (598074000 ps)   Check Col(2) goes back to previous mode: Idle
+#             (598074000 ps)   Check Col(3) goes back to previous mode: Idle
+#             (598074000 ps)   Check Duration goes to infinity (no "Test pattern" mode in the last receipted command)
+#             (598074000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (598092000 ps) Check command return: PASS
+# ** Note   : (598092000 ps)  * Read 8000_5900, expected value 8000_5900 (TM_MODE, mode Read, data 5900)
+# ** Note   : (598715208 ps) Waiting event sync = '1' for 623208 ps
+# ** Note   : (598715208 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
+# ** Note   : (601098000 ps) Waiting SPI command return end for 2346792 ps
+#             (601098000 ps) 
+#             (601098000 ps) ==============================================================================================
+#             (601098000 ps)   Check no error after write TM_MODE command
+#             (601098000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (601116000 ps) Check command return: PASS
+# ** Note   : (601116000 ps)  * Read C000_0000, expected value C000_0000 (Status, mode Read, data 0000)
+# ** Note   : (601116000 ps) Send SPI command value 8001_XXXX (TM_MODE, mode Write, data XXXX)
+# ** Note   : (603510000 ps) Waiting SPI command return end for 2358000 ps
+#             (603510000 ps) 
+#             (603510000 ps) ==============================================================================================
+#             (603510000 ps)   Check "Dump" TM_MODE content after sync signal activation:
+#             (603510000 ps)   Col(3)->Idle, Col(2)->Idle, Col(1)->Idle, Col(0)->Dump, Duration->8
+#             (603510000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (603528000 ps) Check command return: PASS
+# ** Note   : (603528000 ps)  * Read 8000_5408, expected value 8000_5408 (TM_MODE, mode Read, data 5408)
+# ** Note   : (604157928 ps) Waiting event sync = '1' for 629928 ps
+# ** Note   : (604318008 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (609600648 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (609760728 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (615043368 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (615203448 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (620486088 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (620646168 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (625928808 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (626088888 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (631371528 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (631531608 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (636814248 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (636814248 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
+# ** Note   : (639204000 ps) Waiting SPI command return end for 2353752 ps
+#             (639204000 ps) 
+#             (639204000 ps) ==============================================================================================
+#             (639204000 ps)   Check error last SPI command discarded detected
+#             (639204000 ps)    after write TM_MODE command during "Dump" mode
+#             (639204000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (639222000 ps) Check command return: PASS
+# ** Note   : (639222000 ps)  * Read C000_0400, expected value C000_0400 (Status, mode Read, data 0400)
+# ** Note   : (639222000 ps) Send SPI command value 8001_XXXX (TM_MODE, mode Write, data XXXX)
+# ** Note   : (641616000 ps) Waiting SPI command return end for 2358000 ps
+#             (641616000 ps) 
+#             (641616000 ps) ==============================================================================================
+#             (641616000 ps)   Check "Dump" TM_MODE content after sync signal activation:
+#             (641616000 ps)   Col(3)->Idle, Col(2)->Idle, Col(1)->Idle, Col(0)->Dump, Duration->1
+#             (641616000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (641634000 ps) Check command return: PASS
+# ** Note   : (641634000 ps)  * Read 8000_5401, expected value 8000_5401 (TM_MODE, mode Read, data 5401)
+# ** Note   : (642256968 ps) Waiting event sync = '1' for 622968 ps
+# ** Note   : (642256968 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
+# ** Note   : (644640000 ps) Waiting SPI command return end for 2347032 ps
+#             (644640000 ps) 
+#             (644640000 ps) ==============================================================================================
+#             (644640000 ps)   Check error last SPI command discarded detected
+#             (644640000 ps)    after write TM_MODE command during "Dump" mode
+#             (644640000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (644658000 ps) Check command return: PASS
+# ** Note   : (644658000 ps)  * Read C000_0400, expected value C000_0400 (Status, mode Read, data 0400)
+# ** Note   : (644658000 ps) Send SPI command value 8001_B105 (TM_MODE, mode Write, data B105)
+# ** Note   : (647052000 ps) Waiting SPI command return end for 2358000 ps
+#             (647052000 ps) 
+#             (647052000 ps) ==============================================================================================
+#             (647052000 ps)   Check TM_MODE content after sync signal activation,
+#             (647052000 ps)   Check Col(0) goes back to previous mode: Idle
+#             (647052000 ps)   Check Col(1) goes to requested mode: Idle
+#             (647052000 ps)   Check Col(2) goes to requested mode: Normal
+#             (647052000 ps)   Check Col(3) goes to requested mode: Test pattern
+#             (647052000 ps)   Check Duration goes to requested duration: infinity
+#             (647052000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (647070000 ps) Check command return: PASS
+# ** Note   : (647070000 ps)  * Read 8000_E500, expected value 8000_E500 (TM_MODE, mode Read, data E500)
+# ** Note   : (647699688 ps) Waiting event sync = '1' for 629688 ps
+# ** Note   : (647699688 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
+# ** Note   : (650076000 ps) Waiting SPI command return end for 2340312 ps
+#             (650076000 ps) 
+#             (650076000 ps) ==============================================================================================
+#             (650076000 ps)   Check no error after write TM_MODE command
+#             (650076000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (650094000 ps) Check command return: PASS
+# ** Note   : (650094000 ps)  * Read C000_0000, expected value C000_0000 (Status, mode Read, data 0000)
+# ** Note   : (650094000 ps) Send SPI command value 8001_XXXX (TM_MODE, mode Write, data XXXX)
+# ** Note   : (652488000 ps) Waiting SPI command return end for 2358000 ps
+#             (652488000 ps) 
+#             (652488000 ps) ==============================================================================================
+#             (652488000 ps)   Check "Dump" TM_MODE content after sync signal activation:
+#             (652488000 ps)   Col(3)->Idle, Col(2)->Idle, Col(1)->Dump, Col(0)->Idle, Duration->8
+#             (652488000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (652506000 ps) Check command return: PASS
+# ** Note   : (652506000 ps)  * Read 8000_5108, expected value 8000_5108 (TM_MODE, mode Read, data 5108)
+# ** Note   : (653142408 ps) Waiting event sync = '1' for 636408 ps
+# ** Note   : (653302488 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (658585128 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (658745208 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (664027848 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (664187928 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (669470568 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (669630648 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (674913288 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (675073368 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (680356008 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (680516088 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (685798728 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (685798728 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
+# ** Note   : (688182000 ps) Waiting SPI command return end for 2347272 ps
+#             (688182000 ps) 
+#             (688182000 ps) ==============================================================================================
+#             (688182000 ps)   Check error last SPI command discarded detected
+#             (688182000 ps)    after write TM_MODE command during "Dump" mode
+#             (688182000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (688200000 ps) Check command return: PASS
+# ** Note   : (688200000 ps)  * Read C000_0400, expected value C000_0400 (Status, mode Read, data 0400)
+# ** Note   : (688200000 ps) Send SPI command value 8001_XXXX (TM_MODE, mode Write, data XXXX)
+# ** Note   : (690594000 ps) Waiting SPI command return end for 2358000 ps
+#             (690594000 ps) 
+#             (690594000 ps) ==============================================================================================
+#             (690594000 ps)   Check "Dump" TM_MODE content after sync signal activation:
+#             (690594000 ps)   Col(3)->Idle, Col(2)->Idle, Col(1)->Dump, Col(0)->Idle, Duration->1
+#             (690594000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (690612000 ps) Check command return: PASS
+# ** Note   : (690612000 ps)  * Read 8000_5101, expected value 8000_5101 (TM_MODE, mode Read, data 5101)
+# ** Note   : (691241448 ps) Waiting event sync = '1' for 629448 ps
+# ** Note   : (691241448 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
+# ** Note   : (693618000 ps) Waiting SPI command return end for 2340552 ps
+#             (693618000 ps) 
+#             (693618000 ps) ==============================================================================================
+#             (693618000 ps)   Check error last SPI command discarded detected
+#             (693618000 ps)    after write TM_MODE command during "Dump" mode
+#             (693618000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (693636000 ps) Check command return: PASS
+# ** Note   : (693636000 ps)  * Read C000_0400, expected value C000_0400 (Status, mode Read, data 0400)
+# ** Note   : (693636000 ps) Send SPI command value 8001_C900 (TM_MODE, mode Write, data C900)
+# ** Note   : (696030000 ps) Waiting SPI command return end for 2358000 ps
+#             (696030000 ps) 
+#             (696030000 ps) ==============================================================================================
+#             (696030000 ps)   Check TM_MODE content after sync signal activation,
+#             (696030000 ps)   Check Col(0) goes to requested mode: Idle
+#             (696030000 ps)   Check Col(1) goes back to previous mode: Idle
+#             (696030000 ps)   Check Col(2) goes to requested mode: Test pattern
+#             (696030000 ps)   Check Col(3) goes to requested mode: Normal
+#             (696030000 ps)   Check Duration goes to requested duration: 5
+#             (696030000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (696048000 ps) Check command return: PASS
+# ** Note   : (696048000 ps)  * Read 8000_B505, expected value 8000_B505 (TM_MODE, mode Read, data B505)
+# ** Note   : (696684168 ps) Waiting event sync = '1' for 636168 ps
+# ** Note   : (696684168 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
+# ** Note   : (699072000 ps) Waiting SPI command return end for 2351832 ps
+#             (699072000 ps) 
+#             (699072000 ps) ==============================================================================================
+#             (699072000 ps)   Check no error after write TM_MODE command
+#             (699072000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (699090000 ps) Check command return: PASS
+# ** Note   : (699090000 ps)  * Read C000_0000, expected value C000_0000 (Status, mode Read, data 0000)
+# ** Note   : (699090000 ps) Send SPI command value 8001_XXXX (TM_MODE, mode Write, data XXXX)
+# ** Note   : (701484000 ps) Waiting SPI command return end for 2358000 ps
+#             (701484000 ps) 
+#             (701484000 ps) ==============================================================================================
+#             (701484000 ps)   Check "Dump" TM_MODE content after sync signal activation:
+#             (701484000 ps)   Col(3)->Idle, Col(2)->Dump, Col(1)->Idle, Col(0)->Idle, Duration->8
+#             (701484000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (701502000 ps) Check command return: PASS
+# ** Note   : (701502000 ps)  * Read 8000_4508, expected value 8000_4508 (TM_MODE, mode Read, data 4508)
+# ** Note   : (702126888 ps) Waiting event sync = '1' for 624888 ps
+# ** Note   : (702286968 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (707569608 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (707729688 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (713012328 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (713172408 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (718455048 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (718615128 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (723897768 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (724057848 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (729340488 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (729500568 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (734783208 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (734783208 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
+# ** Note   : (737160000 ps) Waiting SPI command return end for 2340792 ps
+#             (737160000 ps) 
+#             (737160000 ps) ==============================================================================================
+#             (737160000 ps)   Check error last SPI command discarded detected
+#             (737160000 ps)    after write TM_MODE command during "Dump" mode
+#             (737160000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (737178000 ps) Check command return: PASS
+# ** Note   : (737178000 ps)  * Read C000_0400, expected value C000_0400 (Status, mode Read, data 0400)
+# ** Note   : (737178000 ps) Send SPI command value 8001_XXXX (TM_MODE, mode Write, data XXXX)
+# ** Note   : (739572000 ps) Waiting SPI command return end for 2358000 ps
+#             (739572000 ps) 
+#             (739572000 ps) ==============================================================================================
+#             (739572000 ps)   Check "Dump" TM_MODE content after sync signal activation:
+#             (739572000 ps)   Col(3)->Idle, Col(2)->Dump, Col(1)->Idle, Col(0)->Idle, Duration->1
+#             (739572000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (739590000 ps) Check command return: PASS
+# ** Note   : (739590000 ps)  * Read 8000_4501, expected value 8000_4501 (TM_MODE, mode Read, data 4501)
+# ** Note   : (740225928 ps) Waiting event sync = '1' for 635928 ps
+# ** Note   : (740225928 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
+# ** Note   : (742614000 ps) Waiting SPI command return end for 2352072 ps
+#             (742614000 ps) 
+#             (742614000 ps) ==============================================================================================
+#             (742614000 ps)   Check error last SPI command discarded detected
+#             (742614000 ps)    after write TM_MODE command during "Dump" mode
+#             (742614000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (742632000 ps) Check command return: PASS
+# ** Note   : (742632000 ps)  * Read C000_0400, expected value C000_0400 (Status, mode Read, data 0400)
+# ** Note   : (742632000 ps) Send SPI command value 8001_2AFF (TM_MODE, mode Write, data 2AFF)
+# ** Note   : (745026000 ps) Waiting SPI command return end for 2358000 ps
+#             (745026000 ps) 
+#             (745026000 ps) ==============================================================================================
+#             (745026000 ps)   Check TM_MODE content after sync signal activation,
+#             (745026000 ps)   Check Col(0) goes to requested mode: Idle
+#             (745026000 ps)   Check Col(1) goes to requested mode: Normal
+#             (745026000 ps)   Check Col(2) goes to Idle (previously "Test pattern" mode)
+#             (745026000 ps)   Check Col(3) goes to requested mode: Test pattern
+#             (745026000 ps)   Check Duration goes to requested duration: infinity
+#             (745026000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (745044000 ps) Check command return: PASS
+# ** Note   : (745044000 ps)  * Read 8000_D900, expected value 8000_D900 (TM_MODE, mode Read, data D900)
+# ** Note   : (745668648 ps) Waiting event sync = '1' for 624648 ps
+# ** Note   : (745668648 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
+# ** Note   : (748050000 ps) Waiting SPI command return end for 2345352 ps
+#             (748050000 ps) 
+#             (748050000 ps) ==============================================================================================
+#             (748050000 ps)   Check no error after write TM_MODE command
+#             (748050000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (748068000 ps) Check command return: PASS
+# ** Note   : (748068000 ps)  * Read C000_0000, expected value C000_0000 (Status, mode Read, data 0000)
+# ** Note   : (748068000 ps) Send SPI command value 8001_XXXX (TM_MODE, mode Write, data XXXX)
+# ** Note   : (750462000 ps) Waiting SPI command return end for 2358000 ps
+#             (750462000 ps) 
+#             (750462000 ps) ==============================================================================================
+#             (750462000 ps)   Check "Dump" TM_MODE content after sync signal activation:
+#             (750462000 ps)   Col(3)->Dump, Col(2)->Idle, Col(1)->Idle, Col(0)->Idle, Duration->8
+#             (750462000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (750480000 ps) Check command return: PASS
+# ** Note   : (750480000 ps)  * Read 8000_1508, expected value 8000_1508 (TM_MODE, mode Read, data 1508)
+# ** Note   : (751111368 ps) Waiting event sync = '1' for 631368 ps
+# ** Note   : (751271448 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (756554088 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (756714168 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (761996808 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (762156888 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (767439528 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (767599608 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (772882248 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (773042328 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (778324968 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (778485048 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (783767688 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (783767688 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
+# ** Note   : (786156000 ps) Waiting SPI command return end for 2352312 ps
+#             (786156000 ps) 
+#             (786156000 ps) ==============================================================================================
+#             (786156000 ps)   Check error last SPI command discarded detected
+#             (786156000 ps)    after write TM_MODE command during "Dump" mode
+#             (786156000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (786174000 ps) Check command return: PASS
+# ** Note   : (786174000 ps)  * Read C000_0400, expected value C000_0400 (Status, mode Read, data 0400)
+# ** Note   : (786174000 ps) Send SPI command value 8001_XXXX (TM_MODE, mode Write, data XXXX)
+# ** Note   : (788568000 ps) Waiting SPI command return end for 2358000 ps
+#             (788568000 ps) 
+#             (788568000 ps) ==============================================================================================
+#             (788568000 ps)   Check "Dump" TM_MODE content after sync signal activation:
+#             (788568000 ps)   Col(3)->Dump, Col(2)->Idle, Col(1)->Idle, Col(0)->Idle, Duration->1
+#             (788568000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (788586000 ps) Check command return: PASS
+# ** Note   : (788586000 ps)  * Read 8000_1501, expected value 8000_1501 (TM_MODE, mode Read, data 1501)
+# ** Note   : (789210408 ps) Waiting event sync = '1' for 624408 ps
+# ** Note   : (789210408 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
+# ** Note   : (791592000 ps) Waiting SPI command return end for 2345592 ps
+#             (791592000 ps) 
+#             (791592000 ps) ==============================================================================================
+#             (791592000 ps)   Check error last SPI command discarded detected
+#             (791592000 ps)    after write TM_MODE command during "Dump" mode
+#             (791592000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (791610000 ps) Check command return: PASS
+# ** Note   : (791610000 ps)  * Read C000_0400, expected value C000_0400 (Status, mode Read, data 0400)
+# ** Note   : (791610000 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
+# ** Note   : (794004000 ps) Waiting SPI command return end for 2358000 ps
+#             (794004000 ps) 
+#             (794004000 ps) ==============================================================================================
+#             (794004000 ps)   Check TM_MODE content after sync signal activation,
+#             (794004000 ps)   Check Col(0) goes to requested mode: Normal
+#             (794004000 ps)   Check Col(1) goes to requested mode: Normal
+#             (794004000 ps)   Check Col(2) goes to requested mode: Normal
+#             (794004000 ps)   Check Col(3) goes to Idle (previously "Test pattern" mode)
+#             (794004000 ps)   Check Duration goes to infinity (no "Test pattern" mode in the last receipted command)
+#             (794004000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (794022000 ps) Check command return: PASS
+# ** Note   : (794022000 ps)  * Read 8000_6A00, expected value 8000_6A00 (TM_MODE, mode Read, data 6A00)
 # ----------------------------------------------------------------------------------------------------
 # Parameters check, clock c0_clk_sq1_adc   
 # ----------------------------------------------------------------------------------------------------
 # Error number of clock oscillation when enable is inactive : 0
-# Error number of high level clock period timing :            0, expected timing: 4167 ps
-# Error number of low  level clock period timing :            0, expected timing: 4167 ps
+# Error number of high level clock period timing :            0, expected timing: 4002 ps
+# Error number of low  level clock period timing :            0, expected timing: 4002 ps
 # Error number of clock state when enable goes to inactive :  0, expected state:  '1'
 # Error number of clock state when enable goes to active   :  0, expected state:  '0'
 # ----------------------------------------------------------------------------------------------------
 # Parameters check, clock c1_clk_sq1_adc   
 # ----------------------------------------------------------------------------------------------------
 # Error number of clock oscillation when enable is inactive : 0
-# Error number of high level clock period timing :            0, expected timing: 4167 ps
-# Error number of low  level clock period timing :            0, expected timing: 4167 ps
+# Error number of high level clock period timing :            0, expected timing: 4002 ps
+# Error number of low  level clock period timing :            0, expected timing: 4002 ps
 # Error number of clock state when enable goes to inactive :  0, expected state:  '1'
 # Error number of clock state when enable goes to active   :  0, expected state:  '0'
 # ----------------------------------------------------------------------------------------------------
 # Parameters check, clock c2_clk_sq1_adc   
 # ----------------------------------------------------------------------------------------------------
 # Error number of clock oscillation when enable is inactive : 0
-# Error number of high level clock period timing :            0, expected timing: 4167 ps
-# Error number of low  level clock period timing :            0, expected timing: 4167 ps
+# Error number of high level clock period timing :            0, expected timing: 4002 ps
+# Error number of low  level clock period timing :            0, expected timing: 4002 ps
 # Error number of clock state when enable goes to inactive :  0, expected state:  '1'
 # Error number of clock state when enable goes to active   :  0, expected state:  '0'
 # ----------------------------------------------------------------------------------------------------
 # Parameters check, clock c3_clk_sq1_adc   
 # ----------------------------------------------------------------------------------------------------
 # Error number of clock oscillation when enable is inactive : 0
-# Error number of high level clock period timing :            0, expected timing: 4167 ps
-# Error number of low  level clock period timing :            0, expected timing: 4167 ps
+# Error number of high level clock period timing :            0, expected timing: 4002 ps
+# Error number of low  level clock period timing :            0, expected timing: 4002 ps
 # Error number of clock state when enable goes to inactive :  0, expected state:  '1'
 # Error number of clock state when enable goes to active   :  0, expected state:  '0'
 # ------------------------------------------------------------------------------------------------------------------------------------------------------

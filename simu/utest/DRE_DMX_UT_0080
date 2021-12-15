@@ -60,7 +60,7 @@ COMM   Check timing between o_c0_sq1_adc_pwdn deactivation and i_sync rising edg
 COMM     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
 COMM ----------------------------------------------------------------------------------------------
 WUDI sync 1
-CTLE sq1_adc_pwdn(0) >= 183348 ps
+CTLE sq1_adc_pwdn(0) >= 160080 ps
 COMM
 COMM ==============================================================================================
 COMM   Send command TM_MODE column 0 to Test pattern for o_c0_sq1_adc_pwdn activation
@@ -79,8 +79,8 @@ COMM   Check timing between i_sync rising edge and o_c0_sq1_adc_pwdn activation
 COMM     (c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ < .. < 2*c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
 COMM ----------------------------------------------------------------------------------------------
 WUDI sq1_adc_pwdn(0) 1
-CTLR << 366696 ps
-CTLR >> 183348 ps
+CTLR << 320160 ps
+CTLR >> 160080 ps
 COMM
 COMM ==============================================================================================
 COMM   Send command TM_MODE column 0 to Dump for o_c0_sq1_adc_pwdn deactivation
@@ -107,7 +107,7 @@ COMM   Check timing between o_c0_sq1_adc_pwdn deactivation and i_sync rising edg
 COMM     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
 COMM ----------------------------------------------------------------------------------------------
 WUDI sync 1
-CTLE sq1_adc_pwdn(0) >= 183348 ps
+CTLE sq1_adc_pwdn(0) >= 160080 ps
 COMM
 COMM ==============================================================================================
 COMM    Wait TM_MODE column 0 goes automatically to Idle and
@@ -137,8 +137,8 @@ COMM   Check timing between i_sync rising edge and o_c0_sq1_adc_pwdn activation
 COMM     (c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ < .. < 2*c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
 COMM ----------------------------------------------------------------------------------------------
 WUDI sq1_adc_pwdn(0) 1
-CTLR << 366696 ps
-CTLR >> 183348 ps
+CTLR << 320160 ps
+CTLR >> 160080 ps
 COMM
 COMM ==============================================================================================
 COMM   Send command SQ1_FB_MODE column 0 to On for o_c0_sq1_adc_pwdn deactivation
@@ -165,7 +165,7 @@ COMM   Check timing between o_c0_sq1_adc_pwdn deactivation and i_sync rising edg
 COMM     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
 COMM ----------------------------------------------------------------------------------------------
 WUDI sync 1
-CTLE sq1_adc_pwdn(0) >= 183348 ps
+CTLE sq1_adc_pwdn(0) >= 160080 ps
 COMM
 COMM ==============================================================================================
 COMM   Send command SQ1_FB_MODE column 0 to Off loop for o_c0_sq1_adc_pwdn activation
@@ -184,8 +184,8 @@ COMM   Check timing between i_sync rising edge and o_c0_sq1_adc_pwdn activation
 COMM     (c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ < .. < 2*c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
 COMM ----------------------------------------------------------------------------------------------
 WUDI sq1_adc_pwdn(0) 1
-CTLR << 366696 ps
-CTLR >> 183348 ps
+CTLR << 320160 ps
+CTLR >> 160080 ps
 COMM
 COMM ==============================================================================================
 COMM   Send command SQ1_FB_MODE column 0 to On for o_c0_sq1_adc_pwdn deactivation
@@ -212,7 +212,7 @@ COMM   Check timing between o_c0_sq1_adc_pwdn deactivation and i_sync rising edg
 COMM     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
 COMM ----------------------------------------------------------------------------------------------
 WUDI sync 1
-CTLE sq1_adc_pwdn(0) >= 183348 ps
+CTLE sq1_adc_pwdn(0) >= 160080 ps
 COMM
 COMM ==============================================================================================
 COMM   Send command SQ1_FB_MODE column 0 to Off for o_c0_sq1_adc_pwdn activation
@@ -231,8 +231,8 @@ COMM   Check timing between i_sync rising edge and o_c0_sq1_adc_pwdn activation
 COMM     (c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ < .. < 2*c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
 COMM ----------------------------------------------------------------------------------------------
 WUDI sq1_adc_pwdn(0) 1
-CTLR << 366696 ps
-CTLR >> 183348 ps
+CTLR << 320160 ps
+CTLR >> 160080 ps
 COMM
 COMM ==============================================================================================
 COMM   Send command SQ1_FB_MODE column 0 to On for o_c0_sq1_adc_pwdn deactivation
@@ -259,7 +259,7 @@ COMM   Check timing between o_c0_sq1_adc_pwdn deactivation and i_sync rising edg
 COMM     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
 COMM ----------------------------------------------------------------------------------------------
 WUDI sync 1
-CTLE sq1_adc_pwdn(0) >= 183348 ps
+CTLE sq1_adc_pwdn(0) >= 160080 ps
 COMM
 COMM ==============================================================================================
 COMM   Send command SQ1_FB_MODE column 0 to Off for o_c0_sq1_adc_pwdn activation
@@ -278,8 +278,8 @@ COMM   Check timing between i_sync rising edge and o_c0_sq1_adc_pwdn activation
 COMM     (c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ < .. < 2*c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
 COMM ----------------------------------------------------------------------------------------------
 WUDI sq1_adc_pwdn(0) 1
-CTLR << 366696 ps
-CTLR >> 183348 ps
+CTLR << 320160 ps
+CTLR >> 160080 ps
 COMM
 COMM ==============================================================================================
 COMM   Send command TM_MODE column 1 to Normal for o_c1_sq1_adc_pwdn deactivation
@@ -306,7 +306,7 @@ COMM   Check timing between o_c1_sq1_adc_pwdn deactivation and i_sync rising edg
 COMM     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
 COMM ----------------------------------------------------------------------------------------------
 WUDI sync 1
-CTLE sq1_adc_pwdn(1) >= 183348 ps
+CTLE sq1_adc_pwdn(1) >= 160080 ps
 COMM
 COMM ==============================================================================================
 COMM   Send command TM_MODE column 1 to Test pattern for o_c1_sq1_adc_pwdn activation
@@ -325,8 +325,8 @@ COMM   Check timing between i_sync rising edge and o_c1_sq1_adc_pwdn activation
 COMM     (c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ < .. < 2*c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
 COMM ----------------------------------------------------------------------------------------------
 WUDI sq1_adc_pwdn(1) 1
-CTLR << 366696 ps
-CTLR >> 183348 ps
+CTLR << 320160 ps
+CTLR >> 160080 ps
 COMM
 COMM ==============================================================================================
 COMM   Send command TM_MODE column 1 to Dump for o_c1_sq1_adc_pwdn deactivation
@@ -353,7 +353,7 @@ COMM   Check timing between o_c1_sq1_adc_pwdn deactivation and i_sync rising edg
 COMM     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
 COMM ----------------------------------------------------------------------------------------------
 WUDI sync 1
-CTLE sq1_adc_pwdn(1) >= 183348 ps
+CTLE sq1_adc_pwdn(1) >= 160080 ps
 COMM
 COMM ==============================================================================================
 COMM    Wait TM_MODE column 1 goes automatically to Idle and
@@ -383,8 +383,8 @@ COMM   Check timing between i_sync rising edge and o_c1_sq1_adc_pwdn activation
 COMM     (c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ < .. < 2*c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
 COMM ----------------------------------------------------------------------------------------------
 WUDI sq1_adc_pwdn(1) 1
-CTLR << 366696 ps
-CTLR >> 183348 ps
+CTLR << 320160 ps
+CTLR >> 160080 ps
 COMM
 COMM ==============================================================================================
 COMM   Send command SQ1_FB_MODE column 1 to On for o_c1_sq1_adc_pwdn deactivation
@@ -411,7 +411,7 @@ COMM   Check timing between o_c1_sq1_adc_pwdn deactivation and i_sync rising edg
 COMM     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
 COMM ----------------------------------------------------------------------------------------------
 WUDI sync 1
-CTLE sq1_adc_pwdn(1) >= 183348 ps
+CTLE sq1_adc_pwdn(1) >= 160080 ps
 COMM
 COMM ==============================================================================================
 COMM   Send command SQ1_FB_MODE column 1 to Off loop for o_c1_sq1_adc_pwdn activation
@@ -430,8 +430,8 @@ COMM   Check timing between i_sync rising edge and o_c1_sq1_adc_pwdn activation
 COMM     (c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ < .. < 2*c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
 COMM ----------------------------------------------------------------------------------------------
 WUDI sq1_adc_pwdn(1) 1
-CTLR << 366696 ps
-CTLR >> 183348 ps
+CTLR << 320160 ps
+CTLR >> 160080 ps
 COMM
 COMM ==============================================================================================
 COMM   Send command SQ1_FB_MODE column 1 to On for o_c1_sq1_adc_pwdn deactivation
@@ -458,7 +458,7 @@ COMM   Check timing between o_c1_sq1_adc_pwdn deactivation and i_sync rising edg
 COMM     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
 COMM ----------------------------------------------------------------------------------------------
 WUDI sync 1
-CTLE sq1_adc_pwdn(1) >= 183348 ps
+CTLE sq1_adc_pwdn(1) >= 160080 ps
 COMM
 COMM ==============================================================================================
 COMM   Send command SQ1_FB_MODE column 1 to Off for o_c1_sq1_adc_pwdn activation
@@ -477,8 +477,8 @@ COMM   Check timing between i_sync rising edge and o_c1_sq1_adc_pwdn activation
 COMM     (c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ < .. < 2*c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
 COMM ----------------------------------------------------------------------------------------------
 WUDI sq1_adc_pwdn(1) 1
-CTLR << 366696 ps
-CTLR >> 183348 ps
+CTLR << 320160 ps
+CTLR >> 160080 ps
 COMM
 COMM ==============================================================================================
 COMM   Send command SQ1_FB_MODE column 1 to On for o_c1_sq1_adc_pwdn deactivation
@@ -505,7 +505,7 @@ COMM   Check timing between o_c1_sq1_adc_pwdn deactivation and i_sync rising edg
 COMM     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
 COMM ----------------------------------------------------------------------------------------------
 WUDI sync 1
-CTLE sq1_adc_pwdn(1) >= 183348 ps
+CTLE sq1_adc_pwdn(1) >= 160080 ps
 COMM
 COMM ==============================================================================================
 COMM   Send command SQ1_FB_MODE column 1 to Off for o_c1_sq1_adc_pwdn activation
@@ -524,8 +524,8 @@ COMM   Check timing between i_sync rising edge and o_c1_sq1_adc_pwdn activation
 COMM     (c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ < .. < 2*c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
 COMM ----------------------------------------------------------------------------------------------
 WUDI sq1_adc_pwdn(1) 1
-CTLR << 366696 ps
-CTLR >> 183348 ps
+CTLR << 320160 ps
+CTLR >> 160080 ps
 COMM
 COMM ==============================================================================================
 COMM   Send command TM_MODE column 2 to Normal for o_c2_sq1_adc_pwdn deactivation
@@ -552,7 +552,7 @@ COMM   Check timing between o_c2_sq1_adc_pwdn deactivation and i_sync rising edg
 COMM     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
 COMM ----------------------------------------------------------------------------------------------
 WUDI sync 1
-CTLE sq1_adc_pwdn(2) >= 183348 ps
+CTLE sq1_adc_pwdn(2) >= 160080 ps
 COMM
 COMM ==============================================================================================
 COMM   Send command TM_MODE column 2 to Test pattern for o_c2_sq1_adc_pwdn activation
@@ -571,8 +571,8 @@ COMM   Check timing between i_sync rising edge and o_c2_sq1_adc_pwdn activation
 COMM     (c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ < .. < 2*c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
 COMM ----------------------------------------------------------------------------------------------
 WUDI sq1_adc_pwdn(2) 1
-CTLR << 366696 ps
-CTLR >> 183348 ps
+CTLR << 320160 ps
+CTLR >> 160080 ps
 COMM
 COMM ==============================================================================================
 COMM   Send command TM_MODE column 2 to Dump for o_c2_sq1_adc_pwdn deactivation
@@ -599,7 +599,7 @@ COMM   Check timing between o_c2_sq1_adc_pwdn deactivation and i_sync rising edg
 COMM     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
 COMM ----------------------------------------------------------------------------------------------
 WUDI sync 1
-CTLE sq1_adc_pwdn(2) >= 183348 ps
+CTLE sq1_adc_pwdn(2) >= 160080 ps
 COMM
 COMM ==============================================================================================
 COMM    Wait TM_MODE column 2 goes automatically to Idle and
@@ -629,8 +629,8 @@ COMM   Check timing between i_sync rising edge and o_c2_sq1_adc_pwdn activation
 COMM     (c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ < .. < 2*c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
 COMM ----------------------------------------------------------------------------------------------
 WUDI sq1_adc_pwdn(2) 1
-CTLR << 366696 ps
-CTLR >> 183348 ps
+CTLR << 320160 ps
+CTLR >> 160080 ps
 COMM
 COMM ==============================================================================================
 COMM   Send command SQ1_FB_MODE column 2 to On for o_c2_sq1_adc_pwdn deactivation
@@ -657,7 +657,7 @@ COMM   Check timing between o_c2_sq1_adc_pwdn deactivation and i_sync rising edg
 COMM     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
 COMM ----------------------------------------------------------------------------------------------
 WUDI sync 1
-CTLE sq1_adc_pwdn(2) >= 183348 ps
+CTLE sq1_adc_pwdn(2) >= 160080 ps
 COMM
 COMM ==============================================================================================
 COMM   Send command SQ1_FB_MODE column 2 to Off loop for o_c2_sq1_adc_pwdn activation
@@ -676,8 +676,8 @@ COMM   Check timing between i_sync rising edge and o_c2_sq1_adc_pwdn activation
 COMM     (c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ < .. < 2*c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
 COMM ----------------------------------------------------------------------------------------------
 WUDI sq1_adc_pwdn(2) 1
-CTLR << 366696 ps
-CTLR >> 183348 ps
+CTLR << 320160 ps
+CTLR >> 160080 ps
 COMM
 COMM ==============================================================================================
 COMM   Send command SQ1_FB_MODE column 2 to On for o_c2_sq1_adc_pwdn deactivation
@@ -704,7 +704,7 @@ COMM   Check timing between o_c2_sq1_adc_pwdn deactivation and i_sync rising edg
 COMM     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
 COMM ----------------------------------------------------------------------------------------------
 WUDI sync 1
-CTLE sq1_adc_pwdn(2) >= 183348 ps
+CTLE sq1_adc_pwdn(2) >= 160080 ps
 COMM
 COMM ==============================================================================================
 COMM   Send command SQ1_FB_MODE column 2 to Off for o_c2_sq1_adc_pwdn activation
@@ -723,8 +723,8 @@ COMM   Check timing between i_sync rising edge and o_c2_sq1_adc_pwdn activation
 COMM     (c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ < .. < 2*c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
 COMM ----------------------------------------------------------------------------------------------
 WUDI sq1_adc_pwdn(2) 1
-CTLR << 366696 ps
-CTLR >> 183348 ps
+CTLR << 320160 ps
+CTLR >> 160080 ps
 COMM
 COMM ==============================================================================================
 COMM   Send command SQ1_FB_MODE column 2 to On for o_c2_sq1_adc_pwdn deactivation
@@ -751,7 +751,7 @@ COMM   Check timing between o_c2_sq1_adc_pwdn deactivation and i_sync rising edg
 COMM     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
 COMM ----------------------------------------------------------------------------------------------
 WUDI sync 1
-CTLE sq1_adc_pwdn(2) >= 183348 ps
+CTLE sq1_adc_pwdn(2) >= 160080 ps
 COMM
 COMM ==============================================================================================
 COMM   Send command SQ1_FB_MODE column 2 to Off for o_c2_sq1_adc_pwdn activation
@@ -770,8 +770,8 @@ COMM   Check timing between i_sync rising edge and o_c2_sq1_adc_pwdn activation
 COMM     (c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ < .. < 2*c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
 COMM ----------------------------------------------------------------------------------------------
 WUDI sq1_adc_pwdn(2) 1
-CTLR << 366696 ps
-CTLR >> 183348 ps
+CTLR << 320160 ps
+CTLR >> 160080 ps
 COMM
 COMM ==============================================================================================
 COMM   Send command TM_MODE column 3 to Normal for o_c3_sq1_adc_pwdn deactivation
@@ -798,7 +798,7 @@ COMM   Check timing between o_c3_sq1_adc_pwdn deactivation and i_sync rising edg
 COMM     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
 COMM ----------------------------------------------------------------------------------------------
 WUDI sync 1
-CTLE sq1_adc_pwdn(3) >= 183348 ps
+CTLE sq1_adc_pwdn(3) >= 160080 ps
 COMM
 COMM ==============================================================================================
 COMM   Send command TM_MODE column 3 to Test pattern for o_c3_sq1_adc_pwdn activation
@@ -817,8 +817,8 @@ COMM   Check timing between i_sync rising edge and o_c3_sq1_adc_pwdn activation
 COMM     (c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ < .. < 2*c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
 COMM ----------------------------------------------------------------------------------------------
 WUDI sq1_adc_pwdn(3) 1
-CTLR << 366696 ps
-CTLR >> 183348 ps
+CTLR << 320160 ps
+CTLR >> 160080 ps
 COMM
 COMM ==============================================================================================
 COMM   Send command TM_MODE column 3 to Dump for o_c3_sq1_adc_pwdn deactivation
@@ -845,7 +845,7 @@ COMM   Check timing between o_c3_sq1_adc_pwdn deactivation and i_sync rising edg
 COMM     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
 COMM ----------------------------------------------------------------------------------------------
 WUDI sync 1
-CTLE sq1_adc_pwdn(3) >= 183348 ps
+CTLE sq1_adc_pwdn(3) >= 160080 ps
 COMM
 COMM ==============================================================================================
 COMM    Wait TM_MODE column 3 goes automatically to Idle and
@@ -875,8 +875,8 @@ COMM   Check timing between i_sync rising edge and o_c3_sq1_adc_pwdn activation
 COMM     (c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ < .. < 2*c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
 COMM ----------------------------------------------------------------------------------------------
 WUDI sq1_adc_pwdn(3) 1
-CTLR << 366696 ps
-CTLR >> 183348 ps
+CTLR << 320160 ps
+CTLR >> 160080 ps
 COMM
 COMM ==============================================================================================
 COMM   Send command SQ1_FB_MODE column 3 to On for o_c3_sq1_adc_pwdn deactivation
@@ -903,7 +903,7 @@ COMM   Check timing between o_c3_sq1_adc_pwdn deactivation and i_sync rising edg
 COMM     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
 COMM ----------------------------------------------------------------------------------------------
 WUDI sync 1
-CTLE sq1_adc_pwdn(3) >= 183348 ps
+CTLE sq1_adc_pwdn(3) >= 160080 ps
 COMM
 COMM ==============================================================================================
 COMM   Send command SQ1_FB_MODE column 3 to Off loop for o_c3_sq1_adc_pwdn activation
@@ -922,8 +922,8 @@ COMM   Check timing between i_sync rising edge and o_c3_sq1_adc_pwdn activation
 COMM     (c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ < .. < 2*c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
 COMM ----------------------------------------------------------------------------------------------
 WUDI sq1_adc_pwdn(3) 1
-CTLR << 366696 ps
-CTLR >> 183348 ps
+CTLR << 320160 ps
+CTLR >> 160080 ps
 COMM
 COMM ==============================================================================================
 COMM   Send command SQ1_FB_MODE column 3 to On for o_c3_sq1_adc_pwdn deactivation
@@ -950,7 +950,7 @@ COMM   Check timing between o_c3_sq1_adc_pwdn deactivation and i_sync rising edg
 COMM     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
 COMM ----------------------------------------------------------------------------------------------
 WUDI sync 1
-CTLE sq1_adc_pwdn(3) >= 183348 ps
+CTLE sq1_adc_pwdn(3) >= 160080 ps
 COMM
 COMM ==============================================================================================
 COMM   Send command SQ1_FB_MODE column 3 to Off for o_c3_sq1_adc_pwdn activation
@@ -969,8 +969,8 @@ COMM   Check timing between i_sync rising edge and o_c3_sq1_adc_pwdn activation
 COMM     (c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ < .. < 2*c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
 COMM ----------------------------------------------------------------------------------------------
 WUDI sq1_adc_pwdn(3) 1
-CTLR << 366696 ps
-CTLR >> 183348 ps
+CTLR << 320160 ps
+CTLR >> 160080 ps
 COMM
 COMM ==============================================================================================
 COMM   Send command SQ1_FB_MODE column 3 to On for o_c3_sq1_adc_pwdn deactivation
@@ -997,7 +997,7 @@ COMM   Check timing between o_c3_sq1_adc_pwdn deactivation and i_sync rising edg
 COMM     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
 COMM ----------------------------------------------------------------------------------------------
 WUDI sync 1
-CTLE sq1_adc_pwdn(3) >= 183348 ps
+CTLE sq1_adc_pwdn(3) >= 160080 ps
 COMM
 COMM ==============================================================================================
 COMM   Send command SQ1_FB_MODE column 3 to Off for o_c3_sq1_adc_pwdn activation
@@ -1016,16 +1016,16 @@ COMM   Check timing between i_sync rising edge and o_c3_sq1_adc_pwdn activation
 COMM     (c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ < .. < 2*c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
 COMM ----------------------------------------------------------------------------------------------
 WUDI sq1_adc_pwdn(3) 1
-CTLR << 366696 ps
-CTLR >> 183348 ps
+CTLR << 320160 ps
+CTLR >> 160080 ps
 COMM
 COMM ==============================================================================================
 COMM   Check no events are appeared on the others channels
 COMM    (time checking multiple of 11 * c_MUX_FACT * c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
 COMM ----------------------------------------------------------------------------------------------
 CDIS sq1_adc_pwdn(0) 1
-CTLE sq1_adc_pwdn(0) >= 205716456 ps  # Factor 3
+CTLE sq1_adc_pwdn(0) >= 179609760 ps  # Factor 3
 CDIS sq1_adc_pwdn(1) 1
-CTLE sq1_adc_pwdn(1) >= 137144304 ps  # Factor 2
+CTLE sq1_adc_pwdn(1) >= 119739840 ps  # Factor 2
 CDIS sq1_adc_pwdn(2) 1
-CTLE sq1_adc_pwdn(2) >= 68572152 ps   # Factor 1
+CTLE sq1_adc_pwdn(2) >= 59869920 ps   # Factor 1
