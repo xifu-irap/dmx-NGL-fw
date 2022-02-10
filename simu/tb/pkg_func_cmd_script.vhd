@@ -28,6 +28,7 @@ library ieee;
 use     ieee.std_logic_1164.all;
 
 library work;
+use     work.pkg_project.all;
 use     work.pkg_model.all;
 use     work.pkg_mess.all;
 use     work.pkg_str_fld_assoc.all;
@@ -82,7 +83,7 @@ type     t_wait_cmd_end         is (none, wait_cmd_end_tx, wait_rcmd_end_rx)    
    (     b_cmd_file_line      : inout  line                                                                 ; --  Command file line
          i_mess_header        : in     string                                                               ; --  Message header
          o_fld_ce             : out    line                                                                 ; --  Field check clock parameters enable
-         o_fld_ce_ind         : out    integer range 0 to c_CE_S                                              --  Field check clock parameters enable index (equal to c_CE_S if field not recognized)
+         o_fld_ce_ind         : out    integer range 0 to c_CE_S+1                                            --  Field check clock parameters enable index (equal to c_CE_S if field not recognized)
    );
 
    -- ------------------------------------------------------------------------------------------------------
@@ -97,6 +98,16 @@ type     t_wait_cmd_end         is (none, wait_cmd_end_tx, wait_rcmd_end_rx)    
    );
 
    -- ------------------------------------------------------------------------------------------------------
+   --! Get parameters command CLDC [channel] [value]: check level SQUID1 DAC output
+   -- ------------------------------------------------------------------------------------------------------
+   procedure get_param_cldc
+   (     b_cmd_file_line      : inout  line                                                                 ; --  Command file line
+         i_mess_header        : in     string                                                               ; --  Message header
+         o_fld_channel        : out    integer range 0 to c_NB_COL-1                                        ; --  Field channel number
+         o_fld_value          : out    real                                                                   --  Field value
+   );
+
+   -- ------------------------------------------------------------------------------------------------------
    --! Get parameters command CSCP [science_packet] : check the science packet type
    -- ------------------------------------------------------------------------------------------------------
    procedure get_param_cscp
@@ -104,6 +115,18 @@ type     t_wait_cmd_end         is (none, wait_cmd_end_tx, wait_rcmd_end_rx)    
          i_mess_header        : in     string                                                               ; --  Message header
          o_fld_sc_pkt         : out    line                                                                 ; --  Field science packet type
          o_fld_sc_pkt_val     : out    std_logic_vector                                                       --  Field science packet type value
+   );
+
+   -- ------------------------------------------------------------------------------------------------------
+   --! Get parameters command CTDC [channel] [ope] [time]: check time between the current time
+   --!  and last event SQUID1 DAC output
+   -- ------------------------------------------------------------------------------------------------------
+   procedure get_param_ctdc
+   (     b_cmd_file_line      : inout  line                                                                 ; --  Command file line
+         i_mess_header        : in     string                                                               ; --  Message header
+         o_fld_channel        : out    integer range 0 to c_NB_COL-1                                        ; --  Field channel number
+         o_fld_ope            : out    line                                                                 ; --  Field operation
+         o_fld_time           : out    time                                                                   --  Field time
    );
 
    -- ------------------------------------------------------------------------------------------------------
@@ -168,6 +191,16 @@ type     t_wait_cmd_end         is (none, wait_cmd_end_tx, wait_rcmd_end_rx)    
          o_fld_dw             : out    line                                                                 ; --  Field discrete output
          o_fld_dw_ind         : out    integer range 0 to c_DW_S                                            ; --  Field discrete output index (equal to c_DW_S if field not recognized)
          o_fld_value          : out    std_logic                                                              --  Field value
+   );
+
+   -- ------------------------------------------------------------------------------------------------------
+   --! Get parameters command WPFC [channel] [frequency]: write pulse shaping cut frequency for verification
+   -- ------------------------------------------------------------------------------------------------------
+   procedure get_param_wpfc
+   (     b_cmd_file_line      : inout  line                                                                 ; --  Command file line
+         i_mess_header        : in     string                                                               ; --  Message header
+         o_fld_channel        : out    integer range 0 to c_NB_COL-1                                        ; --  Field channel number
+         o_fld_frequency      : out    integer                                                                --  Field frequency cut (Hz)
    );
 
    -- ------------------------------------------------------------------------------------------------------
@@ -364,7 +397,7 @@ package body pkg_func_cmd_script is
    (     b_cmd_file_line      : inout  line                                                                 ; --  Command file line
          i_mess_header        : in     string                                                               ; --  Message header
          o_fld_ce             : out    line                                                                 ; --  Field check clock parameters enable
-         o_fld_ce_ind         : out    integer range 0 to c_CE_S                                              --  Field check clock parameters enable index (equal to c_CE_S if field not recognized)
+         o_fld_ce_ind         : out    integer range 0 to c_CE_S+1                                            --  Field check clock parameters enable index (equal to c_CE_S if field not recognized)
    ) is
    begin
 
@@ -396,6 +429,26 @@ package body pkg_func_cmd_script is
    end get_param_cdis;
 
    -- ------------------------------------------------------------------------------------------------------
+   --! Get parameters command CLDC [channel] [value]: check level SQUID1 DAC output
+   -- ------------------------------------------------------------------------------------------------------
+   procedure get_param_cldc
+   (     b_cmd_file_line      : inout  line                                                                 ; --  Command file line
+         i_mess_header        : in     string                                                               ; --  Message header
+         o_fld_channel        : out    integer range 0 to c_NB_COL-1                                        ; --  Field channel number
+         o_fld_value          : out    real                                                                   --  Field value
+   ) is
+   begin
+
+      -- Get [channel]
+      rfield(b_cmd_file_line, i_mess_header & "[channel]", o_fld_channel);
+      assert o_fld_channel < c_NB_COL report i_mess_header & "[channel]" & c_MESS_ERR_SIZE severity failure;
+
+      -- Get [value], real format
+      rfield(b_cmd_file_line, i_mess_header & "[value]", o_fld_value);
+
+   end get_param_cldc;
+
+   -- ------------------------------------------------------------------------------------------------------
    --! Get parameters command CSCP [science_packet] : check the science packet type
    -- ------------------------------------------------------------------------------------------------------
    procedure get_param_cscp
@@ -411,6 +464,29 @@ package body pkg_func_cmd_script is
       assert o_fld_sc_pkt_val /= c_RET_UKWN(o_fld_sc_pkt_val'range) report i_mess_header & "[science_packet]" & c_MESS_ERR_UNKNOWN severity failure;
 
    end get_param_cscp;
+
+   -- ------------------------------------------------------------------------------------------------------
+   --! Get parameters command CTDC [channel] [ope] [time]: check time between the current time
+   --!  and last event SQUID1 DAC output
+   -- ------------------------------------------------------------------------------------------------------
+   procedure get_param_ctdc
+   (     b_cmd_file_line      : inout  line                                                                 ; --  Command file line
+         i_mess_header        : in     string                                                               ; --  Message header
+         o_fld_channel        : out    integer range 0 to c_NB_COL-1                                        ; --  Field channel number
+         o_fld_ope            : out    line                                                                 ; --  Field operation
+         o_fld_time           : out    time                                                                   --  Field time
+   ) is
+   begin
+
+      -- Get [channel]
+      rfield(b_cmd_file_line, i_mess_header & "[channel]", o_fld_channel);
+      assert o_fld_channel < c_NB_COL report i_mess_header & "[channel]" & c_MESS_ERR_SIZE severity failure;
+
+      -- Get [ope] and [time]
+      rfield(b_cmd_file_line, i_mess_header & "[ope]", 0, o_fld_ope);
+      rfield(b_cmd_file_line, i_mess_header & "[time]", o_fld_time);
+
+   end get_param_ctdc;
 
    -- ------------------------------------------------------------------------------------------------------
    --! Get parameters command CTLE [discrete_r] [ope] [time]: check time between the current time
@@ -446,9 +522,6 @@ package body pkg_func_cmd_script is
          o_fld_time           : out    time                                                                   --  Field time
    ) is
    begin
-
-      -- Drop underscore included in the fields
-      drop_line_char(b_cmd_file_line, '_', b_cmd_file_line);
 
       -- Get [ope] and [time]
       rfield(b_cmd_file_line, i_mess_header & "[ope]", 0, o_fld_ope);
@@ -553,6 +626,26 @@ package body pkg_func_cmd_script is
       brfield(b_cmd_file_line, i_mess_header & "[value]", o_fld_value);
 
    end get_param_wdis;
+
+   -- ------------------------------------------------------------------------------------------------------
+   --! Get parameters command WPFC [channel] [frequency]: write pulse shaping cut frequency for verification
+   -- ------------------------------------------------------------------------------------------------------
+   procedure get_param_wpfc
+   (     b_cmd_file_line      : inout  line                                                                 ; --  Command file line
+         i_mess_header        : in     string                                                               ; --  Message header
+         o_fld_channel        : out    integer range 0 to c_NB_COL-1                                        ; --  Field channel number
+         o_fld_frequency      : out    integer                                                                --  Field frequency cut (Hz)
+   ) is
+   begin
+
+      -- Get [channel]
+      rfield(b_cmd_file_line, i_mess_header & "[channel]", o_fld_channel);
+      assert o_fld_channel < c_NB_COL report i_mess_header & "[channel]" & c_MESS_ERR_SIZE severity failure;
+
+      -- Get [frequency]
+      rfield(b_cmd_file_line, i_mess_header & "[frequency]", o_fld_frequency);
+
+   end get_param_wpfc;
 
    -- ------------------------------------------------------------------------------------------------------
    --! Get parameters command WUDI [discrete_r] [value] or WUDI [mask] [data]: wait until event on discrete(s)

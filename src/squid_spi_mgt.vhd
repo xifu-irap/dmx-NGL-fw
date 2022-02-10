@@ -68,6 +68,7 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   Squid 2 SPI master
    --    @Req : DRE-DMX-FW-REQ-0340
+   --    @Req : DRE-DMX-FW-REQ-0350
    -- ------------------------------------------------------------------------------------------------------
    I_sq2_spi_master : entity work.spi_master generic map
    (     g_CPOL               => c_SQ2_SPI_CPOL       , -- std_logic                                        ; --! Clock polarity

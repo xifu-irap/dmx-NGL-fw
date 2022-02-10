@@ -47,19 +47,23 @@ end entity sts_err_out_mgt;
 architecture RTL of sts_err_out_mgt is
 signal   cond_sq1fbmd         : std_logic                                                                   ; --! Error data out of range condition: SQ1_FB_MODE
 signal   cond_sq2fbmd         : std_logic                                                                   ; --! Error data out of range condition: SQ2_FB_MODE
+signal   cond_s1fbm           : std_logic                                                                   ; --! Error data out of range condition: CY_SQ1_FB_MODE
 
 begin
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Error data out of range conditions
    -- ------------------------------------------------------------------------------------------------------
-   cond_sq1fbmd <=   i_ep_cmd_rx_wd_data(15) or i_ep_cmd_rx_wd_data(14) or i_ep_cmd_rx_wd_data(13) or
-                     i_ep_cmd_rx_wd_data(11) or i_ep_cmd_rx_wd_data(10) or i_ep_cmd_rx_wd_data(9)  or
-                     i_ep_cmd_rx_wd_data(7)  or i_ep_cmd_rx_wd_data(6)  or i_ep_cmd_rx_wd_data(5)  or
-                     i_ep_cmd_rx_wd_data(3)  or i_ep_cmd_rx_wd_data(2)  or i_ep_cmd_rx_wd_data(1);
+   cond_sq1fbmd <=   i_ep_cmd_rx_wd_data(13) or i_ep_cmd_rx_wd_data(9)  or i_ep_cmd_rx_wd_data(5)  or i_ep_cmd_rx_wd_data(1);
 
    cond_sq2fbmd <=   i_ep_cmd_rx_wd_data(15) or i_ep_cmd_rx_wd_data(14) or i_ep_cmd_rx_wd_data(11) or i_ep_cmd_rx_wd_data(10) or
                      i_ep_cmd_rx_wd_data(7)  or i_ep_cmd_rx_wd_data(6)  or i_ep_cmd_rx_wd_data(3)  or i_ep_cmd_rx_wd_data(2);
+
+   cond_s1fbm   <=   i_ep_cmd_rx_wd_data(15) or i_ep_cmd_rx_wd_data(14) or i_ep_cmd_rx_wd_data(13) or i_ep_cmd_rx_wd_data(12) or
+                     i_ep_cmd_rx_wd_data(11) or i_ep_cmd_rx_wd_data(10) or i_ep_cmd_rx_wd_data(9)  or i_ep_cmd_rx_wd_data(8)  or
+                     i_ep_cmd_rx_wd_data(7)  or i_ep_cmd_rx_wd_data(6)  or i_ep_cmd_rx_wd_data(5)  or i_ep_cmd_rx_wd_data(4)  or
+                     i_ep_cmd_rx_wd_data(3)  or i_ep_cmd_rx_wd_data(2)  or
+                    (i_ep_cmd_rx_wd_data(1) and i_ep_cmd_rx_wd_data(0));
 
    -- ------------------------------------------------------------------------------------------------------
    --!   EP command: Status, error error data out of range
@@ -76,18 +80,21 @@ begin
                o_ep_cmd_sts_err_out <= c_EP_CMD_ERR_CLR;
 
             else
-               case i_ep_cmd_rx_add_norw is
 
-                  when c_EP_CMD_ADD_SQ1FBMD  =>
-                     o_ep_cmd_sts_err_out <= cond_sq1fbmd xor c_EP_CMD_ERR_CLR;
+               if    i_ep_cmd_rx_add_norw = c_EP_CMD_ADD_SQ1FBMD  then
+                  o_ep_cmd_sts_err_out <= cond_sq1fbmd xor c_EP_CMD_ERR_CLR;
 
-                  when c_EP_CMD_ADD_SQ2FBMD  =>
-                     o_ep_cmd_sts_err_out <= cond_sq2fbmd xor c_EP_CMD_ERR_CLR;
+               elsif i_ep_cmd_rx_add_norw = c_EP_CMD_ADD_SQ2FBMD  then
+                  o_ep_cmd_sts_err_out <= cond_sq2fbmd xor c_EP_CMD_ERR_CLR;
 
-                  when others                =>
-                     o_ep_cmd_sts_err_out <= c_EP_CMD_ERR_CLR;
+               elsif i_ep_cmd_rx_add_norw(i_ep_cmd_rx_add_norw'high downto c_EP_CMD_ADD_COLPOSH+1) = c_EP_CMD_ADD_S1FBM(0)(i_ep_cmd_rx_add_norw'high downto c_EP_CMD_ADD_COLPOSH+1) and
+                     i_ep_cmd_rx_add_norw(c_EP_CMD_ADD_COLPOSL-1    downto c_MEM_S1FBM_ADD_S)      = c_EP_CMD_ADD_S1FBM(0)(c_EP_CMD_ADD_COLPOSL-1    downto c_MEM_S1FBM_ADD_S)      then
+                  o_ep_cmd_sts_err_out <= cond_s1fbm xor c_EP_CMD_ERR_CLR;
 
-               end case;
+               else
+                  o_ep_cmd_sts_err_out <= c_EP_CMD_ERR_CLR;
+
+               end if;
 
             end if;
 

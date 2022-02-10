@@ -1,0 +1,937 @@
+COMM **********************************************************************************************
+COMM   Test: DAC in open Loop mode with different pulse shapings
+COMM **********************************************************************************************
+COMM
+COMM ==============================================================================================
+COMM   Enable SQUID1 DAC pulse shaping reports display
+COMM ----------------------------------------------------------------------------------------------
+CCPE pulse_shaping
+COMM
+COMM ==============================================================================================
+COMM   Asynchronous reset activated
+COMM ----------------------------------------------------------------------------------------------
+WDIS arst_n 0
+WAIT 80 ns
+COMM
+COMM ==============================================================================================
+COMM   Asynchronous reset deactivated
+COMM ----------------------------------------------------------------------------------------------
+WDIS arst_n 1
+COMM
+COMM ==============================================================================================
+COMM   Wait internal reset deactivated
+COMM ----------------------------------------------------------------------------------------------
+WUDI rst 0
+COMM
+COMM ==============================================================================================
+COMM   Send command SQ1_FB_MODE column 0 to ON, DAC pulse shaping set 0: fc = 15 MHz
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-SQ1_FB_MODE-0001 W
+WPFC 0 15000000
+COMM
+COMM ==============================================================================================
+COMM   Writing a new table in feedback open loop column 0 memory
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-C0_SQ1_FB0(0)-7C20 W
+WCMD W-C0_SQ1_FB0(1)-FFFF W
+WCMD W-C0_SQ1_FB0(2)-745E W
+WCMD W-C0_SQ1_FB0(3)-F840 W
+WCMD W-C0_SQ1_FB0(4)-6C9C W
+WCMD W-C0_SQ1_FB0(5)-F07E W
+WCMD W-C0_SQ1_FB0(6)-64DA W
+WCMD W-C0_SQ1_FB0(7)-E8BC W
+WCMD W-C0_SQ1_FB0(8)-5D18 W
+WCMD W-C0_SQ1_FB0(9)-E0FA W
+WCMD W-C0_SQ1_FB0(10)-5556 W
+WCMD W-C0_SQ1_FB0(11)-D938 W
+WCMD W-C0_SQ1_FB0(12)-4D94 W
+WCMD W-C0_SQ1_FB0(13)-D176 W
+WCMD W-C0_SQ1_FB0(14)-45D2 W
+WCMD W-C0_SQ1_FB0(15)-C9B4 W
+WCMD W-C0_SQ1_FB0(16)-3E10 W
+WCMD W-C0_SQ1_FB0(17)-C1F2 W
+WCMD W-C0_SQ1_FB0(18)-364E W
+WCMD W-C0_SQ1_FB0(19)-BA30 W
+WCMD W-C0_SQ1_FB0(20)-2E8C W
+WCMD W-C0_SQ1_FB0(21)-B26E W
+WCMD W-C0_SQ1_FB0(22)-26CA W
+WCMD W-C0_SQ1_FB0(23)-AAAC W
+WCMD W-C0_SQ1_FB0(24)-1F08 W
+WCMD W-C0_SQ1_FB0(25)-A2EA W
+WCMD W-C0_SQ1_FB0(26)-1746 W
+WCMD W-C0_SQ1_FB0(27)-9B28 W
+WCMD W-C0_SQ1_FB0(28)-0F84 W
+WCMD W-C0_SQ1_FB0(29)-9366 W
+WCMD W-C0_SQ1_FB0(30)-07C2 W
+WCMD W-C0_SQ1_FB0(31)-8BA4 W
+WCMD W-C0_SQ1_FB0(32)-0000 W
+WCMD W-C0_SQ1_FB0(33)-83E2 W
+COMM
+COMM ==============================================================================================
+COMM   Check SQUID1 DAC column 0 output stay to its middle point until the next sync rising edge
+COMM ----------------------------------------------------------------------------------------------
+WUDI sync 0
+WUDI sync 1
+CTDC 0 == now
+CLDC 0 0.0
+WUDI clk_sq1_dac(0) 0
+WUDI clk_sq1_dac(0) 1
+WUDI clk_sq1_dac(0) 0
+CTDC 0 << 4002 ps
+COMM
+COMM ==============================================================================================
+COMM   Record SQUID1 DAC pulse shaping column 0 by requesting a SQUID1 ADC dump on science
+COMM    (DAC feedback on ADC)
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-TM_MODE-54XX W
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+COMM
+COMM ==============================================================================================
+COMM   Send command SQ1_FB_MODE column 0 to ON, DAC pulse shaping set 1: fc = 20 MHz
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-SQ1_FB_MODE-0005 W
+WPFC 0 20000000
+COMM
+COMM ==============================================================================================
+COMM   Record SQUID1 DAC pulse shaping column 0 by requesting a SQUID1 ADC dump on science
+COMM    (DAC feedback on ADC)
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-TM_MODE-54XX W
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+COMM
+COMM ==============================================================================================
+COMM   Send command SQ1_FB_MODE column 0 to ON, DAC pulse shaping set 2: fc = 25 MHz
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-SQ1_FB_MODE-0009 W
+WPFC 0 25000000
+COMM
+COMM ==============================================================================================
+COMM   Record SQUID1 DAC pulse shaping column 0 by requesting a SQUID1 ADC dump on science
+COMM    (DAC feedback on ADC)
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-TM_MODE-54XX W
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+COMM
+COMM ==============================================================================================
+COMM   Send command SQ1_FB_MODE column 0 to ON, DAC pulse shaping set 3: fc = 30 MHz
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-SQ1_FB_MODE-000D W
+WPFC 0 30000000
+COMM
+COMM ==============================================================================================
+COMM   Record SQUID1 DAC pulse shaping column 0 by requesting a SQUID1 ADC dump on science
+COMM    (DAC feedback on ADC)
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-TM_MODE-54XX W
+COMM
+COMM ==============================================================================================
+COMM   Replace DAC pulse shaping set 3 memory content for fc = 23 MHz
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-C0_FB1_PULSE_SHAPING(96)-76BC W
+WCMD W-C0_FB1_PULSE_SHAPING(97)-3711 W
+WCMD W-C0_FB1_PULSE_SHAPING(98)-198A W
+WCMD W-C0_FB1_PULSE_SHAPING(99)-0BD8 W
+WCMD W-C0_FB1_PULSE_SHAPING(100)-057E W
+WCMD W-C0_FB1_PULSE_SHAPING(101)-028C W
+WCMD W-C0_FB1_PULSE_SHAPING(102)-012F W
+WCMD W-C0_FB1_PULSE_SHAPING(103)-008C W
+WCMD W-C0_FB1_PULSE_SHAPING(104)-0041 W
+WCMD W-C0_FB1_PULSE_SHAPING(105)-001E W
+WCMD W-C0_FB1_PULSE_SHAPING(106)-000E W
+WCMD W-C0_FB1_PULSE_SHAPING(107)-0006 W
+WCMD W-C0_FB1_PULSE_SHAPING(108)-0003 W
+WCMD W-C0_FB1_PULSE_SHAPING(109)-0001 W
+WCMD W-C0_FB1_PULSE_SHAPING(110)-0001 W
+WCMD W-C0_FB1_PULSE_SHAPING(111)-0000 W
+WCMD W-C0_FB1_PULSE_SHAPING(112)-0000 W
+WCMD W-C0_FB1_PULSE_SHAPING(113)-0000 W
+WCMD W-C0_FB1_PULSE_SHAPING(114)-0000 W
+WCMD W-C0_FB1_PULSE_SHAPING(115)-0000 W
+WPFC 0 23000000
+COMM
+COMM ==============================================================================================
+COMM   Record SQUID1 DAC pulse shaping column 0 by requesting a SQUID1 ADC dump on science
+COMM    (DAC feedback on ADC)
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-TM_MODE-54XX W
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+COMM
+COMM ==============================================================================================
+COMM   Send command SQ1_FB_MODE column 0 to ON, DAC pulse shaping set 0: fc = 15 MHz
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-SQ1_FB_MODE-0001 W
+WPFC 0 15000000
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+COMM
+COMM ==============================================================================================
+COMM   Send command SQ1_FB_MODE column 0 to ON, DAC pulse shaping set 1: fc = 20 MHz
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-SQ1_FB_MODE-0005 W
+WPFC 0 20000000
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+COMM
+COMM ==============================================================================================
+COMM   Send command SQ1_FB_MODE column 0 to ON, DAC pulse shaping set 2: fc = 25 MHz
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-SQ1_FB_MODE-0009 W
+WPFC 0 25000000
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+COMM
+COMM ==============================================================================================
+COMM   Send command SQ1_FB_MODE column 1 to ON, DAC pulse shaping set 0: fc = 15 MHz
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-SQ1_FB_MODE-0010 W
+WPFC 1 15000000
+WUDI sync 0
+WUDI sync 1
+COMM
+COMM ==============================================================================================
+COMM   Writing a new table in feedback open loop column 1 memory
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-C1_SQ1_FB0(0)-7C20 W
+WCMD W-C1_SQ1_FB0(1)-FFFF W
+WCMD W-C1_SQ1_FB0(2)-745E W
+WCMD W-C1_SQ1_FB0(3)-F840 W
+WCMD W-C1_SQ1_FB0(4)-6C9C W
+WCMD W-C1_SQ1_FB0(5)-F07E W
+WCMD W-C1_SQ1_FB0(6)-64DA W
+WCMD W-C1_SQ1_FB0(7)-E8BC W
+WCMD W-C1_SQ1_FB0(8)-5D18 W
+WCMD W-C1_SQ1_FB0(9)-E0FA W
+WCMD W-C1_SQ1_FB0(10)-5556 W
+WCMD W-C1_SQ1_FB0(11)-D938 W
+WCMD W-C1_SQ1_FB0(12)-4D94 W
+WCMD W-C1_SQ1_FB0(13)-D176 W
+WCMD W-C1_SQ1_FB0(14)-45D2 W
+WCMD W-C1_SQ1_FB0(15)-C9B4 W
+WCMD W-C1_SQ1_FB0(16)-3E10 W
+WCMD W-C1_SQ1_FB0(17)-C1F2 W
+WCMD W-C1_SQ1_FB0(18)-364E W
+WCMD W-C1_SQ1_FB0(19)-BA30 W
+WCMD W-C1_SQ1_FB0(20)-2E8C W
+WCMD W-C1_SQ1_FB0(21)-B26E W
+WCMD W-C1_SQ1_FB0(22)-26CA W
+WCMD W-C1_SQ1_FB0(23)-AAAC W
+WCMD W-C1_SQ1_FB0(24)-1F08 W
+WCMD W-C1_SQ1_FB0(25)-A2EA W
+WCMD W-C1_SQ1_FB0(26)-1746 W
+WCMD W-C1_SQ1_FB0(27)-9B28 W
+WCMD W-C1_SQ1_FB0(28)-0F84 W
+WCMD W-C1_SQ1_FB0(29)-9366 W
+WCMD W-C1_SQ1_FB0(30)-07C2 W
+WCMD W-C1_SQ1_FB0(31)-8BA4 W
+WCMD W-C1_SQ1_FB0(32)-0000 W
+WCMD W-C1_SQ1_FB0(33)-83E2 W
+COMM
+COMM ==============================================================================================
+COMM   Check SQUID1 DAC column 1 output stay to its middle point until the next sync rising edge
+COMM ----------------------------------------------------------------------------------------------
+WUDI sync 0
+WUDI sync 1
+CTDC 1 == now
+CLDC 1 0.0
+WUDI clk_sq1_dac(1) 0
+WUDI clk_sq1_dac(1) 1
+WUDI clk_sq1_dac(1) 0
+CTDC 1 << 4002 ps
+COMM
+COMM ==============================================================================================
+COMM   Record SQUID1 DAC pulse shaping column 1 by requesting a SQUID1 ADC dump on science
+COMM    (DAC feedback on ADC)
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-TM_MODE-51XX W
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+COMM
+COMM ==============================================================================================
+COMM   Send command SQ1_FB_MODE column 1 to ON, DAC pulse shaping set 1: fc = 20 MHz
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-SQ1_FB_MODE-0050 W
+WPFC 1 20000000
+COMM
+COMM ==============================================================================================
+COMM   Record SQUID1 DAC pulse shaping column 1 by requesting a SQUID1 ADC dump on science
+COMM    (DAC feedback on ADC)
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-TM_MODE-51XX W
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+COMM
+COMM ==============================================================================================
+COMM   Send command SQ1_FB_MODE column 1 to ON, DAC pulse shaping set 2: fc = 25 MHz
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-SQ1_FB_MODE-0090 W
+WPFC 1 25000000
+COMM
+COMM ==============================================================================================
+COMM   Record SQUID1 DAC pulse shaping column 1 by requesting a SQUID1 ADC dump on science
+COMM    (DAC feedback on ADC)
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-TM_MODE-51XX W
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+COMM
+COMM ==============================================================================================
+COMM   Send command SQ1_FB_MODE column 1 to ON, DAC pulse shaping set 3: fc = 30 MHz
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-SQ1_FB_MODE-00D0 W
+WPFC 1 30000000
+COMM
+COMM ==============================================================================================
+COMM   Record SQUID1 DAC pulse shaping column 1 by requesting a SQUID1 ADC dump on science
+COMM    (DAC feedback on ADC)
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-TM_MODE-51XX W
+COMM
+COMM ==============================================================================================
+COMM   Replace DAC pulse shaping set 3 memory content for fc = 23 MHz
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-C1_FB1_PULSE_SHAPING(96)-76BC W
+WCMD W-C1_FB1_PULSE_SHAPING(97)-3711 W
+WCMD W-C1_FB1_PULSE_SHAPING(98)-198A W
+WCMD W-C1_FB1_PULSE_SHAPING(99)-0BD8 W
+WCMD W-C1_FB1_PULSE_SHAPING(100)-057E W
+WCMD W-C1_FB1_PULSE_SHAPING(101)-028C W
+WCMD W-C1_FB1_PULSE_SHAPING(102)-012F W
+WCMD W-C1_FB1_PULSE_SHAPING(103)-008C W
+WCMD W-C1_FB1_PULSE_SHAPING(104)-0041 W
+WCMD W-C1_FB1_PULSE_SHAPING(105)-001E W
+WCMD W-C1_FB1_PULSE_SHAPING(106)-000E W
+WCMD W-C1_FB1_PULSE_SHAPING(107)-0006 W
+WCMD W-C1_FB1_PULSE_SHAPING(108)-0003 W
+WCMD W-C1_FB1_PULSE_SHAPING(109)-0001 W
+WCMD W-C1_FB1_PULSE_SHAPING(110)-0001 W
+WCMD W-C1_FB1_PULSE_SHAPING(111)-0000 W
+WCMD W-C1_FB1_PULSE_SHAPING(112)-0000 W
+WCMD W-C1_FB1_PULSE_SHAPING(113)-0000 W
+WCMD W-C1_FB1_PULSE_SHAPING(114)-0000 W
+WCMD W-C1_FB1_PULSE_SHAPING(115)-0000 W
+WPFC 1 23000000
+COMM
+COMM ==============================================================================================
+COMM   Record SQUID1 DAC pulse shaping column 1 by requesting a SQUID1 ADC dump on science
+COMM    (DAC feedback on ADC)
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-TM_MODE-51XX W
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+COMM
+COMM ==============================================================================================
+COMM   Send command SQ1_FB_MODE column 1 to ON, DAC pulse shaping set 0: fc = 15 MHz
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-SQ1_FB_MODE-0010 W
+WPFC 1 15000000
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+COMM
+COMM ==============================================================================================
+COMM   Send command SQ1_FB_MODE column 1 to ON, DAC pulse shaping set 1: fc = 20 MHz
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-SQ1_FB_MODE-0050 W
+WPFC 1 20000000
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+COMM
+COMM ==============================================================================================
+COMM   Send command SQ1_FB_MODE column 1 to ON, DAC pulse shaping set 2: fc = 25 MHz
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-SQ1_FB_MODE-0090 W
+WPFC 1 25000000
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+COMM
+COMM ==============================================================================================
+COMM   Send command SQ1_FB_MODE column 2 to ON, DAC pulse shaping set 0: fc = 15 MHz
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-SQ1_FB_MODE-0100 W
+WPFC 2 15000000
+WUDI sync 0
+WUDI sync 1
+COMM
+COMM ==============================================================================================
+COMM   Writing a new table in feedback open loop column 2 memory
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-C2_SQ1_FB0(0)-7C20 W
+WCMD W-C2_SQ1_FB0(1)-FFFF W
+WCMD W-C2_SQ1_FB0(2)-745E W
+WCMD W-C2_SQ1_FB0(3)-F840 W
+WCMD W-C2_SQ1_FB0(4)-6C9C W
+WCMD W-C2_SQ1_FB0(5)-F07E W
+WCMD W-C2_SQ1_FB0(6)-64DA W
+WCMD W-C2_SQ1_FB0(7)-E8BC W
+WCMD W-C2_SQ1_FB0(8)-5D18 W
+WCMD W-C2_SQ1_FB0(9)-E0FA W
+WCMD W-C2_SQ1_FB0(10)-5556 W
+WCMD W-C2_SQ1_FB0(11)-D938 W
+WCMD W-C2_SQ1_FB0(12)-4D94 W
+WCMD W-C2_SQ1_FB0(13)-D176 W
+WCMD W-C2_SQ1_FB0(14)-45D2 W
+WCMD W-C2_SQ1_FB0(15)-C9B4 W
+WCMD W-C2_SQ1_FB0(16)-3E10 W
+WCMD W-C2_SQ1_FB0(17)-C1F2 W
+WCMD W-C2_SQ1_FB0(18)-364E W
+WCMD W-C2_SQ1_FB0(19)-BA30 W
+WCMD W-C2_SQ1_FB0(20)-2E8C W
+WCMD W-C2_SQ1_FB0(21)-B26E W
+WCMD W-C2_SQ1_FB0(22)-26CA W
+WCMD W-C2_SQ1_FB0(23)-AAAC W
+WCMD W-C2_SQ1_FB0(24)-1F08 W
+WCMD W-C2_SQ1_FB0(25)-A2EA W
+WCMD W-C2_SQ1_FB0(26)-1746 W
+WCMD W-C2_SQ1_FB0(27)-9B28 W
+WCMD W-C2_SQ1_FB0(28)-0F84 W
+WCMD W-C2_SQ1_FB0(29)-9366 W
+WCMD W-C2_SQ1_FB0(30)-07C2 W
+WCMD W-C2_SQ1_FB0(31)-8BA4 W
+WCMD W-C2_SQ1_FB0(32)-0000 W
+WCMD W-C2_SQ1_FB0(33)-83E2 W
+COMM
+COMM ==============================================================================================
+COMM   Check SQUID1 DAC column 2 output stay to its middle point until the next sync rising edge
+COMM ----------------------------------------------------------------------------------------------
+WUDI sync 1
+CTDC 2 == now
+CLDC 2 0.0
+WUDI clk_sq1_dac(2) 0
+WUDI clk_sq1_dac(2) 1
+WUDI clk_sq1_dac(2) 0
+CTDC 2 << 4002 ps
+COMM
+COMM ==============================================================================================
+COMM   Record SQUID1 DAC pulse shaping column 2 by requesting a SQUID1 ADC dump on science
+COMM    (DAC feedback on ADC)
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-TM_MODE-45XX W
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+COMM
+COMM ==============================================================================================
+COMM   Send command SQ1_FB_MODE column 2 to ON, DAC pulse shaping set 1: fc = 20 MHz
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-SQ1_FB_MODE-0500 W
+WPFC 2 20000000
+COMM
+COMM ==============================================================================================
+COMM   Record SQUID1 DAC pulse shaping column 2 by requesting a SQUID1 ADC dump on science
+COMM    (DAC feedback on ADC)
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-TM_MODE-45XX W
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+COMM
+COMM ==============================================================================================
+COMM   Send command SQ1_FB_MODE column 2 to ON, DAC pulse shaping set 2: fc = 25 MHz
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-SQ1_FB_MODE-0900 W
+WPFC 2 25000000
+COMM
+COMM ==============================================================================================
+COMM   Record SQUID1 DAC pulse shaping column 2 by requesting a SQUID1 ADC dump on science
+COMM    (DAC feedback on ADC)
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-TM_MODE-45XX W
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+COMM
+COMM ==============================================================================================
+COMM   Send command SQ1_FB_MODE column 2 to ON, DAC pulse shaping set 3: fc = 30 MHz
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-SQ1_FB_MODE-0D00 W
+WPFC 2 30000000
+COMM
+COMM ==============================================================================================
+COMM   Record SQUID1 DAC pulse shaping column 2 by requesting a SQUID1 ADC dump on science
+COMM    (DAC feedback on ADC)
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-TM_MODE-45XX W
+COMM
+COMM ==============================================================================================
+COMM   Replace DAC pulse shaping set 3 memory content for fc = 23 MHz
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-C2_FB1_PULSE_SHAPING(96)-76BC W
+WCMD W-C2_FB1_PULSE_SHAPING(97)-3711 W
+WCMD W-C2_FB1_PULSE_SHAPING(98)-198A W
+WCMD W-C2_FB1_PULSE_SHAPING(99)-0BD8 W
+WCMD W-C2_FB1_PULSE_SHAPING(100)-057E W
+WCMD W-C2_FB1_PULSE_SHAPING(101)-028C W
+WCMD W-C2_FB1_PULSE_SHAPING(102)-012F W
+WCMD W-C2_FB1_PULSE_SHAPING(103)-008C W
+WCMD W-C2_FB1_PULSE_SHAPING(104)-0041 W
+WCMD W-C2_FB1_PULSE_SHAPING(105)-001E W
+WCMD W-C2_FB1_PULSE_SHAPING(106)-000E W
+WCMD W-C2_FB1_PULSE_SHAPING(107)-0006 W
+WCMD W-C2_FB1_PULSE_SHAPING(108)-0003 W
+WCMD W-C2_FB1_PULSE_SHAPING(109)-0001 W
+WCMD W-C2_FB1_PULSE_SHAPING(110)-0001 W
+WCMD W-C2_FB1_PULSE_SHAPING(111)-0000 W
+WCMD W-C2_FB1_PULSE_SHAPING(112)-0000 W
+WCMD W-C2_FB1_PULSE_SHAPING(113)-0000 W
+WCMD W-C2_FB1_PULSE_SHAPING(114)-0000 W
+WCMD W-C2_FB1_PULSE_SHAPING(115)-0000 W
+WPFC 2 23000000
+COMM
+COMM ==============================================================================================
+COMM   Record SQUID1 DAC pulse shaping column 2 by requesting a SQUID1 ADC dump on science
+COMM    (DAC feedback on ADC)
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-TM_MODE-45XX W
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+COMM
+COMM ==============================================================================================
+COMM   Send command SQ1_FB_MODE column 2 to ON, DAC pulse shaping set 0: fc = 15 MHz
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-SQ1_FB_MODE-0100 W
+WPFC 2 15000000
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+COMM
+COMM ==============================================================================================
+COMM   Send command SQ1_FB_MODE column 2 to ON, DAC pulse shaping set 1: fc = 20 MHz
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-SQ1_FB_MODE-0500 W
+WPFC 2 20000000
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+COMM
+COMM ==============================================================================================
+COMM   Send command SQ1_FB_MODE column 2 to ON, DAC pulse shaping set 2: fc = 25 MHz
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-SQ1_FB_MODE-0900 W
+WPFC 2 25000000
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+COMM
+COMM ==============================================================================================
+COMM   Send command SQ1_FB_MODE column 3 to ON, DAC pulse shaping set 0: fc = 15 MHz
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-SQ1_FB_MODE-1000 W
+WPFC 3 15000000
+WUDI sync 0
+WUDI sync 1
+COMM
+COMM ==============================================================================================
+COMM   Writing a new table in feedback open loop column 3 memory
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-C3_SQ1_FB0(0)-7C20 W
+WCMD W-C3_SQ1_FB0(1)-FFFF W
+WCMD W-C3_SQ1_FB0(2)-745E W
+WCMD W-C3_SQ1_FB0(3)-F840 W
+WCMD W-C3_SQ1_FB0(4)-6C9C W
+WCMD W-C3_SQ1_FB0(5)-F07E W
+WCMD W-C3_SQ1_FB0(6)-64DA W
+WCMD W-C3_SQ1_FB0(7)-E8BC W
+WCMD W-C3_SQ1_FB0(8)-5D18 W
+WCMD W-C3_SQ1_FB0(9)-E0FA W
+WCMD W-C3_SQ1_FB0(10)-5556 W
+WCMD W-C3_SQ1_FB0(11)-D938 W
+WCMD W-C3_SQ1_FB0(12)-4D94 W
+WCMD W-C3_SQ1_FB0(13)-D176 W
+WCMD W-C3_SQ1_FB0(14)-45D2 W
+WCMD W-C3_SQ1_FB0(15)-C9B4 W
+WCMD W-C3_SQ1_FB0(16)-3E10 W
+WCMD W-C3_SQ1_FB0(17)-C1F2 W
+WCMD W-C3_SQ1_FB0(18)-364E W
+WCMD W-C3_SQ1_FB0(19)-BA30 W
+WCMD W-C3_SQ1_FB0(20)-2E8C W
+WCMD W-C3_SQ1_FB0(21)-B26E W
+WCMD W-C3_SQ1_FB0(22)-26CA W
+WCMD W-C3_SQ1_FB0(23)-AAAC W
+WCMD W-C3_SQ1_FB0(24)-1F08 W
+WCMD W-C3_SQ1_FB0(25)-A2EA W
+WCMD W-C3_SQ1_FB0(26)-1746 W
+WCMD W-C3_SQ1_FB0(27)-9B28 W
+WCMD W-C3_SQ1_FB0(28)-0F84 W
+WCMD W-C3_SQ1_FB0(29)-9366 W
+WCMD W-C3_SQ1_FB0(30)-07C2 W
+WCMD W-C3_SQ1_FB0(31)-8BA4 W
+WCMD W-C3_SQ1_FB0(32)-0000 W
+WCMD W-C3_SQ1_FB0(33)-83E2 W
+COMM
+COMM ==============================================================================================
+COMM   Check SQUID1 DAC column 3 output stay to its middle point until the next sync rising edge
+COMM ----------------------------------------------------------------------------------------------
+WUDI sync 1
+CTDC 3 == now
+CLDC 3 0.0
+WUDI clk_sq1_dac(3) 0
+WUDI clk_sq1_dac(3) 1
+WUDI clk_sq1_dac(3) 0
+CTDC 3 << 4002 ps
+COMM
+COMM ==============================================================================================
+COMM   Record SQUID1 DAC pulse shaping column 3 by requesting a SQUID1 ADC dump on science
+COMM    (DAC feedback on ADC)
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-TM_MODE-15XX W
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+COMM
+COMM ==============================================================================================
+COMM   Send command SQ1_FB_MODE column 3 to ON, DAC pulse shaping set 1: fc = 20 MHz
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-SQ1_FB_MODE-5000 W
+WPFC 3 20000000
+COMM
+COMM ==============================================================================================
+COMM   Record SQUID1 DAC pulse shaping column 3 by requesting a SQUID1 ADC dump on science
+COMM    (DAC feedback on ADC)
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-TM_MODE-15XX W
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+COMM
+COMM ==============================================================================================
+COMM   Send command SQ1_FB_MODE column 3 to ON, DAC pulse shaping set 2: fc = 25 MHz
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-SQ1_FB_MODE-9000 W
+WPFC 3 25000000
+COMM
+COMM ==============================================================================================
+COMM   Record SQUID1 DAC pulse shaping column 3 by requesting a SQUID1 ADC dump on science
+COMM    (DAC feedback on ADC)
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-TM_MODE-15XX W
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+COMM
+COMM ==============================================================================================
+COMM   Send command SQ1_FB_MODE column 3 to ON, DAC pulse shaping set 3: fc = 30 MHz
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-SQ1_FB_MODE-D000 W
+WPFC 3 30000000
+COMM
+COMM ==============================================================================================
+COMM   Record SQUID1 DAC pulse shaping column 3 by requesting a SQUID1 ADC dump on science
+COMM    (DAC feedback on ADC)
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-TM_MODE-15XX W
+COMM
+COMM ==============================================================================================
+COMM   Replace DAC pulse shaping set 3 memory content for fc = 23 MHz
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-C3_FB1_PULSE_SHAPING(96)-76BC W
+WCMD W-C3_FB1_PULSE_SHAPING(97)-3711 W
+WCMD W-C3_FB1_PULSE_SHAPING(98)-198A W
+WCMD W-C3_FB1_PULSE_SHAPING(99)-0BD8 W
+WCMD W-C3_FB1_PULSE_SHAPING(100)-057E W
+WCMD W-C3_FB1_PULSE_SHAPING(101)-028C W
+WCMD W-C3_FB1_PULSE_SHAPING(102)-012F W
+WCMD W-C3_FB1_PULSE_SHAPING(103)-008C W
+WCMD W-C3_FB1_PULSE_SHAPING(104)-0041 W
+WCMD W-C3_FB1_PULSE_SHAPING(105)-001E W
+WCMD W-C3_FB1_PULSE_SHAPING(106)-000E W
+WCMD W-C3_FB1_PULSE_SHAPING(107)-0006 W
+WCMD W-C3_FB1_PULSE_SHAPING(108)-0003 W
+WCMD W-C3_FB1_PULSE_SHAPING(109)-0001 W
+WCMD W-C3_FB1_PULSE_SHAPING(110)-0001 W
+WCMD W-C3_FB1_PULSE_SHAPING(111)-0000 W
+WCMD W-C3_FB1_PULSE_SHAPING(112)-0000 W
+WCMD W-C3_FB1_PULSE_SHAPING(113)-0000 W
+WCMD W-C3_FB1_PULSE_SHAPING(114)-0000 W
+WCMD W-C3_FB1_PULSE_SHAPING(115)-0000 W
+WPFC 3 23000000
+COMM
+COMM ==============================================================================================
+COMM   Record SQUID1 DAC pulse shaping column 3 by requesting a SQUID1 ADC dump on science
+COMM    (DAC feedback on ADC)
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-TM_MODE-15XX W
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+COMM
+COMM ==============================================================================================
+COMM   Send command SQ1_FB_MODE column 3 to ON, DAC pulse shaping set 0: fc = 15 MHz
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-SQ1_FB_MODE-1000 W
+WPFC 3 15000000
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+COMM
+COMM ==============================================================================================
+COMM   Send command SQ1_FB_MODE column 3 to ON, DAC pulse shaping set 1: fc = 20 MHz
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-SQ1_FB_MODE-5000 W
+WPFC 3 20000000
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+COMM
+COMM ==============================================================================================
+COMM   Send command SQ1_FB_MODE column 3 to ON, DAC pulse shaping set 2: fc = 25 MHz
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-SQ1_FB_MODE-9000 W
+WPFC 3 25000000
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+COMM
+COMM ==============================================================================================
+COMM   Send command SQ1_FB_MODE OFF on all columns
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-SQ1_FB_MODE-0000 W

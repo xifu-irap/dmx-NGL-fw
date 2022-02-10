@@ -63,6 +63,7 @@ end entity clock_check_model;
 architecture Behavioral of clock_check_model is
 signal   clock                : std_logic_vector(c_CE_S-1 downto 0)                                         ; --! Clocks
 signal   enable               : std_logic_vector(c_CE_S-1 downto 0)                                         ; --! Enables
+signal   chk_osc_ena_l        : std_logic_vector(c_CE_S-1 downto 0)                                         ; --! Check oscillation on clock when enable inactive ('0' = No, '1' = Yes)
 begin
 
    -- ------------------------------------------------------------------------------------------------------
@@ -100,6 +101,23 @@ begin
    enable(12)  <= not(i_rst);
 
    -- ------------------------------------------------------------------------------------------------------
+   --!   Enable signals
+   -- ------------------------------------------------------------------------------------------------------
+   chk_osc_ena_l(0)   <= c_CCHK(0).chk_osc_en;
+   chk_osc_ena_l(1)   <= c_CCHK(1).chk_osc_en;
+   chk_osc_ena_l(2)   <= c_CCHK(2).chk_osc_en;
+   chk_osc_ena_l(3)   <= c_CCHK(3).chk_osc_en and not(i_rst);
+   chk_osc_ena_l(4)   <= c_CCHK(4).chk_osc_en and not(i_rst);
+   chk_osc_ena_l(5)   <= c_CCHK(5).chk_osc_en and not(i_rst);
+   chk_osc_ena_l(6)   <= c_CCHK(6).chk_osc_en and not(i_rst);
+   chk_osc_ena_l(7)   <= c_CCHK(7).chk_osc_en and not(i_rst);
+   chk_osc_ena_l(8)   <= c_CCHK(8).chk_osc_en and not(i_rst);
+   chk_osc_ena_l(9)   <= c_CCHK(9).chk_osc_en and not(i_rst);
+   chk_osc_ena_l(10)  <= c_CCHK(10).chk_osc_en and not(i_rst);
+   chk_osc_ena_l(11)  <= c_CCHK(11).chk_osc_en;
+   chk_osc_ena_l(12)  <= c_CCHK(12).chk_osc_en;
+
+   -- ------------------------------------------------------------------------------------------------------
    --!   Clock check
    -- ------------------------------------------------------------------------------------------------------
    G_clock_check: for k in 0 to c_CE_S-1 generate
@@ -108,11 +126,12 @@ begin
       I_clock_check: entity work.clock_check generic map
       (  g_CLK_PER_L          => c_CCHK(k).clk_per_l  , -- time                                             ; --! Low  level clock period expected time
          g_CLK_PER_H          => c_CCHK(k).clk_per_h  , -- time                                             ; --! High level clock period expected time
-         g_CLK_ST_ENA_H       => c_CCHK(k).clk_st_ena   -- std_logic                                          --! Clock state value when enable goes to active
+         g_CLK_ST_ENA         => c_CCHK(k).clk_st_ena , -- std_logic                                        ; --! Clock state value when enable goes to active
+         g_CLK_ST_DIS         => c_CCHK(k).clk_st_dis   -- std_logic                                          --! Clock state value when enable goes to inactive
       ) port map
       (  i_clk                => clock(k)             , -- in     std_logic                                 ; --! Clock
          i_ena                => enable(k)            , -- in     std_logic                                 ; --! Enable ('0' = Inactive, '1' = Active)
-         i_chk_osc_ena_l      => c_CCHK(k).chk_osc_en , -- in     std_logic                                 ; --! Check oscillation on clock when enable inactive ('0' = No, '1' = Yes)
+         i_chk_osc_ena_l      => chk_osc_ena_l(k)     , -- in     std_logic                                 ; --! Check oscillation on clock when enable inactive ('0' = No, '1' = Yes)
          o_err_n_clk_chk      => o_err_chk_rpt(k)       -- out    t_err_n_clk_chk                             --! Clock check error number
       );
 

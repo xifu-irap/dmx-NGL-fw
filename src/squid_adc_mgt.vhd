@@ -35,9 +35,9 @@ use     work.pkg_project.all;
 use     work.pkg_ep_cmd.all;
 
 entity squid_adc_mgt is port
-      (  i_arst_n             : in     std_logic                                                            ; --! Asynchronous reset ('0' = Active, '1' = Inactive)
+   (     i_arst               : in     std_logic                                                            ; --! Asynchronous reset ('0' = Inactive, '1' = Active)
          i_ck_rdy             : in     std_logic                                                            ; --! Clock ready ('0' = Not ready, '1' = Ready)
-         i_clk_sq1_adc_acq    : in     std_logic                                                            ; --! SQUID1 ADC acquisition Clock
+         i_clk_sq1_adc_dac    : in     std_logic                                                            ; --! SQUID1 ADC/DAC internal Clock
 
          i_rst                : in     std_logic                                                            ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                : in     std_logic                                                            ; --! System Clock
@@ -78,10 +78,9 @@ signal   sync_re_adc_data     : std_logic                                       
 signal   tm_mode_dmp_cmp_last : std_logic                                                                   ; --! Telemetry mode, status "Dump" compared last sync. ('0' = Inactive, '1' = Active)
 
 signal   mem_dump_adc_cnt_w   : std_logic_vector(     c_DMP_CNT_S-1 downto 0)                               ; --! Memory Dump, ADC acquisition side: counter words
-signal   mem_dump_adc_add     : std_logic_vector(c_MEM_DUMP_ADD_S-1 downto 0)                               ; --! Memory Dump, ADC acquisition side: address
-signal   mem_dump_adc_cs      : std_logic                                                                   ; --! Memory Dump, ADC acquisition side: chip select ('0' = Inactive, '1' = Active)
-signal   mem_dump_adc_data_in : std_logic_vector(c_MEM_DUMP_DATA_S-1 downto 0)                              ; --! Memory Dump, ADC acquisition side: data in
+signal   mem_dump_adc         : t_mem(add(c_MEM_DUMP_ADD_S-1 downto 0),data_w(c_MEM_DUMP_DATA_S-1 downto 0)); --! Memory Dump, ADC acquisition side inputs
 
+signal   mem_dump_sc          : t_mem(add(c_MEM_DUMP_ADD_S-1 downto 0),data_w(c_MEM_DUMP_DATA_S-1 downto 0)); --! Memory Dump, Science TM side inputs
 signal   mem_dump_data_out    : std_logic_vector(c_MEM_DUMP_DATA_S-1 downto 0)                              ; --! Memory Dump, Science TM side: data out
 signal   mem_dump_flg_err     : std_logic                                                                   ; --! Memory Dump, Science TM side: flag error uncorrectable detected ('0' = No, '1' = Yes)
 
@@ -95,8 +94,8 @@ begin
    I_rst_sq1_adc: entity work.reset_gen generic map
    (     g_FF_RESET_NB        => c_FF_RST_SQ1_ADC_NB    -- integer                                            --! Flip-Flop number used for generated reset
    ) port map
-   (     i_arst_n             => i_arst_n             , -- in     std_logic                                 ; --! Asynchronous reset ('0' = Active, '1' = Inactive)
-         i_clock              => i_clk_sq1_adc_acq    , -- in     std_logic                                 ; --! Main Pll Status ('0' = Pll not locked, '1' = Pll locked)
+   (     i_arst               => i_arst               , -- in     std_logic                                 ; --! Asynchronous reset ('0' = Inactive, '1' = Active)
+         i_clock              => i_clk_sq1_adc_dac    , -- in     std_logic                                 ; --! Main Pll Status ('0' = Pll not locked, '1' = Pll locked)
          i_ck_rdy             => i_ck_rdy             , -- in     std_logic                                 ; --! Clock ready ('0' = Not ready, '1' = Ready)
 
          o_reset              => rst_sq1_adc            -- out    std_logic                                   --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
@@ -106,7 +105,7 @@ begin
    --!   Inputs Resynchronization on SQUID1 ADC acquisition Clock
    --    @Req : DRE-DMX-FW-REQ-0100
    -- ------------------------------------------------------------------------------------------------------
-   P_in_rsync : process (rst_sq1_adc, i_clk_sq1_adc_acq)
+   P_in_rsync : process (rst_sq1_adc, i_clk_sq1_adc_dac)
    begin
 
       if rst_sq1_adc = '1' then
@@ -115,7 +114,7 @@ begin
          sq1_adc_data_r    <= (others => c_I_SQ1_ADC_DATA_DEF);
          sq1_adc_oor_r     <= (others => c_I_SQ1_ADC_OOR_DEF);
 
-      elsif rising_edge(i_clk_sq1_adc_acq) then
+      elsif rising_edge(i_clk_sq1_adc_dac) then
          sync_r            <= sync_r(sync_r'high-1 downto 0) & i_sync_rs;
          tm_mode_dmp_cmp_r <= tm_mode_dmp_cmp_r(tm_mode_dmp_cmp_r'high-1  downto 0) & i_tm_mode_dmp_cmp;
          sq1_adc_data_r    <= i_sq1_adc_data & sq1_adc_data_r(0 to sq1_adc_data_r'high-1);
@@ -128,14 +127,14 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   Signals registered
    -- ------------------------------------------------------------------------------------------------------
-   P_reg : process (rst_sq1_adc, i_clk_sq1_adc_acq)
+   P_reg : process (rst_sq1_adc, i_clk_sq1_adc_dac)
    begin
 
       if rst_sq1_adc = '1' then
          sync_re_adc_data     <= '0';
          tm_mode_dmp_cmp_last <= '0';
 
-      elsif rising_edge(i_clk_sq1_adc_acq) then
+      elsif rising_edge(i_clk_sq1_adc_dac) then
          sync_re_adc_data  <= not(sync_r(sync_r'high)) and sync_r(sync_r'high-1);
 
          if sync_re_adc_data = '1' then
@@ -151,13 +150,13 @@ begin
    --!   Dual port memory for data transfer in Dump mode: writing data signals
    --!      (SQUID1 ADC acquisition Clock side)
    -- ------------------------------------------------------------------------------------------------------
-   P_mem_dump_adc_cnt_w : process (rst_sq1_adc, i_clk_sq1_adc_acq)
+   P_mem_dump_adc_cnt_w : process (rst_sq1_adc, i_clk_sq1_adc_dac)
    begin
 
       if rst_sq1_adc = '1' then
          mem_dump_adc_cnt_w   <= (others => '1');
 
-      elsif rising_edge(i_clk_sq1_adc_acq) then
+      elsif rising_edge(i_clk_sq1_adc_dac) then
          if (mem_dump_adc_cnt_w(mem_dump_adc_cnt_w'high) and not(tm_mode_dmp_cmp_last) and tm_mode_dmp_cmp_r(tm_mode_dmp_cmp_r'high) and sync_re_adc_data) = '1' then
             mem_dump_adc_cnt_w <= std_logic_vector(to_unsigned(c_DMP_CNT_MAX_VAL, mem_dump_adc_cnt_w'length));
 
@@ -169,11 +168,13 @@ begin
 
    end process P_mem_dump_adc_cnt_w;
 
-   mem_dump_adc_add  <= std_logic_vector(resize(unsigned(mem_dump_adc_cnt_w(mem_dump_adc_cnt_w'high-1 downto 0)), mem_dump_adc_add'length));
-   mem_dump_adc_cs   <= not(mem_dump_adc_cnt_w(mem_dump_adc_cnt_w'high));
+   mem_dump_adc.pp   <= '0';
+   mem_dump_adc.add  <= std_logic_vector(resize(unsigned(mem_dump_adc_cnt_w(mem_dump_adc_cnt_w'high-1 downto 0)), mem_dump_adc.add'length));
+   mem_dump_adc.we   <= '1';
+   mem_dump_adc.cs   <= not(mem_dump_adc_cnt_w(mem_dump_adc_cnt_w'high));
 
-   mem_dump_adc_data_in(c_SQ1_ADC_DATA_S-1 downto 0) <= sq1_adc_data_r(sq1_adc_data_r'high);
-   mem_dump_adc_data_in(c_SQ1_ADC_DATA_S)            <= sq1_adc_oor_r(sq1_adc_oor_r'high);
+   mem_dump_adc.data_w(c_SQ1_ADC_DATA_S-1 downto 0) <= sq1_adc_data_r(sq1_adc_data_r'high);
+   mem_dump_adc.data_w(c_SQ1_ADC_DATA_S)            <= sq1_adc_oor_r(sq1_adc_oor_r'high);
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Dual port memory for data transfer in Dump mode
@@ -184,28 +185,35 @@ begin
          g_RAM_DATA_S         => c_MEM_DUMP_DATA_S    , -- integer                                          ; --! Memory data bus size (<= c_RAM_DATA_S)
          g_RAM_INIT           => c_RAM_INIT_EMPTY       -- t_ram_init                                         --! Memory content at initialization
    ) port map
-   (     a_clk                => i_clk_sq1_adc_acq    , -- in     std_logic                                 ; --! Memory port A: main clock
-         a_clk_shift          => '0'                  , -- in     std_logic                                 ; --! Memory port A: 90° shifted clock (used for memory content correction)
+   (     i_a_rst              => '0'                  , -- in     std_logic                                 ; --! Memory port A: registers reset ('0' = Inactive, '1' = Active)
+         i_a_clk              => i_clk_sq1_adc_dac    , -- in     std_logic                                 ; --! Memory port A: main clock
+         i_a_clk_shift        => '0'                  , -- in     std_logic                                 ; --! Memory port A: 90° shifted clock (used for memory content correction)
 
-         a_add                => mem_dump_adc_add     , -- in     slv( g_RAM_ADD_S-1 downto 0)              ; --! Memory port A: address
-         a_we                 => '1'                  , -- in     std_logic                                 ; --! Memory port A: write enable ('0' = Inactive, '1' = Active)
-         a_cs                 => mem_dump_adc_cs      , -- in     std_logic                                 ; --! Memory port A: chip select ('0' = Inactive, '1' = Active)
-         a_data_in            => mem_dump_adc_data_in , -- in     slv(g_RAM_DATA_S-1 downto 0)              ; --! Memory port A: data in
-         a_data_out           => open                 , -- out    slv(g_RAM_DATA_S-1 downto 0)              ; --! Memory port A: data out
+         i_a_mem              => mem_dump_adc         , -- in     t_mem( add(g_RAM_ADD_S-1 downto 0), ...)  ; --! Memory port A inputs (scrubbing with ping-pong buffer bit for parameters storage)
+         o_a_data_out         => open                 , -- out    slv(g_RAM_DATA_S-1 downto 0)              ; --! Memory port A: data out
+         o_a_pp               => open                 , -- out    std_logic                                 ; --! Memory port A: ping-pong buffer bit for address management
 
-         a_flg_err            => open                 , -- out    std_logic                                 ; --! Memory port A: flag error uncorrectable detected ('0' = No, '1' = Yes)
+         o_a_flg_err          => open                 , -- out    std_logic                                 ; --! Memory port A: flag error uncorrectable detected ('0' = No, '1' = Yes)
 
-         b_clk                => i_clk                , -- in     std_logic                                 ; --! Memory port B: main clock
-         b_clk_shift          => '0'                  , -- in     std_logic                                 ; --! Memory port B: 90° shifted clock (used for memory content correction)
+         i_b_rst              => i_rst                , -- in     std_logic                                 ; --! Memory port B: registers reset ('0' = Inactive, '1' = Active)
+         i_b_clk              => i_clk                , -- in     std_logic                                 ; --! Memory port B: main clock
+         i_b_clk_shift        => '0'                  , -- in     std_logic                                 ; --! Memory port B: 90° shifted clock (used for memory content correction)
 
-         b_add                => i_sq1_mem_dump_add   , -- in     slv( g_RAM_ADD_S-1 downto 0)              ; --! Memory port B: address
-         b_we                 => '0'                  , -- in     std_logic                                 ; --! Memory port B: write enable ('0' = Inactive, '1' = Active)
-         b_cs                 => i_sq1_mem_dump_cs    , -- in     std_logic                                 ; --! Memory port B: chip select ('0' = Inactive, '1' = Active)
-         b_data_in            => (others => '0')      , -- in     slv(g_RAM_DATA_S-1 downto 0)              ; --! Memory port B: data in
-         b_data_out           => mem_dump_data_out    , -- out    slv(g_RAM_DATA_S-1 downto 0)              ; --! Memory port B: data out
+         i_b_mem              => mem_dump_sc          , -- in     t_mem( add(g_RAM_ADD_S-1 downto 0), ...)  ; --! Memory port B inputs
+         o_b_data_out         => mem_dump_data_out    , -- out    slv(g_RAM_DATA_S-1 downto 0)              ; --! Memory port B: data out
 
-         b_flg_err            => mem_dump_flg_err       -- out    std_logic                                   --! Memory port B: flag error uncorrectable detected ('0' = No, '1' = Yes)
+         o_b_flg_err          => mem_dump_flg_err       -- out    std_logic                                   --! Memory port B: flag error uncorrectable detected ('0' = No, '1' = Yes)
    );
+
+   -- ------------------------------------------------------------------------------------------------------
+   --!   Dual port memory for data transfer in Dump mode: writing data signals
+   --!      (System Clock side)
+   -- ------------------------------------------------------------------------------------------------------
+   mem_dump_sc.pp       <= '0';
+   mem_dump_sc.add      <= i_sq1_mem_dump_add;
+   mem_dump_sc.we       <= '0';
+   mem_dump_sc.cs       <= i_sq1_mem_dump_cs;
+   mem_dump_sc.data_w   <= (others => '0');
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Dual port memory for data transfer in Dump mode: reading data signals
@@ -224,7 +232,7 @@ begin
          mem_dump_adc_cs_rs   <= (others => '0');
 
       elsif rising_edge(i_clk) then
-         mem_dump_adc_cs_rs   <= mem_dump_adc_cs_rs(mem_dump_adc_cs_rs'high-1 downto 0) & mem_dump_adc_cs;
+         mem_dump_adc_cs_rs   <= mem_dump_adc_cs_rs(mem_dump_adc_cs_rs'high-1 downto 0) & mem_dump_adc.cs;
 
       end if;
 

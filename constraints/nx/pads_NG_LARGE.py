@@ -30,9 +30,9 @@ def add_banks(p,option=None):
     'IOB3'   : {'voltage': '3.3'},
     # 'IOB4'   : {'voltage': '2.5'}, # N.C.
     # 'IOB5'   : {'voltage': '2.5'}, # N.C.
-    'IOB6'   : {'voltage': '1.8'},
+    'IOB6'   : {'voltage': '2.5'},
     'IOB7'   : {'voltage': '2.5'},
-    'IOB8'   : {'voltage': '1.8'},
+    'IOB8'   : {'voltage': '2.5'},
     'IOB9'   : {'voltage': '2.5'},
     'IOB10'  : {'voltage': '2.5'},
     # 'IOB11'  : {'voltage': '3.3'}, # N.C.
@@ -43,11 +43,11 @@ def add_banks(p,option=None):
     # 'IOB16'  : {'voltage': '2.5'}, # N.C.
     'IOB17'  : {'voltage': '3.3'},
     # 'IOB18'  : {'voltage': '2.5'}, # N.C.
-    'IOB19'  : {'voltage': '1.8'},
+    'IOB19'  : {'voltage': '2.5'},
     'IOB20'  : {'voltage': '2.5'},
     # 'IOB21'  : {'voltage': '2.5'}, # N.C.
     'IOB22'  : {'voltage': '2.5'},
-    'IOB23'  : {'voltage': '1.8'}
+    'IOB23'  : {'voltage': '2.5'}
           }
     p.addBanks(banks)
 
@@ -57,16 +57,16 @@ def add_pads(p,option=None):
     pads = {
     'i_arst_n'              : {'location':'IOB15_D04N', 'standard':'LVCMOS', 'differential':False,                                           'weakTermination':'None'  ,                                                        'turbo':False, 'inputDelayOn':False, 'inputDelayLine':0, 'outputDelayOn':False, 'outputDelayLine':0},
     'i_clk_ref'             : {'location':'IOB10_D09P', 'standard':'LVDS'  , 'differential':True ,                                           'weakTermination':'PullUp', 'termination':'50', 'terminationReference':'Floating', 'turbo':True , 'inputDelayOn':False, 'inputDelayLine':0, 'outputDelayOn':False, 'outputDelayLine':0},
-    'o_c0_clk_sq1_adc'      : {'location':'IOB20_D15P', 'standard':'LVDS'  , 'differential':True , 'drive':'Undefined', 'slewRate':'Medium', 'weakTermination':'None'  ,                                                                       'inputDelayOn':False, 'inputDelayLine':0, 'outputDelayOn':False, 'outputDelayLine':0},
-    'o_c1_clk_sq1_adc'      : {'location':'IOB09_D16P', 'standard':'LVDS'  , 'differential':True , 'drive':'Undefined', 'slewRate':'Medium', 'weakTermination':'None'  ,                                                                       'inputDelayOn':False, 'inputDelayLine':0, 'outputDelayOn':False, 'outputDelayLine':0},
-    'o_c2_clk_sq1_adc'      : {'location':'IOB07_D16P', 'standard':'LVDS'  , 'differential':True , 'drive':'Undefined', 'slewRate':'Medium', 'weakTermination':'None'  ,                                                                       'inputDelayOn':False, 'inputDelayLine':0, 'outputDelayOn':False, 'outputDelayLine':0},
-    'o_c3_clk_sq1_adc'      : {'location':'IOB22_D16P', 'standard':'LVDS'  , 'differential':True , 'drive':'Undefined', 'slewRate':'Medium', 'weakTermination':'None'  ,                                                                       'inputDelayOn':False, 'inputDelayLine':0, 'outputDelayOn':False, 'outputDelayLine':0},
-    'o_c0_clk_sq1_dac'      : {'location':'IOB20_D16P', 'standard':'LVDS'  , 'differential':True , 'drive':'Undefined', 'slewRate':'Medium', 'weakTermination':'None'  ,                                                                       'inputDelayOn':False, 'inputDelayLine':0, 'outputDelayOn':False, 'outputDelayLine':0},
-    'o_c1_clk_sq1_dac'      : {'location':'IOB09_D15P', 'standard':'LVDS'  , 'differential':True , 'drive':'Undefined', 'slewRate':'Medium', 'weakTermination':'None'  ,                                                                       'inputDelayOn':False, 'inputDelayLine':0, 'outputDelayOn':False, 'outputDelayLine':0},
-    'o_c2_clk_sq1_dac'      : {'location':'IOB07_D15P', 'standard':'LVDS'  , 'differential':True , 'drive':'Undefined', 'slewRate':'Medium', 'weakTermination':'None'  ,                                                                       'inputDelayOn':False, 'inputDelayLine':0, 'outputDelayOn':False, 'outputDelayLine':0},
-    'o_c3_clk_sq1_dac'      : {'location':'IOB22_D15P', 'standard':'LVDS'  , 'differential':True , 'drive':'Undefined', 'slewRate':'Medium', 'weakTermination':'None'  ,                                                                       'inputDelayOn':False, 'inputDelayLine':0, 'outputDelayOn':False, 'outputDelayLine':0},
-    'o_clk_science_01'      : {'location':'IOB10_D07P', 'standard':'LVDS'  , 'differential':True , 'drive':'Undefined', 'slewRate':'Slow'  , 'weakTermination':'None'  ,                                                                       'inputDelayOn':False, 'inputDelayLine':0, 'outputDelayOn':False, 'outputDelayLine':0},
-    'o_clk_science_23'      : {'location':'IOB10_D08P', 'standard':'LVDS'  , 'differential':True , 'drive':'Undefined', 'slewRate':'Slow'  , 'weakTermination':'None'  ,                                                                       'inputDelayOn':False, 'inputDelayLine':0, 'outputDelayOn':False, 'outputDelayLine':0},
+    'o_c0_clk_sq1_adc'      : {'location':'IOB20_D15P', 'standard':'LVDS'  , 'differential':True , 'drive':'Undefined', 'slewRate':'Medium', 'weakTermination':'None'  ,                                                                       'inputDelayOn':False, 'inputDelayLine':0, 'outputDelayOn':False, 'outputDelayLine':0, 'registered':'O'},
+    'o_c1_clk_sq1_adc'      : {'location':'IOB09_D16P', 'standard':'LVDS'  , 'differential':True , 'drive':'Undefined', 'slewRate':'Medium', 'weakTermination':'None'  ,                                                                       'inputDelayOn':False, 'inputDelayLine':0, 'outputDelayOn':False, 'outputDelayLine':0, 'registered':'O'},
+    'o_c2_clk_sq1_adc'      : {'location':'IOB07_D16P', 'standard':'LVDS'  , 'differential':True , 'drive':'Undefined', 'slewRate':'Medium', 'weakTermination':'None'  ,                                                                       'inputDelayOn':False, 'inputDelayLine':0, 'outputDelayOn':False, 'outputDelayLine':0, 'registered':'O'},
+    'o_c3_clk_sq1_adc'      : {'location':'IOB22_D16P', 'standard':'LVDS'  , 'differential':True , 'drive':'Undefined', 'slewRate':'Medium', 'weakTermination':'None'  ,                                                                       'inputDelayOn':False, 'inputDelayLine':0, 'outputDelayOn':False, 'outputDelayLine':0, 'registered':'O'},
+    'o_c0_clk_sq1_dac'      : {'location':'IOB20_D16P', 'standard':'LVDS'  , 'differential':True , 'drive':'Undefined', 'slewRate':'Medium', 'weakTermination':'None'  ,                                                                       'inputDelayOn':False, 'inputDelayLine':0, 'outputDelayOn':False, 'outputDelayLine':0, 'registered':'O'},
+    'o_c1_clk_sq1_dac'      : {'location':'IOB09_D15P', 'standard':'LVDS'  , 'differential':True , 'drive':'Undefined', 'slewRate':'Medium', 'weakTermination':'None'  ,                                                                       'inputDelayOn':False, 'inputDelayLine':0, 'outputDelayOn':False, 'outputDelayLine':0, 'registered':'O'},
+    'o_c2_clk_sq1_dac'      : {'location':'IOB07_D15P', 'standard':'LVDS'  , 'differential':True , 'drive':'Undefined', 'slewRate':'Medium', 'weakTermination':'None'  ,                                                                       'inputDelayOn':False, 'inputDelayLine':0, 'outputDelayOn':False, 'outputDelayLine':0, 'registered':'O'},
+    'o_c3_clk_sq1_dac'      : {'location':'IOB22_D15P', 'standard':'LVDS'  , 'differential':True , 'drive':'Undefined', 'slewRate':'Medium', 'weakTermination':'None'  ,                                                                       'inputDelayOn':False, 'inputDelayLine':0, 'outputDelayOn':False, 'outputDelayLine':0, 'registered':'O'},
+    'o_clk_science_01'      : {'location':'IOB10_D07P', 'standard':'LVDS'  , 'differential':True , 'drive':'Undefined', 'slewRate':'Slow'  , 'weakTermination':'None'  ,                                                                       'inputDelayOn':False, 'inputDelayLine':0, 'outputDelayOn':False, 'outputDelayLine':0, 'registered':'O'},
+    'o_clk_science_23'      : {'location':'IOB10_D08P', 'standard':'LVDS'  , 'differential':True , 'drive':'Undefined', 'slewRate':'Slow'  , 'weakTermination':'None'  ,                                                                       'inputDelayOn':False, 'inputDelayLine':0, 'outputDelayOn':False, 'outputDelayLine':0, 'registered':'O'},
     'i_brd_ref[0]'          : {'location':'IOB15_D01P', 'standard':'LVCMOS', 'differential':False,                                           'weakTermination':'None'  ,                                                        'turbo':False, 'inputDelayOn':False, 'inputDelayLine':0, 'outputDelayOn':False, 'outputDelayLine':0, 'registered':'I'},
     'i_brd_ref[1]'          : {'location':'IOB15_D02P', 'standard':'LVCMOS', 'differential':False,                                           'weakTermination':'None'  ,                                                        'turbo':False, 'inputDelayOn':False, 'inputDelayLine':0, 'outputDelayOn':False, 'outputDelayLine':0, 'registered':'I'},
     'i_brd_ref[2]'          : {'location':'IOB15_D03P', 'standard':'LVCMOS', 'differential':False,                                           'weakTermination':'None'  ,                                                        'turbo':False, 'inputDelayOn':False, 'inputDelayLine':0, 'outputDelayOn':False, 'outputDelayLine':0, 'registered':'I'},

@@ -6,7 +6,7 @@
 #             (0 ps) **********************************************************************************************
 #             (0 ps) 
 #             (0 ps) ==============================================================================================
-#             (0 ps)   Enable Squid1 ADC/DAC clocks reports display
+#             (0 ps)   Enable Science clocks reports display
 #             (0 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (0 ps) Clock report display activated: clk_science_01
 # ** Note   : (0 ps) Clock report display activated: clk_science_23
@@ -28,266 +28,560 @@
 # ** Note   : (6963480 ps) Waiting event rst = '0' for 6883480 ps
 #             (6963480 ps) 
 #             (6963480 ps) ==============================================================================================
-#             (6963480 ps)   Send command TM_MODE, Dump on all channels
+#             (6963480 ps)   Writing a new table in feedback open loop column 0 memory
 #             (6963480 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (10901448 ps) Waiting event sync = '1' for 3937968 ps
-# ** Note   : (10901448 ps) Send SPI command value 8001_00XX (TM_MODE, mode Write, data 00XX)
-# ** Note   : (18402000 ps) Waiting SPI command end for 7464552 ps
-# ** Note   : (21786888 ps) Waiting event sync = '1' for 3384888 ps
-# ** Note   : (21946968 ps) Waiting event sync = '0' for 160080 ps
-# ** Note   : (27229608 ps) Waiting event sync = '1' for 5282640 ps
-# ** Note   : (27389688 ps) Waiting event sync = '0' for 160080 ps
-#             (27389688 ps) ==============================================================================================
-#             (27389688 ps)   Check the science packet type currently transfered
-#             (27389688 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (27389688 ps) Check science packet type: PASS
-# ** Note   : (27389688 ps)  * Science packet type: adc_dump(0), value 11001000, expected 11001000
-#             (27389688 ps) 
-#             (27389688 ps) ==============================================================================================
-#             (27389688 ps)   Wait the end of the science packet transfer
-#             (27389688 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (32672328 ps) Waiting event sync = '1' for 5282640 ps
-# ** Note   : (32832408 ps) Waiting event sync = '0' for 160080 ps
-# ** Note   : (38115048 ps) Waiting event sync = '1' for 5282640 ps
-# ** Note   : (38275128 ps) Waiting event sync = '0' for 160080 ps
-# ** Note   : (43557768 ps) Waiting event sync = '1' for 5282640 ps
-# ** Note   : (43717848 ps) Waiting event sync = '0' for 160080 ps
-# ** Note   : (49000488 ps) Waiting event sync = '1' for 5282640 ps
-# ** Note   : (49160568 ps) Waiting event sync = '0' for 160080 ps
-# ** Note   : (54443208 ps) Waiting event sync = '1' for 5282640 ps
-# ** Note   : (54603288 ps) Waiting event sync = '0' for 160080 ps
-# ** Note   : (59885928 ps) Waiting event sync = '1' for 5282640 ps
-# ** Note   : (60046008 ps) Waiting event sync = '0' for 160080 ps
-# ** Note   : (65328648 ps) Waiting event sync = '1' for 5282640 ps
-# ** Note   : (65488728 ps) Waiting event sync = '0' for 160080 ps
-# ** Note   : (70771368 ps) Waiting event sync = '1' for 5282640 ps
-# ** Note   : (70931448 ps) Waiting event sync = '0' for 160080 ps
-#             (70931448 ps) ==============================================================================================
-#             (70931448 ps)   Check the science packet type currently transfered
-#             (70931448 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (70931448 ps) Check science packet type: PASS
-# ** Note   : (70931448 ps)  * Science packet type: adc_dump(1), value 11001010, expected 11001010
-#             (70931448 ps) 
-#             (70931448 ps) ==============================================================================================
-#             (70931448 ps)   Wait the end of the science packet transfer
-#             (70931448 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (76214088 ps) Waiting event sync = '1' for 5282640 ps
-# ** Note   : (76374168 ps) Waiting event sync = '0' for 160080 ps
-# ** Note   : (81656808 ps) Waiting event sync = '1' for 5282640 ps
-# ** Note   : (81816888 ps) Waiting event sync = '0' for 160080 ps
-# ** Note   : (87099528 ps) Waiting event sync = '1' for 5282640 ps
-# ** Note   : (87259608 ps) Waiting event sync = '0' for 160080 ps
-# ** Note   : (92542248 ps) Waiting event sync = '1' for 5282640 ps
-# ** Note   : (92702328 ps) Waiting event sync = '0' for 160080 ps
-# ** Note   : (97984968 ps) Waiting event sync = '1' for 5282640 ps
-# ** Note   : (98145048 ps) Waiting event sync = '0' for 160080 ps
-# ** Note   : (103427688 ps) Waiting event sync = '1' for 5282640 ps
-# ** Note   : (103587768 ps) Waiting event sync = '0' for 160080 ps
-# ** Note   : (108870408 ps) Waiting event sync = '1' for 5282640 ps
-# ** Note   : (109030488 ps) Waiting event sync = '0' for 160080 ps
-# ** Note   : (114313128 ps) Waiting event sync = '1' for 5282640 ps
-# ** Note   : (114473208 ps) Waiting event sync = '0' for 160080 ps
-#             (114473208 ps) ==============================================================================================
-#             (114473208 ps)   Check the science packet type currently transfered
-#             (114473208 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (114473208 ps) Check science packet type: PASS
-# ** Note   : (114473208 ps)  * Science packet type: adc_dump(2), value 11100000, expected 11100000
-#             (114473208 ps) 
-#             (114473208 ps) ==============================================================================================
-#             (114473208 ps)   Wait the end of the science packet transfer
-#             (114473208 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (119755848 ps) Waiting event sync = '1' for 5282640 ps
-# ** Note   : (119915928 ps) Waiting event sync = '0' for 160080 ps
-# ** Note   : (125198568 ps) Waiting event sync = '1' for 5282640 ps
-# ** Note   : (125358648 ps) Waiting event sync = '0' for 160080 ps
-# ** Note   : (130641288 ps) Waiting event sync = '1' for 5282640 ps
-# ** Note   : (130801368 ps) Waiting event sync = '0' for 160080 ps
-# ** Note   : (136084008 ps) Waiting event sync = '1' for 5282640 ps
-# ** Note   : (136244088 ps) Waiting event sync = '0' for 160080 ps
-# ** Note   : (141526728 ps) Waiting event sync = '1' for 5282640 ps
-# ** Note   : (141686808 ps) Waiting event sync = '0' for 160080 ps
-# ** Note   : (146969448 ps) Waiting event sync = '1' for 5282640 ps
-# ** Note   : (147129528 ps) Waiting event sync = '0' for 160080 ps
-# ** Note   : (152412168 ps) Waiting event sync = '1' for 5282640 ps
-# ** Note   : (152572248 ps) Waiting event sync = '0' for 160080 ps
-# ** Note   : (157854888 ps) Waiting event sync = '1' for 5282640 ps
-# ** Note   : (158014968 ps) Waiting event sync = '0' for 160080 ps
-#             (158014968 ps) ==============================================================================================
-#             (158014968 ps)   Check the science packet type currently transfered
-#             (158014968 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (158014968 ps) Check science packet type: PASS
-# ** Note   : (158014968 ps)  * Science packet type: adc_dump(3), value 11100010, expected 11100010
-#             (158014968 ps) 
-#             (158014968 ps) ==============================================================================================
-#             (158014968 ps)   Wait the end of the science packet transfer
-#             (158014968 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (163297608 ps) Waiting event sync = '1' for 5282640 ps
-# ** Note   : (163457688 ps) Waiting event sync = '0' for 160080 ps
-# ** Note   : (168740328 ps) Waiting event sync = '1' for 5282640 ps
-# ** Note   : (168900408 ps) Waiting event sync = '0' for 160080 ps
-# ** Note   : (174183048 ps) Waiting event sync = '1' for 5282640 ps
-# ** Note   : (174343128 ps) Waiting event sync = '0' for 160080 ps
-# ** Note   : (179625768 ps) Waiting event sync = '1' for 5282640 ps
-# ** Note   : (179785848 ps) Waiting event sync = '0' for 160080 ps
-# ** Note   : (185068488 ps) Waiting event sync = '1' for 5282640 ps
-# ** Note   : (185228568 ps) Waiting event sync = '0' for 160080 ps
-# ** Note   : (190511208 ps) Waiting event sync = '1' for 5282640 ps
-# ** Note   : (190671288 ps) Waiting event sync = '0' for 160080 ps
-# ** Note   : (195953928 ps) Waiting event sync = '1' for 5282640 ps
-# ** Note   : (196114008 ps) Waiting event sync = '0' for 160080 ps
-# ** Note   : (201396648 ps) Waiting event sync = '1' for 5282640 ps
-#             (201396648 ps) ==============================================================================================
-#             (201396648 ps)   Send command TM_MODE, Dump on channel 0, Idle on others channels
-#             (201396648 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (201396648 ps) Waiting event sync = '1' for 0 ps
-# ** Note   : (201396648 ps) Send SPI command value 8001_54XX (TM_MODE, mode Write, data 54XX)
-# ** Note   : (208896000 ps) Waiting SPI command end for 7463352 ps
-# ** Note   : (212282088 ps) Waiting event sync = '1' for 3386088 ps
-# ** Note   : (212442168 ps) Waiting event sync = '0' for 160080 ps
-# ** Note   : (217724808 ps) Waiting event sync = '1' for 5282640 ps
-# ** Note   : (217884888 ps) Waiting event sync = '0' for 160080 ps
-#             (217884888 ps) ==============================================================================================
-#             (217884888 ps)   Check the science packet type currently transfered
-#             (217884888 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (217884888 ps) Check science packet type: PASS
-# ** Note   : (217884888 ps)  * Science packet type: adc_dump(0), value 11001000, expected 11001000
-#             (217884888 ps) 
-#             (217884888 ps) ==============================================================================================
-#             (217884888 ps)   Wait the end of the science packet transfer
-#             (217884888 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (223167528 ps) Waiting event sync = '1' for 5282640 ps
-# ** Note   : (223327608 ps) Waiting event sync = '0' for 160080 ps
-# ** Note   : (228610248 ps) Waiting event sync = '1' for 5282640 ps
-# ** Note   : (228770328 ps) Waiting event sync = '0' for 160080 ps
-# ** Note   : (234052968 ps) Waiting event sync = '1' for 5282640 ps
-# ** Note   : (234213048 ps) Waiting event sync = '0' for 160080 ps
-# ** Note   : (239495688 ps) Waiting event sync = '1' for 5282640 ps
-# ** Note   : (239655768 ps) Waiting event sync = '0' for 160080 ps
-# ** Note   : (244938408 ps) Waiting event sync = '1' for 5282640 ps
-# ** Note   : (245098488 ps) Waiting event sync = '0' for 160080 ps
-# ** Note   : (250381128 ps) Waiting event sync = '1' for 5282640 ps
-# ** Note   : (250541208 ps) Waiting event sync = '0' for 160080 ps
-# ** Note   : (255823848 ps) Waiting event sync = '1' for 5282640 ps
-# ** Note   : (255983928 ps) Waiting event sync = '0' for 160080 ps
-# ** Note   : (261266568 ps) Waiting event sync = '1' for 5282640 ps
-#             (261266568 ps) ==============================================================================================
-#             (261266568 ps)   Send command TM_MODE, Dump on channel 1, Idle on others channels
-#             (261266568 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (261266568 ps) Waiting event sync = '1' for 0 ps
-# ** Note   : (261266568 ps) Send SPI command value 8001_51XX (TM_MODE, mode Write, data 51XX)
-# ** Note   : (268764000 ps) Waiting SPI command end for 7461432 ps
-# ** Note   : (272152008 ps) Waiting event sync = '1' for 3388008 ps
-# ** Note   : (272312088 ps) Waiting event sync = '0' for 160080 ps
-# ** Note   : (277594728 ps) Waiting event sync = '1' for 5282640 ps
-# ** Note   : (277754808 ps) Waiting event sync = '0' for 160080 ps
-#             (277754808 ps) ==============================================================================================
-#             (277754808 ps)   Check the science packet type currently transfered
-#             (277754808 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (277754808 ps) Check science packet type: PASS
-# ** Note   : (277754808 ps)  * Science packet type: adc_dump(1), value 11001010, expected 11001010
-#             (277754808 ps) 
-#             (277754808 ps) ==============================================================================================
-#             (277754808 ps)   Wait the end of the science packet transfer
-#             (277754808 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (283037448 ps) Waiting event sync = '1' for 5282640 ps
-# ** Note   : (283197528 ps) Waiting event sync = '0' for 160080 ps
-# ** Note   : (288480168 ps) Waiting event sync = '1' for 5282640 ps
-# ** Note   : (288640248 ps) Waiting event sync = '0' for 160080 ps
-# ** Note   : (293922888 ps) Waiting event sync = '1' for 5282640 ps
-# ** Note   : (294082968 ps) Waiting event sync = '0' for 160080 ps
-# ** Note   : (299365608 ps) Waiting event sync = '1' for 5282640 ps
-# ** Note   : (299525688 ps) Waiting event sync = '0' for 160080 ps
-# ** Note   : (304808328 ps) Waiting event sync = '1' for 5282640 ps
-# ** Note   : (304968408 ps) Waiting event sync = '0' for 160080 ps
-# ** Note   : (310251048 ps) Waiting event sync = '1' for 5282640 ps
-# ** Note   : (310411128 ps) Waiting event sync = '0' for 160080 ps
-# ** Note   : (315693768 ps) Waiting event sync = '1' for 5282640 ps
-# ** Note   : (315853848 ps) Waiting event sync = '0' for 160080 ps
-# ** Note   : (321136488 ps) Waiting event sync = '1' for 5282640 ps
-#             (321136488 ps) ==============================================================================================
-#             (321136488 ps)   Send command TM_MODE, Dump on channel 2, Idle on others channels
-#             (321136488 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (321136488 ps) Waiting event sync = '1' for 0 ps
-# ** Note   : (321136488 ps) Send SPI command value 8001_45XX (TM_MODE, mode Write, data 45XX)
-# ** Note   : (328632000 ps) Waiting SPI command end for 7459512 ps
-# ** Note   : (332021928 ps) Waiting event sync = '1' for 3389928 ps
-# ** Note   : (332182008 ps) Waiting event sync = '0' for 160080 ps
-# ** Note   : (337464648 ps) Waiting event sync = '1' for 5282640 ps
-# ** Note   : (337624728 ps) Waiting event sync = '0' for 160080 ps
-#             (337624728 ps) ==============================================================================================
-#             (337624728 ps)   Check the science packet type currently transfered
-#             (337624728 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (337624728 ps) Check science packet type: PASS
-# ** Note   : (337624728 ps)  * Science packet type: adc_dump(2), value 11100000, expected 11100000
-#             (337624728 ps) 
-#             (337624728 ps) ==============================================================================================
-#             (337624728 ps)   Wait the end of the science packet transfer
-#             (337624728 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (342907368 ps) Waiting event sync = '1' for 5282640 ps
-# ** Note   : (343067448 ps) Waiting event sync = '0' for 160080 ps
-# ** Note   : (348350088 ps) Waiting event sync = '1' for 5282640 ps
-# ** Note   : (348510168 ps) Waiting event sync = '0' for 160080 ps
-# ** Note   : (353792808 ps) Waiting event sync = '1' for 5282640 ps
-# ** Note   : (353952888 ps) Waiting event sync = '0' for 160080 ps
-# ** Note   : (359235528 ps) Waiting event sync = '1' for 5282640 ps
-# ** Note   : (359395608 ps) Waiting event sync = '0' for 160080 ps
-# ** Note   : (364678248 ps) Waiting event sync = '1' for 5282640 ps
-# ** Note   : (364838328 ps) Waiting event sync = '0' for 160080 ps
-# ** Note   : (370120968 ps) Waiting event sync = '1' for 5282640 ps
-# ** Note   : (370281048 ps) Waiting event sync = '0' for 160080 ps
-# ** Note   : (375563688 ps) Waiting event sync = '1' for 5282640 ps
-# ** Note   : (375723768 ps) Waiting event sync = '0' for 160080 ps
-# ** Note   : (381006408 ps) Waiting event sync = '1' for 5282640 ps
-#             (381006408 ps) ==============================================================================================
-#             (381006408 ps)   Send command TM_MODE, Dump on channel 3, Idle on others channels
-#             (381006408 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (381006408 ps) Waiting event sync = '1' for 0 ps
-# ** Note   : (381006408 ps) Send SPI command value 8001_15XX (TM_MODE, mode Write, data 15XX)
-# ** Note   : (388500000 ps) Waiting SPI command end for 7457592 ps
-# ** Note   : (391891848 ps) Waiting event sync = '1' for 3391848 ps
-# ** Note   : (392051928 ps) Waiting event sync = '0' for 160080 ps
-# ** Note   : (397334568 ps) Waiting event sync = '1' for 5282640 ps
-# ** Note   : (397494648 ps) Waiting event sync = '0' for 160080 ps
-#             (397494648 ps) ==============================================================================================
-#             (397494648 ps)   Check the science packet type currently transfered
-#             (397494648 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (397494648 ps) Check science packet type: PASS
-# ** Note   : (397494648 ps)  * Science packet type: adc_dump(3), value 11100010, expected 11100010
-#             (397494648 ps) 
-#             (397494648 ps) ==============================================================================================
-#             (397494648 ps)   Wait the end of the science packet transfer
-#             (397494648 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (402777288 ps) Waiting event sync = '1' for 5282640 ps
-# ** Note   : (402937368 ps) Waiting event sync = '0' for 160080 ps
-# ** Note   : (408220008 ps) Waiting event sync = '1' for 5282640 ps
-# ** Note   : (408380088 ps) Waiting event sync = '0' for 160080 ps
-# ** Note   : (413662728 ps) Waiting event sync = '1' for 5282640 ps
-# ** Note   : (413822808 ps) Waiting event sync = '0' for 160080 ps
-# ** Note   : (419105448 ps) Waiting event sync = '1' for 5282640 ps
-# ** Note   : (419265528 ps) Waiting event sync = '0' for 160080 ps
-# ** Note   : (424548168 ps) Waiting event sync = '1' for 5282640 ps
-# ** Note   : (424708248 ps) Waiting event sync = '0' for 160080 ps
-# ** Note   : (429990888 ps) Waiting event sync = '1' for 5282640 ps
-# ** Note   : (430150968 ps) Waiting event sync = '0' for 160080 ps
-# ** Note   : (435433608 ps) Waiting event sync = '1' for 5282640 ps
-# ** Note   : (435593688 ps) Waiting event sync = '0' for 160080 ps
-# ** Note   : (440876328 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (6963480 ps) Send SPI command value 0401_8000 (C0_SQ1_FB0, mode Write, data 8000)
+# ** Note   : (14460000 ps) Waiting SPI command end for 7460520 ps
+# ** Note   : (14460000 ps) Send SPI command value 0403_7FFF (C0_SQ1_FB0, mode Write, data 7FFF)
+# ** Note   : (21966000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (21966000 ps) Send SPI command value 0405_8000 (C0_SQ1_FB0, mode Write, data 8000)
+# ** Note   : (29472000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (29472000 ps) Send SPI command value 0407_7FFF (C0_SQ1_FB0, mode Write, data 7FFF)
+# ** Note   : (36978000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (36978000 ps) Send SPI command value 0409_8000 (C0_SQ1_FB0, mode Write, data 8000)
+# ** Note   : (44484000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (44484000 ps) Send SPI command value 040B_7FFF (C0_SQ1_FB0, mode Write, data 7FFF)
+# ** Note   : (51990000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (51990000 ps) Send SPI command value 040D_8000 (C0_SQ1_FB0, mode Write, data 8000)
+# ** Note   : (59496000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (59496000 ps) Send SPI command value 040F_7FFF (C0_SQ1_FB0, mode Write, data 7FFF)
+# ** Note   : (67002000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (67002000 ps) Send SPI command value 0411_8000 (C0_SQ1_FB0, mode Write, data 8000)
+# ** Note   : (74508000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (74508000 ps) Send SPI command value 0413_7FFF (C0_SQ1_FB0, mode Write, data 7FFF)
+# ** Note   : (82014000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (82014000 ps) Send SPI command value 0415_8000 (C0_SQ1_FB0, mode Write, data 8000)
+# ** Note   : (89520000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (89520000 ps) Send SPI command value 0417_7FFF (C0_SQ1_FB0, mode Write, data 7FFF)
+# ** Note   : (97026000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (97026000 ps) Send SPI command value 0419_8000 (C0_SQ1_FB0, mode Write, data 8000)
+# ** Note   : (104532000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (104532000 ps) Send SPI command value 041B_7FFF (C0_SQ1_FB0, mode Write, data 7FFF)
+# ** Note   : (112038000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (112038000 ps) Send SPI command value 041D_8000 (C0_SQ1_FB0, mode Write, data 8000)
+# ** Note   : (119544000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (119544000 ps) Send SPI command value 041F_7FFF (C0_SQ1_FB0, mode Write, data 7FFF)
+# ** Note   : (127050000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (127050000 ps) Send SPI command value 0421_8000 (C0_SQ1_FB0, mode Write, data 8000)
+# ** Note   : (134556000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (134556000 ps) Send SPI command value 0423_7FFF (C0_SQ1_FB0, mode Write, data 7FFF)
+# ** Note   : (142062000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (142062000 ps) Send SPI command value 0425_8000 (C0_SQ1_FB0, mode Write, data 8000)
+# ** Note   : (149568000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (149568000 ps) Send SPI command value 0427_7FFF (C0_SQ1_FB0, mode Write, data 7FFF)
+# ** Note   : (157074000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (157074000 ps) Send SPI command value 0429_8000 (C0_SQ1_FB0, mode Write, data 8000)
+# ** Note   : (164580000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (164580000 ps) Send SPI command value 042B_7FFF (C0_SQ1_FB0, mode Write, data 7FFF)
+# ** Note   : (172086000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (172086000 ps) Send SPI command value 042D_8000 (C0_SQ1_FB0, mode Write, data 8000)
+# ** Note   : (179592000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (179592000 ps) Send SPI command value 042F_7FFF (C0_SQ1_FB0, mode Write, data 7FFF)
+# ** Note   : (187098000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (187098000 ps) Send SPI command value 0431_8000 (C0_SQ1_FB0, mode Write, data 8000)
+# ** Note   : (194604000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (194604000 ps) Send SPI command value 0433_7FFF (C0_SQ1_FB0, mode Write, data 7FFF)
+# ** Note   : (202110000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (202110000 ps) Send SPI command value 0435_8000 (C0_SQ1_FB0, mode Write, data 8000)
+# ** Note   : (209616000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (209616000 ps) Send SPI command value 0437_7FFF (C0_SQ1_FB0, mode Write, data 7FFF)
+# ** Note   : (217122000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (217122000 ps) Send SPI command value 0439_8000 (C0_SQ1_FB0, mode Write, data 8000)
+# ** Note   : (224628000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (224628000 ps) Send SPI command value 043B_7FFF (C0_SQ1_FB0, mode Write, data 7FFF)
+# ** Note   : (232134000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (232134000 ps) Send SPI command value 043D_8000 (C0_SQ1_FB0, mode Write, data 8000)
+# ** Note   : (239640000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (239640000 ps) Send SPI command value 043F_7FFF (C0_SQ1_FB0, mode Write, data 7FFF)
+# ** Note   : (247146000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (247146000 ps) Send SPI command value 0441_8000 (C0_SQ1_FB0, mode Write, data 8000)
+# ** Note   : (254652000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (254652000 ps) Send SPI command value 0443_7FFF (C0_SQ1_FB0, mode Write, data 7FFF)
+# ** Note   : (262158000 ps) Waiting SPI command end for 7470000 ps
+#             (262158000 ps) 
+#             (262158000 ps) ==============================================================================================
+#             (262158000 ps)   Writing a new table in feedback open loop column 1 memory
+#             (262158000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (262158000 ps) Send SPI command value 2401_8000 (C1_SQ1_FB0, mode Write, data 8000)
+# ** Note   : (269664000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (269664000 ps) Send SPI command value 2403_7FFF (C1_SQ1_FB0, mode Write, data 7FFF)
+# ** Note   : (277170000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (277170000 ps) Send SPI command value 2405_8000 (C1_SQ1_FB0, mode Write, data 8000)
+# ** Note   : (284676000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (284676000 ps) Send SPI command value 2407_7FFF (C1_SQ1_FB0, mode Write, data 7FFF)
+# ** Note   : (292182000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (292182000 ps) Send SPI command value 2409_8000 (C1_SQ1_FB0, mode Write, data 8000)
+# ** Note   : (299688000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (299688000 ps) Send SPI command value 240B_7FFF (C1_SQ1_FB0, mode Write, data 7FFF)
+# ** Note   : (307194000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (307194000 ps) Send SPI command value 240D_8000 (C1_SQ1_FB0, mode Write, data 8000)
+# ** Note   : (314700000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (314700000 ps) Send SPI command value 240F_7FFF (C1_SQ1_FB0, mode Write, data 7FFF)
+# ** Note   : (322206000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (322206000 ps) Send SPI command value 2411_8000 (C1_SQ1_FB0, mode Write, data 8000)
+# ** Note   : (329712000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (329712000 ps) Send SPI command value 2413_7FFF (C1_SQ1_FB0, mode Write, data 7FFF)
+# ** Note   : (337218000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (337218000 ps) Send SPI command value 2415_8000 (C1_SQ1_FB0, mode Write, data 8000)
+# ** Note   : (344724000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (344724000 ps) Send SPI command value 2417_7FFF (C1_SQ1_FB0, mode Write, data 7FFF)
+# ** Note   : (352230000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (352230000 ps) Send SPI command value 2419_8000 (C1_SQ1_FB0, mode Write, data 8000)
+# ** Note   : (359736000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (359736000 ps) Send SPI command value 241B_7FFF (C1_SQ1_FB0, mode Write, data 7FFF)
+# ** Note   : (367242000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (367242000 ps) Send SPI command value 241D_8000 (C1_SQ1_FB0, mode Write, data 8000)
+# ** Note   : (374748000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (374748000 ps) Send SPI command value 241F_7FFF (C1_SQ1_FB0, mode Write, data 7FFF)
+# ** Note   : (382254000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (382254000 ps) Send SPI command value 2421_8000 (C1_SQ1_FB0, mode Write, data 8000)
+# ** Note   : (389760000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (389760000 ps) Send SPI command value 2423_7FFF (C1_SQ1_FB0, mode Write, data 7FFF)
+# ** Note   : (397266000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (397266000 ps) Send SPI command value 2425_8000 (C1_SQ1_FB0, mode Write, data 8000)
+# ** Note   : (404772000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (404772000 ps) Send SPI command value 2427_7FFF (C1_SQ1_FB0, mode Write, data 7FFF)
+# ** Note   : (412278000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (412278000 ps) Send SPI command value 2429_8000 (C1_SQ1_FB0, mode Write, data 8000)
+# ** Note   : (419784000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (419784000 ps) Send SPI command value 242B_7FFF (C1_SQ1_FB0, mode Write, data 7FFF)
+# ** Note   : (427290000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (427290000 ps) Send SPI command value 242D_8000 (C1_SQ1_FB0, mode Write, data 8000)
+# ** Note   : (434796000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (434796000 ps) Send SPI command value 242F_7FFF (C1_SQ1_FB0, mode Write, data 7FFF)
+# ** Note   : (442302000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (442302000 ps) Send SPI command value 2431_8000 (C1_SQ1_FB0, mode Write, data 8000)
+# ** Note   : (449808000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (449808000 ps) Send SPI command value 2433_7FFF (C1_SQ1_FB0, mode Write, data 7FFF)
+# ** Note   : (457314000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (457314000 ps) Send SPI command value 2435_8000 (C1_SQ1_FB0, mode Write, data 8000)
+# ** Note   : (464820000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (464820000 ps) Send SPI command value 2437_7FFF (C1_SQ1_FB0, mode Write, data 7FFF)
+# ** Note   : (472326000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (472326000 ps) Send SPI command value 2439_8000 (C1_SQ1_FB0, mode Write, data 8000)
+# ** Note   : (479832000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (479832000 ps) Send SPI command value 243B_7FFF (C1_SQ1_FB0, mode Write, data 7FFF)
+# ** Note   : (487338000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (487338000 ps) Send SPI command value 243D_8000 (C1_SQ1_FB0, mode Write, data 8000)
+# ** Note   : (494844000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (494844000 ps) Send SPI command value 243F_7FFF (C1_SQ1_FB0, mode Write, data 7FFF)
+# ** Note   : (502350000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (502350000 ps) Send SPI command value 2441_8000 (C1_SQ1_FB0, mode Write, data 8000)
+# ** Note   : (509856000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (509856000 ps) Send SPI command value 2443_7FFF (C1_SQ1_FB0, mode Write, data 7FFF)
+# ** Note   : (517362000 ps) Waiting SPI command end for 7470000 ps
+#             (517362000 ps) 
+#             (517362000 ps) ==============================================================================================
+#             (517362000 ps)   Writing a new table in feedback open loop column 2 memory
+#             (517362000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (517362000 ps) Send SPI command value 4401_8000 (C2_SQ1_FB0, mode Write, data 8000)
+# ** Note   : (524868000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (524868000 ps) Send SPI command value 4403_7FFF (C2_SQ1_FB0, mode Write, data 7FFF)
+# ** Note   : (532374000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (532374000 ps) Send SPI command value 4405_8000 (C2_SQ1_FB0, mode Write, data 8000)
+# ** Note   : (539880000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (539880000 ps) Send SPI command value 4407_7FFF (C2_SQ1_FB0, mode Write, data 7FFF)
+# ** Note   : (547386000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (547386000 ps) Send SPI command value 4409_8000 (C2_SQ1_FB0, mode Write, data 8000)
+# ** Note   : (554892000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (554892000 ps) Send SPI command value 440B_7FFF (C2_SQ1_FB0, mode Write, data 7FFF)
+# ** Note   : (562398000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (562398000 ps) Send SPI command value 440D_8000 (C2_SQ1_FB0, mode Write, data 8000)
+# ** Note   : (569904000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (569904000 ps) Send SPI command value 440F_7FFF (C2_SQ1_FB0, mode Write, data 7FFF)
+# ** Note   : (577410000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (577410000 ps) Send SPI command value 4411_8000 (C2_SQ1_FB0, mode Write, data 8000)
+# ** Note   : (584916000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (584916000 ps) Send SPI command value 4413_7FFF (C2_SQ1_FB0, mode Write, data 7FFF)
+# ** Note   : (592422000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (592422000 ps) Send SPI command value 4415_8000 (C2_SQ1_FB0, mode Write, data 8000)
+# ** Note   : (599928000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (599928000 ps) Send SPI command value 4417_7FFF (C2_SQ1_FB0, mode Write, data 7FFF)
+# ** Note   : (607434000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (607434000 ps) Send SPI command value 4419_8000 (C2_SQ1_FB0, mode Write, data 8000)
+# ** Note   : (614940000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (614940000 ps) Send SPI command value 441B_7FFF (C2_SQ1_FB0, mode Write, data 7FFF)
+# ** Note   : (622446000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (622446000 ps) Send SPI command value 441D_8000 (C2_SQ1_FB0, mode Write, data 8000)
+# ** Note   : (629952000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (629952000 ps) Send SPI command value 441F_7FFF (C2_SQ1_FB0, mode Write, data 7FFF)
+# ** Note   : (637458000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (637458000 ps) Send SPI command value 4421_8000 (C2_SQ1_FB0, mode Write, data 8000)
+# ** Note   : (644964000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (644964000 ps) Send SPI command value 4423_7FFF (C2_SQ1_FB0, mode Write, data 7FFF)
+# ** Note   : (652470000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (652470000 ps) Send SPI command value 4425_8000 (C2_SQ1_FB0, mode Write, data 8000)
+# ** Note   : (659976000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (659976000 ps) Send SPI command value 4427_7FFF (C2_SQ1_FB0, mode Write, data 7FFF)
+# ** Note   : (667482000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (667482000 ps) Send SPI command value 4429_8000 (C2_SQ1_FB0, mode Write, data 8000)
+# ** Note   : (674988000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (674988000 ps) Send SPI command value 442B_7FFF (C2_SQ1_FB0, mode Write, data 7FFF)
+# ** Note   : (682494000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (682494000 ps) Send SPI command value 442D_8000 (C2_SQ1_FB0, mode Write, data 8000)
+# ** Note   : (690000000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (690000000 ps) Send SPI command value 442F_7FFF (C2_SQ1_FB0, mode Write, data 7FFF)
+# ** Note   : (697506000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (697506000 ps) Send SPI command value 4431_8000 (C2_SQ1_FB0, mode Write, data 8000)
+# ** Note   : (705012000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (705012000 ps) Send SPI command value 4433_7FFF (C2_SQ1_FB0, mode Write, data 7FFF)
+# ** Note   : (712518000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (712518000 ps) Send SPI command value 4435_8000 (C2_SQ1_FB0, mode Write, data 8000)
+# ** Note   : (720024000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (720024000 ps) Send SPI command value 4437_7FFF (C2_SQ1_FB0, mode Write, data 7FFF)
+# ** Note   : (727530000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (727530000 ps) Send SPI command value 4439_8000 (C2_SQ1_FB0, mode Write, data 8000)
+# ** Note   : (735036000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (735036000 ps) Send SPI command value 443B_7FFF (C2_SQ1_FB0, mode Write, data 7FFF)
+# ** Note   : (742542000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (742542000 ps) Send SPI command value 443D_8000 (C2_SQ1_FB0, mode Write, data 8000)
+# ** Note   : (750048000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (750048000 ps) Send SPI command value 443F_7FFF (C2_SQ1_FB0, mode Write, data 7FFF)
+# ** Note   : (757554000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (757554000 ps) Send SPI command value 4441_8000 (C2_SQ1_FB0, mode Write, data 8000)
+# ** Note   : (765060000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (765060000 ps) Send SPI command value 4443_7FFF (C2_SQ1_FB0, mode Write, data 7FFF)
+# ** Note   : (772566000 ps) Waiting SPI command end for 7470000 ps
+#             (772566000 ps) 
+#             (772566000 ps) ==============================================================================================
+#             (772566000 ps)   Writing a new table in feedback open loop column 3 memory
+#             (772566000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (772566000 ps) Send SPI command value 6401_8000 (C3_SQ1_FB0, mode Write, data 8000)
+# ** Note   : (780072000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (780072000 ps) Send SPI command value 6403_7FFF (C3_SQ1_FB0, mode Write, data 7FFF)
+# ** Note   : (787578000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (787578000 ps) Send SPI command value 6405_8000 (C3_SQ1_FB0, mode Write, data 8000)
+# ** Note   : (795084000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (795084000 ps) Send SPI command value 6407_7FFF (C3_SQ1_FB0, mode Write, data 7FFF)
+# ** Note   : (802590000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (802590000 ps) Send SPI command value 6409_8000 (C3_SQ1_FB0, mode Write, data 8000)
+# ** Note   : (810096000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (810096000 ps) Send SPI command value 640B_7FFF (C3_SQ1_FB0, mode Write, data 7FFF)
+# ** Note   : (817602000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (817602000 ps) Send SPI command value 640D_8000 (C3_SQ1_FB0, mode Write, data 8000)
+# ** Note   : (825108000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (825108000 ps) Send SPI command value 640F_7FFF (C3_SQ1_FB0, mode Write, data 7FFF)
+# ** Note   : (832614000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (832614000 ps) Send SPI command value 6411_8000 (C3_SQ1_FB0, mode Write, data 8000)
+# ** Note   : (840120000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (840120000 ps) Send SPI command value 6413_7FFF (C3_SQ1_FB0, mode Write, data 7FFF)
+# ** Note   : (847626000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (847626000 ps) Send SPI command value 6415_8000 (C3_SQ1_FB0, mode Write, data 8000)
+# ** Note   : (855132000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (855132000 ps) Send SPI command value 6417_7FFF (C3_SQ1_FB0, mode Write, data 7FFF)
+# ** Note   : (862638000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (862638000 ps) Send SPI command value 6419_8000 (C3_SQ1_FB0, mode Write, data 8000)
+# ** Note   : (870144000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (870144000 ps) Send SPI command value 641B_7FFF (C3_SQ1_FB0, mode Write, data 7FFF)
+# ** Note   : (877650000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (877650000 ps) Send SPI command value 641D_8000 (C3_SQ1_FB0, mode Write, data 8000)
+# ** Note   : (885156000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (885156000 ps) Send SPI command value 641F_7FFF (C3_SQ1_FB0, mode Write, data 7FFF)
+# ** Note   : (892662000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (892662000 ps) Send SPI command value 6421_8000 (C3_SQ1_FB0, mode Write, data 8000)
+# ** Note   : (900168000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (900168000 ps) Send SPI command value 6423_7FFF (C3_SQ1_FB0, mode Write, data 7FFF)
+# ** Note   : (907674000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (907674000 ps) Send SPI command value 6425_8000 (C3_SQ1_FB0, mode Write, data 8000)
+# ** Note   : (915180000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (915180000 ps) Send SPI command value 6427_7FFF (C3_SQ1_FB0, mode Write, data 7FFF)
+# ** Note   : (922686000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (922686000 ps) Send SPI command value 6429_8000 (C3_SQ1_FB0, mode Write, data 8000)
+# ** Note   : (930192000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (930192000 ps) Send SPI command value 642B_7FFF (C3_SQ1_FB0, mode Write, data 7FFF)
+# ** Note   : (937698000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (937698000 ps) Send SPI command value 642D_8000 (C3_SQ1_FB0, mode Write, data 8000)
+# ** Note   : (945204000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (945204000 ps) Send SPI command value 642F_7FFF (C3_SQ1_FB0, mode Write, data 7FFF)
+# ** Note   : (952710000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (952710000 ps) Send SPI command value 6431_8000 (C3_SQ1_FB0, mode Write, data 8000)
+# ** Note   : (960216000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (960216000 ps) Send SPI command value 6433_7FFF (C3_SQ1_FB0, mode Write, data 7FFF)
+# ** Note   : (967722000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (967722000 ps) Send SPI command value 6435_8000 (C3_SQ1_FB0, mode Write, data 8000)
+# ** Note   : (975228000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (975228000 ps) Send SPI command value 6437_7FFF (C3_SQ1_FB0, mode Write, data 7FFF)
+# ** Note   : (982734000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (982734000 ps) Send SPI command value 6439_8000 (C3_SQ1_FB0, mode Write, data 8000)
+# ** Note   : (990240000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (990240000 ps) Send SPI command value 643B_7FFF (C3_SQ1_FB0, mode Write, data 7FFF)
+# ** Note   : (997746000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (997746000 ps) Send SPI command value 643D_8000 (C3_SQ1_FB0, mode Write, data 8000)
+# ** Note   : (1005252000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (1005252000 ps) Send SPI command value 643F_7FFF (C3_SQ1_FB0, mode Write, data 7FFF)
+# ** Note   : (1012758000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (1012758000 ps) Send SPI command value 6441_8000 (C3_SQ1_FB0, mode Write, data 8000)
+# ** Note   : (1020264000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (1020264000 ps) Send SPI command value 6443_7FFF (C3_SQ1_FB0, mode Write, data 7FFF)
+# ** Note   : (1027770000 ps) Waiting SPI command end for 7470000 ps
+#             (1027770000 ps) 
+#             (1027770000 ps) ==============================================================================================
+#             (1027770000 ps)   Send command SQ1_FB_MODE ON on all channels
+#             (1027770000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (1027770000 ps) Send SPI command value 8003_1111 (SQ1_FB_MODE, mode Write, data 1111)
+# ** Note   : (1035276000 ps) Waiting SPI command end for 7470000 ps
+#             (1035276000 ps) 
+#             (1035276000 ps) ==============================================================================================
+#             (1035276000 ps)   Send command TM_MODE, Dump on all channels
+#             (1035276000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (1039575528 ps) Waiting event sync = '1' for 4299528 ps
+# ** Note   : (1039575528 ps) Send SPI command value 8001_00XX (TM_MODE, mode Write, data 00XX)
+# ** Note   : (1047066000 ps) Waiting SPI command end for 7454472 ps
+# ** Note   : (1050460968 ps) Waiting event sync = '1' for 3394968 ps
+# ** Note   : (1050621048 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (1055903688 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (1056063768 ps) Waiting event sync = '0' for 160080 ps
+#             (1056063768 ps) ==============================================================================================
+#             (1056063768 ps)   Check the science packet type currently transfered
+#             (1056063768 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (1056063768 ps) Check science packet type: PASS
+# ** Note   : (1056063768 ps)  * Science packet type: adc_dump(0), value 11001000, expected 11001000
+#             (1056063768 ps) 
+#             (1056063768 ps) ==============================================================================================
+#             (1056063768 ps)   Wait the end of the science packet transfer
+#             (1056063768 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (1061346408 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (1061506488 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (1066789128 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (1066949208 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (1072231848 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (1072391928 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (1077674568 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (1077834648 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (1083117288 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (1083277368 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (1088560008 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (1088720088 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (1094002728 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (1094162808 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (1099445448 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (1099605528 ps) Waiting event sync = '0' for 160080 ps
+#             (1099605528 ps) ==============================================================================================
+#             (1099605528 ps)   Check the science packet type currently transfered
+#             (1099605528 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (1099605528 ps) Check science packet type: PASS
+# ** Note   : (1099605528 ps)  * Science packet type: adc_dump(1), value 11001010, expected 11001010
+#             (1099605528 ps) 
+#             (1099605528 ps) ==============================================================================================
+#             (1099605528 ps)   Wait the end of the science packet transfer
+#             (1099605528 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (1104888168 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (1105048248 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (1110330888 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (1110490968 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (1115773608 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (1115933688 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (1121216328 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (1121376408 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (1126659048 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (1126819128 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (1132101768 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (1132261848 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (1137544488 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (1137704568 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (1142987208 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (1143147288 ps) Waiting event sync = '0' for 160080 ps
+#             (1143147288 ps) ==============================================================================================
+#             (1143147288 ps)   Check the science packet type currently transfered
+#             (1143147288 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (1143147288 ps) Check science packet type: PASS
+# ** Note   : (1143147288 ps)  * Science packet type: adc_dump(2), value 11100000, expected 11100000
+#             (1143147288 ps) 
+#             (1143147288 ps) ==============================================================================================
+#             (1143147288 ps)   Wait the end of the science packet transfer
+#             (1143147288 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (1148429928 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (1148590008 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (1153872648 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (1154032728 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (1159315368 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (1159475448 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (1164758088 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (1164918168 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (1170200808 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (1170360888 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (1175643528 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (1175803608 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (1181086248 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (1181246328 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (1186528968 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (1186689048 ps) Waiting event sync = '0' for 160080 ps
+#             (1186689048 ps) ==============================================================================================
+#             (1186689048 ps)   Check the science packet type currently transfered
+#             (1186689048 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (1186689048 ps) Check science packet type: PASS
+# ** Note   : (1186689048 ps)  * Science packet type: adc_dump(3), value 11100010, expected 11100010
+#             (1186689048 ps) 
+#             (1186689048 ps) ==============================================================================================
+#             (1186689048 ps)   Wait the end of the science packet transfer
+#             (1186689048 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (1191971688 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (1192131768 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (1197414408 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (1197574488 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (1202857128 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (1203017208 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (1208299848 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (1208459928 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (1213742568 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (1213902648 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (1219185288 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (1219345368 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (1224628008 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (1224788088 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (1230070728 ps) Waiting event sync = '1' for 5282640 ps
+#             (1230070728 ps) ==============================================================================================
+#             (1230070728 ps)   Send command TM_MODE, Dump on channel 0, Idle on others channels
+#             (1230070728 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (1230070728 ps) Waiting event sync = '1' for 0 ps
+# ** Note   : (1230070728 ps) Send SPI command value 8001_54XX (TM_MODE, mode Write, data 54XX)
+# ** Note   : (1237560000 ps) Waiting SPI command end for 7453272 ps
+# ** Note   : (1240956168 ps) Waiting event sync = '1' for 3396168 ps
+# ** Note   : (1241116248 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (1246398888 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (1246558968 ps) Waiting event sync = '0' for 160080 ps
+#             (1246558968 ps) ==============================================================================================
+#             (1246558968 ps)   Check the science packet type currently transfered
+#             (1246558968 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (1246558968 ps) Check science packet type: PASS
+# ** Note   : (1246558968 ps)  * Science packet type: adc_dump(0), value 11001000, expected 11001000
+#             (1246558968 ps) 
+#             (1246558968 ps) ==============================================================================================
+#             (1246558968 ps)   Wait the end of the science packet transfer
+#             (1246558968 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (1251841608 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (1252001688 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (1257284328 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (1257444408 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (1262727048 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (1262887128 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (1268169768 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (1268329848 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (1273612488 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (1273772568 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (1279055208 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (1279215288 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (1284497928 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (1284658008 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (1289940648 ps) Waiting event sync = '1' for 5282640 ps
+#             (1289940648 ps) ==============================================================================================
+#             (1289940648 ps)   Send command TM_MODE, Dump on channel 1, Idle on others channels
+#             (1289940648 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (1289940648 ps) Waiting event sync = '1' for 0 ps
+# ** Note   : (1289940648 ps) Send SPI command value 8001_51XX (TM_MODE, mode Write, data 51XX)
+# ** Note   : (1297446000 ps) Waiting SPI command end for 7469352 ps
+# ** Note   : (1300826088 ps) Waiting event sync = '1' for 3380088 ps
+# ** Note   : (1300986168 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (1306268808 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (1306428888 ps) Waiting event sync = '0' for 160080 ps
+#             (1306428888 ps) ==============================================================================================
+#             (1306428888 ps)   Check the science packet type currently transfered
+#             (1306428888 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (1306428888 ps) Check science packet type: PASS
+# ** Note   : (1306428888 ps)  * Science packet type: adc_dump(1), value 11001010, expected 11001010
+#             (1306428888 ps) 
+#             (1306428888 ps) ==============================================================================================
+#             (1306428888 ps)   Wait the end of the science packet transfer
+#             (1306428888 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (1311711528 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (1311871608 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (1317154248 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (1317314328 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (1322596968 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (1322757048 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (1328039688 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (1328199768 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (1333482408 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (1333642488 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (1338925128 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (1339085208 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (1344367848 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (1344527928 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (1349810568 ps) Waiting event sync = '1' for 5282640 ps
+#             (1349810568 ps) ==============================================================================================
+#             (1349810568 ps)   Send command TM_MODE, Dump on channel 2, Idle on others channels
+#             (1349810568 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (1349810568 ps) Waiting event sync = '1' for 0 ps
+# ** Note   : (1349810568 ps) Send SPI command value 8001_45XX (TM_MODE, mode Write, data 45XX)
+# ** Note   : (1357314000 ps) Waiting SPI command end for 7467432 ps
+# ** Note   : (1360696008 ps) Waiting event sync = '1' for 3382008 ps
+# ** Note   : (1360856088 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (1366138728 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (1366298808 ps) Waiting event sync = '0' for 160080 ps
+#             (1366298808 ps) ==============================================================================================
+#             (1366298808 ps)   Check the science packet type currently transfered
+#             (1366298808 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (1366298808 ps) Check science packet type: PASS
+# ** Note   : (1366298808 ps)  * Science packet type: adc_dump(2), value 11100000, expected 11100000
+#             (1366298808 ps) 
+#             (1366298808 ps) ==============================================================================================
+#             (1366298808 ps)   Wait the end of the science packet transfer
+#             (1366298808 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (1371581448 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (1371741528 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (1377024168 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (1377184248 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (1382466888 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (1382626968 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (1387909608 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (1388069688 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (1393352328 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (1393512408 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (1398795048 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (1398955128 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (1404237768 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (1404397848 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (1409680488 ps) Waiting event sync = '1' for 5282640 ps
+#             (1409680488 ps) ==============================================================================================
+#             (1409680488 ps)   Send command TM_MODE, Dump on channel 3, Idle on others channels
+#             (1409680488 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (1409680488 ps) Waiting event sync = '1' for 0 ps
+# ** Note   : (1409680488 ps) Send SPI command value 8001_15XX (TM_MODE, mode Write, data 15XX)
+# ** Note   : (1417182000 ps) Waiting SPI command end for 7465512 ps
+# ** Note   : (1420565928 ps) Waiting event sync = '1' for 3383928 ps
+# ** Note   : (1420726008 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (1426008648 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (1426168728 ps) Waiting event sync = '0' for 160080 ps
+#             (1426168728 ps) ==============================================================================================
+#             (1426168728 ps)   Check the science packet type currently transfered
+#             (1426168728 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (1426168728 ps) Check science packet type: PASS
+# ** Note   : (1426168728 ps)  * Science packet type: adc_dump(3), value 11100010, expected 11100010
+#             (1426168728 ps) 
+#             (1426168728 ps) ==============================================================================================
+#             (1426168728 ps)   Wait the end of the science packet transfer
+#             (1426168728 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (1431451368 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (1431611448 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (1436894088 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (1437054168 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (1442336808 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (1442496888 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (1447779528 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (1447939608 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (1453222248 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (1453382328 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (1458664968 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (1458825048 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (1464107688 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (1464267768 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (1469550408 ps) Waiting event sync = '1' for 5282640 ps
 # ----------------------------------------------------------------------------------------------------
 # Parameters check, clock clk_science_01   
 # ----------------------------------------------------------------------------------------------------
-# Error number of clock oscillation when enable is inactive : 0, inactive parameter (no check)
+# Error number of clock oscillation when enable is inactive : 0
 # Error number of high level clock period timing :            0, expected timing: 8004 ps
 # Error number of low  level clock period timing :            0, expected timing: 8004 ps
 # Error number of clock state when enable goes to inactive :  0, expected state:  '0'
-# Error number of clock state when enable goes to active   :  0, expected state:  '1'
+# Error number of clock state when enable goes to active   :  0, expected state:  '0'
 # ----------------------------------------------------------------------------------------------------
 # Parameters check, clock clk_science_23   
 # ----------------------------------------------------------------------------------------------------
-# Error number of clock oscillation when enable is inactive : 0, inactive parameter (no check)
+# Error number of clock oscillation when enable is inactive : 0
 # Error number of high level clock period timing :            0, expected timing: 8004 ps
 # Error number of low  level clock period timing :            0, expected timing: 8004 ps
 # Error number of clock state when enable goes to inactive :  0, expected state:  '0'
-# Error number of clock state when enable goes to active   :  0, expected state:  '1'
+# Error number of clock state when enable goes to active   :  0, expected state:  '0'
 # ------------------------------------------------------------------------------------------------------------------------------------------------------
 # Error simulation time         : '0'
 # Error check discrete level    : '0'
@@ -295,7 +589,8 @@
 # Error check time              : '0'
 # Error check clocks parameters : '0'
 # Error check science packets   : '0'
+# Error check pulse shaping     : '0'
 # ------------------------------------------------------------------------------------------------------------------------------------------------------
-# Simulation time               : 510000000 ps
+# Simulation time               : 1470000000 ps
 # Simulation status             : PASS
 # ------------------------------------------------------------------------------------------------------------------------------------------------------

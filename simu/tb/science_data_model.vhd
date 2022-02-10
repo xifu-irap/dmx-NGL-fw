@@ -42,7 +42,7 @@ entity science_data_model is generic
    (     g_SIM_TIME           : time    := c_SIM_TIME_DEF                                                   ; --! Simulation time
          g_TST_NUM            : string  := c_TST_NUM_DEF                                                      --! Test number
    ); port
-   (     i_arst_n             : in     std_logic                                                            ; --! Asynchronous reset ('0' = Active, '1' = Inactive)
+   (     i_arst               : in     std_logic                                                            ; --! Asynchronous reset ('0' = Inactive, '1' = Active)
          i_clk_sq1_adc_acq    : in     std_logic                                                            ; --! SQUID1 ADC acquisition Clock
          i_clk_science        : in     std_logic                                                            ; --! Science Clock
 
@@ -74,7 +74,6 @@ type     t_mem_dump             is array (2**(c_DMP_CNT_S)-1 downto 0) of
 type     t_multi_mem_dump       is array (natural range <>) of t_mem_dump                                   ; --! Multi Dual port memory dump type
 signal   mem_dump             : t_multi_mem_dump(0 to c_NB_COL-1)                                           ; --! Multi Dual port memory dump
 
-signal   arst                 : std_logic                                                                   ; --! Asynchronous reset ('0' = Inactive, '1' = Active)
 signal   sync_r               : std_logic_vector(c_ADC_DATA_NPER-2 downto 0)                                ; --! Pixel sequence sync. register (R.E. detected = position sequence to the first pixel)
 signal   sync_re_adc_data     : std_logic                                                                   ; --! Pixel sequence synchronization, rising edge, synchronized on ADC data first pixel
 
@@ -105,11 +104,6 @@ signal   science_data_rdy_r   : std_logic                                       
 begin
 
    -- ------------------------------------------------------------------------------------------------------
-   --!   Reset generation
-   -- ------------------------------------------------------------------------------------------------------
-   arst <= not(i_arst_n);
-
-   -- ------------------------------------------------------------------------------------------------------
    --!   Select adc data channel according to dump telemetry mode
    -- ------------------------------------------------------------------------------------------------------
    tm_mode_dmp_or(0)       <= tm_mode_dmp_cmp(0);
@@ -138,10 +132,10 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   Signals registered
    -- ------------------------------------------------------------------------------------------------------
-   P_reg : process (arst, i_clk_sq1_adc_acq)
+   P_reg : process (i_arst, i_clk_sq1_adc_acq)
    begin
 
-      if arst = '1' then
+      if i_arst = '1' then
          sync_r               <= (others => c_I_SYNC_DEF);
          sync_re_adc_data     <= '0';
          tm_mode_dmp_cmp_last <= (others => '0');
@@ -162,10 +156,10 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   ADC acquisition counter words
    -- ------------------------------------------------------------------------------------------------------
-   P_mem_dump_adc_cnt_w : process (arst, i_clk_sq1_adc_acq)
+   P_mem_dump_adc_cnt_w : process (i_arst, i_clk_sq1_adc_acq)
    begin
 
-      if arst = '1' then
+      if i_arst = '1' then
          mem_dump_adc_cnt_w   <= (others => '1');
 
       elsif rising_edge(i_clk_sq1_adc_acq) then
@@ -218,10 +212,10 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   Memory Dump, science side: address
    -- ------------------------------------------------------------------------------------------------------
-   P_mem_dump_sc_add : process (arst, i_clk_science)
+   P_mem_dump_sc_add : process (i_arst, i_clk_science)
    begin
 
-      if arst = '1' then
+      if i_arst = '1' then
          science_data_rdy_r   <= '0';
          mem_dump_sc_add      <= (others => '0');
 
@@ -254,7 +248,7 @@ begin
    --!   Science data receipt
    -- ------------------------------------------------------------------------------------------------------
    I_science_data_rx: entity work.science_data_rx port map
-   (     i_rst                => arst                 , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+   (     i_rst                => i_arst               , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk_science        => i_clk_science        , -- in     std_logic                                 ; --! Science Clock
 
          i_science_data_ser   => science_data_ser     , -- in     slv(c_NB_COL*c_SC_DATA_SER_NB+1 downto 0) ; --! Science Data – Serial Data

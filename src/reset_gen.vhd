@@ -30,7 +30,7 @@ use     ieee.std_logic_1164.all;
 entity reset_gen is generic
    (     g_FF_RESET_NB        : integer                                                                       --! Flip-Flop number used for generated reset
    ); port
-   (     i_arst_n             : in     std_logic                                                            ; --! Asynchronous reset ('0' = Active, '1' = Inactive)
+   (     i_arst               : in     std_logic                                                            ; --! Asynchronous reset ('0' = Inactive, '1' = Active)
          i_clock              : in     std_logic                                                            ; --! Clock
          i_ck_rdy             : in     std_logic                                                            ; --! Clock ready ('0' = Not ready, '1' = Ready)
 
@@ -45,10 +45,10 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   Reset generation
    -- ------------------------------------------------------------------------------------------------------
-   P_reset : process (i_arst_n, i_clock)
+   P_reset : process (i_arst, i_clock)
    begin
 
-      if i_arst_n = '0' then
+      if i_arst = '1' then
          reset <= (others => '1');
 
       elsif rising_edge(i_clock) then

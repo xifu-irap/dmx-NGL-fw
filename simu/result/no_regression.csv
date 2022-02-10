@@ -10,3 +10,7 @@ DRE_DMX_UT_0080;ADC Power Down and ADC clock signals behavior;PASS
 DRE_DMX_UT_0090;DAC Sleep and DAC clock signals behavior;PASS
 DRE_DMX_UT_0100;EP command, SQ2_FB_MODE register;PASS
 DRE_DMX_UT_0110;ADC Dump on science data telemetry;PASS
+DRE_DMX_UT_0120;EP command, CY_SQ1_FB0 memory;PASS
+DRE_DMX_UT_0130;EP command, CY_SQ1_FB_MODE memory;PASS
+DRE_DMX_UT_0140;EP command, CY_FB1_PULSE_SHAPING memory;PASS
+DRE_DMX_UT_0150;DAC in open Loop mode with different pulse shapings;PASS

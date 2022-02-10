@@ -3,7 +3,7 @@ COMM   Test: ADC Dump on science data telemetry
 COMM **********************************************************************************************
 COMM
 COMM ==============================================================================================
-COMM   Enable Squid1 ADC/DAC clocks reports display
+COMM   Enable Science clocks reports display
 COMM ----------------------------------------------------------------------------------------------
 CCPE clk_science_01
 CCPE clk_science_23
@@ -23,6 +23,163 @@ COMM ===========================================================================
 COMM   Wait internal reset deactivated
 COMM ----------------------------------------------------------------------------------------------
 WUDI rst 0
+COMM
+COMM ==============================================================================================
+COMM   Writing a new table in feedback open loop column 0 memory
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-C0_SQ1_FB0(0)-8000 W
+WCMD W-C0_SQ1_FB0(1)-7FFF W
+WCMD W-C0_SQ1_FB0(2)-8000 W
+WCMD W-C0_SQ1_FB0(3)-7FFF W
+WCMD W-C0_SQ1_FB0(4)-8000 W
+WCMD W-C0_SQ1_FB0(5)-7FFF W
+WCMD W-C0_SQ1_FB0(6)-8000 W
+WCMD W-C0_SQ1_FB0(7)-7FFF W
+WCMD W-C0_SQ1_FB0(8)-8000 W
+WCMD W-C0_SQ1_FB0(9)-7FFF W
+WCMD W-C0_SQ1_FB0(10)-8000 W
+WCMD W-C0_SQ1_FB0(11)-7FFF W
+WCMD W-C0_SQ1_FB0(12)-8000 W
+WCMD W-C0_SQ1_FB0(13)-7FFF W
+WCMD W-C0_SQ1_FB0(14)-8000 W
+WCMD W-C0_SQ1_FB0(15)-7FFF W
+WCMD W-C0_SQ1_FB0(16)-8000 W
+WCMD W-C0_SQ1_FB0(17)-7FFF W
+WCMD W-C0_SQ1_FB0(18)-8000 W
+WCMD W-C0_SQ1_FB0(19)-7FFF W
+WCMD W-C0_SQ1_FB0(20)-8000 W
+WCMD W-C0_SQ1_FB0(21)-7FFF W
+WCMD W-C0_SQ1_FB0(22)-8000 W
+WCMD W-C0_SQ1_FB0(23)-7FFF W
+WCMD W-C0_SQ1_FB0(24)-8000 W
+WCMD W-C0_SQ1_FB0(25)-7FFF W
+WCMD W-C0_SQ1_FB0(26)-8000 W
+WCMD W-C0_SQ1_FB0(27)-7FFF W
+WCMD W-C0_SQ1_FB0(28)-8000 W
+WCMD W-C0_SQ1_FB0(29)-7FFF W
+WCMD W-C0_SQ1_FB0(30)-8000 W
+WCMD W-C0_SQ1_FB0(31)-7FFF W
+WCMD W-C0_SQ1_FB0(32)-8000 W
+WCMD W-C0_SQ1_FB0(33)-7FFF W
+COMM
+COMM ==============================================================================================
+COMM   Writing a new table in feedback open loop column 1 memory
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-C1_SQ1_FB0(0)-8000 W
+WCMD W-C1_SQ1_FB0(1)-7FFF W
+WCMD W-C1_SQ1_FB0(2)-8000 W
+WCMD W-C1_SQ1_FB0(3)-7FFF W
+WCMD W-C1_SQ1_FB0(4)-8000 W
+WCMD W-C1_SQ1_FB0(5)-7FFF W
+WCMD W-C1_SQ1_FB0(6)-8000 W
+WCMD W-C1_SQ1_FB0(7)-7FFF W
+WCMD W-C1_SQ1_FB0(8)-8000 W
+WCMD W-C1_SQ1_FB0(9)-7FFF W
+WCMD W-C1_SQ1_FB0(10)-8000 W
+WCMD W-C1_SQ1_FB0(11)-7FFF W
+WCMD W-C1_SQ1_FB0(12)-8000 W
+WCMD W-C1_SQ1_FB0(13)-7FFF W
+WCMD W-C1_SQ1_FB0(14)-8000 W
+WCMD W-C1_SQ1_FB0(15)-7FFF W
+WCMD W-C1_SQ1_FB0(16)-8000 W
+WCMD W-C1_SQ1_FB0(17)-7FFF W
+WCMD W-C1_SQ1_FB0(18)-8000 W
+WCMD W-C1_SQ1_FB0(19)-7FFF W
+WCMD W-C1_SQ1_FB0(20)-8000 W
+WCMD W-C1_SQ1_FB0(21)-7FFF W
+WCMD W-C1_SQ1_FB0(22)-8000 W
+WCMD W-C1_SQ1_FB0(23)-7FFF W
+WCMD W-C1_SQ1_FB0(24)-8000 W
+WCMD W-C1_SQ1_FB0(25)-7FFF W
+WCMD W-C1_SQ1_FB0(26)-8000 W
+WCMD W-C1_SQ1_FB0(27)-7FFF W
+WCMD W-C1_SQ1_FB0(28)-8000 W
+WCMD W-C1_SQ1_FB0(29)-7FFF W
+WCMD W-C1_SQ1_FB0(30)-8000 W
+WCMD W-C1_SQ1_FB0(31)-7FFF W
+WCMD W-C1_SQ1_FB0(32)-8000 W
+WCMD W-C1_SQ1_FB0(33)-7FFF W
+COMM
+COMM ==============================================================================================
+COMM   Writing a new table in feedback open loop column 2 memory
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-C2_SQ1_FB0(0)-8000 W
+WCMD W-C2_SQ1_FB0(1)-7FFF W
+WCMD W-C2_SQ1_FB0(2)-8000 W
+WCMD W-C2_SQ1_FB0(3)-7FFF W
+WCMD W-C2_SQ1_FB0(4)-8000 W
+WCMD W-C2_SQ1_FB0(5)-7FFF W
+WCMD W-C2_SQ1_FB0(6)-8000 W
+WCMD W-C2_SQ1_FB0(7)-7FFF W
+WCMD W-C2_SQ1_FB0(8)-8000 W
+WCMD W-C2_SQ1_FB0(9)-7FFF W
+WCMD W-C2_SQ1_FB0(10)-8000 W
+WCMD W-C2_SQ1_FB0(11)-7FFF W
+WCMD W-C2_SQ1_FB0(12)-8000 W
+WCMD W-C2_SQ1_FB0(13)-7FFF W
+WCMD W-C2_SQ1_FB0(14)-8000 W
+WCMD W-C2_SQ1_FB0(15)-7FFF W
+WCMD W-C2_SQ1_FB0(16)-8000 W
+WCMD W-C2_SQ1_FB0(17)-7FFF W
+WCMD W-C2_SQ1_FB0(18)-8000 W
+WCMD W-C2_SQ1_FB0(19)-7FFF W
+WCMD W-C2_SQ1_FB0(20)-8000 W
+WCMD W-C2_SQ1_FB0(21)-7FFF W
+WCMD W-C2_SQ1_FB0(22)-8000 W
+WCMD W-C2_SQ1_FB0(23)-7FFF W
+WCMD W-C2_SQ1_FB0(24)-8000 W
+WCMD W-C2_SQ1_FB0(25)-7FFF W
+WCMD W-C2_SQ1_FB0(26)-8000 W
+WCMD W-C2_SQ1_FB0(27)-7FFF W
+WCMD W-C2_SQ1_FB0(28)-8000 W
+WCMD W-C2_SQ1_FB0(29)-7FFF W
+WCMD W-C2_SQ1_FB0(30)-8000 W
+WCMD W-C2_SQ1_FB0(31)-7FFF W
+WCMD W-C2_SQ1_FB0(32)-8000 W
+WCMD W-C2_SQ1_FB0(33)-7FFF W
+COMM
+COMM ==============================================================================================
+COMM   Writing a new table in feedback open loop column 3 memory
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-C3_SQ1_FB0(0)-8000 W
+WCMD W-C3_SQ1_FB0(1)-7FFF W
+WCMD W-C3_SQ1_FB0(2)-8000 W
+WCMD W-C3_SQ1_FB0(3)-7FFF W
+WCMD W-C3_SQ1_FB0(4)-8000 W
+WCMD W-C3_SQ1_FB0(5)-7FFF W
+WCMD W-C3_SQ1_FB0(6)-8000 W
+WCMD W-C3_SQ1_FB0(7)-7FFF W
+WCMD W-C3_SQ1_FB0(8)-8000 W
+WCMD W-C3_SQ1_FB0(9)-7FFF W
+WCMD W-C3_SQ1_FB0(10)-8000 W
+WCMD W-C3_SQ1_FB0(11)-7FFF W
+WCMD W-C3_SQ1_FB0(12)-8000 W
+WCMD W-C3_SQ1_FB0(13)-7FFF W
+WCMD W-C3_SQ1_FB0(14)-8000 W
+WCMD W-C3_SQ1_FB0(15)-7FFF W
+WCMD W-C3_SQ1_FB0(16)-8000 W
+WCMD W-C3_SQ1_FB0(17)-7FFF W
+WCMD W-C3_SQ1_FB0(18)-8000 W
+WCMD W-C3_SQ1_FB0(19)-7FFF W
+WCMD W-C3_SQ1_FB0(20)-8000 W
+WCMD W-C3_SQ1_FB0(21)-7FFF W
+WCMD W-C3_SQ1_FB0(22)-8000 W
+WCMD W-C3_SQ1_FB0(23)-7FFF W
+WCMD W-C3_SQ1_FB0(24)-8000 W
+WCMD W-C3_SQ1_FB0(25)-7FFF W
+WCMD W-C3_SQ1_FB0(26)-8000 W
+WCMD W-C3_SQ1_FB0(27)-7FFF W
+WCMD W-C3_SQ1_FB0(28)-8000 W
+WCMD W-C3_SQ1_FB0(29)-7FFF W
+WCMD W-C3_SQ1_FB0(30)-8000 W
+WCMD W-C3_SQ1_FB0(31)-7FFF W
+WCMD W-C3_SQ1_FB0(32)-8000 W
+WCMD W-C3_SQ1_FB0(33)-7FFF W
+COMM
+COMM ==============================================================================================
+COMM   Send command SQ1_FB_MODE ON on all channels
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-SQ1_FB_MODE-1111 W
 COMM
 COMM ==============================================================================================
 COMM   Send command TM_MODE, Dump on all channels

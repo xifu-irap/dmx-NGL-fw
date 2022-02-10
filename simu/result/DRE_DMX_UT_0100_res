@@ -291,7 +291,7 @@
 #             (232206000 ps) 
 #             (232206000 ps) ==============================================================================================
 #             (232206000 ps)   Check SQ2_FB_MODE content:
-#             (232206000 ps)   Col(3)->Test pattern, Col(2)->Open loop, Col(1)->Close loop, Col(0)->Off 
+#             (232206000 ps)   Col(3)->Test pattern, Col(2)->Open loop, Col(1)->Close loop, Col(0)->Off
 #             (232206000 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (232224000 ps) Check command return: PASS
 # ** Note   : (232224000 ps)  * Read 8004_3120, expected value 8004_3120 (SQ2_FB_MODE, mode Read, data 3120)
@@ -343,6 +343,7 @@
 # Error check time              : '0'
 # Error check clocks parameters : '0'
 # Error check science packets   : '0'
+# Error check pulse shaping     : '0'
 # ------------------------------------------------------------------------------------------------------------------------------------------------------
 # Simulation time               : 278000000 ps
 # Simulation status             : PASS

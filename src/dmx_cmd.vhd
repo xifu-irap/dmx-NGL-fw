@@ -40,19 +40,22 @@ entity dmx_cmd is port
          i_sync_rs            : in     std_logic                                                            ; --! Pixel sequence synchronization, synchronized on System Clock
 
          i_tm_mode            : in     t_rg_tm_mode(0 to c_NB_COL-1)                                        ; --! Telemetry mode
-         i_sq1_fb_mode        : in     t_rg_sq1fbmd(0 to c_NB_COL-1)                                        ; --! Squid 1 Feedback mode
+         i_sq1_fb_mode        : in     t_rg_sq1fbmd(0 to c_NB_COL-1)                                        ; --! Squid 1 Feedback mode (on/off)
          i_sq2_fb_mode        : in     t_rg_sq2fbmd(0 to c_NB_COL-1)                                        ; --! Squid 2 Feedback mode
 
          o_sync_re            : out    std_logic                                                            ; --! Pixel sequence synchronization, rising edge
 
-         o_tm_mode_sync       : out    std_logic                                                            ; --! Telemetry mode synchronization
-         o_cmd_ck_sq1_adc     : out    std_logic_vector(c_NB_COL-1 downto 0)                                ; --! SQUID1 ADC Clocks switch commands
-         o_cmd_ck_sq1_dac     : out    std_logic_vector(c_NB_COL-1 downto 0)                                  --! SQUID1 DAC Clocks switch commands
+         o_cmd_ck_s1_adc_ena  : out    std_logic_vector(c_NB_COL-1 downto 0)                                ; --! SQUID1 ADC Clocks switch commands enable  ('0' = Inactive, '1' = Active)
+         o_cmd_ck_s1_adc_dis  : out    std_logic_vector(c_NB_COL-1 downto 0)                                ; --! SQUID1 ADC Clocks switch commands disable ('0' = Inactive, '1' = Active)
+         o_cmd_ck_s1_dac_ena  : out    std_logic_vector(c_NB_COL-1 downto 0)                                ; --! SQUID1 DAC Clocks switch commands enable  ('0' = Inactive, '1' = Active)
+         o_cmd_ck_s1_dac_dis  : out    std_logic_vector(c_NB_COL-1 downto 0)                                ; --! SQUID1 DAC Clocks switch commands disable ('0' = Inactive, '1' = Active)
+
+         o_tm_mode_sync       : out    std_logic                                                              --! Telemetry mode synchronization
    );
 end entity dmx_cmd;
 
 architecture RTL of dmx_cmd is
-constant c_CK_PLS_CNT_MAX_VAL : integer:= (c_PIXEL_ADC_NB_CYC * c_CLK_MULT / c_CLK_ADC_MULT) - 2            ; --! System clock pulse counter: maximal value
+constant c_CK_PLS_CNT_MAX_VAL : integer:= (c_PIXEL_ADC_NB_CYC * c_CLK_MULT / c_CLK_ADC_DAC_MULT) - 2        ; --! System clock pulse counter: maximal value
 constant c_CK_PLS_CNT_S       : integer:= log2_ceil(c_CK_PLS_CNT_MAX_VAL+1)+1                               ; --! System clock pulse counter: size bus (signed)
 
 constant c_PIXEL_POS_MAX_VAL  : integer:= c_MUX_FACT - 1                                                    ; --! Pixel position: maximal value
@@ -70,6 +73,9 @@ begin
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Pixel sequence management
+   --    @Req : DRE-DMX-FW-REQ-0080
+   --    @Req : DRE-DMX-FW-REQ-0090
+   --    @Req : DRE-DMX-FW-REQ-0130
    -- ------------------------------------------------------------------------------------------------------
    P_pixel_seq : process (i_rst, i_clk)
    begin
@@ -114,7 +120,7 @@ begin
 
    end process P_pixel_seq;
 
-   o_sync_re      <= sync_re;
+   o_sync_re <= sync_re;
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Command switch clocks
@@ -132,25 +138,38 @@ begin
       begin
 
          if i_rst = '1' then
-            o_cmd_ck_sq1_adc(k) <= '0';
-            o_cmd_ck_sq1_dac(k) <= '0';
+            o_cmd_ck_s1_adc_ena(k) <= '0';
+            o_cmd_ck_s1_adc_dis(k) <= '0';
+
+            o_cmd_ck_s1_dac_ena(k) <= '0';
+            o_cmd_ck_s1_dac_dis(k) <= '0';
 
          elsif rising_edge(i_clk) then
-            if cmd_ck_sq1_adc_ena(k) = '1' and ck_pls_cnt(ck_pls_cnt'high) = '1' and pixel_pos = std_logic_vector(to_signed(c_PIX_POS_SW_ON, pixel_pos'length)) then
-               o_cmd_ck_sq1_adc(k) <= '1';
+            if pixel_pos = std_logic_vector(to_signed(c_PIX_POS_SW_ON, pixel_pos'length)) then
+               o_cmd_ck_s1_adc_ena(k) <= cmd_ck_sq1_adc_ena(k) and ck_pls_cnt(ck_pls_cnt'high);
 
-            elsif cmd_ck_sq1_adc_ena(k) = '0' and ck_pls_cnt(ck_pls_cnt'high) = '1' and pixel_pos = std_logic_vector(to_signed(c_PIX_POS_SW_ADC_OFF, pixel_pos'length)) then
-               o_cmd_ck_sq1_adc(k) <= '0';
+            else
+               o_cmd_ck_s1_adc_ena(k) <= '0';
+
+            end if;
+
+            if pixel_pos = std_logic_vector(to_signed(c_PIX_POS_SW_ADC_OFF, pixel_pos'length)) then
+               o_cmd_ck_s1_adc_dis(k) <= not(cmd_ck_sq1_adc_ena(k)) and ck_pls_cnt(ck_pls_cnt'high);
+
+            else
+               o_cmd_ck_s1_adc_dis(k) <= '0';
 
             end if;
 
-            if cmd_ck_sq1_dac_ena(k) = '1' and ck_pls_cnt(ck_pls_cnt'high) = '1' and pixel_pos = std_logic_vector(to_signed(c_PIX_POS_SW_ON, pixel_pos'length)) then
-               o_cmd_ck_sq1_dac(k) <= '1';
+            if pixel_pos = std_logic_vector(to_signed(c_PIX_POS_SW_ON, pixel_pos'length)) then
+               o_cmd_ck_s1_dac_ena(k) <= cmd_ck_sq1_dac_ena(k) and ck_pls_cnt(ck_pls_cnt'high);
 
-            elsif cmd_ck_sq1_dac_ena(k) = '0' and sync_re = '1' then
-               o_cmd_ck_sq1_dac(k) <= '0';
+            else
+               o_cmd_ck_s1_dac_ena(k) <= '0';
 
             end if;
+
+            o_cmd_ck_s1_dac_dis(k) <= not(cmd_ck_sq1_dac_ena(k)) and sync_re;
 
          end if;
 

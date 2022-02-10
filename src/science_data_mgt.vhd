@@ -55,7 +55,7 @@ entity science_data_mgt is port
 end entity science_data_mgt;
 
 architecture RTL of science_data_mgt is
-constant c_LD_DMP_CNT_NB_VAL  : integer:= c_SC_DATA_SER_W_S                                                 ; --! Pre-load ADC words in dump mode counter: number of value
+constant c_LD_DMP_CNT_NB_VAL  : integer:= c_SC_DATA_SER_W_S+2                                               ; --! Pre-load ADC words in dump mode counter: number of value
 constant c_LD_DMP_CNT_MAX_VAL : integer:= c_LD_DMP_CNT_NB_VAL-1                                             ; --! Pre-load ADC words in dump mode counter: maximal value
 constant c_LD_DMP_CNT_S       : integer:= log2_ceil(c_LD_DMP_CNT_MAX_VAL + 1) + 1                           ; --! Pre-load ADC words in dump mode counter: size bus (signed)
 
@@ -86,7 +86,7 @@ signal   sq1_data_sc_rdy_all  : std_logic                                       
 
 signal   ld_dmp_cnt           : std_logic_vector(c_LD_DMP_CNT_S-1 downto 0)                                 ; --! Pre-load ADC words in dump mode counter
 signal   sc_w_cnt             : std_logic_vector(c_SC_W_CNT_S  -1 downto 0)                                 ; --! Science data word for dump counter
-signal   sc_w_cnt_msb_r       : std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0)                              ; --! Science data word for dump counter msb register
+signal   sc_w_cnt_msb_r       : std_logic_vector(c_LD_DMP_CNT_NB_VAL-1 downto 0)                            ; --! Science data word for dump counter msb register
 
 signal   ctrl_first_pkt       : std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0)                              ; --! Control first packet value
 signal   ctrl_pkt             : std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0)                              ; --! Control packet value
@@ -116,7 +116,7 @@ begin
             if i_sq1_mem_dump_bsy(k) = '1' then
                adc_dump_ena(k) <= '1';
 
-            elsif sc_w_cnt(sc_w_cnt'high) = '1' then
+            elsif sc_w_cnt_msb_r(0) = '1' then
                adc_dump_ena(k) <= '0';
 
             end if;
@@ -306,7 +306,7 @@ begin
              (not(adc_dump_ena_or(adc_dump_ena_or'high)) and sq1_data_sc_fst_or(sq1_data_sc_fst_or'high))) = '1' then
             ctrl_pkt <= ctrl_first_pkt;
 
-         elsif adc_dump_ena_or(adc_dump_ena_or'high) = '1' and sc_w_cnt = std_logic_vector(to_unsigned(0, sc_w_cnt'length)) then
+         elsif adc_dump_ena_or(adc_dump_ena_or'high) = '1' and sc_w_cnt(sc_w_cnt'high) = '1' then
             ctrl_pkt <= c_SC_CTRL_EOD;
 
          elsif (not(adc_dump_ena_or(adc_dump_ena_or'high)) and sq1_data_sc_lst_or(sq1_data_sc_lst_or'high)) = '1' then
@@ -325,6 +325,7 @@ begin
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Science data management
+   --    @Req : DRE-DMX-FW-REQ-0580
    -- ------------------------------------------------------------------------------------------------------
    G_science_data : for k in 0 to c_NB_COL-1 generate
    begin

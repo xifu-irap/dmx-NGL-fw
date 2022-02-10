@@ -47,15 +47,18 @@ constant c_FF_RST_SQ1_DAC_NB  : integer   := 5                                  
 constant c_FF_RST_SQ1_ADC_NB  : integer   := 5                                                              ; --! Flip-Flop number used for internal reset: ADC Clock
 constant c_FF_RSYNC_NB        : integer   := 2                                                              ; --! Flip-Flop number used for FPGA input resynchronization
 
+constant c_MEM_RD_DATA_NPER   : integer   := 2                                                              ; --! Clock period number for accessing memory data output
+
 constant c_CLK_REF_MULT       : integer   := 1                                                              ; --! Reference Clock multiplier frequency factor
 constant c_CLK_MULT           : integer   := 1                                                              ; --! System Clock multiplier frequency factor
-constant c_CLK_ADC_MULT       : integer   := 2                                                              ; --! ADC Clock multiplier frequency factor
-constant c_CLK_DAC_MULT       : integer   := 2                                                              ; --! DAC Clock multiplier frequency factor
+constant c_CLK_ADC_DAC_MULT   : integer   := 2                                                              ; --! ADC/DAC Clock multiplier frequency factor
+constant c_CLK_DAC_OUT_MULT   : integer   := 4                                                              ; --! DAC output Clock multiplier frequency factor
 
    -- ------------------------------------------------------------------------------------------------------
    --  c_PLL_MAIN_VCO_MULT conditions to respect:
    --    - NG-LARGE:
-   --       * Must be a common multiplier with c_CLK_REF_MULT, c_CLK_ADC_MULT, c_CLK_DAC_MULT and c_CLK_MULT
+   --       * Must be a common multiplier with c_CLK_REF_MULT, c_CLK_ADC_DAC_MULT, c_CLK_DAC_OUT_MULT
+   --          and c_CLK_MULT
    --       * Vco frequency range : 200 MHz <= c_PLL_MAIN_VCO_MULT * c_CLK_COM_FREQ    <= 800 MHz
    --       * WFG pattern size    :            c_PLL_MAIN_VCO_MULT/  c_CLK_REF_MULT    <= 16
    -- ------------------------------------------------------------------------------------------------------
@@ -64,8 +67,8 @@ constant c_PLL_MAIN_VCO_MULT  : integer   := 12                                 
 constant c_CLK_COM_FREQ       : integer   := 62500000                                                       ; --! Clock frequency common to main clocks (Hz)
 constant c_CLK_REF_FREQ       : integer   := c_CLK_REF_MULT      * c_CLK_COM_FREQ                           ; --! Reference Clock frequency (Hz)
 constant c_CLK_FREQ           : integer   := c_CLK_MULT          * c_CLK_COM_FREQ                           ; --! System Clock frequency (Hz)
-constant c_CLK_ADC_FREQ       : integer   := c_CLK_ADC_MULT      * c_CLK_COM_FREQ                           ; --! ADC Clock frequency (Hz)
-constant c_CLK_DAC_FREQ       : integer   := c_CLK_DAC_MULT      * c_CLK_COM_FREQ                           ; --! DAC Clock frequency (Hz)
+constant c_CLK_ADC_FREQ       : integer   := c_CLK_ADC_DAC_MULT  * c_CLK_COM_FREQ                           ; --! ADC/DAC Clock frequency (Hz)
+constant c_CLK_DAC_OUT_FREQ   : integer   := c_CLK_DAC_OUT_MULT  * c_CLK_COM_FREQ                           ; --! DAC output Clock frequency (Hz)
 constant c_PLL_MAIN_VCO_FREQ  : integer   := c_PLL_MAIN_VCO_MULT * c_CLK_COM_FREQ                           ; --! PLL main VCO frequency (Hz)
 
 constant c_CLK_ADC_DEL_STEP   : integer   := div_floor(15*10**5/(c_CLK_ADC_FREQ/10**6) - 4400,c_IO_DEL_STEP); --! ADC Clock propagation delay step number
@@ -120,6 +123,8 @@ constant c_I_SYNC_DEF         : std_logic := '1'                                
 constant c_CMD_CK_SQ1_ADC_DEF : std_logic := '0'                                                            ; --! SQUID1 ADC clock switch command default value at reset
 constant c_CMD_CK_SQ1_DAC_DEF : std_logic := '0'                                                            ; --! SQUID1 DAC clock switch command default value at reset
 
+constant c_MEM_STR_ADD_PP_DEF : std_logic := '0'                                                            ; --! Memory storage parameters, ping-pong buffer bit for address default value at reset
+
    -- ------------------------------------------------------------------------------------------------------
    --    Project parameters
    --    @Req : DRE-DMX-FW-REQ-0070
@@ -131,32 +136,48 @@ constant c_DMP_SEQ_ACQ_NB     : integer   := 2                                  
 
 constant c_SQ1_DATA_ERR_S     : integer   := 18                                                             ; --! SQUID1 Data error bus size
 constant c_SQ1_DATA_FBK_S     : integer   := 16                                                             ; --! SQUID1 Data feedback bus size (<= c_MULT_ALU_PORTB_S-1)
-constant c_SQ1_PLS_SHP_A_EXP  : integer   := 16                                                             ; --! Pulse shaping: Filter exponent parameter (<=c_MULT_ALU_PORTC_S-c_SQ1_PLS_SHP_X_K_S-1)
+constant c_SQ1_PLS_SHP_A_EXP  : integer   := c_EP_SPI_WD_S                                                  ; --! Pulse shaping: Filter exponent parameter (<=c_MULT_ALU_PORTC_S-c_SQ1_PLS_SHP_X_K_S-1)
 
 constant c_PIX_POS_SW_ON      : integer   := 2                                                              ; --! Pixel position for command switch clocks on
 constant c_PIX_POS_SW_ADC_OFF : integer   := c_MUX_FACT - 1                                                 ; --! Pixel position for command ADC switch clocks off
+
+constant c_MUX_FACT_S         : integer   := log2_ceil(c_MUX_FACT)                                          ; --! DEMUX: multiplexing factor bus size
 
    -- ------------------------------------------------------------------------------------------------------
    --    SQUID1 ADC parameters
    --    @Req : DRE-DMX-FW-REQ-0130
    -- ------------------------------------------------------------------------------------------------------
-constant c_PIXEL_ADC_NB_CYC   : integer   := 20                                                             ; --! ADC clock period number allocated to one pixel acquisition
-constant c_ADC_DATA_NPER      : integer   := 12                                                             ; --! ADC clock period number between the acquisition start and data output by the ADC
+constant c_PIXEL_ADC_NB_CYC   : integer := 20                                                               ; --! ADC clock period number allocated to one pixel acquisition
+constant c_ADC_DATA_NPER      : integer := 12                                                               ; --! ADC clock period number between the acquisition start and data output by the ADC
 
-constant c_ADC_SYNC_RDY_NPER  : integer   := (c_FF_RSYNC_NB - 1)*(c_CLK_ADC_MULT/c_CLK_MULT) + c_FF_RSYNC_NB; --! ADC clock period number for getting pixel sequence synchronization, synchronized
-constant c_ADC_DATA_RDY_NPER  : integer   := c_ADC_DATA_NPER + c_FF_RSYNC_NB - 1                            ; --! ADC clock period number between the ADC acquisition start and ADC data ready
+constant c_ADC_SYNC_RDY_NPER  : integer := (c_FF_RSYNC_NB - 1)*(c_CLK_ADC_DAC_MULT/c_CLK_MULT)
+                                          + c_FF_RSYNC_NB                                                   ; --! ADC clock period number for getting pixel sequence synchronization, synchronized
+constant c_ADC_DATA_RDY_NPER  : integer := c_ADC_DATA_NPER + c_FF_RSYNC_NB - 1                              ; --! ADC clock period number between the ADC acquisition start and ADC data ready
 
 constant c_MEM_DUMP_ADD_S     : integer := c_RAM_ECC_ADD_S                                                  ; --! Memory Dump: address bus size (<= c_RAM_ECC_ADD_S)
 
    -- ------------------------------------------------------------------------------------------------------
    --    SQUID1 DAC parameters
+   --    @Req : DRE-DMX-FW-REQ-0230
    -- ------------------------------------------------------------------------------------------------------
-constant c_PIXEL_DAC_NPER     : integer   := c_PIXEL_ADC_NB_CYC                                             ; --! DAC clock period number allocated to one pixel acquisition
-constant c_DAC_SYNC_RDY_NPER  : integer   := (c_FF_RSYNC_NB - 1)*(c_CLK_ADC_MULT/c_CLK_MULT) + c_FF_RSYNC_NB; --! DAC clock period number for getting pixel sequence synchronization, synchronized
+constant c_PIXEL_DAC_NB_CYC   : integer := 20                                                               ; --! DAC clock period number allocated to one pixel acquisition
+constant c_DAC_MDL_POINT      : integer := 2**(c_SQ1_DATA_FBK_S-1)                                          ; --! DAC middle point
+constant c_DAC_PLS_SHP_SET_NB : integer := 4                                                                ; --! DAC pulse shaping set number
+
+constant c_DAC_SYNC_RDY_NPER  : integer := (c_FF_RSYNC_NB - 1)*(c_CLK_ADC_DAC_MULT/c_CLK_MULT)
+                                          + c_FF_RSYNC_NB                                                   ; --! DAC clock period number for getting pixel sequence synchronization, synchronized
+constant c_DAC_SYNC_RE_NPER   : integer := 1                                                                ; --! DAC clock period number for getting pixel sequence synchronization rising edge
+constant c_DAC_MEM_PRM_NPER   : integer := c_MEM_RD_DATA_NPER + 1                                           ; --! DAC clock period number for getting parameters stored in memory from pixel sequence
+constant c_DAC_SHP_PRC_NPER   : integer := 3                                                                ; --! DAC clock period number for pulse shaping processing and DAC data input
+constant c_DAC_DATA_NPER      : integer := 3                                                                ; --! DAC clock period number between DAC data input and analog output
+constant c_DAC_SYNC_DATA_NPER : integer := c_DAC_SYNC_RDY_NPER + c_DAC_SYNC_RE_NPER + c_DAC_MEM_PRM_NPER +
+                                           c_DAC_SHP_PRC_NPER  + c_DAC_DATA_NPER                            ; --! DAC clock period number for stalling analog output to pixel sequence synchronization
 
    -- ------------------------------------------------------------------------------------------------------
    --    Global types
    -- ------------------------------------------------------------------------------------------------------
+type     t_ep_spi_wd           is array (natural range <>) of std_logic_vector(c_EP_SPI_WD_S-1     downto 0); --! EP SPI Data word type
+type     t_pixel_pos_v         is array (natural range <>) of std_logic_vector(c_MUX_FACT_S-1      downto 0); --! Pixel position vector type
 type     t_sq1_mem_dump_dta_v  is array (natural range <>) of std_logic_vector(c_SQ1_ADC_DATA_S+1  downto 0); --! SQUID1 Memory Dump: data vector type
 type     t_sq1_adc_data_v      is array (natural range <>) of std_logic_vector(c_SQ1_ADC_DATA_S-1  downto 0); --! SQUID1 ADC data vector type
 type     t_sq1_data_err_v      is array (natural range <>) of std_logic_vector(c_SQ1_DATA_ERR_S-1  downto 0); --! SQUID1 Data error vector type
@@ -166,6 +187,16 @@ type     t_sq2_dac_mux_v       is array (natural range <>) of std_logic_vector(c
 type     t_sc_data_w           is array (natural range <>) of std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0); --! Science data word type
 type     t_sc_data             is array (natural range <>) of
                                std_logic_vector(c_SC_DATA_SER_NB*c_SC_DATA_SER_W_S-1 downto 0)              ; --! Science data type
+
+type     t_mem                 is record
+         pp                   : std_logic                                                                   ; --! Ping-pong buffer bit
+         add                  : std_logic_vector                                                            ; --! Address
+         we                   : std_logic                                                                   ; --! Write enable ('0' = Inactive, '1' = Active)
+         cs                   : std_logic                                                                   ; --! Chip select  ('0' = Inactive, '1' = Active)
+         data_w               : std_logic_vector                                                            ; --! Data to write in memory
+end record t_mem                                                                                            ; --! Memory signals interface
+
+type     t_mem_arr             is array (natural range <>) of t_mem                                         ; --! Memory signals interface array                                                                                           ; --! Memory signals type
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Science Data Transmit parameters

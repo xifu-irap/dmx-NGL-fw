@@ -59,26 +59,37 @@ begin
             o_ep_cmd_sts_err_wrt <= c_EP_CMD_ERR_CLR;
 
          else
-            case i_ep_cmd_rx_add_norw is
-               when c_EP_CMD_ADD_TM_MODE  =>
-                  o_ep_cmd_sts_err_wrt <= c_EP_CMD_AUTH_TM_MODE;
+            if    i_ep_cmd_rx_add_norw = c_EP_CMD_ADD_TM_MODE  then
+               o_ep_cmd_sts_err_wrt <= c_EP_CMD_AUTH_TM_MODE;
 
-               when c_EP_CMD_ADD_SQ1FBMD  =>
-                  o_ep_cmd_sts_err_wrt <= c_EP_CMD_AUTH_SQ1FBMD;
+            elsif i_ep_cmd_rx_add_norw = c_EP_CMD_ADD_SQ1FBMD  then
+               o_ep_cmd_sts_err_wrt <= c_EP_CMD_AUTH_SQ1FBMD;
 
-               when c_EP_CMD_ADD_SQ2FBMD  =>
-                  o_ep_cmd_sts_err_wrt <= c_EP_CMD_AUTH_SQ2FBMD;
+            elsif i_ep_cmd_rx_add_norw = c_EP_CMD_ADD_SQ2FBMD  then
+               o_ep_cmd_sts_err_wrt <= c_EP_CMD_AUTH_SQ2FBMD;
 
-               when c_EP_CMD_ADD_STATUS   =>
-                  o_ep_cmd_sts_err_wrt <= c_EP_CMD_AUTH_STATUS;
+            elsif i_ep_cmd_rx_add_norw = c_EP_CMD_ADD_STATUS   then
+               o_ep_cmd_sts_err_wrt <= c_EP_CMD_AUTH_STATUS;
 
-               when c_EP_CMD_ADD_VERSION  =>
-                  o_ep_cmd_sts_err_wrt <= c_EP_CMD_AUTH_VERSION;
+            elsif i_ep_cmd_rx_add_norw = c_EP_CMD_ADD_VERSION  then
+               o_ep_cmd_sts_err_wrt <= c_EP_CMD_AUTH_VERSION;
 
-               when others                =>
-                  o_ep_cmd_sts_err_wrt <= c_EP_CMD_ERR_CLR;
+            elsif i_ep_cmd_rx_add_norw(i_ep_cmd_rx_add_norw'high downto c_EP_CMD_ADD_COLPOSH+1) = c_EP_CMD_ADD_S1FB0(0)(i_ep_cmd_rx_add_norw'high downto c_EP_CMD_ADD_COLPOSH+1) and
+                  i_ep_cmd_rx_add_norw(c_EP_CMD_ADD_COLPOSL-1    downto c_MEM_S1FB0_ADD_S)      = c_EP_CMD_ADD_S1FB0(0)(c_EP_CMD_ADD_COLPOSL-1    downto c_MEM_S1FB0_ADD_S)      then
+               o_ep_cmd_sts_err_wrt <= c_EP_CMD_AUTH_S1FB0;
 
-            end case;
+            elsif i_ep_cmd_rx_add_norw(i_ep_cmd_rx_add_norw'high downto c_EP_CMD_ADD_COLPOSH+1) = c_EP_CMD_ADD_S1FBM(0)(i_ep_cmd_rx_add_norw'high downto c_EP_CMD_ADD_COLPOSH+1) and
+                  i_ep_cmd_rx_add_norw(c_EP_CMD_ADD_COLPOSL-1    downto c_MEM_S1FBM_ADD_S)      = c_EP_CMD_ADD_S1FBM(0)(c_EP_CMD_ADD_COLPOSL-1    downto c_MEM_S1FBM_ADD_S)      then
+               o_ep_cmd_sts_err_wrt <= c_EP_CMD_AUTH_S1FBM;
+
+            elsif i_ep_cmd_rx_add_norw(i_ep_cmd_rx_add_norw'high downto c_EP_CMD_ADD_COLPOSH+1) = c_EP_CMD_ADD_PLSSH(0)(i_ep_cmd_rx_add_norw'high downto c_EP_CMD_ADD_COLPOSH+1) and
+                  i_ep_cmd_rx_add_norw(c_EP_CMD_ADD_COLPOSL-1    downto c_MEM_PLSSH_ADD_S)      = c_EP_CMD_ADD_PLSSH(0)(c_EP_CMD_ADD_COLPOSL-1    downto c_MEM_PLSSH_ADD_S)      then
+               o_ep_cmd_sts_err_wrt <= c_EP_CMD_AUTH_PLSSH;
+
+            else
+               o_ep_cmd_sts_err_wrt <= c_EP_CMD_ERR_CLR;
+
+            end if;
 
          end if;
 

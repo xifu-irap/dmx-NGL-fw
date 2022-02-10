@@ -39,6 +39,7 @@ end entity top_dmx_tb;
 
 architecture Simulation of top_dmx_tb is
 signal   arst_n               : std_logic                                                                   ; --! Asynchronous reset ('0' = Active, '1' = Inactive)
+signal   arst                 : std_logic                                                                   ; --! Asynchronous reset ('0' = Inactive, '1' = Active)
 signal   clk_ref              : std_logic                                                                   ; --! Reference Clock
 
 signal   clk_sq1_adc          : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! SQUID1 ADC - Clocks
@@ -47,6 +48,7 @@ signal   clk_science_01       : std_logic                                       
 signal   clk_science_23       : std_logic                                                                   ; --! Science Data - Clock channel 2/3
 
 signal   err_chk_rpt          : t_err_n_clk_chk_arr(0 to c_CE_S-1)                                          ; --! Clock check error reports
+signal   err_num_pls_shp      : t_int_arr(0 to c_NB_COL-1)                                                  ; --! Pulse shaping error number
 
 signal   brd_ref              : std_logic_vector(     c_BRD_REF_S-1 downto 0)                               ; --! Board reference
 signal   brd_model            : std_logic_vector(   c_BRD_MODEL_S-1 downto 0)                               ; --! Board model
@@ -56,6 +58,7 @@ signal   sq1_adc_data         : t_sq1_adc_data_v(c_NB_COL-1 downto 0)           
 signal   sq1_adc_oor          : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! SQUID1 ADC - Out of range (‘0’ = No, ‘1’ = under/over range)
 
 signal   sq1_dac_data         : t_sq1_dac_data_v(c_NB_COL-1 downto 0)                                       ; --! SQUID1 DAC - Data buses
+signal   sq1_dac_ana          : t_real_arr(0 to c_NB_COL-1)                                                 ; --! SQUID1 DAC - Analog
 
 signal   science_ctrl_01      : std_logic                                                                   ; --! Science Data – Control channel 0/1
 signal   science_ctrl_23      : std_logic                                                                   ; --! Science Data – Control channel 2/3
@@ -110,6 +113,8 @@ signal   ep_cmd_ser_wd_s      : std_logic_vector(log2_ceil(2*c_EP_CMD_S+1)-1 dow
 
 signal   ep_data_rx           : std_logic_vector(c_EP_CMD_S-1 downto 0)                                     ; --! EP - Receipted data
 signal   ep_data_rx_rdy       : std_logic                                                                   ; --! EP - Receipted data ready ('0' = Inactive, '1' = Active)
+
+signal   pls_shp_fc           : t_int_arr(0 to c_NB_COL-1)                                                  ; --! Pulse shaping cut frequency (Hz)
 
 begin
 
@@ -262,8 +267,8 @@ begin
                                 .top_dmx_tb.I_top_dmx.G_column_mgt(3).I_squid2_dac_mgt.rst_sq1_pls_shape
                                                                                              : std_logic>>  ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
    alias td_clk               : std_logic is <<signal .top_dmx_tb.I_top_dmx.clk              : std_logic>>  ; --! Internal design: System Clock
-   alias td_clk_sq1_adc_acq   : std_logic is <<signal .top_dmx_tb.I_top_dmx.clk_sq1_adc_acq  : std_logic>>  ; --! Internal design: SQUID1 ADC acquisition Clock
-   alias td_clk_sq1_pls_shape : std_logic is <<signal .top_dmx_tb.I_top_dmx.clk_sq1_pls_shape: std_logic>>  ; --! Internal design: SQUID1 pulse shaping Clock
+   alias td_clk_sq1_adc_acq   : std_logic is <<signal .top_dmx_tb.I_top_dmx.clk_sq1_adc_dac  : std_logic>>  ; --! Internal design: SQUID1 ADC acquisition Clock
+   alias td_clk_sq1_pls_shape : std_logic is <<signal .top_dmx_tb.I_top_dmx.clk_sq1_adc_dac  : std_logic>>  ; --! Internal design: SQUID1 pulse shaping Clock
    alias td_tm_mode           : t_rg_tm_mode(0 to c_NB_COL-1) is <<signal
                                 .top_dmx_tb.I_top_dmx.tm_mode: t_rg_tm_mode(0 to c_NB_COL-1)>>              ; --! Internal design: Telemetry mode
    begin
@@ -320,6 +325,11 @@ begin
    );
 
    -- ------------------------------------------------------------------------------------------------------
+   --!   Reset management
+   -- ------------------------------------------------------------------------------------------------------
+   arst <= not(arst_n);
+
+   -- ------------------------------------------------------------------------------------------------------
    --!   Clock reference generation
    -- ------------------------------------------------------------------------------------------------------
    I_clock_model: clock_model port map
@@ -351,10 +361,9 @@ begin
    G_column_mgt: for k in 0 to c_NB_COL-1 generate
    begin
 
-      I_squid_model: squid_model generic map
-      (  g_NB_COL             => k                      -- integer                                            --! Column number
-      ) port map
-      (  i_sync               => sync                 , -- in     std_logic                                 ; --! Pixel sequence synchronization (R.E. detected = position sequence to the first pixel)
+      I_squid_model: squid_model port map
+      (  i_arst               => arst                 , -- in     std_logic                                 ; --! Asynchronous reset ('0' = Inactive, '1' = Active)
+         i_sync               => sync                 , -- in     std_logic                                 ; --! Pixel sequence synchronization (R.E. detected = position sequence to the first pixel)
          i_clk_sq1_adc        => clk_sq1_adc(k)       , -- in     std_logic                                 ; --! SQUID1 ADC - Clock
          i_sq1_adc_pwdn       => sq1_adc_pwdn(k)      , -- in     std_logic                                 ; --! SQUID1 ADC – Power Down ('0' = Inactive, '1' = Active)
          b_sq1_adc_spi_sdio   => sq1_adc_spi_sdio(k)  , -- inout  std_logic                                 ; --! SQUID1 ADC - SPI Serial Data In Out
@@ -363,6 +372,10 @@ begin
 
          o_sq1_adc_data       => sq1_adc_data(k)      , -- out    slv(c_SQ1_ADC_DATA_S-1 downto 0)          ; --! SQUID1 ADC - Data
          o_sq1_adc_oor        => sq1_adc_oor(k)       , -- out    std_logic                                 ; --! SQUID1 ADC - Out of range (‘0’ = No, ‘1’ = under/over range)
+
+         i_pls_shp_fc         => pls_shp_fc(k)        , -- in     integer                                   ; --! Pulse shaping cut frequency (Hz)
+         o_sq1_dac_ana        => sq1_dac_ana(k)       , -- out    real                                      ; --! SQUID1 DAC - Analog
+         o_err_num_pls_shp    => err_num_pls_shp(k)   , -- out    integer                                   ; --! Pulse shaping error number
 
          i_clk_sq1_dac        => clk_sq1_dac(k)       , -- in     std_logic                                 ; --! SQUID1 DAC - Clock
          i_sq1_dac_data       => sq1_dac_data(k)      , -- in     slv(c_SQ1_DAC_DATA_S-1 downto 0)          ; --! SQUID1 DAC - Data
@@ -381,7 +394,7 @@ begin
    --!   Science Data Model
    -- ------------------------------------------------------------------------------------------------------
    I_science_data_model: science_data_model port map
-   (     i_arst_n             => arst_n               , -- in     std_logic                                 ; --! Asynchronous reset ('0' = Active, '1' = Inactive)
+   (     i_arst               => arst                 , -- in     std_logic                                 ; --! Asynchronous reset ('0' = Inactive, '1' = Active)
          i_clk_sq1_adc_acq    => d_clk_sq1_adc_acq    , -- in     std_logic                                 ; --! SQUID1 ADC acquisition Clock
          i_clk_science        => clk_science_01       , -- in     std_logic                                 ; --! Science Clock
 
@@ -411,16 +424,17 @@ begin
          i_sync               => sync                 , -- in     std_logic                                 ; --! Pixel sequence synchronization (R.E. detected = position sequence to the first pixel)
 
          i_err_chk_rpt        => err_chk_rpt          , -- in     t_err_n_clk_chk_arr(0 to c_CE_S-1)        ; --! Clock check error reports
+         i_err_num_pls_shp    => err_num_pls_shp      , -- in     t_int_arr(0 to c_NB_COL-1)                ; --! Pulse shaping error number
 
          i_c0_sq1_adc_pwdn    => sq1_adc_pwdn(0)      , -- in     std_logic                                 ; --! SQUID1 ADC, col. 0 – Power Down ('0' = Inactive, '1' = Active)
          i_c1_sq1_adc_pwdn    => sq1_adc_pwdn(1)      , -- in     std_logic                                 ; --! SQUID1 ADC, col. 1 – Power Down ('0' = Inactive, '1' = Active)
          i_c2_sq1_adc_pwdn    => sq1_adc_pwdn(2)      , -- in     std_logic                                 ; --! SQUID1 ADC, col. 2 – Power Down ('0' = Inactive, '1' = Active)
          i_c3_sq1_adc_pwdn    => sq1_adc_pwdn(3)      , -- in     std_logic                                 ; --! SQUID1 ADC, col. 3 – Power Down ('0' = Inactive, '1' = Active)
 
-         i_c0_sq1_dac_data    => sq1_dac_data(0)      , -- in     slv(c_SQ1_DAC_DATA_S-1 downto 0)          ; --! SQUID1 DAC, col. 0 - Data
-         i_c1_sq1_dac_data    => sq1_dac_data(1)      , -- in     slv(c_SQ1_DAC_DATA_S-1 downto 0)          ; --! SQUID1 DAC, col. 1 - Data
-         i_c2_sq1_dac_data    => sq1_dac_data(2)      , -- in     slv(c_SQ1_DAC_DATA_S-1 downto 0)          ; --! SQUID1 DAC, col. 2 - Data
-         i_c3_sq1_dac_data    => sq1_dac_data(3)      , -- in     slv(c_SQ1_DAC_DATA_S-1 downto 0)          ; --! SQUID1 DAC, col. 3 - Data
+         i_c0_sq1_dac_ana     => sq1_dac_ana(0)       , -- in     real                                      ; --! SQUID1 DAC, col. 0 - Analog
+         i_c1_sq1_dac_ana     => sq1_dac_ana(1)       , -- in     real                                      ; --! SQUID1 DAC, col. 1 - Analog
+         i_c2_sq1_dac_ana     => sq1_dac_ana(2)       , -- in     real                                      ; --! SQUID1 DAC, col. 2 - Analog
+         i_c3_sq1_dac_ana     => sq1_dac_ana(3)       , -- in     real                                      ; --! SQUID1 DAC, col. 3 - Analog
 
          i_c0_sq1_dac_sleep   => sq1_dac_sleep(0)     , -- in     std_logic                                 ; --! SQUID1 DAC, col. 0 - Sleep ('0' = Inactive, '1' = Active)
          i_c1_sq1_dac_sleep   => sq1_dac_sleep(1)     , -- in     std_logic                                 ; --! SQUID1 DAC, col. 1 - Sleep ('0' = Inactive, '1' = Active)
@@ -436,6 +450,16 @@ begin
          i_d_clk_sq1_adc_acq  => d_clk_sq1_adc_acq    , -- in     std_logic                                 ; --! Internal design: SQUID1 ADC acquisition Clock
          i_d_clk_sq1_pls_shap => d_clk_sq1_pls_shape  , -- in     std_logic                                 ; --! Internal design: SQUID1 pulse shaping Clock
 
+         i_c0_clk_sq1_adc     => clk_sq1_adc(0)       , -- in     std_logic                                 ; --! SQUID1 ADC, col. 0 - Clock
+         i_c1_clk_sq1_adc     => clk_sq1_adc(1)       , -- in     std_logic                                 ; --! SQUID1 ADC, col. 1 - Clock
+         i_c2_clk_sq1_adc     => clk_sq1_adc(2)       , -- in     std_logic                                 ; --! SQUID1 ADC, col. 2 - Clock
+         i_c3_clk_sq1_adc     => clk_sq1_adc(3)       , -- in     std_logic                                 ; --! SQUID1 ADC, col. 3 - Clock
+
+         i_c0_clk_sq1_dac     => clk_sq1_dac(0)       , -- in     std_logic                                 ; --! SQUID1 DAC, col. 0 - Clock
+         i_c1_clk_sq1_dac     => clk_sq1_dac(1)       , -- in     std_logic                                 ; --! SQUID1 DAC, col. 1 - Clock
+         i_c2_clk_sq1_dac     => clk_sq1_dac(2)       , -- in     std_logic                                 ; --! SQUID1 DAC, col. 2 - Clock
+         i_c3_clk_sq1_dac     => clk_sq1_dac(3)       , -- in     std_logic                                 ; --! SQUID1 DAC, col. 3 - Clock
+
          i_sc_pkt_type        => sc_pkt_type          , -- in     slv(c_SC_DATA_SER_W_S-1 downto 0)         ; --! Science packet type
          i_sc_pkt_err         => sc_pkt_err           , -- out    std_logic                                 ; --! Science packet error ('0' = No error, '1' = Error)
 
@@ -447,7 +471,9 @@ begin
          o_ep_cmd_ser_wd_s    => ep_cmd_ser_wd_s      , -- out    slv(log2_ceil(2*c_EP_CMD_S+1)-1 downto 0) ; --! EP - Serial word size
 
          o_brd_ref            => brd_ref              , -- out    std_logic_vector(  c_BRD_REF_S-1 downto 0); --! Board reference
-         o_brd_model          => brd_model              -- out    std_logic_vector(c_BRD_MODEL_S-1 downto 0)  --! Board model
+         o_brd_model          => brd_model            , -- out    std_logic_vector(c_BRD_MODEL_S-1 downto 0); --! Board model
+
+         o_pls_shp_fc         => pls_shp_fc             -- out    t_int_arr(0 to c_NB_COL-1)                  --! Pulse shaping cut frequency (Hz)
    );
 
 end simulation;

@@ -44,14 +44,16 @@ entity squid_data_proc is port
          o_sq1_data_sc_last   : out    std_logic                                                            ; --! SQUID1 Data science last pixel ('0' = No, '1' = Yes)
          o_sq1_data_sc_rdy    : out    std_logic                                                            ; --! SQUID1 Data science ready ('0' = Not ready, '1' = Ready)
 
-         o_sq1_data_fbk       : out    std_logic_vector( c_SQ1_DATA_FBK_S-1 downto 0)                         --! SQUID1 Data feedback
+         o_s1_dta_pixel_pos   : out    std_logic_vector(    c_MUX_FACT_S-1 downto 0)                        ; --! SQUID1 Data error corrected pixel position
+         o_s1_dta_err_cor     : out    std_logic_vector(c_SQ1_DATA_FBK_S-1 downto 0)                        ; --! SQUID1 Data error corrected (signed)
+         o_s1_dta_err_cor_cs  : out    std_logic                                                              --! SQUID1 Data error corrected chip select ('0' = Inactive, '1' = Active)
    );
 end entity squid_data_proc;
 
 architecture RTL of squid_data_proc is
 
 -- TODO
-constant c_CK_PLS_CNT_MAX_VAL : integer:= (c_PIXEL_ADC_NB_CYC * c_CLK_MULT / c_CLK_ADC_MULT) - 2            ; --! System clock pulse counter: maximal value
+constant c_CK_PLS_CNT_MAX_VAL : integer:= (c_PIXEL_ADC_NB_CYC * c_CLK_MULT / c_CLK_ADC_DAC_MULT) - 2        ; --! System clock pulse counter: maximal value
 constant c_CK_PLS_CNT_S       : integer:= log2_ceil(c_CK_PLS_CNT_MAX_VAL+1)+1                               ; --! System clock pulse counter: size bus (signed)
 
 constant c_PIXEL_POS_MAX_VAL  : integer:= c_MUX_FACT - 2                                                    ; --! Pixel position: maximal value
@@ -105,10 +107,14 @@ begin
    begin
 
       if i_rst = '1' then
-         o_sq1_data_fbk <= (others => '0');
+         o_s1_dta_pixel_pos   <= (others => '1');
+         o_s1_dta_err_cor     <= (others => '0');
+         o_s1_dta_err_cor_cs  <= '0';
 
       elsif rising_edge(i_clk) then
-         o_sq1_data_fbk <= i_sq1_data_err(c_SQ1_DATA_FBK_S-1 downto 0);
+         o_s1_dta_pixel_pos   <= std_logic_vector(resize(signed(pixel_pos), o_s1_dta_pixel_pos'length));
+         o_s1_dta_err_cor     <= i_sq1_data_err(o_s1_dta_err_cor'high downto 0);
+         o_s1_dta_err_cor_cs  <= ck_pls_cnt(ck_pls_cnt'high);
 
       end if;
 

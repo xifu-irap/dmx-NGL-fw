@@ -1,0 +1,1234 @@
+# ------------------------------------------------------------------------------------------------------------------------------------------------------
+# Simulation DRE_DMX_UT_0150
+# ------------------------------------------------------------------------------------------------------------------------------------------------------
+#             (0 ps) **********************************************************************************************
+#             (0 ps)   Test: DAC in open Loop mode with different pulse shapings
+#             (0 ps) **********************************************************************************************
+#             (0 ps) 
+#             (0 ps) ==============================================================================================
+#             (0 ps)   Enable SQUID1 DAC pulse shaping reports display
+#             (0 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (0 ps) Clock report display activated: pulse_shaping
+#             (0 ps) 
+#             (0 ps) ==============================================================================================
+#             (0 ps)   Asynchronous reset activated
+#             (0 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (0 ps) Write discrete: arst_n = '0'
+# ** Note   : (80000 ps) Waiting time for 80000 ps
+#             (80000 ps) 
+#             (80000 ps) ==============================================================================================
+#             (80000 ps)   Asynchronous reset deactivated
+#             (80000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (80000 ps) Write discrete: arst_n = '1'
+#             (80000 ps) 
+#             (80000 ps) ==============================================================================================
+#             (80000 ps)   Wait internal reset deactivated
+#             (80000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (6963480 ps) Waiting event rst = '0' for 6883480 ps
+#             (6963480 ps) 
+#             (6963480 ps) ==============================================================================================
+#             (6963480 ps)   Send command SQ1_FB_MODE column 0 to ON, DAC pulse shaping set 0: fc = 15 MHz
+#             (6963480 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (6963480 ps) Send SPI command value 8003_0001 (SQ1_FB_MODE, mode Write, data 0001)
+# ** Note   : (9276000 ps) Waiting SPI command end for 2276520 ps
+# ** Note   : (9276000 ps) Configure pulse shaping cut frequency channel 0 to 15000000Hz
+#             (9276000 ps) 
+#             (9276000 ps) ==============================================================================================
+#             (9276000 ps)   Writing a new table in feedback open loop column 0 memory
+#             (9276000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (9276000 ps) Send SPI command value 0401_7C20 (C0_SQ1_FB0, mode Write, data 7C20)
+# ** Note   : (11598000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (11598000 ps) Send SPI command value 0403_FFFF (C0_SQ1_FB0, mode Write, data FFFF)
+# ** Note   : (13920000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (13920000 ps) Send SPI command value 0405_745E (C0_SQ1_FB0, mode Write, data 745E)
+# ** Note   : (16242000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (16242000 ps) Send SPI command value 0407_F840 (C0_SQ1_FB0, mode Write, data F840)
+# ** Note   : (18564000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (18564000 ps) Send SPI command value 0409_6C9C (C0_SQ1_FB0, mode Write, data 6C9C)
+# ** Note   : (20886000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (20886000 ps) Send SPI command value 040B_F07E (C0_SQ1_FB0, mode Write, data F07E)
+# ** Note   : (23208000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (23208000 ps) Send SPI command value 040D_64DA (C0_SQ1_FB0, mode Write, data 64DA)
+# ** Note   : (25530000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (25530000 ps) Send SPI command value 040F_E8BC (C0_SQ1_FB0, mode Write, data E8BC)
+# ** Note   : (27852000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (27852000 ps) Send SPI command value 0411_5D18 (C0_SQ1_FB0, mode Write, data 5D18)
+# ** Note   : (30174000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (30174000 ps) Send SPI command value 0413_E0FA (C0_SQ1_FB0, mode Write, data E0FA)
+# ** Note   : (32496000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (32496000 ps) Send SPI command value 0415_5556 (C0_SQ1_FB0, mode Write, data 5556)
+# ** Note   : (34818000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (34818000 ps) Send SPI command value 0417_D938 (C0_SQ1_FB0, mode Write, data D938)
+# ** Note   : (37140000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (37140000 ps) Send SPI command value 0419_4D94 (C0_SQ1_FB0, mode Write, data 4D94)
+# ** Note   : (39462000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (39462000 ps) Send SPI command value 041B_D176 (C0_SQ1_FB0, mode Write, data D176)
+# ** Note   : (41784000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (41784000 ps) Send SPI command value 041D_45D2 (C0_SQ1_FB0, mode Write, data 45D2)
+# ** Note   : (44106000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (44106000 ps) Send SPI command value 041F_C9B4 (C0_SQ1_FB0, mode Write, data C9B4)
+# ** Note   : (46428000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (46428000 ps) Send SPI command value 0421_3E10 (C0_SQ1_FB0, mode Write, data 3E10)
+# ** Note   : (48750000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (48750000 ps) Send SPI command value 0423_C1F2 (C0_SQ1_FB0, mode Write, data C1F2)
+# ** Note   : (51072000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (51072000 ps) Send SPI command value 0425_364E (C0_SQ1_FB0, mode Write, data 364E)
+# ** Note   : (53394000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (53394000 ps) Send SPI command value 0427_BA30 (C0_SQ1_FB0, mode Write, data BA30)
+# ** Note   : (55716000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (55716000 ps) Send SPI command value 0429_2E8C (C0_SQ1_FB0, mode Write, data 2E8C)
+# ** Note   : (58038000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (58038000 ps) Send SPI command value 042B_B26E (C0_SQ1_FB0, mode Write, data B26E)
+# ** Note   : (60360000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (60360000 ps) Send SPI command value 042D_26CA (C0_SQ1_FB0, mode Write, data 26CA)
+# ** Note   : (62682000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (62682000 ps) Send SPI command value 042F_AAAC (C0_SQ1_FB0, mode Write, data AAAC)
+# ** Note   : (65004000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (65004000 ps) Send SPI command value 0431_1F08 (C0_SQ1_FB0, mode Write, data 1F08)
+# ** Note   : (67326000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (67326000 ps) Send SPI command value 0433_A2EA (C0_SQ1_FB0, mode Write, data A2EA)
+# ** Note   : (69648000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (69648000 ps) Send SPI command value 0435_1746 (C0_SQ1_FB0, mode Write, data 1746)
+# ** Note   : (71970000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (71970000 ps) Send SPI command value 0437_9B28 (C0_SQ1_FB0, mode Write, data 9B28)
+# ** Note   : (74292000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (74292000 ps) Send SPI command value 0439_0F84 (C0_SQ1_FB0, mode Write, data 0F84)
+# ** Note   : (76614000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (76614000 ps) Send SPI command value 043B_9366 (C0_SQ1_FB0, mode Write, data 9366)
+# ** Note   : (78936000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (78936000 ps) Send SPI command value 043D_07C2 (C0_SQ1_FB0, mode Write, data 07C2)
+# ** Note   : (81258000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (81258000 ps) Send SPI command value 043F_8BA4 (C0_SQ1_FB0, mode Write, data 8BA4)
+# ** Note   : (83580000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (83580000 ps) Send SPI command value 0441_0000 (C0_SQ1_FB0, mode Write, data 0000)
+# ** Note   : (85902000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (85902000 ps) Send SPI command value 0443_83E2 (C0_SQ1_FB0, mode Write, data 83E2)
+# ** Note   : (88224000 ps) Waiting SPI command end for 2286000 ps
+#             (88224000 ps) 
+#             (88224000 ps) ==============================================================================================
+#             (88224000 ps)   Check SQUID1 DAC column 0 output stay to its middle point until the next sync rising edge
+#             (88224000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (88224090 ps) Waiting event sync = '0' for 90 ps
+# ** Note   : (92542248 ps) Waiting event sync = '1' for 4318158 ps
+# ** Note   : (92542248 ps) Check time, DAC channel 0 last event: PASS
+# ** Note   : (92542248 ps)  * DAC channel 0 last event 92542248 ps equal to expected value 92542248 ps
+# ** Note   : (92542248 ps) Check DAC level: PASS
+# ** Note   : (92542248 ps)  * Read DAC channel 0, value 0.000000e+00, expected 0.000000e+00
+# ** Note   : (92542248 ps) Waiting event clk_sq1_dac(0) = '0' for 0 ps
+# ** Note   : (92546250 ps) Waiting event clk_sq1_dac(0) = '1' for 4002 ps
+# ** Note   : (92550252 ps) Waiting event clk_sq1_dac(0) = '0' for 4002 ps
+# ** Note   : (92550252 ps) Check time, DAC channel 0 last event: PASS
+# ** Note   : (92550252 ps)  * DAC channel 0 last event 3002 ps strictly less than expected value 4002 ps
+#             (92550252 ps) 
+#             (92550252 ps) ==============================================================================================
+#             (92550252 ps)   Record SQUID1 DAC pulse shaping column 0 by requesting a SQUID1 ADC dump on science
+#             (92550252 ps)    (DAC feedback on ADC)
+#             (92550252 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (92550252 ps) Send SPI command value 8001_54XX (TM_MODE, mode Write, data 54XX)
+# ** Note   : (94866000 ps) Waiting SPI command end for 2279748 ps
+# ** Note   : (94866926 ps) Waiting event sync = '0' for 926 ps
+# ** Note   : (97984968 ps) Waiting event sync = '1' for 3118042 ps
+# ** Note   : (98145048 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (103427688 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (103587768 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (108870408 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (109030488 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (114313128 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (114473208 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (119755848 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (119915928 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (125198568 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (125358648 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (130641288 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (130801368 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (136084008 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (136244088 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (141526728 ps) Waiting event sync = '1' for 5282640 ps
+#             (141526728 ps) 
+#             (141526728 ps) ==============================================================================================
+#             (141526728 ps)   Send command SQ1_FB_MODE column 0 to ON, DAC pulse shaping set 1: fc = 20 MHz
+#             (141526728 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (141526728 ps) Send SPI command value 8003_0005 (SQ1_FB_MODE, mode Write, data 0005)
+# ** Note   : (143844000 ps) Waiting SPI command end for 2281272 ps
+# ** Note   : (143844000 ps) Configure pulse shaping cut frequency channel 0 to 20000000Hz
+#             (143844000 ps) 
+#             (143844000 ps) ==============================================================================================
+#             (143844000 ps)   Record SQUID1 DAC pulse shaping column 0 by requesting a SQUID1 ADC dump on science
+#             (143844000 ps)    (DAC feedback on ADC)
+#             (143844000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (143844000 ps) Send SPI command value 8001_54XX (TM_MODE, mode Write, data 54XX)
+# ** Note   : (146166000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (146168564 ps) Waiting event sync = '0' for 2564 ps
+# ** Note   : (146969448 ps) Waiting event sync = '1' for 800884 ps
+# ** Note   : (147129528 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (152412168 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (152572248 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (157854888 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (158014968 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (163297608 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (163457688 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (168740328 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (168900408 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (174183048 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (174343128 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (179625768 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (179785848 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (185068488 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (185228568 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (190511208 ps) Waiting event sync = '1' for 5282640 ps
+#             (190511208 ps) 
+#             (190511208 ps) ==============================================================================================
+#             (190511208 ps)   Send command SQ1_FB_MODE column 0 to ON, DAC pulse shaping set 2: fc = 25 MHz
+#             (190511208 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (190511208 ps) Send SPI command value 8003_0009 (SQ1_FB_MODE, mode Write, data 0009)
+# ** Note   : (192822000 ps) Waiting SPI command end for 2274792 ps
+# ** Note   : (192822000 ps) Configure pulse shaping cut frequency channel 0 to 25000000Hz
+#             (192822000 ps) 
+#             (192822000 ps) ==============================================================================================
+#             (192822000 ps)   Record SQUID1 DAC pulse shaping column 0 by requesting a SQUID1 ADC dump on science
+#             (192822000 ps)    (DAC feedback on ADC)
+#             (192822000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (192822000 ps) Send SPI command value 8001_54XX (TM_MODE, mode Write, data 54XX)
+# ** Note   : (195144000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (195145040 ps) Waiting event sync = '0' for 1040 ps
+# ** Note   : (195953928 ps) Waiting event sync = '1' for 808888 ps
+# ** Note   : (196114008 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (201396648 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (201556728 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (206839368 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (206999448 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (212282088 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (212442168 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (217724808 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (217884888 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (223167528 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (223327608 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (228610248 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (228770328 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (234052968 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (234213048 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (239495688 ps) Waiting event sync = '1' for 5282640 ps
+#             (239495688 ps) 
+#             (239495688 ps) ==============================================================================================
+#             (239495688 ps)   Send command SQ1_FB_MODE column 0 to ON, DAC pulse shaping set 3: fc = 30 MHz
+#             (239495688 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (239495688 ps) Send SPI command value 8003_000D (SQ1_FB_MODE, mode Write, data 000D)
+# ** Note   : (241800000 ps) Waiting SPI command end for 2268312 ps
+# ** Note   : (241800000 ps) Configure pulse shaping cut frequency channel 0 to 30000000Hz
+#             (241800000 ps) 
+#             (241800000 ps) ==============================================================================================
+#             (241800000 ps)   Record SQUID1 DAC pulse shaping column 0 by requesting a SQUID1 ADC dump on science
+#             (241800000 ps)    (DAC feedback on ADC)
+#             (241800000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (241800000 ps) Send SPI command value 8001_54XX (TM_MODE, mode Write, data 54XX)
+# ** Note   : (244122000 ps) Waiting SPI command end for 2286000 ps
+#             (244122000 ps) 
+#             (244122000 ps) ==============================================================================================
+#             (244122000 ps)   Replace DAC pulse shaping set 3 memory content for fc = 23 MHz
+#             (244122000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (244122000 ps) Send SPI command value 10C1_76BC (C0_FB1_PULSE_SHAPING, mode Write, data 76BC)
+# ** Note   : (246444000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (246444000 ps) Send SPI command value 10C3_3711 (C0_FB1_PULSE_SHAPING, mode Write, data 3711)
+# ** Note   : (248766000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (248766000 ps) Send SPI command value 10C5_198A (C0_FB1_PULSE_SHAPING, mode Write, data 198A)
+# ** Note   : (251088000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (251088000 ps) Send SPI command value 10C7_0BD8 (C0_FB1_PULSE_SHAPING, mode Write, data 0BD8)
+# ** Note   : (253410000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (253410000 ps) Send SPI command value 10C9_057E (C0_FB1_PULSE_SHAPING, mode Write, data 057E)
+# ** Note   : (255732000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (255732000 ps) Send SPI command value 10CB_028C (C0_FB1_PULSE_SHAPING, mode Write, data 028C)
+# ** Note   : (258054000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (258054000 ps) Send SPI command value 10CD_012F (C0_FB1_PULSE_SHAPING, mode Write, data 012F)
+# ** Note   : (260376000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (260376000 ps) Send SPI command value 10CF_008C (C0_FB1_PULSE_SHAPING, mode Write, data 008C)
+# ** Note   : (262698000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (262698000 ps) Send SPI command value 10D1_0041 (C0_FB1_PULSE_SHAPING, mode Write, data 0041)
+# ** Note   : (265020000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (265020000 ps) Send SPI command value 10D3_001E (C0_FB1_PULSE_SHAPING, mode Write, data 001E)
+# ** Note   : (267342000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (267342000 ps) Send SPI command value 10D5_000E (C0_FB1_PULSE_SHAPING, mode Write, data 000E)
+# ** Note   : (269664000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (269664000 ps) Send SPI command value 10D7_0006 (C0_FB1_PULSE_SHAPING, mode Write, data 0006)
+# ** Note   : (271986000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (271986000 ps) Send SPI command value 10D9_0003 (C0_FB1_PULSE_SHAPING, mode Write, data 0003)
+# ** Note   : (274308000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (274308000 ps) Send SPI command value 10DB_0001 (C0_FB1_PULSE_SHAPING, mode Write, data 0001)
+# ** Note   : (276630000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (276630000 ps) Send SPI command value 10DD_0001 (C0_FB1_PULSE_SHAPING, mode Write, data 0001)
+# ** Note   : (278952000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (278952000 ps) Send SPI command value 10DF_0000 (C0_FB1_PULSE_SHAPING, mode Write, data 0000)
+# ** Note   : (281274000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (281274000 ps) Send SPI command value 10E1_0000 (C0_FB1_PULSE_SHAPING, mode Write, data 0000)
+# ** Note   : (283596000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (283596000 ps) Send SPI command value 10E3_0000 (C0_FB1_PULSE_SHAPING, mode Write, data 0000)
+# ** Note   : (285918000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (285918000 ps) Send SPI command value 10E5_0000 (C0_FB1_PULSE_SHAPING, mode Write, data 0000)
+# ** Note   : (288240000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (288240000 ps) Send SPI command value 10E7_0000 (C0_FB1_PULSE_SHAPING, mode Write, data 0000)
+# ** Note   : (290562000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (290562000 ps) Configure pulse shaping cut frequency channel 0 to 23000000Hz
+#             (290562000 ps) 
+#             (290562000 ps) ==============================================================================================
+#             (290562000 ps)   Record SQUID1 DAC pulse shaping column 0 by requesting a SQUID1 ADC dump on science
+#             (290562000 ps)    (DAC feedback on ADC)
+#             (290562000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (290562000 ps) Send SPI command value 8001_54XX (TM_MODE, mode Write, data 54XX)
+# ** Note   : (292884000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (292885886 ps) Waiting event sync = '0' for 1886 ps
+# ** Note   : (293922888 ps) Waiting event sync = '1' for 1037002 ps
+# ** Note   : (294082968 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (299365608 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (299525688 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (304808328 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (304968408 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (310251048 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (310411128 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (315693768 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (315853848 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (321136488 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (321296568 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (326579208 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (326739288 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (332021928 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (332182008 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (337464648 ps) Waiting event sync = '1' for 5282640 ps
+#             (337464648 ps) 
+#             (337464648 ps) ==============================================================================================
+#             (337464648 ps)   Send command SQ1_FB_MODE column 0 to ON, DAC pulse shaping set 0: fc = 15 MHz
+#             (337464648 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (337464648 ps) Send SPI command value 8003_0001 (SQ1_FB_MODE, mode Write, data 0001)
+# ** Note   : (339774000 ps) Waiting SPI command end for 2273352 ps
+# ** Note   : (339774000 ps) Configure pulse shaping cut frequency channel 0 to 15000000Hz
+# ** Note   : (339777320 ps) Waiting event sync = '0' for 3320 ps
+# ** Note   : (342907368 ps) Waiting event sync = '1' for 3130048 ps
+# ** Note   : (343067448 ps) Waiting event sync = '0' for 160080 ps
+#             (343067448 ps) 
+#             (343067448 ps) ==============================================================================================
+#             (343067448 ps)   Send command SQ1_FB_MODE column 0 to ON, DAC pulse shaping set 1: fc = 20 MHz
+#             (343067448 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (343067448 ps) Send SPI command value 8003_0005 (SQ1_FB_MODE, mode Write, data 0005)
+# ** Note   : (345372000 ps) Waiting SPI command end for 2268552 ps
+# ** Note   : (345372000 ps) Configure pulse shaping cut frequency channel 0 to 20000000Hz
+# ** Note   : (345372116 ps) Waiting event sync = '0' for 116 ps
+# ** Note   : (348350088 ps) Waiting event sync = '1' for 2977972 ps
+# ** Note   : (348510168 ps) Waiting event sync = '0' for 160080 ps
+#             (348510168 ps) 
+#             (348510168 ps) ==============================================================================================
+#             (348510168 ps)   Send command SQ1_FB_MODE column 0 to ON, DAC pulse shaping set 2: fc = 25 MHz
+#             (348510168 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (348510168 ps) Send SPI command value 8003_0009 (SQ1_FB_MODE, mode Write, data 0009)
+# ** Note   : (350826000 ps) Waiting SPI command end for 2279832 ps
+# ** Note   : (350826000 ps) Configure pulse shaping cut frequency channel 0 to 25000000Hz
+# ** Note   : (350826842 ps) Waiting event sync = '0' for 842 ps
+# ** Note   : (353792808 ps) Waiting event sync = '1' for 2965966 ps
+# ** Note   : (353952888 ps) Waiting event sync = '0' for 160080 ps
+#             (353952888 ps) 
+#             (353952888 ps) ==============================================================================================
+#             (353952888 ps)   Send command SQ1_FB_MODE column 1 to ON, DAC pulse shaping set 0: fc = 15 MHz
+#             (353952888 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (353952888 ps) Send SPI command value 8003_0010 (SQ1_FB_MODE, mode Write, data 0010)
+# ** Note   : (356262000 ps) Waiting SPI command end for 2273112 ps
+# ** Note   : (356262000 ps) Configure pulse shaping cut frequency channel 1 to 15000000Hz
+# ** Note   : (356262042 ps) Waiting event sync = '0' for 42 ps
+# ** Note   : (359235528 ps) Waiting event sync = '1' for 2973486 ps
+#             (359235528 ps) 
+#             (359235528 ps) ==============================================================================================
+#             (359235528 ps)   Writing a new table in feedback open loop column 1 memory
+#             (359235528 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (359235528 ps) Send SPI command value 2401_7C20 (C1_SQ1_FB0, mode Write, data 7C20)
+# ** Note   : (361554000 ps) Waiting SPI command end for 2282472 ps
+# ** Note   : (361554000 ps) Send SPI command value 2403_FFFF (C1_SQ1_FB0, mode Write, data FFFF)
+# ** Note   : (363876000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (363876000 ps) Send SPI command value 2405_745E (C1_SQ1_FB0, mode Write, data 745E)
+# ** Note   : (366198000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (366198000 ps) Send SPI command value 2407_F840 (C1_SQ1_FB0, mode Write, data F840)
+# ** Note   : (368520000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (368520000 ps) Send SPI command value 2409_6C9C (C1_SQ1_FB0, mode Write, data 6C9C)
+# ** Note   : (370842000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (370842000 ps) Send SPI command value 240B_F07E (C1_SQ1_FB0, mode Write, data F07E)
+# ** Note   : (373164000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (373164000 ps) Send SPI command value 240D_64DA (C1_SQ1_FB0, mode Write, data 64DA)
+# ** Note   : (375486000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (375486000 ps) Send SPI command value 240F_E8BC (C1_SQ1_FB0, mode Write, data E8BC)
+# ** Note   : (377808000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (377808000 ps) Send SPI command value 2411_5D18 (C1_SQ1_FB0, mode Write, data 5D18)
+# ** Note   : (380130000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (380130000 ps) Send SPI command value 2413_E0FA (C1_SQ1_FB0, mode Write, data E0FA)
+# ** Note   : (382452000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (382452000 ps) Send SPI command value 2415_5556 (C1_SQ1_FB0, mode Write, data 5556)
+# ** Note   : (384774000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (384774000 ps) Send SPI command value 2417_D938 (C1_SQ1_FB0, mode Write, data D938)
+# ** Note   : (387096000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (387096000 ps) Send SPI command value 2419_4D94 (C1_SQ1_FB0, mode Write, data 4D94)
+# ** Note   : (389418000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (389418000 ps) Send SPI command value 241B_D176 (C1_SQ1_FB0, mode Write, data D176)
+# ** Note   : (391740000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (391740000 ps) Send SPI command value 241D_45D2 (C1_SQ1_FB0, mode Write, data 45D2)
+# ** Note   : (394062000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (394062000 ps) Send SPI command value 241F_C9B4 (C1_SQ1_FB0, mode Write, data C9B4)
+# ** Note   : (396384000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (396384000 ps) Send SPI command value 2421_3E10 (C1_SQ1_FB0, mode Write, data 3E10)
+# ** Note   : (398706000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (398706000 ps) Send SPI command value 2423_C1F2 (C1_SQ1_FB0, mode Write, data C1F2)
+# ** Note   : (401028000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (401028000 ps) Send SPI command value 2425_364E (C1_SQ1_FB0, mode Write, data 364E)
+# ** Note   : (403350000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (403350000 ps) Send SPI command value 2427_BA30 (C1_SQ1_FB0, mode Write, data BA30)
+# ** Note   : (405672000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (405672000 ps) Send SPI command value 2429_2E8C (C1_SQ1_FB0, mode Write, data 2E8C)
+# ** Note   : (407994000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (407994000 ps) Send SPI command value 242B_B26E (C1_SQ1_FB0, mode Write, data B26E)
+# ** Note   : (410316000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (410316000 ps) Send SPI command value 242D_26CA (C1_SQ1_FB0, mode Write, data 26CA)
+# ** Note   : (412638000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (412638000 ps) Send SPI command value 242F_AAAC (C1_SQ1_FB0, mode Write, data AAAC)
+# ** Note   : (414960000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (414960000 ps) Send SPI command value 2431_1F08 (C1_SQ1_FB0, mode Write, data 1F08)
+# ** Note   : (417282000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (417282000 ps) Send SPI command value 2433_A2EA (C1_SQ1_FB0, mode Write, data A2EA)
+# ** Note   : (419604000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (419604000 ps) Send SPI command value 2435_1746 (C1_SQ1_FB0, mode Write, data 1746)
+# ** Note   : (421926000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (421926000 ps) Send SPI command value 2437_9B28 (C1_SQ1_FB0, mode Write, data 9B28)
+# ** Note   : (424248000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (424248000 ps) Send SPI command value 2439_0F84 (C1_SQ1_FB0, mode Write, data 0F84)
+# ** Note   : (426570000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (426570000 ps) Send SPI command value 243B_9366 (C1_SQ1_FB0, mode Write, data 9366)
+# ** Note   : (428892000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (428892000 ps) Send SPI command value 243D_07C2 (C1_SQ1_FB0, mode Write, data 07C2)
+# ** Note   : (431214000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (431214000 ps) Send SPI command value 243F_8BA4 (C1_SQ1_FB0, mode Write, data 8BA4)
+# ** Note   : (433536000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (433536000 ps) Send SPI command value 2441_0000 (C1_SQ1_FB0, mode Write, data 0000)
+# ** Note   : (435858000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (435858000 ps) Send SPI command value 2443_83E2 (C1_SQ1_FB0, mode Write, data 83E2)
+# ** Note   : (438180000 ps) Waiting SPI command end for 2286000 ps
+#             (438180000 ps) 
+#             (438180000 ps) ==============================================================================================
+#             (438180000 ps)   Check SQUID1 DAC column 1 output stay to its middle point until the next sync rising edge
+#             (438180000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (438182498 ps) Waiting event sync = '0' for 2498 ps
+# ** Note   : (440876328 ps) Waiting event sync = '1' for 2693830 ps
+# ** Note   : (440876328 ps) Check time, DAC channel 1 last event: PASS
+# ** Note   : (440876328 ps)  * DAC channel 1 last event 440876328 ps equal to expected value 440876328 ps
+# ** Note   : (440876328 ps) Check DAC level: PASS
+# ** Note   : (440876328 ps)  * Read DAC channel 1, value 0.000000e+00, expected 0.000000e+00
+# ** Note   : (440876328 ps) Waiting event clk_sq1_dac(1) = '0' for 0 ps
+# ** Note   : (440880330 ps) Waiting event clk_sq1_dac(1) = '1' for 4002 ps
+# ** Note   : (440884332 ps) Waiting event clk_sq1_dac(1) = '0' for 4002 ps
+# ** Note   : (440884332 ps) Check time, DAC channel 1 last event: PASS
+# ** Note   : (440884332 ps)  * DAC channel 1 last event 3002 ps strictly less than expected value 4002 ps
+#             (440884332 ps) 
+#             (440884332 ps) ==============================================================================================
+#             (440884332 ps)   Record SQUID1 DAC pulse shaping column 1 by requesting a SQUID1 ADC dump on science
+#             (440884332 ps)    (DAC feedback on ADC)
+#             (440884332 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (440884332 ps) Send SPI command value 8001_51XX (TM_MODE, mode Write, data 51XX)
+# ** Note   : (443202000 ps) Waiting SPI command end for 2281668 ps
+# ** Note   : (443205008 ps) Waiting event sync = '0' for 3008 ps
+# ** Note   : (446319048 ps) Waiting event sync = '1' for 3114040 ps
+# ** Note   : (446479128 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (451761768 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (451921848 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (457204488 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (457364568 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (462647208 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (462807288 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (468089928 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (468250008 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (473532648 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (473692728 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (478975368 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (479135448 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (484418088 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (484578168 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (489860808 ps) Waiting event sync = '1' for 5282640 ps
+#             (489860808 ps) 
+#             (489860808 ps) ==============================================================================================
+#             (489860808 ps)   Send command SQ1_FB_MODE column 1 to ON, DAC pulse shaping set 1: fc = 20 MHz
+#             (489860808 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (489860808 ps) Send SPI command value 8003_0050 (SQ1_FB_MODE, mode Write, data 0050)
+# ** Note   : (492180000 ps) Waiting SPI command end for 2283192 ps
+# ** Note   : (492180000 ps) Configure pulse shaping cut frequency channel 1 to 20000000Hz
+#             (492180000 ps) 
+#             (492180000 ps) ==============================================================================================
+#             (492180000 ps)   Record SQUID1 DAC pulse shaping column 1 by requesting a SQUID1 ADC dump on science
+#             (492180000 ps)    (DAC feedback on ADC)
+#             (492180000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (492180000 ps) Send SPI command value 8001_51XX (TM_MODE, mode Write, data 51XX)
+# ** Note   : (494502000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (494502644 ps) Waiting event sync = '0' for 644 ps
+# ** Note   : (495303528 ps) Waiting event sync = '1' for 800884 ps
+# ** Note   : (495463608 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (500746248 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (500906328 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (506188968 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (506349048 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (511631688 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (511791768 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (517074408 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (517234488 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (522517128 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (522677208 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (527959848 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (528119928 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (533402568 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (533562648 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (538845288 ps) Waiting event sync = '1' for 5282640 ps
+#             (538845288 ps) 
+#             (538845288 ps) ==============================================================================================
+#             (538845288 ps)   Send command SQ1_FB_MODE column 1 to ON, DAC pulse shaping set 2: fc = 25 MHz
+#             (538845288 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (538845288 ps) Send SPI command value 8003_0090 (SQ1_FB_MODE, mode Write, data 0090)
+# ** Note   : (541158000 ps) Waiting SPI command end for 2276712 ps
+# ** Note   : (541158000 ps) Configure pulse shaping cut frequency channel 1 to 25000000Hz
+#             (541158000 ps) 
+#             (541158000 ps) ==============================================================================================
+#             (541158000 ps)   Record SQUID1 DAC pulse shaping column 1 by requesting a SQUID1 ADC dump on science
+#             (541158000 ps)    (DAC feedback on ADC)
+#             (541158000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (541158000 ps) Send SPI command value 8001_51XX (TM_MODE, mode Write, data 51XX)
+# ** Note   : (543480000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (543483122 ps) Waiting event sync = '0' for 3122 ps
+# ** Note   : (544288008 ps) Waiting event sync = '1' for 804886 ps
+# ** Note   : (544448088 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (549730728 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (549890808 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (555173448 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (555333528 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (560616168 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (560776248 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (566058888 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (566218968 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (571501608 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (571661688 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (576944328 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (577104408 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (582387048 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (582547128 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (587829768 ps) Waiting event sync = '1' for 5282640 ps
+#             (587829768 ps) 
+#             (587829768 ps) ==============================================================================================
+#             (587829768 ps)   Send command SQ1_FB_MODE column 1 to ON, DAC pulse shaping set 3: fc = 30 MHz
+#             (587829768 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (587829768 ps) Send SPI command value 8003_00D0 (SQ1_FB_MODE, mode Write, data 00D0)
+# ** Note   : (590136000 ps) Waiting SPI command end for 2270232 ps
+# ** Note   : (590136000 ps) Configure pulse shaping cut frequency channel 1 to 30000000Hz
+#             (590136000 ps) 
+#             (590136000 ps) ==============================================================================================
+#             (590136000 ps)   Record SQUID1 DAC pulse shaping column 1 by requesting a SQUID1 ADC dump on science
+#             (590136000 ps)    (DAC feedback on ADC)
+#             (590136000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (590136000 ps) Send SPI command value 8001_51XX (TM_MODE, mode Write, data 51XX)
+# ** Note   : (592458000 ps) Waiting SPI command end for 2286000 ps
+#             (592458000 ps) 
+#             (592458000 ps) ==============================================================================================
+#             (592458000 ps)   Replace DAC pulse shaping set 3 memory content for fc = 23 MHz
+#             (592458000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (592458000 ps) Send SPI command value 30C1_76BC (C1_FB1_PULSE_SHAPING, mode Write, data 76BC)
+# ** Note   : (594780000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (594780000 ps) Send SPI command value 30C3_3711 (C1_FB1_PULSE_SHAPING, mode Write, data 3711)
+# ** Note   : (597102000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (597102000 ps) Send SPI command value 30C5_198A (C1_FB1_PULSE_SHAPING, mode Write, data 198A)
+# ** Note   : (599424000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (599424000 ps) Send SPI command value 30C7_0BD8 (C1_FB1_PULSE_SHAPING, mode Write, data 0BD8)
+# ** Note   : (601746000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (601746000 ps) Send SPI command value 30C9_057E (C1_FB1_PULSE_SHAPING, mode Write, data 057E)
+# ** Note   : (604068000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (604068000 ps) Send SPI command value 30CB_028C (C1_FB1_PULSE_SHAPING, mode Write, data 028C)
+# ** Note   : (606390000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (606390000 ps) Send SPI command value 30CD_012F (C1_FB1_PULSE_SHAPING, mode Write, data 012F)
+# ** Note   : (608712000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (608712000 ps) Send SPI command value 30CF_008C (C1_FB1_PULSE_SHAPING, mode Write, data 008C)
+# ** Note   : (611034000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (611034000 ps) Send SPI command value 30D1_0041 (C1_FB1_PULSE_SHAPING, mode Write, data 0041)
+# ** Note   : (613356000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (613356000 ps) Send SPI command value 30D3_001E (C1_FB1_PULSE_SHAPING, mode Write, data 001E)
+# ** Note   : (615678000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (615678000 ps) Send SPI command value 30D5_000E (C1_FB1_PULSE_SHAPING, mode Write, data 000E)
+# ** Note   : (618000000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (618000000 ps) Send SPI command value 30D7_0006 (C1_FB1_PULSE_SHAPING, mode Write, data 0006)
+# ** Note   : (620322000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (620322000 ps) Send SPI command value 30D9_0003 (C1_FB1_PULSE_SHAPING, mode Write, data 0003)
+# ** Note   : (622644000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (622644000 ps) Send SPI command value 30DB_0001 (C1_FB1_PULSE_SHAPING, mode Write, data 0001)
+# ** Note   : (624966000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (624966000 ps) Send SPI command value 30DD_0001 (C1_FB1_PULSE_SHAPING, mode Write, data 0001)
+# ** Note   : (627288000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (627288000 ps) Send SPI command value 30DF_0000 (C1_FB1_PULSE_SHAPING, mode Write, data 0000)
+# ** Note   : (629610000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (629610000 ps) Send SPI command value 30E1_0000 (C1_FB1_PULSE_SHAPING, mode Write, data 0000)
+# ** Note   : (631932000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (631932000 ps) Send SPI command value 30E3_0000 (C1_FB1_PULSE_SHAPING, mode Write, data 0000)
+# ** Note   : (634254000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (634254000 ps) Send SPI command value 30E5_0000 (C1_FB1_PULSE_SHAPING, mode Write, data 0000)
+# ** Note   : (636576000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (636576000 ps) Send SPI command value 30E7_0000 (C1_FB1_PULSE_SHAPING, mode Write, data 0000)
+# ** Note   : (638898000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (638898000 ps) Configure pulse shaping cut frequency channel 1 to 23000000Hz
+#             (638898000 ps) 
+#             (638898000 ps) ==============================================================================================
+#             (638898000 ps)   Record SQUID1 DAC pulse shaping column 1 by requesting a SQUID1 ADC dump on science
+#             (638898000 ps)    (DAC feedback on ADC)
+#             (638898000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (638898000 ps) Send SPI command value 8001_51XX (TM_MODE, mode Write, data 51XX)
+# ** Note   : (641220000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (641220450 ps) Waiting event sync = '0' for 450 ps
+# ** Note   : (642256968 ps) Waiting event sync = '1' for 1036518 ps
+# ** Note   : (642417048 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (647699688 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (647859768 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (653142408 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (653302488 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (658585128 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (658745208 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (664027848 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (664187928 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (669470568 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (669630648 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (674913288 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (675073368 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (680356008 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (680516088 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (685798728 ps) Waiting event sync = '1' for 5282640 ps
+#             (685798728 ps) 
+#             (685798728 ps) ==============================================================================================
+#             (685798728 ps)   Send command SQ1_FB_MODE column 1 to ON, DAC pulse shaping set 0: fc = 15 MHz
+#             (685798728 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (685798728 ps) Send SPI command value 8003_0010 (SQ1_FB_MODE, mode Write, data 0010)
+# ** Note   : (688110000 ps) Waiting SPI command end for 2275272 ps
+# ** Note   : (688110000 ps) Configure pulse shaping cut frequency channel 1 to 15000000Hz
+# ** Note   : (688111400 ps) Waiting event sync = '0' for 1400 ps
+# ** Note   : (691241448 ps) Waiting event sync = '1' for 3130048 ps
+# ** Note   : (691401528 ps) Waiting event sync = '0' for 160080 ps
+#             (691401528 ps) 
+#             (691401528 ps) ==============================================================================================
+#             (691401528 ps)   Send command SQ1_FB_MODE column 1 to ON, DAC pulse shaping set 1: fc = 20 MHz
+#             (691401528 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (691401528 ps) Send SPI command value 8003_0050 (SQ1_FB_MODE, mode Write, data 0050)
+# ** Note   : (693708000 ps) Waiting SPI command end for 2270472 ps
+# ** Note   : (693708000 ps) Configure pulse shaping cut frequency channel 1 to 20000000Hz
+# ** Note   : (693710198 ps) Waiting event sync = '0' for 2198 ps
+# ** Note   : (696684168 ps) Waiting event sync = '1' for 2973970 ps
+# ** Note   : (696844248 ps) Waiting event sync = '0' for 160080 ps
+#             (696844248 ps) 
+#             (696844248 ps) ==============================================================================================
+#             (696844248 ps)   Send command SQ1_FB_MODE column 1 to ON, DAC pulse shaping set 2: fc = 25 MHz
+#             (696844248 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (696844248 ps) Send SPI command value 8003_0090 (SQ1_FB_MODE, mode Write, data 0090)
+# ** Note   : (699162000 ps) Waiting SPI command end for 2281752 ps
+# ** Note   : (699162000 ps) Configure pulse shaping cut frequency channel 1 to 25000000Hz
+# ** Note   : (699164924 ps) Waiting event sync = '0' for 2924 ps
+# ** Note   : (702126888 ps) Waiting event sync = '1' for 2961964 ps
+# ** Note   : (702286968 ps) Waiting event sync = '0' for 160080 ps
+#             (702286968 ps) 
+#             (702286968 ps) ==============================================================================================
+#             (702286968 ps)   Send command SQ1_FB_MODE column 2 to ON, DAC pulse shaping set 0: fc = 15 MHz
+#             (702286968 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (702286968 ps) Send SPI command value 8003_0100 (SQ1_FB_MODE, mode Write, data 0100)
+# ** Note   : (704598000 ps) Waiting SPI command end for 2275032 ps
+# ** Note   : (704598000 ps) Configure pulse shaping cut frequency channel 2 to 15000000Hz
+# ** Note   : (704599640 ps) Waiting event sync = '0' for 1640 ps
+# ** Note   : (707569608 ps) Waiting event sync = '1' for 2969968 ps
+#             (707569608 ps) 
+#             (707569608 ps) ==============================================================================================
+#             (707569608 ps)   Writing a new table in feedback open loop column 2 memory
+#             (707569608 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (707569608 ps) Send SPI command value 4401_7C20 (C2_SQ1_FB0, mode Write, data 7C20)
+# ** Note   : (709890000 ps) Waiting SPI command end for 2284392 ps
+# ** Note   : (709890000 ps) Send SPI command value 4403_FFFF (C2_SQ1_FB0, mode Write, data FFFF)
+# ** Note   : (712212000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (712212000 ps) Send SPI command value 4405_745E (C2_SQ1_FB0, mode Write, data 745E)
+# ** Note   : (714534000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (714534000 ps) Send SPI command value 4407_F840 (C2_SQ1_FB0, mode Write, data F840)
+# ** Note   : (716856000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (716856000 ps) Send SPI command value 4409_6C9C (C2_SQ1_FB0, mode Write, data 6C9C)
+# ** Note   : (719178000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (719178000 ps) Send SPI command value 440B_F07E (C2_SQ1_FB0, mode Write, data F07E)
+# ** Note   : (721500000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (721500000 ps) Send SPI command value 440D_64DA (C2_SQ1_FB0, mode Write, data 64DA)
+# ** Note   : (723822000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (723822000 ps) Send SPI command value 440F_E8BC (C2_SQ1_FB0, mode Write, data E8BC)
+# ** Note   : (726144000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (726144000 ps) Send SPI command value 4411_5D18 (C2_SQ1_FB0, mode Write, data 5D18)
+# ** Note   : (728466000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (728466000 ps) Send SPI command value 4413_E0FA (C2_SQ1_FB0, mode Write, data E0FA)
+# ** Note   : (730788000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (730788000 ps) Send SPI command value 4415_5556 (C2_SQ1_FB0, mode Write, data 5556)
+# ** Note   : (733110000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (733110000 ps) Send SPI command value 4417_D938 (C2_SQ1_FB0, mode Write, data D938)
+# ** Note   : (735432000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (735432000 ps) Send SPI command value 4419_4D94 (C2_SQ1_FB0, mode Write, data 4D94)
+# ** Note   : (737754000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (737754000 ps) Send SPI command value 441B_D176 (C2_SQ1_FB0, mode Write, data D176)
+# ** Note   : (740076000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (740076000 ps) Send SPI command value 441D_45D2 (C2_SQ1_FB0, mode Write, data 45D2)
+# ** Note   : (742398000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (742398000 ps) Send SPI command value 441F_C9B4 (C2_SQ1_FB0, mode Write, data C9B4)
+# ** Note   : (744720000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (744720000 ps) Send SPI command value 4421_3E10 (C2_SQ1_FB0, mode Write, data 3E10)
+# ** Note   : (747042000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (747042000 ps) Send SPI command value 4423_C1F2 (C2_SQ1_FB0, mode Write, data C1F2)
+# ** Note   : (749364000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (749364000 ps) Send SPI command value 4425_364E (C2_SQ1_FB0, mode Write, data 364E)
+# ** Note   : (751686000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (751686000 ps) Send SPI command value 4427_BA30 (C2_SQ1_FB0, mode Write, data BA30)
+# ** Note   : (754008000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (754008000 ps) Send SPI command value 4429_2E8C (C2_SQ1_FB0, mode Write, data 2E8C)
+# ** Note   : (756330000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (756330000 ps) Send SPI command value 442B_B26E (C2_SQ1_FB0, mode Write, data B26E)
+# ** Note   : (758652000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (758652000 ps) Send SPI command value 442D_26CA (C2_SQ1_FB0, mode Write, data 26CA)
+# ** Note   : (760974000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (760974000 ps) Send SPI command value 442F_AAAC (C2_SQ1_FB0, mode Write, data AAAC)
+# ** Note   : (763296000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (763296000 ps) Send SPI command value 4431_1F08 (C2_SQ1_FB0, mode Write, data 1F08)
+# ** Note   : (765618000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (765618000 ps) Send SPI command value 4433_A2EA (C2_SQ1_FB0, mode Write, data A2EA)
+# ** Note   : (767940000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (767940000 ps) Send SPI command value 4435_1746 (C2_SQ1_FB0, mode Write, data 1746)
+# ** Note   : (770262000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (770262000 ps) Send SPI command value 4437_9B28 (C2_SQ1_FB0, mode Write, data 9B28)
+# ** Note   : (772584000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (772584000 ps) Send SPI command value 4439_0F84 (C2_SQ1_FB0, mode Write, data 0F84)
+# ** Note   : (774906000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (774906000 ps) Send SPI command value 443B_9366 (C2_SQ1_FB0, mode Write, data 9366)
+# ** Note   : (777228000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (777228000 ps) Send SPI command value 443D_07C2 (C2_SQ1_FB0, mode Write, data 07C2)
+# ** Note   : (779550000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (779550000 ps) Send SPI command value 443F_8BA4 (C2_SQ1_FB0, mode Write, data 8BA4)
+# ** Note   : (781872000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (781872000 ps) Send SPI command value 4441_0000 (C2_SQ1_FB0, mode Write, data 0000)
+# ** Note   : (784194000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (784194000 ps) Send SPI command value 4443_83E2 (C2_SQ1_FB0, mode Write, data 83E2)
+# ** Note   : (786516000 ps) Waiting SPI command end for 2286000 ps
+#             (786516000 ps) 
+#             (786516000 ps) ==============================================================================================
+#             (786516000 ps)   Check SQUID1 DAC column 2 output stay to its middle point until the next sync rising edge
+#             (786516000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (789210408 ps) Waiting event sync = '1' for 2694408 ps
+# ** Note   : (789210408 ps) Check time, DAC channel 2 last event: PASS
+# ** Note   : (789210408 ps)  * DAC channel 2 last event 789210408 ps equal to expected value 789210408 ps
+# ** Note   : (789210408 ps) Check DAC level: PASS
+# ** Note   : (789210408 ps)  * Read DAC channel 2, value 0.000000e+00, expected 0.000000e+00
+# ** Note   : (789210408 ps) Waiting event clk_sq1_dac(2) = '0' for 0 ps
+# ** Note   : (789214410 ps) Waiting event clk_sq1_dac(2) = '1' for 4002 ps
+# ** Note   : (789218412 ps) Waiting event clk_sq1_dac(2) = '0' for 4002 ps
+# ** Note   : (789218412 ps) Check time, DAC channel 2 last event: PASS
+# ** Note   : (789218412 ps)  * DAC channel 2 last event 3002 ps strictly less than expected value 4002 ps
+#             (789218412 ps) 
+#             (789218412 ps) ==============================================================================================
+#             (789218412 ps)   Record SQUID1 DAC pulse shaping column 2 by requesting a SQUID1 ADC dump on science
+#             (789218412 ps)    (DAC feedback on ADC)
+#             (789218412 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (789218412 ps) Send SPI command value 8001_45XX (TM_MODE, mode Write, data 45XX)
+# ** Note   : (791538000 ps) Waiting SPI command end for 2283588 ps
+# ** Note   : (794653128 ps) Waiting event sync = '1' for 3115128 ps
+# ** Note   : (794813208 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (800095848 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (800255928 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (805538568 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (805698648 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (810981288 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (811141368 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (816424008 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (816584088 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (821866728 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (822026808 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (827309448 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (827469528 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (832752168 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (832912248 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (838194888 ps) Waiting event sync = '1' for 5282640 ps
+#             (838194888 ps) 
+#             (838194888 ps) ==============================================================================================
+#             (838194888 ps)   Send command SQ1_FB_MODE column 2 to ON, DAC pulse shaping set 1: fc = 20 MHz
+#             (838194888 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (838194888 ps) Send SPI command value 8003_0500 (SQ1_FB_MODE, mode Write, data 0500)
+# ** Note   : (840516000 ps) Waiting SPI command end for 2285112 ps
+# ** Note   : (840516000 ps) Configure pulse shaping cut frequency channel 2 to 20000000Hz
+#             (840516000 ps) 
+#             (840516000 ps) ==============================================================================================
+#             (840516000 ps)   Record SQUID1 DAC pulse shaping column 2 by requesting a SQUID1 ADC dump on science
+#             (840516000 ps)    (DAC feedback on ADC)
+#             (840516000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (840516000 ps) Send SPI command value 8001_45XX (TM_MODE, mode Write, data 45XX)
+# ** Note   : (842838000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (843637608 ps) Waiting event sync = '1' for 799608 ps
+# ** Note   : (843797688 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (849080328 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (849240408 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (854523048 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (854683128 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (859965768 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (860125848 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (865408488 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (865568568 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (870851208 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (871011288 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (876293928 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (876454008 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (881736648 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (881896728 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (887179368 ps) Waiting event sync = '1' for 5282640 ps
+#             (887179368 ps) 
+#             (887179368 ps) ==============================================================================================
+#             (887179368 ps)   Send command SQ1_FB_MODE column 2 to ON, DAC pulse shaping set 2: fc = 25 MHz
+#             (887179368 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (887179368 ps) Send SPI command value 8003_0900 (SQ1_FB_MODE, mode Write, data 0900)
+# ** Note   : (889494000 ps) Waiting SPI command end for 2278632 ps
+# ** Note   : (889494000 ps) Configure pulse shaping cut frequency channel 2 to 25000000Hz
+#             (889494000 ps) 
+#             (889494000 ps) ==============================================================================================
+#             (889494000 ps)   Record SQUID1 DAC pulse shaping column 2 by requesting a SQUID1 ADC dump on science
+#             (889494000 ps)    (DAC feedback on ADC)
+#             (889494000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (889494000 ps) Send SPI command value 8001_45XX (TM_MODE, mode Write, data 45XX)
+# ** Note   : (891816000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (892622088 ps) Waiting event sync = '1' for 806088 ps
+# ** Note   : (892782168 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (898064808 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (898224888 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (903507528 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (903667608 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (908950248 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (909110328 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (914392968 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (914553048 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (919835688 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (919995768 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (925278408 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (925438488 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (930721128 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (930881208 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (936163848 ps) Waiting event sync = '1' for 5282640 ps
+#             (936163848 ps) 
+#             (936163848 ps) ==============================================================================================
+#             (936163848 ps)   Send command SQ1_FB_MODE column 2 to ON, DAC pulse shaping set 3: fc = 30 MHz
+#             (936163848 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (936163848 ps) Send SPI command value 8003_0D00 (SQ1_FB_MODE, mode Write, data 0D00)
+# ** Note   : (938472000 ps) Waiting SPI command end for 2272152 ps
+# ** Note   : (938472000 ps) Configure pulse shaping cut frequency channel 2 to 30000000Hz
+#             (938472000 ps) 
+#             (938472000 ps) ==============================================================================================
+#             (938472000 ps)   Record SQUID1 DAC pulse shaping column 2 by requesting a SQUID1 ADC dump on science
+#             (938472000 ps)    (DAC feedback on ADC)
+#             (938472000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (938472000 ps) Send SPI command value 8001_45XX (TM_MODE, mode Write, data 45XX)
+# ** Note   : (940794000 ps) Waiting SPI command end for 2286000 ps
+#             (940794000 ps) 
+#             (940794000 ps) ==============================================================================================
+#             (940794000 ps)   Replace DAC pulse shaping set 3 memory content for fc = 23 MHz
+#             (940794000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (940794000 ps) Send SPI command value 50C1_76BC (C2_FB1_PULSE_SHAPING, mode Write, data 76BC)
+# ** Note   : (943116000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (943116000 ps) Send SPI command value 50C3_3711 (C2_FB1_PULSE_SHAPING, mode Write, data 3711)
+# ** Note   : (945438000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (945438000 ps) Send SPI command value 50C5_198A (C2_FB1_PULSE_SHAPING, mode Write, data 198A)
+# ** Note   : (947760000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (947760000 ps) Send SPI command value 50C7_0BD8 (C2_FB1_PULSE_SHAPING, mode Write, data 0BD8)
+# ** Note   : (950082000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (950082000 ps) Send SPI command value 50C9_057E (C2_FB1_PULSE_SHAPING, mode Write, data 057E)
+# ** Note   : (952404000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (952404000 ps) Send SPI command value 50CB_028C (C2_FB1_PULSE_SHAPING, mode Write, data 028C)
+# ** Note   : (954726000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (954726000 ps) Send SPI command value 50CD_012F (C2_FB1_PULSE_SHAPING, mode Write, data 012F)
+# ** Note   : (957048000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (957048000 ps) Send SPI command value 50CF_008C (C2_FB1_PULSE_SHAPING, mode Write, data 008C)
+# ** Note   : (959370000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (959370000 ps) Send SPI command value 50D1_0041 (C2_FB1_PULSE_SHAPING, mode Write, data 0041)
+# ** Note   : (961692000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (961692000 ps) Send SPI command value 50D3_001E (C2_FB1_PULSE_SHAPING, mode Write, data 001E)
+# ** Note   : (964014000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (964014000 ps) Send SPI command value 50D5_000E (C2_FB1_PULSE_SHAPING, mode Write, data 000E)
+# ** Note   : (966336000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (966336000 ps) Send SPI command value 50D7_0006 (C2_FB1_PULSE_SHAPING, mode Write, data 0006)
+# ** Note   : (968658000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (968658000 ps) Send SPI command value 50D9_0003 (C2_FB1_PULSE_SHAPING, mode Write, data 0003)
+# ** Note   : (970980000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (970980000 ps) Send SPI command value 50DB_0001 (C2_FB1_PULSE_SHAPING, mode Write, data 0001)
+# ** Note   : (973302000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (973302000 ps) Send SPI command value 50DD_0001 (C2_FB1_PULSE_SHAPING, mode Write, data 0001)
+# ** Note   : (975624000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (975624000 ps) Send SPI command value 50DF_0000 (C2_FB1_PULSE_SHAPING, mode Write, data 0000)
+# ** Note   : (977946000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (977946000 ps) Send SPI command value 50E1_0000 (C2_FB1_PULSE_SHAPING, mode Write, data 0000)
+# ** Note   : (980268000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (980268000 ps) Send SPI command value 50E3_0000 (C2_FB1_PULSE_SHAPING, mode Write, data 0000)
+# ** Note   : (982590000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (982590000 ps) Send SPI command value 50E5_0000 (C2_FB1_PULSE_SHAPING, mode Write, data 0000)
+# ** Note   : (984912000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (984912000 ps) Send SPI command value 50E7_0000 (C2_FB1_PULSE_SHAPING, mode Write, data 0000)
+# ** Note   : (987234000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (987234000 ps) Configure pulse shaping cut frequency channel 2 to 23000000Hz
+#             (987234000 ps) 
+#             (987234000 ps) ==============================================================================================
+#             (987234000 ps)   Record SQUID1 DAC pulse shaping column 2 by requesting a SQUID1 ADC dump on science
+#             (987234000 ps)    (DAC feedback on ADC)
+#             (987234000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (987234000 ps) Send SPI command value 8001_45XX (TM_MODE, mode Write, data 45XX)
+# ** Note   : (989556000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (990591048 ps) Waiting event sync = '1' for 1035048 ps
+# ** Note   : (990751128 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (996033768 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (996193848 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (1001476488 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (1001636568 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (1006919208 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (1007079288 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (1012361928 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (1012522008 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (1017804648 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (1017964728 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (1023247368 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (1023407448 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (1028690088 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (1028850168 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (1034132808 ps) Waiting event sync = '1' for 5282640 ps
+#             (1034132808 ps) 
+#             (1034132808 ps) ==============================================================================================
+#             (1034132808 ps)   Send command SQ1_FB_MODE column 2 to ON, DAC pulse shaping set 0: fc = 15 MHz
+#             (1034132808 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (1034132808 ps) Send SPI command value 8003_0100 (SQ1_FB_MODE, mode Write, data 0100)
+# ** Note   : (1036446000 ps) Waiting SPI command end for 2277192 ps
+# ** Note   : (1036446000 ps) Configure pulse shaping cut frequency channel 2 to 15000000Hz
+# ** Note   : (1036449482 ps) Waiting event sync = '0' for 3482 ps
+# ** Note   : (1039575528 ps) Waiting event sync = '1' for 3126046 ps
+# ** Note   : (1039735608 ps) Waiting event sync = '0' for 160080 ps
+#             (1039735608 ps) 
+#             (1039735608 ps) ==============================================================================================
+#             (1039735608 ps)   Send command SQ1_FB_MODE column 2 to ON, DAC pulse shaping set 1: fc = 20 MHz
+#             (1039735608 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (1039735608 ps) Send SPI command value 8003_0500 (SQ1_FB_MODE, mode Write, data 0500)
+# ** Note   : (1042044000 ps) Waiting SPI command end for 2272392 ps
+# ** Note   : (1042044000 ps) Configure pulse shaping cut frequency channel 2 to 20000000Hz
+# ** Note   : (1042044278 ps) Waiting event sync = '0' for 278 ps
+# ** Note   : (1045018248 ps) Waiting event sync = '1' for 2973970 ps
+# ** Note   : (1045178328 ps) Waiting event sync = '0' for 160080 ps
+#             (1045178328 ps) 
+#             (1045178328 ps) ==============================================================================================
+#             (1045178328 ps)   Send command SQ1_FB_MODE column 2 to ON, DAC pulse shaping set 2: fc = 25 MHz
+#             (1045178328 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (1045178328 ps) Send SPI command value 8003_0900 (SQ1_FB_MODE, mode Write, data 0900)
+# ** Note   : (1047498000 ps) Waiting SPI command end for 2283672 ps
+# ** Note   : (1047498000 ps) Configure pulse shaping cut frequency channel 2 to 25000000Hz
+# ** Note   : (1047499004 ps) Waiting event sync = '0' for 1004 ps
+# ** Note   : (1050460968 ps) Waiting event sync = '1' for 2961964 ps
+# ** Note   : (1050621048 ps) Waiting event sync = '0' for 160080 ps
+#             (1050621048 ps) 
+#             (1050621048 ps) ==============================================================================================
+#             (1050621048 ps)   Send command SQ1_FB_MODE column 3 to ON, DAC pulse shaping set 0: fc = 15 MHz
+#             (1050621048 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (1050621048 ps) Send SPI command value 8003_1000 (SQ1_FB_MODE, mode Write, data 1000)
+# ** Note   : (1052934000 ps) Waiting SPI command end for 2276952 ps
+# ** Note   : (1052934000 ps) Configure pulse shaping cut frequency channel 3 to 15000000Hz
+# ** Note   : (1052934204 ps) Waiting event sync = '0' for 204 ps
+# ** Note   : (1055903688 ps) Waiting event sync = '1' for 2969484 ps
+#             (1055903688 ps) 
+#             (1055903688 ps) ==============================================================================================
+#             (1055903688 ps)   Writing a new table in feedback open loop column 3 memory
+#             (1055903688 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (1055903688 ps) Send SPI command value 6401_7C20 (C3_SQ1_FB0, mode Write, data 7C20)
+# ** Note   : (1058208000 ps) Waiting SPI command end for 2268312 ps
+# ** Note   : (1058208000 ps) Send SPI command value 6403_FFFF (C3_SQ1_FB0, mode Write, data FFFF)
+# ** Note   : (1060530000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (1060530000 ps) Send SPI command value 6405_745E (C3_SQ1_FB0, mode Write, data 745E)
+# ** Note   : (1062852000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (1062852000 ps) Send SPI command value 6407_F840 (C3_SQ1_FB0, mode Write, data F840)
+# ** Note   : (1065174000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (1065174000 ps) Send SPI command value 6409_6C9C (C3_SQ1_FB0, mode Write, data 6C9C)
+# ** Note   : (1067496000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (1067496000 ps) Send SPI command value 640B_F07E (C3_SQ1_FB0, mode Write, data F07E)
+# ** Note   : (1069818000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (1069818000 ps) Send SPI command value 640D_64DA (C3_SQ1_FB0, mode Write, data 64DA)
+# ** Note   : (1072140000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (1072140000 ps) Send SPI command value 640F_E8BC (C3_SQ1_FB0, mode Write, data E8BC)
+# ** Note   : (1074462000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (1074462000 ps) Send SPI command value 6411_5D18 (C3_SQ1_FB0, mode Write, data 5D18)
+# ** Note   : (1076784000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (1076784000 ps) Send SPI command value 6413_E0FA (C3_SQ1_FB0, mode Write, data E0FA)
+# ** Note   : (1079106000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (1079106000 ps) Send SPI command value 6415_5556 (C3_SQ1_FB0, mode Write, data 5556)
+# ** Note   : (1081428000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (1081428000 ps) Send SPI command value 6417_D938 (C3_SQ1_FB0, mode Write, data D938)
+# ** Note   : (1083750000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (1083750000 ps) Send SPI command value 6419_4D94 (C3_SQ1_FB0, mode Write, data 4D94)
+# ** Note   : (1086072000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (1086072000 ps) Send SPI command value 641B_D176 (C3_SQ1_FB0, mode Write, data D176)
+# ** Note   : (1088394000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (1088394000 ps) Send SPI command value 641D_45D2 (C3_SQ1_FB0, mode Write, data 45D2)
+# ** Note   : (1090716000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (1090716000 ps) Send SPI command value 641F_C9B4 (C3_SQ1_FB0, mode Write, data C9B4)
+# ** Note   : (1093038000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (1093038000 ps) Send SPI command value 6421_3E10 (C3_SQ1_FB0, mode Write, data 3E10)
+# ** Note   : (1095360000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (1095360000 ps) Send SPI command value 6423_C1F2 (C3_SQ1_FB0, mode Write, data C1F2)
+# ** Note   : (1097682000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (1097682000 ps) Send SPI command value 6425_364E (C3_SQ1_FB0, mode Write, data 364E)
+# ** Note   : (1100004000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (1100004000 ps) Send SPI command value 6427_BA30 (C3_SQ1_FB0, mode Write, data BA30)
+# ** Note   : (1102326000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (1102326000 ps) Send SPI command value 6429_2E8C (C3_SQ1_FB0, mode Write, data 2E8C)
+# ** Note   : (1104648000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (1104648000 ps) Send SPI command value 642B_B26E (C3_SQ1_FB0, mode Write, data B26E)
+# ** Note   : (1106970000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (1106970000 ps) Send SPI command value 642D_26CA (C3_SQ1_FB0, mode Write, data 26CA)
+# ** Note   : (1109292000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (1109292000 ps) Send SPI command value 642F_AAAC (C3_SQ1_FB0, mode Write, data AAAC)
+# ** Note   : (1111614000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (1111614000 ps) Send SPI command value 6431_1F08 (C3_SQ1_FB0, mode Write, data 1F08)
+# ** Note   : (1113936000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (1113936000 ps) Send SPI command value 6433_A2EA (C3_SQ1_FB0, mode Write, data A2EA)
+# ** Note   : (1116258000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (1116258000 ps) Send SPI command value 6435_1746 (C3_SQ1_FB0, mode Write, data 1746)
+# ** Note   : (1118580000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (1118580000 ps) Send SPI command value 6437_9B28 (C3_SQ1_FB0, mode Write, data 9B28)
+# ** Note   : (1120902000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (1120902000 ps) Send SPI command value 6439_0F84 (C3_SQ1_FB0, mode Write, data 0F84)
+# ** Note   : (1123224000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (1123224000 ps) Send SPI command value 643B_9366 (C3_SQ1_FB0, mode Write, data 9366)
+# ** Note   : (1125546000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (1125546000 ps) Send SPI command value 643D_07C2 (C3_SQ1_FB0, mode Write, data 07C2)
+# ** Note   : (1127868000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (1127868000 ps) Send SPI command value 643F_8BA4 (C3_SQ1_FB0, mode Write, data 8BA4)
+# ** Note   : (1130190000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (1130190000 ps) Send SPI command value 6441_0000 (C3_SQ1_FB0, mode Write, data 0000)
+# ** Note   : (1132512000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (1132512000 ps) Send SPI command value 6443_83E2 (C3_SQ1_FB0, mode Write, data 83E2)
+# ** Note   : (1134834000 ps) Waiting SPI command end for 2286000 ps
+#             (1134834000 ps) 
+#             (1134834000 ps) ==============================================================================================
+#             (1134834000 ps)   Check SQUID1 DAC column 3 output stay to its middle point until the next sync rising edge
+#             (1134834000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (1137544488 ps) Waiting event sync = '1' for 2710488 ps
+# ** Note   : (1137544488 ps) Check time, DAC channel 3 last event: PASS
+# ** Note   : (1137544488 ps)  * DAC channel 3 last event 1137544488 ps equal to expected value 1137544488 ps
+# ** Note   : (1137544488 ps) Check DAC level: PASS
+# ** Note   : (1137544488 ps)  * Read DAC channel 3, value 0.000000e+00, expected 0.000000e+00
+# ** Note   : (1137544488 ps) Waiting event clk_sq1_dac(3) = '0' for 0 ps
+# ** Note   : (1137548490 ps) Waiting event clk_sq1_dac(3) = '1' for 4002 ps
+# ** Note   : (1137552492 ps) Waiting event clk_sq1_dac(3) = '0' for 4002 ps
+# ** Note   : (1137552492 ps) Check time, DAC channel 3 last event: PASS
+# ** Note   : (1137552492 ps)  * DAC channel 3 last event 3002 ps strictly less than expected value 4002 ps
+#             (1137552492 ps) 
+#             (1137552492 ps) ==============================================================================================
+#             (1137552492 ps)   Record SQUID1 DAC pulse shaping column 3 by requesting a SQUID1 ADC dump on science
+#             (1137552492 ps)    (DAC feedback on ADC)
+#             (1137552492 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (1137552492 ps) Send SPI command value 8001_15XX (TM_MODE, mode Write, data 15XX)
+# ** Note   : (1139874000 ps) Waiting SPI command end for 2285508 ps
+# ** Note   : (1142987208 ps) Waiting event sync = '1' for 3113208 ps
+# ** Note   : (1143147288 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (1148429928 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (1148590008 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (1153872648 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (1154032728 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (1159315368 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (1159475448 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (1164758088 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (1164918168 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (1170200808 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (1170360888 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (1175643528 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (1175803608 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (1181086248 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (1181246328 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (1186528968 ps) Waiting event sync = '1' for 5282640 ps
+#             (1186528968 ps) 
+#             (1186528968 ps) ==============================================================================================
+#             (1186528968 ps)   Send command SQ1_FB_MODE column 3 to ON, DAC pulse shaping set 1: fc = 20 MHz
+#             (1186528968 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (1186528968 ps) Send SPI command value 8003_5000 (SQ1_FB_MODE, mode Write, data 5000)
+# ** Note   : (1188834000 ps) Waiting SPI command end for 2269032 ps
+# ** Note   : (1188834000 ps) Configure pulse shaping cut frequency channel 3 to 20000000Hz
+#             (1188834000 ps) 
+#             (1188834000 ps) ==============================================================================================
+#             (1188834000 ps)   Record SQUID1 DAC pulse shaping column 3 by requesting a SQUID1 ADC dump on science
+#             (1188834000 ps)    (DAC feedback on ADC)
+#             (1188834000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (1188834000 ps) Send SPI command value 8001_15XX (TM_MODE, mode Write, data 15XX)
+# ** Note   : (1191156000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (1191971688 ps) Waiting event sync = '1' for 815688 ps
+# ** Note   : (1192131768 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (1197414408 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (1197574488 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (1202857128 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (1203017208 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (1208299848 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (1208459928 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (1213742568 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (1213902648 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (1219185288 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (1219345368 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (1224628008 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (1224788088 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (1230070728 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (1230230808 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (1235513448 ps) Waiting event sync = '1' for 5282640 ps
+#             (1235513448 ps) 
+#             (1235513448 ps) ==============================================================================================
+#             (1235513448 ps)   Send command SQ1_FB_MODE column 3 to ON, DAC pulse shaping set 2: fc = 25 MHz
+#             (1235513448 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (1235513448 ps) Send SPI command value 8003_9000 (SQ1_FB_MODE, mode Write, data 9000)
+# ** Note   : (1237830000 ps) Waiting SPI command end for 2280552 ps
+# ** Note   : (1237830000 ps) Configure pulse shaping cut frequency channel 3 to 25000000Hz
+#             (1237830000 ps) 
+#             (1237830000 ps) ==============================================================================================
+#             (1237830000 ps)   Record SQUID1 DAC pulse shaping column 3 by requesting a SQUID1 ADC dump on science
+#             (1237830000 ps)    (DAC feedback on ADC)
+#             (1237830000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (1237830000 ps) Send SPI command value 8001_15XX (TM_MODE, mode Write, data 15XX)
+# ** Note   : (1240152000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (1240956168 ps) Waiting event sync = '1' for 804168 ps
+# ** Note   : (1241116248 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (1246398888 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (1246558968 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (1251841608 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (1252001688 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (1257284328 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (1257444408 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (1262727048 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (1262887128 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (1268169768 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (1268329848 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (1273612488 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (1273772568 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (1279055208 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (1279215288 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (1284497928 ps) Waiting event sync = '1' for 5282640 ps
+#             (1284497928 ps) 
+#             (1284497928 ps) ==============================================================================================
+#             (1284497928 ps)   Send command SQ1_FB_MODE column 3 to ON, DAC pulse shaping set 3: fc = 30 MHz
+#             (1284497928 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (1284497928 ps) Send SPI command value 8003_D000 (SQ1_FB_MODE, mode Write, data D000)
+# ** Note   : (1286808000 ps) Waiting SPI command end for 2274072 ps
+# ** Note   : (1286808000 ps) Configure pulse shaping cut frequency channel 3 to 30000000Hz
+#             (1286808000 ps) 
+#             (1286808000 ps) ==============================================================================================
+#             (1286808000 ps)   Record SQUID1 DAC pulse shaping column 3 by requesting a SQUID1 ADC dump on science
+#             (1286808000 ps)    (DAC feedback on ADC)
+#             (1286808000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (1286808000 ps) Send SPI command value 8001_15XX (TM_MODE, mode Write, data 15XX)
+# ** Note   : (1289130000 ps) Waiting SPI command end for 2286000 ps
+#             (1289130000 ps) 
+#             (1289130000 ps) ==============================================================================================
+#             (1289130000 ps)   Replace DAC pulse shaping set 3 memory content for fc = 23 MHz
+#             (1289130000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (1289130000 ps) Send SPI command value 70C1_76BC (C3_FB1_PULSE_SHAPING, mode Write, data 76BC)
+# ** Note   : (1291452000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (1291452000 ps) Send SPI command value 70C3_3711 (C3_FB1_PULSE_SHAPING, mode Write, data 3711)
+# ** Note   : (1293774000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (1293774000 ps) Send SPI command value 70C5_198A (C3_FB1_PULSE_SHAPING, mode Write, data 198A)
+# ** Note   : (1296096000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (1296096000 ps) Send SPI command value 70C7_0BD8 (C3_FB1_PULSE_SHAPING, mode Write, data 0BD8)
+# ** Note   : (1298418000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (1298418000 ps) Send SPI command value 70C9_057E (C3_FB1_PULSE_SHAPING, mode Write, data 057E)
+# ** Note   : (1300740000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (1300740000 ps) Send SPI command value 70CB_028C (C3_FB1_PULSE_SHAPING, mode Write, data 028C)
+# ** Note   : (1303062000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (1303062000 ps) Send SPI command value 70CD_012F (C3_FB1_PULSE_SHAPING, mode Write, data 012F)
+# ** Note   : (1305384000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (1305384000 ps) Send SPI command value 70CF_008C (C3_FB1_PULSE_SHAPING, mode Write, data 008C)
+# ** Note   : (1307706000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (1307706000 ps) Send SPI command value 70D1_0041 (C3_FB1_PULSE_SHAPING, mode Write, data 0041)
+# ** Note   : (1310028000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (1310028000 ps) Send SPI command value 70D3_001E (C3_FB1_PULSE_SHAPING, mode Write, data 001E)
+# ** Note   : (1312350000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (1312350000 ps) Send SPI command value 70D5_000E (C3_FB1_PULSE_SHAPING, mode Write, data 000E)
+# ** Note   : (1314672000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (1314672000 ps) Send SPI command value 70D7_0006 (C3_FB1_PULSE_SHAPING, mode Write, data 0006)
+# ** Note   : (1316994000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (1316994000 ps) Send SPI command value 70D9_0003 (C3_FB1_PULSE_SHAPING, mode Write, data 0003)
+# ** Note   : (1319316000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (1319316000 ps) Send SPI command value 70DB_0001 (C3_FB1_PULSE_SHAPING, mode Write, data 0001)
+# ** Note   : (1321638000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (1321638000 ps) Send SPI command value 70DD_0001 (C3_FB1_PULSE_SHAPING, mode Write, data 0001)
+# ** Note   : (1323960000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (1323960000 ps) Send SPI command value 70DF_0000 (C3_FB1_PULSE_SHAPING, mode Write, data 0000)
+# ** Note   : (1326282000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (1326282000 ps) Send SPI command value 70E1_0000 (C3_FB1_PULSE_SHAPING, mode Write, data 0000)
+# ** Note   : (1328604000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (1328604000 ps) Send SPI command value 70E3_0000 (C3_FB1_PULSE_SHAPING, mode Write, data 0000)
+# ** Note   : (1330926000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (1330926000 ps) Send SPI command value 70E5_0000 (C3_FB1_PULSE_SHAPING, mode Write, data 0000)
+# ** Note   : (1333248000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (1333248000 ps) Send SPI command value 70E7_0000 (C3_FB1_PULSE_SHAPING, mode Write, data 0000)
+# ** Note   : (1335570000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (1335570000 ps) Configure pulse shaping cut frequency channel 3 to 23000000Hz
+#             (1335570000 ps) 
+#             (1335570000 ps) ==============================================================================================
+#             (1335570000 ps)   Record SQUID1 DAC pulse shaping column 3 by requesting a SQUID1 ADC dump on science
+#             (1335570000 ps)    (DAC feedback on ADC)
+#             (1335570000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (1335570000 ps) Send SPI command value 8001_15XX (TM_MODE, mode Write, data 15XX)
+# ** Note   : (1337892000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (1338925128 ps) Waiting event sync = '1' for 1033128 ps
+# ** Note   : (1339085208 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (1344367848 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (1344527928 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (1349810568 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (1349970648 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (1355253288 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (1355413368 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (1360696008 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (1360856088 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (1366138728 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (1366298808 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (1371581448 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (1371741528 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (1377024168 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (1377184248 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (1382466888 ps) Waiting event sync = '1' for 5282640 ps
+#             (1382466888 ps) 
+#             (1382466888 ps) ==============================================================================================
+#             (1382466888 ps)   Send command SQ1_FB_MODE column 3 to ON, DAC pulse shaping set 0: fc = 15 MHz
+#             (1382466888 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (1382466888 ps) Send SPI command value 8003_1000 (SQ1_FB_MODE, mode Write, data 1000)
+# ** Note   : (1384782000 ps) Waiting SPI command end for 2279112 ps
+# ** Note   : (1384782000 ps) Configure pulse shaping cut frequency channel 3 to 15000000Hz
+# ** Note   : (1384783562 ps) Waiting event sync = '0' for 1562 ps
+# ** Note   : (1387909608 ps) Waiting event sync = '1' for 3126046 ps
+# ** Note   : (1388069688 ps) Waiting event sync = '0' for 160080 ps
+#             (1388069688 ps) 
+#             (1388069688 ps) ==============================================================================================
+#             (1388069688 ps)   Send command SQ1_FB_MODE column 3 to ON, DAC pulse shaping set 1: fc = 20 MHz
+#             (1388069688 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (1388069688 ps) Send SPI command value 8003_5000 (SQ1_FB_MODE, mode Write, data 5000)
+# ** Note   : (1390380000 ps) Waiting SPI command end for 2274312 ps
+# ** Note   : (1390380000 ps) Configure pulse shaping cut frequency channel 3 to 20000000Hz
+# ** Note   : (1390382360 ps) Waiting event sync = '0' for 2360 ps
+# ** Note   : (1393352328 ps) Waiting event sync = '1' for 2969968 ps
+# ** Note   : (1393512408 ps) Waiting event sync = '0' for 160080 ps
+#             (1393512408 ps) 
+#             (1393512408 ps) ==============================================================================================
+#             (1393512408 ps)   Send command SQ1_FB_MODE column 3 to ON, DAC pulse shaping set 2: fc = 25 MHz
+#             (1393512408 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (1393512408 ps) Send SPI command value 8003_9000 (SQ1_FB_MODE, mode Write, data 9000)
+# ** Note   : (1395834000 ps) Waiting SPI command end for 2285592 ps
+# ** Note   : (1395834000 ps) Configure pulse shaping cut frequency channel 3 to 25000000Hz
+# ** Note   : (1395837086 ps) Waiting event sync = '0' for 3086 ps
+# ** Note   : (1398795048 ps) Waiting event sync = '1' for 2957962 ps
+# ** Note   : (1398955128 ps) Waiting event sync = '0' for 160080 ps
+#             (1398955128 ps) 
+#             (1398955128 ps) ==============================================================================================
+#             (1398955128 ps)   Send command SQ1_FB_MODE OFF on all columns
+#             (1398955128 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (1398955128 ps) Send SPI command value 8003_0000 (SQ1_FB_MODE, mode Write, data 0000)
+# ** Note   : (1401270000 ps) Waiting SPI command end for 2278872 ps
+# ------------------------------------------------------------------------------------------------------------------------------------------------------
+# Error number pulse shaping channel 0: 0
+# Error number pulse shaping channel 1: 0
+# Error number pulse shaping channel 2: 0
+# Error number pulse shaping channel 3: 0
+# ------------------------------------------------------------------------------------------------------------------------------------------------------
+# Error simulation time         : '0'
+# Error check discrete level    : '0'
+# Error check command return    : '0'
+# Error check time              : '0'
+# Error check clocks parameters : '0'
+# Error check science packets   : '0'
+# Error check pulse shaping     : '0'
+# ------------------------------------------------------------------------------------------------------------------------------------------------------
+# Simulation time               : 1405000000 ps
+# Simulation status             : PASS
+# ------------------------------------------------------------------------------------------------------------------------------------------------------

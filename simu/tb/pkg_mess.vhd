@@ -38,6 +38,7 @@ constant c_MESS_FORMAT_BIN    : string  := " binary"                            
 constant c_MESS_FORMAT_HEX    : string  := " hex"                                                           ; --! Message: format Hex
 constant c_MESS_FORMAT_TIME   : string  := " time"                                                          ; --! Message: format Time
 constant c_MESS_FORMAT_INT    : string  := " integer"                                                       ; --! Message: format Integer
+constant c_MESS_FORMAT_REAL   : string  := " real"                                                          ; --! Message: format Real
 
 constant c_MESS_ERR_SIZE      : string  := " size not expected"                                             ; --! Message: size error
 constant c_MESS_ERR_FORMAT    : string  := " format not expected"                                           ; --! Message: format error
@@ -118,6 +119,12 @@ constant c_MESS_EXP           : string  := ", expected: "                       
    (     b_line               : inout  line                                                                 ; --  Line to analysis
          i_mess_header        : in     string                                                               ; --  Message header
          o_field              : out    integer                                                                --  Field found
+   );
+
+   procedure rfield
+   (     b_line               : inout  line                                                                 ; --  Line to analysis
+         i_mess_header        : in     string                                                               ; --  Message header
+         o_field              : out    real                                                                   --  Field found
    );
 
    procedure brfield
@@ -282,13 +289,15 @@ package body pkg_mess is
          read(b_line, v_line_char);
 
          -- Exit loop if separator or carriage return detected
-         if v_line_char = i_delimiter or v_line_char = CR then
+         if (v_line_char = i_delimiter and i /= 1) or v_line_char = CR then
             exit;
          end if;
 
-         -- Add character to field and update its size
-         write(o_field, v_line_char);
-         o_field_s := i;
+         if v_line_char /= i_delimiter then
+            -- Add character to field and update its size
+            write(o_field, v_line_char);
+            o_field_s := i;
+         end if;
 
       end loop;
 
@@ -392,6 +401,22 @@ package body pkg_mess is
 
       -- Check the field format
       assert v_field_status = true report i_mess_header & c_MESS_FORMAT_TIME & c_MESS_FORMAT_INT severity failure;
+
+   end rfield;
+
+   procedure rfield
+   (     b_line               : inout  line                                                                 ; --  Line to analysis
+         i_mess_header        : in     string                                                               ; --  Message header
+         o_field              : out    real                                                                   --  Field found
+   ) is
+   variable v_field_status    : boolean                                                                     ; --! Field status
+   begin
+
+      -- Get field
+      read(b_line, o_field, v_field_status);
+
+      -- Check the field format
+      assert v_field_status = true report i_mess_header & c_MESS_FORMAT_TIME & c_MESS_FORMAT_REAL severity failure;
 
    end rfield;
 

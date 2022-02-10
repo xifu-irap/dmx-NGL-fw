@@ -201,7 +201,7 @@ WCMD R-SQ2_FB_MODE-XXXX R     # Command 30
 COMM
 COMM ==============================================================================================
 COMM   Check SQ2_FB_MODE content:
-COMM   Col(3)->Test pattern, Col(2)->Open loop, Col(1)->Close loop, Col(0)->Off 
+COMM   Col(3)->Test pattern, Col(2)->Open loop, Col(1)->Close loop, Col(0)->Off
 COMM ----------------------------------------------------------------------------------------------
 CCMD R-SQ2_FB_MODE-3120 W     # Return Command 28
 WCMD W-SQ2_FB_MODE-2031 R     # Command 31

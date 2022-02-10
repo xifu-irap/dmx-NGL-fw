@@ -52,6 +52,7 @@
 # Error check time              : '0'
 # Error check clocks parameters : '0'
 # Error check science packets   : '0'
+# Error check pulse shaping     : '0'
 # ------------------------------------------------------------------------------------------------------------------------------------------------------
 # Simulation time               : 40000000 ps
 # Simulation status             : PASS

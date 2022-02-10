@@ -40,7 +40,7 @@ entity pulse_shaping is generic
          g_Y_K_S              : integer                                                                       --! y[k]: filtered data out bus size
    ); port
    (     i_rst_sq1_pls_shape  : in     std_logic                                                            ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
-         i_clk_sq1_pls_shape  : in     std_logic                                                            ; --! SQUID1 pulse shaping Clock
+         i_clk_sq1_adc_dac    : in     std_logic                                                            ; --! SQUID1 ADC/DAC internal Clock
          i_x_init             : in     std_logic_vector(g_X_K_S-1 downto 0)                                 ; --! Last value reached by y[k] at the end of last slice (unsigned)
          i_x_final            : in     std_logic_vector(g_X_K_S-1 downto 0)                                 ; --! Final value to reach by y[k] (unsigned)
          i_a_mant_k           : in     std_logic_vector(g_A_EXP-1 downto 0)                                 ; --! A[k]: filter mantissa parameter (unsigned)
@@ -130,7 +130,7 @@ begin
          ENABLE_PR_Z_RST      => c_MULT_ALU_PRM_ENA     -- bit                                                --! Multiplexer ALU            register reset ('0' = Disable, '1' = Enable)
 
    )     port map
-   (     ck                   => i_clk_sq1_pls_shape  , -- in     std_logic                                 ; --! Clock
+   (     ck                   => i_clk_sq1_adc_dac    , -- in     std_logic                                 ; --! Clock
          r                    => i_rst_sq1_pls_shape  , -- in     std_logic                                 ; --! Reset pipeline registers ('0' = Inactive, '1' = Active)
          rz                   => i_rst_sq1_pls_shape  , -- in     std_logic                                 ; --! Reset Z output register  ('0' = Inactive, '1' = Active)
          we                   => '1'                  , -- in     std_logic                                 ; --! Write Enable ('0' = Internal registers frozen, '1' = Normal operation)

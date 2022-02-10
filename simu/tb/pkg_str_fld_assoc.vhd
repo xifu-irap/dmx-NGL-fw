@@ -67,7 +67,7 @@ constant c_RET_UKWN           : std_logic_vector(c_EP_SPI_WD_S-1 downto 0) := (o
    procedure get_ce_index
    (     b_line               : inout  line                                                                 ; --  Line to analysis
          o_fld_ce             : out    line                                                                 ; --  Field check clock parameters enable
-         o_fld_ce_ind         : out    integer range 0 to c_CE_S                                              --  Field check clock parameters enable index (equal to c_CE_S if field not recognized)
+         o_fld_ce_ind         : out    integer range 0 to c_CE_S+1                                            --  Field check clock parameters enable index (equal to c_CE_S if field not recognized)
    );
 
    -- ------------------------------------------------------------------------------------------------------
@@ -253,6 +253,30 @@ constant c_PAD                : character := ' '                                
          when "sq1_dac_sleep(3)    "   =>
             o_fld_dr_ind := c_DR_SQ1_DAC_SLEEP_3;
 
+         when "clk_sq1_adc(0)      "   =>
+            o_fld_dr_ind := c_DR_CLK_SQ1_ADC_0;
+
+         when "clk_sq1_adc(1)      "   =>
+            o_fld_dr_ind := c_DR_CLK_SQ1_ADC_1;
+
+         when "clk_sq1_adc(2)      "   =>
+            o_fld_dr_ind := c_DR_CLK_SQ1_ADC_2;
+
+         when "clk_sq1_adc(3)      "   =>
+            o_fld_dr_ind := c_DR_CLK_SQ1_ADC_3;
+
+         when "clk_sq1_dac(0)      "   =>
+            o_fld_dr_ind := c_DR_CLK_SQ1_dac_0;
+
+         when "clk_sq1_dac(1)      "   =>
+            o_fld_dr_ind := c_DR_CLK_SQ1_dac_1;
+
+         when "clk_sq1_dac(2)      "   =>
+            o_fld_dr_ind := c_DR_CLK_SQ1_dac_2;
+
+         when "clk_sq1_dac(3)      "   =>
+            o_fld_dr_ind := c_DR_CLK_SQ1_dac_3;
+
          when others                   =>
             o_fld_dr_ind := c_DR_S;
 
@@ -270,7 +294,7 @@ constant c_PAD                : character := ' '                                
    procedure get_ce_index
    (     b_line               : inout  line                                                                 ; --  Line to analysis
          o_fld_ce             : out    line                                                                 ; --  Field check clock parameters enable
-         o_fld_ce_ind         : out    integer range 0 to c_CE_S                                              --  Field check clock parameters enable index (equal to c_CE_S if field not recognized)
+         o_fld_ce_ind         : out    integer range 0 to c_CE_S+1                                            --  Field check clock parameters enable index (equal to c_CE_S if field not recognized)
    ) is
    variable v_fld_ce_pad      : line                                                                        ; --  Field check clock parameters enable with padding
    begin
@@ -319,6 +343,9 @@ constant c_PAD                : character := ' '                                
          when "clk_science_23      "   =>
             o_fld_ce_ind := c_CE_CLK_SC_23;
 
+         when "pulse_shaping       "   =>
+            o_fld_ce_ind := c_E_PLS_SHP;
+
          when others                   =>
             o_fld_ce_ind := c_CE_S;
 
@@ -360,6 +387,42 @@ constant c_PAD                : character := ' '                                
 
          when "Version                       "  =>
             o_fld_add_val:= c_EP_CMD_ADD_VERSION;
+
+         when "C0_SQ1_FB0                    "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_S1FB0(0);
+
+         when "C0_SQ1_FB_MODE                "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_S1FBM(0);
+
+         when "C0_FB1_PULSE_SHAPING          "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_PLSSH(0);
+
+         when "C1_SQ1_FB0                    "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_S1FB0(1);
+
+         when "C1_SQ1_FB_MODE                "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_S1FBM(1);
+
+         when "C1_FB1_PULSE_SHAPING          "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_PLSSH(1);
+
+         when "C2_SQ1_FB0                    "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_S1FB0(2);
+
+         when "C2_SQ1_FB_MODE                "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_S1FBM(2);
+
+         when "C2_FB1_PULSE_SHAPING          "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_PLSSH(2);
+
+         when "C3_SQ1_FB0                    "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_S1FB0(3);
+
+         when "C3_SQ1_FB_MODE                "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_S1FBM(3);
+
+         when "C3_FB1_PULSE_SHAPING          "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_PLSSH(3);
 
          when others                            =>
             o_fld_add_val:= c_RET_UKWN;
@@ -460,6 +523,9 @@ constant c_PAD                : character := ' '                                
    variable v_cmd_field_s     : integer                                                                     ; --  Command field size
    variable v_fld_access      : line                                                                        ; --  Field access
    variable v_fld_add         : line                                                                        ; --  Field address
+   variable v_fld_add_basis   : line                                                                        ; --  Field address basis
+   variable v_fld_add_basis_s : integer                                                                     ; --  Field address basis size
+   variable v_fld_add_index   : integer                                                                     ; --  Field address index
    variable v_fld_add_val     : std_logic_vector(c_EP_SPI_WD_S-1 downto 0)                                  ; --  Field address value
    variable v_fld_data        : line                                                                        ; --  Field data
    variable v_fld_data_val    : std_logic_vector(c_EP_SPI_WD_S-1 downto 0)                                  ; --  Field data value
@@ -491,23 +557,39 @@ constant c_PAD                : character := ' '                                
 
       -- Get [address]
       get_field_line(b_cmd, c_CMD_DEL, v_cmd_field, v_cmd_field_s);
-      get_cmd_add(v_cmd_field, v_fld_add, v_fld_add_val);
+
+      -- Get address basis part
+      get_field_line(v_cmd_field, '(', v_fld_add_basis, v_fld_add_basis_s);
+      get_cmd_add(v_fld_add_basis, v_fld_add, v_fld_add_val);
 
       if v_fld_add_val = c_RET_UKWN then
 
          -- Drop underscore included in the fields
          drop_line_char(v_fld_add, '_', v_fld_add);
 
-         -- Get [address], hex format
+         -- Get address basis part, hex format
          hrfield(v_fld_add, i_mess_header & "[address]", v_fld_add_val);
 
       end if;
 
+      v_fld_add_index := 0;
+
+      -- Get address index part
+      if v_cmd_field_s /= v_fld_add_basis_s then
+
+         -- Drop index end
+         drop_line_char(v_cmd_field, ')', v_cmd_field);
+
+         -- Get address index part, integer format
+         rfield(v_cmd_field, i_mess_header & "[address]", v_fld_add_index);
+
+      end if;
+
       if c_EP_CMD_ADD_RW_POS = 0 then
-         o_fld_spi_cmd(o_fld_spi_cmd'high     downto c_EP_SPI_WD_S + 1) := v_fld_add_val(v_fld_add_val'high-1 downto 0);
+         o_fld_spi_cmd(o_fld_spi_cmd'high     downto c_EP_SPI_WD_S + 1) := std_logic_vector(unsigned(v_fld_add_val(v_fld_add_val'high-1 downto 0)) + to_unsigned(v_fld_add_index, v_fld_add_val'high));
 
       else
-         o_fld_spi_cmd(o_fld_spi_cmd'high - 1 downto c_EP_SPI_WD_S    ) := v_fld_add_val(v_fld_add_val'high-1 downto 0);
+         o_fld_spi_cmd(o_fld_spi_cmd'high - 1 downto c_EP_SPI_WD_S    ) := std_logic_vector(unsigned(v_fld_add_val(v_fld_add_val'high-1 downto 0)) + to_unsigned(v_fld_add_index, v_fld_add_val'high));
 
       end if;
 

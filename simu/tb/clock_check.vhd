@@ -33,7 +33,8 @@ use     work.pkg_model.all;
 entity clock_check is generic
    (     g_CLK_PER_L          : time                                                                        ; --! Low  level clock period expected time
          g_CLK_PER_H          : time                                                                        ; --! High level clock period expected time
-         g_CLK_ST_ENA_H       : std_logic                                                                     --! Clock state value when enable goes to active
+         g_CLK_ST_ENA         : std_logic                                                                   ; --! Clock state value when enable goes to active
+         g_CLK_ST_DIS         : std_logic                                                                     --! Clock state value when enable goes to inactive
    ); port
    (     i_clk                : in     std_logic                                                            ; --! Clock
          i_ena                : in     std_logic                                                            ; --! Enable ('0' = Inactive, '1' = Active)
@@ -72,10 +73,10 @@ begin
 
       wait until i_ena'event;
 
-      if i_ena = '1' and i_clk = not(g_CLK_ST_ENA_H) then
+      if i_ena = '1' and i_clk = not(g_CLK_ST_ENA) then
          err_n_clk_st_ena_h <= err_n_clk_st_ena_h + 1;
 
-      elsif i_ena = '0' and i_clk = g_CLK_ST_ENA_H then
+      elsif i_ena = '0' and i_clk = not(g_CLK_ST_DIS) then
          err_n_clk_st_ena_l <= err_n_clk_st_ena_l + 1;
 
       end if;
@@ -86,6 +87,7 @@ begin
    --!   Number of low/high level clock period timing error
    -- ------------------------------------------------------------------------------------------------------
    P_err_n_clk_per : process
+   constant c_TIMOUT_CLK_EV   : time   := 4*(g_CLK_PER_L + g_CLK_PER_H)                                     ; --! Time out clock event detection
    variable v_record_time     : time                                                                        ; --! Record time
    begin
 
@@ -97,11 +99,11 @@ begin
 
       v_record_time := now;
 
-      wait until i_clk'event for g_CLK_PER_L + g_CLK_PER_H;
+      wait until i_clk'event for c_TIMOUT_CLK_EV;
 
-      if i_ena = '1' then
+      if i_ena = '1' and i_ena'last_event > c_TIMOUT_CLK_EV then
 
-         if i_clk = '1' and (now-v_record_time) /= g_CLK_PER_L then
+         if i_clk = '1'  and (now-v_record_time) /= g_CLK_PER_L then
             err_n_clk_per_l <= err_n_clk_per_l + 1;
 
          elsif i_clk = '0' and (now-v_record_time) /= g_CLK_PER_H then
@@ -137,8 +139,8 @@ begin
 
    o_err_n_clk_chk(4) <= err_n_clk_st_ena_h;
    o_err_n_clk_chk(3) <= err_n_clk_st_ena_l;
-   o_err_n_clk_chk(2) <= err_n_clk_per_h;
-   o_err_n_clk_chk(1) <= err_n_clk_per_l;
+   o_err_n_clk_chk(2) <= err_n_clk_per_l;
+   o_err_n_clk_chk(1) <= err_n_clk_per_h;
    o_err_n_clk_chk(0) <= err_n_clk_osc_ena_l;
 
 end architecture Behavioral;

@@ -52,18 +52,20 @@
 #             (10937448 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (10937448 ps) Check time, sq1_adc_pwdn(0) last event: PASS
 # ** Note   : (10937448 ps)  * sq1_adc_pwdn(0) last event 10937448 ps equal to expected value 10937448 ps
-# ** Note   : (21546284 ps) Waiting event sq1_adc_pwdn(0) = '0' for 10608836 ps
-#             (21546284 ps) 
-#             (21546284 ps) ==============================================================================================
-#             (21546284 ps)   Check indirectly timing between o_c0_clk_sq1_adc rising edge
-#             (21546284 ps)    and internal SQUID1 ADC clock falling edge
-#             (21546284 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (21530760 ps) Waiting event sq1_adc_pwdn(0) = '0' for 10593312 ps
+#             (21530760 ps) 
+#             (21530760 ps) ==============================================================================================
+#             (21530760 ps)   Check timing between o_c0_clk_sq1_adc rising edge
+#             (21530760 ps)    and internal SQUID1 ADC clock falling edge
+#             (21530760 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (21546284 ps) Waiting event clk_sq1_adc(0) = '1' for 15524 ps
+# ** Note   : (21546284 ps) Record current time
 # ** Note   : (21546768 ps) Waiting event clk_sq1_adc_acq = '1' for 484 ps
 # ** Note   : (21550770 ps) Waiting event clk_sq1_adc_acq = '0' for 4002 ps
-# ** Note   : (21550770 ps) Check time, sq1_adc_pwdn(0) last event: PASS
-# ** Note   : (21550770 ps)  * sq1_adc_pwdn(0) last event 4486 ps greater than or equal to expected value 4400 ps
-# ** Note   : (21550770 ps) Check time, sq1_adc_pwdn(0) last event: PASS
-# ** Note   : (21550770 ps)  * sq1_adc_pwdn(0) last event 4486 ps strictly less than expected value 4560 ps
+# ** Note   : (21550770 ps) Check time, record time: PASS
+# ** Note   : (21550770 ps)  * record time 4486 ps greater than or equal to expected value 4400 ps
+# ** Note   : (21550770 ps) Check time, record time: PASS
+# ** Note   : (21550770 ps)  * record time 4486 ps strictly less than expected value 4560 ps
 #             (21550770 ps) 
 #             (21550770 ps) ==============================================================================================
 #             (21550770 ps)   Check timing between o_c0_sq1_adc_pwdn deactivation and i_sync rising edge
@@ -71,7 +73,7 @@
 #             (21550770 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (21786888 ps) Waiting event sync = '1' for 236118 ps
 # ** Note   : (21786888 ps) Check time, sq1_adc_pwdn(0) last event: PASS
-# ** Note   : (21786888 ps)  * sq1_adc_pwdn(0) last event 240604 ps greater than or equal to expected value 160080 ps
+# ** Note   : (21786888 ps)  * sq1_adc_pwdn(0) last event 256128 ps greater than or equal to expected value 160080 ps
 #             (21786888 ps) 
 #             (21786888 ps) ==============================================================================================
 #             (21786888 ps)   Send command TM_MODE column 0 to Test pattern for o_c0_sq1_adc_pwdn activation
@@ -91,34 +93,36 @@
 #             (32672328 ps)   Check timing between i_sync rising edge and o_c0_sq1_adc_pwdn activation
 #             (32672328 ps)     (c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ < .. < 2*c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
 #             (32672328 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (32911964 ps) Waiting event sq1_adc_pwdn(0) = '1' for 239636 ps
-# ** Note   : (32911964 ps) Check time, record time: PASS
-# ** Note   : (32911964 ps)  * record time 239636 ps strictly less than expected value 320160 ps
-# ** Note   : (32911964 ps) Check time, record time: PASS
-# ** Note   : (32911964 ps)  * record time 239636 ps strictly greater than expected value 160080 ps
-#             (32911964 ps) 
-#             (32911964 ps) ==============================================================================================
-#             (32911964 ps)   Send command TM_MODE column 0 to Dump for o_c0_sq1_adc_pwdn deactivation
-#             (32911964 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (32911964 ps) Send SPI command value 8001_54XX (TM_MODE, mode Write, data 54XX)
-#             (32947964 ps) 
-#             (32947964 ps) ==============================================================================================
-#             (32947964 ps)   Check no event is appeared on o_c0_sq1_adc_pwdn and wait o_c0_sq1_adc_pwdn deactivation
-#             (32947964 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (32947964 ps) Check discrete level: PASS
-# ** Note   : (32947964 ps)  * Read discrete: sq1_adc_pwdn(0), value '1', expected '1'
-# ** Note   : (43317164 ps) Waiting event sq1_adc_pwdn(0) = '0' for 10369200 ps
-#             (43317164 ps) 
-#             (43317164 ps) ==============================================================================================
-#             (43317164 ps)   Check indirectly timing between o_c0_clk_sq1_adc rising edge
-#             (43317164 ps)    and internal SQUID1 ADC clock falling edge
-#             (43317164 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (32912448 ps) Waiting event sq1_adc_pwdn(0) = '1' for 240120 ps
+# ** Note   : (32912448 ps) Check time, record time: PASS
+# ** Note   : (32912448 ps)  * record time 240120 ps strictly less than expected value 320160 ps
+# ** Note   : (32912448 ps) Check time, record time: PASS
+# ** Note   : (32912448 ps)  * record time 240120 ps strictly greater than expected value 160080 ps
+#             (32912448 ps) 
+#             (32912448 ps) ==============================================================================================
+#             (32912448 ps)   Send command TM_MODE column 0 to Dump for o_c0_sq1_adc_pwdn deactivation
+#             (32912448 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (32912448 ps) Send SPI command value 8001_54XX (TM_MODE, mode Write, data 54XX)
+#             (32948448 ps) 
+#             (32948448 ps) ==============================================================================================
+#             (32948448 ps)   Check no event is appeared on o_c0_sq1_adc_pwdn and wait o_c0_sq1_adc_pwdn deactivation
+#             (32948448 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (32948448 ps) Check discrete level: PASS
+# ** Note   : (32948448 ps)  * Read discrete: sq1_adc_pwdn(0), value '1', expected '1'
+# ** Note   : (43301640 ps) Waiting event sq1_adc_pwdn(0) = '0' for 10353192 ps
+#             (43301640 ps) 
+#             (43301640 ps) ==============================================================================================
+#             (43301640 ps)   Check timing between o_c0_clk_sq1_adc rising edge
+#             (43301640 ps)    and internal SQUID1 ADC clock falling edge
+#             (43301640 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (43317164 ps) Waiting event clk_sq1_adc(0) = '1' for 15524 ps
+# ** Note   : (43317164 ps) Record current time
 # ** Note   : (43317648 ps) Waiting event clk_sq1_adc_acq = '1' for 484 ps
 # ** Note   : (43321650 ps) Waiting event clk_sq1_adc_acq = '0' for 4002 ps
-# ** Note   : (43321650 ps) Check time, sq1_adc_pwdn(0) last event: PASS
-# ** Note   : (43321650 ps)  * sq1_adc_pwdn(0) last event 4486 ps greater than or equal to expected value 4400 ps
-# ** Note   : (43321650 ps) Check time, sq1_adc_pwdn(0) last event: PASS
-# ** Note   : (43321650 ps)  * sq1_adc_pwdn(0) last event 4486 ps strictly less than expected value 4560 ps
+# ** Note   : (43321650 ps) Check time, record time: PASS
+# ** Note   : (43321650 ps)  * record time 4486 ps greater than or equal to expected value 4400 ps
+# ** Note   : (43321650 ps) Check time, record time: PASS
+# ** Note   : (43321650 ps)  * record time 4486 ps strictly less than expected value 4560 ps
 #             (43321650 ps) 
 #             (43321650 ps) ==============================================================================================
 #             (43321650 ps)   Check timing between o_c0_sq1_adc_pwdn deactivation and i_sync rising edge
@@ -126,7 +130,7 @@
 #             (43321650 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (43557768 ps) Waiting event sync = '1' for 236118 ps
 # ** Note   : (43557768 ps) Check time, sq1_adc_pwdn(0) last event: PASS
-# ** Note   : (43557768 ps)  * sq1_adc_pwdn(0) last event 240604 ps greater than or equal to expected value 160080 ps
+# ** Note   : (43557768 ps)  * sq1_adc_pwdn(0) last event 256128 ps greater than or equal to expected value 160080 ps
 #             (43557768 ps) 
 #             (43557768 ps) ==============================================================================================
 #             (43557768 ps)    Wait TM_MODE column 0 goes automatically to Idle and
@@ -156,34 +160,36 @@
 #             (87099528 ps)   Check timing between i_sync rising edge and o_c0_sq1_adc_pwdn activation
 #             (87099528 ps)     (c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ < .. < 2*c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
 #             (87099528 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (87339164 ps) Waiting event sq1_adc_pwdn(0) = '1' for 239636 ps
-# ** Note   : (87339164 ps) Check time, record time: PASS
-# ** Note   : (87339164 ps)  * record time 239636 ps strictly less than expected value 320160 ps
-# ** Note   : (87339164 ps) Check time, record time: PASS
-# ** Note   : (87339164 ps)  * record time 239636 ps strictly greater than expected value 160080 ps
-#             (87339164 ps) 
-#             (87339164 ps) ==============================================================================================
-#             (87339164 ps)   Send command SQ1_FB_MODE column 0 to On for o_c0_sq1_adc_pwdn deactivation
-#             (87339164 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (87339164 ps) Send SPI command value 8003_0001 (SQ1_FB_MODE, mode Write, data 0001)
-#             (87375164 ps) 
-#             (87375164 ps) ==============================================================================================
-#             (87375164 ps)   Check no event is appeared on o_c0_sq1_adc_pwdn and wait o_c0_sq1_adc_pwdn deactivation
-#             (87375164 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (87375164 ps) Check discrete level: PASS
-# ** Note   : (87375164 ps)  * Read discrete: sq1_adc_pwdn(0), value '1', expected '1'
-# ** Note   : (97744364 ps) Waiting event sq1_adc_pwdn(0) = '0' for 10369200 ps
-#             (97744364 ps) 
-#             (97744364 ps) ==============================================================================================
-#             (97744364 ps)   Check indirectly timing between o_c0_clk_sq1_adc rising edge
-#             (97744364 ps)    and internal SQUID1 ADC clock falling edge
-#             (97744364 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (87339648 ps) Waiting event sq1_adc_pwdn(0) = '1' for 240120 ps
+# ** Note   : (87339648 ps) Check time, record time: PASS
+# ** Note   : (87339648 ps)  * record time 240120 ps strictly less than expected value 320160 ps
+# ** Note   : (87339648 ps) Check time, record time: PASS
+# ** Note   : (87339648 ps)  * record time 240120 ps strictly greater than expected value 160080 ps
+#             (87339648 ps) 
+#             (87339648 ps) ==============================================================================================
+#             (87339648 ps)   Send command SQ1_FB_MODE column 0 to On for o_c0_sq1_adc_pwdn deactivation
+#             (87339648 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (87339648 ps) Send SPI command value 8003_0001 (SQ1_FB_MODE, mode Write, data 0001)
+#             (87375648 ps) 
+#             (87375648 ps) ==============================================================================================
+#             (87375648 ps)   Check no event is appeared on o_c0_sq1_adc_pwdn and wait o_c0_sq1_adc_pwdn deactivation
+#             (87375648 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (87375648 ps) Check discrete level: PASS
+# ** Note   : (87375648 ps)  * Read discrete: sq1_adc_pwdn(0), value '1', expected '1'
+# ** Note   : (97728840 ps) Waiting event sq1_adc_pwdn(0) = '0' for 10353192 ps
+#             (97728840 ps) 
+#             (97728840 ps) ==============================================================================================
+#             (97728840 ps)   Check timing between o_c0_clk_sq1_adc rising edge
+#             (97728840 ps)    and internal SQUID1 ADC clock falling edge
+#             (97728840 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (97744364 ps) Waiting event clk_sq1_adc(0) = '1' for 15524 ps
+# ** Note   : (97744364 ps) Record current time
 # ** Note   : (97744848 ps) Waiting event clk_sq1_adc_acq = '1' for 484 ps
 # ** Note   : (97748850 ps) Waiting event clk_sq1_adc_acq = '0' for 4002 ps
-# ** Note   : (97748850 ps) Check time, sq1_adc_pwdn(0) last event: PASS
-# ** Note   : (97748850 ps)  * sq1_adc_pwdn(0) last event 4486 ps greater than or equal to expected value 4400 ps
-# ** Note   : (97748850 ps) Check time, sq1_adc_pwdn(0) last event: PASS
-# ** Note   : (97748850 ps)  * sq1_adc_pwdn(0) last event 4486 ps strictly less than expected value 4560 ps
+# ** Note   : (97748850 ps) Check time, record time: PASS
+# ** Note   : (97748850 ps)  * record time 4486 ps greater than or equal to expected value 4400 ps
+# ** Note   : (97748850 ps) Check time, record time: PASS
+# ** Note   : (97748850 ps)  * record time 4486 ps strictly less than expected value 4560 ps
 #             (97748850 ps) 
 #             (97748850 ps) ==============================================================================================
 #             (97748850 ps)   Check timing between o_c0_sq1_adc_pwdn deactivation and i_sync rising edge
@@ -191,7 +197,7 @@
 #             (97748850 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (97984968 ps) Waiting event sync = '1' for 236118 ps
 # ** Note   : (97984968 ps) Check time, sq1_adc_pwdn(0) last event: PASS
-# ** Note   : (97984968 ps)  * sq1_adc_pwdn(0) last event 240604 ps greater than or equal to expected value 160080 ps
+# ** Note   : (97984968 ps)  * sq1_adc_pwdn(0) last event 256128 ps greater than or equal to expected value 160080 ps
 #             (97984968 ps) 
 #             (97984968 ps) ==============================================================================================
 #             (97984968 ps)   Send command SQ1_FB_MODE column 0 to Off loop for o_c0_sq1_adc_pwdn activation
@@ -211,34 +217,36 @@
 #             (108870408 ps)   Check timing between i_sync rising edge and o_c0_sq1_adc_pwdn activation
 #             (108870408 ps)     (c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ < .. < 2*c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
 #             (108870408 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (109110044 ps) Waiting event sq1_adc_pwdn(0) = '1' for 239636 ps
-# ** Note   : (109110044 ps) Check time, record time: PASS
-# ** Note   : (109110044 ps)  * record time 239636 ps strictly less than expected value 320160 ps
-# ** Note   : (109110044 ps) Check time, record time: PASS
-# ** Note   : (109110044 ps)  * record time 239636 ps strictly greater than expected value 160080 ps
-#             (109110044 ps) 
-#             (109110044 ps) ==============================================================================================
-#             (109110044 ps)   Send command SQ1_FB_MODE column 0 to On for o_c0_sq1_adc_pwdn deactivation
-#             (109110044 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (109110044 ps) Send SPI command value 8003_0001 (SQ1_FB_MODE, mode Write, data 0001)
-#             (109146044 ps) 
-#             (109146044 ps) ==============================================================================================
-#             (109146044 ps)   Check no event is appeared on o_c0_sq1_adc_pwdn and wait o_c0_sq1_adc_pwdn deactivation
-#             (109146044 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (109146044 ps) Check discrete level: PASS
-# ** Note   : (109146044 ps)  * Read discrete: sq1_adc_pwdn(0), value '1', expected '1'
-# ** Note   : (119515244 ps) Waiting event sq1_adc_pwdn(0) = '0' for 10369200 ps
-#             (119515244 ps) 
-#             (119515244 ps) ==============================================================================================
-#             (119515244 ps)   Check indirectly timing between o_c0_clk_sq1_adc rising edge
-#             (119515244 ps)    and internal SQUID1 ADC clock falling edge
-#             (119515244 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (109110528 ps) Waiting event sq1_adc_pwdn(0) = '1' for 240120 ps
+# ** Note   : (109110528 ps) Check time, record time: PASS
+# ** Note   : (109110528 ps)  * record time 240120 ps strictly less than expected value 320160 ps
+# ** Note   : (109110528 ps) Check time, record time: PASS
+# ** Note   : (109110528 ps)  * record time 240120 ps strictly greater than expected value 160080 ps
+#             (109110528 ps) 
+#             (109110528 ps) ==============================================================================================
+#             (109110528 ps)   Send command SQ1_FB_MODE column 0 to On for o_c0_sq1_adc_pwdn deactivation
+#             (109110528 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (109110528 ps) Send SPI command value 8003_0001 (SQ1_FB_MODE, mode Write, data 0001)
+#             (109146528 ps) 
+#             (109146528 ps) ==============================================================================================
+#             (109146528 ps)   Check no event is appeared on o_c0_sq1_adc_pwdn and wait o_c0_sq1_adc_pwdn deactivation
+#             (109146528 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (109146528 ps) Check discrete level: PASS
+# ** Note   : (109146528 ps)  * Read discrete: sq1_adc_pwdn(0), value '1', expected '1'
+# ** Note   : (119499720 ps) Waiting event sq1_adc_pwdn(0) = '0' for 10353192 ps
+#             (119499720 ps) 
+#             (119499720 ps) ==============================================================================================
+#             (119499720 ps)   Check timing between o_c0_clk_sq1_adc rising edge
+#             (119499720 ps)    and internal SQUID1 ADC clock falling edge
+#             (119499720 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (119515244 ps) Waiting event clk_sq1_adc(0) = '1' for 15524 ps
+# ** Note   : (119515244 ps) Record current time
 # ** Note   : (119515728 ps) Waiting event clk_sq1_adc_acq = '1' for 484 ps
 # ** Note   : (119519730 ps) Waiting event clk_sq1_adc_acq = '0' for 4002 ps
-# ** Note   : (119519730 ps) Check time, sq1_adc_pwdn(0) last event: PASS
-# ** Note   : (119519730 ps)  * sq1_adc_pwdn(0) last event 4486 ps greater than or equal to expected value 4400 ps
-# ** Note   : (119519730 ps) Check time, sq1_adc_pwdn(0) last event: PASS
-# ** Note   : (119519730 ps)  * sq1_adc_pwdn(0) last event 4486 ps strictly less than expected value 4560 ps
+# ** Note   : (119519730 ps) Check time, record time: PASS
+# ** Note   : (119519730 ps)  * record time 4486 ps greater than or equal to expected value 4400 ps
+# ** Note   : (119519730 ps) Check time, record time: PASS
+# ** Note   : (119519730 ps)  * record time 4486 ps strictly less than expected value 4560 ps
 #             (119519730 ps) 
 #             (119519730 ps) ==============================================================================================
 #             (119519730 ps)   Check timing between o_c0_sq1_adc_pwdn deactivation and i_sync rising edge
@@ -246,7 +254,7 @@
 #             (119519730 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (119755848 ps) Waiting event sync = '1' for 236118 ps
 # ** Note   : (119755848 ps) Check time, sq1_adc_pwdn(0) last event: PASS
-# ** Note   : (119755848 ps)  * sq1_adc_pwdn(0) last event 240604 ps greater than or equal to expected value 160080 ps
+# ** Note   : (119755848 ps)  * sq1_adc_pwdn(0) last event 256128 ps greater than or equal to expected value 160080 ps
 #             (119755848 ps) 
 #             (119755848 ps) ==============================================================================================
 #             (119755848 ps)   Send command SQ1_FB_MODE column 0 to Off for o_c0_sq1_adc_pwdn activation
@@ -266,34 +274,36 @@
 #             (130641288 ps)   Check timing between i_sync rising edge and o_c0_sq1_adc_pwdn activation
 #             (130641288 ps)     (c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ < .. < 2*c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
 #             (130641288 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (130880924 ps) Waiting event sq1_adc_pwdn(0) = '1' for 239636 ps
-# ** Note   : (130880924 ps) Check time, record time: PASS
-# ** Note   : (130880924 ps)  * record time 239636 ps strictly less than expected value 320160 ps
-# ** Note   : (130880924 ps) Check time, record time: PASS
-# ** Note   : (130880924 ps)  * record time 239636 ps strictly greater than expected value 160080 ps
-#             (130880924 ps) 
-#             (130880924 ps) ==============================================================================================
-#             (130880924 ps)   Send command SQ1_FB_MODE column 0 to On for o_c0_sq1_adc_pwdn deactivation
-#             (130880924 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (130880924 ps) Send SPI command value 8003_0001 (SQ1_FB_MODE, mode Write, data 0001)
-#             (130916924 ps) 
-#             (130916924 ps) ==============================================================================================
-#             (130916924 ps)   Check no event is appeared on o_c0_sq1_adc_pwdn and wait o_c0_sq1_adc_pwdn deactivation
-#             (130916924 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (130916924 ps) Check discrete level: PASS
-# ** Note   : (130916924 ps)  * Read discrete: sq1_adc_pwdn(0), value '1', expected '1'
-# ** Note   : (141286124 ps) Waiting event sq1_adc_pwdn(0) = '0' for 10369200 ps
-#             (141286124 ps) 
-#             (141286124 ps) ==============================================================================================
-#             (141286124 ps)   Check indirectly timing between o_c0_clk_sq1_adc rising edge
-#             (141286124 ps)    and internal SQUID1 ADC clock falling edge
-#             (141286124 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (130881408 ps) Waiting event sq1_adc_pwdn(0) = '1' for 240120 ps
+# ** Note   : (130881408 ps) Check time, record time: PASS
+# ** Note   : (130881408 ps)  * record time 240120 ps strictly less than expected value 320160 ps
+# ** Note   : (130881408 ps) Check time, record time: PASS
+# ** Note   : (130881408 ps)  * record time 240120 ps strictly greater than expected value 160080 ps
+#             (130881408 ps) 
+#             (130881408 ps) ==============================================================================================
+#             (130881408 ps)   Send command SQ1_FB_MODE column 0 to On for o_c0_sq1_adc_pwdn deactivation
+#             (130881408 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (130881408 ps) Send SPI command value 8003_0001 (SQ1_FB_MODE, mode Write, data 0001)
+#             (130917408 ps) 
+#             (130917408 ps) ==============================================================================================
+#             (130917408 ps)   Check no event is appeared on o_c0_sq1_adc_pwdn and wait o_c0_sq1_adc_pwdn deactivation
+#             (130917408 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (130917408 ps) Check discrete level: PASS
+# ** Note   : (130917408 ps)  * Read discrete: sq1_adc_pwdn(0), value '1', expected '1'
+# ** Note   : (141270600 ps) Waiting event sq1_adc_pwdn(0) = '0' for 10353192 ps
+#             (141270600 ps) 
+#             (141270600 ps) ==============================================================================================
+#             (141270600 ps)   Check timing between o_c0_clk_sq1_adc rising edge
+#             (141270600 ps)    and internal SQUID1 ADC clock falling edge
+#             (141270600 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (141286124 ps) Waiting event clk_sq1_adc(0) = '1' for 15524 ps
+# ** Note   : (141286124 ps) Record current time
 # ** Note   : (141286608 ps) Waiting event clk_sq1_adc_acq = '1' for 484 ps
 # ** Note   : (141290610 ps) Waiting event clk_sq1_adc_acq = '0' for 4002 ps
-# ** Note   : (141290610 ps) Check time, sq1_adc_pwdn(0) last event: PASS
-# ** Note   : (141290610 ps)  * sq1_adc_pwdn(0) last event 4486 ps greater than or equal to expected value 4400 ps
-# ** Note   : (141290610 ps) Check time, sq1_adc_pwdn(0) last event: PASS
-# ** Note   : (141290610 ps)  * sq1_adc_pwdn(0) last event 4486 ps strictly less than expected value 4560 ps
+# ** Note   : (141290610 ps) Check time, record time: PASS
+# ** Note   : (141290610 ps)  * record time 4486 ps greater than or equal to expected value 4400 ps
+# ** Note   : (141290610 ps) Check time, record time: PASS
+# ** Note   : (141290610 ps)  * record time 4486 ps strictly less than expected value 4560 ps
 #             (141290610 ps) 
 #             (141290610 ps) ==============================================================================================
 #             (141290610 ps)   Check timing between o_c0_sq1_adc_pwdn deactivation and i_sync rising edge
@@ -301,7 +311,7 @@
 #             (141290610 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (141526728 ps) Waiting event sync = '1' for 236118 ps
 # ** Note   : (141526728 ps) Check time, sq1_adc_pwdn(0) last event: PASS
-# ** Note   : (141526728 ps)  * sq1_adc_pwdn(0) last event 240604 ps greater than or equal to expected value 160080 ps
+# ** Note   : (141526728 ps)  * sq1_adc_pwdn(0) last event 256128 ps greater than or equal to expected value 160080 ps
 #             (141526728 ps) 
 #             (141526728 ps) ==============================================================================================
 #             (141526728 ps)   Send command SQ1_FB_MODE column 0 to Off for o_c0_sq1_adc_pwdn activation
@@ -321,34 +331,36 @@
 #             (152412168 ps)   Check timing between i_sync rising edge and o_c0_sq1_adc_pwdn activation
 #             (152412168 ps)     (c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ < .. < 2*c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
 #             (152412168 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (152651804 ps) Waiting event sq1_adc_pwdn(0) = '1' for 239636 ps
-# ** Note   : (152651804 ps) Check time, record time: PASS
-# ** Note   : (152651804 ps)  * record time 239636 ps strictly less than expected value 320160 ps
-# ** Note   : (152651804 ps) Check time, record time: PASS
-# ** Note   : (152651804 ps)  * record time 239636 ps strictly greater than expected value 160080 ps
-#             (152651804 ps) 
-#             (152651804 ps) ==============================================================================================
-#             (152651804 ps)   Send command TM_MODE column 1 to Normal for o_c1_sq1_adc_pwdn deactivation
-#             (152651804 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (152651804 ps) Send SPI command value 8001_59XX (TM_MODE, mode Write, data 59XX)
-#             (152687804 ps) 
-#             (152687804 ps) ==============================================================================================
-#             (152687804 ps)   Check no event is appeared on o_c1_sq1_adc_pwdn and wait o_c1_sq1_adc_pwdn deactivation
-#             (152687804 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (152687804 ps) Check time, sq1_adc_pwdn(1) last event: PASS
-# ** Note   : (152687804 ps)  * sq1_adc_pwdn(1) last event 152687804 ps equal to expected value 152687804 ps
-# ** Note   : (163057004 ps) Waiting event sq1_adc_pwdn(1) = '0' for 10369200 ps
-#             (163057004 ps) 
-#             (163057004 ps) ==============================================================================================
-#             (163057004 ps)   Check indirectly timing between o_c1_clk_sq1_adc rising edge
-#             (163057004 ps)    and internal SQUID1 ADC clock falling edge
-#             (163057004 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (152652288 ps) Waiting event sq1_adc_pwdn(0) = '1' for 240120 ps
+# ** Note   : (152652288 ps) Check time, record time: PASS
+# ** Note   : (152652288 ps)  * record time 240120 ps strictly less than expected value 320160 ps
+# ** Note   : (152652288 ps) Check time, record time: PASS
+# ** Note   : (152652288 ps)  * record time 240120 ps strictly greater than expected value 160080 ps
+#             (152652288 ps) 
+#             (152652288 ps) ==============================================================================================
+#             (152652288 ps)   Send command TM_MODE column 1 to Normal for o_c1_sq1_adc_pwdn deactivation
+#             (152652288 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (152652288 ps) Send SPI command value 8001_59XX (TM_MODE, mode Write, data 59XX)
+#             (152688288 ps) 
+#             (152688288 ps) ==============================================================================================
+#             (152688288 ps)   Check no event is appeared on o_c1_sq1_adc_pwdn and wait o_c1_sq1_adc_pwdn deactivation
+#             (152688288 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (152688288 ps) Check time, sq1_adc_pwdn(1) last event: PASS
+# ** Note   : (152688288 ps)  * sq1_adc_pwdn(1) last event 152688288 ps equal to expected value 152688288 ps
+# ** Note   : (163041480 ps) Waiting event sq1_adc_pwdn(1) = '0' for 10353192 ps
+#             (163041480 ps) 
+#             (163041480 ps) ==============================================================================================
+#             (163041480 ps)   Check timing between o_c1_clk_sq1_adc rising edge
+#             (163041480 ps)    and internal SQUID1 ADC clock falling edge
+#             (163041480 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (163057004 ps) Waiting event clk_sq1_adc(1) = '1' for 15524 ps
+# ** Note   : (163057004 ps) Record current time
 # ** Note   : (163057488 ps) Waiting event clk_sq1_adc_acq = '1' for 484 ps
 # ** Note   : (163061490 ps) Waiting event clk_sq1_adc_acq = '0' for 4002 ps
-# ** Note   : (163061490 ps) Check time, sq1_adc_pwdn(1) last event: PASS
-# ** Note   : (163061490 ps)  * sq1_adc_pwdn(1) last event 4486 ps greater than or equal to expected value 4400 ps
-# ** Note   : (163061490 ps) Check time, sq1_adc_pwdn(1) last event: PASS
-# ** Note   : (163061490 ps)  * sq1_adc_pwdn(1) last event 4486 ps strictly less than expected value 4560 ps
+# ** Note   : (163061490 ps) Check time, record time: PASS
+# ** Note   : (163061490 ps)  * record time 4486 ps greater than or equal to expected value 4400 ps
+# ** Note   : (163061490 ps) Check time, record time: PASS
+# ** Note   : (163061490 ps)  * record time 4486 ps strictly less than expected value 4560 ps
 #             (163061490 ps) 
 #             (163061490 ps) ==============================================================================================
 #             (163061490 ps)   Check timing between o_c1_sq1_adc_pwdn deactivation and i_sync rising edge
@@ -356,7 +368,7 @@
 #             (163061490 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (163297608 ps) Waiting event sync = '1' for 236118 ps
 # ** Note   : (163297608 ps) Check time, sq1_adc_pwdn(1) last event: PASS
-# ** Note   : (163297608 ps)  * sq1_adc_pwdn(1) last event 240604 ps greater than or equal to expected value 160080 ps
+# ** Note   : (163297608 ps)  * sq1_adc_pwdn(1) last event 256128 ps greater than or equal to expected value 160080 ps
 #             (163297608 ps) 
 #             (163297608 ps) ==============================================================================================
 #             (163297608 ps)   Send command TM_MODE column 1 to Test pattern for o_c1_sq1_adc_pwdn activation
@@ -376,34 +388,36 @@
 #             (174183048 ps)   Check timing between i_sync rising edge and o_c1_sq1_adc_pwdn activation
 #             (174183048 ps)     (c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ < .. < 2*c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
 #             (174183048 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (174422684 ps) Waiting event sq1_adc_pwdn(1) = '1' for 239636 ps
-# ** Note   : (174422684 ps) Check time, record time: PASS
-# ** Note   : (174422684 ps)  * record time 239636 ps strictly less than expected value 320160 ps
-# ** Note   : (174422684 ps) Check time, record time: PASS
-# ** Note   : (174422684 ps)  * record time 239636 ps strictly greater than expected value 160080 ps
-#             (174422684 ps) 
-#             (174422684 ps) ==============================================================================================
-#             (174422684 ps)   Send command TM_MODE column 1 to Dump for o_c1_sq1_adc_pwdn deactivation
-#             (174422684 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (174422684 ps) Send SPI command value 8001_51XX (TM_MODE, mode Write, data 51XX)
-#             (174458684 ps) 
-#             (174458684 ps) ==============================================================================================
-#             (174458684 ps)   Check no event is appeared on o_c1_sq1_adc_pwdn and wait o_c1_sq1_adc_pwdn deactivation
-#             (174458684 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (174458684 ps) Check discrete level: PASS
-# ** Note   : (174458684 ps)  * Read discrete: sq1_adc_pwdn(1), value '1', expected '1'
-# ** Note   : (184827884 ps) Waiting event sq1_adc_pwdn(1) = '0' for 10369200 ps
-#             (184827884 ps) 
-#             (184827884 ps) ==============================================================================================
-#             (184827884 ps)   Check indirectly timing between o_c1_clk_sq1_adc rising edge
-#             (184827884 ps)    and internal SQUID1 ADC clock falling edge
-#             (184827884 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (174423168 ps) Waiting event sq1_adc_pwdn(1) = '1' for 240120 ps
+# ** Note   : (174423168 ps) Check time, record time: PASS
+# ** Note   : (174423168 ps)  * record time 240120 ps strictly less than expected value 320160 ps
+# ** Note   : (174423168 ps) Check time, record time: PASS
+# ** Note   : (174423168 ps)  * record time 240120 ps strictly greater than expected value 160080 ps
+#             (174423168 ps) 
+#             (174423168 ps) ==============================================================================================
+#             (174423168 ps)   Send command TM_MODE column 1 to Dump for o_c1_sq1_adc_pwdn deactivation
+#             (174423168 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (174423168 ps) Send SPI command value 8001_51XX (TM_MODE, mode Write, data 51XX)
+#             (174459168 ps) 
+#             (174459168 ps) ==============================================================================================
+#             (174459168 ps)   Check no event is appeared on o_c1_sq1_adc_pwdn and wait o_c1_sq1_adc_pwdn deactivation
+#             (174459168 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (174459168 ps) Check discrete level: PASS
+# ** Note   : (174459168 ps)  * Read discrete: sq1_adc_pwdn(1), value '1', expected '1'
+# ** Note   : (184812360 ps) Waiting event sq1_adc_pwdn(1) = '0' for 10353192 ps
+#             (184812360 ps) 
+#             (184812360 ps) ==============================================================================================
+#             (184812360 ps)   Check timing between o_c1_clk_sq1_adc rising edge
+#             (184812360 ps)    and internal SQUID1 ADC clock falling edge
+#             (184812360 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (184827884 ps) Waiting event clk_sq1_adc(1) = '1' for 15524 ps
+# ** Note   : (184827884 ps) Record current time
 # ** Note   : (184828368 ps) Waiting event clk_sq1_adc_acq = '1' for 484 ps
 # ** Note   : (184832370 ps) Waiting event clk_sq1_adc_acq = '0' for 4002 ps
-# ** Note   : (184832370 ps) Check time, sq1_adc_pwdn(1) last event: PASS
-# ** Note   : (184832370 ps)  * sq1_adc_pwdn(1) last event 4486 ps greater than or equal to expected value 4400 ps
-# ** Note   : (184832370 ps) Check time, sq1_adc_pwdn(1) last event: PASS
-# ** Note   : (184832370 ps)  * sq1_adc_pwdn(1) last event 4486 ps strictly less than expected value 4560 ps
+# ** Note   : (184832370 ps) Check time, record time: PASS
+# ** Note   : (184832370 ps)  * record time 4486 ps greater than or equal to expected value 4400 ps
+# ** Note   : (184832370 ps) Check time, record time: PASS
+# ** Note   : (184832370 ps)  * record time 4486 ps strictly less than expected value 4560 ps
 #             (184832370 ps) 
 #             (184832370 ps) ==============================================================================================
 #             (184832370 ps)   Check timing between o_c1_sq1_adc_pwdn deactivation and i_sync rising edge
@@ -411,7 +425,7 @@
 #             (184832370 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (185068488 ps) Waiting event sync = '1' for 236118 ps
 # ** Note   : (185068488 ps) Check time, sq1_adc_pwdn(1) last event: PASS
-# ** Note   : (185068488 ps)  * sq1_adc_pwdn(1) last event 240604 ps greater than or equal to expected value 160080 ps
+# ** Note   : (185068488 ps)  * sq1_adc_pwdn(1) last event 256128 ps greater than or equal to expected value 160080 ps
 #             (185068488 ps) 
 #             (185068488 ps) ==============================================================================================
 #             (185068488 ps)    Wait TM_MODE column 1 goes automatically to Idle and
@@ -441,34 +455,36 @@
 #             (228610248 ps)   Check timing between i_sync rising edge and o_c1_sq1_adc_pwdn activation
 #             (228610248 ps)     (c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ < .. < 2*c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
 #             (228610248 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (228849884 ps) Waiting event sq1_adc_pwdn(1) = '1' for 239636 ps
-# ** Note   : (228849884 ps) Check time, record time: PASS
-# ** Note   : (228849884 ps)  * record time 239636 ps strictly less than expected value 320160 ps
-# ** Note   : (228849884 ps) Check time, record time: PASS
-# ** Note   : (228849884 ps)  * record time 239636 ps strictly greater than expected value 160080 ps
-#             (228849884 ps) 
-#             (228849884 ps) ==============================================================================================
-#             (228849884 ps)   Send command SQ1_FB_MODE column 1 to On for o_c1_sq1_adc_pwdn deactivation
-#             (228849884 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (228849884 ps) Send SPI command value 8003_0010 (SQ1_FB_MODE, mode Write, data 0010)
-#             (228885884 ps) 
-#             (228885884 ps) ==============================================================================================
-#             (228885884 ps)   Check no event is appeared on o_c1_sq1_adc_pwdn and wait o_c1_sq1_adc_pwdn deactivation
-#             (228885884 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (228885884 ps) Check discrete level: PASS
-# ** Note   : (228885884 ps)  * Read discrete: sq1_adc_pwdn(1), value '1', expected '1'
-# ** Note   : (239255084 ps) Waiting event sq1_adc_pwdn(1) = '0' for 10369200 ps
-#             (239255084 ps) 
-#             (239255084 ps) ==============================================================================================
-#             (239255084 ps)   Check indirectly timing between o_c1_clk_sq1_adc rising edge
-#             (239255084 ps)    and internal SQUID1 ADC clock falling edge
-#             (239255084 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (228850368 ps) Waiting event sq1_adc_pwdn(1) = '1' for 240120 ps
+# ** Note   : (228850368 ps) Check time, record time: PASS
+# ** Note   : (228850368 ps)  * record time 240120 ps strictly less than expected value 320160 ps
+# ** Note   : (228850368 ps) Check time, record time: PASS
+# ** Note   : (228850368 ps)  * record time 240120 ps strictly greater than expected value 160080 ps
+#             (228850368 ps) 
+#             (228850368 ps) ==============================================================================================
+#             (228850368 ps)   Send command SQ1_FB_MODE column 1 to On for o_c1_sq1_adc_pwdn deactivation
+#             (228850368 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (228850368 ps) Send SPI command value 8003_0010 (SQ1_FB_MODE, mode Write, data 0010)
+#             (228886368 ps) 
+#             (228886368 ps) ==============================================================================================
+#             (228886368 ps)   Check no event is appeared on o_c1_sq1_adc_pwdn and wait o_c1_sq1_adc_pwdn deactivation
+#             (228886368 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (228886368 ps) Check discrete level: PASS
+# ** Note   : (228886368 ps)  * Read discrete: sq1_adc_pwdn(1), value '1', expected '1'
+# ** Note   : (239239560 ps) Waiting event sq1_adc_pwdn(1) = '0' for 10353192 ps
+#             (239239560 ps) 
+#             (239239560 ps) ==============================================================================================
+#             (239239560 ps)   Check timing between o_c1_clk_sq1_adc rising edge
+#             (239239560 ps)    and internal SQUID1 ADC clock falling edge
+#             (239239560 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (239255084 ps) Waiting event clk_sq1_adc(1) = '1' for 15524 ps
+# ** Note   : (239255084 ps) Record current time
 # ** Note   : (239255568 ps) Waiting event clk_sq1_adc_acq = '1' for 484 ps
 # ** Note   : (239259570 ps) Waiting event clk_sq1_adc_acq = '0' for 4002 ps
-# ** Note   : (239259570 ps) Check time, sq1_adc_pwdn(1) last event: PASS
-# ** Note   : (239259570 ps)  * sq1_adc_pwdn(1) last event 4486 ps greater than or equal to expected value 4400 ps
-# ** Note   : (239259570 ps) Check time, sq1_adc_pwdn(1) last event: PASS
-# ** Note   : (239259570 ps)  * sq1_adc_pwdn(1) last event 4486 ps strictly less than expected value 4560 ps
+# ** Note   : (239259570 ps) Check time, record time: PASS
+# ** Note   : (239259570 ps)  * record time 4486 ps greater than or equal to expected value 4400 ps
+# ** Note   : (239259570 ps) Check time, record time: PASS
+# ** Note   : (239259570 ps)  * record time 4486 ps strictly less than expected value 4560 ps
 #             (239259570 ps) 
 #             (239259570 ps) ==============================================================================================
 #             (239259570 ps)   Check timing between o_c1_sq1_adc_pwdn deactivation and i_sync rising edge
@@ -476,7 +492,7 @@
 #             (239259570 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (239495688 ps) Waiting event sync = '1' for 236118 ps
 # ** Note   : (239495688 ps) Check time, sq1_adc_pwdn(1) last event: PASS
-# ** Note   : (239495688 ps)  * sq1_adc_pwdn(1) last event 240604 ps greater than or equal to expected value 160080 ps
+# ** Note   : (239495688 ps)  * sq1_adc_pwdn(1) last event 256128 ps greater than or equal to expected value 160080 ps
 #             (239495688 ps) 
 #             (239495688 ps) ==============================================================================================
 #             (239495688 ps)   Send command SQ1_FB_MODE column 1 to Off loop for o_c1_sq1_adc_pwdn activation
@@ -496,34 +512,36 @@
 #             (250381128 ps)   Check timing between i_sync rising edge and o_c1_sq1_adc_pwdn activation
 #             (250381128 ps)     (c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ < .. < 2*c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
 #             (250381128 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (250620764 ps) Waiting event sq1_adc_pwdn(1) = '1' for 239636 ps
-# ** Note   : (250620764 ps) Check time, record time: PASS
-# ** Note   : (250620764 ps)  * record time 239636 ps strictly less than expected value 320160 ps
-# ** Note   : (250620764 ps) Check time, record time: PASS
-# ** Note   : (250620764 ps)  * record time 239636 ps strictly greater than expected value 160080 ps
-#             (250620764 ps) 
-#             (250620764 ps) ==============================================================================================
-#             (250620764 ps)   Send command SQ1_FB_MODE column 1 to On for o_c1_sq1_adc_pwdn deactivation
-#             (250620764 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (250620764 ps) Send SPI command value 8003_0010 (SQ1_FB_MODE, mode Write, data 0010)
-#             (250656764 ps) 
-#             (250656764 ps) ==============================================================================================
-#             (250656764 ps)   Check no event is appeared on o_c1_sq1_adc_pwdn and wait o_c1_sq1_adc_pwdn deactivation
-#             (250656764 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (250656764 ps) Check discrete level: PASS
-# ** Note   : (250656764 ps)  * Read discrete: sq1_adc_pwdn(1), value '1', expected '1'
-# ** Note   : (261025964 ps) Waiting event sq1_adc_pwdn(1) = '0' for 10369200 ps
-#             (261025964 ps) 
-#             (261025964 ps) ==============================================================================================
-#             (261025964 ps)   Check indirectly timing between o_c1_clk_sq1_adc rising edge
-#             (261025964 ps)    and internal SQUID1 ADC clock falling edge
-#             (261025964 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (250621248 ps) Waiting event sq1_adc_pwdn(1) = '1' for 240120 ps
+# ** Note   : (250621248 ps) Check time, record time: PASS
+# ** Note   : (250621248 ps)  * record time 240120 ps strictly less than expected value 320160 ps
+# ** Note   : (250621248 ps) Check time, record time: PASS
+# ** Note   : (250621248 ps)  * record time 240120 ps strictly greater than expected value 160080 ps
+#             (250621248 ps) 
+#             (250621248 ps) ==============================================================================================
+#             (250621248 ps)   Send command SQ1_FB_MODE column 1 to On for o_c1_sq1_adc_pwdn deactivation
+#             (250621248 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (250621248 ps) Send SPI command value 8003_0010 (SQ1_FB_MODE, mode Write, data 0010)
+#             (250657248 ps) 
+#             (250657248 ps) ==============================================================================================
+#             (250657248 ps)   Check no event is appeared on o_c1_sq1_adc_pwdn and wait o_c1_sq1_adc_pwdn deactivation
+#             (250657248 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (250657248 ps) Check discrete level: PASS
+# ** Note   : (250657248 ps)  * Read discrete: sq1_adc_pwdn(1), value '1', expected '1'
+# ** Note   : (261010440 ps) Waiting event sq1_adc_pwdn(1) = '0' for 10353192 ps
+#             (261010440 ps) 
+#             (261010440 ps) ==============================================================================================
+#             (261010440 ps)   Check timing between o_c1_clk_sq1_adc rising edge
+#             (261010440 ps)    and internal SQUID1 ADC clock falling edge
+#             (261010440 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (261025964 ps) Waiting event clk_sq1_adc(1) = '1' for 15524 ps
+# ** Note   : (261025964 ps) Record current time
 # ** Note   : (261026448 ps) Waiting event clk_sq1_adc_acq = '1' for 484 ps
 # ** Note   : (261030450 ps) Waiting event clk_sq1_adc_acq = '0' for 4002 ps
-# ** Note   : (261030450 ps) Check time, sq1_adc_pwdn(1) last event: PASS
-# ** Note   : (261030450 ps)  * sq1_adc_pwdn(1) last event 4486 ps greater than or equal to expected value 4400 ps
-# ** Note   : (261030450 ps) Check time, sq1_adc_pwdn(1) last event: PASS
-# ** Note   : (261030450 ps)  * sq1_adc_pwdn(1) last event 4486 ps strictly less than expected value 4560 ps
+# ** Note   : (261030450 ps) Check time, record time: PASS
+# ** Note   : (261030450 ps)  * record time 4486 ps greater than or equal to expected value 4400 ps
+# ** Note   : (261030450 ps) Check time, record time: PASS
+# ** Note   : (261030450 ps)  * record time 4486 ps strictly less than expected value 4560 ps
 #             (261030450 ps) 
 #             (261030450 ps) ==============================================================================================
 #             (261030450 ps)   Check timing between o_c1_sq1_adc_pwdn deactivation and i_sync rising edge
@@ -531,7 +549,7 @@
 #             (261030450 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (261266568 ps) Waiting event sync = '1' for 236118 ps
 # ** Note   : (261266568 ps) Check time, sq1_adc_pwdn(1) last event: PASS
-# ** Note   : (261266568 ps)  * sq1_adc_pwdn(1) last event 240604 ps greater than or equal to expected value 160080 ps
+# ** Note   : (261266568 ps)  * sq1_adc_pwdn(1) last event 256128 ps greater than or equal to expected value 160080 ps
 #             (261266568 ps) 
 #             (261266568 ps) ==============================================================================================
 #             (261266568 ps)   Send command SQ1_FB_MODE column 1 to Off for o_c1_sq1_adc_pwdn activation
@@ -551,34 +569,36 @@
 #             (272152008 ps)   Check timing between i_sync rising edge and o_c1_sq1_adc_pwdn activation
 #             (272152008 ps)     (c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ < .. < 2*c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
 #             (272152008 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (272391644 ps) Waiting event sq1_adc_pwdn(1) = '1' for 239636 ps
-# ** Note   : (272391644 ps) Check time, record time: PASS
-# ** Note   : (272391644 ps)  * record time 239636 ps strictly less than expected value 320160 ps
-# ** Note   : (272391644 ps) Check time, record time: PASS
-# ** Note   : (272391644 ps)  * record time 239636 ps strictly greater than expected value 160080 ps
-#             (272391644 ps) 
-#             (272391644 ps) ==============================================================================================
-#             (272391644 ps)   Send command SQ1_FB_MODE column 1 to On for o_c1_sq1_adc_pwdn deactivation
-#             (272391644 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (272391644 ps) Send SPI command value 8003_0010 (SQ1_FB_MODE, mode Write, data 0010)
-#             (272427644 ps) 
-#             (272427644 ps) ==============================================================================================
-#             (272427644 ps)   Check no event is appeared on o_c1_sq1_adc_pwdn and wait o_c1_sq1_adc_pwdn deactivation
-#             (272427644 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (272427644 ps) Check discrete level: PASS
-# ** Note   : (272427644 ps)  * Read discrete: sq1_adc_pwdn(1), value '1', expected '1'
-# ** Note   : (282796844 ps) Waiting event sq1_adc_pwdn(1) = '0' for 10369200 ps
-#             (282796844 ps) 
-#             (282796844 ps) ==============================================================================================
-#             (282796844 ps)   Check indirectly timing between o_c1_clk_sq1_adc rising edge
-#             (282796844 ps)    and internal SQUID1 ADC clock falling edge
-#             (282796844 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (272392128 ps) Waiting event sq1_adc_pwdn(1) = '1' for 240120 ps
+# ** Note   : (272392128 ps) Check time, record time: PASS
+# ** Note   : (272392128 ps)  * record time 240120 ps strictly less than expected value 320160 ps
+# ** Note   : (272392128 ps) Check time, record time: PASS
+# ** Note   : (272392128 ps)  * record time 240120 ps strictly greater than expected value 160080 ps
+#             (272392128 ps) 
+#             (272392128 ps) ==============================================================================================
+#             (272392128 ps)   Send command SQ1_FB_MODE column 1 to On for o_c1_sq1_adc_pwdn deactivation
+#             (272392128 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (272392128 ps) Send SPI command value 8003_0010 (SQ1_FB_MODE, mode Write, data 0010)
+#             (272428128 ps) 
+#             (272428128 ps) ==============================================================================================
+#             (272428128 ps)   Check no event is appeared on o_c1_sq1_adc_pwdn and wait o_c1_sq1_adc_pwdn deactivation
+#             (272428128 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (272428128 ps) Check discrete level: PASS
+# ** Note   : (272428128 ps)  * Read discrete: sq1_adc_pwdn(1), value '1', expected '1'
+# ** Note   : (282781320 ps) Waiting event sq1_adc_pwdn(1) = '0' for 10353192 ps
+#             (282781320 ps) 
+#             (282781320 ps) ==============================================================================================
+#             (282781320 ps)   Check timing between o_c1_clk_sq1_adc rising edge
+#             (282781320 ps)    and internal SQUID1 ADC clock falling edge
+#             (282781320 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (282796844 ps) Waiting event clk_sq1_adc(1) = '1' for 15524 ps
+# ** Note   : (282796844 ps) Record current time
 # ** Note   : (282797328 ps) Waiting event clk_sq1_adc_acq = '1' for 484 ps
 # ** Note   : (282801330 ps) Waiting event clk_sq1_adc_acq = '0' for 4002 ps
-# ** Note   : (282801330 ps) Check time, sq1_adc_pwdn(1) last event: PASS
-# ** Note   : (282801330 ps)  * sq1_adc_pwdn(1) last event 4486 ps greater than or equal to expected value 4400 ps
-# ** Note   : (282801330 ps) Check time, sq1_adc_pwdn(1) last event: PASS
-# ** Note   : (282801330 ps)  * sq1_adc_pwdn(1) last event 4486 ps strictly less than expected value 4560 ps
+# ** Note   : (282801330 ps) Check time, record time: PASS
+# ** Note   : (282801330 ps)  * record time 4486 ps greater than or equal to expected value 4400 ps
+# ** Note   : (282801330 ps) Check time, record time: PASS
+# ** Note   : (282801330 ps)  * record time 4486 ps strictly less than expected value 4560 ps
 #             (282801330 ps) 
 #             (282801330 ps) ==============================================================================================
 #             (282801330 ps)   Check timing between o_c1_sq1_adc_pwdn deactivation and i_sync rising edge
@@ -586,7 +606,7 @@
 #             (282801330 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (283037448 ps) Waiting event sync = '1' for 236118 ps
 # ** Note   : (283037448 ps) Check time, sq1_adc_pwdn(1) last event: PASS
-# ** Note   : (283037448 ps)  * sq1_adc_pwdn(1) last event 240604 ps greater than or equal to expected value 160080 ps
+# ** Note   : (283037448 ps)  * sq1_adc_pwdn(1) last event 256128 ps greater than or equal to expected value 160080 ps
 #             (283037448 ps) 
 #             (283037448 ps) ==============================================================================================
 #             (283037448 ps)   Send command SQ1_FB_MODE column 1 to Off for o_c1_sq1_adc_pwdn activation
@@ -606,34 +626,36 @@
 #             (293922888 ps)   Check timing between i_sync rising edge and o_c1_sq1_adc_pwdn activation
 #             (293922888 ps)     (c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ < .. < 2*c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
 #             (293922888 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (294162524 ps) Waiting event sq1_adc_pwdn(1) = '1' for 239636 ps
-# ** Note   : (294162524 ps) Check time, record time: PASS
-# ** Note   : (294162524 ps)  * record time 239636 ps strictly less than expected value 320160 ps
-# ** Note   : (294162524 ps) Check time, record time: PASS
-# ** Note   : (294162524 ps)  * record time 239636 ps strictly greater than expected value 160080 ps
-#             (294162524 ps) 
-#             (294162524 ps) ==============================================================================================
-#             (294162524 ps)   Send command TM_MODE column 2 to Normal for o_c2_sq1_adc_pwdn deactivation
-#             (294162524 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (294162524 ps) Send SPI command value 8001_65XX (TM_MODE, mode Write, data 65XX)
-#             (294198524 ps) 
-#             (294198524 ps) ==============================================================================================
-#             (294198524 ps)   Check no event is appeared on o_c2_sq1_adc_pwdn and wait o_c2_sq1_adc_pwdn deactivation
-#             (294198524 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (294198524 ps) Check time, sq1_adc_pwdn(2) last event: PASS
-# ** Note   : (294198524 ps)  * sq1_adc_pwdn(2) last event 294198524 ps equal to expected value 294198524 ps
-# ** Note   : (304567724 ps) Waiting event sq1_adc_pwdn(2) = '0' for 10369200 ps
-#             (304567724 ps) 
-#             (304567724 ps) ==============================================================================================
-#             (304567724 ps)   Check indirectly timing between o_c2_clk_sq1_adc rising edge
-#             (304567724 ps)    and internal SQUID1 ADC clock falling edge
-#             (304567724 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (294163008 ps) Waiting event sq1_adc_pwdn(1) = '1' for 240120 ps
+# ** Note   : (294163008 ps) Check time, record time: PASS
+# ** Note   : (294163008 ps)  * record time 240120 ps strictly less than expected value 320160 ps
+# ** Note   : (294163008 ps) Check time, record time: PASS
+# ** Note   : (294163008 ps)  * record time 240120 ps strictly greater than expected value 160080 ps
+#             (294163008 ps) 
+#             (294163008 ps) ==============================================================================================
+#             (294163008 ps)   Send command TM_MODE column 2 to Normal for o_c2_sq1_adc_pwdn deactivation
+#             (294163008 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (294163008 ps) Send SPI command value 8001_65XX (TM_MODE, mode Write, data 65XX)
+#             (294199008 ps) 
+#             (294199008 ps) ==============================================================================================
+#             (294199008 ps)   Check no event is appeared on o_c2_sq1_adc_pwdn and wait o_c2_sq1_adc_pwdn deactivation
+#             (294199008 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (294199008 ps) Check time, sq1_adc_pwdn(2) last event: PASS
+# ** Note   : (294199008 ps)  * sq1_adc_pwdn(2) last event 294199008 ps equal to expected value 294199008 ps
+# ** Note   : (304552200 ps) Waiting event sq1_adc_pwdn(2) = '0' for 10353192 ps
+#             (304552200 ps) 
+#             (304552200 ps) ==============================================================================================
+#             (304552200 ps)   Check timing between o_c2_clk_sq1_adc rising edge
+#             (304552200 ps)    and internal SQUID1 ADC clock falling edge
+#             (304552200 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (304567724 ps) Waiting event clk_sq1_adc(2) = '1' for 15524 ps
+# ** Note   : (304567724 ps) Record current time
 # ** Note   : (304568208 ps) Waiting event clk_sq1_adc_acq = '1' for 484 ps
 # ** Note   : (304572210 ps) Waiting event clk_sq1_adc_acq = '0' for 4002 ps
-# ** Note   : (304572210 ps) Check time, sq1_adc_pwdn(2) last event: PASS
-# ** Note   : (304572210 ps)  * sq1_adc_pwdn(2) last event 4486 ps greater than or equal to expected value 4400 ps
-# ** Note   : (304572210 ps) Check time, sq1_adc_pwdn(2) last event: PASS
-# ** Note   : (304572210 ps)  * sq1_adc_pwdn(2) last event 4486 ps strictly less than expected value 4560 ps
+# ** Note   : (304572210 ps) Check time, record time: PASS
+# ** Note   : (304572210 ps)  * record time 4486 ps greater than or equal to expected value 4400 ps
+# ** Note   : (304572210 ps) Check time, record time: PASS
+# ** Note   : (304572210 ps)  * record time 4486 ps strictly less than expected value 4560 ps
 #             (304572210 ps) 
 #             (304572210 ps) ==============================================================================================
 #             (304572210 ps)   Check timing between o_c2_sq1_adc_pwdn deactivation and i_sync rising edge
@@ -641,7 +663,7 @@
 #             (304572210 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (304808328 ps) Waiting event sync = '1' for 236118 ps
 # ** Note   : (304808328 ps) Check time, sq1_adc_pwdn(2) last event: PASS
-# ** Note   : (304808328 ps)  * sq1_adc_pwdn(2) last event 240604 ps greater than or equal to expected value 160080 ps
+# ** Note   : (304808328 ps)  * sq1_adc_pwdn(2) last event 256128 ps greater than or equal to expected value 160080 ps
 #             (304808328 ps) 
 #             (304808328 ps) ==============================================================================================
 #             (304808328 ps)   Send command TM_MODE column 2 to Test pattern for o_c2_sq1_adc_pwdn activation
@@ -661,34 +683,36 @@
 #             (315693768 ps)   Check timing between i_sync rising edge and o_c2_sq1_adc_pwdn activation
 #             (315693768 ps)     (c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ < .. < 2*c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
 #             (315693768 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (315933404 ps) Waiting event sq1_adc_pwdn(2) = '1' for 239636 ps
-# ** Note   : (315933404 ps) Check time, record time: PASS
-# ** Note   : (315933404 ps)  * record time 239636 ps strictly less than expected value 320160 ps
-# ** Note   : (315933404 ps) Check time, record time: PASS
-# ** Note   : (315933404 ps)  * record time 239636 ps strictly greater than expected value 160080 ps
-#             (315933404 ps) 
-#             (315933404 ps) ==============================================================================================
-#             (315933404 ps)   Send command TM_MODE column 2 to Dump for o_c2_sq1_adc_pwdn deactivation
-#             (315933404 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (315933404 ps) Send SPI command value 8001_45XX (TM_MODE, mode Write, data 45XX)
-#             (315969404 ps) 
-#             (315969404 ps) ==============================================================================================
-#             (315969404 ps)   Check no event is appeared on o_c2_sq1_adc_pwdn and wait o_c2_sq1_adc_pwdn deactivation
-#             (315969404 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (315969404 ps) Check discrete level: PASS
-# ** Note   : (315969404 ps)  * Read discrete: sq1_adc_pwdn(2), value '1', expected '1'
-# ** Note   : (326338604 ps) Waiting event sq1_adc_pwdn(2) = '0' for 10369200 ps
-#             (326338604 ps) 
-#             (326338604 ps) ==============================================================================================
-#             (326338604 ps)   Check indirectly timing between o_c2_clk_sq1_adc rising edge
-#             (326338604 ps)    and internal SQUID1 ADC clock falling edge
-#             (326338604 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (315933888 ps) Waiting event sq1_adc_pwdn(2) = '1' for 240120 ps
+# ** Note   : (315933888 ps) Check time, record time: PASS
+# ** Note   : (315933888 ps)  * record time 240120 ps strictly less than expected value 320160 ps
+# ** Note   : (315933888 ps) Check time, record time: PASS
+# ** Note   : (315933888 ps)  * record time 240120 ps strictly greater than expected value 160080 ps
+#             (315933888 ps) 
+#             (315933888 ps) ==============================================================================================
+#             (315933888 ps)   Send command TM_MODE column 2 to Dump for o_c2_sq1_adc_pwdn deactivation
+#             (315933888 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (315933888 ps) Send SPI command value 8001_45XX (TM_MODE, mode Write, data 45XX)
+#             (315969888 ps) 
+#             (315969888 ps) ==============================================================================================
+#             (315969888 ps)   Check no event is appeared on o_c2_sq1_adc_pwdn and wait o_c2_sq1_adc_pwdn deactivation
+#             (315969888 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (315969888 ps) Check discrete level: PASS
+# ** Note   : (315969888 ps)  * Read discrete: sq1_adc_pwdn(2), value '1', expected '1'
+# ** Note   : (326323080 ps) Waiting event sq1_adc_pwdn(2) = '0' for 10353192 ps
+#             (326323080 ps) 
+#             (326323080 ps) ==============================================================================================
+#             (326323080 ps)   Check timing between o_c2_clk_sq1_adc rising edge
+#             (326323080 ps)    and internal SQUID1 ADC clock falling edge
+#             (326323080 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (326338604 ps) Waiting event clk_sq1_adc(2) = '1' for 15524 ps
+# ** Note   : (326338604 ps) Record current time
 # ** Note   : (326339088 ps) Waiting event clk_sq1_adc_acq = '1' for 484 ps
 # ** Note   : (326343090 ps) Waiting event clk_sq1_adc_acq = '0' for 4002 ps
-# ** Note   : (326343090 ps) Check time, sq1_adc_pwdn(2) last event: PASS
-# ** Note   : (326343090 ps)  * sq1_adc_pwdn(2) last event 4486 ps greater than or equal to expected value 4400 ps
-# ** Note   : (326343090 ps) Check time, sq1_adc_pwdn(2) last event: PASS
-# ** Note   : (326343090 ps)  * sq1_adc_pwdn(2) last event 4486 ps strictly less than expected value 4560 ps
+# ** Note   : (326343090 ps) Check time, record time: PASS
+# ** Note   : (326343090 ps)  * record time 4486 ps greater than or equal to expected value 4400 ps
+# ** Note   : (326343090 ps) Check time, record time: PASS
+# ** Note   : (326343090 ps)  * record time 4486 ps strictly less than expected value 4560 ps
 #             (326343090 ps) 
 #             (326343090 ps) ==============================================================================================
 #             (326343090 ps)   Check timing between o_c2_sq1_adc_pwdn deactivation and i_sync rising edge
@@ -696,7 +720,7 @@
 #             (326343090 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (326579208 ps) Waiting event sync = '1' for 236118 ps
 # ** Note   : (326579208 ps) Check time, sq1_adc_pwdn(2) last event: PASS
-# ** Note   : (326579208 ps)  * sq1_adc_pwdn(2) last event 240604 ps greater than or equal to expected value 160080 ps
+# ** Note   : (326579208 ps)  * sq1_adc_pwdn(2) last event 256128 ps greater than or equal to expected value 160080 ps
 #             (326579208 ps) 
 #             (326579208 ps) ==============================================================================================
 #             (326579208 ps)    Wait TM_MODE column 2 goes automatically to Idle and
@@ -726,34 +750,36 @@
 #             (370120968 ps)   Check timing between i_sync rising edge and o_c2_sq1_adc_pwdn activation
 #             (370120968 ps)     (c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ < .. < 2*c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
 #             (370120968 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (370360604 ps) Waiting event sq1_adc_pwdn(2) = '1' for 239636 ps
-# ** Note   : (370360604 ps) Check time, record time: PASS
-# ** Note   : (370360604 ps)  * record time 239636 ps strictly less than expected value 320160 ps
-# ** Note   : (370360604 ps) Check time, record time: PASS
-# ** Note   : (370360604 ps)  * record time 239636 ps strictly greater than expected value 160080 ps
-#             (370360604 ps) 
-#             (370360604 ps) ==============================================================================================
-#             (370360604 ps)   Send command SQ1_FB_MODE column 2 to On for o_c2_sq1_adc_pwdn deactivation
-#             (370360604 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (370360604 ps) Send SPI command value 8003_0100 (SQ1_FB_MODE, mode Write, data 0100)
-#             (370396604 ps) 
-#             (370396604 ps) ==============================================================================================
-#             (370396604 ps)   Check no event is appeared on o_c2_sq1_adc_pwdn and wait o_c2_sq1_adc_pwdn deactivation
-#             (370396604 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (370396604 ps) Check discrete level: PASS
-# ** Note   : (370396604 ps)  * Read discrete: sq1_adc_pwdn(2), value '1', expected '1'
-# ** Note   : (380765804 ps) Waiting event sq1_adc_pwdn(2) = '0' for 10369200 ps
-#             (380765804 ps) 
-#             (380765804 ps) ==============================================================================================
-#             (380765804 ps)   Check indirectly timing between o_c2_clk_sq1_adc rising edge
-#             (380765804 ps)    and internal SQUID1 ADC clock falling edge
-#             (380765804 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (370361088 ps) Waiting event sq1_adc_pwdn(2) = '1' for 240120 ps
+# ** Note   : (370361088 ps) Check time, record time: PASS
+# ** Note   : (370361088 ps)  * record time 240120 ps strictly less than expected value 320160 ps
+# ** Note   : (370361088 ps) Check time, record time: PASS
+# ** Note   : (370361088 ps)  * record time 240120 ps strictly greater than expected value 160080 ps
+#             (370361088 ps) 
+#             (370361088 ps) ==============================================================================================
+#             (370361088 ps)   Send command SQ1_FB_MODE column 2 to On for o_c2_sq1_adc_pwdn deactivation
+#             (370361088 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (370361088 ps) Send SPI command value 8003_0100 (SQ1_FB_MODE, mode Write, data 0100)
+#             (370397088 ps) 
+#             (370397088 ps) ==============================================================================================
+#             (370397088 ps)   Check no event is appeared on o_c2_sq1_adc_pwdn and wait o_c2_sq1_adc_pwdn deactivation
+#             (370397088 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (370397088 ps) Check discrete level: PASS
+# ** Note   : (370397088 ps)  * Read discrete: sq1_adc_pwdn(2), value '1', expected '1'
+# ** Note   : (380750280 ps) Waiting event sq1_adc_pwdn(2) = '0' for 10353192 ps
+#             (380750280 ps) 
+#             (380750280 ps) ==============================================================================================
+#             (380750280 ps)   Check timing between o_c2_clk_sq1_adc rising edge
+#             (380750280 ps)    and internal SQUID1 ADC clock falling edge
+#             (380750280 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (380765804 ps) Waiting event clk_sq1_adc(2) = '1' for 15524 ps
+# ** Note   : (380765804 ps) Record current time
 # ** Note   : (380766288 ps) Waiting event clk_sq1_adc_acq = '1' for 484 ps
 # ** Note   : (380770290 ps) Waiting event clk_sq1_adc_acq = '0' for 4002 ps
-# ** Note   : (380770290 ps) Check time, sq1_adc_pwdn(2) last event: PASS
-# ** Note   : (380770290 ps)  * sq1_adc_pwdn(2) last event 4486 ps greater than or equal to expected value 4400 ps
-# ** Note   : (380770290 ps) Check time, sq1_adc_pwdn(2) last event: PASS
-# ** Note   : (380770290 ps)  * sq1_adc_pwdn(2) last event 4486 ps strictly less than expected value 4560 ps
+# ** Note   : (380770290 ps) Check time, record time: PASS
+# ** Note   : (380770290 ps)  * record time 4486 ps greater than or equal to expected value 4400 ps
+# ** Note   : (380770290 ps) Check time, record time: PASS
+# ** Note   : (380770290 ps)  * record time 4486 ps strictly less than expected value 4560 ps
 #             (380770290 ps) 
 #             (380770290 ps) ==============================================================================================
 #             (380770290 ps)   Check timing between o_c2_sq1_adc_pwdn deactivation and i_sync rising edge
@@ -761,7 +787,7 @@
 #             (380770290 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (381006408 ps) Waiting event sync = '1' for 236118 ps
 # ** Note   : (381006408 ps) Check time, sq1_adc_pwdn(2) last event: PASS
-# ** Note   : (381006408 ps)  * sq1_adc_pwdn(2) last event 240604 ps greater than or equal to expected value 160080 ps
+# ** Note   : (381006408 ps)  * sq1_adc_pwdn(2) last event 256128 ps greater than or equal to expected value 160080 ps
 #             (381006408 ps) 
 #             (381006408 ps) ==============================================================================================
 #             (381006408 ps)   Send command SQ1_FB_MODE column 2 to Off loop for o_c2_sq1_adc_pwdn activation
@@ -781,34 +807,36 @@
 #             (391891848 ps)   Check timing between i_sync rising edge and o_c2_sq1_adc_pwdn activation
 #             (391891848 ps)     (c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ < .. < 2*c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
 #             (391891848 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (392131484 ps) Waiting event sq1_adc_pwdn(2) = '1' for 239636 ps
-# ** Note   : (392131484 ps) Check time, record time: PASS
-# ** Note   : (392131484 ps)  * record time 239636 ps strictly less than expected value 320160 ps
-# ** Note   : (392131484 ps) Check time, record time: PASS
-# ** Note   : (392131484 ps)  * record time 239636 ps strictly greater than expected value 160080 ps
-#             (392131484 ps) 
-#             (392131484 ps) ==============================================================================================
-#             (392131484 ps)   Send command SQ1_FB_MODE column 2 to On for o_c2_sq1_adc_pwdn deactivation
-#             (392131484 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (392131484 ps) Send SPI command value 8003_0100 (SQ1_FB_MODE, mode Write, data 0100)
-#             (392167484 ps) 
-#             (392167484 ps) ==============================================================================================
-#             (392167484 ps)   Check no event is appeared on o_c2_sq1_adc_pwdn and wait o_c2_sq1_adc_pwdn deactivation
-#             (392167484 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (392167484 ps) Check discrete level: PASS
-# ** Note   : (392167484 ps)  * Read discrete: sq1_adc_pwdn(2), value '1', expected '1'
-# ** Note   : (402536684 ps) Waiting event sq1_adc_pwdn(2) = '0' for 10369200 ps
-#             (402536684 ps) 
-#             (402536684 ps) ==============================================================================================
-#             (402536684 ps)   Check indirectly timing between o_c2_clk_sq1_adc rising edge
-#             (402536684 ps)    and internal SQUID1 ADC clock falling edge
-#             (402536684 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (392131968 ps) Waiting event sq1_adc_pwdn(2) = '1' for 240120 ps
+# ** Note   : (392131968 ps) Check time, record time: PASS
+# ** Note   : (392131968 ps)  * record time 240120 ps strictly less than expected value 320160 ps
+# ** Note   : (392131968 ps) Check time, record time: PASS
+# ** Note   : (392131968 ps)  * record time 240120 ps strictly greater than expected value 160080 ps
+#             (392131968 ps) 
+#             (392131968 ps) ==============================================================================================
+#             (392131968 ps)   Send command SQ1_FB_MODE column 2 to On for o_c2_sq1_adc_pwdn deactivation
+#             (392131968 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (392131968 ps) Send SPI command value 8003_0100 (SQ1_FB_MODE, mode Write, data 0100)
+#             (392167968 ps) 
+#             (392167968 ps) ==============================================================================================
+#             (392167968 ps)   Check no event is appeared on o_c2_sq1_adc_pwdn and wait o_c2_sq1_adc_pwdn deactivation
+#             (392167968 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (392167968 ps) Check discrete level: PASS
+# ** Note   : (392167968 ps)  * Read discrete: sq1_adc_pwdn(2), value '1', expected '1'
+# ** Note   : (402521160 ps) Waiting event sq1_adc_pwdn(2) = '0' for 10353192 ps
+#             (402521160 ps) 
+#             (402521160 ps) ==============================================================================================
+#             (402521160 ps)   Check timing between o_c2_clk_sq1_adc rising edge
+#             (402521160 ps)    and internal SQUID1 ADC clock falling edge
+#             (402521160 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (402536684 ps) Waiting event clk_sq1_adc(2) = '1' for 15524 ps
+# ** Note   : (402536684 ps) Record current time
 # ** Note   : (402537168 ps) Waiting event clk_sq1_adc_acq = '1' for 484 ps
 # ** Note   : (402541170 ps) Waiting event clk_sq1_adc_acq = '0' for 4002 ps
-# ** Note   : (402541170 ps) Check time, sq1_adc_pwdn(2) last event: PASS
-# ** Note   : (402541170 ps)  * sq1_adc_pwdn(2) last event 4486 ps greater than or equal to expected value 4400 ps
-# ** Note   : (402541170 ps) Check time, sq1_adc_pwdn(2) last event: PASS
-# ** Note   : (402541170 ps)  * sq1_adc_pwdn(2) last event 4486 ps strictly less than expected value 4560 ps
+# ** Note   : (402541170 ps) Check time, record time: PASS
+# ** Note   : (402541170 ps)  * record time 4486 ps greater than or equal to expected value 4400 ps
+# ** Note   : (402541170 ps) Check time, record time: PASS
+# ** Note   : (402541170 ps)  * record time 4486 ps strictly less than expected value 4560 ps
 #             (402541170 ps) 
 #             (402541170 ps) ==============================================================================================
 #             (402541170 ps)   Check timing between o_c2_sq1_adc_pwdn deactivation and i_sync rising edge
@@ -816,7 +844,7 @@
 #             (402541170 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (402777288 ps) Waiting event sync = '1' for 236118 ps
 # ** Note   : (402777288 ps) Check time, sq1_adc_pwdn(2) last event: PASS
-# ** Note   : (402777288 ps)  * sq1_adc_pwdn(2) last event 240604 ps greater than or equal to expected value 160080 ps
+# ** Note   : (402777288 ps)  * sq1_adc_pwdn(2) last event 256128 ps greater than or equal to expected value 160080 ps
 #             (402777288 ps) 
 #             (402777288 ps) ==============================================================================================
 #             (402777288 ps)   Send command SQ1_FB_MODE column 2 to Off for o_c2_sq1_adc_pwdn activation
@@ -836,34 +864,36 @@
 #             (413662728 ps)   Check timing between i_sync rising edge and o_c2_sq1_adc_pwdn activation
 #             (413662728 ps)     (c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ < .. < 2*c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
 #             (413662728 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (413902364 ps) Waiting event sq1_adc_pwdn(2) = '1' for 239636 ps
-# ** Note   : (413902364 ps) Check time, record time: PASS
-# ** Note   : (413902364 ps)  * record time 239636 ps strictly less than expected value 320160 ps
-# ** Note   : (413902364 ps) Check time, record time: PASS
-# ** Note   : (413902364 ps)  * record time 239636 ps strictly greater than expected value 160080 ps
-#             (413902364 ps) 
-#             (413902364 ps) ==============================================================================================
-#             (413902364 ps)   Send command SQ1_FB_MODE column 2 to On for o_c2_sq1_adc_pwdn deactivation
-#             (413902364 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (413902364 ps) Send SPI command value 8003_0100 (SQ1_FB_MODE, mode Write, data 0100)
-#             (413938364 ps) 
-#             (413938364 ps) ==============================================================================================
-#             (413938364 ps)   Check no event is appeared on o_c2_sq1_adc_pwdn and wait o_c2_sq1_adc_pwdn deactivation
-#             (413938364 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (413938364 ps) Check discrete level: PASS
-# ** Note   : (413938364 ps)  * Read discrete: sq1_adc_pwdn(2), value '1', expected '1'
-# ** Note   : (424307564 ps) Waiting event sq1_adc_pwdn(2) = '0' for 10369200 ps
-#             (424307564 ps) 
-#             (424307564 ps) ==============================================================================================
-#             (424307564 ps)   Check indirectly timing between o_c2_clk_sq1_adc rising edge
-#             (424307564 ps)    and internal SQUID1 ADC clock falling edge
-#             (424307564 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (413902848 ps) Waiting event sq1_adc_pwdn(2) = '1' for 240120 ps
+# ** Note   : (413902848 ps) Check time, record time: PASS
+# ** Note   : (413902848 ps)  * record time 240120 ps strictly less than expected value 320160 ps
+# ** Note   : (413902848 ps) Check time, record time: PASS
+# ** Note   : (413902848 ps)  * record time 240120 ps strictly greater than expected value 160080 ps
+#             (413902848 ps) 
+#             (413902848 ps) ==============================================================================================
+#             (413902848 ps)   Send command SQ1_FB_MODE column 2 to On for o_c2_sq1_adc_pwdn deactivation
+#             (413902848 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (413902848 ps) Send SPI command value 8003_0100 (SQ1_FB_MODE, mode Write, data 0100)
+#             (413938848 ps) 
+#             (413938848 ps) ==============================================================================================
+#             (413938848 ps)   Check no event is appeared on o_c2_sq1_adc_pwdn and wait o_c2_sq1_adc_pwdn deactivation
+#             (413938848 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (413938848 ps) Check discrete level: PASS
+# ** Note   : (413938848 ps)  * Read discrete: sq1_adc_pwdn(2), value '1', expected '1'
+# ** Note   : (424292040 ps) Waiting event sq1_adc_pwdn(2) = '0' for 10353192 ps
+#             (424292040 ps) 
+#             (424292040 ps) ==============================================================================================
+#             (424292040 ps)   Check timing between o_c2_clk_sq1_adc rising edge
+#             (424292040 ps)    and internal SQUID1 ADC clock falling edge
+#             (424292040 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (424307564 ps) Waiting event clk_sq1_adc(2) = '1' for 15524 ps
+# ** Note   : (424307564 ps) Record current time
 # ** Note   : (424308048 ps) Waiting event clk_sq1_adc_acq = '1' for 484 ps
 # ** Note   : (424312050 ps) Waiting event clk_sq1_adc_acq = '0' for 4002 ps
-# ** Note   : (424312050 ps) Check time, sq1_adc_pwdn(2) last event: PASS
-# ** Note   : (424312050 ps)  * sq1_adc_pwdn(2) last event 4486 ps greater than or equal to expected value 4400 ps
-# ** Note   : (424312050 ps) Check time, sq1_adc_pwdn(2) last event: PASS
-# ** Note   : (424312050 ps)  * sq1_adc_pwdn(2) last event 4486 ps strictly less than expected value 4560 ps
+# ** Note   : (424312050 ps) Check time, record time: PASS
+# ** Note   : (424312050 ps)  * record time 4486 ps greater than or equal to expected value 4400 ps
+# ** Note   : (424312050 ps) Check time, record time: PASS
+# ** Note   : (424312050 ps)  * record time 4486 ps strictly less than expected value 4560 ps
 #             (424312050 ps) 
 #             (424312050 ps) ==============================================================================================
 #             (424312050 ps)   Check timing between o_c2_sq1_adc_pwdn deactivation and i_sync rising edge
@@ -871,7 +901,7 @@
 #             (424312050 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (424548168 ps) Waiting event sync = '1' for 236118 ps
 # ** Note   : (424548168 ps) Check time, sq1_adc_pwdn(2) last event: PASS
-# ** Note   : (424548168 ps)  * sq1_adc_pwdn(2) last event 240604 ps greater than or equal to expected value 160080 ps
+# ** Note   : (424548168 ps)  * sq1_adc_pwdn(2) last event 256128 ps greater than or equal to expected value 160080 ps
 #             (424548168 ps) 
 #             (424548168 ps) ==============================================================================================
 #             (424548168 ps)   Send command SQ1_FB_MODE column 2 to Off for o_c2_sq1_adc_pwdn activation
@@ -891,34 +921,36 @@
 #             (435433608 ps)   Check timing between i_sync rising edge and o_c2_sq1_adc_pwdn activation
 #             (435433608 ps)     (c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ < .. < 2*c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
 #             (435433608 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (435673244 ps) Waiting event sq1_adc_pwdn(2) = '1' for 239636 ps
-# ** Note   : (435673244 ps) Check time, record time: PASS
-# ** Note   : (435673244 ps)  * record time 239636 ps strictly less than expected value 320160 ps
-# ** Note   : (435673244 ps) Check time, record time: PASS
-# ** Note   : (435673244 ps)  * record time 239636 ps strictly greater than expected value 160080 ps
-#             (435673244 ps) 
-#             (435673244 ps) ==============================================================================================
-#             (435673244 ps)   Send command TM_MODE column 3 to Normal for o_c3_sq1_adc_pwdn deactivation
-#             (435673244 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (435673244 ps) Send SPI command value 8001_95XX (TM_MODE, mode Write, data 95XX)
-#             (435709244 ps) 
-#             (435709244 ps) ==============================================================================================
-#             (435709244 ps)   Check no event is appeared on o_c3_sq1_adc_pwdn and wait o_c3_sq1_adc_pwdn deactivation
-#             (435709244 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (435709244 ps) Check time, sq1_adc_pwdn(3) last event: PASS
-# ** Note   : (435709244 ps)  * sq1_adc_pwdn(3) last event 435709244 ps equal to expected value 435709244 ps
-# ** Note   : (446078444 ps) Waiting event sq1_adc_pwdn(3) = '0' for 10369200 ps
-#             (446078444 ps) 
-#             (446078444 ps) ==============================================================================================
-#             (446078444 ps)   Check indirectly timing between o_c3_clk_sq1_adc rising edge
-#             (446078444 ps)    and internal SQUID1 ADC clock falling edge
-#             (446078444 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (435673728 ps) Waiting event sq1_adc_pwdn(2) = '1' for 240120 ps
+# ** Note   : (435673728 ps) Check time, record time: PASS
+# ** Note   : (435673728 ps)  * record time 240120 ps strictly less than expected value 320160 ps
+# ** Note   : (435673728 ps) Check time, record time: PASS
+# ** Note   : (435673728 ps)  * record time 240120 ps strictly greater than expected value 160080 ps
+#             (435673728 ps) 
+#             (435673728 ps) ==============================================================================================
+#             (435673728 ps)   Send command TM_MODE column 3 to Normal for o_c3_sq1_adc_pwdn deactivation
+#             (435673728 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (435673728 ps) Send SPI command value 8001_95XX (TM_MODE, mode Write, data 95XX)
+#             (435709728 ps) 
+#             (435709728 ps) ==============================================================================================
+#             (435709728 ps)   Check no event is appeared on o_c3_sq1_adc_pwdn and wait o_c3_sq1_adc_pwdn deactivation
+#             (435709728 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (435709728 ps) Check time, sq1_adc_pwdn(3) last event: PASS
+# ** Note   : (435709728 ps)  * sq1_adc_pwdn(3) last event 435709728 ps equal to expected value 435709728 ps
+# ** Note   : (446062920 ps) Waiting event sq1_adc_pwdn(3) = '0' for 10353192 ps
+#             (446062920 ps) 
+#             (446062920 ps) ==============================================================================================
+#             (446062920 ps)   Check timing between o_c3_clk_sq1_adc rising edge
+#             (446062920 ps)    and internal SQUID1 ADC clock falling edge
+#             (446062920 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (446078444 ps) Waiting event clk_sq1_adc(3) = '1' for 15524 ps
+# ** Note   : (446078444 ps) Record current time
 # ** Note   : (446078928 ps) Waiting event clk_sq1_adc_acq = '1' for 484 ps
 # ** Note   : (446082930 ps) Waiting event clk_sq1_adc_acq = '0' for 4002 ps
-# ** Note   : (446082930 ps) Check time, sq1_adc_pwdn(3) last event: PASS
-# ** Note   : (446082930 ps)  * sq1_adc_pwdn(3) last event 4486 ps greater than or equal to expected value 4400 ps
-# ** Note   : (446082930 ps) Check time, sq1_adc_pwdn(3) last event: PASS
-# ** Note   : (446082930 ps)  * sq1_adc_pwdn(3) last event 4486 ps strictly less than expected value 4560 ps
+# ** Note   : (446082930 ps) Check time, record time: PASS
+# ** Note   : (446082930 ps)  * record time 4486 ps greater than or equal to expected value 4400 ps
+# ** Note   : (446082930 ps) Check time, record time: PASS
+# ** Note   : (446082930 ps)  * record time 4486 ps strictly less than expected value 4560 ps
 #             (446082930 ps) 
 #             (446082930 ps) ==============================================================================================
 #             (446082930 ps)   Check timing between o_c3_sq1_adc_pwdn deactivation and i_sync rising edge
@@ -926,7 +958,7 @@
 #             (446082930 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (446319048 ps) Waiting event sync = '1' for 236118 ps
 # ** Note   : (446319048 ps) Check time, sq1_adc_pwdn(3) last event: PASS
-# ** Note   : (446319048 ps)  * sq1_adc_pwdn(3) last event 240604 ps greater than or equal to expected value 160080 ps
+# ** Note   : (446319048 ps)  * sq1_adc_pwdn(3) last event 256128 ps greater than or equal to expected value 160080 ps
 #             (446319048 ps) 
 #             (446319048 ps) ==============================================================================================
 #             (446319048 ps)   Send command TM_MODE column 3 to Test pattern for o_c3_sq1_adc_pwdn activation
@@ -946,34 +978,36 @@
 #             (457204488 ps)   Check timing between i_sync rising edge and o_c3_sq1_adc_pwdn activation
 #             (457204488 ps)     (c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ < .. < 2*c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
 #             (457204488 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (457444124 ps) Waiting event sq1_adc_pwdn(3) = '1' for 239636 ps
-# ** Note   : (457444124 ps) Check time, record time: PASS
-# ** Note   : (457444124 ps)  * record time 239636 ps strictly less than expected value 320160 ps
-# ** Note   : (457444124 ps) Check time, record time: PASS
-# ** Note   : (457444124 ps)  * record time 239636 ps strictly greater than expected value 160080 ps
-#             (457444124 ps) 
-#             (457444124 ps) ==============================================================================================
-#             (457444124 ps)   Send command TM_MODE column 3 to Dump for o_c3_sq1_adc_pwdn deactivation
-#             (457444124 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (457444124 ps) Send SPI command value 8001_15XX (TM_MODE, mode Write, data 15XX)
-#             (457480124 ps) 
-#             (457480124 ps) ==============================================================================================
-#             (457480124 ps)   Check no event is appeared on o_c3_sq1_adc_pwdn and wait o_c3_sq1_adc_pwdn deactivation
-#             (457480124 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (457480124 ps) Check discrete level: PASS
-# ** Note   : (457480124 ps)  * Read discrete: sq1_adc_pwdn(3), value '1', expected '1'
-# ** Note   : (467849324 ps) Waiting event sq1_adc_pwdn(3) = '0' for 10369200 ps
-#             (467849324 ps) 
-#             (467849324 ps) ==============================================================================================
-#             (467849324 ps)   Check indirectly timing between o_c3_clk_sq1_adc rising edge
-#             (467849324 ps)    and internal SQUID1 ADC clock falling edge
-#             (467849324 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (457444608 ps) Waiting event sq1_adc_pwdn(3) = '1' for 240120 ps
+# ** Note   : (457444608 ps) Check time, record time: PASS
+# ** Note   : (457444608 ps)  * record time 240120 ps strictly less than expected value 320160 ps
+# ** Note   : (457444608 ps) Check time, record time: PASS
+# ** Note   : (457444608 ps)  * record time 240120 ps strictly greater than expected value 160080 ps
+#             (457444608 ps) 
+#             (457444608 ps) ==============================================================================================
+#             (457444608 ps)   Send command TM_MODE column 3 to Dump for o_c3_sq1_adc_pwdn deactivation
+#             (457444608 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (457444608 ps) Send SPI command value 8001_15XX (TM_MODE, mode Write, data 15XX)
+#             (457480608 ps) 
+#             (457480608 ps) ==============================================================================================
+#             (457480608 ps)   Check no event is appeared on o_c3_sq1_adc_pwdn and wait o_c3_sq1_adc_pwdn deactivation
+#             (457480608 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (457480608 ps) Check discrete level: PASS
+# ** Note   : (457480608 ps)  * Read discrete: sq1_adc_pwdn(3), value '1', expected '1'
+# ** Note   : (467833800 ps) Waiting event sq1_adc_pwdn(3) = '0' for 10353192 ps
+#             (467833800 ps) 
+#             (467833800 ps) ==============================================================================================
+#             (467833800 ps)   Check timing between o_c3_clk_sq1_adc rising edge
+#             (467833800 ps)    and internal SQUID1 ADC clock falling edge
+#             (467833800 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (467849324 ps) Waiting event clk_sq1_adc(3) = '1' for 15524 ps
+# ** Note   : (467849324 ps) Record current time
 # ** Note   : (467849808 ps) Waiting event clk_sq1_adc_acq = '1' for 484 ps
 # ** Note   : (467853810 ps) Waiting event clk_sq1_adc_acq = '0' for 4002 ps
-# ** Note   : (467853810 ps) Check time, sq1_adc_pwdn(3) last event: PASS
-# ** Note   : (467853810 ps)  * sq1_adc_pwdn(3) last event 4486 ps greater than or equal to expected value 4400 ps
-# ** Note   : (467853810 ps) Check time, sq1_adc_pwdn(3) last event: PASS
-# ** Note   : (467853810 ps)  * sq1_adc_pwdn(3) last event 4486 ps strictly less than expected value 4560 ps
+# ** Note   : (467853810 ps) Check time, record time: PASS
+# ** Note   : (467853810 ps)  * record time 4486 ps greater than or equal to expected value 4400 ps
+# ** Note   : (467853810 ps) Check time, record time: PASS
+# ** Note   : (467853810 ps)  * record time 4486 ps strictly less than expected value 4560 ps
 #             (467853810 ps) 
 #             (467853810 ps) ==============================================================================================
 #             (467853810 ps)   Check timing between o_c3_sq1_adc_pwdn deactivation and i_sync rising edge
@@ -981,7 +1015,7 @@
 #             (467853810 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (468089928 ps) Waiting event sync = '1' for 236118 ps
 # ** Note   : (468089928 ps) Check time, sq1_adc_pwdn(3) last event: PASS
-# ** Note   : (468089928 ps)  * sq1_adc_pwdn(3) last event 240604 ps greater than or equal to expected value 160080 ps
+# ** Note   : (468089928 ps)  * sq1_adc_pwdn(3) last event 256128 ps greater than or equal to expected value 160080 ps
 #             (468089928 ps) 
 #             (468089928 ps) ==============================================================================================
 #             (468089928 ps)    Wait TM_MODE column 3 goes automatically to Idle and
@@ -1011,34 +1045,36 @@
 #             (511631688 ps)   Check timing between i_sync rising edge and o_c3_sq1_adc_pwdn activation
 #             (511631688 ps)     (c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ < .. < 2*c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
 #             (511631688 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (511871324 ps) Waiting event sq1_adc_pwdn(3) = '1' for 239636 ps
-# ** Note   : (511871324 ps) Check time, record time: PASS
-# ** Note   : (511871324 ps)  * record time 239636 ps strictly less than expected value 320160 ps
-# ** Note   : (511871324 ps) Check time, record time: PASS
-# ** Note   : (511871324 ps)  * record time 239636 ps strictly greater than expected value 160080 ps
-#             (511871324 ps) 
-#             (511871324 ps) ==============================================================================================
-#             (511871324 ps)   Send command SQ1_FB_MODE column 3 to On for o_c3_sq1_adc_pwdn deactivation
-#             (511871324 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (511871324 ps) Send SPI command value 8003_1000 (SQ1_FB_MODE, mode Write, data 1000)
-#             (511907324 ps) 
-#             (511907324 ps) ==============================================================================================
-#             (511907324 ps)   Check no event is appeared on o_c3_sq1_adc_pwdn and wait o_c3_sq1_adc_pwdn deactivation
-#             (511907324 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (511907324 ps) Check discrete level: PASS
-# ** Note   : (511907324 ps)  * Read discrete: sq1_adc_pwdn(3), value '1', expected '1'
-# ** Note   : (522276524 ps) Waiting event sq1_adc_pwdn(3) = '0' for 10369200 ps
-#             (522276524 ps) 
-#             (522276524 ps) ==============================================================================================
-#             (522276524 ps)   Check indirectly timing between o_c3_clk_sq1_adc rising edge
-#             (522276524 ps)    and internal SQUID1 ADC clock falling edge
-#             (522276524 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (511871808 ps) Waiting event sq1_adc_pwdn(3) = '1' for 240120 ps
+# ** Note   : (511871808 ps) Check time, record time: PASS
+# ** Note   : (511871808 ps)  * record time 240120 ps strictly less than expected value 320160 ps
+# ** Note   : (511871808 ps) Check time, record time: PASS
+# ** Note   : (511871808 ps)  * record time 240120 ps strictly greater than expected value 160080 ps
+#             (511871808 ps) 
+#             (511871808 ps) ==============================================================================================
+#             (511871808 ps)   Send command SQ1_FB_MODE column 3 to On for o_c3_sq1_adc_pwdn deactivation
+#             (511871808 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (511871808 ps) Send SPI command value 8003_1000 (SQ1_FB_MODE, mode Write, data 1000)
+#             (511907808 ps) 
+#             (511907808 ps) ==============================================================================================
+#             (511907808 ps)   Check no event is appeared on o_c3_sq1_adc_pwdn and wait o_c3_sq1_adc_pwdn deactivation
+#             (511907808 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (511907808 ps) Check discrete level: PASS
+# ** Note   : (511907808 ps)  * Read discrete: sq1_adc_pwdn(3), value '1', expected '1'
+# ** Note   : (522261000 ps) Waiting event sq1_adc_pwdn(3) = '0' for 10353192 ps
+#             (522261000 ps) 
+#             (522261000 ps) ==============================================================================================
+#             (522261000 ps)   Check timing between o_c3_clk_sq1_adc rising edge
+#             (522261000 ps)    and internal SQUID1 ADC clock falling edge
+#             (522261000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (522276524 ps) Waiting event clk_sq1_adc(3) = '1' for 15524 ps
+# ** Note   : (522276524 ps) Record current time
 # ** Note   : (522277008 ps) Waiting event clk_sq1_adc_acq = '1' for 484 ps
 # ** Note   : (522281010 ps) Waiting event clk_sq1_adc_acq = '0' for 4002 ps
-# ** Note   : (522281010 ps) Check time, sq1_adc_pwdn(3) last event: PASS
-# ** Note   : (522281010 ps)  * sq1_adc_pwdn(3) last event 4486 ps greater than or equal to expected value 4400 ps
-# ** Note   : (522281010 ps) Check time, sq1_adc_pwdn(3) last event: PASS
-# ** Note   : (522281010 ps)  * sq1_adc_pwdn(3) last event 4486 ps strictly less than expected value 4560 ps
+# ** Note   : (522281010 ps) Check time, record time: PASS
+# ** Note   : (522281010 ps)  * record time 4486 ps greater than or equal to expected value 4400 ps
+# ** Note   : (522281010 ps) Check time, record time: PASS
+# ** Note   : (522281010 ps)  * record time 4486 ps strictly less than expected value 4560 ps
 #             (522281010 ps) 
 #             (522281010 ps) ==============================================================================================
 #             (522281010 ps)   Check timing between o_c3_sq1_adc_pwdn deactivation and i_sync rising edge
@@ -1046,7 +1082,7 @@
 #             (522281010 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (522517128 ps) Waiting event sync = '1' for 236118 ps
 # ** Note   : (522517128 ps) Check time, sq1_adc_pwdn(3) last event: PASS
-# ** Note   : (522517128 ps)  * sq1_adc_pwdn(3) last event 240604 ps greater than or equal to expected value 160080 ps
+# ** Note   : (522517128 ps)  * sq1_adc_pwdn(3) last event 256128 ps greater than or equal to expected value 160080 ps
 #             (522517128 ps) 
 #             (522517128 ps) ==============================================================================================
 #             (522517128 ps)   Send command SQ1_FB_MODE column 3 to Off loop for o_c3_sq1_adc_pwdn activation
@@ -1066,34 +1102,36 @@
 #             (533402568 ps)   Check timing between i_sync rising edge and o_c3_sq1_adc_pwdn activation
 #             (533402568 ps)     (c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ < .. < 2*c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
 #             (533402568 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (533642204 ps) Waiting event sq1_adc_pwdn(3) = '1' for 239636 ps
-# ** Note   : (533642204 ps) Check time, record time: PASS
-# ** Note   : (533642204 ps)  * record time 239636 ps strictly less than expected value 320160 ps
-# ** Note   : (533642204 ps) Check time, record time: PASS
-# ** Note   : (533642204 ps)  * record time 239636 ps strictly greater than expected value 160080 ps
-#             (533642204 ps) 
-#             (533642204 ps) ==============================================================================================
-#             (533642204 ps)   Send command SQ1_FB_MODE column 3 to On for o_c3_sq1_adc_pwdn deactivation
-#             (533642204 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (533642204 ps) Send SPI command value 8003_1000 (SQ1_FB_MODE, mode Write, data 1000)
-#             (533678204 ps) 
-#             (533678204 ps) ==============================================================================================
-#             (533678204 ps)   Check no event is appeared on o_c3_sq1_adc_pwdn and wait o_c3_sq1_adc_pwdn deactivation
-#             (533678204 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (533678204 ps) Check discrete level: PASS
-# ** Note   : (533678204 ps)  * Read discrete: sq1_adc_pwdn(3), value '1', expected '1'
-# ** Note   : (544047404 ps) Waiting event sq1_adc_pwdn(3) = '0' for 10369200 ps
-#             (544047404 ps) 
-#             (544047404 ps) ==============================================================================================
-#             (544047404 ps)   Check indirectly timing between o_c3_clk_sq1_adc rising edge
-#             (544047404 ps)    and internal SQUID1 ADC clock falling edge
-#             (544047404 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (533642688 ps) Waiting event sq1_adc_pwdn(3) = '1' for 240120 ps
+# ** Note   : (533642688 ps) Check time, record time: PASS
+# ** Note   : (533642688 ps)  * record time 240120 ps strictly less than expected value 320160 ps
+# ** Note   : (533642688 ps) Check time, record time: PASS
+# ** Note   : (533642688 ps)  * record time 240120 ps strictly greater than expected value 160080 ps
+#             (533642688 ps) 
+#             (533642688 ps) ==============================================================================================
+#             (533642688 ps)   Send command SQ1_FB_MODE column 3 to On for o_c3_sq1_adc_pwdn deactivation
+#             (533642688 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (533642688 ps) Send SPI command value 8003_1000 (SQ1_FB_MODE, mode Write, data 1000)
+#             (533678688 ps) 
+#             (533678688 ps) ==============================================================================================
+#             (533678688 ps)   Check no event is appeared on o_c3_sq1_adc_pwdn and wait o_c3_sq1_adc_pwdn deactivation
+#             (533678688 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (533678688 ps) Check discrete level: PASS
+# ** Note   : (533678688 ps)  * Read discrete: sq1_adc_pwdn(3), value '1', expected '1'
+# ** Note   : (544031880 ps) Waiting event sq1_adc_pwdn(3) = '0' for 10353192 ps
+#             (544031880 ps) 
+#             (544031880 ps) ==============================================================================================
+#             (544031880 ps)   Check timing between o_c3_clk_sq1_adc rising edge
+#             (544031880 ps)    and internal SQUID1 ADC clock falling edge
+#             (544031880 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (544047404 ps) Waiting event clk_sq1_adc(3) = '1' for 15524 ps
+# ** Note   : (544047404 ps) Record current time
 # ** Note   : (544047888 ps) Waiting event clk_sq1_adc_acq = '1' for 484 ps
 # ** Note   : (544051890 ps) Waiting event clk_sq1_adc_acq = '0' for 4002 ps
-# ** Note   : (544051890 ps) Check time, sq1_adc_pwdn(3) last event: PASS
-# ** Note   : (544051890 ps)  * sq1_adc_pwdn(3) last event 4486 ps greater than or equal to expected value 4400 ps
-# ** Note   : (544051890 ps) Check time, sq1_adc_pwdn(3) last event: PASS
-# ** Note   : (544051890 ps)  * sq1_adc_pwdn(3) last event 4486 ps strictly less than expected value 4560 ps
+# ** Note   : (544051890 ps) Check time, record time: PASS
+# ** Note   : (544051890 ps)  * record time 4486 ps greater than or equal to expected value 4400 ps
+# ** Note   : (544051890 ps) Check time, record time: PASS
+# ** Note   : (544051890 ps)  * record time 4486 ps strictly less than expected value 4560 ps
 #             (544051890 ps) 
 #             (544051890 ps) ==============================================================================================
 #             (544051890 ps)   Check timing between o_c3_sq1_adc_pwdn deactivation and i_sync rising edge
@@ -1101,7 +1139,7 @@
 #             (544051890 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (544288008 ps) Waiting event sync = '1' for 236118 ps
 # ** Note   : (544288008 ps) Check time, sq1_adc_pwdn(3) last event: PASS
-# ** Note   : (544288008 ps)  * sq1_adc_pwdn(3) last event 240604 ps greater than or equal to expected value 160080 ps
+# ** Note   : (544288008 ps)  * sq1_adc_pwdn(3) last event 256128 ps greater than or equal to expected value 160080 ps
 #             (544288008 ps) 
 #             (544288008 ps) ==============================================================================================
 #             (544288008 ps)   Send command SQ1_FB_MODE column 3 to Off for o_c3_sq1_adc_pwdn activation
@@ -1121,34 +1159,36 @@
 #             (555173448 ps)   Check timing between i_sync rising edge and o_c3_sq1_adc_pwdn activation
 #             (555173448 ps)     (c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ < .. < 2*c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
 #             (555173448 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (555413084 ps) Waiting event sq1_adc_pwdn(3) = '1' for 239636 ps
-# ** Note   : (555413084 ps) Check time, record time: PASS
-# ** Note   : (555413084 ps)  * record time 239636 ps strictly less than expected value 320160 ps
-# ** Note   : (555413084 ps) Check time, record time: PASS
-# ** Note   : (555413084 ps)  * record time 239636 ps strictly greater than expected value 160080 ps
-#             (555413084 ps) 
-#             (555413084 ps) ==============================================================================================
-#             (555413084 ps)   Send command SQ1_FB_MODE column 3 to On for o_c3_sq1_adc_pwdn deactivation
-#             (555413084 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (555413084 ps) Send SPI command value 8003_1000 (SQ1_FB_MODE, mode Write, data 1000)
-#             (555449084 ps) 
-#             (555449084 ps) ==============================================================================================
-#             (555449084 ps)   Check no event is appeared on o_c3_sq1_adc_pwdn and wait o_c3_sq1_adc_pwdn deactivation
-#             (555449084 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (555449084 ps) Check discrete level: PASS
-# ** Note   : (555449084 ps)  * Read discrete: sq1_adc_pwdn(3), value '1', expected '1'
-# ** Note   : (565818284 ps) Waiting event sq1_adc_pwdn(3) = '0' for 10369200 ps
-#             (565818284 ps) 
-#             (565818284 ps) ==============================================================================================
-#             (565818284 ps)   Check indirectly timing between o_c3_clk_sq1_adc rising edge
-#             (565818284 ps)    and internal SQUID1 ADC clock falling edge
-#             (565818284 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (555413568 ps) Waiting event sq1_adc_pwdn(3) = '1' for 240120 ps
+# ** Note   : (555413568 ps) Check time, record time: PASS
+# ** Note   : (555413568 ps)  * record time 240120 ps strictly less than expected value 320160 ps
+# ** Note   : (555413568 ps) Check time, record time: PASS
+# ** Note   : (555413568 ps)  * record time 240120 ps strictly greater than expected value 160080 ps
+#             (555413568 ps) 
+#             (555413568 ps) ==============================================================================================
+#             (555413568 ps)   Send command SQ1_FB_MODE column 3 to On for o_c3_sq1_adc_pwdn deactivation
+#             (555413568 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (555413568 ps) Send SPI command value 8003_1000 (SQ1_FB_MODE, mode Write, data 1000)
+#             (555449568 ps) 
+#             (555449568 ps) ==============================================================================================
+#             (555449568 ps)   Check no event is appeared on o_c3_sq1_adc_pwdn and wait o_c3_sq1_adc_pwdn deactivation
+#             (555449568 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (555449568 ps) Check discrete level: PASS
+# ** Note   : (555449568 ps)  * Read discrete: sq1_adc_pwdn(3), value '1', expected '1'
+# ** Note   : (565802760 ps) Waiting event sq1_adc_pwdn(3) = '0' for 10353192 ps
+#             (565802760 ps) 
+#             (565802760 ps) ==============================================================================================
+#             (565802760 ps)   Check timing between o_c3_clk_sq1_adc rising edge
+#             (565802760 ps)    and internal SQUID1 ADC clock falling edge
+#             (565802760 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (565818284 ps) Waiting event clk_sq1_adc(3) = '1' for 15524 ps
+# ** Note   : (565818284 ps) Record current time
 # ** Note   : (565818768 ps) Waiting event clk_sq1_adc_acq = '1' for 484 ps
 # ** Note   : (565822770 ps) Waiting event clk_sq1_adc_acq = '0' for 4002 ps
-# ** Note   : (565822770 ps) Check time, sq1_adc_pwdn(3) last event: PASS
-# ** Note   : (565822770 ps)  * sq1_adc_pwdn(3) last event 4486 ps greater than or equal to expected value 4400 ps
-# ** Note   : (565822770 ps) Check time, sq1_adc_pwdn(3) last event: PASS
-# ** Note   : (565822770 ps)  * sq1_adc_pwdn(3) last event 4486 ps strictly less than expected value 4560 ps
+# ** Note   : (565822770 ps) Check time, record time: PASS
+# ** Note   : (565822770 ps)  * record time 4486 ps greater than or equal to expected value 4400 ps
+# ** Note   : (565822770 ps) Check time, record time: PASS
+# ** Note   : (565822770 ps)  * record time 4486 ps strictly less than expected value 4560 ps
 #             (565822770 ps) 
 #             (565822770 ps) ==============================================================================================
 #             (565822770 ps)   Check timing between o_c3_sq1_adc_pwdn deactivation and i_sync rising edge
@@ -1156,7 +1196,7 @@
 #             (565822770 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (566058888 ps) Waiting event sync = '1' for 236118 ps
 # ** Note   : (566058888 ps) Check time, sq1_adc_pwdn(3) last event: PASS
-# ** Note   : (566058888 ps)  * sq1_adc_pwdn(3) last event 240604 ps greater than or equal to expected value 160080 ps
+# ** Note   : (566058888 ps)  * sq1_adc_pwdn(3) last event 256128 ps greater than or equal to expected value 160080 ps
 #             (566058888 ps) 
 #             (566058888 ps) ==============================================================================================
 #             (566058888 ps)   Send command SQ1_FB_MODE column 3 to Off for o_c3_sq1_adc_pwdn activation
@@ -1176,35 +1216,35 @@
 #             (576944328 ps)   Check timing between i_sync rising edge and o_c3_sq1_adc_pwdn activation
 #             (576944328 ps)     (c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ < .. < 2*c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
 #             (576944328 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (577183964 ps) Waiting event sq1_adc_pwdn(3) = '1' for 239636 ps
-# ** Note   : (577183964 ps) Check time, record time: PASS
-# ** Note   : (577183964 ps)  * record time 239636 ps strictly less than expected value 320160 ps
-# ** Note   : (577183964 ps) Check time, record time: PASS
-# ** Note   : (577183964 ps)  * record time 239636 ps strictly greater than expected value 160080 ps
-#             (577183964 ps) 
-#             (577183964 ps) ==============================================================================================
-#             (577183964 ps)   Check no events are appeared on the others channels
-#             (577183964 ps)    (time checking multiple of 11 * c_MUX_FACT * c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
-#             (577183964 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (577183964 ps) Check discrete level: PASS
-# ** Note   : (577183964 ps)  * Read discrete: sq1_adc_pwdn(0), value '1', expected '1'
-# ** Note   : (577183964 ps) Check time, sq1_adc_pwdn(0) last event: PASS
-# ** Note   : (577183964 ps)  * sq1_adc_pwdn(0) last event 424532160 ps greater than or equal to expected value 179609760 ps
-# ** Note   : (577183964 ps) Check discrete level: PASS
-# ** Note   : (577183964 ps)  * Read discrete: sq1_adc_pwdn(1), value '1', expected '1'
-# ** Note   : (577183964 ps) Check time, sq1_adc_pwdn(1) last event: PASS
-# ** Note   : (577183964 ps)  * sq1_adc_pwdn(1) last event 283021440 ps greater than or equal to expected value 119739840 ps
-# ** Note   : (577183964 ps) Check discrete level: PASS
-# ** Note   : (577183964 ps)  * Read discrete: sq1_adc_pwdn(2), value '1', expected '1'
-# ** Note   : (577183964 ps) Check time, sq1_adc_pwdn(2) last event: PASS
-# ** Note   : (577183964 ps)  * sq1_adc_pwdn(2) last event 141510720 ps greater than or equal to expected value 59869920 ps
+# ** Note   : (577184448 ps) Waiting event sq1_adc_pwdn(3) = '1' for 240120 ps
+# ** Note   : (577184448 ps) Check time, record time: PASS
+# ** Note   : (577184448 ps)  * record time 240120 ps strictly less than expected value 320160 ps
+# ** Note   : (577184448 ps) Check time, record time: PASS
+# ** Note   : (577184448 ps)  * record time 240120 ps strictly greater than expected value 160080 ps
+#             (577184448 ps) 
+#             (577184448 ps) ==============================================================================================
+#             (577184448 ps)   Check no events are appeared on the others channels
+#             (577184448 ps)    (time checking multiple of 11 * c_MUX_FACT * c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
+#             (577184448 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (577184448 ps) Check discrete level: PASS
+# ** Note   : (577184448 ps)  * Read discrete: sq1_adc_pwdn(0), value '1', expected '1'
+# ** Note   : (577184448 ps) Check time, sq1_adc_pwdn(0) last event: PASS
+# ** Note   : (577184448 ps)  * sq1_adc_pwdn(0) last event 424532160 ps greater than or equal to expected value 179609760 ps
+# ** Note   : (577184448 ps) Check discrete level: PASS
+# ** Note   : (577184448 ps)  * Read discrete: sq1_adc_pwdn(1), value '1', expected '1'
+# ** Note   : (577184448 ps) Check time, sq1_adc_pwdn(1) last event: PASS
+# ** Note   : (577184448 ps)  * sq1_adc_pwdn(1) last event 283021440 ps greater than or equal to expected value 119739840 ps
+# ** Note   : (577184448 ps) Check discrete level: PASS
+# ** Note   : (577184448 ps)  * Read discrete: sq1_adc_pwdn(2), value '1', expected '1'
+# ** Note   : (577184448 ps) Check time, sq1_adc_pwdn(2) last event: PASS
+# ** Note   : (577184448 ps)  * sq1_adc_pwdn(2) last event 141510720 ps greater than or equal to expected value 59869920 ps
 # ----------------------------------------------------------------------------------------------------
 # Parameters check, clock c0_clk_sq1_adc   
 # ----------------------------------------------------------------------------------------------------
 # Error number of clock oscillation when enable is inactive : 0
 # Error number of high level clock period timing :            0, expected timing: 4002 ps
 # Error number of low  level clock period timing :            0, expected timing: 4002 ps
-# Error number of clock state when enable goes to inactive :  0, expected state:  '1'
+# Error number of clock state when enable goes to inactive :  0, expected state:  '0'
 # Error number of clock state when enable goes to active   :  0, expected state:  '0'
 # ----------------------------------------------------------------------------------------------------
 # Parameters check, clock c1_clk_sq1_adc   
@@ -1212,7 +1252,7 @@
 # Error number of clock oscillation when enable is inactive : 0
 # Error number of high level clock period timing :            0, expected timing: 4002 ps
 # Error number of low  level clock period timing :            0, expected timing: 4002 ps
-# Error number of clock state when enable goes to inactive :  0, expected state:  '1'
+# Error number of clock state when enable goes to inactive :  0, expected state:  '0'
 # Error number of clock state when enable goes to active   :  0, expected state:  '0'
 # ----------------------------------------------------------------------------------------------------
 # Parameters check, clock c2_clk_sq1_adc   
@@ -1220,7 +1260,7 @@
 # Error number of clock oscillation when enable is inactive : 0
 # Error number of high level clock period timing :            0, expected timing: 4002 ps
 # Error number of low  level clock period timing :            0, expected timing: 4002 ps
-# Error number of clock state when enable goes to inactive :  0, expected state:  '1'
+# Error number of clock state when enable goes to inactive :  0, expected state:  '0'
 # Error number of clock state when enable goes to active   :  0, expected state:  '0'
 # ----------------------------------------------------------------------------------------------------
 # Parameters check, clock c3_clk_sq1_adc   
@@ -1228,7 +1268,7 @@
 # Error number of clock oscillation when enable is inactive : 0
 # Error number of high level clock period timing :            0, expected timing: 4002 ps
 # Error number of low  level clock period timing :            0, expected timing: 4002 ps
-# Error number of clock state when enable goes to inactive :  0, expected state:  '1'
+# Error number of clock state when enable goes to inactive :  0, expected state:  '0'
 # Error number of clock state when enable goes to active   :  0, expected state:  '0'
 # ------------------------------------------------------------------------------------------------------------------------------------------------------
 # Error simulation time         : '0'
@@ -1237,6 +1277,7 @@
 # Error check time              : '0'
 # Error check clocks parameters : '0'
 # Error check science packets   : '0'
+# Error check pulse shaping     : '0'
 # ------------------------------------------------------------------------------------------------------------------------------------------------------
 # Simulation time               : 662000000 ps
 # Simulation status             : PASS

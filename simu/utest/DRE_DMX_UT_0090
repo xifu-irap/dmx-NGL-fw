@@ -47,15 +47,16 @@ CTLE sq1_dac_sleep(0) == now
 WUDI sq1_dac_sleep(0) 0
 COMM
 COMM ==============================================================================================
-COMM   Check indirectly timing between o_c0_clk_sq1_dac rising edge
-COMM    and SQUID1 pulse shaping clock rising edge
+COMM   Check synchronization between o_c0_clk_sq1_dac rising edge
+COMM    and SQUID1 pulse shaping clock falling edge
 COMM ----------------------------------------------------------------------------------------------
-WUDI clk_sq1_pls_shape 1
-CTLE sq1_dac_sleep(0) == 4002 ps
+WUDI clk_sq1_dac(0) 1
+CDIS clk_sq1_pls_shape 0
+CTLE clk_sq1_pls_shape == 0 ps
 COMM
 COMM ==============================================================================================
 COMM   Check timing between o_c0_sq1_dac_sleep deactivation and i_sync rising edge
-COMM     (>= c_PIXEL_DAC_NPER / c_CLK_DAC_FREQ)
+COMM     (>= C_PIXEL_DAC_NB_CYC / c_CLK_DAC_FREQ)
 COMM ----------------------------------------------------------------------------------------------
 WUDI sync 1
 CTLE sq1_dac_sleep(0) >= 160080 ps
@@ -74,7 +75,7 @@ CDIS sq1_dac_sleep(0) 0
 COMM
 COMM ==============================================================================================
 COMM   Check timing between i_sync rising edge and o_c0_sq1_dac_sleep activation
-COMM     (< c_PIXEL_DAC_NPER / c_CLK_DAC_FREQ)
+COMM     (< C_PIXEL_DAC_NB_CYC / c_CLK_DAC_FREQ)
 COMM ----------------------------------------------------------------------------------------------
 WUDI sq1_dac_sleep(0) 1
 CTLR << 160080 ps
@@ -92,15 +93,16 @@ CDIS sq1_dac_sleep(0) 1
 WUDI sq1_dac_sleep(0) 0
 COMM
 COMM ==============================================================================================
-COMM   Check indirectly timing between o_c0_clk_sq1_dac rising edge
-COMM    and SQUID1 pulse shaping clock rising edge
+COMM   Check synchronization between o_c0_clk_sq1_dac rising edge
+COMM    and SQUID1 pulse shaping clock falling edge
 COMM ----------------------------------------------------------------------------------------------
-WUDI clk_sq1_pls_shape 1
-CTLE sq1_dac_sleep(0) == 4002 ps
+WUDI clk_sq1_dac(0) 1
+CDIS clk_sq1_pls_shape 0
+CTLE clk_sq1_pls_shape == 0 ps
 COMM
 COMM ==============================================================================================
 COMM   Check timing between o_c0_sq1_dac_sleep deactivation and i_sync rising edge
-COMM     (>= c_PIXEL_DAC_NPER / c_CLK_DAC_FREQ)
+COMM     (>= C_PIXEL_DAC_NB_CYC / c_CLK_DAC_FREQ)
 COMM ----------------------------------------------------------------------------------------------
 WUDI sync 1
 CTLE sq1_dac_sleep(0) >= 160080 ps
@@ -119,7 +121,7 @@ CDIS sq1_dac_sleep(0) 0
 COMM
 COMM ==============================================================================================
 COMM   Check timing between i_sync rising edge and o_c0_sq1_dac_sleep activation
-COMM     (< c_PIXEL_DAC_NPER / c_CLK_DAC_FREQ)
+COMM     (< C_PIXEL_DAC_NB_CYC / c_CLK_DAC_FREQ)
 COMM ----------------------------------------------------------------------------------------------
 WUDI sq1_dac_sleep(0) 1
 CTLR << 160080 ps
@@ -137,15 +139,16 @@ CDIS sq1_dac_sleep(0) 1
 WUDI sq1_dac_sleep(0) 0
 COMM
 COMM ==============================================================================================
-COMM   Check indirectly timing between o_c0_clk_sq1_dac rising edge
-COMM    and SQUID1 pulse shaping clock rising edge
+COMM   Check synchronization between o_c0_clk_sq1_dac rising edge
+COMM    and SQUID1 pulse shaping clock falling edge
 COMM ----------------------------------------------------------------------------------------------
-WUDI clk_sq1_pls_shape 1
-CTLE sq1_dac_sleep(0) == 4002 ps
+WUDI clk_sq1_dac(0) 1
+CDIS clk_sq1_pls_shape 0
+CTLE clk_sq1_pls_shape == 0 ps
 COMM
 COMM ==============================================================================================
 COMM   Check timing between o_c0_sq1_dac_sleep deactivation and i_sync rising edge
-COMM     (>= c_PIXEL_DAC_NPER / c_CLK_DAC_FREQ)
+COMM     (>= C_PIXEL_DAC_NB_CYC / c_CLK_DAC_FREQ)
 COMM ----------------------------------------------------------------------------------------------
 WUDI sync 1
 CTLE sq1_dac_sleep(0) >= 160080 ps
@@ -164,7 +167,7 @@ CDIS sq1_dac_sleep(0) 0
 COMM
 COMM ==============================================================================================
 COMM   Check timing between i_sync rising edge and o_c0_sq1_dac_sleep activation
-COMM     (< c_PIXEL_DAC_NPER / c_CLK_DAC_FREQ)
+COMM     (< C_PIXEL_DAC_NB_CYC / c_CLK_DAC_FREQ)
 COMM ----------------------------------------------------------------------------------------------
 WUDI sq1_dac_sleep(0) 1
 CTLR << 160080 ps
@@ -182,15 +185,16 @@ CTLE sq1_dac_sleep(1) == now
 WUDI sq1_dac_sleep(1) 0
 COMM
 COMM ==============================================================================================
-COMM   Check indirectly timing between o_c1_clk_sq1_dac rising edge
-COMM    and SQUID1 pulse shaping clock rising edge
+COMM   Check synchronization between o_c1_clk_sq1_dac rising edge
+COMM    and SQUID1 pulse shaping clock falling edge
 COMM ----------------------------------------------------------------------------------------------
-WUDI clk_sq1_pls_shape 1
-CTLE sq1_dac_sleep(1) == 4002 ps
+WUDI clk_sq1_dac(1) 1
+CDIS clk_sq1_pls_shape 0
+CTLE clk_sq1_pls_shape == 0 ps
 COMM
 COMM ==============================================================================================
 COMM   Check timing between o_c1_sq1_dac_sleep deactivation and i_sync rising edge
-COMM     (>= c_PIXEL_DAC_NPER / c_CLK_DAC_FREQ)
+COMM     (>= C_PIXEL_DAC_NB_CYC / c_CLK_DAC_FREQ)
 COMM ----------------------------------------------------------------------------------------------
 WUDI sync 1
 CTLE sq1_dac_sleep(1) >= 160080 ps
@@ -209,7 +213,7 @@ CDIS sq1_dac_sleep(1) 0
 COMM
 COMM ==============================================================================================
 COMM   Check timing between i_sync rising edge and o_c1_sq1_dac_sleep activation
-COMM     (< c_PIXEL_DAC_NPER / c_CLK_DAC_FREQ)
+COMM     (< C_PIXEL_DAC_NB_CYC / c_CLK_DAC_FREQ)
 COMM ----------------------------------------------------------------------------------------------
 WUDI sq1_dac_sleep(1) 1
 CTLR << 160080 ps
@@ -227,15 +231,16 @@ CDIS sq1_dac_sleep(1) 1
 WUDI sq1_dac_sleep(1) 0
 COMM
 COMM ==============================================================================================
-COMM   Check indirectly timing between o_c1_clk_sq1_dac rising edge
-COMM    and SQUID1 pulse shaping clock rising edge
+COMM   Check synchronization between o_c1_clk_sq1_dac rising edge
+COMM    and SQUID1 pulse shaping clock falling edge
 COMM ----------------------------------------------------------------------------------------------
-WUDI clk_sq1_pls_shape 1
-CTLE sq1_dac_sleep(1) == 4002 ps
+WUDI clk_sq1_dac(1) 1
+CDIS clk_sq1_pls_shape 0
+CTLE clk_sq1_pls_shape == 0 ps
 COMM
 COMM ==============================================================================================
 COMM   Check timing between o_c1_sq1_dac_sleep deactivation and i_sync rising edge
-COMM     (>= c_PIXEL_DAC_NPER / c_CLK_DAC_FREQ)
+COMM     (>= C_PIXEL_DAC_NB_CYC / c_CLK_DAC_FREQ)
 COMM ----------------------------------------------------------------------------------------------
 WUDI sync 1
 CTLE sq1_dac_sleep(1) >= 160080 ps
@@ -254,7 +259,7 @@ CDIS sq1_dac_sleep(1) 0
 COMM
 COMM ==============================================================================================
 COMM   Check timing between i_sync rising edge and o_c1_sq1_dac_sleep activation
-COMM     (< c_PIXEL_DAC_NPER / c_CLK_DAC_FREQ)
+COMM     (< C_PIXEL_DAC_NB_CYC / c_CLK_DAC_FREQ)
 COMM ----------------------------------------------------------------------------------------------
 WUDI sq1_dac_sleep(1) 1
 CTLR << 160080 ps
@@ -272,15 +277,16 @@ CDIS sq1_dac_sleep(1) 1
 WUDI sq1_dac_sleep(1) 0
 COMM
 COMM ==============================================================================================
-COMM   Check indirectly timing between o_c1_clk_sq1_dac rising edge
-COMM    and SQUID1 pulse shaping clock rising edge
+COMM   Check synchronization between o_c1_clk_sq1_dac rising edge
+COMM    and SQUID1 pulse shaping clock falling edge
 COMM ----------------------------------------------------------------------------------------------
-WUDI clk_sq1_pls_shape 1
-CTLE sq1_dac_sleep(1) == 4002 ps
+WUDI clk_sq1_dac(1) 1
+CDIS clk_sq1_pls_shape 0
+CTLE clk_sq1_pls_shape == 0 ps
 COMM
 COMM ==============================================================================================
 COMM   Check timing between o_c1_sq1_dac_sleep deactivation and i_sync rising edge
-COMM     (>= c_PIXEL_DAC_NPER / c_CLK_DAC_FREQ)
+COMM     (>= C_PIXEL_DAC_NB_CYC / c_CLK_DAC_FREQ)
 COMM ----------------------------------------------------------------------------------------------
 WUDI sync 1
 CTLE sq1_dac_sleep(1) >= 160080 ps
@@ -299,7 +305,7 @@ CDIS sq1_dac_sleep(1) 0
 COMM
 COMM ==============================================================================================
 COMM   Check timing between i_sync rising edge and o_c1_sq1_dac_sleep activation
-COMM     (< c_PIXEL_DAC_NPER / c_CLK_DAC_FREQ)
+COMM     (< C_PIXEL_DAC_NB_CYC / c_CLK_DAC_FREQ)
 COMM ----------------------------------------------------------------------------------------------
 WUDI sq1_dac_sleep(1) 1
 CTLR << 160080 ps
@@ -317,15 +323,16 @@ CTLE sq1_dac_sleep(2) == now
 WUDI sq1_dac_sleep(2) 0
 COMM
 COMM ==============================================================================================
-COMM   Check indirectly timing between o_c2_clk_sq1_dac rising edge
-COMM    and SQUID1 pulse shaping clock rising edge
+COMM   Check synchronization between o_c2_clk_sq1_dac rising edge
+COMM    and SQUID1 pulse shaping clock falling edge
 COMM ----------------------------------------------------------------------------------------------
-WUDI clk_sq1_pls_shape 1
-CTLE sq1_dac_sleep(2) == 4002 ps
+WUDI clk_sq1_dac(2) 1
+CDIS clk_sq1_pls_shape 0
+CTLE clk_sq1_pls_shape == 0 ps
 COMM
 COMM ==============================================================================================
 COMM   Check timing between o_c2_sq1_dac_sleep deactivation and i_sync rising edge
-COMM     (>= c_PIXEL_DAC_NPER / c_CLK_DAC_FREQ)
+COMM     (>= C_PIXEL_DAC_NB_CYC / c_CLK_DAC_FREQ)
 COMM ----------------------------------------------------------------------------------------------
 WUDI sync 1
 CTLE sq1_dac_sleep(2) >= 160080 ps
@@ -344,7 +351,7 @@ CDIS sq1_dac_sleep(2) 0
 COMM
 COMM ==============================================================================================
 COMM   Check timing between i_sync rising edge and o_c2_sq1_dac_sleep activation
-COMM     (< c_PIXEL_DAC_NPER / c_CLK_DAC_FREQ)
+COMM     (< C_PIXEL_DAC_NB_CYC / c_CLK_DAC_FREQ)
 COMM ----------------------------------------------------------------------------------------------
 WUDI sq1_dac_sleep(2) 1
 CTLR << 160080 ps
@@ -362,15 +369,16 @@ CDIS sq1_dac_sleep(2) 1
 WUDI sq1_dac_sleep(2) 0
 COMM
 COMM ==============================================================================================
-COMM   Check indirectly timing between o_c2_clk_sq1_dac rising edge
-COMM    and SQUID1 pulse shaping clock rising edge
+COMM   Check synchronization between o_c2_clk_sq1_dac rising edge
+COMM    and SQUID1 pulse shaping clock falling edge
 COMM ----------------------------------------------------------------------------------------------
-WUDI clk_sq1_pls_shape 1
-CTLE sq1_dac_sleep(2) == 4002 ps
+WUDI clk_sq1_dac(2) 1
+CDIS clk_sq1_pls_shape 0
+CTLE clk_sq1_pls_shape == 0 ps
 COMM
 COMM ==============================================================================================
 COMM   Check timing between o_c2_sq1_dac_sleep deactivation and i_sync rising edge
-COMM     (>= c_PIXEL_DAC_NPER / c_CLK_DAC_FREQ)
+COMM     (>= C_PIXEL_DAC_NB_CYC / c_CLK_DAC_FREQ)
 COMM ----------------------------------------------------------------------------------------------
 WUDI sync 1
 CTLE sq1_dac_sleep(2) >= 160080 ps
@@ -389,7 +397,7 @@ CDIS sq1_dac_sleep(2) 0
 COMM
 COMM ==============================================================================================
 COMM   Check timing between i_sync rising edge and o_c2_sq1_dac_sleep activation
-COMM     (< c_PIXEL_DAC_NPER / c_CLK_DAC_FREQ)
+COMM     (< C_PIXEL_DAC_NB_CYC / c_CLK_DAC_FREQ)
 COMM ----------------------------------------------------------------------------------------------
 WUDI sq1_dac_sleep(2) 1
 CTLR << 160080 ps
@@ -407,15 +415,16 @@ CDIS sq1_dac_sleep(2) 1
 WUDI sq1_dac_sleep(2) 0
 COMM
 COMM ==============================================================================================
-COMM   Check indirectly timing between o_c2_clk_sq1_dac rising edge
-COMM    and SQUID1 pulse shaping clock rising edge
+COMM   Check synchronization between o_c2_clk_sq1_dac rising edge
+COMM    and SQUID1 pulse shaping clock falling edge
 COMM ----------------------------------------------------------------------------------------------
-WUDI clk_sq1_pls_shape 1
-CTLE sq1_dac_sleep(2) == 4002 ps
+WUDI clk_sq1_dac(2) 1
+CDIS clk_sq1_pls_shape 0
+CTLE clk_sq1_pls_shape == 0 ps
 COMM
 COMM ==============================================================================================
 COMM   Check timing between o_c2_sq1_dac_sleep deactivation and i_sync rising edge
-COMM     (>= c_PIXEL_DAC_NPER / c_CLK_DAC_FREQ)
+COMM     (>= C_PIXEL_DAC_NB_CYC / c_CLK_DAC_FREQ)
 COMM ----------------------------------------------------------------------------------------------
 WUDI sync 1
 CTLE sq1_dac_sleep(2) >= 160080 ps
@@ -434,7 +443,7 @@ CDIS sq1_dac_sleep(2) 0
 COMM
 COMM ==============================================================================================
 COMM   Check timing between i_sync rising edge and o_c2_sq1_dac_sleep activation
-COMM     (< c_PIXEL_DAC_NPER / c_CLK_DAC_FREQ)
+COMM     (< C_PIXEL_DAC_NB_CYC / c_CLK_DAC_FREQ)
 COMM ----------------------------------------------------------------------------------------------
 WUDI sq1_dac_sleep(2) 1
 CTLR << 160080 ps
@@ -452,15 +461,16 @@ CTLE sq1_dac_sleep(3) == now
 WUDI sq1_dac_sleep(3) 0
 COMM
 COMM ==============================================================================================
-COMM   Check indirectly timing between o_c3_clk_sq1_dac rising edge
-COMM    and SQUID1 pulse shaping clock rising edge
+COMM   Check synchronization between o_c3_clk_sq1_dac rising edge
+COMM    and SQUID1 pulse shaping clock falling edge
 COMM ----------------------------------------------------------------------------------------------
-WUDI clk_sq1_pls_shape 1
-CTLE sq1_dac_sleep(3) == 4002 ps
+WUDI clk_sq1_dac(3) 1
+CDIS clk_sq1_pls_shape 0
+CTLE clk_sq1_pls_shape == 0 ps
 COMM
 COMM ==============================================================================================
 COMM   Check timing between o_c3_sq1_dac_sleep deactivation and i_sync rising edge
-COMM     (>= c_PIXEL_DAC_NPER / c_CLK_DAC_FREQ)
+COMM     (>= C_PIXEL_DAC_NB_CYC / c_CLK_DAC_FREQ)
 COMM ----------------------------------------------------------------------------------------------
 WUDI sync 1
 CTLE sq1_dac_sleep(3) >= 160080 ps
@@ -479,7 +489,7 @@ CDIS sq1_dac_sleep(3) 0
 COMM
 COMM ==============================================================================================
 COMM   Check timing between i_sync rising edge and o_c3_sq1_dac_sleep activation
-COMM     (< c_PIXEL_DAC_NPER / c_CLK_DAC_FREQ)
+COMM     (< C_PIXEL_DAC_NB_CYC / c_CLK_DAC_FREQ)
 COMM ----------------------------------------------------------------------------------------------
 WUDI sq1_dac_sleep(3) 1
 CTLR << 160080 ps
@@ -497,15 +507,16 @@ CDIS sq1_dac_sleep(3) 1
 WUDI sq1_dac_sleep(3) 0
 COMM
 COMM ==============================================================================================
-COMM   Check indirectly timing between o_c3_clk_sq1_dac rising edge
-COMM    and SQUID1 pulse shaping clock rising edge
+COMM   Check synchronization between o_c3_clk_sq1_dac rising edge
+COMM    and SQUID1 pulse shaping clock falling edge
 COMM ----------------------------------------------------------------------------------------------
-WUDI clk_sq1_pls_shape 1
-CTLE sq1_dac_sleep(3) == 4002 ps
+WUDI clk_sq1_dac(3) 1
+CDIS clk_sq1_pls_shape 0
+CTLE clk_sq1_pls_shape == 0 ps
 COMM
 COMM ==============================================================================================
 COMM   Check timing between o_c3_sq1_dac_sleep deactivation and i_sync rising edge
-COMM     (>= c_PIXEL_DAC_NPER / c_CLK_DAC_FREQ)
+COMM     (>= C_PIXEL_DAC_NB_CYC / c_CLK_DAC_FREQ)
 COMM ----------------------------------------------------------------------------------------------
 WUDI sync 1
 CTLE sq1_dac_sleep(3) >= 160080 ps
@@ -524,7 +535,7 @@ CDIS sq1_dac_sleep(3) 0
 COMM
 COMM ==============================================================================================
 COMM   Check timing between i_sync rising edge and o_c3_sq1_dac_sleep activation
-COMM     (< c_PIXEL_DAC_NPER / c_CLK_DAC_FREQ)
+COMM     (< C_PIXEL_DAC_NB_CYC / c_CLK_DAC_FREQ)
 COMM ----------------------------------------------------------------------------------------------
 WUDI sq1_dac_sleep(3) 1
 CTLR << 160080 ps
@@ -542,15 +553,16 @@ CDIS sq1_dac_sleep(3) 1
 WUDI sq1_dac_sleep(3) 0
 COMM
 COMM ==============================================================================================
-COMM   Check indirectly timing between o_c3_clk_sq1_dac rising edge
-COMM    and SQUID1 pulse shaping clock rising edge
+COMM   Check synchronization between o_c3_clk_sq1_dac rising edge
+COMM    and SQUID1 pulse shaping clock falling edge
 COMM ----------------------------------------------------------------------------------------------
-WUDI clk_sq1_pls_shape 1
-CTLE sq1_dac_sleep(3) == 4002 ps
+WUDI clk_sq1_dac(3) 1
+CDIS clk_sq1_pls_shape 0
+CTLE clk_sq1_pls_shape == 0 ps
 COMM
 COMM ==============================================================================================
 COMM   Check timing between o_c3_sq1_dac_sleep deactivation and i_sync rising edge
-COMM     (>= c_PIXEL_DAC_NPER / c_CLK_DAC_FREQ)
+COMM     (>= C_PIXEL_DAC_NB_CYC / c_CLK_DAC_FREQ)
 COMM ----------------------------------------------------------------------------------------------
 WUDI sync 1
 CTLE sq1_dac_sleep(3) >= 160080 ps
@@ -569,14 +581,14 @@ CDIS sq1_dac_sleep(3) 0
 COMM
 COMM ==============================================================================================
 COMM   Check timing between i_sync rising edge and o_c3_sq1_dac_sleep activation
-COMM     (< c_PIXEL_DAC_NPER / c_CLK_DAC_FREQ)
+COMM     (< C_PIXEL_DAC_NB_CYC / c_CLK_DAC_FREQ)
 COMM ----------------------------------------------------------------------------------------------
 WUDI sq1_dac_sleep(3) 1
 CTLR << 160080 ps
 COMM
 COMM ==============================================================================================
 COMM   Check no events are appeared on the others channels
-COMM    (time checking multiple of 6 * c_MUX_FACT * c_PIXEL_DAC_NPER / c_CLK_DAC_FREQ)
+COMM    (time checking multiple of 6 * c_MUX_FACT * C_PIXEL_DAC_NB_CYC / c_CLK_DAC_FREQ)
 COMM ----------------------------------------------------------------------------------------------
 CDIS sq1_dac_sleep(0) 1
 CTLE sq1_dac_sleep(0) >= 97968960 ps  # Factor 3

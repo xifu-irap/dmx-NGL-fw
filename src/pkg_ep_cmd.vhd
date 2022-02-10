@@ -29,6 +29,7 @@ use     ieee.std_logic_1164.all;
 use     ieee.numeric_std.all;
 
 library work;
+use     work.pkg_fpga_tech.all;
 use     work.pkg_func_math.all;
 use     work.pkg_project.all;
 
@@ -63,12 +64,32 @@ constant c_EP_CMD_ERR_FST_POS : integer   := 10                                 
    -- ------------------------------------------------------------------------------------------------------
    --    EP command: Address
    -- ------------------------------------------------------------------------------------------------------
+constant c_EP_CMD_ADD_COLPOSL : integer   := 12                                                             ; --! EP command: Address column position low
+constant c_EP_CMD_ADD_COLPOSH : integer   := c_EP_CMD_ADD_COLPOSL + log2_ceil(c_NB_COL) - 1                 ; --! EP command: Address column position high
+
 constant c_EP_CMD_ADD_TM_MODE : std_logic_vector(c_EP_SPI_WD_S-1 downto 0):= x"4000"                        ; --! EP command: Address, TM_MODE
 constant c_EP_CMD_ADD_SQ1FBMD : std_logic_vector(c_EP_SPI_WD_S-1 downto 0):= x"4001"                        ; --! EP command: Address, SQ1_FB_MODE
 constant c_EP_CMD_ADD_SQ2FBMD : std_logic_vector(c_EP_SPI_WD_S-1 downto 0):= x"4002"                        ; --! EP command: Address, SQ2_FB_MODE
 
 constant c_EP_CMD_ADD_STATUS  : std_logic_vector(c_EP_SPI_WD_S-1 downto 0):= x"6000"                        ; --! EP command: Address, Status
 constant c_EP_CMD_ADD_VERSION : std_logic_vector(c_EP_SPI_WD_S-1 downto 0):= x"6001"                        ; --! EP command: Address, Version
+
+constant c_EP_CMD_ADD_S1FB0   : t_ep_spi_wd(0 to c_NB_COL-1) := (x"0200", x"1200", x"2200", x"3200")        ; --! EP command: Address basis, CY_SQ1_FB0
+constant c_EP_CMD_ADD_S1FBM   : t_ep_spi_wd(0 to c_NB_COL-1) := (x"0300", x"1300", x"2300", x"3300")        ; --! EP command: Address basis, CY_SQ1_FB_MODE
+constant c_EP_CMD_ADD_PLSSH   : t_ep_spi_wd(0 to c_NB_COL-1) := (x"0800", x"1800", x"2800", x"3800")        ; --! EP command: Address basis, CY_FB1_PULSE_SHAPING
+
+   -- ------------------------------------------------------------------------------------------------------
+   --    EP command: Table and Memory Address size
+   -- ------------------------------------------------------------------------------------------------------
+constant c_TAB_S1FB0_NW       : integer   := c_MUX_FACT                                                     ; --! Table number word: CY_SQ1_FB0
+constant c_MEM_S1FB0_ADD_S    : integer   := log2_ceil(c_TAB_S1FB0_NW)                                      ; --! Memory SQUID1 Feedback value in open loop: address size without ping-pong buffer bit
+
+constant c_TAB_S1FBM_NW       : integer   := c_MUX_FACT                                                     ; --! Table number word: CY_SQ1_FB_MODE
+constant c_MEM_S1FBM_ADD_S    : integer   := log2_ceil(c_TAB_S1FBM_NW)                                      ; --! Memory SQUID1 Feedback Mode: address size without ping-pong buffer bit
+
+constant c_TAB_PLSSH_NW       : integer   := c_PIXEL_DAC_NB_CYC                                             ; --! Table number word: CY_FB1_PULSE_SHAPING
+constant c_TAB_PLSSH_S        : integer   := log2_ceil(c_TAB_PLSSH_NW)                                      ; --! Table size bus:    CY_FB1_PULSE_SHAPING
+constant c_MEM_PLSSH_ADD_S    : integer   := log2_ceil(c_DAC_PLS_SHP_SET_NB) + c_TAB_PLSSH_S                ; --! Memory pulse shaping coefficient: address size without ping-pong buffer bit
 
    -- ------------------------------------------------------------------------------------------------------
    --    EP command: Write register authorization
@@ -80,13 +101,21 @@ constant c_EP_CMD_AUTH_SQ2FBMD: std_logic := c_EP_CMD_ERR_CLR                   
 constant c_EP_CMD_AUTH_STATUS : std_logic := c_EP_CMD_ERR_SET                                               ; --! EP command: Authorization, Status
 constant c_EP_CMD_AUTH_VERSION: std_logic := c_EP_CMD_ERR_SET                                               ; --! EP command: Authorization, Version
 
+constant c_EP_CMD_AUTH_S1FB0  : std_logic := c_EP_CMD_ERR_CLR                                               ; --! EP command: Authorization, CY_SQ1_FB0
+constant c_EP_CMD_AUTH_S1FBM  : std_logic := c_EP_CMD_ERR_CLR                                               ; --! EP command: Authorization, CY_SQ1_FB_MODE
+constant c_EP_CMD_AUTH_PLSSH  : std_logic := c_EP_CMD_ERR_CLR                                               ; --! EP command: Authorization, CY_FB1_PULSE_SHAPING
+
    -- ------------------------------------------------------------------------------------------------------
    --    EP command: Data field bus size
    -- ------------------------------------------------------------------------------------------------------
 constant c_DFLD_TM_MODE_DUR_S : integer   :=  8                                                             ; --! EP command: Data field, TM_MODE Duration bus size
-constant c_DFLD_TM_MODE_COL_S : integer   :=  2                                                             ; --! EP command: Data field, TM_MODE by column bus size
-constant c_DFLD_SQ1FBMD_COL_S : integer   :=  1                                                             ; --! EP command: Data field, SQ1_FB_MODE by column bus size
-constant c_DFLD_SQ2FBMD_COL_S : integer   :=  2                                                             ; --! EP command: Data field, SQ2_FB_MODE by column bus size
+constant c_DFLD_TM_MODE_COL_S : integer   :=  2                                                             ; --! EP command: Data field, TM_MODE bus size
+constant c_DFLD_SQ1FBMD_COL_S : integer   :=  1                                                             ; --! EP command: Data field, SQ1_FB_MODE mode bus size
+constant c_DFLD_SQ1FBMD_PLS_S : integer   :=  log2_ceil(c_DAC_PLS_SHP_SET_NB)                               ; --! EP command: Data field, SQ1_FB_MODE pulse shaping coeficients set bus size
+constant c_DFLD_SQ2FBMD_COL_S : integer   :=  2                                                             ; --! EP command: Data field, SQ2_FB_MODE bus size
+constant c_DFLD_S1FB0_PIX_S   : integer   :=  c_EP_SPI_WD_S                                                 ; --! EP command: Data field, CY_SQ1_FB0 bus size
+constant c_DFLD_S1FBM_PIX_S   : integer   :=  2                                                             ; --! EP command: Data field, CY_SQ1_FB_MODE bus size
+constant c_DFLD_PLSSH_PLS_S   : integer   :=  c_EP_SPI_WD_S                                                 ; --! EP command: Data field, CY_FB1_PULSE_SHAPING bus size
 
    -- ------------------------------------------------------------------------------------------------------
    --    EP command: Data state
@@ -99,40 +128,106 @@ constant c_DST_TM_MODE_TEST   : std_logic_vector(c_DFLD_TM_MODE_COL_S-1 downto 0
 constant c_DST_SQ1FBMD_OFF    : std_logic_vector(c_DFLD_SQ1FBMD_COL_S-1 downto 0):= "0"                     ; --! EP command: Data state, SQ1_FB_MODE "Off"
 constant c_DST_SQ1FBMD_ON     : std_logic_vector(c_DFLD_SQ1FBMD_COL_S-1 downto 0):= "1"                     ; --! EP command: Data state, SQ1_FB_MODE "Test Pattern"
 
+constant c_DST_SQ1FBMD_PLS_0  : std_logic_vector(c_DFLD_SQ1FBMD_PLS_S-1 downto 0):= "00"                    ; --! EP command: Data state, SQ1_FB_MODE pulse shaping coefficients set 0
+constant c_DST_SQ1FBMD_PLS_1  : std_logic_vector(c_DFLD_SQ1FBMD_PLS_S-1 downto 0):= "01"                    ; --! EP command: Data state, SQ1_FB_MODE pulse shaping coefficients set 1
+constant c_DST_SQ1FBMD_PLS_2  : std_logic_vector(c_DFLD_SQ1FBMD_PLS_S-1 downto 0):= "10"                    ; --! EP command: Data state, SQ1_FB_MODE pulse shaping coefficients set 2
+constant c_DST_SQ1FBMD_PLS_3  : std_logic_vector(c_DFLD_SQ1FBMD_PLS_S-1 downto 0):= "11"                    ; --! EP command: Data state, SQ1_FB_MODE pulse shaping coefficients set 3
+
 constant c_DST_SQ2FBMD_OFF    : std_logic_vector(c_DFLD_SQ2FBMD_COL_S-1 downto 0):= "00"                    ; --! EP command: Data state, SQ2_FB_MODE "Off"
 constant c_DST_SQ2FBMD_OPEN   : std_logic_vector(c_DFLD_SQ2FBMD_COL_S-1 downto 0):= "01"                    ; --! EP command: Data state, SQ2_FB_MODE "Open Loop"
-constant c_DST_SQ2FBMD_CLOSE  : std_logic_vector(c_DFLD_SQ2FBMD_COL_S-1 downto 0):= "10"                    ; --! EP command: Data state, SQ2_FB_MODE "Open Loop"
+constant c_DST_SQ2FBMD_CLOSE  : std_logic_vector(c_DFLD_SQ2FBMD_COL_S-1 downto 0):= "10"                    ; --! EP command: Data state, SQ2_FB_MODE "Closed Loop"
 constant c_DST_SQ2FBMD_TEST   : std_logic_vector(c_DFLD_SQ2FBMD_COL_S-1 downto 0):= "11"                    ; --! EP command: Data state, SQ2_FB_MODE "Test Pattern"
+
+constant c_DST_SQ1FBMD_OPEN   : std_logic_vector(c_DFLD_S1FBM_PIX_S-1 downto 0):= "00"                      ; --! EP command: Data state, CY_SQ1_FB_MODE "Open Loop"
+constant c_DST_SQ1FBMD_CLOSE  : std_logic_vector(c_DFLD_S1FBM_PIX_S-1 downto 0):= "01"                      ; --! EP command: Data state, CY_SQ1_FB_MODE "Closed Loop"
+constant c_DST_SQ1FBMD_TEST   : std_logic_vector(c_DFLD_S1FBM_PIX_S-1 downto 0):= "10"                      ; --! EP command: Data state, CY_SQ1_FB_MODE "Test Pattern"
 
    -- ------------------------------------------------------------------------------------------------------
    --    EP command: Data value
    -- ------------------------------------------------------------------------------------------------------
 constant c_D_TM_MODE_DUR_DUMP : integer   := c_DMP_SEQ_ACQ_NB * 2**(log2_ceil(c_SQ1_ADC_DATA_S)) *
-                                             c_CLK_ADC_MULT / (c_CLK_MULT * c_NB_COL * c_SC_DATA_SER_NB)    ; --! EP command: Data value, TM_MODE "Duration" during Dump mode
+                                             c_CLK_ADC_DAC_MULT / (c_CLK_MULT * c_NB_COL * c_SC_DATA_SER_NB); --! EP command: Data value, TM_MODE "Duration" during Dump mode
 constant c_D_TM_MODE_DUR_INF  : integer   :=  0                                                             ; --! EP command: Data value, TM_MODE "Duration" infinity value
 
    -- ------------------------------------------------------------------------------------------------------
    --    EP command: Default value
    -- ------------------------------------------------------------------------------------------------------
 constant c_EP_CMD_DEF_TMDE_DR : integer   :=  0                                                             ; --! EP command: Default value, TM_MODE "Duration"
-constant c_EP_CMD_DEF_TM_MODE : std_logic_vector(c_DFLD_TM_MODE_COL_S-1 downto 0):= c_DST_TM_MODE_IDLE      ; --! EP command: Default value, TM_MODE by column
+constant c_EP_CMD_DEF_TM_MODE : std_logic_vector(c_DFLD_TM_MODE_COL_S-1 downto 0):= c_DST_TM_MODE_IDLE      ; --! EP command: Default value, TM_MODE
 
+constant c_EP_CMD_DEF_PLSFC   : integer   := 20000000                                                       ; --! EP command: Default value, pulse shaping cut frequency (Hz)
 constant c_EP_CMD_DEF_SQ1FBMD : std_logic_vector(c_EP_SPI_WD_S-1 downto 0):=
-                                "000" & c_DST_SQ1FBMD_OFF & "000" & c_DST_SQ1FBMD_OFF &
-                                "000" & c_DST_SQ1FBMD_OFF & "000" & c_DST_SQ1FBMD_OFF                       ; --! EP command: Default value, SQ1_FB_MODE
+                                c_DST_SQ1FBMD_PLS_1 & "0" & c_DST_SQ1FBMD_OFF &
+                                c_DST_SQ1FBMD_PLS_1 & "0" & c_DST_SQ1FBMD_OFF &
+                                c_DST_SQ1FBMD_PLS_1 & "0" & c_DST_SQ1FBMD_OFF &
+                                c_DST_SQ1FBMD_PLS_1 & "0" & c_DST_SQ1FBMD_OFF                               ; --! EP command: Default value, SQ1_FB_MODE
 
 constant c_EP_CMD_DEF_SQ2FBMD : std_logic_vector(c_EP_SPI_WD_S-1 downto 0):=
                                 "00" & c_DST_SQ2FBMD_OFF & "00" & c_DST_SQ2FBMD_OFF &
                                 "00" & c_DST_SQ2FBMD_OFF & "00" & c_DST_SQ2FBMD_OFF                         ; --! EP command: Default value, SQ2_FB_MODE
 
+constant c_EP_CMD_DEF_S1FB0   : t_ram_init(0 to 2*c_TAB_S1FB0_NW-1) := (others => 0)                        ; --! EP command: Default value, CY_SQ1_FB0 memory with ping-pong buffer bit
+
+constant c_EP_CMD_DEF_S1FBM   : t_ram_init(0 to 2*c_TAB_S1FBM_NW-1) :=
+                                (others => to_integer(unsigned(c_DST_SQ1FBMD_OPEN)))                        ; --! EP command: Default value, CY_SQ1_FB_MODE memory with ping-pong buffer bit
+
+constant c_EP_CMD_DEF_PLSSH   : t_ram_init(0 to 2**(c_MEM_PLSSH_ADD_S+1)-1) :=
+                                (37364, 21302, 12145,  6924,  3948,  2251,  1283,   732,
+                                   417,   238,   136,    77,    44,    25,    14,     8,
+                                     5,     3,     2,     1,     0,     0,     0,     0,
+                                     0,     0,     0,     0,     0,     0,     0,     0,
+
+                                 32681, 16297,  8127,  4053,  2021,  1008,   503,   251,
+                                   125,    62,    31,    15,     8,     4,     2,     1,
+                                     0,     0,     0,     0,     0,     0,     0,     0,
+                                     0,     0,     0,     0,     0,     0,     0,     0,
+
+                                 29041, 12869,  5703,  2527,  1120,   496,   220,    97,
+                                    43,    19,     8,     4,     2,     1,     0,     0,
+                                     0,     0,     0,     0,     0,     0,     0,     0,
+                                     0,     0,     0,     0,     0,     0,     0,     0,
+
+                                 26131, 10419,  4154,  1657,   661,   263,   105,    42,
+                                    17,     7,     3,     1,     0,     0,     0,     0,
+                                     0,     0,     0,     0,     0,     0,     0,     0,
+                                     0,     0,     0,     0,     0,     0,     0,     0,
+
+                                 37364, 21302, 12145,  6924,  3948,  2251,  1283,   732,
+                                   417,   238,   136,    77,    44,    25,    14,     8,
+                                     5,     3,     2,     1,     0,     0,     0,     0,
+                                     0,     0,     0,     0,     0,     0,     0,     0,
+
+                                 32681, 16297,  8127,  4053,  2021,  1008,   503,   251,
+                                   125,    62,    31,    15,     8,     4,     2,     1,
+                                     0,     0,     0,     0,     0,     0,     0,     0,
+                                     0,     0,     0,     0,     0,     0,     0,     0,
+
+                                 29041, 12869,  5703,  2527,  1120,   496,   220,    97,
+                                    43,    19,     8,     4,     2,     1,     0,     0,
+                                     0,     0,     0,     0,     0,     0,     0,     0,
+                                     0,     0,     0,     0,     0,     0,     0,     0,
+
+                                 26131, 10419,  4154,  1657,   661,   263,   105,    42,
+                                    17,     7,     3,     1,     0,     0,     0,     0,
+                                     0,     0,     0,     0,     0,     0,     0,     0,
+                                     0,     0,     0,     0,     0,     0,     0,     0)                    ; --! EP command: Default value, CY_FB1_PULSE_SHAPING mem. (Low filter fc=15/20/25/30 MHz)
+
    -- ------------------------------------------------------------------------------------------------------
    --    EP command: type
    -- ------------------------------------------------------------------------------------------------------
 type     t_rg_tm_mode          is array (natural range <>) of
-                               std_logic_vector(c_DFLD_TM_MODE_COL_S-1 downto 0)                            ; --! EP command: register TM_MODE by column
+                               std_logic_vector(c_DFLD_TM_MODE_COL_S-1 downto 0)                            ; --! EP command: register TM_MODE
 type     t_rg_sq1fbmd          is array (natural range <>) of
-                               std_logic_vector(c_DFLD_SQ1FBMD_COL_S-1 downto 0)                            ; --! EP command: register SQ1_FB_MODE by column
+                               std_logic_vector(c_DFLD_SQ1FBMD_COL_S-1 downto 0)                            ; --! EP command: register SQ1_FB_MODE
+type     t_rg_sq1fbmd_pls      is array (natural range <>) of
+                               std_logic_vector(c_DFLD_SQ1FBMD_PLS_S-1 downto 0)                            ; --! EP command: register SQ1_FB_MODE, pulse shaping coeficients set
 type     t_rg_sq2fbmd          is array (natural range <>) of
-                               std_logic_vector(c_DFLD_SQ2FBMD_COL_S-1 downto 0)                            ; --! EP command: register SQ2_FB_MODE by column
+                               std_logic_vector(c_DFLD_SQ2FBMD_COL_S-1 downto 0)                            ; --! EP command: register SQ2_FB_MODE
+type     t_mem_s1fb0_data      is array (natural range <>) of
+                               std_logic_vector(c_DFLD_S1FB0_PIX_S-1 downto 0)                              ; --! EP command: Address Memory CY_SQ1_FB0
+type     t_mem_s1fbm_data      is array (natural range <>) of
+                               std_logic_vector(c_DFLD_S1FBM_PIX_S-1 downto 0)                              ; --! EP command: Address Memory CY_SQ1_FB_MODE
+type     t_mem_plssh_data      is array (natural range <>) of
+                               std_logic_vector(c_DFLD_PLSSH_PLS_S-1 downto 0)                              ; --! EP command: Data Memory CY_FB1_PULSE_SHAPING
 
 end pkg_ep_cmd;
