@@ -83,7 +83,7 @@ begin
          ALU_DYNAMIC_OP       => c_MULT_ALU_PRM_DIS   , -- bit                                              ; --! ALU Dynamic operation enable  ('0' = ALU_STAT_OP used,   '1' = Port D LSB used)
          ALU_OP               => c_MULT_ALU_OP_ADD    , -- bit_vector(MULT_ALU_OP_S-1 downto 0)             ; --! ALU Static operation
          ALU_MUX              => c_MULT_ALU_PRM_DIS   , -- bit                                              ; --! ALU swap operands             ('0' = no swap,            '1' = swap)
-         Z_FEEDBACK_SHL12     => c_MULT_ALU_PRM_DIS   , -- bit                                              ; --! ALU shift of MUX_ALU input    ('0' = no shift,           '1' = 12-bit left shift)
+         Z_FEEDBACK_SHL12     => c_MULT_ALU_PRM_DIS   , -- bit                                              ; --! ALU shift of MUX_ALU input    (see below Z_FEEDBACK_SHL12 & MUX_X for configuration)
          ENABLE_SATURATION    => c_MULT_ALU_PRM_ENA   , -- bit                                              ; --! Saturation enable             ('0' = disable,            '1' = enable)
          SATURATION_RANK      => c_FILT_SAT_RANK      , -- bit_vector(5 downto 0)                           ; --! Extrem values reached on result bus and overflow management
                                                                                                               --!   unsigned: range from             0  to 2**(SAT_RANK+1) - 1
@@ -94,8 +94,9 @@ begin
          MUX_B                => '0'                  , -- bit                                              ; --! Multiplexer Port B       ('0' = Port B,                  '1' = Cascaded Port B)
          MUX_P                => '1'                  , -- bit                                              ; --! Multiplexer Pre-Adder    ('0' = MUX_PORTB,               '1' = MUX_PORTB +/- Port D)
          MUX_Y                => '0'                  , -- bit                                              ; --! Multiplexer Multiplier   ('0' = MUX_PORTA * MUX_PRE_ADD, '1' = MUX_PORTB & MUX_PORTA)
-         MUX_X                => "00"                 , -- bit_vector(1 downto 0)                           ; --! Multiplexer ALU operand  ("00"= Port C,                  "01"= Cascaded Result Input,
-                                                                                                              --!    "11"= Cascaded Result Input(43:0) & Port C(11:0),     "10"= MUX_ALU)
+         MUX_X                => "00"                 , -- bit_vector(1 downto 0)                           ; --! Multiplexer ALU operand  ("X0X" = Port C,                "010" = MUX_ALU,
+                                                                                                              --!   "011"= Cascaded Result Input, "110"= MUX_ALU(39:0) & Port C(15:0),
+                                                                                                              --!   "111"= Cascaded Result Input(39:0) & Port C(15:0))
          CO_SEL               => c_MULT_ALU_PRM_NU    , -- bit                                              ; --! Multiplexer ALU Carry Out('0' = ALU(36),                 '1' = ALU(48))
          MUX_Z                => '0'                  , -- bit                                              ; --! Multiplexer ALU ('0' = ALU(Port D, MUX_ALU_OP, MUX_MULT, MUX_CARRY) '1' = MUX_MULT)
 

@@ -17,21 +17,34 @@
 #                            along with this program.  If not, see <https://www.gnu.org/licenses/>.
 # ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 #    email                   kchopier@nanoxplore.com
-#    @file                   Nxmap_synth.py
+#    @file                   project_class.py
 # ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-#    @details                Nxmap run synthesis until bitstream generation
+#    @details                Nxmap project class
 # ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-from nxmap import *
-Variant     = 'NG-LARGE'
-TopCellName = 'top_dmx'
-TopCellLib  = 'work'
-import sys
-sys.path.insert(0, "./synthesis/nx")
-sys.path.insert(0, "./constraints/nx")
-import script
-if len(sys.argv) > 1:
-    Option = sys.argv[1]
-else:
-    Option = None
-script.__main__(Variant,TopCellLib,TopCellName,Option)
+import project_ios
+import project_files
+import project_parameters
+import project_options
+import project_constraints
+
+class project_class():
+
+    def __init__(self,variant,sources_files_directory):
+        self.variant = variant
+        self.sources_files_directory = sources_files_directory
+
+    def add_ios(self,p,option=None):
+        project_ios.add_ios(p,self.variant,option)
+
+    def add_files(self,p,option=None):
+        project_files.add_files(p,self.sources_files_directory,self.variant,option)
+    
+    def add_parameters(self,p,option=None):
+        project_parameters.add_parameters(p,self.variant,option)
+                
+    def add_options(self,p,timing_driven,seed,option=None):
+        project_options.add_options(p,self.variant,timing_driven,seed,option)
+
+    def add_constraints(self,p,step,option=None):
+        project_constraints.add_constraints(p,self.variant,step,option)

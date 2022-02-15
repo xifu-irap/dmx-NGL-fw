@@ -22,7 +22,6 @@
 #    @details                Main Nxmap synthesis script
 # ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-
 ####################################################################################################
 #########################################GLOBAL DECLARATION#########################################
 ####################################################################################################
@@ -31,97 +30,116 @@
 import sys
 import traceback
 import os
+import time
 
 from nxmap import *
 
-from variant_custom import variant_custom
+from project_class import project_class
 
-def __main__(Variant,TopCellLib,TopCellName,Option=None,Embedded=False):
+def print_duration(start_time,end_time):
+    '''Get the duration in h, m and s'''
+    duration = int(end_time - start_time)
+    hours    = int(float(duration) / float(3600))
+    minutes  = int((float(duration) - float(hours*3600)) / float(60))
+    seconds  = int((float(duration) - float(hours*3600) - float(minutes*60)))
+    printText('ELAPSED TIME: ' + str(hours) + ' hours ' + str(minutes) + ' minutes ' + str(seconds) + ' seconds' )
+
+def __main__(TopCellLib,TopCellName,Suffix,Variant,Progress,Option,TimingDriven,Seed,Sta,StaCondition,Bitstream):
 
     ##########################################GLOBAL CONSTANT###########################################
+    
+    start_time = time.time()
 
     script_path  = os.getcwd()
 
     project_path = script_path + '/../../../synthesis/'+ TopCellName + '_' + Variant
 
-    if not Option==None:
+    if not Option=='':
         project_path+='_' + Option
 
+    if not Suffix=='':
+        project_path+='_' + Suffix
+
+    original_project_path = project_path
+    if not Progress=='scratch':
+        project_path += '_' + Progress
+            
     if not os.path.isdir(project_path):
             os.makedirs(project_path)
-
+    
     sources_files_directory = script_path + '/src'
-    ip_files_directory      = script_path + '/ip/nx'
-    rtl_files_directory     = project_path + '/rtl'
-
+    
     ####################################################################################################
     ##########################################PROJECT CREATION##########################################
     ####################################################################################################
-
+    
     ###########################################GLOBAL SETTING###########################################
-    p = createProject(project_path)
-    p.setVariantName(Variant)
-    p.setTopCellName(TopCellLib,TopCellName)
 
+    p = createProject(project_path)
+    p.setTimingUnit('ps')
+
+    if Progress == 'scratch':
+        p.setVariantName(Variant)
+        p.setTopCellName(TopCellLib,TopCellName)
+    else:
+        p.load(original_project_path + '/' + Progress + '.nym')
+        
+    p.setAnalysisConditions(StaCondition)
+    
     ###########################################VARIANT SETTINGS#########################################
 
-    board = variant_custom(Variant,sources_files_directory,ip_files_directory,Embedded)
-    board.add_files(p,Option)
-    board.add_parameters(p,Option)
-    board.set_options(p,Option)
-    board.add_constraints(p,Option)
+    project_custom = project_class(Variant,sources_files_directory)
+    
+    if Progress == 'scratch':
+        project_custom.add_files(p,Option)
+        project_custom.add_parameters(p,Option)
+        project_custom.add_options(p,TimingDriven,Seed,Option)
+        project_custom.add_ios(p,Option)
 
-    if not board.is_embedded():
-        board.add_banks(p,Option)
-        board.add_pads(p,Option)
-    else:
-        board.add_pins(p,Option)
-
+        p.save(project_path + '/native'+'.nym')
+    
     ####################################################################################################
     ##########################################PROJECT PROGRESS##########################################
     ####################################################################################################
 
-    p.save(rtl_files_directory + '/native'+'.nym')
+    step_progress      = ['Synthesize','Place','Route']    
+    progress           = ['synthesized','placed','routed']    
+    nb_steps           = [2,5,3]    
+    allowed_start_step = [['scratch'],['scratch','synthesized'],['scratch','synthesized','placed']]    
 
-    ##########################################PROJECT SYNTHESIZE########################################
-
-    for i in range(2):
-        if not p.progress('Synthesize',i+1):
-            p.destroy()
-            sys.exit(1)
-        p.save(rtl_files_directory + '/synthesized_'+str(i+1)+'.nym')
-
-    ############################################PROJECT PLACE###########################################
-
-    for i in range(5):
-        if not p.progress('Place',i+1):
-            p.destroy()
-            sys.exit(1)
-        p.save(rtl_files_directory + '/placed_'+str(i+1)+'.nym')
-
-    ############################################PROJECT ROUTE###########################################
-
-    for i in range(3):
-        if not p.progress('Route',i+1):
-            p.destroy()
-            sys.exit(1)
-        p.save(rtl_files_directory + '/routed_'+str(i+1)+'.nym')
-
+    for i in range(len(step_progress)):#Progress
+        if Progress in allowed_start_step[i]:#Skip step_progress progress if already done
+            project_custom.add_constraints(p,step_progress[i],Option)
+            for j in range(nb_steps[i]):
+                if not p.progress(step_progress[i],j+1):#Browse all steps
+                    p.destroy()
+                    print_duration(start_time,time.time())
+                    sys.exit(1)
+                else:
+                    print_duration(start_time,time.time())            
+                p.save(project_path + '/' + progress[i] + '_'+str(j+1)+'.nym')
+                if (i==1 and j==0 and (Sta=='prepared' or Sta=='all')) or (i==2 and j==2 and (Sta=='routed' or Sta=='all')):# STA after Prepared or Routed
+                    Timing_analysis = p.createAnalyzer()
+                    Timing_analysis.launch({'maximumSlack': 500, 'searchPathsLimit': 10})
+                if j == nb_steps[i]-1:#Last step of progress
+                    p.save(project_path + '/' + progress[i] + '.nym')
+                    p.save(project_path + '/' + progress[i] + '.vhd')
+                    if i==2:#Routed
+                        p.save(project_path + '/' + progress[i] + '.sdf',StaCondition)
+        
     ############################################PROJECT REPORT##########################################
-
+    
     p.reportInstances()
-
-    ############################################TIMING ANALYSIS#########################################
-
-    #Worstcase
-    Timing_analysis = p.createAnalyzer()
-    Timing_analysis.launch({'conditions': 'worstcase', 'maximumSlack': 500, 'searchPathsLimit': 10})
+    p.reportRegions()
 
     ##########################################BISTREAM GENERATION#######################################
-
-    p.generateBitstream('bitstream'+'.nxb')
-
+    
+    if Bitstream == 'Yes':
+        p.generateBitstream('bitstream'+'.nxb')
+    
     ################################################SUMMARY#############################################
     print('Errors: ', getErrorCount())
     print('Warnings: ', getWarningCount())
     printText('Design successfully generated')
+
+    print_duration(start_time,time.time())

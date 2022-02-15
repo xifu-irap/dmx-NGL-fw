@@ -100,7 +100,6 @@ begin
 
    -- ------------------------------------------------------------------------------------------------------
    --!   EP command: Register/Memory writing management
-   --    @Req : DRE-DMX-FW-REQ-0500
    -- ------------------------------------------------------------------------------------------------------
    P_ep_cmd_wr_rg : process (i_rst, i_clk)
    begin
@@ -251,8 +250,6 @@ begin
             o_ep_cmd_tx_wd_rd_rg <= rg_sq2_fb_mode;
 
          -- @Req : REG_Version
-         -- @Req : DRE-DMX-FW-REQ-0520
-         -- @Req : DRE-DMX-FW-REQ-0530
          elsif i_ep_cmd_rx_wd_add = c_EP_CMD_ADD_VERSION  then
             o_ep_cmd_tx_wd_rd_rg <= std_logic_vector(to_unsigned(c_FW_VERSION, c_FW_VERSION_S)) & i_brd_model_rs & i_brd_ref_rs;
 

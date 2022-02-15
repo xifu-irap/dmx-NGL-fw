@@ -38,7 +38,6 @@ package pkg_project is
    --    @Req : DRE-DMX-FW-REQ-0040
    --    @Req : DRE-DMX-FW-REQ-0120
    --    @Req : DRE-DMX-FW-REQ-0270
-   --    @Req : DRE-DMX-FW-REQ-0520
    -- ------------------------------------------------------------------------------------------------------
 constant c_FW_VERSION         : integer   :=  1                                                             ; --! Firmware version
 
@@ -76,7 +75,6 @@ constant c_CLK_ADC_DEL_STEP   : integer   := div_floor(15*10**5/(c_CLK_ADC_FREQ/
    -- ------------------------------------------------------------------------------------------------------
    --    Interface parameters
    --    @Req : DRE-DMX-FW-REQ-0340
-   --    @Req : DRE-DMX-FW-REQ-0530
    --    @Req : DRE-DMX-FW-REQ-0550
    --    @Req : DRE-DMX-FW-REQ-0560
    -- ------------------------------------------------------------------------------------------------------
@@ -159,6 +157,7 @@ constant c_MEM_DUMP_ADD_S     : integer := c_RAM_ECC_ADD_S                      
    -- ------------------------------------------------------------------------------------------------------
    --    SQUID1 DAC parameters
    --    @Req : DRE-DMX-FW-REQ-0230
+   --    @Req : DRE-DMX-FW-REQ-0275
    -- ------------------------------------------------------------------------------------------------------
 constant c_PIXEL_DAC_NB_CYC   : integer := 20                                                               ; --! DAC clock period number allocated to one pixel acquisition
 constant c_DAC_MDL_POINT      : integer := 2**(c_SQ1_DATA_FBK_S-1)                                          ; --! DAC middle point

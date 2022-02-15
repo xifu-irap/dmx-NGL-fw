@@ -17,25 +17,39 @@
 #                            along with this program.  If not, see <https://www.gnu.org/licenses/>.
 # ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 #    email                   slaurent@nanoxplore.com
-#    @file                   project_files.py
+#    @file                   project_options.py
 # ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-#    @details                List the source files necessary for Nxmap synthesis
+#    @details                Nxmap options
 # ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-def add_files(p,sources_files_directory,variant,option):
-    print("Import Common files")
-    import os
-    VHDFiles=[]
-    for file in os.listdir(sources_files_directory):
-        if file.endswith(".vhd"):
-            VHDFiles.append(os.path.join(sources_files_directory, file))
-
-    p.addFiles('work', VHDFiles)
-    
-    print("Specific Variant files")
-    VHDFiles=[]
-    for file in os.listdir(sources_files_directory + '/../ip/nx/' + variant):
-        if file.endswith(".vhd"):
-            VHDFiles.append(os.path.join(sources_files_directory + '/../ip/nx/' + variant, file))
-
-    p.addFiles('work', VHDFiles)
+def add_options(p,variant,timing_driven,seed,option):
+    p.setOptions({
+        'DefaultFSMEncoding'          : 'OneHot',
+        'DefaultRAMMapping'           : 'AUTO',
+        'DefaultROMMapping'           : 'AUTO',
+        'DisableAssertionChecking'    : 'No',
+        'DisableKeepPortOrdering'     : 'No',
+        'DisableRAMAlternateForm'     : 'No',
+        'DisableROMFullLutRecognition': 'No',
+        'IgnoreRAMFlashClear'         : 'No',
+        'ManageUnconnectedOutputs'    : 'Ground',
+        'ManageUnconnectedSignals'    : 'Ground',
+        'MaxRegisterCount'            : '3700',
+        'DisableAdderBasicMerge'      : 'No',
+        'DisableAdderTreeOptimization': 'No',
+        'DisableAdderTrivialRemoval'  : 'No',
+        'DisableDSPAluOperator'       : 'No',
+        'DisableDSPFullRecognition'   : 'No',
+        'DisableDSPPreOperator'       : 'No',
+        'DisableDSPRegisters'         : 'No',
+        'DisableLoadAndResetBypass'   : 'No',
+        'DisableRAMRegisters'         : 'No',
+        'ManageAsynchronousReadPort'  : 'No',
+        'ManageUninitializedLoops'    : 'No',       
+        'MappingEffort'               : 'High',        
+        'OptimizedMux'                : 'Yes',          
+        'VariantAwareSynthesis'       : 'Yes',     
+        'RoutingEffort'               : 'High',
+        'TimingDriven'                : timing_driven,
+        'Seed'                        : seed
+        })   

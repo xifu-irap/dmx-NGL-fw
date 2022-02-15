@@ -22,18 +22,6 @@
 #    @details                Nxmap project parameters
 # ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-def common_parameters(p,option):
+def add_parameters(p,variant,option):
     print("Common parameters")
     p.createClock('getClockNet(i_clk_ref)', 'clk', 16000, 0, 8000)
-
-def NG_MEDIUM_parameters(p,option):
-    print("No NG-MEDIUM parameters")
-    #p.addParameter('','')
-
-def NG_LARGE_parameters(p,option):
-    print("No NG-LARGE parameters")
-    #p.addParameter('','')
-
-def NG_ULTRA_parameters(p,option):
-    print("No NG-ULTRA parameters")
-    #p.addParameter('','')

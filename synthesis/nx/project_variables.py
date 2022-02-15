@@ -17,25 +17,23 @@
 #                            along with this program.  If not, see <https://www.gnu.org/licenses/>.
 # ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 #    email                   slaurent@nanoxplore.com
-#    @file                   project_files.py
+#    @file                   project_variables.py
 # ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-#    @details                List the source files necessary for Nxmap synthesis
+#    @details                Nxmap project variables
 # ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-def add_files(p,sources_files_directory,variant,option):
-    print("Import Common files")
-    import os
-    VHDFiles=[]
-    for file in os.listdir(sources_files_directory):
-        if file.endswith(".vhd"):
-            VHDFiles.append(os.path.join(sources_files_directory, file))
-
-    p.addFiles('work', VHDFiles)
-    
-    print("Specific Variant files")
-    VHDFiles=[]
-    for file in os.listdir(sources_files_directory + '/../ip/nx/' + variant):
-        if file.endswith(".vhd"):
-            VHDFiles.append(os.path.join(sources_files_directory + '/../ip/nx/' + variant, file))
-
-    p.addFiles('work', VHDFiles)
+#Top Cell
+DefaultTopCellName  = 'top_dmx'
+DefaultTopCellLib   = 'work'
+#Variant
+DefaultVariant      = 'NG-LARGE'
+AllowedVariants     = ['NG-MEDIUM','NG-MEDIUM-EMBEDDED','NG-LARGE']
+#Option
+DefaultOption       = ''
+AllowedOptions      = ['','USE_DSP']
+#Project
+DefaultSeed         = '1789'
+DefaultTimingDriven = 'Yes'
+DefaultSta          = 'routed'
+DefaultStaCondition = 'worstcase'
+DefaultBitstream    = 'Yes'
