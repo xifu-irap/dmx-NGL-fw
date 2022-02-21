@@ -87,7 +87,7 @@ begin
       begin
 
          if i_rst = '1' then
-            science_data_ser(k) <= (others => '0');
+            science_data_ser(k)   <= (others => '0');
 
          elsif rising_edge(i_clk) then
             if (i_science_data_tx_ena and ser_bit_cnt(ser_bit_cnt'high)) = '1' then
@@ -102,7 +102,16 @@ begin
 
       end process P_science_data_ser;
 
-      o_science_data_ser(k) <= science_data_ser(k)(c_SC_DATA_SER_W_S-1);
+      I_science_data_ser: entity work.signal_reg generic map
+      (  g_SIG_FF_NB          =>  1                   , -- integer                                          ; --! Signal registered flip-flop number
+         g_SIG_DEF            => '0'                    -- std_logic                                          --! Signal registered default value at reset
+      )  port map
+      (  i_reset              => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+         i_clock              => i_clk                , -- in     std_logic                                 ; --! Clock
+
+         i_sig                => science_data_ser(k)(c_SC_DATA_SER_W_S-1), -- in     std_logic              ; --! Signal
+         o_sig_r              => o_science_data_ser(k)  -- out    std_logic                                   --! Signal registered
+      );
 
    end generate G_science_data_ser;
 

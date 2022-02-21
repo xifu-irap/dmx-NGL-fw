@@ -60,7 +60,8 @@ entity squid_model is generic
 
          i_sq2_dac_data       : in     std_logic                                                            ; --! SQUID2 DAC - Serial Data
          i_sq2_dac_sclk       : in     std_logic                                                            ; --! SQUID2 DAC - Serial Clock
-         i_sq2_dac_sync_n     : in     std_logic                                                            ; --! SQUID2 DAC - Frame Synchronization ('0' = Active, '1' = Inactive)
+         i_sq2_dac_snc_l_n    : in     std_logic                                                            ; --! SQUID2 DAC - Frame Synchronization DAC LSB ('0' = Active, '1' = Inactive)
+         i_sq2_dac_snc_o_n    : in     std_logic                                                            ; --! SQUID2 DAC - Frame Synchronization DAC Offset ('0' = Active, '1' = Inactive)
          i_sq2_dac_mux        : in     std_logic_vector( c_SQ2_DAC_MUX_S-1 downto 0)                        ; --! SQUID2 DAC - Multiplexer
          i_sq2_dac_mx_en_n    : in     std_logic                                                              --! SQUID2 DAC - Multiplexer Enable ('0' = Active, '1' = Inactive)
    );

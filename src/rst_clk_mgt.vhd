@@ -40,8 +40,10 @@ entity rst_clk_mgt is port
          i_cmd_ck_s1_dac_ena  : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! SQUID1 DAC Clocks switch commands enable  ('0' = Inactive, '1' = Active)
          i_cmd_ck_s1_dac_dis  : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! SQUID1 DAC Clocks switch commands disable ('0' = Inactive, '1' = Active)
 
-         o_ck_rdy             : out    std_logic                                                            ; --! Clocks ready ('0' = Not ready, '1' = Ready)
          o_rst                : out    std_logic                                                            ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+         o_rst_sys_sq1_adc    : out    std_logic_vector(c_NB_COL-1 downto 0)                                ; --! Reset for SQUID1 ADC, de-assertion on system clock ('0' = Inactive, '1' = Active)
+         o_rst_sys_sq1_dac    : out    std_logic_vector(c_NB_COL-1 downto 0)                                ; --! Reset for SQUID1 DAC, de-assertion on system clock ('0' = Inactive, '1' = Active)
+         o_rst_sys_sq2_dac    : out    std_logic_vector(c_NB_COL-1 downto 0)                                ; --! Reset for SQUID2 DAC, de-assertion on system clock ('0' = Inactive, '1' = Active)
 
          o_clk                : out    std_logic                                                            ; --! System Clock
          o_clk_sq1_adc_dac    : out    std_logic                                                            ; --! SQUID1 ADC/DAC internal Clock
@@ -60,11 +62,19 @@ end entity rst_clk_mgt;
 
 architecture RTL of rst_clk_mgt is
 signal   rst                  : std_logic                                                                   ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+signal   rst_first_pipe       : std_logic                                                                   ; --! Reset first pipe asynchronous assertion, synchronous de-assertion
+signal   rst_sys_ck_sc_first  : std_logic                                                                   ; --! Reset for Science Data Image Clock first pipe, de-assertion on system clock
+signal   rst_sys_ck_science   : std_logic                                                                   ; --! Reset for Science Data Image Clock, de-assertion on system clock
+signal   rst_sys_sq1_adc      : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! Reset for SQUID1 ADC, de-assertion on system clock ('0' = Inactive, '1' = Active)
+signal   rst_sys_sq1_dac      : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! Reset for SQUID1 DAC, de-assertion on system clock ('0' = Inactive, '1' = Active)
+signal   rst_sys_sq2_dac      : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! Reset for SQUID2 DAC, de-assertion on system clock ('0' = Inactive, '1' = Active)
+
 signal   clk                  : std_logic                                                                   ; --! System Clock (internal)
 signal   clk_sq1_adc_dac      : std_logic                                                                   ; --! SQUID1 ADC/DAC internal Clock
 signal   clk_sq1_adc          : std_logic                                                                   ; --! SQUID1 ADC Clocks
 signal   clk_sq1_dac_out      : std_logic                                                                   ; --! SQUID1 DAC output Clock
 signal   pll_main_lock        : std_logic                                                                   ; --! Main Pll Status ('0' = Pll not locked, '1' = Pll locked)
+signal   pll_main_lock_n      : std_logic                                                                   ; --! Main Pll Status ('0' = Pll locked, '1' = Pll not locked)
 
 signal   cmd_ck_sq1_adc       : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! SQUID1 ADC Clocks switch commands ('0' = Inactive, '1' = Active)
 signal   cmd_ck_sq1_dac       : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! SQUID1 DAC Clocks switch commands ('0' = Inactive, '1' = Active)
@@ -91,7 +101,7 @@ begin
 
    o_clk             <= clk;
    o_clk_sq1_adc_dac <= clk_sq1_adc_dac;
-   o_ck_rdy          <= pll_main_lock;
+   pll_main_lock_n   <= not(pll_main_lock);
 
    G_column_mgt: for k in 0 to c_NB_COL-1 generate
    begin
@@ -161,21 +171,22 @@ begin
    --!  Science Data Image Clock generation
    --    @Req : DRE-DMX-FW-REQ-0050
    -- ------------------------------------------------------------------------------------------------------
-   I_rst_ck_science: entity work.reset_gen generic map
-   (     g_FF_RESET_NB        => c_FF_RST_SQ1_ADC_NB    -- integer                                            --! Flip-Flop number used for generated reset
-   ) port map
-   (     i_arst               => i_arst               , -- in     std_logic                                 ; --! Asynchronous reset ('0' = Inactive, '1' = Active)
-         i_clock              => clk_sq1_adc_dac      , -- in     std_logic                                 ; --! Main Pll Status ('0' = Pll not locked, '1' = Pll locked)
-         i_ck_rdy             => pll_main_lock        , -- in     std_logic                                 ; --! Clock ready ('0' = Not ready, '1' = Ready)
+   I_rst_ck_science: entity work.signal_reg generic map
+   (     g_SIG_FF_NB          => c_FF_RST_ADC_DAC_NB  , -- integer                                          ; --! Signal registered flip-flop number
+         g_SIG_DEF            => '1'                    -- std_logic                                          --! Signal registered default value at reset
+   )  port map
+   (     i_reset              => rst_sys_ck_science   , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+         i_clock              => clk_sq1_adc_dac      , -- in     std_logic                                 ; --! Clock
 
-         o_reset              => rst_ck_science         -- out    std_logic                                   --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+         i_sig                => '0'                  , -- in     std_logic                                 ; --! Signal
+         o_sig_r              => rst_ck_science         -- out    std_logic                                   --! Signal registered
    );
 
    P_ck_science : process (rst_ck_science, clk_sq1_adc_dac)
    begin
 
       if rst_ck_science = '1' then
-         ck_science    <= '1';
+         ck_science    <= '0';
          o_ck_science  <= '0';
 
       elsif rising_edge(clk_sq1_adc_dac) then
@@ -190,16 +201,127 @@ begin
    --!   Reset on system clock generation
    --    @Req : DRE-DMX-FW-REQ-0050
    -- ------------------------------------------------------------------------------------------------------
-   I_rst: entity work.reset_gen generic map
-   (     g_FF_RESET_NB        => c_FF_RST_NB            -- integer                                            --! Flip-Flop number used for generated reset
-   ) port map
-   (     i_arst               => i_arst               , -- in     std_logic                                 ; --! Asynchronous reset ('0' = Inactive, '1' = Active)
+   I_rst_first_pipe: entity work.signal_reg generic map
+   (     g_SIG_FF_NB          => c_FF_RSYNC_NB        , -- integer                                          ; --! Signal registered flip-flop number
+         g_SIG_DEF            => '1'                    -- std_logic                                          --! Signal registered default value at reset
+   )  port map
+   (     i_reset              => i_arst               , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clock              => clk                  , -- in     std_logic                                 ; --! Clock
-         i_ck_rdy             => pll_main_lock        , -- in     std_logic                                 ; --! Clock ready ('0' = Not ready, '1' = Ready)
 
-         o_reset              => rst                    -- out    std_logic                                   --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+         i_sig                => pll_main_lock_n      , -- in     std_logic                                 ; --! Signal
+         o_sig_r              => rst_first_pipe         -- out    std_logic                                   --! Signal registered
    );
 
-   o_rst <= rst;
+   I_rst: entity work.signal_reg generic map
+   (     g_SIG_FF_NB          => c_FF_RST_NB-c_FF_RSYNC_NB, -- integer                                      ; --! Signal registered flip-flop number
+         g_SIG_DEF            => '1'                    -- std_logic                                          --! Signal registered default value at reset
+   )  port map
+   (     i_reset              => i_arst               , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+         i_clock              => clk                  , -- in     std_logic                                 ; --! Clock
+
+         i_sig                => rst_first_pipe       , -- in     std_logic                                 ; --! Signal
+         o_sig_r              => rst                    -- out    std_logic                                   --! Signal registered
+   );
+
+   I_rst_sys_ck_sc_0: entity work.signal_reg generic map
+   (     g_SIG_FF_NB          =>  1                   , -- integer                                          ; --! Signal registered flip-flop number
+         g_SIG_DEF            => '1'                    -- std_logic                                          --! Signal registered default value at reset
+   )  port map
+   (     i_reset              => rst_first_pipe       , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+         i_clock              => clk                  , -- in     std_logic                                 ; --! Clock
+
+         i_sig                => '0'                  , -- in     std_logic                                 ; --! Signal
+         o_sig_r              => rst_sys_ck_sc_first    -- out    std_logic                                   --! Signal registered
+   );
+
+   I_rst_sys_ck_sc: entity work.signal_reg generic map
+   (     g_SIG_FF_NB          =>  1                   , -- integer                                          ; --! Signal registered flip-flop number
+         g_SIG_DEF            => '1'                    -- std_logic                                          --! Signal registered default value at reset
+   )  port map
+   (     i_reset              => rst_sys_ck_sc_first  , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+         i_clock              => clk                  , -- in     std_logic                                 ; --! Clock
+
+         i_sig                => '0'                  , -- in     std_logic                                 ; --! Signal
+         o_sig_r              => rst_sys_ck_science     -- out    std_logic                                   --! Signal registered
+   );
+
+   G_rst_column_mgt: for k in 0 to c_NB_COL-1 generate
+   begin
+
+      I_rst_sys_sq1_adc_0: entity work.signal_reg generic map
+      (  g_SIG_FF_NB          =>  1                   , -- integer                                          ; --! Signal registered flip-flop number
+         g_SIG_DEF            => '1'                    -- std_logic                                          --! Signal registered default value at reset
+      )  port map
+      (  i_reset              => rst_first_pipe       , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+         i_clock              => clk                  , -- in     std_logic                                 ; --! Clock
+
+         i_sig                => '0'                  , -- in     std_logic                                 ; --! Signal
+         o_sig_r              => rst_sys_sq1_adc(k)     -- out    std_logic                                   --! Signal registered
+      );
+
+      I_rst_sys_sq1_adc: entity work.signal_reg generic map
+      (  g_SIG_FF_NB          =>  1                   , -- integer                                          ; --! Signal registered flip-flop number
+         g_SIG_DEF            => '1'                    -- std_logic                                          --! Signal registered default value at reset
+      )  port map
+      (  i_reset              => rst_sys_sq1_adc(k)   , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+         i_clock              => clk                  , -- in     std_logic                                 ; --! Clock
+
+         i_sig                => '0'                  , -- in     std_logic                                 ; --! Signal
+         o_sig_r              => o_rst_sys_sq1_adc(k)   -- out    std_logic                                   --! Signal registered
+      );
+
+      I_rst_sys_sq1_dac_0: entity work.signal_reg generic map
+      (  g_SIG_FF_NB          =>  1                   , -- integer                                          ; --! Signal registered flip-flop number
+         g_SIG_DEF            => '1'                    -- std_logic                                          --! Signal registered default value at reset
+      )  port map
+      (  i_reset              => rst_first_pipe       , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+         i_clock              => clk                  , -- in     std_logic                                 ; --! Clock
+
+         i_sig                => '0'                  , -- in     std_logic                                 ; --! Signal
+         o_sig_r              => rst_sys_sq1_dac(k)     -- out    std_logic                                   --! Signal registered
+      );
+
+      I_rst_sys_sq1_dac: entity work.signal_reg generic map
+      (  g_SIG_FF_NB          =>  1                   , -- integer                                          ; --! Signal registered flip-flop number
+         g_SIG_DEF            => '1'                    -- std_logic                                          --! Signal registered default value at reset
+      )  port map
+      (  i_reset              => rst_sys_sq1_dac(k)   , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+         i_clock              => clk                  , -- in     std_logic                                 ; --! Clock
+
+         i_sig                => '0'                  , -- in     std_logic                                 ; --! Signal
+         o_sig_r              => o_rst_sys_sq1_dac(k)   -- out    std_logic                                   --! Signal registered
+      );
+
+      I_rst_sys_sq2_dac_0: entity work.signal_reg generic map
+      (  g_SIG_FF_NB          =>  1                   , -- integer                                          ; --! Signal registered flip-flop number
+         g_SIG_DEF            => '1'                    -- std_logic                                          --! Signal registered default value at reset
+      )  port map
+      (  i_reset              => rst_first_pipe       , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+         i_clock              => clk                  , -- in     std_logic                                 ; --! Clock
+
+         i_sig                => '0'                  , -- in     std_logic                                 ; --! Signal
+         o_sig_r              => rst_sys_sq2_dac(k)     -- out    std_logic                                   --! Signal registered
+      );
+
+      I_rst_sys_sq2_dac: entity work.signal_reg generic map
+      (  g_SIG_FF_NB          =>  1                   , -- integer                                          ; --! Signal registered flip-flop number
+         g_SIG_DEF            => '1'                    -- std_logic                                          --! Signal registered default value at reset
+      )  port map
+      (  i_reset              => rst_sys_sq2_dac(k)   , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+         i_clock              => clk                  , -- in     std_logic                                 ; --! Clock
+
+         i_sig                => '0'                  , -- in     std_logic                                 ; --! Signal
+         o_sig_r              => o_rst_sys_sq2_dac(k)   -- out    std_logic                                   --! Signal registered
+      );
+
+   end generate G_rst_column_mgt;
+
+   -- ------------------------------------------------------------------------------------------------------
+   --!   Low Skew network connexion
+   -- ------------------------------------------------------------------------------------------------------
+   I_rst_lowskew: entity work.lowskew port map
+   (     i_sig                => rst                  , -- in     std_logic                                 ; --! Signal
+         o_sig_lowskew        => o_rst                  -- out    std_logic                                   --! Signal connected to lowskew network
+   );
 
 end architecture rtl;

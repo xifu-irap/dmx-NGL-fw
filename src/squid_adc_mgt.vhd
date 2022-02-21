@@ -35,8 +35,7 @@ use     work.pkg_project.all;
 use     work.pkg_ep_cmd.all;
 
 entity squid_adc_mgt is port
-   (     i_arst               : in     std_logic                                                            ; --! Asynchronous reset ('0' = Inactive, '1' = Active)
-         i_ck_rdy             : in     std_logic                                                            ; --! Clock ready ('0' = Not ready, '1' = Ready)
+   (     i_rst_sys_sq1_adc    : in     std_logic                                                            ; --! Reset for SQUID1 ADC, de-assertion on system clock ('0' = Inactive, '1' = Active)
          i_clk_sq1_adc_dac    : in     std_logic                                                            ; --! SQUID1 ADC/DAC internal Clock
 
          i_rst                : in     std_logic                                                            ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
@@ -91,14 +90,15 @@ begin
    --!     Necessity to generate local reset in order to reach expected frequency
    --    @Req : DRE-DMX-FW-REQ-0050
    -- ------------------------------------------------------------------------------------------------------
-   I_rst_sq1_adc: entity work.reset_gen generic map
-   (     g_FF_RESET_NB        => c_FF_RST_SQ1_ADC_NB    -- integer                                            --! Flip-Flop number used for generated reset
-   ) port map
-   (     i_arst               => i_arst               , -- in     std_logic                                 ; --! Asynchronous reset ('0' = Inactive, '1' = Active)
-         i_clock              => i_clk_sq1_adc_dac    , -- in     std_logic                                 ; --! Main Pll Status ('0' = Pll not locked, '1' = Pll locked)
-         i_ck_rdy             => i_ck_rdy             , -- in     std_logic                                 ; --! Clock ready ('0' = Not ready, '1' = Ready)
+   I_rst_sq1_adc: entity work.signal_reg generic map
+   (     g_SIG_FF_NB          => c_FF_RST_ADC_DAC_NB  , -- integer                                          ; --! Signal registered flip-flop number
+         g_SIG_DEF            => '1'                    -- std_logic                                          --! Signal registered default value at reset
+   )  port map
+   (     i_reset              => i_rst_sys_sq1_adc    , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+         i_clock              => i_clk_sq1_adc_dac    , -- in     std_logic                                 ; --! Clock
 
-         o_reset              => rst_sq1_adc            -- out    std_logic                                   --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+         i_sig                => '0'                  , -- in     std_logic                                 ; --! Signal
+         o_sig_r              => rst_sq1_adc            -- out    std_logic                                   --! Signal registered
    );
 
    -- ------------------------------------------------------------------------------------------------------

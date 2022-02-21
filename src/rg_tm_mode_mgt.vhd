@@ -102,6 +102,7 @@ begin
    end generate G_tm_mode_st_dump;
 
    o_tm_mode_st_dump    <= tm_mode_dmp_req_or(tm_mode_dmp_req_or'high) or tm_mode_dmp_or(tm_mode_dmp_or'high);
+   o_tm_mode_dmp_cmp    <= tm_mode_dmp_cmp;
 
    -- ------------------------------------------------------------------------------------------------------
    --!   EP register: Telemetry mode save and duration request
@@ -202,7 +203,6 @@ begin
 
          if i_rst = '1' then
             rg_tm_mode(k)        <= c_EP_CMD_DEF_TM_MODE;
-            o_tm_mode_dmp_cmp(k) <= '0';
 
          elsif rising_edge(i_clk) then
 
@@ -226,8 +226,6 @@ begin
                rg_tm_mode(k) <= rg_tm_mode_req(k);
 
             end if;
-
-            o_tm_mode_dmp_cmp(k) <= tm_mode_dmp_cmp(k);
 
          end if;
 

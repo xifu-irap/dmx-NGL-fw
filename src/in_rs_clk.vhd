@@ -47,6 +47,9 @@ entity in_rs_clk is port
          o_brd_ref_rs         : out    std_logic_vector(     c_BRD_REF_S-1 downto 0)                        ; --! Board reference, synchronized on System Clock
          o_brd_model_rs       : out    std_logic_vector(   c_BRD_MODEL_S-1 downto 0)                        ; --! Board model, synchronized on System Clock
          o_sync_rs            : out    std_logic                                                            ; --! Pixel sequence synchronization, synchronized on System Clock
+         o_sync_sq1_adc_rs    : out    std_logic_vector(        c_NB_COL-1 downto 0)                        ; --! Pixel sequence synchronization for squid1 ADC, synchronized on System Clock
+         o_sync_sq1_dac_rs    : out    std_logic_vector(        c_NB_COL-1 downto 0)                        ; --! Pixel sequence synchronization for squid1 DAC, synchronized on System Clock
+         o_sync_sq2_dac_rs    : out    std_logic_vector(        c_NB_COL-1 downto 0)                        ; --! Pixel sequence synchronization for squid2 DAC, synchronized on System Clock
 
          o_hk1_spi_miso_rs    : out    std_logic                                                            ; --! HouseKeeping 1 - SPI Master Input Slave Output, synchronized on System Clock
 
@@ -57,58 +60,150 @@ entity in_rs_clk is port
 end entity in_rs_clk;
 
 architecture RTL of in_rs_clk is
-type     t_brd_ref_v           is array (natural range <>) of std_logic_vector(  c_BRD_REF_S-1  downto 0)   ; --! Board reference vector type
-type     t_brd_model_v         is array (natural range <>) of std_logic_vector(c_BRD_MODEL_S-1  downto 0)   ; --! Board model vector type
-
-signal   brd_ref_r            : t_brd_ref_v(         0 to c_FF_RSYNC_NB-1)                                  ; --! Board reference register
-signal   brd_model_r          : t_brd_model_v(       0 to c_FF_RSYNC_NB-1)                                  ; --! Board model register
-signal   sync_r               : std_logic_vector(c_FF_RSYNC_NB-1 downto 0)                                  ; --! Pixel sequence sync. register (R.E. detected = position sequence to the first pixel)
-
-signal   hk1_spi_miso_r       : std_logic_vector(c_FF_RSYNC_NB-1 downto 0)                                  ; --! HouseKeeping 1 - SPI Master Input Slave Output register
-
-signal   ep_spi_mosi_r        : std_logic_vector(c_FF_RSYNC_NB-1 downto 0)                                  ; --! EP - SPI Master Input Slave Output register (MSB first)
-signal   ep_spi_sclk_r        : std_logic_vector(c_FF_RSYNC_NB-1 downto 0)                                  ; --! EP - SPI Serial Clock register (CPOL = ‘0’, CPHA = ’0’)
-signal   ep_spi_cs_n_r        : std_logic_vector(c_FF_RSYNC_NB-1 downto 0)                                  ; --! EP - SPI Chip Select register ('0' = Active, '1' = Inactive)
+signal   sync_r               : std_logic                                                                   ; --! Pixel sequence sync. register (R.E. detected = position sequence to the first pixel)
 
 begin
 
    -- ------------------------------------------------------------------------------------------------------
-   --!   Resynchronization
+   --!   Pixel sequence synchronization, synchronized on System Clock
    -- ------------------------------------------------------------------------------------------------------
-   P_rsync : process (i_rst, i_clk)
+   I_sync_r: entity work.signal_reg generic map
+   (     g_SIG_FF_NB          => c_FF_RSYNC_NB-1      , -- integer                                          ; --! Signal registered flip-flop number
+         g_SIG_DEF            => c_I_SYNC_DEF           -- std_logic                                          --! Signal registered default value at reset
+   )  port map
+   (     i_reset              => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+         i_clock              => i_clk                , -- in     std_logic                                 ; --! Clock
+
+         i_sig                => i_sync               , -- in     std_logic                                 ; --! Signal
+         o_sig_r              => sync_r                 -- out    std_logic                                   --! Signal registered
+   );
+
+   I_sync_rs: entity work.signal_reg generic map
+   (     g_SIG_FF_NB          => 1                    , -- integer                                          ; --! Signal registered flip-flop number
+         g_SIG_DEF            => c_I_SYNC_DEF           -- std_logic                                          --! Signal registered default value at reset
+   )  port map
+   (     i_reset              => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+         i_clock              => i_clk                , -- in     std_logic                                 ; --! Clock
+
+         i_sig                => sync_r               , -- in     std_logic                                 ; --! Signal
+         o_sig_r              => o_sync_rs              -- out    std_logic                                   --! Signal registered
+   );
+
+   G_column_mgt: for k in 0 to c_NB_COL-1 generate
    begin
 
-      if i_rst = '1' then
-         brd_ref_r            <= (others => (others => '0'));
-         brd_model_r          <= (others => (others => '0'));
-         sync_r               <= (others => c_I_SYNC_DEF);
-         hk1_spi_miso_r       <= (others => c_I_SPI_DATA_DEF);
+      I_sync_sq1_adc_rs: entity work.signal_reg generic map
+      (  g_SIG_FF_NB          => 1                    , -- integer                                          ; --! Signal registered flip-flop number
+         g_SIG_DEF            => c_I_SYNC_DEF           -- std_logic                                          --! Signal registered default value at reset
+      )  port map
+      (  i_reset              => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+         i_clock              => i_clk                , -- in     std_logic                                 ; --! Clock
 
-         ep_spi_mosi_r        <= (others => c_I_SPI_DATA_DEF);
-         ep_spi_sclk_r        <= (others => c_I_SPI_SCLK_DEF);
-         ep_spi_cs_n_r        <= (others => c_I_SPI_CS_N_DEF);
+         i_sig                => sync_r               , -- in     std_logic                                 ; --! Signal
+         o_sig_r              => o_sync_sq1_adc_rs(k)   -- out    std_logic                                   --! Signal registered
+      );
 
-      elsif rising_edge(i_clk) then
-         brd_ref_r            <= i_brd_ref   & brd_ref_r(  0 to brd_ref_r'high-1);
-         brd_model_r          <= i_brd_model & brd_model_r(0 to brd_model_r'high-1);
-         sync_r               <= sync_r(                sync_r'high-1 downto 0) & i_sync;
-         hk1_spi_miso_r       <= hk1_spi_miso_r(hk1_spi_miso_r'high-1 downto 0) & i_hk1_spi_miso;
+      I_sync_sq1_dac_rs: entity work.signal_reg generic map
+      (  g_SIG_FF_NB          => 1                    , -- integer                                          ; --! Signal registered flip-flop number
+         g_SIG_DEF            => c_I_SYNC_DEF           -- std_logic                                          --! Signal registered default value at reset
+      )  port map
+      (  i_reset              => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+         i_clock              => i_clk                , -- in     std_logic                                 ; --! Clock
 
-         ep_spi_mosi_r        <= ep_spi_mosi_r(ep_spi_mosi_r'high-1 downto 0) & i_ep_spi_mosi;
-         ep_spi_sclk_r        <= ep_spi_sclk_r(ep_spi_sclk_r'high-1 downto 0) & i_ep_spi_sclk;
-         ep_spi_cs_n_r        <= ep_spi_cs_n_r(ep_spi_cs_n_r'high-1 downto 0) & i_ep_spi_cs_n;
+         i_sig                => sync_r               , -- in     std_logic                                 ; --! Signal
+         o_sig_r              => o_sync_sq1_dac_rs(k)   -- out    std_logic                                   --! Signal registered
+      );
 
-      end if;
+      I_sync_sq2_dac_rs: entity work.signal_reg generic map
+      (  g_SIG_FF_NB          => 1                    , -- integer                                          ; --! Signal registered flip-flop number
+         g_SIG_DEF            => c_I_SYNC_DEF           -- std_logic                                          --! Signal registered default value at reset
+      )  port map
+      (  i_reset              => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+         i_clock              => i_clk                , -- in     std_logic                                 ; --! Clock
 
-   end process P_rsync;
+         i_sig                => sync_r               , -- in     std_logic                                 ; --! Signal
+         o_sig_r              => o_sync_sq2_dac_rs(k)   -- out    std_logic                                   --! Signal registered
+      );
 
-   o_brd_ref_rs            <= brd_ref_r(brd_ref_r'high);
-   o_brd_model_rs          <= brd_model_r(brd_model_r'high);
-   o_sync_rs               <= sync_r(                sync_r'high);
-   o_hk1_spi_miso_rs       <= hk1_spi_miso_r(hk1_spi_miso_r'high);
+   end generate G_column_mgt;
 
-   o_ep_spi_mosi_rs        <= ep_spi_mosi_r(ep_spi_mosi_r'high);
-   o_ep_spi_sclk_rs        <= ep_spi_sclk_r(ep_spi_sclk_r'high);
-   o_ep_spi_cs_n_rs        <= ep_spi_cs_n_r(ep_spi_cs_n_r'high);
+   -- ------------------------------------------------------------------------------------------------------
+   --!   Others signals synchronized on System Clock
+   -- ------------------------------------------------------------------------------------------------------
+   G_brd_ref: for k in i_brd_ref'range generate
+   begin
+
+      I_brd_ref_rs: entity work.signal_reg generic map
+      (  g_SIG_FF_NB          => c_FF_RSYNC_NB        , -- integer                                          ; --! Signal registered flip-flop number
+         g_SIG_DEF            => '0'                    -- std_logic                                          --! Signal registered default value at reset
+      )  port map
+      (  i_reset              => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+         i_clock              => i_clk                , -- in     std_logic                                 ; --! Clock
+
+         i_sig                => i_brd_ref(k)         , -- in     std_logic                                 ; --! Signal
+         o_sig_r              => o_brd_ref_rs(k)        -- out    std_logic                                   --! Signal registered
+      );
+
+   end generate G_brd_ref;
+
+   G_brd_model: for k in i_brd_model'range generate
+   begin
+
+      I_brd_model_rs: entity work.signal_reg generic map
+      (  g_SIG_FF_NB          => c_FF_RSYNC_NB        , -- integer                                          ; --! Signal registered flip-flop number
+         g_SIG_DEF            => '0'                    -- std_logic                                          --! Signal registered default value at reset
+      )  port map
+      (  i_reset              => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+         i_clock              => i_clk                , -- in     std_logic                                 ; --! Clock
+
+         i_sig                => i_brd_model(k)       , -- in     std_logic                                 ; --! Signal
+         o_sig_r              => o_brd_model_rs(k)      -- out    std_logic                                   --! Signal registered
+      );
+
+   end generate G_brd_model;
+
+   I_hk1_spi_miso_rs: entity work.signal_reg generic map
+   (     g_SIG_FF_NB          => c_FF_RSYNC_NB        , -- integer                                          ; --! Signal registered flip-flop number
+         g_SIG_DEF            => c_I_SPI_DATA_DEF       -- std_logic                                          --! Signal registered default value at reset
+   )  port map
+   (     i_reset              => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+         i_clock              => i_clk                , -- in     std_logic                                 ; --! Clock
+
+         i_sig                => i_hk1_spi_miso       , -- in     std_logic                                 ; --! Signal
+         o_sig_r              => o_hk1_spi_miso_rs      -- out    std_logic                                   --! Signal registered
+   );
+
+   I_ep_spi_mosi_rs: entity work.signal_reg generic map
+   (     g_SIG_FF_NB          => c_FF_RSYNC_NB        , -- integer                                          ; --! Signal registered flip-flop number
+         g_SIG_DEF            => c_I_SPI_DATA_DEF       -- std_logic                                          --! Signal registered default value at reset
+   )  port map
+   (     i_reset              => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+         i_clock              => i_clk                , -- in     std_logic                                 ; --! Clock
+
+         i_sig                => i_ep_spi_mosi        , -- in     std_logic                                 ; --! Signal
+         o_sig_r              => o_ep_spi_mosi_rs       -- out    std_logic                                   --! Signal registered
+   );
+
+   I_ep_spi_sclk_rs: entity work.signal_reg generic map
+   (     g_SIG_FF_NB          => c_FF_RSYNC_NB        , -- integer                                          ; --! Signal registered flip-flop number
+         g_SIG_DEF            => c_I_SPI_SCLK_DEF       -- std_logic                                          --! Signal registered default value at reset
+   )  port map
+   (     i_reset              => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+         i_clock              => i_clk                , -- in     std_logic                                 ; --! Clock
+
+         i_sig                => i_ep_spi_sclk        , -- in     std_logic                                 ; --! Signal
+         o_sig_r              => o_ep_spi_sclk_rs       -- out    std_logic                                   --! Signal registered
+   );
+
+   I_ep_spi_cs_n_rs: entity work.signal_reg generic map
+   (     g_SIG_FF_NB          => c_FF_RSYNC_NB        , -- integer                                          ; --! Signal registered flip-flop number
+         g_SIG_DEF            => c_I_SPI_CS_N_DEF       -- std_logic                                          --! Signal registered default value at reset
+   )  port map
+   (     i_reset              => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+         i_clock              => i_clk                , -- in     std_logic                                 ; --! Clock
+
+         i_sig                => i_ep_spi_cs_n        , -- in     std_logic                                 ; --! Signal
+         o_sig_r              => o_ep_spi_cs_n_rs       -- out    std_logic                                   --! Signal registered
+   );
 
 end architecture rtl;

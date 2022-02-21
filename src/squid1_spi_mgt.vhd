@@ -17,47 +17,33 @@
 --                            along with this program.  If not, see <https://www.gnu.org/licenses/>.
 -- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --    email                   slaurent@nanoxplore.com
---!   @file                   reset_gen.vhd
+--!   @file                   squid1_spi_mgt.vhd
 -- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --    Automatic Generation    No
 --    Code Rules Reference    SOC of design and VHDL handbook for VLSI development, CNES Edition (v2.1)
 -- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
---!   @details                Reset generation
+--!   @details                Squid1 SPI management
 -- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 library ieee;
 use     ieee.std_logic_1164.all;
+use     ieee.numeric_std.all;
 
-entity reset_gen is generic
-   (     g_FF_RESET_NB        : integer                                                                       --! Flip-Flop number used for generated reset
-   ); port
-   (     i_arst               : in     std_logic                                                            ; --! Asynchronous reset ('0' = Inactive, '1' = Active)
-         i_clock              : in     std_logic                                                            ; --! Clock
-         i_ck_rdy             : in     std_logic                                                            ; --! Clock ready ('0' = Not ready, '1' = Ready)
+entity squid1_spi_mgt is port
+   (     o_sq1_adc_spi_mosi   : out    std_logic                                                            ; --! SQUID1 ADC - SPI Serial Data In Out
+         o_sq1_adc_spi_sclk   : out    std_logic                                                            ; --! SQUID1 ADC - SPI Serial Clock (CPOL = ‘0’, CPHA = ’0’)
+         o_sq1_adc_spi_cs_n   : out    std_logic                                                              --! SQUID1 ADC - SPI Chip Select ('0' = Active, '1' = Inactive)
 
-         o_reset              : out    std_logic                                                              --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
    );
-end entity reset_gen;
+end entity squid1_spi_mgt;
 
-architecture RTL of reset_gen is
-signal   reset                : std_logic_vector(g_FF_RESET_NB-1 downto 0)                                  ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+architecture RTL of squid1_spi_mgt is
 begin
 
    -- ------------------------------------------------------------------------------------------------------
-   --!   Reset generation
+   --!   Squid 1 ADC, static configuration without SPI
    -- ------------------------------------------------------------------------------------------------------
-   P_reset : process (i_arst, i_clock)
-   begin
-
-      if i_arst = '1' then
-         reset <= (others => '1');
-
-      elsif rising_edge(i_clock) then
-         reset <= reset(reset'high-1 downto 0) & not(i_ck_rdy);
-
-      end if;
-
-   end process P_reset;
-
-   o_reset <= reset(reset'high);
+   o_sq1_adc_spi_mosi   <= '1';     -- Duty Cycle Stabilizer ('0' = Disable, '1' = Enable)
+   o_sq1_adc_spi_sclk   <= '0';     -- Data format ('0' = Binary, '1' = Twos complement)
+   o_sq1_adc_spi_cs_n   <= '1';     -- Static configuration ('0' = No, '1' = Yes)
 
 end architecture RTL;

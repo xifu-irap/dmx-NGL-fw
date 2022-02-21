@@ -41,10 +41,9 @@ package pkg_project is
    -- ------------------------------------------------------------------------------------------------------
 constant c_FW_VERSION         : integer   :=  1                                                             ; --! Firmware version
 
-constant c_FF_RST_NB          : integer   := 3                                                              ; --! Flip-Flop number used for internal reset: System Clock
-constant c_FF_RST_SQ1_DAC_NB  : integer   := 5                                                              ; --! Flip-Flop number used for internal reset: DAC Clock
-constant c_FF_RST_SQ1_ADC_NB  : integer   := 5                                                              ; --! Flip-Flop number used for internal reset: ADC Clock
 constant c_FF_RSYNC_NB        : integer   := 2                                                              ; --! Flip-Flop number used for FPGA input resynchronization
+constant c_FF_RST_NB          : integer   := c_FF_RSYNC_NB + 3                                              ; --! Flip-Flop number used for internal reset: System Clock
+constant c_FF_RST_ADC_DAC_NB  : integer   := c_FF_RSYNC_NB + 1                                              ; --! Flip-Flop number used for internal reset: ADC/DAC Clock
 
 constant c_MEM_RD_DATA_NPER   : integer   := 2                                                              ; --! Clock period number for accessing memory data output
 

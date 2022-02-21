@@ -88,8 +88,9 @@ signal   sq1_dac_sleep        : std_logic_vector(c_NB_COL-1 downto 0)           
 
 signal   sq2_dac_data         : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! SQUID2 DAC - Serial Data
 signal   sq2_dac_sclk         : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! SQUID2 DAC - Serial Clock
-signal   sq2_dac_sync_n       : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! SQUID2 DAC - Frame Synchronization ('0' = Active, '1' = Inactive)
-signal   sq2_dac_mux          : t_sq2_dac_mux_v( c_NB_COL-1 downto 0)                                       ; --! SQUID2 DAC - Multiplexer
+signal   sq2_dac_snc_l_n      : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! SQUID2 DAC, col. 0 - Frame Synchronization DAC LSB ('0' = Active, '1' = Inactive)
+signal   sq2_dac_snc_o_n      : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! SQUID2 DAC, col. 0 - Frame Synchronization DAC Offset ('0' = Active, '1' = Inactive)
+signal   sq2_dac_mux          : t_sq2_dac_mux_v( 0 to     c_NB_COL-1)                                       ; --! SQUID2 DAC - Multiplexer
 signal   sq2_dac_mx_en_n      : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! SQUID2 DAC - Multiplexer Enable ('0' = Active, '1' = Inactive)
 
 signal   d_rst                : std_logic                                                                   ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
@@ -201,25 +202,29 @@ begin
 
          o_c0_sq2_dac_data    => sq2_dac_data(0)      , -- out    std_logic                                 ; --! SQUID2 DAC, col. 0 - Serial Data
          o_c0_sq2_dac_sclk    => sq2_dac_sclk(0)      , -- out    std_logic                                 ; --! SQUID2 DAC, col. 0 - Serial Clock
-         o_c0_sq2_dac_sync_n  => sq2_dac_sync_n(0)    , -- out    std_logic                                 ; --! SQUID2 DAC, col. 0 - Frame Synchronization ('0' = Active, '1' = Inactive)
+         o_c0_sq2_dac_snc_l_n => sq2_dac_snc_l_n(0)   , -- out    std_logic                                 ; --! SQUID2 DAC, col. 0 - Frame Synchronization DAC LSB ('0' = Active, '1' = Inactive)
+         o_c0_sq2_dac_snc_o_n => sq2_dac_snc_o_n(0)   , -- out    std_logic                                 ; --! SQUID2 DAC, col. 0 - Frame Synchronization DAC Offset ('0' = Active, '1' = Inactive)
          o_c0_sq2_dac_mux     => sq2_dac_mux(0)       , -- out    slv(c_SQ2_DAC_MUX_S-1 downto 0)           ; --! SQUID2 DAC, col. 0 - Multiplexer
          o_c0_sq2_dac_mx_en_n => sq2_dac_mx_en_n(0)   , -- out    std_logic                                 ; --! SQUID2 DAC, col. 0 - Multiplexer Enable ('0' = Active, '1' = Inactive)
 
          o_c1_sq2_dac_data    => sq2_dac_data(1)      , -- out    std_logic                                 ; --! SQUID2 DAC, col. 1 - Serial Data
          o_c1_sq2_dac_sclk    => sq2_dac_sclk(1)      , -- out    std_logic                                 ; --! SQUID2 DAC, col. 1 - Serial Clock
-         o_c1_sq2_dac_sync_n  => sq2_dac_sync_n(1)    , -- out    std_logic                                 ; --! SQUID2 DAC, col. 1 - Frame Synchronization ('0' = Active, '1' = Inactive)
+         o_c1_sq2_dac_snc_l_n => sq2_dac_snc_l_n(1)   , -- out    std_logic                                 ; --! SQUID2 DAC, col. 1 - Frame Synchronization DAC LSB ('0' = Active, '1' = Inactive)
+         o_c1_sq2_dac_snc_o_n => sq2_dac_snc_o_n(1)   , -- out    std_logic                                 ; --! SQUID2 DAC, col. 1 - Frame Synchronization DAC Offset ('0' = Active, '1' = Inactive)
          o_c1_sq2_dac_mux     => sq2_dac_mux(1)       , -- out    slv(c_SQ2_DAC_MUX_S-1 downto 0)           ; --! SQUID2 DAC, col. 1 - Multiplexer
          o_c1_sq2_dac_mx_en_n => sq2_dac_mx_en_n(1)   , -- out    std_logic                                 ; --! SQUID2 DAC, col. 1 - Multiplexer Enable ('0' = Active, '1' = Inactive)
 
          o_c2_sq2_dac_data    => sq2_dac_data(2)      , -- out    std_logic                                 ; --! SQUID2 DAC, col. 2 - Serial Data
          o_c2_sq2_dac_sclk    => sq2_dac_sclk(2)      , -- out    std_logic                                 ; --! SQUID2 DAC, col. 2 - Serial Clock
-         o_c2_sq2_dac_sync_n  => sq2_dac_sync_n(2)    , -- out    std_logic                                 ; --! SQUID2 DAC, col. 2 - Frame Synchronization ('0' = Active, '1' = Inactive)
+         o_c2_sq2_dac_snc_l_n => sq2_dac_snc_l_n(2)   , -- out    std_logic                                 ; --! SQUID2 DAC, col. 2 - Frame Synchronization DAC LSB ('0' = Active, '1' = Inactive)
+         o_c2_sq2_dac_snc_o_n => sq2_dac_snc_o_n(2)   , -- out    std_logic                                 ; --! SQUID2 DAC, col. 2 - Frame Synchronization DAC Offset ('0' = Active, '1' = Inactive)
          o_c2_sq2_dac_mux     => sq2_dac_mux(2)       , -- out    slv(c_SQ2_DAC_MUX_S-1 downto 0)           ; --! SQUID2 DAC, col. 2 - Multiplexer
          o_c2_sq2_dac_mx_en_n => sq2_dac_mx_en_n(2)   , -- out    std_logic                                 ; --! SQUID2 DAC, col. 2 - Multiplexer Enable ('0' = Active, '1' = Inactive)
 
          o_c3_sq2_dac_data    => sq2_dac_data(3)      , -- out    std_logic                                 ; --! SQUID2 DAC, col. 3 - Serial Data
          o_c3_sq2_dac_sclk    => sq2_dac_sclk(3)      , -- out    std_logic                                 ; --! SQUID2 DAC, col. 3 - Serial Clock
-         o_c3_sq2_dac_sync_n  => sq2_dac_sync_n(3)    , -- out    std_logic                                 ; --! SQUID2 DAC, col. 3 - Frame Synchronization ('0' = Active, '1' = Inactive)
+         o_c3_sq2_dac_snc_l_n => sq2_dac_snc_l_n(3)   , -- out    std_logic                                 ; --! SQUID2 DAC, col. 3 - Frame Synchronization DAC LSB ('0' = Active, '1' = Inactive)
+         o_c3_sq2_dac_snc_o_n => sq2_dac_snc_o_n(3)   , -- out    std_logic                                 ; --! SQUID2 DAC, col. 3 - Frame Synchronization DAC Offset ('0' = Active, '1' = Inactive)
          o_c3_sq2_dac_mux     => sq2_dac_mux(3)       , -- out    slv(c_SQ2_DAC_MUX_S-1 downto 0)           ; --! SQUID2 DAC, col. 3 - Multiplexer
          o_c3_sq2_dac_mx_en_n => sq2_dac_mx_en_n(3)     -- out    std_logic                                   --! SQUID2 DAC, col. 3 - Multiplexer Enable ('0' = Active, '1' = Inactive)
 
@@ -255,16 +260,16 @@ begin
                                 .top_dmx_tb.I_top_dmx.G_column_mgt(3).I_squid1_dac_mgt.rst_sq1_pls_shape
                                                                                              : std_logic>>  ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
    alias td_rst_sq2_mux_0     : std_logic is <<signal
-                                .top_dmx_tb.I_top_dmx.G_column_mgt(0).I_squid2_dac_mgt.rst_sq1_pls_shape
+                                .top_dmx_tb.I_top_dmx.G_column_mgt(0).I_squid2_dac_mgt.rst_sq2_dac
                                                                                              : std_logic>>  ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
    alias td_rst_sq2_mux_1     : std_logic is <<signal
-                                .top_dmx_tb.I_top_dmx.G_column_mgt(1).I_squid2_dac_mgt.rst_sq1_pls_shape
+                                .top_dmx_tb.I_top_dmx.G_column_mgt(1).I_squid2_dac_mgt.rst_sq2_dac
                                                                                              : std_logic>>  ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
    alias td_rst_sq2_mux_2     : std_logic is <<signal
-                                .top_dmx_tb.I_top_dmx.G_column_mgt(2).I_squid2_dac_mgt.rst_sq1_pls_shape
+                                .top_dmx_tb.I_top_dmx.G_column_mgt(2).I_squid2_dac_mgt.rst_sq2_dac
                                                                                              : std_logic>>  ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
    alias td_rst_sq2_mux_3     : std_logic is <<signal
-                                .top_dmx_tb.I_top_dmx.G_column_mgt(3).I_squid2_dac_mgt.rst_sq1_pls_shape
+                                .top_dmx_tb.I_top_dmx.G_column_mgt(3).I_squid2_dac_mgt.rst_sq2_dac
                                                                                              : std_logic>>  ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
    alias td_clk               : std_logic is <<signal .top_dmx_tb.I_top_dmx.clk              : std_logic>>  ; --! Internal design: System Clock
    alias td_clk_sq1_adc_acq   : std_logic is <<signal .top_dmx_tb.I_top_dmx.clk_sq1_adc_dac  : std_logic>>  ; --! Internal design: SQUID1 ADC acquisition Clock
@@ -383,7 +388,8 @@ begin
 
          i_sq2_dac_data       => sq2_dac_data(k)      , -- in     std_logic                                 ; --! SQUID2 DAC - Serial Data
          i_sq2_dac_sclk       => sq2_dac_sclk(k)      , -- in     std_logic                                 ; --! SQUID2 DAC - Serial Clock
-         i_sq2_dac_sync_n     => sq2_dac_sync_n(k)    , -- in     std_logic                                 ; --! SQUID2 DAC - Frame Synchronization ('0' = Active, '1' = Inactive)
+         i_sq2_dac_snc_l_n    => sq2_dac_snc_l_n(k)   , -- in     std_logic                                 ; --! SQUID2 DAC - Frame Synchronization DAC LSB ('0' = Active, '1' = Inactive)
+         i_sq2_dac_snc_o_n    => sq2_dac_snc_o_n(k)   , -- in     std_logic                                 ; --! SQUID2 DAC - Frame Synchronization DAC Offset ('0' = Active, '1' = Inactive)
          i_sq2_dac_mux        => sq2_dac_mux(k)       , -- in     slv( c_SQ2_DAC_MUX_S-1 downto 0)          ; --! SQUID2 DAC - Multiplexer
          i_sq2_dac_mx_en_n    => sq2_dac_mx_en_n(k)     -- in     std_logic                                   --! SQUID2 DAC - Multiplexer Enable ('0' = Active, '1' = Inactive)
       );

@@ -27,14 +27,14 @@
 #             (80000 ps) ==============================================================================================
 #             (80000 ps)   Wait internal reset deactivated
 #             (80000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (6963480 ps) Waiting event rst = '0' for 6883480 ps
-#             (6963480 ps) 
-#             (6963480 ps) ==============================================================================================
-#             (6963480 ps)   Start TM_MODE register test
-#             (6963480 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (6963480 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
-# ** Note   : (9348000 ps) Waiting SPI command return end for 2348520 ps
-# ** Note   : (10901448 ps) Waiting event sync = '1' for 1553448 ps
+# ** Note   : (6995496 ps) Waiting event rst = '0' for 6915496 ps
+#             (6995496 ps) 
+#             (6995496 ps) ==============================================================================================
+#             (6995496 ps)   Start TM_MODE register test
+#             (6995496 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (6995496 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
+# ** Note   : (9384000 ps) Waiting SPI command return end for 2352504 ps
+# ** Note   : (10901448 ps) Waiting event sync = '1' for 1517448 ps
 # ** Note   : (10901448 ps) Send SPI command value 8001_95XX (TM_MODE, mode Write, data 95XX)
 # ** Note   : (13290000 ps) Waiting SPI command return end for 2352552 ps
 #             (13290000 ps) 

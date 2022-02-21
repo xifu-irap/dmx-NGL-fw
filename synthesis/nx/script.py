@@ -120,7 +120,7 @@ def __main__(TopCellLib,TopCellName,Suffix,Variant,Progress,Option,TimingDriven,
                 p.save(project_path + '/' + progress[i] + '_'+str(j+1)+'.nym')
                 if (i==1 and j==0 and (Sta=='prepared' or Sta=='all')) or (i==2 and j==2 and (Sta=='routed' or Sta=='all')):# STA after Prepared or Routed
                     Timing_analysis = p.createAnalyzer()
-                    Timing_analysis.launch({'maximumSlack': 500, 'searchPathsLimit': 10})
+                    Timing_analysis.launch({'maximumSlack': 500, 'searchPathsLimit': 30})
                 if j == nb_steps[i]-1:#Last step of progress
                     p.save(project_path + '/' + progress[i] + '.nym')
                     p.save(project_path + '/' + progress[i] + '.vhd')

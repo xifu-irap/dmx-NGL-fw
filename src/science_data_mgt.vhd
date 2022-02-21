@@ -63,6 +63,8 @@ constant c_SC_W_CNT_NB_VAL    : integer:= c_DMP_SEQ_ACQ_NB * c_MUX_FACT * c_PIXE
 constant c_SC_W_CNT_MAX_VAL   : integer:= c_SC_W_CNT_NB_VAL-1                                               ; --! Science data word for dump counter: maximal value
 constant c_SC_W_CNT_S         : integer:= log2_ceil(c_SC_W_CNT_MAX_VAL + 1) + 1                             ; --! Science data word for dump counter: size bus (signed)
 
+signal   sq1_mem_dump_bsy_r   : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! SQUID1 Memory Dump: data busy register
+
 signal   adc_dump_ena         : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! ADC dump enable ('0' = Inactive, '1' = Active)
 signal   sq1_data_sc_fst_mm   : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! SQUID1 Data science first pixel memorized
 signal   sq1_data_sc_lst_mm   : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! SQUID1 Data science last pixel memorized
@@ -79,6 +81,7 @@ signal   sq1_mem_dump_bsy_or  : std_logic_vector(c_NB_COL-1 downto 0)           
 signal   adc_dump_ena_or      : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! ADC dump enable "or-ed"
 signal   ctrl_adc_fst_pkt_or  : t_sc_data_w(0 to c_NB_COL-1)                                                ; --! Control adc first packet, status "Dump" column select "or-ed"
 signal   adc_dump_data_or     : t_sq1_mem_dump_dta_v(0 to c_NB_COL-1)                                       ; --! ADC dump data word "or-ed"
+signal   adc_dump_data_or_r   : std_logic_vector(c_SQ1_ADC_DATA_S+1  downto 0)                              ; --! ADC dump data word "or-ed" MSB register
 signal   sq1_data_sc_fst_or   : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! SQUID1 Data science first pixel memorized "or-ed"
 signal   sq1_data_sc_lst_or   : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! SQUID1 Data science last pixel memorized "or-ed"
 signal   sq1_data_sc_rdy_or   : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! SQUID1 Data science ready memorized "or-ed"
@@ -110,10 +113,13 @@ begin
       begin
 
          if i_rst = '1' then
-            adc_dump_ena(k) <= '0';
+            sq1_mem_dump_bsy_r(k)<= '0';
+            adc_dump_ena(k)      <= '0';
 
          elsif rising_edge(i_clk) then
-            if i_sq1_mem_dump_bsy(k) = '1' then
+            sq1_mem_dump_bsy_r(k)<= i_sq1_mem_dump_bsy(k);
+
+            if sq1_mem_dump_bsy_r(k) = '1' then
                adc_dump_ena(k) <= '1';
 
             elsif sc_w_cnt_msb_r(0) = '1' then
@@ -176,7 +182,7 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    tm_mode_nrm_or(0)       <= tm_mode_nrm_cmp(0);
    tm_mode_tst_or(0)       <= tm_mode_tst_cmp(0);
-   sq1_mem_dump_bsy_or(0)  <= i_sq1_mem_dump_bsy(0);
+   sq1_mem_dump_bsy_or(0)  <= sq1_mem_dump_bsy_r(0);
    adc_dump_ena_or(0)      <= adc_dump_ena(0);
 
    ctrl_adc_fst_pkt_or(0)  <= ctrl_adc_fst_pkt_cmp(0);
@@ -197,7 +203,7 @@ begin
       G_sig_or: if k /= 0 generate
          tm_mode_nrm_or(k)       <= tm_mode_nrm_cmp(k)      or tm_mode_nrm_or(k-1);
          tm_mode_tst_or(k)       <= tm_mode_tst_cmp(k)      or tm_mode_tst_or(k-1);
-         sq1_mem_dump_bsy_or(k)  <= i_sq1_mem_dump_bsy(k)   or sq1_mem_dump_bsy_or(k-1);
+         sq1_mem_dump_bsy_or(k)  <= sq1_mem_dump_bsy_r(k)   or sq1_mem_dump_bsy_or(k-1);
          adc_dump_ena_or(k)      <= adc_dump_ena(k)         or adc_dump_ena_or(k-1);
          sq1_data_sc_fst_or(k)   <= sq1_data_sc_fst_mm(k)   or sq1_data_sc_fst_or(k-1);
          sq1_data_sc_lst_or(k)   <= sq1_data_sc_lst_mm(k)   or sq1_data_sc_lst_or(k-1);
@@ -300,6 +306,7 @@ begin
 
       if i_rst = '1' then
          ctrl_pkt <= (others => '0');
+         science_data(science_data'high) <= (others => '0');
 
       elsif rising_edge(i_clk) then
          if ((    adc_dump_ena_or(adc_dump_ena_or'high)  and not(science_data_tx_ena)) or
@@ -317,11 +324,11 @@ begin
 
          end if;
 
+         science_data(science_data'high) <= ctrl_pkt;
+
       end if;
 
    end process P_ctrl_pkt;
-
-   science_data(science_data'high) <= ctrl_pkt;
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Science data management
@@ -334,15 +341,18 @@ begin
       begin
 
          if i_rst = '1' then
+            adc_dump_data_or_r   <= (others => '0');
             science_data(2*k+1)  <= (others => '0');
             science_data(2*k)    <= (others => '0');
 
          elsif rising_edge(i_clk) then
+            adc_dump_data_or_r <= adc_dump_data_or(adc_dump_data_or'high);
+
             if adc_dump_ena_or(adc_dump_ena_or'high) = '1' then
                if ld_dmp_cnt   = std_logic_vector(to_signed(c_SC_DATA_SER_W_S-2*k-2, ld_dmp_cnt'length)) or
                   ser_bit_cnt  = std_logic_vector(to_signed(c_SC_DATA_SER_W_S-2*k-2, ser_bit_cnt'length)) then
-                  science_data(2*k+1)  <= std_logic_vector(resize(unsigned(adc_dump_data_or(adc_dump_data_or'high)(c_SQ1_ADC_DATA_S+1 downto c_SC_DATA_SER_W_S)), c_SC_DATA_SER_W_S));
-                  science_data(2*k)    <= adc_dump_data_or(adc_dump_data_or'high)(c_SC_DATA_SER_W_S-1 downto 0);
+                  science_data(2*k+1)  <= std_logic_vector(resize(unsigned(adc_dump_data_or_r(c_SQ1_ADC_DATA_S+1 downto c_SC_DATA_SER_W_S)), c_SC_DATA_SER_W_S));
+                  science_data(2*k)    <= adc_dump_data_or_r(c_SC_DATA_SER_W_S-1 downto 0);
 
                end if;
 
