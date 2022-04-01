@@ -29,6 +29,7 @@ use     ieee.std_logic_1164.all;
 use     ieee.numeric_std.all;
 
 library work;
+use     work.pkg_type.all;
 use     work.pkg_project.all;
 use     work.pkg_ep_cmd.all;
 
@@ -44,7 +45,7 @@ entity rg_tm_mode_mgt is port
          i_ep_cmd_rx_nerr_rdy : in     std_logic                                                            ; --! EP command receipted with no error ready ('0'= Not ready, '1'= Ready)
 
          o_tm_mode_dur        : out    std_logic_vector(c_DFLD_TM_MODE_DUR_S-1 downto 0)                    ; --! Telemetry mode, duration field
-         o_tm_mode            : out    t_rg_tm_mode(0 to c_NB_COL-1)                                        ; --! Telemetry mode
+         o_tm_mode            : out    t_slv_arr(0 to c_NB_COL-1)(c_DFLD_TM_MODE_COL_S-1 downto 0)          ; --! Telemetry mode
 
          o_tm_mode_dmp_cmp    : out    std_logic_vector(c_NB_COL-1 downto 0)                                ; --! Telemetry mode, status "Dump" compared ('0' = Inactive, '1' = Active)
          o_tm_mode_st_dump    : out    std_logic                                                              --! Telemetry mode, status "Dump" ('0' = Inactive, '1' = Active)
@@ -54,10 +55,10 @@ end entity rg_tm_mode_mgt;
 architecture RTL of rg_tm_mode_mgt is
 signal   rg_tm_mode_req_new   : std_logic                                                                   ; --! EP register: Telemetry mode requested new command ('0' = Inactive, '1' = Active)
 
-signal   rg_tm_mode_req       : t_rg_tm_mode(0 to c_NB_COL-1)                                               ; --! EP register: Telemetry mode requested
-signal   rg_tm_mode_req_dump  : t_rg_tm_mode(0 to c_NB_COL-1)                                               ; --! EP register: Telemetry mode, status "Dump" requested
-signal   rg_tm_mode           : t_rg_tm_mode(0 to c_NB_COL-1)                                               ; --! EP register: Telemetry mode
-signal   rg_tm_mode_sav       : t_rg_tm_mode(0 to c_NB_COL-1)                                               ; --! EP register: Telemetry mode save
+signal   rg_tm_mode_req       : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_TM_MODE_COL_S-1 downto 0)                 ; --! EP register: Telemetry mode requested
+signal   rg_tm_mode_req_dump  : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_TM_MODE_COL_S-1 downto 0)                 ; --! EP register: Telemetry mode, status "Dump" requested
+signal   rg_tm_mode           : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_TM_MODE_COL_S-1 downto 0)                 ; --! EP register: Telemetry mode
+signal   rg_tm_mode_sav       : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_TM_MODE_COL_S-1 downto 0)                 ; --! EP register: Telemetry mode save
 
 signal   rg_tm_mode_dur_req   : std_logic_vector(c_DFLD_TM_MODE_DUR_S downto 0)                             ; --! EP register: Telemetry mode duration requested
 signal   rg_tm_mode_dur       : std_logic_vector(c_DFLD_TM_MODE_DUR_S downto 0)                             ; --! EP register: Telemetry mode duration

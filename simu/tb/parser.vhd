@@ -29,6 +29,7 @@ use     ieee.std_logic_1164.all;
 use     ieee.numeric_std.all;
 
 library work;
+use     work.pkg_type.all;
 use     work.pkg_func_math.all;
 use     work.pkg_project.all;
 use     work.pkg_ep_cmd.all;
@@ -47,7 +48,7 @@ entity parser is generic
          i_clk_ref            : in     std_logic                                                            ; --! Reference Clock
          i_sync               : in     std_logic                                                            ; --! Pixel sequence synchronization (R.E. detected = position sequence to the first pixel)
 
-         i_err_chk_rpt        : in     t_err_n_clk_chk_arr(0 to c_CHK_ENA_CLK_NB-1)                         ; --! Clock check error reports
+         i_err_chk_rpt        : in     t_int_arr_tab(0 to c_CHK_ENA_CLK_NB-1)(0 to c_ERR_N_CLK_CHK_S-1)     ; --! Clock check error reports
          i_err_n_spi_chk      : in     t_int_arr_tab(0 to c_CHK_ENA_SPI_NB-1)(0 to c_SPI_ERR_CHK_NB-1)      ; --! SPI check error number:
          i_err_num_pls_shp    : in     t_int_arr(0 to c_NB_COL-1)                                           ; --! Pulse shaping error number
 

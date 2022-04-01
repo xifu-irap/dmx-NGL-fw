@@ -25,6 +25,7 @@
 --!   @details                ADC AD9254S model (configuration without SPI)
 -- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 library ieee;
+use     work.pkg_type.all;
 use     ieee.std_logic_1164.all;
 use     ieee.numeric_std.all;
 use     ieee.math_real.all;
@@ -56,14 +57,12 @@ constant c_TIME_TA            : time      :=  800 ps                            
 constant c_TIME_TDCO          : time      := 4400 ps                                                        ; --! Time: DCO Propagation Delay
 constant c_PIPE_DEL           : integer   :=   12                                                           ; --! Pipe stage delay number
 
-type     t_data_pipe           is array (natural range <>) of std_logic_vector(o_d'length-1  downto 0)      ; --! Data pipeline type
-
 signal   delta_vin_sat        : real                                                                        ; --! Analog voltage with saturation management
 
 signal   adc_data_acq         : std_logic_vector(o_d'length-1 downto 0)                                     ; --! ADC data acquisition
 signal   out_range_acq        : std_logic                                                                   ; --! Out of range acquisition ('0' = Range, '1' = Out of range)
 
-signal   adc_data_acq_r       : t_data_pipe(0 to c_PIPE_DEL-1)                                              ; --! ADC data acquisition register
+signal   adc_data_acq_r       : t_slv_arr(0 to c_PIPE_DEL-1)(o_d'length-1  downto 0)                        ; --! ADC data acquisition register
 signal   out_range_acq_r      : std_logic_vector(c_PIPE_DEL-1 downto 0)                                     ; --! Out of range acquisition register
 
 begin

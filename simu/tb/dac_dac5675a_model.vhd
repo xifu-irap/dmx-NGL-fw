@@ -29,6 +29,9 @@ use     ieee.std_logic_1164.all;
 use     ieee.numeric_std.all;
 use     ieee.math_real.all;
 
+library work;
+use     work.pkg_type.all;
+
 entity dac_dac5675a_model is generic
    (     g_VREF               : real                                                                          --! Voltage reference (Volt)
    ); port
@@ -46,9 +49,8 @@ constant c_DAC_RES            : real      := 2.0 * g_VREF / real(2**(i_d'length)
 constant c_TIME_TPD           : time      := 1 ns                                                           ; --! Time: Data Propagation Delay
 constant c_PIPE_DEL           : integer   := 3                                                              ; --! Pipe stage delay number (Digital delay time)
 
-type     t_data_pipe           is array (natural range <>) of std_logic_vector(i_d'length-1  downto 0)      ; --! Data pipeline type
-
-signal   dac_data_r           : t_data_pipe(0 to c_PIPE_DEL-1) := (others => (i_d'high => '1',others =>'0')); --! DAC data register
+signal   dac_data_r           : t_slv_arr(0 to c_PIPE_DEL-1)(i_d'length-1  downto 0) := 
+                                 (others => (i_d'high => '1',others =>'0'))                                 ; --! DAC data register
 signal   delta_vout           : real                                                                        ; --! Analog voltage (no delays)
 
 begin

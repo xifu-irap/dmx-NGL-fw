@@ -82,8 +82,6 @@ constant c_CLK_ADC_DAC_90_PAT : bit_vector(0 to c_WFG_PAT_S-1) := c_WFG_PAT_ONE_
 constant c_CLK_DAC_OUT_N_PAT  : integer := c_PLL_MAIN_VCO_MULT/c_CLK_DAC_OUT_MULT - 1                       ; --! SQUID1 DAC output Clock: Number of vco cycles for pattern
 constant c_CLK_DAC_OUT_PAT    : bit_vector(0 to c_WFG_PAT_S-1) := c_WFG_PAT_ONE_SEQ(c_CLK_DAC_OUT_N_PAT)    ; --! SQUID1 DAC output Clock: Pattern, use only the number of vco cycles+1 MSB bits
 
-type     t_cmd_ck_sq1_v        is array (natural range <>) of std_logic_vector(c_NB_COL-1  downto 0)        ; --! SQUID1 Clocks switch commands vector type
-
 signal   pll_main_vco         : std_logic                                                                   ; --! Pll main VCO
 signal   pll_main_lock        : std_logic                                                                   ; --! Pll main Status ('0' = Pll not locked, '1' = Pll locked)
 

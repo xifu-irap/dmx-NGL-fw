@@ -28,6 +28,7 @@ library ieee;
 use     ieee.std_logic_1164.all;
 
 library work;
+use     work.pkg_type.all;
 use     work.pkg_model.all;
 
 entity clock_check is generic
@@ -40,7 +41,7 @@ entity clock_check is generic
          i_ena                : in     std_logic                                                            ; --! Enable ('0' = Inactive, '1' = Active)
          i_chk_osc_ena_l      : in     std_logic                                                            ; --! Check oscillation on clock when enable inactive ('0' = No, '1' = Yes)
 
-         o_err_n_clk_chk      : out    t_err_n_clk_chk                                                        --! Clock check error number:
+         o_err_n_clk_chk      : out    t_int_arr(0 to c_ERR_N_CLK_CHK_S-1)                                    --! Clock check error number:
                                                                                                               --!  - Position 4: clock state error when enable goes to active
                                                                                                               --!  - Position 3: clock state error when enable goes to inactive
                                                                                                               --!  - Position 2: low  level clock period timing error

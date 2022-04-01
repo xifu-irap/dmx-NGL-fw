@@ -28,6 +28,9 @@ library ieee;
 use     ieee.std_logic_1164.all;
 use     ieee.numeric_std.all;
 
+library work;
+use     work.pkg_type.all;
+
 library std;
 use std.textio.all;
 
@@ -131,15 +134,12 @@ constant c_MULT_ALU_OP_XNOR   : bit_vector(c_MULT_ALU_OP_S-1 downto 0) := "11001
    -- ------------------------------------------------------------------------------------------------------
    --!   RAM parameters
    -- ------------------------------------------------------------------------------------------------------
-type     t_ram_type            is array (natural range <>) of string                                        ; --! RAM type, type
-type     t_ram_init            is array (natural range <>) of integer                                       ; --! RAM initialization integer type
-
 -- TODO: Bypass Bug NX_RAM model ECC slow mode
---constant c_RAM_TYPE           : t_ram_type(0 to 1)             := ("FAST_2kx18", "SLOW_2kx18")              ; --! RAM type
+--constant c_RAM_TYPE           : t_str_arr(0 to 1) := ("FAST_2kx18", "SLOW_2kx18")                           ; --! RAM type
 constant c_RAM_TYPE_DATA_TX   : integer   := 0                                                              ; --! RAM type: Data transfer
 constant c_RAM_TYPE_PRM_STORE : integer   := 1                                                              ; --! RAM type: Parameters storage
 
-constant c_RAM_INIT_EMPTY     : t_ram_init(0 to 1) := (0, 0)                                                ; --! RAM initialization: RAM empty at start
+constant c_RAM_INIT_EMPTY     : t_int_arr(0 to 1) := (0, 0)                                                 ; --! RAM initialization: RAM empty at start
 
 constant c_RAM_PRM_DIS        : bit       := '0'                                                            ; --! RAM: parameter configured in Disable
 constant c_RAM_PRM_ENA        : bit       := '1'                                                            ; --! RAM: parameter configured in Enable
@@ -156,7 +156,7 @@ constant c_RAM_ECC_DATA_S     : integer   := 18                                 
    --!   Convert RAM initialization table to string
    -- ------------------------------------------------------------------------------------------------------
    function conv_ram_init
-   (     i_ram_init           : in     t_ram_init                                                           ; --  RAM initialization table
+   (     i_ram_init           : in     t_int_arr                                                            ; --  RAM initialization table
          i_ram_add_s          : in     integer                                                              ; --  RAM address bus size
          i_ram_data_s         : in     integer                                                                --  RAM data bus size
    ) return string;
@@ -174,7 +174,7 @@ package body pkg_fpga_tech is
    --!   Convert RAM initialization table to string
    -- ------------------------------------------------------------------------------------------------------
    function conv_ram_init
-   (     i_ram_init           : in     t_ram_init                                                           ; --  RAM initialization table
+   (     i_ram_init           : in     t_int_arr                                                            ; --  RAM initialization table
          i_ram_add_s          : in     integer                                                              ; --  RAM address bus size
          i_ram_data_s         : in     integer                                                                --  RAM data bus size
    ) return string is

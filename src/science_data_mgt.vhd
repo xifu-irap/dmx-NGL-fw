@@ -29,6 +29,7 @@ use     ieee.std_logic_1164.all;
 use     ieee.numeric_std.all;
 
 library work;
+use     work.pkg_type.all;
 use     work.pkg_func_math.all;
 use     work.pkg_project.all;
 use     work.pkg_ep_cmd.all;
@@ -37,10 +38,10 @@ entity science_data_mgt is port
    (     i_rst                : in     std_logic                                                            ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                : in     std_logic                                                            ; --! System Clock
 
-         i_tm_mode            : in     t_rg_tm_mode(        0 to c_NB_COL-1)                                ; --! Telemetry mode
+         i_tm_mode            : in     t_slv_arr(0 to c_NB_COL-1)(c_DFLD_TM_MODE_COL_S-1 downto 0)          ; --! Telemetry mode
 
-         i_sq1_data_sc_msb    : in     t_sc_data_w(         0 to c_NB_COL-1)                                ; --! SQUID1 Data science MSB
-         i_sq1_data_sc_lsb    : in     t_sc_data_w(         0 to c_NB_COL-1)                                ; --! SQUID1 Data science LSB
+         i_sq1_data_sc_msb    : in     t_slv_arr(0 to c_NB_COL-1)(c_SC_DATA_SER_W_S-1 downto 0)             ; --! SQUID1 Data science MSB
+         i_sq1_data_sc_lsb    : in     t_slv_arr(0 to c_NB_COL-1)(c_SC_DATA_SER_W_S-1 downto 0)             ; --! SQUID1 Data science LSB
          i_sq1_data_sc_first  : in     std_logic_vector(         c_NB_COL-1 downto 0)                       ; --! SQUID1 Data science first pixel ('0' = No, '1' = Yes)
          i_sq1_data_sc_last   : in     std_logic_vector(         c_NB_COL-1 downto 0)                       ; --! SQUID1 Data science last pixel ('0' = No, '1' = Yes)
          i_sq1_data_sc_rdy    : in     std_logic_vector(         c_NB_COL-1 downto 0)                       ; --! SQUID1 Data science ready ('0' = Not ready, '1' = Ready)
@@ -48,7 +49,7 @@ entity science_data_mgt is port
          i_sq1_mem_dump_bsy   : in     std_logic_vector(         c_NB_COL-1 downto 0)                       ; --! SQUID1 Memory Dump: data busy ('0' = no data dump, '1' = data dump in progress)
          o_sq1_mem_dump_add   : out    std_logic_vector( c_MEM_DUMP_ADD_S-1 downto 0)                       ; --! SQUID1 Memory Dump: address
          o_sq1_mem_dump_cs    : out    std_logic                                                            ; --! SQUID1 Memory Dump: chip select ('0' = Inactive, '1' = Active)
-         i_sq1_mem_dump_data  : in     t_sq1_mem_dump_dta_v(0 to c_NB_COL-1)                                ; --! SQUID1 Memory Dump: data
+         i_sq1_mem_dump_data  : in     t_slv_arr(0 to c_NB_COL-1)(c_SQ1_ADC_DATA_S+1 downto 0)              ; --! SQUID1 Memory Dump: data
 
          o_science_data_ser   : out    std_logic_vector(c_NB_COL*c_SC_DATA_SER_NB downto 0)                   --! Science Data – Serial Data
    );
@@ -72,15 +73,15 @@ signal   sq1_data_sc_rdy_mm   : std_logic_vector(c_NB_COL-1 downto 0)           
 
 signal   tm_mode_nrm_cmp      : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! Telemetry mode, status "Normal" compared
 signal   tm_mode_tst_cmp      : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! Telemetry mode, status "Test pattern" compared
-signal   ctrl_adc_fst_pkt_cmp : t_sc_data_w(         0 to c_NB_COL-1)                                       ; --! Control adc first packet, status "Dump" compared
-signal   adc_dump_data_sel    : t_sq1_mem_dump_dta_v(0 to c_NB_COL)                                         ; --! ADC dump data word select
+signal   ctrl_adc_fst_pkt_cmp : t_slv_arr(0 to c_NB_COL-1)(c_SC_DATA_SER_W_S-1 downto 0)                    ; --! Control adc first packet, status "Dump" compared
+signal   adc_dump_data_sel    : t_slv_arr(0 to c_NB_COL-1)(c_SQ1_ADC_DATA_S+1 downto 0)                     ; --! ADC dump data word select
 
 signal   tm_mode_nrm_or       : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! Telemetry mode, status "Normal" column select "or-ed"
 signal   tm_mode_tst_or       : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! Telemetry mode, status "Test pattern" column select "or-ed"
 signal   sq1_mem_dump_bsy_or  : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! SQUID1 Memory Dump, data busy "or-ed"
 signal   adc_dump_ena_or      : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! ADC dump enable "or-ed"
-signal   ctrl_adc_fst_pkt_or  : t_sc_data_w(0 to c_NB_COL-1)                                                ; --! Control adc first packet, status "Dump" column select "or-ed"
-signal   adc_dump_data_or     : t_sq1_mem_dump_dta_v(0 to c_NB_COL-1)                                       ; --! ADC dump data word "or-ed"
+signal   ctrl_adc_fst_pkt_or  : t_slv_arr(0 to c_NB_COL-1)(c_SC_DATA_SER_W_S-1 downto 0)                    ; --! Control adc first packet, status "Dump" column select "or-ed"
+signal   adc_dump_data_or     : t_slv_arr(0 to c_NB_COL-1)(c_SQ1_ADC_DATA_S+1 downto 0)                     ; --! ADC dump data word "or-ed"
 signal   adc_dump_data_or_r   : std_logic_vector(c_SQ1_ADC_DATA_S+1  downto 0)                              ; --! ADC dump data word "or-ed" MSB register
 signal   sq1_data_sc_fst_or   : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! SQUID1 Data science first pixel memorized "or-ed"
 signal   sq1_data_sc_lst_or   : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! SQUID1 Data science last pixel memorized "or-ed"
@@ -98,7 +99,7 @@ signal   tm_test_pat_data     : std_logic_vector(c_SC_DATA_SER_W_S*c_SC_DATA_SER
 
 signal   sc_data_nrm_tst_ena  : std_logic                                                                   ; --! Science Data transmit in normal test pattern mode enable
 signal   science_data_tx_ena  : std_logic                                                                   ; --! Science Data transmit enable
-signal   science_data         : t_sc_data_w(0 to c_NB_COL*c_SC_DATA_SER_NB)                                 ; --! Science Data word
+signal   science_data         : t_slv_arr(0 to c_NB_COL*c_SC_DATA_SER_NB)(c_SC_DATA_SER_W_S-1 downto 0)     ; --! Science Data word
 signal   ser_bit_cnt          : std_logic_vector(log2_ceil(c_SC_DATA_SER_W_S-1) downto 0)                   ; --! Serial bit counter
 
 begin
@@ -384,7 +385,7 @@ begin
          i_clk                => i_clk                , -- in     std_logic                                 ; --! System Clock
 
          i_science_data_tx_ena=> science_data_tx_ena  , -- in     std_logic                                 ; --! Science Data transmit enable
-         i_science_data       => science_data         , -- in     t_sc_data_w c_NB_COL*c_SC_DATA_SER_NB     ; --! Science Data word
+         i_science_data       => science_data         , -- in     t_slv_arr c_NB_COL*c_SC_DATA_SER_NB       ; --! Science Data word
          o_ser_bit_cnt        => ser_bit_cnt          , -- out    slv log2_ceil(c_SC_DATA_SER_W_S-1)        ; --! Serial bit counter
          o_science_data_ser   => o_science_data_ser     -- out    slv         c_NB_COL*c_SC_DATA_SER_NB       --! Science Data – Serial Data
    );

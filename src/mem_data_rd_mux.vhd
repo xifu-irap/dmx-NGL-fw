@@ -28,6 +28,7 @@ library ieee;
 use     ieee.std_logic_1164.all;
 
 library work;
+use     work.pkg_type.all;
 use     work.pkg_project.all;
 use     work.pkg_ep_cmd.all;
 
@@ -35,22 +36,22 @@ entity mem_data_rd_mux is port
    (     i_rst                : in     std_logic                                                            ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                : in     std_logic                                                            ; --! System Clock
 
-         i_sq1_fb0_data       : in     t_mem_s1fb0_data(0     to c_NB_COL-1)                                ; --! Squid1 feedback value in open loop: data read
+         i_sq1_fb0_data       : in     t_slv_arr(0 to c_NB_COL-1)(c_DFLD_S1FB0_PIX_S-1 downto 0)            ; --! Squid1 feedback value in open loop: data read
          i_sq1_fb0_cs         : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! Squid1 feedback value in open loop: chip select data read ('0' = Inactive,'1'=Active)
 
-         i_sq1_fbm_data       : in     t_mem_s1fbm_data(0     to c_NB_COL-1)                                ; --! Squid1 feedback mode: data read
+         i_sq1_fbm_data       : in     t_slv_arr(0 to c_NB_COL-1)(c_DFLD_S1FBM_PIX_S-1 downto 0)            ; --! Squid1 feedback mode: data read
          i_sq1_fbm_cs         : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! Squid1 feedback mode: chip select data read ('0' = Inactive, '1' = Active)
 
-         i_sq2_lkp_data       : in     t_mem_s2lkp_data(0     to c_NB_COL-1)                                ; --! Squid2 feedback lockpoint: data read
+         i_sq2_lkp_data       : in     t_slv_arr(0 to c_NB_COL-1)(c_DFLD_S2LKP_PIX_S-1 downto 0)            ; --! Squid2 feedback lockpoint: data read
          i_sq2_lkp_cs         : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! Squid2 feedback lockpoint: chip select data read ('0' = Inactive, '1' = Active)
 
-         i_sq2_dac_lsb_data   : in     t_rg_sq2lkp(     0     to c_NB_COL-1)                                ; --! Squid2 DAC LSB: data read
+         i_sq2_dac_lsb_data   : in     t_slv_arr(0 to c_NB_COL-1)(c_DFLD_S2OFF_COL_S-1 downto 0)            ; --! Squid2 DAC LSB: data read
          i_sq2_dac_lsb_cs     : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! Squid2 DAC LSB: chip select data read ('0' = Inactive, '1' = Active)
 
-         i_sq2_lkp_off_data   : in     t_rg_sq2lkp(     0     to c_NB_COL-1)                                ; --! Squid2 feedback lockpoint offset: data read
+         i_sq2_lkp_off_data   : in     t_slv_arr(0 to c_NB_COL-1)(c_DFLD_S2OFF_COL_S-1 downto 0)            ; --! Squid2 feedback lockpoint offset: data read
          i_sq2_lkp_off_cs     : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! Squid2 feedback lockpoint offset: chip select data read ('0' = Inactive,'1' = Active)
 
-         i_pls_shp_data       : in     t_mem_plssh_data(0     to c_NB_COL-1)                                ; --! Pulse shaping coef: data read
+         i_pls_shp_data       : in     t_slv_arr(0 to c_NB_COL-1)(c_DFLD_PLSSH_PLS_S-1 downto 0)            ; --! Pulse shaping coef: data read
          i_pls_shp_cs         : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! Pulse shaping coef: chip select data read ('0' = Inactive, '1' = Active)
 
          o_sq1_fb0_data_mx    : out    std_logic_vector(c_DFLD_S1FB0_PIX_S-1 downto 0)                      ; --! Squid1 feedback value in open loop: data read multiplexed
@@ -64,37 +65,35 @@ entity mem_data_rd_mux is port
 end entity mem_data_rd_mux;
 
 architecture RTL of mem_data_rd_mux is
-type     t_cs_v                is array (natural range <>) of std_logic_vector(c_NB_COL-1  downto 0)        ; --! Chip select vector type
-
-signal   sq1_fb0_cs_r         : t_cs_v(0 to c_MEM_RD_DATA_NPER)                                             ; --! Squid1 feedback value in open loop: chip select data read register
+signal   sq1_fb0_cs_r         : t_slv_arr(0 to c_MEM_RD_DATA_NPER)(c_NB_COL-1  downto 0)                    ; --! Squid1 feedback value in open loop: chip select data read register
 signal   sq1_fb0_cs_msb_or    : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! Squid1 feedback value in open loop: chip select data read msb "or-ed"
-signal   sq1_fb0_data_cmp     : t_mem_s1fb0_data(0 to c_NB_COL-1)                                           ; --! Squid1 feedback value in open loop: data read compared
-signal   sq1_fb0_data_or      : t_mem_s1fb0_data(0 to c_NB_COL-1)                                           ; --! Squid1 feedback value in open loop: data read "or-ed"
+signal   sq1_fb0_data_cmp     : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_S1FB0_PIX_S-1 downto 0)                   ; --! Squid1 feedback value in open loop: data read compared
+signal   sq1_fb0_data_or      : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_S1FB0_PIX_S-1 downto 0)                   ; --! Squid1 feedback value in open loop: data read "or-ed"
 
-signal   sq1_fbm_cs_r         : t_cs_v(0 to c_MEM_RD_DATA_NPER)                                             ; --! Squid1 feedback mode: chip select data read register
+signal   sq1_fbm_cs_r         : t_slv_arr(0 to c_MEM_RD_DATA_NPER)(c_NB_COL-1  downto 0)                    ; --! Squid1 feedback mode: chip select data read register
 signal   sq1_fbm_cs_msb_or    : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! Squid1 feedback mode: chip select data read msb "or-ed"
-signal   sq1_fbm_data_cmp     : t_mem_s1fbm_data(0 to c_NB_COL-1)                                           ; --! Squid1 feedback mode: data read compared
-signal   sq1_fbm_data_or      : t_mem_s1fbm_data(0 to c_NB_COL-1)                                           ; --! Squid1 feedback mode: data read "or-ed"
+signal   sq1_fbm_data_cmp     : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_S1FBM_PIX_S-1 downto 0)                   ; --! Squid1 feedback mode: data read compared
+signal   sq1_fbm_data_or      : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_S1FBM_PIX_S-1 downto 0)                   ; --! Squid1 feedback mode: data read "or-ed"
 
-signal   sq2_lkp_cs_r         : t_cs_v(0 to c_MEM_RD_DATA_NPER)                                             ; --! Squid2 feedback lockpoint: chip select data read register
+signal   sq2_lkp_cs_r         : t_slv_arr(0 to c_MEM_RD_DATA_NPER)(c_NB_COL-1  downto 0)                    ; --! Squid2 feedback lockpoint: chip select data read register
 signal   sq2_lkp_cs_msb_or    : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! Squid2 feedback lockpoint: chip select data read msb "or-ed"
-signal   sq2_lkp_data_cmp     : t_mem_s2lkp_data(0 to c_NB_COL-1)                                           ; --! Squid2 feedback lockpoint: data read compared
-signal   sq2_lkp_data_or      : t_mem_s2lkp_data(0 to c_NB_COL-1)                                           ; --! Squid2 feedback lockpoint: data read "or-ed"
+signal   sq2_lkp_data_cmp     : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_S2LKP_PIX_S-1 downto 0)                   ; --! Squid2 feedback lockpoint: data read compared
+signal   sq2_lkp_data_or      : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_S2LKP_PIX_S-1 downto 0)                   ; --! Squid2 feedback lockpoint: data read "or-ed"
 
-signal   sq2_dac_lsb_cs_r     : t_cs_v(0 to c_MEM_RD_DATA_NPER)                                             ; --! Squid2 DAC LSB: chip select data read register
+signal   sq2_dac_lsb_cs_r     : t_slv_arr(0 to c_MEM_RD_DATA_NPER)(c_NB_COL-1  downto 0)                    ; --! Squid2 DAC LSB: chip select data read register
 signal   sq2_dac_lsb_cs_msb_or: std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! Squid2 DAC LSB: chip select data read msb "or-ed"
-signal   sq2_dac_lsb_data_cmp : t_rg_sq2lkp(0 to c_NB_COL-1)                                                ; --! Squid2 DAC LSB: data read compared
-signal   sq2_dac_lsb_data_or  : t_rg_sq2lkp(0 to c_NB_COL-1)                                                ; --! Squid2 DAC LSB: data read "or-ed"
+signal   sq2_dac_lsb_data_cmp : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_S2OFF_COL_S-1 downto 0)                   ; --! Squid2 DAC LSB: data read compared
+signal   sq2_dac_lsb_data_or  : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_S2OFF_COL_S-1 downto 0)                   ; --! Squid2 DAC LSB: data read "or-ed"
 
-signal   sq2_lkp_off_cs_r     : t_cs_v(0 to c_MEM_RD_DATA_NPER)                                             ; --! Squid2 feedback lockpoint offset: chip select data read register
+signal   sq2_lkp_off_cs_r     : t_slv_arr(0 to c_MEM_RD_DATA_NPER)(c_NB_COL-1  downto 0)                    ; --! Squid2 feedback lockpoint offset: chip select data read register
 signal   sq2_lkp_off_cs_msb_or: std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! Squid2 feedback lockpoint offset: chip select data read msb "or-ed"
-signal   sq2_lkp_off_data_cmp : t_rg_sq2lkp(0 to c_NB_COL-1)                                                ; --! Squid2 feedback lockpoint offset: data read compared
-signal   sq2_lkp_off_data_or  : t_rg_sq2lkp(0 to c_NB_COL-1)                                                ; --! Squid2 feedback lockpoint offset: data read "or-ed"
+signal   sq2_lkp_off_data_cmp : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_S2OFF_COL_S-1 downto 0)                   ; --! Squid2 feedback lockpoint offset: data read compared
+signal   sq2_lkp_off_data_or  : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_S2OFF_COL_S-1 downto 0)                   ; --! Squid2 feedback lockpoint offset: data read "or-ed"
 
-signal   pls_shp_cs_r         : t_cs_v(0 to c_MEM_RD_DATA_NPER)                                             ; --! Pulse shaping coef: chip select data read register
+signal   pls_shp_cs_r         : t_slv_arr(0 to c_MEM_RD_DATA_NPER)(c_NB_COL-1  downto 0)                    ; --! Pulse shaping coef: chip select data read register
 signal   pls_shp_cs_msb_or    : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! Pulse shaping coef: chip select data read msb "or-ed"
-signal   pls_shp_data_cmp     : t_mem_plssh_data(0 to c_NB_COL-1)                                           ; --! Pulse shaping coef: data read compared
-signal   pls_shp_data_or      : t_mem_plssh_data(0 to c_NB_COL-1)                                           ; --! Pulse shaping coef: data read "or-ed"
+signal   pls_shp_data_cmp     : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_PLSSH_PLS_S-1 downto 0)                   ; --! Pulse shaping coef: data read compared
+signal   pls_shp_data_or      : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_PLSSH_PLS_S-1 downto 0)                   ; --! Pulse shaping coef: data read "or-ed"
 
 begin
 

@@ -29,6 +29,7 @@ use     ieee.std_logic_1164.all;
 use     ieee.numeric_std.all;
 
 library work;
+use     work.pkg_type.all;
 use     work.pkg_fpga_tech.all;
 use     work.pkg_func_math.all;
 use     work.pkg_project.all;
@@ -74,9 +75,9 @@ constant c_SQ2_SPI_SER_WD_S_V : std_logic_vector(c_SPI_SER_WD_S_V_S-1 downto 0) 
 signal   rst_sq2_dac          : std_logic                                                                   ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
 signal   sync_r               : std_logic_vector(c_FF_RSYNC_NB-1 downto 0)                                  ; --! Pixel sequence sync. register (R.E. detected = position sequence to the first pixel)
 signal   sync_re              : std_logic                                                                   ; --! Pixel sequence sync. rising edge
-signal   sq2_dac_lsb_r        : t_rg_sq2lkp(     0 to c_FF_RSYNC_NB)                                        ; --! Squid2 DAC LSB register
-signal   sq2_fbk_mux_r        : t_mem_s2lkp_data(0 to c_FF_RSYNC_NB-1)                                      ; --! Squid2 Feedback Multiplexer register
-signal   sq2_fbk_off_r        : t_rg_sq2lkp(     0 to c_FF_RSYNC_NB)                                        ; --! Squid2 Feedback offset register
+signal   sq2_dac_lsb_r        : t_slv_arr(0 to c_FF_RSYNC_NB)(  c_DFLD_S2OFF_COL_S-1 downto 0)              ; --! Squid2 DAC LSB register
+signal   sq2_fbk_mux_r        : t_slv_arr(0 to c_FF_RSYNC_NB-1)(c_DFLD_S2LKP_PIX_S-1 downto 0)              ; --! Squid2 Feedback Multiplexer register
+signal   sq2_fbk_off_r        : t_slv_arr(0 to c_FF_RSYNC_NB)(  c_DFLD_S2OFF_COL_S-1 downto 0)              ; --! Squid2 Feedback offset register
 
 signal   pls_rw_cnt           : std_logic_vector(c_PLS_RW_CNT_S-1 downto 0)                                 ; --! Pulse by row counter
 signal   pls_cnt              : std_logic_vector(   c_PLS_CNT_S-1 downto 0)                                 ; --! Pulse counter

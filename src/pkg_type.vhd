@@ -29,6 +29,20 @@ use     ieee.std_logic_1164.all;
 
 package pkg_type is
 
-type     t_slv_arr             is array (natural range <>) of std_logic_vector                              ; --! Array of std_logic_vector type
+type     t_slv_arr             is array (natural range <>) of std_logic_vector                              ; --! std_logic_vector array type
+type     t_slv_arr_tab         is array (natural range <>) of t_slv_arr                                     ; --! std_logic_vector array table type
+type     t_int_arr             is array (natural range <>) of integer                                       ; --! Integer array type
+type     t_int_arr_tab         is array (natural range <>) of t_int_arr                                     ; --! Integer array table type
+type     t_str_arr             is array (natural range <>) of string                                        ; --! String array type
+
+type     t_mem                 is record
+         pp                   : std_logic                                                                   ; --! Ping-pong buffer bit
+         add                  : std_logic_vector                                                            ; --! Address
+         we                   : std_logic                                                                   ; --! Write enable ('0' = Inactive, '1' = Active)
+         cs                   : std_logic                                                                   ; --! Chip select  ('0' = Inactive, '1' = Active)
+         data_w               : std_logic_vector                                                            ; --! Data to write in memory
+end record t_mem                                                                                            ; --! Memory signals interface
+
+type     t_mem_arr             is array (natural range <>) of t_mem                                         ; --! Memory signals interface array                                                                                           ; --! Memory signals type
 
 end pkg_type;

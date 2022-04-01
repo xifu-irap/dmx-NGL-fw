@@ -29,6 +29,7 @@ use     ieee.std_logic_1164.all;
 use     ieee.numeric_std.all;
 
 library work;
+use     work.pkg_type.all;
 use     work.pkg_fpga_tech.all;
 use     work.pkg_func_math.all;
 use     work.pkg_project.all;
@@ -68,7 +69,7 @@ signal   rst_sq1_adc          : std_logic                                       
 
 signal   sync_r               : std_logic_vector(c_ADC_DATA_SYNC_NPER+c_FF_RSYNC_NB-1 downto 0)             ; --! Pixel sequence sync. register (R.E. detected = position sequence to the first pixel)
 signal   tm_mode_dmp_cmp_r    : std_logic_vector(c_FF_RSYNC_NB-1 downto 0)                                  ; --! Telemetry mode, status "Dump" compared ('0' = Inactive, '1' = Active)
-signal   sq1_adc_data_r       : t_sq1_adc_data_v(0 to c_FF_RSYNC_NB-1)                                      ; --! SQUID1 ADC - Data register
+signal   sq1_adc_data_r       : t_slv_arr(0 to c_FF_RSYNC_NB-1)(c_SQ1_ADC_DATA_S-1 downto 0)                ; --! SQUID1 ADC - Data register
 signal   sq1_adc_oor_r        : std_logic_vector(c_FF_RSYNC_NB-1 downto 0)                                  ; --! SQUID1 ADC - Out of range register (‘0’ = No, ‘1’ = under/over range)
 
 signal   mem_dump_adc_cs_rs   : std_logic_vector(c_FF_RSYNC_NB-1 downto 0)                                  ; --! Memory Dump, ADC acquisition side: chip select, resynchronized on system clock
@@ -183,7 +184,7 @@ begin
    (     g_RAM_TYPE           => c_RAM_TYPE_DATA_TX   , -- integer                                          ; --! Memory type ( 0  = Data transfer,  1  = Parameters storage)
          g_RAM_ADD_S          => c_MEM_DUMP_ADD_S     , -- integer                                          ; --! Memory address bus size (<= c_RAM_ECC_ADD_S)
          g_RAM_DATA_S         => c_MEM_DUMP_DATA_S    , -- integer                                          ; --! Memory data bus size (<= c_RAM_DATA_S)
-         g_RAM_INIT           => c_RAM_INIT_EMPTY       -- t_ram_init                                         --! Memory content at initialization
+         g_RAM_INIT           => c_RAM_INIT_EMPTY       -- t_int_arr                                          --! Memory content at initialization
    ) port map
    (     i_a_rst              => '0'                  , -- in     std_logic                                 ; --! Memory port A: registers reset ('0' = Inactive, '1' = Active)
          i_a_clk              => i_clk_sq1_adc_dac    , -- in     std_logic                                 ; --! Memory port A: main clock

@@ -29,6 +29,7 @@ use     ieee.std_logic_1164.all;
 use     ieee.numeric_std.all;
 
 library work;
+use     work.pkg_type.all;
 use     work.pkg_func_math.all;
 use     work.pkg_project.all;
 use     work.pkg_model.all;
@@ -54,10 +55,10 @@ entity science_data_model is generic
          i_c3_science_data    : in     std_logic_vector(c_SC_DATA_SER_NB-1 downto 0)                        ; --! Science Data, col. 3 – Serial Data
 
          i_sync               : in     std_logic                                                            ; --! Pixel sequence synchronization (R.E. detected = position sequence to the first pixel)
-         i_tm_mode            : in     t_rg_tm_mode(0 to c_NB_COL-1)                                        ; --! Telemetry mode
+         i_tm_mode            : in     t_slv_arr(0 to c_NB_COL-1)(c_DFLD_TM_MODE_COL_S-1 downto 0)          ; --! Telemetry mode
          i_sw_adc_vin         : in     std_logic_vector(c_SW_ADC_VIN_S-1 downto 0)                          ; --! Switch ADC Voltage input
 
-         i_sq1_adc_data       : in     t_sq1_adc_data_v(c_NB_COL-1 downto 0)                                ; --! SQUID1 ADC - Data buses
+         i_sq1_adc_data       : in     t_slv_arr(0 to c_NB_COL-1)(c_SQ1_ADC_DATA_S-1 downto 0)              ; --! SQUID1 ADC - Data buses
          i_sq1_adc_oor        : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! SQUID1 ADC - Out of range (‘0’ = No, ‘1’ = under/over range)
 
          i_adc_dmp_mem_add    : in     std_logic_vector(    c_MUX_FACT_S-1 downto 0)                        ; --! ADC Dump memory for data compare: address
@@ -74,22 +75,20 @@ constant c_DMP_CNT_NB_VAL     : integer:= c_DMP_SEQ_ACQ_NB * c_MUX_FACT * c_PIXE
 constant c_DMP_CNT_MAX_VAL    : integer:= c_DMP_CNT_NB_VAL-1                                                ; --! Memory Dump, ADC acquisition counter: maximal value
 constant c_DMP_CNT_S          : integer:= log2_ceil(c_DMP_CNT_MAX_VAL + 1) + 1                              ; --! Memory Dump, ADC acquisition counter: size bus (signed)
 
-type     t_mem_dump             is array (2**(c_DMP_CNT_S)-1 downto 0) of
-                                std_logic_vector(c_SQ1_ADC_DATA_S+1 downto 0)                               ; --! Dual port memory dump type
-type     t_multi_mem_dump       is array (natural range <>) of t_mem_dump                                   ; --! Multi Dual port memory dump type
-signal   mem_dump             : t_multi_mem_dump(0 to c_NB_COL-1)                                           ; --! Multi Dual port memory dump
+signal   mem_dump             : t_slv_arr_tab(0 to c_NB_COL-1)
+                                (0 to 2**(c_DMP_CNT_S)-1)(c_SQ1_ADC_DATA_S+1 downto 0)                      ; --! Multi Dual port memory dump
 
 signal   sync_r               : std_logic_vector(c_ADC_DATA_NPER-2 downto 0)                                ; --! Pixel sequence sync. register (R.E. detected = position sequence to the first pixel)
 signal   sync_re_adc_data     : std_logic                                                                   ; --! Pixel sequence synchronization, rising edge, synchronized on ADC data first pixel
 
 signal   tm_mode_dmp_cmp      : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! Telemetry mode, status "Dump" compared ('0' = Inactive, '1' = Active)
 signal   tm_mode_dmp_cmp_last : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! Telemetry mode, status "Dump" compared last sync. ('0' = Inactive, '1' = Active)
-signal   sq1_adc_data_dmp_cmp : t_sq1_adc_data_v(c_NB_COL-1 downto 0)                                       ; --! SQUID1 ADC - Data buses, status "Dump" compared
+signal   sq1_adc_data_dmp_cmp : t_slv_arr(0 to c_NB_COL-1)(c_SQ1_ADC_DATA_S-1 downto 0)                     ; --! SQUID1 ADC - Data buses, status "Dump" compared
 signal   sq1_adc_oor_dmp_cmp  : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! SQUID1 ADC - Out of range, status "Dump" compared
 signal   sc_data_ctrl_dmp_cmp : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! Science Data – Control word, status "Dump" compared
 
 signal   tm_mode_dmp_or       : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! Telemetry mode, status "Dump" "or-ed"
-signal   sq1_adc_data_dmp_or  : t_sq1_adc_data_v(c_NB_COL-1 downto 0)                                       ; --! SQUID1 ADC - Data buses "or-ed"
+signal   sq1_adc_data_dmp_or  : t_slv_arr(0 to c_NB_COL-1)(c_SQ1_ADC_DATA_S-1 downto 0)                     ; --! SQUID1 ADC - Data buses "or-ed"
 signal   sq1_adc_oor_dmp_or   : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! SQUID1 ADC - Out of range "or-ed"
 signal   sc_data_ctrl_dmp_or  : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! Science Data – Control word, status "Dump" "or-ed"
 
@@ -98,11 +97,11 @@ signal   mem_dump_adc_add     : std_logic_vector(     c_DMP_CNT_S-1 downto 0)   
 signal   mem_dump_adc_data_in : std_logic_vector(c_SQ1_ADC_DATA_S+1 downto 0)                               ; --! Memory Dump, ADC acquisition side: data in
 
 signal   mem_dump_sc_add      : std_logic_vector(     c_DMP_CNT_S-2 downto 0)                               ; --! Memory Dump, science side: address
-signal   mem_dump_sc_data_out : t_sq1_mem_dump_dta_v(0 to c_NB_COL-1)                                       ; --! Memory Dump, science side: data out
+signal   mem_dump_sc_data_out : t_slv_arr(0 to c_NB_COL-1)(c_SQ1_ADC_DATA_S+1 downto 0)                     ; --! Memory Dump, science side: data out
 
 signal   science_data_ser     : std_logic_vector(c_NB_COL*c_SC_DATA_SER_NB+1 downto 0)                      ; --! Science Data – Serial Data
-signal   science_data_ctrl    : t_sc_data_w(0 to 1)                                                         ; --! Science Data – Control word
-signal   science_data         : t_sc_data(0 to c_NB_COL-1)                                                  ; --! Science Data – Data
+signal   science_data_ctrl    : t_slv_arr(0 to 1)(c_SC_DATA_SER_W_S-1 downto 0)                             ; --! Science Data – Control word
+signal   science_data         : t_slv_arr(0 to c_NB_COL-1)(c_SC_DATA_SER_NB*c_SC_DATA_SER_W_S-1 downto 0)   ; --! Science Data – Data
 signal   science_data_rdy     : std_logic                                                                   ; --! Science Data Ready ('0' = Inactive, '1' = Active)
 signal   science_data_rdy_r   : std_logic                                                                   ; --! Science Data Ready register
 
@@ -289,7 +288,6 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    P_sc_packet_chk : process
    constant c_SIM_NAME        : string    := c_CMD_FILE_ROOT & g_TST_NUM                                    ; --! Simulation name
-   type     t_pkt_content       is array (natural range <>) of line                                         ; --! Science packet content type
 
    variable v_err_sc_ctrl_dif : std_logic                                                                   ; --! Error science data control similar ('0' = No error, '1' = Error)
    variable v_err_sc_ctrl_ukn : std_logic                                                                   ; --! Error science data control unknown ('0' = No error, '1' = Error)
@@ -305,7 +303,7 @@ begin
    variable v_packet_dump     : std_logic := '0'                                                            ; --! Science packet dump ('0' = No, '1' = Yes)
    variable v_packet_size     : integer := 0                                                                ; --! Science packet size
    variable v_packet_size_exp : integer := c_MUX_FACT                                                       ; --! Science packet size expected
-   variable v_packet_content  : t_pkt_content(0 to c_NB_COL-1) := (others => null)                          ; --! Science packet content
+   variable v_packet_content  : t_line_arr(0 to c_NB_COL-1) := (others => null)                             ; --! Science packet content
    file     scd_file          : text                                                                        ; --! Science Data Result file
    begin
 

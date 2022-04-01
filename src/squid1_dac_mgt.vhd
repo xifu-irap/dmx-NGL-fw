@@ -29,6 +29,7 @@ use     ieee.std_logic_1164.all;
 use     ieee.numeric_std.all;
 
 library work;
+use     work.pkg_type.all;
 use     work.pkg_fpga_tech.all;
 use     work.pkg_func_math.all;
 use     work.pkg_project.all;
@@ -72,8 +73,8 @@ signal   rst_sq1_pls_shape    : std_logic                                       
 
 signal   sync_r               : std_logic_vector(       c_FF_RSYNC_NB   downto 0)                           ; --! Pixel sequence sync. register (R.E. detected = position sequence to the first pixel)
 signal   sync_re              : std_logic                                                                   ; --! Pixel sequence sync. rising edge
-signal   sq1_data_fbk_r       : t_sq1_data_fbk_v(           0 to c_FF_RSYNC_NB-1)                           ; --! SQUID1 Data feedback register
-signal   sq1_fb_pls_set_r     : t_rg_sq1fbmd_pls(           0 to c_FF_RSYNC_NB-1)                           ; --! Squid 1 Feedback Pulse shaping set register
+signal   sq1_data_fbk_r       : t_slv_arr(0 to c_FF_RSYNC_NB-1)(c_SQ1_DATA_FBK_S-1 downto 0)                ; --! SQUID1 Data feedback register
+signal   sq1_fb_pls_set_r     : t_slv_arr(0 to c_FF_RSYNC_NB-1)(c_DFLD_SQ1FBMD_PLS_S-1 downto 0)            ; --! Squid 1 Feedback Pulse shaping set register
 signal   mem_pls_shp_pp_r     : std_logic_vector(       c_FF_RSYNC_NB-1 downto 0)                           ; --! Memory pulse shaping coefficient: ping-pong buffer bit for address management register
 
 signal   pls_cnt              : std_logic_vector(         c_PLS_CNT_S-1 downto 0)                           ; --! Pulse shaping counter
@@ -211,7 +212,7 @@ begin
    (     g_RAM_TYPE           => c_RAM_TYPE_PRM_STORE , -- integer                                          ; --! Memory type ( 0  = Data transfer,  1  = Parameters storage)
          g_RAM_ADD_S          => c_MEM_PLSSH_ADD_S    , -- integer                                          ; --! Memory address bus size (<= c_RAM_ECC_ADD_S)
          g_RAM_DATA_S         => c_DFLD_PLSSH_PLS_S   , -- integer                                          ; --! Memory data bus size (<= c_RAM_DATA_S)
-         g_RAM_INIT           => c_EP_CMD_DEF_PLSSH     -- t_ram_init                                         --! Memory content at initialization
+         g_RAM_INIT           => c_EP_CMD_DEF_PLSSH     -- t_int_arr                                          --! Memory content at initialization
    ) port map
    (     i_a_rst              => i_rst                , -- in     std_logic                                 ; --! Memory port A: registers reset ('0' = Inactive, '1' = Active)
          i_a_clk              => i_clk                , -- in     std_logic                                 ; --! Memory port A: main clock

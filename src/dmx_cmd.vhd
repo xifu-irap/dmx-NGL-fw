@@ -29,6 +29,7 @@ use     ieee.std_logic_1164.all;
 use     ieee.numeric_std.all;
 
 library work;
+use     work.pkg_type.all;
 use     work.pkg_func_math.all;
 use     work.pkg_project.all;
 use     work.pkg_ep_cmd.all;
@@ -39,8 +40,8 @@ entity dmx_cmd is port
 
          i_sync_rs            : in     std_logic                                                            ; --! Pixel sequence synchronization, synchronized on System Clock
 
-         i_tm_mode            : in     t_rg_tm_mode(0 to c_NB_COL-1)                                        ; --! Telemetry mode
-         i_sq1_fb_mode        : in     t_rg_sq1fbmd(0 to c_NB_COL-1)                                        ; --! Squid 1 Feedback mode (on/off)
+         i_tm_mode            : in     t_slv_arr(0 to c_NB_COL-1)(c_DFLD_TM_MODE_COL_S-1 downto 0)          ; --! Telemetry mode
+         i_sq1_fb_mode        : in     t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SQ1FBMD_COL_S-1 downto 0)          ; --! Squid 1 Feedback mode (on/off)
 
          o_sync_re            : out    std_logic                                                            ; --! Pixel sequence synchronization, rising edge
 

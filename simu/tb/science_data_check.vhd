@@ -46,7 +46,8 @@ entity science_data_check is port
          i_adc_dmp_mem_cs     : in     std_logic                                                            ; --! ADC Dump memory for data compare: chip select ('0' = Inactive, '1' = Active)
 
          i_science_data_ctrl  : in     std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0)                       ; --! Science Data – Control word
-         i_science_data       : in     t_sc_data(0 to c_NB_COL-1)                                           ; --! Science Data – Data
+         i_science_data       : in     t_slv_arr(0 to c_NB_COL-1)
+                                                (c_SC_DATA_SER_NB*c_SC_DATA_SER_W_S-1 downto 0)             ; --! Science Data – Data
          i_science_data_rdy   : in     std_logic                                                            ; --! Science Data Ready ('0' = Inactive, '1' = Active)
 
          o_science_data_err   : out    std_logic_vector(c_NB_COL-1 downto 0)                                  --! Science data error ('0' = No error, '1' = Error)

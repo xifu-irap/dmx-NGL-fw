@@ -29,6 +29,7 @@ use     ieee.std_logic_1164.all;
 use     ieee.numeric_std.all;
 
 library work;
+use     work.pkg_type.all;
 use     work.pkg_fpga_tech.all;
 use     work.pkg_func_math.all;
 use     work.pkg_project.all;
@@ -70,9 +71,7 @@ constant c_PIXEL_POS_MAX_VAL  : integer:= c_MUX_FACT - 2                        
 constant c_PIXEL_POS_INIT     : integer:= c_PIXEL_POS_MAX_VAL-1                                             ; --! Pixel position: initialization value
 constant c_PIXEL_POS_S        : integer:= log2_ceil(c_PIXEL_POS_MAX_VAL+1)+1                                ; --! Pixel position: size bus (signed)
 
-type     t_mem_s1_dta_err_cor   is array (0 to 2**c_MUX_FACT_S-1) of
-                                std_logic_vector(c_SQ1_DATA_FBK_S-1 downto 0)                               ; --! Memory data storage SQUID1 Data error corrected type
-signal   mem_s1_dta_err_cor   : t_mem_s1_dta_err_cor                                                        ; --! Memory data storage SQUID1 Data error corrected
+signal   mem_s1_dta_err_cor   : t_slv_arr(0 to 2**c_MUX_FACT_S-1)(c_SQ1_DATA_FBK_S-1 downto 0)              ; --! Memory data storage SQUID1 Data error corrected
 signal   s1_dta_err_cor_rd    : std_logic_vector( c_SQ1_DATA_FBK_S-1 downto 0)                              ; --! SQUID1 Data error corrected (signed) read from memory
 
 signal   pls_cnt              : std_logic_vector(       c_PLS_CNT_S-1 downto 0)                             ; --! Pulse counter
@@ -185,7 +184,7 @@ begin
    (     g_RAM_TYPE           => c_RAM_TYPE_PRM_STORE , -- integer                                          ; --! Memory type ( 0  = Data transfer,  1  = Parameters storage)
          g_RAM_ADD_S          => c_MEM_S1FB0_ADD_S    , -- integer                                          ; --! Memory address bus size (<= c_RAM_ECC_ADD_S)
          g_RAM_DATA_S         => c_DFLD_S1FB0_PIX_S   , -- integer                                          ; --! Memory data bus size (<= c_RAM_DATA_S)
-         g_RAM_INIT           => c_EP_CMD_DEF_S1FB0     -- t_ram_init                                         --! Memory content at initialization
+         g_RAM_INIT           => c_EP_CMD_DEF_S1FB0     -- t_int_arr                                          --! Memory content at initialization
    ) port map
    (     i_a_rst              => i_rst                , -- in     std_logic                                 ; --! Memory port A: registers reset ('0' = Inactive, '1' = Active)
          i_a_clk              => i_clk                , -- in     std_logic                                 ; --! Memory port A: main clock
@@ -232,7 +231,7 @@ begin
    (     g_RAM_TYPE           => c_RAM_TYPE_PRM_STORE , -- integer                                          ; --! Memory type ( 0  = Data transfer,  1  = Parameters storage)
          g_RAM_ADD_S          => c_MEM_S1FBM_ADD_S    , -- integer                                          ; --! Memory address bus size (<= c_RAM_ECC_ADD_S)
          g_RAM_DATA_S         => c_DFLD_S1FBM_PIX_S   , -- integer                                          ; --! Memory data bus size (<= c_RAM_DATA_S)
-         g_RAM_INIT           => c_EP_CMD_DEF_S1FBM     -- t_ram_init                                         --! Memory content at initialization
+         g_RAM_INIT           => c_EP_CMD_DEF_S1FBM     -- t_int_arr                                          --! Memory content at initialization
    ) port map
    (     i_a_rst              => i_rst                , -- in     std_logic                                 ; --! Memory port A: registers reset ('0' = Inactive, '1' = Active)
          i_a_clk              => i_clk                , -- in     std_logic                                 ; --! Memory port A: main clock

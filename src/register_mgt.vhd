@@ -29,6 +29,7 @@ use     ieee.std_logic_1164.all;
 use     ieee.numeric_std.all;
 
 library work;
+use     work.pkg_type.all;
 use     work.pkg_func_math.all;
 use     work.pkg_type.all;
 use     work.pkg_project.all;
@@ -55,34 +56,34 @@ entity register_mgt is port
 
          o_ep_cmd_tx_wd_rd_rg : out    std_logic_vector(c_EP_SPI_WD_S-1 downto 0)                           ; --! EP command to transmit: read register word
 
-         o_tm_mode            : out    t_rg_tm_mode(0 to c_NB_COL-1)                                        ; --! Telemetry mode
+         o_tm_mode            : out    t_slv_arr(0 to c_NB_COL-1)(c_DFLD_TM_MODE_COL_S-1 downto 0)          ; --! Telemetry mode
          o_tm_mode_dmp_cmp    : out    std_logic_vector(c_NB_COL-1 downto 0)                                ; --! Telemetry mode, status "Dump" compared ('0' = Inactive, '1' = Active)
 
-         o_sq1_fb_mode        : out    t_rg_sq1fbmd(     0 to c_NB_COL-1)                                   ; --! Squid 1 Feedback mode (on/off)
-         o_sq1_fb_pls_set     : out    t_rg_sq1fbmd_pls( 0 to c_NB_COL-1)                                   ; --! Squid 1 Feedback Pulse shaping set
-         o_sq2_fb_mode        : out    t_rg_sq2fbmd(     0 to c_NB_COL-1)                                   ; --! Squid 2 Feedback mode
-         o_sq2_dac_lsb        : out    t_rg_sq2lkp(      0 to c_NB_COL-1)                                   ; --! Squid 2 DAC LSB
-         o_sq2_lkp_off        : out    t_rg_sq2lkp(      0 to c_NB_COL-1)                                   ; --! Squid 2 Feedback lockpoint offset
+         o_sq1_fb_mode        : out    t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SQ1FBMD_COL_S-1 downto 0)          ; --! Squid 1 Feedback mode (on/off)
+         o_sq1_fb_pls_set     : out    t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SQ1FBMD_PLS_S-1 downto 0)          ; --! Squid 1 Feedback Pulse shaping set
+         o_sq2_fb_mode        : out    t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SQ2FBMD_COL_S-1 downto 0)          ; --! Squid 2 Feedback mode
+         o_sq2_dac_lsb        : out    t_slv_arr(0 to c_NB_COL-1)(c_DFLD_S2OFF_COL_S  -1 downto 0)          ; --! Squid 2 DAC LSB
+         o_sq2_lkp_off        : out    t_slv_arr(0 to c_NB_COL-1)(c_DFLD_S2OFF_COL_S  -1 downto 0)          ; --! Squid 2 Feedback lockpoint offset
 
          o_mem_sq1_fb0        : out    t_mem_arr(c_NB_COL-1 downto 0)(
                                        add(    c_MEM_S1FB0_ADD_S-1 downto 0),
                                        data_w(c_DFLD_S1FB0_PIX_S-1 downto 0))                               ; --! Squid1 feedback value in open loop: memory inputs
-         i_sq1_fb0_data       : in     t_mem_s1fb0_data(0 to c_NB_COL-1)                                    ; --! Squid1 feedback value in open loop: data read
+         i_sq1_fb0_data       : in     t_slv_arr(0 to c_NB_COL-1)(c_DFLD_S1FB0_PIX_S-1 downto 0)            ; --! Squid1 feedback value in open loop: data read
 
          o_mem_sq1_fbm        : out    t_mem_arr(c_NB_COL-1 downto 0)(
                                        add(    c_MEM_S1FBM_ADD_S-1 downto 0),
                                        data_w(c_DFLD_S1FBM_PIX_S-1 downto 0))                               ; --! Squid1 feedback mode: memory inputs
-         i_sq1_fbm_data       : in     t_mem_s1fbm_data(0 to c_NB_COL-1)                                    ; --! Squid1 feedback mode: data read
+         i_sq1_fbm_data       : in     t_slv_arr(0 to c_NB_COL-1)(c_DFLD_S1FBM_PIX_S-1 downto 0)            ; --! Squid1 feedback mode: data read
 
          o_mem_sq2_lkp        : out    t_mem_arr(c_NB_COL-1 downto 0)(
                                        add(    c_MEM_S2LKP_ADD_S-1 downto 0),
                                        data_w(c_DFLD_S2LKP_PIX_S-1 downto 0))                               ; --! Squid2 feedback lockpoint: memory inputs
-         i_sq2_lkp_data       : in     t_mem_s2lkp_data(0 to c_NB_COL-1)                                    ; --! Squid2 feedback lockpoint: data read
+         i_sq2_lkp_data       : in     t_slv_arr(0 to c_NB_COL-1)(c_DFLD_S2LKP_PIX_S-1 downto 0)            ; --! Squid2 feedback lockpoint: data read
 
          o_mem_pls_shp        : out    t_mem_arr(c_NB_COL-1 downto 0)(
                                        add(      c_MEM_PLSSH_ADD_S-1 downto 0),
                                        data_w(c_DFLD_PLSSH_PLS_S-1 downto 0))                               ; --! Pulse shaping coef: memory inputs
-         i_pls_shp_data       : in     t_mem_plssh_data(0 to c_NB_COL-1)                                      --! Pulse shaping coef: data read
+         i_pls_shp_data       : in     t_slv_arr(0 to c_NB_COL-1)(c_DFLD_PLSSH_PLS_S-1 downto 0)              --! Pulse shaping coef: data read
    );
 end entity register_mgt;
 
@@ -96,14 +97,14 @@ signal   ep_cmd_rx_nerr_rdy_r : std_logic                                       
 signal   ep_cmd_sts_rg_r      : std_logic_vector(c_EP_SPI_WD_S-1 downto 0)                                  ; --! EP command: Status register, registered
 
 signal   tm_mode_dur          : std_logic_vector(c_DFLD_TM_MODE_DUR_S-1 downto 0)                           ; --! Telemetry mode, duration field
-signal   tm_mode              : t_rg_tm_mode(0 to c_NB_COL-1)                                               ; --! Telemetry mode
+signal   tm_mode              : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_TM_MODE_COL_S-1 downto 0)                 ; --! Telemetry mode
 signal   tm_mode_st_dump      : std_logic                                                                   ; --! Telemetry mode, status "Dump" ('0' = Inactive, '1' = Active)
 signal   tm_mode_dmp_cmp      : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! Telemetry mode, status "Dump" compared ('0' = Inactive, '1' = Active)
 
 signal   rg_sq1_fb_mode       : std_logic_vector(c_EP_SPI_WD_S-1 downto 0)                                  ; --! EP register: SQ1_FB_MODE
 signal   rg_sq2_fb_mode       : std_logic_vector(c_EP_SPI_WD_S-1 downto 0)                                  ; --! EP register: SQ2_FB_MODE
-signal   rg_sq2_dac_lsb       : t_rg_sq2lkp(0 to c_NB_COL-1)                                                ; --! EP register: CY_SQ2_PXL_DAC_LSB
-signal   rg_sq2_lkp_off       : t_rg_sq2lkp(0 to c_NB_COL-1)                                                ; --! EP register: CY_SQ2_PXL_LOCKPOINT_OFFSET
+signal   rg_sq2_dac_lsb       : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_S2OFF_COL_S-1 downto 0)                   ; --! EP register: CY_SQ2_PXL_DAC_LSB
+signal   rg_sq2_lkp_off       : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_S2OFF_COL_S-1 downto 0)                   ; --! EP register: CY_SQ2_PXL_LOCKPOINT_OFFSET
 
 signal   sq1_fb0_cs           : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! Squid1 feedback value in open loop: chip select data read ('0'=Inactive, '1'=Active)
 signal   sq1_fb0_data_mx      : std_logic_vector(c_DFLD_S1FB0_PIX_S-1 downto 0)                             ; --! Squid1 feedback value in open loop: data read multiplexed
@@ -365,22 +366,22 @@ begin
    (     i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                => i_clk                , -- in     std_logic                                 ; --! System Clock
 
-         i_sq1_fb0_data       => i_sq1_fb0_data       , -- in     t_mem_s1fb0_data(0     to c_NB_COL-1)     ; --! Squid1 feedback value in open loop: data read
+         i_sq1_fb0_data       => i_sq1_fb0_data       , -- in     t_slv_arr c_NB_COL c_DFLD_S1FB0_PIX_S     ; --! Squid1 feedback value in open loop: data read
          i_sq1_fb0_cs         => sq1_fb0_cs           , -- in     std_logic_vector(c_NB_COL-1 downto 0)     ; --! Squid1 feedback value in open loop: chip select data read ('0' = Inactive,'1'=Active)
 
-         i_sq1_fbm_data       => i_sq1_fbm_data       , -- in     t_mem_s1fbm_data(0     to c_NB_COL-1)     ; --! Squid1 feedback mode: data read
+         i_sq1_fbm_data       => i_sq1_fbm_data       , -- in     t_slv_arr c_NB_COL c_DFLD_S1FBM_PIX_S     ; --! Squid1 feedback mode: data read
          i_sq1_fbm_cs         => sq1_fbm_cs           , -- in     std_logic_vector(c_NB_COL-1 downto 0)     ; --! Squid1 feedback mode: chip select data read ('0' = Inactive, '1' = Active)
 
-         i_sq2_lkp_data       => i_sq2_lkp_data       , -- in     t_mem_s2lkp_data(0     to c_NB_COL-1)     ; --! Squid2 feedback lockpoint: data read
+         i_sq2_lkp_data       => i_sq2_lkp_data       , -- in     t_slv_arr c_NB_COL c_DFLD_S2LKP_PIX_S     ; --! Squid2 feedback lockpoint: data read
          i_sq2_lkp_cs         => sq2_lkp_cs           , -- in     std_logic_vector(c_NB_COL-1 downto 0)     ; --! Squid2 feedback lockpoint: chip select data read ('0' = Inactive, '1' = Active)
 
-         i_sq2_dac_lsb_data   => rg_sq2_dac_lsb       , -- in     t_rg_sq2lkp(     0     to c_NB_COL-1)     ; --! Squid2 DAC LSB: data read
+         i_sq2_dac_lsb_data   => rg_sq2_dac_lsb       , -- in     t_slv_arr c_NB_COL c_DFLD_S2OFF_COL_S     ; --! Squid2 DAC LSB: data read
          i_sq2_dac_lsb_cs     => sq2_dac_lsb_cs       , -- in     std_logic_vector(c_NB_COL-1 downto 0)     ; --! Squid2 DAC LSB: chip select data read ('0' = Inactive, '1' = Active)
 
-         i_sq2_lkp_off_data   => rg_sq2_lkp_off       , -- in     t_rg_sq2lkp(     0     to c_NB_COL-1)     ; --! Squid2 feedback lockpoint offset: data read
+         i_sq2_lkp_off_data   => rg_sq2_lkp_off       , -- in     t_slv_arr c_NB_COL c_DFLD_S2OFF_COL_S     ; --! Squid2 feedback lockpoint offset: data read
          i_sq2_lkp_off_cs     => sq2_lkp_off_cs       , -- in     std_logic_vector(c_NB_COL-1 downto 0)     ; --! Squid2 feedback lockpoint offset: chip select data read ('0' = Inactive,'1' = Active)
 
-         i_pls_shp_data       => i_pls_shp_data       , -- in     t_mem_plssh_data(0     to c_NB_COL-1)     ; --! Pulse shaping coef: data read
+         i_pls_shp_data       => i_pls_shp_data       , -- in     t_slv_arr c_NB_COL c_DFLD_PLSSH_PLS_S     ; --! Pulse shaping coef: data read
          i_pls_shp_cs         => pls_shp_cs           , -- in     std_logic_vector(c_NB_COL-1 downto 0)     ; --! Pulse shaping coef: chip select data read ('0' = Inactive, '1' = Active)
 
          o_sq1_fb0_data_mx    => sq1_fb0_data_mx      , -- out    slv(c_DFLD_S1FB0_PIX_S-1 downto 0)        ; --! Squid1 feedback value in open loop: data read multiplexed
@@ -462,7 +463,7 @@ begin
          i_ep_cmd_rx_rw       => ep_cmd_rx_rw_r       , -- in     std_logic                                 ; --! EP command receipted: read/write bit
          i_ep_cmd_rx_nerr_rdy => ep_cmd_rx_nerr_rdy_r , -- in     std_logic                                 ; --! EP command receipted with no error ready ('0'= Not ready, '1'= Ready)
          o_tm_mode_dur        => tm_mode_dur          , -- out    slv(c_DFLD_TM_MODE_DUR_S-1 downto 0)      ; --! Telemetry mode, duration field
-         o_tm_mode            => tm_mode              , -- out    t_rg_tm_mode(0 to c_NB_COL-1)             ; --! Telemetry mode
+         o_tm_mode            => tm_mode              , -- out    t_slv_arr c_NB_COL c_DFLD_TM_MODE_COL_S   ; --! Telemetry mode
          o_tm_mode_dmp_cmp    => tm_mode_dmp_cmp      , -- out    std_logic_vector(c_NB_COL-1 downto 0)     ; --! Telemetry mode, status "Dump" compared ('0' = Inactive, '1' = Active)
          o_tm_mode_st_dump    => tm_mode_st_dump        -- out    std_logic                                   --! Telemetry mode, status "Dump" ('0' = Inactive, '1' = Active)
    );

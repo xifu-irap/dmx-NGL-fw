@@ -28,6 +28,7 @@ library ieee;
 use     ieee.std_logic_1164.all;
 
 library work;
+use     work.pkg_type.all;
 use     work.pkg_model.all;
 
 entity clock_check_model is port
@@ -55,7 +56,7 @@ entity clock_check_model is port
          i_c2_sq1_dac_sleep   : in     std_logic                                                            ; --! SQUID1 DAC, col. 2 - Sleep ('0' = Inactive, '1' = Active)
          i_c3_sq1_dac_sleep   : in     std_logic                                                            ; --! SQUID1 DAC, col. 3 - Sleep ('0' = Inactive, '1' = Active)
 
-         o_err_chk_rpt        : out    t_err_n_clk_chk_arr(0 to c_CHK_ENA_CLK_NB-1)                           --! Clock check error reports
+         o_err_chk_rpt        : out    t_int_arr_tab(0 to c_CHK_ENA_CLK_NB-1)(0 to c_ERR_N_CLK_CHK_S-1)       --! Clock check error reports
 
    );
 end entity clock_check_model;
@@ -132,7 +133,7 @@ begin
       (  i_clk                => clock(k)             , -- in     std_logic                                 ; --! Clock
          i_ena                => enable(k)            , -- in     std_logic                                 ; --! Enable ('0' = Inactive, '1' = Active)
          i_chk_osc_ena_l      => chk_osc_ena_l(k)     , -- in     std_logic                                 ; --! Check oscillation on clock when enable inactive ('0' = No, '1' = Yes)
-         o_err_n_clk_chk      => o_err_chk_rpt(k)       -- out    t_err_n_clk_chk                             --! Clock check error number
+         o_err_n_clk_chk      => o_err_chk_rpt(k)       -- out    t_int_arr(0 to c_ERR_N_CLK_CHK_S-1)         --! Clock check error number
       );
 
    end generate G_clock_check;

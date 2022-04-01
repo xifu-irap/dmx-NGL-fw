@@ -28,6 +28,7 @@ library ieee;
 use     ieee.std_logic_1164.all;
 
 library work;
+use     work.pkg_type.all;
 use     work.pkg_func_math.all;
 use     work.pkg_fpga_tech.all;
 
@@ -185,31 +186,6 @@ constant c_S2D_PRC_NPER       : integer := (c_SQ2_SPI_SCLK_L + c_SQ2_SPI_SCLK_H)
 constant c_S2D_SYNC_DATA_NPER : integer := c_DAC_SYNC_RDY_NPER + c_DAC_SYNC_RE_NPER + c_S2D_PRC_NPER        ; --! DAC clock period number for stalling sending data end to pixel sequence synchronization
 
    -- ------------------------------------------------------------------------------------------------------
-   --    Global types
-   -- ------------------------------------------------------------------------------------------------------
-type     t_ep_spi_wd           is array (natural range <>) of std_logic_vector(c_EP_SPI_WD_S-1     downto 0); --! EP SPI Data word type
-type     t_pixel_pos_v         is array (natural range <>) of std_logic_vector(c_MUX_FACT_S-1      downto 0); --! Pixel position vector type
-type     t_sq1_mem_dump_dta_v  is array (natural range <>) of std_logic_vector(c_SQ1_ADC_DATA_S+1  downto 0); --! SQUID1 Memory Dump: data vector type
-type     t_sq1_adc_data_v      is array (natural range <>) of std_logic_vector(c_SQ1_ADC_DATA_S-1  downto 0); --! SQUID1 ADC data vector type
-type     t_sq1_data_err_v      is array (natural range <>) of std_logic_vector(c_SQ1_DATA_ERR_S-1  downto 0); --! SQUID1 Data error vector type
-type     t_sq1_data_fbk_v      is array (natural range <>) of std_logic_vector(c_SQ1_DATA_FBK_S-1  downto 0); --! SQUID1 Data feedback vector type
-type     t_sq1_dac_data_v      is array (natural range <>) of std_logic_vector(c_SQ1_DAC_DATA_S-1  downto 0); --! SQUID1 DAC data vector type
-type     t_sq2_dac_mux_v       is array (natural range <>) of std_logic_vector(c_SQ2_DAC_MUX_S -1  downto 0); --! SQUID2 DAC multiplexer vector type
-type     t_sc_data_w           is array (natural range <>) of std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0); --! Science data word type
-type     t_sc_data             is array (natural range <>) of
-                               std_logic_vector(c_SC_DATA_SER_NB*c_SC_DATA_SER_W_S-1 downto 0)              ; --! Science data type
-
-type     t_mem                 is record
-         pp                   : std_logic                                                                   ; --! Ping-pong buffer bit
-         add                  : std_logic_vector                                                            ; --! Address
-         we                   : std_logic                                                                   ; --! Write enable ('0' = Inactive, '1' = Active)
-         cs                   : std_logic                                                                   ; --! Chip select  ('0' = Inactive, '1' = Active)
-         data_w               : std_logic_vector                                                            ; --! Data to write in memory
-end record t_mem                                                                                            ; --! Memory signals interface
-
-type     t_mem_arr             is array (natural range <>) of t_mem                                         ; --! Memory signals interface array                                                                                           ; --! Memory signals type
-
-   -- ------------------------------------------------------------------------------------------------------
    --!   Science Data Transmit parameters
    --    @Req : DRE-DMX-FW-REQ-0590
    -- ------------------------------------------------------------------------------------------------------
@@ -217,7 +193,7 @@ constant c_SC_CTRL_DTA_W      : std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0) :
 constant c_SC_CTRL_SC_DTA     : std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0) := "11000010"                ; --! Science data, control word value: Science data packet first word
 constant c_SC_CTRL_TST_PAT    : std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0) := "11101000"                ; --! Science data, control word value: Test pattern packet first word
 constant c_SC_CTRL_EOD        : std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0) := "11101010"                ; --! Science data, control word value: End of Data
-constant c_SC_CTRL_ADC_DMP    : t_sc_data_w(0 to c_NB_COL-1) :=
+constant c_SC_CTRL_ADC_DMP    : t_slv_arr(0 to c_NB_COL-1)(c_SC_DATA_SER_W_S-1 downto 0) :=
                                 ("11001000", "11001010", "11100000", "11100010")                            ; --! Science data, control word value: SQUID1 ADC by column dump packet first word
 
 constant c_SC_DATA_IDLE_VAL   : std_logic_vector(c_SC_DATA_SER_W_S*c_SC_DATA_SER_NB-1 downto 0) := x"0000"  ; --! Science data: word sent when telemetry mode on one column is in Idle

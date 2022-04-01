@@ -29,6 +29,7 @@ use     ieee.std_logic_1164.all;
 use     ieee.numeric_std.all;
 
 library work;
+use     work.pkg_type.all;
 use     work.pkg_fpga_tech.all;
 use     work.pkg_project.all;
 
@@ -39,7 +40,7 @@ entity dmem_ecc is generic
    (     g_RAM_TYPE           : integer                                                                     ; --! Memory type ( 0  = Data transfer,  1  = Parameters storage)
          g_RAM_ADD_S          : integer                                                                     ; --! Memory address bus size (<= c_RAM_ECC_ADD_S)
          g_RAM_DATA_S         : integer                                                                     ; --! Memory data bus size (<= c_RAM_DATA_S)
-         g_RAM_INIT           : t_ram_init                                                                    --! Memory content at initialization
+         g_RAM_INIT           : t_int_arr                                                                     --! Memory content at initialization
    ); port
    (     i_a_rst              : in     std_logic                                                            ; --! Memory port A: registers reset ('0' = Inactive, '1' = Active)
          i_a_clk              : in     std_logic                                                            ; --! Memory port A: main clock

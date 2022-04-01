@@ -28,11 +28,53 @@ library ieee;
 use     ieee.std_logic_1164.all;
 
 library work;
+use     work.pkg_type.all;
 use     work.pkg_func_math.all;
 use     work.pkg_project.all;
 use     work.pkg_ep_cmd.all;
 
+library std;
+use std.textio.all;
+
 package pkg_model is
+
+   -- ------------------------------------------------------------------------------------------------------
+   --    Model types
+   -- ------------------------------------------------------------------------------------------------------
+type     t_real_arr             is array (natural range <>) of real                                         ; --! Real array type
+type     t_time_arr             is array (natural range <>) of time                                         ; --! Time array type
+type     t_time_arr_tab         is array (natural range <>) of t_time_arr                                   ; --! Time array table type
+type     t_line_arr             is array (natural range <>) of line                                         ; --! Line array type
+
+type     t_clk_chk_prm is record
+         clk_name             : string                                                                      ; --! Clock signal name
+         clk_per_l            : time                                                                        ; --! Low  level clock period expected time
+         clk_per_h            : time                                                                        ; --! High level clock period expected time
+         clk_st_ena           : std_logic                                                                   ; --! Clock state value when enable goes to active
+         clk_st_dis           : std_logic                                                                   ; --! Clock state value when enable goes to inactive
+         chk_osc_en           : std_logic                                                                   ; --! Check oscillation on clock when enable inactive ('0' = No, '1' = Yes)
+end record t_clk_chk_prm                                                                                    ; --! Clock check parameters type
+
+type     t_clk_chk_prm_arr      is array (natural range <>) of t_clk_chk_prm                                ; --! Clock check parameters array type
+
+type     t_spi_chk_prm is record
+         spi_name             : string                                                                      ; --! SPI bus name
+         spi_cpol             : std_logic                                                                   ; --! SPI CPOL
+         spi_time             : t_time_arr                                                                  ; --! SPI time parameter
+end record t_spi_chk_prm                                                                                    ; --! SPI check parameters type
+
+type     t_spi_chk_prm_arr      is array (natural range <>) of t_spi_chk_prm                                ; --! SPI check parameters array type
+
+constant c_SPI_ERR_POS_TL     : integer := 0                                                                ; --! SPI error number position: minimum SCLK low time
+constant c_SPI_ERR_POS_TH     : integer := 1                                                                ; --! SPI error number position: minimum SCLK high time
+constant c_SPI_ERR_POS_TSCMIN : integer := 2                                                                ; --! SPI error number position: minimum SCLK period
+constant c_SPI_ERR_POS_TSCMAX : integer := 3                                                                ; --! SPI error number position: maximum SCLK period
+constant c_SPI_ERR_POS_TCSH   : integer := 4                                                                ; --! SPI error number position: minimum CS high time
+constant c_SPI_ERR_POS_TS2CSR : integer := 5                                                                ; --! SPI error number position: minimum not(SCLK) to CS rising edge time
+constant c_SPI_ERR_POS_TD2S   : integer := 6                                                                ; --! SPI error number position: minimum Data Event to not(SCLK) time
+constant c_SPI_ERR_POS_TS2D   : integer := 7                                                                ; --! SPI error number position: minimum not(SCLK) to Data Event time
+constant c_SPI_ERR_POS_STSCA  : integer := 8                                                                ; --! SPI error number position: SCLK state error when CS goes to active
+constant c_SPI_ERR_POS_STSCI  : integer := 9                                                                ; --! SPI error number position: SCLK state error when CS goes to inactive
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Parser constants
@@ -207,57 +249,6 @@ constant c_SW_ADC_VIN_ST_SQ1  : std_logic_vector(c_SW_ADC_VIN_S-1 downto 0) := "
 constant c_SW_ADC_VIN_ST_SQ2  : std_logic_vector(c_SW_ADC_VIN_S-1 downto 0) := "01"                         ; --! Switch ADC voltage input: SQUID2 voltage state
 
    -- ------------------------------------------------------------------------------------------------------
-   --    Model types
-   -- ------------------------------------------------------------------------------------------------------
-type     t_int_arr              is array (natural range <>) of integer                                      ; --! Integer array type
-type     t_real_arr             is array (natural range <>) of real                                         ; --! Real array type
-type     t_time_arr             is array (natural range <>) of time                                         ; --! Time array type
-
-type     t_int_arr_tab          is array (natural range <>) of t_int_arr                                    ; --! Integer array table type
-type     t_time_arr_tab         is array (natural range <>) of t_time_arr                                   ; --! Time array table type
-
-   -- ------------------------------------------------------------------------------------------------------
-   --    t_err_n_clk_chk:
-   --       - Position 4: clock state error when enable goes to active
-   --       - Position 3: clock state error when enable goes to inactive
-   --       - Position 2: low  level clock period timing error
-   --       - Position 1: high level clock period timing error
-   --       - Position 0: clock oscillation error when enable is inactive
-   -- ------------------------------------------------------------------------------------------------------
-type     t_err_n_clk_chk        is array (c_ERR_N_CLK_CHK_S-1 downto 0) of integer                          ; --! Clock check error number type
-type     t_err_n_clk_chk_arr    is array (natural range <>) of t_err_n_clk_chk                              ; --! Clock check error number array type
-
-type     t_clk_chk_prm is record
-         clk_name             : string                                                                      ; --! Clock signal name
-         clk_per_l            : time                                                                        ; --! Low  level clock period expected time
-         clk_per_h            : time                                                                        ; --! High level clock period expected time
-         clk_st_ena           : std_logic                                                                   ; --! Clock state value when enable goes to active
-         clk_st_dis           : std_logic                                                                   ; --! Clock state value when enable goes to inactive
-         chk_osc_en           : std_logic                                                                   ; --! Check oscillation on clock when enable inactive ('0' = No, '1' = Yes)
-end record t_clk_chk_prm                                                                                    ; --! Clock check parameters type
-
-type     t_clk_chk_prm_arr      is array (natural range <>) of t_clk_chk_prm                                ; --! Clock check parameters array type
-
-type     t_spi_chk_prm is record
-         spi_name             : string                                                                      ; --! SPI bus name
-         spi_cpol             : std_logic                                                                   ; --! SPI CPOL
-         spi_time             : t_time_arr(0 to c_SPI_ERR_CHK_NB-3)                                         ; --! SPI time parameter
-end record t_spi_chk_prm                                                                                    ; --! SPI check parameters type
-
-type     t_spi_chk_prm_arr      is array (natural range <>) of t_spi_chk_prm                                ; --! SPI check parameters array type
-
-constant c_SPI_ERR_POS_TL     : integer := 0                                                                ; --! SPI error number position: minimum SCLK low time
-constant c_SPI_ERR_POS_TH     : integer := 1                                                                ; --! SPI error number position: minimum SCLK high time
-constant c_SPI_ERR_POS_TSCMIN : integer := 2                                                                ; --! SPI error number position: minimum SCLK period
-constant c_SPI_ERR_POS_TSCMAX : integer := 3                                                                ; --! SPI error number position: maximum SCLK period
-constant c_SPI_ERR_POS_TCSH   : integer := 4                                                                ; --! SPI error number position: minimum CS high time
-constant c_SPI_ERR_POS_TS2CSR : integer := 5                                                                ; --! SPI error number position: minimum not(SCLK) to CS rising edge time
-constant c_SPI_ERR_POS_TD2S   : integer := 6                                                                ; --! SPI error number position: minimum Data Event to not(SCLK) time
-constant c_SPI_ERR_POS_TS2D   : integer := 7                                                                ; --! SPI error number position: minimum not(SCLK) to Data Event time
-constant c_SPI_ERR_POS_STSCA  : integer := 8                                                                ; --! SPI error number position: SCLK state error when CS goes to active
-constant c_SPI_ERR_POS_STSCI  : integer := 9                                                                ; --! SPI error number position: SCLK state error when CS goes to inactive
-
-   -- ------------------------------------------------------------------------------------------------------
    --    Clock parameters to check
    -- ------------------------------------------------------------------------------------------------------
 constant c_CCHK               : t_clk_chk_prm_arr(0 to c_CHK_ENA_CLK_NB-1) :=
@@ -377,7 +368,7 @@ constant c_SCHK               : t_spi_chk_prm_arr(0 to c_CHK_ENA_SPI_NB-1) :=
          i_clk_ref            : in     std_logic                                                            ; --! Reference Clock
          i_sync               : in     std_logic                                                            ; --! Pixel sequence synchronization (R.E. detected = position sequence to the first pixel)
 
-         i_err_chk_rpt        : in     t_err_n_clk_chk_arr(0 to c_CHK_ENA_CLK_NB-1)                         ; --! Clock check error reports
+         i_err_chk_rpt        : in     t_int_arr_tab(0 to c_CHK_ENA_CLK_NB-1)(0 to c_ERR_N_CLK_CHK_S-1)     ; --! Clock check error reports
          i_err_n_spi_chk      : in     t_int_arr_tab(0 to c_CHK_ENA_SPI_NB-1)(0 to c_SPI_ERR_CHK_NB-1)      ; --! SPI check error number:
          i_err_num_pls_shp    : in     t_int_arr(0 to c_NB_COL-1)                                           ; --! Pulse shaping error number
 
@@ -453,10 +444,10 @@ constant c_SCHK               : t_spi_chk_prm_arr(0 to c_CHK_ENA_SPI_NB-1) :=
          i_c3_science_data    : in     std_logic_vector(c_SC_DATA_SER_NB-1 downto 0)                        ; --! Science Data, col. 3 – Serial Data
 
          i_sync               : in     std_logic                                                            ; --! Pixel sequence synchronization (R.E. detected = position sequence to the first pixel)
-         i_tm_mode            : in     t_rg_tm_mode(0 to c_NB_COL-1)                                        ; --! Telemetry mode
+         i_tm_mode            : in     t_slv_arr(0 to c_NB_COL-1)(c_DFLD_TM_MODE_COL_S-1 downto 0)          ; --! Telemetry mode
          i_sw_adc_vin         : in     std_logic_vector(c_SW_ADC_VIN_S-1 downto 0)                          ; --! Switch ADC Voltage input
 
-         i_sq1_adc_data       : in     t_sq1_adc_data_v(c_NB_COL-1 downto 0)                                ; --! SQUID1 ADC - Data buses
+         i_sq1_adc_data       : in     t_slv_arr(0 to c_NB_COL-1)(c_SQ1_ADC_DATA_S-1 downto 0)              ; --! SQUID1 ADC - Data buses
          i_sq1_adc_oor        : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! SQUID1 ADC - Out of range (‘0’ = No, ‘1’ = under/over range)
 
          i_adc_dmp_mem_add    : in     std_logic_vector(    c_MUX_FACT_S-1 downto 0)                        ; --! ADC Dump memory for data compare: address
