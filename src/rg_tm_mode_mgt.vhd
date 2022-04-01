@@ -38,7 +38,7 @@ entity rg_tm_mode_mgt is port
 
          i_tm_mode_sync       : in     std_logic                                                            ; --! Telemetry mode synchronization
 
-         i_ep_cmd_rx_wd_add   : in     std_logic_vector(c_EP_SPI_WD_S-1 downto 0)                           ; --! EP command receipted: address word, read/write bit cleared
+         i_cs_rg_tm_mode      : in     std_logic                                                            ; --! Chip selects register TM_MODE
          i_ep_cmd_rx_wd_data  : in     std_logic_vector(c_EP_SPI_WD_S-1 downto 0)                           ; --! EP command receipted: data word
          i_ep_cmd_rx_rw       : in     std_logic                                                            ; --! EP command receipted: read/write bit
          i_ep_cmd_rx_nerr_rdy : in     std_logic                                                            ; --! EP command receipted with no error ready ('0'= Not ready, '1'= Ready)
@@ -117,7 +117,7 @@ begin
       elsif rising_edge(i_clk) then
 
          -- Case new EP command to write (TM_MODE Duration requested, save current column telemetry modes)
-         if i_ep_cmd_rx_nerr_rdy = '1' and i_ep_cmd_rx_rw = c_EP_CMD_ADD_RW_W and i_ep_cmd_rx_wd_add = c_EP_CMD_ADD_TM_MODE then
+         if i_ep_cmd_rx_nerr_rdy = '1' and i_ep_cmd_rx_rw = c_EP_CMD_ADD_RW_W and i_cs_rg_tm_mode = '1' then
             rg_tm_mode_dur_req   <= std_logic_vector(resize(unsigned(i_ep_cmd_rx_wd_data(c_DFLD_TM_MODE_DUR_S-1 downto 0)), rg_tm_mode_dur'length) - 2);
             rg_tm_mode_sav       <= rg_tm_mode;
 
@@ -138,7 +138,7 @@ begin
 
       elsif rising_edge(i_clk) then
 
-         if i_ep_cmd_rx_nerr_rdy = '1' and i_ep_cmd_rx_rw = c_EP_CMD_ADD_RW_W and i_ep_cmd_rx_wd_add = c_EP_CMD_ADD_TM_MODE then
+         if i_ep_cmd_rx_nerr_rdy = '1' and i_ep_cmd_rx_rw = c_EP_CMD_ADD_RW_W and i_cs_rg_tm_mode = '1' then
             rg_tm_mode_req_new <= '1';
 
          elsif i_tm_mode_sync = '1' then
@@ -165,7 +165,7 @@ begin
          elsif rising_edge(i_clk) then
 
             -- Case new EP command to write
-            if i_ep_cmd_rx_nerr_rdy = '1' and i_ep_cmd_rx_rw = c_EP_CMD_ADD_RW_W and i_ep_cmd_rx_wd_add = c_EP_CMD_ADD_TM_MODE then
+            if i_ep_cmd_rx_nerr_rdy = '1' and i_ep_cmd_rx_rw = c_EP_CMD_ADD_RW_W and i_cs_rg_tm_mode = '1' then
                rg_tm_mode_req(k)    <= i_ep_cmd_rx_wd_data((k+1)*c_DFLD_TM_MODE_COL_S + c_DFLD_TM_MODE_DUR_S-1 downto k*c_DFLD_TM_MODE_COL_S + c_DFLD_TM_MODE_DUR_S);
 
             -- Case new Pixel sequence start, end of duration detected or Telemetry mode requested new command

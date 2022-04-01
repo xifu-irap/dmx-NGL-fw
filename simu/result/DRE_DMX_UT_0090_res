@@ -8,10 +8,10 @@
 #             (0 ps) ==============================================================================================
 #             (0 ps)   Enable Squid1 DAC clocks reports display
 #             (0 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (0 ps) Clock report display activated: clk_sq1_dac(0)
-# ** Note   : (0 ps) Clock report display activated: clk_sq1_dac(1)
-# ** Note   : (0 ps) Clock report display activated: clk_sq1_dac(2)
-# ** Note   : (0 ps) Clock report display activated: clk_sq1_dac(3)
+# ** Note   : (0 ps) Report display activated: clk_sq1_dac(0)
+# ** Note   : (0 ps) Report display activated: clk_sq1_dac(1)
+# ** Note   : (0 ps) Report display activated: clk_sq1_dac(2)
+# ** Note   : (0 ps) Report display activated: clk_sq1_dac(3)
 #             (0 ps) 
 #             (0 ps) ==============================================================================================
 #             (0 ps)   Check DAC Sleeps at start
@@ -731,6 +731,7 @@
 # Error check command return    : '0'
 # Error check time              : '0'
 # Error check clocks parameters : '0'
+# Error check spi parameters    : '0'
 # Error check science packets   : '0'
 # Error check pulse shaping     : '0'
 # ------------------------------------------------------------------------------------------------------------------------------------------------------

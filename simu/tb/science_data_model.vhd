@@ -17,7 +17,7 @@
 --                            along with this program.  If not, see <https://www.gnu.org/licenses/>.
 -- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --    email                   slaurent@nanoxplore.com
---!   @file                   science_data_rx.vhd
+--!   @file                   science_data_model.vhd
 -- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --    Automatic Generation    No
 --    Code Rules Reference    SOC of design and VHDL handbook for VLSI development, CNES Edition (v2.1)
@@ -55,9 +55,14 @@ entity science_data_model is generic
 
          i_sync               : in     std_logic                                                            ; --! Pixel sequence synchronization (R.E. detected = position sequence to the first pixel)
          i_tm_mode            : in     t_rg_tm_mode(0 to c_NB_COL-1)                                        ; --! Telemetry mode
+         i_sw_adc_vin         : in     std_logic_vector(c_SW_ADC_VIN_S-1 downto 0)                          ; --! Switch ADC Voltage input
 
          i_sq1_adc_data       : in     t_sq1_adc_data_v(c_NB_COL-1 downto 0)                                ; --! SQUID1 ADC - Data buses
          i_sq1_adc_oor        : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! SQUID1 ADC - Out of range (‘0’ = No, ‘1’ = under/over range)
+
+         i_adc_dmp_mem_add    : in     std_logic_vector(    c_MUX_FACT_S-1 downto 0)                        ; --! ADC Dump memory for data compare: address
+         i_adc_dmp_mem_data   : in     std_logic_vector(c_SQ1_ADC_DATA_S+1 downto 0)                        ; --! ADC Dump memory for data compare: data
+         i_adc_dmp_mem_cs     : in     std_logic                                                            ; --! ADC Dump memory for data compare: chip select ('0' = Inactive, '1' = Active)
 
          o_sc_pkt_type        : out    std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0)                       ; --! Science packet type
          o_sc_pkt_err         : out    std_logic                                                              --! Science packet error ('0' = No error, '1' = Error)
@@ -100,6 +105,8 @@ signal   science_data_ctrl    : t_sc_data_w(0 to 1)                             
 signal   science_data         : t_sc_data(0 to c_NB_COL-1)                                                  ; --! Science Data – Data
 signal   science_data_rdy     : std_logic                                                                   ; --! Science Data Ready ('0' = Inactive, '1' = Active)
 signal   science_data_rdy_r   : std_logic                                                                   ; --! Science Data Ready register
+
+signal   science_data_err     : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! Science data error ('0' = No error, '1' = Error)
 
 begin
 
@@ -255,6 +262,26 @@ begin
          o_science_data_ctrl  => science_data_ctrl    , -- out    t_sc_data(0 to 1)                         ; --! Science Data – Control word
          o_science_data       => science_data         , -- out    t_sc_data(0 to c_NB_COL-1)                ; --! Science Data – Data
          o_science_data_rdy   => science_data_rdy       -- out    std_logic                                   --! Science Data Ready ('0' = Inactive, '1' = Active)
+   );
+
+   -- ------------------------------------------------------------------------------------------------------
+   --!   Science data check
+   -- ------------------------------------------------------------------------------------------------------
+   I_science_data_check: entity work.science_data_check port map
+   (     i_rst                => i_arst               , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+         i_clk_science        => i_clk_science        , -- in     std_logic                                 ; --! Science Clock
+
+         i_sw_adc_vin         => i_sw_adc_vin         , -- in     slv(c_SW_ADC_VIN_S-1 downto 0)            ; --! Switch ADC Voltage input
+
+         i_adc_dmp_mem_add    => i_adc_dmp_mem_add    , -- in     std_logic_vector(c_MUX_FACT_S-1 downto 0) ; --! ADC Dump memory for data compare: address
+         i_adc_dmp_mem_data   => i_adc_dmp_mem_data   , -- in     slv(c_SQ1_ADC_DATA_S+1 downto 0)          ; --! ADC Dump memory for data compare: data
+         i_adc_dmp_mem_cs     => i_adc_dmp_mem_cs     , -- in     std_logic                                 ; --! ADC Dump memory for data compare: chip select ('0' = Inactive, '1' = Active)
+
+         i_science_data_ctrl  => science_data_ctrl(0) , -- in     slv(c_SC_DATA_SER_W_S-1 downto 0)         ; --! Science Data – Control word
+         i_science_data       => science_data         , -- in     t_sc_data(0 to c_NB_COL-1)                ; --! Science Data – Data
+         i_science_data_rdy   => science_data_rdy     , -- in     std_logic                                 ; --! Science Data Ready ('0' = Inactive, '1' = Active)
+
+         o_science_data_err   => science_data_err       -- out    std_logic_vector(c_NB_COL-1 downto 0)       --! Science data error ('0' = No error, '1' = Error)
    );
 
    -- ------------------------------------------------------------------------------------------------------
@@ -451,7 +478,6 @@ begin
             end if;
 
             -- Check science data
-            -- TODO Check science data others cases
             if v_packet_dump = '1' then
                for k in 0 to c_NB_COL-1 loop
                   if science_data(k) /= std_logic_vector(resize(unsigned(mem_dump_sc_data_out(k)), c_SC_DATA_SER_NB*c_SC_DATA_SER_W_S)) then
@@ -492,8 +518,17 @@ begin
 
             if v_err_sc_data = '1' then
                o_sc_pkt_err <= '1';
-               fprintf(error, "Science Data packet content not expected", scd_file);
+               fprintf(error, "Science Data packet content does not correspond to ADC input", scd_file);
             end if;
+
+            G_science_data_err : for k in 0 to c_NB_COL-1 loop
+
+               if science_data_err(k) = '1' then
+                  o_sc_pkt_err <= '1';
+                  fprintf(error, "Science Data packet content, column " & integer'image(k) & ", not expected", scd_file);
+               end if;
+
+            end loop G_science_data_err;
 
             wait until falling_edge(science_data_rdy_r) for g_SIM_TIME-now;
 

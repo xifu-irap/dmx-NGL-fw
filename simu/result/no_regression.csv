@@ -13,4 +13,8 @@ DRE_DMX_UT_0110;ADC Dump on science data telemetry;PASS
 DRE_DMX_UT_0120;EP command, CY_SQ1_FB0 memory;PASS
 DRE_DMX_UT_0130;EP command, CY_SQ1_FB_MODE memory;PASS
 DRE_DMX_UT_0140;EP command, CY_FB1_PULSE_SHAPING memory;PASS
-DRE_DMX_UT_0150;DAC in open Loop mode with different pulse shapings;PASS
+DRE_DMX_UT_0150;SQUID1 DAC in open loop mode with different pulse shapings;PASS
+DRE_DMX_UT_0160;EP command, CY_SQ2_PXL_LOCKPOINT memory;PASS
+DRE_DMX_UT_0170;EP command, CY_SQ2_PXL_LOCKPOINT_LSB register;PASS
+DRE_DMX_UT_0180;EP command, CY_SQ2_PXL_LOCKPOINT_OFFSET register;PASS
+DRE_DMX_UT_0190;SQUID2 in open loop mode;PASS

@@ -8,10 +8,10 @@
 #             (0 ps) ==============================================================================================
 #             (0 ps)   Enable Squid1 ADC clocks reports display
 #             (0 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (0 ps) Clock report display activated: clk_sq1_adc(0)
-# ** Note   : (0 ps) Clock report display activated: clk_sq1_adc(1)
-# ** Note   : (0 ps) Clock report display activated: clk_sq1_adc(2)
-# ** Note   : (0 ps) Clock report display activated: clk_sq1_adc(3)
+# ** Note   : (0 ps) Report display activated: clk_sq1_adc(0)
+# ** Note   : (0 ps) Report display activated: clk_sq1_adc(1)
+# ** Note   : (0 ps) Report display activated: clk_sq1_adc(2)
+# ** Note   : (0 ps) Report display activated: clk_sq1_adc(3)
 #             (0 ps) 
 #             (0 ps) ==============================================================================================
 #             (0 ps)   Asynchronous reset activated
@@ -98,7 +98,7 @@
 #             (35052000 ps)     TM_MODE Col(3) goes from Test Pattern to Idle mode
 #             (35052000 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (35070000 ps) Check command return: PASS
-# ** Note   : (35070000 ps)  * Read 8000_6500, expected value 8000_6500 (TM_MODE, mode Read, data 6500)
+# ** Note   : (35070000 ps)  * Read 8000_E501, expected value 8000_E501 (TM_MODE, mode Read, data E501)
 # ** Note   : (38115048 ps) Waiting event sync = '1' for 3045048 ps
 # ** Note   : (38115048 ps) Send SPI command value 8001_B9FF (TM_MODE, mode Write, data B9FF)
 # ** Note   : (40506000 ps) Waiting SPI command return end for 2354952 ps
@@ -143,7 +143,7 @@
 #             (56832000 ps)   Check TM_MODE duration decremented after new sync rising edge
 #             (56832000 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (56850000 ps) Check command return: PASS
-# ** Note   : (56850000 ps)  * Read 8000_B9FD, expected value 8000_B9FD (TM_MODE, mode Read, data B9FD)
+# ** Note   : (56850000 ps)  * Read 8000_B9FE, expected value 8000_B9FE (TM_MODE, mode Read, data B9FE)
 # ** Note   : (59885928 ps) Waiting event sync = '1' for 3035928 ps
 # ** Note   : (59885928 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
 # ** Note   : (62268000 ps) Waiting SPI command return end for 2346072 ps
@@ -726,7 +726,7 @@
 #             (497688000 ps)   Check TM_MODE duration decremented after new sync rising edge
 #             (497688000 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (497706000 ps) Check command return: PASS
-# ** Note   : (497706000 ps)  * Read 8000_7A01, expected value 8000_7A01 (TM_MODE, mode Read, data 7A01)
+# ** Note   : (497706000 ps)  * Read 8000_7A02, expected value 8000_7A02 (TM_MODE, mode Read, data 7A02)
 # ** Note   : (500746248 ps) Waiting event sync = '1' for 3040248 ps
 # ** Note   : (500746248 ps) Send SPI command value 8001_09XX (TM_MODE, mode Write, data 09XX)
 # ** Note   : (503124000 ps) Waiting SPI command return end for 2341752 ps
@@ -736,7 +736,7 @@
 #             (503124000 ps)     TM_MODE Col(2) goes from Test Pattern to Idle mode
 #             (503124000 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (503142000 ps) Check command return: PASS
-# ** Note   : (503142000 ps)  * Read 8000_5A00, expected value 8000_5A00 (TM_MODE, mode Read, data 5A00)
+# ** Note   : (503142000 ps)  * Read 8000_7A01, expected value 8000_7A01 (TM_MODE, mode Read, data 7A01)
 # ** Note   : (506188968 ps) Waiting event sync = '1' for 3046968 ps
 # ** Note   : (506188968 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
 # ** Note   : (508578000 ps) Waiting SPI command return end for 2353032 ps
@@ -1185,6 +1185,7 @@
 # Error check command return    : '0'
 # Error check time              : '0'
 # Error check clocks parameters : '0'
+# Error check spi parameters    : '0'
 # Error check science packets   : '0'
 # Error check pulse shaping     : '0'
 # ------------------------------------------------------------------------------------------------------------------------------------------------------

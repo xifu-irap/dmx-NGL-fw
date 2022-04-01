@@ -62,6 +62,25 @@ constant c_EP_CMD_ERR_DIS_POS : integer   := 10                                 
 constant c_EP_CMD_ERR_FST_POS : integer   := 10                                                             ; --! EP command: Status, error first position
 
    -- ------------------------------------------------------------------------------------------------------
+   --    EP command: register reading position
+   -- ------------------------------------------------------------------------------------------------------
+constant c_EP_CMD_POS_TM_MODE : integer   := 0                                                              ; --! EP command: Position, TM_MODE
+constant c_EP_CMD_POS_SQ1FBMD : integer   := c_EP_CMD_POS_TM_MODE + 1                                       ; --! EP command: Position, SQ1_FB_MODE
+constant c_EP_CMD_POS_SQ2FBMD : integer   := c_EP_CMD_POS_SQ1FBMD + 1                                       ; --! EP command: Position, SQ2_FB_MODE
+constant c_EP_CMD_POS_STATUS  : integer   := c_EP_CMD_POS_SQ2FBMD + 1                                       ; --! EP command: Position, Status
+constant c_EP_CMD_POS_VERSION : integer   := c_EP_CMD_POS_STATUS  + 1                                       ; --! EP command: Position, Version
+constant c_EP_CMD_POS_S1FB0   : integer   := c_EP_CMD_POS_VERSION + 1                                       ; --! EP command: Position, CY_SQ1_FB0
+constant c_EP_CMD_POS_S1FBM   : integer   := c_EP_CMD_POS_S1FB0   + 1                                       ; --! EP command: Position, CY_SQ1_FB_MODE
+constant c_EP_CMD_POS_S2LKP   : integer   := c_EP_CMD_POS_S1FBM   + 1                                       ; --! EP command: Position, CY_SQ2_PXL_LOCKPOINT
+constant c_EP_CMD_POS_S2LSB   : integer   := c_EP_CMD_POS_S2LKP   + 1                                       ; --! EP command: Position, CY_SQ2_PXL_LOCKPOINT_LSB
+constant c_EP_CMD_POS_S2OFF   : integer   := c_EP_CMD_POS_S2LSB   + 1                                       ; --! EP command: Position, CY_SQ2_PXL_LOCKPOINT_OFFSET
+constant c_EP_CMD_POS_PLSSH   : integer   := c_EP_CMD_POS_S2OFF   + 1                                       ; --! EP command: Position, CY_FB1_PULSE_SHAPING
+
+constant c_EP_CMD_REG_NB_MUX  : integer   := 4                                                              ; --! EP command: Register number handle by multiplexer
+constant c_EP_CMD_POS_NB      : integer   := c_EP_CMD_REG_NB_MUX *
+                                             div_ceil(c_EP_CMD_POS_PLSSH+1, c_EP_CMD_REG_NB_MUX)            ; --! EP command: Position number
+
+   -- ------------------------------------------------------------------------------------------------------
    --    EP command: Address
    -- ------------------------------------------------------------------------------------------------------
 constant c_EP_CMD_ADD_COLPOSL : integer   := 12                                                             ; --! EP command: Address column position low
@@ -76,6 +95,9 @@ constant c_EP_CMD_ADD_VERSION : std_logic_vector(c_EP_SPI_WD_S-1 downto 0):= x"6
 
 constant c_EP_CMD_ADD_S1FB0   : t_ep_spi_wd(0 to c_NB_COL-1) := (x"0200", x"1200", x"2200", x"3200")        ; --! EP command: Address basis, CY_SQ1_FB0
 constant c_EP_CMD_ADD_S1FBM   : t_ep_spi_wd(0 to c_NB_COL-1) := (x"0300", x"1300", x"2300", x"3300")        ; --! EP command: Address basis, CY_SQ1_FB_MODE
+constant c_EP_CMD_ADD_S2LKP   : t_ep_spi_wd(0 to c_NB_COL-1) := (x"0400", x"1400", x"2400", x"3400")        ; --! EP command: Address basis, CY_SQ2_PXL_LOCKPOINT
+constant c_EP_CMD_ADD_S2LSB   : t_ep_spi_wd(0 to c_NB_COL-1) := (x"0422", x"1422", x"2422", x"3422")        ; --! EP command: Address basis, CY_SQ2_PXL_LOCKPOINT_LSB
+constant c_EP_CMD_ADD_S2OFF   : t_ep_spi_wd(0 to c_NB_COL-1) := (x"0423", x"1423", x"2423", x"3423")        ; --! EP command: Address basis, CY_SQ2_PXL_LOCKPOINT_OFFSET
 constant c_EP_CMD_ADD_PLSSH   : t_ep_spi_wd(0 to c_NB_COL-1) := (x"0800", x"1800", x"2800", x"3800")        ; --! EP command: Address basis, CY_FB1_PULSE_SHAPING
 
    -- ------------------------------------------------------------------------------------------------------
@@ -86,6 +108,9 @@ constant c_MEM_S1FB0_ADD_S    : integer   := log2_ceil(c_TAB_S1FB0_NW)          
 
 constant c_TAB_S1FBM_NW       : integer   := c_MUX_FACT                                                     ; --! Table number word: CY_SQ1_FB_MODE
 constant c_MEM_S1FBM_ADD_S    : integer   := log2_ceil(c_TAB_S1FBM_NW)                                      ; --! Memory SQUID1 Feedback Mode: address size without ping-pong buffer bit
+
+constant c_TAB_S2LKP_NW       : integer   := c_MUX_FACT                                                     ; --! Table number word: CY_SQ2_PXL_LOCKPOINT
+constant c_MEM_S2LKP_ADD_S    : integer   := log2_ceil(c_TAB_S2LKP_NW)                                      ; --! Memory SQUID2 Pixel Lockpoint: address size without ping-pong buffer bit
 
 constant c_TAB_PLSSH_NW       : integer   := c_PIXEL_DAC_NB_CYC                                             ; --! Table number word: CY_FB1_PULSE_SHAPING
 constant c_TAB_PLSSH_S        : integer   := log2_ceil(c_TAB_PLSSH_NW)                                      ; --! Table size bus:    CY_FB1_PULSE_SHAPING
@@ -103,6 +128,9 @@ constant c_EP_CMD_AUTH_VERSION: std_logic := c_EP_CMD_ERR_SET                   
 
 constant c_EP_CMD_AUTH_S1FB0  : std_logic := c_EP_CMD_ERR_CLR                                               ; --! EP command: Authorization, CY_SQ1_FB0
 constant c_EP_CMD_AUTH_S1FBM  : std_logic := c_EP_CMD_ERR_CLR                                               ; --! EP command: Authorization, CY_SQ1_FB_MODE
+constant c_EP_CMD_AUTH_S2LKP  : std_logic := c_EP_CMD_ERR_CLR                                               ; --! EP command: Authorization, CY_SQ2_PXL_LOCKPOINT
+constant c_EP_CMD_AUTH_S2LSB  : std_logic := c_EP_CMD_ERR_CLR                                               ; --! EP command: Authorization, CY_SQ2_PXL_LOCKPOINT_LSB
+constant c_EP_CMD_AUTH_S2OFF  : std_logic := c_EP_CMD_ERR_CLR                                               ; --! EP command: Authorization, CY_SQ2_PXL_LOCKPOINT_OFFSET
 constant c_EP_CMD_AUTH_PLSSH  : std_logic := c_EP_CMD_ERR_CLR                                               ; --! EP command: Authorization, CY_FB1_PULSE_SHAPING
 
    -- ------------------------------------------------------------------------------------------------------
@@ -115,6 +143,9 @@ constant c_DFLD_SQ1FBMD_PLS_S : integer   :=  log2_ceil(c_DAC_PLS_SHP_SET_NB)   
 constant c_DFLD_SQ2FBMD_COL_S : integer   :=  2                                                             ; --! EP command: Data field, SQ2_FB_MODE bus size
 constant c_DFLD_S1FB0_PIX_S   : integer   :=  c_EP_SPI_WD_S                                                 ; --! EP command: Data field, CY_SQ1_FB0 bus size
 constant c_DFLD_S1FBM_PIX_S   : integer   :=  2                                                             ; --! EP command: Data field, CY_SQ1_FB_MODE bus size
+constant c_DFLD_S2LKP_PIX_S   : integer   :=  c_SQ2_DAC_MUX_S                                               ; --! EP command: Data field, CY_SQ2_PXL_LOCKPOINT bus size
+constant c_DFLD_S2LSB_COL_S   : integer   :=  c_SQ2_DAC_DATA_S                                              ; --! EP command: Data field, CY_SQ2_PXL_LOCKPOINT_LSB bus size
+constant c_DFLD_S2OFF_COL_S   : integer   :=  c_SQ2_DAC_DATA_S                                              ; --! EP command: Data field, CY_SQ2_PXL_LOCKPOINT_OFFSET bus size
 constant c_DFLD_PLSSH_PLS_S   : integer   :=  c_EP_SPI_WD_S                                                 ; --! EP command: Data field, CY_FB1_PULSE_SHAPING bus size
 
    -- ------------------------------------------------------------------------------------------------------
@@ -137,6 +168,11 @@ constant c_DST_SQ2FBMD_OFF    : std_logic_vector(c_DFLD_SQ2FBMD_COL_S-1 downto 0
 constant c_DST_SQ2FBMD_OPEN   : std_logic_vector(c_DFLD_SQ2FBMD_COL_S-1 downto 0):= "01"                    ; --! EP command: Data state, SQ2_FB_MODE "Open Loop"
 constant c_DST_SQ2FBMD_CLOSE  : std_logic_vector(c_DFLD_SQ2FBMD_COL_S-1 downto 0):= "10"                    ; --! EP command: Data state, SQ2_FB_MODE "Closed Loop"
 constant c_DST_SQ2FBMD_TEST   : std_logic_vector(c_DFLD_SQ2FBMD_COL_S-1 downto 0):= "11"                    ; --! EP command: Data state, SQ2_FB_MODE "Test Pattern"
+
+constant c_DST_SQ2DAC_NORM    : std_logic_vector(c_SQ2_DAC_MODE_S-1 downto 0):= "00"                        ; --! EP command: Data state, SQUID2 DACs mode "Normal"
+constant c_DST_SQ2DAC_PD1K    : std_logic_vector(c_SQ2_DAC_MODE_S-1 downto 0):= "01"                        ; --! EP command: Data state, SQUID2 DACs mode "Power down 1k to GND"
+constant c_DST_SQ2DAC_PD100K  : std_logic_vector(c_SQ2_DAC_MODE_S-1 downto 0):= "10"                        ; --! EP command: Data state, SQUID2 DACs mode "Power down 100k to GND"
+constant c_DST_SQ2DAC_PDZ     : std_logic_vector(c_SQ2_DAC_MODE_S-1 downto 0):= "11"                        ; --! EP command: Data state, SQUID2 DACs mode "Power down High Z"
 
 constant c_DST_SQ1FBMD_OPEN   : std_logic_vector(c_DFLD_S1FBM_PIX_S-1 downto 0):= "00"                      ; --! EP command: Data state, CY_SQ1_FB_MODE "Open Loop"
 constant c_DST_SQ1FBMD_CLOSE  : std_logic_vector(c_DFLD_S1FBM_PIX_S-1 downto 0):= "01"                      ; --! EP command: Data state, CY_SQ1_FB_MODE "Closed Loop"
@@ -170,6 +206,12 @@ constant c_EP_CMD_DEF_S1FB0   : t_ram_init(0 to 2*c_TAB_S1FB0_NW-1) := (others =
 
 constant c_EP_CMD_DEF_S1FBM   : t_ram_init(0 to 2*c_TAB_S1FBM_NW-1) :=
                                 (others => to_integer(unsigned(c_DST_SQ1FBMD_OPEN)))                        ; --! EP command: Default value, CY_SQ1_FB_MODE memory with ping-pong buffer bit
+
+constant c_EP_CMD_DEF_S2LKP   : t_ram_init(0 to 2*c_TAB_S2LKP_NW-1) := (others => 0)                        ; --! EP command: Default value, CY_SQ2_PXL_LOCKPOINT memory with ping-pong buffer bit
+constant c_EP_CMD_DEF_S2LSB   : std_logic_vector(c_DFLD_S2LSB_COL_S-1 downto 0):=
+                                std_logic_vector(to_unsigned(0, c_DFLD_S2LSB_COL_S))                        ; --! EP command: Default value, CY_SQ2_PXL_LOCKPOINT_LSB
+constant c_EP_CMD_DEF_S2OFF   : std_logic_vector(c_DFLD_S2OFF_COL_S-1 downto 0):=
+                                std_logic_vector(to_unsigned(c_SQ2_DAC_MDL_POINT ,c_DFLD_S2OFF_COL_S))      ; --! EP command: Default value, CY_SQ2_PXL_LOCKPOINT_OFFSET
 
 constant c_EP_CMD_DEF_PLSSH   : t_ram_init(0 to 2**(c_MEM_PLSSH_ADD_S+1)-1) :=
                                 (37364, 21302, 12145,  6924,  3948,  2251,  1283,   732,
@@ -220,13 +262,17 @@ type     t_rg_tm_mode          is array (natural range <>) of
 type     t_rg_sq1fbmd          is array (natural range <>) of
                                std_logic_vector(c_DFLD_SQ1FBMD_COL_S-1 downto 0)                            ; --! EP command: register SQ1_FB_MODE
 type     t_rg_sq1fbmd_pls      is array (natural range <>) of
-                               std_logic_vector(c_DFLD_SQ1FBMD_PLS_S-1 downto 0)                            ; --! EP command: register SQ1_FB_MODE, pulse shaping coeficients set
+                               std_logic_vector(c_DFLD_SQ1FBMD_PLS_S-1 downto 0)                            ; --! EP command: register SQ1_FB_MODE, pulse shaping coefficients set
 type     t_rg_sq2fbmd          is array (natural range <>) of
                                std_logic_vector(c_DFLD_SQ2FBMD_COL_S-1 downto 0)                            ; --! EP command: register SQ2_FB_MODE
+type     t_rg_sq2lkp           is array (natural range <>) of
+                               std_logic_vector(c_DFLD_S2OFF_COL_S-1 downto 0)                              ; --! EP command: registers CY_SQ2_PXL_LOCKPOINT_LSB/CY_SQ2_PXL_LOCKPOINT_OFFSET
 type     t_mem_s1fb0_data      is array (natural range <>) of
-                               std_logic_vector(c_DFLD_S1FB0_PIX_S-1 downto 0)                              ; --! EP command: Address Memory CY_SQ1_FB0
+                               std_logic_vector(c_DFLD_S1FB0_PIX_S-1 downto 0)                              ; --! EP command: Data Memory CY_SQ1_FB0
 type     t_mem_s1fbm_data      is array (natural range <>) of
-                               std_logic_vector(c_DFLD_S1FBM_PIX_S-1 downto 0)                              ; --! EP command: Address Memory CY_SQ1_FB_MODE
+                               std_logic_vector(c_DFLD_S1FBM_PIX_S-1 downto 0)                              ; --! EP command: Data Memory CY_SQ1_FB_MODE
+type     t_mem_s2lkp_data      is array (natural range <>) of
+                               std_logic_vector(c_DFLD_S2LKP_PIX_S-1 downto 0)                              ; --! EP command: Data Memory CY_SQ2_PXL_LOCKPOINT
 type     t_mem_plssh_data      is array (natural range <>) of
                                std_logic_vector(c_DFLD_PLSSH_PLS_S-1 downto 0)                              ; --! EP command: Data Memory CY_FB1_PULSE_SHAPING
 

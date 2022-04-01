@@ -55,72 +55,72 @@ entity clock_check_model is port
          i_c2_sq1_dac_sleep   : in     std_logic                                                            ; --! SQUID1 DAC, col. 2 - Sleep ('0' = Inactive, '1' = Active)
          i_c3_sq1_dac_sleep   : in     std_logic                                                            ; --! SQUID1 DAC, col. 3 - Sleep ('0' = Inactive, '1' = Active)
 
-         o_err_chk_rpt        : out    t_err_n_clk_chk_arr(0 to c_CE_S-1)                                     --! Clock check error reports
+         o_err_chk_rpt        : out    t_err_n_clk_chk_arr(0 to c_CHK_ENA_CLK_NB-1)                           --! Clock check error reports
 
    );
 end entity clock_check_model;
 
 architecture Behavioral of clock_check_model is
-signal   clock                : std_logic_vector(c_CE_S-1 downto 0)                                         ; --! Clocks
-signal   enable               : std_logic_vector(c_CE_S-1 downto 0)                                         ; --! Enables
-signal   chk_osc_ena_l        : std_logic_vector(c_CE_S-1 downto 0)                                         ; --! Check oscillation on clock when enable inactive ('0' = No, '1' = Yes)
+signal   clock                : std_logic_vector(c_CHK_ENA_CLK_NB-1 downto 0)                               ; --! Clocks
+signal   enable               : std_logic_vector(c_CHK_ENA_CLK_NB-1 downto 0)                               ; --! Enables
+signal   chk_osc_ena_l        : std_logic_vector(c_CHK_ENA_CLK_NB-1 downto 0)                               ; --! Check oscillation on clock when enable inactive ('0' = No, '1' = Yes)
 begin
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Clock signals
    -- ------------------------------------------------------------------------------------------------------
-   clock(0)    <= i_clk;
-   clock(1)    <= i_clk_sq1_adc_acq;
-   clock(2)    <= i_clk_sq1_pls_shape;
-   clock(3)    <= i_c0_clk_sq1_adc;
-   clock(4)    <= i_c1_clk_sq1_adc;
-   clock(5)    <= i_c2_clk_sq1_adc;
-   clock(6)    <= i_c3_clk_sq1_adc;
-   clock(7)    <= i_c0_clk_sq1_dac;
-   clock(8)    <= i_c1_clk_sq1_dac;
-   clock(9)    <= i_c2_clk_sq1_dac;
-   clock(10)   <= i_c3_clk_sq1_dac;
-   clock(11)   <= i_clk_science_01;
-   clock(12)   <= i_clk_science_23;
+   clock(c_CE_CLK)         <= i_clk;
+   clock(c_CE_CK1_ADC)     <= i_clk_sq1_adc_acq;
+   clock(c_CE_CK1_PLS)     <= i_clk_sq1_pls_shape;
+   clock(c_CE_C0_CK1_ADC)  <= i_c0_clk_sq1_adc;
+   clock(c_CE_C1_CK1_ADC)  <= i_c1_clk_sq1_adc;
+   clock(c_CE_C2_CK1_ADC)  <= i_c2_clk_sq1_adc;
+   clock(c_CE_C3_CK1_ADC)  <= i_c3_clk_sq1_adc;
+   clock(c_CE_C0_CK1_DAC)  <= i_c0_clk_sq1_dac;
+   clock(c_CE_C1_CK1_DAC)  <= i_c1_clk_sq1_dac;
+   clock(c_CE_C2_CK1_DAC)  <= i_c2_clk_sq1_dac;
+   clock(c_CE_C3_CK1_DAC)  <= i_c3_clk_sq1_dac;
+   clock(c_CE_CLK_SC_01)   <= i_clk_science_01;
+   clock(c_CE_CLK_SC_23)   <= i_clk_science_23;
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Enable signals
    -- ------------------------------------------------------------------------------------------------------
-   enable(0)   <= not(i_rst);
-   enable(1)   <= not(i_rst);
-   enable(2)   <= not(i_rst);
-   enable(3)   <= not(i_c0_sq1_adc_pwdn);
-   enable(4)   <= not(i_c1_sq1_adc_pwdn);
-   enable(5)   <= not(i_c2_sq1_adc_pwdn);
-   enable(6)   <= not(i_c3_sq1_adc_pwdn);
-   enable(7)   <= not(i_c0_sq1_dac_sleep);
-   enable(8)   <= not(i_c1_sq1_dac_sleep);
-   enable(9)   <= not(i_c2_sq1_dac_sleep);
-   enable(10)  <= not(i_c3_sq1_dac_sleep);
-   enable(11)  <= not(i_rst);
-   enable(12)  <= not(i_rst);
+   enable(c_CE_CLK)        <= not(i_rst);
+   enable(c_CE_CK1_ADC)    <= not(i_rst);
+   enable(c_CE_CK1_PLS)    <= not(i_rst);
+   enable(c_CE_C0_CK1_ADC) <= not(i_c0_sq1_adc_pwdn);
+   enable(c_CE_C1_CK1_ADC) <= not(i_c1_sq1_adc_pwdn);
+   enable(c_CE_C2_CK1_ADC) <= not(i_c2_sq1_adc_pwdn);
+   enable(c_CE_C3_CK1_ADC) <= not(i_c3_sq1_adc_pwdn);
+   enable(c_CE_C0_CK1_DAC) <= not(i_c0_sq1_dac_sleep);
+   enable(c_CE_C1_CK1_DAC) <= not(i_c1_sq1_dac_sleep);
+   enable(c_CE_C2_CK1_DAC) <= not(i_c2_sq1_dac_sleep);
+   enable(c_CE_C3_CK1_DAC) <= not(i_c3_sq1_dac_sleep);
+   enable(c_CE_CLK_SC_01)  <= not(i_rst);
+   enable(c_CE_CLK_SC_23)  <= not(i_rst);
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Enable signals
    -- ------------------------------------------------------------------------------------------------------
-   chk_osc_ena_l(0)   <= c_CCHK(0).chk_osc_en;
-   chk_osc_ena_l(1)   <= c_CCHK(1).chk_osc_en;
-   chk_osc_ena_l(2)   <= c_CCHK(2).chk_osc_en;
-   chk_osc_ena_l(3)   <= c_CCHK(3).chk_osc_en and not(i_rst);
-   chk_osc_ena_l(4)   <= c_CCHK(4).chk_osc_en and not(i_rst);
-   chk_osc_ena_l(5)   <= c_CCHK(5).chk_osc_en and not(i_rst);
-   chk_osc_ena_l(6)   <= c_CCHK(6).chk_osc_en and not(i_rst);
-   chk_osc_ena_l(7)   <= c_CCHK(7).chk_osc_en and not(i_rst);
-   chk_osc_ena_l(8)   <= c_CCHK(8).chk_osc_en and not(i_rst);
-   chk_osc_ena_l(9)   <= c_CCHK(9).chk_osc_en and not(i_rst);
-   chk_osc_ena_l(10)  <= c_CCHK(10).chk_osc_en and not(i_rst);
-   chk_osc_ena_l(11)  <= c_CCHK(11).chk_osc_en;
-   chk_osc_ena_l(12)  <= c_CCHK(12).chk_osc_en;
+   chk_osc_ena_l(c_CE_CLK)       <= c_CCHK(c_CE_CLK).chk_osc_en;
+   chk_osc_ena_l(c_CE_CK1_ADC)   <= c_CCHK(c_CE_CK1_ADC).chk_osc_en;
+   chk_osc_ena_l(c_CE_CK1_PLS)   <= c_CCHK(c_CE_CK1_PLS).chk_osc_en;
+   chk_osc_ena_l(c_CE_C0_CK1_ADC)<= c_CCHK(c_CE_C0_CK1_ADC).chk_osc_en and not(i_rst);
+   chk_osc_ena_l(c_CE_C1_CK1_ADC)<= c_CCHK(c_CE_C1_CK1_ADC).chk_osc_en and not(i_rst);
+   chk_osc_ena_l(c_CE_C2_CK1_ADC)<= c_CCHK(c_CE_C2_CK1_ADC).chk_osc_en and not(i_rst);
+   chk_osc_ena_l(c_CE_C3_CK1_ADC)<= c_CCHK(c_CE_C3_CK1_ADC).chk_osc_en and not(i_rst);
+   chk_osc_ena_l(c_CE_C0_CK1_DAC)<= c_CCHK(c_CE_C0_CK1_DAC).chk_osc_en and not(i_rst);
+   chk_osc_ena_l(c_CE_C1_CK1_DAC)<= c_CCHK(c_CE_C1_CK1_DAC).chk_osc_en and not(i_rst);
+   chk_osc_ena_l(c_CE_C2_CK1_DAC)<= c_CCHK(c_CE_C2_CK1_DAC).chk_osc_en and not(i_rst);
+   chk_osc_ena_l(c_CE_C3_CK1_DAC)<= c_CCHK(c_CE_C3_CK1_DAC).chk_osc_en and not(i_rst);
+   chk_osc_ena_l(c_CE_CLK_SC_01) <= c_CCHK(c_CE_CLK_SC_01).chk_osc_en;
+   chk_osc_ena_l(c_CE_CLK_SC_23) <= c_CCHK(c_CE_CLK_SC_23).chk_osc_en;
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Clock check
    -- ------------------------------------------------------------------------------------------------------
-   G_clock_check: for k in 0 to c_CE_S-1 generate
+   G_clock_check: for k in 0 to c_CHK_ENA_CLK_NB-1 generate
    begin
 
       I_clock_check: entity work.clock_check generic map

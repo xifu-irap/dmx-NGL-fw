@@ -41,7 +41,6 @@ entity dmx_cmd is port
 
          i_tm_mode            : in     t_rg_tm_mode(0 to c_NB_COL-1)                                        ; --! Telemetry mode
          i_sq1_fb_mode        : in     t_rg_sq1fbmd(0 to c_NB_COL-1)                                        ; --! Squid 1 Feedback mode (on/off)
-         i_sq2_fb_mode        : in     t_rg_sq2fbmd(0 to c_NB_COL-1)                                        ; --! Squid 2 Feedback mode
 
          o_sync_re            : out    std_logic                                                            ; --! Pixel sequence synchronization, rising edge
 
@@ -125,7 +124,7 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   Command switch clocks
    --    @Req : DRE-DMX-FW-REQ-0115
-   --    @Req : DRE-DMX-FW-REQ-0255
+   --    @Req : DRE-DMX-FW-REQ-0260
    -- ------------------------------------------------------------------------------------------------------
    G_column_mgt: for k in 0 to c_NB_COL-1 generate
    begin

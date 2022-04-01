@@ -1,0 +1,511 @@
+# ------------------------------------------------------------------------------------------------------------------------------------------------------
+# Simulation DRE_DMX_UT_0180
+# ------------------------------------------------------------------------------------------------------------------------------------------------------
+#             (0 ps) **********************************************************************************************
+#             (0 ps)   Test: EP command, CY_SQ2_PXL_LOCKPOINT_OFFSET register
+#             (0 ps) **********************************************************************************************
+#             (0 ps) 
+#             (0 ps) ==============================================================================================
+#             (0 ps)   Asynchronous reset activated
+#             (0 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (0 ps) Write discrete: arst_n = '0'
+# ** Note   : (80000 ps) Waiting time for 80000 ps
+#             (80000 ps) 
+#             (80000 ps) ==============================================================================================
+#             (80000 ps)   Asynchronous reset deactivated
+#             (80000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (80000 ps) Write discrete: arst_n = '1'
+#             (80000 ps) 
+#             (80000 ps) ==============================================================================================
+#             (80000 ps)   Wait internal reset deactivated
+#             (80000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (6995496 ps) Waiting event rst = '0' for 6915496 ps
+#             (6995496 ps) 
+#             (6995496 ps) ==============================================================================================
+#             (6995496 ps)   Start C0_SQ2_PXL_LOCKPOINT_OFFSET register test
+#             (6995496 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (6995496 ps) Send SPI command value 0846_XXXX (C0_SQ2_PXL_LOCKPOINT_OFFSET, mode Read, data XXXX)
+# ** Note   : (14496000 ps) Waiting SPI command end for 7464504 ps
+# ** Note   : (14496000 ps) Send SPI command value 0847_8XXX (C0_SQ2_PXL_LOCKPOINT_OFFSET, mode Write, data 8XXX)
+# ** Note   : (22002000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (22002000 ps) Send SPI command value 0846_XXXX (C0_SQ2_PXL_LOCKPOINT_OFFSET, mode Read, data XXXX)
+# ** Note   : (22074000 ps) Waiting SPI command return end for 36000 ps
+#             (22074000 ps) 
+#             (22074000 ps) ==============================================================================================
+#             (22074000 ps)   Check C0_SQ2_PXL_LOCKPOINT_OFFSET content at start
+#             (22074000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (22092000 ps) Check command return: PASS
+# ** Note   : (22092000 ps)  * Read 0846_0000, expected value 0846_0000 (C0_SQ2_PXL_LOCKPOINT_OFFSET, mode Read, data 0000)
+# ** Note   : (29508000 ps) Waiting SPI command end for 7416000 ps
+# ** Note   : (29508000 ps) Send SPI command value 0847_4XXX (C0_SQ2_PXL_LOCKPOINT_OFFSET, mode Write, data 4XXX)
+# ** Note   : (29580000 ps) Waiting SPI command return end for 36000 ps
+#             (29580000 ps) 
+#             (29580000 ps) ==============================================================================================
+#             (29580000 ps)   Check error position SPI data out of range detected
+#             (29580000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (29598000 ps) Check command return: PASS
+# ** Note   : (29598000 ps)  * Read C000_1000, expected value C000_1000 (Status, mode Read, data 1000)
+# ** Note   : (37014000 ps) Waiting SPI command end for 7416000 ps
+# ** Note   : (37014000 ps) Send SPI command value 0846_XXXX (C0_SQ2_PXL_LOCKPOINT_OFFSET, mode Read, data XXXX)
+# ** Note   : (37086000 ps) Waiting SPI command return end for 36000 ps
+#             (37086000 ps) 
+#             (37086000 ps) ==============================================================================================
+#             (37086000 ps)   Check C0_SQ2_PXL_LOCKPOINT_OFFSET no change
+#             (37086000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (37104000 ps) Check command return: PASS
+# ** Note   : (37104000 ps)  * Read 0846_0000, expected value 0846_0000 (C0_SQ2_PXL_LOCKPOINT_OFFSET, mode Read, data 0000)
+# ** Note   : (44520000 ps) Waiting SPI command end for 7416000 ps
+# ** Note   : (44520000 ps) Send SPI command value 0847_2XXX (C0_SQ2_PXL_LOCKPOINT_OFFSET, mode Write, data 2XXX)
+# ** Note   : (44592000 ps) Waiting SPI command return end for 36000 ps
+#             (44592000 ps) 
+#             (44592000 ps) ==============================================================================================
+#             (44592000 ps)   Check error position SPI data out of range detected
+#             (44592000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (44610000 ps) Check command return: PASS
+# ** Note   : (44610000 ps)  * Read C000_1000, expected value C000_1000 (Status, mode Read, data 1000)
+# ** Note   : (52026000 ps) Waiting SPI command end for 7416000 ps
+# ** Note   : (52026000 ps) Send SPI command value 0846_XXXX (C0_SQ2_PXL_LOCKPOINT_OFFSET, mode Read, data XXXX)
+# ** Note   : (52098000 ps) Waiting SPI command return end for 36000 ps
+#             (52098000 ps) 
+#             (52098000 ps) ==============================================================================================
+#             (52098000 ps)   Check C0_SQ2_PXL_LOCKPOINT_OFFSET no change
+#             (52098000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (52116000 ps) Check command return: PASS
+# ** Note   : (52116000 ps)  * Read 0846_0000, expected value 0846_0000 (C0_SQ2_PXL_LOCKPOINT_OFFSET, mode Read, data 0000)
+# ** Note   : (59532000 ps) Waiting SPI command end for 7416000 ps
+# ** Note   : (59532000 ps) Send SPI command value 0847_1XXX (C0_SQ2_PXL_LOCKPOINT_OFFSET, mode Write, data 1XXX)
+# ** Note   : (59604000 ps) Waiting SPI command return end for 36000 ps
+#             (59604000 ps) 
+#             (59604000 ps) ==============================================================================================
+#             (59604000 ps)   Check error position SPI data out of range detected
+#             (59604000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (59622000 ps) Check command return: PASS
+# ** Note   : (59622000 ps)  * Read C000_1000, expected value C000_1000 (Status, mode Read, data 1000)
+# ** Note   : (67038000 ps) Waiting SPI command end for 7416000 ps
+# ** Note   : (67038000 ps) Send SPI command value 0846_XXXX (C0_SQ2_PXL_LOCKPOINT_OFFSET, mode Read, data XXXX)
+# ** Note   : (67110000 ps) Waiting SPI command return end for 36000 ps
+#             (67110000 ps) 
+#             (67110000 ps) ==============================================================================================
+#             (67110000 ps)   Check C0_SQ2_PXL_LOCKPOINT_OFFSET no change
+#             (67110000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (67128000 ps) Check command return: PASS
+# ** Note   : (67128000 ps)  * Read 0846_0000, expected value 0846_0000 (C0_SQ2_PXL_LOCKPOINT_OFFSET, mode Read, data 0000)
+# ** Note   : (74544000 ps) Waiting SPI command end for 7416000 ps
+# ** Note   : (74544000 ps) Send SPI command value 0847_076A (C0_SQ2_PXL_LOCKPOINT_OFFSET, mode Write, data 076A)
+# ** Note   : (74616000 ps) Waiting SPI command return end for 36000 ps
+#             (74616000 ps) 
+#             (74616000 ps) ==============================================================================================
+#             (74616000 ps)   Check error position SPI data out of range detected
+#             (74616000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (74634000 ps) Check command return: PASS
+# ** Note   : (74634000 ps)  * Read C000_1000, expected value C000_1000 (Status, mode Read, data 1000)
+# ** Note   : (82050000 ps) Waiting SPI command end for 7416000 ps
+# ** Note   : (82050000 ps) Send SPI command value 0846_XXXX (C0_SQ2_PXL_LOCKPOINT_OFFSET, mode Read, data XXXX)
+# ** Note   : (82122000 ps) Waiting SPI command return end for 36000 ps
+#             (82122000 ps) 
+#             (82122000 ps) ==============================================================================================
+#             (82122000 ps)   Check C0_SQ2_PXL_LOCKPOINT_OFFSET no change
+#             (82122000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (82140000 ps) Check command return: PASS
+# ** Note   : (82140000 ps)  * Read 0846_0000, expected value 0846_0000 (C0_SQ2_PXL_LOCKPOINT_OFFSET, mode Read, data 0000)
+# ** Note   : (89556000 ps) Waiting SPI command end for 7416000 ps
+# ** Note   : (89556000 ps) Send SPI command value 0847_0FFF (C0_SQ2_PXL_LOCKPOINT_OFFSET, mode Write, data 0FFF)
+# ** Note   : (89628000 ps) Waiting SPI command return end for 36000 ps
+#             (89628000 ps) 
+#             (89628000 ps) ==============================================================================================
+#             (89628000 ps)   Check no error
+#             (89628000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (89646000 ps) Check command return: PASS
+# ** Note   : (89646000 ps)  * Read C000_0000, expected value C000_0000 (Status, mode Read, data 0000)
+# ** Note   : (97062000 ps) Waiting SPI command end for 7416000 ps
+# ** Note   : (97062000 ps) Send SPI command value 0846_XXXX (C0_SQ2_PXL_LOCKPOINT_OFFSET, mode Read, data XXXX)
+# ** Note   : (97134000 ps) Waiting SPI command return end for 36000 ps
+#             (97134000 ps) 
+#             (97134000 ps) ==============================================================================================
+#             (97134000 ps)   Check C0_SQ2_PXL_LOCKPOINT_OFFSET content
+#             (97134000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (97152000 ps) Check command return: PASS
+# ** Note   : (97152000 ps)  * Read 0846_076A, expected value 0846_076A (C0_SQ2_PXL_LOCKPOINT_OFFSET, mode Read, data 076A)
+# ** Note   : (104568000 ps) Waiting SPI command end for 7416000 ps
+# ** Note   : (104568000 ps) Send SPI command value 2846_XXXX (C1_SQ2_PXL_LOCKPOINT_OFFSET, mode Read, data XXXX)
+# ** Note   : (104640000 ps) Waiting SPI command return end for 36000 ps
+#             (104640000 ps) 
+#             (104640000 ps) ==============================================================================================
+#             (104640000 ps)   Check no error
+#             (104640000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (104658000 ps) Check command return: PASS
+# ** Note   : (104658000 ps)  * Read C000_0000, expected value C000_0000 (Status, mode Read, data 0000)
+# ** Note   : (112074000 ps) Waiting SPI command end for 7416000 ps
+# ** Note   : (112074000 ps) Send SPI command value 2847_8XXX (C1_SQ2_PXL_LOCKPOINT_OFFSET, mode Write, data 8XXX)
+# ** Note   : (112146000 ps) Waiting SPI command return end for 36000 ps
+#             (112146000 ps) 
+#             (112146000 ps) ==============================================================================================
+#             (112146000 ps)   Check C0_SQ2_PXL_LOCKPOINT_OFFSET content
+#             (112146000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (112164000 ps) Check command return: PASS
+# ** Note   : (112164000 ps)  * Read 0846_0FFF, expected value 0846_0FFF (C0_SQ2_PXL_LOCKPOINT_OFFSET, mode Read, data 0FFF)
+# ** Note   : (119580000 ps) Waiting SPI command end for 7416000 ps
+# ** Note   : (119580000 ps) Send SPI command value 2846_XXXX (C1_SQ2_PXL_LOCKPOINT_OFFSET, mode Read, data XXXX)
+# ** Note   : (119652000 ps) Waiting SPI command return end for 36000 ps
+#             (119652000 ps) 
+#             (119652000 ps) ==============================================================================================
+#             (119652000 ps)   Check C1_SQ2_PXL_LOCKPOINT_OFFSET content at start
+#             (119652000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (119670000 ps) Check command return: PASS
+# ** Note   : (119670000 ps)  * Read 2846_0000, expected value 2846_0000 (C1_SQ2_PXL_LOCKPOINT_OFFSET, mode Read, data 0000)
+# ** Note   : (127086000 ps) Waiting SPI command end for 7416000 ps
+# ** Note   : (127086000 ps) Send SPI command value 2847_4XXX (C1_SQ2_PXL_LOCKPOINT_OFFSET, mode Write, data 4XXX)
+# ** Note   : (127158000 ps) Waiting SPI command return end for 36000 ps
+#             (127158000 ps) 
+#             (127158000 ps) ==============================================================================================
+#             (127158000 ps)   Check error position SPI data out of range detected
+#             (127158000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (127176000 ps) Check command return: PASS
+# ** Note   : (127176000 ps)  * Read C000_1000, expected value C000_1000 (Status, mode Read, data 1000)
+# ** Note   : (134592000 ps) Waiting SPI command end for 7416000 ps
+# ** Note   : (134592000 ps) Send SPI command value 2846_XXXX (C1_SQ2_PXL_LOCKPOINT_OFFSET, mode Read, data XXXX)
+# ** Note   : (134664000 ps) Waiting SPI command return end for 36000 ps
+#             (134664000 ps) 
+#             (134664000 ps) ==============================================================================================
+#             (134664000 ps)   Check C1_SQ2_PXL_LOCKPOINT_OFFSET no change
+#             (134664000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (134682000 ps) Check command return: PASS
+# ** Note   : (134682000 ps)  * Read 2846_0000, expected value 2846_0000 (C1_SQ2_PXL_LOCKPOINT_OFFSET, mode Read, data 0000)
+# ** Note   : (142098000 ps) Waiting SPI command end for 7416000 ps
+# ** Note   : (142098000 ps) Send SPI command value 2847_2XXX (C1_SQ2_PXL_LOCKPOINT_OFFSET, mode Write, data 2XXX)
+# ** Note   : (142170000 ps) Waiting SPI command return end for 36000 ps
+#             (142170000 ps) 
+#             (142170000 ps) ==============================================================================================
+#             (142170000 ps)   Check error position SPI data out of range detected
+#             (142170000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (142188000 ps) Check command return: PASS
+# ** Note   : (142188000 ps)  * Read C000_1000, expected value C000_1000 (Status, mode Read, data 1000)
+# ** Note   : (149604000 ps) Waiting SPI command end for 7416000 ps
+# ** Note   : (149604000 ps) Send SPI command value 2846_XXXX (C1_SQ2_PXL_LOCKPOINT_OFFSET, mode Read, data XXXX)
+# ** Note   : (149676000 ps) Waiting SPI command return end for 36000 ps
+#             (149676000 ps) 
+#             (149676000 ps) ==============================================================================================
+#             (149676000 ps)   Check C1_SQ2_PXL_LOCKPOINT_OFFSET no change
+#             (149676000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (149694000 ps) Check command return: PASS
+# ** Note   : (149694000 ps)  * Read 2846_0000, expected value 2846_0000 (C1_SQ2_PXL_LOCKPOINT_OFFSET, mode Read, data 0000)
+# ** Note   : (157110000 ps) Waiting SPI command end for 7416000 ps
+# ** Note   : (157110000 ps) Send SPI command value 2847_1XXX (C1_SQ2_PXL_LOCKPOINT_OFFSET, mode Write, data 1XXX)
+# ** Note   : (157182000 ps) Waiting SPI command return end for 36000 ps
+#             (157182000 ps) 
+#             (157182000 ps) ==============================================================================================
+#             (157182000 ps)   Check error position SPI data out of range detected
+#             (157182000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (157200000 ps) Check command return: PASS
+# ** Note   : (157200000 ps)  * Read C000_1000, expected value C000_1000 (Status, mode Read, data 1000)
+# ** Note   : (164616000 ps) Waiting SPI command end for 7416000 ps
+# ** Note   : (164616000 ps) Send SPI command value 2846_XXXX (C1_SQ2_PXL_LOCKPOINT_OFFSET, mode Read, data XXXX)
+# ** Note   : (164688000 ps) Waiting SPI command return end for 36000 ps
+#             (164688000 ps) 
+#             (164688000 ps) ==============================================================================================
+#             (164688000 ps)   Check C1_SQ2_PXL_LOCKPOINT_OFFSET no change
+#             (164688000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (164706000 ps) Check command return: PASS
+# ** Note   : (164706000 ps)  * Read 2846_0000, expected value 2846_0000 (C1_SQ2_PXL_LOCKPOINT_OFFSET, mode Read, data 0000)
+# ** Note   : (172122000 ps) Waiting SPI command end for 7416000 ps
+# ** Note   : (172122000 ps) Send SPI command value 2847_076A (C1_SQ2_PXL_LOCKPOINT_OFFSET, mode Write, data 076A)
+# ** Note   : (172194000 ps) Waiting SPI command return end for 36000 ps
+#             (172194000 ps) 
+#             (172194000 ps) ==============================================================================================
+#             (172194000 ps)   Check error position SPI data out of range detected
+#             (172194000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (172212000 ps) Check command return: PASS
+# ** Note   : (172212000 ps)  * Read C000_1000, expected value C000_1000 (Status, mode Read, data 1000)
+# ** Note   : (179628000 ps) Waiting SPI command end for 7416000 ps
+# ** Note   : (179628000 ps) Send SPI command value 2846_XXXX (C1_SQ2_PXL_LOCKPOINT_OFFSET, mode Read, data XXXX)
+# ** Note   : (179700000 ps) Waiting SPI command return end for 36000 ps
+#             (179700000 ps) 
+#             (179700000 ps) ==============================================================================================
+#             (179700000 ps)   Check C1_SQ2_PXL_LOCKPOINT_OFFSET no change
+#             (179700000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (179718000 ps) Check command return: PASS
+# ** Note   : (179718000 ps)  * Read 2846_0000, expected value 2846_0000 (C1_SQ2_PXL_LOCKPOINT_OFFSET, mode Read, data 0000)
+# ** Note   : (187134000 ps) Waiting SPI command end for 7416000 ps
+# ** Note   : (187134000 ps) Send SPI command value 2847_0FFF (C1_SQ2_PXL_LOCKPOINT_OFFSET, mode Write, data 0FFF)
+# ** Note   : (187206000 ps) Waiting SPI command return end for 36000 ps
+#             (187206000 ps) 
+#             (187206000 ps) ==============================================================================================
+#             (187206000 ps)   Check no error
+#             (187206000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (187224000 ps) Check command return: PASS
+# ** Note   : (187224000 ps)  * Read C000_0000, expected value C000_0000 (Status, mode Read, data 0000)
+# ** Note   : (194640000 ps) Waiting SPI command end for 7416000 ps
+# ** Note   : (194640000 ps) Send SPI command value 2846_XXXX (C1_SQ2_PXL_LOCKPOINT_OFFSET, mode Read, data XXXX)
+# ** Note   : (194712000 ps) Waiting SPI command return end for 36000 ps
+#             (194712000 ps) 
+#             (194712000 ps) ==============================================================================================
+#             (194712000 ps)   Check C1_SQ2_PXL_LOCKPOINT_OFFSET content
+#             (194712000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (194730000 ps) Check command return: PASS
+# ** Note   : (194730000 ps)  * Read 2846_076A, expected value 2846_076A (C1_SQ2_PXL_LOCKPOINT_OFFSET, mode Read, data 076A)
+# ** Note   : (202146000 ps) Waiting SPI command end for 7416000 ps
+# ** Note   : (202146000 ps) Send SPI command value 4846_XXXX (C2_SQ2_PXL_LOCKPOINT_OFFSET, mode Read, data XXXX)
+# ** Note   : (202218000 ps) Waiting SPI command return end for 36000 ps
+#             (202218000 ps) 
+#             (202218000 ps) ==============================================================================================
+#             (202218000 ps)   Check no error
+#             (202218000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (202236000 ps) Check command return: PASS
+# ** Note   : (202236000 ps)  * Read C000_0000, expected value C000_0000 (Status, mode Read, data 0000)
+# ** Note   : (209652000 ps) Waiting SPI command end for 7416000 ps
+# ** Note   : (209652000 ps) Send SPI command value 4847_8XXX (C2_SQ2_PXL_LOCKPOINT_OFFSET, mode Write, data 8XXX)
+# ** Note   : (209724000 ps) Waiting SPI command return end for 36000 ps
+#             (209724000 ps) 
+#             (209724000 ps) ==============================================================================================
+#             (209724000 ps)   Check C1_SQ2_PXL_LOCKPOINT_OFFSET content
+#             (209724000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (209742000 ps) Check command return: PASS
+# ** Note   : (209742000 ps)  * Read 2846_0FFF, expected value 2846_0FFF (C1_SQ2_PXL_LOCKPOINT_OFFSET, mode Read, data 0FFF)
+# ** Note   : (217158000 ps) Waiting SPI command end for 7416000 ps
+# ** Note   : (217158000 ps) Send SPI command value 4846_XXXX (C2_SQ2_PXL_LOCKPOINT_OFFSET, mode Read, data XXXX)
+# ** Note   : (217230000 ps) Waiting SPI command return end for 36000 ps
+#             (217230000 ps) 
+#             (217230000 ps) ==============================================================================================
+#             (217230000 ps)   Check C2_SQ2_PXL_LOCKPOINT_OFFSET content at start
+#             (217230000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (217248000 ps) Check command return: PASS
+# ** Note   : (217248000 ps)  * Read 4846_0000, expected value 4846_0000 (C2_SQ2_PXL_LOCKPOINT_OFFSET, mode Read, data 0000)
+# ** Note   : (224664000 ps) Waiting SPI command end for 7416000 ps
+# ** Note   : (224664000 ps) Send SPI command value 4847_4XXX (C2_SQ2_PXL_LOCKPOINT_OFFSET, mode Write, data 4XXX)
+# ** Note   : (224736000 ps) Waiting SPI command return end for 36000 ps
+#             (224736000 ps) 
+#             (224736000 ps) ==============================================================================================
+#             (224736000 ps)   Check error position SPI data out of range detected
+#             (224736000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (224754000 ps) Check command return: PASS
+# ** Note   : (224754000 ps)  * Read C000_1000, expected value C000_1000 (Status, mode Read, data 1000)
+# ** Note   : (232170000 ps) Waiting SPI command end for 7416000 ps
+# ** Note   : (232170000 ps) Send SPI command value 4846_XXXX (C2_SQ2_PXL_LOCKPOINT_OFFSET, mode Read, data XXXX)
+# ** Note   : (232242000 ps) Waiting SPI command return end for 36000 ps
+#             (232242000 ps) 
+#             (232242000 ps) ==============================================================================================
+#             (232242000 ps)   Check C2_SQ2_PXL_LOCKPOINT_OFFSET no change
+#             (232242000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (232260000 ps) Check command return: PASS
+# ** Note   : (232260000 ps)  * Read 4846_0000, expected value 4846_0000 (C2_SQ2_PXL_LOCKPOINT_OFFSET, mode Read, data 0000)
+# ** Note   : (239676000 ps) Waiting SPI command end for 7416000 ps
+# ** Note   : (239676000 ps) Send SPI command value 4847_2XXX (C2_SQ2_PXL_LOCKPOINT_OFFSET, mode Write, data 2XXX)
+# ** Note   : (239748000 ps) Waiting SPI command return end for 36000 ps
+#             (239748000 ps) 
+#             (239748000 ps) ==============================================================================================
+#             (239748000 ps)   Check error position SPI data out of range detected
+#             (239748000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (239766000 ps) Check command return: PASS
+# ** Note   : (239766000 ps)  * Read C000_1000, expected value C000_1000 (Status, mode Read, data 1000)
+# ** Note   : (247182000 ps) Waiting SPI command end for 7416000 ps
+# ** Note   : (247182000 ps) Send SPI command value 4846_XXXX (C2_SQ2_PXL_LOCKPOINT_OFFSET, mode Read, data XXXX)
+# ** Note   : (247254000 ps) Waiting SPI command return end for 36000 ps
+#             (247254000 ps) 
+#             (247254000 ps) ==============================================================================================
+#             (247254000 ps)   Check C2_SQ2_PXL_LOCKPOINT_OFFSET no change
+#             (247254000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (247272000 ps) Check command return: PASS
+# ** Note   : (247272000 ps)  * Read 4846_0000, expected value 4846_0000 (C2_SQ2_PXL_LOCKPOINT_OFFSET, mode Read, data 0000)
+# ** Note   : (254688000 ps) Waiting SPI command end for 7416000 ps
+# ** Note   : (254688000 ps) Send SPI command value 4847_1XXX (C2_SQ2_PXL_LOCKPOINT_OFFSET, mode Write, data 1XXX)
+# ** Note   : (254760000 ps) Waiting SPI command return end for 36000 ps
+#             (254760000 ps) 
+#             (254760000 ps) ==============================================================================================
+#             (254760000 ps)   Check error position SPI data out of range detected
+#             (254760000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (254778000 ps) Check command return: PASS
+# ** Note   : (254778000 ps)  * Read C000_1000, expected value C000_1000 (Status, mode Read, data 1000)
+# ** Note   : (262194000 ps) Waiting SPI command end for 7416000 ps
+# ** Note   : (262194000 ps) Send SPI command value 4846_XXXX (C2_SQ2_PXL_LOCKPOINT_OFFSET, mode Read, data XXXX)
+# ** Note   : (262266000 ps) Waiting SPI command return end for 36000 ps
+#             (262266000 ps) 
+#             (262266000 ps) ==============================================================================================
+#             (262266000 ps)   Check C2_SQ2_PXL_LOCKPOINT_OFFSET no change
+#             (262266000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (262284000 ps) Check command return: PASS
+# ** Note   : (262284000 ps)  * Read 4846_0000, expected value 4846_0000 (C2_SQ2_PXL_LOCKPOINT_OFFSET, mode Read, data 0000)
+# ** Note   : (269700000 ps) Waiting SPI command end for 7416000 ps
+# ** Note   : (269700000 ps) Send SPI command value 4847_076A (C2_SQ2_PXL_LOCKPOINT_OFFSET, mode Write, data 076A)
+# ** Note   : (269772000 ps) Waiting SPI command return end for 36000 ps
+#             (269772000 ps) 
+#             (269772000 ps) ==============================================================================================
+#             (269772000 ps)   Check error position SPI data out of range detected
+#             (269772000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (269790000 ps) Check command return: PASS
+# ** Note   : (269790000 ps)  * Read C000_1000, expected value C000_1000 (Status, mode Read, data 1000)
+# ** Note   : (277206000 ps) Waiting SPI command end for 7416000 ps
+# ** Note   : (277206000 ps) Send SPI command value 4846_XXXX (C2_SQ2_PXL_LOCKPOINT_OFFSET, mode Read, data XXXX)
+# ** Note   : (277278000 ps) Waiting SPI command return end for 36000 ps
+#             (277278000 ps) 
+#             (277278000 ps) ==============================================================================================
+#             (277278000 ps)   Check C2_SQ2_PXL_LOCKPOINT_OFFSET no change
+#             (277278000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (277296000 ps) Check command return: PASS
+# ** Note   : (277296000 ps)  * Read 4846_0000, expected value 4846_0000 (C2_SQ2_PXL_LOCKPOINT_OFFSET, mode Read, data 0000)
+# ** Note   : (284712000 ps) Waiting SPI command end for 7416000 ps
+# ** Note   : (284712000 ps) Send SPI command value 4847_0FFF (C2_SQ2_PXL_LOCKPOINT_OFFSET, mode Write, data 0FFF)
+# ** Note   : (284784000 ps) Waiting SPI command return end for 36000 ps
+#             (284784000 ps) 
+#             (284784000 ps) ==============================================================================================
+#             (284784000 ps)   Check no error
+#             (284784000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (284802000 ps) Check command return: PASS
+# ** Note   : (284802000 ps)  * Read C000_0000, expected value C000_0000 (Status, mode Read, data 0000)
+# ** Note   : (292218000 ps) Waiting SPI command end for 7416000 ps
+# ** Note   : (292218000 ps) Send SPI command value 4846_XXXX (C2_SQ2_PXL_LOCKPOINT_OFFSET, mode Read, data XXXX)
+# ** Note   : (292290000 ps) Waiting SPI command return end for 36000 ps
+#             (292290000 ps) 
+#             (292290000 ps) ==============================================================================================
+#             (292290000 ps)   Check C2_SQ2_PXL_LOCKPOINT_OFFSET content
+#             (292290000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (292308000 ps) Check command return: PASS
+# ** Note   : (292308000 ps)  * Read 4846_076A, expected value 4846_076A (C2_SQ2_PXL_LOCKPOINT_OFFSET, mode Read, data 076A)
+# ** Note   : (299724000 ps) Waiting SPI command end for 7416000 ps
+# ** Note   : (299724000 ps) Send SPI command value 6846_XXXX (C3_SQ2_PXL_LOCKPOINT_OFFSET, mode Read, data XXXX)
+# ** Note   : (299796000 ps) Waiting SPI command return end for 36000 ps
+#             (299796000 ps) 
+#             (299796000 ps) ==============================================================================================
+#             (299796000 ps)   Check no error
+#             (299796000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (299814000 ps) Check command return: PASS
+# ** Note   : (299814000 ps)  * Read C000_0000, expected value C000_0000 (Status, mode Read, data 0000)
+# ** Note   : (307230000 ps) Waiting SPI command end for 7416000 ps
+# ** Note   : (307230000 ps) Send SPI command value 6847_8XXX (C3_SQ2_PXL_LOCKPOINT_OFFSET, mode Write, data 8XXX)
+# ** Note   : (307302000 ps) Waiting SPI command return end for 36000 ps
+#             (307302000 ps) 
+#             (307302000 ps) ==============================================================================================
+#             (307302000 ps)   Check C2_SQ2_PXL_LOCKPOINT_OFFSET content
+#             (307302000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (307320000 ps) Check command return: PASS
+# ** Note   : (307320000 ps)  * Read 4846_0FFF, expected value 4846_0FFF (C2_SQ2_PXL_LOCKPOINT_OFFSET, mode Read, data 0FFF)
+# ** Note   : (314736000 ps) Waiting SPI command end for 7416000 ps
+# ** Note   : (314736000 ps) Send SPI command value 6846_XXXX (C3_SQ2_PXL_LOCKPOINT_OFFSET, mode Read, data XXXX)
+# ** Note   : (314808000 ps) Waiting SPI command return end for 36000 ps
+#             (314808000 ps) 
+#             (314808000 ps) ==============================================================================================
+#             (314808000 ps)   Check C3_SQ2_PXL_LOCKPOINT_OFFSET content at start
+#             (314808000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (314826000 ps) Check command return: PASS
+# ** Note   : (314826000 ps)  * Read 6846_0000, expected value 6846_0000 (C3_SQ2_PXL_LOCKPOINT_OFFSET, mode Read, data 0000)
+# ** Note   : (322242000 ps) Waiting SPI command end for 7416000 ps
+# ** Note   : (322242000 ps) Send SPI command value 6847_4XXX (C3_SQ2_PXL_LOCKPOINT_OFFSET, mode Write, data 4XXX)
+# ** Note   : (322314000 ps) Waiting SPI command return end for 36000 ps
+#             (322314000 ps) 
+#             (322314000 ps) ==============================================================================================
+#             (322314000 ps)   Check error position SPI data out of range detected
+#             (322314000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (322332000 ps) Check command return: PASS
+# ** Note   : (322332000 ps)  * Read C000_1000, expected value C000_1000 (Status, mode Read, data 1000)
+# ** Note   : (329748000 ps) Waiting SPI command end for 7416000 ps
+# ** Note   : (329748000 ps) Send SPI command value 6846_XXXX (C3_SQ2_PXL_LOCKPOINT_OFFSET, mode Read, data XXXX)
+# ** Note   : (329820000 ps) Waiting SPI command return end for 36000 ps
+#             (329820000 ps) 
+#             (329820000 ps) ==============================================================================================
+#             (329820000 ps)   Check C3_SQ2_PXL_LOCKPOINT_OFFSET no change
+#             (329820000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (329838000 ps) Check command return: PASS
+# ** Note   : (329838000 ps)  * Read 6846_0000, expected value 6846_0000 (C3_SQ2_PXL_LOCKPOINT_OFFSET, mode Read, data 0000)
+# ** Note   : (337254000 ps) Waiting SPI command end for 7416000 ps
+# ** Note   : (337254000 ps) Send SPI command value 6847_2XXX (C3_SQ2_PXL_LOCKPOINT_OFFSET, mode Write, data 2XXX)
+# ** Note   : (337326000 ps) Waiting SPI command return end for 36000 ps
+#             (337326000 ps) 
+#             (337326000 ps) ==============================================================================================
+#             (337326000 ps)   Check error position SPI data out of range detected
+#             (337326000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (337344000 ps) Check command return: PASS
+# ** Note   : (337344000 ps)  * Read C000_1000, expected value C000_1000 (Status, mode Read, data 1000)
+# ** Note   : (344760000 ps) Waiting SPI command end for 7416000 ps
+# ** Note   : (344760000 ps) Send SPI command value 6846_XXXX (C3_SQ2_PXL_LOCKPOINT_OFFSET, mode Read, data XXXX)
+# ** Note   : (344832000 ps) Waiting SPI command return end for 36000 ps
+#             (344832000 ps) 
+#             (344832000 ps) ==============================================================================================
+#             (344832000 ps)   Check C3_SQ2_PXL_LOCKPOINT_OFFSET no change
+#             (344832000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (344850000 ps) Check command return: PASS
+# ** Note   : (344850000 ps)  * Read 6846_0000, expected value 6846_0000 (C3_SQ2_PXL_LOCKPOINT_OFFSET, mode Read, data 0000)
+# ** Note   : (352266000 ps) Waiting SPI command end for 7416000 ps
+# ** Note   : (352266000 ps) Send SPI command value 6847_1XXX (C3_SQ2_PXL_LOCKPOINT_OFFSET, mode Write, data 1XXX)
+# ** Note   : (352338000 ps) Waiting SPI command return end for 36000 ps
+#             (352338000 ps) 
+#             (352338000 ps) ==============================================================================================
+#             (352338000 ps)   Check error position SPI data out of range detected
+#             (352338000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (352356000 ps) Check command return: PASS
+# ** Note   : (352356000 ps)  * Read C000_1000, expected value C000_1000 (Status, mode Read, data 1000)
+# ** Note   : (359772000 ps) Waiting SPI command end for 7416000 ps
+# ** Note   : (359772000 ps) Send SPI command value 6846_XXXX (C3_SQ2_PXL_LOCKPOINT_OFFSET, mode Read, data XXXX)
+# ** Note   : (359844000 ps) Waiting SPI command return end for 36000 ps
+#             (359844000 ps) 
+#             (359844000 ps) ==============================================================================================
+#             (359844000 ps)   Check C3_SQ2_PXL_LOCKPOINT_OFFSET no change
+#             (359844000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (359862000 ps) Check command return: PASS
+# ** Note   : (359862000 ps)  * Read 6846_0000, expected value 6846_0000 (C3_SQ2_PXL_LOCKPOINT_OFFSET, mode Read, data 0000)
+# ** Note   : (367278000 ps) Waiting SPI command end for 7416000 ps
+# ** Note   : (367278000 ps) Send SPI command value 6847_076A (C3_SQ2_PXL_LOCKPOINT_OFFSET, mode Write, data 076A)
+# ** Note   : (367350000 ps) Waiting SPI command return end for 36000 ps
+#             (367350000 ps) 
+#             (367350000 ps) ==============================================================================================
+#             (367350000 ps)   Check error position SPI data out of range detected
+#             (367350000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (367368000 ps) Check command return: PASS
+# ** Note   : (367368000 ps)  * Read C000_1000, expected value C000_1000 (Status, mode Read, data 1000)
+# ** Note   : (374784000 ps) Waiting SPI command end for 7416000 ps
+# ** Note   : (374784000 ps) Send SPI command value 6846_XXXX (C3_SQ2_PXL_LOCKPOINT_OFFSET, mode Read, data XXXX)
+# ** Note   : (374856000 ps) Waiting SPI command return end for 36000 ps
+#             (374856000 ps) 
+#             (374856000 ps) ==============================================================================================
+#             (374856000 ps)   Check C3_SQ2_PXL_LOCKPOINT_OFFSET no change
+#             (374856000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (374874000 ps) Check command return: PASS
+# ** Note   : (374874000 ps)  * Read 6846_0000, expected value 6846_0000 (C3_SQ2_PXL_LOCKPOINT_OFFSET, mode Read, data 0000)
+# ** Note   : (382290000 ps) Waiting SPI command end for 7416000 ps
+# ** Note   : (382290000 ps) Send SPI command value 6847_0FFF (C3_SQ2_PXL_LOCKPOINT_OFFSET, mode Write, data 0FFF)
+# ** Note   : (382362000 ps) Waiting SPI command return end for 36000 ps
+#             (382362000 ps) 
+#             (382362000 ps) ==============================================================================================
+#             (382362000 ps)   Check no error
+#             (382362000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (382380000 ps) Check command return: PASS
+# ** Note   : (382380000 ps)  * Read C000_0000, expected value C000_0000 (Status, mode Read, data 0000)
+# ** Note   : (389796000 ps) Waiting SPI command end for 7416000 ps
+# ** Note   : (389796000 ps) Send SPI command value 6846_XXXX (C3_SQ2_PXL_LOCKPOINT_OFFSET, mode Read, data XXXX)
+# ** Note   : (389868000 ps) Waiting SPI command return end for 36000 ps
+#             (389868000 ps) 
+#             (389868000 ps) ==============================================================================================
+#             (389868000 ps)   Check C3_SQ2_PXL_LOCKPOINT_OFFSET content
+#             (389868000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (389886000 ps) Check command return: PASS
+# ** Note   : (389886000 ps)  * Read 6846_076A, expected value 6846_076A (C3_SQ2_PXL_LOCKPOINT_OFFSET, mode Read, data 076A)
+# ** Note   : (397302000 ps) Waiting SPI command end for 7416000 ps
+# ** Note   : (397302000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (397374000 ps) Waiting SPI command return end for 36000 ps
+#             (397374000 ps) 
+#             (397374000 ps) ==============================================================================================
+#             (397374000 ps)   Check no error
+#             (397374000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (397392000 ps) Check command return: PASS
+# ** Note   : (397392000 ps)  * Read C000_0000, expected value C000_0000 (Status, mode Read, data 0000)
+# ** Note   : (404808000 ps) Waiting SPI command end for 7416000 ps
+# ** Note   : (404808000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (404880000 ps) Waiting SPI command return end for 36000 ps
+#             (404880000 ps) 
+#             (404880000 ps) ==============================================================================================
+#             (404880000 ps)   Check C3_SQ2_PXL_LOCKPOINT_OFFSET content
+#             (404880000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (404898000 ps) Check command return: PASS
+# ** Note   : (404898000 ps)  * Read 6846_0FFF, expected value 6846_0FFF (C3_SQ2_PXL_LOCKPOINT_OFFSET, mode Read, data 0FFF)
+# ** Note   : (412314000 ps) Waiting SPI command end for 7416000 ps
+# ------------------------------------------------------------------------------------------------------------------------------------------------------
+# Error simulation time         : '0'
+# Error check discrete level    : '0'
+# Error check command return    : '0'
+# Error check time              : '0'
+# Error check clocks parameters : '0'
+# Error check spi parameters    : '0'
+# Error check science packets   : '0'
+# Error check pulse shaping     : '0'
+# ------------------------------------------------------------------------------------------------------------------------------------------------------
+# Simulation time               : 415000000 ps
+# Simulation status             : PASS
+# ------------------------------------------------------------------------------------------------------------------------------------------------------

@@ -47,18 +47,19 @@ signal   clk_sq1_dac          : std_logic_vector(c_NB_COL-1 downto 0)           
 signal   clk_science_01       : std_logic                                                                   ; --! Science Data - Clock channel 0/1
 signal   clk_science_23       : std_logic                                                                   ; --! Science Data - Clock channel 2/3
 
-signal   err_chk_rpt          : t_err_n_clk_chk_arr(0 to c_CE_S-1)                                          ; --! Clock check error reports
+signal   err_chk_rpt          : t_err_n_clk_chk_arr(0 to c_CHK_ENA_CLK_NB-1)                                ; --! Clock check error reports
+signal   err_n_spi_chk        : t_int_arr_tab(0 to c_CHK_ENA_SPI_NB-1)(0 to c_SPI_ERR_CHK_NB-1)             ; --! SPI check error number:
 signal   err_num_pls_shp      : t_int_arr(0 to c_NB_COL-1)                                                  ; --! Pulse shaping error number
 
 signal   brd_ref              : std_logic_vector(     c_BRD_REF_S-1 downto 0)                               ; --! Board reference
 signal   brd_model            : std_logic_vector(   c_BRD_MODEL_S-1 downto 0)                               ; --! Board model
 signal   sync                 : std_logic                                                                   ; --! Pixel sequence synchronization (R.E. detected = position sequence to the first pixel)
 
+signal   sq1_adc_ana          : t_real_arr(0 to c_NB_COL-1)                                                 ; --! SQUID1 ADC - Analog
 signal   sq1_adc_data         : t_sq1_adc_data_v(c_NB_COL-1 downto 0)                                       ; --! SQUID1 ADC - Data buses
 signal   sq1_adc_oor          : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! SQUID1 ADC - Out of range (‘0’ = No, ‘1’ = under/over range)
 
 signal   sq1_dac_data         : t_sq1_dac_data_v(c_NB_COL-1 downto 0)                                       ; --! SQUID1 DAC - Data buses
-signal   sq1_dac_ana          : t_real_arr(0 to c_NB_COL-1)                                                 ; --! SQUID1 DAC - Analog
 
 signal   science_ctrl_01      : std_logic                                                                   ; --! Science Data – Control channel 0/1
 signal   science_ctrl_23      : std_logic                                                                   ; --! Science Data – Control channel 2/3
@@ -116,6 +117,11 @@ signal   ep_data_rx           : std_logic_vector(c_EP_CMD_S-1 downto 0)         
 signal   ep_data_rx_rdy       : std_logic                                                                   ; --! EP - Receipted data ready ('0' = Inactive, '1' = Active)
 
 signal   pls_shp_fc           : t_int_arr(0 to c_NB_COL-1)                                                  ; --! Pulse shaping cut frequency (Hz)
+signal   sw_adc_vin           : std_logic_vector(c_SW_ADC_VIN_S-1 downto 0)                                 ; --! Switch ADC Voltage input
+
+signal   adc_dmp_mem_add      : std_logic_vector(    c_MUX_FACT_S-1 downto 0)                               ; --! ADC Dump memory for data compare: address
+signal   adc_dmp_mem_data     : std_logic_vector(c_SQ1_ADC_DATA_S+1 downto 0)                               ; --! ADC Dump memory for data compare: data
+signal   adc_dmp_mem_cs       : std_logic                                                                   ; --! ADC Dump memory for data compare: chip select ('0' = Inactive, '1' = Active)
 
 begin
 
@@ -326,7 +332,21 @@ begin
          i_c2_sq1_dac_sleep   => sq1_dac_sleep(2)     , -- in     std_logic                                 ; --! SQUID1 DAC, col. 2 - Sleep ('0' = Inactive, '1' = Active)
          i_c3_sq1_dac_sleep   => sq1_dac_sleep(3)     , -- in     std_logic                                 ; --! SQUID1 DAC, col. 3 - Sleep ('0' = Inactive, '1' = Active)
 
-         o_err_chk_rpt        => err_chk_rpt            -- out    t_err_n_clk_chk_arr(0 to c_CE_S-1)          --! Clock check error reports
+         o_err_chk_rpt        => err_chk_rpt            -- out    t_err_n_clk_chk_arr c_CHK_ENA_CLK_NB        --! Clock check error reports
+   );
+
+   -- ------------------------------------------------------------------------------------------------------
+   --!   Check SPI bus
+   -- ------------------------------------------------------------------------------------------------------
+   I_spi_check_model: entity work.spi_check_model port map
+   (     i_hk1_spi_mosi       => hk1_spi_mosi         , -- in     std_logic                                 ; --! HouseKeeping 1 - SPI Master Output Slave Input
+         i_hk1_spi_sclk       => hk1_spi_sclk         , -- in     std_logic                                 ; --! HouseKeeping 1 - SPI Serial Clock (CPOL = ‘0’, CPHA = ’0’)
+         i_hk1_spi_cs_n       => hk1_spi_cs_n         , -- in     std_logic                                 ; --! HouseKeeping 1 - SPI Chip Select ('0' = Active, '1' = Inactive)
+         i_sq2_dac_data       => sq2_dac_data         , -- in     std_logic_vector(c_NB_COL-1 downto 0)     ; --! SQUID2 DAC - Serial Data
+         i_sq2_dac_sclk       => sq2_dac_sclk         , -- in     std_logic_vector(c_NB_COL-1 downto 0)     ; --! SQUID2 DAC - Serial Clock
+         i_sq2_dac_snc_l_n    => sq2_dac_snc_l_n      , -- in     std_logic_vector(c_NB_COL-1 downto 0)     ; --! SQUID2 DAC, col. 0 - Frame Synchronization DAC LSB ('0' = Active, '1' = Inactive)
+         i_sq2_dac_snc_o_n    => sq2_dac_snc_o_n      , -- in     std_logic_vector(c_NB_COL-1 downto 0)     ; --! SQUID2 DAC, col. 0 - Frame Synchronization DAC Offset ('0' = Active, '1' = Inactive)
+         o_err_n_spi_chk      => err_n_spi_chk          -- out    t_int_arr_tab(0 to c_CHK_ENA_SPI_NB-1)      --! SPI check error number:
    );
 
    -- ------------------------------------------------------------------------------------------------------
@@ -375,11 +395,12 @@ begin
          i_sq1_adc_spi_sclk   => sq1_adc_spi_sclk(k)  , -- in     std_logic                                 ; --! SQUID1 ADC - SPI Serial Clock (CPOL = ‘0’, CPHA = ’0’)
          i_sq1_adc_spi_cs_n   => sq1_adc_spi_cs_n(k)  , -- in     std_logic                                 ; --! SQUID1 ADC - SPI Chip Select ('0' = Active, '1' = Inactive)
 
+         i_sw_adc_vin         => sw_adc_vin           , -- in     slv(c_SW_ADC_VIN_S-1 downto 0)            ; --! Switch ADC Voltage input
+         o_sq1_adc_ana        => sq1_adc_ana(k)       , -- out    real                                      ; --! SQUID1 ADC - Analog
          o_sq1_adc_data       => sq1_adc_data(k)      , -- out    slv(c_SQ1_ADC_DATA_S-1 downto 0)          ; --! SQUID1 ADC - Data
          o_sq1_adc_oor        => sq1_adc_oor(k)       , -- out    std_logic                                 ; --! SQUID1 ADC - Out of range (‘0’ = No, ‘1’ = under/over range)
 
          i_pls_shp_fc         => pls_shp_fc(k)        , -- in     integer                                   ; --! Pulse shaping cut frequency (Hz)
-         o_sq1_dac_ana        => sq1_dac_ana(k)       , -- out    real                                      ; --! SQUID1 DAC - Analog
          o_err_num_pls_shp    => err_num_pls_shp(k)   , -- out    integer                                   ; --! Pulse shaping error number
 
          i_clk_sq1_dac        => clk_sq1_dac(k)       , -- in     std_logic                                 ; --! SQUID1 DAC - Clock
@@ -413,9 +434,14 @@ begin
 
          i_sync               => sync                 , -- in     std_logic                                 ; --! Pixel sequence synchronization (R.E. detected = position sequence to the first pixel)
          i_tm_mode            => d_tm_mode            , -- in     t_rg_tm_mode(0 to c_NB_COL-1)             ; --! Telemetry mode
+         i_sw_adc_vin         => sw_adc_vin           , -- in     slv(c_SW_ADC_VIN_S-1 downto 0)            ; --! Switch ADC Voltage input
 
          i_sq1_adc_data       => sq1_adc_data         , -- in     t_sq1_adc_data_v(c_NB_COL-1 downto 0)     ; --! SQUID1 ADC - Data buses
          i_sq1_adc_oor        => sq1_adc_oor          , -- in     std_logic_vector(c_NB_COL-1 downto 0)     ; --! SQUID1 ADC - Out of range (‘0’ = No, ‘1’ = under/over range)
+
+         i_adc_dmp_mem_add    => adc_dmp_mem_add      , -- in     slv(    c_MUX_FACT_S-1 downto 0)          ; --! ADC Dump memory for data compare: address
+         i_adc_dmp_mem_data   => adc_dmp_mem_data     , -- in     slv(c_SQ1_ADC_DATA_S+1 downto 0)          ; --! ADC Dump memory for data compare: data
+         i_adc_dmp_mem_cs     => adc_dmp_mem_cs       , -- in     std_logic                                 ; --! ADC Dump memory for data compare: chip select ('0' = Inactive, '1' = Active)
 
          o_sc_pkt_type        => sc_pkt_type          , -- out    slv(c_SC_DATA_SER_W_S-1 downto 0)         ; --! Science packet type
          o_sc_pkt_err         => sc_pkt_err             -- out    std_logic                                   --! Science packet error ('0' = No error, '1' = Error)
@@ -429,7 +455,8 @@ begin
          i_clk_ref            => clk_ref              , -- in     std_logic                                 ; --! Reference Clock
          i_sync               => sync                 , -- in     std_logic                                 ; --! Pixel sequence synchronization (R.E. detected = position sequence to the first pixel)
 
-         i_err_chk_rpt        => err_chk_rpt          , -- in     t_err_n_clk_chk_arr(0 to c_CE_S-1)        ; --! Clock check error reports
+         i_err_chk_rpt        => err_chk_rpt          , -- in     t_err_n_clk_chk_arr c_CHK_ENA_CLK_NB      ; --! Clock check error reports
+         i_err_n_spi_chk      => err_n_spi_chk        , -- in     t_int_arr_tab(0 to c_CHK_ENA_SPI_NB-1)    ; --! SPI check error number:
          i_err_num_pls_shp    => err_num_pls_shp      , -- in     t_int_arr(0 to c_NB_COL-1)                ; --! Pulse shaping error number
 
          i_c0_sq1_adc_pwdn    => sq1_adc_pwdn(0)      , -- in     std_logic                                 ; --! SQUID1 ADC, col. 0 – Power Down ('0' = Inactive, '1' = Active)
@@ -437,10 +464,10 @@ begin
          i_c2_sq1_adc_pwdn    => sq1_adc_pwdn(2)      , -- in     std_logic                                 ; --! SQUID1 ADC, col. 2 – Power Down ('0' = Inactive, '1' = Active)
          i_c3_sq1_adc_pwdn    => sq1_adc_pwdn(3)      , -- in     std_logic                                 ; --! SQUID1 ADC, col. 3 – Power Down ('0' = Inactive, '1' = Active)
 
-         i_c0_sq1_dac_ana     => sq1_dac_ana(0)       , -- in     real                                      ; --! SQUID1 DAC, col. 0 - Analog
-         i_c1_sq1_dac_ana     => sq1_dac_ana(1)       , -- in     real                                      ; --! SQUID1 DAC, col. 1 - Analog
-         i_c2_sq1_dac_ana     => sq1_dac_ana(2)       , -- in     real                                      ; --! SQUID1 DAC, col. 2 - Analog
-         i_c3_sq1_dac_ana     => sq1_dac_ana(3)       , -- in     real                                      ; --! SQUID1 DAC, col. 3 - Analog
+         i_c0_sq1_adc_ana     => sq1_adc_ana(0)       , -- in     real                                      ; --! SQUID1 ADC, col. 0 - Analog
+         i_c1_sq1_adc_ana     => sq1_adc_ana(1)       , -- in     real                                      ; --! SQUID1 ADC, col. 1 - Analog
+         i_c2_sq1_adc_ana     => sq1_adc_ana(2)       , -- in     real                                      ; --! SQUID1 ADC, col. 2 - Analog
+         i_c3_sq1_adc_ana     => sq1_adc_ana(3)       , -- in     real                                      ; --! SQUID1 ADC, col. 3 - Analog
 
          i_c0_sq1_dac_sleep   => sq1_dac_sleep(0)     , -- in     std_logic                                 ; --! SQUID1 DAC, col. 0 - Sleep ('0' = Inactive, '1' = Active)
          i_c1_sq1_dac_sleep   => sq1_dac_sleep(1)     , -- in     std_logic                                 ; --! SQUID1 DAC, col. 1 - Sleep ('0' = Inactive, '1' = Active)
@@ -479,7 +506,12 @@ begin
          o_brd_ref            => brd_ref              , -- out    std_logic_vector(  c_BRD_REF_S-1 downto 0); --! Board reference
          o_brd_model          => brd_model            , -- out    std_logic_vector(c_BRD_MODEL_S-1 downto 0); --! Board model
 
-         o_pls_shp_fc         => pls_shp_fc             -- out    t_int_arr(0 to c_NB_COL-1)                  --! Pulse shaping cut frequency (Hz)
+         o_adc_dmp_mem_add    => adc_dmp_mem_add      , -- out    slv(    c_MUX_FACT_S-1 downto 0)          ; --! ADC Dump memory for data compare: address
+         o_adc_dmp_mem_data   => adc_dmp_mem_data     , -- out    slv(c_SQ1_ADC_DATA_S+1 downto 0)          ; --! ADC Dump memory for data compare: data
+         o_adc_dmp_mem_cs     => adc_dmp_mem_cs       , -- out    std_logic                                 ; --! ADC Dump memory for data compare: chip select ('0' = Inactive, '1' = Active)
+
+         o_pls_shp_fc         => pls_shp_fc           , -- out    t_int_arr(0 to c_NB_COL-1)                ; --! Pulse shaping cut frequency (Hz)
+         o_sw_adc_vin         => sw_adc_vin             -- out    slv(c_SW_ADC_VIN_S-1 downto 0)              --! Switch ADC Voltage input
    );
 
 end simulation;

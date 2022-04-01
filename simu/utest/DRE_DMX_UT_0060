@@ -80,7 +80,7 @@ COMM ===========================================================================
 COMM   Check TM_MODE duration goes to 0 after new sync rising edge and
 COMM     TM_MODE Col(3) goes from Test Pattern to Idle mode
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-TM_MODE-6500 N   # Return Command 6
+CCMD R-TM_MODE-E501 N   # Return Command 6
 WUDI sync 1
 WCMD W-TM_MODE-B9FF R   # Command 8
 COMM
@@ -115,7 +115,7 @@ COMM
 COMM ==============================================================================================
 COMM   Check TM_MODE duration decremented after new sync rising edge
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-TM_MODE-B9FD N   # Return Command 11
+CCMD R-TM_MODE-B9FE N   # Return Command 11
 WUDI sync 1
 WCMD R-TM_MODE-XXXX R   # Command 13
 COMM
@@ -600,7 +600,7 @@ COMM
 COMM ==============================================================================================
 COMM   Check TM_MODE duration decremented after new sync rising edge
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-TM_MODE-7A01 N   # Return Command 61
+CCMD R-TM_MODE-7A02 N   # Return Command 61
 WUDI sync 1
 WCMD W-TM_MODE-09XX R   # Command 63
 COMM
@@ -608,7 +608,7 @@ COMM ===========================================================================
 COMM   Check TM_MODE duration goes to 0 after new sync rising edge and
 COMM     TM_MODE Col(2) goes from Test Pattern to Idle mode
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-TM_MODE-5A00 N   # Return Command 62
+CCMD R-TM_MODE-7A01 N   # Return Command 62
 WUDI sync 1
 WCMD R-TM_MODE-XXXX R   # Command 64
 COMM

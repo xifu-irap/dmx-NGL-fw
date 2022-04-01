@@ -41,12 +41,25 @@ entity mem_data_rd_mux is port
          i_sq1_fbm_data       : in     t_mem_s1fbm_data(0     to c_NB_COL-1)                                ; --! Squid1 feedback mode: data read
          i_sq1_fbm_cs         : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! Squid1 feedback mode: chip select data read ('0' = Inactive, '1' = Active)
 
+         i_sq2_lkp_data       : in     t_mem_s2lkp_data(0     to c_NB_COL-1)                                ; --! Squid2 feedback lockpoint: data read
+         i_sq2_lkp_cs         : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! Squid2 feedback lockpoint: chip select data read ('0' = Inactive, '1' = Active)
+
+         i_sq2_dac_lsb_data   : in     t_rg_sq2lkp(     0     to c_NB_COL-1)                                ; --! Squid2 DAC LSB: data read
+         i_sq2_dac_lsb_cs     : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! Squid2 DAC LSB: chip select data read ('0' = Inactive, '1' = Active)
+
+         i_sq2_lkp_off_data   : in     t_rg_sq2lkp(     0     to c_NB_COL-1)                                ; --! Squid2 feedback lockpoint offset: data read
+         i_sq2_lkp_off_cs     : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! Squid2 feedback lockpoint offset: chip select data read ('0' = Inactive,'1' = Active)
+
          i_pls_shp_data       : in     t_mem_plssh_data(0     to c_NB_COL-1)                                ; --! Pulse shaping coef: data read
          i_pls_shp_cs         : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! Pulse shaping coef: chip select data read ('0' = Inactive, '1' = Active)
 
          o_sq1_fb0_data_mx    : out    std_logic_vector(c_DFLD_S1FB0_PIX_S-1 downto 0)                      ; --! Squid1 feedback value in open loop: data read multiplexed
          o_sq1_fbm_data_mx    : out    std_logic_vector(c_DFLD_S1FBM_PIX_S-1 downto 0)                      ; --! Squid1 feedback mode: data read multiplexed
+         o_sq2_lkp_data_mx    : out    std_logic_vector(c_DFLD_S2LKP_PIX_S-1 downto 0)                      ; --! Squid2 feedback lockpoint: data read multiplexed
+         o_sq2_dac_lsb_dta_mx : out    std_logic_vector(c_DFLD_S2LSB_COL_S-1 downto 0)                      ; --! Squid2 DAC LSB: data read multiplexed
+         o_sq2_lkp_off_dta_mx : out    std_logic_vector(c_DFLD_S2OFF_COL_S-1 downto 0)                      ; --! Squid2 feedback lockpoint offset: data read multiplexed
          o_pls_shp_data_mx    : out    std_logic_vector(c_DFLD_PLSSH_PLS_S-1 downto 0)                        --! Pulse shaping coef: data read multiplexed
+
    );
 end entity mem_data_rd_mux;
 
@@ -63,6 +76,21 @@ signal   sq1_fbm_cs_msb_or    : std_logic_vector(c_NB_COL-1 downto 0)           
 signal   sq1_fbm_data_cmp     : t_mem_s1fbm_data(0 to c_NB_COL-1)                                           ; --! Squid1 feedback mode: data read compared
 signal   sq1_fbm_data_or      : t_mem_s1fbm_data(0 to c_NB_COL-1)                                           ; --! Squid1 feedback mode: data read "or-ed"
 
+signal   sq2_lkp_cs_r         : t_cs_v(0 to c_MEM_RD_DATA_NPER)                                             ; --! Squid2 feedback lockpoint: chip select data read register
+signal   sq2_lkp_cs_msb_or    : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! Squid2 feedback lockpoint: chip select data read msb "or-ed"
+signal   sq2_lkp_data_cmp     : t_mem_s2lkp_data(0 to c_NB_COL-1)                                           ; --! Squid2 feedback lockpoint: data read compared
+signal   sq2_lkp_data_or      : t_mem_s2lkp_data(0 to c_NB_COL-1)                                           ; --! Squid2 feedback lockpoint: data read "or-ed"
+
+signal   sq2_dac_lsb_cs_r     : t_cs_v(0 to c_MEM_RD_DATA_NPER)                                             ; --! Squid2 DAC LSB: chip select data read register
+signal   sq2_dac_lsb_cs_msb_or: std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! Squid2 DAC LSB: chip select data read msb "or-ed"
+signal   sq2_dac_lsb_data_cmp : t_rg_sq2lkp(0 to c_NB_COL-1)                                                ; --! Squid2 DAC LSB: data read compared
+signal   sq2_dac_lsb_data_or  : t_rg_sq2lkp(0 to c_NB_COL-1)                                                ; --! Squid2 DAC LSB: data read "or-ed"
+
+signal   sq2_lkp_off_cs_r     : t_cs_v(0 to c_MEM_RD_DATA_NPER)                                             ; --! Squid2 feedback lockpoint offset: chip select data read register
+signal   sq2_lkp_off_cs_msb_or: std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! Squid2 feedback lockpoint offset: chip select data read msb "or-ed"
+signal   sq2_lkp_off_data_cmp : t_rg_sq2lkp(0 to c_NB_COL-1)                                                ; --! Squid2 feedback lockpoint offset: data read compared
+signal   sq2_lkp_off_data_or  : t_rg_sq2lkp(0 to c_NB_COL-1)                                                ; --! Squid2 feedback lockpoint offset: data read "or-ed"
+
 signal   pls_shp_cs_r         : t_cs_v(0 to c_MEM_RD_DATA_NPER)                                             ; --! Pulse shaping coef: chip select data read register
 signal   pls_shp_cs_msb_or    : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! Pulse shaping coef: chip select data read msb "or-ed"
 signal   pls_shp_data_cmp     : t_mem_plssh_data(0 to c_NB_COL-1)                                           ; --! Pulse shaping coef: data read compared
@@ -77,14 +105,20 @@ begin
    begin
 
       if i_rst = '1' then
-         sq1_fb0_cs_r <= (others => (others => '0'));
-         sq1_fbm_cs_r <= (others => (others => '0'));
-         pls_shp_cs_r <= (others => (others => '0'));
+         sq1_fb0_cs_r      <= (others => (others => '0'));
+         sq1_fbm_cs_r      <= (others => (others => '0'));
+         sq2_lkp_cs_r      <= (others => (others => '0'));
+         sq2_dac_lsb_cs_r  <= (others => (others => '0'));
+         sq2_lkp_off_cs_r  <= (others => (others => '0'));
+         pls_shp_cs_r      <= (others => (others => '0'));
 
       elsif rising_edge(i_clk) then
-         sq1_fb0_cs_r <= i_sq1_fb0_cs & sq1_fb0_cs_r(0 to sq1_fb0_cs_r'high-1);
-         sq1_fbm_cs_r <= i_sq1_fbm_cs & sq1_fbm_cs_r(0 to sq1_fbm_cs_r'high-1);
-         pls_shp_cs_r <= i_pls_shp_cs & pls_shp_cs_r(0 to pls_shp_cs_r'high-1);
+         sq1_fb0_cs_r      <= i_sq1_fb0_cs      & sq1_fb0_cs_r(    0 to sq1_fb0_cs_r'high-1);
+         sq1_fbm_cs_r      <= i_sq1_fbm_cs      & sq1_fbm_cs_r(    0 to sq1_fbm_cs_r'high-1);
+         sq2_lkp_cs_r      <= i_sq2_lkp_cs      & sq2_lkp_cs_r(    0 to sq2_lkp_cs_r'high-1);
+         sq2_dac_lsb_cs_r  <= i_sq2_dac_lsb_cs  & sq2_dac_lsb_cs_r(0 to sq2_dac_lsb_cs_r'high-1);
+         sq2_lkp_off_cs_r  <= i_sq2_lkp_off_cs  & sq2_lkp_off_cs_r(0 to sq2_lkp_off_cs_r'high-1);
+         pls_shp_cs_r      <= i_pls_shp_cs      & pls_shp_cs_r(    0 to pls_shp_cs_r'high-1);
 
       end if;
 
@@ -94,16 +128,22 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   Chip select data read msb "or-ed" first seed
    -- ------------------------------------------------------------------------------------------------------
-   sq1_fb0_cs_msb_or(0)  <= sq1_fb0_cs_r(sq1_fb0_cs_r'high)(0);
-   sq1_fbm_cs_msb_or(0)  <= sq1_fbm_cs_r(sq1_fbm_cs_r'high)(0);
-   pls_shp_cs_msb_or(0)  <= pls_shp_cs_r(pls_shp_cs_r'high)(0);
+   sq1_fb0_cs_msb_or(0)       <= sq1_fb0_cs_r(sq1_fb0_cs_r'high)(0);
+   sq1_fbm_cs_msb_or(0)       <= sq1_fbm_cs_r(sq1_fbm_cs_r'high)(0);
+   sq2_lkp_cs_msb_or(0)       <= sq2_lkp_cs_r(sq2_lkp_cs_r'high)(0);
+   sq2_dac_lsb_cs_msb_or(0)   <= sq2_dac_lsb_cs_r(sq2_dac_lsb_cs_r'high)(0);
+   sq2_lkp_off_cs_msb_or(0)   <= sq2_lkp_off_cs_r(sq2_lkp_off_cs_r'high)(0);
+   pls_shp_cs_msb_or(0)       <= pls_shp_cs_r(pls_shp_cs_r'high)(0);
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Data read "or-ed" first seed
    -- ------------------------------------------------------------------------------------------------------
-   sq1_fb0_data_or(0)  <= sq1_fb0_data_cmp(0);
-   sq1_fbm_data_or(0)  <= sq1_fbm_data_cmp(0);
-   pls_shp_data_or(0)  <= pls_shp_data_cmp(0);
+   sq1_fb0_data_or(0)      <= sq1_fb0_data_cmp(0);
+   sq1_fbm_data_or(0)      <= sq1_fbm_data_cmp(0);
+   sq2_lkp_data_or(0)      <= sq2_lkp_data_cmp(0);
+   sq2_dac_lsb_data_or(0)  <= sq2_dac_lsb_data_cmp(0);
+   sq2_lkp_off_data_or(0)  <= sq2_lkp_off_data_cmp(0);
+   pls_shp_data_or(0)      <= pls_shp_data_cmp(0);
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Columns management
@@ -115,16 +155,22 @@ begin
          -- ------------------------------------------------------------------------------------------------------
          --!   Chip select data read msb "or-ed" first seed
          -- ------------------------------------------------------------------------------------------------------
-         sq1_fb0_cs_msb_or(k)  <= sq1_fb0_cs_r(sq1_fb0_cs_r'high)(k) or sq1_fb0_cs_msb_or(k-1);
-         sq1_fbm_cs_msb_or(k)  <= sq1_fbm_cs_r(sq1_fbm_cs_r'high)(k) or sq1_fbm_cs_msb_or(k-1);
-         pls_shp_cs_msb_or(k)  <= pls_shp_cs_r(pls_shp_cs_r'high)(k) or pls_shp_cs_msb_or(k-1);
+         sq1_fb0_cs_msb_or(k)       <= sq1_fb0_cs_r(   sq1_fb0_cs_r'high)(k)      or sq1_fb0_cs_msb_or(k-1);
+         sq1_fbm_cs_msb_or(k)       <= sq1_fbm_cs_r(   sq1_fbm_cs_r'high)(k)      or sq1_fbm_cs_msb_or(k-1);
+         sq2_lkp_cs_msb_or(k)       <= sq2_lkp_cs_r(   sq2_lkp_cs_r'high)(k)      or sq2_lkp_cs_msb_or(k-1);
+         sq2_dac_lsb_cs_msb_or(k)   <= sq2_dac_lsb_cs_r(sq2_dac_lsb_cs_r'high)(k) or sq2_dac_lsb_cs_msb_or(k-1);
+         sq2_lkp_off_cs_msb_or(k)   <= sq2_lkp_off_cs_r(sq2_lkp_off_cs_r'high)(k) or sq2_lkp_off_cs_msb_or(k-1);
+         pls_shp_cs_msb_or(k)       <= pls_shp_cs_r(    pls_shp_cs_r'high)(k)     or pls_shp_cs_msb_or(k-1);
 
          -- ------------------------------------------------------------------------------------------------------
          --!   Data read "or-ed"
          -- ------------------------------------------------------------------------------------------------------
-         sq1_fb0_data_or(k)   <= sq1_fb0_data_cmp(k) or sq1_fb0_data_or(k-1);
-         sq1_fbm_data_or(k)   <= sq1_fbm_data_cmp(k) or sq1_fbm_data_or(k-1);
-         pls_shp_data_or(k)   <= pls_shp_data_cmp(k) or pls_shp_data_or(k-1);
+         sq1_fb0_data_or(k)      <= sq1_fb0_data_cmp(k)     or sq1_fb0_data_or(k-1);
+         sq1_fbm_data_or(k)      <= sq1_fbm_data_cmp(k)     or sq1_fbm_data_or(k-1);
+         sq2_lkp_data_or(k)      <= sq2_lkp_data_cmp(k)     or sq2_lkp_data_or(k-1);
+         sq2_dac_lsb_data_or(k)  <= sq2_dac_lsb_data_cmp(k) or sq2_dac_lsb_data_or(k-1);
+         sq2_lkp_off_data_or(k)  <= sq2_lkp_off_data_cmp(k) or sq2_lkp_off_data_or(k-1);
+         pls_shp_data_or(k)      <= pls_shp_data_cmp(k)     or pls_shp_data_or(k-1);
 
       end generate;
 
@@ -135,9 +181,12 @@ begin
       begin
 
          if i_rst = '1' then
-            sq1_fb0_data_cmp(k)  <= (others => '0');
-            sq1_fbm_data_cmp(k)  <= (others => '0');
-            pls_shp_data_cmp(k)  <= (others => '0');
+            sq1_fb0_data_cmp(k)     <= (others => '0');
+            sq1_fbm_data_cmp(k)     <= (others => '0');
+            sq2_lkp_data_cmp(k)     <= (others => '0');
+            sq2_dac_lsb_data_cmp(k) <= (others => '0');
+            sq2_lkp_off_data_cmp(k) <= (others => '0');
+            pls_shp_data_cmp(k)     <= (others => '0');
 
          elsif rising_edge(i_clk) then
             if    sq1_fb0_cs_r(sq1_fb0_cs_r'high)(k) = '1' then
@@ -153,6 +202,30 @@ begin
 
             elsif sq1_fbm_cs_msb_or(sq1_fbm_cs_msb_or'high) = '1' then
                sq1_fbm_data_cmp(k)  <= (others => '0');
+
+            end if;
+
+            if    sq2_lkp_cs_r(sq2_lkp_cs_r'high)(k) = '1' then
+               sq2_lkp_data_cmp(k)  <= i_sq2_lkp_data(k);
+
+            elsif sq2_lkp_cs_msb_or(sq2_lkp_cs_msb_or'high) = '1' then
+               sq2_lkp_data_cmp(k)  <= (others => '0');
+
+            end if;
+
+            if    sq2_dac_lsb_cs_r(sq2_dac_lsb_cs_r'high)(k) = '1' then
+               sq2_dac_lsb_data_cmp(k)  <= i_sq2_dac_lsb_data(k);
+
+            elsif sq2_dac_lsb_cs_msb_or(sq2_dac_lsb_cs_msb_or'high) = '1' then
+               sq2_dac_lsb_data_cmp(k)  <= (others => '0');
+
+            end if;
+
+            if    sq2_lkp_off_cs_r(sq2_lkp_off_cs_r'high)(k) = '1' then
+               sq2_lkp_off_data_cmp(k)  <= i_sq2_lkp_off_data(k);
+
+            elsif sq2_lkp_off_cs_msb_or(sq2_lkp_off_cs_msb_or'high) = '1' then
+               sq2_lkp_off_data_cmp(k)  <= (others => '0');
 
             end if;
 
@@ -177,14 +250,20 @@ begin
    begin
 
       if i_rst = '1' then
-         o_sq1_fb0_data_mx <= (others => '0');
-         o_sq1_fbm_data_mx <= (others => '0');
-         o_pls_shp_data_mx <= (others => '0');
+         o_sq1_fb0_data_mx    <= (others => '0');
+         o_sq1_fbm_data_mx    <= (others => '0');
+         o_sq2_lkp_data_mx    <= (others => '0');
+         o_sq2_dac_lsb_dta_mx <= (others => '0');
+         o_sq2_lkp_off_dta_mx <= (others => '0');
+         o_pls_shp_data_mx    <= (others => '0');
 
       elsif rising_edge(i_clk) then
-         o_sq1_fb0_data_mx <= sq1_fb0_data_or(sq1_fb0_data_or'high);
-         o_sq1_fbm_data_mx <= sq1_fbm_data_or(sq1_fbm_data_or'high);
-         o_pls_shp_data_mx <= pls_shp_data_or(pls_shp_data_or'high);
+         o_sq1_fb0_data_mx    <= sq1_fb0_data_or(sq1_fb0_data_or'high);
+         o_sq1_fbm_data_mx    <= sq1_fbm_data_or(sq1_fbm_data_or'high);
+         o_sq2_lkp_data_mx    <= sq2_lkp_data_or(sq2_lkp_data_or'high);
+         o_sq2_dac_lsb_dta_mx <= sq2_dac_lsb_data_or(sq2_dac_lsb_data_or'high);
+         o_sq2_lkp_off_dta_mx <= sq2_lkp_off_data_or(sq2_lkp_off_data_or'high);
+         o_pls_shp_data_mx    <= pls_shp_data_or(pls_shp_data_or'high);
 
       end if;
 

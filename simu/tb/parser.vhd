@@ -47,7 +47,8 @@ entity parser is generic
          i_clk_ref            : in     std_logic                                                            ; --! Reference Clock
          i_sync               : in     std_logic                                                            ; --! Pixel sequence synchronization (R.E. detected = position sequence to the first pixel)
 
-         i_err_chk_rpt        : in     t_err_n_clk_chk_arr(0 to c_CE_S-1)                                   ; --! Clock check error reports
+         i_err_chk_rpt        : in     t_err_n_clk_chk_arr(0 to c_CHK_ENA_CLK_NB-1)                         ; --! Clock check error reports
+         i_err_n_spi_chk      : in     t_int_arr_tab(0 to c_CHK_ENA_SPI_NB-1)(0 to c_SPI_ERR_CHK_NB-1)      ; --! SPI check error number:
          i_err_num_pls_shp    : in     t_int_arr(0 to c_NB_COL-1)                                           ; --! Pulse shaping error number
 
          i_c0_sq1_adc_pwdn    : in     std_logic                                                            ; --! SQUID1 ADC, col. 0 – Power Down ('0' = Inactive, '1' = Active)
@@ -55,10 +56,10 @@ entity parser is generic
          i_c2_sq1_adc_pwdn    : in     std_logic                                                            ; --! SQUID1 ADC, col. 2 – Power Down ('0' = Inactive, '1' = Active)
          i_c3_sq1_adc_pwdn    : in     std_logic                                                            ; --! SQUID1 ADC, col. 3 – Power Down ('0' = Inactive, '1' = Active)
 
-         i_c0_sq1_dac_ana     : in     real                                                                 ; --! SQUID1 DAC, col. 0 - Analog
-         i_c1_sq1_dac_ana     : in     real                                                                 ; --! SQUID1 DAC, col. 1 - Analog
-         i_c2_sq1_dac_ana     : in     real                                                                 ; --! SQUID1 DAC, col. 2 - Analog
-         i_c3_sq1_dac_ana     : in     real                                                                 ; --! SQUID1 DAC, col. 3 - Analog
+         i_c0_sq1_adc_ana     : in     real                                                                 ; --! SQUID1 ADC, col. 0 - Analog
+         i_c1_sq1_adc_ana     : in     real                                                                 ; --! SQUID1 ADC, col. 1 - Analog
+         i_c2_sq1_adc_ana     : in     real                                                                 ; --! SQUID1 ADC, col. 2 - Analog
+         i_c3_sq1_adc_ana     : in     real                                                                 ; --! SQUID1 ADC, col. 3 - Analog
 
          i_c0_sq1_dac_sleep   : in     std_logic                                                            ; --! SQUID1 DAC, col. 0 - Sleep ('0' = Inactive, '1' = Active)
          i_c1_sq1_dac_sleep   : in     std_logic                                                            ; --! SQUID1 DAC, col. 1 - Sleep ('0' = Inactive, '1' = Active)
@@ -97,7 +98,12 @@ entity parser is generic
          o_brd_ref            : out    std_logic_vector(  c_BRD_REF_S-1 downto 0)                           ; --! Board reference
          o_brd_model          : out    std_logic_vector(c_BRD_MODEL_S-1 downto 0)                           ; --! Board model
 
-         o_pls_shp_fc         : out    t_int_arr(0 to c_NB_COL-1)                                             --! Pulse shaping cut frequency (Hz)
+         o_pls_shp_fc         : out    t_int_arr(0 to c_NB_COL-1)                                           ; --! Pulse shaping cut frequency (Hz)
+         o_sw_adc_vin         : out    std_logic_vector(c_SW_ADC_VIN_S-1 downto 0)                          ; --! Switch ADC Voltage input
+
+         o_adc_dmp_mem_add    : out    std_logic_vector(    c_MUX_FACT_S-1 downto 0)                        ; --! ADC Dump memory for data compare: address
+         o_adc_dmp_mem_data   : out    std_logic_vector(c_SQ1_ADC_DATA_S+1 downto 0)                        ; --! ADC Dump memory for data compare: data
+         o_adc_dmp_mem_cs     : out    std_logic                                                              --! ADC Dump memory for data compare: chip select ('0' = Inactive, '1' = Active)
    );
 end entity parser;
 
@@ -172,10 +178,10 @@ file     res_file             : text                                            
    begin
 
       case channel is
-         when  0     => return i_c0_sq1_dac_ana'last_event;
-         when  1     => return i_c1_sq1_dac_ana'last_event;
-         when  2     => return i_c2_sq1_dac_ana'last_event;
-         when  3     => return i_c3_sq1_dac_ana'last_event;
+         when  0     => return i_c0_sq1_adc_ana'last_event;
+         when  1     => return i_c1_sq1_adc_ana'last_event;
+         when  2     => return i_c2_sq1_adc_ana'last_event;
+         when  3     => return i_c3_sq1_adc_ana'last_event;
          when others => return time'low;
 
       end case;
@@ -190,6 +196,8 @@ begin
    o_arst_n             <= discrete_w(c_DW_ARST_N);
    o_brd_model(0)       <= discrete_w(c_DW_BRD_MODEL_0);
    o_brd_model(1)       <= discrete_w(c_DW_BRD_MODEL_1);
+   o_sw_adc_vin(0)      <= discrete_w(c_DW_SW_ADC_VIN_0);
+   o_sw_adc_vin(1)      <= discrete_w(c_DW_SW_ADC_VIN_1);
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Discrete read signals association
@@ -236,25 +244,26 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   Discrete write signals association
    -- ------------------------------------------------------------------------------------------------------
-   sq1_dac_ana(0) <= i_c0_sq1_dac_ana;
-   sq1_dac_ana(1) <= i_c1_sq1_dac_ana;
-   sq1_dac_ana(2) <= i_c2_sq1_dac_ana;
-   sq1_dac_ana(3) <= i_c3_sq1_dac_ana;
+   sq1_dac_ana(0) <= i_c0_sq1_adc_ana;
+   sq1_dac_ana(1) <= i_c1_sq1_adc_ana;
+   sq1_dac_ana(2) <= i_c2_sq1_adc_ana;
+   sq1_dac_ana(3) <= i_c3_sq1_adc_ana;
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Parser sequence: read command file and write result file
    -- ------------------------------------------------------------------------------------------------------
    P_parser_seq: process
-   constant c_ERROR_CAT_NB    : integer   := 7                                                              ; --! Error category number
+   constant c_ERROR_CAT_NB    : integer   := 8                                                              ; --! Error category number
    variable v_error_cat       : std_logic_vector(c_ERROR_CAT_NB-1 downto 0)                                 ; --! Error category
    alias    v_err_sim_time    : std_logic is v_error_cat(0)                                                 ; --! Error simulation time ('0' = No error, '1' = Error: Simulation time not long enough)
    alias    v_err_chk_dis_r   : std_logic is v_error_cat(1)                                                 ; --! Error check discrete read  ('0' = No error, '1' = Error)
    alias    v_err_chk_cmd_r   : std_logic is v_error_cat(2)                                                 ; --! Error check command return ('0' = No error, '1' = Error)
    alias    v_err_chk_time    : std_logic is v_error_cat(3)                                                 ; --! Error check time           ('0' = No error, '1' = Error)
    alias    v_err_chk_clk_prm : std_logic is v_error_cat(4)                                                 ; --! Error check clocks parameters ('0' = No error, '1' = Error)
-   alias    v_err_chk_sc_pkt  : std_logic is v_error_cat(5)                                                 ; --! Error check science packet ('0' = No error, '1' = Error)
-   alias    v_err_chk_pls_shp : std_logic is v_error_cat(6)                                                 ; --! Error check pulse shaping ('0' = No error, '1' = Error)
-   variable v_chk_clk_prm_ena : std_logic_vector(c_CMD_FILE_FLD_DATA_S-1 downto 0)                          ; --! Check clock parameters enable
+   alias    v_err_chk_spi_prm : std_logic is v_error_cat(5)                                                 ; --! Error check SPI parameters ('0' = No error, '1' = Error)
+   alias    v_err_chk_sc_pkt  : std_logic is v_error_cat(6)                                                 ; --! Error check science packet ('0' = No error, '1' = Error)
+   alias    v_err_chk_pls_shp : std_logic is v_error_cat(7)                                                 ; --! Error check pulse shaping ('0' = No error, '1' = Error)
+   variable v_chk_rpt_prm_ena : std_logic_vector(c_CMD_FILE_FLD_DATA_S-1 downto 0)                          ; --! Check report parameters enable
 
    variable v_line_cnt        : integer                                                                     ; --! Command file line counter
    variable v_head_mess_stdout: line                                                                        ; --! Header message output stream stdout
@@ -292,8 +301,9 @@ begin
       o_ep_cmd_ser_wd_s <= std_logic_vector(to_unsigned(c_EP_CMD_S, o_ep_cmd_ser_wd_s'length));
       o_ep_cmd          <= (others => '0');
       o_ep_cmd_start    <= '0';
+      o_adc_dmp_mem_cs  <= '0';
       v_error_cat       := (others => '0');
-      v_chk_clk_prm_ena := (others => '0');
+      v_chk_rpt_prm_ena := (others => '0');
       v_line_cnt        := 1;
       v_record_time     := 0 ns;
 
@@ -357,7 +367,7 @@ begin
                   end if;
 
                -- ------------------------------------------------------------------------------------------------------
-               -- Command CCPE [clock_report]: Enable the display in result file of the report about the check clock parameters
+               -- Command CCPE [report]: Enable the display in result file of the report about the check parameters
                -- ------------------------------------------------------------------------------------------------------
                when "CCPE" =>
 
@@ -365,10 +375,10 @@ begin
                   get_param_ccpe(v_cmd_file_line, v_head_mess_stdout.all, v_fld_dis, v_fld_dis_ind);
 
                   -- Update discrete write signal
-                  v_chk_clk_prm_ena(v_fld_dis_ind) := '1';
+                  v_chk_rpt_prm_ena(v_fld_dis_ind) := '1';
 
                   -- Display command
-                  fprintf(note , "Clock report display activated: " & v_fld_dis.all , res_file);
+                  fprintf(note , "Report display activated: " & v_fld_dis.all , res_file);
 
                -- ------------------------------------------------------------------------------------------------------
                -- Command CDIS [discrete_r] [value]: check discrete input
@@ -394,7 +404,7 @@ begin
                   fprintf(note , " * Read discrete: " & v_fld_dis.all & ", value " & std_logic'image(discrete_r(v_fld_dis_ind)) & ", expected " & std_logic'image(v_fld_value), res_file);
 
                -- ------------------------------------------------------------------------------------------------------
-               -- Command CLDC [channel] [value]: check level SQUID1 DAC output
+               -- Command CLDC [channel] [value]: check level SQUID1 ADC input
                -- ------------------------------------------------------------------------------------------------------
                when "CLDC" =>
 
@@ -441,7 +451,7 @@ begin
 
                -- ------------------------------------------------------------------------------------------------------
                -- Command CTDC [channel] [ope] [time]: check time between the current time
-               --   and last event SQUID1 DAC output
+               --   and last event SQUID1 ADC input
                -- ------------------------------------------------------------------------------------------------------
                when "CTDC" =>
 
@@ -578,6 +588,24 @@ begin
                   fprintf(note , "Write discrete: " & v_fld_dis.all & " = " & std_logic'image(v_fld_value), res_file);
 
                -- ------------------------------------------------------------------------------------------------------
+               -- Command WMDC [index] [data]: Write in ADC memory dump for data compare
+               -- ------------------------------------------------------------------------------------------------------
+               when "WMDC" =>
+
+                  -- Get parameters
+                  get_param_wmdc(v_cmd_file_line, v_head_mess_stdout.all, v_fld_dis_ind, v_fld_spi_cmd(c_EP_SPI_WD_S-1 downto 0));
+
+                  -- Display command
+                  fprintf(note , "Write in ADC memory dump, adress index " & integer'image(v_fld_dis_ind) & ", value " & hfield_format(v_fld_spi_cmd(c_EP_SPI_WD_S-1 downto 0)).all, res_file);
+
+                  -- Write in ADC memory dump
+                  o_adc_dmp_mem_add    <= std_logic_vector(to_unsigned(v_fld_dis_ind, o_adc_dmp_mem_add'length));
+                  o_adc_dmp_mem_data   <= std_logic_vector(resize(unsigned(v_fld_spi_cmd), o_adc_dmp_mem_data'length));
+                  o_adc_dmp_mem_cs     <= '1';
+                  wait for c_CLK_REF_PER_DEF;
+                  o_adc_dmp_mem_cs     <= '0';
+
+               -- ------------------------------------------------------------------------------------------------------
                -- Command WNBD [number]: write board reference number
                -- ------------------------------------------------------------------------------------------------------
                when "WNBD" =>
@@ -659,10 +687,10 @@ begin
       end if;
 
       -- Clocks parameters results
-      for k in 0 to c_CE_S-1 loop
+      for k in 0 to c_CHK_ENA_CLK_NB-1 loop
 
          -- Check if clock parameters check is enabled
-         if v_chk_clk_prm_ena(k) = '1' then
+         if v_chk_rpt_prm_ena(k) = '1' then
 
             -- Write clock parameters check results
             fprintf(none, c_RES_FILE_DIV_BAR & c_RES_FILE_DIV_BAR , res_file);
@@ -702,8 +730,56 @@ begin
          end if;
       end loop;
 
+      -- SPI parameters results
+      for k in 0 to c_CHK_ENA_SPI_NB-1 loop
+
+         -- Check if SPI parameters check is enabled
+         if v_chk_rpt_prm_ena(k+c_CHK_ENA_CLK_NB) = '1' then
+
+            -- Write SPI parameters check results
+            fprintf(none, c_RES_FILE_DIV_BAR & c_RES_FILE_DIV_BAR , res_file);
+            fprintf(none, "Parameters check, SPI " & c_SCHK(k).spi_name , res_file);
+            fprintf(none, c_RES_FILE_DIV_BAR & c_RES_FILE_DIV_BAR , res_file);
+
+            fprintf(none, "Error number of low level sclk timing  :                    " & integer'image(i_err_n_spi_chk(k)(c_SPI_ERR_POS_TL)) &
+            ", expected timing >= " & time'image(c_SCHK(k).spi_time(c_SPI_ERR_POS_TL)), res_file);
+
+            fprintf(none, "Error number of high level sclk timing :                    " & integer'image(i_err_n_spi_chk(k)(c_SPI_ERR_POS_TH)) &
+            ", expected timing >= " & time'image(c_SCHK(k).spi_time(c_SPI_ERR_POS_TH)), res_file);
+
+            fprintf(none, "Error number of sclk minimum period    :                    " & integer'image(i_err_n_spi_chk(k)(c_SPI_ERR_POS_TSCMIN)) &
+            ", expected timing >= " & time'image(c_SCHK(k).spi_time(c_SPI_ERR_POS_TSCMIN)), res_file);
+
+            fprintf(none, "Error number of sclk maximum period    :                    " & integer'image(i_err_n_spi_chk(k)(c_SPI_ERR_POS_TSCMAX)) &
+            ", expected timing <= " & time'image(c_SCHK(k).spi_time(c_SPI_ERR_POS_TSCMAX)), res_file);
+
+            fprintf(none, "Error number of high level cs timing   :                    " & integer'image(i_err_n_spi_chk(k)(c_SPI_ERR_POS_TCSH)) &
+            ", expected timing >= " & time'image(c_SCHK(k).spi_time(c_SPI_ERR_POS_TCSH)), res_file);
+
+            fprintf(none, "Error number of sclk edge to cs rising edge timing :        " & integer'image(i_err_n_spi_chk(k)(c_SPI_ERR_POS_TS2CSR)) &
+            ", expected timing >= " & time'image(c_SCHK(k).spi_time(c_SPI_ERR_POS_TS2CSR)), res_file);
+
+            fprintf(none, "Error number of data edge to sclk edge timing :             " & integer'image(i_err_n_spi_chk(k)(c_SPI_ERR_POS_TD2S)) &
+            ", expected timing >= " & time'image(c_SCHK(k).spi_time(c_SPI_ERR_POS_TD2S)), res_file);
+
+            fprintf(none, "Error number of sclk edge to data edge timing :             " & integer'image(i_err_n_spi_chk(k)(c_SPI_ERR_POS_TS2D)) &
+            ", expected timing >= " & time'image(c_SCHK(k).spi_time(c_SPI_ERR_POS_TS2D)), res_file);
+
+            fprintf(none, "Error number of sclk state when cs goes to active   :       " & integer'image(i_err_n_spi_chk(k)(c_SPI_ERR_POS_STSCA)), res_file);
+            fprintf(none, "Error number of sclk state when cs goes to inactive :       " & integer'image(i_err_n_spi_chk(k)(c_SPI_ERR_POS_STSCI)), res_file);
+
+            -- Set possible error
+            for j in 0 to c_SPI_ERR_CHK_NB-1 loop
+               if i_err_n_spi_chk(k)(j) /= 0 then
+                  v_err_chk_spi_prm := '1';
+               end if;
+            end loop;
+
+         end if;
+      end loop;
+
       -- Pulse shaping error report
-      if v_chk_clk_prm_ena(c_E_PLS_SHP) = '1' then
+      if v_chk_rpt_prm_ena(c_E_PLS_SHP) = '1' then
          fprintf(none, c_RES_FILE_DIV_BAR & c_RES_FILE_DIV_BAR & c_RES_FILE_DIV_BAR, res_file);
 
          for k in 0 to c_NB_COL-1 loop
@@ -725,6 +801,7 @@ begin
       fprintf(none, "Error check command return    : " & std_logic'image(v_err_chk_cmd_r),  res_file);
       fprintf(none, "Error check time              : " & std_logic'image(v_err_chk_time),   res_file);
       fprintf(none, "Error check clocks parameters : " & std_logic'image(v_err_chk_clk_prm),res_file);
+      fprintf(none, "Error check spi parameters    : " & std_logic'image(v_err_chk_spi_prm),res_file);
       fprintf(none, "Error check science packets   : " & std_logic'image(v_err_chk_sc_pkt or i_sc_pkt_err), res_file);
       fprintf(none, "Error check pulse shaping     : " & std_logic'image(v_err_chk_pls_shp),res_file);
 

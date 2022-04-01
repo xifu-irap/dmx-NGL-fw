@@ -8,10 +8,10 @@
 #             (0 ps) ==============================================================================================
 #             (0 ps)   Enable Squid1 ADC clocks reports display
 #             (0 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (0 ps) Clock report display activated: clk_sq1_adc(0)
-# ** Note   : (0 ps) Clock report display activated: clk_sq1_adc(1)
-# ** Note   : (0 ps) Clock report display activated: clk_sq1_adc(2)
-# ** Note   : (0 ps) Clock report display activated: clk_sq1_adc(3)
+# ** Note   : (0 ps) Report display activated: clk_sq1_adc(0)
+# ** Note   : (0 ps) Report display activated: clk_sq1_adc(1)
+# ** Note   : (0 ps) Report display activated: clk_sq1_adc(2)
+# ** Note   : (0 ps) Report display activated: clk_sq1_adc(3)
 #             (0 ps) 
 #             (0 ps) ==============================================================================================
 #             (0 ps)   Check ADC Power Down at start
@@ -1276,6 +1276,7 @@
 # Error check command return    : '0'
 # Error check time              : '0'
 # Error check clocks parameters : '0'
+# Error check spi parameters    : '0'
 # Error check science packets   : '0'
 # Error check pulse shaping     : '0'
 # ------------------------------------------------------------------------------------------------------------------------------------------------------

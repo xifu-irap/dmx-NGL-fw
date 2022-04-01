@@ -74,6 +74,7 @@ constant c_CLK_ADC_DEL_STEP   : integer   := div_floor(15*10**5/(c_CLK_ADC_FREQ/
    -- ------------------------------------------------------------------------------------------------------
    --    Interface parameters
    --    @Req : DRE-DMX-FW-REQ-0340
+   --    @Req : DRE-DMX-FW-REQ-0360
    --    @Req : DRE-DMX-FW-REQ-0550
    --    @Req : DRE-DMX-FW-REQ-0560
    -- ------------------------------------------------------------------------------------------------------
@@ -83,12 +84,15 @@ constant c_BRD_MODEL_S        : integer   := 2                                  
 constant c_SQ1_ADC_DATA_S     : integer   := 14                                                             ; --! SQUID1 ADC data size bus
 constant c_SQ1_DAC_DATA_S     : integer   := 14                                                             ; --! SQUID1 DAC data size bus
 
+constant c_SQ2_DAC_DATA_S     : integer   := 12                                                             ; --! SQUID2 DAC data size bus
+constant c_SQ2_DAC_MODE_S     : integer   := 2                                                              ; --! SQUID2 DAC mode size bus
 constant c_SQ2_SPI_CPOL       : std_logic := '0'                                                            ; --! SQUID2 DAC SPI: Clock polarity
 constant c_SQ2_SPI_CPHA       : std_logic := '1'                                                            ; --! SQUID2 DAC SPI: Clock phase
-constant c_SQ2_SPI_SER_WD_S   : integer   := 16                                                             ; --! SQUID2 DAC SPI: Data bus size
-constant c_SQ2_SPI_SCLK_L     : integer   := 1                                                              ; --! SQUID2 DAC SPI: Number of clock period for elaborating SPI Serial Clock low level
-constant c_SQ2_SPI_SCLK_H     : integer   := 1                                                              ; --! SQUID2 DAC SPI: Number of clock period for elaborating SPI Serial Clock high level
-constant c_SQ2_DAC_MUX_S      : integer   := 3                                                              ; --! SQUID2 DAC  Multiplexer size
+constant c_SQ2_SPI_SER_WD_S   : integer   := c_SQ2_DAC_DATA_S + c_SQ2_DAC_MODE_S + 2                        ; --! SQUID2 DAC SPI: Data bus size
+constant c_SQ2_SPI_SCLK_H     : integer   := div_ceil(c_CLK_ADC_FREQ * 13, 1000000000)                      ; --! SQUID2 DAC SPI: Number of clock period for elaborating SPI Serial Clock high level
+constant c_SQ2_SPI_SCLK_L     : integer   := maximum(c_SQ2_SPI_SCLK_H,
+                                                     div_ceil(c_CLK_ADC_FREQ, 30000000) - c_SQ2_SPI_SCLK_H) ; --! SQUID2 DAC SPI: Number of clock period for elaborating SPI Serial Clock low level
+constant c_SQ2_DAC_MUX_S      : integer   := 3                                                              ; --! SQUID2 DAC Multiplexer size
 
 constant c_SC_DATA_SER_W_S    : integer   := 8                                                              ; --! Science data serial word size
 constant c_SC_DATA_SER_NB     : integer   := 2                                                              ; --! Science data serial link number by DEMUX column
@@ -170,6 +174,15 @@ constant c_DAC_SHP_PRC_NPER   : integer := 3                                    
 constant c_DAC_DATA_NPER      : integer := 3                                                                ; --! DAC clock period number between DAC data input and analog output
 constant c_DAC_SYNC_DATA_NPER : integer := c_DAC_SYNC_RDY_NPER + c_DAC_SYNC_RE_NPER + c_DAC_MEM_PRM_NPER +
                                            c_DAC_SHP_PRC_NPER  + c_DAC_DATA_NPER                            ; --! DAC clock period number for stalling analog output to pixel sequence synchronization
+
+   -- ------------------------------------------------------------------------------------------------------
+   --    SQUID2 parameters
+   -- ------------------------------------------------------------------------------------------------------
+constant c_SQ2_DAC_MDL_POINT  : integer := 2**(c_SQ2_DAC_DATA_S-1)                                          ; --! SQUID2 DAC middle point
+constant c_S2M_SYNC_DATA_NPER : integer := c_DAC_SYNC_RDY_NPER + c_DAC_SYNC_RE_NPER                         ; --! MUX clock period number for stalling analog output to pixel sequence synchronization
+
+constant c_S2D_PRC_NPER       : integer := (c_SQ2_SPI_SCLK_L + c_SQ2_SPI_SCLK_H) *  c_SQ2_SPI_SER_WD_S + 2  ; --! DAC clock period number for sending data to DAC
+constant c_S2D_SYNC_DATA_NPER : integer := c_DAC_SYNC_RDY_NPER + c_DAC_SYNC_RE_NPER + c_S2D_PRC_NPER        ; --! DAC clock period number for stalling sending data end to pixel sequence synchronization
 
    -- ------------------------------------------------------------------------------------------------------
    --    Global types

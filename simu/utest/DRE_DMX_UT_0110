@@ -177,6 +177,44 @@ WCMD W-C3_SQ1_FB0(32)-8000 W
 WCMD W-C3_SQ1_FB0(33)-7FFF W
 COMM
 COMM ==============================================================================================
+COMM   Writing memory dump data to compare
+COMM ----------------------------------------------------------------------------------------------
+WMDC 0 4000
+WMDC 1 7FFF
+WMDC 2 4000
+WMDC 3 7FFF
+WMDC 4 4000
+WMDC 5 7FFF
+WMDC 6 4000
+WMDC 7 7FFF
+WMDC 8 4000
+WMDC 9 7FFF
+WMDC 10 4000
+WMDC 11 7FFF
+WMDC 12 4000
+WMDC 13 7FFF
+WMDC 14 4000
+WMDC 15 7FFF
+WMDC 16 4000
+WMDC 17 7FFF
+WMDC 18 4000
+WMDC 19 7FFF
+WMDC 20 4000
+WMDC 21 7FFF
+WMDC 22 4000
+WMDC 23 7FFF
+WMDC 24 4000
+WMDC 25 7FFF
+WMDC 26 4000
+WMDC 27 7FFF
+WMDC 28 4000
+WMDC 29 7FFF
+WMDC 30 4000
+WMDC 31 7FFF
+WMDC 32 4000
+WMDC 33 7FFF
+COMM
+COMM ==============================================================================================
 COMM   Send command SQ1_FB_MODE ON on all channels
 COMM ----------------------------------------------------------------------------------------------
 WCMD W-SQ1_FB_MODE-1111 W

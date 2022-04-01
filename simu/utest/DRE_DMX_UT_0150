@@ -1,5 +1,5 @@
 COMM **********************************************************************************************
-COMM   Test: DAC in open Loop mode with different pulse shapings
+COMM   Test: SQUID1 DAC in open loop mode with different pulse shapings
 COMM **********************************************************************************************
 COMM
 COMM ==============================================================================================
@@ -28,6 +28,44 @@ COMM   Send command SQ1_FB_MODE column 0 to ON, DAC pulse shaping set 0: fc = 15
 COMM ----------------------------------------------------------------------------------------------
 WCMD W-SQ1_FB_MODE-0001 W
 WPFC 0 15000000
+COMM
+COMM ==============================================================================================
+COMM   Writing memory dump data to compare
+COMM ----------------------------------------------------------------------------------------------
+WMDC 0 3F08
+WMDC 1 1FFF
+WMDC 2 3D17
+WMDC 3 1E10
+WMDC 4 3B27
+WMDC 5 1C1F
+WMDC 6 3936
+WMDC 7 1A2F
+WMDC 8 3746
+WMDC 9 183E
+WMDC 10 3555
+WMDC 11 164E
+WMDC 12 3365
+WMDC 13 145D
+WMDC 14 3174
+WMDC 15 126D
+WMDC 16 2F84
+WMDC 17 107C
+WMDC 18 2D93
+WMDC 19 0E8C
+WMDC 20 2BA3
+WMDC 21 0C9B
+WMDC 22 29B2
+WMDC 23 0AAB
+WMDC 24 27C2
+WMDC 25 08BA
+WMDC 26 25D1
+WMDC 27 06CA
+WMDC 28 23E1
+WMDC 29 04D9
+WMDC 30 21F0
+WMDC 31 02E9
+WMDC 32 2000
+WMDC 33 00F8
 COMM
 COMM ==============================================================================================
 COMM   Writing a new table in feedback open loop column 0 memory

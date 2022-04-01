@@ -61,13 +61,13 @@ constant c_RET_UKWN           : std_logic_vector(c_EP_SPI_WD_S-1 downto 0) := (o
    );
 
    -- ------------------------------------------------------------------------------------------------------
-   --! Get the first field (check clock parameters enable name) included in line and
-   --!  get the associated check clock parameters enable index
+   --! Get the first field (check parameters enable name) included in line and
+   --!  get the associated check parameters enable index
    -- ------------------------------------------------------------------------------------------------------
    procedure get_ce_index
    (     b_line               : inout  line                                                                 ; --  Line to analysis
-         o_fld_ce             : out    line                                                                 ; --  Field check clock parameters enable
-         o_fld_ce_ind         : out    integer range 0 to c_CE_S+1                                            --  Field check clock parameters enable index (equal to c_CE_S if field not recognized)
+         o_fld_ce             : out    line                                                                 ; --  Field check parameters enable
+         o_fld_ce_ind         : out    integer range 0 to c_CE_S+1                                            --  Field check parameters enable index (equal to c_CE_S if field not recognized)
    );
 
    -- ------------------------------------------------------------------------------------------------------
@@ -141,6 +141,12 @@ constant c_PAD                : character := ' '                                
 
          when "brd_model(1)        "   =>
             o_fld_dw_ind := c_DW_BRD_MODEL_1;
+
+         when "sw_adc_vin(0)       "   =>
+            o_fld_dw_ind := c_DW_SW_ADC_VIN_0;
+
+         when "sw_adc_vin(1)       "   =>
+            o_fld_dw_ind := c_DW_SW_ADC_VIN_1;
 
          when others                   =>
             o_fld_dw_ind := c_DW_S;
@@ -288,18 +294,18 @@ constant c_PAD                : character := ' '                                
    end get_dr_index;
 
    -- ------------------------------------------------------------------------------------------------------
-   --! Get the first field (check clock parameters enable name) included in line and
-   --!  get the associated check clock parameters enable index
+   --! Get the first field (check parameters enable name) included in line and
+   --!  get the associated check parameters enable index
    -- ------------------------------------------------------------------------------------------------------
    procedure get_ce_index
    (     b_line               : inout  line                                                                 ; --  Line to analysis
-         o_fld_ce             : out    line                                                                 ; --  Field check clock parameters enable
-         o_fld_ce_ind         : out    integer range 0 to c_CE_S+1                                            --  Field check clock parameters enable index (equal to c_CE_S if field not recognized)
+         o_fld_ce             : out    line                                                                 ; --  Field check parameters enable
+         o_fld_ce_ind         : out    integer range 0 to c_CE_S+1                                            --  Field check parameters enable index (equal to c_CE_S if field not recognized)
    ) is
-   variable v_fld_ce_pad      : line                                                                        ; --  Field check clock parameters enable with padding
+   variable v_fld_ce_pad      : line                                                                        ; --  Field check parameters enable with padding
    begin
 
-      -- Get the check clock parameters enable name
+      -- Get the check parameters enable name
       rfield_pad(b_line, c_PAD, c_SIG_NAME_STR_MAX_S, v_fld_ce_pad);
 
       -- Return field discrete output index
@@ -342,6 +348,33 @@ constant c_PAD                : character := ' '                                
 
          when "clk_science_23      "   =>
             o_fld_ce_ind := c_CE_CLK_SC_23;
+
+         when "spi_hk              "   =>
+            o_fld_ce_ind := c_SPIE_HK;
+
+         when "spi_sq2_lsb(0)      "   =>
+            o_fld_ce_ind := c_SPIE_C0_SQ2_LSB;
+
+         when "spi_sq2_off(0)      "   =>
+            o_fld_ce_ind := c_SPIE_C0_SQ2_OFF;
+
+         when "spi_sq2_lsb(1)      "   =>
+            o_fld_ce_ind := c_SPIE_C1_SQ2_LSB;
+
+         when "spi_sq2_off(1)      "   =>
+            o_fld_ce_ind := c_SPIE_C1_SQ2_OFF;
+
+         when "spi_sq2_lsb(2)      "   =>
+            o_fld_ce_ind := c_SPIE_C2_SQ2_LSB;
+
+         when "spi_sq2_off(2)      "   =>
+            o_fld_ce_ind := c_SPIE_C2_SQ2_OFF;
+
+         when "spi_sq2_lsb(3)      "   =>
+            o_fld_ce_ind := c_SPIE_C3_SQ2_LSB;
+
+         when "spi_sq2_off(3)      "   =>
+            o_fld_ce_ind := c_SPIE_C3_SQ2_OFF;
 
          when "pulse_shaping       "   =>
             o_fld_ce_ind := c_E_PLS_SHP;
@@ -394,6 +427,15 @@ constant c_PAD                : character := ' '                                
          when "C0_SQ1_FB_MODE                "  =>
             o_fld_add_val:= c_EP_CMD_ADD_S1FBM(0);
 
+         when "C0_SQ2_PXL_LOCKPOINT          "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_S2LKP(0);
+
+         when "C0_SQ2_PXL_LOCKPOINT_LSB      "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_S2LSB(0);
+
+         when "C0_SQ2_PXL_LOCKPOINT_OFFSET   "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_S2OFF(0);
+
          when "C0_FB1_PULSE_SHAPING          "  =>
             o_fld_add_val:= c_EP_CMD_ADD_PLSSH(0);
 
@@ -402,6 +444,15 @@ constant c_PAD                : character := ' '                                
 
          when "C1_SQ1_FB_MODE                "  =>
             o_fld_add_val:= c_EP_CMD_ADD_S1FBM(1);
+
+         when "C1_SQ2_PXL_LOCKPOINT          "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_S2LKP(1);
+
+         when "C1_SQ2_PXL_LOCKPOINT_LSB      "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_S2LSB(1);
+
+         when "C1_SQ2_PXL_LOCKPOINT_OFFSET   "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_S2OFF(1);
 
          when "C1_FB1_PULSE_SHAPING          "  =>
             o_fld_add_val:= c_EP_CMD_ADD_PLSSH(1);
@@ -412,6 +463,15 @@ constant c_PAD                : character := ' '                                
          when "C2_SQ1_FB_MODE                "  =>
             o_fld_add_val:= c_EP_CMD_ADD_S1FBM(2);
 
+         when "C2_SQ2_PXL_LOCKPOINT          "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_S2LKP(2);
+
+         when "C2_SQ2_PXL_LOCKPOINT_LSB      "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_S2LSB(2);
+
+         when "C2_SQ2_PXL_LOCKPOINT_OFFSET   "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_S2OFF(2);
+
          when "C2_FB1_PULSE_SHAPING          "  =>
             o_fld_add_val:= c_EP_CMD_ADD_PLSSH(2);
 
@@ -420,6 +480,15 @@ constant c_PAD                : character := ' '                                
 
          when "C3_SQ1_FB_MODE                "  =>
             o_fld_add_val:= c_EP_CMD_ADD_S1FBM(3);
+
+         when "C3_SQ2_PXL_LOCKPOINT          "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_S2LKP(3);
+
+         when "C3_SQ2_PXL_LOCKPOINT_LSB      "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_S2LSB(3);
+
+         when "C3_SQ2_PXL_LOCKPOINT_OFFSET   "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_S2OFF(3);
 
          when "C3_FB1_PULSE_SHAPING          "  =>
             o_fld_add_val:= c_EP_CMD_ADD_PLSSH(3);

@@ -8,9 +8,9 @@
 #             (0 ps) ==============================================================================================
 #             (0 ps)   Enable internal clock reports display
 #             (0 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (0 ps) Clock report display activated: clk
-# ** Note   : (0 ps) Clock report display activated: clk_sq1_adc
-# ** Note   : (0 ps) Clock report display activated: clk_sq1_pls_shape
+# ** Note   : (0 ps) Report display activated: clk
+# ** Note   : (0 ps) Report display activated: clk_sq1_adc
+# ** Note   : (0 ps) Report display activated: clk_sq1_pls_shape
 #             (0 ps) 
 #             (0 ps) ==============================================================================================
 #             (0 ps)   Asynchronous reset activated
@@ -120,6 +120,7 @@
 # Error check command return    : '0'
 # Error check time              : '0'
 # Error check clocks parameters : '0'
+# Error check spi parameters    : '0'
 # Error check science packets   : '0'
 # Error check pulse shaping     : '0'
 # ------------------------------------------------------------------------------------------------------------------------------------------------------

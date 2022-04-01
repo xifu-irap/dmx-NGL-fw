@@ -37,6 +37,7 @@ entity ep_cmd is port
    (     i_rst                : in     std_logic                                                            ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                : in     std_logic                                                            ; --! System Clock
 
+         i_ep_cmd_sts_err_add : in     std_logic                                                            ; --! EP command: Status, error invalid address
          i_ep_cmd_sts_err_nin : in     std_logic                                                            ; --! EP command: Status, error parameter to read not initialized yet
          i_ep_cmd_sts_err_dis : in     std_logic                                                            ; --! EP command: Status, error last SPI command discarded
          o_ep_cmd_sts_rg      : out    std_logic_vector(c_EP_SPI_WD_S-1 downto 0)                           ; --! EP command: Status register
@@ -57,8 +58,10 @@ end entity ep_cmd;
 
 architecture RTL of ep_cmd is
 constant c_SPI_DATA_WD_LG_S   : integer := log2_ceil(c_EP_SPI_WD_S)                                         ; --! EP - SPI Receipted data word length minus 1 bus size
-constant c_ADD_ERR_RDY_S      : integer := 3                                                                ; --! EP command receipted: errors ready after address rx bus size
-constant c_EP_SPI_WD_END_R_S  : integer := 4                                                                ; --! EP - SPI word end register bus size
+constant c_ADD_ERR_RDY_S      : integer := 6                                                                ; --! EP command receipted: errors ready after address rx bus size
+constant c_OUT_ERR_RDY_FF_NB  : integer := 3                                                                ; --! Flip-Flop number for getting error out of range ready
+constant c_EP_CMD_TX_DT_FF_NB : integer := 15                                                               ; --! Flip-Flop number for getting EP command data word to transmit
+constant c_EP_SPI_WD_END_R_S  : integer := c_OUT_ERR_RDY_FF_NB + c_EP_CMD_TX_DT_FF_NB                       ; --! EP - SPI word end register bus size
 
 signal   ep_spi_data_tx_wd    : std_logic_vector(c_EP_SPI_WD_S      -1 downto 0)                            ; --! EP - SPI Data word to transmit (stall on MSB)
 signal   ep_spi_data_tx_wd_nb : std_logic_vector(c_EP_SPI_TX_WD_NB_S-1 downto 0)                            ; --! EP - SPI Data word to transmit number
@@ -77,14 +80,13 @@ signal   ep_cmd_rx_wd_add_rdy : std_logic                                       
 signal   ep_cmd_rx_add_err_rdy: std_logic_vector(c_ADD_ERR_RDY_S    -1 downto 0)                            ; --! EP command receipted: errors ready after address rx ('0' = Not ready, '1' = Ready)
 signal   ep_cmd_rx_wd_data    : std_logic_vector(c_EP_SPI_WD_S      -1 downto 0)                            ; --! EP command receipted: data word
 signal   ep_cmd_rx_rw         : std_logic                                                                   ; --! EP command receipted: read/write bit
-signal   ep_cmd_rx_out_rdy    : std_logic                                                                   ; --! EP command receipted: error data out of range ready ('0' = Not ready, '1' = Ready)
 
 signal   ep_cmd_tx_wd_add     : std_logic_vector(c_EP_SPI_WD_S      -1 downto 0)                            ; --! EP command to transmit: address word
+signal   ep_cmd_tx_wd_add_end : std_logic_vector(c_EP_SPI_WD_S      -2 downto 0)                            ; --! EP command to transmit: address word at spi end
 signal   ep_cmd_tx_wd_data    : std_logic_vector(c_EP_SPI_WD_S      -1 downto 0)                            ; --! EP command to transmit: data word
 
 signal   ep_cmd_sts_rg        : std_logic_vector(c_EP_SPI_WD_S      -1 downto 0)                            ; --! EP command: status register
 
-signal   ep_cmd_sts_err_add   : std_logic                                                                   ; --! EP command: Status, error invalid address
 signal   ep_cmd_sts_err_lgt   : std_logic                                                                   ; --! EP command: Status, error SPI command length not complete
 signal   ep_cmd_sts_err_wrt   : std_logic                                                                   ; --! EP command: Status, error try to write in a read only register
 signal   ep_cmd_sts_err_out   : std_logic                                                                   ; --! EP command: Status, error SPI data out of range
@@ -169,7 +171,7 @@ begin
          end if;
 
          ep_spi_wd_end_r      <= ep_spi_wd_end_r(ep_spi_wd_end_r'high-1 downto 0) & ep_spi_wd_end;
-         o_ep_cmd_rx_nerr_rdy <= ep_spi_wd_end_r(ep_spi_wd_end_r'high) and not(ep_cmd_all_err xor c_EP_CMD_ERR_CLR);
+         o_ep_cmd_rx_nerr_rdy <= ep_spi_wd_end_r(c_OUT_ERR_RDY_FF_NB) and not(ep_cmd_all_err xor c_EP_CMD_ERR_CLR);
 
       end if;
 
@@ -190,7 +192,6 @@ begin
    o_ep_cmd_rx_wd_add   <= ep_cmd_rx_wd_add_norw;
    o_ep_cmd_rx_wd_data  <= ep_cmd_rx_wd_data;
    o_ep_cmd_rx_rw       <= ep_cmd_rx_rw;
-   ep_cmd_rx_out_rdy    <= ep_spi_wd_end_r(ep_spi_wd_end_r'high-1);
 
    -- ------------------------------------------------------------------------------------------------------
    --!   EP command transmit management
@@ -202,6 +203,23 @@ begin
       ep_cmd_tx_wd_add(ep_cmd_tx_wd_add'high   downto 1) <= c_EP_CMD_ADD_STATUS(ep_cmd_tx_wd_add'high-1 downto 0) when ep_cmd_rx_wd_add(c_EP_CMD_ADD_RW_POS) = c_EP_CMD_ADD_RW_W else
                                                             c_EP_CMD_ADD_STATUS(ep_cmd_tx_wd_add'high-1 downto 0) when ep_cmd_all_err_data = c_EP_CMD_ERR_SET else
                                                             ep_cmd_rx_wd_add(   ep_cmd_tx_wd_add'high   downto 1);
+
+      P_ep_cmd_tx_wd_adend : process (i_rst, i_clk)
+      begin
+
+         if i_rst = '1' then
+            ep_cmd_tx_wd_add_end <= c_EP_CMD_ADD_STATUS(ep_cmd_tx_wd_add_end'high downto 0);
+
+         elsif rising_edge(i_clk) then
+            if ep_spi_wd_end = '1' then
+               ep_cmd_tx_wd_add_end <= ep_cmd_tx_wd_add(ep_cmd_tx_wd_add'high downto 1);
+
+            end if;
+
+         end if;
+
+      end process P_ep_cmd_tx_wd_adend;
+
    end generate G_add_tw_pos_equ_nul;
 
    -- Address Transmit: Read/Write others bit position
@@ -210,26 +228,49 @@ begin
       ep_cmd_tx_wd_add(ep_cmd_tx_wd_add'high-1 downto 0) <= c_EP_CMD_ADD_STATUS(ep_cmd_tx_wd_add'high-1 downto 0) when ep_cmd_rx_wd_add(c_EP_CMD_ADD_RW_POS) = c_EP_CMD_ADD_RW_W else
                                                             c_EP_CMD_ADD_STATUS(ep_cmd_tx_wd_add'high-1 downto 0) when ep_cmd_all_err_data = c_EP_CMD_ERR_SET else
                                                             ep_cmd_rx_wd_add(   ep_cmd_tx_wd_add'high-1 downto 0);
+
+      P_ep_cmd_tx_wd_adend : process (i_rst, i_clk)
+      begin
+
+         if i_rst = '1' then
+            ep_cmd_tx_wd_add_end <= c_EP_CMD_ADD_STATUS(ep_cmd_tx_wd_add_end'high downto 0);
+
+         elsif rising_edge(i_clk) then
+            if ep_spi_wd_end = '1' then
+               ep_cmd_tx_wd_add_end <= ep_cmd_tx_wd_add(ep_cmd_tx_wd_add'high-1 downto 0);
+
+            end if;
+
+         end if;
+
+      end process P_ep_cmd_tx_wd_adend;
+
    end generate G_add_tw_pos_neq_nul;
 
-   ep_cmd_tx_wd_data    <= ep_cmd_sts_rg when ep_cmd_rx_wd_add(c_EP_CMD_ADD_RW_POS) = c_EP_CMD_ADD_RW_W else
-                           ep_cmd_sts_rg when ep_cmd_all_err = c_EP_CMD_ERR_SET else
-                           i_ep_cmd_tx_wd_rd_rg;
+   P_ep_cmd_tx_wd : process (i_rst, i_clk)
+   begin
+
+      if i_rst = '1' then
+         ep_cmd_tx_wd_data <= (others => '0');
+
+      elsif rising_edge(i_clk) then
+         if ep_spi_wd_end_r(ep_spi_wd_end_r'high) = '1' then
+            if ep_cmd_tx_wd_add_end = c_EP_CMD_ADD_STATUS(ep_cmd_tx_wd_add_end'high downto 0) then
+               ep_cmd_tx_wd_data <= ep_cmd_sts_rg;
+
+            else
+               ep_cmd_tx_wd_data <= i_ep_cmd_tx_wd_rd_rg;
+
+            end if;
+
+         end if;
+
+      end if;
+
+   end process P_ep_cmd_tx_wd;
 
    ep_spi_data_tx_wd    <= ep_cmd_tx_wd_add when ep_spi_data_tx_wd_nb = std_logic_vector(to_unsigned(c_EP_CMD_WD_ADD_POS, ep_spi_data_tx_wd_nb'length)) else
                            ep_cmd_tx_wd_data;
-
-   -- ------------------------------------------------------------------------------------------------------
-   --!   EP command: Status, error invalid address
-   --    @Req : REG_EP_CMD_ERR_ADD
-   -- ------------------------------------------------------------------------------------------------------
-   I_sts_err_add_mgt: entity work.sts_err_add_mgt port map
-   (     i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
-         i_clk                => i_clk                , -- in     std_logic                                 ; --! System Clock
-
-         i_ep_cmd_rx_add_norw => ep_cmd_rx_wd_add_norw, -- in     std_logic_vector(c_EP_SPI_WD_S-1 downto 0); --! EP command receipted: address word, read/write bit cleared
-         o_ep_cmd_sts_err_add => ep_cmd_sts_err_add     -- out    std_logic                                   --! EP command: Status, error invalid address
-   );
 
    -- ------------------------------------------------------------------------------------------------------
    --!   EP command: Status, error SPI command length not complete
@@ -262,7 +303,7 @@ begin
          i_ep_cmd_rx_add_norw => ep_cmd_rx_wd_add_norw, -- in     std_logic_vector(c_EP_SPI_WD_S-1 downto 0); --! EP command receipted: address word, read/write bit cleared
          i_ep_cmd_rx_wd_data  => ep_cmd_rx_wd_data    , -- in     std_logic_vector(c_EP_SPI_WD_S-1 downto 0); --! EP command receipted: data word
          i_ep_cmd_rx_rw       => ep_cmd_rx_rw         , -- in     std_logic                                 ; --! EP command receipted: read/write bit
-         i_ep_cmd_rx_out_rdy  => ep_cmd_rx_out_rdy    , -- in     std_logic                                 ; --! EP command receipted: error data out of range ready ('0' = Not ready, '1' = Ready)
+         i_ep_cmd_rx_out_rdy  => ep_spi_wd_end_r(0)   , -- in     std_logic                                 ; --! EP command receipted: error data out of range ready ('0' = Not ready, '1' = Ready)
          o_ep_cmd_sts_err_out => ep_cmd_sts_err_out     -- out    std_logic                                   --! EP command: Status, error data out of range
    );
 
@@ -270,14 +311,14 @@ begin
    --!   EP command: Global error management
    -- ------------------------------------------------------------------------------------------------------
    G_ep_cmd_err_clr_nul: if c_EP_CMD_ERR_CLR = '0' generate
-      ep_cmd_all_err_add   <= ep_cmd_sts_err_add   or ep_cmd_sts_err_wrt or i_ep_cmd_sts_err_nin or i_ep_cmd_sts_err_dis;
+      ep_cmd_all_err_add   <= i_ep_cmd_sts_err_add or ep_cmd_sts_err_wrt or i_ep_cmd_sts_err_nin or i_ep_cmd_sts_err_dis;
       ep_cmd_all_err_data  <= ep_cmd_sts_err_lgt   or ep_cmd_err_add_wd_end;
       ep_cmd_all_err       <= ep_cmd_sts_err_out   or ep_cmd_err_spi_wd_end;
 
    end generate G_ep_cmd_err_clr_nul;
 
    G_ep_cmd_err_clr_one: if c_EP_CMD_ERR_CLR /= '0' generate
-      ep_cmd_all_err_add   <= ep_cmd_sts_err_add   and ep_cmd_sts_err_wrt and i_ep_cmd_sts_err_nin and i_ep_cmd_sts_err_dis;
+      ep_cmd_all_err_add   <= i_ep_cmd_sts_err_add and ep_cmd_sts_err_wrt and i_ep_cmd_sts_err_nin and i_ep_cmd_sts_err_dis;
       ep_cmd_all_err_data  <= ep_cmd_sts_err_lgt   and ep_cmd_err_add_wd_end;
       ep_cmd_all_err       <= ep_cmd_sts_err_out   and ep_cmd_err_spi_wd_end;
 
@@ -301,7 +342,7 @@ begin
          if ep_cmd_rx_add_err_rdy(ep_cmd_rx_add_err_rdy'high) = '1' then
             ep_cmd_err_add_wd_end   <= ep_cmd_all_err_add;
 
-            ep_cmd_sts_rg(c_EP_CMD_ERR_ADD_POS) <= ep_cmd_sts_err_add;
+            ep_cmd_sts_rg(c_EP_CMD_ERR_ADD_POS) <= i_ep_cmd_sts_err_add;
             ep_cmd_sts_rg(c_EP_CMD_ERR_WRT_POS) <= ep_cmd_sts_err_wrt;
             ep_cmd_sts_rg(c_EP_CMD_ERR_NIN_POS) <= i_ep_cmd_sts_err_nin;
             ep_cmd_sts_rg(c_EP_CMD_ERR_DIS_POS) <= i_ep_cmd_sts_err_dis;

@@ -76,14 +76,14 @@ type     t_wait_cmd_end         is (none, wait_cmd_end_tx, wait_rcmd_end_rx)    
    );
 
    -- ------------------------------------------------------------------------------------------------------
-   --! Get parameters command CCPE [clock_report]: enable the display in result file of the report
-   --!  about the check clock parameters
+   --! Get parameters command CCPE [report]: enable the display in result file of the report
+   --!  about the check parameters
    -- ------------------------------------------------------------------------------------------------------
    procedure get_param_ccpe
    (     b_cmd_file_line      : inout  line                                                                 ; --  Command file line
          i_mess_header        : in     string                                                               ; --  Message header
          o_fld_ce             : out    line                                                                 ; --  Field check clock parameters enable
-         o_fld_ce_ind         : out    integer range 0 to c_CE_S+1                                            --  Field check clock parameters enable index (equal to c_CE_S if field not recognized)
+         o_fld_ce_ind         : out    integer range 0 to c_CE_S-1                                            --  Field check clock parameters enable index (equal to c_CE_S if field not recognized)
    );
 
    -- ------------------------------------------------------------------------------------------------------
@@ -98,7 +98,7 @@ type     t_wait_cmd_end         is (none, wait_cmd_end_tx, wait_rcmd_end_rx)    
    );
 
    -- ------------------------------------------------------------------------------------------------------
-   --! Get parameters command CLDC [channel] [value]: check level SQUID1 DAC output
+   --! Get parameters command CLDC [channel] [value]: check level SQUID1 ADC input
    -- ------------------------------------------------------------------------------------------------------
    procedure get_param_cldc
    (     b_cmd_file_line      : inout  line                                                                 ; --  Command file line
@@ -119,7 +119,7 @@ type     t_wait_cmd_end         is (none, wait_cmd_end_tx, wait_rcmd_end_rx)    
 
    -- ------------------------------------------------------------------------------------------------------
    --! Get parameters command CTDC [channel] [ope] [time]: check time between the current time
-   --!  and last event SQUID1 DAC output
+   --!  and last event SQUID1 ADC input
    -- ------------------------------------------------------------------------------------------------------
    procedure get_param_ctdc
    (     b_cmd_file_line      : inout  line                                                                 ; --  Command file line
@@ -162,7 +162,7 @@ type     t_wait_cmd_end         is (none, wait_cmd_end_tx, wait_rcmd_end_rx)    
    );
 
    -- ------------------------------------------------------------------------------------------------------
-   --! Get parameters command [cmd] [end]: transmit EP command
+   --! Get parameters command WCMD [cmd] [end]: transmit EP command
    -- ------------------------------------------------------------------------------------------------------
    procedure get_param_wcmd
    (     b_cmd_file_line      : inout  line                                                                 ; --  Command file line
@@ -191,6 +191,16 @@ type     t_wait_cmd_end         is (none, wait_cmd_end_tx, wait_rcmd_end_rx)    
          o_fld_dw             : out    line                                                                 ; --  Field discrete output
          o_fld_dw_ind         : out    integer range 0 to c_DW_S                                            ; --  Field discrete output index (equal to c_DW_S if field not recognized)
          o_fld_value          : out    std_logic                                                              --  Field value
+   );
+
+   -- ------------------------------------------------------------------------------------------------------
+   --! Get parameters command WMDC [index] [data]: Write in ADC memory dump for data compare
+   -- ------------------------------------------------------------------------------------------------------
+   procedure get_param_wmdc
+   (     b_cmd_file_line      : inout  line                                                                 ; --  Command file line
+         i_mess_header        : in     string                                                               ; --  Message header
+         o_fld_index          : out    integer range 0 to c_MUX_FACT-1                                      ; --  Field memory index number
+         o_fld_data           : out    std_logic_vector                                                       --  Field data
    );
 
    -- ------------------------------------------------------------------------------------------------------
@@ -390,20 +400,20 @@ package body pkg_func_cmd_script is
    end get_param_ccmd;
 
    -- ------------------------------------------------------------------------------------------------------
-   --! Get parameters command CCPE [clock_report]: enable the display in result file of the report
-   --!  about the check clock parameters
+   --! Get parameters command CCPE [report]: enable the display in result file of the report
+   --!  about the check parameters
    -- ------------------------------------------------------------------------------------------------------
    procedure get_param_ccpe
    (     b_cmd_file_line      : inout  line                                                                 ; --  Command file line
          i_mess_header        : in     string                                                               ; --  Message header
          o_fld_ce             : out    line                                                                 ; --  Field check clock parameters enable
-         o_fld_ce_ind         : out    integer range 0 to c_CE_S+1                                            --  Field check clock parameters enable index (equal to c_CE_S if field not recognized)
+         o_fld_ce_ind         : out    integer range 0 to c_CE_S-1                                            --  Field check clock parameters enable index (equal to c_CE_S if field not recognized)
    ) is
    begin
 
-      -- Get [clock_report]
+      -- Get [report]
       get_ce_index(b_cmd_file_line, o_fld_ce, o_fld_ce_ind);
-      assert o_fld_ce_ind /= c_CE_S report i_mess_header & "[clock_report]" & c_MESS_ERR_UNKNOWN severity failure;
+      assert o_fld_ce_ind /= c_CE_S report i_mess_header & "[report]" & c_MESS_ERR_UNKNOWN severity failure;
 
    end get_param_ccpe;
 
@@ -429,7 +439,7 @@ package body pkg_func_cmd_script is
    end get_param_cdis;
 
    -- ------------------------------------------------------------------------------------------------------
-   --! Get parameters command CLDC [channel] [value]: check level SQUID1 DAC output
+   --! Get parameters command CLDC [channel] [value]: check level SQUID1 ADC input
    -- ------------------------------------------------------------------------------------------------------
    procedure get_param_cldc
    (     b_cmd_file_line      : inout  line                                                                 ; --  Command file line
@@ -467,7 +477,7 @@ package body pkg_func_cmd_script is
 
    -- ------------------------------------------------------------------------------------------------------
    --! Get parameters command CTDC [channel] [ope] [time]: check time between the current time
-   --!  and last event SQUID1 DAC output
+   --!  and last event SQUID1 ADC input
    -- ------------------------------------------------------------------------------------------------------
    procedure get_param_ctdc
    (     b_cmd_file_line      : inout  line                                                                 ; --  Command file line
@@ -545,7 +555,7 @@ package body pkg_func_cmd_script is
    end get_param_wait;
 
    -- ------------------------------------------------------------------------------------------------------
-   --! Get parameters command [cmd] [end]: transmit EP command
+   --! Get parameters command WCMD [cmd] [end]: transmit EP command
    -- ------------------------------------------------------------------------------------------------------
    procedure get_param_wcmd
    (     b_cmd_file_line      : inout  line                                                                 ; --  Command file line
@@ -626,6 +636,30 @@ package body pkg_func_cmd_script is
       brfield(b_cmd_file_line, i_mess_header & "[value]", o_fld_value);
 
    end get_param_wdis;
+
+   -- ------------------------------------------------------------------------------------------------------
+   --! Get parameters command WMDC [index] [data]: Write in ADC memory dump for data compare
+   -- ------------------------------------------------------------------------------------------------------
+   procedure get_param_wmdc
+   (     b_cmd_file_line      : inout  line                                                                 ; --  Command file line
+         i_mess_header        : in     string                                                               ; --  Message header
+         o_fld_index          : out    integer range 0 to c_MUX_FACT-1                                      ; --  Field memory index number
+         o_fld_data           : out    std_logic_vector                                                       --  Field data
+   ) is
+   begin
+
+      -- Drop underscore included in the fields
+      drop_line_char(b_cmd_file_line, '_', b_cmd_file_line);
+
+      -- Get [index]
+      rfield(b_cmd_file_line, i_mess_header & "[index]", o_fld_index);
+      assert o_fld_index < c_MUX_FACT report i_mess_header & "[index]" & c_MESS_ERR_SIZE severity failure;
+
+      -- Get [data], hex format
+      drop_line_char(b_cmd_file_line, ' ', b_cmd_file_line);
+      hrfield(b_cmd_file_line, i_mess_header & "[data]", o_fld_data);
+
+   end get_param_wmdc;
 
    -- ------------------------------------------------------------------------------------------------------
    --! Get parameters command WPFC [channel] [frequency]: write pulse shaping cut frequency for verification
