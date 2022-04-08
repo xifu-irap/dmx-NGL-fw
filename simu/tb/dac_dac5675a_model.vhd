@@ -49,7 +49,7 @@ constant c_DAC_RES            : real      := 2.0 * g_VREF / real(2**(i_d'length)
 constant c_TIME_TPD           : time      := 1 ns                                                           ; --! Time: Data Propagation Delay
 constant c_PIPE_DEL           : integer   := 3                                                              ; --! Pipe stage delay number (Digital delay time)
 
-signal   dac_data_r           : t_slv_arr(0 to c_PIPE_DEL-1)(i_d'length-1  downto 0) := 
+signal   dac_data_r           : t_slv_arr(0 to c_PIPE_DEL-1)(i_d'length-1  downto 0) :=
                                  (others => (i_d'high => '1',others =>'0'))                                 ; --! DAC data register
 signal   delta_vout           : real                                                                        ; --! Analog voltage (no delays)
 

@@ -41,8 +41,8 @@ entity top_dmx is port
          o_clk_science_01     : out    std_logic                                                            ; --! Science Data - Clock channel 0/1
          o_clk_science_23     : out    std_logic                                                            ; --! Science Data - Clock channel 2/3
 
-         i_brd_ref            : in     std_logic_vector(     c_BRD_REF_S-1 downto 0)                        ; --! Board reference
-         i_brd_model          : in     std_logic_vector(   c_BRD_MODEL_S-1 downto 0)                        ; --! Board model
+         i_brd_ref            : in     std_logic_vector(  c_BRD_REF_S-1 downto 0)                           ; --! Board reference
+         i_brd_model          : in     std_logic_vector(c_BRD_MODEL_S-1 downto 0)                           ; --! Board model
          i_sync               : in     std_logic                                                            ; --! Pixel sequence synchronization (R.E. detected = position sequence to the first pixel)
 
          i_sq1_adc_data       : in     t_slv_arr(0 to c_NB_COL-1)(c_SQ1_ADC_DATA_S-1 downto 0)              ; --! SQUID1 ADC - Data
@@ -57,7 +57,7 @@ entity top_dmx is port
          o_hk1_spi_mosi       : out    std_logic                                                            ; --! HouseKeeping 1 - SPI Master Output Slave Input
          o_hk1_spi_sclk       : out    std_logic                                                            ; --! HouseKeeping 1 - SPI Serial Clock (CPOL = ‘0’, CPHA = ’0’)
          o_hk1_spi_cs_n       : out    std_logic                                                            ; --! HouseKeeping 1 - SPI Chip Select ('0' = Active, '1' = Inactive)
-         o_hk1_mux            : out    std_logic_vector(      c_HK_MUX_S-1 downto 0)                        ; --! HouseKeeping 1 - Multiplexer
+         o_hk1_mux            : out    std_logic_vector(c_HK_MUX_S-1 downto 0)                              ; --! HouseKeeping 1 - Multiplexer
          o_hk1_mux_ena_n      : out    std_logic                                                            ; --! HouseKeeping 1 - Multiplexer Enable ('0' = Active, '1' = Inactive)
 
          i_ep_spi_mosi        : in     std_logic                                                            ; --! EP - SPI Master Input Slave Output (MSB first)
@@ -497,6 +497,8 @@ begin
          o_sq1_adc_spi_cs_n   => o_sq1_adc_spi_cs_n(k)  -- out    std_logic                                   --! SQUID1 ADC - SPI Chip Select ('0' = Active, '1' = Inactive)
       );
 
+      o_science_data(k) <= science_data_ser((k+1)*c_SC_DATA_SER_NB-1 downto k*c_SC_DATA_SER_NB);
+
    end generate G_column_mgt;
 
    o_sq2_dac_mx_en_n <= (others => '0');
@@ -509,10 +511,5 @@ begin
 
    o_science_ctrl_01    <= science_data_ser(4*c_SC_DATA_SER_NB);
    o_science_ctrl_23    <= science_data_ser(4*c_SC_DATA_SER_NB);
-
-   o_science_data(0)    <= science_data_ser(1*c_SC_DATA_SER_NB-1 downto 0*c_SC_DATA_SER_NB);
-   o_science_data(1)    <= science_data_ser(2*c_SC_DATA_SER_NB-1 downto 1*c_SC_DATA_SER_NB);
-   o_science_data(2)    <= science_data_ser(3*c_SC_DATA_SER_NB-1 downto 2*c_SC_DATA_SER_NB);
-   o_science_data(3)    <= science_data_ser(4*c_SC_DATA_SER_NB-1 downto 3*c_SC_DATA_SER_NB);
 
 end architecture rtl;

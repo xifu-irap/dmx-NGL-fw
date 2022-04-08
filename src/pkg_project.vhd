@@ -152,7 +152,7 @@ constant c_MUX_FACT_S         : integer   := log2_ceil(c_MUX_FACT)              
 constant c_PIXEL_ADC_NB_CYC   : integer := 20                                                               ; --! ADC clock period number allocated to one pixel acquisition
 constant c_ADC_DATA_NPER      : integer := 12                                                               ; --! ADC clock period number between the acquisition start and data output by the ADC
 
-constant c_ADC_SYNC_RDY_NPER  : integer := (c_FF_RSYNC_NB - 1)*(c_CLK_ADC_DAC_MULT/c_CLK_MULT)
+constant c_ADC_SYNC_RDY_NPER  : integer := (c_FF_RSYNC_NB + 1)*(c_CLK_ADC_DAC_MULT/c_CLK_MULT)
                                           + c_FF_RSYNC_NB                                                   ; --! ADC clock period number for getting pixel sequence synchronization, synchronized
 constant c_ADC_DATA_RDY_NPER  : integer := c_ADC_DATA_NPER + c_FF_RSYNC_NB - 1                              ; --! ADC clock period number between the ADC acquisition start and ADC data ready
 
@@ -167,11 +167,11 @@ constant c_PIXEL_DAC_NB_CYC   : integer := 20                                   
 constant c_DAC_MDL_POINT      : integer := 2**(c_SQ1_DATA_FBK_S-1)                                          ; --! DAC middle point
 constant c_DAC_PLS_SHP_SET_NB : integer := 4                                                                ; --! DAC pulse shaping set number
 
-constant c_DAC_SYNC_RDY_NPER  : integer := (c_FF_RSYNC_NB - 1)*(c_CLK_ADC_DAC_MULT/c_CLK_MULT)
+constant c_DAC_SYNC_RDY_NPER  : integer := (c_FF_RSYNC_NB + 1)*(c_CLK_ADC_DAC_MULT/c_CLK_MULT)
                                           + c_FF_RSYNC_NB                                                   ; --! DAC clock period number for getting pixel sequence synchronization, synchronized
 constant c_DAC_SYNC_RE_NPER   : integer := 1                                                                ; --! DAC clock period number for getting pixel sequence synchronization rising edge
 constant c_DAC_MEM_PRM_NPER   : integer := c_MEM_RD_DATA_NPER + 1                                           ; --! DAC clock period number for getting parameters stored in memory from pixel sequence
-constant c_DAC_SHP_PRC_NPER   : integer := 3                                                                ; --! DAC clock period number for pulse shaping processing and DAC data input
+constant c_DAC_SHP_PRC_NPER   : integer := 4                                                                ; --! DAC clock period number for pulse shaping processing and DAC data input
 constant c_DAC_DATA_NPER      : integer := 3                                                                ; --! DAC clock period number between DAC data input and analog output
 constant c_DAC_SYNC_DATA_NPER : integer := c_DAC_SYNC_RDY_NPER + c_DAC_SYNC_RE_NPER + c_DAC_MEM_PRM_NPER +
                                            c_DAC_SHP_PRC_NPER  + c_DAC_DATA_NPER                            ; --! DAC clock period number for stalling analog output to pixel sequence synchronization

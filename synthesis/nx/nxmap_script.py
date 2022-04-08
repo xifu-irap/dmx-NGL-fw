@@ -20,18 +20,18 @@
 #    @file                   nxmap_script.py
 # ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 #    @details                Nxmap run synthesis
-#                            nxpython nxmap_script.py -h : get help 
+#                            nxpython nxmap_script.py -h : get help
 #                            nxpython nxmap_script.py -i : get info about default values and allowed values
 #                            nxpython nxmap_script.py -c : clean directory removing all generated directories and files
 #
-#                            Examples : 
+#                            Examples :
 #                            nxpython nxmap_script.py -v NG-LARGE                                               : Launch the script for NG-LARGE variant
 #                            nxpython nxmap_script.py -v NG-LARGE --option USE_DSP                              : Launch the script for NG-LARGE variant with option "USE_DSP" which is used in sub_scripts
 #                            nxpython nxmap_script.py -v NG-LARGE --progress synthesized                        : Launch the script for NG-LARGE variant reloading synthesized project from previous run with same variant and same option
 #                            nxpython nxmap_script.py -v NG-LARGE --suffix try_1                                : Launch the script for NG-LARGE variant adding a suffix in the project name. Useful in case of multiple tries changing scripts.
 #                            nxpython nxmap_script.py -v NG-LARGE --topcellname switch_counter --topcelllib work: Launch the script for NG-LARGE variant for a different top cell than the default one. Useful in case of unitary run before top run
 #                            nxpython nxmap_script.py -v NG-LARGE --timingdriven Yes                            : Launch the script for NG-LARGE variant with TimingDriven enabled
-#                            nxpython nxmap_script.py -v NG-LARGE --seed 3557                                   : Launch the script for NG-LARGE variant with a different seed 
+#                            nxpython nxmap_script.py -v NG-LARGE --seed 3557                                   : Launch the script for NG-LARGE variant with a different seed
 #                            nxpython nxmap_script.py -v NG-LARGE --sta all --stacondition typical              : Launch the script for NG-LARGE variant generating sta after Prepared and Routed steps in typical conditions
 #                            nxpython nxmap_script.py -v NG-LARGE --bitstream Yes                               : Launch the script for NG-LARGE variant generating a bitstream at the end
 # ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -61,7 +61,7 @@ def check_arg(message,arg_name,arg,allowed_values=None,allowed_type=None):
     print(message)
     if not result:
         sys.exit()
-        
+
 
 def get_info(arg_name,arg,allowed_values=None):
     '''Get default value and allowed values of a parameter'''
@@ -114,16 +114,16 @@ elif args.c:#Clean directory
     for elem in ['transcript.py','logs','__pycache__','sub_scripts/__pycache__']:#Remove other generated elements
         if glob.glob(elem):
             shutil.rmtree(elem)
-else:#Launch project 
+else:#Launch project
     message ='-------------------------------------------\n'
     message+='-------------List of variables-------------\n'
     message+='-------------------------------------------\n'
     message+='|%(variable)-20s|%(value)-20s|\n' % {'variable': 'Variable', 'value': 'Value'}
     message+='|--------------------|--------------------|\n'
-    for arg in args_dict: 
+    for arg in args_dict:
         check_arg(message,arg,args_dict[arg]['arg'],args_dict[arg]['allowed_values'],args_dict[arg]['allowed_type'])
         message+='|%(variable)-20s|%(value)-20s|\n' % {'variable': arg, 'value': str(args_dict[arg]['arg'])}
     print(message)
 
     script.__main__(args.topcelllib,args.topcellname,args.suffix,args.variant,args.progress,args.option,args.timingdriven,args.seed,args.sta,args.stacondition,args.bitstream)
-    
+

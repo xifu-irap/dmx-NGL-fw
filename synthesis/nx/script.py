@@ -47,7 +47,7 @@ def print_duration(start_time,end_time):
 def __main__(TopCellLib,TopCellName,Suffix,Variant,Progress,Option,TimingDriven,Seed,Sta,StaCondition,Bitstream):
 
     ##########################################GLOBAL CONSTANT###########################################
-    
+
     start_time = time.time()
 
     script_path  = os.getcwd()
@@ -63,16 +63,16 @@ def __main__(TopCellLib,TopCellName,Suffix,Variant,Progress,Option,TimingDriven,
     original_project_path = project_path
     if not Progress=='scratch':
         project_path += '_' + Progress
-            
+
     if not os.path.isdir(project_path):
             os.makedirs(project_path)
-    
+
     sources_files_directory = script_path + '/src'
-    
+
     ####################################################################################################
     ##########################################PROJECT CREATION##########################################
     ####################################################################################################
-    
+
     ###########################################GLOBAL SETTING###########################################
 
     p = createProject(project_path)
@@ -83,13 +83,13 @@ def __main__(TopCellLib,TopCellName,Suffix,Variant,Progress,Option,TimingDriven,
         p.setTopCellName(TopCellLib,TopCellName)
     else:
         p.load(original_project_path + '/' + Progress + '.nym')
-        
+
     p.setAnalysisConditions(StaCondition)
-    
+
     ###########################################VARIANT SETTINGS#########################################
 
     project_custom = project_class(Variant,sources_files_directory)
-    
+
     if Progress == 'scratch':
         project_custom.add_files(p,Option)
         project_custom.add_parameters(p,Option)
@@ -97,15 +97,15 @@ def __main__(TopCellLib,TopCellName,Suffix,Variant,Progress,Option,TimingDriven,
         project_custom.add_ios(p,Option)
 
         p.save(project_path + '/native'+'.nym')
-    
+
     ####################################################################################################
     ##########################################PROJECT PROGRESS##########################################
     ####################################################################################################
 
-    step_progress      = ['Synthesize','Place','Route']    
-    progress           = ['synthesized','placed','routed']    
-    nb_steps           = [2,5,3]    
-    allowed_start_step = [['scratch'],['scratch','synthesized'],['scratch','synthesized','placed']]    
+    step_progress      = ['Synthesize','Place','Route']
+    progress           = ['synthesized','placed','routed']
+    nb_steps           = [2,5,3]
+    allowed_start_step = [['scratch'],['scratch','synthesized'],['scratch','synthesized','placed']]
 
     for i in range(len(step_progress)):#Progress
         if Progress in allowed_start_step[i]:#Skip step_progress progress if already done
@@ -116,7 +116,7 @@ def __main__(TopCellLib,TopCellName,Suffix,Variant,Progress,Option,TimingDriven,
                     print_duration(start_time,time.time())
                     sys.exit(1)
                 else:
-                    print_duration(start_time,time.time())            
+                    print_duration(start_time,time.time())
                 p.save(project_path + '/' + progress[i] + '_'+str(j+1)+'.nym')
                 if (i==1 and j==0 and (Sta=='prepared' or Sta=='all')) or (i==2 and j==2 and (Sta=='routed' or Sta=='all')):# STA after Prepared or Routed
                     Timing_analysis = p.createAnalyzer()
@@ -126,17 +126,17 @@ def __main__(TopCellLib,TopCellName,Suffix,Variant,Progress,Option,TimingDriven,
                     p.save(project_path + '/' + progress[i] + '.vhd')
                     if i==2:#Routed
                         p.save(project_path + '/' + progress[i] + '.sdf',StaCondition)
-        
+
     ############################################PROJECT REPORT##########################################
-    
+
     p.reportInstances()
     p.reportRegions()
 
     ##########################################BISTREAM GENERATION#######################################
-    
+
     if Bitstream == 'Yes':
         p.generateBitstream('bitstream'+'.nxb')
-    
+
     ################################################SUMMARY#############################################
     print('Errors: ', getErrorCount())
     print('Warnings: ', getWarningCount())

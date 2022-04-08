@@ -659,7 +659,7 @@
 # Error number of low level sclk timing  :                    0, expected timing >= 13000 ps
 # Error number of high level sclk timing :                    0, expected timing >= 13000 ps
 # Error number of sclk minimum period    :                    0, expected timing >= 33000 ps
-# Error number of sclk maximum period    :                    0, expected timing <= 999999 ps
+# Error number of sclk maximum period    :                    0, expected timing <= 999999000000000 ps
 # Error number of high level cs timing   :                    0, expected timing >= 20000 ps
 # Error number of sclk edge to cs rising edge timing :        0, expected timing >= 1000 ps
 # Error number of data edge to sclk edge timing :             0, expected timing >= 5000 ps
@@ -672,7 +672,7 @@
 # Error number of low level sclk timing  :                    0, expected timing >= 13000 ps
 # Error number of high level sclk timing :                    0, expected timing >= 13000 ps
 # Error number of sclk minimum period    :                    0, expected timing >= 33000 ps
-# Error number of sclk maximum period    :                    0, expected timing <= 999999 ps
+# Error number of sclk maximum period    :                    0, expected timing <= 999999000000000 ps
 # Error number of high level cs timing   :                    0, expected timing >= 20000 ps
 # Error number of sclk edge to cs rising edge timing :        0, expected timing >= 1000 ps
 # Error number of data edge to sclk edge timing :             0, expected timing >= 5000 ps
@@ -685,7 +685,7 @@
 # Error number of low level sclk timing  :                    0, expected timing >= 13000 ps
 # Error number of high level sclk timing :                    0, expected timing >= 13000 ps
 # Error number of sclk minimum period    :                    0, expected timing >= 33000 ps
-# Error number of sclk maximum period    :                    0, expected timing <= 999999 ps
+# Error number of sclk maximum period    :                    0, expected timing <= 999999000000000 ps
 # Error number of high level cs timing   :                    0, expected timing >= 20000 ps
 # Error number of sclk edge to cs rising edge timing :        0, expected timing >= 1000 ps
 # Error number of data edge to sclk edge timing :             0, expected timing >= 5000 ps
@@ -698,7 +698,7 @@
 # Error number of low level sclk timing  :                    0, expected timing >= 13000 ps
 # Error number of high level sclk timing :                    0, expected timing >= 13000 ps
 # Error number of sclk minimum period    :                    0, expected timing >= 33000 ps
-# Error number of sclk maximum period    :                    0, expected timing <= 999999 ps
+# Error number of sclk maximum period    :                    0, expected timing <= 999999000000000 ps
 # Error number of high level cs timing   :                    0, expected timing >= 20000 ps
 # Error number of sclk edge to cs rising edge timing :        0, expected timing >= 1000 ps
 # Error number of data edge to sclk edge timing :             0, expected timing >= 5000 ps
@@ -711,7 +711,7 @@
 # Error number of low level sclk timing  :                    0, expected timing >= 13000 ps
 # Error number of high level sclk timing :                    0, expected timing >= 13000 ps
 # Error number of sclk minimum period    :                    0, expected timing >= 33000 ps
-# Error number of sclk maximum period    :                    0, expected timing <= 999999 ps
+# Error number of sclk maximum period    :                    0, expected timing <= 999999000000000 ps
 # Error number of high level cs timing   :                    0, expected timing >= 20000 ps
 # Error number of sclk edge to cs rising edge timing :        0, expected timing >= 1000 ps
 # Error number of data edge to sclk edge timing :             0, expected timing >= 5000 ps
@@ -724,7 +724,7 @@
 # Error number of low level sclk timing  :                    0, expected timing >= 13000 ps
 # Error number of high level sclk timing :                    0, expected timing >= 13000 ps
 # Error number of sclk minimum period    :                    0, expected timing >= 33000 ps
-# Error number of sclk maximum period    :                    0, expected timing <= 999999 ps
+# Error number of sclk maximum period    :                    0, expected timing <= 999999000000000 ps
 # Error number of high level cs timing   :                    0, expected timing >= 20000 ps
 # Error number of sclk edge to cs rising edge timing :        0, expected timing >= 1000 ps
 # Error number of data edge to sclk edge timing :             0, expected timing >= 5000 ps
@@ -737,7 +737,7 @@
 # Error number of low level sclk timing  :                    0, expected timing >= 13000 ps
 # Error number of high level sclk timing :                    0, expected timing >= 13000 ps
 # Error number of sclk minimum period    :                    0, expected timing >= 33000 ps
-# Error number of sclk maximum period    :                    0, expected timing <= 999999 ps
+# Error number of sclk maximum period    :                    0, expected timing <= 999999000000000 ps
 # Error number of high level cs timing   :                    0, expected timing >= 20000 ps
 # Error number of sclk edge to cs rising edge timing :        0, expected timing >= 1000 ps
 # Error number of data edge to sclk edge timing :             0, expected timing >= 5000 ps
@@ -750,7 +750,7 @@
 # Error number of low level sclk timing  :                    0, expected timing >= 13000 ps
 # Error number of high level sclk timing :                    0, expected timing >= 13000 ps
 # Error number of sclk minimum period    :                    0, expected timing >= 33000 ps
-# Error number of sclk maximum period    :                    0, expected timing <= 999999 ps
+# Error number of sclk maximum period    :                    0, expected timing <= 999999000000000 ps
 # Error number of high level cs timing   :                    0, expected timing >= 20000 ps
 # Error number of sclk edge to cs rising edge timing :        0, expected timing >= 1000 ps
 # Error number of data edge to sclk edge timing :             0, expected timing >= 5000 ps

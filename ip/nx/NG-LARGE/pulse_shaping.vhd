@@ -30,6 +30,7 @@ use     ieee.numeric_std.all;
 
 library work;
 use     work.pkg_fpga_tech.all;
+use     work.pkg_project.all;
 
 library nx;
 use     nx.nxpackage.all;
@@ -159,6 +160,27 @@ begin
          czo                  => open                   -- out    slv(MULT_ALU_RESULT_S-1 downto 0)           --! Cascaded Result buffer     (MUX_ALU       registered output)
    );
 
-   o_y_k <= w_k(g_A_EXP + g_X_K_S - 1 downto g_A_EXP + g_X_K_S - g_Y_K_S);
+   -- ------------------------------------------------------------------------------------------------------
+   --!   y[k]: filtered data out
+   -- ------------------------------------------------------------------------------------------------------
+   P_yk : process (i_rst_sq1_pls_shape, i_clk_sq1_adc_dac)
+   begin
+
+      if i_rst_sq1_pls_shape = '1' then
+
+         if c_PAD_REG_SET_AUTH = '0' then
+            o_y_k <= (others => '0');  
+         
+         else
+            o_y_k <= std_logic_vector(to_unsigned(c_DAC_MDL_POINT/2**(g_X_K_S-g_Y_K_S) , o_y_k'length));
+
+         end if;         
+
+      elsif rising_edge(i_clk_sq1_adc_dac) then
+         o_y_k <= w_k(g_A_EXP + g_X_K_S - 1 downto g_A_EXP + g_X_K_S - g_Y_K_S);
+
+      end if;
+
+   end process P_yk; 
 
 end architecture rtl;

@@ -29,6 +29,8 @@ use     ieee.std_logic_1164.all;
 use     ieee.numeric_std.all;
 
 library work;
+use     work.pkg_type.all;
+use     work.pkg_fpga_tech.all;
 use     work.pkg_func_math.all;
 use     work.pkg_project.all;
 
@@ -57,6 +59,10 @@ signal   hk_spi_tx_busy_n     : std_logic                                       
 signal   hk_spi_data_rx       : std_logic_vector(c_HK_SPI_SER_WD_S-1 downto 0)                              ; --! HK SPI: Receipted data (stall on LSB)
 signal   hk_spi_data_rx_rdy   : std_logic                                                                   ; --! HK SPI: Receipted data ready ('0' = Not ready, '1' = Ready)
 
+signal   hk1_spi_mosi         : std_logic                                                                   ; --! HouseKeeping 1 - SPI Master Output Slave Input
+signal   hk1_spi_sclk         : std_logic                                                                   ; --! HouseKeeping 1 - SPI Serial Clock (CPOL = ‘0’, CPHA = ’0’)
+signal   hk1_spi_cs_n         : std_logic                                                                   ; --! HouseKeeping 1 - SPI Chip Select ('0' = Active, '1' = Inactive)
+
 signal   hk_mux               : std_logic_vector(       c_HK_MUX_S-1 downto 0)                              ; --! HK Multiplexer
 begin
 
@@ -84,10 +90,27 @@ begin
          o_data_rx_rdy        => hk_spi_data_rx_rdy   , -- out    std_logic                                 ; --! Receipted data ready ('0' = Not ready, '1' = Ready)
 
          i_miso               => i_hk1_spi_miso_rs    , -- in     std_logic                                 ; --! SPI Master Input Slave Output
-         o_mosi               => o_hk1_spi_mosi       , -- out    std_logic                                 ; --! SPI Master Output Slave Input
-         o_sclk               => o_hk1_spi_sclk       , -- out    std_logic                                 ; --! SPI Serial Clock
-         o_cs_n               => o_hk1_spi_cs_n         -- out    std_logic                                   --! SPI Chip Select ('0' = Active, '1' = Inactive)
+         o_mosi               => hk1_spi_mosi         , -- out    std_logic                                 ; --! SPI Master Output Slave Input
+         o_sclk               => hk1_spi_sclk         , -- out    std_logic                                 ; --! SPI Serial Clock
+         o_cs_n               => hk1_spi_cs_n           -- out    std_logic                                   --! SPI Chip Select ('0' = Active, '1' = Inactive)
    );
+
+   P_hk_spi_master : process (i_rst, i_clk)
+   begin
+
+      if i_rst = '1' then
+         o_hk1_spi_mosi <= '0';
+         o_hk1_spi_sclk <= c_PAD_REG_SET_AUTH and c_HK_SPI_CPOL;
+         o_hk1_spi_cs_n <= c_PAD_REG_SET_AUTH;
+
+      elsif rising_edge(i_clk) then
+         o_hk1_spi_mosi <= hk1_spi_mosi;
+         o_hk1_spi_sclk <= hk1_spi_sclk;
+         o_hk1_spi_cs_n <= hk1_spi_cs_n;
+
+      end if;
+
+   end process P_hk_spi_master;
 
    -- ------------------------------------------------------------------------------------------------------
    --!   HK Multiplexer

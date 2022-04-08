@@ -185,10 +185,6 @@ def synthesis_constraints(p,variant,option):
         # ------------------------------------------------------------------------------------------------------
         #   EP SPI constraints
         # ------------------------------------------------------------------------------------------------------
-        p.constrainModule('|-> signal_reg(X41D2BCF8) [ I_in_rs_clk|I_ep_spi_cs_n_rs ]', 'ep_cs', 'Soft', 48, 10, 1, 1, 'EP_SPI', False)
-        p.constrainModule('|-> signal_reg(XAD84FF78) [ I_in_rs_clk|I_ep_spi_mosi_rs ]', 'ep_mosi', 'Soft', 48, 10, 1, 1, 'EP_SPI', False)
-        p.constrainModule('|-> signal_reg(XAD84FF78) [ I_in_rs_clk|I_ep_spi_sclk_rs ]', 'ep_sclk', 'Soft', 48, 10, 1, 1, 'EP_SPI', False)
-        p.constrainModule('|-> spi_slave(X077D3D2A) [ I_ep_cmd|I_spi_slave ]', 'ep_spi_slave', 'Soft', 28, 12, 1, 1, 'EP_SPI_SLAVE', False)
         p.constrainModule('|-> ep_cmd [ I_ep_cmd ]', 'ep_cmd', 'Soft', 23, 12, 5, 1, 'REGISTER_MGT', False)
 
         # ------------------------------------------------------------------------------------------------------
@@ -196,26 +192,6 @@ def synthesis_constraints(p,variant,option):
         # ------------------------------------------------------------------------------------------------------
         p.constrainModule('|-> signal_reg(X0EFFAF6C) [ I_rst_clk_mgt|I_rst_sys_ck_sc ]', 'rst_sys_ck_sc', 'Soft', 39, 22, 1, 1, 'SCIENCE_TX', False)
         p.constrainModule('|-> signal_reg(XC85BAA8D) [ I_rst_clk_mgt|I_rst_ck_science ]', 'rst_ck_science', 'Soft', 39, 22, 1, 1, 'SCIENCE_TX', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_science_data_mgt|I_science_data_tx|G_science_data_ser[0].I_science_data_ser ]', 'science_data_ser_0', 'Soft', 39, 22, 1, 1, 'SCIENCE_TX', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_science_data_mgt|I_science_data_tx|G_science_data_ser[1].I_science_data_ser ]', 'science_data_ser_1', 'Soft', 39, 22, 1, 1, 'SCIENCE_TX', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_science_data_mgt|I_science_data_tx|G_science_data_ser[2].I_science_data_ser ]', 'science_data_ser_2', 'Soft', 39, 22, 1, 1, 'SCIENCE_TX', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_science_data_mgt|I_science_data_tx|G_science_data_ser[3].I_science_data_ser ]', 'science_data_ser_3', 'Soft', 39, 22, 1, 1, 'SCIENCE_TX', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_science_data_mgt|I_science_data_tx|G_science_data_ser[4].I_science_data_ser ]', 'science_data_ser_4', 'Soft', 39, 22, 1, 1, 'SCIENCE_TX', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_science_data_mgt|I_science_data_tx|G_science_data_ser[5].I_science_data_ser ]', 'science_data_ser_5', 'Soft', 39, 22, 1, 1, 'SCIENCE_TX', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_science_data_mgt|I_science_data_tx|G_science_data_ser[6].I_science_data_ser ]', 'science_data_ser_6', 'Soft', 39, 22, 1, 1, 'SCIENCE_TX', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_science_data_mgt|I_science_data_tx|G_science_data_ser[7].I_science_data_ser ]', 'science_data_ser_7', 'Soft', 39, 22, 1, 1, 'SCIENCE_TX', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_science_data_mgt|I_science_data_tx|G_science_data_ser[8].I_science_data_ser ]', 'science_data_ser_8', 'Soft', 39, 22, 1, 1, 'SCIENCE_TX', False)
-        p.constrainModule('|-> science_data_mgt [ I_science_data_mgt ] ]', 'science_mgt', 'Soft', 25, 14, 2, 1, 'SCIENCE_MGT', False)
-
-        # ------------------------------------------------------------------------------------------------------
-        #   Housekeeping constraints
-        # ------------------------------------------------------------------------------------------------------
-        p.constrainModule('|-> signal_reg(XAD84FF78) [ I_in_rs_clk|I_hk1_spi_miso_rs ]', 'hk_miso', 'Soft', 48, 10, 1, 1, 'HK_COM', False)
-        p.constrainModule('|-> hk_mgt [ I_hk_mgt ]', 'hk_mgt', 'Soft', 48, 10, 1, 1, 'HK_COM', False)
-
-        # ------------------------------------------------------------------------------------------------------
-        #   Inputs constraints
-        # ------------------------------------------------------------------------------------------------------
 
         # ------------------------------------------------------------------------------------------------------
         #   Internal constraints

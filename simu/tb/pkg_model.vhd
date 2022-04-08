@@ -273,7 +273,7 @@ constant c_SPI_TIME_CHK_HK    : t_time_arr(0 to c_SPI_ERR_CHK_NB-3) :=
                                 (25600 ps, 25600 ps, 62500 ps, 125000 ps, 0 ps,    0 ps, 10000 ps, 10000 ps); --! SPI timings to check: ADC HK ADC128S102
 
 constant c_SPI_TIME_CHK_SQ2   : t_time_arr(0 to c_SPI_ERR_CHK_NB-3) :=
-                                (13000 ps, 13000 ps, 33000 ps, 999999 ps, 20000 ps, 1000 ps,5000 ps,4500 ps); --! SPI timings to check: DAC SQUID2 DAC121S101
+                                (13000 ps, 13000 ps, 33000 ps, 999999 ms, 20000 ps, 1000 ps,5000 ps,4500 ps); --! SPI timings to check: DAC SQUID2 DAC121S101
 
 constant c_SCHK               : t_spi_chk_prm_arr(0 to c_CHK_ENA_SPI_NB-1) :=
                                 (("spi_hk           " , '1', c_SPI_TIME_CHK_HK ),

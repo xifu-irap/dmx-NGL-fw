@@ -544,7 +544,7 @@ begin
          I_sq2_fb_mode: entity work.signal_reg generic map
          (
          g_SIG_FF_NB          => 1                    , -- integer                                          ; --! Signal registered flip-flop number
-         g_SIG_DEF            => c_EP_CMD_DEF_SQ2FBMD(4*k+l) -- std_logic                                   --! Signal registered default value at reset
+         g_SIG_DEF            => c_EP_CMD_DEF_SQ2FBMD(4*k+l) -- std_logic                                     --! Signal registered default value at reset
          )  port map
          (
          i_reset              => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
@@ -562,7 +562,7 @@ begin
          I_sq2_dac_lsb: entity work.signal_reg generic map
          (
          g_SIG_FF_NB          => 1                    , -- integer                                          ; --! Signal registered flip-flop number
-         g_SIG_DEF            => c_EP_CMD_DEF_S2LSB(l)  -- std_logic                                   --! Signal registered default value at reset
+         g_SIG_DEF            => c_EP_CMD_DEF_S2LSB(l)  -- std_logic                                          --! Signal registered default value at reset
          )  port map
          (
          i_reset              => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
@@ -580,7 +580,7 @@ begin
          I_sq2_lkp_off: entity work.signal_reg generic map
          (
          g_SIG_FF_NB          => 1                    , -- integer                                          ; --! Signal registered flip-flop number
-         g_SIG_DEF            => c_EP_CMD_DEF_S2OFF(l)  -- std_logic                                   --! Signal registered default value at reset
+         g_SIG_DEF            => c_EP_CMD_DEF_S2OFF(l)  -- std_logic                                          --! Signal registered default value at reset
          )  port map
          (
          i_reset              => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)

@@ -39,10 +39,10 @@ class project_class():
 
     def add_files(self,p,option=None):
         project_files.add_files(p,self.sources_files_directory,self.variant,option)
-    
+
     def add_parameters(self,p,option=None):
         project_parameters.add_parameters(p,self.variant,option)
-                
+
     def add_options(self,p,timing_driven,seed,option=None):
         project_options.add_options(p,self.variant,timing_driven,seed,option)
 

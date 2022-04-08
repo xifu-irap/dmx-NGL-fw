@@ -41,6 +41,7 @@ package pkg_fpga_tech is
    -- ------------------------------------------------------------------------------------------------------
 constant c_IO_DEL_STEP        : integer   := 160                                                            ; --! FPGA I/O delay by step value (ps)
 constant c_PLS_CK_SW_NB       : integer   := 2                                                              ; --! Clock pulse number between clock switch command and output clock
+constant c_PAD_REG_SET_AUTH   : std_logic := '0'                                                            ; --! Initialization set to one for register located in PAD allowed ('0': No, '1': Yes)
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Wave Form Generator parameters
@@ -226,6 +227,7 @@ package body pkg_fpga_tech is
          return "FAST_2kx18";
 
       else
+--         return "SLOW_2kx18";
          return "NOECC_2kx24";
 
       end if;

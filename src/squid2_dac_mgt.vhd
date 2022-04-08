@@ -79,6 +79,9 @@ signal   sq2_dac_lsb_r        : t_slv_arr(0 to c_FF_RSYNC_NB)(  c_DFLD_S2OFF_COL
 signal   sq2_fbk_mux_r        : t_slv_arr(0 to c_FF_RSYNC_NB-1)(c_DFLD_S2LKP_PIX_S-1 downto 0)              ; --! Squid2 Feedback Multiplexer register
 signal   sq2_fbk_off_r        : t_slv_arr(0 to c_FF_RSYNC_NB)(  c_DFLD_S2OFF_COL_S-1 downto 0)              ; --! Squid2 Feedback offset register
 
+signal   sq2_dac_lsb_r_cmp    : std_logic                                                                   ; --! Squid2 DAC LSB register compare
+signal   sq2_fbk_off_r_cmp    : std_logic                                                                   ; --! Squid2 Feedback offset register compare
+
 signal   pls_rw_cnt           : std_logic_vector(c_PLS_RW_CNT_S-1 downto 0)                                 ; --! Pulse by row counter
 signal   pls_cnt              : std_logic_vector(   c_PLS_CNT_S-1 downto 0)                                 ; --! Pulse counter
 signal   pixel_pos            : std_logic_vector( c_PIXEL_POS_S-1 downto 0)                                 ; --! Pixel position
@@ -147,11 +150,29 @@ begin
          sync_re              <= '0';
          sq2_spi_tx_busy_n_r  <= '1';
          sq2_spi_tx_busy_n_fe <= '0';
+         sq2_dac_lsb_r_cmp    <= '0';
+         sq2_fbk_off_r_cmp    <= '0';
 
       elsif rising_edge(i_clk_sq1_adc_dac) then
          sync_re              <= not(sync_r(sync_r'high)) and sync_r(sync_r'high-1);
          sq2_spi_tx_busy_n_r  <= sq2_spi_tx_busy_n;
          sq2_spi_tx_busy_n_fe <= sq2_spi_tx_busy_n_r and not(sq2_spi_tx_busy_n);
+
+         if sq2_dac_lsb_r(sq2_dac_lsb_r'high) /= sq2_dac_lsb_r(sq2_dac_lsb_r'high-1) then
+            sq2_dac_lsb_r_cmp <= '1';
+
+         else
+            sq2_dac_lsb_r_cmp <= '0';
+
+         end if;
+
+         if sq2_fbk_off_r(sq2_fbk_off_r'high) /= sq2_fbk_off_r(sq2_fbk_off_r'high-1) then
+            sq2_fbk_off_r_cmp <= '1';
+
+         else
+            sq2_fbk_off_r_cmp <= '0';
+
+         end if;
 
       end if;
 
@@ -270,7 +291,7 @@ begin
          sq2_fbk_off_tx_ena <= '0';
 
       elsif rising_edge(i_clk_sq1_adc_dac) then
-         if sq2_dac_lsb_r(sq2_dac_lsb_r'high) /= sq2_dac_lsb_r(sq2_dac_lsb_r'high-1) then
+         if sq2_dac_lsb_r_cmp = '1' then
             sq2_dac_lsb_tx_flg <= '1';
 
          elsif (sq2_spi_tx_busy_n_fe and not(sq2_fbk_off_tx_ena)) = '1' then
@@ -278,7 +299,7 @@ begin
 
          end if;
 
-         if sq2_fbk_off_r(sq2_fbk_off_r'high) /= sq2_fbk_off_r(sq2_fbk_off_r'high-1) then
+         if sq2_fbk_off_r_cmp = '1' then
             sq2_fbk_off_tx_flg <= '1';
 
          elsif (sq2_spi_tx_busy_n_fe and sq2_fbk_off_tx_ena) = '1' then
@@ -345,9 +366,9 @@ begin
 
       if rst_sq2_dac = '1' then
          o_sq2_dac_data    <= '0';
-         o_sq2_dac_sclk    <= '0';
-         o_sq2_dac_snc_l_n <= '1';
-         o_sq2_dac_snc_o_n <= '1';
+         o_sq2_dac_sclk    <= c_SQ2_SPI_CPOL;
+         o_sq2_dac_snc_l_n <= c_PAD_REG_SET_AUTH;
+         o_sq2_dac_snc_o_n <= c_PAD_REG_SET_AUTH;
 
       elsif rising_edge(i_clk_sq1_adc_dac) then
          o_sq2_dac_data    <= sq2_dac_data;

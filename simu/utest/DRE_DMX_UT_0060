@@ -72,7 +72,7 @@ COMM
 COMM ==============================================================================================
 COMM   Check TM_MODE duration decremented after new sync rising edge
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-TM_MODE-E501 N   # Return Command 5
+CCMD R-TM_MODE-E502 N   # Return Command 5
 WUDI sync 1
 WCMD R-TM_MODE-XXXX R   # Command 7
 COMM
@@ -108,7 +108,7 @@ COMM
 COMM ==============================================================================================
 COMM   Check TM_MODE duration decremented after new sync rising edge
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-TM_MODE-B9FE N   # Return Command 10
+CCMD R-TM_MODE-B9FF N   # Return Command 10
 WUDI sync 1
 WCMD W-TM_MODE-AE00 R   # Command 12
 COMM
@@ -593,7 +593,7 @@ COMM
 COMM ==============================================================================================
 COMM   Check TM_MODE duration decremented after new sync rising edge
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-TM_MODE-7A02 N   # Return Command 60
+CCMD R-TM_MODE-7A03 N   # Return Command 60
 WUDI sync 1
 WCMD R-TM_MODE-XXXX R   # Command 62
 COMM

@@ -219,8 +219,8 @@ begin
    alias td_clk               : std_logic is <<signal .top_dmx_tb.I_top_dmx.clk              : std_logic>>  ; --! Internal design: System Clock
    alias td_clk_sq1_adc_acq   : std_logic is <<signal .top_dmx_tb.I_top_dmx.clk_sq1_adc_dac  : std_logic>>  ; --! Internal design: SQUID1 ADC acquisition Clock
    alias td_clk_sq1_pls_shape : std_logic is <<signal .top_dmx_tb.I_top_dmx.clk_sq1_adc_dac  : std_logic>>  ; --! Internal design: SQUID1 pulse shaping Clock
-   alias td_tm_mode           : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_TM_MODE_COL_S-1 downto 0) is 
-                                 <<signal .top_dmx_tb.I_top_dmx.tm_mode: 
+   alias td_tm_mode           : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_TM_MODE_COL_S-1 downto 0) is
+                                 <<signal .top_dmx_tb.I_top_dmx.tm_mode:
                                    t_slv_arr(0 to c_NB_COL-1)(c_DFLD_TM_MODE_COL_S-1 downto 0)>>            ; --! Internal design: Telemetry mode
    begin
 

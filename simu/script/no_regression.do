@@ -29,6 +29,8 @@ quietly set VARIANT "NG-LARGE"
 quietly set NXMAP3_MODEL_PATH "../modelsim"
 quietly set PR_DIR "../project/dmx-NGL-fw"
 quietly set NR_FILE "no_regression.csv"
+quietly set PREF_UTEST "DRE_DMX_UT_"
+quietly set SUFF_UTEST "_cfg"
 
 #### Directories ####
 quietly set IP_DIR "${PR_DIR}/ip/nx/${VARIANT}"
@@ -56,6 +58,8 @@ proc run_utest {args} {
    global CFG_DIR
    global RES_DIR
    global NR_FILE
+   global PREF_UTEST
+   global SUFF_UTEST
 
    vlib work
    vcom -work work -2008                  \
@@ -190,7 +194,9 @@ proc run_utest {args} {
    } else {
 
       # In the case of arguments, compile the mentioned configuration files
-      foreach cfg_file $args {
+      foreach nb_file $args {
+
+         set cfg_file "${PREF_UTEST}${nb_file}${SUFF_UTEST}"
 
          vcom -work work -2008 "${CFG_DIR}/${cfg_file}.vhd"
 

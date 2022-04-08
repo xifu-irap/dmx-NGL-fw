@@ -88,7 +88,7 @@
 #             (29616000 ps)   Check TM_MODE duration decremented after new sync rising edge
 #             (29616000 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (29634000 ps) Check command return: PASS
-# ** Note   : (29634000 ps)  * Read 8000_E501, expected value 8000_E501 (TM_MODE, mode Read, data E501)
+# ** Note   : (29634000 ps)  * Read 8000_E502, expected value 8000_E502 (TM_MODE, mode Read, data E502)
 # ** Note   : (32672328 ps) Waiting event sync = '1' for 3038328 ps
 # ** Note   : (32672328 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
 # ** Note   : (35052000 ps) Waiting SPI command return end for 2343672 ps
@@ -134,7 +134,7 @@
 #             (51378000 ps)   Check TM_MODE duration decremented after new sync rising edge
 #             (51378000 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (51396000 ps) Check command return: PASS
-# ** Note   : (51396000 ps)  * Read 8000_B9FE, expected value 8000_B9FE (TM_MODE, mode Read, data B9FE)
+# ** Note   : (51396000 ps)  * Read 8000_B9FF, expected value 8000_B9FF (TM_MODE, mode Read, data B9FF)
 # ** Note   : (54443208 ps) Waiting event sync = '1' for 3047208 ps
 # ** Note   : (54443208 ps) Send SPI command value 8001_AE00 (TM_MODE, mode Write, data AE00)
 # ** Note   : (56832000 ps) Waiting SPI command return end for 2352792 ps
@@ -717,7 +717,7 @@
 #             (492252000 ps)   Check TM_MODE duration decremented after new sync rising edge
 #             (492252000 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (492270000 ps) Check command return: PASS
-# ** Note   : (492270000 ps)  * Read 8000_7A02, expected value 8000_7A02 (TM_MODE, mode Read, data 7A02)
+# ** Note   : (492270000 ps)  * Read 8000_7A03, expected value 8000_7A03 (TM_MODE, mode Read, data 7A03)
 # ** Note   : (495303528 ps) Waiting event sync = '1' for 3033528 ps
 # ** Note   : (495303528 ps) Send SPI command value 8000_XXXX (TM_MODE, mode Read, data XXXX)
 # ** Note   : (497688000 ps) Waiting SPI command return end for 2348472 ps
