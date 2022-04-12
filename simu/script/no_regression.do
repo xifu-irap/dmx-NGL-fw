@@ -87,6 +87,7 @@ proc run_utest {args} {
       ${SRC_DIR}/ep_cmd.vhd               \
       ${SRC_DIR}/mem_data_rd_mux.vhd      \
       ${SRC_DIR}/ep_cmd_tx_wd.vhd         \
+      ${SRC_DIR}/mem_in_gen.vhd           \
       ${SRC_DIR}/register_mgt.vhd         \
       ${SRC_DIR}/dmx_cmd.vhd              \
       ${SRC_DIR}/spi_master.vhd           \

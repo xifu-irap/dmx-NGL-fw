@@ -17,81 +17,79 @@
 --                            along with this program.  If not, see <https://www.gnu.org/licenses/>.
 -- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --    email                   slaurent@nanoxplore.com
---!   @file                   multiplexer.vhd
+--!   @file                   mem_in_gen.vhd
 -- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --    Automatic Generation    No
 --    Code Rules Reference    SOC of design and VHDL handbook for VLSI development, CNES Edition (v2.1)
 -- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
---!   @details                Multiplexer with one pipe out. Return 0 if no chip select is activated. Multiplexed data conflict if more one chip select is activated.
+--!   @details                Memory inputs generation
 -- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 library ieee;
 use     ieee.std_logic_1164.all;
+use     ieee.numeric_std.all;
 
 library work;
 use     work.pkg_type.all;
+use     work.pkg_func_math.all;
+use     work.pkg_project.all;
+use     work.pkg_ep_cmd.all;
 
-entity multiplexer is generic
-   (     g_DATA_S             : integer                                                                     ; --! Data bus size
-         g_NB                 : integer                                                                       --! Data bus number
+entity mem_in_gen is generic
+   (     c_MEM_ADD_S          : integer                                                                     ; --! Memory address size
+         g_MEM_ADD_END        : integer                                                                       --! Memory address end
    ); port
    (     i_rst                : in     std_logic                                                            ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                : in     std_logic                                                            ; --! System Clock
 
-         i_data               : in     t_slv_arr(0 to g_NB-1)(g_DATA_S-1 downto 0)                          ; --! Data buses
-         i_cs                 : in     std_logic_vector(g_NB-1 downto 0)                                    ; --! Chip selects ('0' = Inactive, '1' = Active)
+         i_ep_cmd_rx_wd_add_r : in     std_logic_vector(c_EP_SPI_WD_S-1 downto 0)                           ; --! EP command receipted: address word, read/write bit cleared, registered
+         i_ep_cmd_rx_wd_dta_r : in     std_logic_vector(c_EP_SPI_WD_S-1 downto 0)                           ; --! EP command receipted: data word, registered
+         i_ep_cmd_rx_rw_r     : in     std_logic                                                            ; --! EP command receipted: read/write bit, registered
+         i_ep_cmd_rx_ner_ry_r : in     std_logic                                                            ; --! EP command receipted with no error ready, registered ('0'= Not ready, '1'= Ready)
 
-         o_data_mux           : out    std_logic_vector(g_DATA_S-1 downto 0)                                ; --! Multiplexed data
-         o_cs_or              : out    std_logic                                                              --! Chip selects "or-ed"
+         i_cs_rg              : in     std_logic                                                            ; --! Chip select register ('0' = Inactive, '1' = Active)
 
+         o_mem_in             : out    t_mem_arr(0 to c_NB_COL-1)                                           ; --! Memory inputs
+         o_cs_data_rd         : out    std_logic_vector(c_NB_COL-1 downto 0)                                  --! Chip select data read ('0' = Inactive, '1' = Active)
    );
-end entity multiplexer;
+end entity mem_in_gen;
 
-architecture RTL of multiplexer is
-signal   cs_or                : std_logic_vector(g_NB-1 downto 0)                                           ; --! Chip selects "or-ed"
-signal   data_cmp             : t_slv_arr(0 to g_NB-1)(g_DATA_S-1 downto 0)                                 ; --! Data compared
-signal   data_or              : t_slv_arr(0 to g_NB-1)(g_DATA_S-1 downto 0)                                 ; --! Data "or-ed"
-
+architecture RTL of mem_in_gen is
 begin
 
-   -- ------------------------------------------------------------------------------------------------------
-   --!   "Or-ed" bus initialization
-   -- ------------------------------------------------------------------------------------------------------
-   cs_or(0)    <= i_cs(0);
-   data_or(0)  <= data_cmp(0);
-
-   -- ------------------------------------------------------------------------------------------------------
-   --!   "Or-ed" bus management
-   -- ------------------------------------------------------------------------------------------------------
-   G_data_bus_nb: for k in 0 to g_NB-1 generate
+   G_column_mgt : for k in 0 to o_mem_in'high generate
    begin
 
-      data_cmp(k) <= i_data(k) when i_cs(k) = '1' else (others => '0');
+      P_mem_in : process (i_rst, i_clk)
+      begin
 
-      G_k_not0: if k /= 0 generate
+         if i_rst = '1' then
+            o_mem_in(k).cs <= '0';
+            o_mem_in(k).pp <= '0';
 
-         cs_or(k)    <= i_cs(k)     or cs_or(k-1);
-         data_or(k)  <= data_cmp(k) or data_or(k-1);
+         elsif rising_edge(i_clk) then
+            if i_ep_cmd_rx_wd_add_r(c_EP_CMD_ADD_COLPOSH downto c_EP_CMD_ADD_COLPOSL) = std_logic_vector(to_unsigned(k, log2_ceil(o_mem_in'length))) then
 
-      end generate;
+               if i_cs_rg = '1' then
+                  o_mem_in(k).cs <= i_ep_cmd_rx_ner_ry_r;
 
-   end generate G_data_bus_nb;
+                  if i_ep_cmd_rx_wd_add_r(c_MEM_ADD_S-1 downto 0) = std_logic_vector(to_unsigned(g_MEM_ADD_END, c_MEM_ADD_S)) then
+                     o_mem_in(k).pp <= i_ep_cmd_rx_ner_ry_r and not(i_ep_cmd_rx_rw_r xor c_EP_CMD_ADD_RW_W);
 
-   -- ------------------------------------------------------------------------------------------------------
-   --!   Outputs management
-   -- ------------------------------------------------------------------------------------------------------
-   P_output_mgt : process (i_rst, i_clk)
-   begin
+                  end if;
 
-      if i_rst = '1' then
-         o_data_mux  <= (others => '0');
-         o_cs_or     <= '0';
+               end if;
 
-      elsif rising_edge(i_clk) then
-         o_data_mux  <= data_or(data_or'high);
-         o_cs_or     <= cs_or(cs_or'high);
+             end if;
 
-      end if;
+         end if;
 
-   end process P_output_mgt;
+      end process P_mem_in;
+
+      o_mem_in(k).add    <= i_ep_cmd_rx_wd_add_r(o_mem_in(k).add'high downto 0);
+      o_mem_in(k).we     <= not(i_ep_cmd_rx_rw_r xor c_EP_CMD_ADD_RW_W);
+      o_mem_in(k).data_w <= i_ep_cmd_rx_wd_dta_r(o_mem_in(k).data_w'high downto 0);
+      o_cs_data_rd(k)    <= o_mem_in(k).cs and not(o_mem_in(k).we);
+
+   end generate G_column_mgt;
 
 end architecture RTL;

@@ -77,9 +77,10 @@ constant c_EP_CMD_POS_S2LSB   : integer   := c_EP_CMD_POS_S2LKP   + 1           
 constant c_EP_CMD_POS_S2OFF   : integer   := c_EP_CMD_POS_S2LSB   + 1                                       ; --! EP command: Position, CY_SQ2_PXL_LOCKPOINT_OFFSET
 constant c_EP_CMD_POS_PLSSH   : integer   := c_EP_CMD_POS_S2OFF   + 1                                       ; --! EP command: Position, CY_FB1_PULSE_SHAPING
 
-constant c_EP_CMD_REG_NB_MUX  : integer   := 4                                                              ; --! EP command: Register number handle by multiplexer
-constant c_EP_CMD_POS_NB      : integer   := c_EP_CMD_REG_NB_MUX *
-                                             div_ceil(c_EP_CMD_POS_PLSSH+1, c_EP_CMD_REG_NB_MUX)            ; --! EP command: Position number
+constant c_EP_CMD_POS_LAST    : integer   := c_EP_CMD_POS_PLSSH   + 1                                       ; --! EP command: last position
+constant c_EP_CMD_REG_MX_STNB : integer   := 3                                                              ; --! EP command: Register multiplexer stage number
+constant c_EP_CMD_REG_MX_STIN : t_int_arr(0 to c_EP_CMD_REG_MX_STNB)   := (24, 30, 32, 33)                  ; --! EP command: Register inputs by multiplexer stage (accumulated)
+constant c_EP_CMD_REG_MX_INNB : t_int_arr(0 to c_EP_CMD_REG_MX_STNB-1) := ( 4,  3,  2)                      ; --! EP command: Register inputs by multiplexer
 
    -- ------------------------------------------------------------------------------------------------------
    --    EP command: Address
@@ -122,6 +123,7 @@ constant c_MEM_S2LKP_ADD_S    : integer   := log2_ceil(c_TAB_S2LKP_NW)          
 constant c_TAB_PLSSH_NW       : integer   := c_PIXEL_DAC_NB_CYC                                             ; --! Table number word: CY_FB1_PULSE_SHAPING
 constant c_TAB_PLSSH_S        : integer   := log2_ceil(c_TAB_PLSSH_NW)                                      ; --! Table size bus:    CY_FB1_PULSE_SHAPING
 constant c_MEM_PLSSH_ADD_S    : integer   := log2_ceil(c_DAC_PLS_SHP_SET_NB) + c_TAB_PLSSH_S                ; --! Memory pulse shaping coefficient: address size without ping-pong buffer bit
+constant c_MEM_PLSSH_ADD_END  : integer   := (c_DAC_PLS_SHP_SET_NB-1) * 2**c_TAB_PLSSH_S + c_TAB_PLSSH_NW-1 ; --! Memory pulse shaping coefficient: address end
 
    -- ------------------------------------------------------------------------------------------------------
    --    EP command: Write register authorization

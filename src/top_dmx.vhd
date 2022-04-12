@@ -160,22 +160,22 @@ signal   sq2_fb_mode          : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SQ2FBMD_COL_S-
 signal   sq2_dac_lsb          : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_S2OFF_COL_S  -1 downto 0)                 ; --! Squid 2 DAC LSB
 signal   sq2_lkp_off          : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_S2OFF_COL_S  -1 downto 0)                 ; --! Squid 2 Feedback lockpoint offset
 
-signal   mem_sq1_fb0          : t_mem_arr(c_NB_COL-1 downto 0)(
+signal   mem_sq1_fb0          : t_mem_arr(0 to c_NB_COL-1)(
                                 add(    c_MEM_S1FB0_ADD_S-1 downto 0),
                                 data_w(c_DFLD_S1FB0_PIX_S-1 downto 0))                                      ; --! Squid1 feedback value in open loop: memory inputs
 signal   sq1_fb0_data         : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_S1FB0_PIX_S-1 downto 0)                   ; --! Squid1 feedback value in open loop: data read
 
-signal   mem_sq1_fbm          : t_mem_arr(c_NB_COL-1 downto 0)(
+signal   mem_sq1_fbm          : t_mem_arr(0 to c_NB_COL-1)(
                                 add(    c_MEM_S1FBM_ADD_S-1 downto 0),
                                 data_w(c_DFLD_S1FBM_PIX_S-1 downto 0))                                      ; --! Squid1 feedback mode: memory inputs
 signal   sq1_fbm_data         : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_S1FBM_PIX_S-1 downto 0)                   ; --! Squid1 feedback mode: data read
 
-signal   mem_sq2_lkp          : t_mem_arr(c_NB_COL-1 downto 0)(
+signal   mem_sq2_lkp          : t_mem_arr(0 to c_NB_COL-1)(
                                 add(    c_MEM_S2LKP_ADD_S-1 downto 0),
                                 data_w(c_DFLD_S2LKP_PIX_S-1 downto 0))                                      ; --! Squid2 feedback lockpoint: memory inputs
 signal   sq2_lkp_data         : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_S2LKP_PIX_S-1 downto 0)                   ; --! Squid2 feedback lockpoint: data read
 
-signal   mem_pls_shp          : t_mem_arr(c_NB_COL-1 downto 0)(
+signal   mem_pls_shp          : t_mem_arr(0 to c_NB_COL-1)(
                                 add(    c_MEM_PLSSH_ADD_S-1 downto 0),
                                 data_w(c_DFLD_PLSSH_PLS_S-1 downto 0))                                      ; --! Pulse shaping coef: memory inputs
 signal   pls_shp_data         : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_PLSSH_PLS_S-1 downto 0)                   ; --! Pulse shaping coef: data read
@@ -303,16 +303,16 @@ begin
          o_sq2_dac_lsb        => sq2_dac_lsb          , -- out    t_slv_arr c_NB_COL c_DFLD_S2OFF_COL_S     ; --! Squid 2 DAC LSB
          o_sq2_lkp_off        => sq2_lkp_off          , -- out    t_slv_arr c_NB_COL c_DFLD_S2OFF_COL_S     ; --! Squid 2 Feedback lockpoint offset
 
-         o_mem_sq1_fb0        => mem_sq1_fb0          , -- out    t_mem_arr(c_NB_COL-1 downto 0)            ; --! Squid1 feedback value in open loop: memory inputs
+         o_mem_sq1_fb0        => mem_sq1_fb0          , -- out    t_mem_arr(0 to c_NB_COL-1)                ; --! Squid1 feedback value in open loop: memory inputs
          i_sq1_fb0_data       => sq1_fb0_data         , -- in     t_slv_arr c_NB_COL c_DFLD_S1FB0_PIX_S     ; --! Squid1 feedback value in open loop: data read
 
-         o_mem_sq1_fbm        => mem_sq1_fbm          , -- out    t_mem_arr(c_NB_COL-1 downto 0)            ; --! Squid1 feedback mode: memory inputs
+         o_mem_sq1_fbm        => mem_sq1_fbm          , -- out    t_mem_arr(0 to c_NB_COL-1)                ; --! Squid1 feedback mode: memory inputs
          i_sq1_fbm_data       => sq1_fbm_data         , -- in     t_slv_arr c_NB_COL c_DFLD_S1FBM_PIX_S     ; --! Squid1 feedback mode: data read
 
-         o_mem_sq2_lkp        => mem_sq2_lkp          , -- out    t_mem_arr(c_NB_COL-1 downto 0)            ; --! Squid2 feedback lockpoint: memory inputs
+         o_mem_sq2_lkp        => mem_sq2_lkp          , -- out    t_mem_arr(0 to c_NB_COL-1)                ; --! Squid2 feedback lockpoint: memory inputs
          i_sq2_lkp_data       => sq2_lkp_data         , -- in     t_slv_arr c_NB_COL c_DFLD_S2LKP_PIX_S     ; --! Squid2 feedback lockpoint: data read
 
-         o_mem_pls_shp        => mem_pls_shp          , -- out    t_mem_arr(c_NB_COL-1 downto 0)            ; --! Pulse shaping coef: memory inputs
+         o_mem_pls_shp        => mem_pls_shp          , -- out    t_mem_arr(0 to c_NB_COL-1)                ; --! Pulse shaping coef: memory inputs
          i_pls_shp_data       => pls_shp_data           -- in     t_slv_arr c_NB_COL c_DFLD_PLSSH_PLS_S       --! Pulse shaping coef: data read
       );
 
