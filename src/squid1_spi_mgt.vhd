@@ -29,9 +29,9 @@ use     ieee.std_logic_1164.all;
 use     ieee.numeric_std.all;
 
 entity squid1_spi_mgt is port
-   (     o_sq1_adc_spi_mosi   : out    std_logic                                                            ; --! SQUID1 ADC - SPI Serial Data In Out
-         o_sq1_adc_spi_sclk   : out    std_logic                                                            ; --! SQUID1 ADC - SPI Serial Clock (CPOL = ‘0’, CPHA = ’0’)
-         o_sq1_adc_spi_cs_n   : out    std_logic                                                              --! SQUID1 ADC - SPI Chip Select ('0' = Active, '1' = Inactive)
+   (     o_sq1_adc_spi_mosi   : out    std_logic                                                            ; --! SQUID1 ADC: SPI Serial Data In Out
+         o_sq1_adc_spi_sclk   : out    std_logic                                                            ; --! SQUID1 ADC: SPI Serial Clock (CPOL = '0', CPHA = '0')
+         o_sq1_adc_spi_cs_n   : out    std_logic                                                              --! SQUID1 ADC: SPI Chip Select ('0' = Active, '1' = Inactive)
 
    );
 end entity squid1_spi_mgt;

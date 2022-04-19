@@ -44,11 +44,11 @@ entity squid2_dac_mgt is port
          i_sq2_fbk_mux        : in     std_logic_vector(c_DFLD_S2LKP_PIX_S-1 downto 0)                      ; --! Squid2 Feedback Multiplexer
          i_sq2_fbk_off        : in     std_logic_vector(c_DFLD_S2OFF_COL_S-1 downto 0)                      ; --! Squid2 Feedback offset
 
-         o_sq2_dac_mux        : out    std_logic_vector(c_SQ2_DAC_MUX_S -1 downto 0)                        ; --! SQUID2 DAC - Multiplexer
-         o_sq2_dac_data       : out    std_logic                                                            ; --! SQUID2 DAC - Serial Data
-         o_sq2_dac_sclk       : out    std_logic                                                            ; --! SQUID2 DAC - Serial Clock
-         o_sq2_dac_snc_l_n    : out    std_logic                                                            ; --! SQUID2 DAC - Frame Synchronization DAC LSB ('0' = Active, '1' = Inactive)
-         o_sq2_dac_snc_o_n    : out    std_logic                                                              --! SQUID2 DAC - Frame Synchronization DAC Offset ('0' = Active, '1' = Inactive)
+         o_sq2_dac_mux        : out    std_logic_vector(c_SQ2_DAC_MUX_S -1 downto 0)                        ; --! SQUID2 DAC: Multiplexer
+         o_sq2_dac_data       : out    std_logic                                                            ; --! SQUID2 DAC: Serial Data
+         o_sq2_dac_sclk       : out    std_logic                                                            ; --! SQUID2 DAC: Serial Clock
+         o_sq2_dac_snc_l_n    : out    std_logic                                                            ; --! SQUID2 DAC: Frame Synchronization DAC LSB ('0' = Active, '1' = Inactive)
+         o_sq2_dac_snc_o_n    : out    std_logic                                                              --! SQUID2 DAC: Frame Synchronization DAC Offset ('0' = Active, '1' = Inactive)
 
    );
 end entity squid2_dac_mgt;
@@ -96,9 +96,9 @@ signal   sq2_spi_tx_busy_n    : std_logic                                       
 signal   sq2_spi_tx_busy_n_r  : std_logic                                                                   ; --! SQUID2 DAC SPI: Transmit link busy register
 signal   sq2_spi_tx_busy_n_fe : std_logic                                                                   ; --! SQUID2 DAC SPI: Transmit link busy falling edge
 
-signal   sq2_dac_data         : std_logic                                                                   ; --! SQUID2 DAC - Serial Data
-signal   sq2_dac_sclk         : std_logic                                                                   ; --! SQUID2 DAC - Serial Clock
-signal   sq2_dac_sync_n       : std_logic                                                                   ; --! SQUID2 DAC - Frame Synchronization ('0' = Active, '1' = Inactive)
+signal   sq2_dac_data         : std_logic                                                                   ; --! SQUID2 DAC: Serial Data
+signal   sq2_dac_sclk         : std_logic                                                                   ; --! SQUID2 DAC: Serial Clock
+signal   sq2_dac_sync_n       : std_logic                                                                   ; --! SQUID2 DAC: Frame Synchronization ('0' = Active, '1' = Inactive)
 
 begin
 

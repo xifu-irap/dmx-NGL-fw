@@ -44,7 +44,7 @@ entity dmem_ecc is generic
    ); port
    (     i_a_rst              : in     std_logic                                                            ; --! Memory port A: registers reset ('0' = Inactive, '1' = Active)
          i_a_clk              : in     std_logic                                                            ; --! Memory port A: main clock
-         i_a_clk_shift        : in     std_logic                                                            ; --! Memory port A: 90° shifted clock (used for memory content correction)
+         i_a_clk_shift        : in     std_logic                                                            ; --! Memory port A: 90 degrees shifted clock (used for memory content correction)
 
          i_a_mem              : in     t_mem( add(g_RAM_ADD_S-1 downto 0), data_w(g_RAM_DATA_S-1 downto 0)) ; --! Memory port A inputs (scrubbing with ping-pong buffer bit for parameters storage)
          o_a_data_out         : out    std_logic_vector(g_RAM_DATA_S-1 downto 0)                            ; --! Memory port A: data out
@@ -54,7 +54,7 @@ entity dmem_ecc is generic
 
          i_b_rst              : in     std_logic                                                            ; --! Memory port B: registers reset ('0' = Inactive, '1' = Active)
          i_b_clk              : in     std_logic                                                            ; --! Memory port B: main clock
-         i_b_clk_shift        : in     std_logic                                                            ; --! Memory port B: 90° shifted clock (used for memory content correction)
+         i_b_clk_shift        : in     std_logic                                                            ; --! Memory port B: 90 degrees shifted clock (used for memory content correction)
 
          i_b_mem              : in     t_mem( add(g_RAM_ADD_S-1 downto 0), data_w(g_RAM_DATA_S-1 downto 0)) ; --! Memory port B inputs
          o_b_data_out         : out    std_logic_vector(g_RAM_DATA_S-1 downto 0)                            ; --! Memory port B: data out
@@ -138,7 +138,7 @@ begin
    (     ar                   => i_a_rst              , -- in     std_logic                                 ; --! Memory port A: registers reset ('0' = Inactive, '1' = Active)
          ackr                 => i_a_clk              , -- in     std_logic                                 ; --! Memory port A: registers clock
          ack                  => i_a_clk              , -- in     std_logic                                 ; --! Memory port A: main clock
-         ackd                 => i_a_clk_shift        , -- in     std_logic                                 ; --! Memory port A: 90° shifted clock (used for memory content correction)
+         ackd                 => i_a_clk_shift        , -- in     std_logic                                 ; --! Memory port A: 90 degrees shifted clock (used for memory content correction)
 
          aa                   => a_add_rsize          , -- in     std_logic_vector(c_RAM_ADD_S-1 downto 0)  ; --! Memory port A: address
          awe                  => a_mem.we             , -- in     std_logic                                 ; --! Memory port A: write enable ('0' = Inactive, '1' = Active)
@@ -152,7 +152,7 @@ begin
          br                   => i_b_rst              , -- in     std_logic                                 ; --! Memory port B: registers reset ('0' = Inactive, '1' = Active)
          bckr                 => i_b_clk              , -- in     std_logic                                 ; --! Memory port B: registers clock
          bck                  => i_b_clk              , -- in     std_logic                                 ; --! Memory port B: main clock
-         bckd                 => i_b_clk_shift        , -- in     std_logic                                 ; --! Memory port B: 90° shifted clock (used for memory content correction)
+         bckd                 => i_b_clk_shift        , -- in     std_logic                                 ; --! Memory port B: 90 degrees shifted clock (used for memory content correction)
 
          ba                   => b_add_rsize          , -- in     std_logic_vector(c_RAM_ADD_S-1 downto 0)  ; --! Memory port B: address
          bwe                  => i_b_mem.we           , -- in     std_logic                                 ; --! Memory port B: write enable ('0' = Inactive, '1' = Active)

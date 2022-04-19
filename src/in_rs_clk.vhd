@@ -40,11 +40,11 @@ entity in_rs_clk is port
          i_brd_model          : in     std_logic_vector(   c_BRD_MODEL_S-1 downto 0)                        ; --! Board model
          i_sync               : in     std_logic                                                            ; --! Pixel sequence synchronization (R.E. detected = position sequence to the first pixel)
 
-         i_hk1_spi_miso       : in     std_logic                                                            ; --! HouseKeeping 1 - SPI Master Input Slave Output
+         i_hk1_spi_miso       : in     std_logic                                                            ; --! HouseKeeping 1: SPI Master Input Slave Output
 
-         i_ep_spi_mosi        : in     std_logic                                                            ; --! EP - SPI Master Input Slave Output (MSB first)
-         i_ep_spi_sclk        : in     std_logic                                                            ; --! EP - SPI Serial Clock (CPOL = ‘0’, CPHA = ’0’)
-         i_ep_spi_cs_n        : in     std_logic                                                            ; --! EP - SPI Chip Select ('0' = Active, '1' = Inactive)
+         i_ep_spi_mosi        : in     std_logic                                                            ; --! EP: SPI Master Input Slave Output (MSB first)
+         i_ep_spi_sclk        : in     std_logic                                                            ; --! EP: SPI Serial Clock (CPOL = '0', CPHA = '0')
+         i_ep_spi_cs_n        : in     std_logic                                                            ; --! EP: SPI Chip Select ('0' = Active, '1' = Inactive)
 
          o_brd_ref_rs         : out    std_logic_vector(     c_BRD_REF_S-1 downto 0)                        ; --! Board reference, synchronized on System Clock
          o_brd_model_rs       : out    std_logic_vector(   c_BRD_MODEL_S-1 downto 0)                        ; --! Board model, synchronized on System Clock
@@ -53,11 +53,11 @@ entity in_rs_clk is port
          o_sync_sq1_dac_rs    : out    std_logic_vector(        c_NB_COL-1 downto 0)                        ; --! Pixel sequence synchronization for squid1 DAC, synchronized on System Clock
          o_sync_sq2_dac_rs    : out    std_logic_vector(        c_NB_COL-1 downto 0)                        ; --! Pixel sequence synchronization for squid2 DAC, synchronized on System Clock
 
-         o_hk1_spi_miso_rs    : out    std_logic                                                            ; --! HouseKeeping 1 - SPI Master Input Slave Output, synchronized on System Clock
+         o_hk1_spi_miso_rs    : out    std_logic                                                            ; --! HouseKeeping 1: SPI Master Input Slave Output, synchronized on System Clock
 
-         o_ep_spi_mosi_rs     : out    std_logic                                                            ; --! EP - SPI Master Input Slave Output (MSB first), synchronized on System Clock
-         o_ep_spi_sclk_rs     : out    std_logic                                                            ; --! EP - SPI Serial Clock (CPOL = ‘0’, CPHA = ’0’), synchronized on System Clock
-         o_ep_spi_cs_n_rs     : out    std_logic                                                              --! EP - SPI Chip Select ('0' = Active, '1' = Inactive), synchronized on System Clock
+         o_ep_spi_mosi_rs     : out    std_logic                                                            ; --! EP: SPI Master Input Slave Output (MSB first), synchronized on System Clock
+         o_ep_spi_sclk_rs     : out    std_logic                                                            ; --! EP: SPI Serial Clock (CPOL = '0', CPHA = '0'), synchronized on System Clock
+         o_ep_spi_cs_n_rs     : out    std_logic                                                              --! EP: SPI Chip Select ('0' = Active, '1' = Inactive), synchronized on System Clock
    );
 end entity in_rs_clk;
 
@@ -68,11 +68,11 @@ signal   brd_ref_r            : t_slv_arr(0 to c_FF_RSYNC_NB-1)(  c_BRD_REF_S-1 
 signal   brd_model_r          : t_slv_arr(0 to c_FF_RSYNC_NB-1)(c_BRD_MODEL_S-1 downto 0)                   ; --! Board model register
 signal   sync_r               : std_logic_vector(c_FF_RSYNC_NB-1 downto 0)                                  ; --! Pixel sequence sync. register (R.E. detected = position sequence to the first pixel)
 
-signal   hk1_spi_miso_r       : std_logic_vector(c_FF_RSYNC_NB-1 downto 0)                                  ; --! HouseKeeping 1 - SPI Master Input Slave Output register
+signal   hk1_spi_miso_r       : std_logic_vector(c_FF_RSYNC_NB-1 downto 0)                                  ; --! HouseKeeping 1: SPI Master Input Slave Output register
 
-signal   ep_spi_mosi_r        : std_logic_vector(c_FF_RSYNC_NB-1 downto 0)                                  ; --! EP - SPI Master Input Slave Output register (MSB first)
-signal   ep_spi_sclk_r        : std_logic_vector(c_FF_RSYNC_NB-1 downto 0)                                  ; --! EP - SPI Serial Clock register (CPOL = ‘0’, CPHA = ’0’)
-signal   ep_spi_cs_n_r        : std_logic_vector(c_FF_RSYNC_NB-1 downto 0)                                  ; --! EP - SPI Chip Select register ('0' = Active, '1' = Inactive)
+signal   ep_spi_mosi_r        : std_logic_vector(c_FF_RSYNC_NB-1 downto 0)                                  ; --! EP: SPI Master Input Slave Output register (MSB first)
+signal   ep_spi_sclk_r        : std_logic_vector(c_FF_RSYNC_NB-1 downto 0)                                  ; --! EP: SPI Serial Clock register (CPOL = '0', CPHA = '0')
+signal   ep_spi_cs_n_r        : std_logic_vector(c_FF_RSYNC_NB-1 downto 0)                                  ; --! EP: SPI Chip Select register ('0' = Active, '1' = Inactive)
 
 signal   sync_rs              : std_logic                                                                   ; --! Pixel sequence synchronization, synchronized on System Clock
 

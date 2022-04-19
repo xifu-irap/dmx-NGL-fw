@@ -34,24 +34,24 @@ use     work.pkg_model.all;
 use     work.pkg_project.all;
 
 entity ep_spi_model is generic
-   (     g_EP_CLK_PER         : time    := c_EP_CLK_PER_DEF                                                 ; --! EP - System clock period (ps)
-         g_EP_CLK_PER_SHIFT   : time    := c_EP_CLK_PER_SHFT_DEF                                            ; --! EP - Clock period shift
-         g_EP_N_CLK_PER_SCLK_L: integer := c_EP_SCLK_L_DEF                                                  ; --! EP - Number of clock period for elaborating SPI Serial Clock low  level
-         g_EP_N_CLK_PER_SCLK_H: integer := c_EP_SCLK_H_DEF                                                  ; --! EP - Number of clock period for elaborating SPI Serial Clock high level
-         g_EP_BUF_DEL         : time    := c_EP_BUF_DEL_DEF                                                   --! EP - Delay introduced by buffer
+   (     g_EP_CLK_PER         : time    := c_EP_CLK_PER_DEF                                                 ; --! EP: System clock period (ps)
+         g_EP_CLK_PER_SHIFT   : time    := c_EP_CLK_PER_SHFT_DEF                                            ; --! EP: Clock period shift
+         g_EP_N_CLK_PER_SCLK_L: integer := c_EP_SCLK_L_DEF                                                  ; --! EP: Number of clock period for elaborating SPI Serial Clock low  level
+         g_EP_N_CLK_PER_SCLK_H: integer := c_EP_SCLK_H_DEF                                                  ; --! EP: Number of clock period for elaborating SPI Serial Clock high level
+         g_EP_BUF_DEL         : time    := c_EP_BUF_DEL_DEF                                                   --! EP: Delay introduced by buffer
    ); port
-   (     i_ep_cmd_ser_wd_s    : in     std_logic_vector(log2_ceil(2*c_EP_CMD_S+1)-1 downto 0)               ; --! EP - Serial word size
-         i_ep_cmd_start       : in     std_logic                                                            ; --! EP - Start command transmit ('0' = Inactive, '1' = Active)
-         i_ep_cmd             : in     std_logic_vector(c_EP_CMD_S-1 downto 0)                              ; --! EP - Command to send
-         o_ep_cmd_busy_n      : out    std_logic                                                            ; --! EP - Command transmit busy ('0' = Busy, '1' = Not Busy)
+   (     i_ep_cmd_ser_wd_s    : in     std_logic_vector(log2_ceil(2*c_EP_CMD_S+1)-1 downto 0)               ; --! EP: Serial word size
+         i_ep_cmd_start       : in     std_logic                                                            ; --! EP: Start command transmit ('0' = Inactive, '1' = Active)
+         i_ep_cmd             : in     std_logic_vector(c_EP_CMD_S-1 downto 0)                              ; --! EP: Command to send
+         o_ep_cmd_busy_n      : out    std_logic                                                            ; --! EP: Command transmit busy ('0' = Busy, '1' = Not Busy)
 
-         o_ep_data_rx         : out    std_logic_vector(c_EP_CMD_S-1 downto 0)                              ; --! EP - Receipted data
-         o_ep_data_rx_rdy     : out    std_logic                                                            ; --! EP - Receipted data ready ('0' = Not ready, '1' = Ready)
+         o_ep_data_rx         : out    std_logic_vector(c_EP_CMD_S-1 downto 0)                              ; --! EP: Receipted data
+         o_ep_data_rx_rdy     : out    std_logic                                                            ; --! EP: Receipted data ready ('0' = Not ready, '1' = Ready)
 
-         o_ep_spi_mosi        : out    std_logic                                                            ; --! EP - SPI Master Input Slave Output (MSB first)
-         i_ep_spi_miso        : in     std_logic                                                            ; --! EP - SPI Master Output Slave Input (MSB first)
-         o_ep_spi_sclk        : out    std_logic                                                            ; --! EP - SPI Serial Clock (CPOL = ‘0’, CPHA = ’0’), period = 2*g_EP_CLK_PER
-         o_ep_spi_cs_n        : out    std_logic                                                              --! EP - SPI Chip Select ('0' = Active, '1' = Inactive)
+         o_ep_spi_mosi        : out    std_logic                                                            ; --! EP: SPI Master Input Slave Output (MSB first)
+         i_ep_spi_miso        : in     std_logic                                                            ; --! EP: SPI Master Output Slave Input (MSB first)
+         o_ep_spi_sclk        : out    std_logic                                                            ; --! EP: SPI Serial Clock (CPOL = '0', CPHA = '0'), period = 2*g_EP_CLK_PER
+         o_ep_spi_cs_n        : out    std_logic                                                              --! EP: SPI Chip Select ('0' = Active, '1' = Inactive)
    );
 end entity ep_spi_model;
 
@@ -63,23 +63,23 @@ constant c_SER_WD_MAX_S       : integer   := 2*c_EP_CMD_S                       
 signal   rst                  : std_logic                                                                   ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
 signal   clk                  : std_logic                                                                   ; --! System Clock
 
-signal   ep_cmd_start_r       : std_logic                                                                   ; --! EP - Start command transmit register
+signal   ep_cmd_start_r       : std_logic                                                                   ; --! EP: Start command transmit register
 
-signal   ep_cmd               : std_logic_vector(c_SER_WD_MAX_S-1 downto 0)                                 ; --! EP - Command to send
-signal   ep_data_rx           : std_logic_vector(c_SER_WD_MAX_S-1 downto 0)                                 ; --! EP - Receipted data
-signal   ep_spi_miso_r        : std_logic_vector(c_N_CLK_PER_MISO_DEL-1 downto 0)                           ; --! EP - SPI Master Output Slave Input register
-signal   ep_spi_miso_r_msb    : std_logic                                                                   ; --! EP - SPI Master Output Slave Input register MSB
+signal   ep_cmd               : std_logic_vector(c_SER_WD_MAX_S-1 downto 0)                                 ; --! EP: Command to send
+signal   ep_data_rx           : std_logic_vector(c_SER_WD_MAX_S-1 downto 0)                                 ; --! EP: Receipted data
+signal   ep_spi_miso_r        : std_logic_vector(c_N_CLK_PER_MISO_DEL-1 downto 0)                           ; --! EP: SPI Master Output Slave Input register
+signal   ep_spi_miso_r_msb    : std_logic                                                                   ; --! EP: SPI Master Output Slave Input register MSB
 
-signal   ep_cmd_ser_wd_s_strt : std_logic_vector(log2_ceil(2*c_EP_CMD_S+1)-1 downto 0)                      ; --! EP - Serial word size recorded on start rising edge
-signal   ep_cmd_ser_wd_s_strt2: std_logic_vector(log2_ceil(2*c_EP_CMD_S+1)-1 downto 0)                      ; --! EP - Serial word size recorded on start rising edge (second record)
+signal   ep_cmd_ser_wd_s_strt : std_logic_vector(log2_ceil(2*c_EP_CMD_S+1)-1 downto 0)                      ; --! EP: Serial word size recorded on start rising edge
+signal   ep_cmd_ser_wd_s_strt2: std_logic_vector(log2_ceil(2*c_EP_CMD_S+1)-1 downto 0)                      ; --! EP: Serial word size recorded on start rising edge (second record)
 
-signal   ep_data_rx_mux       : std_logic_vector( c_SER_WD_MAX_S   *c_EP_CMD_S-1 downto 0)                  ; --! EP - Receipted data multiplexer
-signal   ep_data_rx_mux_or    : std_logic_vector((c_SER_WD_MAX_S+1)*c_EP_CMD_S-1 downto 0)                  ; --! EP - Receipted data multiplexer or
+signal   ep_data_rx_mux       : std_logic_vector( c_SER_WD_MAX_S   *c_EP_CMD_S-1 downto 0)                  ; --! EP: Receipted data multiplexer
+signal   ep_data_rx_mux_or    : std_logic_vector((c_SER_WD_MAX_S+1)*c_EP_CMD_S-1 downto 0)                  ; --! EP: Receipted data multiplexer or
 
-signal   ep_spi_mosi_bf_buf   : std_logic                                                                   ; --! EP - SPI Master Input Slave Output before buffer (MSB first)
-signal   ep_spi_miso_bf_buf   : std_logic                                                                   ; --! EP - SPI Master Output Slave Input before buffer (MSB first)
-signal   ep_spi_sclk_bf_buf   : std_logic                                                                   ; --! EP - SPI Serial Clock before buffer (CPOL = ‘0’, CPHA = ’0’), period = 2*g_EP_CLK_PER
-signal   ep_spi_cs_n_bf_buf   : std_logic                                                                   ; --! EP - SPI Chip Select before buffer ('0' = Active, '1' = Inactive)
+signal   ep_spi_mosi_bf_buf   : std_logic                                                                   ; --! EP: SPI Master Input Slave Output before buffer (MSB first)
+signal   ep_spi_miso_bf_buf   : std_logic                                                                   ; --! EP: SPI Master Output Slave Input before buffer (MSB first)
+signal   ep_spi_sclk_bf_buf   : std_logic                                                                   ; --! EP: SPI Serial Clock before buffer (CPOL = '0', CPHA = '0'), period = 2*g_EP_CLK_PER
+signal   ep_spi_cs_n_bf_buf   : std_logic                                                                   ; --! EP: SPI Chip Select before buffer ('0' = Active, '1' = Inactive)
 begin
 
    -- ------------------------------------------------------------------------------------------------------
@@ -104,7 +104,7 @@ begin
    end process P_clk;
 
    -- ------------------------------------------------------------------------------------------------------
-   --!   EP - SPI links delay introduced by buffer
+   --!   EP: SPI links delay introduced by buffer
    -- ------------------------------------------------------------------------------------------------------
    ep_spi_miso_bf_buf   <= transport i_ep_spi_miso      after g_EP_BUF_DEL when ep_spi_cs_n_bf_buf = '0' else '0';
    o_ep_spi_mosi        <= transport ep_spi_mosi_bf_buf after g_EP_BUF_DEL when now > g_EP_BUF_DEL else '0';
@@ -112,7 +112,7 @@ begin
    o_ep_spi_cs_n        <= transport ep_spi_cs_n_bf_buf after g_EP_BUF_DEL when now > g_EP_BUF_DEL else '1';
 
    -- ------------------------------------------------------------------------------------------------------
-   --!   EP - SPI Master Output Slave Input delay management
+   --!   EP: SPI Master Output Slave Input delay management
    -- ------------------------------------------------------------------------------------------------------
    P_ep_spi_miso_del : process (rst, clk)
    begin
@@ -130,7 +130,7 @@ begin
    ep_spi_miso_r_msb <= ep_spi_miso_r(ep_spi_miso_r'high);
 
    -- ------------------------------------------------------------------------------------------------------
-   --!   EP - Serial word size recorded on start rising edge
+   --!   EP: Serial word size recorded on start rising edge
    -- ------------------------------------------------------------------------------------------------------
    P_ep_cmd_ser_wd_s : process (rst, clk)
    begin

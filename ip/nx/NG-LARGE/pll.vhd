@@ -46,8 +46,8 @@ entity pll is port
          o_clk_sq1_dac_out    : out    std_logic                                                            ; --! Clock for SQUID1 DAC output Image Clock
          o_pll_main_lock      : out    std_logic                                                            ; --! Main Pll Status ('0' = Pll not locked, '1' = Pll locked)
 
-         o_clk_90             : out    std_logic                                                            ; --! System Clock 90° shift
-         o_clk_sq1_adc_dac_90 : out    std_logic                                                              --! SQUID1 ADC/DAC internal 90° shift
+         o_clk_90             : out    std_logic                                                            ; --! System Clock 90 degrees shift
+         o_clk_sq1_adc_dac_90 : out    std_logic                                                              --! SQUID1 ADC/DAC internal 90 degrees shift
    );
 end entity pll;
 
@@ -73,11 +73,11 @@ constant c_CLK_SYNC_REF_PAT   : bit_vector(0 to c_WFG_PAT_S-1) := c_WFG_PAT_ONE_
 
 constant c_CLK_N_PAT          : integer := c_PLL_MAIN_VCO_MULT/c_CLK_MULT - 1                               ; --! System clock: Number of vco cycles for pattern
 constant c_CLK_PAT            : bit_vector(0 to c_WFG_PAT_S-1) := c_WFG_PAT_ONE_SEQ(c_CLK_N_PAT)            ; --! System clock: Pattern, use only the number of vco cycles+1 MSB bits
-constant c_CLK_90_PAT         : bit_vector(0 to c_WFG_PAT_S-1) := c_WFG_PAT_ONE_SEQ_90(c_CLK_N_PAT)         ; --! System clock 90° shift: Pattern, use only the number of vco cycles+1 MSB bits
+constant c_CLK_90_PAT         : bit_vector(0 to c_WFG_PAT_S-1) := c_WFG_PAT_ONE_SEQ_90(c_CLK_N_PAT)         ; --! System clock 90 degrees shift: Pattern, use only the number of vco cycles+1 MSB bits
 
 constant c_CLK_ADC_DAC_N_PAT  : integer := c_PLL_MAIN_VCO_MULT/c_CLK_ADC_DAC_MULT - 1                       ; --! SQUID1 ADC/DAC Clock: Number of vco cycles for pattern
 constant c_CLK_ADC_DAC_PAT    : bit_vector(0 to c_WFG_PAT_S-1) := c_WFG_PAT_ONE_SEQ(c_CLK_ADC_DAC_N_PAT)    ; --! SQUID1 ADC/DAC Clock: Pattern, use only the number of vco cycles+1 MSB bits
-constant c_CLK_ADC_DAC_90_PAT : bit_vector(0 to c_WFG_PAT_S-1) := c_WFG_PAT_ONE_SEQ_90(c_CLK_ADC_DAC_N_PAT) ; --! SQUID1 ADC/DAC Clock 90° shift: Pattern, use only the number of vco cycles+1 MSB bits
+constant c_CLK_ADC_DAC_90_PAT : bit_vector(0 to c_WFG_PAT_S-1) := c_WFG_PAT_ONE_SEQ_90(c_CLK_ADC_DAC_N_PAT) ; --! SQUID1 ADC/DAC Clock 90 degrees shift: Pattern, use only the number of vco cycles+1 MSB bits
 
 constant c_CLK_DAC_OUT_N_PAT  : integer := c_PLL_MAIN_VCO_MULT/c_CLK_DAC_OUT_MULT - 1                       ; --! SQUID1 DAC output Clock: Number of vco cycles for pattern
 constant c_CLK_DAC_OUT_PAT    : bit_vector(0 to c_WFG_PAT_S-1) := c_WFG_PAT_ONE_SEQ(c_CLK_DAC_OUT_N_PAT)    ; --! SQUID1 DAC output Clock: Pattern, use only the number of vco cycles+1 MSB bits
@@ -230,7 +230,7 @@ begin
    );
 
    -- ------------------------------------------------------------------------------------------------------
-   --!  System clock 90° shift generation
+   --!  System clock 90 degrees shift generation
    -- ------------------------------------------------------------------------------------------------------
    I_wfg_clk_90: entity nx.nx_wfg_l generic map
    (     WFG_EDGE             => c_WFG_EDGE_INV_N     , -- bit                                              ; --! Input clock inverted ('0' = No, '1' = Yes)
@@ -249,7 +249,7 @@ begin
    );
 
    -- ------------------------------------------------------------------------------------------------------
-   --!  ADC/DAC internal Clock 90° shift generation
+   --!  ADC/DAC internal Clock 90 degrees shift generation
    -- ------------------------------------------------------------------------------------------------------
    I_wfg_clk_adc_dac_90: entity nx.nx_wfg_l generic map
    (     WFG_EDGE             => c_WFG_EDGE_INV_N     , -- bit                                              ; --! Input clock inverted ('0' = No, '1' = Yes)

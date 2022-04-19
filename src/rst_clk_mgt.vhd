@@ -52,11 +52,11 @@ entity rst_clk_mgt is port
          o_ck_sq1_dac         : out    std_logic_vector(c_NB_COL-1 downto 0)                                ; --! SQUID1 DAC Image Clocks
          o_ck_science         : out    std_logic                                                            ; --! Science Data Image Clock
 
-         o_clk_90             : out    std_logic                                                            ; --! System Clock 90° shift
-         o_clk_sq1_adc_dac_90 : out    std_logic                                                            ; --! SQUID1 ADC/DAC internal 90° shift
+         o_clk_90             : out    std_logic                                                            ; --! System Clock 90 degrees shift
+         o_clk_sq1_adc_dac_90 : out    std_logic                                                            ; --! SQUID1 ADC/DAC internal 90 degrees shift
 
-         o_sq1_adc_pwdn       : out    std_logic_vector(c_NB_COL-1 downto 0)                                ; --! SQUID1 ADC – Power Down ('0' = Inactive, '1' = Active)
-         o_sq1_dac_sleep      : out    std_logic_vector(c_NB_COL-1 downto 0)                                  --! SQUID1 DAC - Sleep ('0' = Inactive, '1' = Active)
+         o_sq1_adc_pwdn       : out    std_logic_vector(c_NB_COL-1 downto 0)                                ; --! SQUID1 ADC: Power Down ('0' = Inactive, '1' = Active)
+         o_sq1_dac_sleep      : out    std_logic_vector(c_NB_COL-1 downto 0)                                  --! SQUID1 DAC: Sleep ('0' = Inactive, '1' = Active)
    );
 end entity rst_clk_mgt;
 
@@ -95,8 +95,8 @@ begin
          o_clk_sq1_adc        => clk_sq1_adc          , -- out    std_logic                                 ; --! Clock for SQUID1 ADC Image Clock
          o_clk_sq1_dac_out    => clk_sq1_dac_out      , -- out    std_logic                                 ; --! Clock for SQUID1 DAC output Image Clock
          o_pll_main_lock      => pll_main_lock        , -- out    std_logic                                 ; --! Main Pll Status ('0' = Pll not locked, '1' = Pll locked)
-         o_clk_90             => o_clk_90             , -- out    std_logic                                 ; --! System Clock 90° shift
-         o_clk_sq1_adc_dac_90 => o_clk_sq1_adc_dac_90   -- out    std_logic                                   --! SQUID1 ADC/DAC internal 90° shift
+         o_clk_90             => o_clk_90             , -- out    std_logic                                 ; --! System Clock 90 degrees shift
+         o_clk_sq1_adc_dac_90 => o_clk_sq1_adc_dac_90   -- out    std_logic                                   --! SQUID1 ADC/DAC internal 90 degrees shift
    );
 
    o_clk             <= clk;

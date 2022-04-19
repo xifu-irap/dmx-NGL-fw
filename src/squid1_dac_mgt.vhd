@@ -38,11 +38,11 @@ use     work.pkg_ep_cmd.all;
 entity squid1_dac_mgt is port
    (     i_rst_sys_sq1_dac    : in     std_logic                                                            ; --! Reset for SQUID1 DAC, de-assertion on system clock ('0' = Inactive, '1' = Active)
          i_clk_sq1_adc_dac    : in     std_logic                                                            ; --! SQUID1 ADC/DAC internal Clock
-         i_clk_sq1_adc_dac_90 : in     std_logic                                                            ; --! SQUID1 ADC/DAC internal 90° shift
+         i_clk_sq1_adc_dac_90 : in     std_logic                                                            ; --! SQUID1 ADC/DAC internal 90 degrees shift
 
          i_rst                : in     std_logic                                                            ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                : in     std_logic                                                            ; --! System Clock
-         i_clk_90             : in     std_logic                                                            ; --! System Clock 90° shift
+         i_clk_90             : in     std_logic                                                            ; --! System Clock 90 degrees shift
 
          i_sync_rs            : in     std_logic                                                            ; --! Pixel sequence synchronization, synchronized on System Clock
          i_sq1_data_fbk       : in     std_logic_vector(c_SQ1_DATA_FBK_S-1 downto 0)                        ; --! SQUID1 Data feedback (signed)
@@ -53,7 +53,7 @@ entity squid1_dac_mgt is port
                                        data_w(          c_DFLD_PLSSH_PLS_S-1 downto 0))                     ; --! Pulse shaping coefficient: memory inputs
          o_pls_shp_data       : out    std_logic_vector(c_DFLD_PLSSH_PLS_S-1 downto 0)                      ; --! Pulse shaping coefficient: data read
 
-         o_sq1_dac_data       : out    std_logic_vector(c_SQ1_DAC_DATA_S-1 downto 0)                          --! SQUID1 DAC - Data
+         o_sq1_dac_data       : out    std_logic_vector(c_SQ1_DAC_DATA_S-1 downto 0)                          --! SQUID1 DAC: Data
    );
 end entity squid1_dac_mgt;
 
@@ -216,7 +216,7 @@ begin
    ) port map
    (     i_a_rst              => i_rst                , -- in     std_logic                                 ; --! Memory port A: registers reset ('0' = Inactive, '1' = Active)
          i_a_clk              => i_clk                , -- in     std_logic                                 ; --! Memory port A: main clock
-         i_a_clk_shift        => i_clk_90             , -- in     std_logic                                 ; --! Memory port A: 90° shifted clock (used for memory content correction)
+         i_a_clk_shift        => i_clk_90             , -- in     std_logic                                 ; --! Memory port A: 90 degrees shifted clock (used for memory content correction)
 
          i_a_mem              => i_mem_pls_shp        , -- in     t_mem( add(g_RAM_ADD_S-1 downto 0), ...)  ; --! Memory port A inputs (scrubbing with ping-pong buffer bit for parameters storage)
          o_a_data_out         => o_pls_shp_data       , -- out    slv(g_RAM_DATA_S-1 downto 0)              ; --! Memory port A: data out
@@ -226,7 +226,7 @@ begin
 
          i_b_rst              => rst_sq1_pls_shape    , -- in     std_logic                                 ; --! Memory port B: registers reset ('0' = Inactive, '1' = Active)
          i_b_clk              => i_clk_sq1_adc_dac    , -- in     std_logic                                 ; --! Memory port B: main clock
-         i_b_clk_shift        => i_clk_sq1_adc_dac_90 , -- in     std_logic                                 ; --! Memory port B: 90° shifted clock (used for memory content correction)
+         i_b_clk_shift        => i_clk_sq1_adc_dac_90 , -- in     std_logic                                 ; --! Memory port B: 90 degrees shifted clock (used for memory content correction)
 
          i_b_mem              => mem_pls_shp_prm      , -- in     t_mem( add(g_RAM_ADD_S-1 downto 0), ...)  ; --! Memory port B inputs
          o_b_data_out         => a_mant_k             , -- out    slv(g_RAM_DATA_S-1 downto 0)              ; --! Memory port B: data out
@@ -267,7 +267,7 @@ begin
    mem_pls_shp_prm.data_w  <= (others => '0');
 
    -- ------------------------------------------------------------------------------------------------------
-   --!   SQUID1 DAC - Pulse shaping inputs
+   --!   SQUID1 DAC: Pulse shaping inputs
    --     x_final signed input adapted in order to get the correspondence:
    --     - i_sq1_data_fbk = -2^(c_SQ1_DATA_FBK_S-1)   -> o_sq1_dac_data = 0                      (DAC analog output = - Vref)
    --     - i_sq1_data_fbk =  2^(c_SQ1_DATA_FBK_S-1)-1 -> o_sq1_dac_data = 2^(c_SQ1_DAC_DATA_S)-1 (DAC analog output =   Vref)
@@ -292,7 +292,7 @@ begin
    end process P_pulse_shaping_in;
 
    -- ------------------------------------------------------------------------------------------------------
-   --!   SQUID1 DAC - Pulse shaping
+   --!   SQUID1 DAC: Pulse shaping
    --    @Req : DRE-DMX-FW-REQ-0220
    --    @Req : DRE-DMX-FW-REQ-0240
    -- ------------------------------------------------------------------------------------------------------

@@ -87,7 +87,7 @@ constant c_WFG_PAT_ONE_SEQ_90 : t_wfg_pat := ("0000000000000000",
                                               "0000000111111100",
 
                                               "0000000111111110",
-                                              "0000000111111110")                                           ; --! WFG sampling pattern 90° shift with only one pattern sequence
+                                              "0000000111111110")                                           ; --! WFG sampling pattern 90 degrees shift with only one pattern sequence
 
 
    -- ------------------------------------------------------------------------------------------------------

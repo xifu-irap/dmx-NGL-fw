@@ -35,9 +35,9 @@ entity spi_check is generic
    (     g_SPI_TIME_CHK       : t_time_arr(0 to c_SPI_ERR_CHK_NB-3)                                         ; --! SPI timings to check
          g_CPOL               : std_logic                                                                     --! Clock polarity
    ); port
-   (     i_spi_mosi           : in     std_logic                                                            ; --! SPI - Master Output Slave Input data
-         i_spi_sclk           : in     std_logic                                                            ; --! SPI - Serial Clock
-         i_spi_cs_n           : in     std_logic                                                            ; --! SPI - Chip Select
+   (     i_spi_mosi           : in     std_logic                                                            ; --! SPI: Master Output Slave Input data
+         i_spi_sclk           : in     std_logic                                                            ; --! SPI: Serial Clock
+         i_spi_cs_n           : in     std_logic                                                            ; --! SPI: Chip Select
 
          o_err_n_spi_chk      : out    t_int_arr(0 to c_SPI_ERR_CHK_NB-1)                                     --! SPI check error number:
    );

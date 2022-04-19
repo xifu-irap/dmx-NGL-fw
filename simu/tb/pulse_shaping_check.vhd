@@ -37,9 +37,9 @@ use     work.pkg_model.all;
 
 entity pulse_shaping_check is port
    (     i_arst               : in     std_logic                                                            ; --! Asynchronous reset ('0' = Inactive, '1' = Active)
-         i_clk_sq1_dac        : in     std_logic                                                            ; --! SQUID1 DAC - Clock
+         i_clk_sq1_dac        : in     std_logic                                                            ; --! SQUID1 DAC: Clock
          i_sync               : in     std_logic                                                            ; --! Pixel sequence synchronization (R.E. detected = position sequence to the first pixel)
-         i_sq1_dac_ana        : in     real                                                                 ; --! SQUID1 DAC - Analog
+         i_sq1_dac_ana        : in     real                                                                 ; --! SQUID1 DAC: Analog
          i_pls_shp_fc         : in     integer                                                              ; --! Pulse shaping cut frequency (Hz)
 
          o_err_num_pls_shp    : out    integer                                                                --! Pulse shaping error number
@@ -53,7 +53,7 @@ constant c_PLS_CNT_S          : integer:= log2_ceil(c_PLS_CNT_MAX_VAL+1)+1      
 constant c_PIXEL_POS_MAX_VAL  : integer:= c_MUX_FACT - 1                                                    ; --! Pixel position: maximal value
 constant c_PIXEL_POS_S        : integer:= log2_ceil(c_PIXEL_POS_MAX_VAL+1)+1                                ; --! Pixel position: size bus (signed)
 
-signal   sq1_dac_ana_r        : t_real_arr(0 to c_PIXEL_DAC_NB_CYC)                                         ; --! SQUID1 DAC - Analog register
+signal   sq1_dac_ana_r        : t_real_arr(0 to c_PIXEL_DAC_NB_CYC)                                         ; --! SQUID1 DAC: Analog register
 signal   sync_r               : std_logic                                                                   ; --! Pixel sequence synchronization register
 signal   sync_re              : std_logic                                                                   ; --! Pixel sequence synchronization rising edge
 

@@ -35,26 +35,26 @@ entity clock_check_model is port
    (     i_clk                : in     std_logic                                                            ; --! Internal design: System Clock
          i_clk_sq1_adc_acq    : in     std_logic                                                            ; --! Internal design: SQUID1 ADC acquisition Clock
          i_clk_sq1_pls_shape  : in     std_logic                                                            ; --! Internal design: SQUID1 pulse shaping Clock
-         i_c0_clk_sq1_adc     : in     std_logic                                                            ; --! SQUID1 ADC, col. 0 - Clock
-         i_c1_clk_sq1_adc     : in     std_logic                                                            ; --! SQUID1 ADC, col. 1 - Clock
-         i_c2_clk_sq1_adc     : in     std_logic                                                            ; --! SQUID1 ADC, col. 2 - Clock
-         i_c3_clk_sq1_adc     : in     std_logic                                                            ; --! SQUID1 ADC, col. 3 - Clock
-         i_c0_clk_sq1_dac     : in     std_logic                                                            ; --! SQUID1 DAC, col. 0 - Clock
-         i_c1_clk_sq1_dac     : in     std_logic                                                            ; --! SQUID1 DAC, col. 1 - Clock
-         i_c2_clk_sq1_dac     : in     std_logic                                                            ; --! SQUID1 DAC, col. 2 - Clock
-         i_c3_clk_sq1_dac     : in     std_logic                                                            ; --! SQUID1 DAC, col. 3 - Clock
-         i_clk_science_01     : in     std_logic                                                            ; --! Science Data - Clock channel 0/1
-         i_clk_science_23     : in     std_logic                                                            ; --! Science Data - Clock channel 2/3
+         i_c0_clk_sq1_adc     : in     std_logic                                                            ; --! SQUID1 ADC, col. 0: Clock
+         i_c1_clk_sq1_adc     : in     std_logic                                                            ; --! SQUID1 ADC, col. 1: Clock
+         i_c2_clk_sq1_adc     : in     std_logic                                                            ; --! SQUID1 ADC, col. 2: Clock
+         i_c3_clk_sq1_adc     : in     std_logic                                                            ; --! SQUID1 ADC, col. 3: Clock
+         i_c0_clk_sq1_dac     : in     std_logic                                                            ; --! SQUID1 DAC, col. 0: Clock
+         i_c1_clk_sq1_dac     : in     std_logic                                                            ; --! SQUID1 DAC, col. 1: Clock
+         i_c2_clk_sq1_dac     : in     std_logic                                                            ; --! SQUID1 DAC, col. 2: Clock
+         i_c3_clk_sq1_dac     : in     std_logic                                                            ; --! SQUID1 DAC, col. 3: Clock
+         i_clk_science_01     : in     std_logic                                                            ; --! Science Data: Clock channel 0/1
+         i_clk_science_23     : in     std_logic                                                            ; --! Science Data: Clock channel 2/3
 
          i_rst                : in     std_logic                                                            ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
-         i_c0_sq1_adc_pwdn    : in     std_logic                                                            ; --! SQUID1 ADC, col. 0 – Power Down ('0' = Inactive, '1' = Active)
-         i_c1_sq1_adc_pwdn    : in     std_logic                                                            ; --! SQUID1 ADC, col. 1 – Power Down ('0' = Inactive, '1' = Active)
-         i_c2_sq1_adc_pwdn    : in     std_logic                                                            ; --! SQUID1 ADC, col. 2 – Power Down ('0' = Inactive, '1' = Active)
-         i_c3_sq1_adc_pwdn    : in     std_logic                                                            ; --! SQUID1 ADC, col. 3 – Power Down ('0' = Inactive, '1' = Active)
-         i_c0_sq1_dac_sleep   : in     std_logic                                                            ; --! SQUID1 DAC, col. 0 - Sleep ('0' = Inactive, '1' = Active)
-         i_c1_sq1_dac_sleep   : in     std_logic                                                            ; --! SQUID1 DAC, col. 1 - Sleep ('0' = Inactive, '1' = Active)
-         i_c2_sq1_dac_sleep   : in     std_logic                                                            ; --! SQUID1 DAC, col. 2 - Sleep ('0' = Inactive, '1' = Active)
-         i_c3_sq1_dac_sleep   : in     std_logic                                                            ; --! SQUID1 DAC, col. 3 - Sleep ('0' = Inactive, '1' = Active)
+         i_c0_sq1_adc_pwdn    : in     std_logic                                                            ; --! SQUID1 ADC, col. 0: Power Down ('0' = Inactive, '1' = Active)
+         i_c1_sq1_adc_pwdn    : in     std_logic                                                            ; --! SQUID1 ADC, col. 1: Power Down ('0' = Inactive, '1' = Active)
+         i_c2_sq1_adc_pwdn    : in     std_logic                                                            ; --! SQUID1 ADC, col. 2: Power Down ('0' = Inactive, '1' = Active)
+         i_c3_sq1_adc_pwdn    : in     std_logic                                                            ; --! SQUID1 ADC, col. 3: Power Down ('0' = Inactive, '1' = Active)
+         i_c0_sq1_dac_sleep   : in     std_logic                                                            ; --! SQUID1 DAC, col. 0: Sleep ('0' = Inactive, '1' = Active)
+         i_c1_sq1_dac_sleep   : in     std_logic                                                            ; --! SQUID1 DAC, col. 1: Sleep ('0' = Inactive, '1' = Active)
+         i_c2_sq1_dac_sleep   : in     std_logic                                                            ; --! SQUID1 DAC, col. 2: Sleep ('0' = Inactive, '1' = Active)
+         i_c3_sq1_dac_sleep   : in     std_logic                                                            ; --! SQUID1 DAC, col. 3: Sleep ('0' = Inactive, '1' = Active)
 
          o_err_chk_rpt        : out    t_int_arr_tab(0 to c_CHK_ENA_CLK_NB-1)(0 to c_ERR_N_CLK_CHK_S-1)       --! Clock check error reports
 

@@ -38,12 +38,12 @@ entity hk_mgt is port
    (     i_rst                : in     std_logic                                                            ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                : in     std_logic                                                            ; --! System Clock
 
-         i_hk1_spi_miso_rs    : in     std_logic                                                            ; --! HouseKeeping 1 - SPI Master Input Slave Output
-         o_hk1_spi_mosi       : out    std_logic                                                            ; --! HouseKeeping 1 - SPI Master Output Slave Input
-         o_hk1_spi_sclk       : out    std_logic                                                            ; --! HouseKeeping 1 - SPI Serial Clock (CPOL = ‘0’, CPHA = ’0’)
-         o_hk1_spi_cs_n       : out    std_logic                                                            ; --! HouseKeeping 1 - SPI Chip Select ('0' = Active, '1' = Inactive)
-         o_hk1_mux            : out    std_logic_vector(      c_HK_MUX_S-1 downto 0)                        ; --! HouseKeeping 1 - Multiplexer
-         o_hk1_mux_ena_n      : out    std_logic                                                              --! HouseKeeping 1 - Multiplexer Enable ('0' = Active, '1' = Inactive)
+         i_hk1_spi_miso_rs    : in     std_logic                                                            ; --! HouseKeeping 1: SPI Master Input Slave Output
+         o_hk1_spi_mosi       : out    std_logic                                                            ; --! HouseKeeping 1: SPI Master Output Slave Input
+         o_hk1_spi_sclk       : out    std_logic                                                            ; --! HouseKeeping 1: SPI Serial Clock (CPOL = '0', CPHA = '0')
+         o_hk1_spi_cs_n       : out    std_logic                                                            ; --! HouseKeeping 1: SPI Chip Select ('0' = Active, '1' = Inactive)
+         o_hk1_mux            : out    std_logic_vector(      c_HK_MUX_S-1 downto 0)                        ; --! HouseKeeping 1: Multiplexer
+         o_hk1_mux_ena_n      : out    std_logic                                                              --! HouseKeeping 1: Multiplexer Enable ('0' = Active, '1' = Inactive)
 
    );
 end entity hk_mgt;
@@ -59,9 +59,9 @@ signal   hk_spi_tx_busy_n     : std_logic                                       
 signal   hk_spi_data_rx       : std_logic_vector(c_HK_SPI_SER_WD_S-1 downto 0)                              ; --! HK SPI: Receipted data (stall on LSB)
 signal   hk_spi_data_rx_rdy   : std_logic                                                                   ; --! HK SPI: Receipted data ready ('0' = Not ready, '1' = Ready)
 
-signal   hk1_spi_mosi         : std_logic                                                                   ; --! HouseKeeping 1 - SPI Master Output Slave Input
-signal   hk1_spi_sclk         : std_logic                                                                   ; --! HouseKeeping 1 - SPI Serial Clock (CPOL = ‘0’, CPHA = ’0’)
-signal   hk1_spi_cs_n         : std_logic                                                                   ; --! HouseKeeping 1 - SPI Chip Select ('0' = Active, '1' = Inactive)
+signal   hk1_spi_mosi         : std_logic                                                                   ; --! HouseKeeping 1: SPI Master Output Slave Input
+signal   hk1_spi_sclk         : std_logic                                                                   ; --! HouseKeeping 1: SPI Serial Clock (CPOL = '0', CPHA = '0')
+signal   hk1_spi_cs_n         : std_logic                                                                   ; --! HouseKeeping 1: SPI Chip Select ('0' = Active, '1' = Inactive)
 
 signal   hk_mux               : std_logic_vector(       c_HK_MUX_S-1 downto 0)                              ; --! HK Multiplexer
 begin

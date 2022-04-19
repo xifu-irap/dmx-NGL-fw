@@ -34,16 +34,16 @@ use     work.pkg_project.all;
 use     work.pkg_model.all;
 
 entity squid2_dac_model is generic
-   (     g_SQ2_DAC_VREF       : real                                                                        ; --! SQUID2 DAC - Voltage reference (Volt)
-         g_SQ2_DAC_TS         : time                                                                        ; --! SQUID2 DAC - Output Voltage Settling time
-         g_SQ2_MUX_TPLH       : time                                                                          --! SQUID2 MUX - Propagation delay switch in to out
+   (     g_SQ2_DAC_VREF       : real                                                                        ; --! SQUID2 DAC: Voltage reference (Volt)
+         g_SQ2_DAC_TS         : time                                                                        ; --! SQUID2 DAC: Output Voltage Settling time
+         g_SQ2_MUX_TPLH       : time                                                                          --! SQUID2 MUX: Propagation delay switch in to out
    ); port
-   (     i_sq2_dac_data       : in     std_logic                                                            ; --! SQUID2 DAC - Serial Data
-         i_sq2_dac_sclk       : in     std_logic                                                            ; --! SQUID2 DAC - Serial Clock
-         i_sq2_dac_snc_l_n    : in     std_logic                                                            ; --! SQUID2 DAC - Frame Synchronization DAC LSB ('0' = Active, '1' = Inactive)
-         i_sq2_dac_snc_o_n    : in     std_logic                                                            ; --! SQUID2 DAC - Frame Synchronization DAC Offset ('0' = Active, '1' = Inactive)
-         i_sq2_dac_mux        : in     std_logic_vector(c_SQ2_DAC_MUX_S-1 downto 0)                         ; --! SQUID2 DAC - Multiplexer
-         i_sq2_dac_mx_en_n    : in     std_logic                                                            ; --! SQUID2 DAC - Multiplexer Enable ('0' = Active, '1' = Inactive)
+   (     i_sq2_dac_data       : in     std_logic                                                            ; --! SQUID2 DAC: Serial Data
+         i_sq2_dac_sclk       : in     std_logic                                                            ; --! SQUID2 DAC: Serial Clock
+         i_sq2_dac_snc_l_n    : in     std_logic                                                            ; --! SQUID2 DAC: Frame Synchronization DAC LSB ('0' = Active, '1' = Inactive)
+         i_sq2_dac_snc_o_n    : in     std_logic                                                            ; --! SQUID2 DAC: Frame Synchronization DAC Offset ('0' = Active, '1' = Inactive)
+         i_sq2_dac_mux        : in     std_logic_vector(c_SQ2_DAC_MUX_S-1 downto 0)                         ; --! SQUID2 DAC: Multiplexer
+         i_sq2_dac_mx_en_n    : in     std_logic                                                            ; --! SQUID2 DAC: Multiplexer Enable ('0' = Active, '1' = Inactive)
 
          o_sq2_vout           : out    real                                                                   --! Analog voltage (-g_SQ2_DAC_VREF <= o_sq2_vout < g_SQ2_DAC_VREF)
    );

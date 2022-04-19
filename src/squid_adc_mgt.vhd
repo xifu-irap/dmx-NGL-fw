@@ -44,8 +44,8 @@ entity squid_adc_mgt is port
 
          i_sync_rs            : in     std_logic                                                            ; --! Pixel sequence synchronization, synchronized on System Clock
          i_tm_mode_dmp_cmp    : in     std_logic                                                            ; --! Telemetry mode, status "Dump" compared ('0' = Inactive, '1' = Active)
-         i_sq1_adc_data       : in     std_logic_vector(c_SQ1_ADC_DATA_S-1 downto 0)                        ; --! SQUID1 ADC - Data, no rsync
-         i_sq1_adc_oor        : in     std_logic                                                            ; --! SQUID1 ADC - Out of range, no rsync (‘0’= No, ‘1’= under/over range)
+         i_sq1_adc_data       : in     std_logic_vector(c_SQ1_ADC_DATA_S-1 downto 0)                        ; --! SQUID1 ADC: Data, no rsync
+         i_sq1_adc_oor        : in     std_logic                                                            ; --! SQUID1 ADC: Out of range, no rsync ('0'= No, '1'= under/over range)
 
          i_sq1_mem_dump_add   : in     std_logic_vector(c_MEM_DUMP_ADD_S-1 downto 0)                        ; --! SQUID1 Memory Dump: address
          i_sq1_mem_dump_cs    : in     std_logic                                                            ; --! SQUID1 Memory Dump: chip select ('0' = Inactive, '1' = Active)
@@ -69,8 +69,8 @@ signal   rst_sq1_adc          : std_logic                                       
 
 signal   sync_r               : std_logic_vector(c_ADC_DATA_SYNC_NPER+c_FF_RSYNC_NB-1 downto 0)             ; --! Pixel sequence sync. register (R.E. detected = position sequence to the first pixel)
 signal   tm_mode_dmp_cmp_r    : std_logic_vector(c_FF_RSYNC_NB-1 downto 0)                                  ; --! Telemetry mode, status "Dump" compared ('0' = Inactive, '1' = Active)
-signal   sq1_adc_data_r       : t_slv_arr(0 to c_FF_RSYNC_NB-1)(c_SQ1_ADC_DATA_S-1 downto 0)                ; --! SQUID1 ADC - Data register
-signal   sq1_adc_oor_r        : std_logic_vector(c_FF_RSYNC_NB-1 downto 0)                                  ; --! SQUID1 ADC - Out of range register (‘0’ = No, ‘1’ = under/over range)
+signal   sq1_adc_data_r       : t_slv_arr(0 to c_FF_RSYNC_NB-1)(c_SQ1_ADC_DATA_S-1 downto 0)                ; --! SQUID1 ADC: Data register
+signal   sq1_adc_oor_r        : std_logic_vector(c_FF_RSYNC_NB-1 downto 0)                                  ; --! SQUID1 ADC: Out of range register ('0' = No, '1' = under/over range)
 
 signal   mem_dump_adc_cs_rs   : std_logic_vector(c_FF_RSYNC_NB-1 downto 0)                                  ; --! Memory Dump, ADC acquisition side: chip select, resynchronized on system clock
 
@@ -188,7 +188,7 @@ begin
    ) port map
    (     i_a_rst              => '0'                  , -- in     std_logic                                 ; --! Memory port A: registers reset ('0' = Inactive, '1' = Active)
          i_a_clk              => i_clk_sq1_adc_dac    , -- in     std_logic                                 ; --! Memory port A: main clock
-         i_a_clk_shift        => '0'                  , -- in     std_logic                                 ; --! Memory port A: 90° shifted clock (used for memory content correction)
+         i_a_clk_shift        => '0'                  , -- in     std_logic                                 ; --! Memory port A: 90 degrees shifted clock (used for memory content correction)
 
          i_a_mem              => mem_dump_adc         , -- in     t_mem( add(g_RAM_ADD_S-1 downto 0), ...)  ; --! Memory port A inputs (scrubbing with ping-pong buffer bit for parameters storage)
          o_a_data_out         => open                 , -- out    slv(g_RAM_DATA_S-1 downto 0)              ; --! Memory port A: data out
@@ -198,7 +198,7 @@ begin
 
          i_b_rst              => i_rst                , -- in     std_logic                                 ; --! Memory port B: registers reset ('0' = Inactive, '1' = Active)
          i_b_clk              => i_clk                , -- in     std_logic                                 ; --! Memory port B: main clock
-         i_b_clk_shift        => '0'                  , -- in     std_logic                                 ; --! Memory port B: 90° shifted clock (used for memory content correction)
+         i_b_clk_shift        => '0'                  , -- in     std_logic                                 ; --! Memory port B: 90 degrees shifted clock (used for memory content correction)
 
          i_b_mem              => mem_dump_sc          , -- in     t_mem( add(g_RAM_ADD_S-1 downto 0), ...)  ; --! Memory port B inputs
          o_b_data_out         => mem_dump_data_out    , -- out    slv(g_RAM_DATA_S-1 downto 0)              ; --! Memory port B: data out

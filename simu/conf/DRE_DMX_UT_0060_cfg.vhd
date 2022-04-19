@@ -45,11 +45,11 @@ configuration DRE_DMX_UT_0060_cfg of top_dmx_tb is
       for I_ep_spi_model : ep_spi_model
          use entity work.ep_spi_model generic map
          (
-            g_EP_CLK_PER         => c_EP_CLK_PER_DEF     , -- time    := c_EP_CLK_PER_DEF                   ; --! EP - System clock period (ps)
-            g_EP_CLK_PER_SHIFT   => c_EP_CLK_PER_SHFT_DEF, -- time    := c_EP_CLK_PER_SHFT_DEF              ; --! EP - Clock period shift
-            g_EP_N_CLK_PER_SCLK_L=> 3                    , -- integer := c_EP_SCLK_L_DEF                    ; --! EP - Number of clock period for elaborating SPI Serial Clock low  level
-            g_EP_N_CLK_PER_SCLK_H=> 1                    , -- integer := c_EP_SCLK_H_DEF                    ; --! EP - Number of clock period for elaborating SPI Serial Clock high level
-            g_EP_BUF_DEL         => 0 ns                   -- time    := c_EP_BUF_DEL_DEF                     --! EP - Delay introduced by buffer
+            g_EP_CLK_PER         => c_EP_CLK_PER_DEF     , -- time    := c_EP_CLK_PER_DEF                   ; --! EP: System clock period (ps)
+            g_EP_CLK_PER_SHIFT   => c_EP_CLK_PER_SHFT_DEF, -- time    := c_EP_CLK_PER_SHFT_DEF              ; --! EP: Clock period shift
+            g_EP_N_CLK_PER_SCLK_L=> 3                    , -- integer := c_EP_SCLK_L_DEF                    ; --! EP: Number of clock period for elaborating SPI Serial Clock low  level
+            g_EP_N_CLK_PER_SCLK_H=> 1                    , -- integer := c_EP_SCLK_H_DEF                    ; --! EP: Number of clock period for elaborating SPI Serial Clock high level
+            g_EP_BUF_DEL         => 0 ns                   -- time    := c_EP_BUF_DEL_DEF                     --! EP: Delay introduced by buffer
          );
       end for;
 

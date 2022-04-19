@@ -57,13 +57,13 @@ configuration DRE_DMX_UT_0110_cfg of top_dmx_tb is
          for I_squid_model: squid_model
             use entity work.squid_model generic map
             (
-            g_SQ1_ADC_VREF       => 0.9999               , -- real      := c_SQ1_ADC_VREF_DEF               ; --! SQUID1 ADC - Voltage reference (Volt)
-            g_SQ1_DAC_VREF       => c_SQ1_DAC_VREF_DEF   , -- real      := c_SQ1_DAC_VREF_DEF               ; --! SQUID1 DAC - Voltage reference (Volt)
-            g_SQ2_DAC_VREF       => c_SQ2_DAC_VREF_DEF   , -- real      := c_SQ2_DAC_VREF_DEF               ; --! SQUID2 DAC - Voltage reference (Volt)
-            g_SQ2_DAC_TS         => c_SQ2_DAC_TS_DEF     , -- time      := c_SQ2_DAC_TS_DEF                 ; --! SQUID2 DAC - Output Voltage Settling time
-            g_SQ2_MUX_TPLH       => c_SQ2_MUX_TPLH_DEF   , -- time      := c_SQ2_MUX_TPLH_DEF               ; --! SQUID2 MUX - Propagation delay switch in to out
-            g_CLK_ADC_PER        => c_CLK_ADC_PER_DEF    , -- time      := c_CLK_ADC_PER_DEF                ; --! SQUID1 ADC - Clock period
-            g_TIM_ADC_TPD        => c_TIM_ADC_TPD_DEF      -- time      := c_TIM_ADC_TPD_DEF                  --! SQUID1 ADC - Time, Data Propagation Delay
+            g_SQ1_ADC_VREF       => 0.9999               , -- real      := c_SQ1_ADC_VREF_DEF               ; --! SQUID1 ADC: Voltage reference (Volt)
+            g_SQ1_DAC_VREF       => c_SQ1_DAC_VREF_DEF   , -- real      := c_SQ1_DAC_VREF_DEF               ; --! SQUID1 DAC: Voltage reference (Volt)
+            g_SQ2_DAC_VREF       => c_SQ2_DAC_VREF_DEF   , -- real      := c_SQ2_DAC_VREF_DEF               ; --! SQUID2 DAC: Voltage reference (Volt)
+            g_SQ2_DAC_TS         => c_SQ2_DAC_TS_DEF     , -- time      := c_SQ2_DAC_TS_DEF                 ; --! SQUID2 DAC: Output Voltage Settling time
+            g_SQ2_MUX_TPLH       => c_SQ2_MUX_TPLH_DEF   , -- time      := c_SQ2_MUX_TPLH_DEF               ; --! SQUID2 MUX: Propagation delay switch in to out
+            g_CLK_ADC_PER        => c_CLK_ADC_PER_DEF    , -- time      := c_CLK_ADC_PER_DEF                ; --! SQUID1 ADC: Clock period
+            g_TIM_ADC_TPD        => c_TIM_ADC_TPD_DEF      -- time      := c_TIM_ADC_TPD_DEF                  --! SQUID1 ADC: Time, Data Propagation Delay
             );
          end for;
       end for;
@@ -72,13 +72,13 @@ configuration DRE_DMX_UT_0110_cfg of top_dmx_tb is
          for I_squid_model: squid_model
             use entity work.squid_model generic map
             (
-            g_SQ1_ADC_VREF       => 0.999                , -- real      := c_SQ1_ADC_VREF_DEF               ; --! SQUID1 ADC - Voltage reference (Volt)
-            g_SQ1_DAC_VREF       => c_SQ1_DAC_VREF_DEF   , -- real      := c_SQ1_DAC_VREF_DEF               ; --! SQUID1 DAC - Voltage reference (Volt)
-            g_SQ2_DAC_VREF       => c_SQ2_DAC_VREF_DEF   , -- real      := c_SQ2_DAC_VREF_DEF               ; --! SQUID2 DAC - Voltage reference (Volt)
-            g_SQ2_DAC_TS         => c_SQ2_DAC_TS_DEF     , -- time      := c_SQ2_DAC_TS_DEF                 ; --! SQUID2 DAC - Output Voltage Settling time
-            g_SQ2_MUX_TPLH       => c_SQ2_MUX_TPLH_DEF   , -- time      := c_SQ2_MUX_TPLH_DEF               ; --! SQUID2 MUX - Propagation delay switch in to out
-            g_CLK_ADC_PER        => c_CLK_ADC_PER_DEF    , -- time      := c_CLK_ADC_PER_DEF                ; --! SQUID1 ADC - Clock period
-            g_TIM_ADC_TPD        => c_TIM_ADC_TPD_DEF      -- time      := c_TIM_ADC_TPD_DEF                  --! SQUID1 ADC - Time, Data Propagation Delay
+            g_SQ1_ADC_VREF       => 0.999                , -- real      := c_SQ1_ADC_VREF_DEF               ; --! SQUID1 ADC: Voltage reference (Volt)
+            g_SQ1_DAC_VREF       => c_SQ1_DAC_VREF_DEF   , -- real      := c_SQ1_DAC_VREF_DEF               ; --! SQUID1 DAC: Voltage reference (Volt)
+            g_SQ2_DAC_VREF       => c_SQ2_DAC_VREF_DEF   , -- real      := c_SQ2_DAC_VREF_DEF               ; --! SQUID2 DAC: Voltage reference (Volt)
+            g_SQ2_DAC_TS         => c_SQ2_DAC_TS_DEF     , -- time      := c_SQ2_DAC_TS_DEF                 ; --! SQUID2 DAC: Output Voltage Settling time
+            g_SQ2_MUX_TPLH       => c_SQ2_MUX_TPLH_DEF   , -- time      := c_SQ2_MUX_TPLH_DEF               ; --! SQUID2 MUX: Propagation delay switch in to out
+            g_CLK_ADC_PER        => c_CLK_ADC_PER_DEF    , -- time      := c_CLK_ADC_PER_DEF                ; --! SQUID1 ADC: Clock period
+            g_TIM_ADC_TPD        => c_TIM_ADC_TPD_DEF      -- time      := c_TIM_ADC_TPD_DEF                  --! SQUID1 ADC: Time, Data Propagation Delay
             );
          end for;
       end for;
@@ -87,13 +87,13 @@ configuration DRE_DMX_UT_0110_cfg of top_dmx_tb is
          for I_squid_model: squid_model
             use entity work.squid_model generic map
             (
-            g_SQ1_ADC_VREF       => 0.99                 , -- real      := c_SQ1_ADC_VREF_DEF               ; --! SQUID1 ADC - Voltage reference (Volt)
-            g_SQ1_DAC_VREF       => c_SQ1_DAC_VREF_DEF   , -- real      := c_SQ1_DAC_VREF_DEF               ; --! SQUID1 DAC - Voltage reference (Volt)
-            g_SQ2_DAC_VREF       => c_SQ2_DAC_VREF_DEF   , -- real      := c_SQ2_DAC_VREF_DEF               ; --! SQUID2 DAC - Voltage reference (Volt)
-            g_SQ2_DAC_TS         => c_SQ2_DAC_TS_DEF     , -- time      := c_SQ2_DAC_TS_DEF                 ; --! SQUID2 DAC - Output Voltage Settling time
-            g_SQ2_MUX_TPLH       => c_SQ2_MUX_TPLH_DEF   , -- time      := c_SQ2_MUX_TPLH_DEF               ; --! SQUID2 MUX - Propagation delay switch in to out
-            g_CLK_ADC_PER        => c_CLK_ADC_PER_DEF    , -- time      := c_CLK_ADC_PER_DEF                ; --! SQUID1 ADC - Clock period
-            g_TIM_ADC_TPD        => c_TIM_ADC_TPD_DEF      -- time      := c_TIM_ADC_TPD_DEF                  --! SQUID1 ADC - Time, Data Propagation Delay
+            g_SQ1_ADC_VREF       => 0.99                 , -- real      := c_SQ1_ADC_VREF_DEF               ; --! SQUID1 ADC: Voltage reference (Volt)
+            g_SQ1_DAC_VREF       => c_SQ1_DAC_VREF_DEF   , -- real      := c_SQ1_DAC_VREF_DEF               ; --! SQUID1 DAC: Voltage reference (Volt)
+            g_SQ2_DAC_VREF       => c_SQ2_DAC_VREF_DEF   , -- real      := c_SQ2_DAC_VREF_DEF               ; --! SQUID2 DAC: Voltage reference (Volt)
+            g_SQ2_DAC_TS         => c_SQ2_DAC_TS_DEF     , -- time      := c_SQ2_DAC_TS_DEF                 ; --! SQUID2 DAC: Output Voltage Settling time
+            g_SQ2_MUX_TPLH       => c_SQ2_MUX_TPLH_DEF   , -- time      := c_SQ2_MUX_TPLH_DEF               ; --! SQUID2 MUX: Propagation delay switch in to out
+            g_CLK_ADC_PER        => c_CLK_ADC_PER_DEF    , -- time      := c_CLK_ADC_PER_DEF                ; --! SQUID1 ADC: Clock period
+            g_TIM_ADC_TPD        => c_TIM_ADC_TPD_DEF      -- time      := c_TIM_ADC_TPD_DEF                  --! SQUID1 ADC: Time, Data Propagation Delay
             );
          end for;
       end for;
@@ -102,13 +102,13 @@ configuration DRE_DMX_UT_0110_cfg of top_dmx_tb is
          for I_squid_model: squid_model
             use entity work.squid_model generic map
             (
-            g_SQ1_ADC_VREF       => 0.97                 , -- real      := c_SQ1_ADC_VREF_DEF               ; --! SQUID1 ADC - Voltage reference (Volt)
-            g_SQ1_DAC_VREF       => c_SQ1_DAC_VREF_DEF   , -- real      := c_SQ1_DAC_VREF_DEF               ; --! SQUID1 DAC - Voltage reference (Volt)
-            g_SQ2_DAC_VREF       => c_SQ2_DAC_VREF_DEF   , -- real      := c_SQ2_DAC_VREF_DEF               ; --! SQUID2 DAC - Voltage reference (Volt)
-            g_SQ2_DAC_TS         => c_SQ2_DAC_TS_DEF     , -- time      := c_SQ2_DAC_TS_DEF                 ; --! SQUID2 DAC - Output Voltage Settling time
-            g_SQ2_MUX_TPLH       => c_SQ2_MUX_TPLH_DEF   , -- time      := c_SQ2_MUX_TPLH_DEF               ; --! SQUID2 MUX - Propagation delay switch in to out
-            g_CLK_ADC_PER        => c_CLK_ADC_PER_DEF    , -- time      := c_CLK_ADC_PER_DEF                ; --! SQUID1 ADC - Clock period
-            g_TIM_ADC_TPD        => c_TIM_ADC_TPD_DEF      -- time      := c_TIM_ADC_TPD_DEF                  --! SQUID1 ADC - Time, Data Propagation Delay
+            g_SQ1_ADC_VREF       => 0.97                 , -- real      := c_SQ1_ADC_VREF_DEF               ; --! SQUID1 ADC: Voltage reference (Volt)
+            g_SQ1_DAC_VREF       => c_SQ1_DAC_VREF_DEF   , -- real      := c_SQ1_DAC_VREF_DEF               ; --! SQUID1 DAC: Voltage reference (Volt)
+            g_SQ2_DAC_VREF       => c_SQ2_DAC_VREF_DEF   , -- real      := c_SQ2_DAC_VREF_DEF               ; --! SQUID2 DAC: Voltage reference (Volt)
+            g_SQ2_DAC_TS         => c_SQ2_DAC_TS_DEF     , -- time      := c_SQ2_DAC_TS_DEF                 ; --! SQUID2 DAC: Output Voltage Settling time
+            g_SQ2_MUX_TPLH       => c_SQ2_MUX_TPLH_DEF   , -- time      := c_SQ2_MUX_TPLH_DEF               ; --! SQUID2 MUX: Propagation delay switch in to out
+            g_CLK_ADC_PER        => c_CLK_ADC_PER_DEF    , -- time      := c_CLK_ADC_PER_DEF                ; --! SQUID1 ADC: Clock period
+            g_TIM_ADC_TPD        => c_TIM_ADC_TPD_DEF      -- time      := c_TIM_ADC_TPD_DEF                  --! SQUID1 ADC: Time, Data Propagation Delay
             );
          end for;
       end for;

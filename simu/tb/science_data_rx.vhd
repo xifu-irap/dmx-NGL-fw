@@ -37,10 +37,10 @@ entity science_data_rx is port
    (     i_rst                : in     std_logic                                                            ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk_science        : in     std_logic                                                            ; --! Science Clock
 
-         i_science_data_ser   : in     std_logic_vector(c_NB_COL*c_SC_DATA_SER_NB+1 downto 0)               ; --! Science Data – Serial Data
-         o_science_data_ctrl  : out    t_slv_arr(0 to 1)(c_SC_DATA_SER_W_S-1 downto 0)                      ; --! Science Data – Control word
+         i_science_data_ser   : in     std_logic_vector(c_NB_COL*c_SC_DATA_SER_NB+1 downto 0)               ; --! Science Data: Serial Data
+         o_science_data_ctrl  : out    t_slv_arr(0 to 1)(c_SC_DATA_SER_W_S-1 downto 0)                      ; --! Science Data: Control word
          o_science_data       : out    t_slv_arr(0 to c_NB_COL-1)
-                                                (c_SC_DATA_SER_NB*c_SC_DATA_SER_W_S-1 downto 0)             ; --! Science Data – Data
+                                                (c_SC_DATA_SER_NB*c_SC_DATA_SER_W_S-1 downto 0)             ; --! Science Data: Data
          o_science_data_rdy   : out    std_logic                                                              --! Science Data Ready ('0' = Inactive, '1' = Active)
    );
 end entity science_data_rx;
@@ -53,8 +53,8 @@ constant c_SER_BIT_CNT_S      : integer:= log2_ceil(c_SER_BIT_CNT_MAX_VAL+1)+1  
 signal   ser_bit_cnt          : std_logic_vector(c_SER_BIT_CNT_S-1 downto 0)                                ; --! Serial bit counter
 signal   ser_bit_cnt_msb_r    : std_logic                                                                   ; --! Serial bit counter MSB
 signal   ser_bit_cnt_msb_re   : std_logic                                                                   ; --! Serial bit counter MSB rising edge
-signal   science_data_ser     : t_slv_arr(0 to c_NB_COL*c_SC_DATA_SER_NB+1)(c_SC_DATA_SER_W_S-1 downto 0)   ; --! Science Data – Serial Data
-signal   science_data         : t_slv_arr(0 to c_NB_COL*c_SC_DATA_SER_NB+1)(c_SC_DATA_SER_W_S-1 downto 0)   ; --! Science Data – Data
+signal   science_data_ser     : t_slv_arr(0 to c_NB_COL*c_SC_DATA_SER_NB+1)(c_SC_DATA_SER_W_S-1 downto 0)   ; --! Science Data: Serial Data
+signal   science_data         : t_slv_arr(0 to c_NB_COL*c_SC_DATA_SER_NB+1)(c_SC_DATA_SER_W_S-1 downto 0)   ; --! Science Data: Data
 
 begin
 

@@ -49,30 +49,30 @@ entity ep_cmd is port
 
          i_ep_cmd_tx_wd_rd_rg : in     std_logic_vector(c_EP_SPI_WD_S-1 downto 0)                           ; --! EP command to transmit: read register word
 
-         o_ep_spi_miso        : out    std_logic                                                            ; --! EP - SPI Master Output Slave Input (MSB first)
-         i_ep_spi_mosi_rs     : in     std_logic                                                            ; --! EP - SPI Master Input Slave Output (MSB first), synchronized on System Clock
-         i_ep_spi_sclk_rs     : in     std_logic                                                            ; --! EP - SPI Serial Clock (CPOL = ‘0’, CPHA = ’0’), synchronized on System Clock
-         i_ep_spi_cs_n_rs     : in     std_logic                                                              --! EP - SPI Chip Select ('0' = Active, '1' = Inactive), synchronized on System Clock
+         o_ep_spi_miso        : out    std_logic                                                            ; --! EP: SPI Master Output Slave Input (MSB first)
+         i_ep_spi_mosi_rs     : in     std_logic                                                            ; --! EP: SPI Master Input Slave Output (MSB first), synchronized on System Clock
+         i_ep_spi_sclk_rs     : in     std_logic                                                            ; --! EP: SPI Serial Clock (CPOL = '0', CPHA = '0'), synchronized on System Clock
+         i_ep_spi_cs_n_rs     : in     std_logic                                                              --! EP: SPI Chip Select ('0' = Active, '1' = Inactive), synchronized on System Clock
    );
 end entity ep_cmd;
 
 architecture RTL of ep_cmd is
-constant c_SPI_DATA_WD_LG_S   : integer := log2_ceil(c_EP_SPI_WD_S)                                         ; --! EP - SPI Receipted data word length minus 1 bus size
+constant c_SPI_DATA_WD_LG_S   : integer := log2_ceil(c_EP_SPI_WD_S)                                         ; --! EP: SPI Receipted data word length minus 1 bus size
 constant c_ADD_ERR_RDY_S      : integer := 6                                                                ; --! EP command receipted: errors ready after address rx bus size
 constant c_OUT_ERR_RDY_FF_NB  : integer := 3                                                                ; --! Flip-Flop number for getting error out of range ready
 constant c_EP_CMD_TX_DT_FF_NB : integer := 15                                                               ; --! Flip-Flop number for getting EP command data word to transmit
-constant c_EP_SPI_WD_END_R_S  : integer := c_OUT_ERR_RDY_FF_NB + c_EP_CMD_TX_DT_FF_NB                       ; --! EP - SPI word end register bus size
+constant c_EP_SPI_WD_END_R_S  : integer := c_OUT_ERR_RDY_FF_NB + c_EP_CMD_TX_DT_FF_NB                       ; --! EP: SPI word end register bus size
 
-signal   ep_spi_data_tx_wd    : std_logic_vector(c_EP_SPI_WD_S      -1 downto 0)                            ; --! EP - SPI Data word to transmit (stall on MSB)
-signal   ep_spi_data_tx_wd_nb : std_logic_vector(c_EP_SPI_TX_WD_NB_S-1 downto 0)                            ; --! EP - SPI Data word to transmit number
+signal   ep_spi_data_tx_wd    : std_logic_vector(c_EP_SPI_WD_S      -1 downto 0)                            ; --! EP: SPI Data word to transmit (stall on MSB)
+signal   ep_spi_data_tx_wd_nb : std_logic_vector(c_EP_SPI_TX_WD_NB_S-1 downto 0)                            ; --! EP: SPI Data word to transmit number
 
-signal   ep_spi_data_rx_wd    : std_logic_vector(c_EP_SPI_WD_S      -1 downto 0)                            ; --! EP - SPI Receipted data word (stall on LSB)
-signal   ep_spi_data_rx_wd_nb : std_logic_vector(c_EP_SPI_RX_WD_NB_S-1 downto 0)                            ; --! EP - SPI Receipted data word number
-signal   ep_spi_data_rx_wd_lg : std_logic_vector(c_SPI_DATA_WD_LG_S -1 downto 0)                            ; --! EP - SPI Receipted data word length minus 1
-signal   ep_spi_data_rx_wd_rdy: std_logic                                                                   ; --! EP - SPI Receipted data word ready ('0' = Not ready, '1' = Ready)
+signal   ep_spi_data_rx_wd    : std_logic_vector(c_EP_SPI_WD_S      -1 downto 0)                            ; --! EP: SPI Receipted data word (stall on LSB)
+signal   ep_spi_data_rx_wd_nb : std_logic_vector(c_EP_SPI_RX_WD_NB_S-1 downto 0)                            ; --! EP: SPI Receipted data word number
+signal   ep_spi_data_rx_wd_lg : std_logic_vector(c_SPI_DATA_WD_LG_S -1 downto 0)                            ; --! EP: SPI Receipted data word length minus 1
+signal   ep_spi_data_rx_wd_rdy: std_logic                                                                   ; --! EP: SPI Receipted data word ready ('0' = Not ready, '1' = Ready)
 
-signal   ep_spi_wd_end        : std_logic                                                                   ; --! EP - SPI word end ('0' = Not end, '1' = End)
-signal   ep_spi_wd_end_r      : std_logic_vector(c_EP_SPI_WD_END_R_S-1 downto 0)                            ; --! EP - SPI word end register ('0' = Not end, '1' = End)
+signal   ep_spi_wd_end        : std_logic                                                                   ; --! EP: SPI word end ('0' = Not end, '1' = End)
+signal   ep_spi_wd_end_r      : std_logic_vector(c_EP_SPI_WD_END_R_S-1 downto 0)                            ; --! EP: SPI word end register ('0' = Not end, '1' = End)
 
 signal   ep_cmd_rx_wd_add     : std_logic_vector(c_EP_SPI_WD_S      -1 downto 0)                            ; --! EP command receipted: address word
 signal   ep_cmd_rx_wd_add_norw: std_logic_vector(c_EP_SPI_WD_S      -1 downto 0)                            ; --! EP command receipted: address word, read/write bit cleared
