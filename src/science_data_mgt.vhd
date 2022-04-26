@@ -38,266 +38,186 @@ entity science_data_mgt is port
    (     i_rst                : in     std_logic                                                            ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                : in     std_logic                                                            ; --! System Clock
 
-         i_tm_mode            : in     t_slv_arr(0 to c_NB_COL-1)(c_DFLD_TM_MODE_COL_S-1 downto 0)          ; --! Telemetry mode
+         i_sync_re            : in     std_logic                                                            ; --! Pixel sequence synchronization, rising edge
+         i_tm_mode            : in     std_logic_vector(c_DFLD_TM_MODE_S-1 downto 0)                        ; --! Telemetry mode
 
          i_sq1_data_sc_msb    : in     t_slv_arr(0 to c_NB_COL-1)(c_SC_DATA_SER_W_S-1 downto 0)             ; --! SQUID1 Data science MSB
          i_sq1_data_sc_lsb    : in     t_slv_arr(0 to c_NB_COL-1)(c_SC_DATA_SER_W_S-1 downto 0)             ; --! SQUID1 Data science LSB
-         i_sq1_data_sc_first  : in     std_logic_vector(         c_NB_COL-1 downto 0)                       ; --! SQUID1 Data science first pixel ('0' = No, '1' = Yes)
-         i_sq1_data_sc_last   : in     std_logic_vector(         c_NB_COL-1 downto 0)                       ; --! SQUID1 Data science last pixel ('0' = No, '1' = Yes)
-         i_sq1_data_sc_rdy    : in     std_logic_vector(         c_NB_COL-1 downto 0)                       ; --! SQUID1 Data science ready ('0' = Not ready, '1' = Ready)
+         i_sq1_data_sc_first  : in     std_logic                                                            ; --! SQUID1 Data science first pixel ('0' = No, '1' = Yes)
+         i_sq1_data_sc_last   : in     std_logic                                                            ; --! SQUID1 Data science last pixel ('0' = No, '1' = Yes)
+         i_sq1_data_sc_rdy    : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! SQUID1 Data science ready ('0' = Not ready, '1' = Ready)
 
-         i_sq1_mem_dump_bsy   : in     std_logic_vector(         c_NB_COL-1 downto 0)                       ; --! SQUID1 Memory Dump: data busy ('0' = no data dump, '1' = data dump in progress)
+         i_sq1_mem_dump_bsy   : in     std_logic                                                            ; --! SQUID1 Memory Dump: data busy ('0' = no data dump, '1' = data dump in progress)
          o_sq1_mem_dump_add   : out    std_logic_vector( c_MEM_DUMP_ADD_S-1 downto 0)                       ; --! SQUID1 Memory Dump: address
-         o_sq1_mem_dump_cs    : out    std_logic                                                            ; --! SQUID1 Memory Dump: chip select ('0' = Inactive, '1' = Active)
          i_sq1_mem_dump_data  : in     t_slv_arr(0 to c_NB_COL-1)(c_SQ1_ADC_DATA_S+1 downto 0)              ; --! SQUID1 Memory Dump: data
 
-         o_science_data_ser   : out    std_logic_vector(c_NB_COL*c_SC_DATA_SER_NB downto 0)                   --! Science Data – Serial Data
+         o_tm_mode_dmp_tx_end : out    std_logic                                                            ; --! Telemetry mode, dump transmit end ('0' = Inactive, '1' = Active)
+         o_tm_mode_tst_tx_end : out    std_logic                                                            ; --! Telemetry mode, test pattern transmit end ('0' = Inactive, '1' = Active)
+
+         o_science_data_ser   : out    std_logic_vector(c_NB_COL*c_SC_DATA_SER_NB downto 0)                   --! Science Data: Serial Data
    );
 end entity science_data_mgt;
 
 architecture RTL of science_data_mgt is
-constant c_LD_DMP_CNT_NB_VAL  : integer:= c_SC_DATA_SER_W_S+2                                               ; --! Pre-load ADC words in dump mode counter: number of value
-constant c_LD_DMP_CNT_MAX_VAL : integer:= c_LD_DMP_CNT_NB_VAL-1                                             ; --! Pre-load ADC words in dump mode counter: maximal value
-constant c_LD_DMP_CNT_S       : integer:= log2_ceil(c_LD_DMP_CNT_MAX_VAL + 1) + 1                           ; --! Pre-load ADC words in dump mode counter: size bus (signed)
+constant c_DMP_CNT_NB_VAL     : integer:= c_DMP_SEQ_ACQ_NB * c_MUX_FACT * c_PIXEL_ADC_NB_CYC                ; --! Dump counter: number of value
+constant c_DMP_CNT_MAX_VAL    : integer:= c_DMP_CNT_NB_VAL-1                                                ; --! Dump counter: maximal value
+constant c_DMP_CNT_S          : integer:= log2_ceil(c_DMP_CNT_NB_VAL + 1) + 1                               ; --! Dump counter: size bus (signed)
 
-constant c_SC_W_CNT_NB_VAL    : integer:= c_DMP_SEQ_ACQ_NB * c_MUX_FACT * c_PIXEL_ADC_NB_CYC                ; --! Science data word for dump counter: number of value
-constant c_SC_W_CNT_MAX_VAL   : integer:= c_SC_W_CNT_NB_VAL-1                                               ; --! Science data word for dump counter: maximal value
-constant c_SC_W_CNT_S         : integer:= log2_ceil(c_SC_W_CNT_MAX_VAL + 1) + 1                             ; --! Science data word for dump counter: size bus (signed)
+signal   sq1_data_sc_fst_dct  : std_logic                                                                   ; --! SQUID1 Data science first pixel detected ('0' = No, '1' = Yes)
+signal   sq1_data_sc_rdy_ena  : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! SQUID1 Data science ready enable ('0' = No, '1' = Yes)
+signal   sq1_data_sc_rdy_and  : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! SQUID1 Data science ready "and-ed"
+signal   sq1_dta_sc_rdy_and_r : std_logic                                                                   ; --! SQUID1 Data science ready "and-ed" MSB register
 
-signal   sq1_mem_dump_bsy_r   : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! SQUID1 Memory Dump: data busy register
-
-signal   adc_dump_ena         : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! ADC dump enable ('0' = Inactive, '1' = Active)
-signal   sq1_data_sc_fst_mm   : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! SQUID1 Data science first pixel memorized
-signal   sq1_data_sc_lst_mm   : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! SQUID1 Data science last pixel memorized
-signal   sq1_data_sc_rdy_mm   : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! SQUID1 Data science ready memorized
-
-signal   tm_mode_nrm_cmp      : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! Telemetry mode, status "Normal" compared
-signal   tm_mode_tst_cmp      : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! Telemetry mode, status "Test pattern" compared
-signal   ctrl_adc_fst_pkt_cmp : t_slv_arr(0 to c_NB_COL-1)(c_SC_DATA_SER_W_S-1 downto 0)                    ; --! Control adc first packet, status "Dump" compared
-signal   adc_dump_data_sel    : t_slv_arr(0 to c_NB_COL-1)(c_SQ1_ADC_DATA_S+1 downto 0)                     ; --! ADC dump data word select
-
-signal   tm_mode_nrm_or       : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! Telemetry mode, status "Normal" column select "or-ed"
-signal   tm_mode_tst_or       : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! Telemetry mode, status "Test pattern" column select "or-ed"
-signal   sq1_mem_dump_bsy_or  : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! SQUID1 Memory Dump, data busy "or-ed"
-signal   adc_dump_ena_or      : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! ADC dump enable "or-ed"
-signal   ctrl_adc_fst_pkt_or  : t_slv_arr(0 to c_NB_COL-1)(c_SC_DATA_SER_W_S-1 downto 0)                    ; --! Control adc first packet, status "Dump" column select "or-ed"
-signal   adc_dump_data_or     : t_slv_arr(0 to c_NB_COL-1)(c_SQ1_ADC_DATA_S+1 downto 0)                     ; --! ADC dump data word "or-ed"
-signal   adc_dump_data_or_r   : std_logic_vector(c_SQ1_ADC_DATA_S+1  downto 0)                              ; --! ADC dump data word "or-ed" MSB register
-signal   sq1_data_sc_fst_or   : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! SQUID1 Data science first pixel memorized "or-ed"
-signal   sq1_data_sc_lst_or   : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! SQUID1 Data science last pixel memorized "or-ed"
-signal   sq1_data_sc_rdy_or   : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! SQUID1 Data science ready memorized "or-ed"
-signal   sq1_data_sc_rdy_all  : std_logic                                                                   ; --! SQUID1 Data science ready for all columns
-
-signal   ld_dmp_cnt           : std_logic_vector(c_LD_DMP_CNT_S-1 downto 0)                                 ; --! Pre-load ADC words in dump mode counter
-signal   sc_w_cnt             : std_logic_vector(c_SC_W_CNT_S  -1 downto 0)                                 ; --! Science data word for dump counter
-signal   sc_w_cnt_msb_r       : std_logic_vector(c_LD_DMP_CNT_NB_VAL-1 downto 0)                            ; --! Science data word for dump counter msb register
+signal   tm_mode_sync         : std_logic_vector(c_DFLD_TM_MODE_S-1 downto 0)                               ; --! Telemetry mode, synchronized on pixel sequence
+signal   dmp_cnt              : std_logic_vector(c_DMP_CNT_S-1 downto 0)                                    ; --! Dump counter
+signal   dmp_cnt_msb_r        : std_logic_vector(c_MEM_RD_DATA_NPER downto 0)                               ; --! Dump counter msb register
 
 signal   ctrl_first_pkt       : std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0)                              ; --! Control first packet value
-signal   ctrl_pkt             : std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0)                              ; --! Control packet value
 
 signal   tm_test_pat_data     : std_logic_vector(c_SC_DATA_SER_W_S*c_SC_DATA_SER_NB-1 downto 0)             ; --! Telemetry test pattern data
 
-signal   sc_data_nrm_tst_ena  : std_logic                                                                   ; --! Science Data transmit in normal test pattern mode enable
 signal   science_data_tx_ena  : std_logic                                                                   ; --! Science Data transmit enable
 signal   science_data         : t_slv_arr(0 to c_NB_COL*c_SC_DATA_SER_NB)(c_SC_DATA_SER_W_S-1 downto 0)     ; --! Science Data word
 signal   ser_bit_cnt          : std_logic_vector(log2_ceil(c_SC_DATA_SER_W_S-1) downto 0)                   ; --! Serial bit counter
 
+--TODO
+signal   test_cnt             : std_logic_vector(2 downto 0)                                                ; --! test counter
+
 begin
 
    -- ------------------------------------------------------------------------------------------------------
-   --!   ADC dump enable
+   --!   SQUID1 Data science ready signals
    -- ------------------------------------------------------------------------------------------------------
-   G_adc_dump_ena : for k in 0 to c_NB_COL-1 generate
+   sq1_data_sc_rdy_and(0) <= sq1_data_sc_rdy_ena(0);
+
+   G_column_mgt: for k in 0 to c_NB_COL-1 generate
    begin
 
-      P_adc_dump_ena : process (i_rst, i_clk)
+      P_sq1_dta_sc_rdy_ena : process (i_rst, i_clk)
       begin
 
          if i_rst = '1' then
-            sq1_mem_dump_bsy_r(k)<= '0';
-            adc_dump_ena(k)      <= '0';
+            sq1_data_sc_rdy_ena(k) <= '0';
 
          elsif rising_edge(i_clk) then
-            sq1_mem_dump_bsy_r(k)<= i_sq1_mem_dump_bsy(k);
-
-            if sq1_mem_dump_bsy_r(k) = '1' then
-               adc_dump_ena(k) <= '1';
-
-            elsif sc_w_cnt_msb_r(0) = '1' then
-               adc_dump_ena(k) <= '0';
-
-            end if;
-         end if;
-
-      end process P_adc_dump_ena;
-
-   end generate G_adc_dump_ena;
-
-   -- ------------------------------------------------------------------------------------------------------
-   --!   SQUID1 Data science signals memorized
-   -- ------------------------------------------------------------------------------------------------------
-   G_sq1_data_sc_mm : for k in 0 to c_NB_COL-1 generate
-   begin
-
-      P_sq1_data_sc_mm : process (i_rst, i_clk)
-      begin
-
-         if i_rst = '1' then
-            sq1_data_sc_fst_mm(k) <= '0';
-            sq1_data_sc_lst_mm(k) <= '0';
-            sq1_data_sc_rdy_mm(k) <= '0';
-
-         elsif rising_edge(i_clk) then
-            if (i_sq1_data_sc_first(k) and i_sq1_data_sc_rdy(k)) = '1' then
-               sq1_data_sc_fst_mm(k) <= '1';
-
-            elsif sq1_data_sc_fst_or(sq1_data_sc_fst_or'high) = '1' then
-               sq1_data_sc_fst_mm(k) <= '0';
-
-            end if;
-
-            if (i_sq1_data_sc_last(k) and i_sq1_data_sc_rdy(k)) = '1' then
-               sq1_data_sc_lst_mm(k) <= '1';
-
-            elsif sq1_data_sc_lst_or(sq1_data_sc_lst_or'high) = '1' then
-               sq1_data_sc_lst_mm(k) <= '0';
-
-            end if;
-
             if i_sq1_data_sc_rdy(k) = '1' then
-               sq1_data_sc_rdy_mm(k) <= '1';
+               sq1_data_sc_rdy_ena(k) <= '1';
 
-            elsif sq1_data_sc_rdy_or(sq1_data_sc_rdy_or'high) = '1' then
-               sq1_data_sc_rdy_mm(k) <= '0';
+            elsif sq1_data_sc_rdy_and(sq1_data_sc_rdy_and'high) = '1' then
+               sq1_data_sc_rdy_ena(k) <= '0';
 
             end if;
 
          end if;
 
-      end process P_sq1_data_sc_mm;
+      end process P_sq1_dta_sc_rdy_ena;
 
-   end generate G_sq1_data_sc_mm;
+      G_dta_sc_rdy_and_0: if k /= 0 generate
+         sq1_data_sc_rdy_and(k) <= sq1_data_sc_rdy_ena(k) and sq1_data_sc_rdy_and(k-1);
 
-   -- ------------------------------------------------------------------------------------------------------
-   --!   Compare and "or-ed" column signals
-   -- ------------------------------------------------------------------------------------------------------
-   tm_mode_nrm_or(0)       <= tm_mode_nrm_cmp(0);
-   tm_mode_tst_or(0)       <= tm_mode_tst_cmp(0);
-   sq1_mem_dump_bsy_or(0)  <= sq1_mem_dump_bsy_r(0);
-   adc_dump_ena_or(0)      <= adc_dump_ena(0);
+      end generate G_dta_sc_rdy_and_0;
 
-   ctrl_adc_fst_pkt_or(0)  <= ctrl_adc_fst_pkt_cmp(0);
-   adc_dump_data_or(0)     <= adc_dump_data_sel(0);
-   sq1_data_sc_fst_or(0)   <= sq1_data_sc_fst_mm(0);
-   sq1_data_sc_lst_or(0)   <= sq1_data_sc_lst_mm(0);
-   sq1_data_sc_rdy_or(0)   <= sq1_data_sc_rdy_mm(0);
+   end generate G_column_mgt;
 
-   G_sig_cmp_or : for k in 0 to c_NB_COL-1 generate
-   begin
-
-      tm_mode_nrm_cmp(k)      <= '1'                    when i_tm_mode(k)    = c_DST_TM_MODE_NORM else '0';
-      tm_mode_tst_cmp(k)      <= '1'                    when i_tm_mode(k)    = c_DST_TM_MODE_TEST else '0';
-
-      ctrl_adc_fst_pkt_cmp(k) <= c_SC_CTRL_ADC_DMP(k)   when i_tm_mode(k)    = c_DST_TM_MODE_DUMP else (others => '0');
-      adc_dump_data_sel(k)    <= i_sq1_mem_dump_data(k) when adc_dump_ena(k) = '1'                else (others => '0');
-
-      G_sig_or: if k /= 0 generate
-         tm_mode_nrm_or(k)       <= tm_mode_nrm_cmp(k)      or tm_mode_nrm_or(k-1);
-         tm_mode_tst_or(k)       <= tm_mode_tst_cmp(k)      or tm_mode_tst_or(k-1);
-         sq1_mem_dump_bsy_or(k)  <= sq1_mem_dump_bsy_r(k)   or sq1_mem_dump_bsy_or(k-1);
-         adc_dump_ena_or(k)      <= adc_dump_ena(k)         or adc_dump_ena_or(k-1);
-         sq1_data_sc_fst_or(k)   <= sq1_data_sc_fst_mm(k)   or sq1_data_sc_fst_or(k-1);
-         sq1_data_sc_lst_or(k)   <= sq1_data_sc_lst_mm(k)   or sq1_data_sc_lst_or(k-1);
-         sq1_data_sc_rdy_or(k)   <= sq1_data_sc_rdy_mm(k)   or sq1_data_sc_rdy_or(k-1);
-
-         ctrl_adc_fst_pkt_or(k)  <= ctrl_adc_fst_pkt_cmp(k) or ctrl_adc_fst_pkt_or(k-1);
-         adc_dump_data_or(k)     <= adc_dump_data_sel(k)    or adc_dump_data_or(k-1);
-
-      end generate G_sig_or;
-
-   end generate G_sig_cmp_or;
-
-   -- ------------------------------------------------------------------------------------------------------
-   --!   Pre-load ADC words in dump mode counter
-   -- ------------------------------------------------------------------------------------------------------
-   P_ld_dmp_cnt : process (i_rst, i_clk)
+   P_dta_sc_rdy_and_r : process (i_rst, i_clk)
    begin
 
       if i_rst = '1' then
-         ld_dmp_cnt <= (others => '1');
+         sq1_dta_sc_rdy_and_r <= '0';
 
       elsif rising_edge(i_clk) then
-         if (sc_w_cnt(sc_w_cnt'high) and ser_bit_cnt(ser_bit_cnt'high) and ld_dmp_cnt(ld_dmp_cnt'high) and sq1_mem_dump_bsy_or(sq1_mem_dump_bsy_or'high)) = '1' then
-            ld_dmp_cnt <= std_logic_vector(to_unsigned(c_LD_DMP_CNT_MAX_VAL, ld_dmp_cnt'length));
+         sq1_dta_sc_rdy_and_r <= sq1_data_sc_rdy_and(sq1_data_sc_rdy_and'high);
 
-         elsif ld_dmp_cnt(ld_dmp_cnt'high) = '0' then
-            ld_dmp_cnt <= std_logic_vector(signed(ld_dmp_cnt) - 1);
-
-         end if;
       end if;
 
-   end process P_ld_dmp_cnt;
+   end process P_dta_sc_rdy_and_r;
 
    -- ------------------------------------------------------------------------------------------------------
-   --!   Science data word for dump counter
+   --!   Telemetry mode, synchronized on pixel sequence
    -- ------------------------------------------------------------------------------------------------------
-   P_sc_w_cnt : process (i_rst, i_clk)
+   P_tm_mode_sync : process (i_rst, i_clk)
    begin
 
       if i_rst = '1' then
-         sc_w_cnt <= (others => '1');
+         tm_mode_sync <= c_EP_CMD_DEF_TM_MODE;
 
       elsif rising_edge(i_clk) then
-         if (sc_w_cnt(sc_w_cnt'high) and ser_bit_cnt(ser_bit_cnt'high) and ld_dmp_cnt(ld_dmp_cnt'high) and sq1_mem_dump_bsy_or(sq1_mem_dump_bsy_or'high)) = '1' then
-               sc_w_cnt <= std_logic_vector(to_unsigned(c_SC_W_CNT_MAX_VAL, sc_w_cnt'length));
-
-         elsif (not(sc_w_cnt(sc_w_cnt'high)) and adc_dump_ena_or(adc_dump_ena_or'high) and (
-               (not(ld_dmp_cnt(ld_dmp_cnt'high)) and not(ld_dmp_cnt(0))) or
-               (    ld_dmp_cnt(ld_dmp_cnt'high)  and not(ser_bit_cnt(0))) )) = '1' then
-            sc_w_cnt <= std_logic_vector(signed(sc_w_cnt) - 1);
+         if i_sync_re = '1' then
+            tm_mode_sync <= i_tm_mode;
 
          end if;
+
       end if;
 
-   end process P_sc_w_cnt;
-
-   o_sq1_mem_dump_add   <= sc_w_cnt(o_sq1_mem_dump_add'high downto 0);
-   o_sq1_mem_dump_cs    <= not(sc_w_cnt(sc_w_cnt'high));
+   end process P_tm_mode_sync;
 
    -- ------------------------------------------------------------------------------------------------------
-   --!   Signals registered
+   --!   SQUID1 Data science first pixel detected
    -- ------------------------------------------------------------------------------------------------------
-   P_reg : process (i_rst, i_clk)
+   P_sq1_dta_sc_fst_dct : process (i_rst, i_clk)
    begin
 
       if i_rst = '1' then
-        sc_w_cnt_msb_r        <= (others => '1');
-        sc_data_nrm_tst_ena   <= '0';
-        sq1_data_sc_rdy_all   <= '0';
+         sq1_data_sc_fst_dct <= '0';
 
       elsif rising_edge(i_clk) then
-         sc_w_cnt_msb_r       <= sc_w_cnt_msb_r(sc_w_cnt_msb_r'high-1 downto 0) & sc_w_cnt(sc_w_cnt'high);
+         if i_sq1_data_sc_first = '1' then
+            if tm_mode_sync = c_DST_TM_MODE_NORM then
+               sq1_data_sc_fst_dct <= '1';
 
-         if sq1_data_sc_lst_or(sq1_data_sc_lst_or'high) = '1' then
-            sc_data_nrm_tst_ena <= tm_mode_nrm_or(tm_mode_nrm_or'high) or tm_mode_tst_or(tm_mode_tst_or'high);
+            else
+               sq1_data_sc_fst_dct <= '0';
+
+            end if;
 
          end if;
 
-         sq1_data_sc_rdy_all  <= sq1_data_sc_rdy_or(sq1_data_sc_rdy_or'high) and sc_data_nrm_tst_ena;
+      end if;
+
+   end process P_sq1_dta_sc_fst_dct;
+
+   -- ------------------------------------------------------------------------------------------------------
+   --!   Dump counter
+   -- ------------------------------------------------------------------------------------------------------
+   P_dmp_cnt : process (i_rst, i_clk)
+   begin
+
+      if i_rst = '1' then
+         dmp_cnt_msb_r        <= (others => '1');
+         dmp_cnt              <= (others => '1');
+
+         o_tm_mode_dmp_tx_end <= '0';
+
+      elsif rising_edge(i_clk) then
+         dmp_cnt_msb_r <= dmp_cnt_msb_r(dmp_cnt_msb_r'high-1 downto 0) & dmp_cnt(dmp_cnt'high);
+
+         if tm_mode_sync = c_DST_TM_MODE_DUMP then
+
+            if (dmp_cnt(dmp_cnt'high) and i_sq1_mem_dump_bsy) = '1' then
+               dmp_cnt <= std_logic_vector(to_unsigned(c_DMP_CNT_MAX_VAL, dmp_cnt'length));
+
+            elsif not(dmp_cnt(dmp_cnt'high)) = '1' and ser_bit_cnt = std_logic_vector(to_unsigned(c_SC_DATA_SER_W_S-2, ser_bit_cnt'length)) then
+               dmp_cnt <= std_logic_vector(signed(dmp_cnt) - 1);
+
+            end if;
+
+         end if;
+
+         o_tm_mode_dmp_tx_end <= not(dmp_cnt_msb_r(dmp_cnt_msb_r'high)) and dmp_cnt_msb_r(dmp_cnt_msb_r'high-1);
 
       end if;
 
-   end process P_reg;
+   end process P_dmp_cnt;
 
-   science_data_tx_ena  <= not(sc_w_cnt_msb_r(sc_w_cnt_msb_r'high)) or sq1_data_sc_rdy_all;
+   o_sq1_mem_dump_add   <= dmp_cnt(o_sq1_mem_dump_add'high downto 0);
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Control first packet value
    -- ------------------------------------------------------------------------------------------------------
-   ctrl_first_pkt <= ctrl_adc_fst_pkt_or(ctrl_adc_fst_pkt_or'high) when adc_dump_ena_or(adc_dump_ena_or'high) = '1' else
-                     c_SC_CTRL_SC_DTA                              when tm_mode_nrm_or(tm_mode_nrm_or'high) = '1' else
-                     c_SC_CTRL_TST_PAT                             when tm_mode_tst_or(tm_mode_tst_or'high) = '1' else
-                     (others => '0');
+   ctrl_first_pkt <= c_SC_CTRL_ADC_DMP when tm_mode_sync = c_DST_TM_MODE_DUMP else
+                     c_SC_CTRL_SC_DTA  when tm_mode_sync = c_DST_TM_MODE_NORM else
+                     c_SC_CTRL_TST_PAT when tm_mode_sync = c_DST_TM_MODE_TEST else
+                     c_SC_CTRL_IDLE;
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Control packet value
@@ -306,26 +226,24 @@ begin
    begin
 
       if i_rst = '1' then
-         ctrl_pkt <= (others => '0');
-         science_data(science_data'high) <= (others => '0');
+         science_data(science_data'high) <= c_SC_CTRL_IDLE;
 
       elsif rising_edge(i_clk) then
-         if ((    adc_dump_ena_or(adc_dump_ena_or'high)  and not(science_data_tx_ena)) or
-             (not(adc_dump_ena_or(adc_dump_ena_or'high)) and sq1_data_sc_fst_or(sq1_data_sc_fst_or'high))) = '1' then
-            ctrl_pkt <= ctrl_first_pkt;
+         if tm_mode_sync = c_DST_TM_MODE_IDLE then
+            science_data(science_data'high) <= c_SC_CTRL_IDLE;
 
-         elsif adc_dump_ena_or(adc_dump_ena_or'high) = '1' and sc_w_cnt(sc_w_cnt'high) = '1' then
-            ctrl_pkt <= c_SC_CTRL_EOD;
+         elsif (tm_mode_sync = c_DST_TM_MODE_DUMP and (dmp_cnt_msb_r(dmp_cnt_msb_r'high) and i_sq1_mem_dump_bsy) = '1') or
+               (tm_mode_sync = c_DST_TM_MODE_NORM and i_sq1_data_sc_first = '1') then
+            science_data(science_data'high) <= ctrl_first_pkt;
 
-         elsif (not(adc_dump_ena_or(adc_dump_ena_or'high)) and sq1_data_sc_lst_or(sq1_data_sc_lst_or'high)) = '1' then
-            ctrl_pkt <= c_SC_CTRL_EOD;
+         elsif (tm_mode_sync = c_DST_TM_MODE_DUMP and dmp_cnt = std_logic_vector(to_unsigned(0, dmp_cnt'length))) or
+               (tm_mode_sync = c_DST_TM_MODE_NORM and i_sq1_data_sc_last = '1')   then
+            science_data(science_data'high) <= c_SC_CTRL_EOD;
 
          else
-            ctrl_pkt <= c_SC_CTRL_DTA_W;
+            science_data(science_data'high) <= c_SC_CTRL_DTA_W;
 
          end if;
-
-         science_data(science_data'high) <= ctrl_pkt;
 
       end if;
 
@@ -342,39 +260,41 @@ begin
       begin
 
          if i_rst = '1' then
-            adc_dump_data_or_r   <= (others => '0');
             science_data(2*k+1)  <= (others => '0');
             science_data(2*k)    <= (others => '0');
 
          elsif rising_edge(i_clk) then
-            adc_dump_data_or_r <= adc_dump_data_or(adc_dump_data_or'high);
+            case tm_mode_sync is
+               when c_DST_TM_MODE_DUMP =>
+                  science_data(2*k+1)  <= std_logic_vector(resize(unsigned(i_sq1_mem_dump_data(k)(c_SQ1_ADC_DATA_S+1 downto c_SC_DATA_SER_W_S)), c_SC_DATA_SER_W_S));
+                  science_data(2*k)    <= i_sq1_mem_dump_data(k)(c_SC_DATA_SER_W_S-1 downto 0);
 
-            if adc_dump_ena_or(adc_dump_ena_or'high) = '1' then
-               if ld_dmp_cnt   = std_logic_vector(to_signed(c_SC_DATA_SER_W_S-2*k-2, ld_dmp_cnt'length)) or
-                  ser_bit_cnt  = std_logic_vector(to_signed(c_SC_DATA_SER_W_S-2*k-2, ser_bit_cnt'length)) then
-                  science_data(2*k+1)  <= std_logic_vector(resize(unsigned(adc_dump_data_or_r(c_SQ1_ADC_DATA_S+1 downto c_SC_DATA_SER_W_S)), c_SC_DATA_SER_W_S));
-                  science_data(2*k)    <= adc_dump_data_or_r(c_SC_DATA_SER_W_S-1 downto 0);
+               when c_DST_TM_MODE_NORM =>
+                  science_data(2*k+1)  <= i_sq1_data_sc_msb(k);
+                  science_data(2*k)    <= i_sq1_data_sc_lsb(k);
 
-               end if;
+               when c_DST_TM_MODE_TEST =>
+                  science_data(2*k+1)  <= tm_test_pat_data(2*c_SC_DATA_SER_W_S-1 downto c_SC_DATA_SER_W_S);
+                  science_data(2*k)    <= tm_test_pat_data(  c_SC_DATA_SER_W_S-1 downto                 0);
 
-            elsif i_tm_mode(k) = c_DST_TM_MODE_NORM then
-               science_data(2*k+1)  <= i_sq1_data_sc_msb(k);
-               science_data(2*k)    <= i_sq1_data_sc_lsb(k);
+               when others             =>
+                  science_data(2*k+1)  <= c_SC_DATA_IDLE_VAL(2*c_SC_DATA_SER_W_S-1 downto c_SC_DATA_SER_W_S);
+                  science_data(2*k)    <= c_SC_DATA_IDLE_VAL(  c_SC_DATA_SER_W_S-1 downto                 0);
 
-            elsif i_tm_mode(k) = c_DST_TM_MODE_TEST then
-               science_data(2*k+1)  <= tm_test_pat_data(2*c_SC_DATA_SER_W_S-1 downto c_SC_DATA_SER_W_S);
-               science_data(2*k)    <= tm_test_pat_data(  c_SC_DATA_SER_W_S-1 downto                 0);
+            end case;
 
-            elsif i_tm_mode(k) = c_DST_TM_MODE_IDLE then
-               science_data(2*k+1)  <= c_SC_DATA_IDLE_VAL(2*c_SC_DATA_SER_W_S-1 downto c_SC_DATA_SER_W_S);
-               science_data(2*k)    <= c_SC_DATA_IDLE_VAL(  c_SC_DATA_SER_W_S-1 downto                 0);
-
-            end if;
          end if;
 
       end process P_science_data;
 
    end generate G_science_data;
+
+   -- ------------------------------------------------------------------------------------------------------
+   --!   Science Data transmit enable
+   -- ------------------------------------------------------------------------------------------------------
+   science_data_tx_ena <= not(dmp_cnt_msb_r(dmp_cnt_msb_r'high))         when tm_mode_sync = c_DST_TM_MODE_DUMP else
+                          (sq1_dta_sc_rdy_and_r and sq1_data_sc_fst_dct) when tm_mode_sync = c_DST_TM_MODE_NORM else
+                          '0';
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Science Data Transmit
@@ -387,10 +307,35 @@ begin
          i_science_data_tx_ena=> science_data_tx_ena  , -- in     std_logic                                 ; --! Science Data transmit enable
          i_science_data       => science_data         , -- in     t_slv_arr c_NB_COL*c_SC_DATA_SER_NB       ; --! Science Data word
          o_ser_bit_cnt        => ser_bit_cnt          , -- out    slv log2_ceil(c_SC_DATA_SER_W_S-1)        ; --! Serial bit counter
-         o_science_data_ser   => o_science_data_ser     -- out    slv         c_NB_COL*c_SC_DATA_SER_NB       --! Science Data – Serial Data
+         o_science_data_ser   => o_science_data_ser     -- out    slv         c_NB_COL*c_SC_DATA_SER_NB       --! Science Data: Serial Data
    );
 
    --TODO
    tm_test_pat_data <= (others => '1');
+
+   P_todo : process (i_rst, i_clk)
+   begin
+
+      if i_rst = '1' then
+         test_cnt <= (others => '1');
+
+      elsif rising_edge(i_clk) then
+         if tm_mode_sync = c_DST_TM_MODE_TEST and i_sync_re = '1' then
+
+            if test_cnt(test_cnt'high) = '1' then
+               test_cnt <= std_logic_vector(to_unsigned(3 , test_cnt'length));
+
+            else
+               test_cnt <= std_logic_vector(signed(test_cnt) - 1);
+
+            end if;
+
+         end if;
+
+      end if;
+
+   end process P_todo;
+
+   o_tm_mode_tst_tx_end <= test_cnt(test_cnt'high) when tm_mode_sync = c_DST_TM_MODE_TEST else '0';
 
 end architecture rtl;

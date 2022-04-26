@@ -34,7 +34,7 @@ configuration DRE_DMX_UT_0190_cfg of top_dmx_tb is
       for I_parser : parser
          use entity work.parser generic map
          (
-            g_SIM_TIME           =>  600 us              , -- time    := c_SIM_TIME_DEF                     ; --! Simulation time
+            g_SIM_TIME           => 1120 us              , -- time    := c_SIM_TIME_DEF                     ; --! Simulation time
             g_TST_NUM            => "0190"                 -- string  := c_TST_NUM_DEF                        --! Test number
          );
       end for;
@@ -45,7 +45,7 @@ configuration DRE_DMX_UT_0190_cfg of top_dmx_tb is
       for I_science_data_model: science_data_model
          use entity work.science_data_model generic map
          (
-            g_SIM_TIME           =>  600 us              , -- time    := c_SIM_TIME_DEF                     ; --! Simulation time
+            g_SIM_TIME           => 1120 us              , -- time    := c_SIM_TIME_DEF                     ; --! Simulation time
             g_TST_NUM            => "0190"                 -- string  := c_TST_NUM_DEF                        --! Test number
          );
       end for;

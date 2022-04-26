@@ -179,275 +179,157 @@ COMM
 COMM ==============================================================================================
 COMM   Writing memory dump data to compare
 COMM ----------------------------------------------------------------------------------------------
-WMDC 0 4000
-WMDC 1 7FFF
-WMDC 2 4000
-WMDC 3 7FFF
-WMDC 4 4000
-WMDC 5 7FFF
-WMDC 6 4000
-WMDC 7 7FFF
-WMDC 8 4000
-WMDC 9 7FFF
-WMDC 10 4000
-WMDC 11 7FFF
-WMDC 12 4000
-WMDC 13 7FFF
-WMDC 14 4000
-WMDC 15 7FFF
-WMDC 16 4000
-WMDC 17 7FFF
-WMDC 18 4000
-WMDC 19 7FFF
-WMDC 20 4000
-WMDC 21 7FFF
-WMDC 22 4000
-WMDC 23 7FFF
-WMDC 24 4000
-WMDC 25 7FFF
-WMDC 26 4000
-WMDC 27 7FFF
-WMDC 28 4000
-WMDC 29 7FFF
-WMDC 30 4000
-WMDC 31 7FFF
-WMDC 32 4000
-WMDC 33 7FFF
+WMDC 0 0 4000
+WMDC 0 1 7FFF
+WMDC 0 2 4000
+WMDC 0 3 7FFF
+WMDC 0 4 4000
+WMDC 0 5 7FFF
+WMDC 0 6 4000
+WMDC 0 7 7FFF
+WMDC 0 8 4000
+WMDC 0 9 7FFF
+WMDC 0 10 4000
+WMDC 0 11 7FFF
+WMDC 0 12 4000
+WMDC 0 13 7FFF
+WMDC 0 14 4000
+WMDC 0 15 7FFF
+WMDC 0 16 4000
+WMDC 0 17 7FFF
+WMDC 0 18 4000
+WMDC 0 19 7FFF
+WMDC 0 20 4000
+WMDC 0 21 7FFF
+WMDC 0 22 4000
+WMDC 0 23 7FFF
+WMDC 0 24 4000
+WMDC 0 25 7FFF
+WMDC 0 26 4000
+WMDC 0 27 7FFF
+WMDC 0 28 4000
+WMDC 0 29 7FFF
+WMDC 0 30 4000
+WMDC 0 31 7FFF
+WMDC 0 32 4000
+WMDC 0 33 7FFF
 COMM
+WMDC 1 0 4000
+WMDC 1 1 7FFF
+WMDC 1 2 4000
+WMDC 1 3 7FFF
+WMDC 1 4 4000
+WMDC 1 5 7FFF
+WMDC 1 6 4000
+WMDC 1 7 7FFF
+WMDC 1 8 4000
+WMDC 1 9 7FFF
+WMDC 1 10 4000
+WMDC 1 11 7FFF
+WMDC 1 12 4000
+WMDC 1 13 7FFF
+WMDC 1 14 4000
+WMDC 1 15 7FFF
+WMDC 1 16 4000
+WMDC 1 17 7FFF
+WMDC 1 18 4000
+WMDC 1 19 7FFF
+WMDC 1 20 4000
+WMDC 1 21 7FFF
+WMDC 1 22 4000
+WMDC 1 23 7FFF
+WMDC 1 24 4000
+WMDC 1 25 7FFF
+WMDC 1 26 4000
+WMDC 1 27 7FFF
+WMDC 1 28 4000
+WMDC 1 29 7FFF
+WMDC 1 30 4000
+WMDC 1 31 7FFF
+WMDC 1 32 4000
+WMDC 1 33 7FFF
+COMM
+WMDC 2 0 4000
+WMDC 2 1 7FFF
+WMDC 2 2 4000
+WMDC 2 3 7FFF
+WMDC 2 4 4000
+WMDC 2 5 7FFF
+WMDC 2 6 4000
+WMDC 2 7 7FFF
+WMDC 2 8 4000
+WMDC 2 9 7FFF
+WMDC 2 10 4000
+WMDC 2 11 7FFF
+WMDC 2 12 4000
+WMDC 2 13 7FFF
+WMDC 2 14 4000
+WMDC 2 15 7FFF
+WMDC 2 16 4000
+WMDC 2 17 7FFF
+WMDC 2 18 4000
+WMDC 2 19 7FFF
+WMDC 2 20 4000
+WMDC 2 21 7FFF
+WMDC 2 22 4000
+WMDC 2 23 7FFF
+WMDC 2 24 4000
+WMDC 2 25 7FFF
+WMDC 2 26 4000
+WMDC 2 27 7FFF
+WMDC 2 28 4000
+WMDC 2 29 7FFF
+WMDC 2 30 4000
+WMDC 2 31 7FFF
+WMDC 2 32 4000
+WMDC 2 33 7FFF
+COMM
+WMDC 3 0 4000
+WMDC 3 1 7FFF
+WMDC 3 2 4000
+WMDC 3 3 7FFF
+WMDC 3 4 4000
+WMDC 3 5 7FFF
+WMDC 3 6 4000
+WMDC 3 7 7FFF
+WMDC 3 8 4000
+WMDC 3 9 7FFF
+WMDC 3 10 4000
+WMDC 3 11 7FFF
+WMDC 3 12 4000
+WMDC 3 13 7FFF
+WMDC 3 14 4000
+WMDC 3 15 7FFF
+WMDC 3 16 4000
+WMDC 3 17 7FFF
+WMDC 3 18 4000
+WMDC 3 19 7FFF
+WMDC 3 20 4000
+WMDC 3 21 7FFF
+WMDC 3 22 4000
+WMDC 3 23 7FFF
+WMDC 3 24 4000
+WMDC 3 25 7FFF
+WMDC 3 26 4000
+WMDC 3 27 7FFF
+WMDC 3 28 4000
+WMDC 3 29 7FFF
+WMDC 3 30 4000
+WMDC 3 31 7FFF
+WMDC 3 32 4000
+WMDC 3 33 7FFF
 COMM ==============================================================================================
 COMM   Send command SQ1_FB_MODE ON on all channels
 COMM ----------------------------------------------------------------------------------------------
 WCMD W-SQ1_FB_MODE-1111 W
 COMM
 COMM ==============================================================================================
-COMM   Send command TM_MODE, Dump on all channels
+COMM   Send command TM_MODE, Dump mode
 COMM ----------------------------------------------------------------------------------------------
 WUDI sync 1
-WCMD W-TM_MODE-00XX W
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
+WCMD W-TM_MODE-0000 W
+WAIT 175 us
 COMM ==============================================================================================
 COMM   Check the science packet type currently transfered
 COMM ----------------------------------------------------------------------------------------------
-CSCP adc_dump(0)
-COMM
-COMM ==============================================================================================
-COMM   Wait the end of the science packet transfer
-COMM ----------------------------------------------------------------------------------------------
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-COMM ==============================================================================================
-COMM   Check the science packet type currently transfered
-COMM ----------------------------------------------------------------------------------------------
-CSCP adc_dump(1)
-COMM
-COMM ==============================================================================================
-COMM   Wait the end of the science packet transfer
-COMM ----------------------------------------------------------------------------------------------
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-COMM ==============================================================================================
-COMM   Check the science packet type currently transfered
-COMM ----------------------------------------------------------------------------------------------
-CSCP adc_dump(2)
-COMM
-COMM ==============================================================================================
-COMM   Wait the end of the science packet transfer
-COMM ----------------------------------------------------------------------------------------------
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-COMM ==============================================================================================
-COMM   Check the science packet type currently transfered
-COMM ----------------------------------------------------------------------------------------------
-CSCP adc_dump(3)
-COMM
-COMM ==============================================================================================
-COMM   Wait the end of the science packet transfer
-COMM ----------------------------------------------------------------------------------------------
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-COMM ==============================================================================================
-COMM   Send command TM_MODE, Dump on channel 0, Idle on others channels
-COMM ----------------------------------------------------------------------------------------------
-WUDI sync 1
-WCMD W-TM_MODE-54XX W
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-COMM ==============================================================================================
-COMM   Check the science packet type currently transfered
-COMM ----------------------------------------------------------------------------------------------
-CSCP adc_dump(0)
-COMM
-COMM ==============================================================================================
-COMM   Wait the end of the science packet transfer
-COMM ----------------------------------------------------------------------------------------------
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-COMM ==============================================================================================
-COMM   Send command TM_MODE, Dump on channel 1, Idle on others channels
-COMM ----------------------------------------------------------------------------------------------
-WUDI sync 1
-WCMD W-TM_MODE-51XX W
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-COMM ==============================================================================================
-COMM   Check the science packet type currently transfered
-COMM ----------------------------------------------------------------------------------------------
-CSCP adc_dump(1)
-COMM
-COMM ==============================================================================================
-COMM   Wait the end of the science packet transfer
-COMM ----------------------------------------------------------------------------------------------
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-COMM ==============================================================================================
-COMM   Send command TM_MODE, Dump on channel 2, Idle on others channels
-COMM ----------------------------------------------------------------------------------------------
-WUDI sync 1
-WCMD W-TM_MODE-45XX W
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-COMM ==============================================================================================
-COMM   Check the science packet type currently transfered
-COMM ----------------------------------------------------------------------------------------------
-CSCP adc_dump(2)
-COMM
-COMM ==============================================================================================
-COMM   Wait the end of the science packet transfer
-COMM ----------------------------------------------------------------------------------------------
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-COMM ==============================================================================================
-COMM   Send command TM_MODE, Dump on channel 3, Idle on others channels
-COMM ----------------------------------------------------------------------------------------------
-WUDI sync 1
-WCMD W-TM_MODE-15XX W
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-COMM ==============================================================================================
-COMM   Check the science packet type currently transfered
-COMM ----------------------------------------------------------------------------------------------
-CSCP adc_dump(3)
-COMM
-COMM ==============================================================================================
-COMM   Wait the end of the science packet transfer
-COMM ----------------------------------------------------------------------------------------------
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
+CSCP adc_dump

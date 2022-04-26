@@ -104,7 +104,7 @@ entity parser is generic
 
          o_adc_dmp_mem_add    : out    std_logic_vector(    c_MUX_FACT_S-1 downto 0)                        ; --! ADC Dump memory for data compare: address
          o_adc_dmp_mem_data   : out    std_logic_vector(c_SQ1_ADC_DATA_S+1 downto 0)                        ; --! ADC Dump memory for data compare: data
-         o_adc_dmp_mem_cs     : out    std_logic                                                              --! ADC Dump memory for data compare: chip select ('0' = Inactive, '1' = Active)
+         o_adc_dmp_mem_cs     : out    std_logic_vector(        c_NB_COL-1 downto 0)                          --! ADC Dump memory for data compare: chip select ('0' = Inactive, '1' = Active)
    );
 end entity parser;
 
@@ -274,7 +274,7 @@ begin
    variable v_fld_spi_cmd     : std_logic_vector(c_EP_CMD_S-1 downto 0)                                     ; --! Field SPI command
    variable v_wait_end        : t_wait_cmd_end                                                              ; --! Wait end
    variable v_fld_dis         : line                                                                        ; --! Field discrete
-   variable v_fld_dis_ind     : integer                                                                     ; --! Field discrete index
+   variable v_fld_dis_ind     : t_int_arr(1 downto 0)                                                       ; --! Field discrete index
    variable v_fld_value       : std_logic                                                                   ; --! Field value
    variable v_fld_ope         : line                                                                        ; --! Field operation
    variable v_fld_data        : std_logic_vector(c_CMD_FILE_FLD_DATA_S-1 downto 0)                          ; --! Field data
@@ -302,7 +302,7 @@ begin
       o_ep_cmd_ser_wd_s <= std_logic_vector(to_unsigned(c_EP_CMD_S, o_ep_cmd_ser_wd_s'length));
       o_ep_cmd          <= (others => '0');
       o_ep_cmd_start    <= '0';
-      o_adc_dmp_mem_cs  <= '0';
+      o_adc_dmp_mem_cs  <= (others => '0');
       v_error_cat       := (others => '0');
       v_chk_rpt_prm_ena := (others => '0');
       v_line_cnt        := 1;
@@ -373,10 +373,10 @@ begin
                when "CCPE" =>
 
                   -- Get parameters
-                  get_param_ccpe(v_cmd_file_line, v_head_mess_stdout.all, v_fld_dis, v_fld_dis_ind);
+                  get_param_ccpe(v_cmd_file_line, v_head_mess_stdout.all, v_fld_dis, v_fld_dis_ind(0));
 
                   -- Update discrete write signal
-                  v_chk_rpt_prm_ena(v_fld_dis_ind) := '1';
+                  v_chk_rpt_prm_ena(v_fld_dis_ind(0)) := '1';
 
                   -- Display command
                   fprintf(note , "Report display activated: " & v_fld_dis.all , res_file);
@@ -387,10 +387,10 @@ begin
                when "CDIS" =>
 
                   -- Get parameters
-                  get_param_cdis(v_cmd_file_line, v_head_mess_stdout.all, v_fld_dis, v_fld_dis_ind, v_fld_value);
+                  get_param_cdis(v_cmd_file_line, v_head_mess_stdout.all, v_fld_dis, v_fld_dis_ind(0), v_fld_value);
 
                   -- Check result
-                  if discrete_r(v_fld_dis_ind) = v_fld_value then
+                  if discrete_r(v_fld_dis_ind(0)) = v_fld_value then
                      fprintf(note , "Check discrete level: PASS", res_file);
 
                   else
@@ -402,7 +402,7 @@ begin
                   end if;
 
                   -- Display result
-                  fprintf(note , " * Read discrete: " & v_fld_dis.all & ", value " & std_logic'image(discrete_r(v_fld_dis_ind)) & ", expected " & std_logic'image(v_fld_value), res_file);
+                  fprintf(note , " * Read discrete: " & v_fld_dis.all & ", value " & std_logic'image(discrete_r(v_fld_dis_ind(0))) & ", expected " & std_logic'image(v_fld_value), res_file);
 
                -- ------------------------------------------------------------------------------------------------------
                -- Command CLDC [channel] [value]: check level SQUID1 ADC input
@@ -410,10 +410,10 @@ begin
                when "CLDC" =>
 
                   -- Get parameters
-                  get_param_cldc(v_cmd_file_line, v_head_mess_stdout.all, v_fld_dis_ind, v_fld_real);
+                  get_param_cldc(v_cmd_file_line, v_head_mess_stdout.all, v_fld_dis_ind(0), v_fld_real);
 
                   -- Check result
-                  if sq1_dac_ana(v_fld_dis_ind) = v_fld_real then
+                  if sq1_dac_ana(v_fld_dis_ind(0)) = v_fld_real then
                      fprintf(note , "Check DAC level: PASS", res_file);
 
                   else
@@ -425,7 +425,7 @@ begin
                   end if;
 
                   -- Display result
-                  fprintf(note , " * Read DAC channel " & integer'image(v_fld_dis_ind) & ", value " & real'image(sq1_dac_ana(v_fld_dis_ind)) & ", expected " & real'image(v_fld_real), res_file);
+                  fprintf(note , " * Read DAC channel " & integer'image(v_fld_dis_ind(0)) & ", value " & real'image(sq1_dac_ana(v_fld_dis_ind(0))) & ", expected " & real'image(v_fld_real), res_file);
 
                -- ------------------------------------------------------------------------------------------------------
                -- Command CSCP [science_packet] : check the science packet type
@@ -457,10 +457,10 @@ begin
                when "CTDC" =>
 
                   -- Get parameters
-                  get_param_ctdc(v_cmd_file_line, v_head_mess_stdout.all, v_fld_dis_ind, v_fld_ope, v_fld_time);
+                  get_param_ctdc(v_cmd_file_line, v_head_mess_stdout.all, v_fld_dis_ind(0), v_fld_ope, v_fld_time);
 
                   -- Compare time between the current time and SQUID1 DAC output last event
-                  cmp_time(v_fld_ope(1 to 2), sq1_dac_last_event(v_fld_dis_ind), v_fld_time, "DAC channel " & integer'image(v_fld_dis_ind) & " last event" , v_head_mess_stdout.all & "[ope]", v_err_chk_time, res_file);
+                  cmp_time(v_fld_ope(1 to 2), sq1_dac_last_event(v_fld_dis_ind(0)), v_fld_time, "DAC channel " & integer'image(v_fld_dis_ind(0)) & " last event" , v_head_mess_stdout.all & "[ope]", v_err_chk_time, res_file);
 
                -- ------------------------------------------------------------------------------------------------------
                -- Command CTLE [mask] [ope] [time]: check time between the current time and discrete input(s) last event
@@ -468,10 +468,10 @@ begin
                when "CTLE" =>
 
                   -- Get parameters
-                  get_param_ctle(v_cmd_file_line, v_head_mess_stdout.all, v_fld_dis, v_fld_dis_ind, v_fld_ope, v_fld_time);
+                  get_param_ctle(v_cmd_file_line, v_head_mess_stdout.all, v_fld_dis, v_fld_dis_ind(0), v_fld_ope, v_fld_time);
 
                   -- Compare time between the current time and discrete input(s) last event
-                  cmp_time(v_fld_ope(1 to 2), dis_read_last_event(v_fld_dis_ind), v_fld_time, v_fld_dis.all & " last event" , v_head_mess_stdout.all & "[ope]", v_err_chk_time, res_file);
+                  cmp_time(v_fld_ope(1 to 2), dis_read_last_event(v_fld_dis_ind(0)), v_fld_time, v_fld_dis.all & " last event" , v_head_mess_stdout.all & "[ope]", v_err_chk_time, res_file);
 
                -- ------------------------------------------------------------------------------------------------------
                -- Command CTLR [ope] [time]: check time from the last record time
@@ -566,13 +566,13 @@ begin
                when "WCMS" =>
 
                   -- Get parameters
-                  get_param_wcms_wnbd(v_cmd_file_line, v_head_mess_stdout.all, v_fld_dis_ind);
+                  get_param_wcms_wnbd(v_cmd_file_line, v_head_mess_stdout.all, v_fld_dis_ind(0));
 
                   -- Update EP command serial word size
-                  o_ep_cmd_ser_wd_s <= std_logic_vector(to_unsigned(v_fld_dis_ind, o_ep_cmd_ser_wd_s'length));
+                  o_ep_cmd_ser_wd_s <= std_logic_vector(to_unsigned(v_fld_dis_ind(0), o_ep_cmd_ser_wd_s'length));
 
                   -- Display command
-                  fprintf(note, "Configure SPI command to " & integer'image(v_fld_dis_ind) & " bits size", res_file);
+                  fprintf(note, "Configure SPI command to " & integer'image(v_fld_dis_ind(0)) & " bits size", res_file);
 
                -- ------------------------------------------------------------------------------------------------------
                -- Command WDIS [discrete_w] [value]: write discrete output
@@ -580,31 +580,31 @@ begin
                when "WDIS" =>
 
                   -- Get parameters
-                  get_param_wdis(v_cmd_file_line, v_head_mess_stdout.all, v_fld_dis, v_fld_dis_ind, v_fld_value);
+                  get_param_wdis(v_cmd_file_line, v_head_mess_stdout.all, v_fld_dis, v_fld_dis_ind(0), v_fld_value);
 
                   -- Update discrete write signal
-                  discrete_w(v_fld_dis_ind) <= v_fld_value;
+                  discrete_w(v_fld_dis_ind(0)) <= v_fld_value;
 
                   -- Display command
                   fprintf(note , "Write discrete: " & v_fld_dis.all & " = " & std_logic'image(v_fld_value), res_file);
 
                -- ------------------------------------------------------------------------------------------------------
-               -- Command WMDC [index] [data]: Write in ADC memory dump for data compare
+               -- Command WMDC [channel] [index] [data]: Write in ADC memory dump for data compare
                -- ------------------------------------------------------------------------------------------------------
                when "WMDC" =>
 
                   -- Get parameters
-                  get_param_wmdc(v_cmd_file_line, v_head_mess_stdout.all, v_fld_dis_ind, v_fld_spi_cmd(c_EP_SPI_WD_S-1 downto 0));
+                  get_param_wmdc(v_cmd_file_line, v_head_mess_stdout.all, v_fld_dis_ind(0), v_fld_dis_ind(1), v_fld_spi_cmd(c_EP_SPI_WD_S-1 downto 0));
 
                   -- Display command
-                  fprintf(note , "Write in ADC memory dump, adress index " & integer'image(v_fld_dis_ind) & ", value " & hfield_format(v_fld_spi_cmd(c_EP_SPI_WD_S-1 downto 0)).all, res_file);
+                  fprintf(note , "Write in ADC memory dump column " & integer'image(v_fld_dis_ind(0)) & ", adress index " & integer'image(v_fld_dis_ind(1)) & ", value " & hfield_format(v_fld_spi_cmd(c_EP_SPI_WD_S-1 downto 0)).all, res_file);
 
                   -- Write in ADC memory dump
-                  o_adc_dmp_mem_add    <= std_logic_vector(to_unsigned(v_fld_dis_ind, o_adc_dmp_mem_add'length));
+                  o_adc_dmp_mem_add    <= std_logic_vector(to_unsigned(v_fld_dis_ind(1), o_adc_dmp_mem_add'length));
                   o_adc_dmp_mem_data   <= std_logic_vector(resize(unsigned(v_fld_spi_cmd), o_adc_dmp_mem_data'length));
-                  o_adc_dmp_mem_cs     <= '1';
+                  o_adc_dmp_mem_cs(v_fld_dis_ind(0))  <= '1';
                   wait for c_CLK_REF_PER_DEF;
-                  o_adc_dmp_mem_cs     <= '0';
+                  o_adc_dmp_mem_cs(v_fld_dis_ind(0))  <= '0';
 
                -- ------------------------------------------------------------------------------------------------------
                -- Command WNBD [number]: write board reference number
@@ -612,13 +612,13 @@ begin
                when "WNBD" =>
 
                   -- Get parameters
-                  get_param_wcms_wnbd(v_cmd_file_line, v_head_mess_stdout.all, v_fld_dis_ind);
+                  get_param_wcms_wnbd(v_cmd_file_line, v_head_mess_stdout.all, v_fld_dis_ind(0));
 
                   -- Update EP command serial word size
-                  o_brd_ref <= std_logic_vector(to_unsigned(v_fld_dis_ind, o_brd_ref'length));
+                  o_brd_ref <= std_logic_vector(to_unsigned(v_fld_dis_ind(0), o_brd_ref'length));
 
                   -- Display command
-                  fprintf(note, "Configure board reference number to " & integer'image(v_fld_dis_ind), res_file);
+                  fprintf(note, "Configure board reference number to " & integer'image(v_fld_dis_ind(0)), res_file);
 
                -- ------------------------------------------------------------------------------------------------------
                -- Command WPFC [channel] [frequency]: write pulse shaping cut frequency for verification
@@ -626,13 +626,13 @@ begin
                when "WPFC" =>
 
                   -- Get parameters
-                  get_param_wpfc(v_cmd_file_line, v_head_mess_stdout.all, v_fld_dis_ind, v_fld_pls_shp_fc);
+                  get_param_wpfc(v_cmd_file_line, v_head_mess_stdout.all, v_fld_dis_ind(0), v_fld_pls_shp_fc);
 
                   -- Update pulse shaping cut frequency
-                  o_pls_shp_fc(v_fld_dis_ind) <= v_fld_pls_shp_fc;
+                  o_pls_shp_fc(v_fld_dis_ind(0)) <= v_fld_pls_shp_fc;
 
                   -- Display command
-                  fprintf(note, "Configure pulse shaping cut frequency channel " & integer'image(v_fld_dis_ind) & " to " & integer'image(v_fld_pls_shp_fc) & "Hz" ,res_file);
+                  fprintf(note, "Configure pulse shaping cut frequency channel " & integer'image(v_fld_dis_ind(0)) & " to " & integer'image(v_fld_pls_shp_fc) & "Hz" ,res_file);
 
                -- ------------------------------------------------------------------------------------------------------
                -- Command WUDI [discrete_r] [value] or WUDI [mask] [data]: wait until event on discrete(s)
@@ -640,13 +640,13 @@ begin
                when "WUDI" =>
 
                   -- Get parameters
-                  get_param_wudi(v_cmd_file_line, v_head_mess_stdout.all, v_fld_dis, v_fld_dis_ind, v_fld_value, v_fld_data, v_fld_mask);
+                  get_param_wudi(v_cmd_file_line, v_head_mess_stdout.all, v_fld_dis, v_fld_dis_ind(0), v_fld_value, v_fld_data, v_fld_mask);
 
                   v_fld_time := now;
 
                   -- Check if the last field is a discrete
-                  if v_fld_dis_ind /= c_DR_S then
-                     wait until discrete_r(v_fld_dis_ind) = v_fld_value for g_SIM_TIME-now;
+                  if v_fld_dis_ind(0) /= c_DR_S then
+                     wait until discrete_r(v_fld_dis_ind(0)) = v_fld_value for g_SIM_TIME-now;
 
                      -- Check the simulation end
                      chk_sim_end(g_SIM_TIME, now-v_fld_time, "event " & v_fld_dis.all & " = " & std_logic'image(v_fld_value), v_err_sim_time, res_file);

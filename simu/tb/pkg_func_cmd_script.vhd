@@ -194,11 +194,12 @@ type     t_wait_cmd_end         is (none, wait_cmd_end_tx, wait_rcmd_end_rx)    
    );
 
    -- ------------------------------------------------------------------------------------------------------
-   --! Get parameters command WMDC [index] [data]: Write in ADC memory dump for data compare
+   --! Get parameters command WMDC [channel] [index] [data]: Write in ADC memory dump for data compare
    -- ------------------------------------------------------------------------------------------------------
    procedure get_param_wmdc
    (     b_cmd_file_line      : inout  line                                                                 ; --  Command file line
          i_mess_header        : in     string                                                               ; --  Message header
+         o_fld_channel        : out    integer range 0 to c_NB_COL-1                                        ; --  Field channel number
          o_fld_index          : out    integer range 0 to c_MUX_FACT-1                                      ; --  Field memory index number
          o_fld_data           : out    std_logic_vector                                                       --  Field data
    );
@@ -638,11 +639,12 @@ package body pkg_func_cmd_script is
    end get_param_wdis;
 
    -- ------------------------------------------------------------------------------------------------------
-   --! Get parameters command WMDC [index] [data]: Write in ADC memory dump for data compare
+   --! Get parameters command WMDC [channel] [index] [data]: Write in ADC memory dump for data compare
    -- ------------------------------------------------------------------------------------------------------
    procedure get_param_wmdc
    (     b_cmd_file_line      : inout  line                                                                 ; --  Command file line
          i_mess_header        : in     string                                                               ; --  Message header
+         o_fld_channel        : out    integer range 0 to c_NB_COL-1                                        ; --  Field channel number
          o_fld_index          : out    integer range 0 to c_MUX_FACT-1                                      ; --  Field memory index number
          o_fld_data           : out    std_logic_vector                                                       --  Field data
    ) is
@@ -650,6 +652,10 @@ package body pkg_func_cmd_script is
 
       -- Drop underscore included in the fields
       drop_line_char(b_cmd_file_line, '_', b_cmd_file_line);
+
+      -- Get [channel]
+      rfield(b_cmd_file_line, i_mess_header & "[channel]", o_fld_channel);
+      assert o_fld_channel < c_NB_COL report i_mess_header & "[channel]" & c_MESS_ERR_SIZE severity failure;
 
       -- Get [index]
       rfield(b_cmd_file_line, i_mess_header & "[index]", o_fld_index);

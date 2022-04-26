@@ -556,17 +556,8 @@ constant c_PAD                : character := ' '                                
          when "test_pattern                  "  =>
             o_fld_sc_pkt_val:= c_SC_CTRL_TST_PAT;
 
-         when "adc_dump(0)                   "  =>
-            o_fld_sc_pkt_val:= c_SC_CTRL_ADC_DMP(0);
-
-         when "adc_dump(1)                   "  =>
-            o_fld_sc_pkt_val:= c_SC_CTRL_ADC_DMP(1);
-
-         when "adc_dump(2)                   "  =>
-            o_fld_sc_pkt_val:= c_SC_CTRL_ADC_DMP(2);
-
-         when "adc_dump(3)                   "  =>
-            o_fld_sc_pkt_val:= c_SC_CTRL_ADC_DMP(3);
+         when "adc_dump                      "  =>
+            o_fld_sc_pkt_val:= c_SC_CTRL_ADC_DMP;
 
          when others                            =>
             o_fld_sc_pkt_val:= c_RET_UKWN(o_fld_sc_pkt_val'range);

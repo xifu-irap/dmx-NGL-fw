@@ -43,7 +43,7 @@ entity science_data_check is port
 
          i_adc_dmp_mem_add    : in     std_logic_vector(    c_MUX_FACT_S-1 downto 0)                        ; --! ADC Dump memory for data compare: address
          i_adc_dmp_mem_data   : in     std_logic_vector(c_SQ1_ADC_DATA_S+1 downto 0)                        ; --! ADC Dump memory for data compare: data
-         i_adc_dmp_mem_cs     : in     std_logic                                                            ; --! ADC Dump memory for data compare: chip select ('0' = Inactive, '1' = Active)
+         i_adc_dmp_mem_cs     : in     std_logic_vector(        c_NB_COL-1 downto 0)                        ; --! ADC Dump memory for data compare: chip select ('0' = Inactive, '1' = Active)
 
          i_science_data_ctrl  : in     std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0)                       ; --! Science Data: Control word
          i_science_data       : in     t_slv_arr(0 to c_NB_COL-1)
@@ -55,7 +55,7 @@ entity science_data_check is port
 end entity science_data_check;
 
 architecture RTL of science_data_check is
-constant c_PLS_CNT_NB_VAL     : integer:= div_floor(c_PIXEL_ADC_NB_CYC, c_NB_COL)                           ; --! Pulse counter: number of value
+constant c_PLS_CNT_NB_VAL     : integer:= c_PIXEL_ADC_NB_CYC                                                ; --! Pulse counter: number of value
 constant c_PLS_CNT_MAX_VAL    : integer:= c_PLS_CNT_NB_VAL - 2                                              ; --! Pulse counter: maximal value
 constant c_PLS_CNT_S          : integer:= log2_ceil(c_PLS_CNT_MAX_VAL + 1) + 1                              ; --! Pulse counter: size bus (signed)
 
@@ -71,11 +71,11 @@ signal   seq_cnt              : std_logic_vector(         c_SEQ_CNT_S-1 downto 0
 
 signal   science_data_rdy_r   : std_logic_vector(1 downto 0)                                                ; --! Science Data Ready register ('0' = Inactive, '1' = Active)
 
-signal   mem_adc_dump_dta2cmp : t_slv_arr(0 to c_MUX_FACT-1)(c_SQ1_ADC_DATA_S+1 downto 0):=
-                                (others => (others => '0'))                                                 ; --! Dual port memory for adc dump data to compare
+signal   mem_adc_dump_dta2cmp : t_slv_arr_tab(0 to c_NB_COL-1)(0 to c_MUX_FACT-1)
+                                (c_SQ1_ADC_DATA_S+1 downto 0):= (others => (others => (others => '0')))     ; --! Dual port memory for adc dump data to compare
 
-signal   adc_dump_dta2cmp     : std_logic_vector(c_SQ1_ADC_DATA_S+1 downto 0)                               ; --! adc dump data to compare
-signal   adc_dump_dta2cmp_lst : std_logic_vector(c_SQ1_ADC_DATA_S+1 downto 0)                               ; --! adc dump data to compare last value
+signal   adc_dump_dta2cmp     : t_slv_arr(0 to c_NB_COL-1)(c_SQ1_ADC_DATA_S+1 downto 0)                     ; --! adc dump data to compare
+signal   adc_dump_dta2cmp_lst : t_slv_arr(0 to c_NB_COL-1)(c_SQ1_ADC_DATA_S+1 downto 0)                     ; --! adc dump data to compare last value
 
 signal   science_data_err     : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! Science data error ('0' = No error, '1' = Error)
 
@@ -171,67 +171,82 @@ begin
    end process P_seq_cnt;
 
    -- ------------------------------------------------------------------------------------------------------
-   --!   Dual port memory for adc dump data compare
+   --!   Science Data Ready register
    -- ------------------------------------------------------------------------------------------------------
-   P_mem_adc_dmp_dta_w : process(i_clk_science)
-   begin
-      if rising_edge(i_clk_science) then
-         if i_adc_dmp_mem_cs = '1' then
-            mem_adc_dump_dta2cmp(to_integer(unsigned(i_adc_dmp_mem_add))) <=  i_adc_dmp_mem_data;
-
-        end if;
-      end if;
-   end process P_mem_adc_dmp_dta_w;
-
-   P_mem_adc_dmp_dta_r : process(i_clk_science)
-   begin
-      if rising_edge(i_clk_science) then
-         adc_dump_dta2cmp <= mem_adc_dump_dta2cmp(to_integer(unsigned(pixel_pos)));
-
-      end if;
-   end process P_mem_adc_dmp_dta_r;
-
-   -- ------------------------------------------------------------------------------------------------------
-   --!   adc dump data to compare last value
-   -- ------------------------------------------------------------------------------------------------------
-   P_dump_dta2cmp_lst : process (i_rst, i_clk_science)
+   P_science_data_rdy : process (i_rst, i_clk_science)
    begin
 
       if i_rst = '1' then
          science_data_rdy_r   <= (others => '0');
-         adc_dump_dta2cmp_lst <= (others => '0');
 
       elsif rising_edge(i_clk_science) then
          science_data_rdy_r   <= science_data_rdy_r(science_data_rdy_r'high-1 downto 0) & i_science_data_rdy;
 
-         if i_science_data_rdy = '1' then
-            adc_dump_dta2cmp_lst <= adc_dump_dta2cmp;
+      end if;
+
+   end process P_science_data_rdy;
+
+   -- ------------------------------------------------------------------------------------------------------
+   --!   Dual port memory for adc dump data compare
+   -- ------------------------------------------------------------------------------------------------------
+   G_mem_adc_dmp_dta : for k in 0 to c_NB_COL-1 generate
+   begin
+
+      P_mem_adc_dmp_dta_w : process(i_clk_science)
+      begin
+         if rising_edge(i_clk_science) then
+            if i_adc_dmp_mem_cs(k) = '1' then
+               mem_adc_dump_dta2cmp(k)(to_integer(unsigned(i_adc_dmp_mem_add))) <=  i_adc_dmp_mem_data;
+
+           end if;
+         end if;
+      end process P_mem_adc_dmp_dta_w;
+
+      P_mem_adc_dmp_dta_r : process(i_clk_science)
+      begin
+         if rising_edge(i_clk_science) then
+            adc_dump_dta2cmp(k) <= mem_adc_dump_dta2cmp(k)(to_integer(unsigned(pixel_pos)));
+
+         end if;
+      end process P_mem_adc_dmp_dta_r;
+
+      -- ------------------------------------------------------------------------------------------------------
+      --!   adc dump data to compare last value
+      -- ------------------------------------------------------------------------------------------------------
+      P_dump_dta2cmp_lst : process (i_rst, i_clk_science)
+      begin
+
+         if i_rst = '1' then
+            adc_dump_dta2cmp_lst(k) <= (others => '0');
+
+         elsif rising_edge(i_clk_science) then
+            if i_science_data_rdy = '1' then
+               adc_dump_dta2cmp_lst(k) <= adc_dump_dta2cmp(k);
+
+            end if;
 
          end if;
 
-      end if;
+      end process P_dump_dta2cmp_lst;
 
-   end process P_dump_dta2cmp_lst;
+      -- ------------------------------------------------------------------------------------------------------
+      --!   Science data error
+      -- TODO Generic case with delay management
+      -- ------------------------------------------------------------------------------------------------------
+      science_data_err(k) <=  '0' when (pls_cnt   = std_logic_vector(to_unsigned(c_PLS_CNT_MAX_VAL, pls_cnt'length)) and
+                                        pixel_pos = std_logic_vector(to_unsigned(0, pixel_pos'length)) and
+                                        seq_cnt   = std_logic_vector(to_unsigned(0, seq_cnt'length)))  else
+                              '1' when (i_sw_adc_vin = c_SW_ADC_VIN_ST_SQ2 and i_science_data(k) /= adc_dump_dta2cmp_lst(k)) else
+                              '1' when (i_sw_adc_vin = c_SW_ADC_VIN_ST_SQ1 and
+                                        pls_cnt   = std_logic_vector(to_unsigned(c_PLS_CNT_MAX_VAL, pls_cnt'length)) and
+                                        abs(signed(i_science_data(k)) - signed(adc_dump_dta2cmp_lst(k))) > to_signed(1, i_science_data(k)'length)) else
+                              '0';
+
+   end generate G_mem_adc_dmp_dta;
 
    -- ------------------------------------------------------------------------------------------------------
-   --!   Science data error
-   -- TODO Generic case with delay management
+   --!   Output management
    -- ------------------------------------------------------------------------------------------------------
-   science_data_err(0) <=  '0' when (pls_cnt   = std_logic_vector(to_unsigned(c_PLS_CNT_MAX_VAL, pls_cnt'length)) and
-                                     pixel_pos = std_logic_vector(to_unsigned(0, pixel_pos'length)) and
-                                     seq_cnt   = std_logic_vector(to_unsigned(0, seq_cnt'length)))  else
-                           '1' when (i_sw_adc_vin = c_SW_ADC_VIN_ST_SQ2 and i_science_data(0) /= adc_dump_dta2cmp_lst) else
-                           '1' when (i_sw_adc_vin = c_SW_ADC_VIN_ST_SQ1 and
-                                     pls_cnt   = std_logic_vector(to_unsigned(c_PLS_CNT_MAX_VAL, pls_cnt'length)) and
-                                     abs(signed(i_science_data(0)) - signed(adc_dump_dta2cmp_lst)) > to_signed(1, i_science_data(0)'length)) else
-                           '0';
-
-   G_science_data_err : for k in 1 to c_NB_COL-1 generate
-   begin
-      science_data_err(k) <= '1' when (i_sw_adc_vin = c_SW_ADC_VIN_ST_SQ2 and i_science_data(k) /= adc_dump_dta2cmp) else '0';
-
-   end generate G_science_data_err;
-
    P_science_data_err : process (i_rst, i_clk_science)
    begin
 

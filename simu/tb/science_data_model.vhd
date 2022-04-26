@@ -49,13 +49,10 @@ entity science_data_model is generic
 
          i_science_ctrl_01    : in     std_logic                                                            ; --! Science Data: Control channel 0/1
          i_science_ctrl_23    : in     std_logic                                                            ; --! Science Data: Control channel 2/3
-         i_c0_science_data    : in     std_logic_vector(c_SC_DATA_SER_NB-1 downto 0)                        ; --! Science Data, col. 0: Serial Data
-         i_c1_science_data    : in     std_logic_vector(c_SC_DATA_SER_NB-1 downto 0)                        ; --! Science Data, col. 1: Serial Data
-         i_c2_science_data    : in     std_logic_vector(c_SC_DATA_SER_NB-1 downto 0)                        ; --! Science Data, col. 2: Serial Data
-         i_c3_science_data    : in     std_logic_vector(c_SC_DATA_SER_NB-1 downto 0)                        ; --! Science Data, col. 3: Serial Data
+         i_science_data       : in     t_slv_arr(0 to c_NB_COL-1)(c_SC_DATA_SER_NB-1 downto 0)              ; --! Science Data: Serial Data
 
          i_sync               : in     std_logic                                                            ; --! Pixel sequence synchronization (R.E. detected = position sequence to the first pixel)
-         i_tm_mode            : in     t_slv_arr(0 to c_NB_COL-1)(c_DFLD_TM_MODE_COL_S-1 downto 0)          ; --! Telemetry mode
+         i_tm_mode            : in     std_logic_vector(c_DFLD_TM_MODE_S-1 downto 0)                        ; --! Telemetry mode
          i_sw_adc_vin         : in     std_logic_vector(c_SW_ADC_VIN_S-1 downto 0)                          ; --! Switch ADC Voltage input
 
          i_sq1_adc_data       : in     t_slv_arr(0 to c_NB_COL-1)(c_SQ1_ADC_DATA_S-1 downto 0)              ; --! SQUID1 ADC: Data buses
@@ -63,7 +60,7 @@ entity science_data_model is generic
 
          i_adc_dmp_mem_add    : in     std_logic_vector(    c_MUX_FACT_S-1 downto 0)                        ; --! ADC Dump memory for data compare: address
          i_adc_dmp_mem_data   : in     std_logic_vector(c_SQ1_ADC_DATA_S+1 downto 0)                        ; --! ADC Dump memory for data compare: data
-         i_adc_dmp_mem_cs     : in     std_logic                                                            ; --! ADC Dump memory for data compare: chip select ('0' = Inactive, '1' = Active)
+         i_adc_dmp_mem_cs     : in     std_logic_vector(        c_NB_COL-1 downto 0)                        ; --! ADC Dump memory for data compare: chip select ('0' = Inactive, '1' = Active)
 
          o_sc_pkt_type        : out    std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0)                       ; --! Science packet type
          o_sc_pkt_err         : out    std_logic                                                              --! Science packet error ('0' = No error, '1' = Error)
@@ -81,20 +78,9 @@ signal   mem_dump             : t_slv_arr_tab(0 to c_NB_COL-1)
 signal   sync_r               : std_logic_vector(c_ADC_DATA_NPER-2 downto 0)                                ; --! Pixel sequence sync. register (R.E. detected = position sequence to the first pixel)
 signal   sync_re_adc_data     : std_logic                                                                   ; --! Pixel sequence synchronization, rising edge, synchronized on ADC data first pixel
 
-signal   tm_mode_dmp_cmp      : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! Telemetry mode, status "Dump" compared ('0' = Inactive, '1' = Active)
-signal   tm_mode_dmp_cmp_last : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! Telemetry mode, status "Dump" compared last sync. ('0' = Inactive, '1' = Active)
-signal   sq1_adc_data_dmp_cmp : t_slv_arr(0 to c_NB_COL-1)(c_SQ1_ADC_DATA_S-1 downto 0)                     ; --! SQUID1 ADC: Data buses, status "Dump" compared
-signal   sq1_adc_oor_dmp_cmp  : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! SQUID1 ADC: Out of range, status "Dump" compared
-signal   sc_data_ctrl_dmp_cmp : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! Science Data: Control word, status "Dump" compared
-
-signal   tm_mode_dmp_or       : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! Telemetry mode, status "Dump" "or-ed"
-signal   sq1_adc_data_dmp_or  : t_slv_arr(0 to c_NB_COL-1)(c_SQ1_ADC_DATA_S-1 downto 0)                     ; --! SQUID1 ADC: Data buses "or-ed"
-signal   sq1_adc_oor_dmp_or   : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! SQUID1 ADC: Out of range "or-ed"
-signal   sc_data_ctrl_dmp_or  : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! Science Data: Control word, status "Dump" "or-ed"
-
 signal   mem_dump_adc_cnt_w   : std_logic_vector(     c_DMP_CNT_S-1 downto 0)                               ; --! Memory Dump, ADC acquisition side: counter words
 signal   mem_dump_adc_add     : std_logic_vector(     c_DMP_CNT_S-1 downto 0)                               ; --! Memory Dump, ADC acquisition side: address
-signal   mem_dump_adc_data_in : std_logic_vector(c_SQ1_ADC_DATA_S+1 downto 0)                               ; --! Memory Dump, ADC acquisition side: data in
+signal   mem_dump_adc_data_in : t_slv_arr(0 to c_NB_COL-1)(c_SQ1_ADC_DATA_S+1 downto 0)                     ; --! Memory Dump, ADC acquisition side: data in
 
 signal   mem_dump_sc_add      : std_logic_vector(     c_DMP_CNT_S-2 downto 0)                               ; --! Memory Dump, science side: address
 signal   mem_dump_sc_data_out : t_slv_arr(0 to c_NB_COL-1)(c_SQ1_ADC_DATA_S+1 downto 0)                     ; --! Memory Dump, science side: data out
@@ -109,31 +95,6 @@ signal   science_data_err     : std_logic_vector(c_NB_COL-1 downto 0)           
 
 begin
 
-   -- ------------------------------------------------------------------------------------------------------
-   --!   Select adc data channel according to dump telemetry mode
-   -- ------------------------------------------------------------------------------------------------------
-   tm_mode_dmp_or(0)       <= tm_mode_dmp_cmp(0);
-   sq1_adc_data_dmp_or(0)  <= sq1_adc_data_dmp_cmp(0);
-   sq1_adc_oor_dmp_or(0)   <= sq1_adc_oor_dmp_cmp(0);
-   sc_data_ctrl_dmp_or(0)  <= sc_data_ctrl_dmp_cmp(0);
-
-   G_tm_mode_cmp : for k in 0 to c_NB_COL-1 generate
-   begin
-
-      tm_mode_dmp_cmp(k)      <= '1'               when i_tm_mode(k) = c_DST_TM_MODE_DUMP else '0';
-      sq1_adc_data_dmp_cmp(k) <= i_sq1_adc_data(k) when i_tm_mode(k) = c_DST_TM_MODE_DUMP else (others => '0');
-      sq1_adc_oor_dmp_cmp(k)  <= i_sq1_adc_oor(k)  when i_tm_mode(k) = c_DST_TM_MODE_DUMP else '0';
-      sc_data_ctrl_dmp_cmp(k) <= '1'               when science_data_ctrl(0) = c_SC_CTRL_ADC_DMP(k) else '0';
-
-      G_tm_mode_or: if k /= 0 generate
-         tm_mode_dmp_or(k)      <= tm_mode_dmp_cmp(k)      or tm_mode_dmp_or(k-1);
-         sq1_adc_data_dmp_or(k) <= sq1_adc_data_dmp_cmp(k) or sq1_adc_data_dmp_or(k-1);
-         sq1_adc_oor_dmp_or(k)  <= sq1_adc_oor_dmp_cmp(k)  or sq1_adc_oor_dmp_or(k-1);
-         sc_data_ctrl_dmp_or(k) <= sc_data_ctrl_dmp_cmp(k) or sc_data_ctrl_dmp_or(k-1);
-
-      end generate;
-
-   end generate G_tm_mode_cmp;
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Signals registered
@@ -144,16 +105,10 @@ begin
       if i_arst = '1' then
          sync_r               <= (others => c_I_SYNC_DEF);
          sync_re_adc_data     <= '0';
-         tm_mode_dmp_cmp_last <= (others => '0');
 
       elsif rising_edge(i_clk_sq1_adc_acq) then
          sync_r               <= sync_r(sync_r'high-1 downto 0) & i_sync;
          sync_re_adc_data     <= not(sync_r(sync_r'high)) and sync_r(sync_r'high-1);
-
-         if sync_re_adc_data = '1' then
-            tm_mode_dmp_cmp_last <= tm_mode_dmp_cmp;
-
-         end if;
 
       end if;
 
@@ -169,7 +124,7 @@ begin
          mem_dump_adc_cnt_w   <= (others => '1');
 
       elsif rising_edge(i_clk_sq1_adc_acq) then
-         if (mem_dump_adc_cnt_w(mem_dump_adc_cnt_w'high) and tm_mode_dmp_or(tm_mode_dmp_or'high) and sync_re_adc_data) = '1' and (tm_mode_dmp_cmp_last /= tm_mode_dmp_cmp) then
+         if (mem_dump_adc_cnt_w(mem_dump_adc_cnt_w'high) and sync_re_adc_data) = '1' and i_tm_mode = c_DST_TM_MODE_DUMP then
             mem_dump_adc_cnt_w <= std_logic_vector(to_unsigned(c_DMP_CNT_MAX_VAL, mem_dump_adc_cnt_w'length));
 
          elsif mem_dump_adc_cnt_w(mem_dump_adc_cnt_w'high) = '0' then
@@ -186,18 +141,18 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    mem_dump_adc_add <= std_logic_vector(to_signed(c_DMP_CNT_MAX_VAL, mem_dump_adc_add'length) - signed(mem_dump_adc_cnt_w));
 
-   mem_dump_adc_data_in(c_SQ1_ADC_DATA_S-1 downto 0) <= sq1_adc_data_dmp_or(sq1_adc_data_dmp_or'high);
-   mem_dump_adc_data_in(c_SQ1_ADC_DATA_S)            <= sq1_adc_oor_dmp_or(sq1_adc_oor_dmp_or'high);
-   mem_dump_adc_data_in(c_SQ1_ADC_DATA_S+1)          <= '0';
-
    G_mem_dump : for k in 0 to c_NB_COL-1 generate
    begin
+
+      mem_dump_adc_data_in(k)(c_SQ1_ADC_DATA_S-1 downto 0) <= i_sq1_adc_data(k);
+      mem_dump_adc_data_in(k)(c_SQ1_ADC_DATA_S)            <= i_sq1_adc_oor(k);
+      mem_dump_adc_data_in(k)(c_SQ1_ADC_DATA_S+1)          <= '0';
 
       P_mem_dump_w : process(i_clk_sq1_adc_acq)
       begin
          if rising_edge(i_clk_sq1_adc_acq) then
-            if mem_dump_adc_cnt_w(mem_dump_adc_cnt_w'high) = '0' and mem_dump_adc_add(log2_ceil(c_NB_COL)-1 downto 0) = std_logic_vector(to_unsigned(k, log2_ceil(c_NB_COL))) then
-               mem_dump(k)(to_integer(unsigned(mem_dump_adc_add(mem_dump_adc_add'high-1 downto log2_ceil(c_NB_COL))))) <=  mem_dump_adc_data_in;
+            if mem_dump_adc_cnt_w(mem_dump_adc_cnt_w'high) = '0' then
+               mem_dump(k)(to_integer(unsigned(mem_dump_adc_add))) <=  mem_dump_adc_data_in(k);
 
            end if;
          end if;
@@ -243,12 +198,15 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   Science Data: Serial Data
    -- ------------------------------------------------------------------------------------------------------
-   science_data_ser(1*c_SC_DATA_SER_NB-1 downto 0*c_SC_DATA_SER_NB)  <= i_c0_science_data;
-   science_data_ser(2*c_SC_DATA_SER_NB-1 downto 1*c_SC_DATA_SER_NB)  <= i_c1_science_data;
-   science_data_ser(3*c_SC_DATA_SER_NB-1 downto 2*c_SC_DATA_SER_NB)  <= i_c2_science_data;
-   science_data_ser(4*c_SC_DATA_SER_NB-1 downto 3*c_SC_DATA_SER_NB)  <= i_c3_science_data;
-   science_data_ser(4*c_SC_DATA_SER_NB)                              <= i_science_ctrl_01;
-   science_data_ser(4*c_SC_DATA_SER_NB+1)                            <= i_science_ctrl_23;
+   G_column_mgt: for k in 0 to c_NB_COL-1 generate
+   begin
+
+      science_data_ser((k+1)*c_SC_DATA_SER_NB-1 downto k*c_SC_DATA_SER_NB)  <= i_science_data(k);
+
+   end generate G_column_mgt;
+
+   science_data_ser(c_NB_COL*c_SC_DATA_SER_NB)  <= i_science_ctrl_01;
+   science_data_ser(c_NB_COL*c_SC_DATA_SER_NB+1)<= i_science_ctrl_23;
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Science data receipt
@@ -274,7 +232,7 @@ begin
 
          i_adc_dmp_mem_add    => i_adc_dmp_mem_add    , -- in     std_logic_vector(c_MUX_FACT_S-1 downto 0) ; --! ADC Dump memory for data compare: address
          i_adc_dmp_mem_data   => i_adc_dmp_mem_data   , -- in     slv(c_SQ1_ADC_DATA_S+1 downto 0)          ; --! ADC Dump memory for data compare: data
-         i_adc_dmp_mem_cs     => i_adc_dmp_mem_cs     , -- in     std_logic                                 ; --! ADC Dump memory for data compare: chip select ('0' = Inactive, '1' = Active)
+         i_adc_dmp_mem_cs     => i_adc_dmp_mem_cs     , -- in     std_logic_vector(c_NB_COL-1 downto 0)     ; --! ADC Dump memory for data compare: chip select ('0' = Inactive, '1' = Active)
 
          i_science_data_ctrl  => science_data_ctrl(0) , -- in     slv(c_SC_DATA_SER_W_S-1 downto 0)         ; --! Science Data: Control word
          i_science_data       => science_data         , -- in     t_sc_data(0 to c_NB_COL-1)                ; --! Science Data: Data
@@ -294,7 +252,7 @@ begin
    variable v_err_sc_pkt_start: std_logic                                                                   ; --! Error science packet start missing ('0' = No error, '1' = Error)
    variable v_err_sc_pkt_eod  : std_logic                                                                   ; --! Error science packet end of data missing ('0' = No error, '1' = Error)
    variable v_err_sc_pkt_size : std_logic                                                                   ; --! Error science packet size ('0' = No error, '1' = Error)
-   variable v_err_sc_data     : std_logic                                                                   ; --! Error science data ('0' = No error, '1' = Error)
+   variable v_err_sc_data     : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! Error science data ('0' = No error, '1' = Error)
 
    variable v_ctrl_last       : std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0) := c_SC_CTRL_EOD             ; --! Control word last
    variable v_ctrl_first_pkt  : std_logic := '0'                                                            ; --! Control word first packet detected ('0' = No, '1' = Yes)
@@ -334,7 +292,7 @@ begin
             v_err_sc_pkt_start:= '0';
             v_err_sc_pkt_eod  := '0';
             v_err_sc_pkt_size := '0';
-            v_err_sc_data     := '0';
+            v_err_sc_data     := (others => '0');
 
             -- Increase science packet size
             v_packet_size := v_packet_size + 1;
@@ -346,140 +304,102 @@ begin
 
             -- Get packet content
             for k in 0 to c_NB_COL-1 loop
-               if v_packet_dump = '1' then
-                  hwrite(v_packet_content(0), science_data(k));
-                  write(v_packet_content(0), ',');
-
-               else
-                  hwrite(v_packet_content(k), science_data(k));
-                  write(v_packet_content(k), ',');
-
-               end if;
+               hwrite(v_packet_content(k), science_data(k));
+               write(v_packet_content(k), ',');
 
             end loop;
 
-            -- ------------------------------------------------------------------------------------------------------
-            -- Science Data Control word analysis
-            --    Case Start Dump packet
-            -- ------------------------------------------------------------------------------------------------------
-            if sc_data_ctrl_dmp_or(sc_data_ctrl_dmp_or'high) = '1' then
-               v_ctrl_first_pkt  := '1';
-               v_packet_tx_time  := now - (2*c_SC_DATA_SER_W_S+3)*c_CLK_SC_HPER;
-               v_packet_dump     := '1';
-               v_packet_size     := 1;
-               v_packet_size_exp := div_ceil(c_DMP_SEQ_ACQ_NB * c_MUX_FACT * c_PIXEL_ADC_NB_CYC, c_NB_COL);
-               o_sc_pkt_type     <= science_data_ctrl(0);
+            case science_data_ctrl(0) is
 
-               v_packet_type     := null;
-               hwrite(v_packet_type, science_data_ctrl(0));
+               -- ------------------------------------------------------------------------------------------------------
+               --    Case Start Science Data/Test pattern packet
+               -- ------------------------------------------------------------------------------------------------------
+               when c_SC_CTRL_SC_DTA | c_SC_CTRL_TST_PAT | c_SC_CTRL_ADC_DMP =>
+                  v_ctrl_first_pkt  := '1';
+                  v_packet_tx_time  := now - (2*c_SC_DATA_SER_W_S+1)*c_CLK_SC_HPER;
+                  v_packet_size     := 1;
 
-               -- Reinitialize and get packet content
-               v_packet_content := (others => null);
-
-               for k in 0 to c_NB_COL-1 loop
-                  hwrite(v_packet_content(0), science_data(k));
-                  write(v_packet_content(0), ',');
-
-               end loop;
-
-               -- Check end of data control word was sent before acquiring a new packet
-               if v_ctrl_last /= c_SC_CTRL_EOD then
-                  v_err_sc_pkt_eod  := '1';
-               end if;
-
-            else
-               case science_data_ctrl(0) is
-
-                  -- ------------------------------------------------------------------------------------------------------
-                  --    Case Start Science Data/Test pattern packet
-                  -- ------------------------------------------------------------------------------------------------------
-                  when c_SC_CTRL_SC_DTA | c_SC_CTRL_TST_PAT    =>
-                     v_ctrl_first_pkt  := '1';
-                     v_packet_tx_time  := now - (2*c_SC_DATA_SER_W_S+1)*c_CLK_SC_HPER;
+                  if science_data_ctrl(0) = c_SC_CTRL_ADC_DMP then
+                     v_packet_dump     := '1';
+                     v_packet_size_exp := c_DMP_SEQ_ACQ_NB * c_MUX_FACT * c_PIXEL_ADC_NB_CYC;
+                  else
                      v_packet_dump     := '0';
-                     v_packet_size     := 1;
                      v_packet_size_exp := c_MUX_FACT;
-                     o_sc_pkt_type     <= science_data_ctrl(0);
+                  end if;
 
-                     v_packet_type     := null;
-                     hwrite(v_packet_type, science_data_ctrl(0));
+                  o_sc_pkt_type     <= science_data_ctrl(0);
 
-                     -- Reinitialize and get packet content
-                     v_packet_content := (others => null);
+                  v_packet_type     := null;
+                  hwrite(v_packet_type, science_data_ctrl(0));
 
-                     for k in 0 to c_NB_COL-1 loop
-                        hwrite(v_packet_content(k), science_data(k));
-                        write(v_packet_content(k), ',');
+                  -- Reinitialize and get packet content
+                  v_packet_content := (others => null);
 
-                     end loop;
+                  for k in 0 to c_NB_COL-1 loop
+                     hwrite(v_packet_content(k), science_data(k));
+                     write(v_packet_content(k), ',');
 
-                     -- Check end of data control word was sent before acquiring a new packet
-                     if v_ctrl_last /= c_SC_CTRL_EOD then
-                        v_err_sc_pkt_eod  := '1';
-                     end if;
+                  end loop;
 
-                  -- ------------------------------------------------------------------------------------------------------
-                  --    Case data word
-                  -- ------------------------------------------------------------------------------------------------------
-                  when c_SC_CTRL_DTA_W       =>
+                  -- Check end of data control word was sent before acquiring a new packet
+                  if v_ctrl_last /= c_SC_CTRL_EOD then
+                     v_err_sc_pkt_eod  := '1';
+                  end if;
 
-                     -- Check start packet was sent before acquiring an another word
-                     v_err_sc_pkt_start := not(v_ctrl_first_pkt);
+               -- ------------------------------------------------------------------------------------------------------
+               --    Case data word
+               -- ------------------------------------------------------------------------------------------------------
+               when c_SC_CTRL_DTA_W       =>
 
-                  -- ------------------------------------------------------------------------------------------------------
-                  --    Case end of data packet
-                  -- ------------------------------------------------------------------------------------------------------
-                  when c_SC_CTRL_EOD         =>
+                  -- Check start packet was sent before acquiring an another word
+                  v_err_sc_pkt_start := not(v_ctrl_first_pkt);
 
-                     -- Check start packet was sent before acquiring an another word
-                     v_err_sc_pkt_start := not(v_ctrl_first_pkt);
+               -- ------------------------------------------------------------------------------------------------------
+               --    Case end of data packet
+               -- ------------------------------------------------------------------------------------------------------
+               when c_SC_CTRL_EOD         =>
 
-                     -- Check science packet size
-                     if v_packet_size /= v_packet_size_exp then
-                        v_err_sc_pkt_size := '1';
-                     end if;
+                  -- Check start packet was sent before acquiring an another word
+                  v_err_sc_pkt_start := not(v_ctrl_first_pkt);
 
-                     -- Science Data Result file writing
-                     fprintf(none, c_RES_FILE_DIV_BAR & c_RES_FILE_DIV_BAR & c_RES_FILE_DIV_BAR, scd_file);
-                     fprintf(none, "Packet header transmit time   : " & time'image(v_packet_tx_time)  , scd_file);
-                     fprintf(none, "Packet header                 : " & v_packet_type.all             , scd_file);
+                  -- Check science packet size
+                  if v_packet_size /= v_packet_size_exp then
+                     v_err_sc_pkt_size := '1';
+                  end if;
 
-                     if v_packet_dump = '1' then
-                        fprintf(none, "Packet size                   : " & integer'image(c_NB_COL*v_packet_size), scd_file);
-                        fprintf(none, "Packet dump content           : " & v_packet_content(0).all, scd_file);
+                  -- Science Data Result file writing
+                  fprintf(none, c_RES_FILE_DIV_BAR & c_RES_FILE_DIV_BAR & c_RES_FILE_DIV_BAR, scd_file);
+                  fprintf(none, "Packet header transmit time   : " & time'image(v_packet_tx_time)  , scd_file);
+                  fprintf(none, "Packet header                 : " & v_packet_type.all             , scd_file);
 
-                     else
-                        fprintf(none, "Packet size                   : " & integer'image(v_packet_size), scd_file);
+                  fprintf(none, "Packet size                   : " & integer'image(v_packet_size), scd_file);
 
-                        for k in 0 to c_NB_COL-1 loop
-                        fprintf(none, "Packet content column " & integer'image(k) & "       : " & v_packet_content(k).all, scd_file);
+                  for k in 0 to c_NB_COL-1 loop
+                  fprintf(none, "Packet content column " & integer'image(k) & "       : " & v_packet_content(k).all, scd_file);
 
-                        end loop;
+                  end loop;
 
-                     end if;
+                  -- Packet variables reinitialization
+                  v_ctrl_first_pkt := '0';
+                  v_packet_tx_time :=  0 ps;
+                  write(v_packet_type, 0);
+                  v_packet_dump    := '0';
+                  v_packet_size    :=  0;
+                  o_sc_pkt_type    <= (others => '0');
 
-                     -- Packet variables reinitialization
-                     v_ctrl_first_pkt := '0';
-                     v_packet_tx_time :=  0 ps;
-                     write(v_packet_type, 0);
-                     v_packet_dump    := '0';
-                     v_packet_size    :=  0;
-                     o_sc_pkt_type    <= (others => '0');
+               -- ------------------------------------------------------------------------------------------------------
+               --    Case control word unknown
+               -- ------------------------------------------------------------------------------------------------------
+               when others                =>
+                  v_err_sc_ctrl_ukn := '1';
 
-                  -- ------------------------------------------------------------------------------------------------------
-                  --    Case control word unknown
-                  -- ------------------------------------------------------------------------------------------------------
-                  when others                =>
-                     v_err_sc_ctrl_ukn := '1';
-
-               end case;
-            end if;
+            end case;
 
             -- Check science data
             if v_packet_dump = '1' then
                for k in 0 to c_NB_COL-1 loop
                   if science_data(k) /= std_logic_vector(resize(unsigned(mem_dump_sc_data_out(k)), c_SC_DATA_SER_NB*c_SC_DATA_SER_W_S)) then
-                     v_err_sc_data := '1';
+                     v_err_sc_data(k) := '1';
 
                   end if;
                end loop;
@@ -514,12 +434,12 @@ begin
                fprintf(error, "Science Data packet size not expected", scd_file);
             end if;
 
-            if v_err_sc_data = '1' then
-               o_sc_pkt_err <= '1';
-               fprintf(error, "Science Data packet content does not correspond to ADC input", scd_file);
-            end if;
-
             G_science_data_err : for k in 0 to c_NB_COL-1 loop
+
+               if v_err_sc_data(k) = '1' then
+                  o_sc_pkt_err <= '1';
+                  fprintf(error, "Science Data packet content, column " & integer'image(k) & ", does not correspond to ADC input", scd_file);
+               end if;
 
                if science_data_err(k) = '1' then
                   o_sc_pkt_err <= '1';

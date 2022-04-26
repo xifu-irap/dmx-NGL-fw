@@ -101,7 +101,7 @@ signal   d_clk                : std_logic                                       
 signal   d_clk_sq1_adc_acq    : std_logic                                                                   ; --! Internal design: SQUID1 ADC acquisition Clock
 signal   d_clk_sq1_pls_shape  : std_logic                                                                   ; --! Internal design: SQUID1 pulse shaping Clock
 
-signal   d_tm_mode            : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_TM_MODE_COL_S-1 downto 0)                 ; --! Internal design: Telemetry mode
+signal   d_tm_mode            : std_logic_vector(c_DFLD_TM_MODE_S-1 downto 0)                               ; --! Internal design: Telemetry mode
 
 signal   sc_pkt_type          : std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0)                              ; --! Science packet type
 signal   sc_pkt_err           : std_logic                                                                   ; --! Science packet error ('0' = No error, '1' = Error)
@@ -119,7 +119,7 @@ signal   sw_adc_vin           : std_logic_vector(c_SW_ADC_VIN_S-1 downto 0)     
 
 signal   adc_dmp_mem_add      : std_logic_vector(    c_MUX_FACT_S-1 downto 0)                               ; --! ADC Dump memory for data compare: address
 signal   adc_dmp_mem_data     : std_logic_vector(c_SQ1_ADC_DATA_S+1 downto 0)                               ; --! ADC Dump memory for data compare: data
-signal   adc_dmp_mem_cs       : std_logic                                                                   ; --! ADC Dump memory for data compare: chip select ('0' = Inactive, '1' = Active)
+signal   adc_dmp_mem_cs       : std_logic_vector(        c_NB_COL-1 downto 0)                               ; --! ADC Dump memory for data compare: chip select ('0' = Inactive, '1' = Active)
 
 begin
 
@@ -219,9 +219,9 @@ begin
    alias td_clk               : std_logic is <<signal .top_dmx_tb.I_top_dmx.clk              : std_logic>>  ; --! Internal design: System Clock
    alias td_clk_sq1_adc_acq   : std_logic is <<signal .top_dmx_tb.I_top_dmx.clk_sq1_adc_dac  : std_logic>>  ; --! Internal design: SQUID1 ADC acquisition Clock
    alias td_clk_sq1_pls_shape : std_logic is <<signal .top_dmx_tb.I_top_dmx.clk_sq1_adc_dac  : std_logic>>  ; --! Internal design: SQUID1 pulse shaping Clock
-   alias td_tm_mode           : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_TM_MODE_COL_S-1 downto 0) is
+   alias td_tm_mode           : std_logic_vector(c_DFLD_TM_MODE_S-1 downto 0) is
                                  <<signal .top_dmx_tb.I_top_dmx.tm_mode:
-                                   t_slv_arr(0 to c_NB_COL-1)(c_DFLD_TM_MODE_COL_S-1 downto 0)>>            ; --! Internal design: Telemetry mode
+                                   std_logic_vector(c_DFLD_TM_MODE_S-1 downto 0)>>                          ; --! Internal design: Telemetry mode
    begin
 
       d_rst                <= td_rst;
@@ -367,10 +367,7 @@ begin
 
          i_science_ctrl_01    => science_ctrl_01      , -- in     std_logic                                 ; --! Science Data: Control channel 0/1
          i_science_ctrl_23    => science_ctrl_23      , -- in     std_logic                                 ; --! Science Data: Control channel 2/3
-         i_c0_science_data    => science_data(0)      , -- in     slv(c_SC_DATA_SER_NB-1 downto 0)          ; --! Science Data, col. 0: Serial Data
-         i_c1_science_data    => science_data(1)      , -- in     slv(c_SC_DATA_SER_NB-1 downto 0)          ; --! Science Data, col. 1: Serial Data
-         i_c2_science_data    => science_data(2)      , -- in     slv(c_SC_DATA_SER_NB-1 downto 0)          ; --! Science Data, col. 2: Serial Data
-         i_c3_science_data    => science_data(3)      , -- in     slv(c_SC_DATA_SER_NB-1 downto 0)          ; --! Science Data, col. 3: Serial Data
+         i_science_data       => science_data         , -- in     t_slv_arr c_NB_COL c_SC_DATA_SER_NB       ; --! Science Data: Serial Data
 
          i_sync               => sync                 , -- in     std_logic                                 ; --! Pixel sequence synchronization (R.E. detected = position sequence to the first pixel)
          i_tm_mode            => d_tm_mode            , -- in     t_slv_arr c_NB_COL c_DFLD_TM_MODE_COL_S   ; --! Telemetry mode

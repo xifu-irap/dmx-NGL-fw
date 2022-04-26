@@ -38,8 +38,6 @@ entity register_mgt is port
    (     i_rst                : in     std_logic                                                            ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                : in     std_logic                                                            ; --! System Clock
 
-         i_tm_mode_sync       : in     std_logic                                                            ; --! Telemetry mode synchronization
-
          i_brd_ref_rs         : in     std_logic_vector(  c_BRD_REF_S-1 downto 0)                           ; --! Board reference, synchronized on System Clock
          i_brd_model_rs       : in     std_logic_vector(c_BRD_MODEL_S-1 downto 0)                           ; --! Board model, synchronized on System Clock
 
@@ -55,7 +53,9 @@ entity register_mgt is port
 
          o_ep_cmd_tx_wd_rd_rg : out    std_logic_vector(c_EP_SPI_WD_S-1 downto 0)                           ; --! EP command to transmit: read register word
 
-         o_tm_mode            : out    t_slv_arr(0 to c_NB_COL-1)(c_DFLD_TM_MODE_COL_S-1 downto 0)          ; --! Telemetry mode
+         i_tm_mode_dmp_tx_end : in     std_logic                                                            ; --! Telemetry mode, dump transmit end ('0' = Inactive, '1' = Active)
+         i_tm_mode_tst_tx_end : in     std_logic                                                            ; --! Telemetry mode, test pattern transmit end ('0' = Inactive, '1' = Active)
+         o_tm_mode            : out    std_logic_vector(c_DFLD_TM_MODE_S-1 downto 0)                        ; --! Telemetry mode
          o_tm_mode_dmp_cmp    : out    std_logic_vector(c_NB_COL-1 downto 0)                                ; --! Telemetry mode, status "Dump" compared ('0' = Inactive, '1' = Active)
 
          o_sq1_fb_mode        : out    t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SQ1FBMD_COL_S-1 downto 0)          ; --! Squid 1 Feedback mode (on/off)
@@ -93,10 +93,8 @@ signal   ep_cmd_rx_rw_r       : std_logic                                       
 signal   ep_cmd_rx_nerr_rdy_r : std_logic                                                                   ; --! EP command receipted with no error ready, registered ('0'= Not ready, '1'= Ready)
 signal   ep_cmd_sts_rg_r      : std_logic_vector(c_EP_SPI_WD_S-1 downto 0)                                  ; --! EP command: Status register, registered
 
-signal   tm_mode_dur          : std_logic_vector(c_DFLD_TM_MODE_DUR_S-1 downto 0)                           ; --! Telemetry mode, duration field
-signal   tm_mode              : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_TM_MODE_COL_S-1 downto 0)                 ; --! Telemetry mode
-signal   tm_mode_st_dump      : std_logic                                                                   ; --! Telemetry mode, status "Dump" ('0' = Inactive, '1' = Active)
-signal   tm_mode_dmp_cmp      : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! Telemetry mode, status "Dump" compared ('0' = Inactive, '1' = Active)
+signal   tm_mode_sav          : std_logic_vector(c_DFLD_TM_MODE_S-1 downto 0)                               ; --! Telemetry mode save previous mode
+signal   tm_mode_dmp_cmp      : std_logic                                                                   ; --! Telemetry mode, status "Dump" compared ('0' = Inactive, '1' = Active)
 
 signal   rg_sq1_fb_mode       : std_logic_vector(c_EP_SPI_WD_S-1 downto 0)                                  ; --! EP register: SQ1_FB_MODE
 signal   rg_sq2_fb_mode       : std_logic_vector(c_EP_SPI_WD_S-1 downto 0)                                  ; --! EP register: SQ2_FB_MODE
@@ -198,21 +196,47 @@ begin
    begin
 
       if i_rst = '1' then
-         rg_sq1_fb_mode       <= c_EP_CMD_DEF_SQ1FBMD;
-         rg_sq2_fb_mode       <= c_EP_CMD_DEF_SQ2FBMD;
+         o_tm_mode      <= c_DST_TM_MODE_IDLE;
+         tm_mode_sav    <= c_DST_TM_MODE_IDLE;
+
+         rg_sq1_fb_mode <= c_EP_CMD_DEF_SQ1FBMD;
+         rg_sq2_fb_mode <= c_EP_CMD_DEF_SQ2FBMD;
 
       elsif rising_edge(i_clk) then
+
+         -- @Req : DRE-DMX-FW-REQ-0580
+         -- @Req : REG_TM_MODE
+         if ep_cmd_rx_nerr_rdy_r = '1' and ep_cmd_rx_rw_r = c_EP_CMD_ADD_RW_W and cs_rg_r(c_EP_CMD_POS_TM_MODE) = '1' then
+            o_tm_mode <= ep_cmd_rx_wd_data_r(o_tm_mode'high downto 0);
+
+         elsif (o_tm_mode = c_DST_TM_MODE_TEST and i_tm_mode_tst_tx_end = '1') or (o_tm_mode = c_DST_TM_MODE_DUMP and i_tm_mode_dmp_tx_end = '1') then
+            o_tm_mode <= tm_mode_sav;
+
+         end if;
+
          if ep_cmd_rx_nerr_rdy_r = '1' and ep_cmd_rx_rw_r = c_EP_CMD_ADD_RW_W then
+
+            if cs_rg_r(c_EP_CMD_POS_TM_MODE) = '1' then
+               if ep_cmd_rx_wd_data_r(c_DFLD_TM_MODE_S-1 downto 0) = c_DST_TM_MODE_TEST or
+                 (ep_cmd_rx_wd_data_r(c_DFLD_TM_MODE_S-1 downto 0) = c_DST_TM_MODE_DUMP and o_tm_mode = c_DST_TM_MODE_TEST) then
+                  tm_mode_sav <= c_DST_TM_MODE_IDLE;
+
+               else
+                  tm_mode_sav <= o_tm_mode;
+
+               end if;
+
+            end if;
 
             -- @Req : REG_SQ1_FB_MODE
             if cs_rg_r(c_EP_CMD_POS_SQ1FBMD) = '1' then
-               rg_sq1_fb_mode       <= ep_cmd_rx_wd_data_r;
+               rg_sq1_fb_mode <= ep_cmd_rx_wd_data_r;
 
             end if;
 
             -- @Req : REG_SQ2_FB_MODE
             if cs_rg_r(c_EP_CMD_POS_SQ2FBMD) = '1' then
-               rg_sq2_fb_mode       <= ep_cmd_rx_wd_data_r;
+               rg_sq2_fb_mode <= ep_cmd_rx_wd_data_r;
 
             end if;
 
@@ -221,6 +245,8 @@ begin
       end if;
 
    end process P_ep_cmd_wr_rg;
+
+   tm_mode_dmp_cmp <= '1' when o_tm_mode = c_DST_TM_MODE_DUMP else '0';
 
    G_column_mgt : for k in 0 to c_NB_COL-1 generate
    begin
@@ -360,8 +386,7 @@ begin
          i_brd_ref_rs         => i_brd_ref_rs         , -- in     slv(  c_BRD_REF_S-1 downto 0)             ; --! Board reference, synchronized on System Clock
          i_brd_model_rs       => i_brd_model_rs       , -- in     slv(c_BRD_MODEL_S-1 downto 0)             ; --! Board model, synchronized on System Clock
 
-         i_tm_mode_dur        => tm_mode_dur          , -- in     slv(c_DFLD_TM_MODE_DUR_S-1 downto 0)      ; --! Telemetry mode, duration field
-         i_tm_mode            => tm_mode              , -- in     t_slv_arr c_NB_COL c_DFLD_TM_MODE_COL_S   ; --! Telemetry mode
+         i_tm_mode            => o_tm_mode            , -- in     slv(c_DFLD_TM_MODE_S-1 downto 0)          ; --! Telemetry mode
 
          i_rg_sq1_fb_mode     => rg_sq1_fb_mode       , -- in     slv(c_EP_SPI_WD_S-1 downto 0)             ; --! EP register: SQ1_FB_MODE
          i_rg_sq2_fb_mode     => rg_sq2_fb_mode       , -- in     slv(c_EP_SPI_WD_S-1 downto 0)             ; --! EP register: SQ2_FB_MODE
@@ -390,34 +415,13 @@ begin
    );
 
    -- ------------------------------------------------------------------------------------------------------
-   --!   EP command: TM_MODE Register writing management
-   --    @Req : DRE-DMX-FW-REQ-0580
-   --    @Req : REG_TM_MODE
-   -- ------------------------------------------------------------------------------------------------------
-   I_rg_tm_mode_mgt: entity work.rg_tm_mode_mgt port map
-   (     i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
-         i_clk                => i_clk                , -- in     std_logic                                 ; --! System Clock
-         i_tm_mode_sync       => i_tm_mode_sync       , -- in     std_logic                                 ; --! Telemetry mode synchronization
-         i_cs_rg_tm_mode      => cs_rg_r(c_EP_CMD_POS_TM_MODE),--in std_logic                                 ; --! Chip selects register TM_MODE
-         i_ep_cmd_rx_wd_data  => ep_cmd_rx_wd_data_r  , -- in     std_logic_vector(c_EP_SPI_WD_S-1 downto 0); --! EP command receipted: data word
-         i_ep_cmd_rx_rw       => ep_cmd_rx_rw_r       , -- in     std_logic                                 ; --! EP command receipted: read/write bit
-         i_ep_cmd_rx_nerr_rdy => ep_cmd_rx_nerr_rdy_r , -- in     std_logic                                 ; --! EP command receipted with no error ready ('0'= Not ready, '1'= Ready)
-         o_tm_mode_dur        => tm_mode_dur          , -- out    slv(c_DFLD_TM_MODE_DUR_S-1 downto 0)      ; --! Telemetry mode, duration field
-         o_tm_mode            => tm_mode              , -- out    t_slv_arr c_NB_COL c_DFLD_TM_MODE_COL_S   ; --! Telemetry mode
-         o_tm_mode_dmp_cmp    => tm_mode_dmp_cmp      , -- out    std_logic_vector(c_NB_COL-1 downto 0)     ; --! Telemetry mode, status "Dump" compared ('0' = Inactive, '1' = Active)
-         o_tm_mode_st_dump    => tm_mode_st_dump        -- out    std_logic                                   --! Telemetry mode, status "Dump" ('0' = Inactive, '1' = Active)
-   );
-
-   o_tm_mode      <= tm_mode;
-
-   -- ------------------------------------------------------------------------------------------------------
    --!   EP command: Status, error last SPI command discarded
    --    @Req : REG_EP_CMD_ERR_DIS
    -- ------------------------------------------------------------------------------------------------------
    I_sts_err_dis_mgt: entity work.sts_err_dis_mgt port map
    (     i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                => i_clk                , -- in     std_logic                                 ; --! System Clock
-         i_tm_mode_st_dump    => tm_mode_st_dump      , -- in     std_logic                                 ; --! Telemetry mode, status "Dump" ('0' = Inactive, '1' = Active)
+         i_tm_mode_dmp_cmp    => tm_mode_dmp_cmp      , -- in     std_logic                                 ; --! Telemetry mode, status "Dump" compared ('0' = Inactive, '1' = Active)
          i_ep_cmd_rx_add_norw => ep_cmd_rx_wd_add_r   , -- in     std_logic_vector(c_EP_SPI_WD_S-1 downto 0); --! EP command receipted: address word, read/write bit cleared
          i_ep_cmd_rx_rw       => ep_cmd_rx_rw_r       , -- in     std_logic                                 ; --! EP command receipted: read/write bit
          o_ep_cmd_sts_err_dis => o_ep_cmd_sts_err_dis   -- out    std_logic                                   --! EP command: Status, error last SPI command discarded
@@ -453,7 +457,7 @@ begin
       (  i_reset              => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clock              => i_clk                , -- in     std_logic                                 ; --! Clock
 
-         i_sig                => tm_mode_dmp_cmp(k)   , -- in     std_logic                                 ; --! Signal
+         i_sig                => tm_mode_dmp_cmp      , -- in     std_logic                                 ; --! Signal
          o_sig_r              => o_tm_mode_dmp_cmp(k)   -- out    std_logic                                   --! Signal registered
       );
 

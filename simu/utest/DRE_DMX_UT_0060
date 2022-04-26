@@ -29,925 +29,331 @@ COMM
 COMM ==============================================================================================
 COMM   Start TM_MODE register test
 COMM ----------------------------------------------------------------------------------------------
-WCMD R-TM_MODE-XXXX R   # Command 0
-WUDI sync 1
-WCMD W-TM_MODE-95XX R   # Command 1
+WCMD R-TM_MODE-XXXX W     # Command 0
+WCMD W-TM_MODE-0002 W     # Command 1
+WCMD R-TM_MODE-XXXX R     # Command 2
 COMM
 COMM ==============================================================================================
-COMM   Check TM_MODE content at start:
-COMM   Col(3)->Idle, Col(2)->Idle, Col(1)->Idle, Col(0)->Idle, Duration->0
+COMM   Check TM_MODE content at start: Idle
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-TM_MODE-5500 N   # Return Command 0
-WUDI sync 1
-WCMD R-TM_MODE-XXXX R   # Command 2
-COMM
-COMM ==============================================================================================
-COMM   Check no error after write TM_MODE command
-COMM ----------------------------------------------------------------------------------------------
-CCMD R-Status-0000 N    # Return Command 1
-WCMD W-TM_MODE-E502 R   # Command 3
-COMM
-COMM ==============================================================================================
-COMM   Check new TM_MODE content after sync signal activation:
-COMM   Col(3)->Normal, Col(2)->Idle, Col(1)->Idle, Col(0)->Idle, Duration->0
-COMM ----------------------------------------------------------------------------------------------
-CCMD R-TM_MODE-9500 N   # Return Command 2
-WUDI sync 1
-WCMD R-TM_MODE-XXXX R   # Command 4
+CCMD R-TM_MODE-0001 W     # Return Command 0
+WCMD W-TM_MODE-0003 R     # Command 3
 COMM
 COMM ==============================================================================================
 COMM   Check no error after write TM_MODE command
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-Status-0000 N    # Return Command 3
-WCMD R-TM_MODE-XXXX R   # Command 5
+CCMD R-Status-0000 W      # Return Command 1
+WCMD R-TM_MODE-XXXX R     # Command 4
 COMM
 COMM ==============================================================================================
-COMM   Check new TM_MODE content after sync signal activation:
-COMM   Col(3)->Test Pattern, Col(2)->Normal, Col(1)->Idle, Col(0)->Idle, Duration->2
+COMM   Check TM_MODE new content: Normal
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-TM_MODE-E502 N   # Return Command 4
-WUDI sync 1
-WCMD R-TM_MODE-XXXX R   # Command 6
+CCMD R-TM_MODE-0002 W     # Return Command 2
+WCMD R-Status-XXXX R
 COMM
 COMM ==============================================================================================
-COMM   Check TM_MODE duration decremented after new sync rising edge
+COMM   Check no error after write TM_MODE command
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-TM_MODE-E502 N   # Return Command 5
-WUDI sync 1
-WCMD R-TM_MODE-XXXX R   # Command 7
+CCMD R-Status-0000 W      # Return Command 3
+WCMD R-Status-XXXX R
 COMM
 COMM ==============================================================================================
-COMM   Check TM_MODE duration goes to 0 after new sync rising edge and
-COMM     TM_MODE Col(3) goes from Test Pattern to Idle mode
+COMM   Check TM_MODE new content: Test pattern
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-TM_MODE-E501 N   # Return Command 6
+CCMD R-TM_MODE-0003 N     # Return Command 4
+COMM
+COMM ==============================================================================================
+COMM   Wait end of test pattern mode
+COMM ----------------------------------------------------------------------------------------------
 WUDI sync 1
-WCMD W-TM_MODE-B9FF R   # Command 8
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WCMD R-TM_MODE-XXXX W     # Command 5
+WCMD W-TM_MODE-0000 W     # Command 6
+WCMD R-TM_MODE-XXXX R     # Command 7
+COMM
+COMM ==============================================================================================
+COMM   Check TM_MODE goes to Idle mode
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-TM_MODE-0001 W     # Return Command 5
+WCMD W-TM_MODE-0002 R     # Command 8
+COMM
+COMM ==============================================================================================
+COMM   Check no error after write TM_MODE command
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-Status-0000 W      # Return Command 6
+WCMD R-TM_MODE-XXXX R     # Command 9
+COMM
+COMM ==============================================================================================
+COMM   Check TM_MODE new content: Dump
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-TM_MODE-0000 W     # Return Command 7
+WCMD R-Status-XXXX R
+COMM
+COMM ==============================================================================================
+COMM   Check error Last command discarded appears
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-Status-0400 W      # Return Command 8
+WCMD R-Status-XXXX R
+COMM
+COMM ==============================================================================================
+COMM   Check TM_MODE stay to Dump mode
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-TM_MODE-0000 N     # Return Command 9
+COMM
+COMM ==============================================================================================
+COMM   Wait end of dump mode
+COMM   (c_DMP_SEQ_ACQ_NB * c_MUX_FACT * c_PIXEL_ADC_NB_CYC * c_SC_DATA_SER_W_S * c_CLK_REF_PER_DEF)
+COMM ----------------------------------------------------------------------------------------------
+WAIT 176 us
+WCMD R-TM_MODE-XXXX W     # Command 10
+WCMD W-TM_MODE-0003 W     # Command 11
+WCMD R-TM_MODE-XXXX R     # Command 12
+COMM
+COMM ==============================================================================================
+COMM   Check TM_MODE goes to Idle mode
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-TM_MODE-0001 W     # Return Command 10
+WCMD W-TM_MODE-0000 R     # Command 13
+COMM
+COMM ==============================================================================================
+COMM   Check no error after write TM_MODE command
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-Status-0000 W      # Return Command 11
+WCMD R-TM_MODE-XXXX R     # Command 14
+COMM
+COMM ==============================================================================================
+COMM   Check TM_MODE new content: Test Pattern
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-TM_MODE-0003 W     # Return Command 12
+WCMD R-Status-XXXX R
+COMM
+COMM ==============================================================================================
+COMM   Check no error after write TM_MODE command
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-Status-0000 W      # Return Command 13
+WCMD R-Status-XXXX R
+COMM
+COMM ==============================================================================================
+COMM   Check TM_MODE new content: Dump
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-TM_MODE-0000 N     # Return Command 14
+COMM
+COMM ==============================================================================================
+COMM   Wait end of dump mode
+COMM   (c_DMP_SEQ_ACQ_NB * c_MUX_FACT * c_PIXEL_ADC_NB_CYC * c_SC_DATA_SER_W_S * c_CLK_REF_PER_DEF)
+COMM ----------------------------------------------------------------------------------------------
+WAIT 176 us
+WCMD R-TM_MODE-XXXX W     # Command 15
+WCMD W-TM_MODE-0002 W     # Command 16
+WCMD R-TM_MODE-XXXX R     # Command 17
+COMM
+COMM ==============================================================================================
+COMM   Check TM_MODE goes to Idle mode
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-TM_MODE-0001 W     # Return Command 15
+WCMD W-TM_MODE-0000 R     # Command 18
+COMM
+COMM ==============================================================================================
+COMM   Check no error after write TM_MODE command
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-Status-0000 W      # Return Command 16
+WCMD R-TM_MODE-XXXX R     # Command 19
+COMM
+COMM ==============================================================================================
+COMM   Check TM_MODE new content: Normal
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-TM_MODE-0002 W     # Return Command 17
+WCMD R-Status-XXXX R
+COMM
+COMM ==============================================================================================
+COMM   Check no error after write TM_MODE command
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-Status-0000 W      # Return Command 18
+WCMD R-Status-XXXX R
+COMM
+COMM ==============================================================================================
+COMM   Check TM_MODE new content: Dump
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-TM_MODE-0000 N     # Return Command 19
+COMM
+COMM ==============================================================================================
+COMM   Wait end of dump mode
+COMM   (c_DMP_SEQ_ACQ_NB * c_MUX_FACT * c_PIXEL_ADC_NB_CYC * c_SC_DATA_SER_W_S * c_CLK_REF_PER_DEF)
+COMM ----------------------------------------------------------------------------------------------
+WAIT 176 us
+WCMD R-TM_MODE-XXXX W     # Command 20
+WCMD W-TM_MODE-XXX4 W     # Command 21
+WCMD R-TM_MODE-XXXX R     # Command 22
+COMM
+COMM ==============================================================================================
+COMM   Check TM_MODE goes back to Normal mode
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-TM_MODE-0002 W     # Return Command 20
+WCMD W-TM_MODE-XXX8 R     # Command 23
+COMM
+COMM ==============================================================================================
+COMM   Check error position SPI data out of range detected
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-Status-1000 W      # Return Command 21
+WCMD R-TM_MODE-XXXX R     # Command 24
 COMM
 COMM ==============================================================================================
 COMM   Check TM_MODE no change
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-TM_MODE-6500 N   # Return Command 7
-WUDI sync 1
-WCMD R-TM_MODE-XXXX R   # Command 9
+CCMD R-TM_MODE-0002 W     # Return Command 22
+WCMD W-TM_MODE-XX1X R     # Command 25
 COMM
 COMM ==============================================================================================
-COMM   Check no error after write TM_MODE command
+COMM   Check error position SPI data out of range detected
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-Status-0000 N    # Return Command 8
-WCMD R-TM_MODE-XXXX R   # Command 10
-COMM
-COMM ==============================================================================================
-COMM   Check new TM_MODE content after sync signal activation:
-COMM   Col(3)->Normal, Col(2)->Test Pattern, Col(1)->Normal, Col(0)->Idle, Duration->255
-COMM ----------------------------------------------------------------------------------------------
-CCMD R-TM_MODE-B9FF N   # Return Command 9
-WUDI sync 1
-WCMD R-TM_MODE-XXXX R   # Command 11
-COMM
-COMM ==============================================================================================
-COMM   Check TM_MODE duration decremented after new sync rising edge
-COMM ----------------------------------------------------------------------------------------------
-CCMD R-TM_MODE-B9FF N   # Return Command 10
-WUDI sync 1
-WCMD W-TM_MODE-AE00 R   # Command 12
-COMM
-COMM ==============================================================================================
-COMM   Check TM_MODE duration decremented after new sync rising edge
-COMM ----------------------------------------------------------------------------------------------
-CCMD R-TM_MODE-B9FE N   # Return Command 11
-WUDI sync 1
-WCMD R-TM_MODE-XXXX R   # Command 13
-COMM
-COMM ==============================================================================================
-COMM   Check no error after write TM_MODE command
-COMM ----------------------------------------------------------------------------------------------
-CCMD R-Status-0000 N    # Return Command 12
-WCMD R-TM_MODE-XXXX R   # Command 14
-COMM
-COMM ==============================================================================================
-COMM   Check new TM_MODE content after sync signal activation:
-COMM   Col(3)->Normal, Col(2)->Normal, Col(1)->Test Pattern, Col(0)->Normal, Duration->Infinity
-COMM ----------------------------------------------------------------------------------------------
-CCMD R-TM_MODE-AE00 N   # Return Command 13
-WUDI sync 1
-WCMD W-TM_MODE-6B00 R   # Command 15
+CCMD R-Status-1000 W      # Return Command 23
+WCMD R-TM_MODE-XXXX R     # Command 26
 COMM
 COMM ==============================================================================================
 COMM   Check TM_MODE no change
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-TM_MODE-AE00 N   # Return Command 14
-WUDI sync 1
-WCMD R-TM_MODE-XXXX R   # Command 16
+CCMD R-TM_MODE-0002 W     # Return Command 24
+WCMD W-TM_MODE-XX2X R     # Command 27
 COMM
 COMM ==============================================================================================
-COMM   Check no error after write TM_MODE command
+COMM   Check error position SPI data out of range detected
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-Status-0000 N    # Return Command 15
-WCMD W-TM_MODE-00XX R   # Command 17
+CCMD R-Status-1000 W      # Return Command 25
+WCMD R-TM_MODE-XXXX R     # Command 28
 COMM
 COMM ==============================================================================================
-COMM   Check new TM_MODE content after sync signal activation:
-COMM   Col(3)->Idle, Col(2)->Normal, Col(1)->Normal, Col(0)->Test Pattern, Duration->Infinity
+COMM   Check TM_MODE no change
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-TM_MODE-6B00 N   # Return Command 16
-WUDI sync 1
-WCMD R-TM_MODE-XXXX R   # Command 18
+CCMD R-TM_MODE-0002 W     # Return Command 26
+WCMD W-TM_MODE-XX4X R     # Command 29
 COMM
 COMM ==============================================================================================
-COMM   Check no error after write TM_MODE command
+COMM   Check error position SPI data out of range detected
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-Status-0000 N    # Return Command 17
-WCMD W-TM_MODE-XXXX R   # Command 19
+CCMD R-Status-1000 W      # Return Command 27
+WCMD R-TM_MODE-XXXX R     # Command 30
 COMM
 COMM ==============================================================================================
-COMM   Check "Dump" TM_MODE content after sync signal activation:
-COMM   Col(3)->Idle, Col(2)->Idle, Col(1)->Idle, Col(0)->Dump, Duration->8
+COMM   Check TM_MODE no change
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-TM_MODE-5408 N   # Return Command 18
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WCMD R-TM_MODE-XXXX R   # Command 20
+CCMD R-TM_MODE-0002 W     # Return Command 28
+WCMD W-TM_MODE-XX8X R     # Command 31
 COMM
 COMM ==============================================================================================
-COMM   Check error last SPI command discarded detected
-COMM    after write TM_MODE command during "Dump" mode
+COMM   Check error position SPI data out of range detected
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-Status-0400 N    # Return Command 19
-WCMD W-TM_MODE-XXXX R   # Command 21
+CCMD R-Status-1000 W      # Return Command 29
+WCMD R-TM_MODE-XXXX R     # Command 32
 COMM
 COMM ==============================================================================================
-COMM   Check "Dump" TM_MODE content after sync signal activation:
-COMM   Col(3)->Idle, Col(2)->Idle, Col(1)->Idle, Col(0)->Dump, Duration->1
+COMM   Check TM_MODE no change
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-TM_MODE-5401 N   # Return Command 20
-WUDI sync 1
-WCMD R-TM_MODE-XXXX R   # Command 22
+CCMD R-TM_MODE-0002 W     # Return Command 30
+WCMD W-TM_MODE-X1XX R     # Command 33
 COMM
 COMM ==============================================================================================
-COMM   Check error last SPI command discarded detected
-COMM    after write TM_MODE command during "Dump" mode
+COMM   Check error position SPI data out of range detected
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-Status-0400 N    # Return Command 21
-WCMD W-TM_MODE-XXXX R   # Command 23
+CCMD R-Status-1000 W      # Return Command 31
+WCMD R-TM_MODE-XXXX R     # Command 34
 COMM
 COMM ==============================================================================================
-COMM   Check "Dump" TM_MODE content after sync signal activation:
-COMM   Col(3)->Idle, Col(2)->Idle, Col(1)->Dump, Col(0)->Idle, Duration->8
+COMM   Check TM_MODE no change
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-TM_MODE-5108 N   # Return Command 22
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WCMD R-TM_MODE-XXXX R   # Command 24
+CCMD R-TM_MODE-0002 W     # Return Command 32
+WCMD W-TM_MODE-X2XX R     # Command 35
 COMM
 COMM ==============================================================================================
-COMM   Check error last SPI command discarded detected
-COMM    after write TM_MODE command during "Dump" mode
+COMM   Check error position SPI data out of range detected
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-Status-0400 N    # Return Command 23
-WCMD W-TM_MODE-XXXX R   # Command 25
+CCMD R-Status-1000 W      # Return Command 33
+WCMD R-TM_MODE-XXXX R     # Command 36
 COMM
 COMM ==============================================================================================
-COMM   Check "Dump" TM_MODE content after sync signal activation:
-COMM   Col(3)->Idle, Col(2)->Idle, Col(1)->Dump, Col(0)->Idle, Duration->1
+COMM   Check TM_MODE no change
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-TM_MODE-5101 N   # Return Command 24
-WUDI sync 1
-WCMD R-TM_MODE-XXXX R   # Command 26
+CCMD R-TM_MODE-0002 W     # Return Command 34
+WCMD W-TM_MODE-X4XX R     # Command 37
 COMM
 COMM ==============================================================================================
-COMM   Check error last SPI command discarded detected
-COMM    after write TM_MODE command during "Dump" mode
+COMM   Check error position SPI data out of range detected
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-Status-0400 N    # Return Command 25
-WCMD W-TM_MODE-XXXX R   # Command 27
+CCMD R-Status-1000 W      # Return Command 35
+WCMD R-TM_MODE-XXXX R     # Command 38
 COMM
 COMM ==============================================================================================
-COMM   Check "Dump" TM_MODE content after sync signal activation:
-COMM   Col(3)->Idle, Col(2)->Dump, Col(1)->Idle, Col(0)->Idle, Duration->8
+COMM   Check TM_MODE no change
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-TM_MODE-4508 N   # Return Command 26
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WCMD R-TM_MODE-XXXX R   # Command 28
+CCMD R-TM_MODE-0002 W     # Return Command 36
+WCMD W-TM_MODE-X8XX R     # Command 39
 COMM
 COMM ==============================================================================================
-COMM   Check error last SPI command discarded detected
-COMM    after write TM_MODE command during "Dump" mode
+COMM   Check error position SPI data out of range detected
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-Status-0400 N    # Return Command 27
-WCMD W-TM_MODE-XXXX R   # Command 29
+CCMD R-Status-1000 W      # Return Command 37
+WCMD R-TM_MODE-XXXX R     # Command 40
 COMM
 COMM ==============================================================================================
-COMM   Check "Dump" TM_MODE content after sync signal activation:
-COMM   Col(3)->Idle, Col(2)->Dump, Col(1)->Idle, Col(0)->Idle, Duration->1
+COMM   Check TM_MODE no change
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-TM_MODE-4501 N   # Return Command 28
-WUDI sync 1
-WCMD R-TM_MODE-XXXX R   # Command 30
+CCMD R-TM_MODE-0002 W     # Return Command 38
+WCMD W-TM_MODE-1XXX R     # Command 41
 COMM
 COMM ==============================================================================================
-COMM   Check error last SPI command discarded detected
-COMM    after write TM_MODE command during "Dump" mode
+COMM   Check error position SPI data out of range detected
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-Status-0400 N    # Return Command 29
-WCMD W-TM_MODE-XXXX R   # Command 31
+CCMD R-Status-1000 W      # Return Command 39
+WCMD R-TM_MODE-XXXX R     # Command 42
 COMM
 COMM ==============================================================================================
-COMM   Check "Dump" TM_MODE content after sync signal activation:
-COMM   Col(3)->Dump, Col(2)->Idle, Col(1)->Idle, Col(0)->Idle, Duration->8
+COMM   Check TM_MODE no change
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-TM_MODE-1508 N   # Return Command 30
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WCMD R-TM_MODE-XXXX R   # Command 32
+CCMD R-TM_MODE-0002 W     # Return Command 40
+WCMD W-TM_MODE-2XXX R     # Command 43
 COMM
 COMM ==============================================================================================
-COMM   Check error last SPI command discarded detected
-COMM    after write TM_MODE command during "Dump" mode
+COMM   Check error position SPI data out of range detected
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-Status-0400 N    # Return Command 31
-WCMD W-TM_MODE-XXXX R   # Command 33
+CCMD R-Status-1000 W      # Return Command 41
+WCMD R-TM_MODE-XXXX R     # Command 44
 COMM
 COMM ==============================================================================================
-COMM   Check "Dump" TM_MODE content after sync signal activation:
-COMM   Col(3)->Dump, Col(2)->Idle, Col(1)->Idle, Col(0)->Idle, Duration->1
+COMM   Check TM_MODE no change
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-TM_MODE-1501 N   # Return Command 32
-WUDI sync 1
-WCMD R-TM_MODE-XXXX R   # Command 34
+CCMD R-TM_MODE-0002 W     # Return Command 42
+WCMD W-TM_MODE-4XXX R     # Command 45
 COMM
 COMM ==============================================================================================
-COMM   Check error last SPI command discarded detected
-COMM    after write TM_MODE command during "Dump" mode
+COMM   Check error position SPI data out of range detected
 COMM ----------------------------------------------------------------------------------------------
-COMM CCMD R-Status-0400 N    # Return Command 33
-WCMD W-TM_MODE-E5FF R   # Command 35
+CCMD R-Status-1000 W      # Return Command 43
+WCMD R-TM_MODE-XXXX R     # Command 46
 COMM
 COMM ==============================================================================================
-COMM   Check TM_MODE content goes back to previous modes after sync signal activation,
-COMM   Check Col(0) goes back to Idle (previously "Test pattern" mode)
-COMM   Col(3)->Idle, Col(2)->Normal, Col(1)->Normal, Col(0)->Idle, Duration->Infinity
+COMM   Check TM_MODE no change
 COMM ----------------------------------------------------------------------------------------------
-COMM CCMD R-TM_MODE-6900 N   # Return Command 34
-WUDI sync 1
-WCMD W-TM_MODE-08XX R   # Command 36
+CCMD R-TM_MODE-0002 W     # Return Command 44
+WCMD W-TM_MODE-8XXX R     # Command 47
 COMM
 COMM ==============================================================================================
-COMM   Check no error after write TM_MODE command
+COMM   Check error position SPI data out of range detected
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-Status-0000 N    # Return Command 35
-WUDI sync 1
-WCMD R-TM_MODE-XXXX R   # Command 37
+CCMD R-Status-1000 W      # Return Command 45
+WCMD R-Status-XXXX R
 COMM
 COMM ==============================================================================================
-COMM   Check no error after write TM_MODE command
+COMM   Check TM_MODE no change
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-Status-0000 N    # Return Command 36
-WCMD W-TM_MODE-XXXX R   # Command 38
+CCMD R-TM_MODE-0002 W     # Return Command 46
+WCMD R-Status-XXXX R
 COMM
 COMM ==============================================================================================
-COMM   Check "Dump" TM_MODE content after sync signal activation:
-COMM   Col(3)->Idle, Col(2)->Idle, Col(1)->Idle, Col(0)->Dump, Duration->8
+COMM   Check error position SPI data out of range detected
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-TM_MODE-5408 N   # Return Command 37
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WCMD R-TM_MODE-XXXX R   # Command 39
-COMM
-COMM ==============================================================================================
-COMM   Check error last SPI command discarded detected
-COMM    after write TM_MODE command during "Dump" mode
-COMM ----------------------------------------------------------------------------------------------
-CCMD R-Status-0400 N    # Return Command 38
-WCMD W-TM_MODE-XXXX R   # Command 40
-COMM
-COMM ==============================================================================================
-COMM   Check "Dump" TM_MODE content after sync signal activation:
-COMM   Col(3)->Idle, Col(2)->Idle, Col(1)->Idle, Col(0)->Dump, Duration->1
-COMM ----------------------------------------------------------------------------------------------
-CCMD R-TM_MODE-5401 N   # Return Command 39
-WUDI sync 1
-WCMD R-TM_MODE-XXXX R   # Command 41
-COMM
-COMM ==============================================================================================
-COMM   Check error last SPI command discarded detected
-COMM    after write TM_MODE command during "Dump" mode
-COMM ----------------------------------------------------------------------------------------------
-CCMD R-Status-0400 N    # Return Command 40
-WCMD W-TM_MODE-XXXX R   # Command 42
-COMM
-COMM ==============================================================================================
-COMM   Check "Dump" TM_MODE content after sync signal activation:
-COMM   Col(3)->Idle, Col(2)->Dump, Col(1)->Idle, Col(0)->Idle, Duration->8
-COMM ----------------------------------------------------------------------------------------------
-CCMD R-TM_MODE-4508 N   # Return Command 41
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WCMD R-TM_MODE-XXXX R   # Command 43
-COMM
-COMM ==============================================================================================
-COMM   Check error last SPI command discarded detected
-COMM    after write TM_MODE command during "Dump" mode
-COMM ----------------------------------------------------------------------------------------------
-CCMD R-Status-0400 N    # Return Command 42
-WCMD W-TM_MODE-XXXX R   # Command 44
-COMM
-COMM ==============================================================================================
-COMM   Check "Dump" TM_MODE content after sync signal activation:
-COMM   Col(3)->Idle, Col(2)->Dump, Col(1)->Idle, Col(0)->Idle, Duration->1
-COMM ----------------------------------------------------------------------------------------------
-CCMD R-TM_MODE-4501 N   # Return Command 43
-WUDI sync 1
-WCMD R-TM_MODE-XXXX R   # Command 45
-COMM
-COMM ==============================================================================================
-COMM   Check error last SPI command discarded detected
-COMM    after write TM_MODE command during "Dump" mode
-COMM ----------------------------------------------------------------------------------------------
-CCMD R-Status-0400 N    # Return Command 44
-WCMD W-TM_MODE-XXXX R   # Command 46
-COMM
-COMM ==============================================================================================
-COMM   Check "Dump" TM_MODE content after sync signal activation:
-COMM   Col(3)->Dump, Col(2)->Idle, Col(1)->Idle, Col(0)->Idle, Duration->8
-COMM ----------------------------------------------------------------------------------------------
-CCMD R-TM_MODE-1508 N   # Return Command 45
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WCMD R-TM_MODE-XXXX R   # Command 47
-COMM
-COMM ==============================================================================================
-COMM   Check error last SPI command discarded detected
-COMM    after write TM_MODE command during "Dump" mode
-COMM ----------------------------------------------------------------------------------------------
-CCMD R-Status-0400 N    # Return Command 46
-WCMD W-TM_MODE-XXXX R   # Command 48
-COMM
-COMM ==============================================================================================
-COMM   Check "Dump" TM_MODE content after sync signal activation:
-COMM   Col(3)->Dump, Col(2)->Idle, Col(1)->Idle, Col(0)->Idle, Duration->1
-COMM ----------------------------------------------------------------------------------------------
-CCMD R-TM_MODE-1501 N   # Return Command 47
-WUDI sync 1
-WCMD R-TM_MODE-XXXX R   # Command 49
-COMM
-COMM ==============================================================================================
-COMM   Check error last SPI command discarded detected
-COMM    after write TM_MODE command during "Dump" mode
-COMM ----------------------------------------------------------------------------------------------
-CCMD R-Status-0400 N    # Return Command 48
-WCMD W-TM_MODE-3203 R   # Command 50
-COMM
-COMM ==============================================================================================
-COMM   Check TM_MODE content after sync signal activation,
-COMM   Check Col(0) goes back to previous mode: Idle
-COMM   Check Col(1) goes to requested mode: Normal
-COMM   Check Col(2) goes back to previous mode: Normal
-COMM   Check Col(3) goes to Idle (previously "Test pattern" mode)
-COMM   Check Duration goes to infinity (no "Test pattern" mode in the last receipted command)
-COMM ----------------------------------------------------------------------------------------------
-CCMD R-TM_MODE-6900 N   # Return Command 49
-WUDI sync 1
-WCMD R-TM_MODE-XXXX R   # Command 51
-COMM
-COMM ==============================================================================================
-COMM   Check no error after write TM_MODE command
-COMM ----------------------------------------------------------------------------------------------
-CCMD R-Status-0000 N    # Return Command 50
-WCMD W-TM_MODE-XXXX R   # Command 52
-COMM
-COMM ==============================================================================================
-COMM   Check "Dump" TM_MODE content after sync signal activation:
-COMM   Col(3)->Idle, Col(2)->Idle, Col(1)->Dump, Col(0)->Idle, Duration->8
-COMM ----------------------------------------------------------------------------------------------
-CCMD R-TM_MODE-5108 N   # Return Command 51
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WCMD R-TM_MODE-XXXX R   # Command 53
-COMM
-COMM ==============================================================================================
-COMM   Check error last SPI command discarded detected
-COMM    after write TM_MODE command during "Dump" mode
-COMM ----------------------------------------------------------------------------------------------
-CCMD R-Status-0400 N    # Return Command 52
-WCMD W-TM_MODE-XXXX R   # Command 54
-COMM
-COMM ==============================================================================================
-COMM   Check "Dump" TM_MODE content after sync signal activation:
-COMM   Col(3)->Idle, Col(2)->Idle, Col(1)->Dump, Col(0)->Idle, Duration->1
-COMM ----------------------------------------------------------------------------------------------
-CCMD R-TM_MODE-5101 N   # Return Command 53
-WUDI sync 1
-WCMD R-TM_MODE-XXXX R   # Command 55
-COMM
-COMM ==============================================================================================
-COMM   Check error last SPI command discarded detected
-COMM    after write TM_MODE command during "Dump" mode
-COMM ----------------------------------------------------------------------------------------------
-CCMD R-Status-0400 N    # Return Command 54
-WCMD W-TM_MODE-XXXX R   # Command 56
-COMM
-COMM ==============================================================================================
-COMM   Check "Dump" TM_MODE content after sync signal activation:
-COMM   Col(3)->Dump, Col(2)->Idle, Col(1)->Idle, Col(0)->Idle, Duration->8
-COMM ----------------------------------------------------------------------------------------------
-CCMD R-TM_MODE-1508 N   # Return Command 55
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WCMD R-TM_MODE-XXXX R   # Command 57
-COMM
-COMM ==============================================================================================
-COMM   Check error last SPI command discarded detected
-COMM    after write TM_MODE command during "Dump" mode
-COMM ----------------------------------------------------------------------------------------------
-CCMD R-Status-0400 N    # Return Command 56
-WCMD W-TM_MODE-XXXX R   # Command 58
-COMM
-COMM ==============================================================================================
-COMM   Check "Dump" TM_MODE content after sync signal activation:
-COMM   Col(3)->Dump, Col(2)->Idle, Col(1)->Idle, Col(0)->Idle, Duration->1
-COMM ----------------------------------------------------------------------------------------------
-CCMD R-TM_MODE-1501 N   # Return Command 57
-WUDI sync 1
-WCMD R-TM_MODE-XXXX R   # Command 59
-COMM
-COMM ==============================================================================================
-COMM   Check error last SPI command discarded detected
-COMM    after write TM_MODE command during "Dump" mode
-COMM ----------------------------------------------------------------------------------------------
-CCMD R-Status-0400 N    # Return Command 58
-WCMD R-TM_MODE-XXXX R   # Command 60
-COMM
-COMM ==============================================================================================
-COMM   Check TM_MODE content after sync signal activation,
-COMM   Check Col(0) goes to requested mode: Normal
-COMM   Check Col(1) goes back to previous mode: Normal
-COMM   Check Col(2) goes to requested mode: Test pattern
-COMM   Check Col(3) goes back to previous mode: Idle
-COMM   Check Duration goes to requested duration: 3
-COMM ----------------------------------------------------------------------------------------------
-CCMD R-TM_MODE-7A03 N   # Return Command 59
-WUDI sync 1
-WCMD R-TM_MODE-XXXX R   # Command 61
-COMM
-COMM ==============================================================================================
-COMM   Check TM_MODE duration decremented after new sync rising edge
-COMM ----------------------------------------------------------------------------------------------
-CCMD R-TM_MODE-7A03 N   # Return Command 60
-WUDI sync 1
-WCMD R-TM_MODE-XXXX R   # Command 62
-COMM
-COMM ==============================================================================================
-COMM   Check TM_MODE duration decremented after new sync rising edge
-COMM ----------------------------------------------------------------------------------------------
-CCMD R-TM_MODE-7A02 N   # Return Command 61
-WUDI sync 1
-WCMD W-TM_MODE-09XX R   # Command 63
-COMM
-COMM ==============================================================================================
-COMM   Check TM_MODE duration goes to 0 after new sync rising edge and
-COMM     TM_MODE Col(2) goes from Test Pattern to Idle mode
-COMM ----------------------------------------------------------------------------------------------
-CCMD R-TM_MODE-7A01 N   # Return Command 62
-WUDI sync 1
-WCMD R-TM_MODE-XXXX R   # Command 64
-COMM
-COMM ==============================================================================================
-COMM   Check no error after write TM_MODE command
-COMM ----------------------------------------------------------------------------------------------
-CCMD R-Status-0000 N    # Return Command 63
-WCMD W-TM_MODE-XXXX R   # Command 65
-COMM
-COMM ==============================================================================================
-COMM   Check "Dump" TM_MODE content after sync signal activation:
-COMM   Col(3)->Idle, Col(2)->Dump, Col(1)->Idle, Col(0)->Idle, Duration->8
-COMM ----------------------------------------------------------------------------------------------
-CCMD R-TM_MODE-4508 N   # Return Command 64
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WCMD R-TM_MODE-XXXX R   # Command 66
-COMM
-COMM ==============================================================================================
-COMM   Check error last SPI command discarded detected
-COMM    after write TM_MODE command during "Dump" mode
-COMM ----------------------------------------------------------------------------------------------
-CCMD R-Status-0400 N    # Return Command 65
-WCMD W-TM_MODE-XXXX R   # Command 67
-COMM
-COMM ==============================================================================================
-COMM   Check "Dump" TM_MODE content after sync signal activation:
-COMM   Col(3)->Idle, Col(2)->Dump, Col(1)->Idle, Col(0)->Idle, Duration->1
-COMM ----------------------------------------------------------------------------------------------
-CCMD R-TM_MODE-4501 N   # Return Command 66
-WUDI sync 1
-WCMD R-TM_MODE-XXXX R   # Command 68
-COMM
-COMM ==============================================================================================
-COMM   Check error last SPI command discarded detected
-COMM    after write TM_MODE command during "Dump" mode
-COMM ----------------------------------------------------------------------------------------------
-CCMD R-Status-0400 N    # Return Command 67
-WCMD W-TM_MODE-XXXX R   # Command 69
-COMM
-COMM ==============================================================================================
-COMM   Check "Dump" TM_MODE content after sync signal activation:
-COMM   Col(3)->Dump, Col(2)->Idle, Col(1)->Idle, Col(0)->Idle, Duration->8
-COMM ----------------------------------------------------------------------------------------------
-CCMD R-TM_MODE-1508 N   # Return Command 68
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WCMD R-TM_MODE-XXXX R   # Command 70
-COMM
-COMM ==============================================================================================
-COMM   Check error last SPI command discarded detected
-COMM    after write TM_MODE command during "Dump" mode
-COMM ----------------------------------------------------------------------------------------------
-CCMD R-Status-0400 N    # Return Command 69
-WCMD W-TM_MODE-XXXX R   # Command 71
-COMM
-COMM ==============================================================================================
-COMM   Check "Dump" TM_MODE content after sync signal activation:
-COMM   Col(3)->Dump, Col(2)->Idle, Col(1)->Idle, Col(0)->Idle, Duration->1
-COMM ----------------------------------------------------------------------------------------------
-CCMD R-TM_MODE-1501 N   # Return Command 70
-WUDI sync 1
-WCMD R-TM_MODE-XXXX R   # Command 72
-COMM
-COMM ==============================================================================================
-COMM   Check error last SPI command discarded detected
-COMM    after write TM_MODE command during "Dump" mode
-COMM ----------------------------------------------------------------------------------------------
-CCMD R-Status-0400 N    # Return Command 71
-WCMD W-TM_MODE-E400 R   # Command 73
-COMM
-COMM ==============================================================================================
-COMM   Check TM_MODE content after sync signal activation,
-COMM   Check Col(0) goes to requested mode: Idle
-COMM   Check Col(1) goes to requested mode: Normal
-COMM   Check Col(2) goes back to previous mode: Idle
-COMM   Check Col(3) goes back to previous mode: Idle
-COMM   Check Duration goes to infinity (no "Test pattern" mode in the last receipted command)
-COMM ----------------------------------------------------------------------------------------------
-CCMD R-TM_MODE-5900 N   # Return Command 72
-WUDI sync 1
-WCMD R-TM_MODE-XXXX R   # Command 74
-COMM
-COMM ==============================================================================================
-COMM   Check no error after write TM_MODE command
-COMM ----------------------------------------------------------------------------------------------
-CCMD R-Status-0000 N    # Return Command 73
-WCMD W-TM_MODE-XXXX R   # Command 75
-COMM
-COMM ==============================================================================================
-COMM   Check "Dump" TM_MODE content after sync signal activation:
-COMM   Col(3)->Idle, Col(2)->Idle, Col(1)->Idle, Col(0)->Dump, Duration->8
-COMM ----------------------------------------------------------------------------------------------
-CCMD R-TM_MODE-5408 N   # Return Command 74
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WCMD R-TM_MODE-XXXX R   # Command 76
-COMM
-COMM ==============================================================================================
-COMM   Check error last SPI command discarded detected
-COMM    after write TM_MODE command during "Dump" mode
-COMM ----------------------------------------------------------------------------------------------
-CCMD R-Status-0400 N    # Return Command 75
-WCMD W-TM_MODE-XXXX R   # Command 77
-COMM
-COMM ==============================================================================================
-COMM   Check "Dump" TM_MODE content after sync signal activation:
-COMM   Col(3)->Idle, Col(2)->Idle, Col(1)->Idle, Col(0)->Dump, Duration->1
-COMM ----------------------------------------------------------------------------------------------
-CCMD R-TM_MODE-5401 N   # Return Command 76
-WUDI sync 1
-WCMD R-TM_MODE-XXXX R   # Command 78
-COMM
-COMM ==============================================================================================
-COMM   Check error last SPI command discarded detected
-COMM    after write TM_MODE command during "Dump" mode
-COMM ----------------------------------------------------------------------------------------------
-CCMD R-Status-0400 N    # Return Command 77
-WCMD W-TM_MODE-B105 R   # Command 79
-COMM
-COMM ==============================================================================================
-COMM   Check TM_MODE content after sync signal activation,
-COMM   Check Col(0) goes back to previous mode: Idle
-COMM   Check Col(1) goes to requested mode: Idle
-COMM   Check Col(2) goes to requested mode: Normal
-COMM   Check Col(3) goes to requested mode: Test pattern
-COMM   Check Duration goes to requested duration: infinity
-COMM ----------------------------------------------------------------------------------------------
-CCMD R-TM_MODE-E500 N   # Return Command 78
-WUDI sync 1
-WCMD R-TM_MODE-XXXX R   # Command 80
-COMM
-COMM ==============================================================================================
-COMM   Check no error after write TM_MODE command
-COMM ----------------------------------------------------------------------------------------------
-CCMD R-Status-0000 N    # Return Command 79
-WCMD W-TM_MODE-XXXX R   # Command 81
-COMM
-COMM ==============================================================================================
-COMM   Check "Dump" TM_MODE content after sync signal activation:
-COMM   Col(3)->Idle, Col(2)->Idle, Col(1)->Dump, Col(0)->Idle, Duration->8
-COMM ----------------------------------------------------------------------------------------------
-CCMD R-TM_MODE-5108 N   # Return Command 80
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WCMD R-TM_MODE-XXXX R   # Command 82
-COMM
-COMM ==============================================================================================
-COMM   Check error last SPI command discarded detected
-COMM    after write TM_MODE command during "Dump" mode
-COMM ----------------------------------------------------------------------------------------------
-CCMD R-Status-0400 N    # Return Command 81
-WCMD W-TM_MODE-XXXX R   # Command 83
-COMM
-COMM ==============================================================================================
-COMM   Check "Dump" TM_MODE content after sync signal activation:
-COMM   Col(3)->Idle, Col(2)->Idle, Col(1)->Dump, Col(0)->Idle, Duration->1
-COMM ----------------------------------------------------------------------------------------------
-CCMD R-TM_MODE-5101 N   # Return Command 82
-WUDI sync 1
-WCMD R-TM_MODE-XXXX R   # Command 84
-COMM
-COMM ==============================================================================================
-COMM   Check error last SPI command discarded detected
-COMM    after write TM_MODE command during "Dump" mode
-COMM ----------------------------------------------------------------------------------------------
-CCMD R-Status-0400 N    # Return Command 83
-WCMD W-TM_MODE-C900 R   # Command 85
-COMM
-COMM ==============================================================================================
-COMM   Check TM_MODE content after sync signal activation,
-COMM   Check Col(0) goes to requested mode: Idle
-COMM   Check Col(1) goes back to previous mode: Idle
-COMM   Check Col(2) goes to requested mode: Test pattern
-COMM   Check Col(3) goes to requested mode: Normal
-COMM   Check Duration goes to requested duration: 5
-COMM ----------------------------------------------------------------------------------------------
-CCMD R-TM_MODE-B505 N   # Return Command 84
-WUDI sync 1
-WCMD R-TM_MODE-XXXX R   # Command 86
-COMM
-COMM ==============================================================================================
-COMM   Check no error after write TM_MODE command
-COMM ----------------------------------------------------------------------------------------------
-CCMD R-Status-0000 N    # Return Command 85
-WCMD W-TM_MODE-XXXX R   # Command 87
-COMM
-COMM ==============================================================================================
-COMM   Check "Dump" TM_MODE content after sync signal activation:
-COMM   Col(3)->Idle, Col(2)->Dump, Col(1)->Idle, Col(0)->Idle, Duration->8
-COMM ----------------------------------------------------------------------------------------------
-CCMD R-TM_MODE-4508 N   # Return Command 86
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WCMD R-TM_MODE-XXXX R   # Command 88
-COMM
-COMM ==============================================================================================
-COMM   Check error last SPI command discarded detected
-COMM    after write TM_MODE command during "Dump" mode
-COMM ----------------------------------------------------------------------------------------------
-CCMD R-Status-0400 N    # Return Command 87
-WCMD W-TM_MODE-XXXX R   # Command 89
-COMM
-COMM ==============================================================================================
-COMM   Check "Dump" TM_MODE content after sync signal activation:
-COMM   Col(3)->Idle, Col(2)->Dump, Col(1)->Idle, Col(0)->Idle, Duration->1
-COMM ----------------------------------------------------------------------------------------------
-CCMD R-TM_MODE-4501 N   # Return Command 88
-WUDI sync 1
-WCMD R-TM_MODE-XXXX R   # Command 90
-COMM
-COMM ==============================================================================================
-COMM   Check error last SPI command discarded detected
-COMM    after write TM_MODE command during "Dump" mode
-COMM ----------------------------------------------------------------------------------------------
-CCMD R-Status-0400 N    # Return Command 89
-WCMD W-TM_MODE-2AFF R   # Command 91
-COMM
-COMM ==============================================================================================
-COMM   Check TM_MODE content after sync signal activation,
-COMM   Check Col(0) goes to requested mode: Idle
-COMM   Check Col(1) goes to requested mode: Normal
-COMM   Check Col(2) goes to Idle (previously "Test pattern" mode)
-COMM   Check Col(3) goes to requested mode: Test pattern
-COMM   Check Duration goes to requested duration: infinity
-COMM ----------------------------------------------------------------------------------------------
-CCMD R-TM_MODE-D900 N   # Return Command 90
-WUDI sync 1
-WCMD R-TM_MODE-XXXX R   # Command 92
-COMM
-COMM ==============================================================================================
-COMM   Check no error after write TM_MODE command
-COMM ----------------------------------------------------------------------------------------------
-CCMD R-Status-0000 N    # Return Command 91
-WCMD W-TM_MODE-XXXX R   # Command 93
-COMM
-COMM ==============================================================================================
-COMM   Check "Dump" TM_MODE content after sync signal activation:
-COMM   Col(3)->Dump, Col(2)->Idle, Col(1)->Idle, Col(0)->Idle, Duration->8
-COMM ----------------------------------------------------------------------------------------------
-CCMD R-TM_MODE-1508 N   # Return Command 92
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WCMD R-TM_MODE-XXXX R   # Command 94
-COMM
-COMM ==============================================================================================
-COMM   Check error last SPI command discarded detected
-COMM    after write TM_MODE command during "Dump" mode
-COMM ----------------------------------------------------------------------------------------------
-CCMD R-Status-0400 N    # Return Command 93
-WCMD W-TM_MODE-XXXX R   # Command 95
-COMM
-COMM ==============================================================================================
-COMM   Check "Dump" TM_MODE content after sync signal activation:
-COMM   Col(3)->Dump, Col(2)->Idle, Col(1)->Idle, Col(0)->Idle, Duration->1
-COMM ----------------------------------------------------------------------------------------------
-CCMD R-TM_MODE-1501 N   # Return Command 94
-WUDI sync 1
-WCMD R-TM_MODE-XXXX R   # Command 96
-COMM
-COMM ==============================================================================================
-COMM   Check error last SPI command discarded detected
-COMM    after write TM_MODE command during "Dump" mode
-COMM ----------------------------------------------------------------------------------------------
-CCMD R-Status-0400 N    # Return Command 95
-WCMD R-TM_MODE-XXXX R   # Command 97
-COMM
-COMM ==============================================================================================
-COMM   Check TM_MODE content after sync signal activation,
-COMM   Check Col(0) goes to requested mode: Normal
-COMM   Check Col(1) goes to requested mode: Normal
-COMM   Check Col(2) goes to requested mode: Normal
-COMM   Check Col(3) goes to Idle (previously "Test pattern" mode)
-COMM   Check Duration goes to infinity (no "Test pattern" mode in the last receipted command)
-COMM ----------------------------------------------------------------------------------------------
-CCMD R-TM_MODE-6A00 N   # Return Command 96
+CCMD R-Status-1000 N      # Return Command 47

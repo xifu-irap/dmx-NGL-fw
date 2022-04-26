@@ -113,7 +113,6 @@ signal   cmd_ck_s1_dac_ena    : std_logic_vector(c_NB_COL-1 downto 0)           
 signal   cmd_ck_s1_dac_dis    : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! SQUID1 DAC Clocks switch commands disable ('0' = Inactive, '1' = Active)
 
 signal   sq1_mem_dump_add     : std_logic_vector( c_MEM_DUMP_ADD_S-1 downto 0)                              ; --! SQUID1 Memory Dump: address
-signal   sq1_mem_dump_cs      : std_logic                                                                   ; --! SQUID1 Memory Dump: chip select ('0' = Inactive, '1' = Active)
 signal   sq1_mem_dump_data    : t_slv_arr(0 to c_NB_COL-1)(c_SQ1_ADC_DATA_S+1 downto 0)                     ; --! SQUID1 Memory Dump: data
 signal   sq1_mem_dump_bsy     : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! SQUID1 Memory Dump: data busy ('0' = no data dump, '1' = data dump in progress)
 
@@ -149,9 +148,9 @@ signal   ep_cmd_rx_nerr_rdy   : std_logic                                       
 
 signal   ep_cmd_tx_wd_rd_rg   : std_logic_vector(c_EP_SPI_WD_S-1 downto 0)                                  ; --! EP command to transmit: read register word
 
-signal   tm_mode_sync         : std_logic                                                                   ; --! Telemetry mode synchronization
-
-signal   tm_mode              : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_TM_MODE_COL_S-1 downto 0)                 ; --! Telemetry mode
+signal   tm_mode_dmp_tx_end   : std_logic                                                                   ; --! Telemetry mode, dump transmit end ('0' = Inactive, '1' = Active)
+signal   tm_mode_tst_tx_end   : std_logic                                                                   ; --! Telemetry mode, test pattern transmit end ('0' = Inactive, '1' = Active)
+signal   tm_mode              : std_logic_vector(c_DFLD_TM_MODE_S-1 downto 0)                               ; --! Telemetry mode
 signal   tm_mode_dmp_cmp      : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! Telemetry mode, status "Dump" compared ('0' = Inactive, '1' = Active)
 
 signal   sq1_fb_mode          : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SQ1FBMD_COL_S-1 downto 0)                 ; --! Squid 1 Feedback mode (on/off)
@@ -254,20 +253,23 @@ begin
    (     i_rst                => rst                  , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                => clk                  , -- in     std_logic                                 ; --! System Clock
 
-         i_tm_mode            => tm_mode              , -- in     t_slv_arr c_NB_COL c_DFLD_TM_MODE_COL_S   ; --! Telemetry mode
+         i_sync_re            => sync_re              , -- in     std_logic                                 ; --! Pixel sequence synchronization, rising edge
+         i_tm_mode            => tm_mode              , -- in     slv(c_DFLD_TM_MODE_S-1 downto 0)          ; --! Telemetry mode
 
          i_sq1_data_sc_msb    => sq1_data_sc_msb      , -- in     t_slv_arr c_NB_COL c_SC_DATA_SER_W_S      ; --! SQUID1 Data science MSB
          i_sq1_data_sc_lsb    => sq1_data_sc_lsb      , -- in     t_slv_arr c_NB_COL c_SC_DATA_SER_W_S      ; --! SQUID1 Data science LSB
-         i_sq1_data_sc_first  => sq1_data_sc_first    , -- in     std_logic_vector(c_NB_COL-1 downto 0)     ; --! SQUID1 Data science first pixel ('0' = No, '1' = Yes)
-         i_sq1_data_sc_last   => sq1_data_sc_last     , -- in     std_logic_vector(c_NB_COL-1 downto 0)     ; --! SQUID1 Data science last pixel ('0' = No, '1' = Yes)
+         i_sq1_data_sc_first  => sq1_data_sc_first(0) , -- in     std_logic                                 ; --! SQUID1 Data science first pixel ('0' = No, '1' = Yes)
+         i_sq1_data_sc_last   => sq1_data_sc_last(0)  , -- in     std_logic                                 ; --! SQUID1 Data science last pixel ('0' = No, '1' = Yes)
          i_sq1_data_sc_rdy    => sq1_data_sc_rdy      , -- in     std_logic_vector(c_NB_COL-1 downto 0)     ; --! SQUID1 Data science ready ('0' = Not ready, '1' = Ready)
 
-         i_sq1_mem_dump_bsy   => sq1_mem_dump_bsy     , -- in     slv(        c_NB_COL-1 downto 0)          ; --! SQUID1 Memory Dump: data busy ('0' = no data dump, '1' = data dump in progress)
+         i_sq1_mem_dump_bsy   => sq1_mem_dump_bsy(0)  , -- in     std_logic                                 ; --! SQUID1 Memory Dump: data busy ('0' = no data dump, '1' = data dump in progress)
          o_sq1_mem_dump_add   => sq1_mem_dump_add     , -- out    slv(c_MEM_DUMP_ADD_S-1 downto 0)          ; --! SQUID1 Memory Dump: address
-         o_sq1_mem_dump_cs    => sq1_mem_dump_cs      , -- out    slv(        c_NB_COL-1 downto 0)          ; --! SQUID1 Memory Dump: chip select ('0' = Inactive, '1' = Active)
          i_sq1_mem_dump_data  => sq1_mem_dump_data    , -- in     t_slv_arr c_NB_COL c_SQ1_ADC_DATA_S+1     ; --! SQUID1 Memory Dump: data
 
-         o_science_data_ser   => science_data_ser       -- out    slv       c_NB_COL*c_SC_DATA_SER_NB         --! Science Data – Serial Data
+         o_tm_mode_dmp_tx_end => tm_mode_dmp_tx_end   , -- out    std_logic                                 ; --! Telemetry mode, dump transmit end ('0' = Inactive, '1' = Active)
+         o_tm_mode_tst_tx_end => tm_mode_tst_tx_end   , -- out    std_logic                                 ; --! Telemetry mode, test pattern transmit end ('0' = Inactive, '1' = Active)
+
+         o_science_data_ser   => science_data_ser       -- out    slv       c_NB_COL*c_SC_DATA_SER_NB         --! Science Data: Serial Data
    );
 
    -- ------------------------------------------------------------------------------------------------------
@@ -276,8 +278,6 @@ begin
    I_register_mgt: entity work.register_mgt port map
    (     i_rst                => rst                  , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                => clk                  , -- in     std_logic                                 ; --! System Clock
-
-         i_tm_mode_sync       => tm_mode_sync         , -- in     std_logic                                 ; --! Telemetry mode synchronization
 
          i_brd_ref_rs         => brd_ref_rs           , -- in     std_logic_vector(  c_BRD_REF_S-1 downto 0); --! Board reference, synchronized on System Clock
          i_brd_model_rs       => brd_model_rs         , -- in     std_logic_vector(c_BRD_MODEL_S-1 downto 0); --! Board model, synchronized on System Clock
@@ -294,7 +294,9 @@ begin
 
          o_ep_cmd_tx_wd_rd_rg => ep_cmd_tx_wd_rd_rg   , -- out    std_logic_vector(c_EP_SPI_WD_S-1 downto 0); --! EP command to transmit: read register word
 
-         o_tm_mode            => tm_mode              , -- out    t_slv_arr c_NB_COL c_DFLD_TM_MODE_COL_S   ; --! Telemetry mode
+         i_tm_mode_dmp_tx_end => tm_mode_dmp_tx_end   , -- in     std_logic                                 ; --! Telemetry mode, dump transmit end ('0' = Inactive, '1' = Active)
+         i_tm_mode_tst_tx_end => tm_mode_tst_tx_end   , -- in     std_logic                                 ; --! Telemetry mode, test pattern transmit end ('0' = Inactive, '1' = Active)
+         o_tm_mode            => tm_mode              , -- out    slv(c_DFLD_TM_MODE_S-1 downto 0)          ; --! Telemetry mode
          o_tm_mode_dmp_cmp    => tm_mode_dmp_cmp      , -- out    std_logic_vector(c_NB_COL-1 downto 0)     ; --! Telemetry mode, status "Dump" compared ('0' = Inactive, '1' = Active)
 
          o_sq1_fb_mode        => sq1_fb_mode          , -- out    t_slv_arr c_NB_COL c_DFLD_SQ1FBMD_COL_S   ; --! Squid 1 Feedback mode (on/off)
@@ -348,14 +350,13 @@ begin
    (     i_rst                => rst                  , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                => clk                  , -- in     std_logic                                 ; --! System Clock
          i_sync_rs            => sync_rs              , -- in     std_logic                                 ; --! Pixel sequence synchronization, synchronized on System Clock
-         i_tm_mode            => tm_mode              , -- in     t_slv_arr c_NB_COL c_DFLD_TM_MODE_COL_S   ; --! Telemetry mode
+         i_tm_mode            => tm_mode              , -- in     slv(c_DFLD_TM_MODE_S-1 downto 0)          ; --! Telemetry mode
          i_sq1_fb_mode        => sq1_fb_mode          , -- in     t_slv_arr c_NB_COL c_DFLD_SQ1FBMD_COL_S   ; --! Squid 1 Feedback mode (on/off)
          o_sync_re            => sync_re              , -- out    std_logic                                 ; --! Pixel sequence synchronization, rising edge
          o_cmd_ck_s1_adc_ena  => cmd_ck_s1_adc_ena    , -- out    std_logic_vector(c_NB_COL-1 downto 0)     ; --! SQUID1 ADC Clocks switch commands enable  ('0' = Inactive, '1' = Active)
          o_cmd_ck_s1_adc_dis  => cmd_ck_s1_adc_dis    , -- out    std_logic_vector(c_NB_COL-1 downto 0)     ; --! SQUID1 ADC Clocks switch commands disable ('0' = Inactive, '1' = Active)
          o_cmd_ck_s1_dac_ena  => cmd_ck_s1_dac_ena    , -- out    std_logic_vector(c_NB_COL-1 downto 0)     ; --! SQUID1 DAC Clocks switch commands enable  ('0' = Inactive, '1' = Active)
-         o_cmd_ck_s1_dac_dis  => cmd_ck_s1_dac_dis    , -- out    std_logic_vector(c_NB_COL-1 downto 0)     ; --! SQUID1 DAC Clocks switch commands disable ('0' = Inactive, '1' = Active)
-         o_tm_mode_sync       => tm_mode_sync           -- out    std_logic                                   --! Telemetry mode synchronization
+         o_cmd_ck_s1_dac_dis  => cmd_ck_s1_dac_dis      -- out    std_logic_vector(c_NB_COL-1 downto 0)     ; --! SQUID1 DAC Clocks switch commands disable ('0' = Inactive, '1' = Active)
    );
 
    -- ------------------------------------------------------------------------------------------------------
@@ -393,7 +394,6 @@ begin
          i_sq1_adc_oor        => i_sq1_adc_oor(k)     , -- in     std_logic                                 ; --! SQUID1 ADC: Out of range, no rsync ('0'= No, '1'= under/over range)
 
          i_sq1_mem_dump_add   => sq1_mem_dump_add     , -- in     slv(c_MEM_DUMP_ADD_S-1 downto 0)          ; --! SQUID1 Memory Dump: address
-         i_sq1_mem_dump_cs    => sq1_mem_dump_cs      , -- in     std_logic                                 ; --! SQUID1 Memory Dump: chip select ('0' = Inactive, '1' = Active)
          o_sq1_mem_dump_data  => sq1_mem_dump_data(k) , -- out    slv(c_SQ1_ADC_DATA_S+1 downto 0)          ; --! SQUID1 Memory Dump: data
          o_sq1_mem_dump_bsy   => sq1_mem_dump_bsy(k)  , -- out    std_logic                                 ; --! SQUID1 Memory Dump: data busy ('0' = no data dump, '1' = data dump in progress)
 

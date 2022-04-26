@@ -43,8 +43,7 @@ entity ep_cmd_tx_wd is port
          i_brd_ref_rs         : in     std_logic_vector(  c_BRD_REF_S-1 downto 0)                           ; --! Board reference, synchronized on System Clock
          i_brd_model_rs       : in     std_logic_vector(c_BRD_MODEL_S-1 downto 0)                           ; --! Board model, synchronized on System Clock
 
-         i_tm_mode_dur        : in     std_logic_vector(c_DFLD_TM_MODE_DUR_S-1 downto 0)                    ; --! Telemetry mode, duration field
-         i_tm_mode            : in     t_slv_arr(0 to c_NB_COL-1)(c_DFLD_TM_MODE_COL_S-1 downto 0)          ; --! Telemetry mode
+         i_tm_mode            : in     std_logic_vector(c_DFLD_TM_MODE_S-1 downto 0)                        ; --! Telemetry mode
 
          i_rg_sq1_fb_mode     : in     std_logic_vector(c_EP_SPI_WD_S-1 downto 0)                           ; --! EP register: SQ1_FB_MODE
          i_rg_sq2_fb_mode     : in     std_logic_vector(c_EP_SPI_WD_S-1 downto 0)                           ; --! EP register: SQ2_FB_MODE
@@ -185,7 +184,7 @@ begin
    --!   Data register read
    -- ------------------------------------------------------------------------------------------------------
    -- @Req : REG_TM_MODE
-   data_rg_rd(c_EP_CMD_POS_TM_MODE) <= i_tm_mode(3) & i_tm_mode(2) & i_tm_mode(1) & i_tm_mode(0) & i_tm_mode_dur;
+   data_rg_rd(c_EP_CMD_POS_TM_MODE) <= std_logic_vector(resize(unsigned(i_tm_mode),  c_EP_SPI_WD_S));
 
    -- @Req : REG_SQ1_FB_MODE
    data_rg_rd(c_EP_CMD_POS_SQ1FBMD) <= i_rg_sq1_fb_mode;

@@ -83,7 +83,6 @@ proc run_utest {args} {
       ${SRC_DIR}/sts_err_wrt_mgt.vhd      \
       ${SRC_DIR}/sts_err_out_mgt.vhd      \
       ${SRC_DIR}/sts_err_dis_mgt.vhd      \
-      ${SRC_DIR}/rg_tm_mode_mgt.vhd       \
       ${SRC_DIR}/ep_cmd.vhd               \
       ${SRC_DIR}/mem_data_rd_mux.vhd      \
       ${SRC_DIR}/ep_cmd_tx_wd.vhd         \

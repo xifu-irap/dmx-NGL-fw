@@ -48,7 +48,6 @@ entity squid_adc_mgt is port
          i_sq1_adc_oor        : in     std_logic                                                            ; --! SQUID1 ADC: Out of range, no rsync ('0'= No, '1'= under/over range)
 
          i_sq1_mem_dump_add   : in     std_logic_vector(c_MEM_DUMP_ADD_S-1 downto 0)                        ; --! SQUID1 Memory Dump: address
-         i_sq1_mem_dump_cs    : in     std_logic                                                            ; --! SQUID1 Memory Dump: chip select ('0' = Inactive, '1' = Active)
          o_sq1_mem_dump_data  : out    std_logic_vector(c_SQ1_ADC_DATA_S+1 downto 0)                        ; --! SQUID1 Memory Dump: data
          o_sq1_mem_dump_bsy   : out    std_logic                                                            ; --! SQUID1 Memory Dump: data busy ('0' = no data dump, '1' = data dump in progress)
 
@@ -75,7 +74,7 @@ signal   sq1_adc_oor_r        : std_logic_vector(c_FF_RSYNC_NB-1 downto 0)      
 signal   mem_dump_adc_cs_rs   : std_logic_vector(c_FF_RSYNC_NB-1 downto 0)                                  ; --! Memory Dump, ADC acquisition side: chip select, resynchronized on system clock
 
 signal   sync_re_adc_data     : std_logic                                                                   ; --! Pixel sequence synchronization, rising edge, synchronized on ADC data first pixel
-signal   tm_mode_dmp_cmp_last : std_logic                                                                   ; --! Telemetry mode, status "Dump" compared last sync. ('0' = Inactive, '1' = Active)
+signal   tm_mode_dmp_cmp_sync : std_logic_vector(c_FF_RSYNC_NB-1 downto 0)                                  ; --! Telemetry mode, status "Dump" compared sync. on Pixel sequence sync.
 
 signal   mem_dump_adc_cnt_w   : std_logic_vector(     c_DMP_CNT_S-1 downto 0)                               ; --! Memory Dump, ADC acquisition side: counter words
 signal   mem_dump_adc         : t_mem(add(c_MEM_DUMP_ADD_S-1 downto 0),data_w(c_MEM_DUMP_DATA_S-1 downto 0)); --! Memory Dump, ADC acquisition side inputs
@@ -133,13 +132,13 @@ begin
 
       if rst_sq1_adc = '1' then
          sync_re_adc_data     <= '0';
-         tm_mode_dmp_cmp_last <= '0';
+         tm_mode_dmp_cmp_sync <= (others => '0');
 
       elsif rising_edge(i_clk_sq1_adc_dac) then
          sync_re_adc_data  <= not(sync_r(sync_r'high)) and sync_r(sync_r'high-1);
 
          if sync_re_adc_data = '1' then
-            tm_mode_dmp_cmp_last <= tm_mode_dmp_cmp_r(tm_mode_dmp_cmp_r'high);
+            tm_mode_dmp_cmp_sync <= tm_mode_dmp_cmp_sync(tm_mode_dmp_cmp_sync'high-1 downto 0) & tm_mode_dmp_cmp_r(tm_mode_dmp_cmp_r'high);
 
          end if;
 
@@ -158,7 +157,7 @@ begin
          mem_dump_adc_cnt_w   <= (others => '1');
 
       elsif rising_edge(i_clk_sq1_adc_dac) then
-         if (mem_dump_adc_cnt_w(mem_dump_adc_cnt_w'high) and not(tm_mode_dmp_cmp_last) and tm_mode_dmp_cmp_r(tm_mode_dmp_cmp_r'high) and sync_re_adc_data) = '1' then
+         if (mem_dump_adc_cnt_w(mem_dump_adc_cnt_w'high) and not(tm_mode_dmp_cmp_sync(tm_mode_dmp_cmp_sync'high)) and tm_mode_dmp_cmp_sync(tm_mode_dmp_cmp_sync'high-1) and sync_re_adc_data) = '1' then
             mem_dump_adc_cnt_w <= std_logic_vector(to_unsigned(c_DMP_CNT_MAX_VAL, mem_dump_adc_cnt_w'length));
 
          elsif mem_dump_adc_cnt_w(mem_dump_adc_cnt_w'high) = '0' then
@@ -213,7 +212,7 @@ begin
    mem_dump_sc.pp       <= '0';
    mem_dump_sc.add      <= i_sq1_mem_dump_add;
    mem_dump_sc.we       <= '0';
-   mem_dump_sc.cs       <= i_sq1_mem_dump_cs;
+   mem_dump_sc.cs       <= '1';
    mem_dump_sc.data_w   <= (others => '0');
 
    -- ------------------------------------------------------------------------------------------------------

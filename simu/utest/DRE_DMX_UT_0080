@@ -38,12 +38,15 @@ COMM ===========================================================================
 COMM   Send command TM_MODE column 0 to Normal for o_c0_sq1_adc_pwdn deactivation
 COMM ----------------------------------------------------------------------------------------------
 WUDI sync 1
-WCMD W-TM_MODE-56XX N
+WCMD W-TM_MODE-0002 N
 COMM
 COMM ==============================================================================================
-COMM   Check no event is appeared on o_c0_sq1_adc_pwdn and wait o_c0_sq1_adc_pwdn deactivation
+COMM   Check no event is appeared on o_cX_sq1_adc_pwdn and wait o_c0_sq1_adc_pwdn deactivation
 COMM ----------------------------------------------------------------------------------------------
 CTLE sq1_adc_pwdn(0) == now
+CTLE sq1_adc_pwdn(1) == now
+CTLE sq1_adc_pwdn(2) == now
+CTLE sq1_adc_pwdn(3) == now
 WUDI sq1_adc_pwdn(0) 0
 COMM
 COMM ==============================================================================================
@@ -67,7 +70,7 @@ COMM
 COMM ==============================================================================================
 COMM   Send command TM_MODE column 0 to Test pattern for o_c0_sq1_adc_pwdn activation
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-TM_MODE-5700 W
+WCMD W-TM_MODE-0003 W
 COMM
 COMM ==============================================================================================
 COMM    Wait i_sync rising edge and check o_c0_sq1_adc_pwdn remains to deactivated
@@ -87,7 +90,7 @@ COMM
 COMM ==============================================================================================
 COMM   Send command TM_MODE column 0 to Dump for o_c0_sq1_adc_pwdn deactivation
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-TM_MODE-54XX N
+WCMD W-TM_MODE-0000 N
 COMM
 COMM ==============================================================================================
 COMM   Check no event is appeared on o_c0_sq1_adc_pwdn and wait o_c0_sq1_adc_pwdn deactivation
@@ -117,20 +120,7 @@ COMM ===========================================================================
 COMM    Wait TM_MODE column 0 goes automatically to Idle and
 COMM     check o_c0_sq1_adc_pwdn remains to deactivated
 COMM ----------------------------------------------------------------------------------------------
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
+WAIT 176 us
 WUDI sync 0
 WUDI sync 1
 RTIM
@@ -294,12 +284,11 @@ COMM
 COMM ==============================================================================================
 COMM   Send command TM_MODE column 1 to Normal for o_c1_sq1_adc_pwdn deactivation
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-TM_MODE-59XX N
+WCMD W-TM_MODE-0002 N
 COMM
 COMM ==============================================================================================
-COMM   Check no event is appeared on o_c1_sq1_adc_pwdn and wait o_c1_sq1_adc_pwdn deactivation
+COMM   Wait o_c1_sq1_adc_pwdn deactivation
 COMM ----------------------------------------------------------------------------------------------
-CTLE sq1_adc_pwdn(1) == now
 WUDI sq1_adc_pwdn(1) 0
 COMM
 COMM ==============================================================================================
@@ -323,7 +312,7 @@ COMM
 COMM ==============================================================================================
 COMM   Send command TM_MODE column 1 to Test pattern for o_c1_sq1_adc_pwdn activation
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-TM_MODE-5D00 W
+WCMD W-TM_MODE-0003 W
 COMM
 COMM ==============================================================================================
 COMM    Wait i_sync rising edge and check o_c1_sq1_adc_pwdn remains to deactivated
@@ -343,7 +332,7 @@ COMM
 COMM ==============================================================================================
 COMM   Send command TM_MODE column 1 to Dump for o_c1_sq1_adc_pwdn deactivation
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-TM_MODE-51XX N
+WCMD W-TM_MODE-0000 N
 COMM
 COMM ==============================================================================================
 COMM   Check no event is appeared on o_c1_sq1_adc_pwdn and wait o_c1_sq1_adc_pwdn deactivation
@@ -373,20 +362,7 @@ COMM ===========================================================================
 COMM    Wait TM_MODE column 1 goes automatically to Idle and
 COMM     check o_c1_sq1_adc_pwdn remains to deactivated
 COMM ----------------------------------------------------------------------------------------------
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
+WAIT 176 us
 WUDI sync 0
 WUDI sync 1
 RTIM
@@ -550,12 +526,11 @@ COMM
 COMM ==============================================================================================
 COMM   Send command TM_MODE column 2 to Normal for o_c2_sq1_adc_pwdn deactivation
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-TM_MODE-65XX N
+WCMD W-TM_MODE-0002 N
 COMM
 COMM ==============================================================================================
-COMM   Check no event is appeared on o_c2_sq1_adc_pwdn and wait o_c2_sq1_adc_pwdn deactivation
+COMM   Wait o_c2_sq1_adc_pwdn deactivation
 COMM ----------------------------------------------------------------------------------------------
-CTLE sq1_adc_pwdn(2) == now
 WUDI sq1_adc_pwdn(2) 0
 COMM
 COMM ==============================================================================================
@@ -579,7 +554,7 @@ COMM
 COMM ==============================================================================================
 COMM   Send command TM_MODE column 2 to Test pattern for o_c2_sq1_adc_pwdn activation
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-TM_MODE-7500 W
+WCMD W-TM_MODE-0003 W
 COMM
 COMM ==============================================================================================
 COMM    Wait i_sync rising edge and check o_c2_sq1_adc_pwdn remains to deactivated
@@ -599,7 +574,7 @@ COMM
 COMM ==============================================================================================
 COMM   Send command TM_MODE column 2 to Dump for o_c2_sq1_adc_pwdn deactivation
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-TM_MODE-45XX N
+WCMD W-TM_MODE-0000 N
 COMM
 COMM ==============================================================================================
 COMM   Check no event is appeared on o_c2_sq1_adc_pwdn and wait o_c2_sq1_adc_pwdn deactivation
@@ -629,20 +604,7 @@ COMM ===========================================================================
 COMM    Wait TM_MODE column 2 goes automatically to Idle and
 COMM     check o_c2_sq1_adc_pwdn remains to deactivated
 COMM ----------------------------------------------------------------------------------------------
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
+WAIT 176 us
 WUDI sync 0
 WUDI sync 1
 RTIM
@@ -806,12 +768,11 @@ COMM
 COMM ==============================================================================================
 COMM   Send command TM_MODE column 3 to Normal for o_c3_sq1_adc_pwdn deactivation
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-TM_MODE-95XX N
+WCMD W-TM_MODE-0002 N
 COMM
 COMM ==============================================================================================
-COMM   Check no event is appeared on o_c3_sq1_adc_pwdn and wait o_c3_sq1_adc_pwdn deactivation
+COMM   Wait o_c3_sq1_adc_pwdn deactivation
 COMM ----------------------------------------------------------------------------------------------
-CTLE sq1_adc_pwdn(3) == now
 WUDI sq1_adc_pwdn(3) 0
 COMM
 COMM ==============================================================================================
@@ -835,7 +796,7 @@ COMM
 COMM ==============================================================================================
 COMM   Send command TM_MODE column 3 to Test pattern for o_c3_sq1_adc_pwdn activation
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-TM_MODE-D500 W
+WCMD W-TM_MODE-0003 W
 COMM
 COMM ==============================================================================================
 COMM    Wait i_sync rising edge and check o_c3_sq1_adc_pwdn remains to deactivated
@@ -855,7 +816,7 @@ COMM
 COMM ==============================================================================================
 COMM   Send command TM_MODE column 3 to Dump for o_c3_sq1_adc_pwdn deactivation
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-TM_MODE-15XX N
+WCMD W-TM_MODE-0000 N
 COMM
 COMM ==============================================================================================
 COMM   Check no event is appeared on o_c3_sq1_adc_pwdn and wait o_c3_sq1_adc_pwdn deactivation
@@ -885,20 +846,7 @@ COMM ===========================================================================
 COMM    Wait TM_MODE column 3 goes automatically to Idle and
 COMM     check o_c3_sq1_adc_pwdn remains to deactivated
 COMM ----------------------------------------------------------------------------------------------
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
-WUDI sync 0
-WUDI sync 1
+WAIT 176 us
 WUDI sync 0
 WUDI sync 1
 RTIM
@@ -1058,14 +1006,3 @@ COMM ---------------------------------------------------------------------------
 WUDI sq1_adc_pwdn(3) 1
 CTLR << 320160 ps
 CTLR >> 160080 ps
-COMM
-COMM ==============================================================================================
-COMM   Check no events are appeared on the others channels
-COMM    (time checking multiple of 11 * c_MUX_FACT * c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
-COMM ----------------------------------------------------------------------------------------------
-CDIS sq1_adc_pwdn(0) 1
-CTLE sq1_adc_pwdn(0) >= 179609760 ps  # Factor 3
-CDIS sq1_adc_pwdn(1) 1
-CTLE sq1_adc_pwdn(1) >= 119739840 ps  # Factor 2
-CDIS sq1_adc_pwdn(2) 1
-CTLE sq1_adc_pwdn(2) >= 59869920 ps   # Factor 1

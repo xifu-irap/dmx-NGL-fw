@@ -171,488 +171,747 @@
 #             (111624000 ps)   Writing memory dump data to compare
 #             (111624000 ps)   Formula: 4*(SQ2_PXL_LOCKPOINT_OFFSET + SQ2_PXL_LOCKPOINT * SQ2_PXL_LOCKPOINT_LSB)
 #             (111624000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (111624000 ps) Write in ADC memory dump, adress index 0, value 3FFC
-# ** Note   : (111640008 ps) Write in ADC memory dump, adress index 1, value 3BFC
-# ** Note   : (111656016 ps) Write in ADC memory dump, adress index 2, value 37FC
-# ** Note   : (111672024 ps) Write in ADC memory dump, adress index 3, value 33FC
-# ** Note   : (111688032 ps) Write in ADC memory dump, adress index 4, value 2FFC
-# ** Note   : (111704040 ps) Write in ADC memory dump, adress index 5, value 2BFC
-# ** Note   : (111720048 ps) Write in ADC memory dump, adress index 6, value 27FC
-# ** Note   : (111736056 ps) Write in ADC memory dump, adress index 7, value 23FC
-# ** Note   : (111752064 ps) Write in ADC memory dump, adress index 8, value 3FFC
-# ** Note   : (111768072 ps) Write in ADC memory dump, adress index 9, value 3BFC
-# ** Note   : (111784080 ps) Write in ADC memory dump, adress index 10, value 37FC
-# ** Note   : (111800088 ps) Write in ADC memory dump, adress index 11, value 33FC
-# ** Note   : (111816096 ps) Write in ADC memory dump, adress index 12, value 2FFC
-# ** Note   : (111832104 ps) Write in ADC memory dump, adress index 13, value 2BFC
-# ** Note   : (111848112 ps) Write in ADC memory dump, adress index 14, value 27FC
-# ** Note   : (111864120 ps) Write in ADC memory dump, adress index 15, value 23FC
-# ** Note   : (111880128 ps) Write in ADC memory dump, adress index 16, value 3FFC
-# ** Note   : (111896136 ps) Write in ADC memory dump, adress index 17, value 3BFC
-# ** Note   : (111912144 ps) Write in ADC memory dump, adress index 18, value 37FC
-# ** Note   : (111928152 ps) Write in ADC memory dump, adress index 19, value 33FC
-# ** Note   : (111944160 ps) Write in ADC memory dump, adress index 20, value 2FFC
-# ** Note   : (111960168 ps) Write in ADC memory dump, adress index 21, value 2BFC
-# ** Note   : (111976176 ps) Write in ADC memory dump, adress index 22, value 27FC
-# ** Note   : (111992184 ps) Write in ADC memory dump, adress index 23, value 23FC
-# ** Note   : (112008192 ps) Write in ADC memory dump, adress index 24, value 3FFC
-# ** Note   : (112024200 ps) Write in ADC memory dump, adress index 25, value 3BFC
-# ** Note   : (112040208 ps) Write in ADC memory dump, adress index 26, value 37FC
-# ** Note   : (112056216 ps) Write in ADC memory dump, adress index 27, value 33FC
-# ** Note   : (112072224 ps) Write in ADC memory dump, adress index 28, value 2FFC
-# ** Note   : (112088232 ps) Write in ADC memory dump, adress index 29, value 2BFC
-# ** Note   : (112104240 ps) Write in ADC memory dump, adress index 30, value 27FC
-# ** Note   : (112120248 ps) Write in ADC memory dump, adress index 31, value 23FC
-# ** Note   : (112136256 ps) Write in ADC memory dump, adress index 32, value 3FFC
-# ** Note   : (112152264 ps) Write in ADC memory dump, adress index 33, value 3FFC
+# ** Note   : (111624000 ps) Write in ADC memory dump column 0, adress index 0, value 3FFC
+# ** Note   : (111640008 ps) Write in ADC memory dump column 0, adress index 1, value 3BFC
+# ** Note   : (111656016 ps) Write in ADC memory dump column 0, adress index 2, value 37FC
+# ** Note   : (111672024 ps) Write in ADC memory dump column 0, adress index 3, value 33FC
+# ** Note   : (111688032 ps) Write in ADC memory dump column 0, adress index 4, value 2FFC
+# ** Note   : (111704040 ps) Write in ADC memory dump column 0, adress index 5, value 2BFC
+# ** Note   : (111720048 ps) Write in ADC memory dump column 0, adress index 6, value 27FC
+# ** Note   : (111736056 ps) Write in ADC memory dump column 0, adress index 7, value 23FC
+# ** Note   : (111752064 ps) Write in ADC memory dump column 0, adress index 8, value 3FFC
+# ** Note   : (111768072 ps) Write in ADC memory dump column 0, adress index 9, value 3BFC
+# ** Note   : (111784080 ps) Write in ADC memory dump column 0, adress index 10, value 37FC
+# ** Note   : (111800088 ps) Write in ADC memory dump column 0, adress index 11, value 33FC
+# ** Note   : (111816096 ps) Write in ADC memory dump column 0, adress index 12, value 2FFC
+# ** Note   : (111832104 ps) Write in ADC memory dump column 0, adress index 13, value 2BFC
+# ** Note   : (111848112 ps) Write in ADC memory dump column 0, adress index 14, value 27FC
+# ** Note   : (111864120 ps) Write in ADC memory dump column 0, adress index 15, value 23FC
+# ** Note   : (111880128 ps) Write in ADC memory dump column 0, adress index 16, value 3FFC
+# ** Note   : (111896136 ps) Write in ADC memory dump column 0, adress index 17, value 3BFC
+# ** Note   : (111912144 ps) Write in ADC memory dump column 0, adress index 18, value 37FC
+# ** Note   : (111928152 ps) Write in ADC memory dump column 0, adress index 19, value 33FC
+# ** Note   : (111944160 ps) Write in ADC memory dump column 0, adress index 20, value 2FFC
+# ** Note   : (111960168 ps) Write in ADC memory dump column 0, adress index 21, value 2BFC
+# ** Note   : (111976176 ps) Write in ADC memory dump column 0, adress index 22, value 27FC
+# ** Note   : (111992184 ps) Write in ADC memory dump column 0, adress index 23, value 23FC
+# ** Note   : (112008192 ps) Write in ADC memory dump column 0, adress index 24, value 3FFC
+# ** Note   : (112024200 ps) Write in ADC memory dump column 0, adress index 25, value 3BFC
+# ** Note   : (112040208 ps) Write in ADC memory dump column 0, adress index 26, value 37FC
+# ** Note   : (112056216 ps) Write in ADC memory dump column 0, adress index 27, value 33FC
+# ** Note   : (112072224 ps) Write in ADC memory dump column 0, adress index 28, value 2FFC
+# ** Note   : (112088232 ps) Write in ADC memory dump column 0, adress index 29, value 2BFC
+# ** Note   : (112104240 ps) Write in ADC memory dump column 0, adress index 30, value 27FC
+# ** Note   : (112120248 ps) Write in ADC memory dump column 0, adress index 31, value 23FC
+# ** Note   : (112136256 ps) Write in ADC memory dump column 0, adress index 32, value 3FFC
+# ** Note   : (112152264 ps) Write in ADC memory dump column 0, adress index 33, value 3FFC
 #             (112168272 ps) 
-#             (112168272 ps) ==============================================================================================
-#             (112168272 ps)   Record SQUID1 DAC pulse shaping column 0 by requesting a SQUID1 ADC dump on science
-#             (112168272 ps)    (DAC feedback on ADC)
-#             (112168272 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (112168272 ps) Send SPI command value 8001_54XX (TM_MODE, mode Write, data 54XX)
-# ** Note   : (114486000 ps) Waiting SPI command end for 2281728 ps
-# ** Note   : (114489216 ps) Waiting event sync = '0' for 3216 ps
-# ** Note   : (119755848 ps) Waiting event sync = '1' for 5266632 ps
-# ** Note   : (119915928 ps) Waiting event sync = '0' for 160080 ps
-# ** Note   : (125198568 ps) Waiting event sync = '1' for 5282640 ps
-# ** Note   : (125358648 ps) Waiting event sync = '0' for 160080 ps
-# ** Note   : (130641288 ps) Waiting event sync = '1' for 5282640 ps
-# ** Note   : (130801368 ps) Waiting event sync = '0' for 160080 ps
-# ** Note   : (136084008 ps) Waiting event sync = '1' for 5282640 ps
-# ** Note   : (136244088 ps) Waiting event sync = '0' for 160080 ps
-# ** Note   : (141526728 ps) Waiting event sync = '1' for 5282640 ps
-# ** Note   : (141686808 ps) Waiting event sync = '0' for 160080 ps
-# ** Note   : (146969448 ps) Waiting event sync = '1' for 5282640 ps
-# ** Note   : (147129528 ps) Waiting event sync = '0' for 160080 ps
-# ** Note   : (152412168 ps) Waiting event sync = '1' for 5282640 ps
-# ** Note   : (152572248 ps) Waiting event sync = '0' for 160080 ps
-# ** Note   : (157854888 ps) Waiting event sync = '1' for 5282640 ps
-# ** Note   : (158014968 ps) Waiting event sync = '0' for 160080 ps
-# ** Note   : (163297608 ps) Waiting event sync = '1' for 5282640 ps
-#             (163297608 ps) 
-#             (163297608 ps) ==============================================================================================
-#             (163297608 ps)   Configure SQUID2 DAC LSB column 1
-#             (163297608 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (163297608 ps) Send SPI command value 2845_0100 (C1_SQ2_PXL_LOCKPOINT_LSB, mode Write, data 0100)
-# ** Note   : (165606000 ps) Waiting SPI command end for 2272392 ps
-#             (165606000 ps) 
-#             (165606000 ps) ==============================================================================================
-#             (165606000 ps)   Configure SQUID2 lockpoint Offset column 1
-#             (165606000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (165606000 ps) Send SPI command value 2847_08FF (C1_SQ2_PXL_LOCKPOINT_OFFSET, mode Write, data 08FF)
-# ** Note   : (167928000 ps) Waiting SPI command end for 2286000 ps
-#             (167928000 ps) 
-#             (167928000 ps) ==============================================================================================
-#             (167928000 ps)   Send command SQ2_FB_MODE column 0 to Off, column 1 to open loop
-#             (167928000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (167928000 ps) Send SPI command value 8005_0010 (SQ2_FB_MODE, mode Write, data 0010)
-# ** Note   : (170250000 ps) Waiting SPI command end for 2286000 ps
-#             (170250000 ps) 
-#             (170250000 ps) ==============================================================================================
-#             (170250000 ps)   Check each SQUID2 DAC column 0 goes to its middle point, column 1 goes to the new value,
-#             (170250000 ps)   synchronous with sync rising edge
-#             (170250000 ps)   Voltage formula: 2 * SQ2_PXL_LOCKPOINT_OFFSET/4092 - 1
-#             (170250000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (170253084 ps) Waiting event sync = '0' for 3084 ps
-# ** Note   : (174183048 ps) Waiting event sync = '1' for 3929964 ps
-# ** Note   : (174343128 ps) Waiting event sync = '0' for 160080 ps
-# ** Note   : (179625768 ps) Waiting event sync = '1' for 5282640 ps
-# ** Note   : (179641768 ps) Waiting time for 16000 ps
-# ** Note   : (179641768 ps) Check time, DAC channel 0 last event: PASS
-# ** Note   : (179641768 ps)  * DAC channel 0 last event 16000 ps equal to expected value 16000 ps
-# ** Note   : (179641768 ps) Check DAC level: PASS
-# ** Note   : (179641768 ps)  * Read DAC channel 0, value 0.000000e+00, expected 0.000000e+00
-# ** Note   : (179641768 ps) Check time, DAC channel 1 last event: PASS
-# ** Note   : (179641768 ps)  * DAC channel 1 last event 16000 ps equal to expected value 16000 ps
-# ** Note   : (179641768 ps) Check DAC level: PASS
-# ** Note   : (179641768 ps)  * Read DAC channel 1, value 1.245117e-01, expected 1.245117e-01
-#             (179641768 ps) 
-#             (179641768 ps) ==============================================================================================
-#             (179641768 ps)   Writing a new table in SQUID2 lockpoint value column 1 memory
-#             (179641768 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (179641768 ps) Send SPI command value 2801_0007 (C1_SQ2_PXL_LOCKPOINT, mode Write, data 0007)
-# ** Note   : (181950000 ps) Waiting SPI command end for 2272232 ps
-# ** Note   : (181950000 ps) Send SPI command value 2803_0006 (C1_SQ2_PXL_LOCKPOINT, mode Write, data 0006)
-# ** Note   : (184272000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (184272000 ps) Send SPI command value 2805_0005 (C1_SQ2_PXL_LOCKPOINT, mode Write, data 0005)
-# ** Note   : (186594000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (186594000 ps) Send SPI command value 2807_0004 (C1_SQ2_PXL_LOCKPOINT, mode Write, data 0004)
-# ** Note   : (188916000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (188916000 ps) Send SPI command value 2809_0003 (C1_SQ2_PXL_LOCKPOINT, mode Write, data 0003)
-# ** Note   : (191238000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (191238000 ps) Send SPI command value 280B_0002 (C1_SQ2_PXL_LOCKPOINT, mode Write, data 0002)
-# ** Note   : (193560000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (193560000 ps) Send SPI command value 280D_0001 (C1_SQ2_PXL_LOCKPOINT, mode Write, data 0001)
-# ** Note   : (195882000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (195882000 ps) Send SPI command value 280F_0000 (C1_SQ2_PXL_LOCKPOINT, mode Write, data 0000)
-# ** Note   : (198204000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (198204000 ps) Send SPI command value 2811_0007 (C1_SQ2_PXL_LOCKPOINT, mode Write, data 0007)
-# ** Note   : (200526000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (200526000 ps) Send SPI command value 2813_0006 (C1_SQ2_PXL_LOCKPOINT, mode Write, data 0006)
-# ** Note   : (202848000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (202848000 ps) Send SPI command value 2815_0005 (C1_SQ2_PXL_LOCKPOINT, mode Write, data 0005)
-# ** Note   : (205170000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (205170000 ps) Send SPI command value 2817_0004 (C1_SQ2_PXL_LOCKPOINT, mode Write, data 0004)
-# ** Note   : (207492000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (207492000 ps) Send SPI command value 2819_0003 (C1_SQ2_PXL_LOCKPOINT, mode Write, data 0003)
-# ** Note   : (209814000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (209814000 ps) Send SPI command value 281B_0002 (C1_SQ2_PXL_LOCKPOINT, mode Write, data 0002)
-# ** Note   : (212136000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (212136000 ps) Send SPI command value 281D_0001 (C1_SQ2_PXL_LOCKPOINT, mode Write, data 0001)
-# ** Note   : (214458000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (214458000 ps) Send SPI command value 281F_0000 (C1_SQ2_PXL_LOCKPOINT, mode Write, data 0000)
-# ** Note   : (216780000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (216780000 ps) Send SPI command value 2821_0007 (C1_SQ2_PXL_LOCKPOINT, mode Write, data 0007)
-# ** Note   : (219102000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (219102000 ps) Send SPI command value 2823_0006 (C1_SQ2_PXL_LOCKPOINT, mode Write, data 0006)
-# ** Note   : (221424000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (221424000 ps) Send SPI command value 2825_0005 (C1_SQ2_PXL_LOCKPOINT, mode Write, data 0005)
-# ** Note   : (223746000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (223746000 ps) Send SPI command value 2827_0004 (C1_SQ2_PXL_LOCKPOINT, mode Write, data 0004)
-# ** Note   : (226068000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (226068000 ps) Send SPI command value 2829_0003 (C1_SQ2_PXL_LOCKPOINT, mode Write, data 0003)
-# ** Note   : (228390000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (228390000 ps) Send SPI command value 282B_0002 (C1_SQ2_PXL_LOCKPOINT, mode Write, data 0002)
-# ** Note   : (230712000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (230712000 ps) Send SPI command value 282D_0001 (C1_SQ2_PXL_LOCKPOINT, mode Write, data 0001)
-# ** Note   : (233034000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (233034000 ps) Send SPI command value 282F_0000 (C1_SQ2_PXL_LOCKPOINT, mode Write, data 0000)
-# ** Note   : (235356000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (235356000 ps) Send SPI command value 2831_0007 (C1_SQ2_PXL_LOCKPOINT, mode Write, data 0007)
-# ** Note   : (237678000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (237678000 ps) Send SPI command value 2833_0006 (C1_SQ2_PXL_LOCKPOINT, mode Write, data 0006)
-# ** Note   : (240000000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (240000000 ps) Send SPI command value 2835_0005 (C1_SQ2_PXL_LOCKPOINT, mode Write, data 0005)
-# ** Note   : (242322000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (242322000 ps) Send SPI command value 2837_0004 (C1_SQ2_PXL_LOCKPOINT, mode Write, data 0004)
-# ** Note   : (244644000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (244644000 ps) Send SPI command value 2839_0003 (C1_SQ2_PXL_LOCKPOINT, mode Write, data 0003)
-# ** Note   : (246966000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (246966000 ps) Send SPI command value 283B_0002 (C1_SQ2_PXL_LOCKPOINT, mode Write, data 0002)
-# ** Note   : (249288000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (249288000 ps) Send SPI command value 283D_0001 (C1_SQ2_PXL_LOCKPOINT, mode Write, data 0001)
-# ** Note   : (251610000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (251610000 ps) Send SPI command value 283F_0000 (C1_SQ2_PXL_LOCKPOINT, mode Write, data 0000)
-# ** Note   : (253932000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (253932000 ps) Send SPI command value 2841_0007 (C1_SQ2_PXL_LOCKPOINT, mode Write, data 0007)
-# ** Note   : (256254000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (256254000 ps) Send SPI command value 2843_0007 (C1_SQ2_PXL_LOCKPOINT, mode Write, data 0007)
-# ** Note   : (258576000 ps) Waiting SPI command end for 2286000 ps
-#             (258576000 ps) 
-#             (258576000 ps) ==============================================================================================
-#             (258576000 ps)   Record SQUID1 DAC pulse shaping column 1 by requesting a SQUID1 ADC dump on science
-#             (258576000 ps)    (DAC feedback on ADC)
-#             (258576000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (258576000 ps) Send SPI command value 8001_51XX (TM_MODE, mode Write, data 51XX)
-# ** Note   : (260898000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (260898384 ps) Waiting event sync = '0' for 384 ps
-# ** Note   : (261266568 ps) Waiting event sync = '1' for 368184 ps
-# ** Note   : (261426648 ps) Waiting event sync = '0' for 160080 ps
-# ** Note   : (266709288 ps) Waiting event sync = '1' for 5282640 ps
-# ** Note   : (266869368 ps) Waiting event sync = '0' for 160080 ps
-# ** Note   : (272152008 ps) Waiting event sync = '1' for 5282640 ps
-# ** Note   : (272312088 ps) Waiting event sync = '0' for 160080 ps
-# ** Note   : (277594728 ps) Waiting event sync = '1' for 5282640 ps
-# ** Note   : (277754808 ps) Waiting event sync = '0' for 160080 ps
-# ** Note   : (283037448 ps) Waiting event sync = '1' for 5282640 ps
-# ** Note   : (283197528 ps) Waiting event sync = '0' for 160080 ps
-# ** Note   : (288480168 ps) Waiting event sync = '1' for 5282640 ps
-# ** Note   : (288640248 ps) Waiting event sync = '0' for 160080 ps
-# ** Note   : (293922888 ps) Waiting event sync = '1' for 5282640 ps
-# ** Note   : (294082968 ps) Waiting event sync = '0' for 160080 ps
-# ** Note   : (299365608 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (112168272 ps) Write in ADC memory dump column 1, adress index 0, value 2000
+# ** Note   : (112184280 ps) Write in ADC memory dump column 1, adress index 1, value 2000
+# ** Note   : (112200288 ps) Write in ADC memory dump column 1, adress index 2, value 2000
+# ** Note   : (112216296 ps) Write in ADC memory dump column 1, adress index 3, value 2000
+# ** Note   : (112232304 ps) Write in ADC memory dump column 1, adress index 4, value 2000
+# ** Note   : (112248312 ps) Write in ADC memory dump column 1, adress index 5, value 2000
+# ** Note   : (112264320 ps) Write in ADC memory dump column 1, adress index 6, value 2000
+# ** Note   : (112280328 ps) Write in ADC memory dump column 1, adress index 7, value 2000
+# ** Note   : (112296336 ps) Write in ADC memory dump column 1, adress index 8, value 2000
+# ** Note   : (112312344 ps) Write in ADC memory dump column 1, adress index 9, value 2000
+# ** Note   : (112328352 ps) Write in ADC memory dump column 1, adress index 10, value 2000
+# ** Note   : (112344360 ps) Write in ADC memory dump column 1, adress index 11, value 2000
+# ** Note   : (112360368 ps) Write in ADC memory dump column 1, adress index 12, value 2000
+# ** Note   : (112376376 ps) Write in ADC memory dump column 1, adress index 13, value 2000
+# ** Note   : (112392384 ps) Write in ADC memory dump column 1, adress index 14, value 2000
+# ** Note   : (112408392 ps) Write in ADC memory dump column 1, adress index 15, value 2000
+# ** Note   : (112424400 ps) Write in ADC memory dump column 1, adress index 16, value 2000
+# ** Note   : (112440408 ps) Write in ADC memory dump column 1, adress index 17, value 2000
+# ** Note   : (112456416 ps) Write in ADC memory dump column 1, adress index 18, value 2000
+# ** Note   : (112472424 ps) Write in ADC memory dump column 1, adress index 19, value 2000
+# ** Note   : (112488432 ps) Write in ADC memory dump column 1, adress index 20, value 2000
+# ** Note   : (112504440 ps) Write in ADC memory dump column 1, adress index 21, value 2000
+# ** Note   : (112520448 ps) Write in ADC memory dump column 1, adress index 22, value 2000
+# ** Note   : (112536456 ps) Write in ADC memory dump column 1, adress index 23, value 2000
+# ** Note   : (112552464 ps) Write in ADC memory dump column 1, adress index 24, value 2000
+# ** Note   : (112568472 ps) Write in ADC memory dump column 1, adress index 25, value 2000
+# ** Note   : (112584480 ps) Write in ADC memory dump column 1, adress index 26, value 2000
+# ** Note   : (112600488 ps) Write in ADC memory dump column 1, adress index 27, value 2000
+# ** Note   : (112616496 ps) Write in ADC memory dump column 1, adress index 28, value 2000
+# ** Note   : (112632504 ps) Write in ADC memory dump column 1, adress index 29, value 2000
+# ** Note   : (112648512 ps) Write in ADC memory dump column 1, adress index 30, value 2000
+# ** Note   : (112664520 ps) Write in ADC memory dump column 1, adress index 31, value 2000
+# ** Note   : (112680528 ps) Write in ADC memory dump column 1, adress index 32, value 2000
+# ** Note   : (112696536 ps) Write in ADC memory dump column 1, adress index 33, value 2000
+#             (112712544 ps) 
+# ** Note   : (112712544 ps) Write in ADC memory dump column 2, adress index 0, value 2000
+# ** Note   : (112728552 ps) Write in ADC memory dump column 2, adress index 1, value 2000
+# ** Note   : (112744560 ps) Write in ADC memory dump column 2, adress index 2, value 2000
+# ** Note   : (112760568 ps) Write in ADC memory dump column 2, adress index 3, value 2000
+# ** Note   : (112776576 ps) Write in ADC memory dump column 2, adress index 4, value 2000
+# ** Note   : (112792584 ps) Write in ADC memory dump column 2, adress index 5, value 2000
+# ** Note   : (112808592 ps) Write in ADC memory dump column 2, adress index 6, value 2000
+# ** Note   : (112824600 ps) Write in ADC memory dump column 2, adress index 7, value 2000
+# ** Note   : (112840608 ps) Write in ADC memory dump column 2, adress index 8, value 2000
+# ** Note   : (112856616 ps) Write in ADC memory dump column 2, adress index 9, value 2000
+# ** Note   : (112872624 ps) Write in ADC memory dump column 2, adress index 10, value 2000
+# ** Note   : (112888632 ps) Write in ADC memory dump column 2, adress index 11, value 2000
+# ** Note   : (112904640 ps) Write in ADC memory dump column 2, adress index 12, value 2000
+# ** Note   : (112920648 ps) Write in ADC memory dump column 2, adress index 13, value 2000
+# ** Note   : (112936656 ps) Write in ADC memory dump column 2, adress index 14, value 2000
+# ** Note   : (112952664 ps) Write in ADC memory dump column 2, adress index 15, value 2000
+# ** Note   : (112968672 ps) Write in ADC memory dump column 2, adress index 16, value 2000
+# ** Note   : (112984680 ps) Write in ADC memory dump column 2, adress index 17, value 2000
+# ** Note   : (113000688 ps) Write in ADC memory dump column 2, adress index 18, value 2000
+# ** Note   : (113016696 ps) Write in ADC memory dump column 2, adress index 19, value 2000
+# ** Note   : (113032704 ps) Write in ADC memory dump column 2, adress index 20, value 2000
+# ** Note   : (113048712 ps) Write in ADC memory dump column 2, adress index 21, value 2000
+# ** Note   : (113064720 ps) Write in ADC memory dump column 2, adress index 22, value 2000
+# ** Note   : (113080728 ps) Write in ADC memory dump column 2, adress index 23, value 2000
+# ** Note   : (113096736 ps) Write in ADC memory dump column 2, adress index 24, value 2000
+# ** Note   : (113112744 ps) Write in ADC memory dump column 2, adress index 25, value 2000
+# ** Note   : (113128752 ps) Write in ADC memory dump column 2, adress index 26, value 2000
+# ** Note   : (113144760 ps) Write in ADC memory dump column 2, adress index 27, value 2000
+# ** Note   : (113160768 ps) Write in ADC memory dump column 2, adress index 28, value 2000
+# ** Note   : (113176776 ps) Write in ADC memory dump column 2, adress index 29, value 2000
+# ** Note   : (113192784 ps) Write in ADC memory dump column 2, adress index 30, value 2000
+# ** Note   : (113208792 ps) Write in ADC memory dump column 2, adress index 31, value 2000
+# ** Note   : (113224800 ps) Write in ADC memory dump column 2, adress index 32, value 2000
+# ** Note   : (113240808 ps) Write in ADC memory dump column 2, adress index 33, value 2000
+#             (113256816 ps) 
+# ** Note   : (113256816 ps) Write in ADC memory dump column 3, adress index 0, value 2000
+# ** Note   : (113272824 ps) Write in ADC memory dump column 3, adress index 1, value 2000
+# ** Note   : (113288832 ps) Write in ADC memory dump column 3, adress index 2, value 2000
+# ** Note   : (113304840 ps) Write in ADC memory dump column 3, adress index 3, value 2000
+# ** Note   : (113320848 ps) Write in ADC memory dump column 3, adress index 4, value 2000
+# ** Note   : (113336856 ps) Write in ADC memory dump column 3, adress index 5, value 2000
+# ** Note   : (113352864 ps) Write in ADC memory dump column 3, adress index 6, value 2000
+# ** Note   : (113368872 ps) Write in ADC memory dump column 3, adress index 7, value 2000
+# ** Note   : (113384880 ps) Write in ADC memory dump column 3, adress index 8, value 2000
+# ** Note   : (113400888 ps) Write in ADC memory dump column 3, adress index 9, value 2000
+# ** Note   : (113416896 ps) Write in ADC memory dump column 3, adress index 10, value 2000
+# ** Note   : (113432904 ps) Write in ADC memory dump column 3, adress index 11, value 2000
+# ** Note   : (113448912 ps) Write in ADC memory dump column 3, adress index 12, value 2000
+# ** Note   : (113464920 ps) Write in ADC memory dump column 3, adress index 13, value 2000
+# ** Note   : (113480928 ps) Write in ADC memory dump column 3, adress index 14, value 2000
+# ** Note   : (113496936 ps) Write in ADC memory dump column 3, adress index 15, value 2000
+# ** Note   : (113512944 ps) Write in ADC memory dump column 3, adress index 16, value 2000
+# ** Note   : (113528952 ps) Write in ADC memory dump column 3, adress index 17, value 2000
+# ** Note   : (113544960 ps) Write in ADC memory dump column 3, adress index 18, value 2000
+# ** Note   : (113560968 ps) Write in ADC memory dump column 3, adress index 19, value 2000
+# ** Note   : (113576976 ps) Write in ADC memory dump column 3, adress index 20, value 2000
+# ** Note   : (113592984 ps) Write in ADC memory dump column 3, adress index 21, value 2000
+# ** Note   : (113608992 ps) Write in ADC memory dump column 3, adress index 22, value 2000
+# ** Note   : (113625000 ps) Write in ADC memory dump column 3, adress index 23, value 2000
+# ** Note   : (113641008 ps) Write in ADC memory dump column 3, adress index 24, value 2000
+# ** Note   : (113657016 ps) Write in ADC memory dump column 3, adress index 25, value 2000
+# ** Note   : (113673024 ps) Write in ADC memory dump column 3, adress index 26, value 2000
+# ** Note   : (113689032 ps) Write in ADC memory dump column 3, adress index 27, value 2000
+# ** Note   : (113705040 ps) Write in ADC memory dump column 3, adress index 28, value 2000
+# ** Note   : (113721048 ps) Write in ADC memory dump column 3, adress index 29, value 2000
+# ** Note   : (113737056 ps) Write in ADC memory dump column 3, adress index 30, value 2000
+# ** Note   : (113753064 ps) Write in ADC memory dump column 3, adress index 31, value 2000
+# ** Note   : (113769072 ps) Write in ADC memory dump column 3, adress index 32, value 2000
+# ** Note   : (113785080 ps) Write in ADC memory dump column 3, adress index 33, value 2000
+#             (113801088 ps) 
+#             (113801088 ps) ==============================================================================================
+#             (113801088 ps)   Record SQUID1 DAC pulse shaping column 0 by requesting a SQUID1 ADC dump on science
+#             (113801088 ps)    (DAC feedback on ADC)
+#             (113801088 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (113801088 ps) Send SPI command value 8001_0000 (TM_MODE, mode Write, data 0000)
+# ** Note   : (116106000 ps) Waiting SPI command end for 2268912 ps
+# ** Note   : (291106000 ps) Waiting time for 175000000 ps
+#             (291106000 ps) 
+#             (291106000 ps) ==============================================================================================
+#             (291106000 ps)   Configure SQUID2 DAC LSB column 1
+#             (291106000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (291106000 ps) Send SPI command value 2845_0100 (C1_SQ2_PXL_LOCKPOINT_LSB, mode Write, data 0100)
+# ** Note   : (293424000 ps) Waiting SPI command end for 2282000 ps
+#             (293424000 ps) 
+#             (293424000 ps) ==============================================================================================
+#             (293424000 ps)   Configure SQUID2 lockpoint Offset column 1
+#             (293424000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (293424000 ps) Send SPI command value 2847_08FF (C1_SQ2_PXL_LOCKPOINT_OFFSET, mode Write, data 08FF)
+# ** Note   : (295746000 ps) Waiting SPI command end for 2286000 ps
+#             (295746000 ps) 
+#             (295746000 ps) ==============================================================================================
+#             (295746000 ps)   Send command SQ2_FB_MODE column 0 to Off, column 1 to open loop
+#             (295746000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (295746000 ps) Send SPI command value 8005_0010 (SQ2_FB_MODE, mode Write, data 0010)
+# ** Note   : (298068000 ps) Waiting SPI command end for 2286000 ps
+#             (298068000 ps) 
+#             (298068000 ps) ==============================================================================================
+#             (298068000 ps)   Check each SQUID2 DAC column 0 goes to its middle point, column 1 goes to the new value,
+#             (298068000 ps)   synchronous with sync rising edge
+#             (298068000 ps)   Voltage formula: 2 * SQ2_PXL_LOCKPOINT_OFFSET/4092 - 1
+#             (298068000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (298068476 ps) Waiting event sync = '0' for 476 ps
+# ** Note   : (299365608 ps) Waiting event sync = '1' for 1297132 ps
 # ** Note   : (299525688 ps) Waiting event sync = '0' for 160080 ps
 # ** Note   : (304808328 ps) Waiting event sync = '1' for 5282640 ps
-#             (304808328 ps) 
-#             (304808328 ps) ==============================================================================================
-#             (304808328 ps)   Configure SQUID2 DAC LSB column 2
-#             (304808328 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (304808328 ps) Send SPI command value 4845_0100 (C2_SQ2_PXL_LOCKPOINT_LSB, mode Write, data 0100)
-# ** Note   : (307122000 ps) Waiting SPI command end for 2277672 ps
-#             (307122000 ps) 
-#             (307122000 ps) ==============================================================================================
-#             (307122000 ps)   Configure SQUID2 lockpoint Offset column 2
-#             (307122000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (307122000 ps) Send SPI command value 4847_08FF (C2_SQ2_PXL_LOCKPOINT_OFFSET, mode Write, data 08FF)
-# ** Note   : (309444000 ps) Waiting SPI command end for 2286000 ps
-#             (309444000 ps) 
-#             (309444000 ps) ==============================================================================================
-#             (309444000 ps)   Send command SQ2_FB_MODE column 1 to Off, column 2 to open loop
-#             (309444000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (309444000 ps) Send SPI command value 8005_0100 (SQ2_FB_MODE, mode Write, data 0100)
-# ** Note   : (311766000 ps) Waiting SPI command end for 2286000 ps
-#             (311766000 ps) 
-#             (311766000 ps) ==============================================================================================
-#             (311766000 ps)   Check each SQUID2 DAC column 1 goes to its middle point, column 2 goes to the new value,
-#             (311766000 ps)   synchronous with sync rising edge
-#             (311766000 ps)   Voltage formula: 2 * SQ2_PXL_LOCKPOINT_OFFSET/4092 - 1
-#             (311766000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (311767806 ps) Waiting event sync = '0' for 1806 ps
-# ** Note   : (315693768 ps) Waiting event sync = '1' for 3925962 ps
-# ** Note   : (315853848 ps) Waiting event sync = '0' for 160080 ps
-# ** Note   : (321136488 ps) Waiting event sync = '1' for 5282640 ps
-# ** Note   : (321152488 ps) Waiting time for 16000 ps
-# ** Note   : (321152488 ps) Check time, DAC channel 1 last event: PASS
-# ** Note   : (321152488 ps)  * DAC channel 1 last event 16000 ps equal to expected value 16000 ps
-# ** Note   : (321152488 ps) Check DAC level: PASS
-# ** Note   : (321152488 ps)  * Read DAC channel 1, value 0.000000e+00, expected 0.000000e+00
-# ** Note   : (321152488 ps) Check time, DAC channel 2 last event: PASS
-# ** Note   : (321152488 ps)  * DAC channel 2 last event 16000 ps equal to expected value 16000 ps
-# ** Note   : (321152488 ps) Check DAC level: PASS
-# ** Note   : (321152488 ps)  * Read DAC channel 2, value 1.245117e-01, expected 1.245117e-01
-#             (321152488 ps) 
-#             (321152488 ps) ==============================================================================================
-#             (321152488 ps)   Writing a new table in SQUID2 lockpoint value column 2 memory
-#             (321152488 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (321152488 ps) Send SPI command value 4801_0007 (C2_SQ2_PXL_LOCKPOINT, mode Write, data 0007)
-# ** Note   : (323466000 ps) Waiting SPI command end for 2277512 ps
-# ** Note   : (323466000 ps) Send SPI command value 4803_0006 (C2_SQ2_PXL_LOCKPOINT, mode Write, data 0006)
-# ** Note   : (325788000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (325788000 ps) Send SPI command value 4805_0005 (C2_SQ2_PXL_LOCKPOINT, mode Write, data 0005)
-# ** Note   : (328110000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (328110000 ps) Send SPI command value 4807_0004 (C2_SQ2_PXL_LOCKPOINT, mode Write, data 0004)
-# ** Note   : (330432000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (330432000 ps) Send SPI command value 4809_0003 (C2_SQ2_PXL_LOCKPOINT, mode Write, data 0003)
-# ** Note   : (332754000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (332754000 ps) Send SPI command value 480B_0002 (C2_SQ2_PXL_LOCKPOINT, mode Write, data 0002)
-# ** Note   : (335076000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (335076000 ps) Send SPI command value 480D_0001 (C2_SQ2_PXL_LOCKPOINT, mode Write, data 0001)
-# ** Note   : (337398000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (337398000 ps) Send SPI command value 480F_0000 (C2_SQ2_PXL_LOCKPOINT, mode Write, data 0000)
-# ** Note   : (339720000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (339720000 ps) Send SPI command value 4811_0007 (C2_SQ2_PXL_LOCKPOINT, mode Write, data 0007)
-# ** Note   : (342042000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (342042000 ps) Send SPI command value 4813_0006 (C2_SQ2_PXL_LOCKPOINT, mode Write, data 0006)
-# ** Note   : (344364000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (344364000 ps) Send SPI command value 4815_0005 (C2_SQ2_PXL_LOCKPOINT, mode Write, data 0005)
-# ** Note   : (346686000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (346686000 ps) Send SPI command value 4817_0004 (C2_SQ2_PXL_LOCKPOINT, mode Write, data 0004)
-# ** Note   : (349008000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (349008000 ps) Send SPI command value 4819_0003 (C2_SQ2_PXL_LOCKPOINT, mode Write, data 0003)
-# ** Note   : (351330000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (351330000 ps) Send SPI command value 481B_0002 (C2_SQ2_PXL_LOCKPOINT, mode Write, data 0002)
-# ** Note   : (353652000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (353652000 ps) Send SPI command value 481D_0001 (C2_SQ2_PXL_LOCKPOINT, mode Write, data 0001)
-# ** Note   : (355974000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (355974000 ps) Send SPI command value 481F_0000 (C2_SQ2_PXL_LOCKPOINT, mode Write, data 0000)
-# ** Note   : (358296000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (358296000 ps) Send SPI command value 4821_0007 (C2_SQ2_PXL_LOCKPOINT, mode Write, data 0007)
-# ** Note   : (360618000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (360618000 ps) Send SPI command value 4823_0006 (C2_SQ2_PXL_LOCKPOINT, mode Write, data 0006)
-# ** Note   : (362940000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (362940000 ps) Send SPI command value 4825_0005 (C2_SQ2_PXL_LOCKPOINT, mode Write, data 0005)
-# ** Note   : (365262000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (365262000 ps) Send SPI command value 4827_0004 (C2_SQ2_PXL_LOCKPOINT, mode Write, data 0004)
-# ** Note   : (367584000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (367584000 ps) Send SPI command value 4829_0003 (C2_SQ2_PXL_LOCKPOINT, mode Write, data 0003)
-# ** Note   : (369906000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (369906000 ps) Send SPI command value 482B_0002 (C2_SQ2_PXL_LOCKPOINT, mode Write, data 0002)
-# ** Note   : (372228000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (372228000 ps) Send SPI command value 482D_0001 (C2_SQ2_PXL_LOCKPOINT, mode Write, data 0001)
-# ** Note   : (374550000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (374550000 ps) Send SPI command value 482F_0000 (C2_SQ2_PXL_LOCKPOINT, mode Write, data 0000)
-# ** Note   : (376872000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (376872000 ps) Send SPI command value 4831_0007 (C2_SQ2_PXL_LOCKPOINT, mode Write, data 0007)
-# ** Note   : (379194000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (379194000 ps) Send SPI command value 4833_0006 (C2_SQ2_PXL_LOCKPOINT, mode Write, data 0006)
-# ** Note   : (381516000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (381516000 ps) Send SPI command value 4835_0005 (C2_SQ2_PXL_LOCKPOINT, mode Write, data 0005)
-# ** Note   : (383838000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (383838000 ps) Send SPI command value 4837_0004 (C2_SQ2_PXL_LOCKPOINT, mode Write, data 0004)
-# ** Note   : (386160000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (386160000 ps) Send SPI command value 4839_0003 (C2_SQ2_PXL_LOCKPOINT, mode Write, data 0003)
-# ** Note   : (388482000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (388482000 ps) Send SPI command value 483B_0002 (C2_SQ2_PXL_LOCKPOINT, mode Write, data 0002)
-# ** Note   : (390804000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (390804000 ps) Send SPI command value 483D_0001 (C2_SQ2_PXL_LOCKPOINT, mode Write, data 0001)
-# ** Note   : (393126000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (393126000 ps) Send SPI command value 483F_0000 (C2_SQ2_PXL_LOCKPOINT, mode Write, data 0000)
-# ** Note   : (395448000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (395448000 ps) Send SPI command value 4841_0007 (C2_SQ2_PXL_LOCKPOINT, mode Write, data 0007)
-# ** Note   : (397770000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (397770000 ps) Send SPI command value 4843_0007 (C2_SQ2_PXL_LOCKPOINT, mode Write, data 0007)
-# ** Note   : (400092000 ps) Waiting SPI command end for 2286000 ps
-#             (400092000 ps) 
-#             (400092000 ps) ==============================================================================================
-#             (400092000 ps)   Record SQUID1 DAC pulse shaping column 2 by requesting a SQUID1 ADC dump on science
-#             (400092000 ps)    (DAC feedback on ADC)
-#             (400092000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (400092000 ps) Send SPI command value 8001_45XX (TM_MODE, mode Write, data 45XX)
-# ** Note   : (402414000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (402417108 ps) Waiting event sync = '0' for 3108 ps
-# ** Note   : (402777288 ps) Waiting event sync = '1' for 360180 ps
-# ** Note   : (402937368 ps) Waiting event sync = '0' for 160080 ps
-# ** Note   : (408220008 ps) Waiting event sync = '1' for 5282640 ps
-# ** Note   : (408380088 ps) Waiting event sync = '0' for 160080 ps
-# ** Note   : (413662728 ps) Waiting event sync = '1' for 5282640 ps
-# ** Note   : (413822808 ps) Waiting event sync = '0' for 160080 ps
-# ** Note   : (419105448 ps) Waiting event sync = '1' for 5282640 ps
-# ** Note   : (419265528 ps) Waiting event sync = '0' for 160080 ps
-# ** Note   : (424548168 ps) Waiting event sync = '1' for 5282640 ps
-# ** Note   : (424708248 ps) Waiting event sync = '0' for 160080 ps
-# ** Note   : (429990888 ps) Waiting event sync = '1' for 5282640 ps
-# ** Note   : (430150968 ps) Waiting event sync = '0' for 160080 ps
-# ** Note   : (435433608 ps) Waiting event sync = '1' for 5282640 ps
-# ** Note   : (435593688 ps) Waiting event sync = '0' for 160080 ps
-# ** Note   : (440876328 ps) Waiting event sync = '1' for 5282640 ps
-# ** Note   : (441036408 ps) Waiting event sync = '0' for 160080 ps
-# ** Note   : (446319048 ps) Waiting event sync = '1' for 5282640 ps
-#             (446319048 ps) 
-#             (446319048 ps) ==============================================================================================
-#             (446319048 ps)   Configure SQUID2 DAC LSB column 3
-#             (446319048 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (446319048 ps) Send SPI command value 6845_0100 (C3_SQ2_PXL_LOCKPOINT_LSB, mode Write, data 0100)
-# ** Note   : (448638000 ps) Waiting SPI command end for 2282952 ps
-#             (448638000 ps) 
-#             (448638000 ps) ==============================================================================================
-#             (448638000 ps)   Configure SQUID2 lockpoint Offset column 3
-#             (448638000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (448638000 ps) Send SPI command value 6847_08FF (C3_SQ2_PXL_LOCKPOINT_OFFSET, mode Write, data 08FF)
-# ** Note   : (450960000 ps) Waiting SPI command end for 2286000 ps
-#             (450960000 ps) 
-#             (450960000 ps) ==============================================================================================
-#             (450960000 ps)   Send command SQ2_FB_MODE column 2 to Off, column 3 to open loop
-#             (450960000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (450960000 ps) Send SPI command value 8005_1000 (SQ2_FB_MODE, mode Write, data 1000)
-# ** Note   : (453282000 ps) Waiting SPI command end for 2286000 ps
-#             (453282000 ps) 
-#             (453282000 ps) ==============================================================================================
-#             (453282000 ps)   Check each SQUID2 DAC column 2 goes to its middle point, column 3 goes to the new value,
-#             (453282000 ps)   synchronous with sync rising edge
-#             (453282000 ps)   Voltage formula: 2 * SQ2_PXL_LOCKPOINT_OFFSET/4092 - 1
-#             (453282000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (453282528 ps) Waiting event sync = '0' for 528 ps
-# ** Note   : (457204488 ps) Waiting event sync = '1' for 3921960 ps
-# ** Note   : (457364568 ps) Waiting event sync = '0' for 160080 ps
-# ** Note   : (462647208 ps) Waiting event sync = '1' for 5282640 ps
-# ** Note   : (462663208 ps) Waiting time for 16000 ps
-# ** Note   : (462663208 ps) Check time, DAC channel 2 last event: PASS
-# ** Note   : (462663208 ps)  * DAC channel 2 last event 16000 ps equal to expected value 16000 ps
-# ** Note   : (462663208 ps) Check DAC level: PASS
-# ** Note   : (462663208 ps)  * Read DAC channel 2, value 0.000000e+00, expected 0.000000e+00
-# ** Note   : (462663208 ps) Check time, DAC channel 3 last event: PASS
-# ** Note   : (462663208 ps)  * DAC channel 3 last event 16000 ps equal to expected value 16000 ps
-# ** Note   : (462663208 ps) Check DAC level: PASS
-# ** Note   : (462663208 ps)  * Read DAC channel 3, value 1.245117e-01, expected 1.245117e-01
-#             (462663208 ps) 
-#             (462663208 ps) ==============================================================================================
-#             (462663208 ps)   Writing a new table in SQUID2 lockpoint value column 3 memory
-#             (462663208 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (462663208 ps) Send SPI command value 6801_0007 (C3_SQ2_PXL_LOCKPOINT, mode Write, data 0007)
-# ** Note   : (464982000 ps) Waiting SPI command end for 2282792 ps
-# ** Note   : (464982000 ps) Send SPI command value 6803_0006 (C3_SQ2_PXL_LOCKPOINT, mode Write, data 0006)
-# ** Note   : (467304000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (467304000 ps) Send SPI command value 6805_0005 (C3_SQ2_PXL_LOCKPOINT, mode Write, data 0005)
-# ** Note   : (469626000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (469626000 ps) Send SPI command value 6807_0004 (C3_SQ2_PXL_LOCKPOINT, mode Write, data 0004)
-# ** Note   : (471948000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (471948000 ps) Send SPI command value 6809_0003 (C3_SQ2_PXL_LOCKPOINT, mode Write, data 0003)
-# ** Note   : (474270000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (474270000 ps) Send SPI command value 680B_0002 (C3_SQ2_PXL_LOCKPOINT, mode Write, data 0002)
-# ** Note   : (476592000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (476592000 ps) Send SPI command value 680D_0001 (C3_SQ2_PXL_LOCKPOINT, mode Write, data 0001)
-# ** Note   : (478914000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (478914000 ps) Send SPI command value 680F_0000 (C3_SQ2_PXL_LOCKPOINT, mode Write, data 0000)
-# ** Note   : (481236000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (481236000 ps) Send SPI command value 6811_0007 (C3_SQ2_PXL_LOCKPOINT, mode Write, data 0007)
-# ** Note   : (483558000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (483558000 ps) Send SPI command value 6813_0006 (C3_SQ2_PXL_LOCKPOINT, mode Write, data 0006)
-# ** Note   : (485880000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (485880000 ps) Send SPI command value 6815_0005 (C3_SQ2_PXL_LOCKPOINT, mode Write, data 0005)
-# ** Note   : (488202000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (488202000 ps) Send SPI command value 6817_0004 (C3_SQ2_PXL_LOCKPOINT, mode Write, data 0004)
-# ** Note   : (490524000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (490524000 ps) Send SPI command value 6819_0003 (C3_SQ2_PXL_LOCKPOINT, mode Write, data 0003)
-# ** Note   : (492846000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (492846000 ps) Send SPI command value 681B_0002 (C3_SQ2_PXL_LOCKPOINT, mode Write, data 0002)
-# ** Note   : (495168000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (495168000 ps) Send SPI command value 681D_0001 (C3_SQ2_PXL_LOCKPOINT, mode Write, data 0001)
-# ** Note   : (497490000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (497490000 ps) Send SPI command value 681F_0000 (C3_SQ2_PXL_LOCKPOINT, mode Write, data 0000)
-# ** Note   : (499812000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (499812000 ps) Send SPI command value 6821_0007 (C3_SQ2_PXL_LOCKPOINT, mode Write, data 0007)
-# ** Note   : (502134000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (502134000 ps) Send SPI command value 6823_0006 (C3_SQ2_PXL_LOCKPOINT, mode Write, data 0006)
-# ** Note   : (504456000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (504456000 ps) Send SPI command value 6825_0005 (C3_SQ2_PXL_LOCKPOINT, mode Write, data 0005)
-# ** Note   : (506778000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (506778000 ps) Send SPI command value 6827_0004 (C3_SQ2_PXL_LOCKPOINT, mode Write, data 0004)
-# ** Note   : (509100000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (509100000 ps) Send SPI command value 6829_0003 (C3_SQ2_PXL_LOCKPOINT, mode Write, data 0003)
-# ** Note   : (511422000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (511422000 ps) Send SPI command value 682B_0002 (C3_SQ2_PXL_LOCKPOINT, mode Write, data 0002)
-# ** Note   : (513744000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (513744000 ps) Send SPI command value 682D_0001 (C3_SQ2_PXL_LOCKPOINT, mode Write, data 0001)
-# ** Note   : (516066000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (516066000 ps) Send SPI command value 682F_0000 (C3_SQ2_PXL_LOCKPOINT, mode Write, data 0000)
-# ** Note   : (518388000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (518388000 ps) Send SPI command value 6831_0007 (C3_SQ2_PXL_LOCKPOINT, mode Write, data 0007)
-# ** Note   : (520710000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (520710000 ps) Send SPI command value 6833_0006 (C3_SQ2_PXL_LOCKPOINT, mode Write, data 0006)
-# ** Note   : (523032000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (523032000 ps) Send SPI command value 6835_0005 (C3_SQ2_PXL_LOCKPOINT, mode Write, data 0005)
-# ** Note   : (525354000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (525354000 ps) Send SPI command value 6837_0004 (C3_SQ2_PXL_LOCKPOINT, mode Write, data 0004)
-# ** Note   : (527676000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (527676000 ps) Send SPI command value 6839_0003 (C3_SQ2_PXL_LOCKPOINT, mode Write, data 0003)
-# ** Note   : (529998000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (529998000 ps) Send SPI command value 683B_0002 (C3_SQ2_PXL_LOCKPOINT, mode Write, data 0002)
-# ** Note   : (532320000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (532320000 ps) Send SPI command value 683D_0001 (C3_SQ2_PXL_LOCKPOINT, mode Write, data 0001)
-# ** Note   : (534642000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (534642000 ps) Send SPI command value 683F_0000 (C3_SQ2_PXL_LOCKPOINT, mode Write, data 0000)
-# ** Note   : (536964000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (536964000 ps) Send SPI command value 6841_0007 (C3_SQ2_PXL_LOCKPOINT, mode Write, data 0007)
-# ** Note   : (539286000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (539286000 ps) Send SPI command value 6843_0007 (C3_SQ2_PXL_LOCKPOINT, mode Write, data 0007)
-# ** Note   : (541608000 ps) Waiting SPI command end for 2286000 ps
-#             (541608000 ps) 
-#             (541608000 ps) ==============================================================================================
-#             (541608000 ps)   Record SQUID1 DAC pulse shaping column 3 by requesting a SQUID1 ADC dump on science
-#             (541608000 ps)    (DAC feedback on ADC)
-#             (541608000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (541608000 ps) Send SPI command value 8001_15XX (TM_MODE, mode Write, data 15XX)
-# ** Note   : (543930000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (543931830 ps) Waiting event sync = '0' for 1830 ps
-# ** Note   : (544288008 ps) Waiting event sync = '1' for 356178 ps
-# ** Note   : (544448088 ps) Waiting event sync = '0' for 160080 ps
-# ** Note   : (549730728 ps) Waiting event sync = '1' for 5282640 ps
-# ** Note   : (549890808 ps) Waiting event sync = '0' for 160080 ps
-# ** Note   : (555173448 ps) Waiting event sync = '1' for 5282640 ps
-# ** Note   : (555333528 ps) Waiting event sync = '0' for 160080 ps
-# ** Note   : (560616168 ps) Waiting event sync = '1' for 5282640 ps
-# ** Note   : (560776248 ps) Waiting event sync = '0' for 160080 ps
-# ** Note   : (566058888 ps) Waiting event sync = '1' for 5282640 ps
-# ** Note   : (566218968 ps) Waiting event sync = '0' for 160080 ps
-# ** Note   : (571501608 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (304824328 ps) Waiting time for 16000 ps
+# ** Note   : (304824328 ps) Check time, DAC channel 0 last event: PASS
+# ** Note   : (304824328 ps)  * DAC channel 0 last event 16000 ps equal to expected value 16000 ps
+# ** Note   : (304824328 ps) Check DAC level: PASS
+# ** Note   : (304824328 ps)  * Read DAC channel 0, value 0.000000e+00, expected 0.000000e+00
+# ** Note   : (304824328 ps) Check time, DAC channel 1 last event: PASS
+# ** Note   : (304824328 ps)  * DAC channel 1 last event 16000 ps equal to expected value 16000 ps
+# ** Note   : (304824328 ps) Check DAC level: PASS
+# ** Note   : (304824328 ps)  * Read DAC channel 1, value 1.245117e-01, expected 1.245117e-01
+#             (304824328 ps) 
+#             (304824328 ps) ==============================================================================================
+#             (304824328 ps)   Writing a new table in SQUID2 lockpoint value column 1 memory
+#             (304824328 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (304824328 ps) Send SPI command value 2801_0007 (C1_SQ2_PXL_LOCKPOINT, mode Write, data 0007)
+# ** Note   : (307140000 ps) Waiting SPI command end for 2279672 ps
+# ** Note   : (307140000 ps) Send SPI command value 2803_0006 (C1_SQ2_PXL_LOCKPOINT, mode Write, data 0006)
+# ** Note   : (309462000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (309462000 ps) Send SPI command value 2805_0005 (C1_SQ2_PXL_LOCKPOINT, mode Write, data 0005)
+# ** Note   : (311784000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (311784000 ps) Send SPI command value 2807_0004 (C1_SQ2_PXL_LOCKPOINT, mode Write, data 0004)
+# ** Note   : (314106000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (314106000 ps) Send SPI command value 2809_0003 (C1_SQ2_PXL_LOCKPOINT, mode Write, data 0003)
+# ** Note   : (316428000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (316428000 ps) Send SPI command value 280B_0002 (C1_SQ2_PXL_LOCKPOINT, mode Write, data 0002)
+# ** Note   : (318750000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (318750000 ps) Send SPI command value 280D_0001 (C1_SQ2_PXL_LOCKPOINT, mode Write, data 0001)
+# ** Note   : (321072000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (321072000 ps) Send SPI command value 280F_0000 (C1_SQ2_PXL_LOCKPOINT, mode Write, data 0000)
+# ** Note   : (323394000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (323394000 ps) Send SPI command value 2811_0007 (C1_SQ2_PXL_LOCKPOINT, mode Write, data 0007)
+# ** Note   : (325716000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (325716000 ps) Send SPI command value 2813_0006 (C1_SQ2_PXL_LOCKPOINT, mode Write, data 0006)
+# ** Note   : (328038000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (328038000 ps) Send SPI command value 2815_0005 (C1_SQ2_PXL_LOCKPOINT, mode Write, data 0005)
+# ** Note   : (330360000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (330360000 ps) Send SPI command value 2817_0004 (C1_SQ2_PXL_LOCKPOINT, mode Write, data 0004)
+# ** Note   : (332682000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (332682000 ps) Send SPI command value 2819_0003 (C1_SQ2_PXL_LOCKPOINT, mode Write, data 0003)
+# ** Note   : (335004000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (335004000 ps) Send SPI command value 281B_0002 (C1_SQ2_PXL_LOCKPOINT, mode Write, data 0002)
+# ** Note   : (337326000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (337326000 ps) Send SPI command value 281D_0001 (C1_SQ2_PXL_LOCKPOINT, mode Write, data 0001)
+# ** Note   : (339648000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (339648000 ps) Send SPI command value 281F_0000 (C1_SQ2_PXL_LOCKPOINT, mode Write, data 0000)
+# ** Note   : (341970000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (341970000 ps) Send SPI command value 2821_0007 (C1_SQ2_PXL_LOCKPOINT, mode Write, data 0007)
+# ** Note   : (344292000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (344292000 ps) Send SPI command value 2823_0006 (C1_SQ2_PXL_LOCKPOINT, mode Write, data 0006)
+# ** Note   : (346614000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (346614000 ps) Send SPI command value 2825_0005 (C1_SQ2_PXL_LOCKPOINT, mode Write, data 0005)
+# ** Note   : (348936000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (348936000 ps) Send SPI command value 2827_0004 (C1_SQ2_PXL_LOCKPOINT, mode Write, data 0004)
+# ** Note   : (351258000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (351258000 ps) Send SPI command value 2829_0003 (C1_SQ2_PXL_LOCKPOINT, mode Write, data 0003)
+# ** Note   : (353580000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (353580000 ps) Send SPI command value 282B_0002 (C1_SQ2_PXL_LOCKPOINT, mode Write, data 0002)
+# ** Note   : (355902000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (355902000 ps) Send SPI command value 282D_0001 (C1_SQ2_PXL_LOCKPOINT, mode Write, data 0001)
+# ** Note   : (358224000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (358224000 ps) Send SPI command value 282F_0000 (C1_SQ2_PXL_LOCKPOINT, mode Write, data 0000)
+# ** Note   : (360546000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (360546000 ps) Send SPI command value 2831_0007 (C1_SQ2_PXL_LOCKPOINT, mode Write, data 0007)
+# ** Note   : (362868000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (362868000 ps) Send SPI command value 2833_0006 (C1_SQ2_PXL_LOCKPOINT, mode Write, data 0006)
+# ** Note   : (365190000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (365190000 ps) Send SPI command value 2835_0005 (C1_SQ2_PXL_LOCKPOINT, mode Write, data 0005)
+# ** Note   : (367512000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (367512000 ps) Send SPI command value 2837_0004 (C1_SQ2_PXL_LOCKPOINT, mode Write, data 0004)
+# ** Note   : (369834000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (369834000 ps) Send SPI command value 2839_0003 (C1_SQ2_PXL_LOCKPOINT, mode Write, data 0003)
+# ** Note   : (372156000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (372156000 ps) Send SPI command value 283B_0002 (C1_SQ2_PXL_LOCKPOINT, mode Write, data 0002)
+# ** Note   : (374478000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (374478000 ps) Send SPI command value 283D_0001 (C1_SQ2_PXL_LOCKPOINT, mode Write, data 0001)
+# ** Note   : (376800000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (376800000 ps) Send SPI command value 283F_0000 (C1_SQ2_PXL_LOCKPOINT, mode Write, data 0000)
+# ** Note   : (379122000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (379122000 ps) Send SPI command value 2841_0007 (C1_SQ2_PXL_LOCKPOINT, mode Write, data 0007)
+# ** Note   : (381444000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (381444000 ps) Send SPI command value 2843_0007 (C1_SQ2_PXL_LOCKPOINT, mode Write, data 0007)
+# ** Note   : (383766000 ps) Waiting SPI command end for 2286000 ps
+#             (383766000 ps) 
+#             (383766000 ps) ==============================================================================================
+#             (383766000 ps)   Writing memory dump data to compare
+#             (383766000 ps)   Formula: 4*(SQ2_PXL_LOCKPOINT_OFFSET + SQ2_PXL_LOCKPOINT * SQ2_PXL_LOCKPOINT_LSB)
+#             (383766000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (383766000 ps) Write in ADC memory dump column 1, adress index 0, value 3FFC
+# ** Note   : (383782008 ps) Write in ADC memory dump column 1, adress index 1, value 3BFC
+# ** Note   : (383798016 ps) Write in ADC memory dump column 1, adress index 2, value 37FC
+# ** Note   : (383814024 ps) Write in ADC memory dump column 1, adress index 3, value 33FC
+# ** Note   : (383830032 ps) Write in ADC memory dump column 1, adress index 4, value 2FFC
+# ** Note   : (383846040 ps) Write in ADC memory dump column 1, adress index 5, value 2BFC
+# ** Note   : (383862048 ps) Write in ADC memory dump column 1, adress index 6, value 27FC
+# ** Note   : (383878056 ps) Write in ADC memory dump column 1, adress index 7, value 23FC
+# ** Note   : (383894064 ps) Write in ADC memory dump column 1, adress index 8, value 3FFC
+# ** Note   : (383910072 ps) Write in ADC memory dump column 1, adress index 9, value 3BFC
+# ** Note   : (383926080 ps) Write in ADC memory dump column 1, adress index 10, value 37FC
+# ** Note   : (383942088 ps) Write in ADC memory dump column 1, adress index 11, value 33FC
+# ** Note   : (383958096 ps) Write in ADC memory dump column 1, adress index 12, value 2FFC
+# ** Note   : (383974104 ps) Write in ADC memory dump column 1, adress index 13, value 2BFC
+# ** Note   : (383990112 ps) Write in ADC memory dump column 1, adress index 14, value 27FC
+# ** Note   : (384006120 ps) Write in ADC memory dump column 1, adress index 15, value 23FC
+# ** Note   : (384022128 ps) Write in ADC memory dump column 1, adress index 16, value 3FFC
+# ** Note   : (384038136 ps) Write in ADC memory dump column 1, adress index 17, value 3BFC
+# ** Note   : (384054144 ps) Write in ADC memory dump column 1, adress index 18, value 37FC
+# ** Note   : (384070152 ps) Write in ADC memory dump column 1, adress index 19, value 33FC
+# ** Note   : (384086160 ps) Write in ADC memory dump column 1, adress index 20, value 2FFC
+# ** Note   : (384102168 ps) Write in ADC memory dump column 1, adress index 21, value 2BFC
+# ** Note   : (384118176 ps) Write in ADC memory dump column 1, adress index 22, value 27FC
+# ** Note   : (384134184 ps) Write in ADC memory dump column 1, adress index 23, value 23FC
+# ** Note   : (384150192 ps) Write in ADC memory dump column 1, adress index 24, value 3FFC
+# ** Note   : (384166200 ps) Write in ADC memory dump column 1, adress index 25, value 3BFC
+# ** Note   : (384182208 ps) Write in ADC memory dump column 1, adress index 26, value 37FC
+# ** Note   : (384198216 ps) Write in ADC memory dump column 1, adress index 27, value 33FC
+# ** Note   : (384214224 ps) Write in ADC memory dump column 1, adress index 28, value 2FFC
+# ** Note   : (384230232 ps) Write in ADC memory dump column 1, adress index 29, value 2BFC
+# ** Note   : (384246240 ps) Write in ADC memory dump column 1, adress index 30, value 27FC
+# ** Note   : (384262248 ps) Write in ADC memory dump column 1, adress index 31, value 23FC
+# ** Note   : (384278256 ps) Write in ADC memory dump column 1, adress index 32, value 3FFC
+# ** Note   : (384294264 ps) Write in ADC memory dump column 1, adress index 33, value 3FFC
+#             (384310272 ps) 
+# ** Note   : (384310272 ps) Write in ADC memory dump column 0, adress index 0, value 2000
+# ** Note   : (384326280 ps) Write in ADC memory dump column 0, adress index 1, value 2000
+# ** Note   : (384342288 ps) Write in ADC memory dump column 0, adress index 2, value 2000
+# ** Note   : (384358296 ps) Write in ADC memory dump column 0, adress index 3, value 2000
+# ** Note   : (384374304 ps) Write in ADC memory dump column 0, adress index 4, value 2000
+# ** Note   : (384390312 ps) Write in ADC memory dump column 0, adress index 5, value 2000
+# ** Note   : (384406320 ps) Write in ADC memory dump column 0, adress index 6, value 2000
+# ** Note   : (384422328 ps) Write in ADC memory dump column 0, adress index 7, value 2000
+# ** Note   : (384438336 ps) Write in ADC memory dump column 0, adress index 8, value 2000
+# ** Note   : (384454344 ps) Write in ADC memory dump column 0, adress index 9, value 2000
+# ** Note   : (384470352 ps) Write in ADC memory dump column 0, adress index 10, value 2000
+# ** Note   : (384486360 ps) Write in ADC memory dump column 0, adress index 11, value 2000
+# ** Note   : (384502368 ps) Write in ADC memory dump column 0, adress index 12, value 2000
+# ** Note   : (384518376 ps) Write in ADC memory dump column 0, adress index 13, value 2000
+# ** Note   : (384534384 ps) Write in ADC memory dump column 0, adress index 14, value 2000
+# ** Note   : (384550392 ps) Write in ADC memory dump column 0, adress index 15, value 2000
+# ** Note   : (384566400 ps) Write in ADC memory dump column 0, adress index 16, value 2000
+# ** Note   : (384582408 ps) Write in ADC memory dump column 0, adress index 17, value 2000
+# ** Note   : (384598416 ps) Write in ADC memory dump column 0, adress index 18, value 2000
+# ** Note   : (384614424 ps) Write in ADC memory dump column 0, adress index 19, value 2000
+# ** Note   : (384630432 ps) Write in ADC memory dump column 0, adress index 20, value 2000
+# ** Note   : (384646440 ps) Write in ADC memory dump column 0, adress index 21, value 2000
+# ** Note   : (384662448 ps) Write in ADC memory dump column 0, adress index 22, value 2000
+# ** Note   : (384678456 ps) Write in ADC memory dump column 0, adress index 23, value 2000
+# ** Note   : (384694464 ps) Write in ADC memory dump column 0, adress index 24, value 2000
+# ** Note   : (384710472 ps) Write in ADC memory dump column 0, adress index 25, value 2000
+# ** Note   : (384726480 ps) Write in ADC memory dump column 0, adress index 26, value 2000
+# ** Note   : (384742488 ps) Write in ADC memory dump column 0, adress index 27, value 2000
+# ** Note   : (384758496 ps) Write in ADC memory dump column 0, adress index 28, value 2000
+# ** Note   : (384774504 ps) Write in ADC memory dump column 0, adress index 29, value 2000
+# ** Note   : (384790512 ps) Write in ADC memory dump column 0, adress index 30, value 2000
+# ** Note   : (384806520 ps) Write in ADC memory dump column 0, adress index 31, value 2000
+# ** Note   : (384822528 ps) Write in ADC memory dump column 0, adress index 32, value 2000
+# ** Note   : (384838536 ps) Write in ADC memory dump column 0, adress index 33, value 2000
+#             (384854544 ps) 
+#             (384854544 ps) ==============================================================================================
+#             (384854544 ps)   Record SQUID1 DAC pulse shaping column 1 by requesting a SQUID1 ADC dump on science
+#             (384854544 ps)    (DAC feedback on ADC)
+#             (384854544 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (384854544 ps) Send SPI command value 8001_0000 (TM_MODE, mode Write, data 0000)
+# ** Note   : (387168000 ps) Waiting SPI command end for 2277456 ps
+# ** Note   : (562168000 ps) Waiting time for 175000000 ps
+#             (562168000 ps) 
+#             (562168000 ps) ==============================================================================================
+#             (562168000 ps)   Configure SQUID2 DAC LSB column 2
+#             (562168000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (562168000 ps) Send SPI command value 4845_0100 (C2_SQ2_PXL_LOCKPOINT_LSB, mode Write, data 0100)
+# ** Note   : (564486000 ps) Waiting SPI command end for 2282000 ps
+#             (564486000 ps) 
+#             (564486000 ps) ==============================================================================================
+#             (564486000 ps)   Configure SQUID2 lockpoint Offset column 2
+#             (564486000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (564486000 ps) Send SPI command value 4847_08FF (C2_SQ2_PXL_LOCKPOINT_OFFSET, mode Write, data 08FF)
+# ** Note   : (566808000 ps) Waiting SPI command end for 2286000 ps
+#             (566808000 ps) 
+#             (566808000 ps) ==============================================================================================
+#             (566808000 ps)   Send command SQ2_FB_MODE column 1 to Off, column 2 to open loop
+#             (566808000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (566808000 ps) Send SPI command value 8005_0100 (SQ2_FB_MODE, mode Write, data 0100)
+# ** Note   : (569130000 ps) Waiting SPI command end for 2286000 ps
+#             (569130000 ps) 
+#             (569130000 ps) ==============================================================================================
+#             (569130000 ps)   Check each SQUID2 DAC column 1 goes to its middle point, column 2 goes to the new value,
+#             (569130000 ps)   synchronous with sync rising edge
+#             (569130000 ps)   Voltage formula: 2 * SQ2_PXL_LOCKPOINT_OFFSET/4092 - 1
+#             (569130000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (569131940 ps) Waiting event sync = '0' for 1940 ps
+# ** Note   : (571501608 ps) Waiting event sync = '1' for 2369668 ps
 # ** Note   : (571661688 ps) Waiting event sync = '0' for 160080 ps
 # ** Note   : (576944328 ps) Waiting event sync = '1' for 5282640 ps
-# ** Note   : (577104408 ps) Waiting event sync = '0' for 160080 ps
-# ** Note   : (582387048 ps) Waiting event sync = '1' for 5282640 ps
-# ** Note   : (582547128 ps) Waiting event sync = '0' for 160080 ps
-# ** Note   : (587829768 ps) Waiting event sync = '1' for 5282640 ps
-#             (587829768 ps) 
-#             (587829768 ps) ==============================================================================================
-#             (587829768 ps)   Send command SQ2_FB_MODE column 3 to Off
-#             (587829768 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (587829768 ps) Send SPI command value 8005_0000 (SQ2_FB_MODE, mode Write, data 0000)
-# ** Note   : (590136000 ps) Waiting SPI command end for 2270232 ps
-#             (590136000 ps) 
-#             (590136000 ps) ==============================================================================================
-#             (590136000 ps)   Check each SQUID2 DAC column 3 goes to its middle point,
-#             (590136000 ps)   synchronous with sync rising edge
-#             (590136000 ps)   Voltage formula: 2 * SQ2_PXL_LOCKPOINT_OFFSET/4092 - 1
-#             (590136000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (590138438 ps) Waiting event sync = '0' for 2438 ps
-# ** Note   : (593272488 ps) Waiting event sync = '1' for 3134050 ps
-# ** Note   : (593432568 ps) Waiting event sync = '0' for 160080 ps
-# ** Note   : (598715208 ps) Waiting event sync = '1' for 5282640 ps
-# ** Note   : (598731208 ps) Waiting time for 16000 ps
-# ** Note   : (598731208 ps) Check time, DAC channel 3 last event: PASS
-# ** Note   : (598731208 ps)  * DAC channel 3 last event 16000 ps equal to expected value 16000 ps
-# ** Note   : (598731208 ps) Check DAC level: PASS
-# ** Note   : (598731208 ps)  * Read DAC channel 3, value 0.000000e+00, expected 0.000000e+00
+# ** Note   : (576960328 ps) Waiting time for 16000 ps
+# ** Note   : (576960328 ps) Check time, DAC channel 1 last event: PASS
+# ** Note   : (576960328 ps)  * DAC channel 1 last event 16000 ps equal to expected value 16000 ps
+# ** Note   : (576960328 ps) Check DAC level: PASS
+# ** Note   : (576960328 ps)  * Read DAC channel 1, value 0.000000e+00, expected 0.000000e+00
+# ** Note   : (576960328 ps) Check time, DAC channel 2 last event: PASS
+# ** Note   : (576960328 ps)  * DAC channel 2 last event 16000 ps equal to expected value 16000 ps
+# ** Note   : (576960328 ps) Check DAC level: PASS
+# ** Note   : (576960328 ps)  * Read DAC channel 2, value 1.245117e-01, expected 1.245117e-01
+#             (576960328 ps) 
+#             (576960328 ps) ==============================================================================================
+#             (576960328 ps)   Writing a new table in SQUID2 lockpoint value column 2 memory
+#             (576960328 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (576960328 ps) Send SPI command value 4801_0007 (C2_SQ2_PXL_LOCKPOINT, mode Write, data 0007)
+# ** Note   : (579282000 ps) Waiting SPI command end for 2285672 ps
+# ** Note   : (579282000 ps) Send SPI command value 4803_0006 (C2_SQ2_PXL_LOCKPOINT, mode Write, data 0006)
+# ** Note   : (581604000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (581604000 ps) Send SPI command value 4805_0005 (C2_SQ2_PXL_LOCKPOINT, mode Write, data 0005)
+# ** Note   : (583926000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (583926000 ps) Send SPI command value 4807_0004 (C2_SQ2_PXL_LOCKPOINT, mode Write, data 0004)
+# ** Note   : (586248000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (586248000 ps) Send SPI command value 4809_0003 (C2_SQ2_PXL_LOCKPOINT, mode Write, data 0003)
+# ** Note   : (588570000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (588570000 ps) Send SPI command value 480B_0002 (C2_SQ2_PXL_LOCKPOINT, mode Write, data 0002)
+# ** Note   : (590892000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (590892000 ps) Send SPI command value 480D_0001 (C2_SQ2_PXL_LOCKPOINT, mode Write, data 0001)
+# ** Note   : (593214000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (593214000 ps) Send SPI command value 480F_0000 (C2_SQ2_PXL_LOCKPOINT, mode Write, data 0000)
+# ** Note   : (595536000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (595536000 ps) Send SPI command value 4811_0007 (C2_SQ2_PXL_LOCKPOINT, mode Write, data 0007)
+# ** Note   : (597858000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (597858000 ps) Send SPI command value 4813_0006 (C2_SQ2_PXL_LOCKPOINT, mode Write, data 0006)
+# ** Note   : (600180000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (600180000 ps) Send SPI command value 4815_0005 (C2_SQ2_PXL_LOCKPOINT, mode Write, data 0005)
+# ** Note   : (602502000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (602502000 ps) Send SPI command value 4817_0004 (C2_SQ2_PXL_LOCKPOINT, mode Write, data 0004)
+# ** Note   : (604824000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (604824000 ps) Send SPI command value 4819_0003 (C2_SQ2_PXL_LOCKPOINT, mode Write, data 0003)
+# ** Note   : (607146000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (607146000 ps) Send SPI command value 481B_0002 (C2_SQ2_PXL_LOCKPOINT, mode Write, data 0002)
+# ** Note   : (609468000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (609468000 ps) Send SPI command value 481D_0001 (C2_SQ2_PXL_LOCKPOINT, mode Write, data 0001)
+# ** Note   : (611790000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (611790000 ps) Send SPI command value 481F_0000 (C2_SQ2_PXL_LOCKPOINT, mode Write, data 0000)
+# ** Note   : (614112000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (614112000 ps) Send SPI command value 4821_0007 (C2_SQ2_PXL_LOCKPOINT, mode Write, data 0007)
+# ** Note   : (616434000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (616434000 ps) Send SPI command value 4823_0006 (C2_SQ2_PXL_LOCKPOINT, mode Write, data 0006)
+# ** Note   : (618756000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (618756000 ps) Send SPI command value 4825_0005 (C2_SQ2_PXL_LOCKPOINT, mode Write, data 0005)
+# ** Note   : (621078000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (621078000 ps) Send SPI command value 4827_0004 (C2_SQ2_PXL_LOCKPOINT, mode Write, data 0004)
+# ** Note   : (623400000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (623400000 ps) Send SPI command value 4829_0003 (C2_SQ2_PXL_LOCKPOINT, mode Write, data 0003)
+# ** Note   : (625722000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (625722000 ps) Send SPI command value 482B_0002 (C2_SQ2_PXL_LOCKPOINT, mode Write, data 0002)
+# ** Note   : (628044000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (628044000 ps) Send SPI command value 482D_0001 (C2_SQ2_PXL_LOCKPOINT, mode Write, data 0001)
+# ** Note   : (630366000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (630366000 ps) Send SPI command value 482F_0000 (C2_SQ2_PXL_LOCKPOINT, mode Write, data 0000)
+# ** Note   : (632688000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (632688000 ps) Send SPI command value 4831_0007 (C2_SQ2_PXL_LOCKPOINT, mode Write, data 0007)
+# ** Note   : (635010000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (635010000 ps) Send SPI command value 4833_0006 (C2_SQ2_PXL_LOCKPOINT, mode Write, data 0006)
+# ** Note   : (637332000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (637332000 ps) Send SPI command value 4835_0005 (C2_SQ2_PXL_LOCKPOINT, mode Write, data 0005)
+# ** Note   : (639654000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (639654000 ps) Send SPI command value 4837_0004 (C2_SQ2_PXL_LOCKPOINT, mode Write, data 0004)
+# ** Note   : (641976000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (641976000 ps) Send SPI command value 4839_0003 (C2_SQ2_PXL_LOCKPOINT, mode Write, data 0003)
+# ** Note   : (644298000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (644298000 ps) Send SPI command value 483B_0002 (C2_SQ2_PXL_LOCKPOINT, mode Write, data 0002)
+# ** Note   : (646620000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (646620000 ps) Send SPI command value 483D_0001 (C2_SQ2_PXL_LOCKPOINT, mode Write, data 0001)
+# ** Note   : (648942000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (648942000 ps) Send SPI command value 483F_0000 (C2_SQ2_PXL_LOCKPOINT, mode Write, data 0000)
+# ** Note   : (651264000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (651264000 ps) Send SPI command value 4841_0007 (C2_SQ2_PXL_LOCKPOINT, mode Write, data 0007)
+# ** Note   : (653586000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (653586000 ps) Send SPI command value 4843_0007 (C2_SQ2_PXL_LOCKPOINT, mode Write, data 0007)
+# ** Note   : (655908000 ps) Waiting SPI command end for 2286000 ps
+#             (655908000 ps) 
+#             (655908000 ps) ==============================================================================================
+#             (655908000 ps)   Writing memory dump data to compare
+#             (655908000 ps)   Formula: 4*(SQ2_PXL_LOCKPOINT_OFFSET + SQ2_PXL_LOCKPOINT * SQ2_PXL_LOCKPOINT_LSB)
+#             (655908000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (655908000 ps) Write in ADC memory dump column 2, adress index 0, value 3FFC
+# ** Note   : (655924008 ps) Write in ADC memory dump column 2, adress index 1, value 3BFC
+# ** Note   : (655940016 ps) Write in ADC memory dump column 2, adress index 2, value 37FC
+# ** Note   : (655956024 ps) Write in ADC memory dump column 2, adress index 3, value 33FC
+# ** Note   : (655972032 ps) Write in ADC memory dump column 2, adress index 4, value 2FFC
+# ** Note   : (655988040 ps) Write in ADC memory dump column 2, adress index 5, value 2BFC
+# ** Note   : (656004048 ps) Write in ADC memory dump column 2, adress index 6, value 27FC
+# ** Note   : (656020056 ps) Write in ADC memory dump column 2, adress index 7, value 23FC
+# ** Note   : (656036064 ps) Write in ADC memory dump column 2, adress index 8, value 3FFC
+# ** Note   : (656052072 ps) Write in ADC memory dump column 2, adress index 9, value 3BFC
+# ** Note   : (656068080 ps) Write in ADC memory dump column 2, adress index 10, value 37FC
+# ** Note   : (656084088 ps) Write in ADC memory dump column 2, adress index 11, value 33FC
+# ** Note   : (656100096 ps) Write in ADC memory dump column 2, adress index 12, value 2FFC
+# ** Note   : (656116104 ps) Write in ADC memory dump column 2, adress index 13, value 2BFC
+# ** Note   : (656132112 ps) Write in ADC memory dump column 2, adress index 14, value 27FC
+# ** Note   : (656148120 ps) Write in ADC memory dump column 2, adress index 15, value 23FC
+# ** Note   : (656164128 ps) Write in ADC memory dump column 2, adress index 16, value 3FFC
+# ** Note   : (656180136 ps) Write in ADC memory dump column 2, adress index 17, value 3BFC
+# ** Note   : (656196144 ps) Write in ADC memory dump column 2, adress index 18, value 37FC
+# ** Note   : (656212152 ps) Write in ADC memory dump column 2, adress index 19, value 33FC
+# ** Note   : (656228160 ps) Write in ADC memory dump column 2, adress index 20, value 2FFC
+# ** Note   : (656244168 ps) Write in ADC memory dump column 2, adress index 21, value 2BFC
+# ** Note   : (656260176 ps) Write in ADC memory dump column 2, adress index 22, value 27FC
+# ** Note   : (656276184 ps) Write in ADC memory dump column 2, adress index 23, value 23FC
+# ** Note   : (656292192 ps) Write in ADC memory dump column 2, adress index 24, value 3FFC
+# ** Note   : (656308200 ps) Write in ADC memory dump column 2, adress index 25, value 3BFC
+# ** Note   : (656324208 ps) Write in ADC memory dump column 2, adress index 26, value 37FC
+# ** Note   : (656340216 ps) Write in ADC memory dump column 2, adress index 27, value 33FC
+# ** Note   : (656356224 ps) Write in ADC memory dump column 2, adress index 28, value 2FFC
+# ** Note   : (656372232 ps) Write in ADC memory dump column 2, adress index 29, value 2BFC
+# ** Note   : (656388240 ps) Write in ADC memory dump column 2, adress index 30, value 27FC
+# ** Note   : (656404248 ps) Write in ADC memory dump column 2, adress index 31, value 23FC
+# ** Note   : (656420256 ps) Write in ADC memory dump column 2, adress index 32, value 3FFC
+# ** Note   : (656436264 ps) Write in ADC memory dump column 2, adress index 33, value 3FFC
+#             (656452272 ps) 
+# ** Note   : (656452272 ps) Write in ADC memory dump column 1, adress index 0, value 2000
+# ** Note   : (656468280 ps) Write in ADC memory dump column 1, adress index 1, value 2000
+# ** Note   : (656484288 ps) Write in ADC memory dump column 1, adress index 2, value 2000
+# ** Note   : (656500296 ps) Write in ADC memory dump column 1, adress index 3, value 2000
+# ** Note   : (656516304 ps) Write in ADC memory dump column 1, adress index 4, value 2000
+# ** Note   : (656532312 ps) Write in ADC memory dump column 1, adress index 5, value 2000
+# ** Note   : (656548320 ps) Write in ADC memory dump column 1, adress index 6, value 2000
+# ** Note   : (656564328 ps) Write in ADC memory dump column 1, adress index 7, value 2000
+# ** Note   : (656580336 ps) Write in ADC memory dump column 1, adress index 8, value 2000
+# ** Note   : (656596344 ps) Write in ADC memory dump column 1, adress index 9, value 2000
+# ** Note   : (656612352 ps) Write in ADC memory dump column 1, adress index 10, value 2000
+# ** Note   : (656628360 ps) Write in ADC memory dump column 1, adress index 11, value 2000
+# ** Note   : (656644368 ps) Write in ADC memory dump column 1, adress index 12, value 2000
+# ** Note   : (656660376 ps) Write in ADC memory dump column 1, adress index 13, value 2000
+# ** Note   : (656676384 ps) Write in ADC memory dump column 1, adress index 14, value 2000
+# ** Note   : (656692392 ps) Write in ADC memory dump column 1, adress index 15, value 2000
+# ** Note   : (656708400 ps) Write in ADC memory dump column 1, adress index 16, value 2000
+# ** Note   : (656724408 ps) Write in ADC memory dump column 1, adress index 17, value 2000
+# ** Note   : (656740416 ps) Write in ADC memory dump column 1, adress index 18, value 2000
+# ** Note   : (656756424 ps) Write in ADC memory dump column 1, adress index 19, value 2000
+# ** Note   : (656772432 ps) Write in ADC memory dump column 1, adress index 20, value 2000
+# ** Note   : (656788440 ps) Write in ADC memory dump column 1, adress index 21, value 2000
+# ** Note   : (656804448 ps) Write in ADC memory dump column 1, adress index 22, value 2000
+# ** Note   : (656820456 ps) Write in ADC memory dump column 1, adress index 23, value 2000
+# ** Note   : (656836464 ps) Write in ADC memory dump column 1, adress index 24, value 2000
+# ** Note   : (656852472 ps) Write in ADC memory dump column 1, adress index 25, value 2000
+# ** Note   : (656868480 ps) Write in ADC memory dump column 1, adress index 26, value 2000
+# ** Note   : (656884488 ps) Write in ADC memory dump column 1, adress index 27, value 2000
+# ** Note   : (656900496 ps) Write in ADC memory dump column 1, adress index 28, value 2000
+# ** Note   : (656916504 ps) Write in ADC memory dump column 1, adress index 29, value 2000
+# ** Note   : (656932512 ps) Write in ADC memory dump column 1, adress index 30, value 2000
+# ** Note   : (656948520 ps) Write in ADC memory dump column 1, adress index 31, value 2000
+# ** Note   : (656964528 ps) Write in ADC memory dump column 1, adress index 32, value 2000
+# ** Note   : (656980536 ps) Write in ADC memory dump column 1, adress index 33, value 2000
+#             (656996544 ps) 
+#             (656996544 ps) ==============================================================================================
+#             (656996544 ps)   Record SQUID1 DAC pulse shaping column 2 by requesting a SQUID1 ADC dump on science
+#             (656996544 ps)    (DAC feedback on ADC)
+#             (656996544 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (656996544 ps) Send SPI command value 8001_0000 (TM_MODE, mode Write, data 0000)
+# ** Note   : (659310000 ps) Waiting SPI command end for 2277456 ps
+# ** Note   : (834310000 ps) Waiting time for 175000000 ps
+#             (834310000 ps) 
+#             (834310000 ps) ==============================================================================================
+#             (834310000 ps)   Configure SQUID2 DAC LSB column 3
+#             (834310000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (834310000 ps) Send SPI command value 6845_0100 (C3_SQ2_PXL_LOCKPOINT_LSB, mode Write, data 0100)
+# ** Note   : (836628000 ps) Waiting SPI command end for 2282000 ps
+#             (836628000 ps) 
+#             (836628000 ps) ==============================================================================================
+#             (836628000 ps)   Configure SQUID2 lockpoint Offset column 3
+#             (836628000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (836628000 ps) Send SPI command value 6847_08FF (C3_SQ2_PXL_LOCKPOINT_OFFSET, mode Write, data 08FF)
+# ** Note   : (838950000 ps) Waiting SPI command end for 2286000 ps
+#             (838950000 ps) 
+#             (838950000 ps) ==============================================================================================
+#             (838950000 ps)   Send command SQ2_FB_MODE column 2 to Off, column 3 to open loop
+#             (838950000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (838950000 ps) Send SPI command value 8005_1000 (SQ2_FB_MODE, mode Write, data 1000)
+# ** Note   : (841272000 ps) Waiting SPI command end for 2286000 ps
+#             (841272000 ps) 
+#             (841272000 ps) ==============================================================================================
+#             (841272000 ps)   Check each SQUID2 DAC column 2 goes to its middle point, column 3 goes to the new value,
+#             (841272000 ps)   synchronous with sync rising edge
+#             (841272000 ps)   Voltage formula: 2 * SQ2_PXL_LOCKPOINT_OFFSET/4092 - 1
+#             (841272000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (841272426 ps) Waiting event sync = '0' for 426 ps
+# ** Note   : (843637608 ps) Waiting event sync = '1' for 2365182 ps
+# ** Note   : (843797688 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (849080328 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (849096328 ps) Waiting time for 16000 ps
+# ** Note   : (849096328 ps) Check time, DAC channel 2 last event: PASS
+# ** Note   : (849096328 ps)  * DAC channel 2 last event 16000 ps equal to expected value 16000 ps
+# ** Note   : (849096328 ps) Check DAC level: PASS
+# ** Note   : (849096328 ps)  * Read DAC channel 2, value 0.000000e+00, expected 0.000000e+00
+# ** Note   : (849096328 ps) Check time, DAC channel 3 last event: PASS
+# ** Note   : (849096328 ps)  * DAC channel 3 last event 16000 ps equal to expected value 16000 ps
+# ** Note   : (849096328 ps) Check DAC level: PASS
+# ** Note   : (849096328 ps)  * Read DAC channel 3, value 1.245117e-01, expected 1.245117e-01
+#             (849096328 ps) 
+#             (849096328 ps) ==============================================================================================
+#             (849096328 ps)   Writing a new table in SQUID2 lockpoint value column 3 memory
+#             (849096328 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (849096328 ps) Send SPI command value 6801_0007 (C3_SQ2_PXL_LOCKPOINT, mode Write, data 0007)
+# ** Note   : (851406000 ps) Waiting SPI command end for 2273672 ps
+# ** Note   : (851406000 ps) Send SPI command value 6803_0006 (C3_SQ2_PXL_LOCKPOINT, mode Write, data 0006)
+# ** Note   : (853728000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (853728000 ps) Send SPI command value 6805_0005 (C3_SQ2_PXL_LOCKPOINT, mode Write, data 0005)
+# ** Note   : (856050000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (856050000 ps) Send SPI command value 6807_0004 (C3_SQ2_PXL_LOCKPOINT, mode Write, data 0004)
+# ** Note   : (858372000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (858372000 ps) Send SPI command value 6809_0003 (C3_SQ2_PXL_LOCKPOINT, mode Write, data 0003)
+# ** Note   : (860694000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (860694000 ps) Send SPI command value 680B_0002 (C3_SQ2_PXL_LOCKPOINT, mode Write, data 0002)
+# ** Note   : (863016000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (863016000 ps) Send SPI command value 680D_0001 (C3_SQ2_PXL_LOCKPOINT, mode Write, data 0001)
+# ** Note   : (865338000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (865338000 ps) Send SPI command value 680F_0000 (C3_SQ2_PXL_LOCKPOINT, mode Write, data 0000)
+# ** Note   : (867660000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (867660000 ps) Send SPI command value 6811_0007 (C3_SQ2_PXL_LOCKPOINT, mode Write, data 0007)
+# ** Note   : (869982000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (869982000 ps) Send SPI command value 6813_0006 (C3_SQ2_PXL_LOCKPOINT, mode Write, data 0006)
+# ** Note   : (872304000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (872304000 ps) Send SPI command value 6815_0005 (C3_SQ2_PXL_LOCKPOINT, mode Write, data 0005)
+# ** Note   : (874626000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (874626000 ps) Send SPI command value 6817_0004 (C3_SQ2_PXL_LOCKPOINT, mode Write, data 0004)
+# ** Note   : (876948000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (876948000 ps) Send SPI command value 6819_0003 (C3_SQ2_PXL_LOCKPOINT, mode Write, data 0003)
+# ** Note   : (879270000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (879270000 ps) Send SPI command value 681B_0002 (C3_SQ2_PXL_LOCKPOINT, mode Write, data 0002)
+# ** Note   : (881592000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (881592000 ps) Send SPI command value 681D_0001 (C3_SQ2_PXL_LOCKPOINT, mode Write, data 0001)
+# ** Note   : (883914000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (883914000 ps) Send SPI command value 681F_0000 (C3_SQ2_PXL_LOCKPOINT, mode Write, data 0000)
+# ** Note   : (886236000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (886236000 ps) Send SPI command value 6821_0007 (C3_SQ2_PXL_LOCKPOINT, mode Write, data 0007)
+# ** Note   : (888558000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (888558000 ps) Send SPI command value 6823_0006 (C3_SQ2_PXL_LOCKPOINT, mode Write, data 0006)
+# ** Note   : (890880000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (890880000 ps) Send SPI command value 6825_0005 (C3_SQ2_PXL_LOCKPOINT, mode Write, data 0005)
+# ** Note   : (893202000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (893202000 ps) Send SPI command value 6827_0004 (C3_SQ2_PXL_LOCKPOINT, mode Write, data 0004)
+# ** Note   : (895524000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (895524000 ps) Send SPI command value 6829_0003 (C3_SQ2_PXL_LOCKPOINT, mode Write, data 0003)
+# ** Note   : (897846000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (897846000 ps) Send SPI command value 682B_0002 (C3_SQ2_PXL_LOCKPOINT, mode Write, data 0002)
+# ** Note   : (900168000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (900168000 ps) Send SPI command value 682D_0001 (C3_SQ2_PXL_LOCKPOINT, mode Write, data 0001)
+# ** Note   : (902490000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (902490000 ps) Send SPI command value 682F_0000 (C3_SQ2_PXL_LOCKPOINT, mode Write, data 0000)
+# ** Note   : (904812000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (904812000 ps) Send SPI command value 6831_0007 (C3_SQ2_PXL_LOCKPOINT, mode Write, data 0007)
+# ** Note   : (907134000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (907134000 ps) Send SPI command value 6833_0006 (C3_SQ2_PXL_LOCKPOINT, mode Write, data 0006)
+# ** Note   : (909456000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (909456000 ps) Send SPI command value 6835_0005 (C3_SQ2_PXL_LOCKPOINT, mode Write, data 0005)
+# ** Note   : (911778000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (911778000 ps) Send SPI command value 6837_0004 (C3_SQ2_PXL_LOCKPOINT, mode Write, data 0004)
+# ** Note   : (914100000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (914100000 ps) Send SPI command value 6839_0003 (C3_SQ2_PXL_LOCKPOINT, mode Write, data 0003)
+# ** Note   : (916422000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (916422000 ps) Send SPI command value 683B_0002 (C3_SQ2_PXL_LOCKPOINT, mode Write, data 0002)
+# ** Note   : (918744000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (918744000 ps) Send SPI command value 683D_0001 (C3_SQ2_PXL_LOCKPOINT, mode Write, data 0001)
+# ** Note   : (921066000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (921066000 ps) Send SPI command value 683F_0000 (C3_SQ2_PXL_LOCKPOINT, mode Write, data 0000)
+# ** Note   : (923388000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (923388000 ps) Send SPI command value 6841_0007 (C3_SQ2_PXL_LOCKPOINT, mode Write, data 0007)
+# ** Note   : (925710000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (925710000 ps) Send SPI command value 6843_0007 (C3_SQ2_PXL_LOCKPOINT, mode Write, data 0007)
+# ** Note   : (928032000 ps) Waiting SPI command end for 2286000 ps
+#             (928032000 ps) 
+#             (928032000 ps) ==============================================================================================
+#             (928032000 ps)   Writing memory dump data to compare
+#             (928032000 ps)   Formula: 4*(SQ2_PXL_LOCKPOINT_OFFSET + SQ2_PXL_LOCKPOINT * SQ2_PXL_LOCKPOINT_LSB)
+#             (928032000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (928032000 ps) Write in ADC memory dump column 3, adress index 0, value 3FFC
+# ** Note   : (928048008 ps) Write in ADC memory dump column 3, adress index 1, value 3BFC
+# ** Note   : (928064016 ps) Write in ADC memory dump column 3, adress index 2, value 37FC
+# ** Note   : (928080024 ps) Write in ADC memory dump column 3, adress index 3, value 33FC
+# ** Note   : (928096032 ps) Write in ADC memory dump column 3, adress index 4, value 2FFC
+# ** Note   : (928112040 ps) Write in ADC memory dump column 3, adress index 5, value 2BFC
+# ** Note   : (928128048 ps) Write in ADC memory dump column 3, adress index 6, value 27FC
+# ** Note   : (928144056 ps) Write in ADC memory dump column 3, adress index 7, value 23FC
+# ** Note   : (928160064 ps) Write in ADC memory dump column 3, adress index 8, value 3FFC
+# ** Note   : (928176072 ps) Write in ADC memory dump column 3, adress index 9, value 3BFC
+# ** Note   : (928192080 ps) Write in ADC memory dump column 3, adress index 10, value 37FC
+# ** Note   : (928208088 ps) Write in ADC memory dump column 3, adress index 11, value 33FC
+# ** Note   : (928224096 ps) Write in ADC memory dump column 3, adress index 12, value 2FFC
+# ** Note   : (928240104 ps) Write in ADC memory dump column 3, adress index 13, value 2BFC
+# ** Note   : (928256112 ps) Write in ADC memory dump column 3, adress index 14, value 27FC
+# ** Note   : (928272120 ps) Write in ADC memory dump column 3, adress index 15, value 23FC
+# ** Note   : (928288128 ps) Write in ADC memory dump column 3, adress index 16, value 3FFC
+# ** Note   : (928304136 ps) Write in ADC memory dump column 3, adress index 17, value 3BFC
+# ** Note   : (928320144 ps) Write in ADC memory dump column 3, adress index 18, value 37FC
+# ** Note   : (928336152 ps) Write in ADC memory dump column 3, adress index 19, value 33FC
+# ** Note   : (928352160 ps) Write in ADC memory dump column 3, adress index 20, value 2FFC
+# ** Note   : (928368168 ps) Write in ADC memory dump column 3, adress index 21, value 2BFC
+# ** Note   : (928384176 ps) Write in ADC memory dump column 3, adress index 22, value 27FC
+# ** Note   : (928400184 ps) Write in ADC memory dump column 3, adress index 23, value 23FC
+# ** Note   : (928416192 ps) Write in ADC memory dump column 3, adress index 24, value 3FFC
+# ** Note   : (928432200 ps) Write in ADC memory dump column 3, adress index 25, value 3BFC
+# ** Note   : (928448208 ps) Write in ADC memory dump column 3, adress index 26, value 37FC
+# ** Note   : (928464216 ps) Write in ADC memory dump column 3, adress index 27, value 33FC
+# ** Note   : (928480224 ps) Write in ADC memory dump column 3, adress index 28, value 2FFC
+# ** Note   : (928496232 ps) Write in ADC memory dump column 3, adress index 29, value 2BFC
+# ** Note   : (928512240 ps) Write in ADC memory dump column 3, adress index 30, value 27FC
+# ** Note   : (928528248 ps) Write in ADC memory dump column 3, adress index 31, value 23FC
+# ** Note   : (928544256 ps) Write in ADC memory dump column 3, adress index 32, value 3FFC
+# ** Note   : (928560264 ps) Write in ADC memory dump column 3, adress index 33, value 3FFC
+#             (928576272 ps) 
+# ** Note   : (928576272 ps) Write in ADC memory dump column 2, adress index 0, value 2000
+# ** Note   : (928592280 ps) Write in ADC memory dump column 2, adress index 1, value 2000
+# ** Note   : (928608288 ps) Write in ADC memory dump column 2, adress index 2, value 2000
+# ** Note   : (928624296 ps) Write in ADC memory dump column 2, adress index 3, value 2000
+# ** Note   : (928640304 ps) Write in ADC memory dump column 2, adress index 4, value 2000
+# ** Note   : (928656312 ps) Write in ADC memory dump column 2, adress index 5, value 2000
+# ** Note   : (928672320 ps) Write in ADC memory dump column 2, adress index 6, value 2000
+# ** Note   : (928688328 ps) Write in ADC memory dump column 2, adress index 7, value 2000
+# ** Note   : (928704336 ps) Write in ADC memory dump column 2, adress index 8, value 2000
+# ** Note   : (928720344 ps) Write in ADC memory dump column 2, adress index 9, value 2000
+# ** Note   : (928736352 ps) Write in ADC memory dump column 2, adress index 10, value 2000
+# ** Note   : (928752360 ps) Write in ADC memory dump column 2, adress index 11, value 2000
+# ** Note   : (928768368 ps) Write in ADC memory dump column 2, adress index 12, value 2000
+# ** Note   : (928784376 ps) Write in ADC memory dump column 2, adress index 13, value 2000
+# ** Note   : (928800384 ps) Write in ADC memory dump column 2, adress index 14, value 2000
+# ** Note   : (928816392 ps) Write in ADC memory dump column 2, adress index 15, value 2000
+# ** Note   : (928832400 ps) Write in ADC memory dump column 2, adress index 16, value 2000
+# ** Note   : (928848408 ps) Write in ADC memory dump column 2, adress index 17, value 2000
+# ** Note   : (928864416 ps) Write in ADC memory dump column 2, adress index 18, value 2000
+# ** Note   : (928880424 ps) Write in ADC memory dump column 2, adress index 19, value 2000
+# ** Note   : (928896432 ps) Write in ADC memory dump column 2, adress index 20, value 2000
+# ** Note   : (928912440 ps) Write in ADC memory dump column 2, adress index 21, value 2000
+# ** Note   : (928928448 ps) Write in ADC memory dump column 2, adress index 22, value 2000
+# ** Note   : (928944456 ps) Write in ADC memory dump column 2, adress index 23, value 2000
+# ** Note   : (928960464 ps) Write in ADC memory dump column 2, adress index 24, value 2000
+# ** Note   : (928976472 ps) Write in ADC memory dump column 2, adress index 25, value 2000
+# ** Note   : (928992480 ps) Write in ADC memory dump column 2, adress index 26, value 2000
+# ** Note   : (929008488 ps) Write in ADC memory dump column 2, adress index 27, value 2000
+# ** Note   : (929024496 ps) Write in ADC memory dump column 2, adress index 28, value 2000
+# ** Note   : (929040504 ps) Write in ADC memory dump column 2, adress index 29, value 2000
+# ** Note   : (929056512 ps) Write in ADC memory dump column 2, adress index 30, value 2000
+# ** Note   : (929072520 ps) Write in ADC memory dump column 2, adress index 31, value 2000
+# ** Note   : (929088528 ps) Write in ADC memory dump column 2, adress index 32, value 2000
+# ** Note   : (929104536 ps) Write in ADC memory dump column 2, adress index 33, value 2000
+#             (929120544 ps) 
+#             (929120544 ps) ==============================================================================================
+#             (929120544 ps)   Record SQUID1 DAC pulse shaping column 3 by requesting a SQUID1 ADC dump on science
+#             (929120544 ps)    (DAC feedback on ADC)
+#             (929120544 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (929120544 ps) Send SPI command value 8001_0000 (TM_MODE, mode Write, data 0000)
+# ** Note   : (931434000 ps) Waiting SPI command end for 2277456 ps
+# ** Note   : (1106434000 ps) Waiting time for 175000000 ps
+#             (1106434000 ps) 
+#             (1106434000 ps) ==============================================================================================
+#             (1106434000 ps)   Send command SQ2_FB_MODE column 3 to Off
+#             (1106434000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (1106434000 ps) Send SPI command value 8005_0000 (SQ2_FB_MODE, mode Write, data 0000)
+# ** Note   : (1108752000 ps) Waiting SPI command end for 2282000 ps
+#             (1108752000 ps) 
+#             (1108752000 ps) ==============================================================================================
+#             (1108752000 ps)   Check each SQUID2 DAC column 3 goes to its middle point,
+#             (1108752000 ps)   synchronous with sync rising edge
+#             (1108752000 ps)   Voltage formula: 2 * SQ2_PXL_LOCKPOINT_OFFSET/4092 - 1
+#             (1108752000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (1108753616 ps) Waiting event sync = '0' for 1616 ps
+# ** Note   : (1110330888 ps) Waiting event sync = '1' for 1577272 ps
+# ** Note   : (1110490968 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (1115773608 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (1115789608 ps) Waiting time for 16000 ps
+# ** Note   : (1115789608 ps) Check time, DAC channel 3 last event: PASS
+# ** Note   : (1115789608 ps)  * DAC channel 3 last event 16000 ps equal to expected value 16000 ps
+# ** Note   : (1115789608 ps) Check DAC level: PASS
+# ** Note   : (1115789608 ps)  * Read DAC channel 3, value 0.000000e+00, expected 0.000000e+00
 # ----------------------------------------------------------------------------------------------------
 # Parameters check, SPI spi_sq2_lsb(0)   
 # ----------------------------------------------------------------------------------------------------
@@ -767,6 +1026,6 @@
 # Error check science packets   : '0'
 # Error check pulse shaping     : '0'
 # ------------------------------------------------------------------------------------------------------------------------------------------------------
-# Simulation time               : 600000000 ps
+# Simulation time               : 1120000000 ps
 # Simulation status             : PASS
 # ------------------------------------------------------------------------------------------------------------------------------------------------------

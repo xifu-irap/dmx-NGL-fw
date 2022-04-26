@@ -145,8 +145,7 @@ constant c_EP_CMD_AUTH_PLSSH  : std_logic := c_EP_CMD_ERR_CLR                   
    -- ------------------------------------------------------------------------------------------------------
    --    EP command: Data field bus size
    -- ------------------------------------------------------------------------------------------------------
-constant c_DFLD_TM_MODE_DUR_S : integer   :=  8                                                             ; --! EP command: Data field, TM_MODE Duration bus size
-constant c_DFLD_TM_MODE_COL_S : integer   :=  2                                                             ; --! EP command: Data field, TM_MODE bus size
+constant c_DFLD_TM_MODE_S     : integer   :=  2                                                             ; --! EP command: Data field, TM_MODE bus size
 constant c_DFLD_SQ1FBMD_COL_S : integer   :=  1                                                             ; --! EP command: Data field, SQ1_FB_MODE mode bus size
 constant c_DFLD_SQ1FBMD_PLS_S : integer   :=  log2_ceil(c_DAC_PLS_SHP_SET_NB)                               ; --! EP command: Data field, SQ1_FB_MODE pulse shaping coeficients set bus size
 constant c_DFLD_SQ2FBMD_COL_S : integer   :=  2                                                             ; --! EP command: Data field, SQ2_FB_MODE bus size
@@ -160,10 +159,10 @@ constant c_DFLD_PLSSH_PLS_S   : integer   :=  c_EP_SPI_WD_S                     
    -- ------------------------------------------------------------------------------------------------------
    --    EP command: Data state
    -- ------------------------------------------------------------------------------------------------------
-constant c_DST_TM_MODE_DUMP   : std_logic_vector(c_DFLD_TM_MODE_COL_S-1 downto 0):= "00"                    ; --! EP command: Data state, TM_MODE "Dump"
-constant c_DST_TM_MODE_IDLE   : std_logic_vector(c_DFLD_TM_MODE_COL_S-1 downto 0):= "01"                    ; --! EP command: Data state, TM_MODE "Idle"
-constant c_DST_TM_MODE_NORM   : std_logic_vector(c_DFLD_TM_MODE_COL_S-1 downto 0):= "10"                    ; --! EP command: Data state, TM_MODE "Normal"
-constant c_DST_TM_MODE_TEST   : std_logic_vector(c_DFLD_TM_MODE_COL_S-1 downto 0):= "11"                    ; --! EP command: Data state, TM_MODE "Test Pattern"
+constant c_DST_TM_MODE_DUMP   : std_logic_vector(c_DFLD_TM_MODE_S-1 downto 0):= "00"                        ; --! EP command: Data state, TM_MODE "Dump"
+constant c_DST_TM_MODE_IDLE   : std_logic_vector(c_DFLD_TM_MODE_S-1 downto 0):= "01"                        ; --! EP command: Data state, TM_MODE "Idle"
+constant c_DST_TM_MODE_NORM   : std_logic_vector(c_DFLD_TM_MODE_S-1 downto 0):= "10"                        ; --! EP command: Data state, TM_MODE "Normal"
+constant c_DST_TM_MODE_TEST   : std_logic_vector(c_DFLD_TM_MODE_S-1 downto 0):= "11"                        ; --! EP command: Data state, TM_MODE "Test Pattern"
 
 constant c_DST_SQ1FBMD_OFF    : std_logic_vector(c_DFLD_SQ1FBMD_COL_S-1 downto 0):= "0"                     ; --! EP command: Data state, SQ1_FB_MODE "Off"
 constant c_DST_SQ1FBMD_ON     : std_logic_vector(c_DFLD_SQ1FBMD_COL_S-1 downto 0):= "1"                     ; --! EP command: Data state, SQ1_FB_MODE "Test Pattern"
@@ -188,17 +187,9 @@ constant c_DST_SQ1FBMD_CLOSE  : std_logic_vector(c_DFLD_S1FBM_PIX_S-1 downto 0):
 constant c_DST_SQ1FBMD_TEST   : std_logic_vector(c_DFLD_S1FBM_PIX_S-1 downto 0):= "10"                      ; --! EP command: Data state, CY_SQ1_FB_MODE "Test Pattern"
 
    -- ------------------------------------------------------------------------------------------------------
-   --    EP command: Data value
-   -- ------------------------------------------------------------------------------------------------------
-constant c_D_TM_MODE_DUR_DUMP : integer   := c_DMP_SEQ_ACQ_NB * 2**(log2_ceil(c_SQ1_ADC_DATA_S)) *
-                                             c_CLK_ADC_DAC_MULT / (c_CLK_MULT * c_NB_COL * c_SC_DATA_SER_NB); --! EP command: Data value, TM_MODE "Duration" during Dump mode
-constant c_D_TM_MODE_DUR_INF  : integer   :=  0                                                             ; --! EP command: Data value, TM_MODE "Duration" infinity value
-
-   -- ------------------------------------------------------------------------------------------------------
    --    EP command: Default value
    -- ------------------------------------------------------------------------------------------------------
-constant c_EP_CMD_DEF_TMDE_DR : integer   :=  0                                                             ; --! EP command: Default value, TM_MODE "Duration"
-constant c_EP_CMD_DEF_TM_MODE : std_logic_vector(c_DFLD_TM_MODE_COL_S-1 downto 0):= c_DST_TM_MODE_IDLE      ; --! EP command: Default value, TM_MODE
+constant c_EP_CMD_DEF_TM_MODE : std_logic_vector(c_DFLD_TM_MODE_S-1 downto 0):= c_DST_TM_MODE_IDLE          ; --! EP command: Default value, TM_MODE
 
 constant c_EP_CMD_DEF_PLSFC   : integer   := 20000000                                                       ; --! EP command: Default value, pulse shaping cut frequency (Hz)
 constant c_EP_CMD_DEF_SQ1FBMD : std_logic_vector(c_EP_SPI_WD_S-1 downto 0):=

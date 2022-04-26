@@ -45,6 +45,7 @@ entity sts_err_out_mgt is port
 end entity sts_err_out_mgt;
 
 architecture RTL of sts_err_out_mgt is
+signal   cond_sq1tmmode       : std_logic                                                                   ; --! Error data out of range condition: TM_MODE
 signal   cond_sq1fbmd         : std_logic                                                                   ; --! Error data out of range condition: SQ1_FB_MODE
 signal   cond_sq2fbmd         : std_logic                                                                   ; --! Error data out of range condition: SQ2_FB_MODE
 signal   cond_s1fbm           : std_logic                                                                   ; --! Error data out of range condition: CY_SQ1_FB_MODE
@@ -57,6 +58,11 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   Error data out of range conditions
    -- ------------------------------------------------------------------------------------------------------
+   cond_sq1tmmode <= i_ep_cmd_rx_wd_data(15) or i_ep_cmd_rx_wd_data(14) or i_ep_cmd_rx_wd_data(13) or i_ep_cmd_rx_wd_data(12) or
+                     i_ep_cmd_rx_wd_data(11) or i_ep_cmd_rx_wd_data(10) or i_ep_cmd_rx_wd_data(9)  or i_ep_cmd_rx_wd_data(8)  or
+                     i_ep_cmd_rx_wd_data(7)  or i_ep_cmd_rx_wd_data(6)  or i_ep_cmd_rx_wd_data(5)  or i_ep_cmd_rx_wd_data(4)  or
+                     i_ep_cmd_rx_wd_data(3)  or i_ep_cmd_rx_wd_data(2);
+
    cond_sq1fbmd <=   i_ep_cmd_rx_wd_data(13) or i_ep_cmd_rx_wd_data(9)  or i_ep_cmd_rx_wd_data(5)  or i_ep_cmd_rx_wd_data(1);
 
    cond_sq2fbmd <=   i_ep_cmd_rx_wd_data(15) or i_ep_cmd_rx_wd_data(14) or i_ep_cmd_rx_wd_data(11) or i_ep_cmd_rx_wd_data(10) or
@@ -93,7 +99,10 @@ begin
 
             else
 
-               if    i_ep_cmd_rx_add_norw = c_EP_CMD_ADD_SQ1FBMD  then
+               if    i_ep_cmd_rx_add_norw = c_EP_CMD_ADD_TM_MODE  then
+                  o_ep_cmd_sts_err_out <= cond_sq1tmmode xor c_EP_CMD_ERR_CLR;
+
+               elsif i_ep_cmd_rx_add_norw = c_EP_CMD_ADD_SQ1FBMD  then
                   o_ep_cmd_sts_err_out <= cond_sq1fbmd xor c_EP_CMD_ERR_CLR;
 
                elsif i_ep_cmd_rx_add_norw = c_EP_CMD_ADD_SQ2FBMD  then

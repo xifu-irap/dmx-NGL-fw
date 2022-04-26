@@ -36,7 +36,7 @@ entity sts_err_dis_mgt is port
    (     i_rst                : in     std_logic                                                            ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                : in     std_logic                                                            ; --! Clock
 
-         i_tm_mode_st_dump    : in     std_logic                                                            ; --! Telemetry mode, status "Dump" ('0' = Inactive, '1' = Active)
+         i_tm_mode_dmp_cmp    : in     std_logic                                                            ; --! Telemetry mode, status "Dump" compared ('0' = Inactive, '1' = Active)
 
          i_ep_cmd_rx_add_norw : in     std_logic_vector(c_EP_SPI_WD_S-1 downto 0)                           ; --! EP command receipted: address word, read/write bit cleared
          i_ep_cmd_rx_rw       : in     std_logic                                                            ; --! EP command receipted: read/write bit
@@ -63,7 +63,7 @@ begin
          else
             case i_ep_cmd_rx_add_norw is
                when c_EP_CMD_ADD_TM_MODE  =>
-                  o_ep_cmd_sts_err_dis <= i_tm_mode_st_dump xor c_EP_CMD_ERR_CLR;
+                  o_ep_cmd_sts_err_dis <= i_tm_mode_dmp_cmp xor c_EP_CMD_ERR_CLR;
 
                when others                =>
                   o_ep_cmd_sts_err_dis <= c_EP_CMD_ERR_CLR;

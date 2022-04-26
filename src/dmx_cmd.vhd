@@ -40,7 +40,7 @@ entity dmx_cmd is port
 
          i_sync_rs            : in     std_logic                                                            ; --! Pixel sequence synchronization, synchronized on System Clock
 
-         i_tm_mode            : in     t_slv_arr(0 to c_NB_COL-1)(c_DFLD_TM_MODE_COL_S-1 downto 0)          ; --! Telemetry mode
+         i_tm_mode            : in     std_logic_vector(c_DFLD_TM_MODE_S-1 downto 0)                        ; --! Telemetry mode
          i_sq1_fb_mode        : in     t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SQ1FBMD_COL_S-1 downto 0)          ; --! Squid 1 Feedback mode (on/off)
 
          o_sync_re            : out    std_logic                                                            ; --! Pixel sequence synchronization, rising edge
@@ -48,9 +48,7 @@ entity dmx_cmd is port
          o_cmd_ck_s1_adc_ena  : out    std_logic_vector(c_NB_COL-1 downto 0)                                ; --! SQUID1 ADC Clocks switch commands enable  ('0' = Inactive, '1' = Active)
          o_cmd_ck_s1_adc_dis  : out    std_logic_vector(c_NB_COL-1 downto 0)                                ; --! SQUID1 ADC Clocks switch commands disable ('0' = Inactive, '1' = Active)
          o_cmd_ck_s1_dac_ena  : out    std_logic_vector(c_NB_COL-1 downto 0)                                ; --! SQUID1 DAC Clocks switch commands enable  ('0' = Inactive, '1' = Active)
-         o_cmd_ck_s1_dac_dis  : out    std_logic_vector(c_NB_COL-1 downto 0)                                ; --! SQUID1 DAC Clocks switch commands disable ('0' = Inactive, '1' = Active)
-
-         o_tm_mode_sync       : out    std_logic                                                              --! Telemetry mode synchronization
+         o_cmd_ck_s1_dac_dis  : out    std_logic_vector(c_NB_COL-1 downto 0)                                  --! SQUID1 DAC Clocks switch commands disable ('0' = Inactive, '1' = Active)
    );
 end entity dmx_cmd;
 
@@ -86,8 +84,6 @@ begin
          ck_pls_cnt  <= std_logic_vector(to_signed(c_CK_PLS_CNT_MAX_VAL, ck_pls_cnt'length));
          pixel_pos   <= (others => '1');
 
-         o_tm_mode_sync <= '0';
-
       elsif rising_edge(i_clk) then
          sync_rs_r   <= i_sync_rs;
          sync_re     <= not(sync_rs_r) and i_sync_rs;
@@ -108,14 +104,6 @@ begin
 
          end if;
 
-         if ck_pls_cnt(ck_pls_cnt'high) = '1' and pixel_pos = std_logic_vector(to_signed(c_PIX_POS_SW_ON + 1, pixel_pos'length)) then
-            o_tm_mode_sync <= '1';
-
-         else
-            o_tm_mode_sync <= '0';
-
-         end if;
-
       end if;
 
    end process P_pixel_seq;
@@ -129,8 +117,8 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    G_column_mgt: for k in 0 to c_NB_COL-1 generate
    begin
-      cmd_ck_sq1_adc_ena(k) <=   '1' when i_tm_mode(k)     = c_DST_TM_MODE_DUMP  else
-                                 '1' when i_tm_mode(k)     = c_DST_TM_MODE_NORM  else
+      cmd_ck_sq1_adc_ena(k) <=   '1' when i_tm_mode        = c_DST_TM_MODE_DUMP  else
+                                 '1' when i_tm_mode        = c_DST_TM_MODE_NORM  else
                                  '1' when i_sq1_fb_mode(k) = c_DST_SQ1FBMD_ON    else '0';
       cmd_ck_sq1_dac_ena(k) <=   '0' when i_sq1_fb_mode(k) = c_DST_SQ1FBMD_OFF   else '1';
 

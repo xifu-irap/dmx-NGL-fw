@@ -169,18 +169,18 @@ begin
       if i_rst_sq1_pls_shape = '1' then
 
          if c_PAD_REG_SET_AUTH = '0' then
-            o_y_k <= (others => '0');  
-         
+            o_y_k <= (others => '0');
+
          else
             o_y_k <= std_logic_vector(to_unsigned(c_DAC_MDL_POINT/2**(g_X_K_S-g_Y_K_S) , o_y_k'length));
 
-         end if;         
+         end if;
 
       elsif rising_edge(i_clk_sq1_adc_dac) then
          o_y_k <= w_k(g_A_EXP + g_X_K_S - 1 downto g_A_EXP + g_X_K_S - g_Y_K_S);
 
       end if;
 
-   end process P_yk; 
+   end process P_yk;
 
 end architecture rtl;
