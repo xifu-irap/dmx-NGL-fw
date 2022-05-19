@@ -63,6 +63,9 @@ entity register_mgt is port
          o_sq2_fb_mode        : out    t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SQ2FBMD_COL_S-1 downto 0)          ; --! Squid 2 Feedback mode
          o_sq2_dac_lsb        : out    t_slv_arr(0 to c_NB_COL-1)(c_DFLD_S2OFF_COL_S  -1 downto 0)          ; --! Squid 2 DAC LSB
          o_sq2_lkp_off        : out    t_slv_arr(0 to c_NB_COL-1)(c_DFLD_S2OFF_COL_S  -1 downto 0)          ; --! Squid 2 Feedback lockpoint offset
+         o_sq1_fb_del         : out    t_slv_arr(0 to c_NB_COL-1)(c_DFLD_S1FBD_COL_S  -1 downto 0)          ; --! Squid 1 Feedback delay
+         o_sq_off_dac_del     : out    t_slv_arr(0 to c_NB_COL-1)(c_DFLD_S2DCD_COL_S  -1 downto 0)          ; --! Squid offset DAC delay
+         o_sq_off_mux_del     : out    t_slv_arr(0 to c_NB_COL-1)(c_DFLD_S2MXD_COL_S  -1 downto 0)          ; --! Squid offset MUX delay
 
          o_mem_sq1_fb0        : out    t_mem_arr(0 to c_NB_COL-1)(
                                        add(    c_MEM_S1FB0_ADD_S-1 downto 0),
@@ -87,6 +90,7 @@ entity register_mgt is port
 end entity register_mgt;
 
 architecture RTL of register_mgt is
+signal   col_nb               : std_logic_vector(log2_ceil(c_NB_COL)-1 downto 0)                            ; --! Column number
 signal   ep_cmd_rx_wd_add_r   : std_logic_vector(c_EP_SPI_WD_S-1 downto 0)                                  ; --! EP command receipted: address word, read/write bit cleared, registered
 signal   ep_cmd_rx_wd_data_r  : std_logic_vector(c_EP_SPI_WD_S-1 downto 0)                                  ; --! EP command receipted: data word, registered
 signal   ep_cmd_rx_rw_r       : std_logic                                                                   ; --! EP command receipted: read/write bit, registered
@@ -98,14 +102,18 @@ signal   tm_mode_dmp_cmp      : std_logic                                       
 
 signal   rg_sq1_fb_mode       : std_logic_vector(c_EP_SPI_WD_S-1 downto 0)                                  ; --! EP register: SQ1_FB_MODE
 signal   rg_sq2_fb_mode       : std_logic_vector(c_EP_SPI_WD_S-1 downto 0)                                  ; --! EP register: SQ2_FB_MODE
-signal   rg_sq2_dac_lsb       : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_S2OFF_COL_S-1 downto 0)                   ; --! EP register: CY_SQ2_PXL_DAC_LSB
+signal   rg_sq2_dac_lsb       : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_S2LSB_COL_S-1 downto 0)                   ; --! EP register: CY_SQ2_PXL_DAC_LSB
 signal   rg_sq2_lkp_off       : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_S2OFF_COL_S-1 downto 0)                   ; --! EP register: CY_SQ2_PXL_LOCKPOINT_OFFSET
+signal   rg_sq1_fb_del        : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_S1FBD_COL_S-1 downto 0)                   ; --! EP register: CY_FB_SQ1_DELAY
+signal   rg_sq2_fb_del        : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_S2FBD_COL_S-1 downto 0)                   ; --! EP register: CY_FB_SQ2_DELAY
 
 signal   sq1_fb0_cs           : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! Squid1 feedback value in open loop: chip select data read ('0'=Inactive, '1'=Active)
 signal   sq1_fbm_cs           : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! Squid1 feedback mode: chip select data read ('0' = Inactive, '1' = Active)
 signal   sq2_lkp_cs           : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! Squid2 feedback lockpoint: chip select data read ('0' = Inactive, '1' = Active)
 signal   sq2_dac_lsb_cs       : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! Squid2 DAC LSB: chip select data read ('0' = Inactive, '1' = Active)
 signal   sq2_lkp_off_cs       : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! Squid2 feedback lockpoint offset: chip select data read ('0' = Inactive,'1' = Active)
+signal   sq1_fb_del_cs        : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! Squid1 feedback delay: chip select data read ('0' = Inactive,'1' = Active)
+signal   sq2_fb_del_cs        : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! Squid2 feedback delay: chip select data read ('0' = Inactive,'1' = Active)
 signal   pls_shp_cs           : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! Pulse shaping coef: chip select data read ('0' = Inactive, '1' = Active)
 
 signal   cs_rg                : std_logic_vector(c_EP_CMD_POS_LAST-1 downto 0)                              ; --! Chip selects register ('0' = Inactive, '1' = Active)
@@ -136,6 +144,8 @@ begin
       end if;
 
    end process P_ep_cmd_r;
+
+   col_nb <= ep_cmd_rx_wd_add_r(c_EP_CMD_ADD_COLPOSH downto c_EP_CMD_ADD_COLPOSL);
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Chip selects register
@@ -168,6 +178,14 @@ begin
    cs_rg(c_EP_CMD_POS_S2OFF)    <= '1' when
       (ep_cmd_rx_wd_add_r(ep_cmd_rx_wd_add_r'high downto c_EP_CMD_ADD_COLPOSH+1) = c_EP_CMD_ADD_S2OFF(0)(ep_cmd_rx_wd_add_r'high downto c_EP_CMD_ADD_COLPOSH+1) and
        ep_cmd_rx_wd_add_r(c_EP_CMD_ADD_COLPOSL-1  downto 0)                      = c_EP_CMD_ADD_S2OFF(0)(c_EP_CMD_ADD_COLPOSL-1  downto 0))                     else '0';
+
+   cs_rg(c_EP_CMD_POS_S1FBD)    <= '1' when
+      (ep_cmd_rx_wd_add_r(ep_cmd_rx_wd_add_r'high downto c_EP_CMD_ADD_COLPOSH+1) = c_EP_CMD_ADD_S1FBD(0)(ep_cmd_rx_wd_add_r'high downto c_EP_CMD_ADD_COLPOSH+1) and
+       ep_cmd_rx_wd_add_r(c_EP_CMD_ADD_COLPOSL-1  downto 0)                      = c_EP_CMD_ADD_S1FBD(0)(c_EP_CMD_ADD_COLPOSL-1  downto 0))                     else '0';
+
+   cs_rg(c_EP_CMD_POS_S2FBD)    <= '1' when
+      (ep_cmd_rx_wd_add_r(ep_cmd_rx_wd_add_r'high downto c_EP_CMD_ADD_COLPOSH+1) = c_EP_CMD_ADD_S2FBD(0)(ep_cmd_rx_wd_add_r'high downto c_EP_CMD_ADD_COLPOSH+1) and
+       ep_cmd_rx_wd_add_r(c_EP_CMD_ADD_COLPOSL-1  downto 0)                      = c_EP_CMD_ADD_S2FBD(0)(c_EP_CMD_ADD_COLPOSL-1  downto 0))                     else '0';
 
    cs_rg(c_EP_CMD_POS_PLSSH)    <= '1' when
       (ep_cmd_rx_wd_add_r(ep_cmd_rx_wd_add_r'high downto c_EP_CMD_ADD_COLPOSH+1) = c_EP_CMD_ADD_PLSSH(0)(ep_cmd_rx_wd_add_r'high downto c_EP_CMD_ADD_COLPOSH+1) and
@@ -204,8 +222,8 @@ begin
 
       elsif rising_edge(i_clk) then
 
-         -- @Req : DRE-DMX-FW-REQ-0580
          -- @Req : REG_TM_MODE
+         -- @Req : DRE-DMX-FW-REQ-0580
          if ep_cmd_rx_nerr_rdy_r = '1' and ep_cmd_rx_rw_r = c_EP_CMD_ADD_RW_W and cs_rg_r(c_EP_CMD_POS_TM_MODE) = '1' then
             o_tm_mode <= ep_cmd_rx_wd_data_r(o_tm_mode'high downto 0);
 
@@ -235,6 +253,7 @@ begin
             end if;
 
             -- @Req : REG_SQ2_FB_MODE
+            -- @Req : DRE-DMX-FW-REQ-0330
             if cs_rg_r(c_EP_CMD_POS_SQ2FBMD) = '1' then
                rg_sq2_fb_mode <= ep_cmd_rx_wd_data_r;
 
@@ -255,8 +274,10 @@ begin
       begin
 
          if i_rst = '1' then
-            rg_sq2_dac_lsb(k)   <= (others => '0');
-            rg_sq2_lkp_off(k)   <= (others => '0');
+            rg_sq2_dac_lsb(k)   <= c_EP_CMD_DEF_S2LSB;
+            rg_sq2_lkp_off(k)   <= c_EP_CMD_DEF_S2OFF;
+            rg_sq1_fb_del(k)    <= c_EP_CMD_DEF_S1FBD;
+            rg_sq2_fb_del(k)    <= c_EP_CMD_DEF_S2MXD & c_EP_CMD_DEF_S2DCD;
 
          elsif rising_edge(i_clk) then
             if ep_cmd_rx_wd_add_r(c_EP_CMD_ADD_COLPOSH downto c_EP_CMD_ADD_COLPOSL) = std_logic_vector(to_unsigned(k, log2_ceil(c_NB_COL))) then
@@ -277,6 +298,20 @@ begin
 
                   end if;
 
+                  -- @Req : REG_CY_FB_SQ1_DELAY
+                  -- @Req : DRE-DMX-FW-REQ-0280
+                  if cs_rg_r(c_EP_CMD_POS_S1FBD) = '1' then
+                     rg_sq1_fb_del(k)  <= ep_cmd_rx_wd_data_r(c_DFLD_S1FBD_COL_S-1 downto 0);
+
+                  end if;
+
+                  -- @Req : REG_CY_FB_SQ2_DELAY
+                  -- @Req : DRE-DMX-FW-REQ-0380
+                  if cs_rg_r(c_EP_CMD_POS_S2FBD) = '1' then
+                     rg_sq2_fb_del(k)  <= ep_cmd_rx_wd_data_r(c_DFLD_S2FBD_COL_S-1 downto 0);
+
+                  end if;
+
                end if;
 
             end if;
@@ -287,6 +322,8 @@ begin
 
       sq2_dac_lsb_cs(k) <= ep_cmd_rx_nerr_rdy_r and (ep_cmd_rx_rw_r xor c_EP_CMD_ADD_RW_W) when ep_cmd_rx_wd_add_r = c_EP_CMD_ADD_S2LSB(k) else '0';
       sq2_lkp_off_cs(k) <= ep_cmd_rx_nerr_rdy_r and (ep_cmd_rx_rw_r xor c_EP_CMD_ADD_RW_W) when ep_cmd_rx_wd_add_r = c_EP_CMD_ADD_S2OFF(k) else '0';
+      sq1_fb_del_cs(k)  <= ep_cmd_rx_nerr_rdy_r and (ep_cmd_rx_rw_r xor c_EP_CMD_ADD_RW_W) when ep_cmd_rx_wd_add_r = c_EP_CMD_ADD_S1FBD(k) else '0';
+      sq2_fb_del_cs(k)  <= ep_cmd_rx_nerr_rdy_r and (ep_cmd_rx_rw_r xor c_EP_CMD_ADD_RW_W) when ep_cmd_rx_wd_add_r = c_EP_CMD_ADD_S2FBD(k) else '0';
 
    end generate G_column_mgt;
 
@@ -296,14 +333,16 @@ begin
    -- @Req : REG_CY_SQ1_FB0
    -- @Req : DRE-DMX-FW-REQ-0200
    I_mem_sq1_fb0: entity work.mem_in_gen generic map
-   (     c_MEM_ADD_S          => c_MEM_S1FB0_ADD_S    , -- integer                                          ; --! Memory address size
+   (     g_MEM_ADD_S          => c_MEM_S1FB0_ADD_S    , -- integer                                          ; --! Memory address size
+         g_MEM_DATA_S         => c_DFLD_S1FB0_PIX_S   , -- integer                                          ; --! Memory data size
          g_MEM_ADD_END        => c_TAB_S1FB0_NW-1       -- integer                                            --! Memory address end
    ) port map
    (     i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                => i_clk                , -- in     std_logic                                 ; --! System Clock
 
-         i_ep_cmd_rx_wd_add_r => ep_cmd_rx_wd_add_r   , -- in     std_logic_vector(c_EP_SPI_WD_S-1 downto 0); --! EP command receipted: address word, read/write bit cleared, registered
-         i_ep_cmd_rx_wd_dta_r => ep_cmd_rx_wd_data_r  , -- in     std_logic_vector(c_EP_SPI_WD_S-1 downto 0); --! EP command receipted: data word, registered
+         i_col_nb             => col_nb               , -- in     slv(log2_ceil(c_NB_COL)-1 downto 0)       ; --! Column number
+         i_ep_cmd_rx_wd_add_r => ep_cmd_rx_wd_add_r(  c_MEM_S1FB0_ADD_S-1 downto 0), -- in slv g_MEM_ADD_S  ; --! EP command receipted: address word, read/write bit cleared, registered
+         i_ep_cmd_rx_wd_dta_r => ep_cmd_rx_wd_data_r(c_DFLD_S1FB0_PIX_S-1 downto 0), -- in slv g_MEM_DATA_S ; --! EP command receipted: data word, registered
          i_ep_cmd_rx_rw_r     => ep_cmd_rx_rw_r       , -- in     std_logic                                 ; --! EP command receipted: read/write bit, registered
          i_ep_cmd_rx_ner_ry_r => ep_cmd_rx_nerr_rdy_r , -- in     std_logic                                 ; --! EP command receipted with no error ready, registered ('0'= Not ready, '1'= Ready)
 
@@ -316,14 +355,16 @@ begin
    -- @Req : REG_CY_SQ1_FB_MODE
    -- @Req : DRE-DMX-FW-REQ-0210
    I_mem_sq1_fbm: entity work.mem_in_gen generic map
-   (     c_MEM_ADD_S          => c_MEM_S1FBM_ADD_S    , -- integer                                          ; --! Memory address size
+   (     g_MEM_ADD_S          => c_MEM_S1FBM_ADD_S    , -- integer                                          ; --! Memory address size
+         g_MEM_DATA_S         => c_DFLD_S1FBM_PIX_S   , -- integer                                          ; --! Memory data size
          g_MEM_ADD_END        => c_TAB_S1FBM_NW-1       -- integer                                            --! Memory address end
    ) port map
    (     i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                => i_clk                , -- in     std_logic                                 ; --! System Clock
 
-         i_ep_cmd_rx_wd_add_r => ep_cmd_rx_wd_add_r   , -- in     std_logic_vector(c_EP_SPI_WD_S-1 downto 0); --! EP command receipted: address word, read/write bit cleared, registered
-         i_ep_cmd_rx_wd_dta_r => ep_cmd_rx_wd_data_r  , -- in     std_logic_vector(c_EP_SPI_WD_S-1 downto 0); --! EP command receipted: data word, registered
+         i_col_nb             => col_nb               , -- in     slv(log2_ceil(c_NB_COL)-1 downto 0)       ; --! Column number
+         i_ep_cmd_rx_wd_add_r => ep_cmd_rx_wd_add_r(  c_MEM_S1FBM_ADD_S-1 downto 0), -- in slv g_MEM_ADD_S  ; --! EP command receipted: address word, read/write bit cleared, registered
+         i_ep_cmd_rx_wd_dta_r => ep_cmd_rx_wd_data_r(c_DFLD_S1FBM_PIX_S-1 downto 0), -- in slv g_MEM_DATA_S ; --! EP command receipted: data word, registered
          i_ep_cmd_rx_rw_r     => ep_cmd_rx_rw_r       , -- in     std_logic                                 ; --! EP command receipted: read/write bit, registered
          i_ep_cmd_rx_ner_ry_r => ep_cmd_rx_nerr_rdy_r , -- in     std_logic                                 ; --! EP command receipted with no error ready, registered ('0'= Not ready, '1'= Ready)
 
@@ -336,14 +377,16 @@ begin
    -- @Req : REG_CY_SQ2_PXL_LOCKPOINT
    -- @Req : DRE-DMX-FW-REQ-0300
    I_mem_sq2_lkp: entity work.mem_in_gen generic map
-   (     c_MEM_ADD_S          => c_MEM_S2LKP_ADD_S    , -- integer                                          ; --! Memory address size
+   (     g_MEM_ADD_S          => c_MEM_S2LKP_ADD_S    , -- integer                                          ; --! Memory address size
+         g_MEM_DATA_S         => c_DFLD_S2LKP_PIX_S   , -- integer                                          ; --! Memory data size
          g_MEM_ADD_END        => c_TAB_S2LKP_NW-1       -- integer                                            --! Memory address end
    ) port map
    (     i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                => i_clk                , -- in     std_logic                                 ; --! System Clock
 
-         i_ep_cmd_rx_wd_add_r => ep_cmd_rx_wd_add_r   , -- in     std_logic_vector(c_EP_SPI_WD_S-1 downto 0); --! EP command receipted: address word, read/write bit cleared, registered
-         i_ep_cmd_rx_wd_dta_r => ep_cmd_rx_wd_data_r  , -- in     std_logic_vector(c_EP_SPI_WD_S-1 downto 0); --! EP command receipted: data word, registered
+         i_col_nb             => col_nb               , -- in     slv(log2_ceil(c_NB_COL)-1 downto 0)       ; --! Column number
+         i_ep_cmd_rx_wd_add_r => ep_cmd_rx_wd_add_r(  c_MEM_S2LKP_ADD_S-1 downto 0), -- in slv g_MEM_ADD_S  ; --! EP command receipted: address word, read/write bit cleared, registered
+         i_ep_cmd_rx_wd_dta_r => ep_cmd_rx_wd_data_r(c_DFLD_S2LKP_PIX_S-1 downto 0), -- in slv g_MEM_DATA_S ; --! EP command receipted: data word, registered
          i_ep_cmd_rx_rw_r     => ep_cmd_rx_rw_r       , -- in     std_logic                                 ; --! EP command receipted: read/write bit, registered
          i_ep_cmd_rx_ner_ry_r => ep_cmd_rx_nerr_rdy_r , -- in     std_logic                                 ; --! EP command receipted with no error ready, registered ('0'= Not ready, '1'= Ready)
 
@@ -356,14 +399,16 @@ begin
    -- @Req : REG_CY_FB1_PULSE_SHAPING
    -- @Req : DRE-DMX-FW-REQ-0230
    I_mem_pls_shp: entity work.mem_in_gen generic map
-   (     c_MEM_ADD_S          => c_MEM_PLSSH_ADD_S    , -- integer                                          ; --! Memory address size
+   (     g_MEM_ADD_S          => c_MEM_PLSSH_ADD_S    , -- integer                                          ; --! Memory address size
+         g_MEM_DATA_S         => c_DFLD_PLSSH_PLS_S   , -- integer                                          ; --! Memory data size
          g_MEM_ADD_END        => c_MEM_PLSSH_ADD_END    -- integer                                            --! Memory address end
    ) port map
    (     i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                => i_clk                , -- in     std_logic                                 ; --! System Clock
 
-         i_ep_cmd_rx_wd_add_r => ep_cmd_rx_wd_add_r   , -- in     std_logic_vector(c_EP_SPI_WD_S-1 downto 0); --! EP command receipted: address word, read/write bit cleared, registered
-         i_ep_cmd_rx_wd_dta_r => ep_cmd_rx_wd_data_r  , -- in     std_logic_vector(c_EP_SPI_WD_S-1 downto 0); --! EP command receipted: data word, registered
+         i_col_nb             => col_nb               , -- in     slv(log2_ceil(c_NB_COL)-1 downto 0)       ; --! Column number
+         i_ep_cmd_rx_wd_add_r => ep_cmd_rx_wd_add_r(  c_MEM_PLSSH_ADD_S-1 downto 0), -- in slv g_MEM_ADD_S  ; --! EP command receipted: address word, read/write bit cleared, registered
+         i_ep_cmd_rx_wd_dta_r => ep_cmd_rx_wd_data_r(c_DFLD_PLSSH_PLS_S-1 downto 0), -- in slv g_MEM_DATA_S ; --! EP command receipted: data word, registered
          i_ep_cmd_rx_rw_r     => ep_cmd_rx_rw_r       , -- in     std_logic                                 ; --! EP command receipted: read/write bit, registered
          i_ep_cmd_rx_ner_ry_r => ep_cmd_rx_nerr_rdy_r , -- in     std_logic                                 ; --! EP command receipted with no error ready, registered ('0'= Not ready, '1'= Ready)
 
@@ -406,6 +451,12 @@ begin
 
          i_sq2_lkp_off_data   => rg_sq2_lkp_off       , -- in     t_slv_arr c_NB_COL c_DFLD_S2OFF_COL_S     ; --! Squid2 feedback lockpoint offset: data read
          i_sq2_lkp_off_cs     => sq2_lkp_off_cs       , -- in     std_logic_vector(c_NB_COL-1 downto 0)     ; --! Squid2 feedback lockpoint offset: chip select data read ('0' = Inactive,'1' = Active)
+
+         i_sq1_fb_del_data    => rg_sq1_fb_del        , -- in     t_slv_arr c_NB_COL c_DFLD_S1FBD_COL_S     ; --! Squid1 feedback delay: data read
+         i_sq1_fb_del_cs      => sq1_fb_del_cs        , -- in     std_logic_vector(c_NB_COL-1 downto 0)     ; --! Squid1 feedback delay: chip select data read ('0' = Inactive, '1' = Active)
+
+         i_sq2_fb_del_data    => rg_sq2_fb_del        , -- in     t_slv_arr c_NB_COL c_DFLD_S2FBD_COL_S     ; --! Squid2 feedback delay: data read
+         i_sq2_fb_del_cs      => sq2_fb_del_cs        , -- in     std_logic_vector(c_NB_COL-1 downto 0)     ; --! Squid2 feedback delay: chip select data read ('0' = Inactive, '1' = Active)
 
          i_pls_shp_data       => i_pls_shp_data       , -- in     t_slv_arr c_NB_COL c_DFLD_PLSSH_PLS_S     ; --! Pulse shaping coef: data read
          i_pls_shp_cs         => pls_shp_cs           , -- in     std_logic_vector(c_NB_COL-1 downto 0)     ; --! Pulse shaping coef: chip select data read ('0' = Inactive, '1' = Active)
@@ -514,6 +565,60 @@ begin
          );
 
       end generate G_sq2_lkp_off;
+
+      G_sq1_fb_del: for l in 0 to c_DFLD_S1FBD_COL_S-1 generate
+      begin
+
+         I_sq1_fb_del: entity work.signal_reg generic map
+         (
+         g_SIG_FF_NB          => 1                    , -- integer                                          ; --! Signal registered flip-flop number
+         g_SIG_DEF            => c_EP_CMD_DEF_S1FBD(l)  -- std_logic                                          --! Signal registered default value at reset
+         )  port map
+         (
+         i_reset              => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+         i_clock              => i_clk                , -- in     std_logic                                 ; --! Clock
+
+         i_sig                => rg_sq1_fb_del(k)(l)  , -- in     std_logic                                 ; --! Signal
+         o_sig_r              => o_sq1_fb_del(k)(l)     -- out    std_logic                                   --! Signal registered
+         );
+
+      end generate G_sq1_fb_del;
+
+      G_sq_off_mux_del: for l in 0 to c_DFLD_S2MXD_COL_S-1 generate
+      begin
+
+         I_sq_off_mux_del: entity work.signal_reg generic map
+         (
+         g_SIG_FF_NB          => 1                    , -- integer                                          ; --! Signal registered flip-flop number
+         g_SIG_DEF            => c_EP_CMD_DEF_S2MXD(l)  -- std_logic                                          --! Signal registered default value at reset
+         )  port map
+         (
+         i_reset              => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+         i_clock              => i_clk                , -- in     std_logic                                 ; --! Clock
+
+         i_sig                => rg_sq2_fb_del(k)(l)  , -- in     std_logic                                 ; --! Signal
+         o_sig_r              => o_sq_off_mux_del(k)(l) -- out    std_logic                                   --! Signal registered
+         );
+
+      end generate G_sq_off_mux_del;
+
+      G_sq_off_dac_del: for l in 0 to c_DFLD_S2DCD_COL_S-1 generate
+      begin
+
+         I_sq_off_dac_del: entity work.signal_reg generic map
+         (
+         g_SIG_FF_NB          => 1                    , -- integer                                          ; --! Signal registered flip-flop number
+         g_SIG_DEF            => c_EP_CMD_DEF_S2DCD(l)  -- std_logic                                          --! Signal registered default value at reset
+         )  port map
+         (
+         i_reset              => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+         i_clock              => i_clk                , -- in     std_logic                                 ; --! Clock
+
+         i_sig                => rg_sq2_fb_del(k)(c_DFLD_S2MXD_COL_S+l), -- in     std_logic                ; --! Signal
+         o_sig_r              => o_sq_off_dac_del(k)(l) -- out    std_logic                                   --! Signal registered
+         );
+
+      end generate G_sq_off_dac_del;
 
    end generate G_column_mgt_out;
 

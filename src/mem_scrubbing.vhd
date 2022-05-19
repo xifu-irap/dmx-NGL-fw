@@ -63,7 +63,7 @@ begin
          o_mem_with_scrub.we  <= '0';
 
       elsif rising_edge(i_clk) then
-         if (i_mem_no_scrub.pp and i_mem_no_scrub.we and i_mem_no_scrub.cs) = '1' then
+         if i_mem_no_scrub.pp = '1' then
             mem_add_pp <= not(mem_add_pp);
 
          end if;

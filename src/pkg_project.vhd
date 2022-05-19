@@ -182,7 +182,7 @@ constant c_DAC_SYNC_DATA_NPER : integer := c_DAC_SYNC_RDY_NPER + c_DAC_SYNC_RE_N
 constant c_SQ2_DAC_MDL_POINT  : integer := 2**(c_SQ2_DAC_DATA_S-1)                                          ; --! SQUID2 DAC middle point
 constant c_S2M_SYNC_DATA_NPER : integer := c_DAC_SYNC_RDY_NPER + c_DAC_SYNC_RE_NPER                         ; --! MUX clock period number for stalling analog output to pixel sequence synchronization
 
-constant c_S2D_PRC_NPER       : integer := (c_SQ2_SPI_SCLK_L + c_SQ2_SPI_SCLK_H) *  c_SQ2_SPI_SER_WD_S + 2  ; --! DAC clock period number for sending data to DAC
+constant c_S2D_PRC_NPER       : integer := (c_SQ2_SPI_SCLK_L + c_SQ2_SPI_SCLK_H) *  c_SQ2_SPI_SER_WD_S + 3  ; --! DAC clock period number for sending data to DAC
 constant c_S2D_SYNC_DATA_NPER : integer := c_DAC_SYNC_RDY_NPER + c_DAC_SYNC_RE_NPER + c_S2D_PRC_NPER        ; --! DAC clock period number for stalling sending data end to pixel sequence synchronization
 
    -- ------------------------------------------------------------------------------------------------------

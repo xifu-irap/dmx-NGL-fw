@@ -52,6 +52,7 @@ entity squid1_fbk_mgt is port
          o_sq1_fb0_data       : out    std_logic_vector(c_DFLD_S1FB0_PIX_S-1 downto 0)                      ; --! Squid1 feedback value in open loop: data read
 
          i_sq1_fb_mode        : in     std_logic_vector(c_DFLD_SQ1FBMD_COL_S-1 downto 0)                    ; --! Squid1 Feedback mode (on/off)
+         i_sq1_fb_del         : in     std_logic_vector(c_DFLD_S1FBD_COL_S  -1 downto 0)                    ; --! Squid1 Feedback delay
          i_mem_sq1_fbm        : in     t_mem(
                                        add(              c_MEM_S1FBM_ADD_S-1 downto 0),
                                        data_w(          c_DFLD_S1FBM_PIX_S-1 downto 0))                     ; --! Squid1 feedback mode: memory inputs
@@ -68,14 +69,16 @@ constant c_PLS_CNT_INIT       : integer:= c_PLS_CNT_MAX_VAL - c_DAC_SYNC_DATA_NP
 constant c_PLS_CNT_S          : integer:= log2_ceil(c_PLS_CNT_MAX_VAL + 1) + 1                              ; --! Pulse counter: size bus (signed)
 
 constant c_PIXEL_POS_MAX_VAL  : integer:= c_MUX_FACT - 2                                                    ; --! Pixel position: maximal value
-constant c_PIXEL_POS_INIT     : integer:= c_PIXEL_POS_MAX_VAL-1                                             ; --! Pixel position: initialization value
+constant c_PIXEL_POS_INIT     : integer:= c_PIXEL_POS_MAX_VAL - 1                                           ; --! Pixel position: initialization value
 constant c_PIXEL_POS_S        : integer:= log2_ceil(c_PIXEL_POS_MAX_VAL+1)+1                                ; --! Pixel position: size bus (signed)
 
 signal   mem_s1_dta_err_cor   : t_slv_arr(0 to 2**c_MUX_FACT_S-1)(c_SQ1_DATA_FBK_S-1 downto 0)              ; --! Memory data storage SQUID1 Data error corrected
 signal   s1_dta_err_cor_rd    : std_logic_vector( c_SQ1_DATA_FBK_S-1 downto 0)                              ; --! SQUID1 Data error corrected (signed) read from memory
 
 signal   pls_cnt              : std_logic_vector(       c_PLS_CNT_S-1 downto 0)                             ; --! Pulse counter
+signal   pls_cnt_init         : std_logic_vector(       c_PLS_CNT_S-1 downto 0)                             ; --! Pulse counter initialization
 signal   pixel_pos            : std_logic_vector(     c_PIXEL_POS_S-1 downto 0)                             ; --! Pixel position
+signal   pixel_pos_init       : std_logic_vector(     c_PIXEL_POS_S-1 downto 0)                             ; --! Pixel position initialization
 signal   pixel_pos_inc        : std_logic_vector(     c_PIXEL_POS_S-2 downto 0)                             ; --! Pixel position increasing
 
 signal   mem_sq1_fb0_pp       : std_logic                                                                   ; --! Squid1 feedback value in open loop, TH/HK side: ping-pong buffer bit
@@ -99,6 +102,33 @@ signal   sq1_fb_tst_pattern   : std_logic_vector(  c_SQ1_DATA_FBK_S-1 downto 0) 
 begin
 
    -- ------------------------------------------------------------------------------------------------------
+   --!   Pulse shaping counter/Pixel position initialization
+   --    @Req : DRE-DMX-FW-REQ-0280
+   -- ------------------------------------------------------------------------------------------------------
+   P_pls_cnt_del : process (i_rst, i_clk)
+   begin
+
+      if i_rst = '1' then
+         pls_cnt_init   <= std_logic_vector(unsigned(to_signed(c_PLS_CNT_INIT, pls_cnt_init'length)));
+         pixel_pos_init <= std_logic_vector(to_signed(c_PIXEL_POS_INIT , pixel_pos'length));
+
+      elsif rising_edge(i_clk) then
+         if    unsigned(i_sq1_fb_del) <= to_unsigned(c_DAC_SYNC_DATA_NPER, c_DFLD_S1FBD_COL_S) then
+            pls_cnt_init   <= std_logic_vector(unsigned(to_signed(c_PLS_CNT_INIT, pls_cnt_init'length)) + resize(unsigned(i_sq1_fb_del(i_sq1_fb_del'high downto 1)), pls_cnt_init'length));
+            pixel_pos_init <= std_logic_vector(to_signed(c_PIXEL_POS_INIT , pixel_pos'length));
+
+         else
+            pls_cnt_init   <= std_logic_vector(unsigned(to_signed(c_PLS_CNT_INIT - c_PIXEL_DAC_NB_CYC/2, pls_cnt_init'length)) +
+                            resize(unsigned(i_sq1_fb_del(i_sq1_fb_del'high downto 1)), pls_cnt_init'length));
+            pixel_pos_init <= std_logic_vector(to_signed(c_PIXEL_POS_INIT + 1 , pixel_pos'length));
+
+         end if;
+
+      end if;
+
+   end process P_pls_cnt_del;
+
+   -- ------------------------------------------------------------------------------------------------------
    --!   Pulse counter
    -- ------------------------------------------------------------------------------------------------------
    P_pls_cnt : process (i_rst, i_clk)
@@ -109,7 +139,7 @@ begin
 
       elsif rising_edge(i_clk) then
          if i_sync_re = '1' then
-            pls_cnt <= std_logic_vector(to_signed(c_PLS_CNT_INIT, pls_cnt'length));
+            pls_cnt <= pls_cnt_init;
 
          elsif pls_cnt(pls_cnt'high) = '1' then
             pls_cnt <= std_logic_vector(to_unsigned(c_PLS_CNT_MAX_VAL, pls_cnt'length));
@@ -136,7 +166,7 @@ begin
 
       elsif rising_edge(i_clk) then
          if i_sync_re = '1' then
-            pixel_pos <= std_logic_vector(to_signed(c_PIXEL_POS_INIT , pixel_pos'length));
+            pixel_pos <= pixel_pos_init;
 
          elsif (pixel_pos(pixel_pos'high) and pls_cnt(pls_cnt'high)) = '1' then
             pixel_pos <= std_logic_vector(to_signed(c_PIXEL_POS_MAX_VAL , pixel_pos'length));

@@ -193,6 +193,7 @@ begin
 
    -- ------------------------------------------------------------------------------------------------------
    --!  Clock for SQUID1 ADC Image clock generation
+   --    @Req : DRE-DMX-FW-REQ-0120
    -- ------------------------------------------------------------------------------------------------------
    I_wfg_clk_adc: entity nx.nx_wfg_l generic map
    (     WFG_EDGE             => c_WFG_EDGE_INV_N     , -- bit                                              ; --! Input clock inverted ('0' = No, '1' = Yes)
@@ -212,6 +213,7 @@ begin
 
    -- ------------------------------------------------------------------------------------------------------
    --!  Clock for SQUID1 DAC Image clock generation
+   --    @Req : DRE-DMX-FW-REQ-0270
    -- ------------------------------------------------------------------------------------------------------
    I_wfg_clk_dac_out: entity nx.nx_wfg_l generic map
    (     WFG_EDGE             => c_WFG_EDGE_INV_N     , -- bit                                              ; --! Input clock inverted ('0' = No, '1' = Yes)

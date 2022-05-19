@@ -436,6 +436,12 @@ constant c_PAD                : character := ' '                                
          when "C0_SQ2_PXL_LOCKPOINT_OFFSET   "  =>
             o_fld_add_val:= c_EP_CMD_ADD_S2OFF(0);
 
+         when "C0_FB_SQ1_DELAY               "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_S1FBD(0);
+
+         when "C0_FB_SQ2_DELAY               "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_S2FBD(0);
+
          when "C0_FB1_PULSE_SHAPING          "  =>
             o_fld_add_val:= c_EP_CMD_ADD_PLSSH(0);
 
@@ -453,6 +459,12 @@ constant c_PAD                : character := ' '                                
 
          when "C1_SQ2_PXL_LOCKPOINT_OFFSET   "  =>
             o_fld_add_val:= c_EP_CMD_ADD_S2OFF(1);
+
+         when "C1_FB_SQ1_DELAY               "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_S1FBD(1);
+
+         when "C1_FB_SQ2_DELAY               "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_S2FBD(1);
 
          when "C1_FB1_PULSE_SHAPING          "  =>
             o_fld_add_val:= c_EP_CMD_ADD_PLSSH(1);
@@ -472,6 +484,12 @@ constant c_PAD                : character := ' '                                
          when "C2_SQ2_PXL_LOCKPOINT_OFFSET   "  =>
             o_fld_add_val:= c_EP_CMD_ADD_S2OFF(2);
 
+         when "C2_FB_SQ1_DELAY               "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_S1FBD(2);
+
+         when "C2_FB_SQ2_DELAY               "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_S2FBD(2);
+
          when "C2_FB1_PULSE_SHAPING          "  =>
             o_fld_add_val:= c_EP_CMD_ADD_PLSSH(2);
 
@@ -489,6 +507,12 @@ constant c_PAD                : character := ' '                                
 
          when "C3_SQ2_PXL_LOCKPOINT_OFFSET   "  =>
             o_fld_add_val:= c_EP_CMD_ADD_S2OFF(3);
+
+         when "C3_FB_SQ1_DELAY               "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_S1FBD(3);
+
+         when "C3_FB_SQ2_DELAY               "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_S2FBD(3);
 
          when "C3_FB1_PULSE_SHAPING          "  =>
             o_fld_add_val:= c_EP_CMD_ADD_PLSSH(3);

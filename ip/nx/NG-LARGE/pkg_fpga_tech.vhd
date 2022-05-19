@@ -135,8 +135,7 @@ constant c_MULT_ALU_OP_XNOR   : bit_vector(c_MULT_ALU_OP_S-1 downto 0) := "11001
    -- ------------------------------------------------------------------------------------------------------
    --!   RAM parameters
    -- ------------------------------------------------------------------------------------------------------
--- TODO: Bypass Bug NX_RAM model ECC slow mode
---constant c_RAM_TYPE           : t_str_arr(0 to 1) := ("FAST_2kx18", "SLOW_2kx18")                           ; --! RAM type
+constant c_RAM_TYPE           : t_str_arr(0 to 1) := ("FAST_2kx18", "SLOW_2kx18")                           ; --! RAM type
 constant c_RAM_TYPE_DATA_TX   : integer   := 0                                                              ; --! RAM type: Data transfer
 constant c_RAM_TYPE_PRM_STORE : integer   := 1                                                              ; --! RAM type: Parameters storage
 
@@ -160,11 +159,6 @@ constant c_RAM_ECC_DATA_S     : integer   := 18                                 
    (     i_ram_init           : in     t_int_arr                                                            ; --  RAM initialization table
          i_ram_add_s          : in     integer                                                              ; --  RAM address bus size
          i_ram_data_s         : in     integer                                                                --  RAM data bus size
-   ) return string;
-
-   -- TODO: Bypass Bug NX_RAM model ECC slow mode
-   function c_RAM_TYPE
-   (     i_ram_type           : in     integer                                                                --  RAM type
    ) return string;
 
 end pkg_fpga_tech;
@@ -216,22 +210,5 @@ package body pkg_fpga_tech is
       end if;
 
    end conv_ram_init;
-
-   -- TODO: Bypass Bug NX_RAM model ECC slow mode
-   function c_RAM_TYPE
-   (     i_ram_type           : in     integer                                                                --  RAM type
-   ) return string is
-   begin
-
-      if i_ram_type = c_RAM_TYPE_DATA_TX then
-         return "FAST_2kx18";
-
-      else
---         return "SLOW_2kx18";
-         return "NOECC_2kx24";
-
-      end if;
-
-   end c_RAM_TYPE;
 
 end package body;

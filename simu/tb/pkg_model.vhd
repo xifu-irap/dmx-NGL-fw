@@ -442,6 +442,9 @@ constant c_SCHK               : t_spi_chk_prm_arr(0 to c_CHK_ENA_SPI_NB-1) :=
 
          i_sync               : in     std_logic                                                            ; --! Pixel sequence synchronization (R.E. detected = position sequence to the first pixel)
          i_tm_mode            : in     std_logic_vector(c_DFLD_TM_MODE_S-1 downto 0)                        ; --! Telemetry mode
+         i_sq_off_dac_del     : in     t_slv_arr(0 to c_NB_COL-1)(c_DFLD_S2DCD_COL_S-1 downto 0)            ; --! Squid offset DAC delay
+         i_sq_off_mux_del     : in     t_slv_arr(0 to c_NB_COL-1)(c_DFLD_S2MXD_COL_S-1 downto 0)            ; --! Squid offset MUX delay
+         i_sq1_fb_del         : in     t_slv_arr(0 to c_NB_COL-1)(c_DFLD_S1FBD_COL_S-1 downto 0)            ; --! Squid1 Feedback delay
          i_sw_adc_vin         : in     std_logic_vector(c_SW_ADC_VIN_S-1 downto 0)                          ; --! Switch ADC Voltage input
 
          i_sq1_adc_data       : in     t_slv_arr(0 to c_NB_COL-1)(c_SQ1_ADC_DATA_S-1 downto 0)              ; --! SQUID1 ADC: Data buses

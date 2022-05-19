@@ -69,10 +69,8 @@ WCMD W-SQ2_FB_MODE-0001 W
 COMM
 COMM ==============================================================================================
 COMM   Check each SQUID2 DAC column 0 goes to the new value, synchronous with sync rising edge
-COMM   Voltage formula: 2 * SQ2_PXL_LOCKPOINT_OFFSET/4092 - 1
+COMM   Voltage formula: 2 * SQ2_PXL_LOCKPOINT_OFFSET/4096 - 1
 COMM ----------------------------------------------------------------------------------------------
-WUDI sync 0
-WUDI sync 1
 WUDI sync 0
 WUDI sync 1
 WAIT 16 ns
@@ -286,14 +284,13 @@ COMM
 COMM ==============================================================================================
 COMM   Check each SQUID2 DAC column 0 goes to its middle point, column 1 goes to the new value,
 COMM   synchronous with sync rising edge
-COMM   Voltage formula: 2 * SQ2_PXL_LOCKPOINT_OFFSET/4092 - 1
+COMM   Check time formula: 16 ns - c_SQ2_MUX_TPLH_DEF
+COMM   Voltage formula: 2 * SQ2_PXL_LOCKPOINT_OFFSET/4096 - 1
 COMM ----------------------------------------------------------------------------------------------
 WUDI sync 0
 WUDI sync 1
-WUDI sync 0
-WUDI sync 1
 WAIT 16 ns
-CTDC 0 == 16 ns
+CTDC 0 == 12 ns
 CLDC 0 0.0
 CTDC 1 == 16 ns
 CLDC 1 0.12451171875
@@ -435,14 +432,13 @@ COMM
 COMM ==============================================================================================
 COMM   Check each SQUID2 DAC column 1 goes to its middle point, column 2 goes to the new value,
 COMM   synchronous with sync rising edge
-COMM   Voltage formula: 2 * SQ2_PXL_LOCKPOINT_OFFSET/4092 - 1
+COMM   Check time formula: 16 ns - c_SQ2_MUX_TPLH_DEF
+COMM   Voltage formula: 2 * SQ2_PXL_LOCKPOINT_OFFSET/4096 - 1
 COMM ----------------------------------------------------------------------------------------------
 WUDI sync 0
 WUDI sync 1
-WUDI sync 0
-WUDI sync 1
 WAIT 16 ns
-CTDC 1 == 16 ns
+CTDC 1 == 12 ns
 CLDC 1 0.0
 CTDC 2 == 16 ns
 CLDC 2 0.12451171875
@@ -584,14 +580,13 @@ COMM
 COMM ==============================================================================================
 COMM   Check each SQUID2 DAC column 2 goes to its middle point, column 3 goes to the new value,
 COMM   synchronous with sync rising edge
-COMM   Voltage formula: 2 * SQ2_PXL_LOCKPOINT_OFFSET/4092 - 1
+COMM   Check time formula: 16 ns - c_SQ2_MUX_TPLH_DEF
+COMM   Voltage formula: 2 * SQ2_PXL_LOCKPOINT_OFFSET/4096 - 1
 COMM ----------------------------------------------------------------------------------------------
 WUDI sync 0
 WUDI sync 1
-WUDI sync 0
-WUDI sync 1
 WAIT 16 ns
-CTDC 2 == 16 ns
+CTDC 2 == 12 ns
 CLDC 2 0.0
 CTDC 3 == 16 ns
 CLDC 3 0.12451171875
@@ -723,12 +718,11 @@ COMM
 COMM ==============================================================================================
 COMM   Check each SQUID2 DAC column 3 goes to its middle point,
 COMM   synchronous with sync rising edge
-COMM   Voltage formula: 2 * SQ2_PXL_LOCKPOINT_OFFSET/4092 - 1
+COMM   Check time formula: 16 ns - c_SQ2_MUX_TPLH_DEF
+COMM   Voltage formula: 2 * SQ2_PXL_LOCKPOINT_OFFSET/4096 - 1
 COMM ----------------------------------------------------------------------------------------------
 WUDI sync 0
 WUDI sync 1
-WUDI sync 0
-WUDI sync 1
 WAIT 16 ns
-CTDC 3 == 16 ns
+CTDC 3 == 12 ns
 CLDC 3 0.0

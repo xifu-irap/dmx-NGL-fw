@@ -47,6 +47,7 @@ entity squid1_dac_mgt is port
          i_sync_rs            : in     std_logic                                                            ; --! Pixel sequence synchronization, synchronized on System Clock
          i_sq1_data_fbk       : in     std_logic_vector(c_SQ1_DATA_FBK_S-1 downto 0)                        ; --! SQUID1 Data feedback (signed)
          i_sq1_fb_pls_set     : in     std_logic_vector(c_DFLD_SQ1FBMD_PLS_S-1 downto 0)                    ; --! Squid 1 Feedback Pulse shaping set
+         i_sq1_fb_del         : in     std_logic_vector(c_DFLD_S1FBD_COL_S  -1 downto 0)                    ; --! Squid 1 Feedback delay
 
          i_mem_pls_shp        : in     t_mem(
                                        add(              c_MEM_PLSSH_ADD_S-1 downto 0),
@@ -75,11 +76,14 @@ signal   sync_r               : std_logic_vector(       c_FF_RSYNC_NB   downto 0
 signal   sync_re              : std_logic                                                                   ; --! Pixel sequence sync. rising edge
 signal   sq1_data_fbk_r       : t_slv_arr(0 to c_FF_RSYNC_NB-1)(c_SQ1_DATA_FBK_S-1 downto 0)                ; --! SQUID1 Data feedback register
 signal   sq1_fb_pls_set_r     : t_slv_arr(0 to c_FF_RSYNC_NB-1)(c_DFLD_SQ1FBMD_PLS_S-1 downto 0)            ; --! Squid 1 Feedback Pulse shaping set register
+signal   sq1_fb_del_r         : t_slv_arr(0 to c_FF_RSYNC_NB-1)(c_DFLD_S1FBD_COL_S  -1 downto 0)            ; --! Squid 1 Feedback delay register
 signal   mem_pls_shp_pp_r     : std_logic_vector(       c_FF_RSYNC_NB-1 downto 0)                           ; --! Memory pulse shaping coefficient: ping-pong buffer bit for address management register
 
 signal   pls_cnt              : std_logic_vector(         c_PLS_CNT_S-1 downto 0)                           ; --! Pulse shaping counter
+signal   pls_cnt_init         : std_logic_vector(         c_PLS_CNT_S-1 downto 0)                           ; --! Pulse shaping counter initialization
 signal   pls_cnt_msb_r        : std_logic                                                                   ; --! Pulse shaping counter MSB register
 signal   pixel_pos            : std_logic_vector(       c_PIXEL_POS_S-1 downto 0)                           ; --! Pixel position
+signal   pixel_pos_init       : std_logic_vector(       c_PIXEL_POS_S-1 downto 0)                           ; --! Pixel position initialization
 
 signal   mem_pls_shp_add_lsb  : std_logic_vector(         c_PLS_CNT_S-1 downto 0)                           ; --! Memory pulse shaping coefficient, DAC side: address lsb
 signal   mem_pls_shp_pp       : std_logic                                                                   ; --! Pulse shaping coefficient, TH/HK side: ping-pong buffer bit
@@ -120,12 +124,14 @@ begin
          sync_r               <= (others => c_I_SYNC_DEF);
          sq1_data_fbk_r       <= (others => std_logic_vector(to_unsigned(c_DAC_MDL_POINT, c_SQ1_DATA_FBK_S)));
          sq1_fb_pls_set_r     <= (others => c_DST_SQ1FBMD_PLS_1);
+         sq1_fb_del_r         <= (others => c_EP_CMD_DEF_S1FBD);
          mem_pls_shp_pp_r     <= (others => c_MEM_STR_ADD_PP_DEF);
 
       elsif rising_edge(i_clk_sq1_adc_dac) then
          sync_r               <= sync_r(sync_r'high-1 downto 0) & i_sync_rs;
          sq1_data_fbk_r       <= i_sq1_data_fbk       & sq1_data_fbk_r(       0 to sq1_data_fbk_r'high-1);
          sq1_fb_pls_set_r     <= i_sq1_fb_pls_set     & sq1_fb_pls_set_r(     0 to sq1_fb_pls_set_r'high-1);
+         sq1_fb_del_r         <= i_sq1_fb_del         & sq1_fb_del_r(         0 to sq1_fb_del_r'high-1);
          mem_pls_shp_pp_r     <= mem_pls_shp_pp_r(mem_pls_shp_pp_r'high-1 downto 0) & mem_pls_shp_pp;
 
       end if;
@@ -149,6 +155,32 @@ begin
    end process P_sig;
 
    -- ------------------------------------------------------------------------------------------------------
+   --!   Pulse shaping counter/Pixel position initialization
+   --    @Req : DRE-DMX-FW-REQ-0280
+   -- ------------------------------------------------------------------------------------------------------
+   P_pls_cnt_del : process (rst_sq1_pls_shape, i_clk_sq1_adc_dac)
+   begin
+
+      if rst_sq1_pls_shape = '1' then
+         pls_cnt_init   <= std_logic_vector(unsigned(to_signed(c_PLS_CNT_INIT, pls_cnt_init'length)));
+         pixel_pos_init <= std_logic_vector(to_signed(c_PIXEL_POS_INIT , pixel_pos'length));
+
+      elsif rising_edge(i_clk_sq1_adc_dac) then
+         if    unsigned(sq1_fb_del_r(sq1_fb_del_r'high)) <= to_unsigned(c_DAC_SYNC_DATA_NPER, c_DFLD_S1FBD_COL_S) then
+            pls_cnt_init   <= std_logic_vector(unsigned(to_signed(c_PLS_CNT_INIT, pls_cnt_init'length)) + unsigned(sq1_fb_del_r(sq1_fb_del_r'high)));
+            pixel_pos_init <= std_logic_vector(to_signed(c_PIXEL_POS_INIT , pixel_pos'length));
+
+         else
+            pls_cnt_init   <= std_logic_vector(unsigned(to_signed(c_PLS_CNT_INIT - c_PIXEL_DAC_NB_CYC, pls_cnt_init'length)) + unsigned(sq1_fb_del_r(sq1_fb_del_r'high)));
+            pixel_pos_init <= std_logic_vector(to_signed(c_PIXEL_POS_INIT + 1 , pixel_pos'length));
+
+         end if;
+
+      end if;
+
+   end process P_pls_cnt_del;
+
+   -- ------------------------------------------------------------------------------------------------------
    --!   Pulse shaping counter
    --    @Req : DRE-DMX-FW-REQ-0275
    -- ------------------------------------------------------------------------------------------------------
@@ -161,7 +193,7 @@ begin
 
       elsif rising_edge(i_clk_sq1_adc_dac) then
          if sync_re = '1' then
-            pls_cnt <= std_logic_vector(to_signed(c_PLS_CNT_INIT, pls_cnt'length));
+            pls_cnt <= pls_cnt_init(pls_cnt'high downto 0);
 
          elsif pls_cnt(pls_cnt'high) = '1' then
             pls_cnt <= std_logic_vector(to_unsigned(c_PLS_CNT_MAX_VAL, pls_cnt'length));
@@ -190,7 +222,7 @@ begin
 
       elsif rising_edge(i_clk_sq1_adc_dac) then
          if sync_re = '1' then
-            pixel_pos <= std_logic_vector(to_signed(c_PIXEL_POS_INIT , pixel_pos'length));
+            pixel_pos <= pixel_pos_init;
 
          elsif (pixel_pos(pixel_pos'high) and pls_cnt(pls_cnt'high)) = '1' then
             pixel_pos <= std_logic_vector(to_signed(c_PIXEL_POS_MAX_VAL , pixel_pos'length));
@@ -207,6 +239,7 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   Dual port memory for pulse shaping coefficient
    --    @Req : REG_CY_FB1_PULSE_SHAPING
+   --    @Req : DRE-DMX-FW-REQ-0230
    -- ------------------------------------------------------------------------------------------------------
    I_mem_pls_shape: entity work.dmem_ecc generic map
    (     g_RAM_TYPE           => c_RAM_TYPE_PRM_STORE , -- integer                                          ; --! Memory type ( 0  = Data transfer,  1  = Parameters storage)
@@ -238,7 +271,6 @@ begin
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Memory pulse shaping coefficient signals, DAC side
-   --    @Req : DRE-DMX-FW-REQ-0230
    -- ------------------------------------------------------------------------------------------------------
    P_mem_pls_shp_dac : process (rst_sq1_pls_shape, i_clk_sq1_adc_dac)
    begin

@@ -292,9 +292,28 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   Science Data transmit enable
    -- ------------------------------------------------------------------------------------------------------
-   science_data_tx_ena <= not(dmp_cnt_msb_r(dmp_cnt_msb_r'high))         when tm_mode_sync = c_DST_TM_MODE_DUMP else
-                          (sq1_dta_sc_rdy_and_r and sq1_data_sc_fst_dct) when tm_mode_sync = c_DST_TM_MODE_NORM else
-                          '0';
+   P_sc_data_tx_ena : process (i_rst, i_clk)
+   begin
+
+      if i_rst = '1' then
+         science_data_tx_ena <= '0';
+
+      elsif rising_edge(i_clk) then
+         case tm_mode_sync is
+            when c_DST_TM_MODE_DUMP =>
+               science_data_tx_ena <= not(dmp_cnt_msb_r(dmp_cnt_msb_r'high-1));
+
+            when c_DST_TM_MODE_NORM =>
+               science_data_tx_ena <= (sq1_dta_sc_rdy_and_r and sq1_data_sc_fst_dct);
+
+            when others             =>
+               science_data_tx_ena <= '0';
+
+         end case;
+
+      end if;
+
+   end process P_sc_data_tx_ena;
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Science Data Transmit

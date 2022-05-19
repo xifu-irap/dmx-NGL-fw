@@ -102,6 +102,9 @@ signal   d_clk_sq1_adc_acq    : std_logic                                       
 signal   d_clk_sq1_pls_shape  : std_logic                                                                   ; --! Internal design: SQUID1 pulse shaping Clock
 
 signal   d_tm_mode            : std_logic_vector(c_DFLD_TM_MODE_S-1 downto 0)                               ; --! Internal design: Telemetry mode
+signal   d_sq1_fb_del         : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_S1FBD_COL_S-1 downto 0)                   ; --! Internal design: Squid 1 Feedback delay
+signal   d_sq_off_dac_del     : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_S2DCD_COL_S  -1 downto 0)                 ; --! Internal design: Squid offset DAC delay
+signal   d_sq_off_mux_del     : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_S2MXD_COL_S  -1 downto 0)                 ; --! Internal design: Squid offset MUX delay
 
 signal   sc_pkt_type          : std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0)                              ; --! Science packet type
 signal   sc_pkt_err           : std_logic                                                                   ; --! Science packet error ('0' = No error, '1' = Error)
@@ -222,6 +225,18 @@ begin
    alias td_tm_mode           : std_logic_vector(c_DFLD_TM_MODE_S-1 downto 0) is
                                  <<signal .top_dmx_tb.I_top_dmx.tm_mode:
                                    std_logic_vector(c_DFLD_TM_MODE_S-1 downto 0)>>                          ; --! Internal design: Telemetry mode
+   alias td_sq1_fb_del        : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_S1FBD_COL_S-1 downto 0) is
+                                 <<signal .top_dmx_tb.I_top_dmx.sq1_fb_del:
+                                   t_slv_arr(0 to c_NB_COL-1)(c_DFLD_S1FBD_COL_S-1 downto 0)>>              ; --! Internal design: Squid 1 Feedback delay
+
+   alias td_sq_off_dac_del    : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_S2DCD_COL_S-1 downto 0) is
+                                 <<signal .top_dmx_tb.I_top_dmx.sq_off_dac_del:
+                                   t_slv_arr(0 to c_NB_COL-1)(c_DFLD_S2DCD_COL_S-1 downto 0)>>              ; --! Internal design: Squid offset DAC delay
+
+   alias td_sq_off_mux_del    : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_S2MXD_COL_S-1 downto 0) is
+                                 <<signal .top_dmx_tb.I_top_dmx.sq_off_mux_del:
+                                   t_slv_arr(0 to c_NB_COL-1)(c_DFLD_S2MXD_COL_S-1 downto 0)>>              ; --! Internal design: Squid offset MUX delay
+
    begin
 
       d_rst                <= td_rst;
@@ -241,6 +256,9 @@ begin
       d_clk_sq1_adc_acq    <= td_clk_sq1_adc_acq;
       d_clk_sq1_pls_shape  <= td_clk_sq1_pls_shape;
       d_tm_mode            <= td_tm_mode;
+      d_sq1_fb_del         <= td_sq1_fb_del;
+      d_sq_off_dac_del     <= td_sq_off_dac_del;
+      d_sq_off_mux_del     <= td_sq_off_mux_del;
 
    end generate G_get_top_level_sig;
 
@@ -371,6 +389,9 @@ begin
 
          i_sync               => sync                 , -- in     std_logic                                 ; --! Pixel sequence synchronization (R.E. detected = position sequence to the first pixel)
          i_tm_mode            => d_tm_mode            , -- in     t_slv_arr c_NB_COL c_DFLD_TM_MODE_COL_S   ; --! Telemetry mode
+         i_sq1_fb_del         => d_sq1_fb_del         , -- in     t_slv_arr c_NB_COL c_DFLD_S1FBD_COL_S     ; --! Squid1 Feedback delay
+         i_sq_off_dac_del     => d_sq_off_dac_del     , -- in     t_slv_arr c_NB_COL c_DFLD_S2DCD_COL_S     ; --! Squid offset DAC delay
+         i_sq_off_mux_del     => d_sq_off_mux_del     , -- in     t_slv_arr c_NB_COL c_DFLD_S2MXD_COL_S     ; --! Squid offset MUX delay
          i_sw_adc_vin         => sw_adc_vin           , -- in     slv(c_SW_ADC_VIN_S-1 downto 0)            ; --! Switch ADC Voltage input
 
          i_sq1_adc_data       => sq1_adc_data         , -- in     t_slv_arr c_NB_COL c_SQ1_ADC_DATA_S       ; --! SQUID1 ADC: Data buses

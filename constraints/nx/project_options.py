@@ -45,11 +45,12 @@ def add_options(p,variant,timing_driven,seed,option):
         'DisableLoadAndResetBypass'   : 'No',
         'DisableRAMRegisters'         : 'No',
         'ManageAsynchronousReadPort'  : 'No',
-        'ManageUninitializedLoops'    : 'No',       
-        'MappingEffort'               : 'High',        
-        'OptimizedMux'                : 'Yes',          
-        'VariantAwareSynthesis'       : 'Yes',     
+        'ManageUninitializedLoops'    : 'No',
+        'MappingEffort'               : 'High',
+        'OptimizedMux'                : 'Yes',
+        'VariantAwareSynthesis'       : 'Yes',
+        'DensityEffort'               : 'High',
         'RoutingEffort'               : 'High',
         'TimingDriven'                : timing_driven,
         'Seed'                        : seed
-        })   
+        })

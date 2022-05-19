@@ -75,7 +75,9 @@ constant c_EP_CMD_POS_S1FBM   : integer   := c_EP_CMD_POS_S1FB0   + 1           
 constant c_EP_CMD_POS_S2LKP   : integer   := c_EP_CMD_POS_S1FBM   + 1                                       ; --! EP command: Position, CY_SQ2_PXL_LOCKPOINT
 constant c_EP_CMD_POS_S2LSB   : integer   := c_EP_CMD_POS_S2LKP   + 1                                       ; --! EP command: Position, CY_SQ2_PXL_LOCKPOINT_LSB
 constant c_EP_CMD_POS_S2OFF   : integer   := c_EP_CMD_POS_S2LSB   + 1                                       ; --! EP command: Position, CY_SQ2_PXL_LOCKPOINT_OFFSET
-constant c_EP_CMD_POS_PLSSH   : integer   := c_EP_CMD_POS_S2OFF   + 1                                       ; --! EP command: Position, CY_FB1_PULSE_SHAPING
+constant c_EP_CMD_POS_S1FBD   : integer   := c_EP_CMD_POS_S2OFF   + 1                                       ; --! EP command: Position, CY_FB_SQ1_DELAY
+constant c_EP_CMD_POS_S2FBD   : integer   := c_EP_CMD_POS_S1FBD   + 1                                       ; --! EP command: Position, CY_FB_SQ2_DELAY
+constant c_EP_CMD_POS_PLSSH   : integer   := c_EP_CMD_POS_S2FBD   + 1                                       ; --! EP command: Position, CY_FB1_PULSE_SHAPING
 
 constant c_EP_CMD_POS_LAST    : integer   := c_EP_CMD_POS_PLSSH   + 1                                       ; --! EP command: last position
 constant c_EP_CMD_REG_MX_STNB : integer   := 3                                                              ; --! EP command: Register multiplexer stage number
@@ -105,6 +107,10 @@ constant c_EP_CMD_ADD_S2LSB   : t_slv_arr(0 to c_NB_COL-1)(c_EP_SPI_WD_S-1 downt
                                  (x"0422", x"1422", x"2422", x"3422")                                       ; --! EP command: Address basis, CY_SQ2_PXL_LOCKPOINT_LSB
 constant c_EP_CMD_ADD_S2OFF   : t_slv_arr(0 to c_NB_COL-1)(c_EP_SPI_WD_S-1 downto 0) :=
                                  (x"0423", x"1423", x"2423", x"3423")                                       ; --! EP command: Address basis, CY_SQ2_PXL_LOCKPOINT_OFFSET
+constant c_EP_CMD_ADD_S1FBD   : t_slv_arr(0 to c_NB_COL-1)(c_EP_SPI_WD_S-1 downto 0) :=
+                                 (x"0500", x"1500", x"2500", x"3500")                                       ; --! EP command: Address basis, CY_FB_SQ1_DELAY
+constant c_EP_CMD_ADD_S2FBD   : t_slv_arr(0 to c_NB_COL-1)(c_EP_SPI_WD_S-1 downto 0) :=
+                                 (x"0501", x"1501", x"2501", x"3501")                                       ; --! EP command: Address basis, CY_FB_SQ2_DELAY
 constant c_EP_CMD_ADD_PLSSH   : t_slv_arr(0 to c_NB_COL-1)(c_EP_SPI_WD_S-1 downto 0) :=
                                  (x"0800", x"1800", x"2800", x"3800")                                       ; --! EP command: Address basis, CY_FB1_PULSE_SHAPING
 
@@ -140,6 +146,8 @@ constant c_EP_CMD_AUTH_S1FBM  : std_logic := c_EP_CMD_ERR_CLR                   
 constant c_EP_CMD_AUTH_S2LKP  : std_logic := c_EP_CMD_ERR_CLR                                               ; --! EP command: Authorization, CY_SQ2_PXL_LOCKPOINT
 constant c_EP_CMD_AUTH_S2LSB  : std_logic := c_EP_CMD_ERR_CLR                                               ; --! EP command: Authorization, CY_SQ2_PXL_LOCKPOINT_LSB
 constant c_EP_CMD_AUTH_S2OFF  : std_logic := c_EP_CMD_ERR_CLR                                               ; --! EP command: Authorization, CY_SQ2_PXL_LOCKPOINT_OFFSET
+constant c_EP_CMD_AUTH_S1FBD  : std_logic := c_EP_CMD_ERR_CLR                                               ; --! EP command: Authorization, CY_FB_SQ1_DELAY
+constant c_EP_CMD_AUTH_S2FBD  : std_logic := c_EP_CMD_ERR_CLR                                               ; --! EP command: Authorization, CY_FB_SQ2_DELAY
 constant c_EP_CMD_AUTH_PLSSH  : std_logic := c_EP_CMD_ERR_CLR                                               ; --! EP command: Authorization, CY_FB1_PULSE_SHAPING
 
    -- ------------------------------------------------------------------------------------------------------
@@ -154,6 +162,10 @@ constant c_DFLD_S1FBM_PIX_S   : integer   :=  2                                 
 constant c_DFLD_S2LKP_PIX_S   : integer   :=  c_SQ2_DAC_MUX_S                                               ; --! EP command: Data field, CY_SQ2_PXL_LOCKPOINT bus size
 constant c_DFLD_S2LSB_COL_S   : integer   :=  c_SQ2_DAC_DATA_S                                              ; --! EP command: Data field, CY_SQ2_PXL_LOCKPOINT_LSB bus size
 constant c_DFLD_S2OFF_COL_S   : integer   :=  c_SQ2_DAC_DATA_S                                              ; --! EP command: Data field, CY_SQ2_PXL_LOCKPOINT_OFFSET bus size
+constant c_DFLD_S1FBD_COL_S   : integer   :=  5                                                             ; --! EP command: Data field, CY_FB_SQ1_DELAY bus size
+constant c_DFLD_S2DCD_COL_S   : integer   :=  10                                                            ; --! EP command: Data field, CY_FB_SQ2_DELAY, DAC field bus size
+constant c_DFLD_S2MXD_COL_S   : integer   :=  5                                                             ; --! EP command: Data field, CY_FB_SQ2_DELAY, MUX field bus size
+constant c_DFLD_S2FBD_COL_S   : integer   :=  c_DFLD_S2DCD_COL_S + c_DFLD_S2MXD_COL_S                       ; --! EP command: Data field, CY_FB_SQ2_DELAY bus size
 constant c_DFLD_PLSSH_PLS_S   : integer   :=  c_EP_SPI_WD_S                                                 ; --! EP command: Data field, CY_FB1_PULSE_SHAPING bus size
 
    -- ------------------------------------------------------------------------------------------------------
@@ -212,6 +224,15 @@ constant c_EP_CMD_DEF_S2LSB   : std_logic_vector(c_DFLD_S2LSB_COL_S-1 downto 0):
                                 std_logic_vector(to_unsigned(0, c_DFLD_S2LSB_COL_S))                        ; --! EP command: Default value, CY_SQ2_PXL_LOCKPOINT_LSB
 constant c_EP_CMD_DEF_S2OFF   : std_logic_vector(c_DFLD_S2OFF_COL_S-1 downto 0):=
                                 std_logic_vector(to_unsigned(c_SQ2_DAC_MDL_POINT ,c_DFLD_S2OFF_COL_S))      ; --! EP command: Default value, CY_SQ2_PXL_LOCKPOINT_OFFSET
+
+constant c_EP_CMD_DEF_S1FBD   : std_logic_vector(c_DFLD_S1FBD_COL_S-1 downto 0):=
+                                std_logic_vector(to_unsigned(0, c_DFLD_S1FBD_COL_S))                        ; --! EP command: Default value, CY_FB_SQ1_DELAY
+
+constant c_EP_CMD_DEF_S2DCD   : std_logic_vector(c_DFLD_S2DCD_COL_S-1 downto 0):=
+                                std_logic_vector(to_unsigned(0, c_DFLD_S2DCD_COL_S))                        ; --! EP command: Default value, CY_FB_SQ2_DELAY, DAC field
+
+constant c_EP_CMD_DEF_S2MXD   : std_logic_vector(c_DFLD_S2MXD_COL_S-1 downto 0):=
+                                std_logic_vector(to_unsigned(0, c_DFLD_S2MXD_COL_S))                        ; --! EP command: Default value, CY_FB_SQ2_DELAY, MUX² field
 
 constant c_EP_CMD_DEF_PLSSH   : t_int_arr(0 to 2**(c_MEM_PLSSH_ADD_S+1)-1) :=
                                 (37364, 21302, 12145,  6924,  3948,  2251,  1283,   732,

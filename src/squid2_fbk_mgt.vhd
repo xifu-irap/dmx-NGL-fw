@@ -44,6 +44,8 @@ entity squid2_fbk_mgt is port
 
          i_sq2_fb_mode        : in     std_logic_vector(c_DFLD_SQ2FBMD_COL_S-1 downto 0)                    ; --! Squid 2 Feedback mode
          i_sq2_lkp_off        : in     std_logic_vector(c_DFLD_S2OFF_COL_S  -1 downto 0)                    ; --! Squid 2 Feedback lockpoint offset
+
+         i_sq_off_mux_del     : in     std_logic_vector(c_DFLD_S2MXD_COL_S  -1 downto 0)                    ; --! Squid offset MUX delay
          i_s1_dta_err_cor     : in     std_logic_vector(c_SQ1_DATA_FBK_S    -1 downto 0)                    ; --! SQUID1 Data error corrected (signed)
 
          i_mem_sq2_lkp        : in     t_mem(
@@ -58,6 +60,11 @@ entity squid2_fbk_mgt is port
 end entity squid2_fbk_mgt;
 
 architecture RTL of squid2_fbk_mgt is
+constant c_PLS_RW_CNT_NB_VAL  : integer:= c_PIXEL_DAC_NB_CYC * c_MUX_FACT/2                                 ; --! Pulse by row counter: number of value
+constant c_PLS_RW_CNT_MAX_VAL : integer:= c_PLS_RW_CNT_NB_VAL - 2                                           ; --! Pulse by row counter: maximal value
+constant c_PLS_RW_CNT_INIT    : integer:= c_PLS_RW_CNT_MAX_VAL - c_S2D_SYNC_DATA_NPER/2 - 4                 ; --! Pulse by row counter: initialization value
+constant c_PLS_RW_CNT_S       : integer:= log2_ceil(c_PLS_RW_CNT_MAX_VAL + 1) + 1                           ; --! Pulse by row counter: size bus (signed)
+
 constant c_PLS_CNT_NB_VAL     : integer:= c_PIXEL_DAC_NB_CYC/2                                              ; --! Pulse counter: number of value
 constant c_PLS_CNT_MAX_VAL    : integer:= c_PLS_CNT_NB_VAL - 2                                              ; --! Pulse counter: maximal value
 constant c_PLS_CNT_INIT       : integer:= c_PLS_CNT_MAX_VAL - c_S2M_SYNC_DATA_NPER/2                        ; --! Pulse counter: initialization value
@@ -67,8 +74,11 @@ constant c_PIXEL_POS_MAX_VAL  : integer:= c_MUX_FACT - 2                        
 constant c_PIXEL_POS_INIT     : integer:= c_PIXEL_POS_MAX_VAL-1                                             ; --! Pixel position: initialization value
 constant c_PIXEL_POS_S        : integer:= log2_ceil(c_PIXEL_POS_MAX_VAL+1) + 1                              ; --! Pixel position: size bus (signed)
 
+signal   pls_rw_cnt           : std_logic_vector(c_PLS_RW_CNT_S-1 downto 0)                                 ; --! Pulse by row counter
 signal   pls_cnt              : std_logic_vector(  c_PLS_CNT_S-1 downto 0)                                  ; --! Pulse shaping counter
+signal   pls_cnt_init         : std_logic_vector(       c_PLS_CNT_S-1 downto 0)                             ; --! Pulse counter initialization
 signal   pixel_pos            : std_logic_vector(c_PIXEL_POS_S-1 downto 0)                                  ; --! Pixel position
+signal   pixel_pos_init       : std_logic_vector(     c_PIXEL_POS_S-1 downto 0)                             ; --! Pixel position initialization
 signal   pixel_pos_inc        : std_logic_vector(c_PIXEL_POS_S-2 downto 0)                                  ; --! Pixel position increasing
 
 signal   mem_sq2_lkp_pp       : std_logic                                                                   ; --! Squid2 feedback lockpoint, TH/HK side: ping-pong buffer bit
@@ -84,7 +94,60 @@ signal   sq2_lkp              : std_logic_vector(c_SQ2_DAC_MUX_S-1  downto 0)   
 begin
 
    -- ------------------------------------------------------------------------------------------------------
+   --!   Pulse by row counter
+   -- ------------------------------------------------------------------------------------------------------
+   P_pls_rw_cnt : process (i_rst, i_clk)
+   begin
+
+      if i_rst = '1' then
+         pls_rw_cnt <= std_logic_vector(to_unsigned(c_PLS_RW_CNT_MAX_VAL, pls_rw_cnt'length));
+
+      elsif rising_edge(i_clk) then
+         if i_sync_re = '1' then
+            pls_rw_cnt <= std_logic_vector(to_unsigned(c_PLS_RW_CNT_INIT, pls_rw_cnt'length));
+
+         elsif pls_rw_cnt(pls_rw_cnt'high) = '1' then
+            pls_rw_cnt <= std_logic_vector(to_unsigned(c_PLS_RW_CNT_MAX_VAL, pls_rw_cnt'length));
+
+         else
+            pls_rw_cnt <= std_logic_vector(signed(pls_rw_cnt) - 1);
+
+         end if;
+
+      end if;
+
+   end process P_pls_rw_cnt;
+
+   -- ------------------------------------------------------------------------------------------------------
+   --!   Pulse counter/Pixel position initialization
+   --    @Req : DRE-DMX-FW-REQ-0380
+   -- ------------------------------------------------------------------------------------------------------
+   P_pls_cnt_del : process (i_rst, i_clk)
+   begin
+
+      if i_rst = '1' then
+         pls_cnt_init   <= std_logic_vector(unsigned(to_signed(c_PLS_CNT_INIT, pls_cnt_init'length)));
+         pixel_pos_init <= std_logic_vector(to_signed(c_PIXEL_POS_INIT , pixel_pos'length));
+
+      elsif rising_edge(i_clk) then
+         if    unsigned(i_sq_off_mux_del) <= to_unsigned(c_S2M_SYNC_DATA_NPER, c_DFLD_S2MXD_COL_S) then
+            pls_cnt_init   <= std_logic_vector(unsigned(to_signed(c_PLS_CNT_INIT, pls_cnt_init'length)) + resize(unsigned(i_sq_off_mux_del(i_sq_off_mux_del'high downto 1)), pls_cnt_init'length));
+            pixel_pos_init <= std_logic_vector(to_signed(c_PIXEL_POS_INIT , pixel_pos'length));
+
+         else
+            pls_cnt_init   <= std_logic_vector(unsigned(to_signed(c_PLS_CNT_INIT - c_PIXEL_DAC_NB_CYC/2, pls_cnt_init'length)) +
+                            resize(unsigned(i_sq_off_mux_del(i_sq_off_mux_del'high downto 1)), pls_cnt_init'length));
+            pixel_pos_init <= std_logic_vector(to_signed(c_PIXEL_POS_INIT + 1 , pixel_pos'length));
+
+         end if;
+
+      end if;
+
+   end process P_pls_cnt_del;
+
+   -- ------------------------------------------------------------------------------------------------------
    --!   Pulse counter
+   --    @Req : DRE-DMX-FW-REQ-0375
    -- ------------------------------------------------------------------------------------------------------
    P_pls_cnt : process (i_rst, i_clk)
    begin
@@ -94,7 +157,7 @@ begin
 
       elsif rising_edge(i_clk) then
          if i_sync_re = '1' then
-            pls_cnt <= std_logic_vector(to_signed(c_PLS_CNT_INIT, pls_cnt'length));
+            pls_cnt <= pls_cnt_init;
 
          elsif pls_cnt(pls_cnt'high) = '1' then
             pls_cnt <= std_logic_vector(to_unsigned(c_PLS_CNT_MAX_VAL, pls_cnt'length));
@@ -112,6 +175,7 @@ begin
    --!   Pixel position
    --    @Req : DRE-DMX-FW-REQ-0080
    --    @Req : DRE-DMX-FW-REQ-0090
+   --    @Req : DRE-DMX-FW-REQ-0385
    -- ------------------------------------------------------------------------------------------------------
    P_pixel_pos : process (i_rst, i_clk)
    begin
@@ -121,7 +185,7 @@ begin
 
       elsif rising_edge(i_clk) then
          if i_sync_re = '1' then
-            pixel_pos <= std_logic_vector(to_signed(c_PIXEL_POS_INIT , pixel_pos'length));
+            pixel_pos <= pixel_pos_init;
 
          elsif (pixel_pos(pixel_pos'high) and pls_cnt(pls_cnt'high)) = '1' then
             pixel_pos <= std_logic_vector(to_signed(c_PIXEL_POS_MAX_VAL , pixel_pos'length));
@@ -199,40 +263,62 @@ begin
    mem_sq2_lkp_prm.data_w  <= (others => '0');
 
    -- ------------------------------------------------------------------------------------------------------
-   --!   Squid2 feedback
-   --    @Req : DRE-DMX-FW-REQ-0290
+   --!   Squid2 feedback Multiplexer
    --    @Req : DRE-DMX-FW-REQ-0330
    --    @Req : DRE-DMX-FW-REQ-0360
    -- ------------------------------------------------------------------------------------------------------
-   P_sq2_fbk : process (i_rst, i_clk)
+   P_sq2_fbk_mux : process (i_rst, i_clk)
    begin
 
       if i_rst = '1' then
          o_sq2_fbk_mux <= (others => '0');
-         o_sq2_fbk_off <= c_EP_CMD_DEF_S2OFF;
 
       elsif rising_edge(i_clk) then
-         if sq2_fb_mode_sync = c_DST_SQ2FBMD_OFF then
-            o_sq2_fbk_mux <= (others => '0');
-            o_sq2_fbk_off <= std_logic_vector(to_unsigned(c_SQ2_DAC_MDL_POINT,c_SQ2_DAC_DATA_S));
-
-         elsif sq2_fb_mode_sync = c_DST_SQ2FBMD_CLOSE then
-            o_sq2_fbk_mux <= (others => '0');
-            o_sq2_fbk_off <= sq2_fb_close;
-
-         elsif sq2_fb_mode_sync = c_DST_SQ2FBMD_TEST then
-            o_sq2_fbk_mux <= (others => '0');
-            o_sq2_fbk_off <= sq2_fb_tst_pattern;
+         if sq2_fb_mode_sync = c_DST_SQ2FBMD_OPEN then
+            o_sq2_fbk_mux <= sq2_lkp;
 
          else
-            o_sq2_fbk_mux <= sq2_lkp;
-            o_sq2_fbk_off <= i_sq2_lkp_off;
+            o_sq2_fbk_mux <= (others => '0');
 
          end if;
 
       end if;
 
-   end process P_sq2_fbk;
+   end process P_sq2_fbk_mux;
+
+   -- ------------------------------------------------------------------------------------------------------
+   --!   Squid2 feedback offset
+   --    @Req : DRE-DMX-FW-REQ-0290
+   --    @Req : DRE-DMX-FW-REQ-0330
+   -- ------------------------------------------------------------------------------------------------------
+   P_sq2_fbk_off : process (i_rst, i_clk)
+   begin
+
+      if i_rst = '1' then
+         o_sq2_fbk_off <= c_EP_CMD_DEF_S2OFF;
+
+      elsif rising_edge(i_clk) then
+         if pls_rw_cnt(pls_rw_cnt'high) = '1' then
+
+            if i_sq2_fb_mode = c_DST_SQ2FBMD_OPEN then
+               o_sq2_fbk_off <= i_sq2_lkp_off;
+
+            elsif i_sq2_fb_mode = c_DST_SQ2FBMD_CLOSE then
+               o_sq2_fbk_off <= sq2_fb_close;
+
+            elsif i_sq2_fb_mode = c_DST_SQ2FBMD_TEST then
+               o_sq2_fbk_off <= sq2_fb_tst_pattern;
+
+            else
+               o_sq2_fbk_off <= std_logic_vector(to_unsigned(c_SQ2_DAC_MDL_POINT,c_SQ2_DAC_DATA_S));
+
+            end if;
+
+         end if;
+
+      end if;
+
+   end process P_sq2_fbk_off;
 
    --TODO
    sq2_fb_close    <=  i_s1_dta_err_cor(i_s1_dta_err_cor'high downto i_s1_dta_err_cor'length-sq2_fb_close'length);

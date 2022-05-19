@@ -51,6 +51,8 @@ signal   cond_sq2fbmd         : std_logic                                       
 signal   cond_s1fbm           : std_logic                                                                   ; --! Error data out of range condition: CY_SQ1_FB_MODE
 signal   cond_s2lkp           : std_logic                                                                   ; --! Error data out of range condition: CY_SQ2_PXL_LOCKPOINT
 signal   cond_s2lsb           : std_logic                                                                   ; --! Error data out of range condition: CY_SQ2_PXL_LOCKPOINT_LSB
+signal   cond_s1fbd           : std_logic                                                                   ; --! Error data out of range condition: CY_FB_SQ1_DELAY
+signal   cond_s2fbd           : std_logic                                                                   ; --! Error data out of range condition: CY_FB_SQ2_DELAY
 signal   cond_s2off           : std_logic                                                                   ; --! Error data out of range condition: CY_SQ2_PXL_LOCKPOINT_OFFSET
 
 begin
@@ -82,6 +84,12 @@ begin
    cond_s2lsb  <=    i_ep_cmd_rx_wd_data(15) or i_ep_cmd_rx_wd_data(14) or i_ep_cmd_rx_wd_data(13) or i_ep_cmd_rx_wd_data(12);
 
    cond_s2off  <=    i_ep_cmd_rx_wd_data(15) or i_ep_cmd_rx_wd_data(14) or i_ep_cmd_rx_wd_data(13) or i_ep_cmd_rx_wd_data(12);
+
+   cond_s1fbd   <=   i_ep_cmd_rx_wd_data(15) or i_ep_cmd_rx_wd_data(14) or i_ep_cmd_rx_wd_data(13) or i_ep_cmd_rx_wd_data(12) or
+                     i_ep_cmd_rx_wd_data(11) or i_ep_cmd_rx_wd_data(10) or i_ep_cmd_rx_wd_data(9)  or i_ep_cmd_rx_wd_data(8)  or
+                     i_ep_cmd_rx_wd_data(7)  or i_ep_cmd_rx_wd_data(6)  or i_ep_cmd_rx_wd_data(5);
+
+   cond_s2fbd   <=   i_ep_cmd_rx_wd_data(15);
 
    -- ------------------------------------------------------------------------------------------------------
    --!   EP command: Status, error error data out of range
@@ -125,6 +133,14 @@ begin
                elsif i_ep_cmd_rx_add_norw(i_ep_cmd_rx_add_norw'high downto c_EP_CMD_ADD_COLPOSH+1) = c_EP_CMD_ADD_S2OFF(0)(i_ep_cmd_rx_add_norw'high downto c_EP_CMD_ADD_COLPOSH+1) and
                      i_ep_cmd_rx_add_norw(c_EP_CMD_ADD_COLPOSL-1    downto 0)                      = c_EP_CMD_ADD_S2OFF(0)(c_EP_CMD_ADD_COLPOSL-1    downto 0)                      then
                   o_ep_cmd_sts_err_out <= cond_s2off xor c_EP_CMD_ERR_CLR;
+
+               elsif i_ep_cmd_rx_add_norw(i_ep_cmd_rx_add_norw'high downto c_EP_CMD_ADD_COLPOSH+1) = c_EP_CMD_ADD_S1FBD(0)(i_ep_cmd_rx_add_norw'high downto c_EP_CMD_ADD_COLPOSH+1) and
+                     i_ep_cmd_rx_add_norw(c_EP_CMD_ADD_COLPOSL-1    downto 0)                      = c_EP_CMD_ADD_S1FBD(0)(c_EP_CMD_ADD_COLPOSL-1    downto 0)                      then
+                  o_ep_cmd_sts_err_out <= cond_s1fbd xor c_EP_CMD_ERR_CLR;
+
+               elsif i_ep_cmd_rx_add_norw(i_ep_cmd_rx_add_norw'high downto c_EP_CMD_ADD_COLPOSH+1) = c_EP_CMD_ADD_S2FBD(0)(i_ep_cmd_rx_add_norw'high downto c_EP_CMD_ADD_COLPOSH+1) and
+                     i_ep_cmd_rx_add_norw(c_EP_CMD_ADD_COLPOSL-1    downto 0)                      = c_EP_CMD_ADD_S2FBD(0)(c_EP_CMD_ADD_COLPOSL-1    downto 0)                      then
+                  o_ep_cmd_sts_err_out <= cond_s2fbd xor c_EP_CMD_ERR_CLR;
 
                else
                   o_ep_cmd_sts_err_out <= c_EP_CMD_ERR_CLR;

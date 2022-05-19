@@ -17,34 +17,42 @@
 --                            along with this program.  If not, see <https://www.gnu.org/licenses/>.
 -- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --    email                   slaurent@nanoxplore.com
---!   @file                   squid1_spi_mgt.vhd
+--!   @file                   DRE_DMX_UT_0200_cfg.vhd
 -- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --    Automatic Generation    No
 --    Code Rules Reference    SOC of design and VHDL handbook for VLSI development, CNES Edition (v2.1)
 -- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
---!   @details                Squid1 SPI management
+--!   @details                DRE DEMUX Unitary Test configuration file
 -- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-library ieee;
-use     ieee.std_logic_1164.all;
-use     ieee.numeric_std.all;
+configuration DRE_DMX_UT_0200_cfg of top_dmx_tb is
 
-entity squid1_spi_mgt is port
-   (     o_sq1_adc_spi_mosi   : out    std_logic                                                            ; --! SQUID1 ADC: SPI Serial Data In Out
-         o_sq1_adc_spi_sclk   : out    std_logic                                                            ; --! SQUID1 ADC: SPI Serial Clock (CPOL = '0', CPHA = '0')
-         o_sq1_adc_spi_cs_n   : out    std_logic                                                              --! SQUID1 ADC: SPI Chip Select ('0' = Active, '1' = Inactive)
+   for Simulation
 
-   );
-end entity squid1_spi_mgt;
+      -- ------------------------------------------------------------------------------------------------------
+      --!   Parser configuration
+      -- ------------------------------------------------------------------------------------------------------
+      for I_parser : parser
+         use entity work.parser generic map
+         (
+            g_SIM_TIME           => 315000 ns            , -- time    := c_SIM_TIME_DEF                     ; --! Simulation time
+            g_TST_NUM            => "0200"                 -- string  := c_TST_NUM_DEF                        --! Test number
+         );
+      end for;
 
-architecture RTL of squid1_spi_mgt is
-begin
+      -- ------------------------------------------------------------------------------------------------------
+      --!   EP SPI Model configuration
+      -- ------------------------------------------------------------------------------------------------------
+      for I_ep_spi_model : ep_spi_model
+         use entity work.ep_spi_model generic map
+         (
+            g_EP_CLK_PER         => c_EP_CLK_PER_DEF     , -- time    := c_EP_CLK_PER_DEF                   ; --! EP: System clock period (ps)
+            g_EP_CLK_PER_SHIFT   => c_EP_CLK_PER_SHFT_DEF, -- time    := c_EP_CLK_PER_SHFT_DEF              ; --! EP: Clock period shift
+            g_EP_N_CLK_PER_SCLK_L=> 3                    , -- integer := c_EP_SCLK_L_DEF                    ; --! EP: Number of clock period for elaborating SPI Serial Clock low  level
+            g_EP_N_CLK_PER_SCLK_H=> 1                    , -- integer := c_EP_SCLK_H_DEF                    ; --! EP: Number of clock period for elaborating SPI Serial Clock high level
+            g_EP_BUF_DEL         => 0 ns                   -- time    := c_EP_BUF_DEL_DEF                     --! EP: Delay introduced by buffer
+         );
+      end for;
 
-   -- ------------------------------------------------------------------------------------------------------
-   --!   Squid 1 ADC, static configuration without SPI
-   --    @Req : DRE-DMX-FW-REQ-0100
-   -- ------------------------------------------------------------------------------------------------------
-   o_sq1_adc_spi_mosi   <= '1';     -- Duty Cycle Stabilizer ('0' = Disable, '1' = Enable)
-   o_sq1_adc_spi_sclk   <= '0';     -- Data format ('0' = Binary, '1' = Twos complement)
-   o_sq1_adc_spi_cs_n   <= '1';     -- Static configuration ('0' = No, '1' = Yes)
+   end for;
 
-end architecture RTL;
+end configuration DRE_DMX_UT_0200_cfg;

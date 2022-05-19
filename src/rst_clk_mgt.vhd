@@ -61,7 +61,6 @@ entity rst_clk_mgt is port
 end entity rst_clk_mgt;
 
 architecture RTL of rst_clk_mgt is
-signal   rst                  : std_logic                                                                   ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
 signal   rst_first_pipe       : std_logic                                                                   ; --! Reset first pipe asynchronous assertion, synchronous de-assertion
 signal   rst_sys_ck_sc_first  : std_logic                                                                   ; --! Reset for Science Data Image Clock first pipe, de-assertion on system clock
 signal   rst_sys_ck_science   : std_logic                                                                   ; --! Reset for Science Data Image Clock, de-assertion on system clock
@@ -109,11 +108,12 @@ begin
       -- ------------------------------------------------------------------------------------------------------
       --!  Command switch SQUID1 ADC Image Clock
       --    @Req : DRE-DMX-FW-REQ-0100
+      --    @Req : DRE-DMX-FW-REQ-0115
       -- ------------------------------------------------------------------------------------------------------
       I_cmd_ck_sq1_adc: entity work.cmd_im_ck generic map
       (  g_CK_CMD_DEF         => c_CMD_CK_SQ1_ADC_DEF   -- std_logic                                          --! Clock switch command default value at reset
       ) port map
-      (  i_rst                => rst                  , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+      (  i_rst                => o_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                => clk                  , -- in     std_logic                                 ; --! System Clock
          i_cmd_ck_ena         => i_cmd_ck_s1_adc_ena(k),-- in     std_logic                                 ; --! Clock switch command enable  ('0' = Inactive, '1' = Active)
          i_cmd_ck_dis         => i_cmd_ck_s1_adc_dis(k),-- in     std_logic                                 ; --! Clock switch command disable ('0' = Inactive, '1' = Active)
@@ -143,7 +143,7 @@ begin
       I_cmd_ck_sq1_dac: entity work.cmd_im_ck generic map
       (  g_CK_CMD_DEF         => c_CMD_CK_SQ1_DAC_DEF   -- std_logic                                          --! Clock switch command default value at reset
       ) port map
-      (  i_rst                => rst                  , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+      (  i_rst                => o_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                => clk                  , -- in     std_logic                                 ; --! System Clock
          i_cmd_ck_ena         => i_cmd_ck_s1_dac_ena(k),-- in     std_logic                                 ; --! Clock switch command enable  ('0' = Inactive, '1' = Active)
          i_cmd_ck_dis         => i_cmd_ck_s1_dac_dis(k),-- in     std_logic                                 ; --! Clock switch command disable ('0' = Inactive, '1' = Active)
@@ -220,7 +220,7 @@ begin
          i_clock              => clk                  , -- in     std_logic                                 ; --! Clock
 
          i_sig                => rst_first_pipe       , -- in     std_logic                                 ; --! Signal
-         o_sig_r              => rst                    -- out    std_logic                                   --! Signal registered
+         o_sig_r              => o_rst                  -- out    std_logic                                   --! Signal registered
    );
 
    I_rst_sys_ck_sc_0: entity work.signal_reg generic map
@@ -315,13 +315,5 @@ begin
       );
 
    end generate G_rst_column_mgt;
-
-   -- ------------------------------------------------------------------------------------------------------
-   --!   Low Skew network connexion
-   -- ------------------------------------------------------------------------------------------------------
-   I_rst_lowskew: entity work.lowskew port map
-   (     i_sig                => rst                  , -- in     std_logic                                 ; --! Signal
-         o_sig_lowskew        => o_rst                  -- out    std_logic                                   --! Signal connected to lowskew network
-   );
 
 end architecture rtl;

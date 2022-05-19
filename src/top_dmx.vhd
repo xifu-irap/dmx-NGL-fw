@@ -158,6 +158,9 @@ signal   sq1_fb_pls_set       : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SQ1FBMD_PLS_S-
 signal   sq2_fb_mode          : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SQ2FBMD_COL_S-1 downto 0)                 ; --! Squid 2 Feedback mode
 signal   sq2_dac_lsb          : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_S2OFF_COL_S  -1 downto 0)                 ; --! Squid 2 DAC LSB
 signal   sq2_lkp_off          : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_S2OFF_COL_S  -1 downto 0)                 ; --! Squid 2 Feedback lockpoint offset
+signal   sq1_fb_del           : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_S1FBD_COL_S  -1 downto 0)                 ; --! Squid 1 Feedback delay
+signal   sq_off_dac_del       : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_S2DCD_COL_S  -1 downto 0)                 ; --! Squid offset DAC delay
+signal   sq_off_mux_del       : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_S2MXD_COL_S  -1 downto 0)                 ; --! Squid offset MUX delay
 
 signal   mem_sq1_fb0          : t_mem_arr(0 to c_NB_COL-1)(
                                 add(    c_MEM_S1FB0_ADD_S-1 downto 0),
@@ -304,6 +307,9 @@ begin
          o_sq2_fb_mode        => sq2_fb_mode          , -- out    t_slv_arr c_NB_COL c_DFLD_SQ2FBMD_COL_S   ; --! Squid 2 Feedback mode
          o_sq2_dac_lsb        => sq2_dac_lsb          , -- out    t_slv_arr c_NB_COL c_DFLD_S2OFF_COL_S     ; --! Squid 2 DAC LSB
          o_sq2_lkp_off        => sq2_lkp_off          , -- out    t_slv_arr c_NB_COL c_DFLD_S2OFF_COL_S     ; --! Squid 2 Feedback lockpoint offset
+         o_sq1_fb_del         => sq1_fb_del           , -- out    t_slv_arr c_NB_COL c_DFLD_S1FBD_COL_S     ; --! Squid 1 Feedback delay
+         o_sq_off_dac_del     => sq_off_dac_del       , -- out    t_slv_arr c_NB_COL c_DFLD_S2DCD_COL_S     ; --! Squid offset DAC delay
+         o_sq_off_mux_del     => sq_off_mux_del       , -- out    t_slv_arr c_NB_COL c_DFLD_S2MXD_COL_S     ; --! Squid offset MUX delay
 
          o_mem_sq1_fb0        => mem_sq1_fb0          , -- out    t_mem_arr(0 to c_NB_COL-1)                ; --! Squid1 feedback value in open loop: memory inputs
          i_sq1_fb0_data       => sq1_fb0_data         , -- in     t_slv_arr c_NB_COL c_DFLD_S1FB0_PIX_S     ; --! Squid1 feedback value in open loop: data read
@@ -432,6 +438,7 @@ begin
          o_sq1_fb0_data       => sq1_fb0_data(k)      , -- out    slv(c_DFLD_S1FB0_PIX_S-1 downto 0)        ; --! Squid1 feedback value in open loop: data read
 
          i_sq1_fb_mode        => sq1_fb_mode(k)       , -- in     slv(c_DFLD_SQ1FBMD_COL_S-1 downto 0)      ; --! Squid1 Feedback mode (on/off)
+         i_sq1_fb_del         => sq1_fb_del(k)        , -- in     slv(c_DFLD_S1FBD_COL_S  -1 downto 0)      ; --! Squid1 Feedback delay
          i_mem_sq1_fbm        => mem_sq1_fbm(k)       , -- in     t_mem                                     ; --! Squid1 feedback mode: memory inputs
          o_sq1_fbm_data       => sq1_fbm_data(k)      , -- out    slv(c_DFLD_S1FBM_PIX_S-1 downto 0)        ; --! Squid1 feedback mode: data read
 
@@ -448,8 +455,9 @@ begin
          i_clk_90             => clk_90               , -- in     std_logic                                 ; --! System Clock 90 degrees shift
 
          i_sync_rs            => sync_sq1_dac_rs(k)   , -- in     std_logic                                 ; --! Pixel sequence synchronization, synchronized on System Clock
-         i_sq1_data_fbk       => sq1_data_fbk(k)      , -- in     slv(c_SQ1_DATA_FBK_S-1 downto 0)          ; --! SQUID1 Data feedback
+         i_sq1_data_fbk       => sq1_data_fbk(k)      , -- in     slv(c_SQ1_DATA_FBK_S-1 downto 0)          ; --! SQUID 1 Data feedback
          i_sq1_fb_pls_set     => sq1_fb_pls_set(k)    , -- in     slv(c_DFLD_SQ1FBMD_PLS_S-1 downto 0)      ; --! Squid 1 Feedback Pulse shaping set
+         i_sq1_fb_del         => sq1_fb_del(k)        , -- in     slv(c_DFLD_S1FBD_COL_S  -1 downto 0)      ; --! Squid 1 Feedback delay
 
          i_mem_pls_shp        => mem_pls_shp(k)       , -- in     t_mem                                     ; --! Pulse shaping coef: memory inputs
          o_pls_shp_data       => pls_shp_data(k)      , -- out    slv(c_DFLD_PLSSH_PLS_S-1 downto 0)        ; --! Pulse shaping coef: data read
@@ -465,7 +473,8 @@ begin
          i_sync_re            => sync_re              , -- in     std_logic                                 ; --! Pixel sequence synchronization, rising edge
 
          i_sq2_fb_mode        => sq2_fb_mode(k)       , -- in     slv(c_DFLD_SQ2FBMD_COL_S-1 downto 0)      ; --! Squid 2 Feedback mode
-         i_sq2_lkp_off        => sq2_lkp_off(k)       , -- in     slv(c_DFLD_S2OFF_COL_S  -1 downto 0)      ; --! Squid 2 Feedback lockpoint offset
+         i_sq2_lkp_off        => sq2_lkp_off(k)       , -- in     slv(c_DFLD_S2OFF_COL_S-1 downto 0)        ; --! Squid 2 Feedback lockpoint offset
+         i_sq_off_mux_del     => sq_off_mux_del(k)    , -- in     slv(c_DFLD_S2MXD_COL_S-1 downto 0)        ; --! Squid offset MUX delay
          i_s1_dta_err_cor     => s1_dta_err_cor(k)    , -- in     slv(c_SQ1_DATA_FBK_S-1 downto 0)          ; --! SQUID1 Data error corrected (signed)
 
          i_mem_sq2_lkp        => mem_sq2_lkp(k)       , -- in     t_mem                                     ; --! Squid2 feedback lockpoint: memory inputs
@@ -483,6 +492,8 @@ begin
          i_sq2_dac_lsb        => sq2_dac_lsb(k)       , -- in     slv(c_DFLD_S2OFF_COL_S-1 downto 0)        ; --! Squid 2 DAC LSB
          i_sq2_fbk_mux        => sq2_fbk_mux(k)       , -- in     slv(c_DFLD_S2LKP_PIX_S-1 downto 0)        ; --! Squid2 Feedback Multiplexer
          i_sq2_fbk_off        => sq2_fbk_off(k)       , -- in     slv(c_DFLD_S2OFF_COL_S-1 downto 0)        ; --! Squid2 Feedback offset
+         i_sq_off_dac_del     => sq_off_dac_del(k)    , -- in     slv(c_DFLD_S2DCD_COL_S-1 downto 0)        ; --! Squid offset DAC delay
+         i_sq_off_mux_del     => sq_off_mux_del(k)    , -- in     slv(c_DFLD_S2MXD_COL_S-1 downto 0)        ; --! Squid offset MUX delay
 
          o_sq2_dac_mux        => o_sq2_dac_mux(k)     , -- out    slv(c_SQ2_DAC_MUX_S -1 downto 0)          ; --! SQUID2 DAC: Multiplexer
          o_sq2_dac_data       => o_sq2_dac_data(k)    , -- out    std_logic                                 ; --! SQUID2 DAC: Serial Data

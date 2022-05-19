@@ -53,6 +53,9 @@ entity science_data_model is generic
 
          i_sync               : in     std_logic                                                            ; --! Pixel sequence synchronization (R.E. detected = position sequence to the first pixel)
          i_tm_mode            : in     std_logic_vector(c_DFLD_TM_MODE_S-1 downto 0)                        ; --! Telemetry mode
+         i_sq1_fb_del         : in     t_slv_arr(0 to c_NB_COL-1)(c_DFLD_S1FBD_COL_S-1 downto 0)            ; --! Squid1 Feedback delay
+         i_sq_off_dac_del     : in     t_slv_arr(0 to c_NB_COL-1)(c_DFLD_S2DCD_COL_S-1 downto 0)            ; --! Squid offset DAC delay
+         i_sq_off_mux_del     : in     t_slv_arr(0 to c_NB_COL-1)(c_DFLD_S2MXD_COL_S-1 downto 0)            ; --! Squid offset MUX delay
          i_sw_adc_vin         : in     std_logic_vector(c_SW_ADC_VIN_S-1 downto 0)                          ; --! Switch ADC Voltage input
 
          i_sq1_adc_data       : in     t_slv_arr(0 to c_NB_COL-1)(c_SQ1_ADC_DATA_S-1 downto 0)              ; --! SQUID1 ADC: Data buses
@@ -228,6 +231,8 @@ begin
    (     i_rst                => i_arst               , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk_science        => i_clk_science        , -- in     std_logic                                 ; --! Science Clock
 
+         i_sq1_fb_del         => i_sq1_fb_del         , -- in     t_slv_arr c_NB_COL c_DFLD_S1FBD_COL_S     ; --! Squid1 Feedback delay
+         i_sq_off_mux_del     => i_sq_off_mux_del     , -- in     t_slv_arr c_NB_COL c_DFLD_S2MXD_COL_S     ; --! Squid offset MUX delay
          i_sw_adc_vin         => i_sw_adc_vin         , -- in     slv(c_SW_ADC_VIN_S-1 downto 0)            ; --! Switch ADC Voltage input
 
          i_adc_dmp_mem_add    => i_adc_dmp_mem_add    , -- in     std_logic_vector(c_MUX_FACT_S-1 downto 0) ; --! ADC Dump memory for data compare: address
@@ -438,7 +443,8 @@ begin
 
                if v_err_sc_data(k) = '1' then
                   o_sc_pkt_err <= '1';
-                  fprintf(error, "Science Data packet content, column " & integer'image(k) & ", does not correspond to ADC input", scd_file);
+                  fprintf(error, "Science Data packet content, column " & integer'image(k) &
+                                 ", does not correspond to ADC input (Read: " & hfield_format(science_data(k)).all & ", Expected: " & hfield_format(mem_dump_sc_data_out(k)).all & ")", scd_file);
                end if;
 
                if science_data_err(k) = '1' then

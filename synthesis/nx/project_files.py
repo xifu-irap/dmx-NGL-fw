@@ -31,7 +31,7 @@ def add_files(p,sources_files_directory,variant,option):
             VHDFiles.append(os.path.join(sources_files_directory, file))
 
     p.addFiles('work', VHDFiles)
-    
+
     print("Specific Variant files")
     VHDFiles=[]
     for file in os.listdir(sources_files_directory + '/../ip/nx/' + variant):

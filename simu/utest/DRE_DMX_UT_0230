@@ -1,0 +1,469 @@
+COMM **********************************************************************************************
+COMM   Test: SQUID2 MUX delay
+COMM **********************************************************************************************
+COMM
+COMM ==============================================================================================
+COMM   Switch ADC voltage on SQUID2 DAC
+COMM ----------------------------------------------------------------------------------------------
+WDIS sw_adc_vin(0) 1
+COMM
+COMM ==============================================================================================
+COMM   Asynchronous reset activated
+COMM ----------------------------------------------------------------------------------------------
+WDIS arst_n 0
+WAIT 80 ns
+COMM
+COMM ==============================================================================================
+COMM   Asynchronous reset deactivated
+COMM ----------------------------------------------------------------------------------------------
+WDIS arst_n 1
+COMM
+COMM ==============================================================================================
+COMM   Wait internal reset deactivated
+COMM ----------------------------------------------------------------------------------------------
+WUDI rst 0
+COMM
+COMM ==============================================================================================
+COMM   Configure SQUID2 DAC LSB
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-C0_SQ2_PXL_LOCKPOINT_LSB-0100 W
+WCMD W-C1_SQ2_PXL_LOCKPOINT_LSB-0100 W
+WCMD W-C2_SQ2_PXL_LOCKPOINT_LSB-0100 W
+WCMD W-C3_SQ2_PXL_LOCKPOINT_LSB-0100 W
+COMM
+COMM ==============================================================================================
+COMM   Send command SQ2_FB_MODE to open loop
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-SQ2_FB_MODE-1111 W
+COMM
+COMM ==============================================================================================
+COMM   Writing a new table in SQUID2 lockpoint value column 0 memory
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-C0_SQ2_PXL_LOCKPOINT(0)-0007 W
+WCMD W-C0_SQ2_PXL_LOCKPOINT(1)-0006 W
+WCMD W-C0_SQ2_PXL_LOCKPOINT(2)-0005 W
+WCMD W-C0_SQ2_PXL_LOCKPOINT(3)-0004 W
+WCMD W-C0_SQ2_PXL_LOCKPOINT(4)-0003 W
+WCMD W-C0_SQ2_PXL_LOCKPOINT(5)-0002 W
+WCMD W-C0_SQ2_PXL_LOCKPOINT(6)-0001 W
+WCMD W-C0_SQ2_PXL_LOCKPOINT(7)-0000 W
+WCMD W-C0_SQ2_PXL_LOCKPOINT(8)-0007 W
+WCMD W-C0_SQ2_PXL_LOCKPOINT(9)-0006 W
+WCMD W-C0_SQ2_PXL_LOCKPOINT(10)-0005 W
+WCMD W-C0_SQ2_PXL_LOCKPOINT(11)-0004 W
+WCMD W-C0_SQ2_PXL_LOCKPOINT(12)-0003 W
+WCMD W-C0_SQ2_PXL_LOCKPOINT(13)-0002 W
+WCMD W-C0_SQ2_PXL_LOCKPOINT(14)-0001 W
+WCMD W-C0_SQ2_PXL_LOCKPOINT(15)-0000 W
+WCMD W-C0_SQ2_PXL_LOCKPOINT(16)-0007 W
+WCMD W-C0_SQ2_PXL_LOCKPOINT(17)-0006 W
+WCMD W-C0_SQ2_PXL_LOCKPOINT(18)-0005 W
+WCMD W-C0_SQ2_PXL_LOCKPOINT(19)-0004 W
+WCMD W-C0_SQ2_PXL_LOCKPOINT(20)-0003 W
+WCMD W-C0_SQ2_PXL_LOCKPOINT(21)-0002 W
+WCMD W-C0_SQ2_PXL_LOCKPOINT(22)-0001 W
+WCMD W-C0_SQ2_PXL_LOCKPOINT(23)-0000 W
+WCMD W-C0_SQ2_PXL_LOCKPOINT(24)-0007 W
+WCMD W-C0_SQ2_PXL_LOCKPOINT(25)-0006 W
+WCMD W-C0_SQ2_PXL_LOCKPOINT(26)-0005 W
+WCMD W-C0_SQ2_PXL_LOCKPOINT(27)-0004 W
+WCMD W-C0_SQ2_PXL_LOCKPOINT(28)-0003 W
+WCMD W-C0_SQ2_PXL_LOCKPOINT(29)-0002 W
+WCMD W-C0_SQ2_PXL_LOCKPOINT(30)-0001 W
+WCMD W-C0_SQ2_PXL_LOCKPOINT(31)-0000 W
+WCMD W-C0_SQ2_PXL_LOCKPOINT(32)-0000 W
+WCMD W-C0_SQ2_PXL_LOCKPOINT(33)-0000 W
+COMM
+COMM ==============================================================================================
+COMM   Writing a new table in SQUID2 lockpoint value column 1 memory
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-C1_SQ2_PXL_LOCKPOINT(0)-0007 W
+WCMD W-C1_SQ2_PXL_LOCKPOINT(1)-0006 W
+WCMD W-C1_SQ2_PXL_LOCKPOINT(2)-0005 W
+WCMD W-C1_SQ2_PXL_LOCKPOINT(3)-0004 W
+WCMD W-C1_SQ2_PXL_LOCKPOINT(4)-0003 W
+WCMD W-C1_SQ2_PXL_LOCKPOINT(5)-0002 W
+WCMD W-C1_SQ2_PXL_LOCKPOINT(6)-0001 W
+WCMD W-C1_SQ2_PXL_LOCKPOINT(7)-0000 W
+WCMD W-C1_SQ2_PXL_LOCKPOINT(8)-0007 W
+WCMD W-C1_SQ2_PXL_LOCKPOINT(9)-0006 W
+WCMD W-C1_SQ2_PXL_LOCKPOINT(10)-0005 W
+WCMD W-C1_SQ2_PXL_LOCKPOINT(11)-0004 W
+WCMD W-C1_SQ2_PXL_LOCKPOINT(12)-0003 W
+WCMD W-C1_SQ2_PXL_LOCKPOINT(13)-0002 W
+WCMD W-C1_SQ2_PXL_LOCKPOINT(14)-0001 W
+WCMD W-C1_SQ2_PXL_LOCKPOINT(15)-0000 W
+WCMD W-C1_SQ2_PXL_LOCKPOINT(16)-0007 W
+WCMD W-C1_SQ2_PXL_LOCKPOINT(17)-0006 W
+WCMD W-C1_SQ2_PXL_LOCKPOINT(18)-0005 W
+WCMD W-C1_SQ2_PXL_LOCKPOINT(19)-0004 W
+WCMD W-C1_SQ2_PXL_LOCKPOINT(20)-0003 W
+WCMD W-C1_SQ2_PXL_LOCKPOINT(21)-0002 W
+WCMD W-C1_SQ2_PXL_LOCKPOINT(22)-0001 W
+WCMD W-C1_SQ2_PXL_LOCKPOINT(23)-0000 W
+WCMD W-C1_SQ2_PXL_LOCKPOINT(24)-0007 W
+WCMD W-C1_SQ2_PXL_LOCKPOINT(25)-0006 W
+WCMD W-C1_SQ2_PXL_LOCKPOINT(26)-0005 W
+WCMD W-C1_SQ2_PXL_LOCKPOINT(27)-0004 W
+WCMD W-C1_SQ2_PXL_LOCKPOINT(28)-0003 W
+WCMD W-C1_SQ2_PXL_LOCKPOINT(29)-0002 W
+WCMD W-C1_SQ2_PXL_LOCKPOINT(30)-0001 W
+WCMD W-C1_SQ2_PXL_LOCKPOINT(31)-0000 W
+WCMD W-C1_SQ2_PXL_LOCKPOINT(32)-0000 W
+WCMD W-C1_SQ2_PXL_LOCKPOINT(33)-0000 W
+COMM
+COMM ==============================================================================================
+COMM   Writing a new table in SQUID2 lockpoint value column 0 memory
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-C2_SQ2_PXL_LOCKPOINT(0)-0007 W
+WCMD W-C2_SQ2_PXL_LOCKPOINT(1)-0006 W
+WCMD W-C2_SQ2_PXL_LOCKPOINT(2)-0005 W
+WCMD W-C2_SQ2_PXL_LOCKPOINT(3)-0004 W
+WCMD W-C2_SQ2_PXL_LOCKPOINT(4)-0003 W
+WCMD W-C2_SQ2_PXL_LOCKPOINT(5)-0002 W
+WCMD W-C2_SQ2_PXL_LOCKPOINT(6)-0001 W
+WCMD W-C2_SQ2_PXL_LOCKPOINT(7)-0000 W
+WCMD W-C2_SQ2_PXL_LOCKPOINT(8)-0007 W
+WCMD W-C2_SQ2_PXL_LOCKPOINT(9)-0006 W
+WCMD W-C2_SQ2_PXL_LOCKPOINT(10)-0005 W
+WCMD W-C2_SQ2_PXL_LOCKPOINT(11)-0004 W
+WCMD W-C2_SQ2_PXL_LOCKPOINT(12)-0003 W
+WCMD W-C2_SQ2_PXL_LOCKPOINT(13)-0002 W
+WCMD W-C2_SQ2_PXL_LOCKPOINT(14)-0001 W
+WCMD W-C2_SQ2_PXL_LOCKPOINT(15)-0000 W
+WCMD W-C2_SQ2_PXL_LOCKPOINT(16)-0007 W
+WCMD W-C2_SQ2_PXL_LOCKPOINT(17)-0006 W
+WCMD W-C2_SQ2_PXL_LOCKPOINT(18)-0005 W
+WCMD W-C2_SQ2_PXL_LOCKPOINT(19)-0004 W
+WCMD W-C2_SQ2_PXL_LOCKPOINT(20)-0003 W
+WCMD W-C2_SQ2_PXL_LOCKPOINT(21)-0002 W
+WCMD W-C2_SQ2_PXL_LOCKPOINT(22)-0001 W
+WCMD W-C2_SQ2_PXL_LOCKPOINT(23)-0000 W
+WCMD W-C2_SQ2_PXL_LOCKPOINT(24)-0007 W
+WCMD W-C2_SQ2_PXL_LOCKPOINT(25)-0006 W
+WCMD W-C2_SQ2_PXL_LOCKPOINT(26)-0005 W
+WCMD W-C2_SQ2_PXL_LOCKPOINT(27)-0004 W
+WCMD W-C2_SQ2_PXL_LOCKPOINT(28)-0003 W
+WCMD W-C2_SQ2_PXL_LOCKPOINT(29)-0002 W
+WCMD W-C2_SQ2_PXL_LOCKPOINT(30)-0001 W
+WCMD W-C2_SQ2_PXL_LOCKPOINT(31)-0000 W
+WCMD W-C2_SQ2_PXL_LOCKPOINT(32)-0000 W
+WCMD W-C2_SQ2_PXL_LOCKPOINT(33)-0000 W
+COMM
+COMM ==============================================================================================
+COMM   Writing a new table in SQUID2 lockpoint value column 0 memory
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-C3_SQ2_PXL_LOCKPOINT(0)-0007 W
+WCMD W-C3_SQ2_PXL_LOCKPOINT(1)-0006 W
+WCMD W-C3_SQ2_PXL_LOCKPOINT(2)-0005 W
+WCMD W-C3_SQ2_PXL_LOCKPOINT(3)-0004 W
+WCMD W-C3_SQ2_PXL_LOCKPOINT(4)-0003 W
+WCMD W-C3_SQ2_PXL_LOCKPOINT(5)-0002 W
+WCMD W-C3_SQ2_PXL_LOCKPOINT(6)-0001 W
+WCMD W-C3_SQ2_PXL_LOCKPOINT(7)-0000 W
+WCMD W-C3_SQ2_PXL_LOCKPOINT(8)-0007 W
+WCMD W-C3_SQ2_PXL_LOCKPOINT(9)-0006 W
+WCMD W-C3_SQ2_PXL_LOCKPOINT(10)-0005 W
+WCMD W-C3_SQ2_PXL_LOCKPOINT(11)-0004 W
+WCMD W-C3_SQ2_PXL_LOCKPOINT(12)-0003 W
+WCMD W-C3_SQ2_PXL_LOCKPOINT(13)-0002 W
+WCMD W-C3_SQ2_PXL_LOCKPOINT(14)-0001 W
+WCMD W-C3_SQ2_PXL_LOCKPOINT(15)-0000 W
+WCMD W-C3_SQ2_PXL_LOCKPOINT(16)-0007 W
+WCMD W-C3_SQ2_PXL_LOCKPOINT(17)-0006 W
+WCMD W-C3_SQ2_PXL_LOCKPOINT(18)-0005 W
+WCMD W-C3_SQ2_PXL_LOCKPOINT(19)-0004 W
+WCMD W-C3_SQ2_PXL_LOCKPOINT(20)-0003 W
+WCMD W-C3_SQ2_PXL_LOCKPOINT(21)-0002 W
+WCMD W-C3_SQ2_PXL_LOCKPOINT(22)-0001 W
+WCMD W-C3_SQ2_PXL_LOCKPOINT(23)-0000 W
+WCMD W-C3_SQ2_PXL_LOCKPOINT(24)-0007 W
+WCMD W-C3_SQ2_PXL_LOCKPOINT(25)-0006 W
+WCMD W-C3_SQ2_PXL_LOCKPOINT(26)-0005 W
+WCMD W-C3_SQ2_PXL_LOCKPOINT(27)-0004 W
+WCMD W-C3_SQ2_PXL_LOCKPOINT(28)-0003 W
+WCMD W-C3_SQ2_PXL_LOCKPOINT(29)-0002 W
+WCMD W-C3_SQ2_PXL_LOCKPOINT(30)-0001 W
+WCMD W-C3_SQ2_PXL_LOCKPOINT(31)-0000 W
+WCMD W-C3_SQ2_PXL_LOCKPOINT(32)-0000 W
+WCMD W-C3_SQ2_PXL_LOCKPOINT(33)-0000 W
+COMM
+COMM ==============================================================================================
+COMM   Writing memory dump data to compare
+COMM   Formula: 4*(SQ2_PXL_LOCKPOINT_OFFSET + SQ2_PXL_LOCKPOINT * SQ2_PXL_LOCKPOINT_LSB)
+COMM ----------------------------------------------------------------------------------------------
+WMDC 0 0 3C00
+WMDC 0 1 3800
+WMDC 0 2 3400
+WMDC 0 3 3000
+WMDC 0 4 2C00
+WMDC 0 5 2800
+WMDC 0 6 2400
+WMDC 0 7 2000
+WMDC 0 8 3C00
+WMDC 0 9 3800
+WMDC 0 10 3400
+WMDC 0 11 3000
+WMDC 0 12 2C00
+WMDC 0 13 2800
+WMDC 0 14 2400
+WMDC 0 15 2000
+WMDC 0 16 3C00
+WMDC 0 17 3800
+WMDC 0 18 3400
+WMDC 0 19 3000
+WMDC 0 20 2C00
+WMDC 0 21 2800
+WMDC 0 22 2400
+WMDC 0 23 2000
+WMDC 0 24 3C00
+WMDC 0 25 3800
+WMDC 0 26 3400
+WMDC 0 27 3000
+WMDC 0 28 2C00
+WMDC 0 29 2800
+WMDC 0 30 2400
+WMDC 0 31 2000
+WMDC 0 32 2000
+WMDC 0 33 2000
+COMM
+WMDC 1 0 3C00
+WMDC 1 1 3800
+WMDC 1 2 3400
+WMDC 1 3 3000
+WMDC 1 4 2C00
+WMDC 1 5 2800
+WMDC 1 6 2400
+WMDC 1 7 2000
+WMDC 1 8 3C00
+WMDC 1 9 3800
+WMDC 1 10 3400
+WMDC 1 11 3000
+WMDC 1 12 2C00
+WMDC 1 13 2800
+WMDC 1 14 2400
+WMDC 1 15 2000
+WMDC 1 16 3C00
+WMDC 1 17 3800
+WMDC 1 18 3400
+WMDC 1 19 3000
+WMDC 1 20 2C00
+WMDC 1 21 2800
+WMDC 1 22 2400
+WMDC 1 23 2000
+WMDC 1 24 3C00
+WMDC 1 25 3800
+WMDC 1 26 3400
+WMDC 1 27 3000
+WMDC 1 28 2C00
+WMDC 1 29 2800
+WMDC 1 30 2400
+WMDC 1 31 2000
+WMDC 1 32 2000
+WMDC 1 33 2000
+COMM
+WMDC 2 0 3C00
+WMDC 2 1 3800
+WMDC 2 2 3400
+WMDC 2 3 3000
+WMDC 2 4 2C00
+WMDC 2 5 2800
+WMDC 2 6 2400
+WMDC 2 7 2000
+WMDC 2 8 3C00
+WMDC 2 9 3800
+WMDC 2 10 3400
+WMDC 2 11 3000
+WMDC 2 12 2C00
+WMDC 2 13 2800
+WMDC 2 14 2400
+WMDC 2 15 2000
+WMDC 2 16 3C00
+WMDC 2 17 3800
+WMDC 2 18 3400
+WMDC 2 19 3000
+WMDC 2 20 2C00
+WMDC 2 21 2800
+WMDC 2 22 2400
+WMDC 2 23 2000
+WMDC 2 24 3C00
+WMDC 2 25 3800
+WMDC 2 26 3400
+WMDC 2 27 3000
+WMDC 2 28 2C00
+WMDC 2 29 2800
+WMDC 2 30 2400
+WMDC 2 31 2000
+WMDC 2 32 2000
+WMDC 2 33 2000
+COMM
+WMDC 3 0 3C00
+WMDC 3 1 3800
+WMDC 3 2 3400
+WMDC 3 3 3000
+WMDC 3 4 2C00
+WMDC 3 5 2800
+WMDC 3 6 2400
+WMDC 3 7 2000
+WMDC 3 8 3C00
+WMDC 3 9 3800
+WMDC 3 10 3400
+WMDC 3 11 3000
+WMDC 3 12 2C00
+WMDC 3 13 2800
+WMDC 3 14 2400
+WMDC 3 15 2000
+WMDC 3 16 3C00
+WMDC 3 17 3800
+WMDC 3 18 3400
+WMDC 3 19 3000
+WMDC 3 20 2C00
+WMDC 3 21 2800
+WMDC 3 22 2400
+WMDC 3 23 2000
+WMDC 3 24 3C00
+WMDC 3 25 3800
+WMDC 3 26 3400
+WMDC 3 27 3000
+WMDC 3 28 2C00
+WMDC 3 29 2800
+WMDC 3 30 2400
+WMDC 3 31 2000
+WMDC 3 32 2000
+WMDC 3 33 2000
+COMM
+COMM ==============================================================================================
+COMM   Send a SQUID2 DAC delay on each channels
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-C0_FB_SQ2_DELAY-0000 W
+WCMD W-C1_FB_SQ2_DELAY-0001 W
+WCMD W-C2_FB_SQ2_DELAY-0002 W
+WCMD W-C3_FB_SQ2_DELAY-0003 W
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+COMM
+COMM ==============================================================================================
+COMM   Send command TM_MODE, Dump mode
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-TM_MODE-0000 W
+WAIT 182 us
+COMM
+COMM ==============================================================================================
+COMM   Send a SQUID1 DAC delay on each channels
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-C0_FB_SQ2_DELAY-0004 W
+WCMD W-C1_FB_SQ2_DELAY-0005 W
+WCMD W-C2_FB_SQ2_DELAY-0006 W
+WCMD W-C3_FB_SQ2_DELAY-0007 W
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+COMM
+COMM ==============================================================================================
+COMM   Send command TM_MODE, Dump mode
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-TM_MODE-0000 W
+WAIT 182 us
+COMM
+COMM ==============================================================================================
+COMM   Send a SQUID1 DAC delay on each channels
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-C0_FB_SQ2_DELAY-0008 W
+WCMD W-C1_FB_SQ2_DELAY-0009 W
+WCMD W-C2_FB_SQ2_DELAY-000A W
+WCMD W-C3_FB_SQ2_DELAY-000B W
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+COMM
+COMM ==============================================================================================
+COMM   Send command TM_MODE, Dump mode
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-TM_MODE-0000 W
+WAIT 182 us
+COMM
+COMM ==============================================================================================
+COMM   Send a SQUID1 DAC delay on each channels
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-C0_FB_SQ2_DELAY-000C W
+WCMD W-C1_FB_SQ2_DELAY-000D W
+WCMD W-C2_FB_SQ2_DELAY-000E W
+WCMD W-C3_FB_SQ2_DELAY-000F W
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+COMM
+COMM ==============================================================================================
+COMM   Send command TM_MODE, Dump mode
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-TM_MODE-0000 W
+WAIT 182 us
+COMM
+COMM ==============================================================================================
+COMM   Send a SQUID1 DAC delay on each channels
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-C0_FB_SQ2_DELAY-0010 W
+WCMD W-C1_FB_SQ2_DELAY-0011 W
+WCMD W-C2_FB_SQ2_DELAY-0012 W
+WCMD W-C3_FB_SQ2_DELAY-0013 W
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+COMM
+COMM ==============================================================================================
+COMM   Send command TM_MODE, Dump mode
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-TM_MODE-0000 W
+WAIT 182 us
+COMM
+COMM ==============================================================================================
+COMM   Send a SQUID1 DAC delay on each channels
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-C0_FB_SQ2_DELAY-0014 W
+WCMD W-C1_FB_SQ2_DELAY-0015 W
+WCMD W-C2_FB_SQ2_DELAY-0016 W
+WCMD W-C3_FB_SQ2_DELAY-0017 W
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+COMM
+COMM ==============================================================================================
+COMM   Send command TM_MODE, Dump mode
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-TM_MODE-0000 W
+WAIT 182 us
+COMM
+COMM ==============================================================================================
+COMM   Send a SQUID1 DAC delay on each channels
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-C0_FB_SQ2_DELAY-0018 W
+WCMD W-C1_FB_SQ2_DELAY-0019 W
+WCMD W-C2_FB_SQ2_DELAY-001A W
+WCMD W-C3_FB_SQ2_DELAY-001B W
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+COMM
+COMM ==============================================================================================
+COMM   Send command TM_MODE, Dump mode
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-TM_MODE-0000 W
+WAIT 182 us
+COMM
+COMM ==============================================================================================
+COMM   Send a SQUID1 DAC delay on each channels
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-C0_FB_SQ2_DELAY-001C W
+WCMD W-C1_FB_SQ2_DELAY-001D W
+WCMD W-C2_FB_SQ2_DELAY-001E W
+WCMD W-C3_FB_SQ2_DELAY-001F W
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+COMM
+COMM ==============================================================================================
+COMM   Send command TM_MODE, Dump mode
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-TM_MODE-0000 W
+WAIT 182 us

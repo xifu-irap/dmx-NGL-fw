@@ -39,6 +39,8 @@ entity science_data_check is port
    (     i_rst                : in     std_logic                                                            ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk_science        : in     std_logic                                                            ; --! Science Clock
 
+         i_sq1_fb_del         : in     t_slv_arr(0 to c_NB_COL-1)(c_DFLD_S1FBD_COL_S-1 downto 0)            ; --! Squid1 Feedback delay
+         i_sq_off_mux_del     : in     t_slv_arr(0 to c_NB_COL-1)(c_DFLD_S2MXD_COL_S-1 downto 0)            ; --! Squid offset MUX delay
          i_sw_adc_vin         : in     std_logic_vector(c_SW_ADC_VIN_S-1 downto 0)                          ; --! Switch ADC Voltage input
 
          i_adc_dmp_mem_add    : in     std_logic_vector(    c_MUX_FACT_S-1 downto 0)                        ; --! ADC Dump memory for data compare: address
@@ -65,9 +67,13 @@ constant c_PIXEL_POS_S        : integer:= log2_ceil(c_PIXEL_POS_MAX_VAL+1)      
 constant c_SEQ_CNT_MAX_VAL    : integer:= c_DMP_SEQ_ACQ_NB - 1                                              ; --! Sequence counter: maximal value
 constant c_SEQ_CNT_S          : integer:= log2_ceil(c_SEQ_CNT_MAX_VAL + 1)                                  ; --! Sequence counter: size bus
 
-signal   pls_cnt              : std_logic_vector(         c_PLS_CNT_S-1 downto 0)                           ; --! Pulse counter
-signal   pixel_pos            : std_logic_vector(       c_PIXEL_POS_S-1 downto 0)                           ; --! Pixel position
-signal   seq_cnt              : std_logic_vector(         c_SEQ_CNT_S-1 downto 0)                           ; --! Sequence counter
+signal   squid_del            : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_S1FBD_COL_S-1 downto 0)                   ; --! Squid delay
+
+signal   pls_cnt              : std_logic_vector(            c_PLS_CNT_S-1 downto 0)                        ; --! Pulse counter
+signal   pls_cnt_pos_del      : t_slv_arr(0 to c_NB_COL-1)(  c_PLS_CNT_S-1 downto 0)                        ; --! Pulse counter position with delay
+signal   pixel_pos            : std_logic_vector(          c_PIXEL_POS_S-1 downto 0)                        ; --! Pixel position
+signal   pixel_pos_del        : t_slv_arr(0 to c_NB_COL-1)(c_PIXEL_POS_S-1 downto 0)                        ; --! Pixel position with delay
+signal   seq_cnt              : std_logic_vector(            c_SEQ_CNT_S-1 downto 0)                        ; --! Sequence counter
 
 signal   science_data_rdy_r   : std_logic_vector(1 downto 0)                                                ; --! Science Data Ready register ('0' = Inactive, '1' = Active)
 
@@ -88,7 +94,7 @@ begin
    begin
 
       if i_rst = '1' then
-         pls_cnt  <= std_logic_vector(to_unsigned(c_PLS_CNT_MAX_VAL, pls_cnt'length));
+         pls_cnt  <= (others => '1');
 
       elsif rising_edge(i_clk_science) then
          if i_science_data_rdy = '1' then
@@ -120,7 +126,7 @@ begin
    begin
 
       if i_rst = '1' then
-         pixel_pos   <= std_logic_vector(to_unsigned(0 , pixel_pos'length));
+         pixel_pos   <= std_logic_vector(to_unsigned(c_PIXEL_POS_MAX_VAL, pixel_pos'length));
 
       elsif rising_edge(i_clk_science) then
          if i_science_data_rdy = '1' then
@@ -205,7 +211,7 @@ begin
       P_mem_adc_dmp_dta_r : process(i_clk_science)
       begin
          if rising_edge(i_clk_science) then
-            adc_dump_dta2cmp(k) <= mem_adc_dump_dta2cmp(k)(to_integer(unsigned(pixel_pos)));
+            adc_dump_dta2cmp(k) <= mem_adc_dump_dta2cmp(k)(to_integer(unsigned(pixel_pos_del(k))));
 
          end if;
       end process P_mem_adc_dmp_dta_r;
@@ -230,15 +236,69 @@ begin
       end process P_dump_dta2cmp_lst;
 
       -- ------------------------------------------------------------------------------------------------------
+      --!   Squid delay
+      -- ------------------------------------------------------------------------------------------------------
+      squid_del(k) <= i_sq1_fb_del(k) when (i_sw_adc_vin = c_SW_ADC_VIN_ST_SQ1) else i_sq_off_mux_del(k);
+
+      -- ------------------------------------------------------------------------------------------------------
+      --!   Pulse counter position with delay
+      -- ------------------------------------------------------------------------------------------------------
+      P_pls_cnt_pos_del : process (i_rst, i_clk_science)
+      begin
+
+         if i_rst = '1' then
+            pls_cnt_pos_del(k) <= std_logic_vector(to_unsigned(c_PLS_CNT_MAX_VAL, pls_cnt_pos_del(k)'length));
+
+         elsif rising_edge(i_clk_science) then
+            if unsigned(squid_del(k)) < to_unsigned(c_PLS_CNT_NB_VAL, squid_del(k)'length) then
+               pls_cnt_pos_del(k) <= std_logic_vector(to_unsigned(c_PLS_CNT_MAX_VAL, pls_cnt_pos_del(k)'length) - resize(unsigned(squid_del(k)), pls_cnt_pos_del(k)'length));
+
+            else
+               pls_cnt_pos_del(k) <= std_logic_vector(to_unsigned(c_PLS_CNT_MAX_VAL+c_PLS_CNT_NB_VAL, pls_cnt_pos_del(k)'length) - resize(unsigned(squid_del(k)), pls_cnt_pos_del(k)'length));
+
+            end if;
+
+         end if;
+
+      end process P_pls_cnt_pos_del;
+
+      -- ------------------------------------------------------------------------------------------------------
+      --!   Pixel position with delay
+      -- ------------------------------------------------------------------------------------------------------
+      P_pixel_pos_del : process (i_rst, i_clk_science)
+      begin
+
+         if i_rst = '1' then
+            pixel_pos_del(k)   <= std_logic_vector(to_unsigned(c_PIXEL_POS_MAX_VAL , pixel_pos_del(k)'length));
+
+         elsif rising_edge(i_clk_science) then
+            if pls_cnt = pls_cnt_pos_del(k) or (pls_cnt(pls_cnt'high) = '1' and pixel_pos = std_logic_vector(to_unsigned(c_PIXEL_POS_MAX_VAL , pixel_pos'length))) then
+
+               if unsigned(squid_del(k)) < to_unsigned(c_PLS_CNT_NB_VAL, squid_del(k)'length) then
+                  pixel_pos_del(k) <= pixel_pos;
+
+               elsif pixel_pos = std_logic_vector(to_unsigned(0, pixel_pos'length)) then
+                  pixel_pos_del(k) <= std_logic_vector(to_unsigned(c_PIXEL_POS_MAX_VAL, pixel_pos_del(k)'length));
+
+               else
+                  pixel_pos_del(k) <= std_logic_vector(unsigned(pixel_pos) - 1);
+
+               end if;
+
+            end if;
+
+         end if;
+
+      end process P_pixel_pos_del;
+
+      -- ------------------------------------------------------------------------------------------------------
       --!   Science data error
-      -- TODO Generic case with delay management
       -- ------------------------------------------------------------------------------------------------------
       science_data_err(k) <=  '0' when (pls_cnt   = std_logic_vector(to_unsigned(c_PLS_CNT_MAX_VAL, pls_cnt'length)) and
                                         pixel_pos = std_logic_vector(to_unsigned(0, pixel_pos'length)) and
                                         seq_cnt   = std_logic_vector(to_unsigned(0, seq_cnt'length)))  else
                               '1' when (i_sw_adc_vin = c_SW_ADC_VIN_ST_SQ2 and i_science_data(k) /= adc_dump_dta2cmp_lst(k)) else
-                              '1' when (i_sw_adc_vin = c_SW_ADC_VIN_ST_SQ1 and
-                                        pls_cnt   = std_logic_vector(to_unsigned(c_PLS_CNT_MAX_VAL, pls_cnt'length)) and
+                              '1' when (i_sw_adc_vin = c_SW_ADC_VIN_ST_SQ1) and (pls_cnt = pls_cnt_pos_del(k)) and (
                                         abs(signed(i_science_data(k)) - signed(adc_dump_dta2cmp_lst(k))) > to_signed(1, i_science_data(k)'length)) else
                               '0';
 

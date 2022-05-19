@@ -2,7 +2,7 @@
 DRE-DEMUX TDM firmware.
 
    - FPGA target: NG-LARGE (NanoXplore)
-   - Synthesis tool: Nxmap v3.11.1.4
+   - Synthesis tool: Nxmap v22.1.0.1
    - Firmware specification:
       + IRAP/XIFU-DRE/FM/SP/0065 - DRE TDM firmware requirements, ed. 0.13
       + IRAP/XIFU-DRE/FM/SP/0069 - DRE Inter-Modules Telemetry And Commands Definition, ed. 0.5

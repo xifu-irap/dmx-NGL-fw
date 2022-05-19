@@ -1,0 +1,649 @@
+# ------------------------------------------------------------------------------------------------------------------------------------------------------
+# Simulation DRE_DMX_UT_0220
+# ------------------------------------------------------------------------------------------------------------------------------------------------------
+#             (0 ps) **********************************************************************************************
+#             (0 ps)   Test: SQUID1 DAC delay
+#             (0 ps) **********************************************************************************************
+#             (0 ps) 
+#             (0 ps) ==============================================================================================
+#             (0 ps)   Asynchronous reset activated
+#             (0 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (0 ps) Write discrete: arst_n = '0'
+# ** Note   : (80000 ps) Waiting time for 80000 ps
+#             (80000 ps) 
+#             (80000 ps) ==============================================================================================
+#             (80000 ps)   Asynchronous reset deactivated
+#             (80000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (80000 ps) Write discrete: arst_n = '1'
+#             (80000 ps) 
+#             (80000 ps) ==============================================================================================
+#             (80000 ps)   Wait internal reset deactivated
+#             (80000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (6995496 ps) Waiting event rst = '0' for 6915496 ps
+#             (6995496 ps) 
+#             (6995496 ps) ==============================================================================================
+#             (6995496 ps)   Writing a new table in feedback open loop column 0 memory
+#             (6995496 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (6995496 ps) Send SPI command value 0401_8000 (C0_SQ1_FB0, mode Write, data 8000)
+# ** Note   : (9312000 ps) Waiting SPI command end for 2280504 ps
+# ** Note   : (9312000 ps) Send SPI command value 0403_87C1 (C0_SQ1_FB0, mode Write, data 87C1)
+# ** Note   : (11634000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (11634000 ps) Send SPI command value 0405_8F82 (C0_SQ1_FB0, mode Write, data 8F82)
+# ** Note   : (13956000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (13956000 ps) Send SPI command value 0407_9743 (C0_SQ1_FB0, mode Write, data 9743)
+# ** Note   : (16278000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (16278000 ps) Send SPI command value 0409_9F04 (C0_SQ1_FB0, mode Write, data 9F04)
+# ** Note   : (18600000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (18600000 ps) Send SPI command value 040B_A6C5 (C0_SQ1_FB0, mode Write, data A6C5)
+# ** Note   : (20922000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (20922000 ps) Send SPI command value 040D_AE86 (C0_SQ1_FB0, mode Write, data AE86)
+# ** Note   : (23244000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (23244000 ps) Send SPI command value 040F_B647 (C0_SQ1_FB0, mode Write, data B647)
+# ** Note   : (25566000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (25566000 ps) Send SPI command value 0411_BE08 (C0_SQ1_FB0, mode Write, data BE08)
+# ** Note   : (27888000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (27888000 ps) Send SPI command value 0413_C5C9 (C0_SQ1_FB0, mode Write, data C5C9)
+# ** Note   : (30210000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (30210000 ps) Send SPI command value 0415_CD8A (C0_SQ1_FB0, mode Write, data CD8A)
+# ** Note   : (32532000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (32532000 ps) Send SPI command value 0417_D54B (C0_SQ1_FB0, mode Write, data D54B)
+# ** Note   : (34854000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (34854000 ps) Send SPI command value 0419_DD0C (C0_SQ1_FB0, mode Write, data DD0C)
+# ** Note   : (37176000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (37176000 ps) Send SPI command value 041B_E4CD (C0_SQ1_FB0, mode Write, data E4CD)
+# ** Note   : (39498000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (39498000 ps) Send SPI command value 041D_EC8E (C0_SQ1_FB0, mode Write, data EC8E)
+# ** Note   : (41820000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (41820000 ps) Send SPI command value 041F_F44F (C0_SQ1_FB0, mode Write, data F44F)
+# ** Note   : (44142000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (44142000 ps) Send SPI command value 0421_FC10 (C0_SQ1_FB0, mode Write, data FC10)
+# ** Note   : (46464000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (46464000 ps) Send SPI command value 0423_03D1 (C0_SQ1_FB0, mode Write, data 03D1)
+# ** Note   : (48786000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (48786000 ps) Send SPI command value 0425_0B92 (C0_SQ1_FB0, mode Write, data 0B92)
+# ** Note   : (51108000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (51108000 ps) Send SPI command value 0427_1353 (C0_SQ1_FB0, mode Write, data 1353)
+# ** Note   : (53430000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (53430000 ps) Send SPI command value 0429_1B14 (C0_SQ1_FB0, mode Write, data 1B14)
+# ** Note   : (55752000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (55752000 ps) Send SPI command value 042B_22D5 (C0_SQ1_FB0, mode Write, data 22D5)
+# ** Note   : (58074000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (58074000 ps) Send SPI command value 042D_2A96 (C0_SQ1_FB0, mode Write, data 2A96)
+# ** Note   : (60396000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (60396000 ps) Send SPI command value 042F_3257 (C0_SQ1_FB0, mode Write, data 3257)
+# ** Note   : (62718000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (62718000 ps) Send SPI command value 0431_3A18 (C0_SQ1_FB0, mode Write, data 3A18)
+# ** Note   : (65040000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (65040000 ps) Send SPI command value 0433_41D9 (C0_SQ1_FB0, mode Write, data 41D9)
+# ** Note   : (67362000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (67362000 ps) Send SPI command value 0435_499A (C0_SQ1_FB0, mode Write, data 499A)
+# ** Note   : (69684000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (69684000 ps) Send SPI command value 0437_515B (C0_SQ1_FB0, mode Write, data 515B)
+# ** Note   : (72006000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (72006000 ps) Send SPI command value 0439_591C (C0_SQ1_FB0, mode Write, data 591C)
+# ** Note   : (74328000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (74328000 ps) Send SPI command value 043B_60DD (C0_SQ1_FB0, mode Write, data 60DD)
+# ** Note   : (76650000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (76650000 ps) Send SPI command value 043D_689E (C0_SQ1_FB0, mode Write, data 689E)
+# ** Note   : (78972000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (78972000 ps) Send SPI command value 043F_705F (C0_SQ1_FB0, mode Write, data 705F)
+# ** Note   : (81294000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (81294000 ps) Send SPI command value 0441_7820 (C0_SQ1_FB0, mode Write, data 7820)
+# ** Note   : (83616000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (83616000 ps) Send SPI command value 0443_7FFF (C0_SQ1_FB0, mode Write, data 7FFF)
+# ** Note   : (85938000 ps) Waiting SPI command end for 2286000 ps
+#             (85938000 ps) 
+#             (85938000 ps) ==============================================================================================
+#             (85938000 ps)   Writing a new table in feedback open loop column 1 memory
+#             (85938000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (85938000 ps) Send SPI command value 2401_8000 (C1_SQ1_FB0, mode Write, data 8000)
+# ** Note   : (88260000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (88260000 ps) Send SPI command value 2403_87C1 (C1_SQ1_FB0, mode Write, data 87C1)
+# ** Note   : (90582000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (90582000 ps) Send SPI command value 2405_8F82 (C1_SQ1_FB0, mode Write, data 8F82)
+# ** Note   : (92904000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (92904000 ps) Send SPI command value 2407_9743 (C1_SQ1_FB0, mode Write, data 9743)
+# ** Note   : (95226000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (95226000 ps) Send SPI command value 2409_9F04 (C1_SQ1_FB0, mode Write, data 9F04)
+# ** Note   : (97548000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (97548000 ps) Send SPI command value 240B_A6C5 (C1_SQ1_FB0, mode Write, data A6C5)
+# ** Note   : (99870000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (99870000 ps) Send SPI command value 240D_AE86 (C1_SQ1_FB0, mode Write, data AE86)
+# ** Note   : (102192000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (102192000 ps) Send SPI command value 240F_B647 (C1_SQ1_FB0, mode Write, data B647)
+# ** Note   : (104514000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (104514000 ps) Send SPI command value 2411_BE08 (C1_SQ1_FB0, mode Write, data BE08)
+# ** Note   : (106836000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (106836000 ps) Send SPI command value 2413_C5C9 (C1_SQ1_FB0, mode Write, data C5C9)
+# ** Note   : (109158000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (109158000 ps) Send SPI command value 2415_CD8A (C1_SQ1_FB0, mode Write, data CD8A)
+# ** Note   : (111480000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (111480000 ps) Send SPI command value 2417_D54B (C1_SQ1_FB0, mode Write, data D54B)
+# ** Note   : (113802000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (113802000 ps) Send SPI command value 2419_DD0C (C1_SQ1_FB0, mode Write, data DD0C)
+# ** Note   : (116124000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (116124000 ps) Send SPI command value 241B_E4CD (C1_SQ1_FB0, mode Write, data E4CD)
+# ** Note   : (118446000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (118446000 ps) Send SPI command value 241D_EC8E (C1_SQ1_FB0, mode Write, data EC8E)
+# ** Note   : (120768000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (120768000 ps) Send SPI command value 241F_F44F (C1_SQ1_FB0, mode Write, data F44F)
+# ** Note   : (123090000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (123090000 ps) Send SPI command value 2421_FC10 (C1_SQ1_FB0, mode Write, data FC10)
+# ** Note   : (125412000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (125412000 ps) Send SPI command value 2423_03D1 (C1_SQ1_FB0, mode Write, data 03D1)
+# ** Note   : (127734000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (127734000 ps) Send SPI command value 2425_0B92 (C1_SQ1_FB0, mode Write, data 0B92)
+# ** Note   : (130056000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (130056000 ps) Send SPI command value 2427_1353 (C1_SQ1_FB0, mode Write, data 1353)
+# ** Note   : (132378000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (132378000 ps) Send SPI command value 2429_1B14 (C1_SQ1_FB0, mode Write, data 1B14)
+# ** Note   : (134700000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (134700000 ps) Send SPI command value 242B_22D5 (C1_SQ1_FB0, mode Write, data 22D5)
+# ** Note   : (137022000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (137022000 ps) Send SPI command value 242D_2A96 (C1_SQ1_FB0, mode Write, data 2A96)
+# ** Note   : (139344000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (139344000 ps) Send SPI command value 242F_3257 (C1_SQ1_FB0, mode Write, data 3257)
+# ** Note   : (141666000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (141666000 ps) Send SPI command value 2431_3A18 (C1_SQ1_FB0, mode Write, data 3A18)
+# ** Note   : (143988000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (143988000 ps) Send SPI command value 2433_41D9 (C1_SQ1_FB0, mode Write, data 41D9)
+# ** Note   : (146310000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (146310000 ps) Send SPI command value 2435_499A (C1_SQ1_FB0, mode Write, data 499A)
+# ** Note   : (148632000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (148632000 ps) Send SPI command value 2437_515B (C1_SQ1_FB0, mode Write, data 515B)
+# ** Note   : (150954000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (150954000 ps) Send SPI command value 2439_591C (C1_SQ1_FB0, mode Write, data 591C)
+# ** Note   : (153276000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (153276000 ps) Send SPI command value 243B_60DD (C1_SQ1_FB0, mode Write, data 60DD)
+# ** Note   : (155598000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (155598000 ps) Send SPI command value 243D_689E (C1_SQ1_FB0, mode Write, data 689E)
+# ** Note   : (157920000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (157920000 ps) Send SPI command value 243F_705F (C1_SQ1_FB0, mode Write, data 705F)
+# ** Note   : (160242000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (160242000 ps) Send SPI command value 2441_7820 (C1_SQ1_FB0, mode Write, data 7820)
+# ** Note   : (162564000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (162564000 ps) Send SPI command value 2443_7FFF (C1_SQ1_FB0, mode Write, data 7FFF)
+# ** Note   : (164886000 ps) Waiting SPI command end for 2286000 ps
+#             (164886000 ps) 
+#             (164886000 ps) ==============================================================================================
+#             (164886000 ps)   Writing a new table in feedback open loop column 2 memory
+#             (164886000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (164886000 ps) Send SPI command value 4401_8000 (C2_SQ1_FB0, mode Write, data 8000)
+# ** Note   : (167208000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (167208000 ps) Send SPI command value 4403_87C1 (C2_SQ1_FB0, mode Write, data 87C1)
+# ** Note   : (169530000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (169530000 ps) Send SPI command value 4405_8F82 (C2_SQ1_FB0, mode Write, data 8F82)
+# ** Note   : (171852000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (171852000 ps) Send SPI command value 4407_9743 (C2_SQ1_FB0, mode Write, data 9743)
+# ** Note   : (174174000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (174174000 ps) Send SPI command value 4409_9F04 (C2_SQ1_FB0, mode Write, data 9F04)
+# ** Note   : (176496000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (176496000 ps) Send SPI command value 440B_A6C5 (C2_SQ1_FB0, mode Write, data A6C5)
+# ** Note   : (178818000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (178818000 ps) Send SPI command value 440D_AE86 (C2_SQ1_FB0, mode Write, data AE86)
+# ** Note   : (181140000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (181140000 ps) Send SPI command value 440F_B647 (C2_SQ1_FB0, mode Write, data B647)
+# ** Note   : (183462000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (183462000 ps) Send SPI command value 4411_BE08 (C2_SQ1_FB0, mode Write, data BE08)
+# ** Note   : (185784000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (185784000 ps) Send SPI command value 4413_C5C9 (C2_SQ1_FB0, mode Write, data C5C9)
+# ** Note   : (188106000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (188106000 ps) Send SPI command value 4415_CD8A (C2_SQ1_FB0, mode Write, data CD8A)
+# ** Note   : (190428000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (190428000 ps) Send SPI command value 4417_D54B (C2_SQ1_FB0, mode Write, data D54B)
+# ** Note   : (192750000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (192750000 ps) Send SPI command value 4419_DD0C (C2_SQ1_FB0, mode Write, data DD0C)
+# ** Note   : (195072000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (195072000 ps) Send SPI command value 441B_E4CD (C2_SQ1_FB0, mode Write, data E4CD)
+# ** Note   : (197394000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (197394000 ps) Send SPI command value 441D_EC8E (C2_SQ1_FB0, mode Write, data EC8E)
+# ** Note   : (199716000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (199716000 ps) Send SPI command value 441F_F44F (C2_SQ1_FB0, mode Write, data F44F)
+# ** Note   : (202038000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (202038000 ps) Send SPI command value 4421_FC10 (C2_SQ1_FB0, mode Write, data FC10)
+# ** Note   : (204360000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (204360000 ps) Send SPI command value 4423_03D1 (C2_SQ1_FB0, mode Write, data 03D1)
+# ** Note   : (206682000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (206682000 ps) Send SPI command value 4425_0B92 (C2_SQ1_FB0, mode Write, data 0B92)
+# ** Note   : (209004000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (209004000 ps) Send SPI command value 4427_1353 (C2_SQ1_FB0, mode Write, data 1353)
+# ** Note   : (211326000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (211326000 ps) Send SPI command value 4429_1B14 (C2_SQ1_FB0, mode Write, data 1B14)
+# ** Note   : (213648000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (213648000 ps) Send SPI command value 442B_22D5 (C2_SQ1_FB0, mode Write, data 22D5)
+# ** Note   : (215970000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (215970000 ps) Send SPI command value 442D_2A96 (C2_SQ1_FB0, mode Write, data 2A96)
+# ** Note   : (218292000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (218292000 ps) Send SPI command value 442F_3257 (C2_SQ1_FB0, mode Write, data 3257)
+# ** Note   : (220614000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (220614000 ps) Send SPI command value 4431_3A18 (C2_SQ1_FB0, mode Write, data 3A18)
+# ** Note   : (222936000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (222936000 ps) Send SPI command value 4433_41D9 (C2_SQ1_FB0, mode Write, data 41D9)
+# ** Note   : (225258000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (225258000 ps) Send SPI command value 4435_499A (C2_SQ1_FB0, mode Write, data 499A)
+# ** Note   : (227580000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (227580000 ps) Send SPI command value 4437_515B (C2_SQ1_FB0, mode Write, data 515B)
+# ** Note   : (229902000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (229902000 ps) Send SPI command value 4439_591C (C2_SQ1_FB0, mode Write, data 591C)
+# ** Note   : (232224000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (232224000 ps) Send SPI command value 443B_60DD (C2_SQ1_FB0, mode Write, data 60DD)
+# ** Note   : (234546000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (234546000 ps) Send SPI command value 443D_689E (C2_SQ1_FB0, mode Write, data 689E)
+# ** Note   : (236868000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (236868000 ps) Send SPI command value 443F_705F (C2_SQ1_FB0, mode Write, data 705F)
+# ** Note   : (239190000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (239190000 ps) Send SPI command value 4441_7820 (C2_SQ1_FB0, mode Write, data 7820)
+# ** Note   : (241512000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (241512000 ps) Send SPI command value 4443_7FFF (C2_SQ1_FB0, mode Write, data 7FFF)
+# ** Note   : (243834000 ps) Waiting SPI command end for 2286000 ps
+#             (243834000 ps) 
+#             (243834000 ps) ==============================================================================================
+#             (243834000 ps)   Writing a new table in feedback open loop column 3 memory
+#             (243834000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (243834000 ps) Send SPI command value 6401_8000 (C3_SQ1_FB0, mode Write, data 8000)
+# ** Note   : (246156000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (246156000 ps) Send SPI command value 6403_87C1 (C3_SQ1_FB0, mode Write, data 87C1)
+# ** Note   : (248478000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (248478000 ps) Send SPI command value 6405_8F82 (C3_SQ1_FB0, mode Write, data 8F82)
+# ** Note   : (250800000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (250800000 ps) Send SPI command value 6407_9743 (C3_SQ1_FB0, mode Write, data 9743)
+# ** Note   : (253122000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (253122000 ps) Send SPI command value 6409_9F04 (C3_SQ1_FB0, mode Write, data 9F04)
+# ** Note   : (255444000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (255444000 ps) Send SPI command value 640B_A6C5 (C3_SQ1_FB0, mode Write, data A6C5)
+# ** Note   : (257766000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (257766000 ps) Send SPI command value 640D_AE86 (C3_SQ1_FB0, mode Write, data AE86)
+# ** Note   : (260088000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (260088000 ps) Send SPI command value 640F_B647 (C3_SQ1_FB0, mode Write, data B647)
+# ** Note   : (262410000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (262410000 ps) Send SPI command value 6411_BE08 (C3_SQ1_FB0, mode Write, data BE08)
+# ** Note   : (264732000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (264732000 ps) Send SPI command value 6413_C5C9 (C3_SQ1_FB0, mode Write, data C5C9)
+# ** Note   : (267054000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (267054000 ps) Send SPI command value 6415_CD8A (C3_SQ1_FB0, mode Write, data CD8A)
+# ** Note   : (269376000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (269376000 ps) Send SPI command value 6417_D54B (C3_SQ1_FB0, mode Write, data D54B)
+# ** Note   : (271698000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (271698000 ps) Send SPI command value 6419_DD0C (C3_SQ1_FB0, mode Write, data DD0C)
+# ** Note   : (274020000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (274020000 ps) Send SPI command value 641B_E4CD (C3_SQ1_FB0, mode Write, data E4CD)
+# ** Note   : (276342000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (276342000 ps) Send SPI command value 641D_EC8E (C3_SQ1_FB0, mode Write, data EC8E)
+# ** Note   : (278664000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (278664000 ps) Send SPI command value 641F_F44F (C3_SQ1_FB0, mode Write, data F44F)
+# ** Note   : (280986000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (280986000 ps) Send SPI command value 6421_FC10 (C3_SQ1_FB0, mode Write, data FC10)
+# ** Note   : (283308000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (283308000 ps) Send SPI command value 6423_03D1 (C3_SQ1_FB0, mode Write, data 03D1)
+# ** Note   : (285630000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (285630000 ps) Send SPI command value 6425_0B92 (C3_SQ1_FB0, mode Write, data 0B92)
+# ** Note   : (287952000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (287952000 ps) Send SPI command value 6427_1353 (C3_SQ1_FB0, mode Write, data 1353)
+# ** Note   : (290274000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (290274000 ps) Send SPI command value 6429_1B14 (C3_SQ1_FB0, mode Write, data 1B14)
+# ** Note   : (292596000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (292596000 ps) Send SPI command value 642B_22D5 (C3_SQ1_FB0, mode Write, data 22D5)
+# ** Note   : (294918000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (294918000 ps) Send SPI command value 642D_2A96 (C3_SQ1_FB0, mode Write, data 2A96)
+# ** Note   : (297240000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (297240000 ps) Send SPI command value 642F_3257 (C3_SQ1_FB0, mode Write, data 3257)
+# ** Note   : (299562000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (299562000 ps) Send SPI command value 6431_3A18 (C3_SQ1_FB0, mode Write, data 3A18)
+# ** Note   : (301884000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (301884000 ps) Send SPI command value 6433_41D9 (C3_SQ1_FB0, mode Write, data 41D9)
+# ** Note   : (304206000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (304206000 ps) Send SPI command value 6435_499A (C3_SQ1_FB0, mode Write, data 499A)
+# ** Note   : (306528000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (306528000 ps) Send SPI command value 6437_515B (C3_SQ1_FB0, mode Write, data 515B)
+# ** Note   : (308850000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (308850000 ps) Send SPI command value 6439_591C (C3_SQ1_FB0, mode Write, data 591C)
+# ** Note   : (311172000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (311172000 ps) Send SPI command value 643B_60DD (C3_SQ1_FB0, mode Write, data 60DD)
+# ** Note   : (313494000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (313494000 ps) Send SPI command value 643D_689E (C3_SQ1_FB0, mode Write, data 689E)
+# ** Note   : (315816000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (315816000 ps) Send SPI command value 643F_705F (C3_SQ1_FB0, mode Write, data 705F)
+# ** Note   : (318138000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (318138000 ps) Send SPI command value 6441_7820 (C3_SQ1_FB0, mode Write, data 7820)
+# ** Note   : (320460000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (320460000 ps) Send SPI command value 6443_7FFF (C3_SQ1_FB0, mode Write, data 7FFF)
+# ** Note   : (322782000 ps) Waiting SPI command end for 2286000 ps
+#             (322782000 ps) 
+#             (322782000 ps) ==============================================================================================
+#             (322782000 ps)   Writing memory dump data to compare
+#             (322782000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (322782000 ps) Write in ADC memory dump column 0, adress index 0, value 0000
+# ** Note   : (322798008 ps) Write in ADC memory dump column 0, adress index 1, value 01F0
+# ** Note   : (322814016 ps) Write in ADC memory dump column 0, adress index 2, value 03E0
+# ** Note   : (322830024 ps) Write in ADC memory dump column 0, adress index 3, value 05D0
+# ** Note   : (322846032 ps) Write in ADC memory dump column 0, adress index 4, value 07C1
+# ** Note   : (322862040 ps) Write in ADC memory dump column 0, adress index 5, value 09B1
+# ** Note   : (322878048 ps) Write in ADC memory dump column 0, adress index 6, value 0BA1
+# ** Note   : (322894056 ps) Write in ADC memory dump column 0, adress index 7, value 0D91
+# ** Note   : (322910064 ps) Write in ADC memory dump column 0, adress index 8, value 0F82
+# ** Note   : (322926072 ps) Write in ADC memory dump column 0, adress index 9, value 1172
+# ** Note   : (322942080 ps) Write in ADC memory dump column 0, adress index 10, value 1362
+# ** Note   : (322958088 ps) Write in ADC memory dump column 0, adress index 11, value 1552
+# ** Note   : (322974096 ps) Write in ADC memory dump column 0, adress index 12, value 1743
+# ** Note   : (322990104 ps) Write in ADC memory dump column 0, adress index 13, value 1933
+# ** Note   : (323006112 ps) Write in ADC memory dump column 0, adress index 14, value 1B23
+# ** Note   : (323022120 ps) Write in ADC memory dump column 0, adress index 15, value 1D13
+# ** Note   : (323038128 ps) Write in ADC memory dump column 0, adress index 16, value 1F04
+# ** Note   : (323054136 ps) Write in ADC memory dump column 0, adress index 17, value 20F4
+# ** Note   : (323070144 ps) Write in ADC memory dump column 0, adress index 18, value 22E4
+# ** Note   : (323086152 ps) Write in ADC memory dump column 0, adress index 19, value 24D4
+# ** Note   : (323102160 ps) Write in ADC memory dump column 0, adress index 20, value 26C5
+# ** Note   : (323118168 ps) Write in ADC memory dump column 0, adress index 21, value 28B5
+# ** Note   : (323134176 ps) Write in ADC memory dump column 0, adress index 22, value 2AA5
+# ** Note   : (323150184 ps) Write in ADC memory dump column 0, adress index 23, value 2C95
+# ** Note   : (323166192 ps) Write in ADC memory dump column 0, adress index 24, value 2E86
+# ** Note   : (323182200 ps) Write in ADC memory dump column 0, adress index 25, value 3076
+# ** Note   : (323198208 ps) Write in ADC memory dump column 0, adress index 26, value 3266
+# ** Note   : (323214216 ps) Write in ADC memory dump column 0, adress index 27, value 3456
+# ** Note   : (323230224 ps) Write in ADC memory dump column 0, adress index 28, value 3647
+# ** Note   : (323246232 ps) Write in ADC memory dump column 0, adress index 29, value 3837
+# ** Note   : (323262240 ps) Write in ADC memory dump column 0, adress index 30, value 3A27
+# ** Note   : (323278248 ps) Write in ADC memory dump column 0, adress index 31, value 3C17
+# ** Note   : (323294256 ps) Write in ADC memory dump column 0, adress index 32, value 3E08
+# ** Note   : (323310264 ps) Write in ADC memory dump column 0, adress index 33, value 3FFF
+#             (323326272 ps) 
+# ** Note   : (323326272 ps) Write in ADC memory dump column 1, adress index 0, value 0000
+# ** Note   : (323342280 ps) Write in ADC memory dump column 1, adress index 1, value 01F0
+# ** Note   : (323358288 ps) Write in ADC memory dump column 1, adress index 2, value 03E0
+# ** Note   : (323374296 ps) Write in ADC memory dump column 1, adress index 3, value 05D0
+# ** Note   : (323390304 ps) Write in ADC memory dump column 1, adress index 4, value 07C1
+# ** Note   : (323406312 ps) Write in ADC memory dump column 1, adress index 5, value 09B1
+# ** Note   : (323422320 ps) Write in ADC memory dump column 1, adress index 6, value 0BA1
+# ** Note   : (323438328 ps) Write in ADC memory dump column 1, adress index 7, value 0D91
+# ** Note   : (323454336 ps) Write in ADC memory dump column 1, adress index 8, value 0F82
+# ** Note   : (323470344 ps) Write in ADC memory dump column 1, adress index 9, value 1172
+# ** Note   : (323486352 ps) Write in ADC memory dump column 1, adress index 10, value 1362
+# ** Note   : (323502360 ps) Write in ADC memory dump column 1, adress index 11, value 1552
+# ** Note   : (323518368 ps) Write in ADC memory dump column 1, adress index 12, value 1743
+# ** Note   : (323534376 ps) Write in ADC memory dump column 1, adress index 13, value 1933
+# ** Note   : (323550384 ps) Write in ADC memory dump column 1, adress index 14, value 1B23
+# ** Note   : (323566392 ps) Write in ADC memory dump column 1, adress index 15, value 1D13
+# ** Note   : (323582400 ps) Write in ADC memory dump column 1, adress index 16, value 1F04
+# ** Note   : (323598408 ps) Write in ADC memory dump column 1, adress index 17, value 20F4
+# ** Note   : (323614416 ps) Write in ADC memory dump column 1, adress index 18, value 22E4
+# ** Note   : (323630424 ps) Write in ADC memory dump column 1, adress index 19, value 24D4
+# ** Note   : (323646432 ps) Write in ADC memory dump column 1, adress index 20, value 26C5
+# ** Note   : (323662440 ps) Write in ADC memory dump column 1, adress index 21, value 28B5
+# ** Note   : (323678448 ps) Write in ADC memory dump column 1, adress index 22, value 2AA5
+# ** Note   : (323694456 ps) Write in ADC memory dump column 1, adress index 23, value 2C95
+# ** Note   : (323710464 ps) Write in ADC memory dump column 1, adress index 24, value 2E86
+# ** Note   : (323726472 ps) Write in ADC memory dump column 1, adress index 25, value 3076
+# ** Note   : (323742480 ps) Write in ADC memory dump column 1, adress index 26, value 3266
+# ** Note   : (323758488 ps) Write in ADC memory dump column 1, adress index 27, value 3456
+# ** Note   : (323774496 ps) Write in ADC memory dump column 1, adress index 28, value 3647
+# ** Note   : (323790504 ps) Write in ADC memory dump column 1, adress index 29, value 3837
+# ** Note   : (323806512 ps) Write in ADC memory dump column 1, adress index 30, value 3A27
+# ** Note   : (323822520 ps) Write in ADC memory dump column 1, adress index 31, value 3C17
+# ** Note   : (323838528 ps) Write in ADC memory dump column 1, adress index 32, value 3E08
+# ** Note   : (323854536 ps) Write in ADC memory dump column 1, adress index 33, value 3FFF
+#             (323870544 ps) 
+# ** Note   : (323870544 ps) Write in ADC memory dump column 2, adress index 0, value 0000
+# ** Note   : (323886552 ps) Write in ADC memory dump column 2, adress index 1, value 01F0
+# ** Note   : (323902560 ps) Write in ADC memory dump column 2, adress index 2, value 03E0
+# ** Note   : (323918568 ps) Write in ADC memory dump column 2, adress index 3, value 05D0
+# ** Note   : (323934576 ps) Write in ADC memory dump column 2, adress index 4, value 07C1
+# ** Note   : (323950584 ps) Write in ADC memory dump column 2, adress index 5, value 09B1
+# ** Note   : (323966592 ps) Write in ADC memory dump column 2, adress index 6, value 0BA1
+# ** Note   : (323982600 ps) Write in ADC memory dump column 2, adress index 7, value 0D91
+# ** Note   : (323998608 ps) Write in ADC memory dump column 2, adress index 8, value 0F82
+# ** Note   : (324014616 ps) Write in ADC memory dump column 2, adress index 9, value 1172
+# ** Note   : (324030624 ps) Write in ADC memory dump column 2, adress index 10, value 1362
+# ** Note   : (324046632 ps) Write in ADC memory dump column 2, adress index 11, value 1552
+# ** Note   : (324062640 ps) Write in ADC memory dump column 2, adress index 12, value 1743
+# ** Note   : (324078648 ps) Write in ADC memory dump column 2, adress index 13, value 1933
+# ** Note   : (324094656 ps) Write in ADC memory dump column 2, adress index 14, value 1B23
+# ** Note   : (324110664 ps) Write in ADC memory dump column 2, adress index 15, value 1D13
+# ** Note   : (324126672 ps) Write in ADC memory dump column 2, adress index 16, value 1F04
+# ** Note   : (324142680 ps) Write in ADC memory dump column 2, adress index 17, value 20F4
+# ** Note   : (324158688 ps) Write in ADC memory dump column 2, adress index 18, value 22E4
+# ** Note   : (324174696 ps) Write in ADC memory dump column 2, adress index 19, value 24D4
+# ** Note   : (324190704 ps) Write in ADC memory dump column 2, adress index 20, value 26C5
+# ** Note   : (324206712 ps) Write in ADC memory dump column 2, adress index 21, value 28B5
+# ** Note   : (324222720 ps) Write in ADC memory dump column 2, adress index 22, value 2AA5
+# ** Note   : (324238728 ps) Write in ADC memory dump column 2, adress index 23, value 2C95
+# ** Note   : (324254736 ps) Write in ADC memory dump column 2, adress index 24, value 2E86
+# ** Note   : (324270744 ps) Write in ADC memory dump column 2, adress index 25, value 3076
+# ** Note   : (324286752 ps) Write in ADC memory dump column 2, adress index 26, value 3266
+# ** Note   : (324302760 ps) Write in ADC memory dump column 2, adress index 27, value 3456
+# ** Note   : (324318768 ps) Write in ADC memory dump column 2, adress index 28, value 3647
+# ** Note   : (324334776 ps) Write in ADC memory dump column 2, adress index 29, value 3837
+# ** Note   : (324350784 ps) Write in ADC memory dump column 2, adress index 30, value 3A27
+# ** Note   : (324366792 ps) Write in ADC memory dump column 2, adress index 31, value 3C17
+# ** Note   : (324382800 ps) Write in ADC memory dump column 2, adress index 32, value 3E08
+# ** Note   : (324398808 ps) Write in ADC memory dump column 2, adress index 33, value 3FFF
+#             (324414816 ps) 
+# ** Note   : (324414816 ps) Write in ADC memory dump column 3, adress index 0, value 0000
+# ** Note   : (324430824 ps) Write in ADC memory dump column 3, adress index 1, value 01F0
+# ** Note   : (324446832 ps) Write in ADC memory dump column 3, adress index 2, value 03E0
+# ** Note   : (324462840 ps) Write in ADC memory dump column 3, adress index 3, value 05D0
+# ** Note   : (324478848 ps) Write in ADC memory dump column 3, adress index 4, value 07C1
+# ** Note   : (324494856 ps) Write in ADC memory dump column 3, adress index 5, value 09B1
+# ** Note   : (324510864 ps) Write in ADC memory dump column 3, adress index 6, value 0BA1
+# ** Note   : (324526872 ps) Write in ADC memory dump column 3, adress index 7, value 0D91
+# ** Note   : (324542880 ps) Write in ADC memory dump column 3, adress index 8, value 0F82
+# ** Note   : (324558888 ps) Write in ADC memory dump column 3, adress index 9, value 1172
+# ** Note   : (324574896 ps) Write in ADC memory dump column 3, adress index 10, value 1362
+# ** Note   : (324590904 ps) Write in ADC memory dump column 3, adress index 11, value 1552
+# ** Note   : (324606912 ps) Write in ADC memory dump column 3, adress index 12, value 1743
+# ** Note   : (324622920 ps) Write in ADC memory dump column 3, adress index 13, value 1933
+# ** Note   : (324638928 ps) Write in ADC memory dump column 3, adress index 14, value 1B23
+# ** Note   : (324654936 ps) Write in ADC memory dump column 3, adress index 15, value 1D13
+# ** Note   : (324670944 ps) Write in ADC memory dump column 3, adress index 16, value 1F04
+# ** Note   : (324686952 ps) Write in ADC memory dump column 3, adress index 17, value 20F4
+# ** Note   : (324702960 ps) Write in ADC memory dump column 3, adress index 18, value 22E4
+# ** Note   : (324718968 ps) Write in ADC memory dump column 3, adress index 19, value 24D4
+# ** Note   : (324734976 ps) Write in ADC memory dump column 3, adress index 20, value 26C5
+# ** Note   : (324750984 ps) Write in ADC memory dump column 3, adress index 21, value 28B5
+# ** Note   : (324766992 ps) Write in ADC memory dump column 3, adress index 22, value 2AA5
+# ** Note   : (324783000 ps) Write in ADC memory dump column 3, adress index 23, value 2C95
+# ** Note   : (324799008 ps) Write in ADC memory dump column 3, adress index 24, value 2E86
+# ** Note   : (324815016 ps) Write in ADC memory dump column 3, adress index 25, value 3076
+# ** Note   : (324831024 ps) Write in ADC memory dump column 3, adress index 26, value 3266
+# ** Note   : (324847032 ps) Write in ADC memory dump column 3, adress index 27, value 3456
+# ** Note   : (324863040 ps) Write in ADC memory dump column 3, adress index 28, value 3647
+# ** Note   : (324879048 ps) Write in ADC memory dump column 3, adress index 29, value 3837
+# ** Note   : (324895056 ps) Write in ADC memory dump column 3, adress index 30, value 3A27
+# ** Note   : (324911064 ps) Write in ADC memory dump column 3, adress index 31, value 3C17
+# ** Note   : (324927072 ps) Write in ADC memory dump column 3, adress index 32, value 3E08
+# ** Note   : (324943080 ps) Write in ADC memory dump column 3, adress index 33, value 3FFF
+#             (324959088 ps) ==============================================================================================
+#             (324959088 ps)   Send command SQ1_FB_MODE ON on all channels
+#             (324959088 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (324959088 ps) Send SPI command value 8003_1111 (SQ1_FB_MODE, mode Write, data 1111)
+# ** Note   : (327264000 ps) Waiting SPI command end for 2268912 ps
+# ** Note   : (327267552 ps) Waiting event sync = '0' for 3552 ps
+# ** Note   : (332021928 ps) Waiting event sync = '1' for 4754376 ps
+#             (332021928 ps) 
+#             (332021928 ps) ==============================================================================================
+#             (332021928 ps)   Send a SQUID1 DAC delay on each channels
+#             (332021928 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (332021928 ps) Send SPI command value 0A01_0000 (C0_FB_SQ1_DELAY, mode Write, data 0000)
+# ** Note   : (334338000 ps) Waiting SPI command end for 2280072 ps
+# ** Note   : (334338000 ps) Send SPI command value 2A01_0001 (C1_FB_SQ1_DELAY, mode Write, data 0001)
+# ** Note   : (336660000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (336660000 ps) Send SPI command value 4A01_0002 (C2_FB_SQ1_DELAY, mode Write, data 0002)
+# ** Note   : (338982000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (338982000 ps) Send SPI command value 6A01_0003 (C3_FB_SQ1_DELAY, mode Write, data 0003)
+# ** Note   : (341304000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (341306084 ps) Waiting event sync = '0' for 2084 ps
+# ** Note   : (342907368 ps) Waiting event sync = '1' for 1601284 ps
+# ** Note   : (343067448 ps) Waiting event sync = '0' for 160080 ps
+#             (343067448 ps) 
+#             (343067448 ps) ==============================================================================================
+#             (343067448 ps)   Send command TM_MODE, Dump mode
+#             (343067448 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (343067448 ps) Send SPI command value 8001_0000 (TM_MODE, mode Write, data 0000)
+# ** Note   : (345372000 ps) Waiting SPI command end for 2268552 ps
+# ** Note   : (527372000 ps) Waiting time for 182000000 ps
+#             (527372000 ps) 
+#             (527372000 ps) ==============================================================================================
+#             (527372000 ps)   Send a SQUID1 DAC delay on each channels
+#             (527372000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (527372000 ps) Send SPI command value 0A01_0004 (C0_FB_SQ1_DELAY, mode Write, data 0004)
+# ** Note   : (529692000 ps) Waiting SPI command end for 2284000 ps
+# ** Note   : (529692000 ps) Send SPI command value 2A01_0005 (C1_FB_SQ1_DELAY, mode Write, data 0005)
+# ** Note   : (532014000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (532014000 ps) Send SPI command value 4A01_0006 (C2_FB_SQ1_DELAY, mode Write, data 0006)
+# ** Note   : (534336000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (534336000 ps) Send SPI command value 6A01_0007 (C3_FB_SQ1_DELAY, mode Write, data 0007)
+# ** Note   : (536658000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (536659712 ps) Waiting event sync = '0' for 1712 ps
+# ** Note   : (538845288 ps) Waiting event sync = '1' for 2185576 ps
+# ** Note   : (539005368 ps) Waiting event sync = '0' for 160080 ps
+#             (539005368 ps) 
+#             (539005368 ps) ==============================================================================================
+#             (539005368 ps)   Send command TM_MODE, Dump mode
+#             (539005368 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (539005368 ps) Send SPI command value 8001_0000 (TM_MODE, mode Write, data 0000)
+# ** Note   : (541320000 ps) Waiting SPI command end for 2278632 ps
+# ** Note   : (723320000 ps) Waiting time for 182000000 ps
+#             (723320000 ps) 
+#             (723320000 ps) ==============================================================================================
+#             (723320000 ps)   Send a SQUID1 DAC delay on each channels
+#             (723320000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (723320000 ps) Send SPI command value 0A01_0008 (C0_FB_SQ1_DELAY, mode Write, data 0008)
+# ** Note   : (725640000 ps) Waiting SPI command end for 2284000 ps
+# ** Note   : (725640000 ps) Send SPI command value 2A01_0009 (C1_FB_SQ1_DELAY, mode Write, data 0009)
+# ** Note   : (727962000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (727962000 ps) Send SPI command value 4A01_000A (C2_FB_SQ1_DELAY, mode Write, data 000A)
+# ** Note   : (730284000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (730284000 ps) Send SPI command value 6A01_000B (C3_FB_SQ1_DELAY, mode Write, data 000B)
+# ** Note   : (732606000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (732606120 ps) Waiting event sync = '0' for 120 ps
+# ** Note   : (734783208 ps) Waiting event sync = '1' for 2177088 ps
+# ** Note   : (734943288 ps) Waiting event sync = '0' for 160080 ps
+#             (734943288 ps) 
+#             (734943288 ps) ==============================================================================================
+#             (734943288 ps)   Send command TM_MODE, Dump mode
+#             (734943288 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (734943288 ps) Send SPI command value 8001_0000 (TM_MODE, mode Write, data 0000)
+# ** Note   : (737250000 ps) Waiting SPI command end for 2270712 ps
+# ** Note   : (919250000 ps) Waiting time for 182000000 ps
+#             (919250000 ps) 
+#             (919250000 ps) ==============================================================================================
+#             (919250000 ps)   Send a SQUID1 DAC delay on each channels
+#             (919250000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (919250000 ps) Send SPI command value 0A01_000C (C0_FB_SQ1_DELAY, mode Write, data 000C)
+# ** Note   : (921570000 ps) Waiting SPI command end for 2284000 ps
+# ** Note   : (921570000 ps) Send SPI command value 2A01_000D (C1_FB_SQ1_DELAY, mode Write, data 000D)
+# ** Note   : (923892000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (923892000 ps) Send SPI command value 4A01_000E (C2_FB_SQ1_DELAY, mode Write, data 000E)
+# ** Note   : (926214000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (926214000 ps) Send SPI command value 6A01_000F (C3_FB_SQ1_DELAY, mode Write, data 000F)
+# ** Note   : (928536000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (928536036 ps) Waiting event sync = '0' for 36 ps
+# ** Note   : (930721128 ps) Waiting event sync = '1' for 2185092 ps
+# ** Note   : (930881208 ps) Waiting event sync = '0' for 160080 ps
+#             (930881208 ps) 
+#             (930881208 ps) ==============================================================================================
+#             (930881208 ps)   Send command TM_MODE, Dump mode
+#             (930881208 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (930881208 ps) Send SPI command value 8001_0000 (TM_MODE, mode Write, data 0000)
+# ** Note   : (933198000 ps) Waiting SPI command end for 2280792 ps
+# ** Note   : (1115198000 ps) Waiting time for 182000000 ps
+#             (1115198000 ps) 
+#             (1115198000 ps) ==============================================================================================
+#             (1115198000 ps)   Send a SQUID1 DAC delay on each channels
+#             (1115198000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (1115198000 ps) Send SPI command value 0A01_0010 (C0_FB_SQ1_DELAY, mode Write, data 0010)
+# ** Note   : (1117518000 ps) Waiting SPI command end for 2284000 ps
+# ** Note   : (1117518000 ps) Send SPI command value 2A01_0011 (C1_FB_SQ1_DELAY, mode Write, data 0011)
+# ** Note   : (1119840000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (1119840000 ps) Send SPI command value 4A01_0012 (C2_FB_SQ1_DELAY, mode Write, data 0012)
+# ** Note   : (1122162000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (1122162000 ps) Send SPI command value 6A01_0013 (C3_FB_SQ1_DELAY, mode Write, data 0013)
+# ** Note   : (1124484000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (1124485478 ps) Waiting event sync = '0' for 1478 ps
+# ** Note   : (1126659048 ps) Waiting event sync = '1' for 2173570 ps
+# ** Note   : (1126819128 ps) Waiting event sync = '0' for 160080 ps
+#             (1126819128 ps) 
+#             (1126819128 ps) ==============================================================================================
+#             (1126819128 ps)   Send command TM_MODE, Dump mode
+#             (1126819128 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (1126819128 ps) Send SPI command value 8001_0000 (TM_MODE, mode Write, data 0000)
+# ** Note   : (1129128000 ps) Waiting SPI command end for 2272872 ps
+# ** Note   : (1311128000 ps) Waiting time for 182000000 ps
+#             (1311128000 ps) 
+#             (1311128000 ps) ==============================================================================================
+#             (1311128000 ps)   Send a SQUID1 DAC delay on each channels
+#             (1311128000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (1311128000 ps) Send SPI command value 0A01_0014 (C0_FB_SQ1_DELAY, mode Write, data 0014)
+# ** Note   : (1313448000 ps) Waiting SPI command end for 2284000 ps
+# ** Note   : (1313448000 ps) Send SPI command value 2A01_0015 (C1_FB_SQ1_DELAY, mode Write, data 0015)
+# ** Note   : (1315770000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (1315770000 ps) Send SPI command value 4A01_0016 (C2_FB_SQ1_DELAY, mode Write, data 0016)
+# ** Note   : (1318092000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (1318092000 ps) Send SPI command value 6A01_0017 (C3_FB_SQ1_DELAY, mode Write, data 0017)
+# ** Note   : (1320414000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (1320415394 ps) Waiting event sync = '0' for 1394 ps
+# ** Note   : (1322596968 ps) Waiting event sync = '1' for 2181574 ps
+# ** Note   : (1322757048 ps) Waiting event sync = '0' for 160080 ps
+#             (1322757048 ps) 
+#             (1322757048 ps) ==============================================================================================
+#             (1322757048 ps)   Send command TM_MODE, Dump mode
+#             (1322757048 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (1322757048 ps) Send SPI command value 8001_0000 (TM_MODE, mode Write, data 0000)
+# ** Note   : (1325076000 ps) Waiting SPI command end for 2282952 ps
+# ** Note   : (1507076000 ps) Waiting time for 182000000 ps
+#             (1507076000 ps) 
+#             (1507076000 ps) ==============================================================================================
+#             (1507076000 ps)   Send a SQUID1 DAC delay on each channels
+#             (1507076000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (1507076000 ps) Send SPI command value 0A01_0018 (C0_FB_SQ1_DELAY, mode Write, data 0018)
+# ** Note   : (1509396000 ps) Waiting SPI command end for 2284000 ps
+# ** Note   : (1509396000 ps) Send SPI command value 2A01_0019 (C1_FB_SQ1_DELAY, mode Write, data 0019)
+# ** Note   : (1511718000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (1511718000 ps) Send SPI command value 4A01_001A (C2_FB_SQ1_DELAY, mode Write, data 001A)
+# ** Note   : (1514040000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (1514040000 ps) Send SPI command value 6A01_001B (C3_FB_SQ1_DELAY, mode Write, data 001B)
+# ** Note   : (1516362000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (1516365320 ps) Waiting event sync = '0' for 3320 ps
+# ** Note   : (1518534888 ps) Waiting event sync = '1' for 2169568 ps
+# ** Note   : (1518694968 ps) Waiting event sync = '0' for 160080 ps
+#             (1518694968 ps) 
+#             (1518694968 ps) ==============================================================================================
+#             (1518694968 ps)   Send command TM_MODE, Dump mode
+#             (1518694968 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (1518694968 ps) Send SPI command value 8001_0000 (TM_MODE, mode Write, data 0000)
+# ** Note   : (1521006000 ps) Waiting SPI command end for 2275032 ps
+# ** Note   : (1703006000 ps) Waiting time for 182000000 ps
+#             (1703006000 ps) 
+#             (1703006000 ps) ==============================================================================================
+#             (1703006000 ps)   Send a SQUID1 DAC delay on each channels
+#             (1703006000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (1703006000 ps) Send SPI command value 0A01_001C (C0_FB_SQ1_DELAY, mode Write, data 001C)
+# ** Note   : (1705326000 ps) Waiting SPI command end for 2284000 ps
+# ** Note   : (1705326000 ps) Send SPI command value 2A01_001D (C1_FB_SQ1_DELAY, mode Write, data 001D)
+# ** Note   : (1707648000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (1707648000 ps) Send SPI command value 4A01_001E (C2_FB_SQ1_DELAY, mode Write, data 001E)
+# ** Note   : (1709970000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (1709970000 ps) Send SPI command value 6A01_001F (C3_FB_SQ1_DELAY, mode Write, data 001F)
+# ** Note   : (1712292000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (1712295236 ps) Waiting event sync = '0' for 3236 ps
+# ** Note   : (1714472808 ps) Waiting event sync = '1' for 2177572 ps
+# ** Note   : (1714632888 ps) Waiting event sync = '0' for 160080 ps
+#             (1714632888 ps) 
+#             (1714632888 ps) ==============================================================================================
+#             (1714632888 ps)   Send command TM_MODE, Dump mode
+#             (1714632888 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (1714632888 ps) Send SPI command value 8001_0000 (TM_MODE, mode Write, data 0000)
+# ** Note   : (1716954000 ps) Waiting SPI command end for 2285112 ps
+# ** Note   : (1898954000 ps) Waiting time for 182000000 ps
+# ------------------------------------------------------------------------------------------------------------------------------------------------------
+# Error simulation time         : '0'
+# Error check discrete level    : '0'
+# Error check command return    : '0'
+# Error check time              : '0'
+# Error check clocks parameters : '0'
+# Error check spi parameters    : '0'
+# Error check science packets   : '0'
+# Error check pulse shaping     : '0'
+# ------------------------------------------------------------------------------------------------------------------------------------------------------
+# Simulation time               : 1900000000 ps
+# Simulation status             : PASS
+# ------------------------------------------------------------------------------------------------------------------------------------------------------
