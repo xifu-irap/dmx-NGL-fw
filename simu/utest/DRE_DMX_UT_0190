@@ -1,21 +1,21 @@
 COMM **********************************************************************************************
-COMM   Test: SQUID2 in open loop mode
+COMM   Test: AMP SQUID in open loop mode
 COMM **********************************************************************************************
 COMM
 COMM ==============================================================================================
-COMM   Enable SPI SQUID2 reports display
+COMM   Enable SPI AMP SQUID reports display
 COMM ----------------------------------------------------------------------------------------------
-CCPE spi_sq2_lsb(0)
-CCPE spi_sq2_lsb(1)
-CCPE spi_sq2_lsb(2)
-CCPE spi_sq2_lsb(3)
-CCPE spi_sq2_off(0)
-CCPE spi_sq2_off(1)
-CCPE spi_sq2_off(2)
-CCPE spi_sq2_off(3)
+CCPE spi_sqa_lsb(0)
+CCPE spi_sqa_lsb(1)
+CCPE spi_sqa_lsb(2)
+CCPE spi_sqa_lsb(3)
+CCPE spi_sqa_off(0)
+CCPE spi_sqa_off(1)
+CCPE spi_sqa_off(2)
+CCPE spi_sqa_off(3)
 COMM
 COMM ==============================================================================================
-COMM   Switch ADC voltage on SQUID2 DAC
+COMM   Switch ADC voltage on AMP SQUID DAC
 COMM ----------------------------------------------------------------------------------------------
 WDIS sw_adc_vin(0) 1
 COMM
@@ -36,7 +36,7 @@ COMM ---------------------------------------------------------------------------
 WUDI rst 0
 COMM
 COMM ==============================================================================================
-COMM   Check each SQUID2 DAC output goes to its middle point, synchronous with sync rising edge
+COMM   Check each AMP SQUID DAC output goes to its middle point, synchronous with sync rising edge
 COMM ----------------------------------------------------------------------------------------------
 WUDI sync 0
 WUDI sync 1
@@ -53,23 +53,23 @@ CTDC 3 == 16 ns
 CLDC 3 0.0
 COMM
 COMM ==============================================================================================
-COMM   Configure SQUID2 DAC LSB column 0
+COMM   Configure AMP SQUID DAC LSB column 0
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-C0_SQ2_PXL_LOCKPOINT_LSB-0100 W
+WCMD W-C0_AMP_SQ_OFFSET_LSB-0100 W
 COMM
 COMM ==============================================================================================
-COMM   Configure SQUID2 lockpoint Offset column 0
+COMM   Configure AMP SQUID lockpoint Offset column 0
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-C0_SQ2_PXL_LOCKPOINT_OFFSET-08FF W
+WCMD W-C0_AMP_SQ_OFFSET_COARSE-08FF W
 COMM
 COMM ==============================================================================================
-COMM   Send command SQ2_FB_MODE column 0 to open loop
+COMM   Send command SQ_AMP_OFFSET_MODE column 0 to open loop
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-SQ2_FB_MODE-0001 W
+WCMD W-SQ_AMP_OFFSET_MODE-0001 W
 COMM
 COMM ==============================================================================================
-COMM   Check each SQUID2 DAC column 0 goes to the new value, synchronous with sync rising edge
-COMM   Voltage formula: 2 * SQ2_PXL_LOCKPOINT_OFFSET/4096 - 1
+COMM   Check each AMP SQUID DAC column 0 goes to the new value, synchronous with sync rising edge
+COMM   Voltage formula: 2 * AMP_SQ_OFFSET_COARSE/4096 - 1
 COMM ----------------------------------------------------------------------------------------------
 WUDI sync 0
 WUDI sync 1
@@ -78,46 +78,46 @@ CTDC 0 == 16 ns
 CLDC 0 0.12451171875
 COMM
 COMM ==============================================================================================
-COMM   Writing a new table in SQUID2 lockpoint value column 0 memory
+COMM   Writing a new table in AMP SQUID lockpoint value column 0 memory
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-C0_SQ2_PXL_LOCKPOINT(0)-0007 W
-WCMD W-C0_SQ2_PXL_LOCKPOINT(1)-0006 W
-WCMD W-C0_SQ2_PXL_LOCKPOINT(2)-0005 W
-WCMD W-C0_SQ2_PXL_LOCKPOINT(3)-0004 W
-WCMD W-C0_SQ2_PXL_LOCKPOINT(4)-0003 W
-WCMD W-C0_SQ2_PXL_LOCKPOINT(5)-0002 W
-WCMD W-C0_SQ2_PXL_LOCKPOINT(6)-0001 W
-WCMD W-C0_SQ2_PXL_LOCKPOINT(7)-0000 W
-WCMD W-C0_SQ2_PXL_LOCKPOINT(8)-0007 W
-WCMD W-C0_SQ2_PXL_LOCKPOINT(9)-0006 W
-WCMD W-C0_SQ2_PXL_LOCKPOINT(10)-0005 W
-WCMD W-C0_SQ2_PXL_LOCKPOINT(11)-0004 W
-WCMD W-C0_SQ2_PXL_LOCKPOINT(12)-0003 W
-WCMD W-C0_SQ2_PXL_LOCKPOINT(13)-0002 W
-WCMD W-C0_SQ2_PXL_LOCKPOINT(14)-0001 W
-WCMD W-C0_SQ2_PXL_LOCKPOINT(15)-0000 W
-WCMD W-C0_SQ2_PXL_LOCKPOINT(16)-0007 W
-WCMD W-C0_SQ2_PXL_LOCKPOINT(17)-0006 W
-WCMD W-C0_SQ2_PXL_LOCKPOINT(18)-0005 W
-WCMD W-C0_SQ2_PXL_LOCKPOINT(19)-0004 W
-WCMD W-C0_SQ2_PXL_LOCKPOINT(20)-0003 W
-WCMD W-C0_SQ2_PXL_LOCKPOINT(21)-0002 W
-WCMD W-C0_SQ2_PXL_LOCKPOINT(22)-0001 W
-WCMD W-C0_SQ2_PXL_LOCKPOINT(23)-0000 W
-WCMD W-C0_SQ2_PXL_LOCKPOINT(24)-0007 W
-WCMD W-C0_SQ2_PXL_LOCKPOINT(25)-0006 W
-WCMD W-C0_SQ2_PXL_LOCKPOINT(26)-0005 W
-WCMD W-C0_SQ2_PXL_LOCKPOINT(27)-0004 W
-WCMD W-C0_SQ2_PXL_LOCKPOINT(28)-0003 W
-WCMD W-C0_SQ2_PXL_LOCKPOINT(29)-0002 W
-WCMD W-C0_SQ2_PXL_LOCKPOINT(30)-0001 W
-WCMD W-C0_SQ2_PXL_LOCKPOINT(31)-0000 W
-WCMD W-C0_SQ2_PXL_LOCKPOINT(32)-0007 W
-WCMD W-C0_SQ2_PXL_LOCKPOINT(33)-0007 W
+WCMD W-C0_AMP_SQ_OFFSET_FINE(0)-0007 W
+WCMD W-C0_AMP_SQ_OFFSET_FINE(1)-0006 W
+WCMD W-C0_AMP_SQ_OFFSET_FINE(2)-0005 W
+WCMD W-C0_AMP_SQ_OFFSET_FINE(3)-0004 W
+WCMD W-C0_AMP_SQ_OFFSET_FINE(4)-0003 W
+WCMD W-C0_AMP_SQ_OFFSET_FINE(5)-0002 W
+WCMD W-C0_AMP_SQ_OFFSET_FINE(6)-0001 W
+WCMD W-C0_AMP_SQ_OFFSET_FINE(7)-0000 W
+WCMD W-C0_AMP_SQ_OFFSET_FINE(8)-0007 W
+WCMD W-C0_AMP_SQ_OFFSET_FINE(9)-0006 W
+WCMD W-C0_AMP_SQ_OFFSET_FINE(10)-0005 W
+WCMD W-C0_AMP_SQ_OFFSET_FINE(11)-0004 W
+WCMD W-C0_AMP_SQ_OFFSET_FINE(12)-0003 W
+WCMD W-C0_AMP_SQ_OFFSET_FINE(13)-0002 W
+WCMD W-C0_AMP_SQ_OFFSET_FINE(14)-0001 W
+WCMD W-C0_AMP_SQ_OFFSET_FINE(15)-0000 W
+WCMD W-C0_AMP_SQ_OFFSET_FINE(16)-0007 W
+WCMD W-C0_AMP_SQ_OFFSET_FINE(17)-0006 W
+WCMD W-C0_AMP_SQ_OFFSET_FINE(18)-0005 W
+WCMD W-C0_AMP_SQ_OFFSET_FINE(19)-0004 W
+WCMD W-C0_AMP_SQ_OFFSET_FINE(20)-0003 W
+WCMD W-C0_AMP_SQ_OFFSET_FINE(21)-0002 W
+WCMD W-C0_AMP_SQ_OFFSET_FINE(22)-0001 W
+WCMD W-C0_AMP_SQ_OFFSET_FINE(23)-0000 W
+WCMD W-C0_AMP_SQ_OFFSET_FINE(24)-0007 W
+WCMD W-C0_AMP_SQ_OFFSET_FINE(25)-0006 W
+WCMD W-C0_AMP_SQ_OFFSET_FINE(26)-0005 W
+WCMD W-C0_AMP_SQ_OFFSET_FINE(27)-0004 W
+WCMD W-C0_AMP_SQ_OFFSET_FINE(28)-0003 W
+WCMD W-C0_AMP_SQ_OFFSET_FINE(29)-0002 W
+WCMD W-C0_AMP_SQ_OFFSET_FINE(30)-0001 W
+WCMD W-C0_AMP_SQ_OFFSET_FINE(31)-0000 W
+WCMD W-C0_AMP_SQ_OFFSET_FINE(32)-0007 W
+WCMD W-C0_AMP_SQ_OFFSET_FINE(33)-0007 W
 COMM
 COMM ==============================================================================================
 COMM   Writing memory dump data to compare
-COMM   Formula: 4*(SQ2_PXL_LOCKPOINT_OFFSET + SQ2_PXL_LOCKPOINT * SQ2_PXL_LOCKPOINT_LSB)
+COMM   Formula: 4*(AMP_SQ_OFFSET_COARSE + AMP_SQ_OFFSET_FINE * AMP_SQ_OFFSET_LSB)
 COMM ----------------------------------------------------------------------------------------------
 WMDC 0 0 3FFC
 WMDC 0 1 3BFC
@@ -260,32 +260,32 @@ WMDC 3 32 2000
 WMDC 3 33 2000
 COMM
 COMM ==============================================================================================
-COMM   Record SQUID1 DAC pulse shaping column 0 by requesting a SQUID1 ADC dump on science
+COMM   Record AMP SQUID DAC column 0 by requesting an ADC dump on science
 COMM    (DAC feedback on ADC)
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-TM_MODE-0000 W
+WCMD W-DATA_ACQ_MODE-0004 W
 WAIT 175 us
 COMM
 COMM ==============================================================================================
-COMM   Configure SQUID2 DAC LSB column 1
+COMM   Configure AMP SQUID DAC LSB column 1
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-C1_SQ2_PXL_LOCKPOINT_LSB-0100 W
+WCMD W-C1_AMP_SQ_OFFSET_LSB-0100 W
 COMM
 COMM ==============================================================================================
-COMM   Configure SQUID2 lockpoint Offset column 1
+COMM   Configure AMP SQUID lockpoint Offset column 1
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-C1_SQ2_PXL_LOCKPOINT_OFFSET-08FF W
+WCMD W-C1_AMP_SQ_OFFSET_COARSE-08FF W
 COMM
 COMM ==============================================================================================
-COMM   Send command SQ2_FB_MODE column 0 to Off, column 1 to open loop
+COMM   Send command SQ_AMP_OFFSET_MODE column 0 to Off, column 1 to open loop
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-SQ2_FB_MODE-0010 W
+WCMD W-SQ_AMP_OFFSET_MODE-0010 W
 COMM
 COMM ==============================================================================================
-COMM   Check each SQUID2 DAC column 0 goes to its middle point, column 1 goes to the new value,
+COMM   Check each AMP SQUID DAC column 0 goes to its middle point, column 1 goes to the new value,
 COMM   synchronous with sync rising edge
-COMM   Check time formula: 16 ns - c_SQ2_MUX_TPLH_DEF
-COMM   Voltage formula: 2 * SQ2_PXL_LOCKPOINT_OFFSET/4096 - 1
+COMM   Check time formula: 16 ns - c_SQA_MUX_TPLH_DEF
+COMM   Voltage formula: 2 * AMP_SQ_OFFSET_COARSE/4096 - 1
 COMM ----------------------------------------------------------------------------------------------
 WUDI sync 0
 WUDI sync 1
@@ -296,46 +296,46 @@ CTDC 1 == 16 ns
 CLDC 1 0.12451171875
 COMM
 COMM ==============================================================================================
-COMM   Writing a new table in SQUID2 lockpoint value column 1 memory
+COMM   Writing a new table in AMP SQUID lockpoint value column 1 memory
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-C1_SQ2_PXL_LOCKPOINT(0)-0007 W
-WCMD W-C1_SQ2_PXL_LOCKPOINT(1)-0006 W
-WCMD W-C1_SQ2_PXL_LOCKPOINT(2)-0005 W
-WCMD W-C1_SQ2_PXL_LOCKPOINT(3)-0004 W
-WCMD W-C1_SQ2_PXL_LOCKPOINT(4)-0003 W
-WCMD W-C1_SQ2_PXL_LOCKPOINT(5)-0002 W
-WCMD W-C1_SQ2_PXL_LOCKPOINT(6)-0001 W
-WCMD W-C1_SQ2_PXL_LOCKPOINT(7)-0000 W
-WCMD W-C1_SQ2_PXL_LOCKPOINT(8)-0007 W
-WCMD W-C1_SQ2_PXL_LOCKPOINT(9)-0006 W
-WCMD W-C1_SQ2_PXL_LOCKPOINT(10)-0005 W
-WCMD W-C1_SQ2_PXL_LOCKPOINT(11)-0004 W
-WCMD W-C1_SQ2_PXL_LOCKPOINT(12)-0003 W
-WCMD W-C1_SQ2_PXL_LOCKPOINT(13)-0002 W
-WCMD W-C1_SQ2_PXL_LOCKPOINT(14)-0001 W
-WCMD W-C1_SQ2_PXL_LOCKPOINT(15)-0000 W
-WCMD W-C1_SQ2_PXL_LOCKPOINT(16)-0007 W
-WCMD W-C1_SQ2_PXL_LOCKPOINT(17)-0006 W
-WCMD W-C1_SQ2_PXL_LOCKPOINT(18)-0005 W
-WCMD W-C1_SQ2_PXL_LOCKPOINT(19)-0004 W
-WCMD W-C1_SQ2_PXL_LOCKPOINT(20)-0003 W
-WCMD W-C1_SQ2_PXL_LOCKPOINT(21)-0002 W
-WCMD W-C1_SQ2_PXL_LOCKPOINT(22)-0001 W
-WCMD W-C1_SQ2_PXL_LOCKPOINT(23)-0000 W
-WCMD W-C1_SQ2_PXL_LOCKPOINT(24)-0007 W
-WCMD W-C1_SQ2_PXL_LOCKPOINT(25)-0006 W
-WCMD W-C1_SQ2_PXL_LOCKPOINT(26)-0005 W
-WCMD W-C1_SQ2_PXL_LOCKPOINT(27)-0004 W
-WCMD W-C1_SQ2_PXL_LOCKPOINT(28)-0003 W
-WCMD W-C1_SQ2_PXL_LOCKPOINT(29)-0002 W
-WCMD W-C1_SQ2_PXL_LOCKPOINT(30)-0001 W
-WCMD W-C1_SQ2_PXL_LOCKPOINT(31)-0000 W
-WCMD W-C1_SQ2_PXL_LOCKPOINT(32)-0007 W
-WCMD W-C1_SQ2_PXL_LOCKPOINT(33)-0007 W
+WCMD W-C1_AMP_SQ_OFFSET_FINE(0)-0007 W
+WCMD W-C1_AMP_SQ_OFFSET_FINE(1)-0006 W
+WCMD W-C1_AMP_SQ_OFFSET_FINE(2)-0005 W
+WCMD W-C1_AMP_SQ_OFFSET_FINE(3)-0004 W
+WCMD W-C1_AMP_SQ_OFFSET_FINE(4)-0003 W
+WCMD W-C1_AMP_SQ_OFFSET_FINE(5)-0002 W
+WCMD W-C1_AMP_SQ_OFFSET_FINE(6)-0001 W
+WCMD W-C1_AMP_SQ_OFFSET_FINE(7)-0000 W
+WCMD W-C1_AMP_SQ_OFFSET_FINE(8)-0007 W
+WCMD W-C1_AMP_SQ_OFFSET_FINE(9)-0006 W
+WCMD W-C1_AMP_SQ_OFFSET_FINE(10)-0005 W
+WCMD W-C1_AMP_SQ_OFFSET_FINE(11)-0004 W
+WCMD W-C1_AMP_SQ_OFFSET_FINE(12)-0003 W
+WCMD W-C1_AMP_SQ_OFFSET_FINE(13)-0002 W
+WCMD W-C1_AMP_SQ_OFFSET_FINE(14)-0001 W
+WCMD W-C1_AMP_SQ_OFFSET_FINE(15)-0000 W
+WCMD W-C1_AMP_SQ_OFFSET_FINE(16)-0007 W
+WCMD W-C1_AMP_SQ_OFFSET_FINE(17)-0006 W
+WCMD W-C1_AMP_SQ_OFFSET_FINE(18)-0005 W
+WCMD W-C1_AMP_SQ_OFFSET_FINE(19)-0004 W
+WCMD W-C1_AMP_SQ_OFFSET_FINE(20)-0003 W
+WCMD W-C1_AMP_SQ_OFFSET_FINE(21)-0002 W
+WCMD W-C1_AMP_SQ_OFFSET_FINE(22)-0001 W
+WCMD W-C1_AMP_SQ_OFFSET_FINE(23)-0000 W
+WCMD W-C1_AMP_SQ_OFFSET_FINE(24)-0007 W
+WCMD W-C1_AMP_SQ_OFFSET_FINE(25)-0006 W
+WCMD W-C1_AMP_SQ_OFFSET_FINE(26)-0005 W
+WCMD W-C1_AMP_SQ_OFFSET_FINE(27)-0004 W
+WCMD W-C1_AMP_SQ_OFFSET_FINE(28)-0003 W
+WCMD W-C1_AMP_SQ_OFFSET_FINE(29)-0002 W
+WCMD W-C1_AMP_SQ_OFFSET_FINE(30)-0001 W
+WCMD W-C1_AMP_SQ_OFFSET_FINE(31)-0000 W
+WCMD W-C1_AMP_SQ_OFFSET_FINE(32)-0007 W
+WCMD W-C1_AMP_SQ_OFFSET_FINE(33)-0007 W
 COMM
 COMM ==============================================================================================
 COMM   Writing memory dump data to compare
-COMM   Formula: 4*(SQ2_PXL_LOCKPOINT_OFFSET + SQ2_PXL_LOCKPOINT * SQ2_PXL_LOCKPOINT_LSB)
+COMM   Formula: 4*(AMP_SQ_OFFSET_COARSE + AMP_SQ_OFFSET_FINE * AMP_SQ_OFFSET_LSB)
 COMM ----------------------------------------------------------------------------------------------
 WMDC 1 0 3FFC
 WMDC 1 1 3BFC
@@ -408,32 +408,32 @@ WMDC 0 32 2000
 WMDC 0 33 2000
 COMM
 COMM ==============================================================================================
-COMM   Record SQUID1 DAC pulse shaping column 1 by requesting a SQUID1 ADC dump on science
+COMM   Record AMP SQUID DAC column 1 by requesting an ADC dump on science
 COMM    (DAC feedback on ADC)
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-TM_MODE-0000 W
+WCMD W-DATA_ACQ_MODE-0004 W
 WAIT 175 us
 COMM
 COMM ==============================================================================================
-COMM   Configure SQUID2 DAC LSB column 2
+COMM   Configure AMP SQUID DAC LSB column 2
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-C2_SQ2_PXL_LOCKPOINT_LSB-0100 W
+WCMD W-C2_AMP_SQ_OFFSET_LSB-0100 W
 COMM
 COMM ==============================================================================================
-COMM   Configure SQUID2 lockpoint Offset column 2
+COMM   Configure AMP SQUID lockpoint Offset column 2
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-C2_SQ2_PXL_LOCKPOINT_OFFSET-08FF W
+WCMD W-C2_AMP_SQ_OFFSET_COARSE-08FF W
 COMM
 COMM ==============================================================================================
-COMM   Send command SQ2_FB_MODE column 1 to Off, column 2 to open loop
+COMM   Send command SQ_AMP_OFFSET_MODE column 1 to Off, column 2 to open loop
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-SQ2_FB_MODE-0100 W
+WCMD W-SQ_AMP_OFFSET_MODE-0100 W
 COMM
 COMM ==============================================================================================
-COMM   Check each SQUID2 DAC column 1 goes to its middle point, column 2 goes to the new value,
+COMM   Check each AMP SQUID DAC column 1 goes to its middle point, column 2 goes to the new value,
 COMM   synchronous with sync rising edge
-COMM   Check time formula: 16 ns - c_SQ2_MUX_TPLH_DEF
-COMM   Voltage formula: 2 * SQ2_PXL_LOCKPOINT_OFFSET/4096 - 1
+COMM   Check time formula: 16 ns - c_SQA_MUX_TPLH_DEF
+COMM   Voltage formula: 2 * AMP_SQ_OFFSET_COARSE/4096 - 1
 COMM ----------------------------------------------------------------------------------------------
 WUDI sync 0
 WUDI sync 1
@@ -444,46 +444,46 @@ CTDC 2 == 16 ns
 CLDC 2 0.12451171875
 COMM
 COMM ==============================================================================================
-COMM   Writing a new table in SQUID2 lockpoint value column 2 memory
+COMM   Writing a new table in AMP SQUID lockpoint value column 2 memory
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-C2_SQ2_PXL_LOCKPOINT(0)-0007 W
-WCMD W-C2_SQ2_PXL_LOCKPOINT(1)-0006 W
-WCMD W-C2_SQ2_PXL_LOCKPOINT(2)-0005 W
-WCMD W-C2_SQ2_PXL_LOCKPOINT(3)-0004 W
-WCMD W-C2_SQ2_PXL_LOCKPOINT(4)-0003 W
-WCMD W-C2_SQ2_PXL_LOCKPOINT(5)-0002 W
-WCMD W-C2_SQ2_PXL_LOCKPOINT(6)-0001 W
-WCMD W-C2_SQ2_PXL_LOCKPOINT(7)-0000 W
-WCMD W-C2_SQ2_PXL_LOCKPOINT(8)-0007 W
-WCMD W-C2_SQ2_PXL_LOCKPOINT(9)-0006 W
-WCMD W-C2_SQ2_PXL_LOCKPOINT(10)-0005 W
-WCMD W-C2_SQ2_PXL_LOCKPOINT(11)-0004 W
-WCMD W-C2_SQ2_PXL_LOCKPOINT(12)-0003 W
-WCMD W-C2_SQ2_PXL_LOCKPOINT(13)-0002 W
-WCMD W-C2_SQ2_PXL_LOCKPOINT(14)-0001 W
-WCMD W-C2_SQ2_PXL_LOCKPOINT(15)-0000 W
-WCMD W-C2_SQ2_PXL_LOCKPOINT(16)-0007 W
-WCMD W-C2_SQ2_PXL_LOCKPOINT(17)-0006 W
-WCMD W-C2_SQ2_PXL_LOCKPOINT(18)-0005 W
-WCMD W-C2_SQ2_PXL_LOCKPOINT(19)-0004 W
-WCMD W-C2_SQ2_PXL_LOCKPOINT(20)-0003 W
-WCMD W-C2_SQ2_PXL_LOCKPOINT(21)-0002 W
-WCMD W-C2_SQ2_PXL_LOCKPOINT(22)-0001 W
-WCMD W-C2_SQ2_PXL_LOCKPOINT(23)-0000 W
-WCMD W-C2_SQ2_PXL_LOCKPOINT(24)-0007 W
-WCMD W-C2_SQ2_PXL_LOCKPOINT(25)-0006 W
-WCMD W-C2_SQ2_PXL_LOCKPOINT(26)-0005 W
-WCMD W-C2_SQ2_PXL_LOCKPOINT(27)-0004 W
-WCMD W-C2_SQ2_PXL_LOCKPOINT(28)-0003 W
-WCMD W-C2_SQ2_PXL_LOCKPOINT(29)-0002 W
-WCMD W-C2_SQ2_PXL_LOCKPOINT(30)-0001 W
-WCMD W-C2_SQ2_PXL_LOCKPOINT(31)-0000 W
-WCMD W-C2_SQ2_PXL_LOCKPOINT(32)-0007 W
-WCMD W-C2_SQ2_PXL_LOCKPOINT(33)-0007 W
+WCMD W-C2_AMP_SQ_OFFSET_FINE(0)-0007 W
+WCMD W-C2_AMP_SQ_OFFSET_FINE(1)-0006 W
+WCMD W-C2_AMP_SQ_OFFSET_FINE(2)-0005 W
+WCMD W-C2_AMP_SQ_OFFSET_FINE(3)-0004 W
+WCMD W-C2_AMP_SQ_OFFSET_FINE(4)-0003 W
+WCMD W-C2_AMP_SQ_OFFSET_FINE(5)-0002 W
+WCMD W-C2_AMP_SQ_OFFSET_FINE(6)-0001 W
+WCMD W-C2_AMP_SQ_OFFSET_FINE(7)-0000 W
+WCMD W-C2_AMP_SQ_OFFSET_FINE(8)-0007 W
+WCMD W-C2_AMP_SQ_OFFSET_FINE(9)-0006 W
+WCMD W-C2_AMP_SQ_OFFSET_FINE(10)-0005 W
+WCMD W-C2_AMP_SQ_OFFSET_FINE(11)-0004 W
+WCMD W-C2_AMP_SQ_OFFSET_FINE(12)-0003 W
+WCMD W-C2_AMP_SQ_OFFSET_FINE(13)-0002 W
+WCMD W-C2_AMP_SQ_OFFSET_FINE(14)-0001 W
+WCMD W-C2_AMP_SQ_OFFSET_FINE(15)-0000 W
+WCMD W-C2_AMP_SQ_OFFSET_FINE(16)-0007 W
+WCMD W-C2_AMP_SQ_OFFSET_FINE(17)-0006 W
+WCMD W-C2_AMP_SQ_OFFSET_FINE(18)-0005 W
+WCMD W-C2_AMP_SQ_OFFSET_FINE(19)-0004 W
+WCMD W-C2_AMP_SQ_OFFSET_FINE(20)-0003 W
+WCMD W-C2_AMP_SQ_OFFSET_FINE(21)-0002 W
+WCMD W-C2_AMP_SQ_OFFSET_FINE(22)-0001 W
+WCMD W-C2_AMP_SQ_OFFSET_FINE(23)-0000 W
+WCMD W-C2_AMP_SQ_OFFSET_FINE(24)-0007 W
+WCMD W-C2_AMP_SQ_OFFSET_FINE(25)-0006 W
+WCMD W-C2_AMP_SQ_OFFSET_FINE(26)-0005 W
+WCMD W-C2_AMP_SQ_OFFSET_FINE(27)-0004 W
+WCMD W-C2_AMP_SQ_OFFSET_FINE(28)-0003 W
+WCMD W-C2_AMP_SQ_OFFSET_FINE(29)-0002 W
+WCMD W-C2_AMP_SQ_OFFSET_FINE(30)-0001 W
+WCMD W-C2_AMP_SQ_OFFSET_FINE(31)-0000 W
+WCMD W-C2_AMP_SQ_OFFSET_FINE(32)-0007 W
+WCMD W-C2_AMP_SQ_OFFSET_FINE(33)-0007 W
 COMM
 COMM ==============================================================================================
 COMM   Writing memory dump data to compare
-COMM   Formula: 4*(SQ2_PXL_LOCKPOINT_OFFSET + SQ2_PXL_LOCKPOINT * SQ2_PXL_LOCKPOINT_LSB)
+COMM   Formula: 4*(AMP_SQ_OFFSET_COARSE + AMP_SQ_OFFSET_FINE * AMP_SQ_OFFSET_LSB)
 COMM ----------------------------------------------------------------------------------------------
 WMDC 2 0 3FFC
 WMDC 2 1 3BFC
@@ -556,32 +556,32 @@ WMDC 1 32 2000
 WMDC 1 33 2000
 COMM
 COMM ==============================================================================================
-COMM   Record SQUID1 DAC pulse shaping column 2 by requesting a SQUID1 ADC dump on science
+COMM   Record AMP SQUID DAC column 2 by requesting an ADC dump on science
 COMM    (DAC feedback on ADC)
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-TM_MODE-0000 W
+WCMD W-DATA_ACQ_MODE-0004 W
 WAIT 175 us
 COMM
 COMM ==============================================================================================
-COMM   Configure SQUID2 DAC LSB column 3
+COMM   Configure AMP SQUID DAC LSB column 3
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-C3_SQ2_PXL_LOCKPOINT_LSB-0100 W
+WCMD W-C3_AMP_SQ_OFFSET_LSB-0100 W
 COMM
 COMM ==============================================================================================
-COMM   Configure SQUID2 lockpoint Offset column 3
+COMM   Configure AMP SQUID lockpoint Offset column 3
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-C3_SQ2_PXL_LOCKPOINT_OFFSET-08FF W
+WCMD W-C3_AMP_SQ_OFFSET_COARSE-08FF W
 COMM
 COMM ==============================================================================================
-COMM   Send command SQ2_FB_MODE column 2 to Off, column 3 to open loop
+COMM   Send command SQ_AMP_OFFSET_MODE column 2 to Off, column 3 to open loop
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-SQ2_FB_MODE-1000 W
+WCMD W-SQ_AMP_OFFSET_MODE-1000 W
 COMM
 COMM ==============================================================================================
-COMM   Check each SQUID2 DAC column 2 goes to its middle point, column 3 goes to the new value,
+COMM   Check each AMP SQUID DAC column 2 goes to its middle point, column 3 goes to the new value,
 COMM   synchronous with sync rising edge
-COMM   Check time formula: 16 ns - c_SQ2_MUX_TPLH_DEF
-COMM   Voltage formula: 2 * SQ2_PXL_LOCKPOINT_OFFSET/4096 - 1
+COMM   Check time formula: 16 ns - c_SQA_MUX_TPLH_DEF
+COMM   Voltage formula: 2 * AMP_SQ_OFFSET_COARSE/4096 - 1
 COMM ----------------------------------------------------------------------------------------------
 WUDI sync 0
 WUDI sync 1
@@ -592,46 +592,46 @@ CTDC 3 == 16 ns
 CLDC 3 0.12451171875
 COMM
 COMM ==============================================================================================
-COMM   Writing a new table in SQUID2 lockpoint value column 3 memory
+COMM   Writing a new table in AMP SQUID lockpoint value column 3 memory
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-C3_SQ2_PXL_LOCKPOINT(0)-0007 W
-WCMD W-C3_SQ2_PXL_LOCKPOINT(1)-0006 W
-WCMD W-C3_SQ2_PXL_LOCKPOINT(2)-0005 W
-WCMD W-C3_SQ2_PXL_LOCKPOINT(3)-0004 W
-WCMD W-C3_SQ2_PXL_LOCKPOINT(4)-0003 W
-WCMD W-C3_SQ2_PXL_LOCKPOINT(5)-0002 W
-WCMD W-C3_SQ2_PXL_LOCKPOINT(6)-0001 W
-WCMD W-C3_SQ2_PXL_LOCKPOINT(7)-0000 W
-WCMD W-C3_SQ2_PXL_LOCKPOINT(8)-0007 W
-WCMD W-C3_SQ2_PXL_LOCKPOINT(9)-0006 W
-WCMD W-C3_SQ2_PXL_LOCKPOINT(10)-0005 W
-WCMD W-C3_SQ2_PXL_LOCKPOINT(11)-0004 W
-WCMD W-C3_SQ2_PXL_LOCKPOINT(12)-0003 W
-WCMD W-C3_SQ2_PXL_LOCKPOINT(13)-0002 W
-WCMD W-C3_SQ2_PXL_LOCKPOINT(14)-0001 W
-WCMD W-C3_SQ2_PXL_LOCKPOINT(15)-0000 W
-WCMD W-C3_SQ2_PXL_LOCKPOINT(16)-0007 W
-WCMD W-C3_SQ2_PXL_LOCKPOINT(17)-0006 W
-WCMD W-C3_SQ2_PXL_LOCKPOINT(18)-0005 W
-WCMD W-C3_SQ2_PXL_LOCKPOINT(19)-0004 W
-WCMD W-C3_SQ2_PXL_LOCKPOINT(20)-0003 W
-WCMD W-C3_SQ2_PXL_LOCKPOINT(21)-0002 W
-WCMD W-C3_SQ2_PXL_LOCKPOINT(22)-0001 W
-WCMD W-C3_SQ2_PXL_LOCKPOINT(23)-0000 W
-WCMD W-C3_SQ2_PXL_LOCKPOINT(24)-0007 W
-WCMD W-C3_SQ2_PXL_LOCKPOINT(25)-0006 W
-WCMD W-C3_SQ2_PXL_LOCKPOINT(26)-0005 W
-WCMD W-C3_SQ2_PXL_LOCKPOINT(27)-0004 W
-WCMD W-C3_SQ2_PXL_LOCKPOINT(28)-0003 W
-WCMD W-C3_SQ2_PXL_LOCKPOINT(29)-0002 W
-WCMD W-C3_SQ2_PXL_LOCKPOINT(30)-0001 W
-WCMD W-C3_SQ2_PXL_LOCKPOINT(31)-0000 W
-WCMD W-C3_SQ2_PXL_LOCKPOINT(32)-0007 W
-WCMD W-C3_SQ2_PXL_LOCKPOINT(33)-0007 W
+WCMD W-C3_AMP_SQ_OFFSET_FINE(0)-0007 W
+WCMD W-C3_AMP_SQ_OFFSET_FINE(1)-0006 W
+WCMD W-C3_AMP_SQ_OFFSET_FINE(2)-0005 W
+WCMD W-C3_AMP_SQ_OFFSET_FINE(3)-0004 W
+WCMD W-C3_AMP_SQ_OFFSET_FINE(4)-0003 W
+WCMD W-C3_AMP_SQ_OFFSET_FINE(5)-0002 W
+WCMD W-C3_AMP_SQ_OFFSET_FINE(6)-0001 W
+WCMD W-C3_AMP_SQ_OFFSET_FINE(7)-0000 W
+WCMD W-C3_AMP_SQ_OFFSET_FINE(8)-0007 W
+WCMD W-C3_AMP_SQ_OFFSET_FINE(9)-0006 W
+WCMD W-C3_AMP_SQ_OFFSET_FINE(10)-0005 W
+WCMD W-C3_AMP_SQ_OFFSET_FINE(11)-0004 W
+WCMD W-C3_AMP_SQ_OFFSET_FINE(12)-0003 W
+WCMD W-C3_AMP_SQ_OFFSET_FINE(13)-0002 W
+WCMD W-C3_AMP_SQ_OFFSET_FINE(14)-0001 W
+WCMD W-C3_AMP_SQ_OFFSET_FINE(15)-0000 W
+WCMD W-C3_AMP_SQ_OFFSET_FINE(16)-0007 W
+WCMD W-C3_AMP_SQ_OFFSET_FINE(17)-0006 W
+WCMD W-C3_AMP_SQ_OFFSET_FINE(18)-0005 W
+WCMD W-C3_AMP_SQ_OFFSET_FINE(19)-0004 W
+WCMD W-C3_AMP_SQ_OFFSET_FINE(20)-0003 W
+WCMD W-C3_AMP_SQ_OFFSET_FINE(21)-0002 W
+WCMD W-C3_AMP_SQ_OFFSET_FINE(22)-0001 W
+WCMD W-C3_AMP_SQ_OFFSET_FINE(23)-0000 W
+WCMD W-C3_AMP_SQ_OFFSET_FINE(24)-0007 W
+WCMD W-C3_AMP_SQ_OFFSET_FINE(25)-0006 W
+WCMD W-C3_AMP_SQ_OFFSET_FINE(26)-0005 W
+WCMD W-C3_AMP_SQ_OFFSET_FINE(27)-0004 W
+WCMD W-C3_AMP_SQ_OFFSET_FINE(28)-0003 W
+WCMD W-C3_AMP_SQ_OFFSET_FINE(29)-0002 W
+WCMD W-C3_AMP_SQ_OFFSET_FINE(30)-0001 W
+WCMD W-C3_AMP_SQ_OFFSET_FINE(31)-0000 W
+WCMD W-C3_AMP_SQ_OFFSET_FINE(32)-0007 W
+WCMD W-C3_AMP_SQ_OFFSET_FINE(33)-0007 W
 COMM
 COMM ==============================================================================================
 COMM   Writing memory dump data to compare
-COMM   Formula: 4*(SQ2_PXL_LOCKPOINT_OFFSET + SQ2_PXL_LOCKPOINT * SQ2_PXL_LOCKPOINT_LSB)
+COMM   Formula: 4*(AMP_SQ_OFFSET_COARSE + AMP_SQ_OFFSET_FINE * AMP_SQ_OFFSET_LSB)
 COMM ----------------------------------------------------------------------------------------------
 WMDC 3 0 3FFC
 WMDC 3 1 3BFC
@@ -704,22 +704,22 @@ WMDC 2 32 2000
 WMDC 2 33 2000
 COMM
 COMM ==============================================================================================
-COMM   Record SQUID1 DAC pulse shaping column 3 by requesting a SQUID1 ADC dump on science
+COMM   Record AMP SQUID DAC column 3 by requesting an ADC dump on science
 COMM    (DAC feedback on ADC)
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-TM_MODE-0000 W
+WCMD W-DATA_ACQ_MODE-0004 W
 WAIT 175 us
 COMM
 COMM ==============================================================================================
-COMM   Send command SQ2_FB_MODE column 3 to Off
+COMM   Send command SQ_AMP_OFFSET_MODE column 3 to Off
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-SQ2_FB_MODE-0000 W
+WCMD W-SQ_AMP_OFFSET_MODE-0000 W
 COMM
 COMM ==============================================================================================
-COMM   Check each SQUID2 DAC column 3 goes to its middle point,
+COMM   Check each AMP SQUID DAC column 3 goes to its middle point,
 COMM   synchronous with sync rising edge
-COMM   Check time formula: 16 ns - c_SQ2_MUX_TPLH_DEF
-COMM   Voltage formula: 2 * SQ2_PXL_LOCKPOINT_OFFSET/4096 - 1
+COMM   Check time formula: 16 ns - c_SQA_MUX_TPLH_DEF
+COMM   Voltage formula: 2 * AMP_SQ_OFFSET_COARSE/4096 - 1
 COMM ----------------------------------------------------------------------------------------------
 WUDI sync 0
 WUDI sync 1

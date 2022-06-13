@@ -23,14 +23,17 @@ COMM   Send commands in write on read only register
 COMM ----------------------------------------------------------------------------------------------
 WCMD W-Status-XXXX W
 
-WCMD W-Version-XXXX R
-CCMD R-Status-0000 W
+WCMD W-Fw_Version-XXXX R
+CCMD R-Status-FFFF W
+
+WCMD W-Hw_Version-XXXX R
+CCMD R-Status-DFFF W
 
 WCMD R-Status-XXXX R
-CCMD R-Status-2000 W
+CCMD R-Status-DFFF W
 
 WCMD R-Status-XXXX R
-CCMD R-Status-2000 W
+CCMD R-Status-DFFF W
 
 WCMD R-Status-XXXX R
-CCMD R-Status-0000 N
+CCMD R-Status-FFFF N

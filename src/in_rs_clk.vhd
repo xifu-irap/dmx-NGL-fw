@@ -49,9 +49,9 @@ entity in_rs_clk is port
          o_brd_ref_rs         : out    std_logic_vector(     c_BRD_REF_S-1 downto 0)                        ; --! Board reference, synchronized on System Clock
          o_brd_model_rs       : out    std_logic_vector(   c_BRD_MODEL_S-1 downto 0)                        ; --! Board model, synchronized on System Clock
          o_sync_rs            : out    std_logic                                                            ; --! Pixel sequence synchronization, synchronized on System Clock
-         o_sync_sq1_adc_rs    : out    std_logic_vector(        c_NB_COL-1 downto 0)                        ; --! Pixel sequence synchronization for squid1 ADC, synchronized on System Clock
-         o_sync_sq1_dac_rs    : out    std_logic_vector(        c_NB_COL-1 downto 0)                        ; --! Pixel sequence synchronization for squid1 DAC, synchronized on System Clock
-         o_sync_sq2_dac_rs    : out    std_logic_vector(        c_NB_COL-1 downto 0)                        ; --! Pixel sequence synchronization for squid2 DAC, synchronized on System Clock
+         o_sync_sqm_adc_rs    : out    std_logic_vector(        c_NB_COL-1 downto 0)                        ; --! Pixel sequence synchronization for SQUID MUX ADC, synchronized on System Clock
+         o_sync_sqm_dac_rs    : out    std_logic_vector(        c_NB_COL-1 downto 0)                        ; --! Pixel sequence synchronization for SQUID MUX DAC, synchronized on System Clock
+         o_sync_sqa_dac_rs    : out    std_logic_vector(        c_NB_COL-1 downto 0)                        ; --! Pixel sequence synchronization for SQUID AMP DAC, synchronized on System Clock
 
          o_hk1_spi_miso_rs    : out    std_logic                                                            ; --! HouseKeeping 1: SPI Master Input Slave Output, synchronized on System Clock
 
@@ -162,7 +162,7 @@ begin
    G_column_mgt: for k in 0 to c_NB_COL-1 generate
    begin
 
-      I_sync_sq1_adc_rs: entity work.signal_reg generic map
+      I_sync_sqm_adc_rs: entity work.signal_reg generic map
       (  g_SIG_FF_NB          => 1                    , -- integer                                          ; --! Signal registered flip-flop number
          g_SIG_DEF            => c_I_SYNC_DEF           -- std_logic                                          --! Signal registered default value at reset
       )  port map
@@ -170,10 +170,10 @@ begin
          i_clock              => i_clk                , -- in     std_logic                                 ; --! Clock
 
          i_sig                => sync_rs              , -- in     std_logic                                 ; --! Signal
-         o_sig_r              => o_sync_sq1_adc_rs(k)   -- out    std_logic                                   --! Signal registered
+         o_sig_r              => o_sync_sqm_adc_rs(k)   -- out    std_logic                                   --! Signal registered
       );
 
-      I_sync_sq1_dac_rs: entity work.signal_reg generic map
+      I_sync_sqm_dac_rs: entity work.signal_reg generic map
       (  g_SIG_FF_NB          => 1                    , -- integer                                          ; --! Signal registered flip-flop number
          g_SIG_DEF            => c_I_SYNC_DEF           -- std_logic                                          --! Signal registered default value at reset
       )  port map
@@ -181,10 +181,10 @@ begin
          i_clock              => i_clk                , -- in     std_logic                                 ; --! Clock
 
          i_sig                => sync_rs              , -- in     std_logic                                 ; --! Signal
-         o_sig_r              => o_sync_sq1_dac_rs(k)   -- out    std_logic                                   --! Signal registered
+         o_sig_r              => o_sync_sqm_dac_rs(k)   -- out    std_logic                                   --! Signal registered
       );
 
-      I_sync_sq2_dac_rs: entity work.signal_reg generic map
+      I_sync_sqa_dac_rs: entity work.signal_reg generic map
       (  g_SIG_FF_NB          => 1                    , -- integer                                          ; --! Signal registered flip-flop number
          g_SIG_DEF            => c_I_SYNC_DEF           -- std_logic                                          --! Signal registered default value at reset
       )  port map
@@ -192,7 +192,7 @@ begin
          i_clock              => i_clk                , -- in     std_logic                                 ; --! Clock
 
          i_sig                => sync_rs              , -- in     std_logic                                 ; --! Signal
-         o_sig_r              => o_sync_sq2_dac_rs(k)   -- out    std_logic                                   --! Signal registered
+         o_sig_r              => o_sync_sqa_dac_rs(k)   -- out    std_logic                                   --! Signal registered
       );
 
    end generate G_column_mgt;

@@ -251,7 +251,7 @@ begin
    begin
 
       if i_rst = '1' then
-         ep_cmd_tx_wd_data <= (others => '0');
+         ep_cmd_tx_wd_data <= (others => c_EP_CMD_ERR_CLR);
 
       elsif rising_edge(i_clk) then
          if ep_spi_wd_end_r(ep_spi_wd_end_r'high) = '1' then

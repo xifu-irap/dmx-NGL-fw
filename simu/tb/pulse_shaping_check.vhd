@@ -37,9 +37,9 @@ use     work.pkg_model.all;
 
 entity pulse_shaping_check is port
    (     i_arst               : in     std_logic                                                            ; --! Asynchronous reset ('0' = Inactive, '1' = Active)
-         i_clk_sq1_dac        : in     std_logic                                                            ; --! SQUID1 DAC: Clock
+         i_clk_sqm_dac        : in     std_logic                                                            ; --! SQUID MUX DAC: Clock
          i_sync               : in     std_logic                                                            ; --! Pixel sequence synchronization (R.E. detected = position sequence to the first pixel)
-         i_sq1_dac_ana        : in     real                                                                 ; --! SQUID1 DAC: Analog
+         i_sqm_dac_ana        : in     real                                                                 ; --! SQUID MUX DAC: Analog
          i_pls_shp_fc         : in     integer                                                              ; --! Pulse shaping cut frequency (Hz)
 
          o_err_num_pls_shp    : out    integer                                                                --! Pulse shaping error number
@@ -53,7 +53,7 @@ constant c_PLS_CNT_S          : integer:= log2_ceil(c_PLS_CNT_MAX_VAL+1)+1      
 constant c_PIXEL_POS_MAX_VAL  : integer:= c_MUX_FACT - 1                                                    ; --! Pixel position: maximal value
 constant c_PIXEL_POS_S        : integer:= log2_ceil(c_PIXEL_POS_MAX_VAL+1)+1                                ; --! Pixel position: size bus (signed)
 
-signal   sq1_dac_ana_r        : t_real_arr(0 to c_PIXEL_DAC_NB_CYC)                                         ; --! SQUID1 DAC: Analog register
+signal   sqm_dac_ana_r        : t_real_arr(0 to c_PIXEL_DAC_NB_CYC)                                         ; --! SQUID MUX DAC: Analog register
 signal   sync_r               : std_logic                                                                   ; --! Pixel sequence synchronization register
 signal   sync_re              : std_logic                                                                   ; --! Pixel sequence synchronization rising edge
 
@@ -71,16 +71,16 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   Signals register
    -- ------------------------------------------------------------------------------------------------------
-   P_sig_reg : process (i_arst, i_clk_sq1_dac)
+   P_sig_reg : process (i_arst, i_clk_sqm_dac)
    begin
 
       if i_arst = '1' then
-         sq1_dac_ana_r     <= (others => 0.0);
+         sqm_dac_ana_r     <= (others => 0.0);
          sync_r            <= c_I_SYNC_DEF;
          sync_re           <= '0';
 
-      elsif rising_edge(i_clk_sq1_dac) then
-         sq1_dac_ana_r  <= i_sq1_dac_ana & sq1_dac_ana_r(0 to sq1_dac_ana_r'high-1);
+      elsif rising_edge(i_clk_sqm_dac) then
+         sqm_dac_ana_r  <= i_sqm_dac_ana & sqm_dac_ana_r(0 to sqm_dac_ana_r'high-1);
          sync_r   <= i_sync;
          sync_re  <= not(sync_r) and i_sync;
 
@@ -91,14 +91,14 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   Pulse shaping counter
    -- ------------------------------------------------------------------------------------------------------
-   P_pls_cnt: process (i_arst, i_clk_sq1_dac)
+   P_pls_cnt: process (i_arst, i_clk_sqm_dac)
    begin
 
       if i_arst = '1' then
          pls_cnt     <= std_logic_vector(to_signed(c_PLS_CNT_MAX_VAL, pls_cnt'length));
          pixel_pos   <= (others => '1');
 
-      elsif rising_edge(i_clk_sq1_dac) then
+      elsif rising_edge(i_clk_sqm_dac) then
 
          if (sync_re or pls_cnt(pls_cnt'high)) = '1' then
             pls_cnt <= std_logic_vector(to_signed(c_PLS_CNT_MAX_VAL, pls_cnt'length));
@@ -123,17 +123,17 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   Get low pass filter inputs
    -- ------------------------------------------------------------------------------------------------------
-   P_get_lp_filt_in: process (i_arst, i_clk_sq1_dac)
+   P_get_lp_filt_in: process (i_arst, i_clk_sqm_dac)
    begin
 
       if i_arst = '1' then
          cmd_exp  <= 0.0;
-         pls_shp_fc_rsync  <= c_EP_CMD_DEF_PLSFC;
+         pls_shp_fc_rsync  <= c_PLS_CUT_FREQ_DEF;
 
-      elsif rising_edge(i_clk_sq1_dac) then
+      elsif rising_edge(i_clk_sqm_dac) then
 
          if pls_cnt = std_logic_vector(to_signed(0, pls_cnt'length)) then
-            cmd_exp <= i_sq1_dac_ana;
+            cmd_exp <= i_sqm_dac_ana;
 
          end if;
 
@@ -154,13 +154,13 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   Low pass filter calculation
    -- ------------------------------------------------------------------------------------------------------
-   P_lp_filter: process (i_arst, i_clk_sq1_dac)
+   P_lp_filter: process (i_arst, i_clk_sqm_dac)
    begin
 
       if i_arst = '1' then
          lp_filter   <= 0.0;
 
-      elsif rising_edge(i_clk_sq1_dac) then
+      elsif rising_edge(i_clk_sqm_dac) then
          lp_filter   <= coef_lp_filt * cmd_exp + (1.0 - coef_lp_filt) * lp_filter;
 
       end if;
@@ -170,14 +170,14 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   Error calculation
    -- ------------------------------------------------------------------------------------------------------
-   P_err_num_pls_shp: process (i_arst, i_clk_sq1_dac)
+   P_err_num_pls_shp: process (i_arst, i_clk_sqm_dac)
    begin
 
       if i_arst = '1' then
          o_err_num_pls_shp   <= 0;
 
-      elsif rising_edge(i_clk_sq1_dac) then
-         if abs(sq1_dac_ana_r(sq1_dac_ana_r'high) - lp_filter) > 2.0**(-c_SQ1_DAC_DATA_S+2) then
+      elsif rising_edge(i_clk_sqm_dac) then
+         if abs(sqm_dac_ana_r(sqm_dac_ana_r'high) - lp_filter) > 2.0**(-c_SQM_DAC_DATA_S+2) then
             o_err_num_pls_shp <= o_err_num_pls_shp + 1;
 
          end if;

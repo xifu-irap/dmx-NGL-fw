@@ -52,39 +52,39 @@ entity parser is generic
          i_err_n_spi_chk      : in     t_int_arr_tab(0 to c_CHK_ENA_SPI_NB-1)(0 to c_SPI_ERR_CHK_NB-1)      ; --! SPI check error number:
          i_err_num_pls_shp    : in     t_int_arr(0 to c_NB_COL-1)                                           ; --! Pulse shaping error number
 
-         i_c0_sq1_adc_pwdn    : in     std_logic                                                            ; --! SQUID1 ADC, col. 0: Power Down ('0' = Inactive, '1' = Active)
-         i_c1_sq1_adc_pwdn    : in     std_logic                                                            ; --! SQUID1 ADC, col. 1: Power Down ('0' = Inactive, '1' = Active)
-         i_c2_sq1_adc_pwdn    : in     std_logic                                                            ; --! SQUID1 ADC, col. 2: Power Down ('0' = Inactive, '1' = Active)
-         i_c3_sq1_adc_pwdn    : in     std_logic                                                            ; --! SQUID1 ADC, col. 3: Power Down ('0' = Inactive, '1' = Active)
+         i_c0_sqm_adc_pwdn    : in     std_logic                                                            ; --! SQUID MUX ADC, col. 0: Power Down ('0' = Inactive, '1' = Active)
+         i_c1_sqm_adc_pwdn    : in     std_logic                                                            ; --! SQUID MUX ADC, col. 1: Power Down ('0' = Inactive, '1' = Active)
+         i_c2_sqm_adc_pwdn    : in     std_logic                                                            ; --! SQUID MUX ADC, col. 2: Power Down ('0' = Inactive, '1' = Active)
+         i_c3_sqm_adc_pwdn    : in     std_logic                                                            ; --! SQUID MUX ADC, col. 3: Power Down ('0' = Inactive, '1' = Active)
 
-         i_c0_sq1_adc_ana     : in     real                                                                 ; --! SQUID1 ADC, col. 0: Analog
-         i_c1_sq1_adc_ana     : in     real                                                                 ; --! SQUID1 ADC, col. 1: Analog
-         i_c2_sq1_adc_ana     : in     real                                                                 ; --! SQUID1 ADC, col. 2: Analog
-         i_c3_sq1_adc_ana     : in     real                                                                 ; --! SQUID1 ADC, col. 3: Analog
+         i_c0_sqm_adc_ana     : in     real                                                                 ; --! SQUID MUX ADC, col. 0: Analog
+         i_c1_sqm_adc_ana     : in     real                                                                 ; --! SQUID MUX ADC, col. 1: Analog
+         i_c2_sqm_adc_ana     : in     real                                                                 ; --! SQUID MUX ADC, col. 2: Analog
+         i_c3_sqm_adc_ana     : in     real                                                                 ; --! SQUID MUX ADC, col. 3: Analog
 
-         i_c0_sq1_dac_sleep   : in     std_logic                                                            ; --! SQUID1 DAC, col. 0: Sleep ('0' = Inactive, '1' = Active)
-         i_c1_sq1_dac_sleep   : in     std_logic                                                            ; --! SQUID1 DAC, col. 1: Sleep ('0' = Inactive, '1' = Active)
-         i_c2_sq1_dac_sleep   : in     std_logic                                                            ; --! SQUID1 DAC, col. 2: Sleep ('0' = Inactive, '1' = Active)
-         i_c3_sq1_dac_sleep   : in     std_logic                                                            ; --! SQUID1 DAC, col. 3: Sleep ('0' = Inactive, '1' = Active)
+         i_c0_sqm_dac_sleep   : in     std_logic                                                            ; --! SQUID MUX DAC, col. 0: Sleep ('0' = Inactive, '1' = Active)
+         i_c1_sqm_dac_sleep   : in     std_logic                                                            ; --! SQUID MUX DAC, col. 1: Sleep ('0' = Inactive, '1' = Active)
+         i_c2_sqm_dac_sleep   : in     std_logic                                                            ; --! SQUID MUX DAC, col. 2: Sleep ('0' = Inactive, '1' = Active)
+         i_c3_sqm_dac_sleep   : in     std_logic                                                            ; --! SQUID MUX DAC, col. 3: Sleep ('0' = Inactive, '1' = Active)
 
          i_d_rst              : in     std_logic                                                            ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
-         i_d_rst_sq1_adc      : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
-         i_d_rst_sq1_dac      : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
-         i_d_rst_sq2_mux      : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
+         i_d_rst_sqm_adc      : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
+         i_d_rst_sqm_dac      : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
+         i_d_rst_sqa_mux      : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
 
          i_d_clk              : in     std_logic                                                            ; --! Internal design: System Clock
-         i_d_clk_sq1_adc_acq  : in     std_logic                                                            ; --! Internal design: SQUID1 ADC acquisition Clock
-         i_d_clk_sq1_pls_shap : in     std_logic                                                            ; --! Internal design: SQUID1 pulse shaping Clock
+         i_d_clk_sqm_adc_acq  : in     std_logic                                                            ; --! Internal design: SQUID MUX ADC acquisition Clock
+         i_d_clk_sqm_pls_shap : in     std_logic                                                            ; --! Internal design: SQUID MUX pulse shaping Clock
 
-         i_c0_clk_sq1_adc     : in     std_logic                                                            ; --! SQUID1 ADC, col. 0: Clock
-         i_c1_clk_sq1_adc     : in     std_logic                                                            ; --! SQUID1 ADC, col. 1: Clock
-         i_c2_clk_sq1_adc     : in     std_logic                                                            ; --! SQUID1 ADC, col. 2: Clock
-         i_c3_clk_sq1_adc     : in     std_logic                                                            ; --! SQUID1 ADC, col. 3: Clock
+         i_c0_clk_sqm_adc     : in     std_logic                                                            ; --! SQUID MUX ADC, col. 0: Clock
+         i_c1_clk_sqm_adc     : in     std_logic                                                            ; --! SQUID MUX ADC, col. 1: Clock
+         i_c2_clk_sqm_adc     : in     std_logic                                                            ; --! SQUID MUX ADC, col. 2: Clock
+         i_c3_clk_sqm_adc     : in     std_logic                                                            ; --! SQUID MUX ADC, col. 3: Clock
 
-         i_c0_clk_sq1_dac     : in     std_logic                                                            ; --! SQUID1 DAC, col. 0: Clock
-         i_c1_clk_sq1_dac     : in     std_logic                                                            ; --! SQUID1 DAC, col. 1: Clock
-         i_c2_clk_sq1_dac     : in     std_logic                                                            ; --! SQUID1 DAC, col. 2: Clock
-         i_c3_clk_sq1_dac     : in     std_logic                                                            ; --! SQUID1 DAC, col. 3: Clock
+         i_c0_clk_sqm_dac     : in     std_logic                                                            ; --! SQUID MUX DAC, col. 0: Clock
+         i_c1_clk_sqm_dac     : in     std_logic                                                            ; --! SQUID MUX DAC, col. 1: Clock
+         i_c2_clk_sqm_dac     : in     std_logic                                                            ; --! SQUID MUX DAC, col. 2: Clock
+         i_c3_clk_sqm_dac     : in     std_logic                                                            ; --! SQUID MUX DAC, col. 3: Clock
 
          i_sc_pkt_type        : in     std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0)                       ; --! Science packet type
          i_sc_pkt_err         : in     std_logic                                                            ; --! Science packet error ('0' = No error, '1' = Error)
@@ -103,7 +103,7 @@ entity parser is generic
          o_sw_adc_vin         : out    std_logic_vector(c_SW_ADC_VIN_S-1 downto 0)                          ; --! Switch ADC Voltage input
 
          o_adc_dmp_mem_add    : out    std_logic_vector(    c_MUX_FACT_S-1 downto 0)                        ; --! ADC Dump memory for data compare: address
-         o_adc_dmp_mem_data   : out    std_logic_vector(c_SQ1_ADC_DATA_S+1 downto 0)                        ; --! ADC Dump memory for data compare: data
+         o_adc_dmp_mem_data   : out    std_logic_vector(c_SQM_ADC_DATA_S+1 downto 0)                        ; --! ADC Dump memory for data compare: data
          o_adc_dmp_mem_cs     : out    std_logic_vector(        c_NB_COL-1 downto 0)                          --! ADC Dump memory for data compare: chip select ('0' = Inactive, '1' = Active)
    );
 end entity parser;
@@ -114,7 +114,7 @@ constant c_SIM_NAME           : string    := c_CMD_FILE_ROOT & g_TST_NUM        
 signal   discrete_w           : std_logic_vector(c_CMD_FILE_FLD_DATA_S-1 downto 0)                          ; --! Discrete write
 signal   discrete_r           : std_logic_vector(c_CMD_FILE_FLD_DATA_S-1 downto 0)                          ; --! Discrete read
 
-signal   sq1_dac_ana          : t_real_arr(0 to c_NB_COL-1)                                                 ; --! SQUID1 DAC: Analog
+signal   sqm_dac_ana          : t_real_arr(0 to c_NB_COL-1)                                                 ; --! SQUID MUX DAC: Analog
 
 file     cmd_file             : text                                                                        ; --! Command file
 file     res_file             : text                                                                        ; --! Result file
@@ -131,39 +131,39 @@ file     res_file             : text                                            
          when  c_DR_D_RST              => return i_d_rst'last_event;
          when  c_DR_CLK_REF            => return i_clk_ref'last_event;
          when  c_DR_D_CLK              => return i_d_clk'last_event;
-         when  c_DR_D_CLK_SQ1_ADC      => return i_d_clk_sq1_adc_acq'last_event;
-         when  c_DR_D_CLK_SQ1_PLS_SH   => return i_d_clk_sq1_pls_shap'last_event;
+         when  c_DR_D_CLK_SQM_ADC      => return i_d_clk_sqm_adc_acq'last_event;
+         when  c_DR_D_CLK_SQM_PLS_SH   => return i_d_clk_sqm_pls_shap'last_event;
          when  c_DR_EP_CMD_BUSY_N      => return i_ep_cmd_busy_n'last_event;
          when  c_DR_EP_DATA_RX_RDY     => return i_ep_data_rx_rdy'last_event;
-         when  c_DR_D_RST_SQ1_ADC_0    => return i_d_rst_sq1_adc'last_event;
-         when  c_DR_D_RST_SQ1_ADC_1    => return i_d_rst_sq1_adc'last_event;
-         when  c_DR_D_RST_SQ1_ADC_2    => return i_d_rst_sq1_adc'last_event;
-         when  c_DR_D_RST_SQ1_ADC_3    => return i_d_rst_sq1_adc'last_event;
-         when  c_DR_D_RST_SQ1_DAC_0    => return i_d_rst_sq1_dac'last_event;
-         when  c_DR_D_RST_SQ1_DAC_1    => return i_d_rst_sq1_dac'last_event;
-         when  c_DR_D_RST_SQ1_DAC_2    => return i_d_rst_sq1_dac'last_event;
-         when  c_DR_D_RST_SQ1_DAC_3    => return i_d_rst_sq1_dac'last_event;
-         when  c_DR_D_RST_SQ2_MUX_0    => return i_d_rst_sq2_mux'last_event;
-         when  c_DR_D_RST_SQ2_MUX_1    => return i_d_rst_sq2_mux'last_event;
-         when  c_DR_D_RST_SQ2_MUX_2    => return i_d_rst_sq2_mux'last_event;
-         when  c_DR_D_RST_SQ2_MUX_3    => return i_d_rst_sq2_mux'last_event;
+         when  c_DR_D_RST_SQM_ADC_0    => return i_d_rst_sqm_adc'last_event;
+         when  c_DR_D_RST_SQM_ADC_1    => return i_d_rst_sqm_adc'last_event;
+         when  c_DR_D_RST_SQM_ADC_2    => return i_d_rst_sqm_adc'last_event;
+         when  c_DR_D_RST_SQM_ADC_3    => return i_d_rst_sqm_adc'last_event;
+         when  c_DR_D_RST_SQM_DAC_0    => return i_d_rst_sqm_dac'last_event;
+         when  c_DR_D_RST_SQM_DAC_1    => return i_d_rst_sqm_dac'last_event;
+         when  c_DR_D_RST_SQM_DAC_2    => return i_d_rst_sqm_dac'last_event;
+         when  c_DR_D_RST_SQM_DAC_3    => return i_d_rst_sqm_dac'last_event;
+         when  c_DR_D_RST_SQA_MUX_0    => return i_d_rst_sqa_mux'last_event;
+         when  c_DR_D_RST_SQA_MUX_1    => return i_d_rst_sqa_mux'last_event;
+         when  c_DR_D_RST_SQA_MUX_2    => return i_d_rst_sqa_mux'last_event;
+         when  c_DR_D_RST_SQA_MUX_3    => return i_d_rst_sqa_mux'last_event;
          when  c_DR_SYNC               => return i_sync'last_event;
-         when  c_DR_SQ1_ADC_PWDN_0     => return i_c0_sq1_adc_pwdn'last_event;
-         when  c_DR_SQ1_ADC_PWDN_1     => return i_c1_sq1_adc_pwdn'last_event;
-         when  c_DR_SQ1_ADC_PWDN_2     => return i_c2_sq1_adc_pwdn'last_event;
-         when  c_DR_SQ1_ADC_PWDN_3     => return i_c3_sq1_adc_pwdn'last_event;
-         when  c_DR_SQ1_DAC_SLEEP_0    => return i_c0_sq1_dac_sleep'last_event;
-         when  c_DR_SQ1_DAC_SLEEP_1    => return i_c1_sq1_dac_sleep'last_event;
-         when  c_DR_SQ1_DAC_SLEEP_2    => return i_c2_sq1_dac_sleep'last_event;
-         when  c_DR_SQ1_DAC_SLEEP_3    => return i_c3_sq1_dac_sleep'last_event;
-         when  c_DR_CLK_SQ1_ADC_0      => return i_c0_clk_sq1_adc'last_event;
-         when  c_DR_CLK_SQ1_ADC_1      => return i_c1_clk_sq1_adc'last_event;
-         when  c_DR_CLK_SQ1_ADC_2      => return i_c2_clk_sq1_adc'last_event;
-         when  c_DR_CLK_SQ1_ADC_3      => return i_c3_clk_sq1_adc'last_event;
-         when  c_DR_CLK_SQ1_DAC_0      => return i_c0_clk_sq1_dac'last_event;
-         when  c_DR_CLK_SQ1_DAC_1      => return i_c1_clk_sq1_dac'last_event;
-         when  c_DR_CLK_SQ1_DAC_2      => return i_c2_clk_sq1_dac'last_event;
-         when  c_DR_CLK_SQ1_DAC_3      => return i_c3_clk_sq1_dac'last_event;
+         when  c_DR_SQM_ADC_PWDN_0     => return i_c0_sqm_adc_pwdn'last_event;
+         when  c_DR_SQM_ADC_PWDN_1     => return i_c1_sqm_adc_pwdn'last_event;
+         when  c_DR_SQM_ADC_PWDN_2     => return i_c2_sqm_adc_pwdn'last_event;
+         when  c_DR_SQM_ADC_PWDN_3     => return i_c3_sqm_adc_pwdn'last_event;
+         when  c_DR_SQM_DAC_SLEEP_0    => return i_c0_sqm_dac_sleep'last_event;
+         when  c_DR_SQM_DAC_SLEEP_1    => return i_c1_sqm_dac_sleep'last_event;
+         when  c_DR_SQM_DAC_SLEEP_2    => return i_c2_sqm_dac_sleep'last_event;
+         when  c_DR_SQM_DAC_SLEEP_3    => return i_c3_sqm_dac_sleep'last_event;
+         when  c_DR_CLK_SQM_ADC_0      => return i_c0_clk_sqm_adc'last_event;
+         when  c_DR_CLK_SQM_ADC_1      => return i_c1_clk_sqm_adc'last_event;
+         when  c_DR_CLK_SQM_ADC_2      => return i_c2_clk_sqm_adc'last_event;
+         when  c_DR_CLK_SQM_ADC_3      => return i_c3_clk_sqm_adc'last_event;
+         when  c_DR_CLK_SQM_DAC_0      => return i_c0_clk_sqm_dac'last_event;
+         when  c_DR_CLK_SQM_DAC_1      => return i_c1_clk_sqm_dac'last_event;
+         when  c_DR_CLK_SQM_DAC_2      => return i_c2_clk_sqm_dac'last_event;
+         when  c_DR_CLK_SQM_DAC_3      => return i_c3_clk_sqm_dac'last_event;
          when others                   => return time'low;
 
       end case;
@@ -171,18 +171,18 @@ file     res_file             : text                                            
    end function;
 
    -- ------------------------------------------------------------------------------------------------------
-   --! Return the last event time of the SQUID1 DAC Analog
+   --! Return the last event time of the SQUID MUX DAC Analog
    -- ------------------------------------------------------------------------------------------------------
-   function sq1_dac_last_event (
+   function sqm_dac_last_event (
          channel  : integer                                                                                   -- Channel
    ) return time is
    begin
 
       case channel is
-         when  0     => return i_c0_sq1_adc_ana'last_event;
-         when  1     => return i_c1_sq1_adc_ana'last_event;
-         when  2     => return i_c2_sq1_adc_ana'last_event;
-         when  3     => return i_c3_sq1_adc_ana'last_event;
+         when  0     => return i_c0_sqm_adc_ana'last_event;
+         when  1     => return i_c1_sqm_adc_ana'last_event;
+         when  2     => return i_c2_sqm_adc_ana'last_event;
+         when  3     => return i_c3_sqm_adc_ana'last_event;
          when others => return time'low;
 
       end case;
@@ -197,6 +197,7 @@ begin
    o_arst_n             <= discrete_w(c_DW_ARST_N);
    o_brd_model(0)       <= discrete_w(c_DW_BRD_MODEL_0);
    o_brd_model(1)       <= discrete_w(c_DW_BRD_MODEL_1);
+   o_brd_model(2)       <= discrete_w(c_DW_BRD_MODEL_2);
    o_sw_adc_vin(0)      <= discrete_w(c_DW_SW_ADC_VIN_0);
    o_sw_adc_vin(1)      <= discrete_w(c_DW_SW_ADC_VIN_1);
 
@@ -206,49 +207,49 @@ begin
    discrete_r(c_DR_D_RST)           <= i_d_rst;
    discrete_r(c_DR_CLK_REF)         <= i_clk_ref;
    discrete_r(c_DR_D_CLK)           <= i_d_clk;
-   discrete_r(c_DR_D_CLK_SQ1_ADC)   <= i_d_clk_sq1_adc_acq;
-   discrete_r(c_DR_D_CLK_SQ1_PLS_SH)<= i_d_clk_sq1_pls_shap;
+   discrete_r(c_DR_D_CLK_SQM_ADC)   <= i_d_clk_sqm_adc_acq;
+   discrete_r(c_DR_D_CLK_SQM_PLS_SH)<= i_d_clk_sqm_pls_shap;
    discrete_r(c_DR_EP_CMD_BUSY_N)   <= i_ep_cmd_busy_n;
    discrete_r(c_DR_EP_DATA_RX_RDY)  <= i_ep_data_rx_rdy;
-   discrete_r(c_DR_D_RST_SQ1_ADC_0) <= i_d_rst_sq1_adc(0);
-   discrete_r(c_DR_D_RST_SQ1_ADC_1) <= i_d_rst_sq1_adc(1);
-   discrete_r(c_DR_D_RST_SQ1_ADC_2) <= i_d_rst_sq1_adc(2);
-   discrete_r(c_DR_D_RST_SQ1_ADC_3) <= i_d_rst_sq1_adc(3);
-   discrete_r(c_DR_D_RST_SQ1_DAC_0) <= i_d_rst_sq1_dac(0);
-   discrete_r(c_DR_D_RST_SQ1_DAC_1) <= i_d_rst_sq1_dac(1);
-   discrete_r(c_DR_D_RST_SQ1_DAC_2) <= i_d_rst_sq1_dac(2);
-   discrete_r(c_DR_D_RST_SQ1_DAC_3) <= i_d_rst_sq1_dac(3);
-   discrete_r(c_DR_D_RST_SQ2_MUX_0) <= i_d_rst_sq2_mux(0);
-   discrete_r(c_DR_D_RST_SQ2_MUX_1) <= i_d_rst_sq2_mux(1);
-   discrete_r(c_DR_D_RST_SQ2_MUX_2) <= i_d_rst_sq2_mux(2);
-   discrete_r(c_DR_D_RST_SQ2_MUX_3) <= i_d_rst_sq2_mux(3);
+   discrete_r(c_DR_D_RST_SQM_ADC_0) <= i_d_rst_sqm_adc(0);
+   discrete_r(c_DR_D_RST_SQM_ADC_1) <= i_d_rst_sqm_adc(1);
+   discrete_r(c_DR_D_RST_SQM_ADC_2) <= i_d_rst_sqm_adc(2);
+   discrete_r(c_DR_D_RST_SQM_ADC_3) <= i_d_rst_sqm_adc(3);
+   discrete_r(c_DR_D_RST_SQM_DAC_0) <= i_d_rst_sqm_dac(0);
+   discrete_r(c_DR_D_RST_SQM_DAC_1) <= i_d_rst_sqm_dac(1);
+   discrete_r(c_DR_D_RST_SQM_DAC_2) <= i_d_rst_sqm_dac(2);
+   discrete_r(c_DR_D_RST_SQM_DAC_3) <= i_d_rst_sqm_dac(3);
+   discrete_r(c_DR_D_RST_SQA_MUX_0) <= i_d_rst_sqa_mux(0);
+   discrete_r(c_DR_D_RST_SQA_MUX_1) <= i_d_rst_sqa_mux(1);
+   discrete_r(c_DR_D_RST_SQA_MUX_2) <= i_d_rst_sqa_mux(2);
+   discrete_r(c_DR_D_RST_SQA_MUX_3) <= i_d_rst_sqa_mux(3);
    discrete_r(c_DR_SYNC)            <= i_sync;
-   discrete_r(c_DR_SQ1_ADC_PWDN_0)  <= i_c0_sq1_adc_pwdn;
-   discrete_r(c_DR_SQ1_ADC_PWDN_1)  <= i_c1_sq1_adc_pwdn;
-   discrete_r(c_DR_SQ1_ADC_PWDN_2)  <= i_c2_sq1_adc_pwdn;
-   discrete_r(c_DR_SQ1_ADC_PWDN_3)  <= i_c3_sq1_adc_pwdn;
-   discrete_r(c_DR_SQ1_DAC_SLEEP_0) <= i_c0_sq1_dac_sleep;
-   discrete_r(c_DR_SQ1_DAC_SLEEP_1) <= i_c1_sq1_dac_sleep;
-   discrete_r(c_DR_SQ1_DAC_SLEEP_2) <= i_c2_sq1_dac_sleep;
-   discrete_r(c_DR_SQ1_DAC_SLEEP_3) <= i_c3_sq1_dac_sleep;
-   discrete_r(c_DR_CLK_SQ1_ADC_0)   <= i_c0_clk_sq1_adc;
-   discrete_r(c_DR_CLK_SQ1_ADC_1)   <= i_c1_clk_sq1_adc;
-   discrete_r(c_DR_CLK_SQ1_ADC_2)   <= i_c2_clk_sq1_adc;
-   discrete_r(c_DR_CLK_SQ1_ADC_3)   <= i_c3_clk_sq1_adc;
-   discrete_r(c_DR_CLK_SQ1_DAC_0)   <= i_c0_clk_sq1_dac;
-   discrete_r(c_DR_CLK_SQ1_DAC_1)   <= i_c1_clk_sq1_dac;
-   discrete_r(c_DR_CLK_SQ1_DAC_2)   <= i_c2_clk_sq1_dac;
-   discrete_r(c_DR_CLK_SQ1_DAC_3)   <= i_c3_clk_sq1_dac;
+   discrete_r(c_DR_SQM_ADC_PWDN_0)  <= i_c0_sqm_adc_pwdn;
+   discrete_r(c_DR_SQM_ADC_PWDN_1)  <= i_c1_sqm_adc_pwdn;
+   discrete_r(c_DR_SQM_ADC_PWDN_2)  <= i_c2_sqm_adc_pwdn;
+   discrete_r(c_DR_SQM_ADC_PWDN_3)  <= i_c3_sqm_adc_pwdn;
+   discrete_r(c_DR_SQM_DAC_SLEEP_0) <= i_c0_sqm_dac_sleep;
+   discrete_r(c_DR_SQM_DAC_SLEEP_1) <= i_c1_sqm_dac_sleep;
+   discrete_r(c_DR_SQM_DAC_SLEEP_2) <= i_c2_sqm_dac_sleep;
+   discrete_r(c_DR_SQM_DAC_SLEEP_3) <= i_c3_sqm_dac_sleep;
+   discrete_r(c_DR_CLK_SQM_ADC_0)   <= i_c0_clk_sqm_adc;
+   discrete_r(c_DR_CLK_SQM_ADC_1)   <= i_c1_clk_sqm_adc;
+   discrete_r(c_DR_CLK_SQM_ADC_2)   <= i_c2_clk_sqm_adc;
+   discrete_r(c_DR_CLK_SQM_ADC_3)   <= i_c3_clk_sqm_adc;
+   discrete_r(c_DR_CLK_SQM_DAC_0)   <= i_c0_clk_sqm_dac;
+   discrete_r(c_DR_CLK_SQM_DAC_1)   <= i_c1_clk_sqm_dac;
+   discrete_r(c_DR_CLK_SQM_DAC_2)   <= i_c2_clk_sqm_dac;
+   discrete_r(c_DR_CLK_SQM_DAC_3)   <= i_c3_clk_sqm_dac;
 
    discrete_r(discrete_r'high downto c_DR_S) <= (others => '0');
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Discrete write signals association
    -- ------------------------------------------------------------------------------------------------------
-   sq1_dac_ana(0) <= i_c0_sq1_adc_ana;
-   sq1_dac_ana(1) <= i_c1_sq1_adc_ana;
-   sq1_dac_ana(2) <= i_c2_sq1_adc_ana;
-   sq1_dac_ana(3) <= i_c3_sq1_adc_ana;
+   sqm_dac_ana(0) <= i_c0_sqm_adc_ana;
+   sqm_dac_ana(1) <= i_c1_sqm_adc_ana;
+   sqm_dac_ana(2) <= i_c2_sqm_adc_ana;
+   sqm_dac_ana(3) <= i_c3_sqm_adc_ana;
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Parser sequence: read command file and write result file
@@ -309,7 +310,7 @@ begin
       v_record_time     := 0 ns;
 
       for k in 0 to c_NB_COL-1 loop
-         o_pls_shp_fc(k) <= c_EP_CMD_DEF_PLSFC;
+         o_pls_shp_fc(k) <= c_PLS_CUT_FREQ_DEF;
 
       end loop;
 
@@ -405,7 +406,7 @@ begin
                   fprintf(note , " * Read discrete: " & v_fld_dis.all & ", value " & std_logic'image(discrete_r(v_fld_dis_ind(0))) & ", expected " & std_logic'image(v_fld_value), res_file);
 
                -- ------------------------------------------------------------------------------------------------------
-               -- Command CLDC [channel] [value]: check level SQUID1 ADC input
+               -- Command CLDC [channel] [value]: check level SQUID MUX ADC input
                -- ------------------------------------------------------------------------------------------------------
                when "CLDC" =>
 
@@ -413,7 +414,7 @@ begin
                   get_param_cldc(v_cmd_file_line, v_head_mess_stdout.all, v_fld_dis_ind(0), v_fld_real);
 
                   -- Check result
-                  if sq1_dac_ana(v_fld_dis_ind(0)) = v_fld_real then
+                  if sqm_dac_ana(v_fld_dis_ind(0)) = v_fld_real then
                      fprintf(note , "Check DAC level: PASS", res_file);
 
                   else
@@ -425,7 +426,7 @@ begin
                   end if;
 
                   -- Display result
-                  fprintf(note , " * Read DAC channel " & integer'image(v_fld_dis_ind(0)) & ", value " & real'image(sq1_dac_ana(v_fld_dis_ind(0))) & ", expected " & real'image(v_fld_real), res_file);
+                  fprintf(note , " * Read DAC channel " & integer'image(v_fld_dis_ind(0)) & ", value " & real'image(sqm_dac_ana(v_fld_dis_ind(0))) & ", expected " & real'image(v_fld_real), res_file);
 
                -- ------------------------------------------------------------------------------------------------------
                -- Command CSCP [science_packet] : check the science packet type
@@ -452,15 +453,15 @@ begin
 
                -- ------------------------------------------------------------------------------------------------------
                -- Command CTDC [channel] [ope] [time]: check time between the current time
-               --   and last event SQUID1 ADC input
+               --   and last event SQUID MUX ADC input
                -- ------------------------------------------------------------------------------------------------------
                when "CTDC" =>
 
                   -- Get parameters
                   get_param_ctdc(v_cmd_file_line, v_head_mess_stdout.all, v_fld_dis_ind(0), v_fld_ope, v_fld_time);
 
-                  -- Compare time between the current time and SQUID1 DAC output last event
-                  cmp_time(v_fld_ope(1 to 2), sq1_dac_last_event(v_fld_dis_ind(0)), v_fld_time, "DAC channel " & integer'image(v_fld_dis_ind(0)) & " last event" , v_head_mess_stdout.all & "[ope]", v_err_chk_time, res_file);
+                  -- Compare time between the current time and SQUID MUX DAC output last event
+                  cmp_time(v_fld_ope(1 to 2), sqm_dac_last_event(v_fld_dis_ind(0)), v_fld_time, "DAC channel " & integer'image(v_fld_dis_ind(0)) & " last event" , v_head_mess_stdout.all & "[ope]", v_err_chk_time, res_file);
 
                -- ------------------------------------------------------------------------------------------------------
                -- Command CTLE [mask] [ope] [time]: check time between the current time and discrete input(s) last event

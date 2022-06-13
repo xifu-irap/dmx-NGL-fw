@@ -142,6 +142,9 @@ constant c_PAD                : character := ' '                                
          when "brd_model(1)        "   =>
             o_fld_dw_ind := c_DW_BRD_MODEL_1;
 
+         when "brd_model(2)        "   =>
+            o_fld_dw_ind := c_DW_BRD_MODEL_2;
+
          when "sw_adc_vin(0)       "   =>
             o_fld_dw_ind := c_DW_SW_ADC_VIN_0;
 
@@ -184,11 +187,11 @@ constant c_PAD                : character := ' '                                
          when "clk                 "   =>
             o_fld_dr_ind := c_DR_D_CLK;
 
-         when "clk_sq1_adc_acq     "   =>
-            o_fld_dr_ind := c_DR_D_CLK_SQ1_ADC;
+         when "clk_sqm_adc_acq     "   =>
+            o_fld_dr_ind := c_DR_D_CLK_SQM_ADC;
 
-         when "clk_sq1_pls_shape   "   =>
-            o_fld_dr_ind := c_DR_D_CLK_SQ1_PLS_SH;
+         when "clk_sqm_pls_shape   "   =>
+            o_fld_dr_ind := c_DR_D_CLK_SQM_PLS_SH;
 
          when "ep_cmd_busy_n       "   =>
             o_fld_dr_ind := c_DR_EP_CMD_BUSY_N;
@@ -196,92 +199,92 @@ constant c_PAD                : character := ' '                                
          when "ep_data_rx_rdy      "   =>
             o_fld_dr_ind := c_DR_EP_DATA_RX_RDY;
 
-         when "rst_sq1_adc(0)      "   =>
-            o_fld_dr_ind := c_DR_D_RST_SQ1_ADC_0;
+         when "rst_sqm_adc(0)      "   =>
+            o_fld_dr_ind := c_DR_D_RST_SQM_ADC_0;
 
-         when "rst_sq1_adc(1)      "   =>
-            o_fld_dr_ind := c_DR_D_RST_SQ1_ADC_1;
+         when "rst_sqm_adc(1)      "   =>
+            o_fld_dr_ind := c_DR_D_RST_SQM_ADC_1;
 
-         when "rst_sq1_adc(2)      "   =>
-            o_fld_dr_ind := c_DR_D_RST_SQ1_ADC_2;
+         when "rst_sqm_adc(2)      "   =>
+            o_fld_dr_ind := c_DR_D_RST_SQM_ADC_2;
 
-         when "rst_sq1_adc(3)      "   =>
-            o_fld_dr_ind := c_DR_D_RST_SQ1_ADC_3;
+         when "rst_sqm_adc(3)      "   =>
+            o_fld_dr_ind := c_DR_D_RST_SQM_ADC_3;
 
-         when "rst_sq1_dac(0)      "   =>
-            o_fld_dr_ind := c_DR_D_RST_SQ1_DAC_0;
+         when "rst_sqm_dac(0)      "   =>
+            o_fld_dr_ind := c_DR_D_RST_SQM_DAC_0;
 
-         when "rst_sq1_dac(1)      "   =>
-            o_fld_dr_ind := c_DR_D_RST_SQ1_DAC_1;
+         when "rst_sqm_dac(1)      "   =>
+            o_fld_dr_ind := c_DR_D_RST_SQM_DAC_1;
 
-         when "rst_sq1_dac(2)      "   =>
-            o_fld_dr_ind := c_DR_D_RST_SQ1_DAC_2;
+         when "rst_sqm_dac(2)      "   =>
+            o_fld_dr_ind := c_DR_D_RST_SQM_DAC_2;
 
-         when "rst_sq1_dac(3)      "   =>
-            o_fld_dr_ind := c_DR_D_RST_SQ1_DAC_3;
+         when "rst_sqm_dac(3)      "   =>
+            o_fld_dr_ind := c_DR_D_RST_SQM_DAC_3;
 
-         when "rst_sq2_mux(0)      "   =>
-            o_fld_dr_ind := c_DR_D_RST_SQ2_MUX_0;
+         when "rst_sqa_mux(0)      "   =>
+            o_fld_dr_ind := c_DR_D_RST_SQA_MUX_0;
 
-         when "rst_sq2_mux(1)      "   =>
-            o_fld_dr_ind := c_DR_D_RST_SQ2_MUX_1;
+         when "rst_sqa_mux(1)      "   =>
+            o_fld_dr_ind := c_DR_D_RST_SQA_MUX_1;
 
-         when "rst_sq2_mux(2)      "   =>
-            o_fld_dr_ind := c_DR_D_RST_SQ2_MUX_2;
+         when "rst_sqa_mux(2)      "   =>
+            o_fld_dr_ind := c_DR_D_RST_SQA_MUX_2;
 
-         when "rst_sq2_mux(3)      "   =>
-            o_fld_dr_ind := c_DR_D_RST_SQ2_MUX_3;
+         when "rst_sqa_mux(3)      "   =>
+            o_fld_dr_ind := c_DR_D_RST_SQA_MUX_3;
 
          when "sync                "   =>
             o_fld_dr_ind := c_DR_SYNC;
 
-         when "sq1_adc_pwdn(0)     "   =>
-            o_fld_dr_ind := c_DR_SQ1_ADC_PWDN_0;
+         when "sqm_adc_pwdn(0)     "   =>
+            o_fld_dr_ind := c_DR_SQM_ADC_PWDN_0;
 
-         when "sq1_adc_pwdn(1)     "   =>
-            o_fld_dr_ind := c_DR_SQ1_ADC_PWDN_1;
+         when "sqm_adc_pwdn(1)     "   =>
+            o_fld_dr_ind := c_DR_SQM_ADC_PWDN_1;
 
-         when "sq1_adc_pwdn(2)     "   =>
-            o_fld_dr_ind := c_DR_SQ1_ADC_PWDN_2;
+         when "sqm_adc_pwdn(2)     "   =>
+            o_fld_dr_ind := c_DR_SQM_ADC_PWDN_2;
 
-         when "sq1_adc_pwdn(3)     "   =>
-            o_fld_dr_ind := c_DR_SQ1_ADC_PWDN_3;
+         when "sqm_adc_pwdn(3)     "   =>
+            o_fld_dr_ind := c_DR_SQM_ADC_PWDN_3;
 
-         when "sq1_dac_sleep(0)    "   =>
-            o_fld_dr_ind := c_DR_SQ1_DAC_SLEEP_0;
+         when "sqm_dac_sleep(0)    "   =>
+            o_fld_dr_ind := c_DR_SQM_DAC_SLEEP_0;
 
-         when "sq1_dac_sleep(1)    "   =>
-            o_fld_dr_ind := c_DR_SQ1_DAC_SLEEP_1;
+         when "sqm_dac_sleep(1)    "   =>
+            o_fld_dr_ind := c_DR_SQM_DAC_SLEEP_1;
 
-         when "sq1_dac_sleep(2)    "   =>
-            o_fld_dr_ind := c_DR_SQ1_DAC_SLEEP_2;
+         when "sqm_dac_sleep(2)    "   =>
+            o_fld_dr_ind := c_DR_SQM_DAC_SLEEP_2;
 
-         when "sq1_dac_sleep(3)    "   =>
-            o_fld_dr_ind := c_DR_SQ1_DAC_SLEEP_3;
+         when "sqm_dac_sleep(3)    "   =>
+            o_fld_dr_ind := c_DR_SQM_DAC_SLEEP_3;
 
-         when "clk_sq1_adc(0)      "   =>
-            o_fld_dr_ind := c_DR_CLK_SQ1_ADC_0;
+         when "clk_sqm_adc(0)      "   =>
+            o_fld_dr_ind := c_DR_CLK_SQM_ADC_0;
 
-         when "clk_sq1_adc(1)      "   =>
-            o_fld_dr_ind := c_DR_CLK_SQ1_ADC_1;
+         when "clk_sqm_adc(1)      "   =>
+            o_fld_dr_ind := c_DR_CLK_SQM_ADC_1;
 
-         when "clk_sq1_adc(2)      "   =>
-            o_fld_dr_ind := c_DR_CLK_SQ1_ADC_2;
+         when "clk_sqm_adc(2)      "   =>
+            o_fld_dr_ind := c_DR_CLK_SQM_ADC_2;
 
-         when "clk_sq1_adc(3)      "   =>
-            o_fld_dr_ind := c_DR_CLK_SQ1_ADC_3;
+         when "clk_sqm_adc(3)      "   =>
+            o_fld_dr_ind := c_DR_CLK_SQM_ADC_3;
 
-         when "clk_sq1_dac(0)      "   =>
-            o_fld_dr_ind := c_DR_CLK_SQ1_dac_0;
+         when "clk_sqm_dac(0)      "   =>
+            o_fld_dr_ind := c_DR_CLK_SQM_dac_0;
 
-         when "clk_sq1_dac(1)      "   =>
-            o_fld_dr_ind := c_DR_CLK_SQ1_dac_1;
+         when "clk_sqm_dac(1)      "   =>
+            o_fld_dr_ind := c_DR_CLK_SQM_dac_1;
 
-         when "clk_sq1_dac(2)      "   =>
-            o_fld_dr_ind := c_DR_CLK_SQ1_dac_2;
+         when "clk_sqm_dac(2)      "   =>
+            o_fld_dr_ind := c_DR_CLK_SQM_dac_2;
 
-         when "clk_sq1_dac(3)      "   =>
-            o_fld_dr_ind := c_DR_CLK_SQ1_dac_3;
+         when "clk_sqm_dac(3)      "   =>
+            o_fld_dr_ind := c_DR_CLK_SQM_dac_3;
 
          when others                   =>
             o_fld_dr_ind := c_DR_S;
@@ -313,34 +316,34 @@ constant c_PAD                : character := ' '                                
          when "clk                 "   =>
             o_fld_ce_ind := c_CE_CLK;
 
-         when "clk_sq1_adc         "   =>
+         when "clk_sqm_adc         "   =>
             o_fld_ce_ind := c_CE_CK1_ADC;
 
-         when "clk_sq1_pls_shape   "   =>
+         when "clk_sqm_pls_shape   "   =>
             o_fld_ce_ind := c_CE_CK1_PLS;
 
-         when "clk_sq1_adc(0)      "   =>
+         when "clk_sqm_adc(0)      "   =>
             o_fld_ce_ind := c_CE_C0_CK1_ADC;
 
-         when "clk_sq1_adc(1)      "   =>
+         when "clk_sqm_adc(1)      "   =>
             o_fld_ce_ind := c_CE_C1_CK1_ADC;
 
-         when "clk_sq1_adc(2)      "   =>
+         when "clk_sqm_adc(2)      "   =>
             o_fld_ce_ind := c_CE_C2_CK1_ADC;
 
-         when "clk_sq1_adc(3)      "   =>
+         when "clk_sqm_adc(3)      "   =>
             o_fld_ce_ind := c_CE_C3_CK1_ADC;
 
-         when "clk_sq1_dac(0)      "   =>
+         when "clk_sqm_dac(0)      "   =>
             o_fld_ce_ind := c_CE_C0_CK1_DAC;
 
-         when "clk_sq1_dac(1)      "   =>
+         when "clk_sqm_dac(1)      "   =>
             o_fld_ce_ind := c_CE_C1_CK1_DAC;
 
-         when "clk_sq1_dac(2)      "   =>
+         when "clk_sqm_dac(2)      "   =>
             o_fld_ce_ind := c_CE_C2_CK1_DAC;
 
-         when "clk_sq1_dac(3)      "   =>
+         when "clk_sqm_dac(3)      "   =>
             o_fld_ce_ind := c_CE_C3_CK1_DAC;
 
          when "clk_science_01      "   =>
@@ -352,29 +355,29 @@ constant c_PAD                : character := ' '                                
          when "spi_hk              "   =>
             o_fld_ce_ind := c_SPIE_HK;
 
-         when "spi_sq2_lsb(0)      "   =>
-            o_fld_ce_ind := c_SPIE_C0_SQ2_LSB;
+         when "spi_sqa_lsb(0)      "   =>
+            o_fld_ce_ind := c_SPIE_C0_SQA_LSB;
 
-         when "spi_sq2_off(0)      "   =>
-            o_fld_ce_ind := c_SPIE_C0_SQ2_OFF;
+         when "spi_sqa_off(0)      "   =>
+            o_fld_ce_ind := c_SPIE_C0_SQA_OFF;
 
-         when "spi_sq2_lsb(1)      "   =>
-            o_fld_ce_ind := c_SPIE_C1_SQ2_LSB;
+         when "spi_sqa_lsb(1)      "   =>
+            o_fld_ce_ind := c_SPIE_C1_SQA_LSB;
 
-         when "spi_sq2_off(1)      "   =>
-            o_fld_ce_ind := c_SPIE_C1_SQ2_OFF;
+         when "spi_sqa_off(1)      "   =>
+            o_fld_ce_ind := c_SPIE_C1_SQA_OFF;
 
-         when "spi_sq2_lsb(2)      "   =>
-            o_fld_ce_ind := c_SPIE_C2_SQ2_LSB;
+         when "spi_sqa_lsb(2)      "   =>
+            o_fld_ce_ind := c_SPIE_C2_SQA_LSB;
 
-         when "spi_sq2_off(2)      "   =>
-            o_fld_ce_ind := c_SPIE_C2_SQ2_OFF;
+         when "spi_sqa_off(2)      "   =>
+            o_fld_ce_ind := c_SPIE_C2_SQA_OFF;
 
-         when "spi_sq2_lsb(3)      "   =>
-            o_fld_ce_ind := c_SPIE_C3_SQ2_LSB;
+         when "spi_sqa_lsb(3)      "   =>
+            o_fld_ce_ind := c_SPIE_C3_SQA_LSB;
 
-         when "spi_sq2_off(3)      "   =>
-            o_fld_ce_ind := c_SPIE_C3_SQ2_OFF;
+         when "spi_sqa_off(3)      "   =>
+            o_fld_ce_ind := c_SPIE_C3_SQA_OFF;
 
          when "pulse_shaping       "   =>
             o_fld_ce_ind := c_E_PLS_SHP;
@@ -406,116 +409,143 @@ constant c_PAD                : character := ' '                                
 
       -- Return address value
       case v_fld_add_pad(1 to c_CMD_NAME_STR_MAX_S) is
-         when "TM_MODE                       "  =>
-            o_fld_add_val:= c_EP_CMD_ADD_TM_MODE;
+         when "DATA_ACQ_MODE                 "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_AQMDE;
 
-         when "SQ1_FB_MODE                   "  =>
-            o_fld_add_val:= c_EP_CMD_ADD_SQ1FBMD;
+         when "SQ_MUX_FB_ON_OFF              "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_SMFMD;
 
-         when "SQ2_FB_MODE                   "  =>
-            o_fld_add_val:= c_EP_CMD_ADD_SQ2FBMD;
+         when "SQ_AMP_OFFSET_MODE            "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_SAOFM;
 
          when "Status                        "  =>
             o_fld_add_val:= c_EP_CMD_ADD_STATUS;
 
-         when "Version                       "  =>
-            o_fld_add_val:= c_EP_CMD_ADD_VERSION;
+         when "Fw_Version                    "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_FW_VER;
 
-         when "C0_SQ1_FB0                    "  =>
-            o_fld_add_val:= c_EP_CMD_ADD_S1FB0(0);
+         when "Hw_Version                    "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_HW_VER;
 
-         when "C0_SQ1_FB_MODE                "  =>
-            o_fld_add_val:= c_EP_CMD_ADD_S1FBM(0);
+         when "C0_MUX_SQ_FB0                 "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_SMFB0(0);
 
-         when "C0_SQ2_PXL_LOCKPOINT          "  =>
-            o_fld_add_val:= c_EP_CMD_ADD_S2LKP(0);
+         when "C0_MUX_SQ_FB_MODE             "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_SMFBM(0);
 
-         when "C0_SQ2_PXL_LOCKPOINT_LSB      "  =>
-            o_fld_add_val:= c_EP_CMD_ADD_S2LSB(0);
+         when "C0_AMP_SQ_OFFSET_FINE         "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_SAOFF(0);
 
-         when "C0_SQ2_PXL_LOCKPOINT_OFFSET   "  =>
-            o_fld_add_val:= c_EP_CMD_ADD_S2OFF(0);
+         when "C0_AMP_SQ_OFFSET_COARSE       "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_SAOFC(0);
 
-         when "C0_FB_SQ1_DELAY               "  =>
-            o_fld_add_val:= c_EP_CMD_ADD_S1FBD(0);
+         when "C0_AMP_SQ_OFFSET_LSB          "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_SAOFL(0);
 
-         when "C0_FB_SQ2_DELAY               "  =>
-            o_fld_add_val:= c_EP_CMD_ADD_S2FBD(0);
+         when "C0_MUX_SQ_FB_DELAY            "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_SMFBD(0);
+
+         when "C0_AMP_SQ_OFFSET_DAC_DELAY    "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_SAODD(0);
+
+         when "C0_AMP_SQ_OFFSET_MUX_DELAY    "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_SAOMD(0);
 
          when "C0_FB1_PULSE_SHAPING          "  =>
             o_fld_add_val:= c_EP_CMD_ADD_PLSSH(0);
 
-         when "C1_SQ1_FB0                    "  =>
-            o_fld_add_val:= c_EP_CMD_ADD_S1FB0(1);
+         when "C0_FB1_PULSE_SHAPING_SELECTION"  =>
+            o_fld_add_val:= c_EP_CMD_ADD_PLSSS(0);
 
-         when "C1_SQ1_FB_MODE                "  =>
-            o_fld_add_val:= c_EP_CMD_ADD_S1FBM(1);
+         when "C1_MUX_SQ_FB0                 "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_SMFB0(1);
 
-         when "C1_SQ2_PXL_LOCKPOINT          "  =>
-            o_fld_add_val:= c_EP_CMD_ADD_S2LKP(1);
+         when "C1_MUX_SQ_FB_MODE             "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_SMFBM(1);
 
-         when "C1_SQ2_PXL_LOCKPOINT_LSB      "  =>
-            o_fld_add_val:= c_EP_CMD_ADD_S2LSB(1);
+         when "C1_AMP_SQ_OFFSET_FINE         "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_SAOFF(1);
 
-         when "C1_SQ2_PXL_LOCKPOINT_OFFSET   "  =>
-            o_fld_add_val:= c_EP_CMD_ADD_S2OFF(1);
+         when "C1_AMP_SQ_OFFSET_COARSE       "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_SAOFC(1);
 
-         when "C1_FB_SQ1_DELAY               "  =>
-            o_fld_add_val:= c_EP_CMD_ADD_S1FBD(1);
+         when "C1_AMP_SQ_OFFSET_LSB          "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_SAOFL(1);
 
-         when "C1_FB_SQ2_DELAY               "  =>
-            o_fld_add_val:= c_EP_CMD_ADD_S2FBD(1);
+         when "C1_MUX_SQ_FB_DELAY            "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_SMFBD(1);
+
+         when "C1_AMP_SQ_OFFSET_DAC_DELAY    "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_SAODD(1);
+
+         when "C1_AMP_SQ_OFFSET_MUX_DELAY    "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_SAOMD(1);
 
          when "C1_FB1_PULSE_SHAPING          "  =>
             o_fld_add_val:= c_EP_CMD_ADD_PLSSH(1);
 
-         when "C2_SQ1_FB0                    "  =>
-            o_fld_add_val:= c_EP_CMD_ADD_S1FB0(2);
+         when "C1_FB1_PULSE_SHAPING_SELECTION"  =>
+            o_fld_add_val:= c_EP_CMD_ADD_PLSSS(1);
 
-         when "C2_SQ1_FB_MODE                "  =>
-            o_fld_add_val:= c_EP_CMD_ADD_S1FBM(2);
+         when "C2_MUX_SQ_FB0                 "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_SMFB0(2);
 
-         when "C2_SQ2_PXL_LOCKPOINT          "  =>
-            o_fld_add_val:= c_EP_CMD_ADD_S2LKP(2);
+         when "C2_MUX_SQ_FB_MODE             "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_SMFBM(2);
 
-         when "C2_SQ2_PXL_LOCKPOINT_LSB      "  =>
-            o_fld_add_val:= c_EP_CMD_ADD_S2LSB(2);
+         when "C2_AMP_SQ_OFFSET_FINE         "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_SAOFF(2);
 
-         when "C2_SQ2_PXL_LOCKPOINT_OFFSET   "  =>
-            o_fld_add_val:= c_EP_CMD_ADD_S2OFF(2);
+         when "C2_AMP_SQ_OFFSET_COARSE       "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_SAOFC(2);
 
-         when "C2_FB_SQ1_DELAY               "  =>
-            o_fld_add_val:= c_EP_CMD_ADD_S1FBD(2);
+         when "C2_AMP_SQ_OFFSET_LSB          "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_SAOFL(2);
 
-         when "C2_FB_SQ2_DELAY               "  =>
-            o_fld_add_val:= c_EP_CMD_ADD_S2FBD(2);
+         when "C2_MUX_SQ_FB_DELAY            "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_SMFBD(2);
+
+         when "C2_AMP_SQ_OFFSET_DAC_DELAY    "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_SAODD(2);
+
+         when "C2_AMP_SQ_OFFSET_MUX_DELAY    "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_SAOMD(2);
 
          when "C2_FB1_PULSE_SHAPING          "  =>
             o_fld_add_val:= c_EP_CMD_ADD_PLSSH(2);
 
-         when "C3_SQ1_FB0                    "  =>
-            o_fld_add_val:= c_EP_CMD_ADD_S1FB0(3);
+         when "C2_FB1_PULSE_SHAPING_SELECTION"  =>
+            o_fld_add_val:= c_EP_CMD_ADD_PLSSS(2);
 
-         when "C3_SQ1_FB_MODE                "  =>
-            o_fld_add_val:= c_EP_CMD_ADD_S1FBM(3);
+         when "C3_MUX_SQ_FB0                 "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_SMFB0(3);
 
-         when "C3_SQ2_PXL_LOCKPOINT          "  =>
-            o_fld_add_val:= c_EP_CMD_ADD_S2LKP(3);
+         when "C3_MUX_SQ_FB_MODE             "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_SMFBM(3);
 
-         when "C3_SQ2_PXL_LOCKPOINT_LSB      "  =>
-            o_fld_add_val:= c_EP_CMD_ADD_S2LSB(3);
+         when "C3_AMP_SQ_OFFSET_FINE         "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_SAOFF(3);
 
-         when "C3_SQ2_PXL_LOCKPOINT_OFFSET   "  =>
-            o_fld_add_val:= c_EP_CMD_ADD_S2OFF(3);
+         when "C3_AMP_SQ_OFFSET_COARSE       "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_SAOFC(3);
 
-         when "C3_FB_SQ1_DELAY               "  =>
-            o_fld_add_val:= c_EP_CMD_ADD_S1FBD(3);
+         when "C3_AMP_SQ_OFFSET_LSB          "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_SAOFL(3);
 
-         when "C3_FB_SQ2_DELAY               "  =>
-            o_fld_add_val:= c_EP_CMD_ADD_S2FBD(3);
+         when "C3_MUX_SQ_FB_DELAY            "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_SMFBD(3);
+
+         when "C3_AMP_SQ_OFFSET_DAC_DELAY    "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_SAODD(3);
+
+         when "C3_AMP_SQ_OFFSET_MUX_DELAY    "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_SAOMD(3);
 
          when "C3_FB1_PULSE_SHAPING          "  =>
             o_fld_add_val:= c_EP_CMD_ADD_PLSSH(3);
+
+         when "C3_FB1_PULSE_SHAPING_SELECTION"  =>
+            o_fld_add_val:= c_EP_CMD_ADD_PLSSS(3);
 
          when others                            =>
             o_fld_add_val:= c_RET_UKWN;
@@ -685,9 +715,7 @@ constant c_PAD                : character := ' '                                
       if v_fld_data_val /= c_RET_UKWN then
 
          -- Case Version
-         o_fld_spi_cmd(c_EP_SPI_WD_S-1 downto c_EP_SPI_WD_S-c_FW_VERSION_S):= v_fld_data_val(c_FW_VERSION_S-1 downto 0);
-         hrfield(v_cmd_field, i_mess_header & "[data]", v_fld_data_val(c_EP_SPI_WD_S/2-1 downto 0));
-         o_fld_spi_cmd(c_EP_SPI_WD_S-c_FW_VERSION_S-1 downto 0):= v_fld_data_val(c_EP_SPI_WD_S-c_FW_VERSION_S-1 downto 0);
+         o_fld_spi_cmd(c_EP_SPI_WD_S-1 downto 0):= v_fld_data_val;
 
       else
 

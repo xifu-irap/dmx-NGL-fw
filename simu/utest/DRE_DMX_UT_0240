@@ -1,9 +1,9 @@
 COMM **********************************************************************************************
-COMM   Test: SQUID2 Offset delay
+COMM   Test: AMP SQUID offset DAC delay
 COMM **********************************************************************************************
 COMM
 COMM ==============================================================================================
-COMM   Switch ADC voltage on SQUID2 DAC
+COMM   Switch ADC voltage on AMP SQUID
 COMM ----------------------------------------------------------------------------------------------
 WDIS sw_adc_vin(0) 1
 COMM
@@ -24,33 +24,33 @@ COMM ---------------------------------------------------------------------------
 WUDI rst 0
 COMM
 COMM ==============================================================================================
-COMM   Configure SQUID2 lockpoint Offset
+COMM   Configure AMP SQUID lockpoint Offset
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-C0_SQ2_PXL_LOCKPOINT_OFFSET-0FFF W
-WCMD W-C1_SQ2_PXL_LOCKPOINT_OFFSET-0FFF W
-WCMD W-C2_SQ2_PXL_LOCKPOINT_OFFSET-0FFF W
-WCMD W-C3_SQ2_PXL_LOCKPOINT_OFFSET-0FFF W
+WCMD W-C0_AMP_SQ_OFFSET_COARSE-0FFF W
+WCMD W-C1_AMP_SQ_OFFSET_COARSE-0FFF W
+WCMD W-C2_AMP_SQ_OFFSET_COARSE-0FFF W
+WCMD W-C3_AMP_SQ_OFFSET_COARSE-0FFF W
 COMM
 COMM ==============================================================================================
-COMM   Send a SQUID2 DAC delay on each channels
+COMM   Send a AMP SQUID delay on each channels
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-C0_FB_SQ2_DELAY-0000 W
-WCMD W-C1_FB_SQ2_DELAY-0800 W
-WCMD W-C2_FB_SQ2_DELAY-1000 W
-WCMD W-C3_FB_SQ2_DELAY-1800 W
+WCMD W-C0_AMP_SQ_OFFSET_DAC_DELAY-0000 W
+WCMD W-C1_AMP_SQ_OFFSET_DAC_DELAY-0040 W
+WCMD W-C2_AMP_SQ_OFFSET_DAC_DELAY-0080 W
+WCMD W-C3_AMP_SQ_OFFSET_DAC_DELAY-00C0 W
 COMM
 COMM ==============================================================================================
-COMM   Send command SQ2_FB_MODE to open loop
+COMM   Send command SQ_AMP_OFFSET_MODE to open loop
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-SQ2_FB_MODE-1111 W
+WCMD W-SQ_AMP_OFFSET_MODE-1111 W
 WUDI sync 0
 WUDI sync 1
 WUDI sync 0
 WUDI sync 1
 COMM
 COMM ==============================================================================================
-COMM   Check SQUID2 offset delays
-COMM   Formula: (c_PIXEL_DAC_NB_CYC * c_MUX_FACT - CX_FB_SQ2_DELAY) * c_CLK_ADC_PER_DEF
+COMM   Check AMP SQUID offset delays
+COMM   Formula: (c_PIXEL_DAC_NB_CYC * c_MUX_FACT - CX_AMP_SQ_OFFSET_DAC_DELAY) * c_CLK_ADC_PER_DEF
 COMM ----------------------------------------------------------------------------------------------
 CTDC 0 == 5442.72 ns
 CTDC 1 == 4930.464 ns
@@ -58,17 +58,17 @@ CTDC 2 == 4418.208 ns
 CTDC 3 == 3905.952 ns
 COMM
 COMM ==============================================================================================
-COMM   Send command SQ2_FB_MODE to off
+COMM   Send command SQ_AMP_OFFSET_MODE to off
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-SQ2_FB_MODE-0000 W
+WCMD W-SQ_AMP_OFFSET_MODE-0000 W
 WUDI sync 0
 WUDI sync 1
 WUDI sync 0
 WUDI sync 1
 COMM
 COMM ==============================================================================================
-COMM   Check SQUID2 offset delays
-COMM   Formula: (c_PIXEL_DAC_NB_CYC * c_MUX_FACT - CX_FB_SQ2_DELAY) * c_CLK_ADC_PER_DEF
+COMM   Check AMP SQUID offset delays
+COMM   Formula: (c_PIXEL_DAC_NB_CYC * c_MUX_FACT - CX_AMP_SQ_OFFSET_DAC_DELAY) * c_CLK_ADC_PER_DEF
 COMM ----------------------------------------------------------------------------------------------
 CTDC 0 == 5442.72 ns
 CTDC 1 == 4930.464 ns
@@ -76,25 +76,25 @@ CTDC 2 == 4418.208 ns
 CTDC 3 == 3905.952 ns
 COMM
 COMM ==============================================================================================
-COMM   Send a SQUID2 DAC delay on each channels
+COMM   Send a AMP SQUID delay on each channels
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-C0_FB_SQ2_DELAY-2000 W
-WCMD W-C1_FB_SQ2_DELAY-2800 W
-WCMD W-C2_FB_SQ2_DELAY-3000 W
-WCMD W-C3_FB_SQ2_DELAY-3800 W
+WCMD W-C0_AMP_SQ_OFFSET_DAC_DELAY-0100 W
+WCMD W-C1_AMP_SQ_OFFSET_DAC_DELAY-0140 W
+WCMD W-C2_AMP_SQ_OFFSET_DAC_DELAY-0180 W
+WCMD W-C3_AMP_SQ_OFFSET_DAC_DELAY-01C0 W
 COMM
 COMM ==============================================================================================
-COMM   Send command SQ2_FB_MODE to open loop
+COMM   Send command SQ_AMP_OFFSET_MODE to open loop
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-SQ2_FB_MODE-1111 W
+WCMD W-SQ_AMP_OFFSET_MODE-1111 W
 WUDI sync 0
 WUDI sync 1
 WUDI sync 0
 WUDI sync 1
 COMM
 COMM ==============================================================================================
-COMM   Check SQUID2 offset delays
-COMM   Formula: (c_PIXEL_DAC_NB_CYC * c_MUX_FACT - CX_FB_SQ2_DELAY) * c_CLK_ADC_PER_DEF
+COMM   Check AMP SQUID offset delays
+COMM   Formula: (c_PIXEL_DAC_NB_CYC * c_MUX_FACT - CX_AMP_SQ_OFFSET_DAC_DELAY) * c_CLK_ADC_PER_DEF
 COMM ----------------------------------------------------------------------------------------------
 CTDC 0 == 3393.696 ns
 CTDC 1 == 2881.44 ns
@@ -102,17 +102,17 @@ CTDC 2 == 2369.184 ns
 CTDC 3 == 1856.928 ns
 COMM
 COMM ==============================================================================================
-COMM   Send command SQ2_FB_MODE to off
+COMM   Send command SQ_AMP_OFFSET_MODE to off
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-SQ2_FB_MODE-0000 W
+WCMD W-SQ_AMP_OFFSET_MODE-0000 W
 WUDI sync 0
 WUDI sync 1
 WUDI sync 0
 WUDI sync 1
 COMM
 COMM ==============================================================================================
-COMM   Check SQUID2 offset delays
-COMM   Formula: (c_PIXEL_DAC_NB_CYC * c_MUX_FACT - CX_FB_SQ2_DELAY) * c_CLK_ADC_PER_DEF
+COMM   Check AMP SQUID offset delays
+COMM   Formula: (c_PIXEL_DAC_NB_CYC * c_MUX_FACT - CX_AMP_SQ_OFFSET_DAC_DELAY) * c_CLK_ADC_PER_DEF
 COMM ----------------------------------------------------------------------------------------------
 CTDC 0 == 3393.696 ns
 CTDC 1 == 2881.44 ns
@@ -120,25 +120,25 @@ CTDC 2 == 2369.184 ns
 CTDC 3 == 1856.928 ns
 COMM
 COMM ==============================================================================================
-COMM   Send a SQUID2 DAC delay on each channels
+COMM   Send a AMP SQUID delay on each channels
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-C0_FB_SQ2_DELAY-4000 W
-WCMD W-C1_FB_SQ2_DELAY-4800 W
-WCMD W-C2_FB_SQ2_DELAY-5000 W
-WCMD W-C3_FB_SQ2_DELAY-5800 W
+WCMD W-C0_AMP_SQ_OFFSET_DAC_DELAY-0200 W
+WCMD W-C1_AMP_SQ_OFFSET_DAC_DELAY-0240 W
+WCMD W-C2_AMP_SQ_OFFSET_DAC_DELAY-0280 W
+WCMD W-C3_AMP_SQ_OFFSET_DAC_DELAY-02C0 W
 COMM
 COMM ==============================================================================================
-COMM   Send command SQ2_FB_MODE to open loop
+COMM   Send command SQ_AMP_OFFSET_MODE to open loop
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-SQ2_FB_MODE-1111 W
+WCMD W-SQ_AMP_OFFSET_MODE-1111 W
 WUDI sync 0
 WUDI sync 1
 WUDI sync 0
 WUDI sync 1
 COMM
 COMM ==============================================================================================
-COMM   Check SQUID2 offset delays
-COMM   Formula: (c_PIXEL_DAC_NB_CYC * c_MUX_FACT - CX_FB_SQ2_DELAY) * c_CLK_ADC_PER_DEF
+COMM   Check AMP SQUID offset delays
+COMM   Formula: (c_PIXEL_DAC_NB_CYC * c_MUX_FACT - CX_AMP_SQ_OFFSET_DAC_DELAY) * c_CLK_ADC_PER_DEF
 COMM ----------------------------------------------------------------------------------------------
 CTDC 0 == 1344.672 ns
 CTDC 1 == 832.416 ns
@@ -148,17 +148,17 @@ WUDI sync 1
 CTDC 3 == 5250.624 ns
 COMM
 COMM ==============================================================================================
-COMM   Send command SQ2_FB_MODE to off
+COMM   Send command SQ_AMP_OFFSET_MODE to off
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-SQ2_FB_MODE-0000 W
+WCMD W-SQ_AMP_OFFSET_MODE-0000 W
 WUDI sync 0
 WUDI sync 1
 WUDI sync 0
 WUDI sync 1
 COMM
 COMM ==============================================================================================
-COMM   Check SQUID2 offset delays
-COMM   Formula: (c_PIXEL_DAC_NB_CYC * c_MUX_FACT - CX_FB_SQ2_DELAY) * c_CLK_ADC_PER_DEF
+COMM   Check AMP SQUID offset delays
+COMM   Formula: (c_PIXEL_DAC_NB_CYC * c_MUX_FACT - CX_AMP_SQ_OFFSET_DAC_DELAY) * c_CLK_ADC_PER_DEF
 COMM ----------------------------------------------------------------------------------------------
 CTDC 0 == 1344.672 ns
 CTDC 1 == 832.416 ns
@@ -168,17 +168,17 @@ WUDI sync 1
 CTDC 3 == 5250.624 ns
 COMM
 COMM ==============================================================================================
-COMM   Send a SQUID2 DAC delay on each channels
+COMM   Send a AMP SQUID delay on each channels
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-C0_FB_SQ2_DELAY-6000 W
-WCMD W-C1_FB_SQ2_DELAY-6800 W
-WCMD W-C2_FB_SQ2_DELAY-7000 W
-WCMD W-C3_FB_SQ2_DELAY-7FE0 W
+WCMD W-C0_AMP_SQ_OFFSET_DAC_DELAY-0300 W
+WCMD W-C1_AMP_SQ_OFFSET_DAC_DELAY-0340 W
+WCMD W-C2_AMP_SQ_OFFSET_DAC_DELAY-0380 W
+WCMD W-C3_AMP_SQ_OFFSET_DAC_DELAY-03FF W
 COMM
 COMM ==============================================================================================
-COMM   Send command SQ2_FB_MODE to open loop
+COMM   Send command SQ_AMP_OFFSET_MODE to open loop
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-SQ2_FB_MODE-1111 W
+WCMD W-SQ_AMP_OFFSET_MODE-1111 W
 WUDI sync 0
 WUDI sync 1
 WUDI sync 0
@@ -187,8 +187,8 @@ WUDI sync 0
 WUDI sync 1
 COMM
 COMM ==============================================================================================
-COMM   Check SQUID2 offset delays
-COMM   Formula: (c_PIXEL_DAC_NB_CYC * c_MUX_FACT - CX_FB_SQ2_DELAY) * c_CLK_ADC_PER_DEF
+COMM   Check AMP SQUID offset delays
+COMM   Formula: (c_PIXEL_DAC_NB_CYC * c_MUX_FACT - CX_AMP_SQ_OFFSET_DAC_DELAY) * c_CLK_ADC_PER_DEF
 COMM ----------------------------------------------------------------------------------------------
 CTDC 0 == 4738.368 ns
 CTDC 1 == 4226.112 ns
@@ -196,9 +196,9 @@ CTDC 2 == 3713.856 ns
 CTDC 3 == 2697.348 ns
 COMM
 COMM ==============================================================================================
-COMM   Send command SQ2_FB_MODE to off
+COMM   Send command SQ_AMP_OFFSET_MODE to off
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-SQ2_FB_MODE-0000 W
+WCMD W-SQ_AMP_OFFSET_MODE-0000 W
 WUDI sync 0
 WUDI sync 1
 WUDI sync 0
@@ -207,8 +207,8 @@ WUDI sync 0
 WUDI sync 1
 COMM
 COMM ==============================================================================================
-COMM   Check SQUID2 offset delays
-COMM   Formula: (c_PIXEL_DAC_NB_CYC * c_MUX_FACT - CX_FB_SQ2_DELAY) * c_CLK_ADC_PER_DEF
+COMM   Check AMP SQUID offset delays
+COMM   Formula: (c_PIXEL_DAC_NB_CYC * c_MUX_FACT - CX_AMP_SQ_OFFSET_DAC_DELAY) * c_CLK_ADC_PER_DEF
 COMM ----------------------------------------------------------------------------------------------
 CTDC 0 == 4738.368 ns
 CTDC 1 == 4226.112 ns

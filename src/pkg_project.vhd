@@ -80,20 +80,20 @@ constant c_CLK_ADC_DEL_STEP   : integer   := div_floor(15*10**5/(c_CLK_ADC_FREQ/
    --    @Req : DRE-DMX-FW-REQ-0560
    -- ------------------------------------------------------------------------------------------------------
 constant c_BRD_REF_S          : integer   := 5                                                              ; --! Board reference size bus
-constant c_BRD_MODEL_S        : integer   := 2                                                              ; --! Board model size bus
+constant c_BRD_MODEL_S        : integer   := 3                                                              ; --! Board model size bus
 
-constant c_SQ1_ADC_DATA_S     : integer   := 14                                                             ; --! SQUID1 ADC data size bus
-constant c_SQ1_DAC_DATA_S     : integer   := 14                                                             ; --! SQUID1 DAC data size bus
+constant c_SQM_ADC_DATA_S     : integer   := 14                                                             ; --! SQUID MUX ADC data size bus
+constant c_SQM_DAC_DATA_S     : integer   := 14                                                             ; --! SQUID MUX DAC data size bus
 
-constant c_SQ2_DAC_DATA_S     : integer   := 12                                                             ; --! SQUID2 DAC data size bus
-constant c_SQ2_DAC_MODE_S     : integer   := 2                                                              ; --! SQUID2 DAC mode size bus
-constant c_SQ2_SPI_CPOL       : std_logic := '0'                                                            ; --! SQUID2 DAC SPI: Clock polarity
-constant c_SQ2_SPI_CPHA       : std_logic := '1'                                                            ; --! SQUID2 DAC SPI: Clock phase
-constant c_SQ2_SPI_SER_WD_S   : integer   := c_SQ2_DAC_DATA_S + c_SQ2_DAC_MODE_S + 2                        ; --! SQUID2 DAC SPI: Data bus size
-constant c_SQ2_SPI_SCLK_H     : integer   := div_ceil(c_CLK_ADC_FREQ * 13, 1000000000)                      ; --! SQUID2 DAC SPI: Number of clock period for elaborating SPI Serial Clock high level
-constant c_SQ2_SPI_SCLK_L     : integer   := maximum(c_SQ2_SPI_SCLK_H,
-                                                     div_ceil(c_CLK_ADC_FREQ, 30000000) - c_SQ2_SPI_SCLK_H) ; --! SQUID2 DAC SPI: Number of clock period for elaborating SPI Serial Clock low level
-constant c_SQ2_DAC_MUX_S      : integer   := 3                                                              ; --! SQUID2 DAC Multiplexer size
+constant c_SQA_DAC_DATA_S     : integer   := 12                                                             ; --! SQUID AMP DAC data size bus
+constant c_SQA_DAC_MODE_S     : integer   := 2                                                              ; --! SQUID AMP DAC mode size bus
+constant c_SQA_SPI_CPOL       : std_logic := '0'                                                            ; --! SQUID AMP DAC SPI: Clock polarity
+constant c_SQA_SPI_CPHA       : std_logic := '1'                                                            ; --! SQUID AMP DAC SPI: Clock phase
+constant c_SQA_SPI_SER_WD_S   : integer   := c_SQA_DAC_DATA_S + c_SQA_DAC_MODE_S + 2                        ; --! SQUID AMP DAC SPI: Data bus size
+constant c_SQA_SPI_SCLK_H     : integer   := div_ceil(c_CLK_ADC_FREQ * 13, 1000000000)                      ; --! SQUID AMP DAC SPI: Number of clock period for elaborating SPI Serial Clock high level
+constant c_SQA_SPI_SCLK_L     : integer   := maximum(c_SQA_SPI_SCLK_H,
+                                                     div_ceil(c_CLK_ADC_FREQ, 30000000) - c_SQA_SPI_SCLK_H) ; --! SQUID AMP DAC SPI: Number of clock period for elaborating SPI Serial Clock low level
+constant c_SQA_DAC_MUX_S      : integer   := 3                                                              ; --! SQUID AMP DAC Multiplexer size
 
 constant c_SC_DATA_SER_W_S    : integer   := 8                                                              ; --! Science data serial word size
 constant c_SC_DATA_SER_NB     : integer   := 2                                                              ; --! Science data serial link number by DEMUX column
@@ -118,12 +118,12 @@ constant c_EP_SPI_RX_WD_NB_S  : integer   := 2                                  
 constant c_I_SPI_DATA_DEF     : std_logic := '0'                                                            ; --! SPI data input default value at reset
 constant c_I_SPI_SCLK_DEF     : std_logic := c_EP_SPI_CPOL                                                  ; --! SPI Serial Clock input default value at reset
 constant c_I_SPI_CS_N_DEF     : std_logic := '1'                                                            ; --! SPI Chip Select input default value at reset
-constant c_I_SQ1_ADC_DATA_DEF : std_logic_vector(c_SQ1_ADC_DATA_S-1 downto 0):= (others =>'0')              ; --! SQUID1 ADC data input default value at reset
-constant c_I_SQ1_ADC_OOR_DEF  : std_logic := '0'                                                            ; --! SQUID1 ADC out of range input default value at reset
+constant c_I_SQM_ADC_DATA_DEF : std_logic_vector(c_SQM_ADC_DATA_S-1 downto 0):= (others =>'0')              ; --! SQUID MUX ADC data input default value at reset
+constant c_I_SQM_ADC_OOR_DEF  : std_logic := '0'                                                            ; --! SQUID MUX ADC out of range input default value at reset
 constant c_I_SYNC_DEF         : std_logic := '1'                                                            ; --! Pixel sequence synchronization default value at reset
 
-constant c_CMD_CK_SQ1_ADC_DEF : std_logic := '0'                                                            ; --! SQUID1 ADC clock switch command default value at reset
-constant c_CMD_CK_SQ1_DAC_DEF : std_logic := '0'                                                            ; --! SQUID1 DAC clock switch command default value at reset
+constant c_CMD_CK_SQM_ADC_DEF : std_logic := '0'                                                            ; --! SQUID MUX ADC clock switch command default value at reset
+constant c_CMD_CK_SQM_DAC_DEF : std_logic := '0'                                                            ; --! SQUID MUX DAC clock switch command default value at reset
 
 constant c_MEM_STR_ADD_PP_DEF : std_logic := '0'                                                            ; --! Memory storage parameters, ping-pong buffer bit for address default value at reset
 
@@ -136,9 +136,9 @@ constant c_MUX_FACT           : integer   := 34                                 
 constant c_NB_COL             : integer   := 4                                                              ; --! DEMUX: column number
 constant c_DMP_SEQ_ACQ_NB     : integer   := 2                                                              ; --! DEMUX: sequence acquisition number for the ADC data dump mode
 
-constant c_SQ1_DATA_ERR_S     : integer   := 18                                                             ; --! SQUID1 Data error bus size
-constant c_SQ1_DATA_FBK_S     : integer   := 16                                                             ; --! SQUID1 Data feedback bus size (<= c_MULT_ALU_PORTB_S-1)
-constant c_SQ1_PLS_SHP_A_EXP  : integer   := c_EP_SPI_WD_S                                                  ; --! Pulse shaping: Filter exponent parameter (<=c_MULT_ALU_PORTC_S-c_SQ1_PLS_SHP_X_K_S-1)
+constant c_SQM_DATA_ERR_S     : integer   := 18                                                             ; --! SQUID MUX Data error bus size
+constant c_SQM_DATA_FBK_S     : integer   := 16                                                             ; --! SQUID MUX Data feedback bus size (<= c_MULT_ALU_PORTB_S-1)
+constant c_SQM_PLS_SHP_A_EXP  : integer   := c_EP_SPI_WD_S                                                  ; --! Pulse shaping: Filter exponent parameter (<=c_MULT_ALU_PORTC_S-c_SQM_PLS_SHP_X_K_S-1)
 
 constant c_PIX_POS_SW_ON      : integer   := 2                                                              ; --! Pixel position for command switch clocks on
 constant c_PIX_POS_SW_ADC_OFF : integer   := c_MUX_FACT - 1                                                 ; --! Pixel position for command ADC switch clocks off
@@ -146,7 +146,7 @@ constant c_PIX_POS_SW_ADC_OFF : integer   := c_MUX_FACT - 1                     
 constant c_MUX_FACT_S         : integer   := log2_ceil(c_MUX_FACT)                                          ; --! DEMUX: multiplexing factor bus size
 
    -- ------------------------------------------------------------------------------------------------------
-   --    SQUID1 ADC parameters
+   --    SQUID MUX ADC parameters
    --    @Req : DRE-DMX-FW-REQ-0130
    -- ------------------------------------------------------------------------------------------------------
 constant c_PIXEL_ADC_NB_CYC   : integer := 20                                                               ; --! ADC clock period number allocated to one pixel acquisition
@@ -159,12 +159,12 @@ constant c_ADC_DATA_RDY_NPER  : integer := c_ADC_DATA_NPER + c_FF_RSYNC_NB - 1  
 constant c_MEM_DUMP_ADD_S     : integer := c_RAM_ECC_ADD_S                                                  ; --! Memory Dump: address bus size (<= c_RAM_ECC_ADD_S)
 
    -- ------------------------------------------------------------------------------------------------------
-   --    SQUID1 DAC parameters
+   --    SQUID MUX DAC parameters
    --    @Req : DRE-DMX-FW-REQ-0230
    --    @Req : DRE-DMX-FW-REQ-0275
    -- ------------------------------------------------------------------------------------------------------
 constant c_PIXEL_DAC_NB_CYC   : integer := 20                                                               ; --! DAC clock period number allocated to one pixel acquisition
-constant c_DAC_MDL_POINT      : integer := 2**(c_SQ1_DATA_FBK_S-1)                                          ; --! DAC middle point
+constant c_DAC_MDL_POINT      : integer := 2**(c_SQM_DATA_FBK_S-1)                                          ; --! DAC middle point
 constant c_DAC_PLS_SHP_SET_NB : integer := 4                                                                ; --! DAC pulse shaping set number
 
 constant c_DAC_SYNC_RDY_NPER  : integer := (c_FF_RSYNC_NB + 1)*(c_CLK_ADC_DAC_MULT/c_CLK_MULT)
@@ -177,13 +177,13 @@ constant c_DAC_SYNC_DATA_NPER : integer := c_DAC_SYNC_RDY_NPER + c_DAC_SYNC_RE_N
                                            c_DAC_SHP_PRC_NPER  + c_DAC_DATA_NPER                            ; --! DAC clock period number for stalling analog output to pixel sequence synchronization
 
    -- ------------------------------------------------------------------------------------------------------
-   --    SQUID2 parameters
+   --    SQUID AMP parameters
    -- ------------------------------------------------------------------------------------------------------
-constant c_SQ2_DAC_MDL_POINT  : integer := 2**(c_SQ2_DAC_DATA_S-1)                                          ; --! SQUID2 DAC middle point
-constant c_S2M_SYNC_DATA_NPER : integer := c_DAC_SYNC_RDY_NPER + c_DAC_SYNC_RE_NPER                         ; --! MUX clock period number for stalling analog output to pixel sequence synchronization
+constant c_SQA_DAC_MDL_POINT  : integer := 2**(c_SQA_DAC_DATA_S-1)                                          ; --! SQUID AMP DAC middle point
+constant c_SAM_SYNC_DATA_NPER : integer := c_DAC_SYNC_RDY_NPER + c_DAC_SYNC_RE_NPER                         ; --! MUX clock period number for stalling analog output to pixel sequence synchronization
 
-constant c_S2D_PRC_NPER       : integer := (c_SQ2_SPI_SCLK_L + c_SQ2_SPI_SCLK_H) *  c_SQ2_SPI_SER_WD_S + 3  ; --! DAC clock period number for sending data to DAC
-constant c_S2D_SYNC_DATA_NPER : integer := c_DAC_SYNC_RDY_NPER + c_DAC_SYNC_RE_NPER + c_S2D_PRC_NPER        ; --! DAC clock period number for stalling sending data end to pixel sequence synchronization
+constant c_SAD_PRC_NPER       : integer := (c_SQA_SPI_SCLK_L + c_SQA_SPI_SCLK_H) *  c_SQA_SPI_SER_WD_S + 3  ; --! DAC clock period number for sending data to DAC
+constant c_SAD_SYNC_DATA_NPER : integer := c_DAC_SYNC_RDY_NPER + c_DAC_SYNC_RE_NPER + c_SAD_PRC_NPER        ; --! DAC clock period number for stalling sending data end to pixel sequence synchronization
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Science Data Transmit parameters
@@ -191,11 +191,11 @@ constant c_S2D_SYNC_DATA_NPER : integer := c_DAC_SYNC_RDY_NPER + c_DAC_SYNC_RE_N
    -- ------------------------------------------------------------------------------------------------------
 constant c_SC_CTRL_DTA_W      : std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0) := "11000000"                ; --! Science data, control word value: Data Word
 constant c_SC_CTRL_SC_DTA     : std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0) := "11000010"                ; --! Science data, control word value: Science data packet first word
-constant c_SC_CTRL_ADC_DMP    : std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0) := "11001000"                ; --! Science data, control word value: SQUID1 ADC dump packet first word
+constant c_SC_CTRL_ADC_DMP    : std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0) := "11001000"                ; --! Science data, control word value: SQUID MUX ADC dump packet first word
 constant c_SC_CTRL_TST_PAT    : std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0) := "11100000"                ; --! Science data, control word value: Test pattern packet first word
 constant c_SC_CTRL_EOD        : std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0) := "11101010"                ; --! Science data, control word value: End of Data
 constant c_SC_CTRL_IDLE       : std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0) := "00000000"                ; --! Science data, control word value: Idle
 
-constant c_SC_DATA_IDLE_VAL   : std_logic_vector(c_SC_DATA_SER_W_S*c_SC_DATA_SER_NB-1 downto 0) := x"0000"  ; --! Science data: word sent when telemetry mode on one column is in Idle
+constant c_SC_DATA_IDLE_VAL   : std_logic_vector(c_SC_DATA_SER_W_S*c_SC_DATA_SER_NB-1 downto 0) := x"0000"  ; --! Science data: word sent when Telemetry mode on one column is in Idle
 
 end pkg_project;

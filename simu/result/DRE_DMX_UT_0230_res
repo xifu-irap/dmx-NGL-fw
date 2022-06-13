@@ -2,11 +2,11 @@
 # Simulation DRE_DMX_UT_0230
 # ------------------------------------------------------------------------------------------------------------------------------------------------------
 #             (0 ps) **********************************************************************************************
-#             (0 ps)   Test: SQUID2 MUX delay
+#             (0 ps)   Test: AMP SQUID offset mux delay
 #             (0 ps) **********************************************************************************************
 #             (0 ps) 
 #             (0 ps) ==============================================================================================
-#             (0 ps)   Switch ADC voltage on SQUID2 DAC
+#             (0 ps)   Switch ADC voltage on AMP SQUID
 #             (0 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (0 ps) Write discrete: sw_adc_vin(0) = '1'
 #             (0 ps) 
@@ -27,314 +27,314 @@
 # ** Note   : (6995496 ps) Waiting event rst = '0' for 6915496 ps
 #             (6995496 ps) 
 #             (6995496 ps) ==============================================================================================
-#             (6995496 ps)   Configure SQUID2 DAC LSB
+#             (6995496 ps)   Configure AMP SQUID LSB
 #             (6995496 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (6995496 ps) Send SPI command value 0845_0100 (C0_SQ2_PXL_LOCKPOINT_LSB, mode Write, data 0100)
+# ** Note   : (6995496 ps) Send SPI command value 0847_0100 (C0_AMP_SQ_OFFSET_LSB, mode Write, data 0100)
 # ** Note   : (9312000 ps) Waiting SPI command end for 2280504 ps
-# ** Note   : (9312000 ps) Send SPI command value 2845_0100 (C1_SQ2_PXL_LOCKPOINT_LSB, mode Write, data 0100)
+# ** Note   : (9312000 ps) Send SPI command value 2847_0100 (C1_AMP_SQ_OFFSET_LSB, mode Write, data 0100)
 # ** Note   : (11634000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (11634000 ps) Send SPI command value 4845_0100 (C2_SQ2_PXL_LOCKPOINT_LSB, mode Write, data 0100)
+# ** Note   : (11634000 ps) Send SPI command value 4847_0100 (C2_AMP_SQ_OFFSET_LSB, mode Write, data 0100)
 # ** Note   : (13956000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (13956000 ps) Send SPI command value 6845_0100 (C3_SQ2_PXL_LOCKPOINT_LSB, mode Write, data 0100)
+# ** Note   : (13956000 ps) Send SPI command value 6847_0100 (C3_AMP_SQ_OFFSET_LSB, mode Write, data 0100)
 # ** Note   : (16278000 ps) Waiting SPI command end for 2286000 ps
 #             (16278000 ps) 
 #             (16278000 ps) ==============================================================================================
-#             (16278000 ps)   Send command SQ2_FB_MODE to open loop
+#             (16278000 ps)   Send command SQ_AMP_OFFSET_MODE to open loop
 #             (16278000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (16278000 ps) Send SPI command value 8005_1111 (SQ2_FB_MODE, mode Write, data 1111)
+# ** Note   : (16278000 ps) Send SPI command value 8005_1111 (SQ_AMP_OFFSET_MODE, mode Write, data 1111)
 # ** Note   : (18600000 ps) Waiting SPI command end for 2286000 ps
 #             (18600000 ps) 
 #             (18600000 ps) ==============================================================================================
-#             (18600000 ps)   Writing a new table in SQUID2 lockpoint value column 0 memory
+#             (18600000 ps)   Writing a new table in AMP SQUID lockpoint value column 0 memory
 #             (18600000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (18600000 ps) Send SPI command value 0801_0007 (C0_SQ2_PXL_LOCKPOINT, mode Write, data 0007)
+# ** Note   : (18600000 ps) Send SPI command value 0801_0007 (C0_AMP_SQ_OFFSET_FINE, mode Write, data 0007)
 # ** Note   : (20922000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (20922000 ps) Send SPI command value 0803_0006 (C0_SQ2_PXL_LOCKPOINT, mode Write, data 0006)
+# ** Note   : (20922000 ps) Send SPI command value 0803_0006 (C0_AMP_SQ_OFFSET_FINE, mode Write, data 0006)
 # ** Note   : (23244000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (23244000 ps) Send SPI command value 0805_0005 (C0_SQ2_PXL_LOCKPOINT, mode Write, data 0005)
+# ** Note   : (23244000 ps) Send SPI command value 0805_0005 (C0_AMP_SQ_OFFSET_FINE, mode Write, data 0005)
 # ** Note   : (25566000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (25566000 ps) Send SPI command value 0807_0004 (C0_SQ2_PXL_LOCKPOINT, mode Write, data 0004)
+# ** Note   : (25566000 ps) Send SPI command value 0807_0004 (C0_AMP_SQ_OFFSET_FINE, mode Write, data 0004)
 # ** Note   : (27888000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (27888000 ps) Send SPI command value 0809_0003 (C0_SQ2_PXL_LOCKPOINT, mode Write, data 0003)
+# ** Note   : (27888000 ps) Send SPI command value 0809_0003 (C0_AMP_SQ_OFFSET_FINE, mode Write, data 0003)
 # ** Note   : (30210000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (30210000 ps) Send SPI command value 080B_0002 (C0_SQ2_PXL_LOCKPOINT, mode Write, data 0002)
+# ** Note   : (30210000 ps) Send SPI command value 080B_0002 (C0_AMP_SQ_OFFSET_FINE, mode Write, data 0002)
 # ** Note   : (32532000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (32532000 ps) Send SPI command value 080D_0001 (C0_SQ2_PXL_LOCKPOINT, mode Write, data 0001)
+# ** Note   : (32532000 ps) Send SPI command value 080D_0001 (C0_AMP_SQ_OFFSET_FINE, mode Write, data 0001)
 # ** Note   : (34854000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (34854000 ps) Send SPI command value 080F_0000 (C0_SQ2_PXL_LOCKPOINT, mode Write, data 0000)
+# ** Note   : (34854000 ps) Send SPI command value 080F_0000 (C0_AMP_SQ_OFFSET_FINE, mode Write, data 0000)
 # ** Note   : (37176000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (37176000 ps) Send SPI command value 0811_0007 (C0_SQ2_PXL_LOCKPOINT, mode Write, data 0007)
+# ** Note   : (37176000 ps) Send SPI command value 0811_0007 (C0_AMP_SQ_OFFSET_FINE, mode Write, data 0007)
 # ** Note   : (39498000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (39498000 ps) Send SPI command value 0813_0006 (C0_SQ2_PXL_LOCKPOINT, mode Write, data 0006)
+# ** Note   : (39498000 ps) Send SPI command value 0813_0006 (C0_AMP_SQ_OFFSET_FINE, mode Write, data 0006)
 # ** Note   : (41820000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (41820000 ps) Send SPI command value 0815_0005 (C0_SQ2_PXL_LOCKPOINT, mode Write, data 0005)
+# ** Note   : (41820000 ps) Send SPI command value 0815_0005 (C0_AMP_SQ_OFFSET_FINE, mode Write, data 0005)
 # ** Note   : (44142000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (44142000 ps) Send SPI command value 0817_0004 (C0_SQ2_PXL_LOCKPOINT, mode Write, data 0004)
+# ** Note   : (44142000 ps) Send SPI command value 0817_0004 (C0_AMP_SQ_OFFSET_FINE, mode Write, data 0004)
 # ** Note   : (46464000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (46464000 ps) Send SPI command value 0819_0003 (C0_SQ2_PXL_LOCKPOINT, mode Write, data 0003)
+# ** Note   : (46464000 ps) Send SPI command value 0819_0003 (C0_AMP_SQ_OFFSET_FINE, mode Write, data 0003)
 # ** Note   : (48786000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (48786000 ps) Send SPI command value 081B_0002 (C0_SQ2_PXL_LOCKPOINT, mode Write, data 0002)
+# ** Note   : (48786000 ps) Send SPI command value 081B_0002 (C0_AMP_SQ_OFFSET_FINE, mode Write, data 0002)
 # ** Note   : (51108000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (51108000 ps) Send SPI command value 081D_0001 (C0_SQ2_PXL_LOCKPOINT, mode Write, data 0001)
+# ** Note   : (51108000 ps) Send SPI command value 081D_0001 (C0_AMP_SQ_OFFSET_FINE, mode Write, data 0001)
 # ** Note   : (53430000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (53430000 ps) Send SPI command value 081F_0000 (C0_SQ2_PXL_LOCKPOINT, mode Write, data 0000)
+# ** Note   : (53430000 ps) Send SPI command value 081F_0000 (C0_AMP_SQ_OFFSET_FINE, mode Write, data 0000)
 # ** Note   : (55752000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (55752000 ps) Send SPI command value 0821_0007 (C0_SQ2_PXL_LOCKPOINT, mode Write, data 0007)
+# ** Note   : (55752000 ps) Send SPI command value 0821_0007 (C0_AMP_SQ_OFFSET_FINE, mode Write, data 0007)
 # ** Note   : (58074000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (58074000 ps) Send SPI command value 0823_0006 (C0_SQ2_PXL_LOCKPOINT, mode Write, data 0006)
+# ** Note   : (58074000 ps) Send SPI command value 0823_0006 (C0_AMP_SQ_OFFSET_FINE, mode Write, data 0006)
 # ** Note   : (60396000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (60396000 ps) Send SPI command value 0825_0005 (C0_SQ2_PXL_LOCKPOINT, mode Write, data 0005)
+# ** Note   : (60396000 ps) Send SPI command value 0825_0005 (C0_AMP_SQ_OFFSET_FINE, mode Write, data 0005)
 # ** Note   : (62718000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (62718000 ps) Send SPI command value 0827_0004 (C0_SQ2_PXL_LOCKPOINT, mode Write, data 0004)
+# ** Note   : (62718000 ps) Send SPI command value 0827_0004 (C0_AMP_SQ_OFFSET_FINE, mode Write, data 0004)
 # ** Note   : (65040000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (65040000 ps) Send SPI command value 0829_0003 (C0_SQ2_PXL_LOCKPOINT, mode Write, data 0003)
+# ** Note   : (65040000 ps) Send SPI command value 0829_0003 (C0_AMP_SQ_OFFSET_FINE, mode Write, data 0003)
 # ** Note   : (67362000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (67362000 ps) Send SPI command value 082B_0002 (C0_SQ2_PXL_LOCKPOINT, mode Write, data 0002)
+# ** Note   : (67362000 ps) Send SPI command value 082B_0002 (C0_AMP_SQ_OFFSET_FINE, mode Write, data 0002)
 # ** Note   : (69684000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (69684000 ps) Send SPI command value 082D_0001 (C0_SQ2_PXL_LOCKPOINT, mode Write, data 0001)
+# ** Note   : (69684000 ps) Send SPI command value 082D_0001 (C0_AMP_SQ_OFFSET_FINE, mode Write, data 0001)
 # ** Note   : (72006000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (72006000 ps) Send SPI command value 082F_0000 (C0_SQ2_PXL_LOCKPOINT, mode Write, data 0000)
+# ** Note   : (72006000 ps) Send SPI command value 082F_0000 (C0_AMP_SQ_OFFSET_FINE, mode Write, data 0000)
 # ** Note   : (74328000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (74328000 ps) Send SPI command value 0831_0007 (C0_SQ2_PXL_LOCKPOINT, mode Write, data 0007)
+# ** Note   : (74328000 ps) Send SPI command value 0831_0007 (C0_AMP_SQ_OFFSET_FINE, mode Write, data 0007)
 # ** Note   : (76650000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (76650000 ps) Send SPI command value 0833_0006 (C0_SQ2_PXL_LOCKPOINT, mode Write, data 0006)
+# ** Note   : (76650000 ps) Send SPI command value 0833_0006 (C0_AMP_SQ_OFFSET_FINE, mode Write, data 0006)
 # ** Note   : (78972000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (78972000 ps) Send SPI command value 0835_0005 (C0_SQ2_PXL_LOCKPOINT, mode Write, data 0005)
+# ** Note   : (78972000 ps) Send SPI command value 0835_0005 (C0_AMP_SQ_OFFSET_FINE, mode Write, data 0005)
 # ** Note   : (81294000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (81294000 ps) Send SPI command value 0837_0004 (C0_SQ2_PXL_LOCKPOINT, mode Write, data 0004)
+# ** Note   : (81294000 ps) Send SPI command value 0837_0004 (C0_AMP_SQ_OFFSET_FINE, mode Write, data 0004)
 # ** Note   : (83616000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (83616000 ps) Send SPI command value 0839_0003 (C0_SQ2_PXL_LOCKPOINT, mode Write, data 0003)
+# ** Note   : (83616000 ps) Send SPI command value 0839_0003 (C0_AMP_SQ_OFFSET_FINE, mode Write, data 0003)
 # ** Note   : (85938000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (85938000 ps) Send SPI command value 083B_0002 (C0_SQ2_PXL_LOCKPOINT, mode Write, data 0002)
+# ** Note   : (85938000 ps) Send SPI command value 083B_0002 (C0_AMP_SQ_OFFSET_FINE, mode Write, data 0002)
 # ** Note   : (88260000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (88260000 ps) Send SPI command value 083D_0001 (C0_SQ2_PXL_LOCKPOINT, mode Write, data 0001)
+# ** Note   : (88260000 ps) Send SPI command value 083D_0001 (C0_AMP_SQ_OFFSET_FINE, mode Write, data 0001)
 # ** Note   : (90582000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (90582000 ps) Send SPI command value 083F_0000 (C0_SQ2_PXL_LOCKPOINT, mode Write, data 0000)
+# ** Note   : (90582000 ps) Send SPI command value 083F_0000 (C0_AMP_SQ_OFFSET_FINE, mode Write, data 0000)
 # ** Note   : (92904000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (92904000 ps) Send SPI command value 0841_0000 (C0_SQ2_PXL_LOCKPOINT, mode Write, data 0000)
+# ** Note   : (92904000 ps) Send SPI command value 0841_0000 (C0_AMP_SQ_OFFSET_FINE, mode Write, data 0000)
 # ** Note   : (95226000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (95226000 ps) Send SPI command value 0843_0000 (C0_SQ2_PXL_LOCKPOINT, mode Write, data 0000)
+# ** Note   : (95226000 ps) Send SPI command value 0843_0000 (C0_AMP_SQ_OFFSET_FINE, mode Write, data 0000)
 # ** Note   : (97548000 ps) Waiting SPI command end for 2286000 ps
 #             (97548000 ps) 
 #             (97548000 ps) ==============================================================================================
-#             (97548000 ps)   Writing a new table in SQUID2 lockpoint value column 1 memory
+#             (97548000 ps)   Writing a new table in AMP SQUID lockpoint value column 1 memory
 #             (97548000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (97548000 ps) Send SPI command value 2801_0007 (C1_SQ2_PXL_LOCKPOINT, mode Write, data 0007)
+# ** Note   : (97548000 ps) Send SPI command value 2801_0007 (C1_AMP_SQ_OFFSET_FINE, mode Write, data 0007)
 # ** Note   : (99870000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (99870000 ps) Send SPI command value 2803_0006 (C1_SQ2_PXL_LOCKPOINT, mode Write, data 0006)
+# ** Note   : (99870000 ps) Send SPI command value 2803_0006 (C1_AMP_SQ_OFFSET_FINE, mode Write, data 0006)
 # ** Note   : (102192000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (102192000 ps) Send SPI command value 2805_0005 (C1_SQ2_PXL_LOCKPOINT, mode Write, data 0005)
+# ** Note   : (102192000 ps) Send SPI command value 2805_0005 (C1_AMP_SQ_OFFSET_FINE, mode Write, data 0005)
 # ** Note   : (104514000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (104514000 ps) Send SPI command value 2807_0004 (C1_SQ2_PXL_LOCKPOINT, mode Write, data 0004)
+# ** Note   : (104514000 ps) Send SPI command value 2807_0004 (C1_AMP_SQ_OFFSET_FINE, mode Write, data 0004)
 # ** Note   : (106836000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (106836000 ps) Send SPI command value 2809_0003 (C1_SQ2_PXL_LOCKPOINT, mode Write, data 0003)
+# ** Note   : (106836000 ps) Send SPI command value 2809_0003 (C1_AMP_SQ_OFFSET_FINE, mode Write, data 0003)
 # ** Note   : (109158000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (109158000 ps) Send SPI command value 280B_0002 (C1_SQ2_PXL_LOCKPOINT, mode Write, data 0002)
+# ** Note   : (109158000 ps) Send SPI command value 280B_0002 (C1_AMP_SQ_OFFSET_FINE, mode Write, data 0002)
 # ** Note   : (111480000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (111480000 ps) Send SPI command value 280D_0001 (C1_SQ2_PXL_LOCKPOINT, mode Write, data 0001)
+# ** Note   : (111480000 ps) Send SPI command value 280D_0001 (C1_AMP_SQ_OFFSET_FINE, mode Write, data 0001)
 # ** Note   : (113802000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (113802000 ps) Send SPI command value 280F_0000 (C1_SQ2_PXL_LOCKPOINT, mode Write, data 0000)
+# ** Note   : (113802000 ps) Send SPI command value 280F_0000 (C1_AMP_SQ_OFFSET_FINE, mode Write, data 0000)
 # ** Note   : (116124000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (116124000 ps) Send SPI command value 2811_0007 (C1_SQ2_PXL_LOCKPOINT, mode Write, data 0007)
+# ** Note   : (116124000 ps) Send SPI command value 2811_0007 (C1_AMP_SQ_OFFSET_FINE, mode Write, data 0007)
 # ** Note   : (118446000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (118446000 ps) Send SPI command value 2813_0006 (C1_SQ2_PXL_LOCKPOINT, mode Write, data 0006)
+# ** Note   : (118446000 ps) Send SPI command value 2813_0006 (C1_AMP_SQ_OFFSET_FINE, mode Write, data 0006)
 # ** Note   : (120768000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (120768000 ps) Send SPI command value 2815_0005 (C1_SQ2_PXL_LOCKPOINT, mode Write, data 0005)
+# ** Note   : (120768000 ps) Send SPI command value 2815_0005 (C1_AMP_SQ_OFFSET_FINE, mode Write, data 0005)
 # ** Note   : (123090000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (123090000 ps) Send SPI command value 2817_0004 (C1_SQ2_PXL_LOCKPOINT, mode Write, data 0004)
+# ** Note   : (123090000 ps) Send SPI command value 2817_0004 (C1_AMP_SQ_OFFSET_FINE, mode Write, data 0004)
 # ** Note   : (125412000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (125412000 ps) Send SPI command value 2819_0003 (C1_SQ2_PXL_LOCKPOINT, mode Write, data 0003)
+# ** Note   : (125412000 ps) Send SPI command value 2819_0003 (C1_AMP_SQ_OFFSET_FINE, mode Write, data 0003)
 # ** Note   : (127734000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (127734000 ps) Send SPI command value 281B_0002 (C1_SQ2_PXL_LOCKPOINT, mode Write, data 0002)
+# ** Note   : (127734000 ps) Send SPI command value 281B_0002 (C1_AMP_SQ_OFFSET_FINE, mode Write, data 0002)
 # ** Note   : (130056000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (130056000 ps) Send SPI command value 281D_0001 (C1_SQ2_PXL_LOCKPOINT, mode Write, data 0001)
+# ** Note   : (130056000 ps) Send SPI command value 281D_0001 (C1_AMP_SQ_OFFSET_FINE, mode Write, data 0001)
 # ** Note   : (132378000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (132378000 ps) Send SPI command value 281F_0000 (C1_SQ2_PXL_LOCKPOINT, mode Write, data 0000)
+# ** Note   : (132378000 ps) Send SPI command value 281F_0000 (C1_AMP_SQ_OFFSET_FINE, mode Write, data 0000)
 # ** Note   : (134700000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (134700000 ps) Send SPI command value 2821_0007 (C1_SQ2_PXL_LOCKPOINT, mode Write, data 0007)
+# ** Note   : (134700000 ps) Send SPI command value 2821_0007 (C1_AMP_SQ_OFFSET_FINE, mode Write, data 0007)
 # ** Note   : (137022000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (137022000 ps) Send SPI command value 2823_0006 (C1_SQ2_PXL_LOCKPOINT, mode Write, data 0006)
+# ** Note   : (137022000 ps) Send SPI command value 2823_0006 (C1_AMP_SQ_OFFSET_FINE, mode Write, data 0006)
 # ** Note   : (139344000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (139344000 ps) Send SPI command value 2825_0005 (C1_SQ2_PXL_LOCKPOINT, mode Write, data 0005)
+# ** Note   : (139344000 ps) Send SPI command value 2825_0005 (C1_AMP_SQ_OFFSET_FINE, mode Write, data 0005)
 # ** Note   : (141666000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (141666000 ps) Send SPI command value 2827_0004 (C1_SQ2_PXL_LOCKPOINT, mode Write, data 0004)
+# ** Note   : (141666000 ps) Send SPI command value 2827_0004 (C1_AMP_SQ_OFFSET_FINE, mode Write, data 0004)
 # ** Note   : (143988000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (143988000 ps) Send SPI command value 2829_0003 (C1_SQ2_PXL_LOCKPOINT, mode Write, data 0003)
+# ** Note   : (143988000 ps) Send SPI command value 2829_0003 (C1_AMP_SQ_OFFSET_FINE, mode Write, data 0003)
 # ** Note   : (146310000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (146310000 ps) Send SPI command value 282B_0002 (C1_SQ2_PXL_LOCKPOINT, mode Write, data 0002)
+# ** Note   : (146310000 ps) Send SPI command value 282B_0002 (C1_AMP_SQ_OFFSET_FINE, mode Write, data 0002)
 # ** Note   : (148632000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (148632000 ps) Send SPI command value 282D_0001 (C1_SQ2_PXL_LOCKPOINT, mode Write, data 0001)
+# ** Note   : (148632000 ps) Send SPI command value 282D_0001 (C1_AMP_SQ_OFFSET_FINE, mode Write, data 0001)
 # ** Note   : (150954000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (150954000 ps) Send SPI command value 282F_0000 (C1_SQ2_PXL_LOCKPOINT, mode Write, data 0000)
+# ** Note   : (150954000 ps) Send SPI command value 282F_0000 (C1_AMP_SQ_OFFSET_FINE, mode Write, data 0000)
 # ** Note   : (153276000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (153276000 ps) Send SPI command value 2831_0007 (C1_SQ2_PXL_LOCKPOINT, mode Write, data 0007)
+# ** Note   : (153276000 ps) Send SPI command value 2831_0007 (C1_AMP_SQ_OFFSET_FINE, mode Write, data 0007)
 # ** Note   : (155598000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (155598000 ps) Send SPI command value 2833_0006 (C1_SQ2_PXL_LOCKPOINT, mode Write, data 0006)
+# ** Note   : (155598000 ps) Send SPI command value 2833_0006 (C1_AMP_SQ_OFFSET_FINE, mode Write, data 0006)
 # ** Note   : (157920000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (157920000 ps) Send SPI command value 2835_0005 (C1_SQ2_PXL_LOCKPOINT, mode Write, data 0005)
+# ** Note   : (157920000 ps) Send SPI command value 2835_0005 (C1_AMP_SQ_OFFSET_FINE, mode Write, data 0005)
 # ** Note   : (160242000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (160242000 ps) Send SPI command value 2837_0004 (C1_SQ2_PXL_LOCKPOINT, mode Write, data 0004)
+# ** Note   : (160242000 ps) Send SPI command value 2837_0004 (C1_AMP_SQ_OFFSET_FINE, mode Write, data 0004)
 # ** Note   : (162564000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (162564000 ps) Send SPI command value 2839_0003 (C1_SQ2_PXL_LOCKPOINT, mode Write, data 0003)
+# ** Note   : (162564000 ps) Send SPI command value 2839_0003 (C1_AMP_SQ_OFFSET_FINE, mode Write, data 0003)
 # ** Note   : (164886000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (164886000 ps) Send SPI command value 283B_0002 (C1_SQ2_PXL_LOCKPOINT, mode Write, data 0002)
+# ** Note   : (164886000 ps) Send SPI command value 283B_0002 (C1_AMP_SQ_OFFSET_FINE, mode Write, data 0002)
 # ** Note   : (167208000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (167208000 ps) Send SPI command value 283D_0001 (C1_SQ2_PXL_LOCKPOINT, mode Write, data 0001)
+# ** Note   : (167208000 ps) Send SPI command value 283D_0001 (C1_AMP_SQ_OFFSET_FINE, mode Write, data 0001)
 # ** Note   : (169530000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (169530000 ps) Send SPI command value 283F_0000 (C1_SQ2_PXL_LOCKPOINT, mode Write, data 0000)
+# ** Note   : (169530000 ps) Send SPI command value 283F_0000 (C1_AMP_SQ_OFFSET_FINE, mode Write, data 0000)
 # ** Note   : (171852000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (171852000 ps) Send SPI command value 2841_0000 (C1_SQ2_PXL_LOCKPOINT, mode Write, data 0000)
+# ** Note   : (171852000 ps) Send SPI command value 2841_0000 (C1_AMP_SQ_OFFSET_FINE, mode Write, data 0000)
 # ** Note   : (174174000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (174174000 ps) Send SPI command value 2843_0000 (C1_SQ2_PXL_LOCKPOINT, mode Write, data 0000)
+# ** Note   : (174174000 ps) Send SPI command value 2843_0000 (C1_AMP_SQ_OFFSET_FINE, mode Write, data 0000)
 # ** Note   : (176496000 ps) Waiting SPI command end for 2286000 ps
 #             (176496000 ps) 
 #             (176496000 ps) ==============================================================================================
-#             (176496000 ps)   Writing a new table in SQUID2 lockpoint value column 0 memory
+#             (176496000 ps)   Writing a new table in AMP SQUID lockpoint value column 0 memory
 #             (176496000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (176496000 ps) Send SPI command value 4801_0007 (C2_SQ2_PXL_LOCKPOINT, mode Write, data 0007)
+# ** Note   : (176496000 ps) Send SPI command value 4801_0007 (C2_AMP_SQ_OFFSET_FINE, mode Write, data 0007)
 # ** Note   : (178818000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (178818000 ps) Send SPI command value 4803_0006 (C2_SQ2_PXL_LOCKPOINT, mode Write, data 0006)
+# ** Note   : (178818000 ps) Send SPI command value 4803_0006 (C2_AMP_SQ_OFFSET_FINE, mode Write, data 0006)
 # ** Note   : (181140000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (181140000 ps) Send SPI command value 4805_0005 (C2_SQ2_PXL_LOCKPOINT, mode Write, data 0005)
+# ** Note   : (181140000 ps) Send SPI command value 4805_0005 (C2_AMP_SQ_OFFSET_FINE, mode Write, data 0005)
 # ** Note   : (183462000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (183462000 ps) Send SPI command value 4807_0004 (C2_SQ2_PXL_LOCKPOINT, mode Write, data 0004)
+# ** Note   : (183462000 ps) Send SPI command value 4807_0004 (C2_AMP_SQ_OFFSET_FINE, mode Write, data 0004)
 # ** Note   : (185784000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (185784000 ps) Send SPI command value 4809_0003 (C2_SQ2_PXL_LOCKPOINT, mode Write, data 0003)
+# ** Note   : (185784000 ps) Send SPI command value 4809_0003 (C2_AMP_SQ_OFFSET_FINE, mode Write, data 0003)
 # ** Note   : (188106000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (188106000 ps) Send SPI command value 480B_0002 (C2_SQ2_PXL_LOCKPOINT, mode Write, data 0002)
+# ** Note   : (188106000 ps) Send SPI command value 480B_0002 (C2_AMP_SQ_OFFSET_FINE, mode Write, data 0002)
 # ** Note   : (190428000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (190428000 ps) Send SPI command value 480D_0001 (C2_SQ2_PXL_LOCKPOINT, mode Write, data 0001)
+# ** Note   : (190428000 ps) Send SPI command value 480D_0001 (C2_AMP_SQ_OFFSET_FINE, mode Write, data 0001)
 # ** Note   : (192750000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (192750000 ps) Send SPI command value 480F_0000 (C2_SQ2_PXL_LOCKPOINT, mode Write, data 0000)
+# ** Note   : (192750000 ps) Send SPI command value 480F_0000 (C2_AMP_SQ_OFFSET_FINE, mode Write, data 0000)
 # ** Note   : (195072000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (195072000 ps) Send SPI command value 4811_0007 (C2_SQ2_PXL_LOCKPOINT, mode Write, data 0007)
+# ** Note   : (195072000 ps) Send SPI command value 4811_0007 (C2_AMP_SQ_OFFSET_FINE, mode Write, data 0007)
 # ** Note   : (197394000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (197394000 ps) Send SPI command value 4813_0006 (C2_SQ2_PXL_LOCKPOINT, mode Write, data 0006)
+# ** Note   : (197394000 ps) Send SPI command value 4813_0006 (C2_AMP_SQ_OFFSET_FINE, mode Write, data 0006)
 # ** Note   : (199716000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (199716000 ps) Send SPI command value 4815_0005 (C2_SQ2_PXL_LOCKPOINT, mode Write, data 0005)
+# ** Note   : (199716000 ps) Send SPI command value 4815_0005 (C2_AMP_SQ_OFFSET_FINE, mode Write, data 0005)
 # ** Note   : (202038000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (202038000 ps) Send SPI command value 4817_0004 (C2_SQ2_PXL_LOCKPOINT, mode Write, data 0004)
+# ** Note   : (202038000 ps) Send SPI command value 4817_0004 (C2_AMP_SQ_OFFSET_FINE, mode Write, data 0004)
 # ** Note   : (204360000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (204360000 ps) Send SPI command value 4819_0003 (C2_SQ2_PXL_LOCKPOINT, mode Write, data 0003)
+# ** Note   : (204360000 ps) Send SPI command value 4819_0003 (C2_AMP_SQ_OFFSET_FINE, mode Write, data 0003)
 # ** Note   : (206682000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (206682000 ps) Send SPI command value 481B_0002 (C2_SQ2_PXL_LOCKPOINT, mode Write, data 0002)
+# ** Note   : (206682000 ps) Send SPI command value 481B_0002 (C2_AMP_SQ_OFFSET_FINE, mode Write, data 0002)
 # ** Note   : (209004000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (209004000 ps) Send SPI command value 481D_0001 (C2_SQ2_PXL_LOCKPOINT, mode Write, data 0001)
+# ** Note   : (209004000 ps) Send SPI command value 481D_0001 (C2_AMP_SQ_OFFSET_FINE, mode Write, data 0001)
 # ** Note   : (211326000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (211326000 ps) Send SPI command value 481F_0000 (C2_SQ2_PXL_LOCKPOINT, mode Write, data 0000)
+# ** Note   : (211326000 ps) Send SPI command value 481F_0000 (C2_AMP_SQ_OFFSET_FINE, mode Write, data 0000)
 # ** Note   : (213648000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (213648000 ps) Send SPI command value 4821_0007 (C2_SQ2_PXL_LOCKPOINT, mode Write, data 0007)
+# ** Note   : (213648000 ps) Send SPI command value 4821_0007 (C2_AMP_SQ_OFFSET_FINE, mode Write, data 0007)
 # ** Note   : (215970000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (215970000 ps) Send SPI command value 4823_0006 (C2_SQ2_PXL_LOCKPOINT, mode Write, data 0006)
+# ** Note   : (215970000 ps) Send SPI command value 4823_0006 (C2_AMP_SQ_OFFSET_FINE, mode Write, data 0006)
 # ** Note   : (218292000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (218292000 ps) Send SPI command value 4825_0005 (C2_SQ2_PXL_LOCKPOINT, mode Write, data 0005)
+# ** Note   : (218292000 ps) Send SPI command value 4825_0005 (C2_AMP_SQ_OFFSET_FINE, mode Write, data 0005)
 # ** Note   : (220614000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (220614000 ps) Send SPI command value 4827_0004 (C2_SQ2_PXL_LOCKPOINT, mode Write, data 0004)
+# ** Note   : (220614000 ps) Send SPI command value 4827_0004 (C2_AMP_SQ_OFFSET_FINE, mode Write, data 0004)
 # ** Note   : (222936000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (222936000 ps) Send SPI command value 4829_0003 (C2_SQ2_PXL_LOCKPOINT, mode Write, data 0003)
+# ** Note   : (222936000 ps) Send SPI command value 4829_0003 (C2_AMP_SQ_OFFSET_FINE, mode Write, data 0003)
 # ** Note   : (225258000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (225258000 ps) Send SPI command value 482B_0002 (C2_SQ2_PXL_LOCKPOINT, mode Write, data 0002)
+# ** Note   : (225258000 ps) Send SPI command value 482B_0002 (C2_AMP_SQ_OFFSET_FINE, mode Write, data 0002)
 # ** Note   : (227580000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (227580000 ps) Send SPI command value 482D_0001 (C2_SQ2_PXL_LOCKPOINT, mode Write, data 0001)
+# ** Note   : (227580000 ps) Send SPI command value 482D_0001 (C2_AMP_SQ_OFFSET_FINE, mode Write, data 0001)
 # ** Note   : (229902000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (229902000 ps) Send SPI command value 482F_0000 (C2_SQ2_PXL_LOCKPOINT, mode Write, data 0000)
+# ** Note   : (229902000 ps) Send SPI command value 482F_0000 (C2_AMP_SQ_OFFSET_FINE, mode Write, data 0000)
 # ** Note   : (232224000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (232224000 ps) Send SPI command value 4831_0007 (C2_SQ2_PXL_LOCKPOINT, mode Write, data 0007)
+# ** Note   : (232224000 ps) Send SPI command value 4831_0007 (C2_AMP_SQ_OFFSET_FINE, mode Write, data 0007)
 # ** Note   : (234546000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (234546000 ps) Send SPI command value 4833_0006 (C2_SQ2_PXL_LOCKPOINT, mode Write, data 0006)
+# ** Note   : (234546000 ps) Send SPI command value 4833_0006 (C2_AMP_SQ_OFFSET_FINE, mode Write, data 0006)
 # ** Note   : (236868000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (236868000 ps) Send SPI command value 4835_0005 (C2_SQ2_PXL_LOCKPOINT, mode Write, data 0005)
+# ** Note   : (236868000 ps) Send SPI command value 4835_0005 (C2_AMP_SQ_OFFSET_FINE, mode Write, data 0005)
 # ** Note   : (239190000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (239190000 ps) Send SPI command value 4837_0004 (C2_SQ2_PXL_LOCKPOINT, mode Write, data 0004)
+# ** Note   : (239190000 ps) Send SPI command value 4837_0004 (C2_AMP_SQ_OFFSET_FINE, mode Write, data 0004)
 # ** Note   : (241512000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (241512000 ps) Send SPI command value 4839_0003 (C2_SQ2_PXL_LOCKPOINT, mode Write, data 0003)
+# ** Note   : (241512000 ps) Send SPI command value 4839_0003 (C2_AMP_SQ_OFFSET_FINE, mode Write, data 0003)
 # ** Note   : (243834000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (243834000 ps) Send SPI command value 483B_0002 (C2_SQ2_PXL_LOCKPOINT, mode Write, data 0002)
+# ** Note   : (243834000 ps) Send SPI command value 483B_0002 (C2_AMP_SQ_OFFSET_FINE, mode Write, data 0002)
 # ** Note   : (246156000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (246156000 ps) Send SPI command value 483D_0001 (C2_SQ2_PXL_LOCKPOINT, mode Write, data 0001)
+# ** Note   : (246156000 ps) Send SPI command value 483D_0001 (C2_AMP_SQ_OFFSET_FINE, mode Write, data 0001)
 # ** Note   : (248478000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (248478000 ps) Send SPI command value 483F_0000 (C2_SQ2_PXL_LOCKPOINT, mode Write, data 0000)
+# ** Note   : (248478000 ps) Send SPI command value 483F_0000 (C2_AMP_SQ_OFFSET_FINE, mode Write, data 0000)
 # ** Note   : (250800000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (250800000 ps) Send SPI command value 4841_0000 (C2_SQ2_PXL_LOCKPOINT, mode Write, data 0000)
+# ** Note   : (250800000 ps) Send SPI command value 4841_0000 (C2_AMP_SQ_OFFSET_FINE, mode Write, data 0000)
 # ** Note   : (253122000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (253122000 ps) Send SPI command value 4843_0000 (C2_SQ2_PXL_LOCKPOINT, mode Write, data 0000)
+# ** Note   : (253122000 ps) Send SPI command value 4843_0000 (C2_AMP_SQ_OFFSET_FINE, mode Write, data 0000)
 # ** Note   : (255444000 ps) Waiting SPI command end for 2286000 ps
 #             (255444000 ps) 
 #             (255444000 ps) ==============================================================================================
-#             (255444000 ps)   Writing a new table in SQUID2 lockpoint value column 0 memory
+#             (255444000 ps)   Writing a new table in AMP SQUID lockpoint value column 0 memory
 #             (255444000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (255444000 ps) Send SPI command value 6801_0007 (C3_SQ2_PXL_LOCKPOINT, mode Write, data 0007)
+# ** Note   : (255444000 ps) Send SPI command value 6801_0007 (C3_AMP_SQ_OFFSET_FINE, mode Write, data 0007)
 # ** Note   : (257766000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (257766000 ps) Send SPI command value 6803_0006 (C3_SQ2_PXL_LOCKPOINT, mode Write, data 0006)
+# ** Note   : (257766000 ps) Send SPI command value 6803_0006 (C3_AMP_SQ_OFFSET_FINE, mode Write, data 0006)
 # ** Note   : (260088000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (260088000 ps) Send SPI command value 6805_0005 (C3_SQ2_PXL_LOCKPOINT, mode Write, data 0005)
+# ** Note   : (260088000 ps) Send SPI command value 6805_0005 (C3_AMP_SQ_OFFSET_FINE, mode Write, data 0005)
 # ** Note   : (262410000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (262410000 ps) Send SPI command value 6807_0004 (C3_SQ2_PXL_LOCKPOINT, mode Write, data 0004)
+# ** Note   : (262410000 ps) Send SPI command value 6807_0004 (C3_AMP_SQ_OFFSET_FINE, mode Write, data 0004)
 # ** Note   : (264732000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (264732000 ps) Send SPI command value 6809_0003 (C3_SQ2_PXL_LOCKPOINT, mode Write, data 0003)
+# ** Note   : (264732000 ps) Send SPI command value 6809_0003 (C3_AMP_SQ_OFFSET_FINE, mode Write, data 0003)
 # ** Note   : (267054000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (267054000 ps) Send SPI command value 680B_0002 (C3_SQ2_PXL_LOCKPOINT, mode Write, data 0002)
+# ** Note   : (267054000 ps) Send SPI command value 680B_0002 (C3_AMP_SQ_OFFSET_FINE, mode Write, data 0002)
 # ** Note   : (269376000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (269376000 ps) Send SPI command value 680D_0001 (C3_SQ2_PXL_LOCKPOINT, mode Write, data 0001)
+# ** Note   : (269376000 ps) Send SPI command value 680D_0001 (C3_AMP_SQ_OFFSET_FINE, mode Write, data 0001)
 # ** Note   : (271698000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (271698000 ps) Send SPI command value 680F_0000 (C3_SQ2_PXL_LOCKPOINT, mode Write, data 0000)
+# ** Note   : (271698000 ps) Send SPI command value 680F_0000 (C3_AMP_SQ_OFFSET_FINE, mode Write, data 0000)
 # ** Note   : (274020000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (274020000 ps) Send SPI command value 6811_0007 (C3_SQ2_PXL_LOCKPOINT, mode Write, data 0007)
+# ** Note   : (274020000 ps) Send SPI command value 6811_0007 (C3_AMP_SQ_OFFSET_FINE, mode Write, data 0007)
 # ** Note   : (276342000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (276342000 ps) Send SPI command value 6813_0006 (C3_SQ2_PXL_LOCKPOINT, mode Write, data 0006)
+# ** Note   : (276342000 ps) Send SPI command value 6813_0006 (C3_AMP_SQ_OFFSET_FINE, mode Write, data 0006)
 # ** Note   : (278664000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (278664000 ps) Send SPI command value 6815_0005 (C3_SQ2_PXL_LOCKPOINT, mode Write, data 0005)
+# ** Note   : (278664000 ps) Send SPI command value 6815_0005 (C3_AMP_SQ_OFFSET_FINE, mode Write, data 0005)
 # ** Note   : (280986000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (280986000 ps) Send SPI command value 6817_0004 (C3_SQ2_PXL_LOCKPOINT, mode Write, data 0004)
+# ** Note   : (280986000 ps) Send SPI command value 6817_0004 (C3_AMP_SQ_OFFSET_FINE, mode Write, data 0004)
 # ** Note   : (283308000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (283308000 ps) Send SPI command value 6819_0003 (C3_SQ2_PXL_LOCKPOINT, mode Write, data 0003)
+# ** Note   : (283308000 ps) Send SPI command value 6819_0003 (C3_AMP_SQ_OFFSET_FINE, mode Write, data 0003)
 # ** Note   : (285630000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (285630000 ps) Send SPI command value 681B_0002 (C3_SQ2_PXL_LOCKPOINT, mode Write, data 0002)
+# ** Note   : (285630000 ps) Send SPI command value 681B_0002 (C3_AMP_SQ_OFFSET_FINE, mode Write, data 0002)
 # ** Note   : (287952000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (287952000 ps) Send SPI command value 681D_0001 (C3_SQ2_PXL_LOCKPOINT, mode Write, data 0001)
+# ** Note   : (287952000 ps) Send SPI command value 681D_0001 (C3_AMP_SQ_OFFSET_FINE, mode Write, data 0001)
 # ** Note   : (290274000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (290274000 ps) Send SPI command value 681F_0000 (C3_SQ2_PXL_LOCKPOINT, mode Write, data 0000)
+# ** Note   : (290274000 ps) Send SPI command value 681F_0000 (C3_AMP_SQ_OFFSET_FINE, mode Write, data 0000)
 # ** Note   : (292596000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (292596000 ps) Send SPI command value 6821_0007 (C3_SQ2_PXL_LOCKPOINT, mode Write, data 0007)
+# ** Note   : (292596000 ps) Send SPI command value 6821_0007 (C3_AMP_SQ_OFFSET_FINE, mode Write, data 0007)
 # ** Note   : (294918000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (294918000 ps) Send SPI command value 6823_0006 (C3_SQ2_PXL_LOCKPOINT, mode Write, data 0006)
+# ** Note   : (294918000 ps) Send SPI command value 6823_0006 (C3_AMP_SQ_OFFSET_FINE, mode Write, data 0006)
 # ** Note   : (297240000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (297240000 ps) Send SPI command value 6825_0005 (C3_SQ2_PXL_LOCKPOINT, mode Write, data 0005)
+# ** Note   : (297240000 ps) Send SPI command value 6825_0005 (C3_AMP_SQ_OFFSET_FINE, mode Write, data 0005)
 # ** Note   : (299562000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (299562000 ps) Send SPI command value 6827_0004 (C3_SQ2_PXL_LOCKPOINT, mode Write, data 0004)
+# ** Note   : (299562000 ps) Send SPI command value 6827_0004 (C3_AMP_SQ_OFFSET_FINE, mode Write, data 0004)
 # ** Note   : (301884000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (301884000 ps) Send SPI command value 6829_0003 (C3_SQ2_PXL_LOCKPOINT, mode Write, data 0003)
+# ** Note   : (301884000 ps) Send SPI command value 6829_0003 (C3_AMP_SQ_OFFSET_FINE, mode Write, data 0003)
 # ** Note   : (304206000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (304206000 ps) Send SPI command value 682B_0002 (C3_SQ2_PXL_LOCKPOINT, mode Write, data 0002)
+# ** Note   : (304206000 ps) Send SPI command value 682B_0002 (C3_AMP_SQ_OFFSET_FINE, mode Write, data 0002)
 # ** Note   : (306528000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (306528000 ps) Send SPI command value 682D_0001 (C3_SQ2_PXL_LOCKPOINT, mode Write, data 0001)
+# ** Note   : (306528000 ps) Send SPI command value 682D_0001 (C3_AMP_SQ_OFFSET_FINE, mode Write, data 0001)
 # ** Note   : (308850000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (308850000 ps) Send SPI command value 682F_0000 (C3_SQ2_PXL_LOCKPOINT, mode Write, data 0000)
+# ** Note   : (308850000 ps) Send SPI command value 682F_0000 (C3_AMP_SQ_OFFSET_FINE, mode Write, data 0000)
 # ** Note   : (311172000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (311172000 ps) Send SPI command value 6831_0007 (C3_SQ2_PXL_LOCKPOINT, mode Write, data 0007)
+# ** Note   : (311172000 ps) Send SPI command value 6831_0007 (C3_AMP_SQ_OFFSET_FINE, mode Write, data 0007)
 # ** Note   : (313494000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (313494000 ps) Send SPI command value 6833_0006 (C3_SQ2_PXL_LOCKPOINT, mode Write, data 0006)
+# ** Note   : (313494000 ps) Send SPI command value 6833_0006 (C3_AMP_SQ_OFFSET_FINE, mode Write, data 0006)
 # ** Note   : (315816000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (315816000 ps) Send SPI command value 6835_0005 (C3_SQ2_PXL_LOCKPOINT, mode Write, data 0005)
+# ** Note   : (315816000 ps) Send SPI command value 6835_0005 (C3_AMP_SQ_OFFSET_FINE, mode Write, data 0005)
 # ** Note   : (318138000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (318138000 ps) Send SPI command value 6837_0004 (C3_SQ2_PXL_LOCKPOINT, mode Write, data 0004)
+# ** Note   : (318138000 ps) Send SPI command value 6837_0004 (C3_AMP_SQ_OFFSET_FINE, mode Write, data 0004)
 # ** Note   : (320460000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (320460000 ps) Send SPI command value 6839_0003 (C3_SQ2_PXL_LOCKPOINT, mode Write, data 0003)
+# ** Note   : (320460000 ps) Send SPI command value 6839_0003 (C3_AMP_SQ_OFFSET_FINE, mode Write, data 0003)
 # ** Note   : (322782000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (322782000 ps) Send SPI command value 683B_0002 (C3_SQ2_PXL_LOCKPOINT, mode Write, data 0002)
+# ** Note   : (322782000 ps) Send SPI command value 683B_0002 (C3_AMP_SQ_OFFSET_FINE, mode Write, data 0002)
 # ** Note   : (325104000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (325104000 ps) Send SPI command value 683D_0001 (C3_SQ2_PXL_LOCKPOINT, mode Write, data 0001)
+# ** Note   : (325104000 ps) Send SPI command value 683D_0001 (C3_AMP_SQ_OFFSET_FINE, mode Write, data 0001)
 # ** Note   : (327426000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (327426000 ps) Send SPI command value 683F_0000 (C3_SQ2_PXL_LOCKPOINT, mode Write, data 0000)
+# ** Note   : (327426000 ps) Send SPI command value 683F_0000 (C3_AMP_SQ_OFFSET_FINE, mode Write, data 0000)
 # ** Note   : (329748000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (329748000 ps) Send SPI command value 6841_0000 (C3_SQ2_PXL_LOCKPOINT, mode Write, data 0000)
+# ** Note   : (329748000 ps) Send SPI command value 6841_0000 (C3_AMP_SQ_OFFSET_FINE, mode Write, data 0000)
 # ** Note   : (332070000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (332070000 ps) Send SPI command value 6843_0000 (C3_SQ2_PXL_LOCKPOINT, mode Write, data 0000)
+# ** Note   : (332070000 ps) Send SPI command value 6843_0000 (C3_AMP_SQ_OFFSET_FINE, mode Write, data 0000)
 # ** Note   : (334392000 ps) Waiting SPI command end for 2286000 ps
 #             (334392000 ps) 
 #             (334392000 ps) ==============================================================================================
 #             (334392000 ps)   Writing memory dump data to compare
-#             (334392000 ps)   Formula: 4*(SQ2_PXL_LOCKPOINT_OFFSET + SQ2_PXL_LOCKPOINT * SQ2_PXL_LOCKPOINT_LSB)
+#             (334392000 ps)   Formula: 4*(AMP_SQ_OFFSET_COARSE + AMP_SQ_OFFSET_FINE * AMP_SQ_OFFSET_LSB)
 #             (334392000 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (334392000 ps) Write in ADC memory dump column 0, adress index 0, value 3C00
 # ** Note   : (334408008 ps) Write in ADC memory dump column 0, adress index 1, value 3800
@@ -477,178 +477,178 @@
 # ** Note   : (336553080 ps) Write in ADC memory dump column 3, adress index 33, value 2000
 #             (336569088 ps) 
 #             (336569088 ps) ==============================================================================================
-#             (336569088 ps)   Send a SQUID2 DAC delay on each channels
+#             (336569088 ps)   Send a AMP SQUID delay on each channels
 #             (336569088 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (336569088 ps) Send SPI command value 0A03_0000 (C0_FB_SQ2_DELAY, mode Write, data 0000)
+# ** Note   : (336569088 ps) Send SPI command value 0A05_0000 (C0_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 0000)
 # ** Note   : (338874000 ps) Waiting SPI command end for 2268912 ps
-# ** Note   : (338874000 ps) Send SPI command value 2A03_0001 (C1_FB_SQ2_DELAY, mode Write, data 0001)
+# ** Note   : (338874000 ps) Send SPI command value 2A05_0001 (C1_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 0001)
 # ** Note   : (341196000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (341196000 ps) Send SPI command value 4A03_0002 (C2_FB_SQ2_DELAY, mode Write, data 0002)
+# ** Note   : (341196000 ps) Send SPI command value 4A05_0002 (C2_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 0002)
 # ** Note   : (343518000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (343518000 ps) Send SPI command value 6A03_0003 (C3_FB_SQ2_DELAY, mode Write, data 0003)
+# ** Note   : (343518000 ps) Send SPI command value 6A05_0003 (C3_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 0003)
 # ** Note   : (345840000 ps) Waiting SPI command end for 2286000 ps
 # ** Note   : (345840834 ps) Waiting event sync = '0' for 834 ps
 # ** Note   : (348350088 ps) Waiting event sync = '1' for 2509254 ps
 # ** Note   : (348510168 ps) Waiting event sync = '0' for 160080 ps
 #             (348510168 ps) 
 #             (348510168 ps) ==============================================================================================
-#             (348510168 ps)   Send command TM_MODE, Dump mode
+#             (348510168 ps)   Send command DATA_ACQ_MODE, Dump mode
 #             (348510168 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (348510168 ps) Send SPI command value 8001_0000 (TM_MODE, mode Write, data 0000)
+# ** Note   : (348510168 ps) Send SPI command value 8001_0004 (DATA_ACQ_MODE, mode Write, data 0004)
 # ** Note   : (350826000 ps) Waiting SPI command end for 2279832 ps
 # ** Note   : (532826000 ps) Waiting time for 182000000 ps
 #             (532826000 ps) 
 #             (532826000 ps) ==============================================================================================
-#             (532826000 ps)   Send a SQUID1 DAC delay on each channels
+#             (532826000 ps)   Send a AMP SQUID delay on each channels
 #             (532826000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (532826000 ps) Send SPI command value 0A03_0004 (C0_FB_SQ2_DELAY, mode Write, data 0004)
+# ** Note   : (532826000 ps) Send SPI command value 0A05_0004 (C0_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 0004)
 # ** Note   : (535146000 ps) Waiting SPI command end for 2284000 ps
-# ** Note   : (535146000 ps) Send SPI command value 2A03_0005 (C1_FB_SQ2_DELAY, mode Write, data 0005)
+# ** Note   : (535146000 ps) Send SPI command value 2A05_0005 (C1_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 0005)
 # ** Note   : (537468000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (537468000 ps) Send SPI command value 4A03_0006 (C2_FB_SQ2_DELAY, mode Write, data 0006)
+# ** Note   : (537468000 ps) Send SPI command value 4A05_0006 (C2_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 0006)
 # ** Note   : (539790000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (539790000 ps) Send SPI command value 6A03_0007 (C3_FB_SQ2_DELAY, mode Write, data 0007)
+# ** Note   : (539790000 ps) Send SPI command value 6A05_0007 (C3_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 0007)
 # ** Note   : (542112000 ps) Waiting SPI command end for 2286000 ps
 # ** Note   : (542114922 ps) Waiting event sync = '0' for 2922 ps
 # ** Note   : (544288008 ps) Waiting event sync = '1' for 2173086 ps
 # ** Note   : (544448088 ps) Waiting event sync = '0' for 160080 ps
 #             (544448088 ps) 
 #             (544448088 ps) ==============================================================================================
-#             (544448088 ps)   Send command TM_MODE, Dump mode
+#             (544448088 ps)   Send command DATA_ACQ_MODE, Dump mode
 #             (544448088 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (544448088 ps) Send SPI command value 8001_0000 (TM_MODE, mode Write, data 0000)
+# ** Note   : (544448088 ps) Send SPI command value 8001_0004 (DATA_ACQ_MODE, mode Write, data 0004)
 # ** Note   : (546756000 ps) Waiting SPI command end for 2271912 ps
 # ** Note   : (728756000 ps) Waiting time for 182000000 ps
 #             (728756000 ps) 
 #             (728756000 ps) ==============================================================================================
-#             (728756000 ps)   Send a SQUID1 DAC delay on each channels
+#             (728756000 ps)   Send a AMP SQUID delay on each channels
 #             (728756000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (728756000 ps) Send SPI command value 0A03_0008 (C0_FB_SQ2_DELAY, mode Write, data 0008)
+# ** Note   : (728756000 ps) Send SPI command value 0A05_0008 (C0_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 0008)
 # ** Note   : (731076000 ps) Waiting SPI command end for 2284000 ps
-# ** Note   : (731076000 ps) Send SPI command value 2A03_0009 (C1_FB_SQ2_DELAY, mode Write, data 0009)
+# ** Note   : (731076000 ps) Send SPI command value 2A05_0009 (C1_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 0009)
 # ** Note   : (733398000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (733398000 ps) Send SPI command value 4A03_000A (C2_FB_SQ2_DELAY, mode Write, data 000A)
+# ** Note   : (733398000 ps) Send SPI command value 4A05_000A (C2_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 000A)
 # ** Note   : (735720000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (735720000 ps) Send SPI command value 6A03_000B (C3_FB_SQ2_DELAY, mode Write, data 000B)
+# ** Note   : (735720000 ps) Send SPI command value 6A05_000B (C3_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 000B)
 # ** Note   : (738042000 ps) Waiting SPI command end for 2286000 ps
 # ** Note   : (738044838 ps) Waiting event sync = '0' for 2838 ps
 # ** Note   : (740225928 ps) Waiting event sync = '1' for 2181090 ps
 # ** Note   : (740386008 ps) Waiting event sync = '0' for 160080 ps
 #             (740386008 ps) 
 #             (740386008 ps) ==============================================================================================
-#             (740386008 ps)   Send command TM_MODE, Dump mode
+#             (740386008 ps)   Send command DATA_ACQ_MODE, Dump mode
 #             (740386008 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (740386008 ps) Send SPI command value 8001_0000 (TM_MODE, mode Write, data 0000)
+# ** Note   : (740386008 ps) Send SPI command value 8001_0004 (DATA_ACQ_MODE, mode Write, data 0004)
 # ** Note   : (742704000 ps) Waiting SPI command end for 2281992 ps
 # ** Note   : (924704000 ps) Waiting time for 182000000 ps
 #             (924704000 ps) 
 #             (924704000 ps) ==============================================================================================
-#             (924704000 ps)   Send a SQUID1 DAC delay on each channels
+#             (924704000 ps)   Send a AMP SQUID delay on each channels
 #             (924704000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (924704000 ps) Send SPI command value 0A03_000C (C0_FB_SQ2_DELAY, mode Write, data 000C)
+# ** Note   : (924704000 ps) Send SPI command value 0A05_000C (C0_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 000C)
 # ** Note   : (927024000 ps) Waiting SPI command end for 2284000 ps
-# ** Note   : (927024000 ps) Send SPI command value 2A03_000D (C1_FB_SQ2_DELAY, mode Write, data 000D)
+# ** Note   : (927024000 ps) Send SPI command value 2A05_000D (C1_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 000D)
 # ** Note   : (929346000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (929346000 ps) Send SPI command value 4A03_000E (C2_FB_SQ2_DELAY, mode Write, data 000E)
+# ** Note   : (929346000 ps) Send SPI command value 4A05_000E (C2_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 000E)
 # ** Note   : (931668000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (931668000 ps) Send SPI command value 6A03_000F (C3_FB_SQ2_DELAY, mode Write, data 000F)
+# ** Note   : (931668000 ps) Send SPI command value 6A05_000F (C3_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 000F)
 # ** Note   : (933990000 ps) Waiting SPI command end for 2286000 ps
 # ** Note   : (933990762 ps) Waiting event sync = '0' for 762 ps
 # ** Note   : (936163848 ps) Waiting event sync = '1' for 2173086 ps
 # ** Note   : (936323928 ps) Waiting event sync = '0' for 160080 ps
 #             (936323928 ps) 
 #             (936323928 ps) ==============================================================================================
-#             (936323928 ps)   Send command TM_MODE, Dump mode
+#             (936323928 ps)   Send command DATA_ACQ_MODE, Dump mode
 #             (936323928 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (936323928 ps) Send SPI command value 8001_0000 (TM_MODE, mode Write, data 0000)
+# ** Note   : (936323928 ps) Send SPI command value 8001_0004 (DATA_ACQ_MODE, mode Write, data 0004)
 # ** Note   : (938634000 ps) Waiting SPI command end for 2274072 ps
 # ** Note   : (1120634000 ps) Waiting time for 182000000 ps
 #             (1120634000 ps) 
 #             (1120634000 ps) ==============================================================================================
-#             (1120634000 ps)   Send a SQUID1 DAC delay on each channels
+#             (1120634000 ps)   Send a AMP SQUID delay on each channels
 #             (1120634000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (1120634000 ps) Send SPI command value 0A03_0010 (C0_FB_SQ2_DELAY, mode Write, data 0010)
+# ** Note   : (1120634000 ps) Send SPI command value 0A05_0010 (C0_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 0010)
 # ** Note   : (1122954000 ps) Waiting SPI command end for 2284000 ps
-# ** Note   : (1122954000 ps) Send SPI command value 2A03_0011 (C1_FB_SQ2_DELAY, mode Write, data 0011)
+# ** Note   : (1122954000 ps) Send SPI command value 2A05_0011 (C1_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 0011)
 # ** Note   : (1125276000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (1125276000 ps) Send SPI command value 4A03_0012 (C2_FB_SQ2_DELAY, mode Write, data 0012)
+# ** Note   : (1125276000 ps) Send SPI command value 4A05_0012 (C2_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 0012)
 # ** Note   : (1127598000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (1127598000 ps) Send SPI command value 6A03_0013 (C3_FB_SQ2_DELAY, mode Write, data 0013)
+# ** Note   : (1127598000 ps) Send SPI command value 6A05_0013 (C3_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 0013)
 # ** Note   : (1129920000 ps) Waiting SPI command end for 2286000 ps
 # ** Note   : (1129920678 ps) Waiting event sync = '0' for 678 ps
 # ** Note   : (1132101768 ps) Waiting event sync = '1' for 2181090 ps
 # ** Note   : (1132261848 ps) Waiting event sync = '0' for 160080 ps
 #             (1132261848 ps) 
 #             (1132261848 ps) ==============================================================================================
-#             (1132261848 ps)   Send command TM_MODE, Dump mode
+#             (1132261848 ps)   Send command DATA_ACQ_MODE, Dump mode
 #             (1132261848 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (1132261848 ps) Send SPI command value 8001_0000 (TM_MODE, mode Write, data 0000)
+# ** Note   : (1132261848 ps) Send SPI command value 8001_0004 (DATA_ACQ_MODE, mode Write, data 0004)
 # ** Note   : (1134582000 ps) Waiting SPI command end for 2284152 ps
 # ** Note   : (1316582000 ps) Waiting time for 182000000 ps
 #             (1316582000 ps) 
 #             (1316582000 ps) ==============================================================================================
-#             (1316582000 ps)   Send a SQUID1 DAC delay on each channels
+#             (1316582000 ps)   Send a AMP SQUID delay on each channels
 #             (1316582000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (1316582000 ps) Send SPI command value 0A03_0014 (C0_FB_SQ2_DELAY, mode Write, data 0014)
+# ** Note   : (1316582000 ps) Send SPI command value 0A05_0014 (C0_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 0014)
 # ** Note   : (1318902000 ps) Waiting SPI command end for 2284000 ps
-# ** Note   : (1318902000 ps) Send SPI command value 2A03_0015 (C1_FB_SQ2_DELAY, mode Write, data 0015)
+# ** Note   : (1318902000 ps) Send SPI command value 2A05_0015 (C1_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 0015)
 # ** Note   : (1321224000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (1321224000 ps) Send SPI command value 4A03_0016 (C2_FB_SQ2_DELAY, mode Write, data 0016)
+# ** Note   : (1321224000 ps) Send SPI command value 4A05_0016 (C2_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 0016)
 # ** Note   : (1323546000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (1323546000 ps) Send SPI command value 6A03_0017 (C3_FB_SQ2_DELAY, mode Write, data 0017)
+# ** Note   : (1323546000 ps) Send SPI command value 6A05_0017 (C3_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 0017)
 # ** Note   : (1325868000 ps) Waiting SPI command end for 2286000 ps
 # ** Note   : (1325870604 ps) Waiting event sync = '0' for 2604 ps
 # ** Note   : (1328039688 ps) Waiting event sync = '1' for 2169084 ps
 # ** Note   : (1328199768 ps) Waiting event sync = '0' for 160080 ps
 #             (1328199768 ps) 
 #             (1328199768 ps) ==============================================================================================
-#             (1328199768 ps)   Send command TM_MODE, Dump mode
+#             (1328199768 ps)   Send command DATA_ACQ_MODE, Dump mode
 #             (1328199768 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (1328199768 ps) Send SPI command value 8001_0000 (TM_MODE, mode Write, data 0000)
+# ** Note   : (1328199768 ps) Send SPI command value 8001_0004 (DATA_ACQ_MODE, mode Write, data 0004)
 # ** Note   : (1330512000 ps) Waiting SPI command end for 2276232 ps
 # ** Note   : (1512512000 ps) Waiting time for 182000000 ps
 #             (1512512000 ps) 
 #             (1512512000 ps) ==============================================================================================
-#             (1512512000 ps)   Send a SQUID1 DAC delay on each channels
+#             (1512512000 ps)   Send a AMP SQUID delay on each channels
 #             (1512512000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (1512512000 ps) Send SPI command value 0A03_0018 (C0_FB_SQ2_DELAY, mode Write, data 0018)
+# ** Note   : (1512512000 ps) Send SPI command value 0A05_0018 (C0_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 0018)
 # ** Note   : (1514832000 ps) Waiting SPI command end for 2284000 ps
-# ** Note   : (1514832000 ps) Send SPI command value 2A03_0019 (C1_FB_SQ2_DELAY, mode Write, data 0019)
+# ** Note   : (1514832000 ps) Send SPI command value 2A05_0019 (C1_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 0019)
 # ** Note   : (1517154000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (1517154000 ps) Send SPI command value 4A03_001A (C2_FB_SQ2_DELAY, mode Write, data 001A)
+# ** Note   : (1517154000 ps) Send SPI command value 4A05_001A (C2_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 001A)
 # ** Note   : (1519476000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (1519476000 ps) Send SPI command value 6A03_001B (C3_FB_SQ2_DELAY, mode Write, data 001B)
+# ** Note   : (1519476000 ps) Send SPI command value 6A05_001B (C3_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 001B)
 # ** Note   : (1521798000 ps) Waiting SPI command end for 2286000 ps
 # ** Note   : (1521800520 ps) Waiting event sync = '0' for 2520 ps
 # ** Note   : (1523977608 ps) Waiting event sync = '1' for 2177088 ps
 # ** Note   : (1524137688 ps) Waiting event sync = '0' for 160080 ps
 #             (1524137688 ps) 
 #             (1524137688 ps) ==============================================================================================
-#             (1524137688 ps)   Send command TM_MODE, Dump mode
+#             (1524137688 ps)   Send command DATA_ACQ_MODE, Dump mode
 #             (1524137688 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (1524137688 ps) Send SPI command value 8001_0000 (TM_MODE, mode Write, data 0000)
+# ** Note   : (1524137688 ps) Send SPI command value 8001_0004 (DATA_ACQ_MODE, mode Write, data 0004)
 # ** Note   : (1526442000 ps) Waiting SPI command end for 2268312 ps
 # ** Note   : (1708442000 ps) Waiting time for 182000000 ps
 #             (1708442000 ps) 
 #             (1708442000 ps) ==============================================================================================
-#             (1708442000 ps)   Send a SQUID1 DAC delay on each channels
+#             (1708442000 ps)   Send a AMP SQUID delay on each channels
 #             (1708442000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (1708442000 ps) Send SPI command value 0A03_001C (C0_FB_SQ2_DELAY, mode Write, data 001C)
+# ** Note   : (1708442000 ps) Send SPI command value 0A05_001C (C0_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 001C)
 # ** Note   : (1710762000 ps) Waiting SPI command end for 2284000 ps
-# ** Note   : (1710762000 ps) Send SPI command value 2A03_001D (C1_FB_SQ2_DELAY, mode Write, data 001D)
+# ** Note   : (1710762000 ps) Send SPI command value 2A05_001D (C1_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 001D)
 # ** Note   : (1713084000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (1713084000 ps) Send SPI command value 4A03_001E (C2_FB_SQ2_DELAY, mode Write, data 001E)
+# ** Note   : (1713084000 ps) Send SPI command value 4A05_001E (C2_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 001E)
 # ** Note   : (1715406000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (1715406000 ps) Send SPI command value 6A03_001F (C3_FB_SQ2_DELAY, mode Write, data 001F)
+# ** Note   : (1715406000 ps) Send SPI command value 6A05_001F (C3_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 001F)
 # ** Note   : (1717728000 ps) Waiting SPI command end for 2286000 ps
 # ** Note   : (1717730436 ps) Waiting event sync = '0' for 2436 ps
 # ** Note   : (1719915528 ps) Waiting event sync = '1' for 2185092 ps
 # ** Note   : (1720075608 ps) Waiting event sync = '0' for 160080 ps
 #             (1720075608 ps) 
 #             (1720075608 ps) ==============================================================================================
-#             (1720075608 ps)   Send command TM_MODE, Dump mode
+#             (1720075608 ps)   Send command DATA_ACQ_MODE, Dump mode
 #             (1720075608 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (1720075608 ps) Send SPI command value 8001_0000 (TM_MODE, mode Write, data 0000)
+# ** Note   : (1720075608 ps) Send SPI command value 8001_0004 (DATA_ACQ_MODE, mode Write, data 0004)
 # ** Note   : (1722390000 ps) Waiting SPI command end for 2278392 ps
 # ** Note   : (1904390000 ps) Waiting time for 182000000 ps
 # ------------------------------------------------------------------------------------------------------------------------------------------------------

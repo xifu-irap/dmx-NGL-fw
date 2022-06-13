@@ -1,22 +1,6 @@
 COMM **********************************************************************************************
-COMM   Test: ADC Power Down and ADC clock signals behavior
+COMM   Test: EP command, CY_FB1_PULSE_SHAPING_SELECTION register
 COMM **********************************************************************************************
-COMM
-COMM ==============================================================================================
-COMM   Enable MUX SQUID ADC clocks reports display
-COMM ----------------------------------------------------------------------------------------------
-CCPE clk_sqm_adc(0)
-CCPE clk_sqm_adc(1)
-CCPE clk_sqm_adc(2)
-CCPE clk_sqm_adc(3)
-COMM
-COMM ==============================================================================================
-COMM   Check ADC Power Down at start
-COMM ----------------------------------------------------------------------------------------------
-CDIS sqm_adc_pwdn(0) 1
-CDIS sqm_adc_pwdn(1) 1
-CDIS sqm_adc_pwdn(2) 1
-CDIS sqm_adc_pwdn(3) 1
 COMM
 COMM ==============================================================================================
 COMM   Asynchronous reset activated
@@ -35,1166 +19,913 @@ COMM ---------------------------------------------------------------------------
 WUDI rst 0
 COMM
 COMM ==============================================================================================
-COMM   Send command DATA_ACQ_MODE column 0 to Science for o_c0_sqm_adc_pwdn deactivation
+COMM   Start C0_FB1_PULSE_SHAPING_SELECTION register test
 COMM ----------------------------------------------------------------------------------------------
-WUDI sync 1
-WCMD W-DATA_ACQ_MODE-0001 N
+WCMD R-C0_FB1_PULSE_SHAPING_SELECTION-XXXX W       # Command C0-0
+WCMD W-C0_FB1_PULSE_SHAPING_SELECTION-8XXX W       # Command C0-1
+WCMD R-C0_FB1_PULSE_SHAPING_SELECTION-XXXX R       # Command C0-2
 COMM
 COMM ==============================================================================================
-COMM   Check no event is appeared on o_cX_sqm_adc_pwdn and wait o_c0_sqm_adc_pwdn deactivation
+COMM   Check C0_FB1_PULSE_SHAPING_SELECTION content at start
 COMM ----------------------------------------------------------------------------------------------
-CTLE sqm_adc_pwdn(0) == now
-CTLE sqm_adc_pwdn(1) == now
-CTLE sqm_adc_pwdn(2) == now
-CTLE sqm_adc_pwdn(3) == now
-WUDI sqm_adc_pwdn(0) 0
+CCMD R-C0_FB1_PULSE_SHAPING_SELECTION-0001 W       # Return Command C0-0
+WCMD W-C0_FB1_PULSE_SHAPING_SELECTION-4XXX R       # Command C0-3
 COMM
 COMM ==============================================================================================
-COMM   Check timing between o_c0_clk_sqm_adc rising edge
-COMM    and internal MUX SQUID ADC clock falling edge
+COMM   Check error position SPI data out of range detected
 COMM ----------------------------------------------------------------------------------------------
-WUDI clk_sqm_adc(0) 1
-RTIM
-WUDI clk_sqm_adc_acq 1
-WUDI clk_sqm_adc_acq 0
-CTLR >= 4400 ps
-CTLR << 4560 ps
+CCMD R-Status-EFFF W                               # Return Command C0-1
+WCMD R-C0_FB1_PULSE_SHAPING_SELECTION-XXXX R       # Command C0-4
 COMM
 COMM ==============================================================================================
-COMM   Check timing between o_c0_sqm_adc_pwdn deactivation and i_sync rising edge
-COMM     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
+COMM   Check C0_FB1_PULSE_SHAPING_SELECTION no change
 COMM ----------------------------------------------------------------------------------------------
-WUDI sync 1
-CTLE sqm_adc_pwdn(0) >= 160080 ps
+CCMD R-C0_FB1_PULSE_SHAPING_SELECTION-0001 W       # Return Command C0-2
+WCMD W-C0_FB1_PULSE_SHAPING_SELECTION-2XXX R       # Command C0-5
 COMM
 COMM ==============================================================================================
-COMM   Send command DATA_ACQ_MODE column 0 to Test pattern for o_c0_sqm_adc_pwdn activation
+COMM   Check error position SPI data out of range detected
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-DATA_ACQ_MODE-0007 W
+CCMD R-Status-EFFF W                               # Return Command C0-3
+WCMD R-C0_FB1_PULSE_SHAPING_SELECTION-XXXX R       # Command C0-6
 COMM
 COMM ==============================================================================================
-COMM    Wait i_sync rising edge and check o_c0_sqm_adc_pwdn remains to deactivated
+COMM   Check C0_FB1_PULSE_SHAPING_SELECTION no change
 COMM ----------------------------------------------------------------------------------------------
-WUDI sync 1
-RTIM
-CDIS sqm_adc_pwdn(0) 0
+CCMD R-C0_FB1_PULSE_SHAPING_SELECTION-0001 W       # Return Command C0-4
+WCMD W-C0_FB1_PULSE_SHAPING_SELECTION-1XXX R       # Command C0-7
 COMM
 COMM ==============================================================================================
-COMM   Check timing between i_sync rising edge and o_c0_sqm_adc_pwdn activation
-COMM     (c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ < .. < 2*c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
+COMM   Check error position SPI data out of range detected
 COMM ----------------------------------------------------------------------------------------------
-WUDI sqm_adc_pwdn(0) 1
-CTLR << 320160 ps
-CTLR >> 160080 ps
+CCMD R-Status-EFFF W                               # Return Command C0-5
+WCMD R-C0_FB1_PULSE_SHAPING_SELECTION-XXXX R       # Command C0-8
 COMM
 COMM ==============================================================================================
-COMM   Send command DATA_ACQ_MODE column 0 to Error signal for o_c0_sqm_adc_pwdn deactivation
+COMM   Check C0_FB1_PULSE_SHAPING_SELECTION no change
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-DATA_ACQ_MODE-0002 N
+CCMD R-C0_FB1_PULSE_SHAPING_SELECTION-0001 W       # Return Command C0-6
+WCMD W-C0_FB1_PULSE_SHAPING_SELECTION-X8XX R       # Command C0-9
 COMM
 COMM ==============================================================================================
-COMM   Wait o_c0_sqm_adc_pwdn deactivation
+COMM   Check error position SPI data out of range detected
 COMM ----------------------------------------------------------------------------------------------
-WUDI sqm_adc_pwdn(0) 0
+CCMD R-Status-EFFF W                               # Return Command C0-7
+WCMD R-C0_FB1_PULSE_SHAPING_SELECTION-XXXX R       # Command C0-10
 COMM
 COMM ==============================================================================================
-COMM   Check timing between o_c0_clk_sqm_adc rising edge
-COMM    and internal MUX SQUID ADC clock falling edge
+COMM   Check C0_FB1_PULSE_SHAPING_SELECTION no change
 COMM ----------------------------------------------------------------------------------------------
-WUDI clk_sqm_adc(0) 1
-RTIM
-WUDI clk_sqm_adc_acq 1
-WUDI clk_sqm_adc_acq 0
-CTLR >= 4400 ps
-CTLR << 4560 ps
+CCMD R-C0_FB1_PULSE_SHAPING_SELECTION-0001 W       # Return Command C0-8
+WCMD W-C0_FB1_PULSE_SHAPING_SELECTION-X4XX R       # Command C0-11
 COMM
 COMM ==============================================================================================
-COMM   Check timing between o_c0_sqm_adc_pwdn deactivation and i_sync rising edge
-COMM     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
+COMM   Check error position SPI data out of range detected
 COMM ----------------------------------------------------------------------------------------------
-WUDI sync 1
-CTLE sqm_adc_pwdn(0) >= 160080 ps
+CCMD R-Status-EFFF W                               # Return Command C0-9
+WCMD R-C0_FB1_PULSE_SHAPING_SELECTION-XXXX R       # Command C0-12
 COMM
 COMM ==============================================================================================
-COMM   Send command DATA_ACQ_MODE column 0 to Test pattern for o_c0_sqm_adc_pwdn activation
+COMM   Check C0_FB1_PULSE_SHAPING_SELECTION no change
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-DATA_ACQ_MODE-0007 W
+CCMD R-C0_FB1_PULSE_SHAPING_SELECTION-0001 W       # Return Command C0-10
+WCMD W-C0_FB1_PULSE_SHAPING_SELECTION-X2XX R       # Command C0-13
 COMM
 COMM ==============================================================================================
-COMM    Wait i_sync rising edge and check o_c0_sqm_adc_pwdn remains to deactivated
+COMM   Check error position SPI data out of range detected
 COMM ----------------------------------------------------------------------------------------------
-WUDI sync 1
-RTIM
-CDIS sqm_adc_pwdn(0) 0
+CCMD R-Status-EFFF W                               # Return Command C0-11
+WCMD R-C0_FB1_PULSE_SHAPING_SELECTION-XXXX R       # Command C0-14
 COMM
 COMM ==============================================================================================
-COMM   Check timing between i_sync rising edge and o_c0_sqm_adc_pwdn activation
-COMM     (c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ < .. < 2*c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
+COMM   Check C0_FB1_PULSE_SHAPING_SELECTION no change
 COMM ----------------------------------------------------------------------------------------------
-WUDI sqm_adc_pwdn(0) 1
-CTLR << 320160 ps
-CTLR >> 160080 ps
+CCMD R-C0_FB1_PULSE_SHAPING_SELECTION-0001 W       # Return Command C0-12
+WCMD W-C0_FB1_PULSE_SHAPING_SELECTION-X1XX R       # Command C0-15
 COMM
 COMM ==============================================================================================
-COMM   Send command DATA_ACQ_MODE column 0 to Dump for o_c0_sqm_adc_pwdn deactivation
+COMM   Check error position SPI data out of range detected
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-DATA_ACQ_MODE-0004 N
+CCMD R-Status-EFFF W                               # Return Command C0-13
+WCMD R-C0_FB1_PULSE_SHAPING_SELECTION-XXXX R       # Command C0-16
 COMM
 COMM ==============================================================================================
-COMM   Check no event is appeared on o_c0_sqm_adc_pwdn and wait o_c0_sqm_adc_pwdn deactivation
+COMM   Check C0_FB1_PULSE_SHAPING_SELECTION no change
 COMM ----------------------------------------------------------------------------------------------
-CDIS sqm_adc_pwdn(0) 1
-WUDI sqm_adc_pwdn(0) 0
+CCMD R-C0_FB1_PULSE_SHAPING_SELECTION-0001 W       # Return Command C0-14
+WCMD W-C0_FB1_PULSE_SHAPING_SELECTION-XX8X R       # Command C0-17
 COMM
 COMM ==============================================================================================
-COMM   Check timing between o_c0_clk_sqm_adc rising edge
-COMM    and internal MUX SQUID ADC clock falling edge
+COMM   Check error position SPI data out of range detected
 COMM ----------------------------------------------------------------------------------------------
-WUDI clk_sqm_adc(0) 1
-RTIM
-WUDI clk_sqm_adc_acq 1
-WUDI clk_sqm_adc_acq 0
-CTLR >= 4400 ps
-CTLR << 4560 ps
+CCMD R-Status-EFFF W                               # Return Command C0-15
+WCMD R-C0_FB1_PULSE_SHAPING_SELECTION-XXXX R       # Command C0-18
 COMM
 COMM ==============================================================================================
-COMM   Check timing between o_c0_sqm_adc_pwdn deactivation and i_sync rising edge
-COMM     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
+COMM   Check C0_FB1_PULSE_SHAPING_SELECTION no change
 COMM ----------------------------------------------------------------------------------------------
-WUDI sync 1
-CTLE sqm_adc_pwdn(0) >= 160080 ps
+CCMD R-C0_FB1_PULSE_SHAPING_SELECTION-0001 W       # Return Command C0-16
+WCMD W-C0_FB1_PULSE_SHAPING_SELECTION-XX4X R       # Command C0-19
 COMM
 COMM ==============================================================================================
-COMM    Wait DATA_ACQ_MODE column 0 goes automatically to Idle and
-COMM     check o_c0_sqm_adc_pwdn remains to deactivated
+COMM   Check error position SPI data out of range detected
 COMM ----------------------------------------------------------------------------------------------
-WAIT 176 us
-WUDI sync 0
-WUDI sync 1
-RTIM
-CDIS sqm_adc_pwdn(0) 0
+CCMD R-Status-EFFF W                               # Return Command C0-17
+WCMD R-C0_FB1_PULSE_SHAPING_SELECTION-XXXX R       # Command C0-20
 COMM
 COMM ==============================================================================================
-COMM   Check timing between i_sync rising edge and o_c0_sqm_adc_pwdn activation
-COMM     (c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ < .. < 2*c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
+COMM   Check C0_FB1_PULSE_SHAPING_SELECTION no change
 COMM ----------------------------------------------------------------------------------------------
-WUDI sqm_adc_pwdn(0) 1
-CTLR << 320160 ps
-CTLR >> 160080 ps
+CCMD R-C0_FB1_PULSE_SHAPING_SELECTION-0001 W       # Return Command C0-18
+WCMD W-C0_FB1_PULSE_SHAPING_SELECTION-XX2X R       # Command C0-21
 COMM
 COMM ==============================================================================================
-COMM   Send command SQ_MUX_FB_ON_OFF column 0 to On for o_c0_sqm_adc_pwdn deactivation
+COMM   Check error position SPI data out of range detected
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-SQ_MUX_FB_ON_OFF-0001 N
+CCMD R-Status-EFFF W                               # Return Command C0-19
+WCMD R-C0_FB1_PULSE_SHAPING_SELECTION-XXXX R       # Command C0-22
 COMM
 COMM ==============================================================================================
-COMM   Check no event is appeared on o_c0_sqm_adc_pwdn and wait o_c0_sqm_adc_pwdn deactivation
+COMM   Check C0_FB1_PULSE_SHAPING_SELECTION no change
 COMM ----------------------------------------------------------------------------------------------
-CDIS sqm_adc_pwdn(0) 1
-WUDI sqm_adc_pwdn(0) 0
+CCMD R-C0_FB1_PULSE_SHAPING_SELECTION-0001 W       # Return Command C0-20
+WCMD W-C0_FB1_PULSE_SHAPING_SELECTION-XX1X R       # Command C0-23
 COMM
 COMM ==============================================================================================
-COMM   Check timing between o_c0_clk_sqm_adc rising edge
-COMM    and internal MUX SQUID ADC clock falling edge
+COMM   Check error position SPI data out of range detected
 COMM ----------------------------------------------------------------------------------------------
-WUDI clk_sqm_adc(0) 1
-RTIM
-WUDI clk_sqm_adc_acq 1
-WUDI clk_sqm_adc_acq 0
-CTLR >= 4400 ps
-CTLR << 4560 ps
+CCMD R-Status-EFFF W                               # Return Command C0-21
+WCMD R-C0_FB1_PULSE_SHAPING_SELECTION-XXXX R       # Command C0-24
 COMM
 COMM ==============================================================================================
-COMM   Check timing between o_c0_sqm_adc_pwdn deactivation and i_sync rising edge
-COMM     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
+COMM   Check C0_FB1_PULSE_SHAPING_SELECTION no change
 COMM ----------------------------------------------------------------------------------------------
-WUDI sync 1
-CTLE sqm_adc_pwdn(0) >= 160080 ps
+CCMD R-C0_FB1_PULSE_SHAPING_SELECTION-0001 W       # Return Command C0-22
+WCMD W-C0_FB1_PULSE_SHAPING_SELECTION-XXX8 R       # Command C0-25
 COMM
 COMM ==============================================================================================
-COMM   Send command SQ_MUX_FB_ON_OFF column 0 to Off loop for o_c0_sqm_adc_pwdn activation
+COMM   Check error position SPI data out of range detected
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-SQ_MUX_FB_ON_OFF-0000 W
+CCMD R-Status-EFFF W                               # Return Command C0-23
+WCMD R-C0_FB1_PULSE_SHAPING_SELECTION-XXXX R       # Command C0-26
 COMM
 COMM ==============================================================================================
-COMM    Wait i_sync rising edge and check o_c0_sqm_adc_pwdn remains to deactivated
+COMM   Check C0_FB1_PULSE_SHAPING_SELECTION no change
 COMM ----------------------------------------------------------------------------------------------
-WUDI sync 1
-RTIM
-CDIS sqm_adc_pwdn(0) 0
+CCMD R-C0_FB1_PULSE_SHAPING_SELECTION-0001 W       # Return Command C0-24
+WCMD W-C0_FB1_PULSE_SHAPING_SELECTION-XXX4 R       # Command C0-27
 COMM
 COMM ==============================================================================================
-COMM   Check timing between i_sync rising edge and o_c0_sqm_adc_pwdn activation
-COMM     (c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ < .. < 2*c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
+COMM   Check error position SPI data out of range detected
 COMM ----------------------------------------------------------------------------------------------
-WUDI sqm_adc_pwdn(0) 1
-CTLR << 320160 ps
-CTLR >> 160080 ps
+CCMD R-Status-EFFF W                               # Return Command C0-25
+WCMD R-C0_FB1_PULSE_SHAPING_SELECTION-XXXX R       # Command C0-28
 COMM
 COMM ==============================================================================================
-COMM   Send command SQ_MUX_FB_ON_OFF column 0 to On for o_c0_sqm_adc_pwdn deactivation
+COMM   Check C0_FB1_PULSE_SHAPING_SELECTION no change
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-SQ_MUX_FB_ON_OFF-0001 N
+CCMD R-C0_FB1_PULSE_SHAPING_SELECTION-0001 W       # Return Command C0-26
+WCMD W-C0_FB1_PULSE_SHAPING_SELECTION-0003 R       # Command C0-29
 COMM
 COMM ==============================================================================================
-COMM   Check no event is appeared on o_c0_sqm_adc_pwdn and wait o_c0_sqm_adc_pwdn deactivation
+COMM   Check error position SPI data out of range detected
 COMM ----------------------------------------------------------------------------------------------
-CDIS sqm_adc_pwdn(0) 1
-WUDI sqm_adc_pwdn(0) 0
+CCMD R-Status-EFFF W                               # Return Command C0-27
+WCMD R-C0_FB1_PULSE_SHAPING_SELECTION-XXXX R       # Command C0-30
 COMM
 COMM ==============================================================================================
-COMM   Check timing between o_c0_clk_sqm_adc rising edge
-COMM    and internal MUX SQUID ADC clock falling edge
+COMM   Check C0_FB1_PULSE_SHAPING_SELECTION no change
 COMM ----------------------------------------------------------------------------------------------
-WUDI clk_sqm_adc(0) 1
-RTIM
-WUDI clk_sqm_adc_acq 1
-WUDI clk_sqm_adc_acq 0
-CTLR >= 4400 ps
-CTLR << 4560 ps
+CCMD R-C0_FB1_PULSE_SHAPING_SELECTION-0001 W       # Return Command C0-28
+WCMD W-C0_FB1_PULSE_SHAPING_SELECTION-0002 R       # Command C0-31
 COMM
 COMM ==============================================================================================
-COMM   Check timing between o_c0_sqm_adc_pwdn deactivation and i_sync rising edge
-COMM     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
+COMM   Check no error
 COMM ----------------------------------------------------------------------------------------------
-WUDI sync 1
-CTLE sqm_adc_pwdn(0) >= 160080 ps
+CCMD R-Status-FFFF W                               # Return Command C0-29
+WCMD R-C0_FB1_PULSE_SHAPING_SELECTION-XXXX R       # Command C0-32
 COMM
 COMM ==============================================================================================
-COMM   Send command SQ_MUX_FB_ON_OFF column 0 to Off for o_c0_sqm_adc_pwdn activation
+COMM   Check C0_FB1_PULSE_SHAPING_SELECTION content
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-SQ_MUX_FB_ON_OFF-0000 W
+CCMD R-C0_FB1_PULSE_SHAPING_SELECTION-0003 W       # Return Command C0-30
+WCMD W-C0_FB1_PULSE_SHAPING_SELECTION-0001 R       # Command C0-33
 COMM
 COMM ==============================================================================================
-COMM    Wait i_sync rising edge and check o_c0_sqm_adc_pwdn remains to deactivated
+COMM   Check no error
 COMM ----------------------------------------------------------------------------------------------
-WUDI sync 1
-RTIM
-CDIS sqm_adc_pwdn(0) 0
+CCMD R-Status-FFFF W                               # Return Command C0-31
+WCMD R-C0_FB1_PULSE_SHAPING_SELECTION-XXXX R       # Command C0-34
 COMM
 COMM ==============================================================================================
-COMM   Check timing between i_sync rising edge and o_c0_sqm_adc_pwdn activation
-COMM     (c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ < .. < 2*c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
+COMM   Check C0_FB1_PULSE_SHAPING_SELECTION content
 COMM ----------------------------------------------------------------------------------------------
-WUDI sqm_adc_pwdn(0) 1
-CTLR << 320160 ps
-CTLR >> 160080 ps
+CCMD R-C0_FB1_PULSE_SHAPING_SELECTION-0002 W       # Return Command C0-32
+WCMD W-C0_FB1_PULSE_SHAPING_SELECTION-0000 R       # Command C0-35
 COMM
 COMM ==============================================================================================
-COMM   Send command SQ_MUX_FB_ON_OFF column 0 to On for o_c0_sqm_adc_pwdn deactivation
+COMM   Check no error
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-SQ_MUX_FB_ON_OFF-0001 N
+CCMD R-Status-FFFF W                               # Return Command C0-33
+WCMD R-C0_FB1_PULSE_SHAPING_SELECTION-XXXX R       # Command C0-36
 COMM
 COMM ==============================================================================================
-COMM   Check no event is appeared on o_c0_sqm_adc_pwdn and wait o_c0_sqm_adc_pwdn deactivation
+COMM   Check C0_FB1_PULSE_SHAPING_SELECTION content
 COMM ----------------------------------------------------------------------------------------------
-CDIS sqm_adc_pwdn(0) 1
-WUDI sqm_adc_pwdn(0) 0
+CCMD R-C0_FB1_PULSE_SHAPING_SELECTION-0001 W       # Return Command C0-34
+WCMD R-Status-XXXX R
 COMM
 COMM ==============================================================================================
-COMM   Check timing between o_c0_clk_sqm_adc rising edge
-COMM    and internal MUX SQUID ADC clock falling edge
+COMM   Check no error
 COMM ----------------------------------------------------------------------------------------------
-WUDI clk_sqm_adc(0) 1
-RTIM
-WUDI clk_sqm_adc_acq 1
-WUDI clk_sqm_adc_acq 0
-CTLR >= 4400 ps
-CTLR << 4560 ps
+CCMD R-Status-FFFF W                               # Return Command C0-35
+WCMD R-Status-XXXX R
 COMM
 COMM ==============================================================================================
-COMM   Check timing between o_c0_sqm_adc_pwdn deactivation and i_sync rising edge
-COMM     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
+COMM   Check C0_FB1_PULSE_SHAPING_SELECTION content
 COMM ----------------------------------------------------------------------------------------------
-WUDI sync 1
-CTLE sqm_adc_pwdn(0) >= 160080 ps
+CCMD R-C0_FB1_PULSE_SHAPING_SELECTION-0000 W       # Return Command C0-36
 COMM
 COMM ==============================================================================================
-COMM   Send command SQ_MUX_FB_ON_OFF column 0 to Off for o_c0_sqm_adc_pwdn activation
+COMM   Start C1_FB1_PULSE_SHAPING_SELECTION register test
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-SQ_MUX_FB_ON_OFF-0000 W
+WCMD R-C1_FB1_PULSE_SHAPING_SELECTION-XXXX W       # Command C1-0
+WCMD W-C1_FB1_PULSE_SHAPING_SELECTION-8XXX W       # Command C1-1
+WCMD R-C1_FB1_PULSE_SHAPING_SELECTION-XXXX R       # Command C1-2
 COMM
 COMM ==============================================================================================
-COMM    Wait i_sync rising edge and check o_c0_sqm_adc_pwdn remains to deactivated
+COMM   Check C1_FB1_PULSE_SHAPING_SELECTION content at start
 COMM ----------------------------------------------------------------------------------------------
-WUDI sync 1
-RTIM
-CDIS sqm_adc_pwdn(0) 0
+CCMD R-C1_FB1_PULSE_SHAPING_SELECTION-0001 W       # Return Command C1-0
+WCMD W-C1_FB1_PULSE_SHAPING_SELECTION-4XXX R       # Command C1-3
 COMM
 COMM ==============================================================================================
-COMM   Check timing between i_sync rising edge and o_c0_sqm_adc_pwdn activation
-COMM     (c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ < .. < 2*c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
+COMM   Check error position SPI data out of range detected
 COMM ----------------------------------------------------------------------------------------------
-WUDI sqm_adc_pwdn(0) 1
-CTLR << 320160 ps
-CTLR >> 160080 ps
+CCMD R-Status-EFFF W                               # Return Command C1-1
+WCMD R-C1_FB1_PULSE_SHAPING_SELECTION-XXXX R       # Command C1-4
 COMM
 COMM ==============================================================================================
-COMM   Send command DATA_ACQ_MODE column 1 to Science for o_c1_sqm_adc_pwdn deactivation
+COMM   Check C1_FB1_PULSE_SHAPING_SELECTION no change
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-DATA_ACQ_MODE-0001 N
+CCMD R-C1_FB1_PULSE_SHAPING_SELECTION-0001 W       # Return Command C1-2
+WCMD W-C1_FB1_PULSE_SHAPING_SELECTION-2XXX R       # Command C1-5
 COMM
 COMM ==============================================================================================
-COMM   Wait o_c1_sqm_adc_pwdn deactivation
+COMM   Check error position SPI data out of range detected
 COMM ----------------------------------------------------------------------------------------------
-WUDI sqm_adc_pwdn(1) 0
+CCMD R-Status-EFFF W                               # Return Command C1-3
+WCMD R-C1_FB1_PULSE_SHAPING_SELECTION-XXXX R       # Command C1-6
 COMM
 COMM ==============================================================================================
-COMM   Check timing between o_c1_clk_sqm_adc rising edge
-COMM    and internal MUX SQUID ADC clock falling edge
+COMM   Check C1_FB1_PULSE_SHAPING_SELECTION no change
 COMM ----------------------------------------------------------------------------------------------
-WUDI clk_sqm_adc(1) 1
-RTIM
-WUDI clk_sqm_adc_acq 1
-WUDI clk_sqm_adc_acq 0
-CTLR >= 4400 ps
-CTLR << 4560 ps
+CCMD R-C1_FB1_PULSE_SHAPING_SELECTION-0001 W       # Return Command C1-4
+WCMD W-C1_FB1_PULSE_SHAPING_SELECTION-1XXX R       # Command C1-7
 COMM
 COMM ==============================================================================================
-COMM   Check timing between o_c1_sqm_adc_pwdn deactivation and i_sync rising edge
-COMM     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
+COMM   Check error position SPI data out of range detected
 COMM ----------------------------------------------------------------------------------------------
-WUDI sync 1
-CTLE sqm_adc_pwdn(1) >= 160080 ps
+CCMD R-Status-EFFF W                               # Return Command C1-5
+WCMD R-C1_FB1_PULSE_SHAPING_SELECTION-XXXX R       # Command C1-8
 COMM
 COMM ==============================================================================================
-COMM   Send command DATA_ACQ_MODE column 1 to Test pattern for o_c1_sqm_adc_pwdn activation
+COMM   Check C1_FB1_PULSE_SHAPING_SELECTION no change
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-DATA_ACQ_MODE-0007 W
+CCMD R-C1_FB1_PULSE_SHAPING_SELECTION-0001 W       # Return Command C1-6
+WCMD W-C1_FB1_PULSE_SHAPING_SELECTION-X8XX R       # Command C1-9
 COMM
 COMM ==============================================================================================
-COMM    Wait i_sync rising edge and check o_c1_sqm_adc_pwdn remains to deactivated
+COMM   Check error position SPI data out of range detected
 COMM ----------------------------------------------------------------------------------------------
-WUDI sync 1
-RTIM
-CDIS sqm_adc_pwdn(1) 0
+CCMD R-Status-EFFF W                               # Return Command C1-7
+WCMD R-C1_FB1_PULSE_SHAPING_SELECTION-XXXX R       # Command C1-10
 COMM
 COMM ==============================================================================================
-COMM   Check timing between i_sync rising edge and o_c1_sqm_adc_pwdn activation
-COMM     (c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ < .. < 2*c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
+COMM   Check C1_FB1_PULSE_SHAPING_SELECTION no change
 COMM ----------------------------------------------------------------------------------------------
-WUDI sqm_adc_pwdn(1) 1
-CTLR << 320160 ps
-CTLR >> 160080 ps
+CCMD R-C1_FB1_PULSE_SHAPING_SELECTION-0001 W       # Return Command C1-8
+WCMD W-C1_FB1_PULSE_SHAPING_SELECTION-X4XX R       # Command C1-11
 COMM
 COMM ==============================================================================================
-COMM   Send command DATA_ACQ_MODE column 1 to Error signal for o_c1_sqm_adc_pwdn deactivation
+COMM   Check error position SPI data out of range detected
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-DATA_ACQ_MODE-0002 N
+CCMD R-Status-EFFF W                               # Return Command C1-9
+WCMD R-C1_FB1_PULSE_SHAPING_SELECTION-XXXX R       # Command C1-12
 COMM
 COMM ==============================================================================================
-COMM   Wait o_c1_sqm_adc_pwdn deactivation
+COMM   Check C1_FB1_PULSE_SHAPING_SELECTION no change
 COMM ----------------------------------------------------------------------------------------------
-WUDI sqm_adc_pwdn(1) 0
+CCMD R-C1_FB1_PULSE_SHAPING_SELECTION-0001 W       # Return Command C1-10
+WCMD W-C1_FB1_PULSE_SHAPING_SELECTION-X2XX R       # Command C1-13
 COMM
 COMM ==============================================================================================
-COMM   Check timing between o_c1_clk_sqm_adc rising edge
-COMM    and internal MUX SQUID ADC clock falling edge
+COMM   Check error position SPI data out of range detected
 COMM ----------------------------------------------------------------------------------------------
-WUDI clk_sqm_adc(1) 1
-RTIM
-WUDI clk_sqm_adc_acq 1
-WUDI clk_sqm_adc_acq 0
-CTLR >= 4400 ps
-CTLR << 4560 ps
+CCMD R-Status-EFFF W                               # Return Command C1-11
+WCMD R-C1_FB1_PULSE_SHAPING_SELECTION-XXXX R       # Command C1-14
 COMM
 COMM ==============================================================================================
-COMM   Check timing between o_c1_sqm_adc_pwdn deactivation and i_sync rising edge
-COMM     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
+COMM   Check C1_FB1_PULSE_SHAPING_SELECTION no change
 COMM ----------------------------------------------------------------------------------------------
-WUDI sync 1
-CTLE sqm_adc_pwdn(1) >= 160080 ps
+CCMD R-C1_FB1_PULSE_SHAPING_SELECTION-0001 W       # Return Command C1-12
+WCMD W-C1_FB1_PULSE_SHAPING_SELECTION-X1XX R       # Command C1-15
 COMM
 COMM ==============================================================================================
-COMM   Send command DATA_ACQ_MODE column 1 to Test pattern for o_c1_sqm_adc_pwdn activation
+COMM   Check error position SPI data out of range detected
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-DATA_ACQ_MODE-0007 W
+CCMD R-Status-EFFF W                               # Return Command C1-13
+WCMD R-C1_FB1_PULSE_SHAPING_SELECTION-XXXX R       # Command C1-16
 COMM
 COMM ==============================================================================================
-COMM    Wait i_sync rising edge and check o_c1_sqm_adc_pwdn remains to deactivated
+COMM   Check C1_FB1_PULSE_SHAPING_SELECTION no change
 COMM ----------------------------------------------------------------------------------------------
-WUDI sync 1
-RTIM
-CDIS sqm_adc_pwdn(1) 0
+CCMD R-C1_FB1_PULSE_SHAPING_SELECTION-0001 W       # Return Command C1-14
+WCMD W-C1_FB1_PULSE_SHAPING_SELECTION-XX8X R       # Command C1-17
 COMM
 COMM ==============================================================================================
-COMM   Check timing between i_sync rising edge and o_c1_sqm_adc_pwdn activation
-COMM     (c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ < .. < 2*c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
+COMM   Check error position SPI data out of range detected
 COMM ----------------------------------------------------------------------------------------------
-WUDI sqm_adc_pwdn(1) 1
-CTLR << 320160 ps
-CTLR >> 160080 ps
+CCMD R-Status-EFFF W                               # Return Command C1-15
+WCMD R-C1_FB1_PULSE_SHAPING_SELECTION-XXXX R       # Command C1-18
 COMM
 COMM ==============================================================================================
-COMM   Send command DATA_ACQ_MODE column 1 to Dump for o_c1_sqm_adc_pwdn deactivation
+COMM   Check C1_FB1_PULSE_SHAPING_SELECTION no change
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-DATA_ACQ_MODE-0004 N
+CCMD R-C1_FB1_PULSE_SHAPING_SELECTION-0001 W       # Return Command C1-16
+WCMD W-C1_FB1_PULSE_SHAPING_SELECTION-XX4X R       # Command C1-19
 COMM
 COMM ==============================================================================================
-COMM   Check no event is appeared on o_c1_sqm_adc_pwdn and wait o_c1_sqm_adc_pwdn deactivation
+COMM   Check error position SPI data out of range detected
 COMM ----------------------------------------------------------------------------------------------
-CDIS sqm_adc_pwdn(1) 1
-WUDI sqm_adc_pwdn(1) 0
+CCMD R-Status-EFFF W                               # Return Command C1-17
+WCMD R-C1_FB1_PULSE_SHAPING_SELECTION-XXXX R       # Command C1-20
 COMM
 COMM ==============================================================================================
-COMM   Check timing between o_c1_clk_sqm_adc rising edge
-COMM    and internal MUX SQUID ADC clock falling edge
+COMM   Check C1_FB1_PULSE_SHAPING_SELECTION no change
 COMM ----------------------------------------------------------------------------------------------
-WUDI clk_sqm_adc(1) 1
-RTIM
-WUDI clk_sqm_adc_acq 1
-WUDI clk_sqm_adc_acq 0
-CTLR >= 4400 ps
-CTLR << 4560 ps
+CCMD R-C1_FB1_PULSE_SHAPING_SELECTION-0001 W       # Return Command C1-18
+WCMD W-C1_FB1_PULSE_SHAPING_SELECTION-XX2X R       # Command C1-21
 COMM
 COMM ==============================================================================================
-COMM   Check timing between o_c1_sqm_adc_pwdn deactivation and i_sync rising edge
-COMM     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
+COMM   Check error position SPI data out of range detected
 COMM ----------------------------------------------------------------------------------------------
-WUDI sync 1
-CTLE sqm_adc_pwdn(1) >= 160080 ps
+CCMD R-Status-EFFF W                               # Return Command C1-19
+WCMD R-C1_FB1_PULSE_SHAPING_SELECTION-XXXX R       # Command C1-22
 COMM
 COMM ==============================================================================================
-COMM    Wait DATA_ACQ_MODE column 1 goes automatically to Idle and
-COMM     check o_c1_sqm_adc_pwdn remains to deactivated
+COMM   Check C1_FB1_PULSE_SHAPING_SELECTION no change
 COMM ----------------------------------------------------------------------------------------------
-WAIT 176 us
-WUDI sync 0
-WUDI sync 1
-RTIM
-CDIS sqm_adc_pwdn(1) 0
+CCMD R-C1_FB1_PULSE_SHAPING_SELECTION-0001 W       # Return Command C1-20
+WCMD W-C1_FB1_PULSE_SHAPING_SELECTION-XX1X R       # Command C1-23
 COMM
 COMM ==============================================================================================
-COMM   Check timing between i_sync rising edge and o_c1_sqm_adc_pwdn activation
-COMM     (c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ < .. < 2*c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
+COMM   Check error position SPI data out of range detected
 COMM ----------------------------------------------------------------------------------------------
-WUDI sqm_adc_pwdn(1) 1
-CTLR << 320160 ps
-CTLR >> 160080 ps
+CCMD R-Status-EFFF W                               # Return Command C1-21
+WCMD R-C1_FB1_PULSE_SHAPING_SELECTION-XXXX R       # Command C1-24
 COMM
 COMM ==============================================================================================
-COMM   Send command SQ_MUX_FB_ON_OFF column 1 to On for o_c1_sqm_adc_pwdn deactivation
+COMM   Check C1_FB1_PULSE_SHAPING_SELECTION no change
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-SQ_MUX_FB_ON_OFF-0010 N
+CCMD R-C1_FB1_PULSE_SHAPING_SELECTION-0001 W       # Return Command C1-22
+WCMD W-C1_FB1_PULSE_SHAPING_SELECTION-XXX8 R       # Command C1-25
 COMM
 COMM ==============================================================================================
-COMM   Check no event is appeared on o_c1_sqm_adc_pwdn and wait o_c1_sqm_adc_pwdn deactivation
+COMM   Check error position SPI data out of range detected
 COMM ----------------------------------------------------------------------------------------------
-CDIS sqm_adc_pwdn(1) 1
-WUDI sqm_adc_pwdn(1) 0
+CCMD R-Status-EFFF W                               # Return Command C1-23
+WCMD R-C1_FB1_PULSE_SHAPING_SELECTION-XXXX R       # Command C1-26
 COMM
 COMM ==============================================================================================
-COMM   Check timing between o_c1_clk_sqm_adc rising edge
-COMM    and internal MUX SQUID ADC clock falling edge
+COMM   Check C1_FB1_PULSE_SHAPING_SELECTION no change
 COMM ----------------------------------------------------------------------------------------------
-WUDI clk_sqm_adc(1) 1
-RTIM
-WUDI clk_sqm_adc_acq 1
-WUDI clk_sqm_adc_acq 0
-CTLR >= 4400 ps
-CTLR << 4560 ps
+CCMD R-C1_FB1_PULSE_SHAPING_SELECTION-0001 W       # Return Command C1-24
+WCMD W-C1_FB1_PULSE_SHAPING_SELECTION-XXX4 R       # Command C1-27
 COMM
 COMM ==============================================================================================
-COMM   Check timing between o_c1_sqm_adc_pwdn deactivation and i_sync rising edge
-COMM     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
+COMM   Check error position SPI data out of range detected
 COMM ----------------------------------------------------------------------------------------------
-WUDI sync 1
-CTLE sqm_adc_pwdn(1) >= 160080 ps
+CCMD R-Status-EFFF W                               # Return Command C1-25
+WCMD R-C1_FB1_PULSE_SHAPING_SELECTION-XXXX R       # Command C1-28
 COMM
 COMM ==============================================================================================
-COMM   Send command SQ_MUX_FB_ON_OFF column 1 to Off loop for o_c1_sqm_adc_pwdn activation
+COMM   Check C1_FB1_PULSE_SHAPING_SELECTION no change
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-SQ_MUX_FB_ON_OFF-0000 W
+CCMD R-C1_FB1_PULSE_SHAPING_SELECTION-0001 W       # Return Command C1-26
+WCMD W-C1_FB1_PULSE_SHAPING_SELECTION-0003 R       # Command C1-29
 COMM
 COMM ==============================================================================================
-COMM    Wait i_sync rising edge and check o_c1_sqm_adc_pwdn remains to deactivated
+COMM   Check error position SPI data out of range detected
 COMM ----------------------------------------------------------------------------------------------
-WUDI sync 1
-RTIM
-CDIS sqm_adc_pwdn(1) 0
+CCMD R-Status-EFFF W                               # Return Command C1-27
+WCMD R-C1_FB1_PULSE_SHAPING_SELECTION-XXXX R       # Command C1-30
 COMM
 COMM ==============================================================================================
-COMM   Check timing between i_sync rising edge and o_c1_sqm_adc_pwdn activation
-COMM     (c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ < .. < 2*c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
+COMM   Check C1_FB1_PULSE_SHAPING_SELECTION no change
 COMM ----------------------------------------------------------------------------------------------
-WUDI sqm_adc_pwdn(1) 1
-CTLR << 320160 ps
-CTLR >> 160080 ps
+CCMD R-C1_FB1_PULSE_SHAPING_SELECTION-0001 W       # Return Command C1-28
+WCMD W-C1_FB1_PULSE_SHAPING_SELECTION-0002 R       # Command C1-31
 COMM
 COMM ==============================================================================================
-COMM   Send command SQ_MUX_FB_ON_OFF column 1 to On for o_c1_sqm_adc_pwdn deactivation
+COMM   Check no error
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-SQ_MUX_FB_ON_OFF-0010 N
+CCMD R-Status-FFFF W                               # Return Command C1-29
+WCMD R-C1_FB1_PULSE_SHAPING_SELECTION-XXXX R       # Command C1-32
 COMM
 COMM ==============================================================================================
-COMM   Check no event is appeared on o_c1_sqm_adc_pwdn and wait o_c1_sqm_adc_pwdn deactivation
+COMM   Check C1_FB1_PULSE_SHAPING_SELECTION content
 COMM ----------------------------------------------------------------------------------------------
-CDIS sqm_adc_pwdn(1) 1
-WUDI sqm_adc_pwdn(1) 0
+CCMD R-C1_FB1_PULSE_SHAPING_SELECTION-0003 W       # Return Command C1-30
+WCMD W-C1_FB1_PULSE_SHAPING_SELECTION-0001 R       # Command C1-33
 COMM
 COMM ==============================================================================================
-COMM   Check timing between o_c1_clk_sqm_adc rising edge
-COMM    and internal MUX SQUID ADC clock falling edge
+COMM   Check no error
 COMM ----------------------------------------------------------------------------------------------
-WUDI clk_sqm_adc(1) 1
-RTIM
-WUDI clk_sqm_adc_acq 1
-WUDI clk_sqm_adc_acq 0
-CTLR >= 4400 ps
-CTLR << 4560 ps
+CCMD R-Status-FFFF W                               # Return Command C1-31
+WCMD R-C1_FB1_PULSE_SHAPING_SELECTION-XXXX R       # Command C1-34
 COMM
 COMM ==============================================================================================
-COMM   Check timing between o_c1_sqm_adc_pwdn deactivation and i_sync rising edge
-COMM     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
+COMM   Check C1_FB1_PULSE_SHAPING_SELECTION content
 COMM ----------------------------------------------------------------------------------------------
-WUDI sync 1
-CTLE sqm_adc_pwdn(1) >= 160080 ps
+CCMD R-C1_FB1_PULSE_SHAPING_SELECTION-0002 W       # Return Command C1-32
+WCMD W-C1_FB1_PULSE_SHAPING_SELECTION-0000 R       # Command C1-35
 COMM
 COMM ==============================================================================================
-COMM   Send command SQ_MUX_FB_ON_OFF column 1 to Off for o_c1_sqm_adc_pwdn activation
+COMM   Check no error
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-SQ_MUX_FB_ON_OFF-0000 W
+CCMD R-Status-FFFF W                               # Return Command C1-33
+WCMD R-C1_FB1_PULSE_SHAPING_SELECTION-XXXX R       # Command C1-36
 COMM
 COMM ==============================================================================================
-COMM    Wait i_sync rising edge and check o_c1_sqm_adc_pwdn remains to deactivated
+COMM   Check C1_FB1_PULSE_SHAPING_SELECTION content
 COMM ----------------------------------------------------------------------------------------------
-WUDI sync 1
-RTIM
-CDIS sqm_adc_pwdn(1) 0
+CCMD R-C1_FB1_PULSE_SHAPING_SELECTION-0001 W       # Return Command C1-34
+WCMD R-Status-XXXX R
 COMM
 COMM ==============================================================================================
-COMM   Check timing between i_sync rising edge and o_c1_sqm_adc_pwdn activation
-COMM     (c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ < .. < 2*c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
+COMM   Check no error
 COMM ----------------------------------------------------------------------------------------------
-WUDI sqm_adc_pwdn(1) 1
-CTLR << 320160 ps
-CTLR >> 160080 ps
+CCMD R-Status-FFFF W                               # Return Command C1-35
+WCMD R-Status-XXXX R
 COMM
 COMM ==============================================================================================
-COMM   Send command SQ_MUX_FB_ON_OFF column 1 to On for o_c1_sqm_adc_pwdn deactivation
+COMM   Check C1_FB1_PULSE_SHAPING_SELECTION content
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-SQ_MUX_FB_ON_OFF-0010 N
+CCMD R-C1_FB1_PULSE_SHAPING_SELECTION-0000 W       # Return Command C1-36
 COMM
 COMM ==============================================================================================
-COMM   Check no event is appeared on o_c1_sqm_adc_pwdn and wait o_c1_sqm_adc_pwdn deactivation
+COMM   Start C2_FB1_PULSE_SHAPING_SELECTION register test
 COMM ----------------------------------------------------------------------------------------------
-CDIS sqm_adc_pwdn(1) 1
-WUDI sqm_adc_pwdn(1) 0
+WCMD R-C2_FB1_PULSE_SHAPING_SELECTION-XXXX W       # Command C2-0
+WCMD W-C2_FB1_PULSE_SHAPING_SELECTION-8XXX W       # Command C2-1
+WCMD R-C2_FB1_PULSE_SHAPING_SELECTION-XXXX R       # Command C2-2
 COMM
 COMM ==============================================================================================
-COMM   Check timing between o_c1_clk_sqm_adc rising edge
-COMM    and internal MUX SQUID ADC clock falling edge
+COMM   Check C2_FB1_PULSE_SHAPING_SELECTION content at start
 COMM ----------------------------------------------------------------------------------------------
-WUDI clk_sqm_adc(1) 1
-RTIM
-WUDI clk_sqm_adc_acq 1
-WUDI clk_sqm_adc_acq 0
-CTLR >= 4400 ps
-CTLR << 4560 ps
+CCMD R-C2_FB1_PULSE_SHAPING_SELECTION-0001 W       # Return Command C2-0
+WCMD W-C2_FB1_PULSE_SHAPING_SELECTION-4XXX R       # Command C2-3
 COMM
 COMM ==============================================================================================
-COMM   Check timing between o_c1_sqm_adc_pwdn deactivation and i_sync rising edge
-COMM     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
+COMM   Check error position SPI data out of range detected
 COMM ----------------------------------------------------------------------------------------------
-WUDI sync 1
-CTLE sqm_adc_pwdn(1) >= 160080 ps
+CCMD R-Status-EFFF W                               # Return Command C2-1
+WCMD R-C2_FB1_PULSE_SHAPING_SELECTION-XXXX R       # Command C2-4
 COMM
 COMM ==============================================================================================
-COMM   Send command SQ_MUX_FB_ON_OFF column 1 to Off for o_c1_sqm_adc_pwdn activation
+COMM   Check C2_FB1_PULSE_SHAPING_SELECTION no change
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-SQ_MUX_FB_ON_OFF-0000 W
+CCMD R-C2_FB1_PULSE_SHAPING_SELECTION-0001 W       # Return Command C2-2
+WCMD W-C2_FB1_PULSE_SHAPING_SELECTION-2XXX R       # Command C2-5
 COMM
 COMM ==============================================================================================
-COMM    Wait i_sync rising edge and check o_c1_sqm_adc_pwdn remains to deactivated
+COMM   Check error position SPI data out of range detected
 COMM ----------------------------------------------------------------------------------------------
-WUDI sync 1
-RTIM
-CDIS sqm_adc_pwdn(1) 0
+CCMD R-Status-EFFF W                               # Return Command C2-3
+WCMD R-C2_FB1_PULSE_SHAPING_SELECTION-XXXX R       # Command C2-6
 COMM
 COMM ==============================================================================================
-COMM   Check timing between i_sync rising edge and o_c1_sqm_adc_pwdn activation
-COMM     (c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ < .. < 2*c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
+COMM   Check C2_FB1_PULSE_SHAPING_SELECTION no change
 COMM ----------------------------------------------------------------------------------------------
-WUDI sqm_adc_pwdn(1) 1
-CTLR << 320160 ps
-CTLR >> 160080 ps
+CCMD R-C2_FB1_PULSE_SHAPING_SELECTION-0001 W       # Return Command C2-4
+WCMD W-C2_FB1_PULSE_SHAPING_SELECTION-1XXX R       # Command C2-7
 COMM
 COMM ==============================================================================================
-COMM   Send command DATA_ACQ_MODE column 2 to Science for o_c2_sqm_adc_pwdn deactivation
+COMM   Check error position SPI data out of range detected
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-DATA_ACQ_MODE-0001 N
+CCMD R-Status-EFFF W                               # Return Command C2-5
+WCMD R-C2_FB1_PULSE_SHAPING_SELECTION-XXXX R       # Command C2-8
 COMM
 COMM ==============================================================================================
-COMM   Wait o_c2_sqm_adc_pwdn deactivation
+COMM   Check C2_FB1_PULSE_SHAPING_SELECTION no change
 COMM ----------------------------------------------------------------------------------------------
-WUDI sqm_adc_pwdn(2) 0
+CCMD R-C2_FB1_PULSE_SHAPING_SELECTION-0001 W       # Return Command C2-6
+WCMD W-C2_FB1_PULSE_SHAPING_SELECTION-X8XX R       # Command C2-9
 COMM
 COMM ==============================================================================================
-COMM   Check timing between o_c2_clk_sqm_adc rising edge
-COMM    and internal MUX SQUID ADC clock falling edge
+COMM   Check error position SPI data out of range detected
 COMM ----------------------------------------------------------------------------------------------
-WUDI clk_sqm_adc(2) 1
-RTIM
-WUDI clk_sqm_adc_acq 1
-WUDI clk_sqm_adc_acq 0
-CTLR >= 4400 ps
-CTLR << 4560 ps
+CCMD R-Status-EFFF W                               # Return Command C2-7
+WCMD R-C2_FB1_PULSE_SHAPING_SELECTION-XXXX R       # Command C2-10
 COMM
 COMM ==============================================================================================
-COMM   Check timing between o_c2_sqm_adc_pwdn deactivation and i_sync rising edge
-COMM     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
+COMM   Check C2_FB1_PULSE_SHAPING_SELECTION no change
 COMM ----------------------------------------------------------------------------------------------
-WUDI sync 1
-CTLE sqm_adc_pwdn(2) >= 160080 ps
+CCMD R-C2_FB1_PULSE_SHAPING_SELECTION-0001 W       # Return Command C2-8
+WCMD W-C2_FB1_PULSE_SHAPING_SELECTION-X4XX R       # Command C2-11
 COMM
 COMM ==============================================================================================
-COMM   Send command DATA_ACQ_MODE column 2 to Test pattern for o_c2_sqm_adc_pwdn activation
+COMM   Check error position SPI data out of range detected
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-DATA_ACQ_MODE-0007 W
+CCMD R-Status-EFFF W                               # Return Command C2-9
+WCMD R-C2_FB1_PULSE_SHAPING_SELECTION-XXXX R       # Command C2-12
 COMM
 COMM ==============================================================================================
-COMM    Wait i_sync rising edge and check o_c2_sqm_adc_pwdn remains to deactivated
+COMM   Check C2_FB1_PULSE_SHAPING_SELECTION no change
 COMM ----------------------------------------------------------------------------------------------
-WUDI sync 1
-RTIM
-CDIS sqm_adc_pwdn(2) 0
+CCMD R-C2_FB1_PULSE_SHAPING_SELECTION-0001 W       # Return Command C2-10
+WCMD W-C2_FB1_PULSE_SHAPING_SELECTION-X2XX R       # Command C2-13
 COMM
 COMM ==============================================================================================
-COMM   Check timing between i_sync rising edge and o_c2_sqm_adc_pwdn activation
-COMM     (c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ < .. < 2*c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
+COMM   Check error position SPI data out of range detected
 COMM ----------------------------------------------------------------------------------------------
-WUDI sqm_adc_pwdn(2) 1
-CTLR << 320160 ps
-CTLR >> 160080 ps
+CCMD R-Status-EFFF W                               # Return Command C2-11
+WCMD R-C2_FB1_PULSE_SHAPING_SELECTION-XXXX R       # Command C2-14
 COMM
 COMM ==============================================================================================
-COMM   Send command DATA_ACQ_MODE column 2 to Error signal for o_c2_sqm_adc_pwdn deactivation
+COMM   Check C2_FB1_PULSE_SHAPING_SELECTION no change
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-DATA_ACQ_MODE-0002 N
+CCMD R-C2_FB1_PULSE_SHAPING_SELECTION-0001 W       # Return Command C2-12
+WCMD W-C2_FB1_PULSE_SHAPING_SELECTION-X1XX R       # Command C2-15
 COMM
 COMM ==============================================================================================
-COMM   Wait o_c2_sqm_adc_pwdn deactivation
+COMM   Check error position SPI data out of range detected
 COMM ----------------------------------------------------------------------------------------------
-WUDI sqm_adc_pwdn(2) 0
+CCMD R-Status-EFFF W                               # Return Command C2-13
+WCMD R-C2_FB1_PULSE_SHAPING_SELECTION-XXXX R       # Command C2-16
 COMM
 COMM ==============================================================================================
-COMM   Check timing between o_c2_clk_sqm_adc rising edge
-COMM    and internal MUX SQUID ADC clock falling edge
+COMM   Check C2_FB1_PULSE_SHAPING_SELECTION no change
 COMM ----------------------------------------------------------------------------------------------
-WUDI clk_sqm_adc(2) 1
-RTIM
-WUDI clk_sqm_adc_acq 1
-WUDI clk_sqm_adc_acq 0
-CTLR >= 4400 ps
-CTLR << 4560 ps
+CCMD R-C2_FB1_PULSE_SHAPING_SELECTION-0001 W       # Return Command C2-14
+WCMD W-C2_FB1_PULSE_SHAPING_SELECTION-XX8X R       # Command C2-17
 COMM
 COMM ==============================================================================================
-COMM   Check timing between o_c2_sqm_adc_pwdn deactivation and i_sync rising edge
-COMM     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
+COMM   Check error position SPI data out of range detected
 COMM ----------------------------------------------------------------------------------------------
-WUDI sync 1
-CTLE sqm_adc_pwdn(2) >= 160080 ps
+CCMD R-Status-EFFF W                               # Return Command C2-15
+WCMD R-C2_FB1_PULSE_SHAPING_SELECTION-XXXX R       # Command C2-18
 COMM
 COMM ==============================================================================================
-COMM   Send command DATA_ACQ_MODE column 2 to Test pattern for o_c2_sqm_adc_pwdn activation
+COMM   Check C2_FB1_PULSE_SHAPING_SELECTION no change
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-DATA_ACQ_MODE-0007 W
+CCMD R-C2_FB1_PULSE_SHAPING_SELECTION-0001 W       # Return Command C2-16
+WCMD W-C2_FB1_PULSE_SHAPING_SELECTION-XX4X R       # Command C2-19
 COMM
 COMM ==============================================================================================
-COMM    Wait i_sync rising edge and check o_c2_sqm_adc_pwdn remains to deactivated
+COMM   Check error position SPI data out of range detected
 COMM ----------------------------------------------------------------------------------------------
-WUDI sync 1
-RTIM
-CDIS sqm_adc_pwdn(2) 0
+CCMD R-Status-EFFF W                               # Return Command C2-17
+WCMD R-C2_FB1_PULSE_SHAPING_SELECTION-XXXX R       # Command C2-20
 COMM
 COMM ==============================================================================================
-COMM   Check timing between i_sync rising edge and o_c2_sqm_adc_pwdn activation
-COMM     (c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ < .. < 2*c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
+COMM   Check C2_FB1_PULSE_SHAPING_SELECTION no change
 COMM ----------------------------------------------------------------------------------------------
-WUDI sqm_adc_pwdn(2) 1
-CTLR << 320160 ps
-CTLR >> 160080 ps
+CCMD R-C2_FB1_PULSE_SHAPING_SELECTION-0001 W       # Return Command C2-18
+WCMD W-C2_FB1_PULSE_SHAPING_SELECTION-XX2X R       # Command C2-21
 COMM
 COMM ==============================================================================================
-COMM   Send command DATA_ACQ_MODE column 2 to Dump for o_c2_sqm_adc_pwdn deactivation
+COMM   Check error position SPI data out of range detected
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-DATA_ACQ_MODE-0004 N
+CCMD R-Status-EFFF W                               # Return Command C2-19
+WCMD R-C2_FB1_PULSE_SHAPING_SELECTION-XXXX R       # Command C2-22
 COMM
 COMM ==============================================================================================
-COMM   Check no event is appeared on o_c2_sqm_adc_pwdn and wait o_c2_sqm_adc_pwdn deactivation
+COMM   Check C2_FB1_PULSE_SHAPING_SELECTION no change
 COMM ----------------------------------------------------------------------------------------------
-CDIS sqm_adc_pwdn(2) 1
-WUDI sqm_adc_pwdn(2) 0
+CCMD R-C2_FB1_PULSE_SHAPING_SELECTION-0001 W       # Return Command C2-20
+WCMD W-C2_FB1_PULSE_SHAPING_SELECTION-XX1X R       # Command C2-23
 COMM
 COMM ==============================================================================================
-COMM   Check timing between o_c2_clk_sqm_adc rising edge
-COMM    and internal MUX SQUID ADC clock falling edge
+COMM   Check error position SPI data out of range detected
 COMM ----------------------------------------------------------------------------------------------
-WUDI clk_sqm_adc(2) 1
-RTIM
-WUDI clk_sqm_adc_acq 1
-WUDI clk_sqm_adc_acq 0
-CTLR >= 4400 ps
-CTLR << 4560 ps
+CCMD R-Status-EFFF W                               # Return Command C2-21
+WCMD R-C2_FB1_PULSE_SHAPING_SELECTION-XXXX R       # Command C2-24
 COMM
 COMM ==============================================================================================
-COMM   Check timing between o_c2_sqm_adc_pwdn deactivation and i_sync rising edge
-COMM     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
+COMM   Check C2_FB1_PULSE_SHAPING_SELECTION no change
 COMM ----------------------------------------------------------------------------------------------
-WUDI sync 1
-CTLE sqm_adc_pwdn(2) >= 160080 ps
+CCMD R-C2_FB1_PULSE_SHAPING_SELECTION-0001 W       # Return Command C2-22
+WCMD W-C2_FB1_PULSE_SHAPING_SELECTION-XXX8 R       # Command C2-25
 COMM
 COMM ==============================================================================================
-COMM    Wait DATA_ACQ_MODE column 2 goes automatically to Idle and
-COMM     check o_c2_sqm_adc_pwdn remains to deactivated
+COMM   Check error position SPI data out of range detected
 COMM ----------------------------------------------------------------------------------------------
-WAIT 176 us
-WUDI sync 0
-WUDI sync 1
-RTIM
-CDIS sqm_adc_pwdn(2) 0
+CCMD R-Status-EFFF W                               # Return Command C2-23
+WCMD R-C2_FB1_PULSE_SHAPING_SELECTION-XXXX R       # Command C2-26
 COMM
 COMM ==============================================================================================
-COMM   Check timing between i_sync rising edge and o_c2_sqm_adc_pwdn activation
-COMM     (c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ < .. < 2*c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
+COMM   Check C2_FB1_PULSE_SHAPING_SELECTION no change
 COMM ----------------------------------------------------------------------------------------------
-WUDI sqm_adc_pwdn(2) 1
-CTLR << 320160 ps
-CTLR >> 160080 ps
+CCMD R-C2_FB1_PULSE_SHAPING_SELECTION-0001 W       # Return Command C2-24
+WCMD W-C2_FB1_PULSE_SHAPING_SELECTION-XXX4 R       # Command C2-27
 COMM
 COMM ==============================================================================================
-COMM   Send command SQ_MUX_FB_ON_OFF column 2 to On for o_c2_sqm_adc_pwdn deactivation
+COMM   Check error position SPI data out of range detected
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-SQ_MUX_FB_ON_OFF-0100 N
+CCMD R-Status-EFFF W                               # Return Command C2-25
+WCMD R-C2_FB1_PULSE_SHAPING_SELECTION-XXXX R       # Command C2-28
 COMM
 COMM ==============================================================================================
-COMM   Check no event is appeared on o_c2_sqm_adc_pwdn and wait o_c2_sqm_adc_pwdn deactivation
+COMM   Check C2_FB1_PULSE_SHAPING_SELECTION no change
 COMM ----------------------------------------------------------------------------------------------
-CDIS sqm_adc_pwdn(2) 1
-WUDI sqm_adc_pwdn(2) 0
+CCMD R-C2_FB1_PULSE_SHAPING_SELECTION-0001 W       # Return Command C2-26
+WCMD W-C2_FB1_PULSE_SHAPING_SELECTION-0003 R       # Command C2-29
 COMM
 COMM ==============================================================================================
-COMM   Check timing between o_c2_clk_sqm_adc rising edge
-COMM    and internal MUX SQUID ADC clock falling edge
+COMM   Check error position SPI data out of range detected
 COMM ----------------------------------------------------------------------------------------------
-WUDI clk_sqm_adc(2) 1
-RTIM
-WUDI clk_sqm_adc_acq 1
-WUDI clk_sqm_adc_acq 0
-CTLR >= 4400 ps
-CTLR << 4560 ps
+CCMD R-Status-EFFF W                               # Return Command C2-27
+WCMD R-C2_FB1_PULSE_SHAPING_SELECTION-XXXX R       # Command C2-30
 COMM
 COMM ==============================================================================================
-COMM   Check timing between o_c2_sqm_adc_pwdn deactivation and i_sync rising edge
-COMM     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
+COMM   Check C2_FB1_PULSE_SHAPING_SELECTION no change
 COMM ----------------------------------------------------------------------------------------------
-WUDI sync 1
-CTLE sqm_adc_pwdn(2) >= 160080 ps
+CCMD R-C2_FB1_PULSE_SHAPING_SELECTION-0001 W       # Return Command C2-28
+WCMD W-C2_FB1_PULSE_SHAPING_SELECTION-0002 R       # Command C2-31
 COMM
 COMM ==============================================================================================
-COMM   Send command SQ_MUX_FB_ON_OFF column 2 to Off loop for o_c2_sqm_adc_pwdn activation
+COMM   Check no error
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-SQ_MUX_FB_ON_OFF-0000 W
+CCMD R-Status-FFFF W                               # Return Command C2-29
+WCMD R-C2_FB1_PULSE_SHAPING_SELECTION-XXXX R       # Command C2-32
 COMM
 COMM ==============================================================================================
-COMM    Wait i_sync rising edge and check o_c2_sqm_adc_pwdn remains to deactivated
+COMM   Check C2_FB1_PULSE_SHAPING_SELECTION content
 COMM ----------------------------------------------------------------------------------------------
-WUDI sync 1
-RTIM
-CDIS sqm_adc_pwdn(2) 0
+CCMD R-C2_FB1_PULSE_SHAPING_SELECTION-0003 W       # Return Command C2-30
+WCMD W-C2_FB1_PULSE_SHAPING_SELECTION-0001 R       # Command C2-33
 COMM
 COMM ==============================================================================================
-COMM   Check timing between i_sync rising edge and o_c2_sqm_adc_pwdn activation
-COMM     (c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ < .. < 2*c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
+COMM   Check no error
 COMM ----------------------------------------------------------------------------------------------
-WUDI sqm_adc_pwdn(2) 1
-CTLR << 320160 ps
-CTLR >> 160080 ps
+CCMD R-Status-FFFF W                               # Return Command C2-31
+WCMD R-C2_FB1_PULSE_SHAPING_SELECTION-XXXX R       # Command C2-34
 COMM
 COMM ==============================================================================================
-COMM   Send command SQ_MUX_FB_ON_OFF column 2 to On for o_c2_sqm_adc_pwdn deactivation
+COMM   Check C2_FB1_PULSE_SHAPING_SELECTION content
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-SQ_MUX_FB_ON_OFF-0100 N
+CCMD R-C2_FB1_PULSE_SHAPING_SELECTION-0002 W       # Return Command C2-32
+WCMD W-C2_FB1_PULSE_SHAPING_SELECTION-0000 R       # Command C2-35
 COMM
 COMM ==============================================================================================
-COMM   Check no event is appeared on o_c2_sqm_adc_pwdn and wait o_c2_sqm_adc_pwdn deactivation
+COMM   Check no error
 COMM ----------------------------------------------------------------------------------------------
-CDIS sqm_adc_pwdn(2) 1
-WUDI sqm_adc_pwdn(2) 0
+CCMD R-Status-FFFF W                               # Return Command C2-33
+WCMD R-C2_FB1_PULSE_SHAPING_SELECTION-XXXX R       # Command C2-36
 COMM
 COMM ==============================================================================================
-COMM   Check timing between o_c2_clk_sqm_adc rising edge
-COMM    and internal MUX SQUID ADC clock falling edge
+COMM   Check C2_FB1_PULSE_SHAPING_SELECTION content
 COMM ----------------------------------------------------------------------------------------------
-WUDI clk_sqm_adc(2) 1
-RTIM
-WUDI clk_sqm_adc_acq 1
-WUDI clk_sqm_adc_acq 0
-CTLR >= 4400 ps
-CTLR << 4560 ps
+CCMD R-C2_FB1_PULSE_SHAPING_SELECTION-0001 W       # Return Command C2-34
+WCMD R-Status-XXXX R
 COMM
 COMM ==============================================================================================
-COMM   Check timing between o_c2_sqm_adc_pwdn deactivation and i_sync rising edge
-COMM     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
+COMM   Check no error
 COMM ----------------------------------------------------------------------------------------------
-WUDI sync 1
-CTLE sqm_adc_pwdn(2) >= 160080 ps
+CCMD R-Status-FFFF W                               # Return Command C2-35
+WCMD R-Status-XXXX R
 COMM
 COMM ==============================================================================================
-COMM   Send command SQ_MUX_FB_ON_OFF column 2 to Off for o_c2_sqm_adc_pwdn activation
+COMM   Check C2_FB1_PULSE_SHAPING_SELECTION content
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-SQ_MUX_FB_ON_OFF-0000 W
+CCMD R-C2_FB1_PULSE_SHAPING_SELECTION-0000 W       # Return Command C2-36
 COMM
 COMM ==============================================================================================
-COMM    Wait i_sync rising edge and check o_c2_sqm_adc_pwdn remains to deactivated
+COMM   Start C3_FB1_PULSE_SHAPING_SELECTION register test
 COMM ----------------------------------------------------------------------------------------------
-WUDI sync 1
-RTIM
-CDIS sqm_adc_pwdn(2) 0
+WCMD R-C3_FB1_PULSE_SHAPING_SELECTION-XXXX W       # Command C3-0
+WCMD W-C3_FB1_PULSE_SHAPING_SELECTION-8XXX W       # Command C3-1
+WCMD R-C3_FB1_PULSE_SHAPING_SELECTION-XXXX R       # Command C3-2
 COMM
 COMM ==============================================================================================
-COMM   Check timing between i_sync rising edge and o_c2_sqm_adc_pwdn activation
-COMM     (c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ < .. < 2*c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
+COMM   Check C3_FB1_PULSE_SHAPING_SELECTION content at start
 COMM ----------------------------------------------------------------------------------------------
-WUDI sqm_adc_pwdn(2) 1
-CTLR << 320160 ps
-CTLR >> 160080 ps
+CCMD R-C3_FB1_PULSE_SHAPING_SELECTION-0001 W       # Return Command C3-0
+WCMD W-C3_FB1_PULSE_SHAPING_SELECTION-4XXX R       # Command C3-3
 COMM
 COMM ==============================================================================================
-COMM   Send command SQ_MUX_FB_ON_OFF column 2 to On for o_c2_sqm_adc_pwdn deactivation
+COMM   Check error position SPI data out of range detected
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-SQ_MUX_FB_ON_OFF-0100 N
+CCMD R-Status-EFFF W                               # Return Command C3-1
+WCMD R-C3_FB1_PULSE_SHAPING_SELECTION-XXXX R       # Command C3-4
 COMM
 COMM ==============================================================================================
-COMM   Check no event is appeared on o_c2_sqm_adc_pwdn and wait o_c2_sqm_adc_pwdn deactivation
+COMM   Check C3_FB1_PULSE_SHAPING_SELECTION no change
 COMM ----------------------------------------------------------------------------------------------
-CDIS sqm_adc_pwdn(2) 1
-WUDI sqm_adc_pwdn(2) 0
+CCMD R-C3_FB1_PULSE_SHAPING_SELECTION-0001 W       # Return Command C3-2
+WCMD W-C3_FB1_PULSE_SHAPING_SELECTION-2XXX R       # Command C3-5
 COMM
 COMM ==============================================================================================
-COMM   Check timing between o_c2_clk_sqm_adc rising edge
-COMM    and internal MUX SQUID ADC clock falling edge
+COMM   Check error position SPI data out of range detected
 COMM ----------------------------------------------------------------------------------------------
-WUDI clk_sqm_adc(2) 1
-RTIM
-WUDI clk_sqm_adc_acq 1
-WUDI clk_sqm_adc_acq 0
-CTLR >= 4400 ps
-CTLR << 4560 ps
+CCMD R-Status-EFFF W                               # Return Command C3-3
+WCMD R-C3_FB1_PULSE_SHAPING_SELECTION-XXXX R       # Command C3-6
 COMM
 COMM ==============================================================================================
-COMM   Check timing between o_c2_sqm_adc_pwdn deactivation and i_sync rising edge
-COMM     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
+COMM   Check C3_FB1_PULSE_SHAPING_SELECTION no change
 COMM ----------------------------------------------------------------------------------------------
-WUDI sync 1
-CTLE sqm_adc_pwdn(2) >= 160080 ps
+CCMD R-C3_FB1_PULSE_SHAPING_SELECTION-0001 W       # Return Command C3-4
+WCMD W-C3_FB1_PULSE_SHAPING_SELECTION-1XXX R       # Command C3-7
 COMM
 COMM ==============================================================================================
-COMM   Send command SQ_MUX_FB_ON_OFF column 2 to Off for o_c2_sqm_adc_pwdn activation
+COMM   Check error position SPI data out of range detected
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-SQ_MUX_FB_ON_OFF-0000 W
+CCMD R-Status-EFFF W                               # Return Command C3-5
+WCMD R-C3_FB1_PULSE_SHAPING_SELECTION-XXXX R       # Command C3-8
 COMM
 COMM ==============================================================================================
-COMM    Wait i_sync rising edge and check o_c2_sqm_adc_pwdn remains to deactivated
+COMM   Check C3_FB1_PULSE_SHAPING_SELECTION no change
 COMM ----------------------------------------------------------------------------------------------
-WUDI sync 1
-RTIM
-CDIS sqm_adc_pwdn(2) 0
+CCMD R-C3_FB1_PULSE_SHAPING_SELECTION-0001 W       # Return Command C3-6
+WCMD W-C3_FB1_PULSE_SHAPING_SELECTION-X8XX R       # Command C3-9
 COMM
 COMM ==============================================================================================
-COMM   Check timing between i_sync rising edge and o_c2_sqm_adc_pwdn activation
-COMM     (c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ < .. < 2*c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
+COMM   Check error position SPI data out of range detected
 COMM ----------------------------------------------------------------------------------------------
-WUDI sqm_adc_pwdn(2) 1
-CTLR << 320160 ps
-CTLR >> 160080 ps
+CCMD R-Status-EFFF W                               # Return Command C3-7
+WCMD R-C3_FB1_PULSE_SHAPING_SELECTION-XXXX R       # Command C3-10
 COMM
 COMM ==============================================================================================
-COMM   Send command DATA_ACQ_MODE column 3 to Science for o_c3_sqm_adc_pwdn deactivation
+COMM   Check C3_FB1_PULSE_SHAPING_SELECTION no change
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-DATA_ACQ_MODE-0001 N
+CCMD R-C3_FB1_PULSE_SHAPING_SELECTION-0001 W       # Return Command C3-8
+WCMD W-C3_FB1_PULSE_SHAPING_SELECTION-X4XX R       # Command C3-11
 COMM
 COMM ==============================================================================================
-COMM   Wait o_c3_sqm_adc_pwdn deactivation
+COMM   Check error position SPI data out of range detected
 COMM ----------------------------------------------------------------------------------------------
-WUDI sqm_adc_pwdn(3) 0
+CCMD R-Status-EFFF W                               # Return Command C3-9
+WCMD R-C3_FB1_PULSE_SHAPING_SELECTION-XXXX R       # Command C3-12
 COMM
 COMM ==============================================================================================
-COMM   Check timing between o_c3_clk_sqm_adc rising edge
-COMM    and internal MUX SQUID ADC clock falling edge
+COMM   Check C3_FB1_PULSE_SHAPING_SELECTION no change
 COMM ----------------------------------------------------------------------------------------------
-WUDI clk_sqm_adc(3) 1
-RTIM
-WUDI clk_sqm_adc_acq 1
-WUDI clk_sqm_adc_acq 0
-CTLR >= 4400 ps
-CTLR << 4560 ps
+CCMD R-C3_FB1_PULSE_SHAPING_SELECTION-0001 W       # Return Command C3-10
+WCMD W-C3_FB1_PULSE_SHAPING_SELECTION-X2XX R       # Command C3-13
 COMM
 COMM ==============================================================================================
-COMM   Check timing between o_c3_sqm_adc_pwdn deactivation and i_sync rising edge
-COMM     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
+COMM   Check error position SPI data out of range detected
 COMM ----------------------------------------------------------------------------------------------
-WUDI sync 1
-CTLE sqm_adc_pwdn(3) >= 160080 ps
+CCMD R-Status-EFFF W                               # Return Command C3-11
+WCMD R-C3_FB1_PULSE_SHAPING_SELECTION-XXXX R       # Command C3-14
 COMM
 COMM ==============================================================================================
-COMM   Send command DATA_ACQ_MODE column 3 to Test pattern for o_c3_sqm_adc_pwdn activation
+COMM   Check C3_FB1_PULSE_SHAPING_SELECTION no change
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-DATA_ACQ_MODE-0007 W
+CCMD R-C3_FB1_PULSE_SHAPING_SELECTION-0001 W       # Return Command C3-12
+WCMD W-C3_FB1_PULSE_SHAPING_SELECTION-X1XX R       # Command C3-15
 COMM
 COMM ==============================================================================================
-COMM    Wait i_sync rising edge and check o_c3_sqm_adc_pwdn remains to deactivated
+COMM   Check error position SPI data out of range detected
 COMM ----------------------------------------------------------------------------------------------
-WUDI sync 1
-RTIM
-CDIS sqm_adc_pwdn(3) 0
+CCMD R-Status-EFFF W                               # Return Command C3-13
+WCMD R-C3_FB1_PULSE_SHAPING_SELECTION-XXXX R       # Command C3-16
 COMM
 COMM ==============================================================================================
-COMM   Check timing between i_sync rising edge and o_c3_sqm_adc_pwdn activation
-COMM     (c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ < .. < 2*c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
+COMM   Check C3_FB1_PULSE_SHAPING_SELECTION no change
 COMM ----------------------------------------------------------------------------------------------
-WUDI sqm_adc_pwdn(3) 1
-CTLR << 320160 ps
-CTLR >> 160080 ps
+CCMD R-C3_FB1_PULSE_SHAPING_SELECTION-0001 W       # Return Command C3-14
+WCMD W-C3_FB1_PULSE_SHAPING_SELECTION-XX8X R       # Command C3-17
 COMM
 COMM ==============================================================================================
-COMM   Send command DATA_ACQ_MODE column 3 to Error signal for o_c3_sqm_adc_pwdn deactivation
+COMM   Check error position SPI data out of range detected
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-DATA_ACQ_MODE-0002 N
+CCMD R-Status-EFFF W                               # Return Command C3-15
+WCMD R-C3_FB1_PULSE_SHAPING_SELECTION-XXXX R       # Command C3-18
 COMM
 COMM ==============================================================================================
-COMM   Wait o_c3_sqm_adc_pwdn deactivation
+COMM   Check C3_FB1_PULSE_SHAPING_SELECTION no change
 COMM ----------------------------------------------------------------------------------------------
-WUDI sqm_adc_pwdn(3) 0
+CCMD R-C3_FB1_PULSE_SHAPING_SELECTION-0001 W       # Return Command C3-16
+WCMD W-C3_FB1_PULSE_SHAPING_SELECTION-XX4X R       # Command C3-19
 COMM
 COMM ==============================================================================================
-COMM   Check timing between o_c3_clk_sqm_adc rising edge
-COMM    and internal MUX SQUID ADC clock falling edge
+COMM   Check error position SPI data out of range detected
 COMM ----------------------------------------------------------------------------------------------
-WUDI clk_sqm_adc(3) 1
-RTIM
-WUDI clk_sqm_adc_acq 1
-WUDI clk_sqm_adc_acq 0
-CTLR >= 4400 ps
-CTLR << 4560 ps
+CCMD R-Status-EFFF W                               # Return Command C3-17
+WCMD R-C3_FB1_PULSE_SHAPING_SELECTION-XXXX R       # Command C3-20
 COMM
 COMM ==============================================================================================
-COMM   Check timing between o_c3_sqm_adc_pwdn deactivation and i_sync rising edge
-COMM     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
+COMM   Check C3_FB1_PULSE_SHAPING_SELECTION no change
 COMM ----------------------------------------------------------------------------------------------
-WUDI sync 1
-CTLE sqm_adc_pwdn(3) >= 160080 ps
+CCMD R-C3_FB1_PULSE_SHAPING_SELECTION-0001 W       # Return Command C3-18
+WCMD W-C3_FB1_PULSE_SHAPING_SELECTION-XX2X R       # Command C3-21
 COMM
 COMM ==============================================================================================
-COMM   Send command DATA_ACQ_MODE column 3 to Test pattern for o_c3_sqm_adc_pwdn activation
+COMM   Check error position SPI data out of range detected
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-DATA_ACQ_MODE-0007 W
+CCMD R-Status-EFFF W                               # Return Command C3-19
+WCMD R-C3_FB1_PULSE_SHAPING_SELECTION-XXXX R       # Command C3-22
 COMM
 COMM ==============================================================================================
-COMM    Wait i_sync rising edge and check o_c3_sqm_adc_pwdn remains to deactivated
+COMM   Check C3_FB1_PULSE_SHAPING_SELECTION no change
 COMM ----------------------------------------------------------------------------------------------
-WUDI sync 1
-RTIM
-CDIS sqm_adc_pwdn(3) 0
+CCMD R-C3_FB1_PULSE_SHAPING_SELECTION-0001 W       # Return Command C3-20
+WCMD W-C3_FB1_PULSE_SHAPING_SELECTION-XX1X R       # Command C3-23
 COMM
 COMM ==============================================================================================
-COMM   Check timing between i_sync rising edge and o_c3_sqm_adc_pwdn activation
-COMM     (c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ < .. < 2*c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
+COMM   Check error position SPI data out of range detected
 COMM ----------------------------------------------------------------------------------------------
-WUDI sqm_adc_pwdn(3) 1
-CTLR << 320160 ps
-CTLR >> 160080 ps
+CCMD R-Status-EFFF W                               # Return Command C3-21
+WCMD R-C3_FB1_PULSE_SHAPING_SELECTION-XXXX R       # Command C3-24
 COMM
 COMM ==============================================================================================
-COMM   Send command DATA_ACQ_MODE column 3 to Dump for o_c3_sqm_adc_pwdn deactivation
+COMM   Check C3_FB1_PULSE_SHAPING_SELECTION no change
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-DATA_ACQ_MODE-0004 N
+CCMD R-C3_FB1_PULSE_SHAPING_SELECTION-0001 W       # Return Command C3-22
+WCMD W-C3_FB1_PULSE_SHAPING_SELECTION-XXX8 R       # Command C3-25
 COMM
 COMM ==============================================================================================
-COMM   Check no event is appeared on o_c3_sqm_adc_pwdn and wait o_c3_sqm_adc_pwdn deactivation
+COMM   Check error position SPI data out of range detected
 COMM ----------------------------------------------------------------------------------------------
-CDIS sqm_adc_pwdn(3) 1
-WUDI sqm_adc_pwdn(3) 0
+CCMD R-Status-EFFF W                               # Return Command C3-23
+WCMD R-C3_FB1_PULSE_SHAPING_SELECTION-XXXX R       # Command C3-26
 COMM
 COMM ==============================================================================================
-COMM   Check timing between o_c3_clk_sqm_adc rising edge
-COMM    and internal MUX SQUID ADC clock falling edge
+COMM   Check C3_FB1_PULSE_SHAPING_SELECTION no change
 COMM ----------------------------------------------------------------------------------------------
-WUDI clk_sqm_adc(3) 1
-RTIM
-WUDI clk_sqm_adc_acq 1
-WUDI clk_sqm_adc_acq 0
-CTLR >= 4400 ps
-CTLR << 4560 ps
+CCMD R-C3_FB1_PULSE_SHAPING_SELECTION-0001 W       # Return Command C3-24
+WCMD W-C3_FB1_PULSE_SHAPING_SELECTION-XXX4 R       # Command C3-27
 COMM
 COMM ==============================================================================================
-COMM   Check timing between o_c3_sqm_adc_pwdn deactivation and i_sync rising edge
-COMM     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
+COMM   Check error position SPI data out of range detected
 COMM ----------------------------------------------------------------------------------------------
-WUDI sync 1
-CTLE sqm_adc_pwdn(3) >= 160080 ps
+CCMD R-Status-EFFF W                               # Return Command C3-25
+WCMD R-C3_FB1_PULSE_SHAPING_SELECTION-XXXX R       # Command C3-28
 COMM
 COMM ==============================================================================================
-COMM    Wait DATA_ACQ_MODE column 3 goes automatically to Idle and
-COMM     check o_c3_sqm_adc_pwdn remains to deactivated
+COMM   Check C3_FB1_PULSE_SHAPING_SELECTION no change
 COMM ----------------------------------------------------------------------------------------------
-WAIT 176 us
-WUDI sync 0
-WUDI sync 1
-RTIM
-CDIS sqm_adc_pwdn(3) 0
+CCMD R-C3_FB1_PULSE_SHAPING_SELECTION-0001 W       # Return Command C3-26
+WCMD W-C3_FB1_PULSE_SHAPING_SELECTION-0003 R       # Command C3-29
 COMM
 COMM ==============================================================================================
-COMM   Check timing between i_sync rising edge and o_c3_sqm_adc_pwdn activation
-COMM     (c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ < .. < 2*c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
+COMM   Check error position SPI data out of range detected
 COMM ----------------------------------------------------------------------------------------------
-WUDI sqm_adc_pwdn(3) 1
-CTLR << 320160 ps
-CTLR >> 160080 ps
+CCMD R-Status-EFFF W                               # Return Command C3-27
+WCMD R-C3_FB1_PULSE_SHAPING_SELECTION-XXXX R       # Command C3-30
 COMM
 COMM ==============================================================================================
-COMM   Send command SQ_MUX_FB_ON_OFF column 3 to On for o_c3_sqm_adc_pwdn deactivation
+COMM   Check C3_FB1_PULSE_SHAPING_SELECTION no change
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-SQ_MUX_FB_ON_OFF-1000 N
+CCMD R-C3_FB1_PULSE_SHAPING_SELECTION-0001 W       # Return Command C3-28
+WCMD W-C3_FB1_PULSE_SHAPING_SELECTION-0002 R       # Command C3-31
 COMM
 COMM ==============================================================================================
-COMM   Check no event is appeared on o_c3_sqm_adc_pwdn and wait o_c3_sqm_adc_pwdn deactivation
+COMM   Check no error
 COMM ----------------------------------------------------------------------------------------------
-CDIS sqm_adc_pwdn(3) 1
-WUDI sqm_adc_pwdn(3) 0
+CCMD R-Status-FFFF W                               # Return Command C3-29
+WCMD R-C3_FB1_PULSE_SHAPING_SELECTION-XXXX R       # Command C3-32
 COMM
 COMM ==============================================================================================
-COMM   Check timing between o_c3_clk_sqm_adc rising edge
-COMM    and internal MUX SQUID ADC clock falling edge
+COMM   Check C3_FB1_PULSE_SHAPING_SELECTION content
 COMM ----------------------------------------------------------------------------------------------
-WUDI clk_sqm_adc(3) 1
-RTIM
-WUDI clk_sqm_adc_acq 1
-WUDI clk_sqm_adc_acq 0
-CTLR >= 4400 ps
-CTLR << 4560 ps
+CCMD R-C3_FB1_PULSE_SHAPING_SELECTION-0003 W       # Return Command C3-30
+WCMD W-C3_FB1_PULSE_SHAPING_SELECTION-0001 R       # Command C3-33
 COMM
 COMM ==============================================================================================
-COMM   Check timing between o_c3_sqm_adc_pwdn deactivation and i_sync rising edge
-COMM     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
+COMM   Check no error
 COMM ----------------------------------------------------------------------------------------------
-WUDI sync 1
-CTLE sqm_adc_pwdn(3) >= 160080 ps
+CCMD R-Status-FFFF W                               # Return Command C3-31
+WCMD R-C3_FB1_PULSE_SHAPING_SELECTION-XXXX R       # Command C3-34
 COMM
 COMM ==============================================================================================
-COMM   Send command SQ_MUX_FB_ON_OFF column 3 to Off loop for o_c3_sqm_adc_pwdn activation
+COMM   Check C3_FB1_PULSE_SHAPING_SELECTION content
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-SQ_MUX_FB_ON_OFF-0000 W
+CCMD R-C3_FB1_PULSE_SHAPING_SELECTION-0002 W       # Return Command C3-32
+WCMD W-C3_FB1_PULSE_SHAPING_SELECTION-0000 R       # Command C3-35
 COMM
 COMM ==============================================================================================
-COMM    Wait i_sync rising edge and check o_c3_sqm_adc_pwdn remains to deactivated
+COMM   Check no error
 COMM ----------------------------------------------------------------------------------------------
-WUDI sync 1
-RTIM
-CDIS sqm_adc_pwdn(3) 0
+CCMD R-Status-FFFF W                               # Return Command C3-33
+WCMD R-C3_FB1_PULSE_SHAPING_SELECTION-XXXX R       # Command C3-36
 COMM
 COMM ==============================================================================================
-COMM   Check timing between i_sync rising edge and o_c3_sqm_adc_pwdn activation
-COMM     (c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ < .. < 2*c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
+COMM   Check C3_FB1_PULSE_SHAPING_SELECTION content
 COMM ----------------------------------------------------------------------------------------------
-WUDI sqm_adc_pwdn(3) 1
-CTLR << 320160 ps
-CTLR >> 160080 ps
+CCMD R-C3_FB1_PULSE_SHAPING_SELECTION-0001 W       # Return Command C3-34
+WCMD R-Status-XXXX R
 COMM
 COMM ==============================================================================================
-COMM   Send command SQ_MUX_FB_ON_OFF column 3 to On for o_c3_sqm_adc_pwdn deactivation
+COMM   Check no error
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-SQ_MUX_FB_ON_OFF-1000 N
+CCMD R-Status-FFFF W                               # Return Command C3-35
+WCMD R-Status-XXXX R
 COMM
 COMM ==============================================================================================
-COMM   Check no event is appeared on o_c3_sqm_adc_pwdn and wait o_c3_sqm_adc_pwdn deactivation
+COMM   Check C3_FB1_PULSE_SHAPING_SELECTION content
 COMM ----------------------------------------------------------------------------------------------
-CDIS sqm_adc_pwdn(3) 1
-WUDI sqm_adc_pwdn(3) 0
-COMM
-COMM ==============================================================================================
-COMM   Check timing between o_c3_clk_sqm_adc rising edge
-COMM    and internal MUX SQUID ADC clock falling edge
-COMM ----------------------------------------------------------------------------------------------
-WUDI clk_sqm_adc(3) 1
-RTIM
-WUDI clk_sqm_adc_acq 1
-WUDI clk_sqm_adc_acq 0
-CTLR >= 4400 ps
-CTLR << 4560 ps
-COMM
-COMM ==============================================================================================
-COMM   Check timing between o_c3_sqm_adc_pwdn deactivation and i_sync rising edge
-COMM     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
-COMM ----------------------------------------------------------------------------------------------
-WUDI sync 1
-CTLE sqm_adc_pwdn(3) >= 160080 ps
-COMM
-COMM ==============================================================================================
-COMM   Send command SQ_MUX_FB_ON_OFF column 3 to Off for o_c3_sqm_adc_pwdn activation
-COMM ----------------------------------------------------------------------------------------------
-WCMD W-SQ_MUX_FB_ON_OFF-0000 W
-COMM
-COMM ==============================================================================================
-COMM    Wait i_sync rising edge and check o_c3_sqm_adc_pwdn remains to deactivated
-COMM ----------------------------------------------------------------------------------------------
-WUDI sync 1
-RTIM
-CDIS sqm_adc_pwdn(3) 0
-COMM
-COMM ==============================================================================================
-COMM   Check timing between i_sync rising edge and o_c3_sqm_adc_pwdn activation
-COMM     (c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ < .. < 2*c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
-COMM ----------------------------------------------------------------------------------------------
-WUDI sqm_adc_pwdn(3) 1
-CTLR << 320160 ps
-CTLR >> 160080 ps
-COMM
-COMM ==============================================================================================
-COMM   Send command SQ_MUX_FB_ON_OFF column 3 to On for o_c3_sqm_adc_pwdn deactivation
-COMM ----------------------------------------------------------------------------------------------
-WCMD W-SQ_MUX_FB_ON_OFF-1000 N
-COMM
-COMM ==============================================================================================
-COMM   Check no event is appeared on o_c3_sqm_adc_pwdn and wait o_c3_sqm_adc_pwdn deactivation
-COMM ----------------------------------------------------------------------------------------------
-CDIS sqm_adc_pwdn(3) 1
-WUDI sqm_adc_pwdn(3) 0
-COMM
-COMM ==============================================================================================
-COMM   Check timing between o_c3_clk_sqm_adc rising edge
-COMM    and internal MUX SQUID ADC clock falling edge
-COMM ----------------------------------------------------------------------------------------------
-WUDI clk_sqm_adc(3) 1
-RTIM
-WUDI clk_sqm_adc_acq 1
-WUDI clk_sqm_adc_acq 0
-CTLR >= 4400 ps
-CTLR << 4560 ps
-COMM
-COMM ==============================================================================================
-COMM   Check timing between o_c3_sqm_adc_pwdn deactivation and i_sync rising edge
-COMM     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
-COMM ----------------------------------------------------------------------------------------------
-WUDI sync 1
-CTLE sqm_adc_pwdn(3) >= 160080 ps
-COMM
-COMM ==============================================================================================
-COMM   Send command SQ_MUX_FB_ON_OFF column 3 to Off for o_c3_sqm_adc_pwdn activation
-COMM ----------------------------------------------------------------------------------------------
-WCMD W-SQ_MUX_FB_ON_OFF-0000 W
-COMM
-COMM ==============================================================================================
-COMM    Wait i_sync rising edge and check o_c3_sqm_adc_pwdn remains to deactivated
-COMM ----------------------------------------------------------------------------------------------
-WUDI sync 1
-RTIM
-CDIS sqm_adc_pwdn(3) 0
-COMM
-COMM ==============================================================================================
-COMM   Check timing between i_sync rising edge and o_c3_sqm_adc_pwdn activation
-COMM     (c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ < .. < 2*c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
-COMM ----------------------------------------------------------------------------------------------
-WUDI sqm_adc_pwdn(3) 1
-CTLR << 320160 ps
-CTLR >> 160080 ps
+CCMD R-C3_FB1_PULSE_SHAPING_SELECTION-0000 W       # Return Command C3-36

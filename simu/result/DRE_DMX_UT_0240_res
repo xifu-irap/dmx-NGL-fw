@@ -2,11 +2,11 @@
 # Simulation DRE_DMX_UT_0240
 # ------------------------------------------------------------------------------------------------------------------------------------------------------
 #             (0 ps) **********************************************************************************************
-#             (0 ps)   Test: SQUID2 Offset delay
+#             (0 ps)   Test: AMP SQUID offset DAC delay
 #             (0 ps) **********************************************************************************************
 #             (0 ps) 
 #             (0 ps) ==============================================================================================
-#             (0 ps)   Switch ADC voltage on SQUID2 DAC
+#             (0 ps)   Switch ADC voltage on AMP SQUID
 #             (0 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (0 ps) Write discrete: sw_adc_vin(0) = '1'
 #             (0 ps) 
@@ -27,33 +27,33 @@
 # ** Note   : (6995496 ps) Waiting event rst = '0' for 6915496 ps
 #             (6995496 ps) 
 #             (6995496 ps) ==============================================================================================
-#             (6995496 ps)   Configure SQUID2 lockpoint Offset
+#             (6995496 ps)   Configure AMP SQUID lockpoint Offset
 #             (6995496 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (6995496 ps) Send SPI command value 0847_0FFF (C0_SQ2_PXL_LOCKPOINT_OFFSET, mode Write, data 0FFF)
+# ** Note   : (6995496 ps) Send SPI command value 0845_0FFF (C0_AMP_SQ_OFFSET_COARSE, mode Write, data 0FFF)
 # ** Note   : (9312000 ps) Waiting SPI command end for 2280504 ps
-# ** Note   : (9312000 ps) Send SPI command value 2847_0FFF (C1_SQ2_PXL_LOCKPOINT_OFFSET, mode Write, data 0FFF)
+# ** Note   : (9312000 ps) Send SPI command value 2845_0FFF (C1_AMP_SQ_OFFSET_COARSE, mode Write, data 0FFF)
 # ** Note   : (11634000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (11634000 ps) Send SPI command value 4847_0FFF (C2_SQ2_PXL_LOCKPOINT_OFFSET, mode Write, data 0FFF)
+# ** Note   : (11634000 ps) Send SPI command value 4845_0FFF (C2_AMP_SQ_OFFSET_COARSE, mode Write, data 0FFF)
 # ** Note   : (13956000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (13956000 ps) Send SPI command value 6847_0FFF (C3_SQ2_PXL_LOCKPOINT_OFFSET, mode Write, data 0FFF)
+# ** Note   : (13956000 ps) Send SPI command value 6845_0FFF (C3_AMP_SQ_OFFSET_COARSE, mode Write, data 0FFF)
 # ** Note   : (16278000 ps) Waiting SPI command end for 2286000 ps
 #             (16278000 ps) 
 #             (16278000 ps) ==============================================================================================
-#             (16278000 ps)   Send a SQUID2 DAC delay on each channels
+#             (16278000 ps)   Send a AMP SQUID delay on each channels
 #             (16278000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (16278000 ps) Send SPI command value 0A03_0000 (C0_FB_SQ2_DELAY, mode Write, data 0000)
+# ** Note   : (16278000 ps) Send SPI command value 0A03_0000 (C0_AMP_SQ_OFFSET_DAC_DELAY, mode Write, data 0000)
 # ** Note   : (18600000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (18600000 ps) Send SPI command value 2A03_0800 (C1_FB_SQ2_DELAY, mode Write, data 0800)
+# ** Note   : (18600000 ps) Send SPI command value 2A03_0040 (C1_AMP_SQ_OFFSET_DAC_DELAY, mode Write, data 0040)
 # ** Note   : (20922000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (20922000 ps) Send SPI command value 4A03_1000 (C2_FB_SQ2_DELAY, mode Write, data 1000)
+# ** Note   : (20922000 ps) Send SPI command value 4A03_0080 (C2_AMP_SQ_OFFSET_DAC_DELAY, mode Write, data 0080)
 # ** Note   : (23244000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (23244000 ps) Send SPI command value 6A03_1800 (C3_FB_SQ2_DELAY, mode Write, data 1800)
+# ** Note   : (23244000 ps) Send SPI command value 6A03_00C0 (C3_AMP_SQ_OFFSET_DAC_DELAY, mode Write, data 00C0)
 # ** Note   : (25566000 ps) Waiting SPI command end for 2286000 ps
 #             (25566000 ps) 
 #             (25566000 ps) ==============================================================================================
-#             (25566000 ps)   Send command SQ2_FB_MODE to open loop
+#             (25566000 ps)   Send command SQ_AMP_OFFSET_MODE to open loop
 #             (25566000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (25566000 ps) Send SPI command value 8005_1111 (SQ2_FB_MODE, mode Write, data 1111)
+# ** Note   : (25566000 ps) Send SPI command value 8005_1111 (SQ_AMP_OFFSET_MODE, mode Write, data 1111)
 # ** Note   : (27888000 ps) Waiting SPI command end for 2286000 ps
 # ** Note   : (27889938 ps) Waiting event sync = '0' for 1938 ps
 # ** Note   : (32672328 ps) Waiting event sync = '1' for 4782390 ps
@@ -61,8 +61,8 @@
 # ** Note   : (38115048 ps) Waiting event sync = '1' for 5282640 ps
 #             (38115048 ps) 
 #             (38115048 ps) ==============================================================================================
-#             (38115048 ps)   Check SQUID2 offset delays
-#             (38115048 ps)   Formula: (c_PIXEL_DAC_NB_CYC * c_MUX_FACT - CX_FB_SQ2_DELAY) * c_CLK_ADC_PER_DEF
+#             (38115048 ps)   Check AMP SQUID offset delays
+#             (38115048 ps)   Formula: (c_PIXEL_DAC_NB_CYC * c_MUX_FACT - CX_AMP_SQ_OFFSET_DAC_DELAY) * c_CLK_ADC_PER_DEF
 #             (38115048 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (38115048 ps) Check time, DAC channel 0 last event: PASS
 # ** Note   : (38115048 ps)  * DAC channel 0 last event 5442720 ps equal to expected value 5442720 ps
@@ -74,9 +74,9 @@
 # ** Note   : (38115048 ps)  * DAC channel 3 last event 3905952 ps equal to expected value 3905952 ps
 #             (38115048 ps) 
 #             (38115048 ps) ==============================================================================================
-#             (38115048 ps)   Send command SQ2_FB_MODE to off
+#             (38115048 ps)   Send command SQ_AMP_OFFSET_MODE to off
 #             (38115048 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (38115048 ps) Send SPI command value 8005_0000 (SQ2_FB_MODE, mode Write, data 0000)
+# ** Note   : (38115048 ps) Send SPI command value 8005_0000 (SQ_AMP_OFFSET_MODE, mode Write, data 0000)
 # ** Note   : (40434000 ps) Waiting SPI command end for 2282952 ps
 # ** Note   : (40436208 ps) Waiting event sync = '0' for 2208 ps
 # ** Note   : (43557768 ps) Waiting event sync = '1' for 3121560 ps
@@ -84,8 +84,8 @@
 # ** Note   : (49000488 ps) Waiting event sync = '1' for 5282640 ps
 #             (49000488 ps) 
 #             (49000488 ps) ==============================================================================================
-#             (49000488 ps)   Check SQUID2 offset delays
-#             (49000488 ps)   Formula: (c_PIXEL_DAC_NB_CYC * c_MUX_FACT - CX_FB_SQ2_DELAY) * c_CLK_ADC_PER_DEF
+#             (49000488 ps)   Check AMP SQUID offset delays
+#             (49000488 ps)   Formula: (c_PIXEL_DAC_NB_CYC * c_MUX_FACT - CX_AMP_SQ_OFFSET_DAC_DELAY) * c_CLK_ADC_PER_DEF
 #             (49000488 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (49000488 ps) Check time, DAC channel 0 last event: PASS
 # ** Note   : (49000488 ps)  * DAC channel 0 last event 5442720 ps equal to expected value 5442720 ps
@@ -97,21 +97,21 @@
 # ** Note   : (49000488 ps)  * DAC channel 3 last event 3905952 ps equal to expected value 3905952 ps
 #             (49000488 ps) 
 #             (49000488 ps) ==============================================================================================
-#             (49000488 ps)   Send a SQUID2 DAC delay on each channels
+#             (49000488 ps)   Send a AMP SQUID delay on each channels
 #             (49000488 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (49000488 ps) Send SPI command value 0A03_2000 (C0_FB_SQ2_DELAY, mode Write, data 2000)
+# ** Note   : (49000488 ps) Send SPI command value 0A03_0100 (C0_AMP_SQ_OFFSET_DAC_DELAY, mode Write, data 0100)
 # ** Note   : (51306000 ps) Waiting SPI command end for 2269512 ps
-# ** Note   : (51306000 ps) Send SPI command value 2A03_2800 (C1_FB_SQ2_DELAY, mode Write, data 2800)
+# ** Note   : (51306000 ps) Send SPI command value 2A03_0140 (C1_AMP_SQ_OFFSET_DAC_DELAY, mode Write, data 0140)
 # ** Note   : (53628000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (53628000 ps) Send SPI command value 4A03_3000 (C2_FB_SQ2_DELAY, mode Write, data 3000)
+# ** Note   : (53628000 ps) Send SPI command value 4A03_0180 (C2_AMP_SQ_OFFSET_DAC_DELAY, mode Write, data 0180)
 # ** Note   : (55950000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (55950000 ps) Send SPI command value 6A03_3800 (C3_FB_SQ2_DELAY, mode Write, data 3800)
+# ** Note   : (55950000 ps) Send SPI command value 6A03_01C0 (C3_AMP_SQ_OFFSET_DAC_DELAY, mode Write, data 01C0)
 # ** Note   : (58272000 ps) Waiting SPI command end for 2286000 ps
 #             (58272000 ps) 
 #             (58272000 ps) ==============================================================================================
-#             (58272000 ps)   Send command SQ2_FB_MODE to open loop
+#             (58272000 ps)   Send command SQ_AMP_OFFSET_MODE to open loop
 #             (58272000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (58272000 ps) Send SPI command value 8005_1111 (SQ2_FB_MODE, mode Write, data 1111)
+# ** Note   : (58272000 ps) Send SPI command value 8005_1111 (SQ_AMP_OFFSET_MODE, mode Write, data 1111)
 # ** Note   : (60594000 ps) Waiting SPI command end for 2286000 ps
 # ** Note   : (60594282 ps) Waiting event sync = '0' for 282 ps
 # ** Note   : (65328648 ps) Waiting event sync = '1' for 4734366 ps
@@ -119,8 +119,8 @@
 # ** Note   : (70771368 ps) Waiting event sync = '1' for 5282640 ps
 #             (70771368 ps) 
 #             (70771368 ps) ==============================================================================================
-#             (70771368 ps)   Check SQUID2 offset delays
-#             (70771368 ps)   Formula: (c_PIXEL_DAC_NB_CYC * c_MUX_FACT - CX_FB_SQ2_DELAY) * c_CLK_ADC_PER_DEF
+#             (70771368 ps)   Check AMP SQUID offset delays
+#             (70771368 ps)   Formula: (c_PIXEL_DAC_NB_CYC * c_MUX_FACT - CX_AMP_SQ_OFFSET_DAC_DELAY) * c_CLK_ADC_PER_DEF
 #             (70771368 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (70771368 ps) Check time, DAC channel 0 last event: PASS
 # ** Note   : (70771368 ps)  * DAC channel 0 last event 3393696 ps equal to expected value 3393696 ps
@@ -132,9 +132,9 @@
 # ** Note   : (70771368 ps)  * DAC channel 3 last event 1856928 ps equal to expected value 1856928 ps
 #             (70771368 ps) 
 #             (70771368 ps) ==============================================================================================
-#             (70771368 ps)   Send command SQ2_FB_MODE to off
+#             (70771368 ps)   Send command SQ_AMP_OFFSET_MODE to off
 #             (70771368 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (70771368 ps) Send SPI command value 8005_0000 (SQ2_FB_MODE, mode Write, data 0000)
+# ** Note   : (70771368 ps) Send SPI command value 8005_0000 (SQ_AMP_OFFSET_MODE, mode Write, data 0000)
 # ** Note   : (73086000 ps) Waiting SPI command end for 2278632 ps
 # ** Note   : (73088526 ps) Waiting event sync = '0' for 2526 ps
 # ** Note   : (76214088 ps) Waiting event sync = '1' for 3125562 ps
@@ -142,8 +142,8 @@
 # ** Note   : (81656808 ps) Waiting event sync = '1' for 5282640 ps
 #             (81656808 ps) 
 #             (81656808 ps) ==============================================================================================
-#             (81656808 ps)   Check SQUID2 offset delays
-#             (81656808 ps)   Formula: (c_PIXEL_DAC_NB_CYC * c_MUX_FACT - CX_FB_SQ2_DELAY) * c_CLK_ADC_PER_DEF
+#             (81656808 ps)   Check AMP SQUID offset delays
+#             (81656808 ps)   Formula: (c_PIXEL_DAC_NB_CYC * c_MUX_FACT - CX_AMP_SQ_OFFSET_DAC_DELAY) * c_CLK_ADC_PER_DEF
 #             (81656808 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (81656808 ps) Check time, DAC channel 0 last event: PASS
 # ** Note   : (81656808 ps)  * DAC channel 0 last event 3393696 ps equal to expected value 3393696 ps
@@ -155,21 +155,21 @@
 # ** Note   : (81656808 ps)  * DAC channel 3 last event 1856928 ps equal to expected value 1856928 ps
 #             (81656808 ps) 
 #             (81656808 ps) ==============================================================================================
-#             (81656808 ps)   Send a SQUID2 DAC delay on each channels
+#             (81656808 ps)   Send a AMP SQUID delay on each channels
 #             (81656808 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (81656808 ps) Send SPI command value 0A03_4000 (C0_FB_SQ2_DELAY, mode Write, data 4000)
+# ** Note   : (81656808 ps) Send SPI command value 0A03_0200 (C0_AMP_SQ_OFFSET_DAC_DELAY, mode Write, data 0200)
 # ** Note   : (83976000 ps) Waiting SPI command end for 2283192 ps
-# ** Note   : (83976000 ps) Send SPI command value 2A03_4800 (C1_FB_SQ2_DELAY, mode Write, data 4800)
+# ** Note   : (83976000 ps) Send SPI command value 2A03_0240 (C1_AMP_SQ_OFFSET_DAC_DELAY, mode Write, data 0240)
 # ** Note   : (86298000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (86298000 ps) Send SPI command value 4A03_5000 (C2_FB_SQ2_DELAY, mode Write, data 5000)
+# ** Note   : (86298000 ps) Send SPI command value 4A03_0280 (C2_AMP_SQ_OFFSET_DAC_DELAY, mode Write, data 0280)
 # ** Note   : (88620000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (88620000 ps) Send SPI command value 6A03_5800 (C3_FB_SQ2_DELAY, mode Write, data 5800)
+# ** Note   : (88620000 ps) Send SPI command value 6A03_02C0 (C3_AMP_SQ_OFFSET_DAC_DELAY, mode Write, data 02C0)
 # ** Note   : (90942000 ps) Waiting SPI command end for 2286000 ps
 #             (90942000 ps) 
 #             (90942000 ps) ==============================================================================================
-#             (90942000 ps)   Send command SQ2_FB_MODE to open loop
+#             (90942000 ps)   Send command SQ_AMP_OFFSET_MODE to open loop
 #             (90942000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (90942000 ps) Send SPI command value 8005_1111 (SQ2_FB_MODE, mode Write, data 1111)
+# ** Note   : (90942000 ps) Send SPI command value 8005_1111 (SQ_AMP_OFFSET_MODE, mode Write, data 1111)
 # ** Note   : (93264000 ps) Waiting SPI command end for 2286000 ps
 # ** Note   : (93266610 ps) Waiting event sync = '0' for 2610 ps
 # ** Note   : (97984968 ps) Waiting event sync = '1' for 4718358 ps
@@ -177,8 +177,8 @@
 # ** Note   : (103427688 ps) Waiting event sync = '1' for 5282640 ps
 #             (103427688 ps) 
 #             (103427688 ps) ==============================================================================================
-#             (103427688 ps)   Check SQUID2 offset delays
-#             (103427688 ps)   Formula: (c_PIXEL_DAC_NB_CYC * c_MUX_FACT - CX_FB_SQ2_DELAY) * c_CLK_ADC_PER_DEF
+#             (103427688 ps)   Check AMP SQUID offset delays
+#             (103427688 ps)   Formula: (c_PIXEL_DAC_NB_CYC * c_MUX_FACT - CX_AMP_SQ_OFFSET_DAC_DELAY) * c_CLK_ADC_PER_DEF
 #             (103427688 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (103427688 ps) Check time, DAC channel 0 last event: PASS
 # ** Note   : (103427688 ps)  * DAC channel 0 last event 1344672 ps equal to expected value 1344672 ps
@@ -192,9 +192,9 @@
 # ** Note   : (108870408 ps)  * DAC channel 3 last event 5250624 ps equal to expected value 5250624 ps
 #             (108870408 ps) 
 #             (108870408 ps) ==============================================================================================
-#             (108870408 ps)   Send command SQ2_FB_MODE to off
+#             (108870408 ps)   Send command SQ_AMP_OFFSET_MODE to off
 #             (108870408 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (108870408 ps) Send SPI command value 8005_0000 (SQ2_FB_MODE, mode Write, data 0000)
+# ** Note   : (108870408 ps) Send SPI command value 8005_0000 (SQ_AMP_OFFSET_MODE, mode Write, data 0000)
 # ** Note   : (111192000 ps) Waiting SPI command end for 2285592 ps
 # ** Note   : (111195570 ps) Waiting event sync = '0' for 3570 ps
 # ** Note   : (114313128 ps) Waiting event sync = '1' for 3117558 ps
@@ -202,8 +202,8 @@
 # ** Note   : (119755848 ps) Waiting event sync = '1' for 5282640 ps
 #             (119755848 ps) 
 #             (119755848 ps) ==============================================================================================
-#             (119755848 ps)   Check SQUID2 offset delays
-#             (119755848 ps)   Formula: (c_PIXEL_DAC_NB_CYC * c_MUX_FACT - CX_FB_SQ2_DELAY) * c_CLK_ADC_PER_DEF
+#             (119755848 ps)   Check AMP SQUID offset delays
+#             (119755848 ps)   Formula: (c_PIXEL_DAC_NB_CYC * c_MUX_FACT - CX_AMP_SQ_OFFSET_DAC_DELAY) * c_CLK_ADC_PER_DEF
 #             (119755848 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (119755848 ps) Check time, DAC channel 0 last event: PASS
 # ** Note   : (119755848 ps)  * DAC channel 0 last event 1344672 ps equal to expected value 1344672 ps
@@ -217,21 +217,21 @@
 # ** Note   : (125198568 ps)  * DAC channel 3 last event 5250624 ps equal to expected value 5250624 ps
 #             (125198568 ps) 
 #             (125198568 ps) ==============================================================================================
-#             (125198568 ps)   Send a SQUID2 DAC delay on each channels
+#             (125198568 ps)   Send a AMP SQUID delay on each channels
 #             (125198568 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (125198568 ps) Send SPI command value 0A03_6000 (C0_FB_SQ2_DELAY, mode Write, data 6000)
+# ** Note   : (125198568 ps) Send SPI command value 0A03_0300 (C0_AMP_SQ_OFFSET_DAC_DELAY, mode Write, data 0300)
 # ** Note   : (127518000 ps) Waiting SPI command end for 2283432 ps
-# ** Note   : (127518000 ps) Send SPI command value 2A03_6800 (C1_FB_SQ2_DELAY, mode Write, data 6800)
+# ** Note   : (127518000 ps) Send SPI command value 2A03_0340 (C1_AMP_SQ_OFFSET_DAC_DELAY, mode Write, data 0340)
 # ** Note   : (129840000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (129840000 ps) Send SPI command value 4A03_7000 (C2_FB_SQ2_DELAY, mode Write, data 7000)
+# ** Note   : (129840000 ps) Send SPI command value 4A03_0380 (C2_AMP_SQ_OFFSET_DAC_DELAY, mode Write, data 0380)
 # ** Note   : (132162000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (132162000 ps) Send SPI command value 6A03_7FE0 (C3_FB_SQ2_DELAY, mode Write, data 7FE0)
+# ** Note   : (132162000 ps) Send SPI command value 6A03_03FF (C3_AMP_SQ_OFFSET_DAC_DELAY, mode Write, data 03FF)
 # ** Note   : (134484000 ps) Waiting SPI command end for 2286000 ps
 #             (134484000 ps) 
 #             (134484000 ps) ==============================================================================================
-#             (134484000 ps)   Send command SQ2_FB_MODE to open loop
+#             (134484000 ps)   Send command SQ_AMP_OFFSET_MODE to open loop
 #             (134484000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (134484000 ps) Send SPI command value 8005_1111 (SQ2_FB_MODE, mode Write, data 1111)
+# ** Note   : (134484000 ps) Send SPI command value 8005_1111 (SQ_AMP_OFFSET_MODE, mode Write, data 1111)
 # ** Note   : (136806000 ps) Waiting SPI command end for 2286000 ps
 # ** Note   : (136808370 ps) Waiting event sync = '0' for 2370 ps
 # ** Note   : (141526728 ps) Waiting event sync = '1' for 4718358 ps
@@ -241,8 +241,8 @@
 # ** Note   : (152412168 ps) Waiting event sync = '1' for 5282640 ps
 #             (152412168 ps) 
 #             (152412168 ps) ==============================================================================================
-#             (152412168 ps)   Check SQUID2 offset delays
-#             (152412168 ps)   Formula: (c_PIXEL_DAC_NB_CYC * c_MUX_FACT - CX_FB_SQ2_DELAY) * c_CLK_ADC_PER_DEF
+#             (152412168 ps)   Check AMP SQUID offset delays
+#             (152412168 ps)   Formula: (c_PIXEL_DAC_NB_CYC * c_MUX_FACT - CX_AMP_SQ_OFFSET_DAC_DELAY) * c_CLK_ADC_PER_DEF
 #             (152412168 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (152412168 ps) Check time, DAC channel 0 last event: PASS
 # ** Note   : (152412168 ps)  * DAC channel 0 last event 4738368 ps equal to expected value 4738368 ps
@@ -254,9 +254,9 @@
 # ** Note   : (152412168 ps)  * DAC channel 3 last event 2697348 ps equal to expected value 2697348 ps
 #             (152412168 ps) 
 #             (152412168 ps) ==============================================================================================
-#             (152412168 ps)   Send command SQ2_FB_MODE to off
+#             (152412168 ps)   Send command SQ_AMP_OFFSET_MODE to off
 #             (152412168 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (152412168 ps) Send SPI command value 8005_0000 (SQ2_FB_MODE, mode Write, data 0000)
+# ** Note   : (152412168 ps) Send SPI command value 8005_0000 (SQ_AMP_OFFSET_MODE, mode Write, data 0000)
 # ** Note   : (154734000 ps) Waiting SPI command end for 2285832 ps
 # ** Note   : (154737330 ps) Waiting event sync = '0' for 3330 ps
 # ** Note   : (157854888 ps) Waiting event sync = '1' for 3117558 ps
@@ -266,8 +266,8 @@
 # ** Note   : (168740328 ps) Waiting event sync = '1' for 5282640 ps
 #             (168740328 ps) 
 #             (168740328 ps) ==============================================================================================
-#             (168740328 ps)   Check SQUID2 offset delays
-#             (168740328 ps)   Formula: (c_PIXEL_DAC_NB_CYC * c_MUX_FACT - CX_FB_SQ2_DELAY) * c_CLK_ADC_PER_DEF
+#             (168740328 ps)   Check AMP SQUID offset delays
+#             (168740328 ps)   Formula: (c_PIXEL_DAC_NB_CYC * c_MUX_FACT - CX_AMP_SQ_OFFSET_DAC_DELAY) * c_CLK_ADC_PER_DEF
 #             (168740328 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (168740328 ps) Check time, DAC channel 0 last event: PASS
 # ** Note   : (168740328 ps)  * DAC channel 0 last event 4738368 ps equal to expected value 4738368 ps

@@ -37,10 +37,10 @@ entity spi_check_model is port
          i_hk1_spi_sclk       : in     std_logic                                                            ; --! HouseKeeping 1: SPI Serial Clock (CPOL = '0', CPHA = '0')
          i_hk1_spi_cs_n       : in     std_logic                                                            ; --! HouseKeeping 1: SPI Chip Select ('0' = Active, '1' = Inactive)
 
-         i_sq2_dac_data       : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! SQUID2 DAC: Serial Data
-         i_sq2_dac_sclk       : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! SQUID2 DAC: Serial Clock
-         i_sq2_dac_snc_l_n    : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! SQUID2 DAC, col. 0: Frame Synchronization DAC LSB ('0' = Active, '1' = Inactive)
-         i_sq2_dac_snc_o_n    : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! SQUID2 DAC, col. 0: Frame Synchronization DAC Offset ('0' = Active, '1' = Inactive)
+         i_sqa_dac_data       : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! SQUID AMP DAC: Serial Data
+         i_sqa_dac_sclk       : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! SQUID AMP DAC: Serial Clock
+         i_sqa_dac_snc_l_n    : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! SQUID AMP DAC, col. 0: Frame Synchronization DAC LSB ('0' = Active, '1' = Inactive)
+         i_sqa_dac_snc_o_n    : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! SQUID AMP DAC, col. 0: Frame Synchronization DAC Offset ('0' = Active, '1' = Inactive)
 
          o_err_n_spi_chk      : out    t_int_arr_tab(0 to c_CHK_ENA_SPI_NB-1)(0 to c_SPI_ERR_CHK_NB-1)        --! SPI check error number:
    );
@@ -56,40 +56,40 @@ begin
    --!   MOSI signals
    -- ------------------------------------------------------------------------------------------------------
    spi_mosi(c_SPIE_HK         - c_CHK_ENA_CLK_NB) <= i_hk1_spi_mosi;
-   spi_mosi(c_SPIE_C0_SQ2_LSB - c_CHK_ENA_CLK_NB) <= i_sq2_dac_data(0);
-   spi_mosi(c_SPIE_C1_SQ2_LSB - c_CHK_ENA_CLK_NB) <= i_sq2_dac_data(1);
-   spi_mosi(c_SPIE_C2_SQ2_LSB - c_CHK_ENA_CLK_NB) <= i_sq2_dac_data(2);
-   spi_mosi(c_SPIE_C3_SQ2_LSB - c_CHK_ENA_CLK_NB) <= i_sq2_dac_data(3);
-   spi_mosi(c_SPIE_C0_SQ2_OFF - c_CHK_ENA_CLK_NB) <= i_sq2_dac_data(0);
-   spi_mosi(c_SPIE_C1_SQ2_OFF - c_CHK_ENA_CLK_NB) <= i_sq2_dac_data(1);
-   spi_mosi(c_SPIE_C2_SQ2_OFF - c_CHK_ENA_CLK_NB) <= i_sq2_dac_data(2);
-   spi_mosi(c_SPIE_C3_SQ2_OFF - c_CHK_ENA_CLK_NB) <= i_sq2_dac_data(3);
+   spi_mosi(c_SPIE_C0_SQA_LSB - c_CHK_ENA_CLK_NB) <= i_sqa_dac_data(0);
+   spi_mosi(c_SPIE_C1_SQA_LSB - c_CHK_ENA_CLK_NB) <= i_sqa_dac_data(1);
+   spi_mosi(c_SPIE_C2_SQA_LSB - c_CHK_ENA_CLK_NB) <= i_sqa_dac_data(2);
+   spi_mosi(c_SPIE_C3_SQA_LSB - c_CHK_ENA_CLK_NB) <= i_sqa_dac_data(3);
+   spi_mosi(c_SPIE_C0_SQA_OFF - c_CHK_ENA_CLK_NB) <= i_sqa_dac_data(0);
+   spi_mosi(c_SPIE_C1_SQA_OFF - c_CHK_ENA_CLK_NB) <= i_sqa_dac_data(1);
+   spi_mosi(c_SPIE_C2_SQA_OFF - c_CHK_ENA_CLK_NB) <= i_sqa_dac_data(2);
+   spi_mosi(c_SPIE_C3_SQA_OFF - c_CHK_ENA_CLK_NB) <= i_sqa_dac_data(3);
 
    -- ------------------------------------------------------------------------------------------------------
    --!   SCLK signals
    -- ------------------------------------------------------------------------------------------------------
    spi_sclk(c_SPIE_HK         - c_CHK_ENA_CLK_NB) <= i_hk1_spi_sclk;
-   spi_sclk(c_SPIE_C0_SQ2_LSB - c_CHK_ENA_CLK_NB) <= i_sq2_dac_sclk(0);
-   spi_sclk(c_SPIE_C1_SQ2_LSB - c_CHK_ENA_CLK_NB) <= i_sq2_dac_sclk(1);
-   spi_sclk(c_SPIE_C2_SQ2_LSB - c_CHK_ENA_CLK_NB) <= i_sq2_dac_sclk(2);
-   spi_sclk(c_SPIE_C3_SQ2_LSB - c_CHK_ENA_CLK_NB) <= i_sq2_dac_sclk(3);
-   spi_sclk(c_SPIE_C0_SQ2_OFF - c_CHK_ENA_CLK_NB) <= i_sq2_dac_sclk(0);
-   spi_sclk(c_SPIE_C1_SQ2_OFF - c_CHK_ENA_CLK_NB) <= i_sq2_dac_sclk(1);
-   spi_sclk(c_SPIE_C2_SQ2_OFF - c_CHK_ENA_CLK_NB) <= i_sq2_dac_sclk(2);
-   spi_sclk(c_SPIE_C3_SQ2_OFF - c_CHK_ENA_CLK_NB) <= i_sq2_dac_sclk(3);
+   spi_sclk(c_SPIE_C0_SQA_LSB - c_CHK_ENA_CLK_NB) <= i_sqa_dac_sclk(0);
+   spi_sclk(c_SPIE_C1_SQA_LSB - c_CHK_ENA_CLK_NB) <= i_sqa_dac_sclk(1);
+   spi_sclk(c_SPIE_C2_SQA_LSB - c_CHK_ENA_CLK_NB) <= i_sqa_dac_sclk(2);
+   spi_sclk(c_SPIE_C3_SQA_LSB - c_CHK_ENA_CLK_NB) <= i_sqa_dac_sclk(3);
+   spi_sclk(c_SPIE_C0_SQA_OFF - c_CHK_ENA_CLK_NB) <= i_sqa_dac_sclk(0);
+   spi_sclk(c_SPIE_C1_SQA_OFF - c_CHK_ENA_CLK_NB) <= i_sqa_dac_sclk(1);
+   spi_sclk(c_SPIE_C2_SQA_OFF - c_CHK_ENA_CLK_NB) <= i_sqa_dac_sclk(2);
+   spi_sclk(c_SPIE_C3_SQA_OFF - c_CHK_ENA_CLK_NB) <= i_sqa_dac_sclk(3);
 
    -- ------------------------------------------------------------------------------------------------------
    --!   CS signals
    -- ------------------------------------------------------------------------------------------------------
    spi_cs_n(c_SPIE_HK         - c_CHK_ENA_CLK_NB) <= i_hk1_spi_cs_n;
-   spi_cs_n(c_SPIE_C0_SQ2_LSB - c_CHK_ENA_CLK_NB) <= i_sq2_dac_snc_l_n(0);
-   spi_cs_n(c_SPIE_C1_SQ2_LSB - c_CHK_ENA_CLK_NB) <= i_sq2_dac_snc_l_n(1);
-   spi_cs_n(c_SPIE_C2_SQ2_LSB - c_CHK_ENA_CLK_NB) <= i_sq2_dac_snc_l_n(2);
-   spi_cs_n(c_SPIE_C3_SQ2_LSB - c_CHK_ENA_CLK_NB) <= i_sq2_dac_snc_l_n(3);
-   spi_cs_n(c_SPIE_C0_SQ2_OFF - c_CHK_ENA_CLK_NB) <= i_sq2_dac_snc_o_n(0);
-   spi_cs_n(c_SPIE_C1_SQ2_OFF - c_CHK_ENA_CLK_NB) <= i_sq2_dac_snc_o_n(1);
-   spi_cs_n(c_SPIE_C2_SQ2_OFF - c_CHK_ENA_CLK_NB) <= i_sq2_dac_snc_o_n(2);
-   spi_cs_n(c_SPIE_C3_SQ2_OFF - c_CHK_ENA_CLK_NB) <= i_sq2_dac_snc_o_n(3);
+   spi_cs_n(c_SPIE_C0_SQA_LSB - c_CHK_ENA_CLK_NB) <= i_sqa_dac_snc_l_n(0);
+   spi_cs_n(c_SPIE_C1_SQA_LSB - c_CHK_ENA_CLK_NB) <= i_sqa_dac_snc_l_n(1);
+   spi_cs_n(c_SPIE_C2_SQA_LSB - c_CHK_ENA_CLK_NB) <= i_sqa_dac_snc_l_n(2);
+   spi_cs_n(c_SPIE_C3_SQA_LSB - c_CHK_ENA_CLK_NB) <= i_sqa_dac_snc_l_n(3);
+   spi_cs_n(c_SPIE_C0_SQA_OFF - c_CHK_ENA_CLK_NB) <= i_sqa_dac_snc_o_n(0);
+   spi_cs_n(c_SPIE_C1_SQA_OFF - c_CHK_ENA_CLK_NB) <= i_sqa_dac_snc_o_n(1);
+   spi_cs_n(c_SPIE_C2_SQA_OFF - c_CHK_ENA_CLK_NB) <= i_sqa_dac_snc_o_n(2);
+   spi_cs_n(c_SPIE_C3_SQA_OFF - c_CHK_ENA_CLK_NB) <= i_sqa_dac_snc_o_n(3);
 
    -- ------------------------------------------------------------------------------------------------------
    --!   SPI check

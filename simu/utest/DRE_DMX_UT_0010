@@ -6,8 +6,8 @@ COMM ===========================================================================
 COMM   Enable internal clock reports display
 COMM ----------------------------------------------------------------------------------------------
 CCPE clk
-CCPE clk_sq1_adc
-CCPE clk_sq1_pls_shape
+CCPE clk_sqm_adc
+CCPE clk_sqm_pls_shape
 COMM
 COMM ==============================================================================================
 COMM   Asynchronous reset activated
@@ -23,38 +23,38 @@ COMM
 COMM ==============================================================================================
 COMM   Wait internal reset deactivated
 COMM ----------------------------------------------------------------------------------------------
-WUDI rst_sq1_adc(0) 0
+WUDI rst_sqm_adc(0) 0
 COMM
 COMM ==============================================================================================
 COMM   Check internal resets de-assertion synchronization with clk_ref and internal clocks:
-COMM     clk, clk_sq1_adc_acq and clk_sq1_pls_shape
+COMM     clk, clk_sqm_adc_acq and clk_sqm_pls_shape
 COMM ----------------------------------------------------------------------------------------------
 CTLE rst == 0 ps
-CTLE rst_sq1_adc(1) == 0 ps
-CTLE rst_sq1_adc(2) == 0 ps
-CTLE rst_sq1_adc(3) == 0 ps
-CTLE rst_sq1_dac(0) == 0 ps
-CTLE rst_sq1_dac(1) == 0 ps
-CTLE rst_sq1_dac(2) == 0 ps
-CTLE rst_sq1_dac(3) == 0 ps
-CTLE rst_sq2_mux(0) == 0 ps
-CTLE rst_sq2_mux(1) == 0 ps
-CTLE rst_sq2_mux(2) == 0 ps
-CTLE rst_sq2_mux(3) == 0 ps
+CTLE rst_sqm_adc(1) == 0 ps
+CTLE rst_sqm_adc(2) == 0 ps
+CTLE rst_sqm_adc(3) == 0 ps
+CTLE rst_sqm_dac(0) == 0 ps
+CTLE rst_sqm_dac(1) == 0 ps
+CTLE rst_sqm_dac(2) == 0 ps
+CTLE rst_sqm_dac(3) == 0 ps
+CTLE rst_sqa_mux(0) == 0 ps
+CTLE rst_sqa_mux(1) == 0 ps
+CTLE rst_sqa_mux(2) == 0 ps
+CTLE rst_sqa_mux(3) == 0 ps
 CTLE clk_ref == 0 ps
 CTLE clk == 0 ps
-CTLE clk_sq1_adc_acq == 0 ps
-CTLE clk_sq1_pls_shape == 0 ps
+CTLE clk_sqm_adc_acq == 0 ps
+CTLE clk_sqm_pls_shape == 0 ps
 CDIS rst 0
-CDIS rst_sq1_adc(1) 0
-CDIS rst_sq1_adc(2) 0
-CDIS rst_sq1_adc(3) 0
-CDIS rst_sq1_dac(0) 0
-CDIS rst_sq1_dac(1) 0
-CDIS rst_sq1_dac(2) 0
-CDIS rst_sq1_dac(3) 0
-CDIS rst_sq2_mux(0) 0
-CDIS rst_sq2_mux(1) 0
-CDIS rst_sq2_mux(2) 0
-CDIS rst_sq2_mux(3) 0
+CDIS rst_sqm_adc(1) 0
+CDIS rst_sqm_adc(2) 0
+CDIS rst_sqm_adc(3) 0
+CDIS rst_sqm_dac(0) 0
+CDIS rst_sqm_dac(1) 0
+CDIS rst_sqm_dac(2) 0
+CDIS rst_sqm_dac(3) 0
+CDIS rst_sqa_mux(0) 0
+CDIS rst_sqa_mux(1) 0
+CDIS rst_sqa_mux(2) 0
+CDIS rst_sqa_mux(3) 0
 CDIS clk_ref 1

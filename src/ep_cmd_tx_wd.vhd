@@ -3,7 +3,7 @@
 -- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --                            This file is part of the ATHENA X-IFU DRE Time Domain Multiplexing Firmware.
 --
---                            dmx-ngl-fw is free software: you can redistribute it and/or modify
+--                            dmux-ngl-fw is free software: you can redistribute it and/or modify
 --                            it under the terms of the GNU General Public License as published by
 --                            the Free Software Foundation, either version 3 of the License, or
 --                            (at your option) any later version.
@@ -43,35 +43,41 @@ entity ep_cmd_tx_wd is port
          i_brd_ref_rs         : in     std_logic_vector(  c_BRD_REF_S-1 downto 0)                           ; --! Board reference, synchronized on System Clock
          i_brd_model_rs       : in     std_logic_vector(c_BRD_MODEL_S-1 downto 0)                           ; --! Board model, synchronized on System Clock
 
-         i_tm_mode            : in     std_logic_vector(c_DFLD_TM_MODE_S-1 downto 0)                        ; --! Telemetry mode
+         i_rg_aqmde           : in     std_logic_vector(c_DFLD_AQMDE_S-1 downto 0)                          ; --! EP register: DATA_ACQ_MODE
 
-         i_rg_sq1_fb_mode     : in     std_logic_vector(c_EP_SPI_WD_S-1 downto 0)                           ; --! EP register: SQ1_FB_MODE
-         i_rg_sq2_fb_mode     : in     std_logic_vector(c_EP_SPI_WD_S-1 downto 0)                           ; --! EP register: SQ2_FB_MODE
+         i_rg_smfmd           : in     t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SMFMD_COL_S-1 downto 0)            ; --! EP register: SQ_MUX_FB_ON_OFF
+         i_rg_saofm           : in     t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SAOFM_COL_S-1 downto 0)            ; --! EP register: SQ_AMP_OFFSET_MODE
          i_ep_cmd_sts_rg_r    : in     std_logic_vector(c_EP_SPI_WD_S-1 downto 0)                           ; --! EP command: Status register, registered
 
-         i_sq1_fb0_data       : in     t_slv_arr(0 to c_NB_COL-1)(c_DFLD_S1FB0_PIX_S-1 downto 0)            ; --! Squid1 feedback value in open loop: data read
-         i_sq1_fb0_cs         : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! Squid1 feedback value in open loop: chip select data read ('0' = Inactive,'1'=Active)
+         i_smfb0_data         : in     t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SMFB0_PIX_S-1 downto 0)            ; --! Data read: CY_MUX_SQ_FB0
+         i_smfb0_cs           : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! Chip select data read ('0' = Inactive,'1'=Active): CY_MUX_SQ_FB0
 
-         i_sq1_fbm_data       : in     t_slv_arr(0 to c_NB_COL-1)(c_DFLD_S1FBM_PIX_S-1 downto 0)            ; --! Squid1 feedback mode: data read
-         i_sq1_fbm_cs         : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! Squid1 feedback mode: chip select data read ('0' = Inactive, '1' = Active)
+         i_smfbm_data         : in     t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SMFBM_PIX_S-1 downto 0)            ; --! Data read: CY_MUX_SQ_FB_MODE
+         i_smfbm_cs           : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! Chip select data read ('0' = Inactive,'1'=Active): CY_MUX_SQ_FB_MODE
 
-         i_sq2_lkp_data       : in     t_slv_arr(0 to c_NB_COL-1)(c_DFLD_S2LKP_PIX_S-1 downto 0)            ; --! Squid2 feedback lockpoint: data read
-         i_sq2_lkp_cs         : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! Squid2 feedback lockpoint: chip select data read ('0' = Inactive, '1' = Active)
+         i_saoff_data         : in     t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SAOFF_PIX_S-1 downto 0)            ; --! Data read: CY_AMP_SQ_OFFSET_FINE
+         i_saoff_cs           : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! Chip select data read ('0' = Inactive,'1'=Active): CY_AMP_SQ_OFFSET_FINE
 
-         i_sq2_dac_lsb_data   : in     t_slv_arr(0 to c_NB_COL-1)(c_DFLD_S2OFF_COL_S-1 downto 0)            ; --! Squid2 DAC LSB: data read
-         i_sq2_dac_lsb_cs     : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! Squid2 DAC LSB: chip select data read ('0' = Inactive, '1' = Active)
+         i_saofc_data         : in     t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SAOFC_COL_S-1 downto 0)            ; --! Data read: CY_AMP_SQ_OFFSET_COARSE
+         i_saofc_cs           : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! Chip select data read ('0' = Inactive,'1'=Active): CY_AMP_SQ_OFFSET_COARSE
 
-         i_sq2_lkp_off_data   : in     t_slv_arr(0 to c_NB_COL-1)(c_DFLD_S2OFF_COL_S-1 downto 0)            ; --! Squid2 feedback lockpoint offset: data read
-         i_sq2_lkp_off_cs     : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! Squid2 feedback lockpoint offset: chip select data read ('0' = Inactive,'1' = Active)
+         i_saofl_data         : in     t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SAOFC_COL_S-1 downto 0)            ; --! Data read: CY_AMP_SQ_OFFSET_LSB
+         i_saofl_cs           : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! Chip select data read ('0' = Inactive,'1'=Active): CY_AMP_SQ_OFFSET_LSB
 
-         i_sq1_fb_del_data    : in     t_slv_arr(0 to c_NB_COL-1)(c_DFLD_S1FBD_COL_S-1 downto 0)            ; --! Squid1 feedback delay: data read
-         i_sq1_fb_del_cs      : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! Squid1 feedback delay: chip select data read ('0' = Inactive, '1' = Active)
+         i_smfbd_data         : in     t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SMFBD_COL_S-1 downto 0)            ; --! Data read: CY_MUX_SQ_FB_DELAY
+         i_smfbd_cs           : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! Chip select data read ('0' = Inactive,'1'=Active): CY_MUX_SQ_FB_DELAY
 
-         i_sq2_fb_del_data    : in     t_slv_arr(0 to c_NB_COL-1)(c_DFLD_S2FBD_COL_S-1 downto 0)            ; --! Squid2 feedback delay: data read
-         i_sq2_fb_del_cs      : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! Squid2 feedback delay: chip select data read ('0' = Inactive, '1' = Active)
+         i_saodd_data         : in     t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SAODD_COL_S-1 downto 0)            ; --! Data read: CY_AMP_SQ_OFFSET_DAC_DELAY
+         i_saodd_cs           : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! Chip select data read ('0' = Inactive,'1'=Active): CY_AMP_SQ_OFFSET_DAC_DELAY
 
-         i_pls_shp_data       : in     t_slv_arr(0 to c_NB_COL-1)(c_DFLD_PLSSH_PLS_S-1 downto 0)            ; --! Pulse shaping coef: data read
-         i_pls_shp_cs         : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! Pulse shaping coef: chip select data read ('0' = Inactive, '1' = Active)
+         i_saomd_data         : in     t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SAOMD_COL_S-1 downto 0)            ; --! Data read: CY_AMP_SQ_OFFSET_MUX_DELAY
+         i_saomd_cs           : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! CY_AMP_SQ_OFFSET_MUX_DELAY: chip select data read ('0' = Inactive, '1' = Active)
+
+         i_plssh_data         : in     t_slv_arr(0 to c_NB_COL-1)(c_DFLD_PLSSH_PLS_S-1 downto 0)            ; --! Data read: CY_FB1_PULSE_SHAPING
+         i_plssh_cs           : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! Chip select data read ('0' = Inactive,'1'=Active): CY_FB1_PULSE_SHAPING
+
+         i_plsss_data         : in     t_slv_arr(0 to c_NB_COL-1)(c_DFLD_PLSSS_PLS_S-1 downto 0)            ; --! Data read: CY_FB1_PULSE_SHAPING_SELECTION
+         i_plsss_cs           : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! Chip select data read ('0' = Inactive,'1'=Active): CY_FB1_PULSE_SHAPING_SELECTION
 
          o_ep_cmd_sts_err_add : out    std_logic                                                            ; --! EP command: Status, error invalid address
          o_ep_cmd_tx_wd_rd_rg : out    std_logic_vector(c_EP_SPI_WD_S-1 downto 0)                             --! EP command to transmit: read register word
@@ -96,16 +102,16 @@ architecture RTL of ep_cmd_tx_wd is
 
    end function;
 
-constant c_FW_VERSION_S       : integer   := c_EP_SPI_WD_S - c_BRD_MODEL_S - c_BRD_REF_S                    ; --! Firmware version bus size
-
-signal   sq1_fb0_data_mx      : std_logic_vector(c_DFLD_S1FB0_PIX_S-1 downto 0)                             ; --! Squid1 feedback value in open loop: data read compared
-signal   sq1_fbm_data_mx      : std_logic_vector(c_DFLD_S1FBM_PIX_S-1 downto 0)                             ; --! Squid1 feedback mode: data read compared
-signal   sq2_lkp_data_mx      : std_logic_vector(c_DFLD_S2LKP_PIX_S-1 downto 0)                             ; --! Squid2 feedback lockpoint: data read compared
-signal   sq2_dac_lsb_data_mx  : std_logic_vector(c_DFLD_S2OFF_COL_S-1 downto 0)                             ; --! Squid2 DAC LSB: data read compared
-signal   sq2_lkp_off_data_mx  : std_logic_vector(c_DFLD_S2OFF_COL_S-1 downto 0)                             ; --! Squid2 feedback lockpoint offset: data read compared
-signal   sq1_fb_del_data_mx   : std_logic_vector(c_DFLD_S1FBD_COL_S-1 downto 0)                             ; --! Squid1 feedback delay: data read compared
-signal   sq2_fb_del_data_mx   : std_logic_vector(c_DFLD_S2FBD_COL_S-1 downto 0)                             ; --! Squid2 feedback delay: data read compared
-signal   pls_shp_data_mx      : std_logic_vector(c_DFLD_PLSSH_PLS_S-1 downto 0)                             ; --! Pulse shaping coef: data read compared
+signal   smfb0_data_mux       : std_logic_vector(c_DFLD_SMFB0_PIX_S-1 downto 0)                             ; --! Data read multiplexer: CY_MUX_SQ_FB0
+signal   smfbm_data_mux       : std_logic_vector(c_DFLD_SMFBM_PIX_S-1 downto 0)                             ; --! Data read multiplexer: CY_MUX_SQ_FB_MODE
+signal   saoff_data_mux       : std_logic_vector(c_DFLD_SAOFF_PIX_S-1 downto 0)                             ; --! Data read multiplexer: CY_AMP_SQ_OFFSET_FINE
+signal   saofc_data_mux       : std_logic_vector(c_DFLD_SAOFC_COL_S-1 downto 0)                             ; --! Data read multiplexer: CY_AMP_SQ_OFFSET_COARSE
+signal   saofl_data_mux       : std_logic_vector(c_DFLD_SAOFC_COL_S-1 downto 0)                             ; --! Data read multiplexer: CY_AMP_SQ_OFFSET_LSB
+signal   smfbd_data_mux       : std_logic_vector(c_DFLD_SMFBD_COL_S-1 downto 0)                             ; --! Data read multiplexer: CY_MUX_SQ_FB_DELAY
+signal   saodd_data_mux       : std_logic_vector(c_DFLD_SAODD_COL_S-1 downto 0)                             ; --! Data read multiplexer: CY_AMP_SQ_OFFSET_DAC_DELAY
+signal   saomd_data_mux       : std_logic_vector(c_DFLD_SAOMD_COL_S-1 downto 0)                             ; --! Data read multiplexer: CY_AMP_SQ_OFFSET_MUX_DELAY
+signal   plssh_data_mux       : std_logic_vector(c_DFLD_PLSSH_PLS_S-1 downto 0)                             ; --! Data read multiplexer: CY_FB1_PULSE_SHAPING
+signal   plsss_data_mux       : std_logic_vector(c_DFLD_PLSSS_PLS_S-1 downto 0)                             ; --! Data read multiplexer: CY_FB1_PULSE_SHAPING_SELECTION
 
 signal   data_rg_rd           : t_slv_arr(0 to c_EP_CMD_REG_MX_STIN(c_EP_CMD_REG_MX_STIN'high)-1)
                                          (c_EP_SPI_WD_S-1 downto 0)                                         ; --! Data register read
@@ -116,153 +122,188 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   Column Memory Data read multiplexer
    -- ------------------------------------------------------------------------------------------------------
-   I_sq1_fb0_mux : entity work.mem_data_rd_mux generic map
+   I_smfb0_mux : entity work.mem_data_rd_mux generic map
    (     g_MEM_RD_DATA_NPER   => c_MEM_RD_DATA_NPER   , -- integer                                          ; --! Clock period number for accessing memory data output
-         g_DATA_S             => c_DFLD_S1FB0_PIX_S   , -- integer                                          ; --! Data bus size
+         g_DATA_S             => c_DFLD_SMFB0_PIX_S   , -- integer                                          ; --! Data bus size
          g_NB                 => c_NB_COL               -- integer                                            --! Data bus number
    ) port map
    (     i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                => i_clk                , -- in     std_logic                                 ; --! System Clock
-         i_data               => i_sq1_fb0_data       , -- in     t_slv_arr g_NB g_DATA_S                   ; --! Data buses
-         i_cs                 => i_sq1_fb0_cs         , -- in     std_logic_vector(g_NB-1 downto 0)         ; --! Chip selects ('0' = Inactive, '1' = Active)
-         o_data_mux           => sq1_fb0_data_mx        -- out    std_logic_vector(g_DATA_S-1 downto 0)       --! Multiplexed data
+         i_data               => i_smfb0_data         , -- in     t_slv_arr g_NB g_DATA_S                   ; --! Data buses
+         i_cs                 => i_smfb0_cs           , -- in     std_logic_vector(g_NB-1 downto 0)         ; --! Chip selects ('0' = Inactive, '1' = Active)
+         o_data_mux           => smfb0_data_mux         -- out    std_logic_vector(g_DATA_S-1 downto 0)       --! Multiplexed data
    );
 
-   I_sq1_fbm_mux : entity work.mem_data_rd_mux generic map
+   I_smfbm_mux : entity work.mem_data_rd_mux generic map
    (     g_MEM_RD_DATA_NPER   => c_MEM_RD_DATA_NPER   , -- integer                                          ; --! Clock period number for accessing memory data output
-         g_DATA_S             => c_DFLD_S1FBM_PIX_S   , -- integer                                          ; --! Data bus size
+         g_DATA_S             => c_DFLD_SMFBM_PIX_S   , -- integer                                          ; --! Data bus size
          g_NB                 => c_NB_COL               -- integer                                            --! Data bus number
    ) port map
    (     i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                => i_clk                , -- in     std_logic                                 ; --! System Clock
-         i_data               => i_sq1_fbm_data       , -- in     t_slv_arr g_NB g_DATA_S                   ; --! Data buses
-         i_cs                 => i_sq1_fbm_cs         , -- in     std_logic_vector(g_NB-1 downto 0)         ; --! Chip selects ('0' = Inactive, '1' = Active)
-         o_data_mux           => sq1_fbm_data_mx        -- out    std_logic_vector(g_DATA_S-1 downto 0)       --! Multiplexed data
+         i_data               => i_smfbm_data         , -- in     t_slv_arr g_NB g_DATA_S                   ; --! Data buses
+         i_cs                 => i_smfbm_cs           , -- in     std_logic_vector(g_NB-1 downto 0)         ; --! Chip selects ('0' = Inactive, '1' = Active)
+         o_data_mux           => smfbm_data_mux         -- out    std_logic_vector(g_DATA_S-1 downto 0)       --! Multiplexed data
    );
 
-   I_sq2_lkp_mux : entity work.mem_data_rd_mux generic map
+   I_saoff_mux : entity work.mem_data_rd_mux generic map
    (     g_MEM_RD_DATA_NPER   => c_MEM_RD_DATA_NPER   , -- integer                                          ; --! Clock period number for accessing memory data output
-         g_DATA_S             => c_DFLD_S2LKP_PIX_S   , -- integer                                          ; --! Data bus size
+         g_DATA_S             => c_DFLD_SAOFF_PIX_S   , -- integer                                          ; --! Data bus size
          g_NB                 => c_NB_COL               -- integer                                            --! Data bus number
    ) port map
    (     i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                => i_clk                , -- in     std_logic                                 ; --! System Clock
-         i_data               => i_sq2_lkp_data       , -- in     t_slv_arr g_NB g_DATA_S                   ; --! Data buses
-         i_cs                 => i_sq2_lkp_cs         , -- in     std_logic_vector(g_NB-1 downto 0)         ; --! Chip selects ('0' = Inactive, '1' = Active)
-         o_data_mux           => sq2_lkp_data_mx        -- out    std_logic_vector(g_DATA_S-1 downto 0)       --! Multiplexed data
+         i_data               => i_saoff_data         , -- in     t_slv_arr g_NB g_DATA_S                   ; --! Data buses
+         i_cs                 => i_saoff_cs           , -- in     std_logic_vector(g_NB-1 downto 0)         ; --! Chip selects ('0' = Inactive, '1' = Active)
+         o_data_mux           => saoff_data_mux         -- out    std_logic_vector(g_DATA_S-1 downto 0)       --! Multiplexed data
    );
 
-   I_sq2_dac_lsb_mux : entity work.mem_data_rd_mux generic map
+   I_saofc_mux : entity work.mem_data_rd_mux generic map
    (     g_MEM_RD_DATA_NPER   => c_MEM_RD_DATA_NPER   , -- integer                                          ; --! Clock period number for accessing memory data output
-         g_DATA_S             => c_DFLD_S2LSB_COL_S   , -- integer                                          ; --! Data bus size
+         g_DATA_S             => c_DFLD_SAOFC_COL_S   , -- integer                                          ; --! Data bus size
          g_NB                 => c_NB_COL               -- integer                                            --! Data bus number
    ) port map
    (     i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                => i_clk                , -- in     std_logic                                 ; --! System Clock
-         i_data               => i_sq2_dac_lsb_data   , -- in     t_slv_arr g_NB g_DATA_S                   ; --! Data buses
-         i_cs                 => i_sq2_dac_lsb_cs     , -- in     std_logic_vector(g_NB-1 downto 0)         ; --! Chip selects ('0' = Inactive, '1' = Active)
-         o_data_mux           => sq2_dac_lsb_data_mx    -- out    std_logic_vector(g_DATA_S-1 downto 0)       --! Multiplexed data
+         i_data               => i_saofc_data         , -- in     t_slv_arr g_NB g_DATA_S                   ; --! Data buses
+         i_cs                 => i_saofc_cs           , -- in     std_logic_vector(g_NB-1 downto 0)         ; --! Chip selects ('0' = Inactive, '1' = Active)
+         o_data_mux           => saofc_data_mux         -- out    std_logic_vector(g_DATA_S-1 downto 0)       --! Multiplexed data
    );
 
-   I_sq2_lkp_off_mux : entity work.mem_data_rd_mux generic map
+   I_saofl_mux : entity work.mem_data_rd_mux generic map
    (     g_MEM_RD_DATA_NPER   => c_MEM_RD_DATA_NPER   , -- integer                                          ; --! Clock period number for accessing memory data output
-         g_DATA_S             => c_DFLD_S2OFF_COL_S   , -- integer                                          ; --! Data bus size
+         g_DATA_S             => c_DFLD_SAOFL_COL_S   , -- integer                                          ; --! Data bus size
          g_NB                 => c_NB_COL               -- integer                                            --! Data bus number
    ) port map
    (     i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                => i_clk                , -- in     std_logic                                 ; --! System Clock
-         i_data               => i_sq2_lkp_off_data   , -- in     t_slv_arr g_NB g_DATA_S                   ; --! Data buses
-         i_cs                 => i_sq2_lkp_off_cs     , -- in     std_logic_vector(g_NB-1 downto 0)         ; --! Chip selects ('0' = Inactive, '1' = Active)
-         o_data_mux           => sq2_lkp_off_data_mx    -- out    std_logic_vector(g_DATA_S-1 downto 0)       --! Multiplexed data
+         i_data               => i_saofl_data         , -- in     t_slv_arr g_NB g_DATA_S                   ; --! Data buses
+         i_cs                 => i_saofl_cs           , -- in     std_logic_vector(g_NB-1 downto 0)         ; --! Chip selects ('0' = Inactive, '1' = Active)
+         o_data_mux           => saofl_data_mux         -- out    std_logic_vector(g_DATA_S-1 downto 0)       --! Multiplexed data
    );
 
-   I_sq1_fb_del_mux : entity work.mem_data_rd_mux generic map
+   I_smfbd_mux : entity work.mem_data_rd_mux generic map
    (     g_MEM_RD_DATA_NPER   => c_MEM_RD_DATA_NPER   , -- integer                                          ; --! Clock period number for accessing memory data output
-         g_DATA_S             => c_DFLD_S1FBD_COL_S   , -- integer                                          ; --! Data bus size
+         g_DATA_S             => c_DFLD_SMFBD_COL_S   , -- integer                                          ; --! Data bus size
          g_NB                 => c_NB_COL               -- integer                                            --! Data bus number
    ) port map
    (     i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                => i_clk                , -- in     std_logic                                 ; --! System Clock
-         i_data               => i_sq1_fb_del_data    , -- in     t_slv_arr g_NB g_DATA_S                   ; --! Data buses
-         i_cs                 => i_sq1_fb_del_cs      , -- in     std_logic_vector(g_NB-1 downto 0)         ; --! Chip selects ('0' = Inactive, '1' = Active)
-         o_data_mux           => sq1_fb_del_data_mx     -- out    std_logic_vector(g_DATA_S-1 downto 0)       --! Multiplexed data
+         i_data               => i_smfbd_data         , -- in     t_slv_arr g_NB g_DATA_S                   ; --! Data buses
+         i_cs                 => i_smfbd_cs           , -- in     std_logic_vector(g_NB-1 downto 0)         ; --! Chip selects ('0' = Inactive, '1' = Active)
+         o_data_mux           => smfbd_data_mux         -- out    std_logic_vector(g_DATA_S-1 downto 0)       --! Multiplexed data
    );
 
-   I_sq2_fb_del_mux : entity work.mem_data_rd_mux generic map
+   I_saodd_mux : entity work.mem_data_rd_mux generic map
    (     g_MEM_RD_DATA_NPER   => c_MEM_RD_DATA_NPER   , -- integer                                          ; --! Clock period number for accessing memory data output
-         g_DATA_S             => c_DFLD_S2FBD_COL_S   , -- integer                                          ; --! Data bus size
+         g_DATA_S             => c_DFLD_SAODD_COL_S   , -- integer                                          ; --! Data bus size
          g_NB                 => c_NB_COL               -- integer                                            --! Data bus number
    ) port map
    (     i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                => i_clk                , -- in     std_logic                                 ; --! System Clock
-         i_data               => i_sq2_fb_del_data    , -- in     t_slv_arr g_NB g_DATA_S                   ; --! Data buses
-         i_cs                 => i_sq2_fb_del_cs      , -- in     std_logic_vector(g_NB-1 downto 0)         ; --! Chip selects ('0' = Inactive, '1' = Active)
-         o_data_mux           => sq2_fb_del_data_mx     -- out    std_logic_vector(g_DATA_S-1 downto 0)       --! Multiplexed data
+         i_data               => i_saodd_data         , -- in     t_slv_arr g_NB g_DATA_S                   ; --! Data buses
+         i_cs                 => i_saodd_cs           , -- in     std_logic_vector(g_NB-1 downto 0)         ; --! Chip selects ('0' = Inactive, '1' = Active)
+         o_data_mux           => saodd_data_mux         -- out    std_logic_vector(g_DATA_S-1 downto 0)       --! Multiplexed data
    );
 
-   I_pls_shp_mux : entity work.mem_data_rd_mux generic map
+   I_saomd_data_mux : entity work.mem_data_rd_mux generic map
+   (     g_MEM_RD_DATA_NPER   => c_MEM_RD_DATA_NPER   , -- integer                                          ; --! Clock period number for accessing memory data output
+         g_DATA_S             => c_DFLD_SAOMD_COL_S   , -- integer                                          ; --! Data bus size
+         g_NB                 => c_NB_COL               -- integer                                            --! Data bus number
+   ) port map
+   (     i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+         i_clk                => i_clk                , -- in     std_logic                                 ; --! System Clock
+         i_data               => i_saomd_data         , -- in     t_slv_arr g_NB g_DATA_S                   ; --! Data buses
+         i_cs                 => i_saomd_cs           , -- in     std_logic_vector(g_NB-1 downto 0)         ; --! Chip selects ('0' = Inactive, '1' = Active)
+         o_data_mux           => saomd_data_mux         -- out    std_logic_vector(g_DATA_S-1 downto 0)       --! Multiplexed data
+   );
+
+   I_plssh_mux : entity work.mem_data_rd_mux generic map
    (     g_MEM_RD_DATA_NPER   => c_MEM_RD_DATA_NPER   , -- integer                                          ; --! Clock period number for accessing memory data output
          g_DATA_S             => c_DFLD_PLSSH_PLS_S   , -- integer                                          ; --! Data bus size
          g_NB                 => c_NB_COL               -- integer                                            --! Data bus number
    ) port map
    (     i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                => i_clk                , -- in     std_logic                                 ; --! System Clock
-         i_data               => i_pls_shp_data       , -- in     t_slv_arr g_NB g_DATA_S                   ; --! Data buses
-         i_cs                 => i_pls_shp_cs         , -- in     std_logic_vector(g_NB-1 downto 0)         ; --! Chip selects ('0' = Inactive, '1' = Active)
-         o_data_mux           => pls_shp_data_mx        -- out    std_logic_vector(g_DATA_S-1 downto 0)       --! Multiplexed data
+         i_data               => i_plssh_data         , -- in     t_slv_arr g_NB g_DATA_S                   ; --! Data buses
+         i_cs                 => i_plssh_cs           , -- in     std_logic_vector(g_NB-1 downto 0)         ; --! Chip selects ('0' = Inactive, '1' = Active)
+         o_data_mux           => plssh_data_mux         -- out    std_logic_vector(g_DATA_S-1 downto 0)       --! Multiplexed data
+   );
+
+   I_shp_set_data_mux : entity work.mem_data_rd_mux generic map
+   (     g_MEM_RD_DATA_NPER   => c_MEM_RD_DATA_NPER   , -- integer                                          ; --! Clock period number for accessing memory data output
+         g_DATA_S             => c_DFLD_PLSSS_PLS_S   , -- integer                                          ; --! Data bus size
+         g_NB                 => c_NB_COL               -- integer                                            --! Data bus number
+   ) port map
+   (     i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+         i_clk                => i_clk                , -- in     std_logic                                 ; --! System Clock
+         i_data               => i_plsss_data         , -- in     t_slv_arr g_NB g_DATA_S                   ; --! Data buses
+         i_cs                 => i_plsss_cs           , -- in     std_logic_vector(g_NB-1 downto 0)         ; --! Chip selects ('0' = Inactive, '1' = Active)
+         o_data_mux           => plsss_data_mux         -- out    std_logic_vector(g_DATA_S-1 downto 0)       --! Multiplexed data
    );
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Data register read
    -- ------------------------------------------------------------------------------------------------------
-   -- @Req : REG_TM_MODE
+   -- @Req : REG_DATA_ACQ_MODE
    -- @Req : DRE-DMX-FW-REQ-0580
-   data_rg_rd(c_EP_CMD_POS_TM_MODE) <= std_logic_vector(resize(unsigned(i_tm_mode),  c_EP_SPI_WD_S));
+   data_rg_rd(c_EP_CMD_POS_AQMDE) <= std_logic_vector(resize(unsigned(i_rg_aqmde),  c_EP_SPI_WD_S));
 
-   -- @Req : REG_SQ1_FB_MODE
-   data_rg_rd(c_EP_CMD_POS_SQ1FBMD) <= i_rg_sq1_fb_mode;
-
-   -- @Req : REG_SQ2_FB_MODE
+   -- @Req : REG_SQ_MUX_FB_ON_OFF
+   data_rg_rd(c_EP_CMD_POS_SMFMD) <= std_logic_vector(resize(unsigned(i_rg_smfmd(3)), c_EP_SPI_WD_S/4) & resize(unsigned(i_rg_smfmd(2)), c_EP_SPI_WD_S/4) &
+                                                      resize(unsigned(i_rg_smfmd(1)), c_EP_SPI_WD_S/4) & resize(unsigned(i_rg_smfmd(0)), c_EP_SPI_WD_S/4));
+   -- @Req : REG_SQ_AMP_OFFSET_MODE
    -- @Req : DRE-DMX-FW-REQ-0330
-   data_rg_rd(c_EP_CMD_POS_SQ2FBMD) <= i_rg_sq2_fb_mode;
-
+   data_rg_rd(c_EP_CMD_POS_SAOFM) <= std_logic_vector(resize(unsigned(i_rg_saofm(3)), c_EP_SPI_WD_S/4) & resize(unsigned(i_rg_saofm(2)), c_EP_SPI_WD_S/4) &
+                                                      resize(unsigned(i_rg_saofm(1)), c_EP_SPI_WD_S/4) & resize(unsigned(i_rg_saofm(0)), c_EP_SPI_WD_S/4));
    -- @Req : REG_Status
-   data_rg_rd(c_EP_CMD_POS_STATUS)  <= i_ep_cmd_sts_rg_r;
+   data_rg_rd(c_EP_CMD_POS_STATUS)<= i_ep_cmd_sts_rg_r;
 
-   -- @Req : REG_Version
-   data_rg_rd(c_EP_CMD_POS_VERSION) <= std_logic_vector(to_unsigned(c_FW_VERSION, c_FW_VERSION_S)) & i_brd_model_rs & i_brd_ref_rs;
+   -- @Req : REG_FW_Version
+   -- @Req : DRE-DMX-FW-REQ-0520
+   data_rg_rd(c_EP_CMD_POS_FW_VER)<= std_logic_vector(to_unsigned(c_FW_VERSION, c_EP_SPI_WD_S));
 
-   -- @Req : REG_CY_SQ1_FB0
+   -- @Req : REG_HW_Version
+   -- @Req : DRE-DMX-FW-REQ-0530
+   data_rg_rd(c_EP_CMD_POS_HW_VER)<= std_logic_vector(resize(unsigned(i_brd_model_rs), c_EP_SPI_WD_S/2)) & std_logic_vector(resize(unsigned(i_brd_ref_rs), c_EP_SPI_WD_S/2));
+
+   -- @Req : REG_CY_MUX_SQ_FB0
    -- @Req : DRE-DMX-FW-REQ-0200
-   data_rg_rd(c_EP_CMD_POS_S1FB0)   <= std_logic_vector(resize(unsigned(sq1_fb0_data_mx),  c_EP_SPI_WD_S));
+   data_rg_rd(c_EP_CMD_POS_SMFB0) <= std_logic_vector(resize(unsigned(smfb0_data_mux),  c_EP_SPI_WD_S));
 
-   -- @Req : REG_CY_SQ1_FB_MODE
+   -- @Req : REG_CY_MUX_SQ_FB_MODE
    -- @Req : DRE-DMX-FW-REQ-0210
-   data_rg_rd(c_EP_CMD_POS_S1FBM)   <= std_logic_vector(resize(unsigned(sq1_fbm_data_mx),  c_EP_SPI_WD_S));
+   data_rg_rd(c_EP_CMD_POS_SMFBM) <= std_logic_vector(resize(unsigned(smfbm_data_mux),  c_EP_SPI_WD_S));
 
-   -- @Req : REG_CY_SQ2_PXL_LOCKPOINT
+   -- @Req : REG_CY_AMP_SQ_OFFSET_FINE
    -- @Req : DRE-DMX-FW-REQ-0300
-   data_rg_rd(c_EP_CMD_POS_S2LKP)   <= std_logic_vector(resize(unsigned(sq2_lkp_data_mx),  c_EP_SPI_WD_S));
+   data_rg_rd(c_EP_CMD_POS_SAOFF) <= std_logic_vector(resize(unsigned(saoff_data_mux),  c_EP_SPI_WD_S));
 
-   -- @Req : REG_CY_SQ2_PXL_DAC_LSB
+   -- @Req : REG_CY_AMP_SQ_OFFSET_COARSE
    -- @Req : DRE-DMX-FW-REQ-0290
-   data_rg_rd(c_EP_CMD_POS_S2LSB)   <= std_logic_vector(resize(unsigned(sq2_dac_lsb_data_mx),  c_EP_SPI_WD_S));
+   data_rg_rd(c_EP_CMD_POS_SAOFC) <= std_logic_vector(resize(unsigned(saofc_data_mux),  c_EP_SPI_WD_S));
 
-   -- @Req : REG_CY_SQ2_PXL_LOCKPOINT_OFFSET
+   -- @Req : REG_CY_AMP_SQ_OFFSET_LSB
    -- @Req : DRE-DMX-FW-REQ-0290
-   data_rg_rd(c_EP_CMD_POS_S2OFF)   <= std_logic_vector(resize(unsigned(sq2_lkp_off_data_mx),  c_EP_SPI_WD_S));
+   data_rg_rd(c_EP_CMD_POS_SAOFL) <= std_logic_vector(resize(unsigned(saofl_data_mux),  c_EP_SPI_WD_S));
 
-   -- @Req : REG_CY_FB_SQ1_DELAY
+   -- @Req : REG_CY_MUX_SQ_FB_DELAY
    -- @Req : DRE-DMX-FW-REQ-0280
-   data_rg_rd(c_EP_CMD_POS_S1FBD)   <= std_logic_vector(resize(unsigned(sq1_fb_del_data_mx),  c_EP_SPI_WD_S));
+   data_rg_rd(c_EP_CMD_POS_SMFBD) <= std_logic_vector(resize(unsigned(smfbd_data_mux),  c_EP_SPI_WD_S));
 
-   -- @Req : REG_CY_FB_SQ2_DELAY
+   -- @Req : REG_CY_AMP_SQ_OFFSET_DAC_DELAY
    -- @Req : DRE-DMX-FW-REQ-0380
-   data_rg_rd(c_EP_CMD_POS_S2FBD)   <= std_logic_vector(resize(unsigned(sq2_fb_del_data_mx),  c_EP_SPI_WD_S));
+   data_rg_rd(c_EP_CMD_POS_SAODD) <= std_logic_vector(resize(unsigned(saodd_data_mux),  c_EP_SPI_WD_S));
+
+   -- @Req : REG_CY_AMP_SQ_OFFSET_MUX_DELAY
+   data_rg_rd(c_EP_CMD_POS_SAOMD) <= std_logic_vector(resize(unsigned(saomd_data_mux),  c_EP_SPI_WD_S));
 
    -- @Req : REG_CY_FB1_PULSE_SHAPING
    -- @Req : DRE-DMX-FW-REQ-0230
-   data_rg_rd(c_EP_CMD_POS_PLSSH)   <= std_logic_vector(resize(unsigned(pls_shp_data_mx),  c_EP_SPI_WD_S));
+   data_rg_rd(c_EP_CMD_POS_PLSSH) <= std_logic_vector(resize(unsigned(plssh_data_mux),  c_EP_SPI_WD_S));
+
+   -- @Req : REG_CY_FB1_PULSE_SHAPING_SEL
+   data_rg_rd(c_EP_CMD_POS_PLSSS) <= std_logic_vector(resize(unsigned(plsss_data_mux), c_EP_SPI_WD_S));
 
    data_rg_rd(c_EP_CMD_POS_LAST to c_EP_CMD_REG_MX_STIN(0)-1) <= (others => (others => '0'));
 

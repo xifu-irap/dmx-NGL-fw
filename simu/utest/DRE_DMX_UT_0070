@@ -1,18 +1,18 @@
 COMM **********************************************************************************************
-COMM   Test: EP command, SQ1_FB_MODE register
+COMM   Test: EP command, SQ_MUX_FB_ON_OFF register
 COMM **********************************************************************************************
 COMM
 COMM ==============================================================================================
-COMM   Enable Squid1 ADC/DAC clocks reports display
+COMM   Enable MUX SQUID ADC/DAC clocks reports display
 COMM ----------------------------------------------------------------------------------------------
-CCPE clk_sq1_adc(0)
-CCPE clk_sq1_adc(1)
-CCPE clk_sq1_adc(2)
-CCPE clk_sq1_adc(3)
-CCPE clk_sq1_dac(0)
-CCPE clk_sq1_dac(1)
-CCPE clk_sq1_dac(2)
-CCPE clk_sq1_dac(3)
+CCPE clk_sqm_adc(0)
+CCPE clk_sqm_adc(1)
+CCPE clk_sqm_adc(2)
+CCPE clk_sqm_adc(3)
+CCPE clk_sqm_dac(0)
+CCPE clk_sqm_dac(1)
+CCPE clk_sqm_dac(2)
+CCPE clk_sqm_dac(3)
 COMM
 COMM ==============================================================================================
 COMM   Asynchronous reset activated
@@ -31,127 +31,217 @@ COMM ---------------------------------------------------------------------------
 WUDI rst 0
 COMM
 COMM ==============================================================================================
-COMM   Start SQ1_FB_MODE register test
+COMM   Start SQ_MUX_FB_ON_OFF register test
 COMM ----------------------------------------------------------------------------------------------
-WCMD R-SQ1_FB_MODE-XXXX W     # Command 0
-WCMD W-SQ1_FB_MODE-2XXX W     # Command 1
-WCMD R-SQ1_FB_MODE-XXXX R     # Command 2
+WCMD R-SQ_MUX_FB_ON_OFF-XXXX W     # Command 0
+WCMD W-SQ_MUX_FB_ON_OFF-8XXX W     # Command 1
+WCMD R-SQ_MUX_FB_ON_OFF-XXXX R     # Command 2
 COMM
 COMM ==============================================================================================
-COMM   Check SQ1_FB_MODE content at start:
-COMM   Col(3)->set 1/Off, Col(2)->set 1/Off, Col(1)->set 1/Off, Col(0)->set 1/Off
+COMM   Check SQ_MUX_FB_ON_OFF content at start
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-SQ1_FB_MODE-4444 W     # Return Command 0
-WCMD W-SQ1_FB_MODE-X2XX R     # Command 3
-COMM
-COMM ==============================================================================================
-COMM   Check error position SPI data out of range detected
-COMM ----------------------------------------------------------------------------------------------
-CCMD R-Status-1000 W          # Return Command 1
-WCMD R-SQ1_FB_MODE-XXXX R     # Command 4
-COMM
-COMM ==============================================================================================
-COMM   Check SQ1_FB_MODE no change
-COMM ----------------------------------------------------------------------------------------------
-CCMD R-SQ1_FB_MODE-4444 W     # Return Command 2
-WCMD W-SQ1_FB_MODE-XX2X R     # Command 5
+CCMD R-SQ_MUX_FB_ON_OFF-0000 W     # Return Command 0
+WCMD W-SQ_MUX_FB_ON_OFF-4XXX R     # Command 3
 COMM
 COMM ==============================================================================================
 COMM   Check error position SPI data out of range detected
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-Status-1000 W          # Return Command 3
-WCMD R-SQ1_FB_MODE-XXXX R     # Command 6
+CCMD R-Status-EFFF W          # Return Command 1
+WCMD R-SQ_MUX_FB_ON_OFF-XXXX R     # Command 4
 COMM
 COMM ==============================================================================================
-COMM   Check SQ1_FB_MODE no change
+COMM   Check SQ_MUX_FB_ON_OFF no change
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-SQ1_FB_MODE-4444 W     # Return Command 4
-WCMD W-SQ1_FB_MODE-XXX2 R     # Command 7
-COMM
-COMM ==============================================================================================
-COMM   Check error position SPI data out of range detected
-COMM ----------------------------------------------------------------------------------------------
-CCMD R-Status-1000 W          # Return Command 5
-WCMD R-SQ1_FB_MODE-XXXX R     # Command 8
-COMM
-COMM ==============================================================================================
-COMM   Check SQ1_FB_MODE no change
-COMM ----------------------------------------------------------------------------------------------
-CCMD R-SQ1_FB_MODE-4444 W     # Return Command 6
-WCMD W-SQ1_FB_MODE-18C4 R     # Command 9
+CCMD R-SQ_MUX_FB_ON_OFF-0000 W     # Return Command 2
+WCMD W-SQ_MUX_FB_ON_OFF-2XXX R     # Command 5
 COMM
 COMM ==============================================================================================
 COMM   Check error position SPI data out of range detected
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-Status-1000 W          # Return Command 7
-WCMD R-SQ1_FB_MODE-XXXX R     # Command 10
+CCMD R-Status-EFFF W          # Return Command 3
+WCMD R-SQ_MUX_FB_ON_OFF-XXXX R     # Command 6
 COMM
 COMM ==============================================================================================
-COMM   Check SQ1_FB_MODE no change
+COMM   Check SQ_MUX_FB_ON_OFF no change
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-SQ1_FB_MODE-4444 W     # Return Command 8
-WCMD W-SQ1_FB_MODE-418C R     # Command 11
+CCMD R-SQ_MUX_FB_ON_OFF-0000 W     # Return Command 4
+WCMD W-SQ_MUX_FB_ON_OFF-X8XX R     # Command 7
+COMM
+COMM ==============================================================================================
+COMM   Check error position SPI data out of range detected
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-Status-EFFF W          # Return Command 5
+WCMD R-SQ_MUX_FB_ON_OFF-XXXX R     # Command 8
+COMM
+COMM ==============================================================================================
+COMM   Check SQ_MUX_FB_ON_OFF no change
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-SQ_MUX_FB_ON_OFF-0000 W     # Return Command 6
+WCMD W-SQ_MUX_FB_ON_OFF-X4XX R     # Command 9
+COMM
+COMM ==============================================================================================
+COMM   Check error position SPI data out of range detected
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-Status-EFFF W          # Return Command 7
+WCMD R-SQ_MUX_FB_ON_OFF-XXXX R     # Command 10
+COMM
+COMM ==============================================================================================
+COMM   Check SQ_MUX_FB_ON_OFF no change
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-SQ_MUX_FB_ON_OFF-0000 W     # Return Command 8
+WCMD W-SQ_MUX_FB_ON_OFF-X2XX R     # Command 11
+COMM
+COMM ==============================================================================================
+COMM   Check error position SPI data out of range detected
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-Status-EFFF W          # Return Command 9
+WCMD R-SQ_MUX_FB_ON_OFF-XXXX R     # Command 12
+COMM
+COMM ==============================================================================================
+COMM   Check SQ_MUX_FB_ON_OFF no change
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-SQ_MUX_FB_ON_OFF-0000 W     # Return Command 10
+WCMD W-SQ_MUX_FB_ON_OFF-XX8X R     # Command 13
+COMM
+COMM ==============================================================================================
+COMM   Check error position SPI data out of range detected
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-Status-EFFF W          # Return Command 11
+WCMD R-SQ_MUX_FB_ON_OFF-XXXX R     # Command 14
+COMM
+COMM ==============================================================================================
+COMM   Check SQ_MUX_FB_ON_OFF no change
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-SQ_MUX_FB_ON_OFF-0000 W     # Return Command 12
+WCMD W-SQ_MUX_FB_ON_OFF-XX4X R     # Command 15
+COMM
+COMM ==============================================================================================
+COMM   Check error position SPI data out of range detected
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-Status-EFFF W          # Return Command 13
+WCMD R-SQ_MUX_FB_ON_OFF-XXXX R     # Command 16
+COMM
+COMM ==============================================================================================
+COMM   Check SQ_MUX_FB_ON_OFF no change
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-SQ_MUX_FB_ON_OFF-0000 W     # Return Command 14
+WCMD W-SQ_MUX_FB_ON_OFF-XX2X R     # Command 17
+COMM
+COMM ==============================================================================================
+COMM   Check error position SPI data out of range detected
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-Status-EFFF W          # Return Command 15
+WCMD R-SQ_MUX_FB_ON_OFF-XXXX R     # Command 18
+COMM
+COMM ==============================================================================================
+COMM   Check SQ_MUX_FB_ON_OFF no change
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-SQ_MUX_FB_ON_OFF-0000 W     # Return Command 16
+WCMD W-SQ_MUX_FB_ON_OFF-XXX8 R     # Command 19
+COMM
+COMM ==============================================================================================
+COMM   Check error position SPI data out of range detected
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-Status-EFFF W          # Return Command 17
+WCMD R-SQ_MUX_FB_ON_OFF-XXXX R     # Command 20
+COMM
+COMM ==============================================================================================
+COMM   Check SQ_MUX_FB_ON_OFF no change
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-SQ_MUX_FB_ON_OFF-0000 W     # Return Command 18
+WCMD W-SQ_MUX_FB_ON_OFF-XXX4 R     # Command 21
+COMM
+COMM ==============================================================================================
+COMM   Check error position SPI data out of range detected
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-Status-EFFF W          # Return Command 19
+WCMD R-SQ_MUX_FB_ON_OFF-XXXX R     # Command 22
+COMM
+COMM ==============================================================================================
+COMM   Check SQ_MUX_FB_ON_OFF no change
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-SQ_MUX_FB_ON_OFF-0000 W     # Return Command 20
+WCMD W-SQ_MUX_FB_ON_OFF-XXX2 R     # Command 23
+COMM
+COMM ==============================================================================================
+COMM   Check error position SPI data out of range detected
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-Status-EFFF W          # Return Command 21
+WCMD R-SQ_MUX_FB_ON_OFF-XXXX R     # Command 24
+COMM
+COMM ==============================================================================================
+COMM   Check SQ_MUX_FB_ON_OFF no change
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-SQ_MUX_FB_ON_OFF-0000 W     # Return Command 22
+WCMD W-SQ_MUX_FB_ON_OFF-1000 R     # Command 25
+COMM
+COMM ==============================================================================================
+COMM   Check error position SPI data out of range detected
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-Status-EFFF W          # Return Command 23
+WCMD R-SQ_MUX_FB_ON_OFF-XXXX R     # Command 26
+COMM
+COMM ==============================================================================================
+COMM   Check SQ_MUX_FB_ON_OFF no change
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-SQ_MUX_FB_ON_OFF-0000 W     # Return Command 24
+WCMD W-SQ_MUX_FB_ON_OFF-0100 R     # Command 27
 COMM
 COMM ==============================================================================================
 COMM   Check no error
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-Status-0000 W          # Return Command 9
-WCMD R-SQ1_FB_MODE-XXXX R     # Command 12
+CCMD R-Status-FFFF W          # Return Command 25
+WCMD R-SQ_MUX_FB_ON_OFF-XXXX R     # Command 28
 COMM
 COMM ==============================================================================================
-COMM   Check SQ1_FB_MODE content:
-COMM   Col(3)->set 0/On, Col(2)->set 2/Off, Col(1)->set 3/Off, Col(0)->set 1/Off
+COMM   Check SQ_MUX_FB_ON_OFF content
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-SQ1_FB_MODE-18C4 W     # Return Command 10
-WCMD W-SQ1_FB_MODE-C418 R     # Command 13
-COMM
-COMM ==============================================================================================
-COMM   Check no error
-COMM ----------------------------------------------------------------------------------------------
-CCMD R-Status-0000 W          # Return Command 11
-WCMD R-SQ1_FB_MODE-XXXX R     # Command 14
-COMM
-COMM ==============================================================================================
-COMM   Check SQ1_FB_MODE content:
-COMM   Col(3)->set 1/Off, Col(2)->set 0/On, Col(1)->set 2/Off, Col(0)->set 3/Off
-COMM ----------------------------------------------------------------------------------------------
-CCMD R-SQ1_FB_MODE-418C W     # Return Command 12
-WCMD W-SQ1_FB_MODE-8C41 R     # Command 15
+CCMD R-SQ_MUX_FB_ON_OFF-1000 W     # Return Command 26
+WCMD W-SQ_MUX_FB_ON_OFF-0010 R     # Command 29
 COMM
 COMM ==============================================================================================
 COMM   Check no error
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-Status-0000 W          # Return Command 13
-WCMD R-SQ1_FB_MODE-XXXX R     # Command 16
+CCMD R-Status-FFFF W          # Return Command 27
+WCMD R-SQ_MUX_FB_ON_OFF-XXXX R     # Command 30
 COMM
 COMM ==============================================================================================
-COMM   Check SQ1_FB_MODE content:
-COMM   Col(3)->set 3/Off, Col(2)->set 1/Off, Col(1)->set 0/On, Col(0)->set 2/Off
+COMM   Check SQ_MUX_FB_ON_OFF content
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-SQ1_FB_MODE-C418 W     # Return Command 14
-WCMD W-SQ1_FB_MODE-CCCC R     # Command 17
-COMM
-COMM ==============================================================================================
-COMM   Check no error
-COMM ----------------------------------------------------------------------------------------------
-CCMD R-Status-0000 W          # Return Command 15
-WCMD R-SQ1_FB_MODE-XXXX R     # Command 18
-COMM
-COMM ==============================================================================================
-COMM   Check SQ1_FB_MODE content:
-COMM   Col(3)->set 2/Off, Col(2)->set 3/Off, Col(1)->set 1/Off, Col(0)->set 0/On
-COMM ----------------------------------------------------------------------------------------------
-CCMD R-SQ1_FB_MODE-8C41 W     # Return Command 16
-WCMD W-SQ1_FB_MODE-0000 R     # Command 19
+CCMD R-SQ_MUX_FB_ON_OFF-0100 W     # Return Command 28
+WCMD W-SQ_MUX_FB_ON_OFF-0001 R     # Command 31
 COMM
 COMM ==============================================================================================
 COMM   Check no error
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-Status-0000 W          # Return Command 17
-WCMD R-SQ1_FB_MODE-XXXX R     # Command 20
+CCMD R-Status-FFFF W          # Return Command 29
+WCMD R-SQ_MUX_FB_ON_OFF-XXXX R     # Command 32
 COMM
 COMM ==============================================================================================
-COMM   Check SQ1_FB_MODE content:
-COMM   Col(3)->set 3/Off, Col(2)->set 3/Off, Col(1)->set 3/Off, Col(0)->set 3/Off
+COMM   Check SQ_MUX_FB_ON_OFF content
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-SQ1_FB_MODE-CCCC N     # Return Command 18
+CCMD R-SQ_MUX_FB_ON_OFF-0010 W     # Return Command 30
+WCMD W-SQ_MUX_FB_ON_OFF-1111 R     # Command 33
+COMM
+COMM ==============================================================================================
+COMM   Check no error
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-Status-FFFF W          # Return Command 31
+WCMD R-SQ_MUX_FB_ON_OFF-XXXX R     # Command 34
+COMM
+COMM ==============================================================================================
+COMM   Check SQ_MUX_FB_ON_OFF content
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-SQ_MUX_FB_ON_OFF-0001 W     # Return Command 32
+WCMD W-SQ_MUX_FB_ON_OFF-0000 R     # Command 35
+COMM
+COMM ==============================================================================================
+COMM   Check no error
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-Status-FFFF W          # Return Command 33
+WCMD R-SQ_MUX_FB_ON_OFF-XXXX R     # Command 36
+COMM
+COMM ==============================================================================================
+COMM   Check SQ_MUX_FB_ON_OFF content
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-SQ_MUX_FB_ON_OFF-1111 N     # Return Command 34

@@ -39,20 +39,20 @@ entity science_data_mgt is port
          i_clk                : in     std_logic                                                            ; --! System Clock
 
          i_sync_re            : in     std_logic                                                            ; --! Pixel sequence synchronization, rising edge
-         i_tm_mode            : in     std_logic_vector(c_DFLD_TM_MODE_S-1 downto 0)                        ; --! Telemetry mode
+         i_aqmde              : in     std_logic_vector(c_DFLD_AQMDE_S-1 downto 0)                          ; --! Telemetry mode
 
-         i_sq1_data_sc_msb    : in     t_slv_arr(0 to c_NB_COL-1)(c_SC_DATA_SER_W_S-1 downto 0)             ; --! SQUID1 Data science MSB
-         i_sq1_data_sc_lsb    : in     t_slv_arr(0 to c_NB_COL-1)(c_SC_DATA_SER_W_S-1 downto 0)             ; --! SQUID1 Data science LSB
-         i_sq1_data_sc_first  : in     std_logic                                                            ; --! SQUID1 Data science first pixel ('0' = No, '1' = Yes)
-         i_sq1_data_sc_last   : in     std_logic                                                            ; --! SQUID1 Data science last pixel ('0' = No, '1' = Yes)
-         i_sq1_data_sc_rdy    : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! SQUID1 Data science ready ('0' = Not ready, '1' = Ready)
+         i_sqm_data_sc_msb    : in     t_slv_arr(0 to c_NB_COL-1)(c_SC_DATA_SER_W_S-1 downto 0)             ; --! SQUID MUX Data science MSB
+         i_sqm_data_sc_lsb    : in     t_slv_arr(0 to c_NB_COL-1)(c_SC_DATA_SER_W_S-1 downto 0)             ; --! SQUID MUX Data science LSB
+         i_sqm_data_sc_first  : in     std_logic                                                            ; --! SQUID MUX Data science first pixel ('0' = No, '1' = Yes)
+         i_sqm_data_sc_last   : in     std_logic                                                            ; --! SQUID MUX Data science last pixel ('0' = No, '1' = Yes)
+         i_sqm_data_sc_rdy    : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! SQUID MUX Data science ready ('0' = Not ready, '1' = Ready)
 
-         i_sq1_mem_dump_bsy   : in     std_logic                                                            ; --! SQUID1 Memory Dump: data busy ('0' = no data dump, '1' = data dump in progress)
-         o_sq1_mem_dump_add   : out    std_logic_vector( c_MEM_DUMP_ADD_S-1 downto 0)                       ; --! SQUID1 Memory Dump: address
-         i_sq1_mem_dump_data  : in     t_slv_arr(0 to c_NB_COL-1)(c_SQ1_ADC_DATA_S+1 downto 0)              ; --! SQUID1 Memory Dump: data
+         i_sqm_mem_dump_bsy   : in     std_logic                                                            ; --! SQUID MUX Memory Dump: data busy ('0' = no data dump, '1' = data dump in progress)
+         o_sqm_mem_dump_add   : out    std_logic_vector( c_MEM_DUMP_ADD_S-1 downto 0)                       ; --! SQUID MUX Memory Dump: address
+         i_sqm_mem_dump_data  : in     t_slv_arr(0 to c_NB_COL-1)(c_SQM_ADC_DATA_S+1 downto 0)              ; --! SQUID MUX Memory Dump: data
 
-         o_tm_mode_dmp_tx_end : out    std_logic                                                            ; --! Telemetry mode, dump transmit end ('0' = Inactive, '1' = Active)
-         o_tm_mode_tst_tx_end : out    std_logic                                                            ; --! Telemetry mode, test pattern transmit end ('0' = Inactive, '1' = Active)
+         o_aqmde_dmp_tx_end   : out    std_logic                                                            ; --! Telemetry mode, dump transmit end ('0' = Inactive, '1' = Active)
+         o_aqmde_tst_tx_end   : out    std_logic                                                            ; --! Telemetry mode, test pattern transmit end ('0' = Inactive, '1' = Active)
 
          o_science_data_ser   : out    std_logic_vector(c_NB_COL*c_SC_DATA_SER_NB downto 0)                   --! Science Data: Serial Data
    );
@@ -63,18 +63,22 @@ constant c_DMP_CNT_NB_VAL     : integer:= c_DMP_SEQ_ACQ_NB * c_MUX_FACT * c_PIXE
 constant c_DMP_CNT_MAX_VAL    : integer:= c_DMP_CNT_NB_VAL-1                                                ; --! Dump counter: maximal value
 constant c_DMP_CNT_S          : integer:= log2_ceil(c_DMP_CNT_NB_VAL + 1) + 1                               ; --! Dump counter: size bus (signed)
 
-signal   sq1_data_sc_fst_dct  : std_logic                                                                   ; --! SQUID1 Data science first pixel detected ('0' = No, '1' = Yes)
-signal   sq1_data_sc_rdy_ena  : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! SQUID1 Data science ready enable ('0' = No, '1' = Yes)
-signal   sq1_data_sc_rdy_and  : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! SQUID1 Data science ready "and-ed"
-signal   sq1_dta_sc_rdy_and_r : std_logic                                                                   ; --! SQUID1 Data science ready "and-ed" MSB register
+signal   sqm_data_sc_fst_dct  : std_logic                                                                   ; --! SQUID MUX Data science first pixel detected ('0' = No, '1' = Yes)
+signal   sqm_data_sc_rdy_ena  : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! SQUID MUX Data science ready enable ('0' = No, '1' = Yes)
+signal   sqm_data_sc_rdy_and  : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! SQUID MUX Data science ready "and-ed"
+signal   sqm_dta_sc_rdy_and_r : std_logic                                                                   ; --! SQUID MUX Data science ready "and-ed" MSB register
 
-signal   tm_mode_sync         : std_logic_vector(c_DFLD_TM_MODE_S-1 downto 0)                               ; --! Telemetry mode, synchronized on pixel sequence
+signal   aqmde_idle_sync      : std_logic                                                                   ; --! Telemetry mode "Idle", sync on pixel sequence ('0' = Inactive, '1' = Active)
+signal   aqmde_scie_sync      : std_logic                                                                   ; --! Telemetry mode "Science", sync on pixel sequence ('0' = Inactive, '1' = Active)
+signal   aqmde_errs_sync      : std_logic                                                                   ; --! Telemetry mode "Error Signal", sync on pixel sequence ('0' = Inactive, '1' = Active)
+signal   aqmde_dump_sync      : std_logic                                                                   ; --! Telemetry mode "Dump", sync on pixel sequence ('0' = Inactive, '1' = Active)
+signal   aqmde_test_sync      : std_logic                                                                   ; --! Telemetry mode "Test Pattern", sync on pixel sequence ('0' = Inactive, '1' = Active)
 signal   dmp_cnt              : std_logic_vector(c_DMP_CNT_S-1 downto 0)                                    ; --! Dump counter
 signal   dmp_cnt_msb_r        : std_logic_vector(c_MEM_RD_DATA_NPER downto 0)                               ; --! Dump counter msb register
 
 signal   ctrl_first_pkt       : std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0)                              ; --! Control first packet value
 
-signal   tm_test_pat_data     : std_logic_vector(c_SC_DATA_SER_W_S*c_SC_DATA_SER_NB-1 downto 0)             ; --! Telemetry test pattern data
+signal   acq_test_pat_data    : std_logic_vector(c_SC_DATA_SER_W_S*c_SC_DATA_SER_NB-1 downto 0)             ; --! Data acquisition test pattern data
 
 signal   science_data_tx_ena  : std_logic                                                                   ; --! Science Data transmit enable
 signal   science_data         : t_slv_arr(0 to c_NB_COL*c_SC_DATA_SER_NB)(c_SC_DATA_SER_W_S-1 downto 0)     ; --! Science Data word
@@ -86,34 +90,34 @@ signal   test_cnt             : std_logic_vector(2 downto 0)                    
 begin
 
    -- ------------------------------------------------------------------------------------------------------
-   --!   SQUID1 Data science ready signals
+   --!   SQUID MUX Data science ready signals
    -- ------------------------------------------------------------------------------------------------------
-   sq1_data_sc_rdy_and(0) <= sq1_data_sc_rdy_ena(0);
+   sqm_data_sc_rdy_and(0) <= sqm_data_sc_rdy_ena(0);
 
    G_column_mgt: for k in 0 to c_NB_COL-1 generate
    begin
 
-      P_sq1_dta_sc_rdy_ena : process (i_rst, i_clk)
+      P_sqm_dta_sc_rdy_ena : process (i_rst, i_clk)
       begin
 
          if i_rst = '1' then
-            sq1_data_sc_rdy_ena(k) <= '0';
+            sqm_data_sc_rdy_ena(k) <= '0';
 
          elsif rising_edge(i_clk) then
-            if i_sq1_data_sc_rdy(k) = '1' then
-               sq1_data_sc_rdy_ena(k) <= '1';
+            if i_sqm_data_sc_rdy(k) = '1' then
+               sqm_data_sc_rdy_ena(k) <= '1';
 
-            elsif sq1_data_sc_rdy_and(sq1_data_sc_rdy_and'high) = '1' then
-               sq1_data_sc_rdy_ena(k) <= '0';
+            elsif sqm_data_sc_rdy_and(sqm_data_sc_rdy_and'high) = '1' then
+               sqm_data_sc_rdy_ena(k) <= '0';
 
             end if;
 
          end if;
 
-      end process P_sq1_dta_sc_rdy_ena;
+      end process P_sqm_dta_sc_rdy_ena;
 
       G_dta_sc_rdy_and_0: if k /= 0 generate
-         sq1_data_sc_rdy_and(k) <= sq1_data_sc_rdy_ena(k) and sq1_data_sc_rdy_and(k-1);
+         sqm_data_sc_rdy_and(k) <= sqm_data_sc_rdy_ena(k) and sqm_data_sc_rdy_and(k-1);
 
       end generate G_dta_sc_rdy_and_0;
 
@@ -123,10 +127,10 @@ begin
    begin
 
       if i_rst = '1' then
-         sq1_dta_sc_rdy_and_r <= '0';
+         sqm_dta_sc_rdy_and_r <= '0';
 
       elsif rising_edge(i_clk) then
-         sq1_dta_sc_rdy_and_r <= sq1_data_sc_rdy_and(sq1_data_sc_rdy_and'high);
+         sqm_dta_sc_rdy_and_r <= sqm_data_sc_rdy_and(sqm_data_sc_rdy_and'high);
 
       end if;
 
@@ -135,38 +139,55 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   Telemetry mode, synchronized on pixel sequence
    -- ------------------------------------------------------------------------------------------------------
-   P_tm_mode_sync : process (i_rst, i_clk)
+   P_aqmde_sync : process (i_rst, i_clk)
    begin
 
       if i_rst = '1' then
-         tm_mode_sync <= c_EP_CMD_DEF_TM_MODE;
+         aqmde_idle_sync <= '0';
+         aqmde_scie_sync <= '0';
+         aqmde_errs_sync <= '0';
+         aqmde_dump_sync <= '0';
+         aqmde_test_sync <= '0';
 
       elsif rising_edge(i_clk) then
          if i_sync_re = '1' then
-            tm_mode_sync <= i_tm_mode;
-
-         end if;
-
-      end if;
-
-   end process P_tm_mode_sync;
-
-   -- ------------------------------------------------------------------------------------------------------
-   --!   SQUID1 Data science first pixel detected
-   -- ------------------------------------------------------------------------------------------------------
-   P_sq1_dta_sc_fst_dct : process (i_rst, i_clk)
-   begin
-
-      if i_rst = '1' then
-         sq1_data_sc_fst_dct <= '0';
-
-      elsif rising_edge(i_clk) then
-         if i_sq1_data_sc_first = '1' then
-            if tm_mode_sync = c_DST_TM_MODE_NORM then
-               sq1_data_sc_fst_dct <= '1';
+            if i_aqmde = c_DST_AQMDE_IDLE then
+               aqmde_idle_sync <= '1';
 
             else
-               sq1_data_sc_fst_dct <= '0';
+               aqmde_idle_sync <= '0';
+
+            end if;
+
+            if i_aqmde = c_DST_AQMDE_SCIE then
+               aqmde_scie_sync <= '1';
+
+            else
+               aqmde_scie_sync <= '0';
+
+            end if;
+
+            if i_aqmde = c_DST_AQMDE_ERRS then
+               aqmde_errs_sync <= '1';
+
+            else
+               aqmde_errs_sync <= '0';
+
+            end if;
+
+            if i_aqmde = c_DST_AQMDE_DUMP then
+               aqmde_dump_sync <= '1';
+
+            else
+               aqmde_dump_sync <= '0';
+
+            end if;
+
+            if i_aqmde = c_DST_AQMDE_TEST then
+               aqmde_test_sync <= '1';
+
+            else
+               aqmde_test_sync <= '0';
 
             end if;
 
@@ -174,7 +195,26 @@ begin
 
       end if;
 
-   end process P_sq1_dta_sc_fst_dct;
+   end process P_aqmde_sync;
+
+   -- ------------------------------------------------------------------------------------------------------
+   --!   SQUID MUX Data science first pixel detected
+   -- ------------------------------------------------------------------------------------------------------
+   P_sqm_dta_sc_fst_dct : process (i_rst, i_clk)
+   begin
+
+      if i_rst = '1' then
+         sqm_data_sc_fst_dct <= '0';
+
+      elsif rising_edge(i_clk) then
+         if i_sqm_data_sc_first = '1' then
+            sqm_data_sc_fst_dct <= aqmde_scie_sync;
+
+         end if;
+
+      end if;
+
+   end process P_sqm_dta_sc_fst_dct;
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Dump counter
@@ -186,14 +226,14 @@ begin
          dmp_cnt_msb_r        <= (others => '1');
          dmp_cnt              <= (others => '1');
 
-         o_tm_mode_dmp_tx_end <= '0';
+         o_aqmde_dmp_tx_end <= '0';
 
       elsif rising_edge(i_clk) then
          dmp_cnt_msb_r <= dmp_cnt_msb_r(dmp_cnt_msb_r'high-1 downto 0) & dmp_cnt(dmp_cnt'high);
 
-         if tm_mode_sync = c_DST_TM_MODE_DUMP then
+         if aqmde_dump_sync = '1' then
 
-            if (dmp_cnt(dmp_cnt'high) and i_sq1_mem_dump_bsy) = '1' then
+            if (dmp_cnt(dmp_cnt'high) and i_sqm_mem_dump_bsy) = '1' then
                dmp_cnt <= std_logic_vector(to_unsigned(c_DMP_CNT_MAX_VAL, dmp_cnt'length));
 
             elsif not(dmp_cnt(dmp_cnt'high)) = '1' and ser_bit_cnt = std_logic_vector(to_unsigned(c_SC_DATA_SER_W_S-2, ser_bit_cnt'length)) then
@@ -203,20 +243,20 @@ begin
 
          end if;
 
-         o_tm_mode_dmp_tx_end <= not(dmp_cnt_msb_r(dmp_cnt_msb_r'high)) and dmp_cnt_msb_r(dmp_cnt_msb_r'high-1);
+         o_aqmde_dmp_tx_end <= not(dmp_cnt_msb_r(dmp_cnt_msb_r'high)) and dmp_cnt_msb_r(dmp_cnt_msb_r'high-1);
 
       end if;
 
    end process P_dmp_cnt;
 
-   o_sq1_mem_dump_add   <= dmp_cnt(o_sq1_mem_dump_add'high downto 0);
+   o_sqm_mem_dump_add   <= dmp_cnt(o_sqm_mem_dump_add'high downto 0);
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Control first packet value
    -- ------------------------------------------------------------------------------------------------------
-   ctrl_first_pkt <= c_SC_CTRL_ADC_DMP when tm_mode_sync = c_DST_TM_MODE_DUMP else
-                     c_SC_CTRL_SC_DTA  when tm_mode_sync = c_DST_TM_MODE_NORM else
-                     c_SC_CTRL_TST_PAT when tm_mode_sync = c_DST_TM_MODE_TEST else
+   ctrl_first_pkt <= c_SC_CTRL_ADC_DMP when aqmde_dump_sync = '1' else
+                     c_SC_CTRL_SC_DTA  when aqmde_scie_sync = '1' else
+                     c_SC_CTRL_TST_PAT when aqmde_test_sync = '1' else
                      c_SC_CTRL_IDLE;
 
    -- ------------------------------------------------------------------------------------------------------
@@ -229,15 +269,15 @@ begin
          science_data(science_data'high) <= c_SC_CTRL_IDLE;
 
       elsif rising_edge(i_clk) then
-         if tm_mode_sync = c_DST_TM_MODE_IDLE then
+         if aqmde_idle_sync = '1' then
             science_data(science_data'high) <= c_SC_CTRL_IDLE;
 
-         elsif (tm_mode_sync = c_DST_TM_MODE_DUMP and (dmp_cnt_msb_r(dmp_cnt_msb_r'high) and i_sq1_mem_dump_bsy) = '1') or
-               (tm_mode_sync = c_DST_TM_MODE_NORM and i_sq1_data_sc_first = '1') then
+         elsif ((aqmde_dump_sync and dmp_cnt_msb_r(dmp_cnt_msb_r'high) and i_sqm_mem_dump_bsy) or
+                (aqmde_scie_sync and i_sqm_data_sc_first)) = '1' then
             science_data(science_data'high) <= ctrl_first_pkt;
 
-         elsif (tm_mode_sync = c_DST_TM_MODE_DUMP and dmp_cnt = std_logic_vector(to_unsigned(0, dmp_cnt'length))) or
-               (tm_mode_sync = c_DST_TM_MODE_NORM and i_sq1_data_sc_last = '1')   then
+         elsif (aqmde_dump_sync = '1' and dmp_cnt = std_logic_vector(to_unsigned(0, dmp_cnt'length))) or
+               (aqmde_scie_sync and i_sqm_data_sc_last) = '1'   then
             science_data(science_data'high) <= c_SC_CTRL_EOD;
 
          else
@@ -264,24 +304,23 @@ begin
             science_data(2*k)    <= (others => '0');
 
          elsif rising_edge(i_clk) then
-            case tm_mode_sync is
-               when c_DST_TM_MODE_DUMP =>
-                  science_data(2*k+1)  <= std_logic_vector(resize(unsigned(i_sq1_mem_dump_data(k)(c_SQ1_ADC_DATA_S+1 downto c_SC_DATA_SER_W_S)), c_SC_DATA_SER_W_S));
-                  science_data(2*k)    <= i_sq1_mem_dump_data(k)(c_SC_DATA_SER_W_S-1 downto 0);
+            if    aqmde_dump_sync = '1' then
+               science_data(2*k+1)  <= std_logic_vector(resize(unsigned(i_sqm_mem_dump_data(k)(c_SQM_ADC_DATA_S+1 downto c_SC_DATA_SER_W_S)), c_SC_DATA_SER_W_S));
+               science_data(2*k)    <= i_sqm_mem_dump_data(k)(c_SC_DATA_SER_W_S-1 downto 0);
 
-               when c_DST_TM_MODE_NORM =>
-                  science_data(2*k+1)  <= i_sq1_data_sc_msb(k);
-                  science_data(2*k)    <= i_sq1_data_sc_lsb(k);
+            elsif aqmde_scie_sync = '1' then
+               science_data(2*k+1)  <= i_sqm_data_sc_msb(k);
+               science_data(2*k)    <= i_sqm_data_sc_lsb(k);
 
-               when c_DST_TM_MODE_TEST =>
-                  science_data(2*k+1)  <= tm_test_pat_data(2*c_SC_DATA_SER_W_S-1 downto c_SC_DATA_SER_W_S);
-                  science_data(2*k)    <= tm_test_pat_data(  c_SC_DATA_SER_W_S-1 downto                 0);
+            elsif aqmde_test_sync = '1' then
+               science_data(2*k+1)  <= acq_test_pat_data(2*c_SC_DATA_SER_W_S-1 downto c_SC_DATA_SER_W_S);
+               science_data(2*k)    <= acq_test_pat_data(  c_SC_DATA_SER_W_S-1 downto                 0);
 
-               when others             =>
-                  science_data(2*k+1)  <= c_SC_DATA_IDLE_VAL(2*c_SC_DATA_SER_W_S-1 downto c_SC_DATA_SER_W_S);
-                  science_data(2*k)    <= c_SC_DATA_IDLE_VAL(  c_SC_DATA_SER_W_S-1 downto                 0);
+            else
+               science_data(2*k+1)  <= c_SC_DATA_IDLE_VAL(2*c_SC_DATA_SER_W_S-1 downto c_SC_DATA_SER_W_S);
+               science_data(2*k)    <= c_SC_DATA_IDLE_VAL(  c_SC_DATA_SER_W_S-1 downto                 0);
 
-            end case;
+            end if;
 
          end if;
 
@@ -299,17 +338,16 @@ begin
          science_data_tx_ena <= '0';
 
       elsif rising_edge(i_clk) then
-         case tm_mode_sync is
-            when c_DST_TM_MODE_DUMP =>
-               science_data_tx_ena <= not(dmp_cnt_msb_r(dmp_cnt_msb_r'high-1));
+         if    aqmde_dump_sync = '1' then
+            science_data_tx_ena <= not(dmp_cnt_msb_r(dmp_cnt_msb_r'high-1));
 
-            when c_DST_TM_MODE_NORM =>
-               science_data_tx_ena <= (sq1_dta_sc_rdy_and_r and sq1_data_sc_fst_dct);
+         elsif aqmde_scie_sync = '1' then
+            science_data_tx_ena <= (sqm_dta_sc_rdy_and_r and sqm_data_sc_fst_dct);
 
-            when others             =>
-               science_data_tx_ena <= '0';
+         else
+            science_data_tx_ena <= '0';
 
-         end case;
+         end if;
 
       end if;
 
@@ -330,16 +368,17 @@ begin
    );
 
    --TODO
-   tm_test_pat_data <= (others => '1');
+   acq_test_pat_data <= (others => '1');
 
    P_todo : process (i_rst, i_clk)
    begin
 
       if i_rst = '1' then
-         test_cnt <= (others => '1');
+         test_cnt           <= (others => '1');
+         o_aqmde_tst_tx_end <= '0';
 
       elsif rising_edge(i_clk) then
-         if tm_mode_sync = c_DST_TM_MODE_TEST and i_sync_re = '1' then
+         if (aqmde_test_sync and i_sync_re) = '1' then
 
             if test_cnt(test_cnt'high) = '1' then
                test_cnt <= std_logic_vector(to_unsigned(3 , test_cnt'length));
@@ -349,12 +388,12 @@ begin
 
             end if;
 
+            o_aqmde_tst_tx_end <= test_cnt(test_cnt'high);
+
          end if;
 
       end if;
 
    end process P_todo;
-
-   o_tm_mode_tst_tx_end <= test_cnt(test_cnt'high) when tm_mode_sync = c_DST_TM_MODE_TEST else '0';
 
 end architecture rtl;

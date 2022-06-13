@@ -95,11 +95,11 @@ proc run_utest {args} {
       ${SRC_DIR}/hk_mgt.vhd               \
       ${SRC_DIR}/squid_adc_mgt.vhd        \
       ${SRC_DIR}/squid_data_proc.vhd      \
-      ${SRC_DIR}/squid1_fbk_mgt.vhd       \
-      ${SRC_DIR}/squid1_dac_mgt.vhd       \
-      ${SRC_DIR}/squid2_fbk_mgt.vhd       \
-      ${SRC_DIR}/squid2_dac_mgt.vhd       \
-      ${SRC_DIR}/squid1_spi_mgt.vhd       \
+      ${SRC_DIR}/sqm_fbk_mgt.vhd       \
+      ${SRC_DIR}/sqm_dac_mgt.vhd       \
+      ${SRC_DIR}/sqa_fbk_mgt.vhd       \
+      ${SRC_DIR}/sqa_dac_mgt.vhd       \
+      ${SRC_DIR}/sqm_spi_mgt.vhd       \
       ${SRC_DIR}/top_dmx.vhd              \
       ${TB_DIR}/pkg_model.vhd             \
       ${TB_DIR}/pkg_mess.vhd              \
@@ -115,7 +115,7 @@ proc run_utest {args} {
       ${TB_DIR}/spi_check_model.vhd       \
       ${TB_DIR}/ep_spi_model.vhd          \
       ${TB_DIR}/pulse_shaping_check.vhd   \
-      ${TB_DIR}/squid2_dac_model.vhd      \
+      ${TB_DIR}/sqa_dac_model.vhd      \
       ${TB_DIR}/squid_model.vhd           \
       ${TB_DIR}/science_data_rx.vhd       \
       ${TB_DIR}/science_data_check.vhd    \
@@ -221,134 +221,134 @@ proc run_utest {args} {
          add wave -format Logic                    -group "Inputs"                              sim/:top_dmx_tb:I_top_dmx:i_clk_ref
          add wave -format Logic                    -group "Inputs"                              sim/:top_dmx_tb:I_top_dmx:i_sync
 
-         add wave -format Logic                    -group "Local Resets"                        sim/:top_dmx_tb:I_top_dmx:G_column_mgt(0):I_squid_adc_mgt:rst_sq1_adc
-         add wave -format Logic                    -group "Local Resets"                        sim/:top_dmx_tb:I_top_dmx:G_column_mgt(1):I_squid_adc_mgt:rst_sq1_adc
-         add wave -format Logic                    -group "Local Resets"                        sim/:top_dmx_tb:I_top_dmx:G_column_mgt(2):I_squid_adc_mgt:rst_sq1_adc
-         add wave -format Logic                    -group "Local Resets"                        sim/:top_dmx_tb:I_top_dmx:G_column_mgt(3):I_squid_adc_mgt:rst_sq1_adc
-         add wave -format Logic                    -group "Local Resets"                        sim/:top_dmx_tb:I_top_dmx:G_column_mgt(0):I_squid1_dac_mgt:rst_sq1_pls_shape
-         add wave -format Logic                    -group "Local Resets"                        sim/:top_dmx_tb:I_top_dmx:G_column_mgt(1):I_squid1_dac_mgt:rst_sq1_pls_shape
-         add wave -format Logic                    -group "Local Resets"                        sim/:top_dmx_tb:I_top_dmx:G_column_mgt(2):I_squid1_dac_mgt:rst_sq1_pls_shape
-         add wave -format Logic                    -group "Local Resets"                        sim/:top_dmx_tb:I_top_dmx:G_column_mgt(3):I_squid1_dac_mgt:rst_sq1_pls_shape
-         add wave -format Logic                    -group "Local Resets"                        sim/:top_dmx_tb:I_top_dmx:G_column_mgt(0):I_squid2_dac_mgt:rst_sq2_dac
-         add wave -format Logic                    -group "Local Resets"                        sim/:top_dmx_tb:I_top_dmx:G_column_mgt(1):I_squid2_dac_mgt:rst_sq2_dac
-         add wave -format Logic                    -group "Local Resets"                        sim/:top_dmx_tb:I_top_dmx:G_column_mgt(2):I_squid2_dac_mgt:rst_sq2_dac
-         add wave -format Logic                    -group "Local Resets"                        sim/:top_dmx_tb:I_top_dmx:G_column_mgt(3):I_squid2_dac_mgt:rst_sq2_dac
+         add wave -format Logic                    -group "Local Resets"                        sim/:top_dmx_tb:I_top_dmx:G_column_mgt(0):I_squid_adc_mgt:rst_sqm_adc
+         add wave -format Logic                    -group "Local Resets"                        sim/:top_dmx_tb:I_top_dmx:G_column_mgt(1):I_squid_adc_mgt:rst_sqm_adc
+         add wave -format Logic                    -group "Local Resets"                        sim/:top_dmx_tb:I_top_dmx:G_column_mgt(2):I_squid_adc_mgt:rst_sqm_adc
+         add wave -format Logic                    -group "Local Resets"                        sim/:top_dmx_tb:I_top_dmx:G_column_mgt(3):I_squid_adc_mgt:rst_sqm_adc
+         add wave -format Logic                    -group "Local Resets"                        sim/:top_dmx_tb:I_top_dmx:G_column_mgt(0):I_sqm_dac_mgt:rst_sqm_pls_shape
+         add wave -format Logic                    -group "Local Resets"                        sim/:top_dmx_tb:I_top_dmx:G_column_mgt(1):I_sqm_dac_mgt:rst_sqm_pls_shape
+         add wave -format Logic                    -group "Local Resets"                        sim/:top_dmx_tb:I_top_dmx:G_column_mgt(2):I_sqm_dac_mgt:rst_sqm_pls_shape
+         add wave -format Logic                    -group "Local Resets"                        sim/:top_dmx_tb:I_top_dmx:G_column_mgt(3):I_sqm_dac_mgt:rst_sqm_pls_shape
+         add wave -format Logic                    -group "Local Resets"                        sim/:top_dmx_tb:I_top_dmx:G_column_mgt(0):I_sqa_dac_mgt:rst_sqa_dac
+         add wave -format Logic                    -group "Local Resets"                        sim/:top_dmx_tb:I_top_dmx:G_column_mgt(1):I_sqa_dac_mgt:rst_sqa_dac
+         add wave -format Logic                    -group "Local Resets"                        sim/:top_dmx_tb:I_top_dmx:G_column_mgt(2):I_sqa_dac_mgt:rst_sqa_dac
+         add wave -format Logic                    -group "Local Resets"                        sim/:top_dmx_tb:I_top_dmx:G_column_mgt(3):I_sqa_dac_mgt:rst_sqa_dac
 
          add wave -format Logic                                                                 sim/:top_dmx_tb:I_top_dmx:rst
          add wave -format Logic                                                                 sim/:top_dmx_tb:I_top_dmx:clk
-         add wave -format Logic                                                                 sim/:top_dmx_tb:I_top_dmx:clk_sq1_adc_dac
+         add wave -format Logic                                                                 sim/:top_dmx_tb:I_top_dmx:clk_sqm_adc_dac
          add wave -format Logic                                                                 sim/:top_dmx_tb:I_top_dmx:clk_90
-         add wave -format Logic                                                                 sim/:top_dmx_tb:I_top_dmx:clk_sq1_adc_dac_90
+         add wave -format Logic                                                                 sim/:top_dmx_tb:I_top_dmx:clk_sqm_adc_dac_90
          add wave -format Logic -Radix decimal                                                  sim/:top_dmx_tb:I_top_dmx:I_dmx_cmd:ck_pls_cnt
          add wave -format Logic -Radix decimal                                                  sim/:top_dmx_tb:I_top_dmx:I_dmx_cmd:pixel_pos
 
          add wave -noupdate -divider "Channel 0"
          add wave -format Analog-step -min -1.0 -max 1.0 \
-                                                   -group "0 - Squid1 ADC"                      sim/:top_dmx_tb:sq1_adc_ana(0)
-         add wave -format Logic                    -group "0 - Squid1 ADC"                      sim/:top_dmx_tb:I_top_dmx:o_sq1_adc_pwdn(0)
-         add wave -format Logic                    -group "0 - Squid1 ADC"                      sim/:top_dmx_tb:I_top_dmx:o_clk_sq1_adc(0)
-         add wave -format Logic -Radix unsigned    -group "0 - Squid1 ADC"                      sim/:top_dmx_tb:I_top_dmx:i_sq1_adc_data(0)
-         add wave -format Logic                    -group "0 - Squid1 ADC"                      sim/:top_dmx_tb:I_top_dmx:i_sq1_adc_oor(0)
+                                                   -group "0 - SQUID MUX ADC"                   sim/:top_dmx_tb:sqm_adc_ana(0)
+         add wave -format Logic                    -group "0 - SQUID MUX ADC"                   sim/:top_dmx_tb:I_top_dmx:o_sqm_adc_pwdn(0)
+         add wave -format Logic                    -group "0 - SQUID MUX ADC"                   sim/:top_dmx_tb:I_top_dmx:o_clk_sqm_adc(0)
+         add wave -format Logic -Radix unsigned    -group "0 - SQUID MUX ADC"                   sim/:top_dmx_tb:I_top_dmx:i_sqm_adc_data(0)
+         add wave -format Logic                    -group "0 - SQUID MUX ADC"                   sim/:top_dmx_tb:I_top_dmx:i_sqm_adc_oor(0)
 
-         add wave -format Logic                    -group "0 - Squid1 ADC" -group "SPI"         sim/:top_dmx_tb:I_top_dmx:b_sq1_adc_spi_sdio(0)
-         add wave -format Logic                    -group "0 - Squid1 ADC" -group "SPI"         sim/:top_dmx_tb:I_top_dmx:o_sq1_adc_spi_sclk(0)
-         add wave -format Logic                    -group "0 - Squid1 ADC" -group "SPI"         sim/:top_dmx_tb:I_top_dmx:o_sq1_adc_spi_cs_n(0)
+         add wave -format Logic                    -group "0 - SQUID MUX ADC" -group "SPI"      sim/:top_dmx_tb:I_top_dmx:b_sqm_adc_spi_sdio(0)
+         add wave -format Logic                    -group "0 - SQUID MUX ADC" -group "SPI"      sim/:top_dmx_tb:I_top_dmx:o_sqm_adc_spi_sclk(0)
+         add wave -format Logic                    -group "0 - SQUID MUX ADC" -group "SPI"      sim/:top_dmx_tb:I_top_dmx:o_sqm_adc_spi_cs_n(0)
 
-         add wave -format Logic                    -group "0 - Squid1 DAC"                      sim/:top_dmx_tb:I_top_dmx:o_sq1_dac_sleep(0)
-         add wave -format Logic                    -group "0 - Squid1 DAC"                      sim/:top_dmx_tb:I_top_dmx:o_clk_sq1_dac(0)
-         add wave -format Logic -Radix unsigned    -group "0 - Squid1 DAC"                      sim/:top_dmx_tb:I_top_dmx:o_sq1_dac_data(0)
+         add wave -format Logic                    -group "0 - SQUID MUX DAC"                   sim/:top_dmx_tb:I_top_dmx:o_sqm_dac_sleep(0)
+         add wave -format Logic                    -group "0 - SQUID MUX DAC"                   sim/:top_dmx_tb:I_top_dmx:o_clk_sqm_dac(0)
+         add wave -format Logic -Radix unsigned    -group "0 - SQUID MUX DAC"                   sim/:top_dmx_tb:I_top_dmx:o_sqm_dac_data(0)
          add wave -format Analog-step -min -1.0 -max 1.0 \
-                                                   -group "0 - Squid1 DAC"                      sim/:top_dmx_tb:G_column_mgt(0):I_squid_model:sq1_dac_delta_vout
+                                                   -group "0 - SQUID MUX DAC"                   sim/:top_dmx_tb:G_column_mgt(0):I_squid_model:sqm_dac_delta_vout
 
-         add wave -format Logic -Radix unsigned    -group "0 - Squid2 DAC"                      sim/:top_dmx_tb:I_top_dmx:o_sq2_dac_mux(0)
-         add wave -format Logic                    -group "0 - Squid2 DAC"                      sim/:top_dmx_tb:I_top_dmx:o_sq2_dac_mx_en_n(0)
-         add wave -format Logic                    -group "0 - Squid2 DAC" -group "SPI"         sim/:top_dmx_tb:I_top_dmx:o_sq2_dac_data(0)
-         add wave -format Logic                    -group "0 - Squid2 DAC" -group "SPI"         sim/:top_dmx_tb:I_top_dmx:o_sq2_dac_sclk(0)
-         add wave -format Logic                    -group "0 - Squid2 DAC" -group "SPI"         sim/:top_dmx_tb:I_top_dmx:o_sq2_dac_snc_l_n(0)
-         add wave -format Logic                    -group "0 - Squid2 DAC" -group "SPI"         sim/:top_dmx_tb:I_top_dmx:o_sq2_dac_snc_o_n(0)
+         add wave -format Logic -Radix unsigned    -group "0 - SQUID AMP DAC"                   sim/:top_dmx_tb:I_top_dmx:o_sqa_dac_mux(0)
+         add wave -format Logic                    -group "0 - SQUID AMP DAC"                   sim/:top_dmx_tb:I_top_dmx:o_sqa_dac_mx_en_n(0)
+         add wave -format Logic                    -group "0 - SQUID AMP DAC" -group "SPI"      sim/:top_dmx_tb:I_top_dmx:o_sqa_dac_data(0)
+         add wave -format Logic                    -group "0 - SQUID AMP DAC" -group "SPI"      sim/:top_dmx_tb:I_top_dmx:o_sqa_dac_sclk(0)
+         add wave -format Logic                    -group "0 - SQUID AMP DAC" -group "SPI"      sim/:top_dmx_tb:I_top_dmx:o_sqa_dac_snc_l_n(0)
+         add wave -format Logic                    -group "0 - SQUID AMP DAC" -group "SPI"      sim/:top_dmx_tb:I_top_dmx:o_sqa_dac_snc_o_n(0)
          add wave -format Analog-step -min -0.0 -max 1.0 \
-                                                   -group "0 - Squid2 DAC"                      sim/:top_dmx_tb:G_column_mgt(0):I_squid_model:sq2_vout
+                                                   -group "0 - SQUID AMP DAC"                   sim/:top_dmx_tb:G_column_mgt(0):I_squid_model:sqa_vout
 
          add wave -noupdate -divider "Channel 1"
          add wave -format Analog-step -min -1.0 -max 1.0 \
-                                                   -group "1 - Squid1 ADC"                      sim/:top_dmx_tb:sq1_adc_ana(1)
-         add wave -format Logic                    -group "1 - Squid1 ADC"                      sim/:top_dmx_tb:I_top_dmx:o_sq1_adc_pwdn(1)
-         add wave -format Logic                    -group "1 - Squid1 ADC"                      sim/:top_dmx_tb:I_top_dmx:o_clk_sq1_adc(1)
-         add wave -format Logic -Radix unsigned    -group "1 - Squid1 ADC"                      sim/:top_dmx_tb:I_top_dmx:i_sq1_adc_data(1)
-         add wave -format Logic                    -group "1 - Squid1 ADC"                      sim/:top_dmx_tb:I_top_dmx:i_sq1_adc_oor(1)
+                                                   -group "1 - SQUID MUX ADC"                   sim/:top_dmx_tb:sqm_adc_ana(1)
+         add wave -format Logic                    -group "1 - SQUID MUX ADC"                   sim/:top_dmx_tb:I_top_dmx:o_sqm_adc_pwdn(1)
+         add wave -format Logic                    -group "1 - SQUID MUX ADC"                   sim/:top_dmx_tb:I_top_dmx:o_clk_sqm_adc(1)
+         add wave -format Logic -Radix unsigned    -group "1 - SQUID MUX ADC"                   sim/:top_dmx_tb:I_top_dmx:i_sqm_adc_data(1)
+         add wave -format Logic                    -group "1 - SQUID MUX ADC"                   sim/:top_dmx_tb:I_top_dmx:i_sqm_adc_oor(1)
 
-         add wave -format Logic                    -group "1 - Squid1 ADC" -group "SPI"         sim/:top_dmx_tb:I_top_dmx:b_sq1_adc_spi_sdio(1)
-         add wave -format Logic                    -group "1 - Squid1 ADC" -group "SPI"         sim/:top_dmx_tb:I_top_dmx:o_sq1_adc_spi_sclk(1)
-         add wave -format Logic                    -group "1 - Squid1 ADC" -group "SPI"         sim/:top_dmx_tb:I_top_dmx:o_sq1_adc_spi_cs_n(1)
+         add wave -format Logic                    -group "1 - SQUID MUX ADC" -group "SPI"      sim/:top_dmx_tb:I_top_dmx:b_sqm_adc_spi_sdio(1)
+         add wave -format Logic                    -group "1 - SQUID MUX ADC" -group "SPI"      sim/:top_dmx_tb:I_top_dmx:o_sqm_adc_spi_sclk(1)
+         add wave -format Logic                    -group "1 - SQUID MUX ADC" -group "SPI"      sim/:top_dmx_tb:I_top_dmx:o_sqm_adc_spi_cs_n(1)
 
-         add wave -format Logic                    -group "1 - Squid1 DAC"                      sim/:top_dmx_tb:I_top_dmx:o_sq1_dac_sleep(1)
-         add wave -format Logic                    -group "1 - Squid1 DAC"                      sim/:top_dmx_tb:I_top_dmx:o_clk_sq1_dac(1)
-         add wave -format Logic -Radix unsigned    -group "1 - Squid1 DAC"                      sim/:top_dmx_tb:I_top_dmx:o_sq1_dac_data(1)
+         add wave -format Logic                    -group "1 - SQUID MUX DAC"                   sim/:top_dmx_tb:I_top_dmx:o_sqm_dac_sleep(1)
+         add wave -format Logic                    -group "1 - SQUID MUX DAC"                   sim/:top_dmx_tb:I_top_dmx:o_clk_sqm_dac(1)
+         add wave -format Logic -Radix unsigned    -group "1 - SQUID MUX DAC"                   sim/:top_dmx_tb:I_top_dmx:o_sqm_dac_data(1)
          add wave -format Analog-step -min -1.0 -max 1.0 \
-                                                   -group "1 - Squid1 DAC"                      sim/:top_dmx_tb:G_column_mgt(1):I_squid_model:sq1_dac_delta_vout
+                                                   -group "1 - SQUID MUX DAC"                   sim/:top_dmx_tb:G_column_mgt(1):I_squid_model:sqm_dac_delta_vout
 
-         add wave -format Logic -Radix unsigned    -group "1 - Squid2 DAC"                      sim/:top_dmx_tb:I_top_dmx:o_sq2_dac_mux(1)
-         add wave -format Logic                    -group "1 - Squid2 DAC"                      sim/:top_dmx_tb:I_top_dmx:o_sq2_dac_mx_en_n(1)
-         add wave -format Logic                    -group "1 - Squid2 DAC" -group "SPI"         sim/:top_dmx_tb:I_top_dmx:o_sq2_dac_data(1)
-         add wave -format Logic                    -group "1 - Squid2 DAC" -group "SPI"         sim/:top_dmx_tb:I_top_dmx:o_sq2_dac_sclk(1)
-         add wave -format Logic                    -group "1 - Squid2 DAC" -group "SPI"         sim/:top_dmx_tb:I_top_dmx:o_sq2_dac_snc_l_n(1)
-         add wave -format Logic                    -group "1 - Squid2 DAC" -group "SPI"         sim/:top_dmx_tb:I_top_dmx:o_sq2_dac_snc_o_n(1)
+         add wave -format Logic -Radix unsigned    -group "1 - SQUID AMP DAC"                   sim/:top_dmx_tb:I_top_dmx:o_sqa_dac_mux(1)
+         add wave -format Logic                    -group "1 - SQUID AMP DAC"                   sim/:top_dmx_tb:I_top_dmx:o_sqa_dac_mx_en_n(1)
+         add wave -format Logic                    -group "1 - SQUID AMP DAC" -group "SPI"      sim/:top_dmx_tb:I_top_dmx:o_sqa_dac_data(1)
+         add wave -format Logic                    -group "1 - SQUID AMP DAC" -group "SPI"      sim/:top_dmx_tb:I_top_dmx:o_sqa_dac_sclk(1)
+         add wave -format Logic                    -group "1 - SQUID AMP DAC" -group "SPI"      sim/:top_dmx_tb:I_top_dmx:o_sqa_dac_snc_l_n(1)
+         add wave -format Logic                    -group "1 - SQUID AMP DAC" -group "SPI"      sim/:top_dmx_tb:I_top_dmx:o_sqa_dac_snc_o_n(1)
          add wave -format Analog-step -min -0.0 -max 1.0 \
-                                                   -group "1 - Squid2 DAC"                      sim/:top_dmx_tb:G_column_mgt(1):I_squid_model:sq2_vout
+                                                   -group "1 - SQUID AMP DAC"                   sim/:top_dmx_tb:G_column_mgt(1):I_squid_model:sqa_vout
 
          add wave -noupdate -divider "Channel 2"
          add wave -format Analog-step -min -1.0 -max 1.0 \
-                                                   -group "2 - Squid1 ADC"                      sim/:top_dmx_tb:sq1_adc_ana(2)
-         add wave -format Logic                    -group "2 - Squid1 ADC"                      sim/:top_dmx_tb:I_top_dmx:o_sq1_adc_pwdn(2)
-         add wave -format Logic                    -group "2 - Squid1 ADC"                      sim/:top_dmx_tb:I_top_dmx:o_clk_sq1_adc(2)
-         add wave -format Logic -Radix unsigned    -group "2 - Squid1 ADC"                      sim/:top_dmx_tb:I_top_dmx:i_sq1_adc_data(2)
-         add wave -format Logic                    -group "2 - Squid1 ADC"                      sim/:top_dmx_tb:I_top_dmx:i_sq1_adc_oor(2)
+                                                   -group "2 - SQUID MUX ADC"                   sim/:top_dmx_tb:sqm_adc_ana(2)
+         add wave -format Logic                    -group "2 - SQUID MUX ADC"                   sim/:top_dmx_tb:I_top_dmx:o_sqm_adc_pwdn(2)
+         add wave -format Logic                    -group "2 - SQUID MUX ADC"                   sim/:top_dmx_tb:I_top_dmx:o_clk_sqm_adc(2)
+         add wave -format Logic -Radix unsigned    -group "2 - SQUID MUX ADC"                   sim/:top_dmx_tb:I_top_dmx:i_sqm_adc_data(2)
+         add wave -format Logic                    -group "2 - SQUID MUX ADC"                   sim/:top_dmx_tb:I_top_dmx:i_sqm_adc_oor(2)
 
-         add wave -format Logic                    -group "2 - Squid1 ADC" -group "SPI"         sim/:top_dmx_tb:I_top_dmx:b_sq1_adc_spi_sdio(2)
-         add wave -format Logic                    -group "2 - Squid1 ADC" -group "SPI"         sim/:top_dmx_tb:I_top_dmx:o_sq1_adc_spi_sclk(2)
-         add wave -format Logic                    -group "2 - Squid1 ADC" -group "SPI"         sim/:top_dmx_tb:I_top_dmx:o_sq1_adc_spi_cs_n(2)
+         add wave -format Logic                    -group "2 - SQUID MUX ADC" -group "SPI"      sim/:top_dmx_tb:I_top_dmx:b_sqm_adc_spi_sdio(2)
+         add wave -format Logic                    -group "2 - SQUID MUX ADC" -group "SPI"      sim/:top_dmx_tb:I_top_dmx:o_sqm_adc_spi_sclk(2)
+         add wave -format Logic                    -group "2 - SQUID MUX ADC" -group "SPI"      sim/:top_dmx_tb:I_top_dmx:o_sqm_adc_spi_cs_n(2)
 
-         add wave -format Logic                    -group "2 - Squid1 DAC"                      sim/:top_dmx_tb:I_top_dmx:o_sq1_dac_sleep(2)
-         add wave -format Logic                    -group "2 - Squid1 DAC"                      sim/:top_dmx_tb:I_top_dmx:o_clk_sq1_dac(2)
-         add wave -format Logic -Radix unsigned    -group "2 - Squid1 DAC"                      sim/:top_dmx_tb:I_top_dmx:o_sq1_dac_data(2)
+         add wave -format Logic                    -group "2 - SQUID MUX DAC"                   sim/:top_dmx_tb:I_top_dmx:o_sqm_dac_sleep(2)
+         add wave -format Logic                    -group "2 - SQUID MUX DAC"                   sim/:top_dmx_tb:I_top_dmx:o_clk_sqm_dac(2)
+         add wave -format Logic -Radix unsigned    -group "2 - SQUID MUX DAC"                   sim/:top_dmx_tb:I_top_dmx:o_sqm_dac_data(2)
          add wave -format Analog-step -min -1.0 -max 1.0 \
-                                                   -group "2 - Squid1 DAC"                      sim/:top_dmx_tb:G_column_mgt(2):I_squid_model:sq1_dac_delta_vout
+                                                   -group "2 - SQUID MUX DAC"                   sim/:top_dmx_tb:G_column_mgt(2):I_squid_model:sqm_dac_delta_vout
 
-         add wave -format Logic -Radix unsigned    -group "2 - Squid2 DAC"                      sim/:top_dmx_tb:I_top_dmx:o_sq2_dac_mux(2)
-         add wave -format Logic                    -group "2 - Squid2 DAC"                      sim/:top_dmx_tb:I_top_dmx:o_sq2_dac_mx_en_n(2)
-         add wave -format Logic                    -group "2 - Squid2 DAC" -group "SPI"         sim/:top_dmx_tb:I_top_dmx:o_sq2_dac_data(2)
-         add wave -format Logic                    -group "2 - Squid2 DAC" -group "SPI"         sim/:top_dmx_tb:I_top_dmx:o_sq2_dac_sclk(2)
-         add wave -format Logic                    -group "2 - Squid2 DAC" -group "SPI"         sim/:top_dmx_tb:I_top_dmx:o_sq2_dac_snc_l_n(2)
-         add wave -format Logic                    -group "2 - Squid2 DAC" -group "SPI"         sim/:top_dmx_tb:I_top_dmx:o_sq2_dac_snc_o_n(2)
+         add wave -format Logic -Radix unsigned    -group "2 - SQUID AMP DAC"                   sim/:top_dmx_tb:I_top_dmx:o_sqa_dac_mux(2)
+         add wave -format Logic                    -group "2 - SQUID AMP DAC"                   sim/:top_dmx_tb:I_top_dmx:o_sqa_dac_mx_en_n(2)
+         add wave -format Logic                    -group "2 - SQUID AMP DAC" -group "SPI"      sim/:top_dmx_tb:I_top_dmx:o_sqa_dac_data(2)
+         add wave -format Logic                    -group "2 - SQUID AMP DAC" -group "SPI"      sim/:top_dmx_tb:I_top_dmx:o_sqa_dac_sclk(2)
+         add wave -format Logic                    -group "2 - SQUID AMP DAC" -group "SPI"      sim/:top_dmx_tb:I_top_dmx:o_sqa_dac_snc_l_n(2)
+         add wave -format Logic                    -group "2 - SQUID AMP DAC" -group "SPI"      sim/:top_dmx_tb:I_top_dmx:o_sqa_dac_snc_o_n(2)
          add wave -format Analog-step -min -0.0 -max 1.0 \
-                                                   -group "2 - Squid2 DAC"                      sim/:top_dmx_tb:G_column_mgt(2):I_squid_model:sq2_vout
+                                                   -group "2 - SQUID AMP DAC"                   sim/:top_dmx_tb:G_column_mgt(2):I_squid_model:sqa_vout
 
          add wave -noupdate -divider "Channel 3"
          add wave -format Analog-step -min -1.0 -max 1.0 \
-                                                   -group "3 - Squid1 ADC"                      sim/:top_dmx_tb:sq1_adc_ana(3)
-         add wave -format Logic                    -group "3 - Squid1 ADC"                      sim/:top_dmx_tb:I_top_dmx:o_sq1_adc_pwdn(3)
-         add wave -format Logic                    -group "3 - Squid1 ADC"                      sim/:top_dmx_tb:I_top_dmx:o_clk_sq1_adc(3)
-         add wave -format Logic -Radix unsigned    -group "3 - Squid1 ADC"                      sim/:top_dmx_tb:I_top_dmx:i_sq1_adc_data(3)
-         add wave -format Logic                    -group "3 - Squid1 ADC"                      sim/:top_dmx_tb:I_top_dmx:i_sq1_adc_oor(3)
+                                                   -group "3 - SQUID MUX ADC"                   sim/:top_dmx_tb:sqm_adc_ana(3)
+         add wave -format Logic                    -group "3 - SQUID MUX ADC"                   sim/:top_dmx_tb:I_top_dmx:o_sqm_adc_pwdn(3)
+         add wave -format Logic                    -group "3 - SQUID MUX ADC"                   sim/:top_dmx_tb:I_top_dmx:o_clk_sqm_adc(3)
+         add wave -format Logic -Radix unsigned    -group "3 - SQUID MUX ADC"                   sim/:top_dmx_tb:I_top_dmx:i_sqm_adc_data(3)
+         add wave -format Logic                    -group "3 - SQUID MUX ADC"                   sim/:top_dmx_tb:I_top_dmx:i_sqm_adc_oor(3)
 
-         add wave -format Logic                    -group "3 - Squid1 ADC" -group "SPI"         sim/:top_dmx_tb:I_top_dmx:b_sq1_adc_spi_sdio(3)
-         add wave -format Logic                    -group "3 - Squid1 ADC" -group "SPI"         sim/:top_dmx_tb:I_top_dmx:o_sq1_adc_spi_sclk(3)
-         add wave -format Logic                    -group "3 - Squid1 ADC" -group "SPI"         sim/:top_dmx_tb:I_top_dmx:o_sq1_adc_spi_cs_n(3)
+         add wave -format Logic                    -group "3 - SQUID MUX ADC" -group "SPI"      sim/:top_dmx_tb:I_top_dmx:b_sqm_adc_spi_sdio(3)
+         add wave -format Logic                    -group "3 - SQUID MUX ADC" -group "SPI"      sim/:top_dmx_tb:I_top_dmx:o_sqm_adc_spi_sclk(3)
+         add wave -format Logic                    -group "3 - SQUID MUX ADC" -group "SPI"      sim/:top_dmx_tb:I_top_dmx:o_sqm_adc_spi_cs_n(3)
 
-         add wave -format Logic                    -group "3 - Squid1 DAC"                      sim/:top_dmx_tb:I_top_dmx:o_sq1_dac_sleep(3)
-         add wave -format Logic                    -group "3 - Squid1 DAC"                      sim/:top_dmx_tb:I_top_dmx:o_clk_sq1_dac(3)
-         add wave -format Logic -Radix unsigned    -group "3 - Squid1 DAC"                      sim/:top_dmx_tb:I_top_dmx:o_sq1_dac_data(3)
+         add wave -format Logic                    -group "3 - SQUID MUX DAC"                   sim/:top_dmx_tb:I_top_dmx:o_sqm_dac_sleep(3)
+         add wave -format Logic                    -group "3 - SQUID MUX DAC"                   sim/:top_dmx_tb:I_top_dmx:o_clk_sqm_dac(3)
+         add wave -format Logic -Radix unsigned    -group "3 - SQUID MUX DAC"                   sim/:top_dmx_tb:I_top_dmx:o_sqm_dac_data(3)
          add wave -format Analog-step -min -1.0 -max 1.0 \
-                                                   -group "3 - Squid1 DAC"                      sim/:top_dmx_tb:G_column_mgt(3):I_squid_model:sq1_dac_delta_vout
+                                                   -group "3 - SQUID MUX DAC"                   sim/:top_dmx_tb:G_column_mgt(3):I_squid_model:sqm_dac_delta_vout
 
-         add wave -format Logic -Radix unsigned    -group "3 - Squid2 DAC"                      sim/:top_dmx_tb:I_top_dmx:o_sq2_dac_mux(3)
-         add wave -format Logic                    -group "3 - Squid2 DAC"                      sim/:top_dmx_tb:I_top_dmx:o_sq2_dac_mx_en_n(3)
-         add wave -format Logic                    -group "3 - Squid2 DAC" -group "SPI"         sim/:top_dmx_tb:I_top_dmx:o_sq2_dac_data(3)
-         add wave -format Logic                    -group "3 - Squid2 DAC" -group "SPI"         sim/:top_dmx_tb:I_top_dmx:o_sq2_dac_sclk(3)
-         add wave -format Logic                    -group "3 - Squid2 DAC" -group "SPI"         sim/:top_dmx_tb:I_top_dmx:o_sq2_dac_snc_l_n(3)
-         add wave -format Logic                    -group "3 - Squid2 DAC" -group "SPI"         sim/:top_dmx_tb:I_top_dmx:o_sq2_dac_snc_o_n(3)
+         add wave -format Logic -Radix unsigned    -group "3 - SQUID AMP DAC"                   sim/:top_dmx_tb:I_top_dmx:o_sqa_dac_mux(3)
+         add wave -format Logic                    -group "3 - SQUID AMP DAC"                   sim/:top_dmx_tb:I_top_dmx:o_sqa_dac_mx_en_n(3)
+         add wave -format Logic                    -group "3 - SQUID AMP DAC" -group "SPI"      sim/:top_dmx_tb:I_top_dmx:o_sqa_dac_data(3)
+         add wave -format Logic                    -group "3 - SQUID AMP DAC" -group "SPI"      sim/:top_dmx_tb:I_top_dmx:o_sqa_dac_sclk(3)
+         add wave -format Logic                    -group "3 - SQUID AMP DAC" -group "SPI"      sim/:top_dmx_tb:I_top_dmx:o_sqa_dac_snc_l_n(3)
+         add wave -format Logic                    -group "3 - SQUID AMP DAC" -group "SPI"      sim/:top_dmx_tb:I_top_dmx:o_sqa_dac_snc_o_n(3)
          add wave -format Analog-step -min -0.0 -max 1.0 \
-                                                   -group "3 - Squid2 DAC"                      sim/:top_dmx_tb:G_column_mgt(3):I_squid_model:sq2_vout
+                                                   -group "3 - SQUID AMP DAC"                   sim/:top_dmx_tb:G_column_mgt(3):I_squid_model:sqa_vout
 
          add wave -noupdate -divider
          add wave -format Logic                    -group "Science" -group "TX"                 sim/:top_dmx_tb:I_top_dmx:o_clk_science_01

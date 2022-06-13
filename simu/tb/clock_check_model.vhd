@@ -33,28 +33,28 @@ use     work.pkg_model.all;
 
 entity clock_check_model is port
    (     i_clk                : in     std_logic                                                            ; --! Internal design: System Clock
-         i_clk_sq1_adc_acq    : in     std_logic                                                            ; --! Internal design: SQUID1 ADC acquisition Clock
-         i_clk_sq1_pls_shape  : in     std_logic                                                            ; --! Internal design: SQUID1 pulse shaping Clock
-         i_c0_clk_sq1_adc     : in     std_logic                                                            ; --! SQUID1 ADC, col. 0: Clock
-         i_c1_clk_sq1_adc     : in     std_logic                                                            ; --! SQUID1 ADC, col. 1: Clock
-         i_c2_clk_sq1_adc     : in     std_logic                                                            ; --! SQUID1 ADC, col. 2: Clock
-         i_c3_clk_sq1_adc     : in     std_logic                                                            ; --! SQUID1 ADC, col. 3: Clock
-         i_c0_clk_sq1_dac     : in     std_logic                                                            ; --! SQUID1 DAC, col. 0: Clock
-         i_c1_clk_sq1_dac     : in     std_logic                                                            ; --! SQUID1 DAC, col. 1: Clock
-         i_c2_clk_sq1_dac     : in     std_logic                                                            ; --! SQUID1 DAC, col. 2: Clock
-         i_c3_clk_sq1_dac     : in     std_logic                                                            ; --! SQUID1 DAC, col. 3: Clock
+         i_clk_sqm_adc_acq    : in     std_logic                                                            ; --! Internal design: SQUID MUX ADC acquisition Clock
+         i_clk_sqm_pls_shape  : in     std_logic                                                            ; --! Internal design: SQUID MUX pulse shaping Clock
+         i_c0_clk_sqm_adc     : in     std_logic                                                            ; --! SQUID MUX ADC, col. 0: Clock
+         i_c1_clk_sqm_adc     : in     std_logic                                                            ; --! SQUID MUX ADC, col. 1: Clock
+         i_c2_clk_sqm_adc     : in     std_logic                                                            ; --! SQUID MUX ADC, col. 2: Clock
+         i_c3_clk_sqm_adc     : in     std_logic                                                            ; --! SQUID MUX ADC, col. 3: Clock
+         i_c0_clk_sqm_dac     : in     std_logic                                                            ; --! SQUID MUX DAC, col. 0: Clock
+         i_c1_clk_sqm_dac     : in     std_logic                                                            ; --! SQUID MUX DAC, col. 1: Clock
+         i_c2_clk_sqm_dac     : in     std_logic                                                            ; --! SQUID MUX DAC, col. 2: Clock
+         i_c3_clk_sqm_dac     : in     std_logic                                                            ; --! SQUID MUX DAC, col. 3: Clock
          i_clk_science_01     : in     std_logic                                                            ; --! Science Data: Clock channel 0/1
          i_clk_science_23     : in     std_logic                                                            ; --! Science Data: Clock channel 2/3
 
          i_rst                : in     std_logic                                                            ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
-         i_c0_sq1_adc_pwdn    : in     std_logic                                                            ; --! SQUID1 ADC, col. 0: Power Down ('0' = Inactive, '1' = Active)
-         i_c1_sq1_adc_pwdn    : in     std_logic                                                            ; --! SQUID1 ADC, col. 1: Power Down ('0' = Inactive, '1' = Active)
-         i_c2_sq1_adc_pwdn    : in     std_logic                                                            ; --! SQUID1 ADC, col. 2: Power Down ('0' = Inactive, '1' = Active)
-         i_c3_sq1_adc_pwdn    : in     std_logic                                                            ; --! SQUID1 ADC, col. 3: Power Down ('0' = Inactive, '1' = Active)
-         i_c0_sq1_dac_sleep   : in     std_logic                                                            ; --! SQUID1 DAC, col. 0: Sleep ('0' = Inactive, '1' = Active)
-         i_c1_sq1_dac_sleep   : in     std_logic                                                            ; --! SQUID1 DAC, col. 1: Sleep ('0' = Inactive, '1' = Active)
-         i_c2_sq1_dac_sleep   : in     std_logic                                                            ; --! SQUID1 DAC, col. 2: Sleep ('0' = Inactive, '1' = Active)
-         i_c3_sq1_dac_sleep   : in     std_logic                                                            ; --! SQUID1 DAC, col. 3: Sleep ('0' = Inactive, '1' = Active)
+         i_c0_sqm_adc_pwdn    : in     std_logic                                                            ; --! SQUID MUX ADC, col. 0: Power Down ('0' = Inactive, '1' = Active)
+         i_c1_sqm_adc_pwdn    : in     std_logic                                                            ; --! SQUID MUX ADC, col. 1: Power Down ('0' = Inactive, '1' = Active)
+         i_c2_sqm_adc_pwdn    : in     std_logic                                                            ; --! SQUID MUX ADC, col. 2: Power Down ('0' = Inactive, '1' = Active)
+         i_c3_sqm_adc_pwdn    : in     std_logic                                                            ; --! SQUID MUX ADC, col. 3: Power Down ('0' = Inactive, '1' = Active)
+         i_c0_sqm_dac_sleep   : in     std_logic                                                            ; --! SQUID MUX DAC, col. 0: Sleep ('0' = Inactive, '1' = Active)
+         i_c1_sqm_dac_sleep   : in     std_logic                                                            ; --! SQUID MUX DAC, col. 1: Sleep ('0' = Inactive, '1' = Active)
+         i_c2_sqm_dac_sleep   : in     std_logic                                                            ; --! SQUID MUX DAC, col. 2: Sleep ('0' = Inactive, '1' = Active)
+         i_c3_sqm_dac_sleep   : in     std_logic                                                            ; --! SQUID MUX DAC, col. 3: Sleep ('0' = Inactive, '1' = Active)
 
          o_err_chk_rpt        : out    t_int_arr_tab(0 to c_CHK_ENA_CLK_NB-1)(0 to c_ERR_N_CLK_CHK_S-1)       --! Clock check error reports
 
@@ -71,16 +71,16 @@ begin
    --!   Clock signals
    -- ------------------------------------------------------------------------------------------------------
    clock(c_CE_CLK)         <= i_clk;
-   clock(c_CE_CK1_ADC)     <= i_clk_sq1_adc_acq;
-   clock(c_CE_CK1_PLS)     <= i_clk_sq1_pls_shape;
-   clock(c_CE_C0_CK1_ADC)  <= i_c0_clk_sq1_adc;
-   clock(c_CE_C1_CK1_ADC)  <= i_c1_clk_sq1_adc;
-   clock(c_CE_C2_CK1_ADC)  <= i_c2_clk_sq1_adc;
-   clock(c_CE_C3_CK1_ADC)  <= i_c3_clk_sq1_adc;
-   clock(c_CE_C0_CK1_DAC)  <= i_c0_clk_sq1_dac;
-   clock(c_CE_C1_CK1_DAC)  <= i_c1_clk_sq1_dac;
-   clock(c_CE_C2_CK1_DAC)  <= i_c2_clk_sq1_dac;
-   clock(c_CE_C3_CK1_DAC)  <= i_c3_clk_sq1_dac;
+   clock(c_CE_CK1_ADC)     <= i_clk_sqm_adc_acq;
+   clock(c_CE_CK1_PLS)     <= i_clk_sqm_pls_shape;
+   clock(c_CE_C0_CK1_ADC)  <= i_c0_clk_sqm_adc;
+   clock(c_CE_C1_CK1_ADC)  <= i_c1_clk_sqm_adc;
+   clock(c_CE_C2_CK1_ADC)  <= i_c2_clk_sqm_adc;
+   clock(c_CE_C3_CK1_ADC)  <= i_c3_clk_sqm_adc;
+   clock(c_CE_C0_CK1_DAC)  <= i_c0_clk_sqm_dac;
+   clock(c_CE_C1_CK1_DAC)  <= i_c1_clk_sqm_dac;
+   clock(c_CE_C2_CK1_DAC)  <= i_c2_clk_sqm_dac;
+   clock(c_CE_C3_CK1_DAC)  <= i_c3_clk_sqm_dac;
    clock(c_CE_CLK_SC_01)   <= i_clk_science_01;
    clock(c_CE_CLK_SC_23)   <= i_clk_science_23;
 
@@ -90,14 +90,14 @@ begin
    enable(c_CE_CLK)        <= not(i_rst);
    enable(c_CE_CK1_ADC)    <= not(i_rst);
    enable(c_CE_CK1_PLS)    <= not(i_rst);
-   enable(c_CE_C0_CK1_ADC) <= not(i_c0_sq1_adc_pwdn);
-   enable(c_CE_C1_CK1_ADC) <= not(i_c1_sq1_adc_pwdn);
-   enable(c_CE_C2_CK1_ADC) <= not(i_c2_sq1_adc_pwdn);
-   enable(c_CE_C3_CK1_ADC) <= not(i_c3_sq1_adc_pwdn);
-   enable(c_CE_C0_CK1_DAC) <= not(i_c0_sq1_dac_sleep);
-   enable(c_CE_C1_CK1_DAC) <= not(i_c1_sq1_dac_sleep);
-   enable(c_CE_C2_CK1_DAC) <= not(i_c2_sq1_dac_sleep);
-   enable(c_CE_C3_CK1_DAC) <= not(i_c3_sq1_dac_sleep);
+   enable(c_CE_C0_CK1_ADC) <= not(i_c0_sqm_adc_pwdn);
+   enable(c_CE_C1_CK1_ADC) <= not(i_c1_sqm_adc_pwdn);
+   enable(c_CE_C2_CK1_ADC) <= not(i_c2_sqm_adc_pwdn);
+   enable(c_CE_C3_CK1_ADC) <= not(i_c3_sqm_adc_pwdn);
+   enable(c_CE_C0_CK1_DAC) <= not(i_c0_sqm_dac_sleep);
+   enable(c_CE_C1_CK1_DAC) <= not(i_c1_sqm_dac_sleep);
+   enable(c_CE_C2_CK1_DAC) <= not(i_c2_sqm_dac_sleep);
+   enable(c_CE_C3_CK1_DAC) <= not(i_c3_sqm_dac_sleep);
    enable(c_CE_CLK_SC_01)  <= not(i_rst);
    enable(c_CE_CLK_SC_23)  <= not(i_rst);
 

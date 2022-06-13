@@ -6,24 +6,24 @@
 #             (0 ps) **********************************************************************************************
 #             (0 ps) 
 #             (0 ps) ==============================================================================================
-#             (0 ps)   Enable Squid1 DAC clocks reports display
+#             (0 ps)   Enable MUX SQUID DAC clocks reports display
 #             (0 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (0 ps) Report display activated: clk_sq1_dac(0)
-# ** Note   : (0 ps) Report display activated: clk_sq1_dac(1)
-# ** Note   : (0 ps) Report display activated: clk_sq1_dac(2)
-# ** Note   : (0 ps) Report display activated: clk_sq1_dac(3)
+# ** Note   : (0 ps) Report display activated: clk_sqm_dac(0)
+# ** Note   : (0 ps) Report display activated: clk_sqm_dac(1)
+# ** Note   : (0 ps) Report display activated: clk_sqm_dac(2)
+# ** Note   : (0 ps) Report display activated: clk_sqm_dac(3)
 #             (0 ps) 
 #             (0 ps) ==============================================================================================
 #             (0 ps)   Check DAC Sleeps at start
 #             (0 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (0 ps) Check discrete level: PASS
-# ** Note   : (0 ps)  * Read discrete: sq1_dac_sleep(0), value '1', expected '1'
+# ** Note   : (0 ps)  * Read discrete: sqm_dac_sleep(0), value '1', expected '1'
 # ** Note   : (0 ps) Check discrete level: PASS
-# ** Note   : (0 ps)  * Read discrete: sq1_dac_sleep(1), value '1', expected '1'
+# ** Note   : (0 ps)  * Read discrete: sqm_dac_sleep(1), value '1', expected '1'
 # ** Note   : (0 ps) Check discrete level: PASS
-# ** Note   : (0 ps)  * Read discrete: sq1_dac_sleep(2), value '1', expected '1'
+# ** Note   : (0 ps)  * Read discrete: sqm_dac_sleep(2), value '1', expected '1'
 # ** Note   : (0 ps) Check discrete level: PASS
-# ** Note   : (0 ps)  * Read discrete: sq1_dac_sleep(3), value '1', expected '1'
+# ** Note   : (0 ps)  * Read discrete: sqm_dac_sleep(3), value '1', expected '1'
 #             (0 ps) 
 #             (0 ps) ==============================================================================================
 #             (0 ps)   Asynchronous reset activated
@@ -42,638 +42,638 @@
 # ** Note   : (6995496 ps) Waiting event rst = '0' for 6915496 ps
 #             (6995496 ps) 
 #             (6995496 ps) ==============================================================================================
-#             (6995496 ps)   Send command SQ1_FB_MODE column 0 to On for o_c0_sq1_dac_sleep deactivation
+#             (6995496 ps)   Send command SQ_MUX_FB_ON_OFF column 0 to On for o_c0_sqm_dac_sleep deactivation
 #             (6995496 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (10901448 ps) Waiting event sync = '1' for 3905952 ps
-# ** Note   : (10901448 ps) Send SPI command value 8003_0001 (SQ1_FB_MODE, mode Write, data 0001)
+# ** Note   : (10901448 ps) Send SPI command value 8003_0001 (SQ_MUX_FB_ON_OFF, mode Write, data 0001)
 #             (10937448 ps) 
 #             (10937448 ps) ==============================================================================================
-#             (10937448 ps)   Check no event is appeared on o_c0_sq1_dac_sleep and wait o_c0_sq1_dac_sleep deactivation
+#             (10937448 ps)   Check no event is appeared on o_c0_sqm_dac_sleep and wait o_c0_sqm_dac_sleep deactivation
 #             (10937448 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (10937448 ps) Check time, sq1_dac_sleep(0) last event: PASS
-# ** Note   : (10937448 ps)  * sq1_dac_sleep(0) last event 10937448 ps equal to expected value 10937448 ps
-# ** Note   : (21562776 ps) Waiting event sq1_dac_sleep(0) = '0' for 10625328 ps
+# ** Note   : (10937448 ps) Check time, sqm_dac_sleep(0) last event: PASS
+# ** Note   : (10937448 ps)  * sqm_dac_sleep(0) last event 10937448 ps equal to expected value 10937448 ps
+# ** Note   : (21562776 ps) Waiting event sqm_dac_sleep(0) = '0' for 10625328 ps
 #             (21562776 ps) 
 #             (21562776 ps) ==============================================================================================
-#             (21562776 ps)   Check synchronization between o_c0_clk_sq1_dac rising edge
-#             (21562776 ps)    and SQUID1 pulse shaping clock falling edge
+#             (21562776 ps)   Check synchronization between o_c0_clk_sqm_dac rising edge
+#             (21562776 ps)    and MUX SQUID pulse shaping clock falling edge
 #             (21562776 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (21574782 ps) Waiting event clk_sq1_dac(0) = '1' for 12006 ps
+# ** Note   : (21574782 ps) Waiting event clk_sqm_dac(0) = '1' for 12006 ps
 # ** Note   : (21574782 ps) Check discrete level: PASS
-# ** Note   : (21574782 ps)  * Read discrete: clk_sq1_pls_shape, value '0', expected '0'
-# ** Note   : (21574782 ps) Check time, clk_sq1_pls_shape last event: PASS
-# ** Note   : (21574782 ps)  * clk_sq1_pls_shape last event 0 ps equal to expected value 0 ps
+# ** Note   : (21574782 ps)  * Read discrete: clk_sqm_pls_shape, value '0', expected '0'
+# ** Note   : (21574782 ps) Check time, clk_sqm_pls_shape last event: PASS
+# ** Note   : (21574782 ps)  * clk_sqm_pls_shape last event 0 ps equal to expected value 0 ps
 #             (21574782 ps) 
 #             (21574782 ps) ==============================================================================================
-#             (21574782 ps)   Check timing between o_c0_sq1_dac_sleep deactivation and i_sync rising edge
+#             (21574782 ps)   Check timing between o_c0_sqm_dac_sleep deactivation and i_sync rising edge
 #             (21574782 ps)     (>= C_PIXEL_DAC_NB_CYC / c_CLK_DAC_FREQ)
 #             (21574782 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (21786888 ps) Waiting event sync = '1' for 212106 ps
-# ** Note   : (21786888 ps) Check time, sq1_dac_sleep(0) last event: PASS
-# ** Note   : (21786888 ps)  * sq1_dac_sleep(0) last event 224112 ps greater than or equal to expected value 160080 ps
+# ** Note   : (21786888 ps) Check time, sqm_dac_sleep(0) last event: PASS
+# ** Note   : (21786888 ps)  * sqm_dac_sleep(0) last event 224112 ps greater than or equal to expected value 160080 ps
 #             (21786888 ps) 
 #             (21786888 ps) ==============================================================================================
-#             (21786888 ps)   Send command SQ1_FB_MODE column 0 to Off for o_c0_sq1_dac_sleep activation
+#             (21786888 ps)   Send command SQ_MUX_FB_ON_OFF column 0 to Off for o_c0_sqm_dac_sleep activation
 #             (21786888 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (21786888 ps) Send SPI command value 8003_0000 (SQ1_FB_MODE, mode Write, data 0000)
+# ** Note   : (21786888 ps) Send SPI command value 8003_0000 (SQ_MUX_FB_ON_OFF, mode Write, data 0000)
 # ** Note   : (29292000 ps) Waiting SPI command end for 7469112 ps
 #             (29292000 ps) 
 #             (29292000 ps) ==============================================================================================
-#             (29292000 ps)    Wait i_sync rising edge and check o_c0_sq1_dac_sleep remains to deactivated
+#             (29292000 ps)    Wait i_sync rising edge and check o_c0_sqm_dac_sleep remains to deactivated
 #             (29292000 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (32672328 ps) Waiting event sync = '1' for 3380328 ps
 # ** Note   : (32672328 ps) Record current time
 # ** Note   : (32672328 ps) Check discrete level: PASS
-# ** Note   : (32672328 ps)  * Read discrete: sq1_dac_sleep(0), value '0', expected '0'
+# ** Note   : (32672328 ps)  * Read discrete: sqm_dac_sleep(0), value '0', expected '0'
 #             (32672328 ps) 
 #             (32672328 ps) ==============================================================================================
-#             (32672328 ps)   Check timing between i_sync rising edge and o_c0_sq1_dac_sleep activation
+#             (32672328 ps)   Check timing between i_sync rising edge and o_c0_sqm_dac_sleep activation
 #             (32672328 ps)     (< C_PIXEL_DAC_NB_CYC / c_CLK_DAC_FREQ)
 #             (32672328 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (32784384 ps) Waiting event sq1_dac_sleep(0) = '1' for 112056 ps
+# ** Note   : (32784384 ps) Waiting event sqm_dac_sleep(0) = '1' for 112056 ps
 # ** Note   : (32784384 ps) Check time, record time: PASS
 # ** Note   : (32784384 ps)  * record time 112056 ps strictly less than expected value 160080 ps
 #             (32784384 ps) 
 #             (32784384 ps) ==============================================================================================
-#             (32784384 ps)   Send command SQ1_FB_MODE column 0 to On for o_c0_sq1_dac_sleep deactivation
+#             (32784384 ps)   Send command SQ_MUX_FB_ON_OFF column 0 to On for o_c0_sqm_dac_sleep deactivation
 #             (32784384 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (32787902 ps) Waiting event sync = '1' for 3518 ps
-# ** Note   : (32787902 ps) Send SPI command value 8003_0001 (SQ1_FB_MODE, mode Write, data 0001)
+# ** Note   : (32787902 ps) Send SPI command value 8003_0001 (SQ_MUX_FB_ON_OFF, mode Write, data 0001)
 #             (32823902 ps) 
 #             (32823902 ps) ==============================================================================================
-#             (32823902 ps)   check o_c0_sq1_dac_sleep remains to activated and wait o_c0_sq1_dac_sleep deactivation
+#             (32823902 ps)   check o_c0_sqm_dac_sleep remains to activated and wait o_c0_sqm_dac_sleep deactivation
 #             (32823902 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (32823902 ps) Check discrete level: PASS
-# ** Note   : (32823902 ps)  * Read discrete: sq1_dac_sleep(0), value '1', expected '1'
-# ** Note   : (43333656 ps) Waiting event sq1_dac_sleep(0) = '0' for 10509754 ps
+# ** Note   : (32823902 ps)  * Read discrete: sqm_dac_sleep(0), value '1', expected '1'
+# ** Note   : (43333656 ps) Waiting event sqm_dac_sleep(0) = '0' for 10509754 ps
 #             (43333656 ps) 
 #             (43333656 ps) ==============================================================================================
-#             (43333656 ps)   Check synchronization between o_c0_clk_sq1_dac rising edge
-#             (43333656 ps)    and SQUID1 pulse shaping clock falling edge
+#             (43333656 ps)   Check synchronization between o_c0_clk_sqm_dac rising edge
+#             (43333656 ps)    and MUX SQUID pulse shaping clock falling edge
 #             (43333656 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (43345662 ps) Waiting event clk_sq1_dac(0) = '1' for 12006 ps
+# ** Note   : (43345662 ps) Waiting event clk_sqm_dac(0) = '1' for 12006 ps
 # ** Note   : (43345662 ps) Check discrete level: PASS
-# ** Note   : (43345662 ps)  * Read discrete: clk_sq1_pls_shape, value '0', expected '0'
-# ** Note   : (43345662 ps) Check time, clk_sq1_pls_shape last event: PASS
-# ** Note   : (43345662 ps)  * clk_sq1_pls_shape last event 0 ps equal to expected value 0 ps
+# ** Note   : (43345662 ps)  * Read discrete: clk_sqm_pls_shape, value '0', expected '0'
+# ** Note   : (43345662 ps) Check time, clk_sqm_pls_shape last event: PASS
+# ** Note   : (43345662 ps)  * clk_sqm_pls_shape last event 0 ps equal to expected value 0 ps
 #             (43345662 ps) 
 #             (43345662 ps) ==============================================================================================
-#             (43345662 ps)   Check timing between o_c0_sq1_dac_sleep deactivation and i_sync rising edge
+#             (43345662 ps)   Check timing between o_c0_sqm_dac_sleep deactivation and i_sync rising edge
 #             (43345662 ps)     (>= C_PIXEL_DAC_NB_CYC / c_CLK_DAC_FREQ)
 #             (43345662 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (43557768 ps) Waiting event sync = '1' for 212106 ps
-# ** Note   : (43557768 ps) Check time, sq1_dac_sleep(0) last event: PASS
-# ** Note   : (43557768 ps)  * sq1_dac_sleep(0) last event 224112 ps greater than or equal to expected value 160080 ps
+# ** Note   : (43557768 ps) Check time, sqm_dac_sleep(0) last event: PASS
+# ** Note   : (43557768 ps)  * sqm_dac_sleep(0) last event 224112 ps greater than or equal to expected value 160080 ps
 #             (43557768 ps) 
 #             (43557768 ps) ==============================================================================================
-#             (43557768 ps)   Send command SQ1_FB_MODE column 0 to Off for o_c0_sq1_dac_sleep activation
+#             (43557768 ps)   Send command SQ_MUX_FB_ON_OFF column 0 to Off for o_c0_sqm_dac_sleep activation
 #             (43557768 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (43557768 ps) Send SPI command value 8003_0000 (SQ1_FB_MODE, mode Write, data 0000)
+# ** Note   : (43557768 ps) Send SPI command value 8003_0000 (SQ_MUX_FB_ON_OFF, mode Write, data 0000)
 # ** Note   : (51054000 ps) Waiting SPI command end for 7460232 ps
 #             (51054000 ps) 
 #             (51054000 ps) ==============================================================================================
-#             (51054000 ps)    Wait i_sync rising edge and check o_c0_sq1_dac_sleep remains to deactivated
+#             (51054000 ps)    Wait i_sync rising edge and check o_c0_sqm_dac_sleep remains to deactivated
 #             (51054000 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (54443208 ps) Waiting event sync = '1' for 3389208 ps
 # ** Note   : (54443208 ps) Record current time
 # ** Note   : (54443208 ps) Check discrete level: PASS
-# ** Note   : (54443208 ps)  * Read discrete: sq1_dac_sleep(0), value '0', expected '0'
+# ** Note   : (54443208 ps)  * Read discrete: sqm_dac_sleep(0), value '0', expected '0'
 #             (54443208 ps) 
 #             (54443208 ps) ==============================================================================================
-#             (54443208 ps)   Check timing between i_sync rising edge and o_c0_sq1_dac_sleep activation
+#             (54443208 ps)   Check timing between i_sync rising edge and o_c0_sqm_dac_sleep activation
 #             (54443208 ps)     (< C_PIXEL_DAC_NB_CYC / c_CLK_DAC_FREQ)
 #             (54443208 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (54555264 ps) Waiting event sq1_dac_sleep(0) = '1' for 112056 ps
+# ** Note   : (54555264 ps) Waiting event sqm_dac_sleep(0) = '1' for 112056 ps
 # ** Note   : (54555264 ps) Check time, record time: PASS
 # ** Note   : (54555264 ps)  * record time 112056 ps strictly less than expected value 160080 ps
 #             (54555264 ps) 
 #             (54555264 ps) ==============================================================================================
-#             (54555264 ps)   Send command SQ1_FB_MODE column 0 to On for o_c0_sq1_dac_sleep deactivation
+#             (54555264 ps)   Send command SQ_MUX_FB_ON_OFF column 0 to On for o_c0_sqm_dac_sleep deactivation
 #             (54555264 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (54558782 ps) Waiting event sync = '1' for 3518 ps
-# ** Note   : (54558782 ps) Send SPI command value 8003_0001 (SQ1_FB_MODE, mode Write, data 0001)
+# ** Note   : (54558782 ps) Send SPI command value 8003_0001 (SQ_MUX_FB_ON_OFF, mode Write, data 0001)
 #             (54594782 ps) 
 #             (54594782 ps) ==============================================================================================
-#             (54594782 ps)   check o_c0_sq1_dac_sleep remains to activated and wait o_c0_sq1_dac_sleep deactivation
+#             (54594782 ps)   check o_c0_sqm_dac_sleep remains to activated and wait o_c0_sqm_dac_sleep deactivation
 #             (54594782 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (54594782 ps) Check discrete level: PASS
-# ** Note   : (54594782 ps)  * Read discrete: sq1_dac_sleep(0), value '1', expected '1'
-# ** Note   : (65104536 ps) Waiting event sq1_dac_sleep(0) = '0' for 10509754 ps
+# ** Note   : (54594782 ps)  * Read discrete: sqm_dac_sleep(0), value '1', expected '1'
+# ** Note   : (65104536 ps) Waiting event sqm_dac_sleep(0) = '0' for 10509754 ps
 #             (65104536 ps) 
 #             (65104536 ps) ==============================================================================================
-#             (65104536 ps)   Check synchronization between o_c0_clk_sq1_dac rising edge
-#             (65104536 ps)    and SQUID1 pulse shaping clock falling edge
+#             (65104536 ps)   Check synchronization between o_c0_clk_sqm_dac rising edge
+#             (65104536 ps)    and MUX SQUID pulse shaping clock falling edge
 #             (65104536 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (65116542 ps) Waiting event clk_sq1_dac(0) = '1' for 12006 ps
+# ** Note   : (65116542 ps) Waiting event clk_sqm_dac(0) = '1' for 12006 ps
 # ** Note   : (65116542 ps) Check discrete level: PASS
-# ** Note   : (65116542 ps)  * Read discrete: clk_sq1_pls_shape, value '0', expected '0'
-# ** Note   : (65116542 ps) Check time, clk_sq1_pls_shape last event: PASS
-# ** Note   : (65116542 ps)  * clk_sq1_pls_shape last event 0 ps equal to expected value 0 ps
+# ** Note   : (65116542 ps)  * Read discrete: clk_sqm_pls_shape, value '0', expected '0'
+# ** Note   : (65116542 ps) Check time, clk_sqm_pls_shape last event: PASS
+# ** Note   : (65116542 ps)  * clk_sqm_pls_shape last event 0 ps equal to expected value 0 ps
 #             (65116542 ps) 
 #             (65116542 ps) ==============================================================================================
-#             (65116542 ps)   Check timing between o_c0_sq1_dac_sleep deactivation and i_sync rising edge
+#             (65116542 ps)   Check timing between o_c0_sqm_dac_sleep deactivation and i_sync rising edge
 #             (65116542 ps)     (>= C_PIXEL_DAC_NB_CYC / c_CLK_DAC_FREQ)
 #             (65116542 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (65328648 ps) Waiting event sync = '1' for 212106 ps
-# ** Note   : (65328648 ps) Check time, sq1_dac_sleep(0) last event: PASS
-# ** Note   : (65328648 ps)  * sq1_dac_sleep(0) last event 224112 ps greater than or equal to expected value 160080 ps
+# ** Note   : (65328648 ps) Check time, sqm_dac_sleep(0) last event: PASS
+# ** Note   : (65328648 ps)  * sqm_dac_sleep(0) last event 224112 ps greater than or equal to expected value 160080 ps
 #             (65328648 ps) 
 #             (65328648 ps) ==============================================================================================
-#             (65328648 ps)   Send command SQ1_FB_MODE column 0 to Off for o_c0_sq1_dac_sleep activation
+#             (65328648 ps)   Send command SQ_MUX_FB_ON_OFF column 0 to Off for o_c0_sqm_dac_sleep activation
 #             (65328648 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (65328648 ps) Send SPI command value 8003_0000 (SQ1_FB_MODE, mode Write, data 0000)
+# ** Note   : (65328648 ps) Send SPI command value 8003_0000 (SQ_MUX_FB_ON_OFF, mode Write, data 0000)
 # ** Note   : (72834000 ps) Waiting SPI command end for 7469352 ps
 #             (72834000 ps) 
 #             (72834000 ps) ==============================================================================================
-#             (72834000 ps)    Wait i_sync rising edge and check o_c0_sq1_dac_sleep remains to deactivated
+#             (72834000 ps)    Wait i_sync rising edge and check o_c0_sqm_dac_sleep remains to deactivated
 #             (72834000 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (76214088 ps) Waiting event sync = '1' for 3380088 ps
 # ** Note   : (76214088 ps) Record current time
 # ** Note   : (76214088 ps) Check discrete level: PASS
-# ** Note   : (76214088 ps)  * Read discrete: sq1_dac_sleep(0), value '0', expected '0'
+# ** Note   : (76214088 ps)  * Read discrete: sqm_dac_sleep(0), value '0', expected '0'
 #             (76214088 ps) 
 #             (76214088 ps) ==============================================================================================
-#             (76214088 ps)   Check timing between i_sync rising edge and o_c0_sq1_dac_sleep activation
+#             (76214088 ps)   Check timing between i_sync rising edge and o_c0_sqm_dac_sleep activation
 #             (76214088 ps)     (< C_PIXEL_DAC_NB_CYC / c_CLK_DAC_FREQ)
 #             (76214088 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (76326144 ps) Waiting event sq1_dac_sleep(0) = '1' for 112056 ps
+# ** Note   : (76326144 ps) Waiting event sqm_dac_sleep(0) = '1' for 112056 ps
 # ** Note   : (76326144 ps) Check time, record time: PASS
 # ** Note   : (76326144 ps)  * record time 112056 ps strictly less than expected value 160080 ps
 #             (76326144 ps) 
 #             (76326144 ps) ==============================================================================================
-#             (76326144 ps)   Send command SQ1_FB_MODE column 1 to On for o_c1_sq1_dac_sleep deactivation
+#             (76326144 ps)   Send command SQ_MUX_FB_ON_OFF column 1 to On for o_c1_sqm_dac_sleep deactivation
 #             (76326144 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (76329662 ps) Waiting event sync = '1' for 3518 ps
-# ** Note   : (76329662 ps) Send SPI command value 8003_0010 (SQ1_FB_MODE, mode Write, data 0010)
+# ** Note   : (76329662 ps) Send SPI command value 8003_0010 (SQ_MUX_FB_ON_OFF, mode Write, data 0010)
 #             (76365662 ps) 
 #             (76365662 ps) ==============================================================================================
-#             (76365662 ps)   Check no event is appeared on o_c1_sq1_dac_sleep and wait o_c1_sq1_dac_sleep deactivation
+#             (76365662 ps)   Check no event is appeared on o_c1_sqm_dac_sleep and wait o_c1_sqm_dac_sleep deactivation
 #             (76365662 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (76365662 ps) Check time, sq1_dac_sleep(1) last event: PASS
-# ** Note   : (76365662 ps)  * sq1_dac_sleep(1) last event 76365662 ps equal to expected value 76365662 ps
-# ** Note   : (86875416 ps) Waiting event sq1_dac_sleep(1) = '0' for 10509754 ps
+# ** Note   : (76365662 ps) Check time, sqm_dac_sleep(1) last event: PASS
+# ** Note   : (76365662 ps)  * sqm_dac_sleep(1) last event 76365662 ps equal to expected value 76365662 ps
+# ** Note   : (86875416 ps) Waiting event sqm_dac_sleep(1) = '0' for 10509754 ps
 #             (86875416 ps) 
 #             (86875416 ps) ==============================================================================================
-#             (86875416 ps)   Check synchronization between o_c1_clk_sq1_dac rising edge
-#             (86875416 ps)    and SQUID1 pulse shaping clock falling edge
+#             (86875416 ps)   Check synchronization between o_c1_clk_sqm_dac rising edge
+#             (86875416 ps)    and MUX SQUID pulse shaping clock falling edge
 #             (86875416 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (86887422 ps) Waiting event clk_sq1_dac(1) = '1' for 12006 ps
+# ** Note   : (86887422 ps) Waiting event clk_sqm_dac(1) = '1' for 12006 ps
 # ** Note   : (86887422 ps) Check discrete level: PASS
-# ** Note   : (86887422 ps)  * Read discrete: clk_sq1_pls_shape, value '0', expected '0'
-# ** Note   : (86887422 ps) Check time, clk_sq1_pls_shape last event: PASS
-# ** Note   : (86887422 ps)  * clk_sq1_pls_shape last event 0 ps equal to expected value 0 ps
+# ** Note   : (86887422 ps)  * Read discrete: clk_sqm_pls_shape, value '0', expected '0'
+# ** Note   : (86887422 ps) Check time, clk_sqm_pls_shape last event: PASS
+# ** Note   : (86887422 ps)  * clk_sqm_pls_shape last event 0 ps equal to expected value 0 ps
 #             (86887422 ps) 
 #             (86887422 ps) ==============================================================================================
-#             (86887422 ps)   Check timing between o_c1_sq1_dac_sleep deactivation and i_sync rising edge
+#             (86887422 ps)   Check timing between o_c1_sqm_dac_sleep deactivation and i_sync rising edge
 #             (86887422 ps)     (>= C_PIXEL_DAC_NB_CYC / c_CLK_DAC_FREQ)
 #             (86887422 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (87099528 ps) Waiting event sync = '1' for 212106 ps
-# ** Note   : (87099528 ps) Check time, sq1_dac_sleep(1) last event: PASS
-# ** Note   : (87099528 ps)  * sq1_dac_sleep(1) last event 224112 ps greater than or equal to expected value 160080 ps
+# ** Note   : (87099528 ps) Check time, sqm_dac_sleep(1) last event: PASS
+# ** Note   : (87099528 ps)  * sqm_dac_sleep(1) last event 224112 ps greater than or equal to expected value 160080 ps
 #             (87099528 ps) 
 #             (87099528 ps) ==============================================================================================
-#             (87099528 ps)   Send command SQ1_FB_MODE column 1 to Off for o_c1_sq1_dac_sleep activation
+#             (87099528 ps)   Send command SQ_MUX_FB_ON_OFF column 1 to Off for o_c1_sqm_dac_sleep activation
 #             (87099528 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (87099528 ps) Send SPI command value 8003_0000 (SQ1_FB_MODE, mode Write, data 0000)
+# ** Note   : (87099528 ps) Send SPI command value 8003_0000 (SQ_MUX_FB_ON_OFF, mode Write, data 0000)
 # ** Note   : (94596000 ps) Waiting SPI command end for 7460472 ps
 #             (94596000 ps) 
 #             (94596000 ps) ==============================================================================================
-#             (94596000 ps)    Wait i_sync rising edge and check o_c1_sq1_dac_sleep remains to deactivated
+#             (94596000 ps)    Wait i_sync rising edge and check o_c1_sqm_dac_sleep remains to deactivated
 #             (94596000 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (97984968 ps) Waiting event sync = '1' for 3388968 ps
 # ** Note   : (97984968 ps) Record current time
 # ** Note   : (97984968 ps) Check discrete level: PASS
-# ** Note   : (97984968 ps)  * Read discrete: sq1_dac_sleep(1), value '0', expected '0'
+# ** Note   : (97984968 ps)  * Read discrete: sqm_dac_sleep(1), value '0', expected '0'
 #             (97984968 ps) 
 #             (97984968 ps) ==============================================================================================
-#             (97984968 ps)   Check timing between i_sync rising edge and o_c1_sq1_dac_sleep activation
+#             (97984968 ps)   Check timing between i_sync rising edge and o_c1_sqm_dac_sleep activation
 #             (97984968 ps)     (< C_PIXEL_DAC_NB_CYC / c_CLK_DAC_FREQ)
 #             (97984968 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (98097024 ps) Waiting event sq1_dac_sleep(1) = '1' for 112056 ps
+# ** Note   : (98097024 ps) Waiting event sqm_dac_sleep(1) = '1' for 112056 ps
 # ** Note   : (98097024 ps) Check time, record time: PASS
 # ** Note   : (98097024 ps)  * record time 112056 ps strictly less than expected value 160080 ps
 #             (98097024 ps) 
 #             (98097024 ps) ==============================================================================================
-#             (98097024 ps)   Send command SQ1_FB_MODE column 1 to On for o_c1_sq1_dac_sleep deactivation
+#             (98097024 ps)   Send command SQ_MUX_FB_ON_OFF column 1 to On for o_c1_sqm_dac_sleep deactivation
 #             (98097024 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (98100542 ps) Waiting event sync = '1' for 3518 ps
-# ** Note   : (98100542 ps) Send SPI command value 8003_0010 (SQ1_FB_MODE, mode Write, data 0010)
+# ** Note   : (98100542 ps) Send SPI command value 8003_0010 (SQ_MUX_FB_ON_OFF, mode Write, data 0010)
 #             (98136542 ps) 
 #             (98136542 ps) ==============================================================================================
-#             (98136542 ps)   check o_c1_sq1_dac_sleep remains to activated and wait o_c1_sq1_dac_sleep deactivation
+#             (98136542 ps)   check o_c1_sqm_dac_sleep remains to activated and wait o_c1_sqm_dac_sleep deactivation
 #             (98136542 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (98136542 ps) Check discrete level: PASS
-# ** Note   : (98136542 ps)  * Read discrete: sq1_dac_sleep(1), value '1', expected '1'
-# ** Note   : (108646296 ps) Waiting event sq1_dac_sleep(1) = '0' for 10509754 ps
+# ** Note   : (98136542 ps)  * Read discrete: sqm_dac_sleep(1), value '1', expected '1'
+# ** Note   : (108646296 ps) Waiting event sqm_dac_sleep(1) = '0' for 10509754 ps
 #             (108646296 ps) 
 #             (108646296 ps) ==============================================================================================
-#             (108646296 ps)   Check synchronization between o_c1_clk_sq1_dac rising edge
-#             (108646296 ps)    and SQUID1 pulse shaping clock falling edge
+#             (108646296 ps)   Check synchronization between o_c1_clk_sqm_dac rising edge
+#             (108646296 ps)    and MUX SQUID pulse shaping clock falling edge
 #             (108646296 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (108658302 ps) Waiting event clk_sq1_dac(1) = '1' for 12006 ps
+# ** Note   : (108658302 ps) Waiting event clk_sqm_dac(1) = '1' for 12006 ps
 # ** Note   : (108658302 ps) Check discrete level: PASS
-# ** Note   : (108658302 ps)  * Read discrete: clk_sq1_pls_shape, value '0', expected '0'
-# ** Note   : (108658302 ps) Check time, clk_sq1_pls_shape last event: PASS
-# ** Note   : (108658302 ps)  * clk_sq1_pls_shape last event 0 ps equal to expected value 0 ps
+# ** Note   : (108658302 ps)  * Read discrete: clk_sqm_pls_shape, value '0', expected '0'
+# ** Note   : (108658302 ps) Check time, clk_sqm_pls_shape last event: PASS
+# ** Note   : (108658302 ps)  * clk_sqm_pls_shape last event 0 ps equal to expected value 0 ps
 #             (108658302 ps) 
 #             (108658302 ps) ==============================================================================================
-#             (108658302 ps)   Check timing between o_c1_sq1_dac_sleep deactivation and i_sync rising edge
+#             (108658302 ps)   Check timing between o_c1_sqm_dac_sleep deactivation and i_sync rising edge
 #             (108658302 ps)     (>= C_PIXEL_DAC_NB_CYC / c_CLK_DAC_FREQ)
 #             (108658302 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (108870408 ps) Waiting event sync = '1' for 212106 ps
-# ** Note   : (108870408 ps) Check time, sq1_dac_sleep(1) last event: PASS
-# ** Note   : (108870408 ps)  * sq1_dac_sleep(1) last event 224112 ps greater than or equal to expected value 160080 ps
+# ** Note   : (108870408 ps) Check time, sqm_dac_sleep(1) last event: PASS
+# ** Note   : (108870408 ps)  * sqm_dac_sleep(1) last event 224112 ps greater than or equal to expected value 160080 ps
 #             (108870408 ps) 
 #             (108870408 ps) ==============================================================================================
-#             (108870408 ps)   Send command SQ1_FB_MODE column 1 to Off for o_c1_sq1_dac_sleep activation
+#             (108870408 ps)   Send command SQ_MUX_FB_ON_OFF column 1 to Off for o_c1_sqm_dac_sleep activation
 #             (108870408 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (108870408 ps) Send SPI command value 8003_0000 (SQ1_FB_MODE, mode Write, data 0000)
+# ** Note   : (108870408 ps) Send SPI command value 8003_0000 (SQ_MUX_FB_ON_OFF, mode Write, data 0000)
 # ** Note   : (116376000 ps) Waiting SPI command end for 7469592 ps
 #             (116376000 ps) 
 #             (116376000 ps) ==============================================================================================
-#             (116376000 ps)    Wait i_sync rising edge and check o_c1_sq1_dac_sleep remains to deactivated
+#             (116376000 ps)    Wait i_sync rising edge and check o_c1_sqm_dac_sleep remains to deactivated
 #             (116376000 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (119755848 ps) Waiting event sync = '1' for 3379848 ps
 # ** Note   : (119755848 ps) Record current time
 # ** Note   : (119755848 ps) Check discrete level: PASS
-# ** Note   : (119755848 ps)  * Read discrete: sq1_dac_sleep(1), value '0', expected '0'
+# ** Note   : (119755848 ps)  * Read discrete: sqm_dac_sleep(1), value '0', expected '0'
 #             (119755848 ps) 
 #             (119755848 ps) ==============================================================================================
-#             (119755848 ps)   Check timing between i_sync rising edge and o_c1_sq1_dac_sleep activation
+#             (119755848 ps)   Check timing between i_sync rising edge and o_c1_sqm_dac_sleep activation
 #             (119755848 ps)     (< C_PIXEL_DAC_NB_CYC / c_CLK_DAC_FREQ)
 #             (119755848 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (119867904 ps) Waiting event sq1_dac_sleep(1) = '1' for 112056 ps
+# ** Note   : (119867904 ps) Waiting event sqm_dac_sleep(1) = '1' for 112056 ps
 # ** Note   : (119867904 ps) Check time, record time: PASS
 # ** Note   : (119867904 ps)  * record time 112056 ps strictly less than expected value 160080 ps
 #             (119867904 ps) 
 #             (119867904 ps) ==============================================================================================
-#             (119867904 ps)   Send command SQ1_FB_MODE column 1 to On for o_c1_sq1_dac_sleep deactivation
+#             (119867904 ps)   Send command SQ_MUX_FB_ON_OFF column 1 to On for o_c1_sqm_dac_sleep deactivation
 #             (119867904 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (119871422 ps) Waiting event sync = '1' for 3518 ps
-# ** Note   : (119871422 ps) Send SPI command value 8003_0010 (SQ1_FB_MODE, mode Write, data 0010)
+# ** Note   : (119871422 ps) Send SPI command value 8003_0010 (SQ_MUX_FB_ON_OFF, mode Write, data 0010)
 #             (119907422 ps) 
 #             (119907422 ps) ==============================================================================================
-#             (119907422 ps)   check o_c1_sq1_dac_sleep remains to activated and wait o_c1_sq1_dac_sleep deactivation
+#             (119907422 ps)   check o_c1_sqm_dac_sleep remains to activated and wait o_c1_sqm_dac_sleep deactivation
 #             (119907422 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (119907422 ps) Check discrete level: PASS
-# ** Note   : (119907422 ps)  * Read discrete: sq1_dac_sleep(1), value '1', expected '1'
-# ** Note   : (130417176 ps) Waiting event sq1_dac_sleep(1) = '0' for 10509754 ps
+# ** Note   : (119907422 ps)  * Read discrete: sqm_dac_sleep(1), value '1', expected '1'
+# ** Note   : (130417176 ps) Waiting event sqm_dac_sleep(1) = '0' for 10509754 ps
 #             (130417176 ps) 
 #             (130417176 ps) ==============================================================================================
-#             (130417176 ps)   Check synchronization between o_c1_clk_sq1_dac rising edge
-#             (130417176 ps)    and SQUID1 pulse shaping clock falling edge
+#             (130417176 ps)   Check synchronization between o_c1_clk_sqm_dac rising edge
+#             (130417176 ps)    and MUX SQUID pulse shaping clock falling edge
 #             (130417176 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (130429182 ps) Waiting event clk_sq1_dac(1) = '1' for 12006 ps
+# ** Note   : (130429182 ps) Waiting event clk_sqm_dac(1) = '1' for 12006 ps
 # ** Note   : (130429182 ps) Check discrete level: PASS
-# ** Note   : (130429182 ps)  * Read discrete: clk_sq1_pls_shape, value '0', expected '0'
-# ** Note   : (130429182 ps) Check time, clk_sq1_pls_shape last event: PASS
-# ** Note   : (130429182 ps)  * clk_sq1_pls_shape last event 0 ps equal to expected value 0 ps
+# ** Note   : (130429182 ps)  * Read discrete: clk_sqm_pls_shape, value '0', expected '0'
+# ** Note   : (130429182 ps) Check time, clk_sqm_pls_shape last event: PASS
+# ** Note   : (130429182 ps)  * clk_sqm_pls_shape last event 0 ps equal to expected value 0 ps
 #             (130429182 ps) 
 #             (130429182 ps) ==============================================================================================
-#             (130429182 ps)   Check timing between o_c1_sq1_dac_sleep deactivation and i_sync rising edge
+#             (130429182 ps)   Check timing between o_c1_sqm_dac_sleep deactivation and i_sync rising edge
 #             (130429182 ps)     (>= C_PIXEL_DAC_NB_CYC / c_CLK_DAC_FREQ)
 #             (130429182 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (130641288 ps) Waiting event sync = '1' for 212106 ps
-# ** Note   : (130641288 ps) Check time, sq1_dac_sleep(1) last event: PASS
-# ** Note   : (130641288 ps)  * sq1_dac_sleep(1) last event 224112 ps greater than or equal to expected value 160080 ps
+# ** Note   : (130641288 ps) Check time, sqm_dac_sleep(1) last event: PASS
+# ** Note   : (130641288 ps)  * sqm_dac_sleep(1) last event 224112 ps greater than or equal to expected value 160080 ps
 #             (130641288 ps) 
 #             (130641288 ps) ==============================================================================================
-#             (130641288 ps)   Send command SQ1_FB_MODE column 1 to Off for o_c1_sq1_dac_sleep activation
+#             (130641288 ps)   Send command SQ_MUX_FB_ON_OFF column 1 to Off for o_c1_sqm_dac_sleep activation
 #             (130641288 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (130641288 ps) Send SPI command value 8003_0000 (SQ1_FB_MODE, mode Write, data 0000)
+# ** Note   : (130641288 ps) Send SPI command value 8003_0000 (SQ_MUX_FB_ON_OFF, mode Write, data 0000)
 # ** Note   : (138138000 ps) Waiting SPI command end for 7460712 ps
 #             (138138000 ps) 
 #             (138138000 ps) ==============================================================================================
-#             (138138000 ps)    Wait i_sync rising edge and check o_c1_sq1_dac_sleep remains to deactivated
+#             (138138000 ps)    Wait i_sync rising edge and check o_c1_sqm_dac_sleep remains to deactivated
 #             (138138000 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (141526728 ps) Waiting event sync = '1' for 3388728 ps
 # ** Note   : (141526728 ps) Record current time
 # ** Note   : (141526728 ps) Check discrete level: PASS
-# ** Note   : (141526728 ps)  * Read discrete: sq1_dac_sleep(1), value '0', expected '0'
+# ** Note   : (141526728 ps)  * Read discrete: sqm_dac_sleep(1), value '0', expected '0'
 #             (141526728 ps) 
 #             (141526728 ps) ==============================================================================================
-#             (141526728 ps)   Check timing between i_sync rising edge and o_c1_sq1_dac_sleep activation
+#             (141526728 ps)   Check timing between i_sync rising edge and o_c1_sqm_dac_sleep activation
 #             (141526728 ps)     (< C_PIXEL_DAC_NB_CYC / c_CLK_DAC_FREQ)
 #             (141526728 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (141638784 ps) Waiting event sq1_dac_sleep(1) = '1' for 112056 ps
+# ** Note   : (141638784 ps) Waiting event sqm_dac_sleep(1) = '1' for 112056 ps
 # ** Note   : (141638784 ps) Check time, record time: PASS
 # ** Note   : (141638784 ps)  * record time 112056 ps strictly less than expected value 160080 ps
 #             (141638784 ps) 
 #             (141638784 ps) ==============================================================================================
-#             (141638784 ps)   Send command SQ1_FB_MODE column 2 to On for o_c2_sq1_dac_sleep deactivation
+#             (141638784 ps)   Send command SQ_MUX_FB_ON_OFF column 2 to On for o_c2_sqm_dac_sleep deactivation
 #             (141638784 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (141642302 ps) Waiting event sync = '1' for 3518 ps
-# ** Note   : (141642302 ps) Send SPI command value 8003_0100 (SQ1_FB_MODE, mode Write, data 0100)
+# ** Note   : (141642302 ps) Send SPI command value 8003_0100 (SQ_MUX_FB_ON_OFF, mode Write, data 0100)
 #             (141678302 ps) 
 #             (141678302 ps) ==============================================================================================
-#             (141678302 ps)   Check no event is appeared on o_c2_sq1_dac_sleep and wait o_c2_sq1_dac_sleep deactivation
+#             (141678302 ps)   Check no event is appeared on o_c2_sqm_dac_sleep and wait o_c2_sqm_dac_sleep deactivation
 #             (141678302 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (141678302 ps) Check time, sq1_dac_sleep(2) last event: PASS
-# ** Note   : (141678302 ps)  * sq1_dac_sleep(2) last event 141678302 ps equal to expected value 141678302 ps
-# ** Note   : (152188056 ps) Waiting event sq1_dac_sleep(2) = '0' for 10509754 ps
+# ** Note   : (141678302 ps) Check time, sqm_dac_sleep(2) last event: PASS
+# ** Note   : (141678302 ps)  * sqm_dac_sleep(2) last event 141678302 ps equal to expected value 141678302 ps
+# ** Note   : (152188056 ps) Waiting event sqm_dac_sleep(2) = '0' for 10509754 ps
 #             (152188056 ps) 
 #             (152188056 ps) ==============================================================================================
-#             (152188056 ps)   Check synchronization between o_c2_clk_sq1_dac rising edge
-#             (152188056 ps)    and SQUID1 pulse shaping clock falling edge
+#             (152188056 ps)   Check synchronization between o_c2_clk_sqm_dac rising edge
+#             (152188056 ps)    and MUX SQUID pulse shaping clock falling edge
 #             (152188056 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (152200062 ps) Waiting event clk_sq1_dac(2) = '1' for 12006 ps
+# ** Note   : (152200062 ps) Waiting event clk_sqm_dac(2) = '1' for 12006 ps
 # ** Note   : (152200062 ps) Check discrete level: PASS
-# ** Note   : (152200062 ps)  * Read discrete: clk_sq1_pls_shape, value '0', expected '0'
-# ** Note   : (152200062 ps) Check time, clk_sq1_pls_shape last event: PASS
-# ** Note   : (152200062 ps)  * clk_sq1_pls_shape last event 0 ps equal to expected value 0 ps
+# ** Note   : (152200062 ps)  * Read discrete: clk_sqm_pls_shape, value '0', expected '0'
+# ** Note   : (152200062 ps) Check time, clk_sqm_pls_shape last event: PASS
+# ** Note   : (152200062 ps)  * clk_sqm_pls_shape last event 0 ps equal to expected value 0 ps
 #             (152200062 ps) 
 #             (152200062 ps) ==============================================================================================
-#             (152200062 ps)   Check timing between o_c2_sq1_dac_sleep deactivation and i_sync rising edge
+#             (152200062 ps)   Check timing between o_c2_sqm_dac_sleep deactivation and i_sync rising edge
 #             (152200062 ps)     (>= C_PIXEL_DAC_NB_CYC / c_CLK_DAC_FREQ)
 #             (152200062 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (152412168 ps) Waiting event sync = '1' for 212106 ps
-# ** Note   : (152412168 ps) Check time, sq1_dac_sleep(2) last event: PASS
-# ** Note   : (152412168 ps)  * sq1_dac_sleep(2) last event 224112 ps greater than or equal to expected value 160080 ps
+# ** Note   : (152412168 ps) Check time, sqm_dac_sleep(2) last event: PASS
+# ** Note   : (152412168 ps)  * sqm_dac_sleep(2) last event 224112 ps greater than or equal to expected value 160080 ps
 #             (152412168 ps) 
 #             (152412168 ps) ==============================================================================================
-#             (152412168 ps)   Send command SQ1_FB_MODE column 2 to Off for o_c2_sq1_dac_sleep activation
+#             (152412168 ps)   Send command SQ_MUX_FB_ON_OFF column 2 to Off for o_c2_sqm_dac_sleep activation
 #             (152412168 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (152412168 ps) Send SPI command value 8003_0000 (SQ1_FB_MODE, mode Write, data 0000)
+# ** Note   : (152412168 ps) Send SPI command value 8003_0000 (SQ_MUX_FB_ON_OFF, mode Write, data 0000)
 # ** Note   : (159918000 ps) Waiting SPI command end for 7469832 ps
 #             (159918000 ps) 
 #             (159918000 ps) ==============================================================================================
-#             (159918000 ps)    Wait i_sync rising edge and check o_c2_sq1_dac_sleep remains to deactivated
+#             (159918000 ps)    Wait i_sync rising edge and check o_c2_sqm_dac_sleep remains to deactivated
 #             (159918000 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (163297608 ps) Waiting event sync = '1' for 3379608 ps
 # ** Note   : (163297608 ps) Record current time
 # ** Note   : (163297608 ps) Check discrete level: PASS
-# ** Note   : (163297608 ps)  * Read discrete: sq1_dac_sleep(2), value '0', expected '0'
+# ** Note   : (163297608 ps)  * Read discrete: sqm_dac_sleep(2), value '0', expected '0'
 #             (163297608 ps) 
 #             (163297608 ps) ==============================================================================================
-#             (163297608 ps)   Check timing between i_sync rising edge and o_c2_sq1_dac_sleep activation
+#             (163297608 ps)   Check timing between i_sync rising edge and o_c2_sqm_dac_sleep activation
 #             (163297608 ps)     (< C_PIXEL_DAC_NB_CYC / c_CLK_DAC_FREQ)
 #             (163297608 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (163409664 ps) Waiting event sq1_dac_sleep(2) = '1' for 112056 ps
+# ** Note   : (163409664 ps) Waiting event sqm_dac_sleep(2) = '1' for 112056 ps
 # ** Note   : (163409664 ps) Check time, record time: PASS
 # ** Note   : (163409664 ps)  * record time 112056 ps strictly less than expected value 160080 ps
 #             (163409664 ps) 
 #             (163409664 ps) ==============================================================================================
-#             (163409664 ps)   Send command SQ1_FB_MODE column 2 to On for o_c2_sq1_dac_sleep deactivation
+#             (163409664 ps)   Send command SQ_MUX_FB_ON_OFF column 2 to On for o_c2_sqm_dac_sleep deactivation
 #             (163409664 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (163413182 ps) Waiting event sync = '1' for 3518 ps
-# ** Note   : (163413182 ps) Send SPI command value 8003_0100 (SQ1_FB_MODE, mode Write, data 0100)
+# ** Note   : (163413182 ps) Send SPI command value 8003_0100 (SQ_MUX_FB_ON_OFF, mode Write, data 0100)
 #             (163449182 ps) 
 #             (163449182 ps) ==============================================================================================
-#             (163449182 ps)   check o_c2_sq1_dac_sleep remains to activated and wait o_c2_sq1_dac_sleep deactivation
+#             (163449182 ps)   check o_c2_sqm_dac_sleep remains to activated and wait o_c2_sqm_dac_sleep deactivation
 #             (163449182 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (163449182 ps) Check discrete level: PASS
-# ** Note   : (163449182 ps)  * Read discrete: sq1_dac_sleep(2), value '1', expected '1'
-# ** Note   : (173958936 ps) Waiting event sq1_dac_sleep(2) = '0' for 10509754 ps
+# ** Note   : (163449182 ps)  * Read discrete: sqm_dac_sleep(2), value '1', expected '1'
+# ** Note   : (173958936 ps) Waiting event sqm_dac_sleep(2) = '0' for 10509754 ps
 #             (173958936 ps) 
 #             (173958936 ps) ==============================================================================================
-#             (173958936 ps)   Check synchronization between o_c2_clk_sq1_dac rising edge
-#             (173958936 ps)    and SQUID1 pulse shaping clock falling edge
+#             (173958936 ps)   Check synchronization between o_c2_clk_sqm_dac rising edge
+#             (173958936 ps)    and MUX SQUID pulse shaping clock falling edge
 #             (173958936 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (173970942 ps) Waiting event clk_sq1_dac(2) = '1' for 12006 ps
+# ** Note   : (173970942 ps) Waiting event clk_sqm_dac(2) = '1' for 12006 ps
 # ** Note   : (173970942 ps) Check discrete level: PASS
-# ** Note   : (173970942 ps)  * Read discrete: clk_sq1_pls_shape, value '0', expected '0'
-# ** Note   : (173970942 ps) Check time, clk_sq1_pls_shape last event: PASS
-# ** Note   : (173970942 ps)  * clk_sq1_pls_shape last event 0 ps equal to expected value 0 ps
+# ** Note   : (173970942 ps)  * Read discrete: clk_sqm_pls_shape, value '0', expected '0'
+# ** Note   : (173970942 ps) Check time, clk_sqm_pls_shape last event: PASS
+# ** Note   : (173970942 ps)  * clk_sqm_pls_shape last event 0 ps equal to expected value 0 ps
 #             (173970942 ps) 
 #             (173970942 ps) ==============================================================================================
-#             (173970942 ps)   Check timing between o_c2_sq1_dac_sleep deactivation and i_sync rising edge
+#             (173970942 ps)   Check timing between o_c2_sqm_dac_sleep deactivation and i_sync rising edge
 #             (173970942 ps)     (>= C_PIXEL_DAC_NB_CYC / c_CLK_DAC_FREQ)
 #             (173970942 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (174183048 ps) Waiting event sync = '1' for 212106 ps
-# ** Note   : (174183048 ps) Check time, sq1_dac_sleep(2) last event: PASS
-# ** Note   : (174183048 ps)  * sq1_dac_sleep(2) last event 224112 ps greater than or equal to expected value 160080 ps
+# ** Note   : (174183048 ps) Check time, sqm_dac_sleep(2) last event: PASS
+# ** Note   : (174183048 ps)  * sqm_dac_sleep(2) last event 224112 ps greater than or equal to expected value 160080 ps
 #             (174183048 ps) 
 #             (174183048 ps) ==============================================================================================
-#             (174183048 ps)   Send command SQ1_FB_MODE column 2 to Off for o_c2_sq1_dac_sleep activation
+#             (174183048 ps)   Send command SQ_MUX_FB_ON_OFF column 2 to Off for o_c2_sqm_dac_sleep activation
 #             (174183048 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (174183048 ps) Send SPI command value 8003_0000 (SQ1_FB_MODE, mode Write, data 0000)
+# ** Note   : (174183048 ps) Send SPI command value 8003_0000 (SQ_MUX_FB_ON_OFF, mode Write, data 0000)
 # ** Note   : (181680000 ps) Waiting SPI command end for 7460952 ps
 #             (181680000 ps) 
 #             (181680000 ps) ==============================================================================================
-#             (181680000 ps)    Wait i_sync rising edge and check o_c2_sq1_dac_sleep remains to deactivated
+#             (181680000 ps)    Wait i_sync rising edge and check o_c2_sqm_dac_sleep remains to deactivated
 #             (181680000 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (185068488 ps) Waiting event sync = '1' for 3388488 ps
 # ** Note   : (185068488 ps) Record current time
 # ** Note   : (185068488 ps) Check discrete level: PASS
-# ** Note   : (185068488 ps)  * Read discrete: sq1_dac_sleep(2), value '0', expected '0'
+# ** Note   : (185068488 ps)  * Read discrete: sqm_dac_sleep(2), value '0', expected '0'
 #             (185068488 ps) 
 #             (185068488 ps) ==============================================================================================
-#             (185068488 ps)   Check timing between i_sync rising edge and o_c2_sq1_dac_sleep activation
+#             (185068488 ps)   Check timing between i_sync rising edge and o_c2_sqm_dac_sleep activation
 #             (185068488 ps)     (< C_PIXEL_DAC_NB_CYC / c_CLK_DAC_FREQ)
 #             (185068488 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (185180544 ps) Waiting event sq1_dac_sleep(2) = '1' for 112056 ps
+# ** Note   : (185180544 ps) Waiting event sqm_dac_sleep(2) = '1' for 112056 ps
 # ** Note   : (185180544 ps) Check time, record time: PASS
 # ** Note   : (185180544 ps)  * record time 112056 ps strictly less than expected value 160080 ps
 #             (185180544 ps) 
 #             (185180544 ps) ==============================================================================================
-#             (185180544 ps)   Send command SQ1_FB_MODE column 2 to On for o_c2_sq1_dac_sleep deactivation
+#             (185180544 ps)   Send command SQ_MUX_FB_ON_OFF column 2 to On for o_c2_sqm_dac_sleep deactivation
 #             (185180544 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (185184062 ps) Waiting event sync = '1' for 3518 ps
-# ** Note   : (185184062 ps) Send SPI command value 8003_0100 (SQ1_FB_MODE, mode Write, data 0100)
+# ** Note   : (185184062 ps) Send SPI command value 8003_0100 (SQ_MUX_FB_ON_OFF, mode Write, data 0100)
 #             (185220062 ps) 
 #             (185220062 ps) ==============================================================================================
-#             (185220062 ps)   check o_c2_sq1_dac_sleep remains to activated and wait o_c2_sq1_dac_sleep deactivation
+#             (185220062 ps)   check o_c2_sqm_dac_sleep remains to activated and wait o_c2_sqm_dac_sleep deactivation
 #             (185220062 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (185220062 ps) Check discrete level: PASS
-# ** Note   : (185220062 ps)  * Read discrete: sq1_dac_sleep(2), value '1', expected '1'
-# ** Note   : (195729816 ps) Waiting event sq1_dac_sleep(2) = '0' for 10509754 ps
+# ** Note   : (185220062 ps)  * Read discrete: sqm_dac_sleep(2), value '1', expected '1'
+# ** Note   : (195729816 ps) Waiting event sqm_dac_sleep(2) = '0' for 10509754 ps
 #             (195729816 ps) 
 #             (195729816 ps) ==============================================================================================
-#             (195729816 ps)   Check synchronization between o_c2_clk_sq1_dac rising edge
-#             (195729816 ps)    and SQUID1 pulse shaping clock falling edge
+#             (195729816 ps)   Check synchronization between o_c2_clk_sqm_dac rising edge
+#             (195729816 ps)    and MUX SQUID pulse shaping clock falling edge
 #             (195729816 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (195741822 ps) Waiting event clk_sq1_dac(2) = '1' for 12006 ps
+# ** Note   : (195741822 ps) Waiting event clk_sqm_dac(2) = '1' for 12006 ps
 # ** Note   : (195741822 ps) Check discrete level: PASS
-# ** Note   : (195741822 ps)  * Read discrete: clk_sq1_pls_shape, value '0', expected '0'
-# ** Note   : (195741822 ps) Check time, clk_sq1_pls_shape last event: PASS
-# ** Note   : (195741822 ps)  * clk_sq1_pls_shape last event 0 ps equal to expected value 0 ps
+# ** Note   : (195741822 ps)  * Read discrete: clk_sqm_pls_shape, value '0', expected '0'
+# ** Note   : (195741822 ps) Check time, clk_sqm_pls_shape last event: PASS
+# ** Note   : (195741822 ps)  * clk_sqm_pls_shape last event 0 ps equal to expected value 0 ps
 #             (195741822 ps) 
 #             (195741822 ps) ==============================================================================================
-#             (195741822 ps)   Check timing between o_c2_sq1_dac_sleep deactivation and i_sync rising edge
+#             (195741822 ps)   Check timing between o_c2_sqm_dac_sleep deactivation and i_sync rising edge
 #             (195741822 ps)     (>= C_PIXEL_DAC_NB_CYC / c_CLK_DAC_FREQ)
 #             (195741822 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (195953928 ps) Waiting event sync = '1' for 212106 ps
-# ** Note   : (195953928 ps) Check time, sq1_dac_sleep(2) last event: PASS
-# ** Note   : (195953928 ps)  * sq1_dac_sleep(2) last event 224112 ps greater than or equal to expected value 160080 ps
+# ** Note   : (195953928 ps) Check time, sqm_dac_sleep(2) last event: PASS
+# ** Note   : (195953928 ps)  * sqm_dac_sleep(2) last event 224112 ps greater than or equal to expected value 160080 ps
 #             (195953928 ps) 
 #             (195953928 ps) ==============================================================================================
-#             (195953928 ps)   Send command SQ1_FB_MODE column 2 to Off for o_c2_sq1_dac_sleep activation
+#             (195953928 ps)   Send command SQ_MUX_FB_ON_OFF column 2 to Off for o_c2_sqm_dac_sleep activation
 #             (195953928 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (195953928 ps) Send SPI command value 8003_0000 (SQ1_FB_MODE, mode Write, data 0000)
+# ** Note   : (195953928 ps) Send SPI command value 8003_0000 (SQ_MUX_FB_ON_OFF, mode Write, data 0000)
 # ** Note   : (203442000 ps) Waiting SPI command end for 7452072 ps
 #             (203442000 ps) 
 #             (203442000 ps) ==============================================================================================
-#             (203442000 ps)    Wait i_sync rising edge and check o_c2_sq1_dac_sleep remains to deactivated
+#             (203442000 ps)    Wait i_sync rising edge and check o_c2_sqm_dac_sleep remains to deactivated
 #             (203442000 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (206839368 ps) Waiting event sync = '1' for 3397368 ps
 # ** Note   : (206839368 ps) Record current time
 # ** Note   : (206839368 ps) Check discrete level: PASS
-# ** Note   : (206839368 ps)  * Read discrete: sq1_dac_sleep(2), value '0', expected '0'
+# ** Note   : (206839368 ps)  * Read discrete: sqm_dac_sleep(2), value '0', expected '0'
 #             (206839368 ps) 
 #             (206839368 ps) ==============================================================================================
-#             (206839368 ps)   Check timing between i_sync rising edge and o_c2_sq1_dac_sleep activation
+#             (206839368 ps)   Check timing between i_sync rising edge and o_c2_sqm_dac_sleep activation
 #             (206839368 ps)     (< C_PIXEL_DAC_NB_CYC / c_CLK_DAC_FREQ)
 #             (206839368 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (206951424 ps) Waiting event sq1_dac_sleep(2) = '1' for 112056 ps
+# ** Note   : (206951424 ps) Waiting event sqm_dac_sleep(2) = '1' for 112056 ps
 # ** Note   : (206951424 ps) Check time, record time: PASS
 # ** Note   : (206951424 ps)  * record time 112056 ps strictly less than expected value 160080 ps
 #             (206951424 ps) 
 #             (206951424 ps) ==============================================================================================
-#             (206951424 ps)   Send command SQ1_FB_MODE column 3 to On for o_c3_sq1_dac_sleep deactivation
+#             (206951424 ps)   Send command SQ_MUX_FB_ON_OFF column 3 to On for o_c3_sqm_dac_sleep deactivation
 #             (206951424 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (206954942 ps) Waiting event sync = '1' for 3518 ps
-# ** Note   : (206954942 ps) Send SPI command value 8003_1000 (SQ1_FB_MODE, mode Write, data 1000)
+# ** Note   : (206954942 ps) Send SPI command value 8003_1000 (SQ_MUX_FB_ON_OFF, mode Write, data 1000)
 #             (206990942 ps) 
 #             (206990942 ps) ==============================================================================================
-#             (206990942 ps)   Check no event is appeared on o_c3_sq1_dac_sleep and wait o_c3_sq1_dac_sleep deactivation
+#             (206990942 ps)   Check no event is appeared on o_c3_sqm_dac_sleep and wait o_c3_sqm_dac_sleep deactivation
 #             (206990942 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (206990942 ps) Check time, sq1_dac_sleep(3) last event: PASS
-# ** Note   : (206990942 ps)  * sq1_dac_sleep(3) last event 206990942 ps equal to expected value 206990942 ps
-# ** Note   : (217500696 ps) Waiting event sq1_dac_sleep(3) = '0' for 10509754 ps
+# ** Note   : (206990942 ps) Check time, sqm_dac_sleep(3) last event: PASS
+# ** Note   : (206990942 ps)  * sqm_dac_sleep(3) last event 206990942 ps equal to expected value 206990942 ps
+# ** Note   : (217500696 ps) Waiting event sqm_dac_sleep(3) = '0' for 10509754 ps
 #             (217500696 ps) 
 #             (217500696 ps) ==============================================================================================
-#             (217500696 ps)   Check synchronization between o_c3_clk_sq1_dac rising edge
-#             (217500696 ps)    and SQUID1 pulse shaping clock falling edge
+#             (217500696 ps)   Check synchronization between o_c3_clk_sqm_dac rising edge
+#             (217500696 ps)    and MUX SQUID pulse shaping clock falling edge
 #             (217500696 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (217512702 ps) Waiting event clk_sq1_dac(3) = '1' for 12006 ps
+# ** Note   : (217512702 ps) Waiting event clk_sqm_dac(3) = '1' for 12006 ps
 # ** Note   : (217512702 ps) Check discrete level: PASS
-# ** Note   : (217512702 ps)  * Read discrete: clk_sq1_pls_shape, value '0', expected '0'
-# ** Note   : (217512702 ps) Check time, clk_sq1_pls_shape last event: PASS
-# ** Note   : (217512702 ps)  * clk_sq1_pls_shape last event 0 ps equal to expected value 0 ps
+# ** Note   : (217512702 ps)  * Read discrete: clk_sqm_pls_shape, value '0', expected '0'
+# ** Note   : (217512702 ps) Check time, clk_sqm_pls_shape last event: PASS
+# ** Note   : (217512702 ps)  * clk_sqm_pls_shape last event 0 ps equal to expected value 0 ps
 #             (217512702 ps) 
 #             (217512702 ps) ==============================================================================================
-#             (217512702 ps)   Check timing between o_c3_sq1_dac_sleep deactivation and i_sync rising edge
+#             (217512702 ps)   Check timing between o_c3_sqm_dac_sleep deactivation and i_sync rising edge
 #             (217512702 ps)     (>= C_PIXEL_DAC_NB_CYC / c_CLK_DAC_FREQ)
 #             (217512702 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (217724808 ps) Waiting event sync = '1' for 212106 ps
-# ** Note   : (217724808 ps) Check time, sq1_dac_sleep(3) last event: PASS
-# ** Note   : (217724808 ps)  * sq1_dac_sleep(3) last event 224112 ps greater than or equal to expected value 160080 ps
+# ** Note   : (217724808 ps) Check time, sqm_dac_sleep(3) last event: PASS
+# ** Note   : (217724808 ps)  * sqm_dac_sleep(3) last event 224112 ps greater than or equal to expected value 160080 ps
 #             (217724808 ps) 
 #             (217724808 ps) ==============================================================================================
-#             (217724808 ps)   Send command SQ1_FB_MODE column 3 to Off for o_c3_sq1_dac_sleep activation
+#             (217724808 ps)   Send command SQ_MUX_FB_ON_OFF column 3 to Off for o_c3_sqm_dac_sleep activation
 #             (217724808 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (217724808 ps) Send SPI command value 8003_0000 (SQ1_FB_MODE, mode Write, data 0000)
+# ** Note   : (217724808 ps) Send SPI command value 8003_0000 (SQ_MUX_FB_ON_OFF, mode Write, data 0000)
 # ** Note   : (225222000 ps) Waiting SPI command end for 7461192 ps
 #             (225222000 ps) 
 #             (225222000 ps) ==============================================================================================
-#             (225222000 ps)    Wait i_sync rising edge and check o_c3_sq1_dac_sleep remains to deactivated
+#             (225222000 ps)    Wait i_sync rising edge and check o_c3_sqm_dac_sleep remains to deactivated
 #             (225222000 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (228610248 ps) Waiting event sync = '1' for 3388248 ps
 # ** Note   : (228610248 ps) Record current time
 # ** Note   : (228610248 ps) Check discrete level: PASS
-# ** Note   : (228610248 ps)  * Read discrete: sq1_dac_sleep(3), value '0', expected '0'
+# ** Note   : (228610248 ps)  * Read discrete: sqm_dac_sleep(3), value '0', expected '0'
 #             (228610248 ps) 
 #             (228610248 ps) ==============================================================================================
-#             (228610248 ps)   Check timing between i_sync rising edge and o_c3_sq1_dac_sleep activation
+#             (228610248 ps)   Check timing between i_sync rising edge and o_c3_sqm_dac_sleep activation
 #             (228610248 ps)     (< C_PIXEL_DAC_NB_CYC / c_CLK_DAC_FREQ)
 #             (228610248 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (228722304 ps) Waiting event sq1_dac_sleep(3) = '1' for 112056 ps
+# ** Note   : (228722304 ps) Waiting event sqm_dac_sleep(3) = '1' for 112056 ps
 # ** Note   : (228722304 ps) Check time, record time: PASS
 # ** Note   : (228722304 ps)  * record time 112056 ps strictly less than expected value 160080 ps
 #             (228722304 ps) 
 #             (228722304 ps) ==============================================================================================
-#             (228722304 ps)   Send command SQ1_FB_MODE column 3 to On for o_c3_sq1_dac_sleep deactivation
+#             (228722304 ps)   Send command SQ_MUX_FB_ON_OFF column 3 to On for o_c3_sqm_dac_sleep deactivation
 #             (228722304 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (228725822 ps) Waiting event sync = '1' for 3518 ps
-# ** Note   : (228725822 ps) Send SPI command value 8003_1000 (SQ1_FB_MODE, mode Write, data 1000)
+# ** Note   : (228725822 ps) Send SPI command value 8003_1000 (SQ_MUX_FB_ON_OFF, mode Write, data 1000)
 #             (228761822 ps) 
 #             (228761822 ps) ==============================================================================================
-#             (228761822 ps)   check o_c3_sq1_dac_sleep remains to activated and wait o_c3_sq1_dac_sleep deactivation
+#             (228761822 ps)   check o_c3_sqm_dac_sleep remains to activated and wait o_c3_sqm_dac_sleep deactivation
 #             (228761822 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (228761822 ps) Check discrete level: PASS
-# ** Note   : (228761822 ps)  * Read discrete: sq1_dac_sleep(3), value '1', expected '1'
-# ** Note   : (239271576 ps) Waiting event sq1_dac_sleep(3) = '0' for 10509754 ps
+# ** Note   : (228761822 ps)  * Read discrete: sqm_dac_sleep(3), value '1', expected '1'
+# ** Note   : (239271576 ps) Waiting event sqm_dac_sleep(3) = '0' for 10509754 ps
 #             (239271576 ps) 
 #             (239271576 ps) ==============================================================================================
-#             (239271576 ps)   Check synchronization between o_c3_clk_sq1_dac rising edge
-#             (239271576 ps)    and SQUID1 pulse shaping clock falling edge
+#             (239271576 ps)   Check synchronization between o_c3_clk_sqm_dac rising edge
+#             (239271576 ps)    and MUX SQUID pulse shaping clock falling edge
 #             (239271576 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (239283582 ps) Waiting event clk_sq1_dac(3) = '1' for 12006 ps
+# ** Note   : (239283582 ps) Waiting event clk_sqm_dac(3) = '1' for 12006 ps
 # ** Note   : (239283582 ps) Check discrete level: PASS
-# ** Note   : (239283582 ps)  * Read discrete: clk_sq1_pls_shape, value '0', expected '0'
-# ** Note   : (239283582 ps) Check time, clk_sq1_pls_shape last event: PASS
-# ** Note   : (239283582 ps)  * clk_sq1_pls_shape last event 0 ps equal to expected value 0 ps
+# ** Note   : (239283582 ps)  * Read discrete: clk_sqm_pls_shape, value '0', expected '0'
+# ** Note   : (239283582 ps) Check time, clk_sqm_pls_shape last event: PASS
+# ** Note   : (239283582 ps)  * clk_sqm_pls_shape last event 0 ps equal to expected value 0 ps
 #             (239283582 ps) 
 #             (239283582 ps) ==============================================================================================
-#             (239283582 ps)   Check timing between o_c3_sq1_dac_sleep deactivation and i_sync rising edge
+#             (239283582 ps)   Check timing between o_c3_sqm_dac_sleep deactivation and i_sync rising edge
 #             (239283582 ps)     (>= C_PIXEL_DAC_NB_CYC / c_CLK_DAC_FREQ)
 #             (239283582 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (239495688 ps) Waiting event sync = '1' for 212106 ps
-# ** Note   : (239495688 ps) Check time, sq1_dac_sleep(3) last event: PASS
-# ** Note   : (239495688 ps)  * sq1_dac_sleep(3) last event 224112 ps greater than or equal to expected value 160080 ps
+# ** Note   : (239495688 ps) Check time, sqm_dac_sleep(3) last event: PASS
+# ** Note   : (239495688 ps)  * sqm_dac_sleep(3) last event 224112 ps greater than or equal to expected value 160080 ps
 #             (239495688 ps) 
 #             (239495688 ps) ==============================================================================================
-#             (239495688 ps)   Send command SQ1_FB_MODE column 3 to Off for o_c3_sq1_dac_sleep activation
+#             (239495688 ps)   Send command SQ_MUX_FB_ON_OFF column 3 to Off for o_c3_sqm_dac_sleep activation
 #             (239495688 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (239495688 ps) Send SPI command value 8003_0000 (SQ1_FB_MODE, mode Write, data 0000)
+# ** Note   : (239495688 ps) Send SPI command value 8003_0000 (SQ_MUX_FB_ON_OFF, mode Write, data 0000)
 # ** Note   : (246984000 ps) Waiting SPI command end for 7452312 ps
 #             (246984000 ps) 
 #             (246984000 ps) ==============================================================================================
-#             (246984000 ps)    Wait i_sync rising edge and check o_c3_sq1_dac_sleep remains to deactivated
+#             (246984000 ps)    Wait i_sync rising edge and check o_c3_sqm_dac_sleep remains to deactivated
 #             (246984000 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (250381128 ps) Waiting event sync = '1' for 3397128 ps
 # ** Note   : (250381128 ps) Record current time
 # ** Note   : (250381128 ps) Check discrete level: PASS
-# ** Note   : (250381128 ps)  * Read discrete: sq1_dac_sleep(3), value '0', expected '0'
+# ** Note   : (250381128 ps)  * Read discrete: sqm_dac_sleep(3), value '0', expected '0'
 #             (250381128 ps) 
 #             (250381128 ps) ==============================================================================================
-#             (250381128 ps)   Check timing between i_sync rising edge and o_c3_sq1_dac_sleep activation
+#             (250381128 ps)   Check timing between i_sync rising edge and o_c3_sqm_dac_sleep activation
 #             (250381128 ps)     (< C_PIXEL_DAC_NB_CYC / c_CLK_DAC_FREQ)
 #             (250381128 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (250493184 ps) Waiting event sq1_dac_sleep(3) = '1' for 112056 ps
+# ** Note   : (250493184 ps) Waiting event sqm_dac_sleep(3) = '1' for 112056 ps
 # ** Note   : (250493184 ps) Check time, record time: PASS
 # ** Note   : (250493184 ps)  * record time 112056 ps strictly less than expected value 160080 ps
 #             (250493184 ps) 
 #             (250493184 ps) ==============================================================================================
-#             (250493184 ps)   Send command SQ1_FB_MODE column 3 to On for o_c3_sq1_dac_sleep deactivation
+#             (250493184 ps)   Send command SQ_MUX_FB_ON_OFF column 3 to On for o_c3_sqm_dac_sleep deactivation
 #             (250493184 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (250496702 ps) Waiting event sync = '1' for 3518 ps
-# ** Note   : (250496702 ps) Send SPI command value 8003_1000 (SQ1_FB_MODE, mode Write, data 1000)
+# ** Note   : (250496702 ps) Send SPI command value 8003_1000 (SQ_MUX_FB_ON_OFF, mode Write, data 1000)
 #             (250532702 ps) 
 #             (250532702 ps) ==============================================================================================
-#             (250532702 ps)   check o_c3_sq1_dac_sleep remains to activated and wait o_c3_sq1_dac_sleep deactivation
+#             (250532702 ps)   check o_c3_sqm_dac_sleep remains to activated and wait o_c3_sqm_dac_sleep deactivation
 #             (250532702 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (250532702 ps) Check discrete level: PASS
-# ** Note   : (250532702 ps)  * Read discrete: sq1_dac_sleep(3), value '1', expected '1'
-# ** Note   : (261042456 ps) Waiting event sq1_dac_sleep(3) = '0' for 10509754 ps
+# ** Note   : (250532702 ps)  * Read discrete: sqm_dac_sleep(3), value '1', expected '1'
+# ** Note   : (261042456 ps) Waiting event sqm_dac_sleep(3) = '0' for 10509754 ps
 #             (261042456 ps) 
 #             (261042456 ps) ==============================================================================================
-#             (261042456 ps)   Check synchronization between o_c3_clk_sq1_dac rising edge
-#             (261042456 ps)    and SQUID1 pulse shaping clock falling edge
+#             (261042456 ps)   Check synchronization between o_c3_clk_sqm_dac rising edge
+#             (261042456 ps)    and MUX SQUID pulse shaping clock falling edge
 #             (261042456 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (261054462 ps) Waiting event clk_sq1_dac(3) = '1' for 12006 ps
+# ** Note   : (261054462 ps) Waiting event clk_sqm_dac(3) = '1' for 12006 ps
 # ** Note   : (261054462 ps) Check discrete level: PASS
-# ** Note   : (261054462 ps)  * Read discrete: clk_sq1_pls_shape, value '0', expected '0'
-# ** Note   : (261054462 ps) Check time, clk_sq1_pls_shape last event: PASS
-# ** Note   : (261054462 ps)  * clk_sq1_pls_shape last event 0 ps equal to expected value 0 ps
+# ** Note   : (261054462 ps)  * Read discrete: clk_sqm_pls_shape, value '0', expected '0'
+# ** Note   : (261054462 ps) Check time, clk_sqm_pls_shape last event: PASS
+# ** Note   : (261054462 ps)  * clk_sqm_pls_shape last event 0 ps equal to expected value 0 ps
 #             (261054462 ps) 
 #             (261054462 ps) ==============================================================================================
-#             (261054462 ps)   Check timing between o_c3_sq1_dac_sleep deactivation and i_sync rising edge
+#             (261054462 ps)   Check timing between o_c3_sqm_dac_sleep deactivation and i_sync rising edge
 #             (261054462 ps)     (>= C_PIXEL_DAC_NB_CYC / c_CLK_DAC_FREQ)
 #             (261054462 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (261266568 ps) Waiting event sync = '1' for 212106 ps
-# ** Note   : (261266568 ps) Check time, sq1_dac_sleep(3) last event: PASS
-# ** Note   : (261266568 ps)  * sq1_dac_sleep(3) last event 224112 ps greater than or equal to expected value 160080 ps
+# ** Note   : (261266568 ps) Check time, sqm_dac_sleep(3) last event: PASS
+# ** Note   : (261266568 ps)  * sqm_dac_sleep(3) last event 224112 ps greater than or equal to expected value 160080 ps
 #             (261266568 ps) 
 #             (261266568 ps) ==============================================================================================
-#             (261266568 ps)   Send command SQ1_FB_MODE column 3 to Off for o_c3_sq1_dac_sleep activation
+#             (261266568 ps)   Send command SQ_MUX_FB_ON_OFF column 3 to Off for o_c3_sqm_dac_sleep activation
 #             (261266568 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (261266568 ps) Send SPI command value 8003_0000 (SQ1_FB_MODE, mode Write, data 0000)
+# ** Note   : (261266568 ps) Send SPI command value 8003_0000 (SQ_MUX_FB_ON_OFF, mode Write, data 0000)
 # ** Note   : (268764000 ps) Waiting SPI command end for 7461432 ps
 #             (268764000 ps) 
 #             (268764000 ps) ==============================================================================================
-#             (268764000 ps)    Wait i_sync rising edge and check o_c3_sq1_dac_sleep remains to deactivated
+#             (268764000 ps)    Wait i_sync rising edge and check o_c3_sqm_dac_sleep remains to deactivated
 #             (268764000 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (272152008 ps) Waiting event sync = '1' for 3388008 ps
 # ** Note   : (272152008 ps) Record current time
 # ** Note   : (272152008 ps) Check discrete level: PASS
-# ** Note   : (272152008 ps)  * Read discrete: sq1_dac_sleep(3), value '0', expected '0'
+# ** Note   : (272152008 ps)  * Read discrete: sqm_dac_sleep(3), value '0', expected '0'
 #             (272152008 ps) 
 #             (272152008 ps) ==============================================================================================
-#             (272152008 ps)   Check timing between i_sync rising edge and o_c3_sq1_dac_sleep activation
+#             (272152008 ps)   Check timing between i_sync rising edge and o_c3_sqm_dac_sleep activation
 #             (272152008 ps)     (< C_PIXEL_DAC_NB_CYC / c_CLK_DAC_FREQ)
 #             (272152008 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (272264064 ps) Waiting event sq1_dac_sleep(3) = '1' for 112056 ps
+# ** Note   : (272264064 ps) Waiting event sqm_dac_sleep(3) = '1' for 112056 ps
 # ** Note   : (272264064 ps) Check time, record time: PASS
 # ** Note   : (272264064 ps)  * record time 112056 ps strictly less than expected value 160080 ps
 #             (272264064 ps) 
@@ -682,27 +682,19 @@
 #             (272264064 ps)    (time checking multiple of 6 * c_MUX_FACT * C_PIXEL_DAC_NB_CYC / c_CLK_DAC_FREQ)
 #             (272264064 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (272264064 ps) Check discrete level: PASS
-# ** Note   : (272264064 ps)  * Read discrete: sq1_dac_sleep(0), value '1', expected '1'
-# ** Note   : (272264064 ps) Check time, sq1_dac_sleep(0) last event: PASS
-# ** Note   : (272264064 ps)  * sq1_dac_sleep(0) last event 195937920 ps greater than or equal to expected value 97968960 ps
+# ** Note   : (272264064 ps)  * Read discrete: sqm_dac_sleep(0), value '1', expected '1'
+# ** Note   : (272264064 ps) Check time, sqm_dac_sleep(0) last event: PASS
+# ** Note   : (272264064 ps)  * sqm_dac_sleep(0) last event 195937920 ps greater than or equal to expected value 97968960 ps
 # ** Note   : (272264064 ps) Check discrete level: PASS
-# ** Note   : (272264064 ps)  * Read discrete: sq1_dac_sleep(1), value '1', expected '1'
-# ** Note   : (272264064 ps) Check time, sq1_dac_sleep(1) last event: PASS
-# ** Note   : (272264064 ps)  * sq1_dac_sleep(1) last event 130625280 ps greater than or equal to expected value 65312640 ps
+# ** Note   : (272264064 ps)  * Read discrete: sqm_dac_sleep(1), value '1', expected '1'
+# ** Note   : (272264064 ps) Check time, sqm_dac_sleep(1) last event: PASS
+# ** Note   : (272264064 ps)  * sqm_dac_sleep(1) last event 130625280 ps greater than or equal to expected value 65312640 ps
 # ** Note   : (272264064 ps) Check discrete level: PASS
-# ** Note   : (272264064 ps)  * Read discrete: sq1_dac_sleep(2), value '1', expected '1'
-# ** Note   : (272264064 ps) Check time, sq1_dac_sleep(2) last event: PASS
-# ** Note   : (272264064 ps)  * sq1_dac_sleep(2) last event 65312640 ps greater than or equal to expected value 32656320 ps
+# ** Note   : (272264064 ps)  * Read discrete: sqm_dac_sleep(2), value '1', expected '1'
+# ** Note   : (272264064 ps) Check time, sqm_dac_sleep(2) last event: PASS
+# ** Note   : (272264064 ps)  * sqm_dac_sleep(2) last event 65312640 ps greater than or equal to expected value 32656320 ps
 # ----------------------------------------------------------------------------------------------------
-# Parameters check, clock c0_clk_sq1_dac   
-# ----------------------------------------------------------------------------------------------------
-# Error number of clock oscillation when enable is inactive : 0
-# Error number of high level clock period timing :            0, expected timing: 4002 ps
-# Error number of low  level clock period timing :            0, expected timing: 4002 ps
-# Error number of clock state when enable goes to inactive :  0, expected state:  '0'
-# Error number of clock state when enable goes to active   :  0, expected state:  '0'
-# ----------------------------------------------------------------------------------------------------
-# Parameters check, clock c1_clk_sq1_dac   
+# Parameters check, clock c0_clk_sqm_dac   
 # ----------------------------------------------------------------------------------------------------
 # Error number of clock oscillation when enable is inactive : 0
 # Error number of high level clock period timing :            0, expected timing: 4002 ps
@@ -710,7 +702,7 @@
 # Error number of clock state when enable goes to inactive :  0, expected state:  '0'
 # Error number of clock state when enable goes to active   :  0, expected state:  '0'
 # ----------------------------------------------------------------------------------------------------
-# Parameters check, clock c2_clk_sq1_dac   
+# Parameters check, clock c1_clk_sqm_dac   
 # ----------------------------------------------------------------------------------------------------
 # Error number of clock oscillation when enable is inactive : 0
 # Error number of high level clock period timing :            0, expected timing: 4002 ps
@@ -718,7 +710,15 @@
 # Error number of clock state when enable goes to inactive :  0, expected state:  '0'
 # Error number of clock state when enable goes to active   :  0, expected state:  '0'
 # ----------------------------------------------------------------------------------------------------
-# Parameters check, clock c3_clk_sq1_dac   
+# Parameters check, clock c2_clk_sqm_dac   
+# ----------------------------------------------------------------------------------------------------
+# Error number of clock oscillation when enable is inactive : 0
+# Error number of high level clock period timing :            0, expected timing: 4002 ps
+# Error number of low  level clock period timing :            0, expected timing: 4002 ps
+# Error number of clock state when enable goes to inactive :  0, expected state:  '0'
+# Error number of clock state when enable goes to active   :  0, expected state:  '0'
+# ----------------------------------------------------------------------------------------------------
+# Parameters check, clock c3_clk_sqm_dac   
 # ----------------------------------------------------------------------------------------------------
 # Error number of clock oscillation when enable is inactive : 0
 # Error number of high level clock period timing :            0, expected timing: 4002 ps

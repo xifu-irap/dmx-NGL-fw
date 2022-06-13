@@ -29,9 +29,11 @@ use     ieee.std_logic_1164.all;
 use     ieee.numeric_std.all;
 
 library work;
+use     work.pkg_type.all;
 use     work.pkg_func_math.all;
 use     work.pkg_model.all;
 use     work.pkg_project.all;
+use     work.pkg_ep_cmd.all;
 
 entity ep_spi_model is generic
    (     g_EP_CLK_PER         : time    := c_EP_CLK_PER_DEF                                                 ; --! EP: System clock period (ps)
@@ -73,8 +75,8 @@ signal   ep_spi_miso_r_msb    : std_logic                                       
 signal   ep_cmd_ser_wd_s_strt : std_logic_vector(log2_ceil(2*c_EP_CMD_S+1)-1 downto 0)                      ; --! EP: Serial word size recorded on start rising edge
 signal   ep_cmd_ser_wd_s_strt2: std_logic_vector(log2_ceil(2*c_EP_CMD_S+1)-1 downto 0)                      ; --! EP: Serial word size recorded on start rising edge (second record)
 
-signal   ep_data_rx_mux       : std_logic_vector( c_SER_WD_MAX_S   *c_EP_CMD_S-1 downto 0)                  ; --! EP: Receipted data multiplexer
-signal   ep_data_rx_mux_or    : std_logic_vector((c_SER_WD_MAX_S+1)*c_EP_CMD_S-1 downto 0)                  ; --! EP: Receipted data multiplexer or
+signal   ep_data_rx_mux       : t_slv_arr(0 to c_SER_WD_MAX_S-1)(c_EP_CMD_S-1 downto 0)                     ; --! EP: Receipted data multiplexer
+signal   ep_data_rx_mux_or    : t_slv_arr(0 to c_SER_WD_MAX_S  )(c_EP_CMD_S-1 downto 0)                     ; --! EP: Receipted data multiplexer or
 
 signal   ep_spi_mosi_bf_buf   : std_logic                                                                   ; --! EP: SPI Master Input Slave Output before buffer (MSB first)
 signal   ep_spi_miso_bf_buf   : std_logic                                                                   ; --! EP: SPI Master Output Slave Input before buffer (MSB first)
@@ -158,31 +160,40 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    ep_cmd            <= i_ep_cmd & std_logic_vector(to_unsigned(0, c_SER_WD_MAX_S-c_EP_CMD_S));
 
-   ep_data_rx_mux_or(c_EP_CMD_S-1 downto 0) <= (others => '0');
+   ep_data_rx_mux_or(0) <= (others => '0');
 
-   G_ep_data_rx_mux_bit: for j in 0 to c_EP_CMD_S-1 generate
+   G_ep_cmd_ser_wd_s: for i in 0 to c_SER_WD_MAX_S-1 generate
    begin
 
-      G_ep_cmd_ser_wd_s: for i in 0 to c_SER_WD_MAX_S-1 generate
+      G_ep_data_rx_mux_bit: for j in 0 to c_EP_CMD_S-1 generate
       begin
 
-         G_wd_s_less: if i <= c_EP_CMD_S-1-j generate
-            ep_data_rx_mux(i*c_EP_CMD_S+j)  <= '0';
+         G_wd_s_less: if i < c_EP_CMD_S generate
+
+            G_bit_less: if j < c_EP_CMD_S-i generate
+               ep_data_rx_mux(i)(j) <= c_EP_CMD_ERR_CLR when ep_cmd_ser_wd_s_strt2 = std_logic_vector(to_unsigned(i,ep_cmd_ser_wd_s_strt2'length)) else
+                                       '0';
+            end generate G_bit_less;
+
+            G_bit_greater: if j >= c_EP_CMD_S-i generate
+               ep_data_rx_mux(i)(j) <= ep_data_rx(i-c_EP_CMD_S+j) when ep_cmd_ser_wd_s_strt2 = std_logic_vector(to_unsigned(i,ep_cmd_ser_wd_s_strt2'length)) else
+                                       '0';
+            end generate G_bit_greater;
 
          end generate G_wd_s_less;
 
-         G_wd_s_greater: if i > c_EP_CMD_S-1-j generate
-            ep_data_rx_mux(i*c_EP_CMD_S+j)  <=  ep_data_rx(i-c_EP_CMD_S+j) when ep_cmd_ser_wd_s_strt2 = std_logic_vector(to_unsigned(i,i_ep_cmd_ser_wd_s'length)) else
-                                                '0';
+         G_wd_s_greater: if i >= c_EP_CMD_S generate
+            ep_data_rx_mux(i)(j) <= ep_data_rx(i-c_EP_CMD_S+j) when ep_cmd_ser_wd_s_strt2 = std_logic_vector(to_unsigned(i,ep_cmd_ser_wd_s_strt2'length)) else
+                                    '0';
          end generate G_wd_s_greater;
 
-         ep_data_rx_mux_or((i+1)*c_EP_CMD_S+j) <= ep_data_rx_mux(i*c_EP_CMD_S+j) or ep_data_rx_mux_or(i*c_EP_CMD_S+j);
+      end generate G_ep_data_rx_mux_bit;
 
-      end generate G_ep_cmd_ser_wd_s;
+      ep_data_rx_mux_or(i+1) <= ep_data_rx_mux(i) or ep_data_rx_mux_or(i);
 
-   end generate G_ep_data_rx_mux_bit;
+   end generate G_ep_cmd_ser_wd_s;
 
-   o_ep_data_rx   <= ep_data_rx_mux_or((c_SER_WD_MAX_S+1)*c_EP_CMD_S-1 downto c_SER_WD_MAX_S*c_EP_CMD_S);
+   o_ep_data_rx   <= ep_data_rx_mux_or(ep_data_rx_mux_or'high);
 
    -- ------------------------------------------------------------------------------------------------------
    --!   SPI master

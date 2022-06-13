@@ -23,7 +23,7 @@
 --    Code Rules Reference    SOC of design and VHDL handbook for VLSI development, CNES Edition (v2.1)
 -- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --!   @details                Clocks generation from a Phase Locked Loop (NX_PLL_L IpCore, NG-LARGE), external feedback configuration for synchronization with Reference Clock,
---!                           and distributed through Wave Form Generators (NX_WFG_L IpCore, NG-LARGE). SQUID1 ADC Clocks and SQUID1 DAC Clocks FPGA outputs can be switched by
+--!                           and distributed through Wave Form Generators (NX_WFG_L IpCore, NG-LARGE). SQUID MUX ADC Clocks and SQUID MUX DAC Clocks FPGA outputs can be switched by
 --!                           command thanks to some clock switches (NX_CKS IpCore, NG-LARGE).
 -- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 library ieee;
@@ -41,13 +41,13 @@ entity pll is port
    (     i_arst               : in     std_logic                                                            ; --! Asynchronous reset ('0' = Inactive, '1' = Active)
          i_clk_ref            : in     std_logic                                                            ; --! Reference Clock
          o_clk                : out    std_logic                                                            ; --! System Clock
-         o_clk_sq1_adc_dac    : out    std_logic                                                            ; --! SQUID1 ADC/DAC internal Clock
-         o_clk_sq1_adc        : out    std_logic                                                            ; --! Clock for SQUID1 ADC Image Clock
-         o_clk_sq1_dac_out    : out    std_logic                                                            ; --! Clock for SQUID1 DAC output Image Clock
+         o_clk_sqm_adc_dac    : out    std_logic                                                            ; --! SQUID MUX ADC/DAC internal Clock
+         o_clk_sqm_adc        : out    std_logic                                                            ; --! Clock for SQUID MUX ADC Image Clock
+         o_clk_sqm_dac_out    : out    std_logic                                                            ; --! Clock for SQUID MUX DAC output Image Clock
          o_pll_main_lock      : out    std_logic                                                            ; --! Main Pll Status ('0' = Pll not locked, '1' = Pll locked)
 
          o_clk_90             : out    std_logic                                                            ; --! System Clock 90 degrees shift
-         o_clk_sq1_adc_dac_90 : out    std_logic                                                              --! SQUID1 ADC/DAC internal 90 degrees shift
+         o_clk_sqm_adc_dac_90 : out    std_logic                                                              --! SQUID MUX ADC/DAC internal 90 degrees shift
    );
 end entity pll;
 
@@ -75,26 +75,24 @@ constant c_CLK_N_PAT          : integer := c_PLL_MAIN_VCO_MULT/c_CLK_MULT - 1   
 constant c_CLK_PAT            : bit_vector(0 to c_WFG_PAT_S-1) := c_WFG_PAT_ONE_SEQ(c_CLK_N_PAT)            ; --! System clock: Pattern, use only the number of vco cycles+1 MSB bits
 constant c_CLK_90_PAT         : bit_vector(0 to c_WFG_PAT_S-1) := c_WFG_PAT_ONE_SEQ_90(c_CLK_N_PAT)         ; --! System clock 90 degrees shift: Pattern, use only the number of vco cycles+1 MSB bits
 
-constant c_CLK_ADC_DAC_N_PAT  : integer := c_PLL_MAIN_VCO_MULT/c_CLK_ADC_DAC_MULT - 1                       ; --! SQUID1 ADC/DAC Clock: Number of vco cycles for pattern
-constant c_CLK_ADC_DAC_PAT    : bit_vector(0 to c_WFG_PAT_S-1) := c_WFG_PAT_ONE_SEQ(c_CLK_ADC_DAC_N_PAT)    ; --! SQUID1 ADC/DAC Clock: Pattern, use only the number of vco cycles+1 MSB bits
-constant c_CLK_ADC_DAC_90_PAT : bit_vector(0 to c_WFG_PAT_S-1) := c_WFG_PAT_ONE_SEQ_90(c_CLK_ADC_DAC_N_PAT) ; --! SQUID1 ADC/DAC Clock 90 degrees shift: Pattern, use only the number of vco cycles+1 MSB bits
+constant c_CLK_ADC_DAC_N_PAT  : integer := c_PLL_MAIN_VCO_MULT/c_CLK_ADC_DAC_MULT - 1                       ; --! SQUID MUX ADC/DAC Clock: Number of vco cycles for pattern
+constant c_CLK_ADC_DAC_PAT    : bit_vector(0 to c_WFG_PAT_S-1) := c_WFG_PAT_ONE_SEQ(c_CLK_ADC_DAC_N_PAT)    ; --! SQUID MUX ADC/DAC Clock: Pattern, use only the number of vco cycles+1 MSB bits
+constant c_CLK_ADC_DAC_90_PAT : bit_vector(0 to c_WFG_PAT_S-1) := c_WFG_PAT_ONE_SEQ_90(c_CLK_ADC_DAC_N_PAT) ; --! SQUID MUX ADC/DAC Clock 90 degrees shift: Pattern, use only the number of vco cycles+1 MSB bits
 
-constant c_CLK_DAC_OUT_N_PAT  : integer := c_PLL_MAIN_VCO_MULT/c_CLK_DAC_OUT_MULT - 1                       ; --! SQUID1 DAC output Clock: Number of vco cycles for pattern
-constant c_CLK_DAC_OUT_PAT    : bit_vector(0 to c_WFG_PAT_S-1) := c_WFG_PAT_ONE_SEQ(c_CLK_DAC_OUT_N_PAT)    ; --! SQUID1 DAC output Clock: Pattern, use only the number of vco cycles+1 MSB bits
+constant c_CLK_DAC_OUT_N_PAT  : integer := c_PLL_MAIN_VCO_MULT/c_CLK_DAC_OUT_MULT - 1                       ; --! SQUID MUX DAC output Clock: Number of vco cycles for pattern
+constant c_CLK_DAC_OUT_PAT    : bit_vector(0 to c_WFG_PAT_S-1) := c_WFG_PAT_ONE_SEQ(c_CLK_DAC_OUT_N_PAT)    ; --! SQUID MUX DAC output Clock: Pattern, use only the number of vco cycles+1 MSB bits
 
 signal   pll_main_vco         : std_logic                                                                   ; --! Pll main VCO
 signal   pll_main_lock        : std_logic                                                                   ; --! Pll main Status ('0' = Pll not locked, '1' = Pll locked)
 
 signal   clk_sync_ref         : std_logic                                                                   ; --! Clock synchronous Ref. clock
-signal   clk_sq1_adc_dac      : std_logic                                                                   ; --! SQUID1 ADC/DAC internal Clock
+signal   clk_sqm_adc_dac      : std_logic                                                                   ; --! SQUID MUX ADC/DAC internal Clock
 
 signal   clk_sync_ref_end_seq : std_logic                                                                   ; --! Clock synchronous Ref. clock: End pattern sequence ('0': No, '1': Yes)
 signal   clk_end_seq          : std_logic                                                                   ; --! System clock: End pattern sequence ('0': No, '1': Yes)
-signal   clk_adc_dac_end_seq  : std_logic                                                                   ; --! SQUID1 ADC/DAC internal clock: End pattern sequence ('0': No, '1': Yes)
-signal   clk_adc_end_seq      : std_logic                                                                   ; --! SQUID1 ADC Clock: End pattern sequence ('0': No, '1': Yes)
-signal   clk_dac_out_end_seq  : std_logic                                                                   ; --! SQUID1 DAC output clock: End pattern sequence ('0': No, '1': Yes)
-
-signal   cmd_ck_sq1_adc_rs    : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! SQUID1 ADC Clocks switch commands synchronized on clk_sq1_adc
+signal   clk_adc_dac_end_seq  : std_logic                                                                   ; --! SQUID MUX ADC/DAC internal clock: End pattern sequence ('0': No, '1': Yes)
+signal   clk_adc_end_seq      : std_logic                                                                   ; --! SQUID MUX ADC Clock: End pattern sequence ('0': No, '1': Yes)
+signal   clk_dac_out_end_seq  : std_logic                                                                   ; --! SQUID MUX DAC output clock: End pattern sequence ('0': No, '1': Yes)
 
 begin
 
@@ -171,7 +169,7 @@ begin
    );
 
    -- ------------------------------------------------------------------------------------------------------
-   --!  SQUID1 ADC/DAC internal Clock generation
+   --!  SQUID MUX ADC/DAC internal Clock generation
    -- ------------------------------------------------------------------------------------------------------
    I_wfg_clk_adc_dac: entity nx.nx_wfg_l generic map
    (     WFG_EDGE             => c_WFG_EDGE_INV_N     , -- bit                                              ; --! Input clock inverted ('0' = No, '1' = Yes)
@@ -186,13 +184,13 @@ begin
          zi                   => pll_main_vco         , -- in     std_logic                                 ; --! Input clock (connected to PLL VCO or D1, D2 or D3 output)
          rdy                  => pll_main_lock        , -- in     std_logic                                 ; --! '1' for the WFG generating PLL clock on external feedback, pll_locked pin otherwise
          so                   => clk_adc_dac_end_seq  , -- out    std_logic                                 ; --! End pattern sequence ('0': No, '1': Yes)
-         zo                   => clk_sq1_adc_dac        -- out    std_logic                                   --! Generated clock, connected to clock tree
+         zo                   => clk_sqm_adc_dac        -- out    std_logic                                   --! Generated clock, connected to clock tree
    );
 
-   o_clk_sq1_adc_dac <= clk_sq1_adc_dac;
+   o_clk_sqm_adc_dac <= clk_sqm_adc_dac;
 
    -- ------------------------------------------------------------------------------------------------------
-   --!  Clock for SQUID1 ADC Image clock generation
+   --!  Clock for SQUID MUX ADC Image clock generation
    --    @Req : DRE-DMX-FW-REQ-0120
    -- ------------------------------------------------------------------------------------------------------
    I_wfg_clk_adc: entity nx.nx_wfg_l generic map
@@ -208,11 +206,11 @@ begin
          zi                   => pll_main_vco         , -- in     std_logic                                 ; --! Input clock (connected to PLL VCO or D1, D2 or D3 output)
          rdy                  => pll_main_lock        , -- in     std_logic                                 ; --! '1' for the WFG generating PLL clock on external feedback, pll_locked pin otherwise
          so                   => clk_adc_end_seq      , -- out    std_logic                                 ; --! End pattern sequence ('0': No, '1': Yes)
-         zo                   => o_clk_sq1_adc          -- out    std_logic                                   --! Generated clock, connected to clock tree
+         zo                   => o_clk_sqm_adc          -- out    std_logic                                   --! Generated clock, connected to clock tree
    );
 
    -- ------------------------------------------------------------------------------------------------------
-   --!  Clock for SQUID1 DAC Image clock generation
+   --!  Clock for SQUID MUX DAC Image clock generation
    --    @Req : DRE-DMX-FW-REQ-0270
    -- ------------------------------------------------------------------------------------------------------
    I_wfg_clk_dac_out: entity nx.nx_wfg_l generic map
@@ -228,7 +226,7 @@ begin
          zi                   => pll_main_vco         , -- in     std_logic                                 ; --! Input clock (connected to PLL VCO or D1, D2 or D3 output)
          rdy                  => pll_main_lock        , -- in     std_logic                                 ; --! '1' for the WFG generating PLL clock on external feedback, pll_locked pin otherwise
          so                   => clk_dac_out_end_seq  , -- out    std_logic                                 ; --! End pattern sequence ('0': No, '1': Yes)
-         zo                   => o_clk_sq1_dac_out      -- out    std_logic                                   --! Generated clock, connected to clock tree
+         zo                   => o_clk_sqm_dac_out      -- out    std_logic                                   --! Generated clock, connected to clock tree
    );
 
    -- ------------------------------------------------------------------------------------------------------
@@ -266,7 +264,7 @@ begin
          zi                   => pll_main_vco         , -- in     std_logic                                 ; --! Input clock (connected to PLL VCO or D1, D2 or D3 output)
          rdy                  => pll_main_lock        , -- in     std_logic                                 ; --! '1' for the WFG generating PLL clock on external feedback, pll_locked pin otherwise
          so                   => open                 , -- out    std_logic                                 ; --! End pattern sequence ('0': No, '1': Yes)
-         zo                   => o_clk_sq1_adc_dac_90   -- out    std_logic                                   --! Generated clock, connected to clock tree
+         zo                   => o_clk_sqm_adc_dac_90   -- out    std_logic                                   --! Generated clock, connected to clock tree
    );
 
 end architecture rtl;

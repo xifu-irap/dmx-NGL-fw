@@ -39,12 +39,12 @@ entity science_data_check is port
    (     i_rst                : in     std_logic                                                            ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk_science        : in     std_logic                                                            ; --! Science Clock
 
-         i_sq1_fb_del         : in     t_slv_arr(0 to c_NB_COL-1)(c_DFLD_S1FBD_COL_S-1 downto 0)            ; --! Squid1 Feedback delay
-         i_sq_off_mux_del     : in     t_slv_arr(0 to c_NB_COL-1)(c_DFLD_S2MXD_COL_S-1 downto 0)            ; --! Squid offset MUX delay
+         i_smfbd              : in     t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SMFBD_COL_S-1 downto 0)            ; --! SQUID MUX feedback delay
+         i_saomd              : in     t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SAOMD_COL_S-1 downto 0)            ; --! SQUID AMP offset MUX delay
          i_sw_adc_vin         : in     std_logic_vector(c_SW_ADC_VIN_S-1 downto 0)                          ; --! Switch ADC Voltage input
 
          i_adc_dmp_mem_add    : in     std_logic_vector(    c_MUX_FACT_S-1 downto 0)                        ; --! ADC Dump memory for data compare: address
-         i_adc_dmp_mem_data   : in     std_logic_vector(c_SQ1_ADC_DATA_S+1 downto 0)                        ; --! ADC Dump memory for data compare: data
+         i_adc_dmp_mem_data   : in     std_logic_vector(c_SQM_ADC_DATA_S+1 downto 0)                        ; --! ADC Dump memory for data compare: data
          i_adc_dmp_mem_cs     : in     std_logic_vector(        c_NB_COL-1 downto 0)                        ; --! ADC Dump memory for data compare: chip select ('0' = Inactive, '1' = Active)
 
          i_science_data_ctrl  : in     std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0)                       ; --! Science Data: Control word
@@ -67,7 +67,7 @@ constant c_PIXEL_POS_S        : integer:= log2_ceil(c_PIXEL_POS_MAX_VAL+1)      
 constant c_SEQ_CNT_MAX_VAL    : integer:= c_DMP_SEQ_ACQ_NB - 1                                              ; --! Sequence counter: maximal value
 constant c_SEQ_CNT_S          : integer:= log2_ceil(c_SEQ_CNT_MAX_VAL + 1)                                  ; --! Sequence counter: size bus
 
-signal   squid_del            : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_S1FBD_COL_S-1 downto 0)                   ; --! Squid delay
+signal   squid_del            : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SMFBD_COL_S-1 downto 0)                   ; --! SQUID Feedback delay
 
 signal   pls_cnt              : std_logic_vector(            c_PLS_CNT_S-1 downto 0)                        ; --! Pulse counter
 signal   pls_cnt_pos_del      : t_slv_arr(0 to c_NB_COL-1)(  c_PLS_CNT_S-1 downto 0)                        ; --! Pulse counter position with delay
@@ -78,10 +78,10 @@ signal   seq_cnt              : std_logic_vector(            c_SEQ_CNT_S-1 downt
 signal   science_data_rdy_r   : std_logic_vector(1 downto 0)                                                ; --! Science Data Ready register ('0' = Inactive, '1' = Active)
 
 signal   mem_adc_dump_dta2cmp : t_slv_arr_tab(0 to c_NB_COL-1)(0 to c_MUX_FACT-1)
-                                (c_SQ1_ADC_DATA_S+1 downto 0):= (others => (others => (others => '0')))     ; --! Dual port memory for adc dump data to compare
+                                (c_SQM_ADC_DATA_S+1 downto 0):= (others => (others => (others => '0')))     ; --! Dual port memory for adc dump data to compare
 
-signal   adc_dump_dta2cmp     : t_slv_arr(0 to c_NB_COL-1)(c_SQ1_ADC_DATA_S+1 downto 0)                     ; --! adc dump data to compare
-signal   adc_dump_dta2cmp_lst : t_slv_arr(0 to c_NB_COL-1)(c_SQ1_ADC_DATA_S+1 downto 0)                     ; --! adc dump data to compare last value
+signal   adc_dump_dta2cmp     : t_slv_arr(0 to c_NB_COL-1)(c_SQM_ADC_DATA_S+1 downto 0)                     ; --! adc dump data to compare
+signal   adc_dump_dta2cmp_lst : t_slv_arr(0 to c_NB_COL-1)(c_SQM_ADC_DATA_S+1 downto 0)                     ; --! adc dump data to compare last value
 
 signal   science_data_err     : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! Science data error ('0' = No error, '1' = Error)
 
@@ -238,7 +238,7 @@ begin
       -- ------------------------------------------------------------------------------------------------------
       --!   Squid delay
       -- ------------------------------------------------------------------------------------------------------
-      squid_del(k) <= i_sq1_fb_del(k) when (i_sw_adc_vin = c_SW_ADC_VIN_ST_SQ1) else i_sq_off_mux_del(k);
+      squid_del(k) <= i_smfbd(k) when (i_sw_adc_vin = c_SW_ADC_VIN_ST_SQM) else i_saomd(k);
 
       -- ------------------------------------------------------------------------------------------------------
       --!   Pulse counter position with delay
@@ -297,8 +297,8 @@ begin
       science_data_err(k) <=  '0' when (pls_cnt   = std_logic_vector(to_unsigned(c_PLS_CNT_MAX_VAL, pls_cnt'length)) and
                                         pixel_pos = std_logic_vector(to_unsigned(0, pixel_pos'length)) and
                                         seq_cnt   = std_logic_vector(to_unsigned(0, seq_cnt'length)))  else
-                              '1' when (i_sw_adc_vin = c_SW_ADC_VIN_ST_SQ2 and i_science_data(k) /= adc_dump_dta2cmp_lst(k)) else
-                              '1' when (i_sw_adc_vin = c_SW_ADC_VIN_ST_SQ1) and (pls_cnt = pls_cnt_pos_del(k)) and (
+                              '1' when (i_sw_adc_vin = c_SW_ADC_VIN_ST_SQA and i_science_data(k) /= adc_dump_dta2cmp_lst(k)) else
+                              '1' when (i_sw_adc_vin = c_SW_ADC_VIN_ST_SQM) and (pls_cnt = pls_cnt_pos_del(k)) and (
                                         abs(signed(i_science_data(k)) - signed(adc_dump_dta2cmp_lst(k))) > to_signed(1, i_science_data(k)'length)) else
                               '0';
 

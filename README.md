@@ -4,8 +4,8 @@ DRE-DEMUX TDM firmware.
    - FPGA target: NG-LARGE (NanoXplore)
    - Synthesis tool: Nxmap v22.1.0.1
    - Firmware specification:
-      + IRAP/XIFU-DRE/FM/SP/0065 - DRE TDM firmware requirements, ed. 0.13
-      + IRAP/XIFU-DRE/FM/SP/0069 - DRE Inter-Modules Telemetry And Commands Definition, ed. 0.5
+      + IRAP/XIFU-DRE/FM/SP/0065 - DRE TDM firmware requirements, ed. 0.15
+      + IRAP/XIFU-DRE/FM/SP/0069 - DRE Inter-Modules Telemetry And Commands Definition, ed. 0.8
 
 ## 1. Directories and files description
 
@@ -75,27 +75,27 @@ DRE-DEMUX TDM firmware.
    - Position 0: **rst**, Internal DRE-DEMUX: Reset asynchronous assertion, synchronous de-assertion on System Clock
    - Position 1: **clk_ref**, DRE-DEMUX input, Reference Clock
    - Position 2: **clk**, Internal DRE-DEMUX: System Clock
-   - Position 3: **clk_sq1_adc_acq**, Internal DRE-DEMUX: SQUID1 ADC Clock
-   - Position 4: **clk_sq1_pls_shape**, Internal DRE-DEMUX: SQUID1 pulse shaping Clock
+   - Position 3: **clk_sqm_adc_acq**, Internal DRE-DEMUX: SQUID MUX ADC Clock
+   - Position 4: **clk_sqm_pls_shape**, Internal DRE-DEMUX: SQUID MUX pulse shaping Clock
    - Position 5: **ep_cmd_busy_n**, EP SPI model output, EP - Command transmit busy ('0' = Busy, '1' = Not Busy)
    - Position 6: **ep_data_rx_rdy**, EP SPI model output, EP - Receipted data ready ('0' = Not ready, '1' = Ready)
-   - Position 7+x:  **rst_sq1_adc(x)**, Internal DRE-DEMUX: Local reset asynchronous assertion, synchronous de-assertion on SQUID1 ADC column 'x' (0->3)
-   - Position 11+x: **rst_sq1_dac(x)**, Internal DRE-DEMUX: Local reset asynchronous assertion, synchronous de-assertion on SQUID1 DAC column 'x' (0->3)
-   - Position 15+x: **rst_sq2_mux(x)**, Internal DRE-DEMUX: Local reset asynchronous assertion, synchronous de-assertion on SQUID2 MUX column 'x' (0->3)
+   - Position 7+x:  **rst_sqm_adc(x)**, Internal DRE-DEMUX: Local reset asynchronous assertion, synchronous de-assertion on SQUID MUX ADC column 'x' (0->3)
+   - Position 11+x: **rst_sqm_dac(x)**, Internal DRE-DEMUX: Local reset asynchronous assertion, synchronous de-assertion on SQUID MUX DAC column 'x' (0->3)
+   - Position 15+x: **rst_sqa_mux(x)**, Internal DRE-DEMUX: Local reset asynchronous assertion, synchronous de-assertion on SQUID AMP MUX column 'x' (0->3)
    - Position 19: **sync**, Pixel sequence synchronization (R.E. detected = position sequence to the first pixel)
-   - Position 20+x: **sq1_adc_pwdn(x)**, SQUID1 ADC column 'x' (0->3) – ADC Power Down ('0' = Inactive, '1' = Active)
-   - Position 24+x: **sq1_dac_sleep(x)**, SQUID1 DAC column 'x' (0->3) – DAC Sleep ('0' = Inactive, '1' = Active)
-   - Position 28+x: **clk_sq1_adc(x)**, SQUID1 ADC column 'x' (0->3) - Clock
-   - Position 32+x: **clk_sq1_dac(x)**, SQUID1 DAC column 'x' (0->3) - Clock
+   - Position 20+x: **sqm_adc_pwdn(x)**, SQUID MUX ADC column 'x' (0->3) – ADC Power Down ('0' = Inactive, '1' = Active)
+   - Position 24+x: **sqm_dac_sleep(x)**, SQUID MUX DAC column 'x' (0->3) – DAC Sleep ('0' = Inactive, '1' = Active)
+   - Position 28+x: **clk_sqm_adc(x)**, SQUID MUX ADC column 'x' (0->3) - Clock
+   - Position 32+x: **clk_sqm_dac(x)**, SQUID MUX DAC column 'x' (0->3) - Clock
    - Position 63-36: Not Used
+
 
 ## 5. Discrete outputs description (seen from simulation pilot side)
 
    Discrete outputs are grouped together in a 64 bits field (bit position 63 is the MSB, bit position 0 is the LSB):
   - Position 0: **arst_n**, DRE-DEMUX input, Asynchronous reset ('0' = Active, '1' = Inactive)
-  - Position 1: **brd_model(0)**, DRE-DEMUX input, Board model bit 0
-  - Position 2: **brd_model(1)**, DRE-DEMUX input, Board model bit 1
-  - Position 4-3: **sw_adc_vin(1)/sw_adc_vin(0)**, SQUID model input, Switch ADC Voltage input ("00": SQUID1 DAC voltage, "01": SQUID2 DAC voltage)
+  - Position 3-1: **brd_model(y)**, DRE-DEMUX input, Board model bit 'y' (0->2)
+  - Position 5-4: **sw_adc_vin(1)/sw_adc_vin(0)**, SQUID model input, Switch ADC Voltage input ("00": SQUID MUX DAC voltage, "01": SQUID AMP DAC voltage)
 
 
 ## 6. Check parameters enable (seen from simulation pilot side)
@@ -103,18 +103,18 @@ DRE-DEMUX TDM firmware.
    Enable the display in result file of the report about the check parameters.
    Enables are grouped together in a 64 bits field (bit position 63 is the MSB, bit position 0 is the LSB):
    - **clk**, Internal DRE-DEMUX: System Clock
-   - **clk_sq1_adc**, Internal DRE-DEMUX: SQUID1 ADC Clock
-   - **clk_sq1_pls_shape**, Internal DRE-DEMUX: SQUID1 pulse shaping Clock
-   - **clk_sq1_adc(x)**, Clock SQUID1 ADC column 'x' (0->3)
-   - **clk_sq1_dac(x)**, Clock SQUID1 DAC column 'x' (0->3)
+   - **clk_sqm_adc**, Internal DRE-DEMUX: SQUID MUX ADC Clock
+   - **clk_sqm_pls_shape**, Internal DRE-DEMUX: SQUID MUX pulse shaping Clock
+   - **clk_sqm_adc(x)**, Clock SQUID MUX ADC column 'x' (0->3)
+   - **clk_sqm_dac(x)**, Clock SQUID MUX DAC column 'x' (0->3)
    - **clk_science_01**, Science Data - Clock channel 0/1
    - **clk_science_23**, Science Data - Clock channel 2/3
 
    - **spi_hk**, SPI ADC Housekeeping
-   - **spi_sq2_lsb(x)**, SPI SQUID2 DAC LSB column 'x' (0->3)
-   - **spi_sq2_off(x)**, SPI SQUID2 DAC Offset column 'x' (0->3)
+   - **spi_sqa_lsb(x)**, SPI SQUID AMP DAC LSB column 'x' (0->3)
+   - **spi_sqa_off(x)**, SPI SQUID AMP DAC Offset column 'x' (0->3)
 
-   - **pulse_shaping**, SQUID1 DAC pulse shaping
+   - **pulse_shaping**, SQUID MUX DAC pulse shaping
 
 
 ## 7. Science packet type
@@ -156,16 +156,16 @@ DRE-DEMUX TDM firmware.
       + Parameter **value** : (1 bit U/X/0/1/Z/W/L/H/-) discrete input value expected
 
 
-   - Command CLDC **channel** **value**: check level SQUID1 ADC input (SQUID1/SQUID2 DAC voltage can be loop back thanks to discrete outputs sw_adc_vin)
+   - Command CLDC **channel** **value**: check level SQUID MUX ADC input (SQUID MUX/SQUID AMP DAC voltage can be loop back thanks to discrete outputs sw_adc_vin)
       + Parameter **channel**: decimal range 0 to c_NB_COL-1, channel number
-      + Parameter **value** : SQUID1 ADC input value expected in real
+      + Parameter **value** : SQUID MUX ADC input value expected in real
 
 
    - Command CSCP **science_packet** : check the science packet type
       + Parameter **science_packet** : science packet type select (see 7 on science packet type description)
 
 
-   - Command CTDC **channel** **ope** **time**: check time between the current time and last event SQUID1 ADC input
+   - Command CTDC **channel** **ope** **time**: check time between the current time and last event SQUID MUX ADC input
       + Parameter **channel**: decimal range 0 to c_NB_COL-1, channel number
       + Parameter **ope** : ( ==, /=, <<, <=, >>, >= ), comparison operation
       + Parameter **time**: (decimal with unit ps, ns, us, ms, sec), comparison time
@@ -249,7 +249,7 @@ DRE-DEMUX TDM firmware.
    - Error check clocks parameters: clocks parameters error(s).
    - Error check spi parameters: spi bus parameters error(s).
    - Error check science packets: science packets error(s) (see scd result file for description).
-   - Error check pulse shaping: SQUID1 DAC pulse shaping error.
+   - Error check pulse shaping: SQUID MUX DAC pulse shaping error.
 
 
    The file transcript generated by Modelsim must equally analyzed in order to detect eventual errors and warnings.

@@ -98,7 +98,7 @@ type     t_wait_cmd_end         is (none, wait_cmd_end_tx, wait_rcmd_end_rx)    
    );
 
    -- ------------------------------------------------------------------------------------------------------
-   --! Get parameters command CLDC [channel] [value]: check level SQUID1 ADC input
+   --! Get parameters command CLDC [channel] [value]: check level SQUID MUX ADC input
    -- ------------------------------------------------------------------------------------------------------
    procedure get_param_cldc
    (     b_cmd_file_line      : inout  line                                                                 ; --  Command file line
@@ -119,7 +119,7 @@ type     t_wait_cmd_end         is (none, wait_cmd_end_tx, wait_rcmd_end_rx)    
 
    -- ------------------------------------------------------------------------------------------------------
    --! Get parameters command CTDC [channel] [ope] [time]: check time between the current time
-   --!  and last event SQUID1 ADC input
+   --!  and last event SQUID MUX ADC input
    -- ------------------------------------------------------------------------------------------------------
    procedure get_param_ctdc
    (     b_cmd_file_line      : inout  line                                                                 ; --  Command file line
@@ -440,7 +440,7 @@ package body pkg_func_cmd_script is
    end get_param_cdis;
 
    -- ------------------------------------------------------------------------------------------------------
-   --! Get parameters command CLDC [channel] [value]: check level SQUID1 ADC input
+   --! Get parameters command CLDC [channel] [value]: check level SQUID MUX ADC input
    -- ------------------------------------------------------------------------------------------------------
    procedure get_param_cldc
    (     b_cmd_file_line      : inout  line                                                                 ; --  Command file line
@@ -478,7 +478,7 @@ package body pkg_func_cmd_script is
 
    -- ------------------------------------------------------------------------------------------------------
    --! Get parameters command CTDC [channel] [ope] [time]: check time between the current time
-   --!  and last event SQUID1 ADC input
+   --!  and last event SQUID MUX ADC input
    -- ------------------------------------------------------------------------------------------------------
    procedure get_param_ctdc
    (     b_cmd_file_line      : inout  line                                                                 ; --  Command file line

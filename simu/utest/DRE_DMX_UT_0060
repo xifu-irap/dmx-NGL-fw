@@ -1,14 +1,14 @@
 COMM **********************************************************************************************
-COMM   Test: EP command, TM_MODE register
+COMM   Test: EP command, DATA_ACQ_MODE register
 COMM **********************************************************************************************
 COMM
 COMM ==============================================================================================
-COMM   Enable Squid1 ADC clocks reports display
+COMM   Enable MUX SQUID ADC clocks reports display
 COMM ----------------------------------------------------------------------------------------------
-CCPE clk_sq1_adc(0)
-CCPE clk_sq1_adc(1)
-CCPE clk_sq1_adc(2)
-CCPE clk_sq1_adc(3)
+CCPE clk_sqm_adc(0)
+CCPE clk_sqm_adc(1)
+CCPE clk_sqm_adc(2)
+CCPE clk_sqm_adc(3)
 COMM
 COMM ==============================================================================================
 COMM   Asynchronous reset activated
@@ -27,40 +27,52 @@ COMM ---------------------------------------------------------------------------
 WUDI rst 0
 COMM
 COMM ==============================================================================================
-COMM   Start TM_MODE register test
+COMM   Start DATA_ACQ_MODE register test
 COMM ----------------------------------------------------------------------------------------------
-WCMD R-TM_MODE-XXXX W     # Command 0
-WCMD W-TM_MODE-0002 W     # Command 1
-WCMD R-TM_MODE-XXXX R     # Command 2
+WCMD R-DATA_ACQ_MODE-XXXX W     # Command 0
+WCMD W-DATA_ACQ_MODE-0001 W     # Command 1
+WCMD R-DATA_ACQ_MODE-XXXX R     # Command 2
 COMM
 COMM ==============================================================================================
-COMM   Check TM_MODE content at start: Idle
+COMM   Check DATA_ACQ_MODE content at start: Idle
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-TM_MODE-0001 W     # Return Command 0
-WCMD W-TM_MODE-0003 R     # Command 3
+CCMD R-DATA_ACQ_MODE-0000 W     # Return Command 0
+WCMD W-DATA_ACQ_MODE-0002 R     # Command 3
 COMM
 COMM ==============================================================================================
-COMM   Check no error after write TM_MODE command
+COMM   Check no error after write DATA_ACQ_MODE command
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-Status-0000 W      # Return Command 1
-WCMD R-TM_MODE-XXXX R     # Command 4
+CCMD R-Status-FFFF W            # Return Command 1
+WCMD R-DATA_ACQ_MODE-XXXX R     # Command 4
 COMM
 COMM ==============================================================================================
-COMM   Check TM_MODE new content: Normal
+COMM   Check DATA_ACQ_MODE new content: Science
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-TM_MODE-0002 W     # Return Command 2
+CCMD R-DATA_ACQ_MODE-0001 W     # Return Command 2
+WCMD W-DATA_ACQ_MODE-0007 R     # Command 5
+COMM
+COMM ==============================================================================================
+COMM   Check no error after write DATA_ACQ_MODE command
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-Status-FFFF W            # Return Command 3
+WCMD R-DATA_ACQ_MODE-XXXX R     # Command 6
+COMM
+COMM ==============================================================================================
+COMM   Check DATA_ACQ_MODE new content: Error Signal
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-DATA_ACQ_MODE-0002 W     # Return Command 4
 WCMD R-Status-XXXX R
 COMM
 COMM ==============================================================================================
-COMM   Check no error after write TM_MODE command
+COMM   Check no error after write DATA_ACQ_MODE command
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-Status-0000 W      # Return Command 3
+CCMD R-Status-FFFF W            # Return Command 5
 WCMD R-Status-XXXX R
 COMM
 COMM ==============================================================================================
-COMM   Check TM_MODE new content: Test pattern
+COMM   Check DATA_ACQ_MODE new content: Test pattern
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-TM_MODE-0003 N     # Return Command 4
+CCMD R-DATA_ACQ_MODE-0007 N     # Return Command 6
 COMM
 COMM ==============================================================================================
 COMM   Wait end of test pattern mode
@@ -73,287 +85,349 @@ WUDI sync 1
 WUDI sync 0
 WUDI sync 1
 WUDI sync 0
-WCMD R-TM_MODE-XXXX W     # Command 5
-WCMD W-TM_MODE-0000 W     # Command 6
-WCMD R-TM_MODE-XXXX R     # Command 7
+WCMD R-DATA_ACQ_MODE-XXXX W     # Command 7
+WCMD W-DATA_ACQ_MODE-0004 W     # Command 8
+WCMD R-DATA_ACQ_MODE-XXXX R     # Command 9
 COMM
 COMM ==============================================================================================
-COMM   Check TM_MODE goes to Idle mode
+COMM   Check DATA_ACQ_MODE goes to Idle mode
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-TM_MODE-0001 W     # Return Command 5
-WCMD W-TM_MODE-0002 R     # Command 8
+CCMD R-DATA_ACQ_MODE-0000 W     # Return Command 7
+WCMD W-DATA_ACQ_MODE-0001 R     # Command 10
 COMM
 COMM ==============================================================================================
-COMM   Check no error after write TM_MODE command
+COMM   Check no error after write DATA_ACQ_MODE command
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-Status-0000 W      # Return Command 6
-WCMD R-TM_MODE-XXXX R     # Command 9
+CCMD R-Status-FFFF W            # Return Command 8
+WCMD R-DATA_ACQ_MODE-XXXX R     # Command 11
 COMM
 COMM ==============================================================================================
-COMM   Check TM_MODE new content: Dump
+COMM   Check DATA_ACQ_MODE new content: Dump
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-TM_MODE-0000 W     # Return Command 7
+CCMD R-DATA_ACQ_MODE-0004 W     # Return Command 9
 WCMD R-Status-XXXX R
 COMM
 COMM ==============================================================================================
 COMM   Check error Last command discarded appears
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-Status-0400 W      # Return Command 8
+CCMD R-Status-FBFF W            # Return Command 10
 WCMD R-Status-XXXX R
 COMM
 COMM ==============================================================================================
-COMM   Check TM_MODE stay to Dump mode
+COMM   Check DATA_ACQ_MODE stay to Dump mode
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-TM_MODE-0000 N     # Return Command 9
+CCMD R-DATA_ACQ_MODE-0004 N     # Return Command 11
 COMM
 COMM ==============================================================================================
 COMM   Wait end of dump mode
 COMM   (c_DMP_SEQ_ACQ_NB * c_MUX_FACT * c_PIXEL_ADC_NB_CYC * c_SC_DATA_SER_W_S * c_CLK_REF_PER_DEF)
 COMM ----------------------------------------------------------------------------------------------
 WAIT 176 us
-WCMD R-TM_MODE-XXXX W     # Command 10
-WCMD W-TM_MODE-0003 W     # Command 11
-WCMD R-TM_MODE-XXXX R     # Command 12
+WCMD R-DATA_ACQ_MODE-XXXX W     # Command 12
+WCMD W-DATA_ACQ_MODE-0007 W     # Command 13
+WCMD R-DATA_ACQ_MODE-XXXX R     # Command 14
 COMM
 COMM ==============================================================================================
-COMM   Check TM_MODE goes to Idle mode
+COMM   Check DATA_ACQ_MODE goes to Idle mode
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-TM_MODE-0001 W     # Return Command 10
-WCMD W-TM_MODE-0000 R     # Command 13
+CCMD R-DATA_ACQ_MODE-0000 W     # Return Command 12
+WCMD W-DATA_ACQ_MODE-0004 R     # Command 15
 COMM
 COMM ==============================================================================================
-COMM   Check no error after write TM_MODE command
+COMM   Check no error after write DATA_ACQ_MODE command
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-Status-0000 W      # Return Command 11
-WCMD R-TM_MODE-XXXX R     # Command 14
+CCMD R-Status-FFFF W            # Return Command 13
+WCMD R-DATA_ACQ_MODE-XXXX R     # Command 16
 COMM
 COMM ==============================================================================================
-COMM   Check TM_MODE new content: Test Pattern
+COMM   Check DATA_ACQ_MODE new content: Test Pattern
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-TM_MODE-0003 W     # Return Command 12
+CCMD R-DATA_ACQ_MODE-0007 W     # Return Command 14
 WCMD R-Status-XXXX R
 COMM
 COMM ==============================================================================================
-COMM   Check no error after write TM_MODE command
+COMM   Check no error after write DATA_ACQ_MODE command
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-Status-0000 W      # Return Command 13
+CCMD R-Status-FFFF W            # Return Command 15
 WCMD R-Status-XXXX R
 COMM
 COMM ==============================================================================================
-COMM   Check TM_MODE new content: Dump
+COMM   Check DATA_ACQ_MODE new content: Dump
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-TM_MODE-0000 N     # Return Command 14
+CCMD R-DATA_ACQ_MODE-0004 N     # Return Command 16
 COMM
 COMM ==============================================================================================
 COMM   Wait end of dump mode
 COMM   (c_DMP_SEQ_ACQ_NB * c_MUX_FACT * c_PIXEL_ADC_NB_CYC * c_SC_DATA_SER_W_S * c_CLK_REF_PER_DEF)
 COMM ----------------------------------------------------------------------------------------------
 WAIT 176 us
-WCMD R-TM_MODE-XXXX W     # Command 15
-WCMD W-TM_MODE-0002 W     # Command 16
-WCMD R-TM_MODE-XXXX R     # Command 17
+WCMD R-DATA_ACQ_MODE-XXXX W     # Command 17
+WCMD W-DATA_ACQ_MODE-0001 W     # Command 18
+WCMD R-DATA_ACQ_MODE-XXXX R     # Command 19
 COMM
 COMM ==============================================================================================
-COMM   Check TM_MODE goes to Idle mode
+COMM   Check DATA_ACQ_MODE goes to Idle mode
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-TM_MODE-0001 W     # Return Command 15
-WCMD W-TM_MODE-0000 R     # Command 18
+CCMD R-DATA_ACQ_MODE-0000 W     # Return Command 17
+WCMD W-DATA_ACQ_MODE-0004 R     # Command 20
 COMM
 COMM ==============================================================================================
-COMM   Check no error after write TM_MODE command
+COMM   Check no error after write DATA_ACQ_MODE command
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-Status-0000 W      # Return Command 16
-WCMD R-TM_MODE-XXXX R     # Command 19
+CCMD R-Status-FFFF W            # Return Command 18
+WCMD R-DATA_ACQ_MODE-XXXX R     # Command 21
 COMM
 COMM ==============================================================================================
-COMM   Check TM_MODE new content: Normal
+COMM   Check DATA_ACQ_MODE new content: Science
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-TM_MODE-0002 W     # Return Command 17
+CCMD R-DATA_ACQ_MODE-0001 W     # Return Command 19
 WCMD R-Status-XXXX R
 COMM
 COMM ==============================================================================================
-COMM   Check no error after write TM_MODE command
+COMM   Check no error after write DATA_ACQ_MODE command
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-Status-0000 W      # Return Command 18
+CCMD R-Status-FFFF W            # Return Command 20
 WCMD R-Status-XXXX R
 COMM
 COMM ==============================================================================================
-COMM   Check TM_MODE new content: Dump
+COMM   Check DATA_ACQ_MODE new content: Dump
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-TM_MODE-0000 N     # Return Command 19
+CCMD R-DATA_ACQ_MODE-0004 N     # Return Command 21
 COMM
 COMM ==============================================================================================
 COMM   Wait end of dump mode
 COMM   (c_DMP_SEQ_ACQ_NB * c_MUX_FACT * c_PIXEL_ADC_NB_CYC * c_SC_DATA_SER_W_S * c_CLK_REF_PER_DEF)
 COMM ----------------------------------------------------------------------------------------------
 WAIT 176 us
-WCMD R-TM_MODE-XXXX W     # Command 20
-WCMD W-TM_MODE-XXX4 W     # Command 21
-WCMD R-TM_MODE-XXXX R     # Command 22
+WCMD R-DATA_ACQ_MODE-XXXX W     # Command 22
+WCMD W-DATA_ACQ_MODE-0002 W     # Command 23
+WCMD R-DATA_ACQ_MODE-XXXX R     # Command 24
 COMM
 COMM ==============================================================================================
-COMM   Check TM_MODE goes back to Normal mode
+COMM   Check DATA_ACQ_MODE goes back to Science mode
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-TM_MODE-0002 W     # Return Command 20
-WCMD W-TM_MODE-XXX8 R     # Command 23
+CCMD R-DATA_ACQ_MODE-0001 W     # Return Command 22
+WCMD W-DATA_ACQ_MODE-0004 R     # Command 25
 COMM
 COMM ==============================================================================================
-COMM   Check error position SPI data out of range detected
+COMM   Check no error after write DATA_ACQ_MODE command
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-Status-1000 W      # Return Command 21
-WCMD R-TM_MODE-XXXX R     # Command 24
+CCMD R-Status-FFFF W            # Return Command 23
+WCMD R-DATA_ACQ_MODE-XXXX R     # Command 26
 COMM
 COMM ==============================================================================================
-COMM   Check TM_MODE no change
+COMM   Check DATA_ACQ_MODE new content: Error signal
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-TM_MODE-0002 W     # Return Command 22
-WCMD W-TM_MODE-XX1X R     # Command 25
-COMM
-COMM ==============================================================================================
-COMM   Check error position SPI data out of range detected
-COMM ----------------------------------------------------------------------------------------------
-CCMD R-Status-1000 W      # Return Command 23
-WCMD R-TM_MODE-XXXX R     # Command 26
-COMM
-COMM ==============================================================================================
-COMM   Check TM_MODE no change
-COMM ----------------------------------------------------------------------------------------------
-CCMD R-TM_MODE-0002 W     # Return Command 24
-WCMD W-TM_MODE-XX2X R     # Command 27
-COMM
-COMM ==============================================================================================
-COMM   Check error position SPI data out of range detected
-COMM ----------------------------------------------------------------------------------------------
-CCMD R-Status-1000 W      # Return Command 25
-WCMD R-TM_MODE-XXXX R     # Command 28
-COMM
-COMM ==============================================================================================
-COMM   Check TM_MODE no change
-COMM ----------------------------------------------------------------------------------------------
-CCMD R-TM_MODE-0002 W     # Return Command 26
-WCMD W-TM_MODE-XX4X R     # Command 29
-COMM
-COMM ==============================================================================================
-COMM   Check error position SPI data out of range detected
-COMM ----------------------------------------------------------------------------------------------
-CCMD R-Status-1000 W      # Return Command 27
-WCMD R-TM_MODE-XXXX R     # Command 30
-COMM
-COMM ==============================================================================================
-COMM   Check TM_MODE no change
-COMM ----------------------------------------------------------------------------------------------
-CCMD R-TM_MODE-0002 W     # Return Command 28
-WCMD W-TM_MODE-XX8X R     # Command 31
-COMM
-COMM ==============================================================================================
-COMM   Check error position SPI data out of range detected
-COMM ----------------------------------------------------------------------------------------------
-CCMD R-Status-1000 W      # Return Command 29
-WCMD R-TM_MODE-XXXX R     # Command 32
-COMM
-COMM ==============================================================================================
-COMM   Check TM_MODE no change
-COMM ----------------------------------------------------------------------------------------------
-CCMD R-TM_MODE-0002 W     # Return Command 30
-WCMD W-TM_MODE-X1XX R     # Command 33
-COMM
-COMM ==============================================================================================
-COMM   Check error position SPI data out of range detected
-COMM ----------------------------------------------------------------------------------------------
-CCMD R-Status-1000 W      # Return Command 31
-WCMD R-TM_MODE-XXXX R     # Command 34
-COMM
-COMM ==============================================================================================
-COMM   Check TM_MODE no change
-COMM ----------------------------------------------------------------------------------------------
-CCMD R-TM_MODE-0002 W     # Return Command 32
-WCMD W-TM_MODE-X2XX R     # Command 35
-COMM
-COMM ==============================================================================================
-COMM   Check error position SPI data out of range detected
-COMM ----------------------------------------------------------------------------------------------
-CCMD R-Status-1000 W      # Return Command 33
-WCMD R-TM_MODE-XXXX R     # Command 36
-COMM
-COMM ==============================================================================================
-COMM   Check TM_MODE no change
-COMM ----------------------------------------------------------------------------------------------
-CCMD R-TM_MODE-0002 W     # Return Command 34
-WCMD W-TM_MODE-X4XX R     # Command 37
-COMM
-COMM ==============================================================================================
-COMM   Check error position SPI data out of range detected
-COMM ----------------------------------------------------------------------------------------------
-CCMD R-Status-1000 W      # Return Command 35
-WCMD R-TM_MODE-XXXX R     # Command 38
-COMM
-COMM ==============================================================================================
-COMM   Check TM_MODE no change
-COMM ----------------------------------------------------------------------------------------------
-CCMD R-TM_MODE-0002 W     # Return Command 36
-WCMD W-TM_MODE-X8XX R     # Command 39
-COMM
-COMM ==============================================================================================
-COMM   Check error position SPI data out of range detected
-COMM ----------------------------------------------------------------------------------------------
-CCMD R-Status-1000 W      # Return Command 37
-WCMD R-TM_MODE-XXXX R     # Command 40
-COMM
-COMM ==============================================================================================
-COMM   Check TM_MODE no change
-COMM ----------------------------------------------------------------------------------------------
-CCMD R-TM_MODE-0002 W     # Return Command 38
-WCMD W-TM_MODE-1XXX R     # Command 41
-COMM
-COMM ==============================================================================================
-COMM   Check error position SPI data out of range detected
-COMM ----------------------------------------------------------------------------------------------
-CCMD R-Status-1000 W      # Return Command 39
-WCMD R-TM_MODE-XXXX R     # Command 42
-COMM
-COMM ==============================================================================================
-COMM   Check TM_MODE no change
-COMM ----------------------------------------------------------------------------------------------
-CCMD R-TM_MODE-0002 W     # Return Command 40
-WCMD W-TM_MODE-2XXX R     # Command 43
-COMM
-COMM ==============================================================================================
-COMM   Check error position SPI data out of range detected
-COMM ----------------------------------------------------------------------------------------------
-CCMD R-Status-1000 W      # Return Command 41
-WCMD R-TM_MODE-XXXX R     # Command 44
-COMM
-COMM ==============================================================================================
-COMM   Check TM_MODE no change
-COMM ----------------------------------------------------------------------------------------------
-CCMD R-TM_MODE-0002 W     # Return Command 42
-WCMD W-TM_MODE-4XXX R     # Command 45
-COMM
-COMM ==============================================================================================
-COMM   Check error position SPI data out of range detected
-COMM ----------------------------------------------------------------------------------------------
-CCMD R-Status-1000 W      # Return Command 43
-WCMD R-TM_MODE-XXXX R     # Command 46
-COMM
-COMM ==============================================================================================
-COMM   Check TM_MODE no change
-COMM ----------------------------------------------------------------------------------------------
-CCMD R-TM_MODE-0002 W     # Return Command 44
-WCMD W-TM_MODE-8XXX R     # Command 47
-COMM
-COMM ==============================================================================================
-COMM   Check error position SPI data out of range detected
-COMM ----------------------------------------------------------------------------------------------
-CCMD R-Status-1000 W      # Return Command 45
+CCMD R-DATA_ACQ_MODE-0002 W     # Return Command 24
 WCMD R-Status-XXXX R
 COMM
 COMM ==============================================================================================
-COMM   Check TM_MODE no change
+COMM   Check no error after write DATA_ACQ_MODE command
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-TM_MODE-0002 W     # Return Command 46
+CCMD R-Status-FFFF W            # Return Command 25
+WCMD R-Status-XXXX R
+COMM
+COMM ==============================================================================================
+COMM   Check DATA_ACQ_MODE new content: Dump
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-DATA_ACQ_MODE-0004 N     # Return Command 26
+COMM
+COMM ==============================================================================================
+COMM   Wait end of dump mode
+COMM   (c_DMP_SEQ_ACQ_NB * c_MUX_FACT * c_PIXEL_ADC_NB_CYC * c_SC_DATA_SER_W_S * c_CLK_REF_PER_DEF)
+COMM ----------------------------------------------------------------------------------------------
+WAIT 176 us
+WCMD R-DATA_ACQ_MODE-XXXX W     # Command 27
+WCMD W-DATA_ACQ_MODE-XXX3 W     # Command 28
+WCMD R-DATA_ACQ_MODE-XXXX R     # Command 29
+COMM
+COMM ==============================================================================================
+COMM   Check DATA_ACQ_MODE goes back to Error signal mode
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-DATA_ACQ_MODE-0002 W     # Return Command 27
+WCMD W-DATA_ACQ_MODE-XXX8 R     # Command 30
+COMM
+COMM ==============================================================================================
+COMM   Check error position SPI data out of range detected
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-Status-EFFF W            # Return Command 28
+WCMD R-DATA_ACQ_MODE-XXXX R     # Command 31
+COMM
+COMM ==============================================================================================
+COMM   Check DATA_ACQ_MODE no change
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-DATA_ACQ_MODE-0002 W     # Return Command 29
+WCMD W-DATA_ACQ_MODE-XX1X R     # Command 32
+COMM
+COMM ==============================================================================================
+COMM   Check error position SPI data out of range detected
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-Status-EFFF W            # Return Command 30
+WCMD R-DATA_ACQ_MODE-XXXX R     # Command 33
+COMM
+COMM ==============================================================================================
+COMM   Check DATA_ACQ_MODE no change
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-DATA_ACQ_MODE-0002 W     # Return Command 31
+WCMD W-DATA_ACQ_MODE-XX2X R     # Command 34
+COMM
+COMM ==============================================================================================
+COMM   Check error position SPI data out of range detected
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-Status-EFFF W            # Return Command 32
+WCMD R-DATA_ACQ_MODE-XXXX R     # Command 35
+COMM
+COMM ==============================================================================================
+COMM   Check DATA_ACQ_MODE no change
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-DATA_ACQ_MODE-0002 W     # Return Command 33
+WCMD W-DATA_ACQ_MODE-XX4X R     # Command 36
+COMM
+COMM ==============================================================================================
+COMM   Check error position SPI data out of range detected
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-Status-EFFF W            # Return Command 34
+WCMD R-DATA_ACQ_MODE-XXXX R     # Command 37
+COMM
+COMM ==============================================================================================
+COMM   Check DATA_ACQ_MODE no change
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-DATA_ACQ_MODE-0002 W     # Return Command 35
+WCMD W-DATA_ACQ_MODE-XX8X R     # Command 38
+COMM
+COMM ==============================================================================================
+COMM   Check error position SPI data out of range detected
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-Status-EFFF W            # Return Command 36
+WCMD R-DATA_ACQ_MODE-XXXX R     # Command 39
+COMM
+COMM ==============================================================================================
+COMM   Check DATA_ACQ_MODE no change
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-DATA_ACQ_MODE-0002 W     # Return Command 37
+WCMD W-DATA_ACQ_MODE-X1XX R     # Command 40
+COMM
+COMM ==============================================================================================
+COMM   Check error position SPI data out of range detected
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-Status-EFFF W            # Return Command 38
+WCMD R-DATA_ACQ_MODE-XXXX R     # Command 41
+COMM
+COMM ==============================================================================================
+COMM   Check DATA_ACQ_MODE no change
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-DATA_ACQ_MODE-0002 W     # Return Command 39
+WCMD W-DATA_ACQ_MODE-X2XX R     # Command 42
+COMM
+COMM ==============================================================================================
+COMM   Check error position SPI data out of range detected
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-Status-EFFF W            # Return Command 40
+WCMD R-DATA_ACQ_MODE-XXXX R     # Command 43
+COMM
+COMM ==============================================================================================
+COMM   Check DATA_ACQ_MODE no change
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-DATA_ACQ_MODE-0002 W     # Return Command 41
+WCMD W-DATA_ACQ_MODE-X4XX R     # Command 44
+COMM
+COMM ==============================================================================================
+COMM   Check error position SPI data out of range detected
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-Status-EFFF W            # Return Command 42
+WCMD R-DATA_ACQ_MODE-XXXX R     # Command 45
+COMM
+COMM ==============================================================================================
+COMM   Check DATA_ACQ_MODE no change
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-DATA_ACQ_MODE-0002 W     # Return Command 43
+WCMD W-DATA_ACQ_MODE-X8XX R     # Command 46
+COMM
+COMM ==============================================================================================
+COMM   Check error position SPI data out of range detected
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-Status-EFFF W            # Return Command 44
+WCMD R-DATA_ACQ_MODE-XXXX R     # Command 47
+COMM
+COMM ==============================================================================================
+COMM   Check DATA_ACQ_MODE no change
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-DATA_ACQ_MODE-0002 W     # Return Command 45
+WCMD W-DATA_ACQ_MODE-1XXX R     # Command 48
+COMM
+COMM ==============================================================================================
+COMM   Check error position SPI data out of range detected
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-Status-EFFF W            # Return Command 46
+WCMD R-DATA_ACQ_MODE-XXXX R     # Command 49
+COMM
+COMM ==============================================================================================
+COMM   Check DATA_ACQ_MODE no change
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-DATA_ACQ_MODE-0002 W     # Return Command 47
+WCMD W-DATA_ACQ_MODE-2XXX R     # Command 50
+COMM
+COMM ==============================================================================================
+COMM   Check error position SPI data out of range detected
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-Status-EFFF W            # Return Command 48
+WCMD R-DATA_ACQ_MODE-XXXX R     # Command 51
+COMM
+COMM ==============================================================================================
+COMM   Check DATA_ACQ_MODE no change
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-DATA_ACQ_MODE-0002 W     # Return Command 49
+WCMD W-DATA_ACQ_MODE-4XXX R     # Command 52
+COMM
+COMM ==============================================================================================
+COMM   Check error position SPI data out of range detected
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-Status-EFFF W            # Return Command 50
+WCMD R-DATA_ACQ_MODE-XXXX R     # Command 53
+COMM
+COMM ==============================================================================================
+COMM   Check DATA_ACQ_MODE no change
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-DATA_ACQ_MODE-0002 W     # Return Command 51
+WCMD W-DATA_ACQ_MODE-8XXX R     # Command 54
+COMM
+COMM ==============================================================================================
+COMM   Check error position SPI data out of range detected
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-Status-EFFF W            # Return Command 52
+WCMD R-DATA_ACQ_MODE-XXXX R     # Command 55
+COMM
+COMM ==============================================================================================
+COMM   Check DATA_ACQ_MODE no change
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-DATA_ACQ_MODE-0002 W     # Return Command 53
+WCMD W-DATA_ACQ_MODE-XXX5 R     # Command 56
+COMM
+COMM ==============================================================================================
+COMM   Check error position SPI data out of range detected
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-Status-EFFF W            # Return Command 54
+WCMD R-DATA_ACQ_MODE-XXXX R     # Command 57
+COMM
+COMM ==============================================================================================
+COMM   Check DATA_ACQ_MODE no change
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-DATA_ACQ_MODE-0002 W     # Return Command 55
+WCMD W-DATA_ACQ_MODE-XXX6 R     # Command 58
+COMM
+COMM ==============================================================================================
+COMM   Check error position SPI data out of range detected
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-Status-EFFF W            # Return Command 56
+WCMD R-Status-XXXX R
+COMM
+COMM ==============================================================================================
+COMM   Check DATA_ACQ_MODE no change
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-DATA_ACQ_MODE-0002 W     # Return Command 57
 WCMD R-Status-XXXX R
 COMM
 COMM ==============================================================================================
 COMM   Check error position SPI data out of range detected
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-Status-1000 N      # Return Command 47
+CCMD R-Status-EFFF N            # Return Command 58

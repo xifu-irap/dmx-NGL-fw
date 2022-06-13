@@ -36,22 +36,22 @@ use     work.pkg_project.all;
 use     work.pkg_ep_cmd.all;
 
 entity squid_adc_mgt is port
-   (     i_rst_sys_sq1_adc    : in     std_logic                                                            ; --! Reset for SQUID1 ADC, de-assertion on system clock ('0' = Inactive, '1' = Active)
-         i_clk_sq1_adc_dac    : in     std_logic                                                            ; --! SQUID1 ADC/DAC internal Clock
+   (     i_rst_sys_sqm_adc    : in     std_logic                                                            ; --! Reset for SQUID MUX ADC, de-assertion on system clock ('0' = Inactive, '1' = Active)
+         i_clk_sqm_adc_dac    : in     std_logic                                                            ; --! SQUID MUX ADC/DAC internal Clock
 
          i_rst                : in     std_logic                                                            ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                : in     std_logic                                                            ; --! System Clock
 
          i_sync_rs            : in     std_logic                                                            ; --! Pixel sequence synchronization, synchronized on System Clock
-         i_tm_mode_dmp_cmp    : in     std_logic                                                            ; --! Telemetry mode, status "Dump" compared ('0' = Inactive, '1' = Active)
-         i_sq1_adc_data       : in     std_logic_vector(c_SQ1_ADC_DATA_S-1 downto 0)                        ; --! SQUID1 ADC: Data, no rsync
-         i_sq1_adc_oor        : in     std_logic                                                            ; --! SQUID1 ADC: Out of range, no rsync ('0'= No, '1'= under/over range)
+         i_aqmde_dmp_cmp      : in     std_logic                                                            ; --! Telemetry mode, status "Dump" compared ('0' = Inactive, '1' = Active)
+         i_sqm_adc_data       : in     std_logic_vector(c_SQM_ADC_DATA_S-1 downto 0)                        ; --! SQUID MUX ADC: Data, no rsync
+         i_sqm_adc_oor        : in     std_logic                                                            ; --! SQUID MUX ADC: Out of range, no rsync ('0'= No, '1'= under/over range)
 
-         i_sq1_mem_dump_add   : in     std_logic_vector(c_MEM_DUMP_ADD_S-1 downto 0)                        ; --! SQUID1 Memory Dump: address
-         o_sq1_mem_dump_data  : out    std_logic_vector(c_SQ1_ADC_DATA_S+1 downto 0)                        ; --! SQUID1 Memory Dump: data
-         o_sq1_mem_dump_bsy   : out    std_logic                                                            ; --! SQUID1 Memory Dump: data busy ('0' = no data dump, '1' = data dump in progress)
+         i_sqm_mem_dump_add   : in     std_logic_vector(c_MEM_DUMP_ADD_S-1 downto 0)                        ; --! SQUID MUX Memory Dump: address
+         o_sqm_mem_dump_data  : out    std_logic_vector(c_SQM_ADC_DATA_S+1 downto 0)                        ; --! SQUID MUX Memory Dump: data
+         o_sqm_mem_dump_bsy   : out    std_logic                                                            ; --! SQUID MUX Memory Dump: data busy ('0' = no data dump, '1' = data dump in progress)
 
-         o_sq1_data_err       : out    std_logic_vector(c_SQ1_DATA_ERR_S-1 downto 0)                          --! SQUID1 Data error
+         o_sqm_data_err       : out    std_logic_vector(c_SQM_DATA_ERR_S-1 downto 0)                          --! SQUID MUX Data error
    );
 end entity squid_adc_mgt;
 
@@ -62,63 +62,63 @@ constant c_DMP_CNT_NB_VAL     : integer:= c_DMP_SEQ_ACQ_NB * c_MUX_FACT * c_PIXE
 constant c_DMP_CNT_MAX_VAL    : integer:= c_DMP_CNT_NB_VAL-1                                                ; --! Dump counter: maximal value
 constant c_DMP_CNT_S          : integer:= log2_ceil(c_DMP_CNT_MAX_VAL + 1) + 1                              ; --! Dump counter: size bus (signed)
 
-constant c_MEM_DUMP_DATA_S    : integer := c_SQ1_ADC_DATA_S + 1                                             ; --! Memory Dump: data bus size (<= c_RAM_DATA_S)
+constant c_MEM_DUMP_DATA_S    : integer := c_SQM_ADC_DATA_S + 1                                             ; --! Memory Dump: data bus size (<= c_RAM_DATA_S)
 
-signal   rst_sq1_adc          : std_logic                                                                   ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+signal   rst_sqm_adc          : std_logic                                                                   ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
 
 signal   sync_r               : std_logic_vector(c_ADC_DATA_SYNC_NPER+c_FF_RSYNC_NB-1 downto 0)             ; --! Pixel sequence sync. register (R.E. detected = position sequence to the first pixel)
-signal   tm_mode_dmp_cmp_r    : std_logic_vector(c_FF_RSYNC_NB-1 downto 0)                                  ; --! Telemetry mode, status "Dump" compared ('0' = Inactive, '1' = Active)
-signal   sq1_adc_data_r       : t_slv_arr(0 to c_FF_RSYNC_NB-1)(c_SQ1_ADC_DATA_S-1 downto 0)                ; --! SQUID1 ADC: Data register
-signal   sq1_adc_oor_r        : std_logic_vector(c_FF_RSYNC_NB-1 downto 0)                                  ; --! SQUID1 ADC: Out of range register ('0' = No, '1' = under/over range)
+signal   aqmde_dmp_cmp_r      : std_logic_vector(c_FF_RSYNC_NB-1 downto 0)                                  ; --! Telemetry mode, status "Dump" compared ('0' = Inactive, '1' = Active)
+signal   sqm_adc_data_r       : t_slv_arr(0 to c_FF_RSYNC_NB-1)(c_SQM_ADC_DATA_S-1 downto 0)                ; --! SQUID MUX ADC: Data register
+signal   sqm_adc_oor_r        : std_logic_vector(c_FF_RSYNC_NB-1 downto 0)                                  ; --! SQUID MUX ADC: Out of range register ('0' = No, '1' = under/over range)
 
 signal   mem_dump_adc_cs_rs   : std_logic_vector(c_FF_RSYNC_NB-1 downto 0)                                  ; --! Memory Dump, ADC acquisition side: chip select, resynchronized on system clock
 
 signal   sync_re_adc_data     : std_logic                                                                   ; --! Pixel sequence synchronization, rising edge, synchronized on ADC data first pixel
-signal   tm_mode_dmp_cmp_sync : std_logic_vector(c_FF_RSYNC_NB-1 downto 0)                                  ; --! Telemetry mode, status "Dump" compared sync. on Pixel sequence sync.
+signal   aqmde_dmp_cmp_sync   : std_logic_vector(c_FF_RSYNC_NB-1 downto 0)                                  ; --! Telemetry mode, status "Dump" compared sync. on Pixel sequence sync.
 
 signal   mem_dump_adc_cnt_w   : std_logic_vector(     c_DMP_CNT_S-1 downto 0)                               ; --! Memory Dump, ADC acquisition side: counter words
 signal   mem_dump_adc         : t_mem(add(c_MEM_DUMP_ADD_S-1 downto 0),data_w(c_MEM_DUMP_DATA_S-1 downto 0)); --! Memory Dump, ADC acquisition side inputs
 
-signal   mem_dump_sc          : t_mem(add(c_MEM_DUMP_ADD_S-1 downto 0),data_w(c_MEM_DUMP_DATA_S-1 downto 0)); --! Memory Dump, Science TM side inputs
-signal   mem_dump_data_out    : std_logic_vector(c_MEM_DUMP_DATA_S-1 downto 0)                              ; --! Memory Dump, Science TM side: data out
-signal   mem_dump_flg_err     : std_logic                                                                   ; --! Memory Dump, Science TM side: flag error uncorrectable detected ('0' = No, '1' = Yes)
+signal   mem_dump_sc          : t_mem(add(c_MEM_DUMP_ADD_S-1 downto 0),data_w(c_MEM_DUMP_DATA_S-1 downto 0)); --! Memory Dump, Science Acquisition side inputs
+signal   mem_dump_data_out    : std_logic_vector(c_MEM_DUMP_DATA_S-1 downto 0)                              ; --! Memory Dump, Science Acquisition side: data out
+signal   mem_dump_flg_err     : std_logic                                                                   ; --! Memory Dump, Science Acquisition side: flag error uncorrectable detected ('0' = No, '1' = Yes)
 
 begin
 
    -- ------------------------------------------------------------------------------------------------------
-   --!   Reset on SQUID1 pulse shaping Clock generation
+   --!   Reset on SQUID MUX pulse shaping Clock generation
    --!     Necessity to generate local reset in order to reach expected frequency
    --    @Req : DRE-DMX-FW-REQ-0050
    -- ------------------------------------------------------------------------------------------------------
-   I_rst_sq1_adc: entity work.signal_reg generic map
+   I_rst_sqm_adc: entity work.signal_reg generic map
    (     g_SIG_FF_NB          => c_FF_RST_ADC_DAC_NB  , -- integer                                          ; --! Signal registered flip-flop number
          g_SIG_DEF            => '1'                    -- std_logic                                          --! Signal registered default value at reset
    )  port map
-   (     i_reset              => i_rst_sys_sq1_adc    , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
-         i_clock              => i_clk_sq1_adc_dac    , -- in     std_logic                                 ; --! Clock
+   (     i_reset              => i_rst_sys_sqm_adc    , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+         i_clock              => i_clk_sqm_adc_dac    , -- in     std_logic                                 ; --! Clock
 
          i_sig                => '0'                  , -- in     std_logic                                 ; --! Signal
-         o_sig_r              => rst_sq1_adc            -- out    std_logic                                   --! Signal registered
+         o_sig_r              => rst_sqm_adc            -- out    std_logic                                   --! Signal registered
    );
 
    -- ------------------------------------------------------------------------------------------------------
-   --!   Inputs Resynchronization on SQUID1 ADC acquisition Clock
+   --!   Inputs Resynchronization on SQUID MUX ADC acquisition Clock
    --    @Req : DRE-DMX-FW-REQ-0100
    -- ------------------------------------------------------------------------------------------------------
-   P_in_rsync : process (rst_sq1_adc, i_clk_sq1_adc_dac)
+   P_in_rsync : process (rst_sqm_adc, i_clk_sqm_adc_dac)
    begin
 
-      if rst_sq1_adc = '1' then
+      if rst_sqm_adc = '1' then
          sync_r            <= (others => c_I_SYNC_DEF);
-         tm_mode_dmp_cmp_r <= (others => '0');
-         sq1_adc_data_r    <= (others => c_I_SQ1_ADC_DATA_DEF);
-         sq1_adc_oor_r     <= (others => c_I_SQ1_ADC_OOR_DEF);
+         aqmde_dmp_cmp_r <= (others => '0');
+         sqm_adc_data_r    <= (others => c_I_SQM_ADC_DATA_DEF);
+         sqm_adc_oor_r     <= (others => c_I_SQM_ADC_OOR_DEF);
 
-      elsif rising_edge(i_clk_sq1_adc_dac) then
+      elsif rising_edge(i_clk_sqm_adc_dac) then
          sync_r            <= sync_r(sync_r'high-1 downto 0) & i_sync_rs;
-         tm_mode_dmp_cmp_r <= tm_mode_dmp_cmp_r(tm_mode_dmp_cmp_r'high-1  downto 0) & i_tm_mode_dmp_cmp;
-         sq1_adc_data_r    <= i_sq1_adc_data & sq1_adc_data_r(0 to sq1_adc_data_r'high-1);
-         sq1_adc_oor_r     <= sq1_adc_oor_r(sq1_adc_oor_r'high-1 downto 0) & i_sq1_adc_oor;
+         aqmde_dmp_cmp_r <= aqmde_dmp_cmp_r(aqmde_dmp_cmp_r'high-1  downto 0) & i_aqmde_dmp_cmp;
+         sqm_adc_data_r    <= i_sqm_adc_data & sqm_adc_data_r(0 to sqm_adc_data_r'high-1);
+         sqm_adc_oor_r     <= sqm_adc_oor_r(sqm_adc_oor_r'high-1 downto 0) & i_sqm_adc_oor;
 
       end if;
 
@@ -127,18 +127,18 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   Signals registered
    -- ------------------------------------------------------------------------------------------------------
-   P_reg : process (rst_sq1_adc, i_clk_sq1_adc_dac)
+   P_reg : process (rst_sqm_adc, i_clk_sqm_adc_dac)
    begin
 
-      if rst_sq1_adc = '1' then
+      if rst_sqm_adc = '1' then
          sync_re_adc_data     <= '0';
-         tm_mode_dmp_cmp_sync <= (others => '0');
+         aqmde_dmp_cmp_sync <= (others => '0');
 
-      elsif rising_edge(i_clk_sq1_adc_dac) then
+      elsif rising_edge(i_clk_sqm_adc_dac) then
          sync_re_adc_data  <= not(sync_r(sync_r'high)) and sync_r(sync_r'high-1);
 
          if sync_re_adc_data = '1' then
-            tm_mode_dmp_cmp_sync <= tm_mode_dmp_cmp_sync(tm_mode_dmp_cmp_sync'high-1 downto 0) & tm_mode_dmp_cmp_r(tm_mode_dmp_cmp_r'high);
+            aqmde_dmp_cmp_sync <= aqmde_dmp_cmp_sync(aqmde_dmp_cmp_sync'high-1 downto 0) & aqmde_dmp_cmp_r(aqmde_dmp_cmp_r'high);
 
          end if;
 
@@ -148,16 +148,16 @@ begin
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Dual port memory for data transfer in Dump mode: writing data signals
-   --!      (SQUID1 ADC acquisition Clock side)
+   --!      (SQUID MUX ADC acquisition Clock side)
    -- ------------------------------------------------------------------------------------------------------
-   P_mem_dump_adc_cnt_w : process (rst_sq1_adc, i_clk_sq1_adc_dac)
+   P_mem_dump_adc_cnt_w : process (rst_sqm_adc, i_clk_sqm_adc_dac)
    begin
 
-      if rst_sq1_adc = '1' then
+      if rst_sqm_adc = '1' then
          mem_dump_adc_cnt_w   <= (others => '1');
 
-      elsif rising_edge(i_clk_sq1_adc_dac) then
-         if (mem_dump_adc_cnt_w(mem_dump_adc_cnt_w'high) and not(tm_mode_dmp_cmp_sync(tm_mode_dmp_cmp_sync'high)) and tm_mode_dmp_cmp_sync(tm_mode_dmp_cmp_sync'high-1) and sync_re_adc_data) = '1' then
+      elsif rising_edge(i_clk_sqm_adc_dac) then
+         if (mem_dump_adc_cnt_w(mem_dump_adc_cnt_w'high) and not(aqmde_dmp_cmp_sync(aqmde_dmp_cmp_sync'high)) and aqmde_dmp_cmp_sync(aqmde_dmp_cmp_sync'high-1) and sync_re_adc_data) = '1' then
             mem_dump_adc_cnt_w <= std_logic_vector(to_unsigned(c_DMP_CNT_MAX_VAL, mem_dump_adc_cnt_w'length));
 
          elsif mem_dump_adc_cnt_w(mem_dump_adc_cnt_w'high) = '0' then
@@ -173,8 +173,8 @@ begin
    mem_dump_adc.we   <= '1';
    mem_dump_adc.cs   <= not(mem_dump_adc_cnt_w(mem_dump_adc_cnt_w'high));
 
-   mem_dump_adc.data_w(c_SQ1_ADC_DATA_S-1 downto 0) <= sq1_adc_data_r(sq1_adc_data_r'high);
-   mem_dump_adc.data_w(c_SQ1_ADC_DATA_S)            <= sq1_adc_oor_r(sq1_adc_oor_r'high);
+   mem_dump_adc.data_w(c_SQM_ADC_DATA_S-1 downto 0) <= sqm_adc_data_r(sqm_adc_data_r'high);
+   mem_dump_adc.data_w(c_SQM_ADC_DATA_S)            <= sqm_adc_oor_r(sqm_adc_oor_r'high);
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Dual port memory for data transfer in Dump mode
@@ -186,7 +186,7 @@ begin
          g_RAM_INIT           => c_RAM_INIT_EMPTY       -- t_int_arr                                          --! Memory content at initialization
    ) port map
    (     i_a_rst              => '0'                  , -- in     std_logic                                 ; --! Memory port A: registers reset ('0' = Inactive, '1' = Active)
-         i_a_clk              => i_clk_sq1_adc_dac    , -- in     std_logic                                 ; --! Memory port A: main clock
+         i_a_clk              => i_clk_sqm_adc_dac    , -- in     std_logic                                 ; --! Memory port A: main clock
          i_a_clk_shift        => '0'                  , -- in     std_logic                                 ; --! Memory port A: 90 degrees shifted clock (used for memory content correction)
 
          i_a_mem              => mem_dump_adc         , -- in     t_mem( add(g_RAM_ADD_S-1 downto 0), ...)  ; --! Memory port A inputs (scrubbing with ping-pong buffer bit for parameters storage)
@@ -210,7 +210,7 @@ begin
    --!      (System Clock side)
    -- ------------------------------------------------------------------------------------------------------
    mem_dump_sc.pp       <= '0';
-   mem_dump_sc.add      <= i_sq1_mem_dump_add;
+   mem_dump_sc.add      <= i_sqm_mem_dump_add;
    mem_dump_sc.we       <= '0';
    mem_dump_sc.cs       <= '1';
    mem_dump_sc.data_w   <= (others => '0');
@@ -219,8 +219,8 @@ begin
    --!   Dual port memory for data transfer in Dump mode: reading data signals
    --!      (System Clock side)
    -- ------------------------------------------------------------------------------------------------------
-   o_sq1_mem_dump_data(c_MEM_DUMP_DATA_S-1 downto 0)  <= mem_dump_data_out;
-   o_sq1_mem_dump_data(c_MEM_DUMP_DATA_S)             <= mem_dump_flg_err;
+   o_sqm_mem_dump_data(c_MEM_DUMP_DATA_S-1 downto 0)  <= mem_dump_data_out;
+   o_sqm_mem_dump_data(c_MEM_DUMP_DATA_S)             <= mem_dump_flg_err;
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Outputs Resynchronization on System Clock
@@ -238,9 +238,9 @@ begin
 
    end process P_out_rsync;
 
-   o_sq1_mem_dump_bsy <= mem_dump_adc_cs_rs(mem_dump_adc_cs_rs'high);
+   o_sqm_mem_dump_bsy <= mem_dump_adc_cs_rs(mem_dump_adc_cs_rs'high);
 
    -- TODO
-   o_sq1_data_err <= (others => '0');
+   o_sqm_data_err <= (others => '0');
 
 end architecture RTL;

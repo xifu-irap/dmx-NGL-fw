@@ -99,39 +99,39 @@ constant c_CMD_NAME_STR_MAX_S : integer := 30                                   
 constant c_DR_D_RST           : integer :=  0                                                               ; --! Discrete input index, signal: i_d_rst
 constant c_DR_CLK_REF         : integer :=  1                                                               ; --! Discrete input index, signal: i_clk_ref
 constant c_DR_D_CLK           : integer :=  2                                                               ; --! Discrete input index, signal: i_d_clk
-constant c_DR_D_CLK_SQ1_ADC   : integer :=  3                                                               ; --! Discrete input index, signal: i_d_clk_sq1_adc_acq
-constant c_DR_D_CLK_SQ1_PLS_SH: integer :=  4                                                               ; --! Discrete input index, signal: i_d_clk_sq1_pls_shap
+constant c_DR_D_CLK_SQM_ADC   : integer :=  3                                                               ; --! Discrete input index, signal: i_d_clk_sqm_adc_acq
+constant c_DR_D_CLK_SQM_PLS_SH: integer :=  4                                                               ; --! Discrete input index, signal: i_d_clk_sqm_pls_shap
 constant c_DR_EP_CMD_BUSY_N   : integer :=  5                                                               ; --! Discrete input index, signal: i_ep_cmd_busy_n
 constant c_DR_EP_DATA_RX_RDY  : integer :=  6                                                               ; --! Discrete input index, signal: i_ep_data_rx_rdy
-constant c_DR_D_RST_SQ1_ADC_0 : integer :=  7                                                               ; --! Discrete input index, signal: i_d_rst_sq1_adc(0)
-constant c_DR_D_RST_SQ1_ADC_1 : integer :=  8                                                               ; --! Discrete input index, signal: i_d_rst_sq1_adc(1)
-constant c_DR_D_RST_SQ1_ADC_2 : integer :=  9                                                               ; --! Discrete input index, signal: i_d_rst_sq1_adc(2)
-constant c_DR_D_RST_SQ1_ADC_3 : integer :=  10                                                              ; --! Discrete input index, signal: i_d_rst_sq1_adc(3)
-constant c_DR_D_RST_SQ1_DAC_0 : integer :=  11                                                              ; --! Discrete input index, signal: i_d_rst_sq1_dac(0)
-constant c_DR_D_RST_SQ1_DAC_1 : integer :=  12                                                              ; --! Discrete input index, signal: i_d_rst_sq1_dac(1)
-constant c_DR_D_RST_SQ1_DAC_2 : integer :=  13                                                              ; --! Discrete input index, signal: i_d_rst_sq1_dac(2)
-constant c_DR_D_RST_SQ1_DAC_3 : integer :=  14                                                              ; --! Discrete input index, signal: i_d_rst_sq1_dac(3)
-constant c_DR_D_RST_SQ2_MUX_0 : integer :=  15                                                              ; --! Discrete input index, signal: i_d_rst_sq2_mux(0)
-constant c_DR_D_RST_SQ2_MUX_1 : integer :=  16                                                              ; --! Discrete input index, signal: i_d_rst_sq2_mux(1)
-constant c_DR_D_RST_SQ2_MUX_2 : integer :=  17                                                              ; --! Discrete input index, signal: i_d_rst_sq2_mux(2)
-constant c_DR_D_RST_SQ2_MUX_3 : integer :=  18                                                              ; --! Discrete input index, signal: i_d_rst_sq2_mux(3)
+constant c_DR_D_RST_SQM_ADC_0 : integer :=  7                                                               ; --! Discrete input index, signal: i_d_rst_sqm_adc(0)
+constant c_DR_D_RST_SQM_ADC_1 : integer :=  8                                                               ; --! Discrete input index, signal: i_d_rst_sqm_adc(1)
+constant c_DR_D_RST_SQM_ADC_2 : integer :=  9                                                               ; --! Discrete input index, signal: i_d_rst_sqm_adc(2)
+constant c_DR_D_RST_SQM_ADC_3 : integer :=  10                                                              ; --! Discrete input index, signal: i_d_rst_sqm_adc(3)
+constant c_DR_D_RST_SQM_DAC_0 : integer :=  11                                                              ; --! Discrete input index, signal: i_d_rst_sqm_dac(0)
+constant c_DR_D_RST_SQM_DAC_1 : integer :=  12                                                              ; --! Discrete input index, signal: i_d_rst_sqm_dac(1)
+constant c_DR_D_RST_SQM_DAC_2 : integer :=  13                                                              ; --! Discrete input index, signal: i_d_rst_sqm_dac(2)
+constant c_DR_D_RST_SQM_DAC_3 : integer :=  14                                                              ; --! Discrete input index, signal: i_d_rst_sqm_dac(3)
+constant c_DR_D_RST_SQA_MUX_0 : integer :=  15                                                              ; --! Discrete input index, signal: i_d_rst_sqa_mux(0)
+constant c_DR_D_RST_SQA_MUX_1 : integer :=  16                                                              ; --! Discrete input index, signal: i_d_rst_sqa_mux(1)
+constant c_DR_D_RST_SQA_MUX_2 : integer :=  17                                                              ; --! Discrete input index, signal: i_d_rst_sqa_mux(2)
+constant c_DR_D_RST_SQA_MUX_3 : integer :=  18                                                              ; --! Discrete input index, signal: i_d_rst_sqa_mux(3)
 constant c_DR_SYNC            : integer :=  19                                                              ; --! Discrete input index, signal: i_sync
-constant c_DR_SQ1_ADC_PWDN_0  : integer :=  20                                                              ; --! Discrete input index, signal: i_c0_sq1_adc_pwdn
-constant c_DR_SQ1_ADC_PWDN_1  : integer :=  21                                                              ; --! Discrete input index, signal: i_c1_sq1_adc_pwdn
-constant c_DR_SQ1_ADC_PWDN_2  : integer :=  22                                                              ; --! Discrete input index, signal: i_c2_sq1_adc_pwdn
-constant c_DR_SQ1_ADC_PWDN_3  : integer :=  23                                                              ; --! Discrete input index, signal: i_c3_sq1_adc_pwdn
-constant c_DR_SQ1_DAC_SLEEP_0 : integer :=  24                                                              ; --! Discrete input index, signal: i_c0_sq1_dac_sleep
-constant c_DR_SQ1_DAC_SLEEP_1 : integer :=  25                                                              ; --! Discrete input index, signal: i_c1_sq1_dac_sleep
-constant c_DR_SQ1_DAC_SLEEP_2 : integer :=  26                                                              ; --! Discrete input index, signal: i_c2_sq1_dac_sleep
-constant c_DR_SQ1_DAC_SLEEP_3 : integer :=  27                                                              ; --! Discrete input index, signal: i_c3_sq1_dac_sleep
-constant c_DR_CLK_SQ1_ADC_0   : integer :=  28                                                              ; --! Discrete input index, signal: i_c0_clk_sq1_adc
-constant c_DR_CLK_SQ1_ADC_1   : integer :=  29                                                              ; --! Discrete input index, signal: i_c1_clk_sq1_adc
-constant c_DR_CLK_SQ1_ADC_2   : integer :=  30                                                              ; --! Discrete input index, signal: i_c2_clk_sq1_adc
-constant c_DR_CLK_SQ1_ADC_3   : integer :=  31                                                              ; --! Discrete input index, signal: i_c3_clk_sq1_adc
-constant c_DR_CLK_SQ1_DAC_0   : integer :=  32                                                              ; --! Discrete input index, signal: i_c0_clk_sq1_dac
-constant c_DR_CLK_SQ1_DAC_1   : integer :=  33                                                              ; --! Discrete input index, signal: i_c1_clk_sq1_dac
-constant c_DR_CLK_SQ1_DAC_2   : integer :=  34                                                              ; --! Discrete input index, signal: i_c2_clk_sq1_dac
-constant c_DR_CLK_SQ1_DAC_3   : integer :=  35                                                              ; --! Discrete input index, signal: i_c3_clk_sq1_dac
+constant c_DR_SQM_ADC_PWDN_0  : integer :=  20                                                              ; --! Discrete input index, signal: i_c0_sqm_adc_pwdn
+constant c_DR_SQM_ADC_PWDN_1  : integer :=  21                                                              ; --! Discrete input index, signal: i_c1_sqm_adc_pwdn
+constant c_DR_SQM_ADC_PWDN_2  : integer :=  22                                                              ; --! Discrete input index, signal: i_c2_sqm_adc_pwdn
+constant c_DR_SQM_ADC_PWDN_3  : integer :=  23                                                              ; --! Discrete input index, signal: i_c3_sqm_adc_pwdn
+constant c_DR_SQM_DAC_SLEEP_0 : integer :=  24                                                              ; --! Discrete input index, signal: i_c0_sqm_dac_sleep
+constant c_DR_SQM_DAC_SLEEP_1 : integer :=  25                                                              ; --! Discrete input index, signal: i_c1_sqm_dac_sleep
+constant c_DR_SQM_DAC_SLEEP_2 : integer :=  26                                                              ; --! Discrete input index, signal: i_c2_sqm_dac_sleep
+constant c_DR_SQM_DAC_SLEEP_3 : integer :=  27                                                              ; --! Discrete input index, signal: i_c3_sqm_dac_sleep
+constant c_DR_CLK_SQM_ADC_0   : integer :=  28                                                              ; --! Discrete input index, signal: i_c0_clk_sqm_adc
+constant c_DR_CLK_SQM_ADC_1   : integer :=  29                                                              ; --! Discrete input index, signal: i_c1_clk_sqm_adc
+constant c_DR_CLK_SQM_ADC_2   : integer :=  30                                                              ; --! Discrete input index, signal: i_c2_clk_sqm_adc
+constant c_DR_CLK_SQM_ADC_3   : integer :=  31                                                              ; --! Discrete input index, signal: i_c3_clk_sqm_adc
+constant c_DR_CLK_SQM_DAC_0   : integer :=  32                                                              ; --! Discrete input index, signal: i_c0_clk_sqm_dac
+constant c_DR_CLK_SQM_DAC_1   : integer :=  33                                                              ; --! Discrete input index, signal: i_c1_clk_sqm_dac
+constant c_DR_CLK_SQM_DAC_2   : integer :=  34                                                              ; --! Discrete input index, signal: i_c2_clk_sqm_dac
+constant c_DR_CLK_SQM_DAC_3   : integer :=  35                                                              ; --! Discrete input index, signal: i_c3_clk_sqm_dac
 
 constant c_DR_S               : integer :=  36                                                              ; --! Discrete input size
 
@@ -141,10 +141,11 @@ constant c_DR_S               : integer :=  36                                  
 constant c_DW_ARST_N          : integer :=  0                                                               ; --! Discrete output index, signal: o_arst_n
 constant c_DW_BRD_MODEL_0     : integer :=  1                                                               ; --! Discrete output index, signal: o_brd_model(0)
 constant c_DW_BRD_MODEL_1     : integer :=  2                                                               ; --! Discrete output index, signal: o_brd_model(1)
-constant c_DW_SW_ADC_VIN_0    : integer :=  3                                                               ; --! Discrete output index, signal: o_sw_adc_vin(0)
-constant c_DW_SW_ADC_VIN_1    : integer :=  4                                                               ; --! Discrete output index, signal: o_sw_adc_vin(1)
+constant c_DW_BRD_MODEL_2     : integer :=  3                                                               ; --! Discrete output index, signal: o_brd_model(1)
+constant c_DW_SW_ADC_VIN_0    : integer :=  4                                                               ; --! Discrete output index, signal: o_sw_adc_vin(0)
+constant c_DW_SW_ADC_VIN_1    : integer :=  5                                                               ; --! Discrete output index, signal: o_sw_adc_vin(1)
 
-constant c_DW_S               : integer :=  5                                                               ; --! Discrete output size
+constant c_DW_S               : integer :=  6                                                               ; --! Discrete output size
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Parser check clock parameters enable
@@ -152,16 +153,16 @@ constant c_DW_S               : integer :=  5                                   
 constant c_CHK_ENA_CLK_NB     : integer :=  13                                                              ; --! Clock check enable number
 
 constant c_CE_CLK             : integer :=  0                                                               ; --! Clock enable report index, signal: i_err_chk_clk        (d_clk report)
-constant c_CE_CK1_ADC         : integer :=  1                                                               ; --! Clock enable report index, signal: i_err_chk_ck1_adc    (d_clk_sq1_adc_acq report)
-constant c_CE_CK1_PLS         : integer :=  2                                                               ; --! Clock enable report index, signal: i_err_chk_ck1_pls    (d_clk_sq1_pls_shap report)
-constant c_CE_C0_CK1_ADC      : integer :=  3                                                               ; --! Clock enable report index, signal: i_err_chk_c0_ck1_adc (c0_clk_sq1_adc report)
-constant c_CE_C1_CK1_ADC      : integer :=  4                                                               ; --! Clock enable report index, signal: i_err_chk_c1_ck1_adc (c1_clk_sq1_adc report)
-constant c_CE_C2_CK1_ADC      : integer :=  5                                                               ; --! Clock enable report index, signal: i_err_chk_c2_ck1_adc (c2_clk_sq1_adc report)
-constant c_CE_C3_CK1_ADC      : integer :=  6                                                               ; --! Clock enable report index, signal: i_err_chk_c3_ck1_adc (c3_clk_sq1_adc report)
-constant c_CE_C0_CK1_DAC      : integer :=  7                                                               ; --! Clock enable report index, signal: i_err_chk_c0_ck1_dac (c0_clk_sq1_dac report)
-constant c_CE_C1_CK1_DAC      : integer :=  8                                                               ; --! Clock enable report index, signal: i_err_chk_c1_ck1_dac (c1_clk_sq1_dac report)
-constant c_CE_C2_CK1_DAC      : integer :=  9                                                               ; --! Clock enable report index, signal: i_err_chk_c2_ck1_dac (c2_clk_sq1_dac report)
-constant c_CE_C3_CK1_DAC      : integer :=  10                                                              ; --! Clock enable report index, signal: i_err_chk_c3_ck1_dac (c3_clk_sq1_dac report)
+constant c_CE_CK1_ADC         : integer :=  1                                                               ; --! Clock enable report index, signal: i_err_chk_ck1_adc    (d_clk_sqm_adc_acq report)
+constant c_CE_CK1_PLS         : integer :=  2                                                               ; --! Clock enable report index, signal: i_err_chk_ck1_pls    (d_clk_sqm_pls_shap report)
+constant c_CE_C0_CK1_ADC      : integer :=  3                                                               ; --! Clock enable report index, signal: i_err_chk_c0_ck1_adc (c0_clk_sqm_adc report)
+constant c_CE_C1_CK1_ADC      : integer :=  4                                                               ; --! Clock enable report index, signal: i_err_chk_c1_ck1_adc (c1_clk_sqm_adc report)
+constant c_CE_C2_CK1_ADC      : integer :=  5                                                               ; --! Clock enable report index, signal: i_err_chk_c2_ck1_adc (c2_clk_sqm_adc report)
+constant c_CE_C3_CK1_ADC      : integer :=  6                                                               ; --! Clock enable report index, signal: i_err_chk_c3_ck1_adc (c3_clk_sqm_adc report)
+constant c_CE_C0_CK1_DAC      : integer :=  7                                                               ; --! Clock enable report index, signal: i_err_chk_c0_ck1_dac (c0_clk_sqm_dac report)
+constant c_CE_C1_CK1_DAC      : integer :=  8                                                               ; --! Clock enable report index, signal: i_err_chk_c1_ck1_dac (c1_clk_sqm_dac report)
+constant c_CE_C2_CK1_DAC      : integer :=  9                                                               ; --! Clock enable report index, signal: i_err_chk_c2_ck1_dac (c2_clk_sqm_dac report)
+constant c_CE_C3_CK1_DAC      : integer :=  10                                                              ; --! Clock enable report index, signal: i_err_chk_c3_ck1_dac (c3_clk_sqm_dac report)
 constant c_CE_CLK_SC_01       : integer :=  11                                                              ; --! Clock enable report index, signal: i_err_chk_clk_sc_01  (clk_science_01 report)
 constant c_CE_CLK_SC_23       : integer :=  12                                                              ; --! Clock enable report index, signal: i_err_chk_clk_sc_23  (clk_science_23 report)
 
@@ -171,14 +172,14 @@ constant c_CE_CLK_SC_23       : integer :=  12                                  
 constant c_CHK_ENA_SPI_NB     : integer :=   9                                                              ; --! SPI bus check enable number
 
 constant c_SPIE_HK            : integer :=  13                                                              ; --! SPI enable report index, ADC HK
-constant c_SPIE_C0_SQ2_LSB    : integer :=  14                                                              ; --! SPI enable report index, SQUID2 DAC LSB column 0
-constant c_SPIE_C1_SQ2_LSB    : integer :=  15                                                              ; --! SPI enable report index, SQUID2 DAC LSB column 1
-constant c_SPIE_C2_SQ2_LSB    : integer :=  16                                                              ; --! SPI enable report index, SQUID2 DAC LSB column 2
-constant c_SPIE_C3_SQ2_LSB    : integer :=  17                                                              ; --! SPI enable report index, SQUID2 DAC LSB column 3
-constant c_SPIE_C0_SQ2_OFF    : integer :=  18                                                              ; --! SPI enable report index, SQUID2 DAC Offset column 0
-constant c_SPIE_C1_SQ2_OFF    : integer :=  19                                                              ; --! SPI enable report index, SQUID2 DAC Offset column 1
-constant c_SPIE_C2_SQ2_OFF    : integer :=  20                                                              ; --! SPI enable report index, SQUID2 DAC Offset column 2
-constant c_SPIE_C3_SQ2_OFF    : integer :=  21                                                              ; --! SPI enable report index, SQUID2 DAC Offset column 3
+constant c_SPIE_C0_SQA_LSB    : integer :=  14                                                              ; --! SPI enable report index, SQUID AMP offset DAC LSB column 0
+constant c_SPIE_C1_SQA_LSB    : integer :=  15                                                              ; --! SPI enable report index, SQUID AMP offset DAC LSB column 1
+constant c_SPIE_C2_SQA_LSB    : integer :=  16                                                              ; --! SPI enable report index, SQUID AMP offset DAC LSB column 2
+constant c_SPIE_C3_SQA_LSB    : integer :=  17                                                              ; --! SPI enable report index, SQUID AMP offset DAC LSB column 3
+constant c_SPIE_C0_SQA_OFF    : integer :=  18                                                              ; --! SPI enable report index, SQUID AMP DAC Offset column 0
+constant c_SPIE_C1_SQA_OFF    : integer :=  19                                                              ; --! SPI enable report index, SQUID AMP DAC Offset column 1
+constant c_SPIE_C2_SQA_OFF    : integer :=  20                                                              ; --! SPI enable report index, SQUID AMP DAC Offset column 2
+constant c_SPIE_C3_SQA_OFF    : integer :=  21                                                              ; --! SPI enable report index, SQUID AMP DAC Offset column 3
 
 constant c_E_PLS_SHP          : integer :=  22                                                              ; --! Enable report index, pulse shaping error number
 
@@ -205,15 +206,16 @@ constant c_EP_SCLK_L_DEF      : integer := 12                                   
 constant c_EP_SCLK_H_DEF      : integer := 1                                                                ; --! EP: Number of clock period for elaborating SPI Serial Clock high level default value
 constant c_EP_BUF_DEL_DEF     : time    := 80 ns                                                            ; --! EP: Delay introduced by buffer
 
-constant c_CLK_ADC_PER_DEF    : time    := c_CLK_REF_PER_DEF / c_CLK_ADC_DAC_MULT                           ; --! SQUID1 ADC: Clock period default value
-constant c_TIM_ADC_TPD_DEF    : time    :=  3900 ps                                                         ; --! SQUID1 ADC: Time, Data Propagation Delay default value
-constant c_SQ1_ADC_VREF_DEF   : real    := 1.0                                                              ; --! SQUID1 ADC: Voltage reference (Volt) default value
-constant c_SQ1_DAC_VREF_DEF   : real    := 1.0                                                              ; --! SQUID1 DAC: Voltage reference (Volt) default value
-constant c_SQ2_DAC_VREF_DEF   : real    := 1.0                                                              ; --! SQUID2 DAC: Voltage reference (Volt) default value
-constant c_SQ2_DAC_TS_DEF     : time    := 12 us                                                            ; --! SQUID2 DAC: Output Voltage Settling time default value
-constant c_SQ2_MUX_TPLH_DEF   : time    :=  4 ns                                                            ; --! SQUID2 MUX: Propagation delay switch in to out default value
+constant c_CLK_ADC_PER_DEF    : time    := c_CLK_REF_PER_DEF / c_CLK_ADC_DAC_MULT                           ; --! SQUID MUX ADC: Clock period default value
+constant c_TIM_ADC_TPD_DEF    : time    :=  3900 ps                                                         ; --! SQUID MUX ADC: Time, Data Propagation Delay default value
+constant c_SQM_ADC_VREF_DEF   : real    := 1.0                                                              ; --! SQUID MUX ADC: Voltage reference (Volt) default value
+constant c_SQM_DAC_VREF_DEF   : real    := 1.0                                                              ; --! SQUID MUX DAC: Voltage reference (Volt) default value
+constant c_SQA_DAC_VREF_DEF   : real    := 1.0                                                              ; --! SQUID AMP DAC: Voltage reference (Volt) default value
+constant c_SQA_DAC_TS_DEF     : time    := 12 us                                                            ; --! SQUID AMP DAC: Output Voltage Settling time default value
+constant c_SQA_MUX_TPLH_DEF   : time    :=  4 ns                                                            ; --! SQUID AMP MUX: Propagation delay switch in to out default value
 
 constant c_PLS_SP_CHK_ENA_DEF : std_logic := '0'                                                            ; --! Pulse shaping check enable default value ('0' = Disable, '1' = Enable)
+constant c_PLS_CUT_FREQ_DEF   : integer   := 20000000                                                       ; --! Pulse shaping cut frequency default value (Hz)
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Model constants
@@ -245,24 +247,24 @@ constant c_CLK_SC_ST_DIS      : std_logic := '0'                                
 constant c_SYNC_HIGH          : time    :=  10 * c_CLK_REF_PER_DEF                                          ; --! Pixel sequence synchronization high level time
 
 constant c_SW_ADC_VIN_S       : integer :=  2                                                               ; --! Switch ADC voltage input bus size
-constant c_SW_ADC_VIN_ST_SQ1  : std_logic_vector(c_SW_ADC_VIN_S-1 downto 0) := "00"                         ; --! Switch ADC voltage input: SQUID1 voltage state
-constant c_SW_ADC_VIN_ST_SQ2  : std_logic_vector(c_SW_ADC_VIN_S-1 downto 0) := "01"                         ; --! Switch ADC voltage input: SQUID2 voltage state
+constant c_SW_ADC_VIN_ST_SQM  : std_logic_vector(c_SW_ADC_VIN_S-1 downto 0) := "00"                         ; --! Switch ADC voltage input: SQUID MUX voltage state
+constant c_SW_ADC_VIN_ST_SQA  : std_logic_vector(c_SW_ADC_VIN_S-1 downto 0) := "01"                         ; --! Switch ADC voltage input: SQUID AMP voltage state
 
    -- ------------------------------------------------------------------------------------------------------
    --    Clock parameters to check
    -- ------------------------------------------------------------------------------------------------------
 constant c_CCHK               : t_clk_chk_prm_arr(0 to c_CHK_ENA_CLK_NB-1) :=
                                 (("clk              " , c_CLK_HPER,     c_CLK_HPER,     c_CLK_ST,        c_CLK_ST_DIS,        c_CHK_OSC_DIS),
-                                 ("clk_sq1_adc      " , c_CLK_ADC_HPER, c_CLK_ADC_HPER, c_CLK_ADC_ST,    c_CLK_ADC_ST_DIS,    c_CHK_OSC_DIS),
-                                 ("clk_sq1_pls_shape" , c_CLK_DAC_HPER, c_CLK_DAC_HPER, c_CLK_DAC_ST,    c_CLK_DAC_ST_DIS,    c_CHK_OSC_DIS),
-                                 ("c0_clk_sq1_adc   " , c_CLK_ADC_HPER, c_CLK_ADC_HPER, c_CLK_CX_ADC_ST, c_CLK_CX_ADC_ST_DIS, c_CHK_OSC_ENA),
-                                 ("c1_clk_sq1_adc   " , c_CLK_ADC_HPER, c_CLK_ADC_HPER, c_CLK_CX_ADC_ST, c_CLK_CX_ADC_ST_DIS, c_CHK_OSC_ENA),
-                                 ("c2_clk_sq1_adc   " , c_CLK_ADC_HPER, c_CLK_ADC_HPER, c_CLK_CX_ADC_ST, c_CLK_CX_ADC_ST_DIS, c_CHK_OSC_ENA),
-                                 ("c3_clk_sq1_adc   " , c_CLK_ADC_HPER, c_CLK_ADC_HPER, c_CLK_CX_ADC_ST, c_CLK_CX_ADC_ST_DIS, c_CHK_OSC_ENA),
-                                 ("c0_clk_sq1_dac   " , c_CLK_DAC_HPER, c_CLK_DAC_HPER, c_CLK_CX_DAC_ST, c_CLK_CX_DAC_ST_DIS, c_CHK_OSC_ENA),
-                                 ("c1_clk_sq1_dac   " , c_CLK_DAC_HPER, c_CLK_DAC_HPER, c_CLK_CX_DAC_ST, c_CLK_CX_DAC_ST_DIS, c_CHK_OSC_ENA),
-                                 ("c2_clk_sq1_dac   " , c_CLK_DAC_HPER, c_CLK_DAC_HPER, c_CLK_CX_DAC_ST, c_CLK_CX_DAC_ST_DIS, c_CHK_OSC_ENA),
-                                 ("c3_clk_sq1_dac   " , c_CLK_DAC_HPER, c_CLK_DAC_HPER, c_CLK_CX_DAC_ST, c_CLK_CX_DAC_ST_DIS, c_CHK_OSC_ENA),
+                                 ("clk_sqm_adc      " , c_CLK_ADC_HPER, c_CLK_ADC_HPER, c_CLK_ADC_ST,    c_CLK_ADC_ST_DIS,    c_CHK_OSC_DIS),
+                                 ("clk_sqm_pls_shape" , c_CLK_DAC_HPER, c_CLK_DAC_HPER, c_CLK_DAC_ST,    c_CLK_DAC_ST_DIS,    c_CHK_OSC_DIS),
+                                 ("c0_clk_sqm_adc   " , c_CLK_ADC_HPER, c_CLK_ADC_HPER, c_CLK_CX_ADC_ST, c_CLK_CX_ADC_ST_DIS, c_CHK_OSC_ENA),
+                                 ("c1_clk_sqm_adc   " , c_CLK_ADC_HPER, c_CLK_ADC_HPER, c_CLK_CX_ADC_ST, c_CLK_CX_ADC_ST_DIS, c_CHK_OSC_ENA),
+                                 ("c2_clk_sqm_adc   " , c_CLK_ADC_HPER, c_CLK_ADC_HPER, c_CLK_CX_ADC_ST, c_CLK_CX_ADC_ST_DIS, c_CHK_OSC_ENA),
+                                 ("c3_clk_sqm_adc   " , c_CLK_ADC_HPER, c_CLK_ADC_HPER, c_CLK_CX_ADC_ST, c_CLK_CX_ADC_ST_DIS, c_CHK_OSC_ENA),
+                                 ("c0_clk_sqm_dac   " , c_CLK_DAC_HPER, c_CLK_DAC_HPER, c_CLK_CX_DAC_ST, c_CLK_CX_DAC_ST_DIS, c_CHK_OSC_ENA),
+                                 ("c1_clk_sqm_dac   " , c_CLK_DAC_HPER, c_CLK_DAC_HPER, c_CLK_CX_DAC_ST, c_CLK_CX_DAC_ST_DIS, c_CHK_OSC_ENA),
+                                 ("c2_clk_sqm_dac   " , c_CLK_DAC_HPER, c_CLK_DAC_HPER, c_CLK_CX_DAC_ST, c_CLK_CX_DAC_ST_DIS, c_CHK_OSC_ENA),
+                                 ("c3_clk_sqm_dac   " , c_CLK_DAC_HPER, c_CLK_DAC_HPER, c_CLK_CX_DAC_ST, c_CLK_CX_DAC_ST_DIS, c_CHK_OSC_ENA),
                                  ("clk_science_01   " , c_CLK_SC_HPER,  c_CLK_SC_HPER,  c_CLK_SC_ST,     c_CLK_SC_ST_DIS,     c_CHK_OSC_ENA),
                                  ("clk_science_23   " , c_CLK_SC_HPER,  c_CLK_SC_HPER,  c_CLK_SC_ST,     c_CLK_SC_ST_DIS,     c_CHK_OSC_ENA));
 
@@ -272,19 +274,19 @@ constant c_CCHK               : t_clk_chk_prm_arr(0 to c_CHK_ENA_CLK_NB-1) :=
 constant c_SPI_TIME_CHK_HK    : t_time_arr(0 to c_SPI_ERR_CHK_NB-3) :=
                                 (25600 ps, 25600 ps, 62500 ps, 125000 ps, 0 ps,    0 ps, 10000 ps, 10000 ps); --! SPI timings to check: ADC HK ADC128S102
 
-constant c_SPI_TIME_CHK_SQ2   : t_time_arr(0 to c_SPI_ERR_CHK_NB-3) :=
-                                (13000 ps, 13000 ps, 33000 ps, 999999 ms, 20000 ps, 1000 ps,5000 ps,4500 ps); --! SPI timings to check: DAC SQUID2 DAC121S101
+constant c_SPI_TIME_CHK_SQA   : t_time_arr(0 to c_SPI_ERR_CHK_NB-3) :=
+                                (13000 ps, 13000 ps, 33000 ps, 999999 ms, 20000 ps, 1000 ps,5000 ps,4500 ps); --! SPI timings to check: DAC SQUID AMP DAC121S101
 
 constant c_SCHK               : t_spi_chk_prm_arr(0 to c_CHK_ENA_SPI_NB-1) :=
                                 (("spi_hk           " , '1', c_SPI_TIME_CHK_HK ),
-                                 ("spi_sq2_lsb(0)   " , '0', c_SPI_TIME_CHK_SQ2),
-                                 ("spi_sq2_lsb(1)   " , '0', c_SPI_TIME_CHK_SQ2),
-                                 ("spi_sq2_lsb(2)   " , '0', c_SPI_TIME_CHK_SQ2),
-                                 ("spi_sq2_lsb(3)   " , '0', c_SPI_TIME_CHK_SQ2),
-                                 ("spi_sq2_off(0)   " , '0', c_SPI_TIME_CHK_SQ2),
-                                 ("spi_sq2_off(1)   " , '0', c_SPI_TIME_CHK_SQ2),
-                                 ("spi_sq2_off(2)   " , '0', c_SPI_TIME_CHK_SQ2),
-                                 ("spi_sq2_off(3)   " , '0', c_SPI_TIME_CHK_SQ2))                           ;
+                                 ("spi_sqa_lsb(0)   " , '0', c_SPI_TIME_CHK_SQA),
+                                 ("spi_sqa_lsb(1)   " , '0', c_SPI_TIME_CHK_SQA),
+                                 ("spi_sqa_lsb(2)   " , '0', c_SPI_TIME_CHK_SQA),
+                                 ("spi_sqa_lsb(3)   " , '0', c_SPI_TIME_CHK_SQA),
+                                 ("spi_sqa_off(0)   " , '0', c_SPI_TIME_CHK_SQA),
+                                 ("spi_sqa_off(1)   " , '0', c_SPI_TIME_CHK_SQA),
+                                 ("spi_sqa_off(2)   " , '0', c_SPI_TIME_CHK_SQA),
+                                 ("spi_sqa_off(3)   " , '0', c_SPI_TIME_CHK_SQA))                           ;
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Model components
@@ -322,41 +324,41 @@ constant c_SCHK               : t_spi_chk_prm_arr(0 to c_CHK_ENA_SPI_NB-1) :=
    end component;
 
    component squid_model is generic
-   (     g_SQ1_ADC_VREF       : real      := c_SQ1_ADC_VREF_DEF                                             ; --! SQUID1 ADC: Voltage reference (Volt)
-         g_SQ1_DAC_VREF       : real      := c_SQ1_DAC_VREF_DEF                                             ; --! SQUID1 DAC: Voltage reference (Volt)
-         g_SQ2_DAC_VREF       : real      := c_SQ2_DAC_VREF_DEF                                             ; --! SQUID2 DAC: Voltage reference (Volt)
-         g_SQ2_DAC_TS         : time      := c_SQ2_DAC_TS_DEF                                               ; --! SQUID2 DAC: Output Voltage Settling time
-         g_SQ2_MUX_TPLH       : time      := c_SQ2_MUX_TPLH_DEF                                             ; --! SQUID2 MUX: Propagation delay switch in to out
-         g_CLK_ADC_PER        : time      := c_CLK_ADC_PER_DEF                                              ; --! SQUID1 ADC: Clock period
-         g_TIM_ADC_TPD        : time      := c_TIM_ADC_TPD_DEF                                                --! SQUID1 ADC: Time, Data Propagation Delay
+   (     g_SQM_ADC_VREF       : real      := c_SQM_ADC_VREF_DEF                                             ; --! SQUID MUX ADC: Voltage reference (Volt)
+         g_SQM_DAC_VREF       : real      := c_SQM_DAC_VREF_DEF                                             ; --! SQUID MUX DAC: Voltage reference (Volt)
+         g_SQA_DAC_VREF       : real      := c_SQA_DAC_VREF_DEF                                             ; --! SQUID AMP DAC: Voltage reference (Volt)
+         g_SQA_DAC_TS         : time      := c_SQA_DAC_TS_DEF                                               ; --! SQUID AMP DAC: Output Voltage Settling time
+         g_SQA_MUX_TPLH       : time      := c_SQA_MUX_TPLH_DEF                                             ; --! SQUID AMP MUX: Propagation delay switch in to out
+         g_CLK_ADC_PER        : time      := c_CLK_ADC_PER_DEF                                              ; --! SQUID MUX ADC: Clock period
+         g_TIM_ADC_TPD        : time      := c_TIM_ADC_TPD_DEF                                                --! SQUID MUX ADC: Time, Data Propagation Delay
    ); port
    (     i_arst               : in     std_logic                                                            ; --! Asynchronous reset ('0' = Inactive, '1' = Active)
          i_sync               : in     std_logic                                                            ; --! Pixel sequence synchronization (R.E. detected = position sequence to the first pixel)
 
-         i_clk_sq1_adc        : in     std_logic                                                            ; --! SQUID1 ADC: Clock
-         i_sq1_adc_pwdn       : in     std_logic                                                            ; --! SQUID1 ADC: Power Down ('0' = Inactive, '1' = Active)
-         b_sq1_adc_spi_sdio   : inout  std_logic                                                            ; --! SQUID1 ADC: SPI Serial Data In Out
-         i_sq1_adc_spi_sclk   : in     std_logic                                                            ; --! SQUID1 ADC: SPI Serial Clock (CPOL = '0', CPHA = '0')
-         i_sq1_adc_spi_cs_n   : in     std_logic                                                            ; --! SQUID1 ADC: SPI Chip Select ('0' = Active, '1' = Inactive)
+         i_clk_sqm_adc        : in     std_logic                                                            ; --! SQUID MUX ADC: Clock
+         i_sqm_adc_pwdn       : in     std_logic                                                            ; --! SQUID MUX ADC: Power Down ('0' = Inactive, '1' = Active)
+         b_sqm_adc_spi_sdio   : inout  std_logic                                                            ; --! SQUID MUX ADC: SPI Serial Data In Out
+         i_sqm_adc_spi_sclk   : in     std_logic                                                            ; --! SQUID MUX ADC: SPI Serial Clock (CPOL = '0', CPHA = '0')
+         i_sqm_adc_spi_cs_n   : in     std_logic                                                            ; --! SQUID MUX ADC: SPI Chip Select ('0' = Active, '1' = Inactive)
 
          i_sw_adc_vin         : in     std_logic_vector(c_SW_ADC_VIN_S-1 downto 0)                          ; --! Switch ADC Voltage input
-         o_sq1_adc_ana        : out    real                                                                 ; --! SQUID1 ADC: Analog
-         o_sq1_adc_data       : out    std_logic_vector(c_SQ1_ADC_DATA_S-1 downto 0)                        ; --! SQUID1 ADC: Data
-         o_sq1_adc_oor        : out    std_logic                                                            ; --! SQUID1 ADC: Out of range ('0' = No, '1' = under/over range)
+         o_sqm_adc_ana        : out    real                                                                 ; --! SQUID MUX ADC: Analog
+         o_sqm_adc_data       : out    std_logic_vector(c_SQM_ADC_DATA_S-1 downto 0)                        ; --! SQUID MUX ADC: Data
+         o_sqm_adc_oor        : out    std_logic                                                            ; --! SQUID MUX ADC: Out of range ('0' = No, '1' = under/over range)
 
-         i_clk_sq1_dac        : in     std_logic                                                            ; --! SQUID1 DAC: Clock
-         i_sq1_dac_data       : in     std_logic_vector(c_SQ1_DAC_DATA_S-1 downto 0)                        ; --! SQUID1 DAC: Data
-         i_sq1_dac_sleep      : in     std_logic                                                            ; --! SQUID1 DAC: Sleep ('0' = Inactive, '1' = Active)
+         i_clk_sqm_dac        : in     std_logic                                                            ; --! SQUID MUX DAC: Clock
+         i_sqm_dac_data       : in     std_logic_vector(c_SQM_DAC_DATA_S-1 downto 0)                        ; --! SQUID MUX DAC: Data
+         i_sqm_dac_sleep      : in     std_logic                                                            ; --! SQUID MUX DAC: Sleep ('0' = Inactive, '1' = Active)
 
          i_pls_shp_fc         : in     integer                                                              ; --! Pulse shaping cut frequency (Hz)
          o_err_num_pls_shp    : out    integer                                                              ; --! Pulse shaping error number
 
-         i_sq2_dac_data       : in     std_logic                                                            ; --! SQUID2 DAC: Serial Data
-         i_sq2_dac_sclk       : in     std_logic                                                            ; --! SQUID2 DAC: Serial Clock
-         i_sq2_dac_snc_l_n    : in     std_logic                                                            ; --! SQUID2 DAC: Frame Synchronization DAC LSB ('0' = Active, '1' = Inactive)
-         i_sq2_dac_snc_o_n    : in     std_logic                                                            ; --! SQUID2 DAC: Frame Synchronization DAC Offset ('0' = Active, '1' = Inactive)
-         i_sq2_dac_mux        : in     std_logic_vector( c_SQ2_DAC_MUX_S-1 downto 0)                        ; --! SQUID2 DAC: Multiplexer
-         i_sq2_dac_mx_en_n    : in     std_logic                                                              --! SQUID2 DAC: Multiplexer Enable ('0' = Active, '1' = Inactive)
+         i_sqa_dac_data       : in     std_logic                                                            ; --! SQUID AMP DAC: Serial Data
+         i_sqa_dac_sclk       : in     std_logic                                                            ; --! SQUID AMP DAC: Serial Clock
+         i_sqa_dac_snc_l_n    : in     std_logic                                                            ; --! SQUID AMP DAC: Frame Synchronization DAC LSB ('0' = Active, '1' = Inactive)
+         i_sqa_dac_snc_o_n    : in     std_logic                                                            ; --! SQUID AMP DAC: Frame Synchronization DAC Offset ('0' = Active, '1' = Inactive)
+         i_sqa_dac_mux        : in     std_logic_vector( c_SQA_DAC_MUX_S-1 downto 0)                        ; --! SQUID AMP DAC: Multiplexer
+         i_sqa_dac_mx_en_n    : in     std_logic                                                              --! SQUID AMP DAC: Multiplexer Enable ('0' = Active, '1' = Inactive)
    );
    end component;
 
@@ -372,39 +374,39 @@ constant c_SCHK               : t_spi_chk_prm_arr(0 to c_CHK_ENA_SPI_NB-1) :=
          i_err_n_spi_chk      : in     t_int_arr_tab(0 to c_CHK_ENA_SPI_NB-1)(0 to c_SPI_ERR_CHK_NB-1)      ; --! SPI check error number:
          i_err_num_pls_shp    : in     t_int_arr(0 to c_NB_COL-1)                                           ; --! Pulse shaping error number
 
-         i_c0_sq1_adc_pwdn    : in     std_logic                                                            ; --! SQUID1 ADC, col. 0: Power Down ('0' = Inactive, '1' = Active)
-         i_c1_sq1_adc_pwdn    : in     std_logic                                                            ; --! SQUID1 ADC, col. 1: Power Down ('0' = Inactive, '1' = Active)
-         i_c2_sq1_adc_pwdn    : in     std_logic                                                            ; --! SQUID1 ADC, col. 2: Power Down ('0' = Inactive, '1' = Active)
-         i_c3_sq1_adc_pwdn    : in     std_logic                                                            ; --! SQUID1 ADC, col. 3: Power Down ('0' = Inactive, '1' = Active)
+         i_c0_sqm_adc_pwdn    : in     std_logic                                                            ; --! SQUID MUX ADC, col. 0: Power Down ('0' = Inactive, '1' = Active)
+         i_c1_sqm_adc_pwdn    : in     std_logic                                                            ; --! SQUID MUX ADC, col. 1: Power Down ('0' = Inactive, '1' = Active)
+         i_c2_sqm_adc_pwdn    : in     std_logic                                                            ; --! SQUID MUX ADC, col. 2: Power Down ('0' = Inactive, '1' = Active)
+         i_c3_sqm_adc_pwdn    : in     std_logic                                                            ; --! SQUID MUX ADC, col. 3: Power Down ('0' = Inactive, '1' = Active)
 
-         i_c0_sq1_adc_ana     : in     real                                                                 ; --! SQUID1 ADC, col. 0: Analog
-         i_c1_sq1_adc_ana     : in     real                                                                 ; --! SQUID1 ADC, col. 1: Analog
-         i_c2_sq1_adc_ana     : in     real                                                                 ; --! SQUID1 ADC, col. 2: Analog
-         i_c3_sq1_adc_ana     : in     real                                                                 ; --! SQUID1 ADC, col. 3: Analog
+         i_c0_sqm_adc_ana     : in     real                                                                 ; --! SQUID MUX ADC, col. 0: Analog
+         i_c1_sqm_adc_ana     : in     real                                                                 ; --! SQUID MUX ADC, col. 1: Analog
+         i_c2_sqm_adc_ana     : in     real                                                                 ; --! SQUID MUX ADC, col. 2: Analog
+         i_c3_sqm_adc_ana     : in     real                                                                 ; --! SQUID MUX ADC, col. 3: Analog
 
-         i_c0_sq1_dac_sleep   : in     std_logic                                                            ; --! SQUID1 DAC, col. 0: Sleep ('0' = Inactive, '1' = Active)
-         i_c1_sq1_dac_sleep   : in     std_logic                                                            ; --! SQUID1 DAC, col. 1: Sleep ('0' = Inactive, '1' = Active)
-         i_c2_sq1_dac_sleep   : in     std_logic                                                            ; --! SQUID1 DAC, col. 2: Sleep ('0' = Inactive, '1' = Active)
-         i_c3_sq1_dac_sleep   : in     std_logic                                                            ; --! SQUID1 DAC, col. 3: Sleep ('0' = Inactive, '1' = Active)
+         i_c0_sqm_dac_sleep   : in     std_logic                                                            ; --! SQUID MUX DAC, col. 0: Sleep ('0' = Inactive, '1' = Active)
+         i_c1_sqm_dac_sleep   : in     std_logic                                                            ; --! SQUID MUX DAC, col. 1: Sleep ('0' = Inactive, '1' = Active)
+         i_c2_sqm_dac_sleep   : in     std_logic                                                            ; --! SQUID MUX DAC, col. 2: Sleep ('0' = Inactive, '1' = Active)
+         i_c3_sqm_dac_sleep   : in     std_logic                                                            ; --! SQUID MUX DAC, col. 3: Sleep ('0' = Inactive, '1' = Active)
 
          i_d_rst              : in     std_logic                                                            ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
-         i_d_rst_sq1_adc      : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
-         i_d_rst_sq1_dac      : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
-         i_d_rst_sq2_mux      : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
+         i_d_rst_sqm_adc      : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
+         i_d_rst_sqm_dac      : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
+         i_d_rst_sqa_mux      : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
 
          i_d_clk              : in     std_logic                                                            ; --! Internal design: System Clock
-         i_d_clk_sq1_adc_acq  : in     std_logic                                                            ; --! Internal design: SQUID1 ADC acquisition Clock
-         i_d_clk_sq1_pls_shap : in     std_logic                                                            ; --! Internal design: SQUID1 pulse shaping Clock
+         i_d_clk_sqm_adc_acq  : in     std_logic                                                            ; --! Internal design: SQUID MUX ADC acquisition Clock
+         i_d_clk_sqm_pls_shap : in     std_logic                                                            ; --! Internal design: SQUID MUX pulse shaping Clock
 
-         i_c0_clk_sq1_adc     : in     std_logic                                                            ; --! SQUID1 ADC, col. 0: Clock
-         i_c1_clk_sq1_adc     : in     std_logic                                                            ; --! SQUID1 ADC, col. 1: Clock
-         i_c2_clk_sq1_adc     : in     std_logic                                                            ; --! SQUID1 ADC, col. 2: Clock
-         i_c3_clk_sq1_adc     : in     std_logic                                                            ; --! SQUID1 ADC, col. 3: Clock
+         i_c0_clk_sqm_adc     : in     std_logic                                                            ; --! SQUID MUX ADC, col. 0: Clock
+         i_c1_clk_sqm_adc     : in     std_logic                                                            ; --! SQUID MUX ADC, col. 1: Clock
+         i_c2_clk_sqm_adc     : in     std_logic                                                            ; --! SQUID MUX ADC, col. 2: Clock
+         i_c3_clk_sqm_adc     : in     std_logic                                                            ; --! SQUID MUX ADC, col. 3: Clock
 
-         i_c0_clk_sq1_dac     : in     std_logic                                                            ; --! SQUID1 DAC, col. 0: Clock
-         i_c1_clk_sq1_dac     : in     std_logic                                                            ; --! SQUID1 DAC, col. 1: Clock
-         i_c2_clk_sq1_dac     : in     std_logic                                                            ; --! SQUID1 DAC, col. 2: Clock
-         i_c3_clk_sq1_dac     : in     std_logic                                                            ; --! SQUID1 DAC, col. 3: Clock
+         i_c0_clk_sqm_dac     : in     std_logic                                                            ; --! SQUID MUX DAC, col. 0: Clock
+         i_c1_clk_sqm_dac     : in     std_logic                                                            ; --! SQUID MUX DAC, col. 1: Clock
+         i_c2_clk_sqm_dac     : in     std_logic                                                            ; --! SQUID MUX DAC, col. 2: Clock
+         i_c3_clk_sqm_dac     : in     std_logic                                                            ; --! SQUID MUX DAC, col. 3: Clock
 
          i_sc_pkt_type        : in     std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0)                       ; --! Science packet type
          i_sc_pkt_err         : in     std_logic                                                            ; --! Science packet error ('0' = No error, '1' = Error)
@@ -423,7 +425,7 @@ constant c_SCHK               : t_spi_chk_prm_arr(0 to c_CHK_ENA_SPI_NB-1) :=
          o_sw_adc_vin         : out    std_logic_vector(c_SW_ADC_VIN_S-1 downto 0)                          ; --! Switch ADC Voltage input
 
          o_adc_dmp_mem_add    : out    std_logic_vector(    c_MUX_FACT_S-1 downto 0)                        ; --! ADC Dump memory for data compare: address
-         o_adc_dmp_mem_data   : out    std_logic_vector(c_SQ1_ADC_DATA_S+1 downto 0)                        ; --! ADC Dump memory for data compare: data
+         o_adc_dmp_mem_data   : out    std_logic_vector(c_SQM_ADC_DATA_S+1 downto 0)                        ; --! ADC Dump memory for data compare: data
          o_adc_dmp_mem_cs     : out    std_logic_vector(        c_NB_COL-1 downto 0)                          --! ADC Dump memory for data compare: chip select ('0' = Inactive, '1' = Active)
    );
    end component;
@@ -433,25 +435,24 @@ constant c_SCHK               : t_spi_chk_prm_arr(0 to c_CHK_ENA_SPI_NB-1) :=
          g_TST_NUM            : string  := c_TST_NUM_DEF                                                      --! Test number
    ); port
    (     i_arst               : in     std_logic                                                            ; --! Asynchronous reset ('0' = Inactive, '1' = Active)
-         i_clk_sq1_adc_acq    : in     std_logic                                                            ; --! SQUID1 ADC acquisition Clock
+         i_clk_sqm_adc_acq    : in     std_logic                                                            ; --! SQUID MUX ADC acquisition Clock
          i_clk_science        : in     std_logic                                                            ; --! Science Clock
 
          i_science_ctrl_01    : in     std_logic                                                            ; --! Science Data: Control channel 0/1
          i_science_ctrl_23    : in     std_logic                                                            ; --! Science Data: Control channel 2/3
-         i_science_data       : in     t_slv_arr(0 to c_NB_COL-1)(c_SC_DATA_SER_NB-1 downto 0)              ; --! Science Data: Serial Data
+         i_science_data       : in     t_slv_arr(0 to c_NB_COL  )(c_SC_DATA_SER_NB-1 downto 0)              ; --! Science Data: Serial Data
 
          i_sync               : in     std_logic                                                            ; --! Pixel sequence synchronization (R.E. detected = position sequence to the first pixel)
-         i_tm_mode            : in     std_logic_vector(c_DFLD_TM_MODE_S-1 downto 0)                        ; --! Telemetry mode
-         i_sq_off_dac_del     : in     t_slv_arr(0 to c_NB_COL-1)(c_DFLD_S2DCD_COL_S-1 downto 0)            ; --! Squid offset DAC delay
-         i_sq_off_mux_del     : in     t_slv_arr(0 to c_NB_COL-1)(c_DFLD_S2MXD_COL_S-1 downto 0)            ; --! Squid offset MUX delay
-         i_sq1_fb_del         : in     t_slv_arr(0 to c_NB_COL-1)(c_DFLD_S1FBD_COL_S-1 downto 0)            ; --! Squid1 Feedback delay
+         i_aqmde              : in     std_logic_vector(c_DFLD_AQMDE_S-1 downto 0)                          ; --! Telemetry mode
+         i_saomd              : in     t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SAOMD_COL_S-1 downto 0)            ; --! SQUID AMP offset MUX delay
+         i_smfbd              : in     t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SMFBD_COL_S-1 downto 0)            ; --! SQUID MUX feedback delay
          i_sw_adc_vin         : in     std_logic_vector(c_SW_ADC_VIN_S-1 downto 0)                          ; --! Switch ADC Voltage input
 
-         i_sq1_adc_data       : in     t_slv_arr(0 to c_NB_COL-1)(c_SQ1_ADC_DATA_S-1 downto 0)              ; --! SQUID1 ADC: Data buses
-         i_sq1_adc_oor        : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! SQUID1 ADC: Out of range ('0' = No, '1' = under/over range)
+         i_sqm_adc_data       : in     t_slv_arr(0 to c_NB_COL-1)(c_SQM_ADC_DATA_S-1 downto 0)              ; --! SQUID MUX ADC: Data buses
+         i_sqm_adc_oor        : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! SQUID MUX ADC: Out of range ('0' = No, '1' = under/over range)
 
          i_adc_dmp_mem_add    : in     std_logic_vector(    c_MUX_FACT_S-1 downto 0)                        ; --! ADC Dump memory for data compare: address
-         i_adc_dmp_mem_data   : in     std_logic_vector(c_SQ1_ADC_DATA_S+1 downto 0)                        ; --! ADC Dump memory for data compare: data
+         i_adc_dmp_mem_data   : in     std_logic_vector(c_SQM_ADC_DATA_S+1 downto 0)                        ; --! ADC Dump memory for data compare: data
          i_adc_dmp_mem_cs     : in     std_logic_vector(        c_NB_COL-1 downto 0)                        ; --! ADC Dump memory for data compare: chip select ('0' = Inactive, '1' = Active)
 
          o_sc_pkt_type        : out    std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0)                       ; --! Science packet type

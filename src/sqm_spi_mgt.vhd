@@ -17,34 +17,34 @@
 --                            along with this program.  If not, see <https://www.gnu.org/licenses/>.
 -- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --    email                   slaurent@nanoxplore.com
---!   @file                   squid1_spi_mgt.vhd
+--!   @file                   sqm_spi_mgt.vhd
 -- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --    Automatic Generation    No
 --    Code Rules Reference    SOC of design and VHDL handbook for VLSI development, CNES Edition (v2.1)
 -- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
---!   @details                Squid1 SPI management
+--!   @details                SQUID MUX SPI management
 -- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 library ieee;
 use     ieee.std_logic_1164.all;
 use     ieee.numeric_std.all;
 
-entity squid1_spi_mgt is port
-   (     o_sq1_adc_spi_mosi   : out    std_logic                                                            ; --! SQUID1 ADC: SPI Serial Data In Out
-         o_sq1_adc_spi_sclk   : out    std_logic                                                            ; --! SQUID1 ADC: SPI Serial Clock (CPOL = '0', CPHA = '0')
-         o_sq1_adc_spi_cs_n   : out    std_logic                                                              --! SQUID1 ADC: SPI Chip Select ('0' = Active, '1' = Inactive)
+entity sqm_spi_mgt is port
+   (     o_sqm_adc_spi_mosi   : out    std_logic                                                            ; --! SQUID MUX ADC: SPI Serial Data In Out
+         o_sqm_adc_spi_sclk   : out    std_logic                                                            ; --! SQUID MUX ADC: SPI Serial Clock (CPOL = '0', CPHA = '0')
+         o_sqm_adc_spi_cs_n   : out    std_logic                                                              --! SQUID MUX ADC: SPI Chip Select ('0' = Active, '1' = Inactive)
 
    );
-end entity squid1_spi_mgt;
+end entity sqm_spi_mgt;
 
-architecture RTL of squid1_spi_mgt is
+architecture RTL of sqm_spi_mgt is
 begin
 
    -- ------------------------------------------------------------------------------------------------------
-   --!   Squid 1 ADC, static configuration without SPI
+   --!   SQUID MUX ADC, static configuration without SPI
    --    @Req : DRE-DMX-FW-REQ-0100
    -- ------------------------------------------------------------------------------------------------------
-   o_sq1_adc_spi_mosi   <= '1';     -- Duty Cycle Stabilizer ('0' = Disable, '1' = Enable)
-   o_sq1_adc_spi_sclk   <= '0';     -- Data format ('0' = Binary, '1' = Twos complement)
-   o_sq1_adc_spi_cs_n   <= '1';     -- Static configuration ('0' = No, '1' = Yes)
+   o_sqm_adc_spi_mosi   <= '1';     -- Duty Cycle Stabilizer ('0' = Disable, '1' = Enable)
+   o_sqm_adc_spi_sclk   <= '0';     -- Data format ('0' = Binary, '1' = Twos complement)
+   o_sqm_adc_spi_cs_n   <= '1';     -- Static configuration ('0' = No, '1' = Yes)
 
 end architecture RTL;

@@ -24,16 +24,16 @@ COMM ---------------------------------------------------------------------------
 WCMD R-6004-XXXX W
 
 WCMD R-6006-XXXX R
-CCMD R-Status-0000 W
+CCMD R-Status-FFFF W
 
 WCMD R-600A-XXXX R
-CCMD R-Status-8000 W
+CCMD R-Status-7FFF W
 
 WCMD R-Status-XXXX R
-CCMD R-Status-8000 W
+CCMD R-Status-7FFF W
 
 WCMD R-Status-XXXX R
-CCMD R-Status-8000 W
+CCMD R-Status-7FFF W
 
 WCMD R-Status-XXXX R
-CCMD R-Status-0000 N
+CCMD R-Status-FFFF N

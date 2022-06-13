@@ -44,25 +44,24 @@ entity science_data_model is generic
          g_TST_NUM            : string  := c_TST_NUM_DEF                                                      --! Test number
    ); port
    (     i_arst               : in     std_logic                                                            ; --! Asynchronous reset ('0' = Inactive, '1' = Active)
-         i_clk_sq1_adc_acq    : in     std_logic                                                            ; --! SQUID1 ADC acquisition Clock
+         i_clk_sqm_adc_acq    : in     std_logic                                                            ; --! SQUID MUX ADC acquisition Clock
          i_clk_science        : in     std_logic                                                            ; --! Science Clock
 
          i_science_ctrl_01    : in     std_logic                                                            ; --! Science Data: Control channel 0/1
          i_science_ctrl_23    : in     std_logic                                                            ; --! Science Data: Control channel 2/3
-         i_science_data       : in     t_slv_arr(0 to c_NB_COL-1)(c_SC_DATA_SER_NB-1 downto 0)              ; --! Science Data: Serial Data
+         i_science_data       : in     t_slv_arr(0 to c_NB_COL  )(c_SC_DATA_SER_NB-1 downto 0)              ; --! Science Data: Serial Data
 
          i_sync               : in     std_logic                                                            ; --! Pixel sequence synchronization (R.E. detected = position sequence to the first pixel)
-         i_tm_mode            : in     std_logic_vector(c_DFLD_TM_MODE_S-1 downto 0)                        ; --! Telemetry mode
-         i_sq1_fb_del         : in     t_slv_arr(0 to c_NB_COL-1)(c_DFLD_S1FBD_COL_S-1 downto 0)            ; --! Squid1 Feedback delay
-         i_sq_off_dac_del     : in     t_slv_arr(0 to c_NB_COL-1)(c_DFLD_S2DCD_COL_S-1 downto 0)            ; --! Squid offset DAC delay
-         i_sq_off_mux_del     : in     t_slv_arr(0 to c_NB_COL-1)(c_DFLD_S2MXD_COL_S-1 downto 0)            ; --! Squid offset MUX delay
+         i_aqmde              : in     std_logic_vector(c_DFLD_AQMDE_S-1 downto 0)                          ; --! Telemetry mode
+         i_smfbd              : in     t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SMFBD_COL_S-1 downto 0)            ; --! SQUID MUX feedback delay
+         i_saomd              : in     t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SAOMD_COL_S-1 downto 0)            ; --! SQUID AMP offset MUX delay
          i_sw_adc_vin         : in     std_logic_vector(c_SW_ADC_VIN_S-1 downto 0)                          ; --! Switch ADC Voltage input
 
-         i_sq1_adc_data       : in     t_slv_arr(0 to c_NB_COL-1)(c_SQ1_ADC_DATA_S-1 downto 0)              ; --! SQUID1 ADC: Data buses
-         i_sq1_adc_oor        : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! SQUID1 ADC: Out of range ('0' = No, '1' = under/over range)
+         i_sqm_adc_data       : in     t_slv_arr(0 to c_NB_COL-1)(c_SQM_ADC_DATA_S-1 downto 0)              ; --! SQUID MUX ADC: Data buses
+         i_sqm_adc_oor        : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! SQUID MUX ADC: Out of range ('0' = No, '1' = under/over range)
 
          i_adc_dmp_mem_add    : in     std_logic_vector(    c_MUX_FACT_S-1 downto 0)                        ; --! ADC Dump memory for data compare: address
-         i_adc_dmp_mem_data   : in     std_logic_vector(c_SQ1_ADC_DATA_S+1 downto 0)                        ; --! ADC Dump memory for data compare: data
+         i_adc_dmp_mem_data   : in     std_logic_vector(c_SQM_ADC_DATA_S+1 downto 0)                        ; --! ADC Dump memory for data compare: data
          i_adc_dmp_mem_cs     : in     std_logic_vector(        c_NB_COL-1 downto 0)                        ; --! ADC Dump memory for data compare: chip select ('0' = Inactive, '1' = Active)
 
          o_sc_pkt_type        : out    std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0)                       ; --! Science packet type
@@ -76,17 +75,17 @@ constant c_DMP_CNT_MAX_VAL    : integer:= c_DMP_CNT_NB_VAL-1                    
 constant c_DMP_CNT_S          : integer:= log2_ceil(c_DMP_CNT_MAX_VAL + 1) + 1                              ; --! Memory Dump, ADC acquisition counter: size bus (signed)
 
 signal   mem_dump             : t_slv_arr_tab(0 to c_NB_COL-1)
-                                (0 to 2**(c_DMP_CNT_S)-1)(c_SQ1_ADC_DATA_S+1 downto 0)                      ; --! Multi Dual port memory dump
+                                (0 to 2**(c_DMP_CNT_S)-1)(c_SQM_ADC_DATA_S+1 downto 0)                      ; --! Multi Dual port memory dump
 
 signal   sync_r               : std_logic_vector(c_ADC_DATA_NPER-2 downto 0)                                ; --! Pixel sequence sync. register (R.E. detected = position sequence to the first pixel)
 signal   sync_re_adc_data     : std_logic                                                                   ; --! Pixel sequence synchronization, rising edge, synchronized on ADC data first pixel
 
 signal   mem_dump_adc_cnt_w   : std_logic_vector(     c_DMP_CNT_S-1 downto 0)                               ; --! Memory Dump, ADC acquisition side: counter words
 signal   mem_dump_adc_add     : std_logic_vector(     c_DMP_CNT_S-1 downto 0)                               ; --! Memory Dump, ADC acquisition side: address
-signal   mem_dump_adc_data_in : t_slv_arr(0 to c_NB_COL-1)(c_SQ1_ADC_DATA_S+1 downto 0)                     ; --! Memory Dump, ADC acquisition side: data in
+signal   mem_dump_adc_data_in : t_slv_arr(0 to c_NB_COL-1)(c_SQM_ADC_DATA_S+1 downto 0)                     ; --! Memory Dump, ADC acquisition side: data in
 
 signal   mem_dump_sc_add      : std_logic_vector(     c_DMP_CNT_S-2 downto 0)                               ; --! Memory Dump, science side: address
-signal   mem_dump_sc_data_out : t_slv_arr(0 to c_NB_COL-1)(c_SQ1_ADC_DATA_S+1 downto 0)                     ; --! Memory Dump, science side: data out
+signal   mem_dump_sc_data_out : t_slv_arr(0 to c_NB_COL-1)(c_SQM_ADC_DATA_S+1 downto 0)                     ; --! Memory Dump, science side: data out
 
 signal   science_data_ser     : std_logic_vector(c_NB_COL*c_SC_DATA_SER_NB+1 downto 0)                      ; --! Science Data: Serial Data
 signal   science_data_ctrl    : t_slv_arr(0 to 1)(c_SC_DATA_SER_W_S-1 downto 0)                             ; --! Science Data: Control word
@@ -102,14 +101,14 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   Signals registered
    -- ------------------------------------------------------------------------------------------------------
-   P_reg : process (i_arst, i_clk_sq1_adc_acq)
+   P_reg : process (i_arst, i_clk_sqm_adc_acq)
    begin
 
       if i_arst = '1' then
          sync_r               <= (others => c_I_SYNC_DEF);
          sync_re_adc_data     <= '0';
 
-      elsif rising_edge(i_clk_sq1_adc_acq) then
+      elsif rising_edge(i_clk_sqm_adc_acq) then
          sync_r               <= sync_r(sync_r'high-1 downto 0) & i_sync;
          sync_re_adc_data     <= not(sync_r(sync_r'high)) and sync_r(sync_r'high-1);
 
@@ -120,14 +119,14 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   ADC acquisition counter words
    -- ------------------------------------------------------------------------------------------------------
-   P_mem_dump_adc_cnt_w : process (i_arst, i_clk_sq1_adc_acq)
+   P_mem_dump_adc_cnt_w : process (i_arst, i_clk_sqm_adc_acq)
    begin
 
       if i_arst = '1' then
          mem_dump_adc_cnt_w   <= (others => '1');
 
-      elsif rising_edge(i_clk_sq1_adc_acq) then
-         if (mem_dump_adc_cnt_w(mem_dump_adc_cnt_w'high) and sync_re_adc_data) = '1' and i_tm_mode = c_DST_TM_MODE_DUMP then
+      elsif rising_edge(i_clk_sqm_adc_acq) then
+         if (mem_dump_adc_cnt_w(mem_dump_adc_cnt_w'high) and sync_re_adc_data) = '1' and i_aqmde = c_DST_AQMDE_DUMP then
             mem_dump_adc_cnt_w <= std_logic_vector(to_unsigned(c_DMP_CNT_MAX_VAL, mem_dump_adc_cnt_w'length));
 
          elsif mem_dump_adc_cnt_w(mem_dump_adc_cnt_w'high) = '0' then
@@ -147,13 +146,13 @@ begin
    G_mem_dump : for k in 0 to c_NB_COL-1 generate
    begin
 
-      mem_dump_adc_data_in(k)(c_SQ1_ADC_DATA_S-1 downto 0) <= i_sq1_adc_data(k);
-      mem_dump_adc_data_in(k)(c_SQ1_ADC_DATA_S)            <= i_sq1_adc_oor(k);
-      mem_dump_adc_data_in(k)(c_SQ1_ADC_DATA_S+1)          <= '0';
+      mem_dump_adc_data_in(k)(c_SQM_ADC_DATA_S-1 downto 0) <= i_sqm_adc_data(k);
+      mem_dump_adc_data_in(k)(c_SQM_ADC_DATA_S)            <= i_sqm_adc_oor(k);
+      mem_dump_adc_data_in(k)(c_SQM_ADC_DATA_S+1)          <= '0';
 
-      P_mem_dump_w : process(i_clk_sq1_adc_acq)
+      P_mem_dump_w : process(i_clk_sqm_adc_acq)
       begin
-         if rising_edge(i_clk_sq1_adc_acq) then
+         if rising_edge(i_clk_sqm_adc_acq) then
             if mem_dump_adc_cnt_w(mem_dump_adc_cnt_w'high) = '0' then
                mem_dump(k)(to_integer(unsigned(mem_dump_adc_add))) <=  mem_dump_adc_data_in(k);
 
@@ -231,12 +230,12 @@ begin
    (     i_rst                => i_arst               , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk_science        => i_clk_science        , -- in     std_logic                                 ; --! Science Clock
 
-         i_sq1_fb_del         => i_sq1_fb_del         , -- in     t_slv_arr c_NB_COL c_DFLD_S1FBD_COL_S     ; --! Squid1 Feedback delay
-         i_sq_off_mux_del     => i_sq_off_mux_del     , -- in     t_slv_arr c_NB_COL c_DFLD_S2MXD_COL_S     ; --! Squid offset MUX delay
+         i_smfbd              => i_smfbd              , -- in     t_slv_arr c_NB_COL c_DFLD_SMFBD_COL_S     ; --! SQUID MUX feedback delay
+         i_saomd              => i_saomd              , -- in     t_slv_arr c_NB_COL c_DFLD_SAOMD_COL_S     ; --! SQUID AMP offset MUX delay
          i_sw_adc_vin         => i_sw_adc_vin         , -- in     slv(c_SW_ADC_VIN_S-1 downto 0)            ; --! Switch ADC Voltage input
 
          i_adc_dmp_mem_add    => i_adc_dmp_mem_add    , -- in     std_logic_vector(c_MUX_FACT_S-1 downto 0) ; --! ADC Dump memory for data compare: address
-         i_adc_dmp_mem_data   => i_adc_dmp_mem_data   , -- in     slv(c_SQ1_ADC_DATA_S+1 downto 0)          ; --! ADC Dump memory for data compare: data
+         i_adc_dmp_mem_data   => i_adc_dmp_mem_data   , -- in     slv(c_SQM_ADC_DATA_S+1 downto 0)          ; --! ADC Dump memory for data compare: data
          i_adc_dmp_mem_cs     => i_adc_dmp_mem_cs     , -- in     std_logic_vector(c_NB_COL-1 downto 0)     ; --! ADC Dump memory for data compare: chip select ('0' = Inactive, '1' = Active)
 
          i_science_data_ctrl  => science_data_ctrl(0) , -- in     slv(c_SC_DATA_SER_W_S-1 downto 0)         ; --! Science Data: Control word
