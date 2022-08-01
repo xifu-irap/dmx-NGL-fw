@@ -55,6 +55,7 @@ signal   cond_saofc           : std_logic                                       
 signal   cond_smfbd           : std_logic                                                                   ; --! Error data out of range condition: CY_MUX_SQ_FB_DELAY
 signal   cond_saodd           : std_logic                                                                   ; --! Error data out of range condition: CY_AMP_SQ_OFFSET_DAC_DELAY
 signal   cond_saomd           : std_logic                                                                   ; --! Error data out of range condition: CY_AMP_SQ_OFFSET_MUX_DELAY
+signal   cond_smpdl           : std_logic                                                                   ; --! Error data out of range condition: CY_SAMPLING_DELAY
 signal   cond_plsss           : std_logic                                                                   ; --! Error data out of range condition: CY_FB1_PULSE_SHAPING_SELECTION
 
 begin
@@ -103,13 +104,18 @@ begin
                      i_ep_cmd_rx_wd_data(11) or i_ep_cmd_rx_wd_data(10) or i_ep_cmd_rx_wd_data(9)  or i_ep_cmd_rx_wd_data(8)  or
                      i_ep_cmd_rx_wd_data(7)  or i_ep_cmd_rx_wd_data(6)  or i_ep_cmd_rx_wd_data(5);
 
+   cond_smpdl     <= '1' when i_ep_cmd_rx_wd_data(c_DFLD_SMPDL_COL_S-1 downto 0) >= std_logic_vector(to_unsigned(c_PIXEL_ADC_NB_CYC , c_DFLD_SMPDL_COL_S)) else
+                     i_ep_cmd_rx_wd_data(15) or i_ep_cmd_rx_wd_data(14) or i_ep_cmd_rx_wd_data(13) or i_ep_cmd_rx_wd_data(12) or
+                     i_ep_cmd_rx_wd_data(11) or i_ep_cmd_rx_wd_data(10) or i_ep_cmd_rx_wd_data(9)  or i_ep_cmd_rx_wd_data(8)  or
+                     i_ep_cmd_rx_wd_data(7)  or i_ep_cmd_rx_wd_data(6)  or i_ep_cmd_rx_wd_data(5);
+
    cond_plsss     <= i_ep_cmd_rx_wd_data(15) or i_ep_cmd_rx_wd_data(14) or i_ep_cmd_rx_wd_data(13) or i_ep_cmd_rx_wd_data(12) or
                      i_ep_cmd_rx_wd_data(11) or i_ep_cmd_rx_wd_data(10) or i_ep_cmd_rx_wd_data(9)  or i_ep_cmd_rx_wd_data(8)  or
                      i_ep_cmd_rx_wd_data(7)  or i_ep_cmd_rx_wd_data(6)  or i_ep_cmd_rx_wd_data(5)  or i_ep_cmd_rx_wd_data(4)  or
                      i_ep_cmd_rx_wd_data(3)  or i_ep_cmd_rx_wd_data(2);
 
    -- ------------------------------------------------------------------------------------------------------
-   --!   EP command: Status, error error data out of range
+   --!   EP command: Status, error data out of range
    -- ------------------------------------------------------------------------------------------------------
    P_ep_cmd_sts_err_out : process (i_rst, i_clk)
    begin
@@ -162,6 +168,10 @@ begin
                elsif i_ep_cmd_rx_add_norw(i_ep_cmd_rx_add_norw'high downto c_EP_CMD_ADD_COLPOSH+1) = c_EP_CMD_ADD_SAOMD(0)(i_ep_cmd_rx_add_norw'high downto c_EP_CMD_ADD_COLPOSH+1) and
                      i_ep_cmd_rx_add_norw(c_EP_CMD_ADD_COLPOSL-1    downto 0)                      = c_EP_CMD_ADD_SAOMD(0)(c_EP_CMD_ADD_COLPOSL-1    downto 0)                      then
                   o_ep_cmd_sts_err_out <= cond_saomd xor c_EP_CMD_ERR_CLR;
+
+               elsif i_ep_cmd_rx_add_norw(i_ep_cmd_rx_add_norw'high downto c_EP_CMD_ADD_COLPOSH+1) = c_EP_CMD_ADD_SMPDL(0)(i_ep_cmd_rx_add_norw'high downto c_EP_CMD_ADD_COLPOSH+1) and
+                     i_ep_cmd_rx_add_norw(c_EP_CMD_ADD_COLPOSL-1    downto 0)                      = c_EP_CMD_ADD_SMPDL(0)(c_EP_CMD_ADD_COLPOSL-1    downto 0)                      then
+                  o_ep_cmd_sts_err_out <= cond_smpdl xor c_EP_CMD_ERR_CLR;
 
                elsif i_ep_cmd_rx_add_norw(i_ep_cmd_rx_add_norw'high downto c_EP_CMD_ADD_COLPOSH+1) = c_EP_CMD_ADD_PLSSS(0)(i_ep_cmd_rx_add_norw'high downto c_EP_CMD_ADD_COLPOSH+1) and
                      i_ep_cmd_rx_add_norw(c_EP_CMD_ADD_COLPOSL-1    downto 0)                      = c_EP_CMD_ADD_PLSSS(0)(c_EP_CMD_ADD_COLPOSL-1    downto 0)                      then

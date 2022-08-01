@@ -60,11 +60,13 @@ entity register_mgt is port
 
          o_smfmd              : out    t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SMFMD_COL_S-1 downto 0)            ; --! SQUID MUX feedback mode
          o_saofm              : out    t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SAOFM_COL_S-1 downto 0)            ; --! SQUID AMP offset mode
+         o_bxlgt              : out    t_slv_arr(0 to c_NB_COL-1)(c_DFLD_BXLGT_COL_S-1 downto 0)            ; --! ADC sample number for averaging
          o_saofc              : out    t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SAOFC_COL_S-1 downto 0)            ; --! SQUID AMP lockpoint coarse offset
          o_saofl              : out    t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SAOFC_COL_S-1 downto 0)            ; --! SQUID AMP offset DAC LSB
          o_smfbd              : out    t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SMFBD_COL_S-1 downto 0)            ; --! SQUID MUX feedback delay
          o_saodd              : out    t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SAODD_COL_S-1 downto 0)            ; --! SQUID AMP offset DAC delay
          o_saomd              : out    t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SAOMD_COL_S-1 downto 0)            ; --! SQUID AMP offset MUX delay
+         o_smpdl              : out    t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SMPDL_COL_S-1 downto 0)            ; --! ADC sample delay
          o_plsss              : out    t_slv_arr(0 to c_NB_COL-1)(c_DFLD_PLSSS_PLS_S-1 downto 0)            ; --! SQUID MUX feedback pulse shaping set
 
          o_mem_smfb0          : out    t_mem_arr(0 to c_NB_COL-1)(
@@ -102,11 +104,13 @@ signal   rg_aqmde_dmp_cmp     : std_logic                                       
 
 signal   rg_smfmd             : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SMFMD_COL_S-1 downto 0)                   ; --! EP register: SQ_MUX_FB_ON_OFF
 signal   rg_saofm             : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SAOFM_COL_S-1 downto 0)                   ; --! EP register: SQ_AMP_OFFSET_MODE
+signal   rg_bxlgt             : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_BXLGT_COL_S-1 downto 0)                   ; --! EP register: BOXCAR_LENGTH
 signal   rg_saofc             : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SAOFC_COL_S-1 downto 0)                   ; --! EP register: CY_AMP_SQ_OFFSET_COARSE
 signal   rg_saofl             : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SAOFL_COL_S-1 downto 0)                   ; --! EP register: CY_AMP_SQ_OFFSET_LSB
 signal   rg_smfbd             : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SMFBD_COL_S-1 downto 0)                   ; --! EP register: CY_MUX_SQ_FB_DELAY
 signal   rg_saodd             : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SAODD_COL_S-1 downto 0)                   ; --! EP register: CY_AMP_SQ_OFFSET_DAC_DELAY
 signal   rg_saomd             : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SAOMD_COL_S-1 downto 0)                   ; --! EP register: CY_AMP_SQ_OFFSET_MUX_DELAY
+signal   rg_smpdl             : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SMPDL_COL_S-1 downto 0)                   ; --! EP register: CY_SAMPLING_DELAY
 signal   rg_plsss             : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_PLSSS_PLS_S-1 downto 0)                   ; --! EP register: CY_FB1_PULSE_SHAPING_SELECTION
 
 signal   smfb0_cs             : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! Chip select data read ('0'=Inactive, '1'=Active): CY_MUX_SQ_FB0
@@ -117,6 +121,7 @@ signal   saofc_cs             : std_logic_vector(c_NB_COL-1 downto 0)           
 signal   smfbd_cs             : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! Chip select data read ('0'=Inactive, '1'=Active): CY_MUX_SQ_FB_DELAY
 signal   saodd_cs             : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! Chip select data read ('0'=Inactive, '1'=Active): CY_AMP_SQ_OFFSET_DAC_DELAY
 signal   saomd_cs             : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! Chip select data read ('0'=Inactive, '1'=Active): CY_AMP_SQ_OFFSET_MUX_DELAY
+signal   smpdl_cs             : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! Chip select data read ('0'=Inactive, '1'=Active): CY_SAMPLING_DELAY
 signal   plssh_cs             : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! Chip select data read ('0'=Inactive, '1'=Active): CY_FB1_PULSE_SHAPING
 signal   plsss_cs             : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! Chip select data read ('0'=Inactive, '1'=Active): CY_FB1_PULSE_SHAPING_SELECTION
 
@@ -157,6 +162,7 @@ begin
    cs_rg(c_EP_CMD_POS_AQMDE)  <= '1' when  ep_cmd_rx_wd_add_r = c_EP_CMD_ADD_AQMDE  else '0';
    cs_rg(c_EP_CMD_POS_SMFMD)  <= '1' when  ep_cmd_rx_wd_add_r = c_EP_CMD_ADD_SMFMD  else '0';
    cs_rg(c_EP_CMD_POS_SAOFM)  <= '1' when  ep_cmd_rx_wd_add_r = c_EP_CMD_ADD_SAOFM  else '0';
+   cs_rg(c_EP_CMD_POS_BXLGT)  <= '1' when  ep_cmd_rx_wd_add_r = c_EP_CMD_ADD_BXLGT  else '0';
    cs_rg(c_EP_CMD_POS_STATUS) <= '1' when  ep_cmd_rx_wd_add_r = c_EP_CMD_ADD_STATUS else '0';
    cs_rg(c_EP_CMD_POS_FW_VER) <= '1' when  ep_cmd_rx_wd_add_r = c_EP_CMD_ADD_FW_VER else '0';
    cs_rg(c_EP_CMD_POS_HW_VER) <= '1' when  ep_cmd_rx_wd_add_r = c_EP_CMD_ADD_HW_VER else '0';
@@ -195,6 +201,10 @@ begin
    cs_rg(c_EP_CMD_POS_SAOMD)  <= '1' when
       (ep_cmd_rx_wd_add_r(ep_cmd_rx_wd_add_r'high downto c_EP_CMD_ADD_COLPOSH+1) = c_EP_CMD_ADD_SAOMD(0)(ep_cmd_rx_wd_add_r'high downto c_EP_CMD_ADD_COLPOSH+1) and
        ep_cmd_rx_wd_add_r(c_EP_CMD_ADD_COLPOSL-1  downto 0)                      = c_EP_CMD_ADD_SAOMD(0)(c_EP_CMD_ADD_COLPOSL-1  downto 0))                     else '0';
+
+   cs_rg(c_EP_CMD_POS_SMPDL)  <= '1' when
+      (ep_cmd_rx_wd_add_r(ep_cmd_rx_wd_add_r'high downto c_EP_CMD_ADD_COLPOSH+1) = c_EP_CMD_ADD_SMPDL(0)(ep_cmd_rx_wd_add_r'high downto c_EP_CMD_ADD_COLPOSH+1) and
+       ep_cmd_rx_wd_add_r(c_EP_CMD_ADD_COLPOSL-1  downto 0)                      = c_EP_CMD_ADD_SMPDL(0)(c_EP_CMD_ADD_COLPOSL-1  downto 0))                     else '0';
 
    cs_rg(c_EP_CMD_POS_PLSSH)  <= '1' when
       (ep_cmd_rx_wd_add_r(ep_cmd_rx_wd_add_r'high downto c_EP_CMD_ADD_COLPOSH+1) = c_EP_CMD_ADD_PLSSH(0)(ep_cmd_rx_wd_add_r'high downto c_EP_CMD_ADD_COLPOSH+1) and
@@ -273,12 +283,14 @@ begin
          if i_rst = '1' then
             rg_smfmd(k) <= c_EP_CMD_DEF_SMFMD;
             rg_saofm(k) <= c_EP_CMD_DEF_SAOFM;
+            rg_bxlgt(k) <= c_EP_CMD_DEF_BXLGT;
 
             rg_saofc(k) <= c_EP_CMD_DEF_SAOFC;
             rg_saofl(k) <= c_EP_CMD_DEF_SAOFL;
             rg_smfbd(k) <= c_EP_CMD_DEF_SMFBD;
             rg_saodd(k) <= c_EP_CMD_DEF_SAODD;
             rg_saomd(k) <= c_EP_CMD_DEF_SAOMD;
+            rg_smpdl(k) <= c_EP_CMD_DEF_SMPDL;
             rg_plsss(k) <= c_EP_CMD_DEF_PLSSS;
 
          elsif rising_edge(i_clk) then
@@ -294,6 +306,13 @@ begin
                -- @Req : DRE-DMX-FW-REQ-0330
                if cs_rg_r(c_EP_CMD_POS_SAOFM) = '1' then
                   rg_saofm(k) <= ep_cmd_rx_wd_data_r(c_NB_COL*k+c_DFLD_SAOFM_COL_S-1 downto c_NB_COL*k);
+
+               end if;
+
+               -- @Req : REG_BOXCAR_LENGTH
+               -- @Req : DRE-DMX-FW-REQ-0145
+               if cs_rg_r(c_EP_CMD_POS_BXLGT) = '1' then
+                  rg_bxlgt(k) <= ep_cmd_rx_wd_data_r(c_NB_COL*k+c_DFLD_BXLGT_COL_S-1 downto c_NB_COL*k);
 
                end if;
 
@@ -333,6 +352,13 @@ begin
 
                   end if;
 
+                  -- @Req : REG_CY_SAMPLING_DELAY
+                  -- @Req : DRE-DMX-FW-REQ-0150
+                  if cs_rg_r(c_EP_CMD_POS_SMPDL) = '1' then
+                     rg_smpdl(k)  <= ep_cmd_rx_wd_data_r(c_DFLD_SMPDL_COL_S-1 downto 0);
+
+                  end if;
+
                   -- @Req : REG_CY_FB1_PULSE_SHAPING_SEL
                   if cs_rg_r(c_EP_CMD_POS_PLSSS) = '1' then
                      rg_plsss(k)  <= ep_cmd_rx_wd_data_r(c_DFLD_PLSSS_PLS_S-1 downto 0);
@@ -352,6 +378,7 @@ begin
       smfbd_cs(k) <= ep_cmd_rx_nerr_rdy_r and (ep_cmd_rx_rw_r xor c_EP_CMD_ADD_RW_W) when ep_cmd_rx_wd_add_r = c_EP_CMD_ADD_SMFBD(k) else '0';
       saodd_cs(k) <= ep_cmd_rx_nerr_rdy_r and (ep_cmd_rx_rw_r xor c_EP_CMD_ADD_RW_W) when ep_cmd_rx_wd_add_r = c_EP_CMD_ADD_SAODD(k) else '0';
       saomd_cs(k) <= ep_cmd_rx_nerr_rdy_r and (ep_cmd_rx_rw_r xor c_EP_CMD_ADD_RW_W) when ep_cmd_rx_wd_add_r = c_EP_CMD_ADD_SAOMD(k) else '0';
+      smpdl_cs(k) <= ep_cmd_rx_nerr_rdy_r and (ep_cmd_rx_rw_r xor c_EP_CMD_ADD_RW_W) when ep_cmd_rx_wd_add_r = c_EP_CMD_ADD_SMPDL(k) else '0';
       plsss_cs(k) <= ep_cmd_rx_nerr_rdy_r and (ep_cmd_rx_rw_r xor c_EP_CMD_ADD_RW_W) when ep_cmd_rx_wd_add_r = c_EP_CMD_ADD_PLSSS(k) else '0';
 
    end generate G_column_mgt;
@@ -464,6 +491,7 @@ begin
 
          i_rg_smfmd           => rg_smfmd             , -- in     t_slv_arr c_NB_COL c_DFLD_SMFMD_COL_S     ; --! EP register: SQ_MUX_FB_ON_OFF
          i_rg_saofm           => rg_saofm             , -- in     t_slv_arr c_NB_COL c_DFLD_SAOFM_COL_S     ; --! EP register: SQ_AMP_OFFSET_MODE
+         i_rg_bxlgt           => rg_bxlgt             , -- in     t_slv_arr c_NB_COL c_DFLD_BXLGT_COL_S     ; --! EP register: BOXCAR_LENGTH
          i_ep_cmd_sts_rg_r    => ep_cmd_sts_rg_r      , -- in     slv(c_EP_SPI_WD_S-1 downto 0)             ; --! EP command: Status register, registered
 
          i_smfb0_data         => i_smfb0_data         , -- in     t_slv_arr c_NB_COL c_DFLD_SMFB0_PIX_S     ; --! Data read: CY_MUX_SQ_FB0
@@ -489,6 +517,9 @@ begin
 
          i_saomd_data         => rg_saomd             , -- in     t_slv_arr c_NB_COL c_DFLD_SAOMD_COL_S     ; --! Data read: CY_AMP_SQ_OFFSET_MUX_DELAY
          i_saomd_cs           => saomd_cs             , -- in     std_logic_vector(c_NB_COL-1 downto 0)     ; --! Chip select data read ('0' = Inactive,'1'=Active): CY_AMP_SQ_OFFSET_MUX_DELAY
+
+         i_smpdl_data         => rg_smpdl             , -- in     t_slv_arr c_NB_CO c_DFLD_SMPDL_COL_S      ; --! Data read: CY_SAMPLING_DELAY
+         i_smpdl_cs           => smpdl_cs             , -- in     std_logic_vector(c_NB_COL-1 downto 0)     ; --! Chip select data read ('0' = Inactive, '1' = Active): CY_SAMPLING_DELAY
 
          i_plssh_data         => i_plssh_data         , -- in     t_slv_arr c_NB_COL c_DFLD_PLSSH_PLS_S     ; --! Data read: CY_FB1_PULSE_SHAPING
          i_plssh_cs           => plssh_cs             , -- in     std_logic_vector(c_NB_COL-1 downto 0)     ; --! Chip select data read ('0' = Inactive,'1'=Active): CY_FB1_PULSE_SHAPING
@@ -546,6 +577,24 @@ begin
          i_sig                => rg_aqmde_dmp_cmp     , -- in     std_logic                                 ; --! Signal
          o_sig_r              => o_aqmde_dmp_cmp(k)     -- out    std_logic                                   --! Signal registered
       );
+
+      G_bxlgt: for l in 0 to c_DFLD_BXLGT_COL_S-1 generate
+      begin
+
+         I_bxlgt: entity work.signal_reg generic map
+         (
+         g_SIG_FF_NB          => 1                    , -- integer                                          ; --! Signal registered flip-flop number
+         g_SIG_DEF            => c_EP_CMD_DEF_BXLGT(l)  -- std_logic                                          --! Signal registered default value at reset
+         )  port map
+         (
+         i_reset              => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+         i_clock              => i_clk                , -- in     std_logic                                 ; --! Clock
+
+         i_sig                => rg_bxlgt(k)(l)       , -- in     std_logic                                 ; --! Signal
+         o_sig_r              => o_bxlgt(k)(l)          -- out    std_logic                                   --! Signal registered
+         );
+
+      end generate G_bxlgt;
 
       G_saofc: for l in 0 to c_DFLD_SAOFC_COL_S-1 generate
       begin
@@ -636,6 +685,24 @@ begin
          );
 
       end generate G_saomd;
+
+      G_smpdl: for l in 0 to c_DFLD_SMPDL_COL_S-1 generate
+      begin
+
+         I_smpdl: entity work.signal_reg generic map
+         (
+         g_SIG_FF_NB          => 1                    , -- integer                                          ; --! Signal registered flip-flop number
+         g_SIG_DEF            => c_EP_CMD_DEF_SMPDL(l)  -- std_logic                                          --! Signal registered default value at reset
+         )  port map
+         (
+         i_reset              => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+         i_clock              => i_clk                , -- in     std_logic                                 ; --! Clock
+
+         i_sig                => rg_smpdl(k)(l)       , -- in     std_logic                                 ; --! Signal
+         o_sig_r              => o_smpdl(k)(l)          -- out    std_logic                                   --! Signal registered
+         );
+
+      end generate G_smpdl;
 
       G_plsss: for l in 0 to c_DFLD_PLSSS_PLS_S-1 generate
       begin

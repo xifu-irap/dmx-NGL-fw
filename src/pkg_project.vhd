@@ -26,6 +26,7 @@
 -- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 library ieee;
 use     ieee.std_logic_1164.all;
+use     ieee.numeric_std.all;
 
 library work;
 use     work.pkg_type.all;
@@ -47,6 +48,7 @@ constant c_FF_RST_NB          : integer   := c_FF_RSYNC_NB + 3                  
 constant c_FF_RST_ADC_DAC_NB  : integer   := c_FF_RSYNC_NB + 1                                              ; --! Flip-Flop number used for internal reset: ADC/DAC Clock
 
 constant c_MEM_RD_DATA_NPER   : integer   := 2                                                              ; --! Clock period number for accessing memory data output
+constant c_DSP_NPER           : integer   := 3                                                              ; --! Clock period number for DSP calculation
 
 constant c_CLK_REF_MULT       : integer   := 1                                                              ; --! Reference Clock multiplier frequency factor
 constant c_CLK_MULT           : integer   := 1                                                              ; --! System Clock multiplier frequency factor
@@ -118,7 +120,8 @@ constant c_EP_SPI_RX_WD_NB_S  : integer   := 2                                  
 constant c_I_SPI_DATA_DEF     : std_logic := '0'                                                            ; --! SPI data input default value at reset
 constant c_I_SPI_SCLK_DEF     : std_logic := c_EP_SPI_CPOL                                                  ; --! SPI Serial Clock input default value at reset
 constant c_I_SPI_CS_N_DEF     : std_logic := '1'                                                            ; --! SPI Chip Select input default value at reset
-constant c_I_SQM_ADC_DATA_DEF : std_logic_vector(c_SQM_ADC_DATA_S-1 downto 0):= (others =>'0')              ; --! SQUID MUX ADC data input default value at reset
+constant c_I_SQM_ADC_DATA_DEF : std_logic_vector(c_SQM_ADC_DATA_S-1 downto 0):=
+                                std_logic_vector(to_unsigned(2**(c_SQM_ADC_DATA_S-1), c_SQM_ADC_DATA_S))    ; --! SQUID MUX ADC data input default value at reset
 constant c_I_SQM_ADC_OOR_DEF  : std_logic := '0'                                                            ; --! SQUID MUX ADC out of range input default value at reset
 constant c_I_SYNC_DEF         : std_logic := '1'                                                            ; --! Pixel sequence synchronization default value at reset
 
@@ -136,7 +139,8 @@ constant c_MUX_FACT           : integer   := 34                                 
 constant c_NB_COL             : integer   := 4                                                              ; --! DEMUX: column number
 constant c_DMP_SEQ_ACQ_NB     : integer   := 2                                                              ; --! DEMUX: sequence acquisition number for the ADC data dump mode
 
-constant c_SQM_DATA_ERR_S     : integer   := 18                                                             ; --! SQUID MUX Data error bus size
+constant c_SQM_ADC_SMP_AVE_S  : integer   := 4                                                              ; --! ADC sample number for averaging bus size
+constant c_SQM_DATA_ERR_S     : integer   := c_SQM_ADC_DATA_S + c_SQM_ADC_SMP_AVE_S                         ; --! SQUID MUX Data error bus size
 constant c_SQM_DATA_FBK_S     : integer   := 16                                                             ; --! SQUID MUX Data feedback bus size (<= c_MULT_ALU_PORTB_S-1)
 constant c_SQM_PLS_SHP_A_EXP  : integer   := c_EP_SPI_WD_S                                                  ; --! Pulse shaping: Filter exponent parameter (<=c_MULT_ALU_PORTC_S-c_SQM_PLS_SHP_X_K_S-1)
 
@@ -158,6 +162,26 @@ constant c_ADC_DATA_RDY_NPER  : integer := c_ADC_DATA_NPER + c_FF_RSYNC_NB - 1  
 
 constant c_MEM_DUMP_ADD_S     : integer := c_RAM_ECC_ADD_S                                                  ; --! Memory Dump: address bus size (<= c_RAM_ECC_ADD_S)
 
+constant c_ADC_SMP_AVE_ADD_S  : integer := c_SQM_ADC_SMP_AVE_S                                              ; --! ADC sample number for averaging table address bus size
+constant c_ASP_CF_S           : integer := c_MULT_ALU_PORTA_S                                               ; --! ADC sample number for averaging coefficient bus size (<= c_MULT_ALU_PORTA_S)
+constant c_ADC_SMP_AVE_TAB    : t_slv_arr(0 to 2**c_ADC_SMP_AVE_ADD_S-1)(c_ASP_CF_S-1 downto 0) :=
+                                (std_logic_vector(to_unsigned(div_round(2**(c_ASP_CF_S-1),  1),c_ASP_CF_S)),
+                                 std_logic_vector(to_unsigned(div_round(2**(c_ASP_CF_S-1),  2),c_ASP_CF_S)),
+                                 std_logic_vector(to_unsigned(div_round(2**(c_ASP_CF_S-1),  3),c_ASP_CF_S)),
+                                 std_logic_vector(to_unsigned(div_round(2**(c_ASP_CF_S-1),  4),c_ASP_CF_S)),
+                                 std_logic_vector(to_unsigned(div_round(2**(c_ASP_CF_S-1),  5),c_ASP_CF_S)),
+                                 std_logic_vector(to_unsigned(div_round(2**(c_ASP_CF_S-1),  6),c_ASP_CF_S)),
+                                 std_logic_vector(to_unsigned(div_round(2**(c_ASP_CF_S-1),  7),c_ASP_CF_S)),
+                                 std_logic_vector(to_unsigned(div_round(2**(c_ASP_CF_S-1),  8),c_ASP_CF_S)),
+                                 std_logic_vector(to_unsigned(div_round(2**(c_ASP_CF_S-1),  9),c_ASP_CF_S)),
+                                 std_logic_vector(to_unsigned(div_round(2**(c_ASP_CF_S-1), 10),c_ASP_CF_S)),
+                                 std_logic_vector(to_unsigned(div_round(2**(c_ASP_CF_S-1), 11),c_ASP_CF_S)),
+                                 std_logic_vector(to_unsigned(div_round(2**(c_ASP_CF_S-1), 12),c_ASP_CF_S)),
+                                 std_logic_vector(to_unsigned(div_round(2**(c_ASP_CF_S-1), 13),c_ASP_CF_S)),
+                                 std_logic_vector(to_unsigned(div_round(2**(c_ASP_CF_S-1), 14),c_ASP_CF_S)),
+                                 std_logic_vector(to_unsigned(div_round(2**(c_ASP_CF_S-1), 15),c_ASP_CF_S)),
+                                 std_logic_vector(to_unsigned(div_round(2**(c_ASP_CF_S-1), 16),c_ASP_CF_S))); --! ADC sample number for averaging table
+
    -- ------------------------------------------------------------------------------------------------------
    --    SQUID MUX DAC parameters
    --    @Req : DRE-DMX-FW-REQ-0230
@@ -171,7 +195,7 @@ constant c_DAC_SYNC_RDY_NPER  : integer := (c_FF_RSYNC_NB + 1)*(c_CLK_ADC_DAC_MU
                                           + c_FF_RSYNC_NB                                                   ; --! DAC clock period number for getting pixel sequence synchronization, synchronized
 constant c_DAC_SYNC_RE_NPER   : integer := 1                                                                ; --! DAC clock period number for getting pixel sequence synchronization rising edge
 constant c_DAC_MEM_PRM_NPER   : integer := c_MEM_RD_DATA_NPER + 1                                           ; --! DAC clock period number for getting parameters stored in memory from pixel sequence
-constant c_DAC_SHP_PRC_NPER   : integer := 4                                                                ; --! DAC clock period number for pulse shaping processing and DAC data input
+constant c_DAC_SHP_PRC_NPER   : integer := c_DSP_NPER + 1                                                   ; --! DAC clock period number for pulse shaping processing and DAC data input
 constant c_DAC_DATA_NPER      : integer := 3                                                                ; --! DAC clock period number between DAC data input and analog output
 constant c_DAC_SYNC_DATA_NPER : integer := c_DAC_SYNC_RDY_NPER + c_DAC_SYNC_RE_NPER + c_DAC_MEM_PRM_NPER +
                                            c_DAC_SHP_PRC_NPER  + c_DAC_DATA_NPER                            ; --! DAC clock period number for stalling analog output to pixel sequence synchronization
@@ -190,12 +214,21 @@ constant c_SAD_SYNC_DATA_NPER : integer := c_DAC_SYNC_RDY_NPER + c_DAC_SYNC_RE_N
    --    @Req : DRE-DMX-FW-REQ-0590
    -- ------------------------------------------------------------------------------------------------------
 constant c_SC_CTRL_DTA_W      : std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0) := "11000000"                ; --! Science data, control word value: Data Word
-constant c_SC_CTRL_SC_DTA     : std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0) := "11000010"                ; --! Science data, control word value: Science data packet first word
-constant c_SC_CTRL_ADC_DMP    : std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0) := "11001000"                ; --! Science data, control word value: SQUID MUX ADC dump packet first word
+constant c_SC_CTRL_ADC_DMP    : std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0) := "11000010"                ; --! Science data, control word value: SQUID MUX ADC dump packet first word
+constant c_SC_CTRL_SC_DTA     : std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0) := "11001000"                ; --! Science data, control word value: Science data packet first word
 constant c_SC_CTRL_TST_PAT    : std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0) := "11100000"                ; --! Science data, control word value: Test pattern packet first word
+constant c_SC_CTRL_ERRS       : std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0) := "11100010"                ; --! Science data, control word value: Error signal first word
 constant c_SC_CTRL_EOD        : std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0) := "11101010"                ; --! Science data, control word value: End of Data
 constant c_SC_CTRL_IDLE       : std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0) := "00000000"                ; --! Science data, control word value: Idle
 
 constant c_SC_DATA_IDLE_VAL   : std_logic_vector(c_SC_DATA_SER_W_S*c_SC_DATA_SER_NB-1 downto 0) := x"0000"  ; --! Science data: word sent when Telemetry mode on one column is in Idle
+
+   -- ------------------------------------------------------------------------------------------------------
+   --!   Calculus chain parameters
+   -- ------------------------------------------------------------------------------------------------------
+constant c_ASP_CF_FRC_S       : integer := c_ASP_CF_S - 1                                                   ; --! ADC sample number for averaging coefficient fractional part bus size
+
+constant c_ADC_SMP_AVE_S      : integer := c_MULT_ALU_PORTA_S                                               ; --! ADC sample average bus size
+constant c_ADC_SMP_AVE_FRC_S  : integer := c_ADC_SMP_AVE_S - c_SQM_ADC_DATA_S                               ; --! ADC sample average fractional part bus size
 
 end pkg_project;

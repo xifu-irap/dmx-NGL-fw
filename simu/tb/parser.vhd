@@ -104,6 +104,7 @@ entity parser is generic
 
          o_adc_dmp_mem_add    : out    std_logic_vector(    c_MUX_FACT_S-1 downto 0)                        ; --! ADC Dump memory for data compare: address
          o_adc_dmp_mem_data   : out    std_logic_vector(c_SQM_ADC_DATA_S+1 downto 0)                        ; --! ADC Dump memory for data compare: data
+         o_science_mem_data   : out    std_logic_vector(c_SC_DATA_SER_NB*c_SC_DATA_SER_W_S-1 downto 0)      ; --! Science  memory for data compare: data
          o_adc_dmp_mem_cs     : out    std_logic_vector(        c_NB_COL-1 downto 0)                          --! ADC Dump memory for data compare: chip select ('0' = Inactive, '1' = Active)
    );
 end entity parser;
@@ -590,19 +591,22 @@ begin
                   fprintf(note , "Write discrete: " & v_fld_dis.all & " = " & std_logic'image(v_fld_value), res_file);
 
                -- ------------------------------------------------------------------------------------------------------
-               -- Command WMDC [channel] [index] [data]: Write in ADC memory dump for data compare
+               -- Command WMDC [channel] [index] [data]:
+               --  Write in ADC dump/science memories for data compare
                -- ------------------------------------------------------------------------------------------------------
                when "WMDC" =>
 
                   -- Get parameters
-                  get_param_wmdc(v_cmd_file_line, v_head_mess_stdout.all, v_fld_dis_ind(0), v_fld_dis_ind(1), v_fld_spi_cmd(c_EP_SPI_WD_S-1 downto 0));
+                  get_param_wmdc(v_cmd_file_line, v_head_mess_stdout.all, v_fld_dis_ind(0), v_fld_dis_ind(1), v_fld_spi_cmd);
 
                   -- Display command
-                  fprintf(note , "Write in ADC memory dump column " & integer'image(v_fld_dis_ind(0)) & ", adress index " & integer'image(v_fld_dis_ind(1)) & ", value " & hfield_format(v_fld_spi_cmd(c_EP_SPI_WD_S-1 downto 0)).all, res_file);
+                  fprintf(note , "Write in ADC dump and science memories column " & integer'image(v_fld_dis_ind(0)) & ", adress index " & integer'image(v_fld_dis_ind(1)) &
+                                 ", ADC dump & Science value " & hfield_format(v_fld_spi_cmd).all, res_file);
 
-                  -- Write in ADC memory dump
+                  -- Write in ADC dump/science memories
                   o_adc_dmp_mem_add    <= std_logic_vector(to_unsigned(v_fld_dis_ind(1), o_adc_dmp_mem_add'length));
-                  o_adc_dmp_mem_data   <= std_logic_vector(resize(unsigned(v_fld_spi_cmd), o_adc_dmp_mem_data'length));
+                  o_adc_dmp_mem_data   <= std_logic_vector(resize(unsigned(v_fld_spi_cmd(2*c_EP_SPI_WD_S-1 downto c_EP_SPI_WD_S)), o_adc_dmp_mem_data'length));
+                  o_science_mem_data   <= std_logic_vector(resize(unsigned(v_fld_spi_cmd(  c_EP_SPI_WD_S-1 downto 0)), o_science_mem_data'length));
                   o_adc_dmp_mem_cs(v_fld_dis_ind(0))  <= '1';
                   wait for c_CLK_REF_PER_DEF;
                   o_adc_dmp_mem_cs(v_fld_dis_ind(0))  <= '0';

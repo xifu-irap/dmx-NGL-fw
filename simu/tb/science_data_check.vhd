@@ -45,6 +45,7 @@ entity science_data_check is port
 
          i_adc_dmp_mem_add    : in     std_logic_vector(    c_MUX_FACT_S-1 downto 0)                        ; --! ADC Dump memory for data compare: address
          i_adc_dmp_mem_data   : in     std_logic_vector(c_SQM_ADC_DATA_S+1 downto 0)                        ; --! ADC Dump memory for data compare: data
+         i_science_mem_data   : in     std_logic_vector(c_SC_DATA_SER_NB*c_SC_DATA_SER_W_S-1 downto 0)      ; --! Science  memory for data compare: data
          i_adc_dmp_mem_cs     : in     std_logic_vector(        c_NB_COL-1 downto 0)                        ; --! ADC Dump memory for data compare: chip select ('0' = Inactive, '1' = Active)
 
          i_science_data_ctrl  : in     std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0)                       ; --! Science Data: Control word
@@ -57,38 +58,56 @@ entity science_data_check is port
 end entity science_data_check;
 
 architecture RTL of science_data_check is
-constant c_PLS_CNT_NB_VAL     : integer:= c_PIXEL_ADC_NB_CYC                                                ; --! Pulse counter: number of value
-constant c_PLS_CNT_MAX_VAL    : integer:= c_PLS_CNT_NB_VAL - 2                                              ; --! Pulse counter: maximal value
-constant c_PLS_CNT_S          : integer:= log2_ceil(c_PLS_CNT_MAX_VAL + 1) + 1                              ; --! Pulse counter: size bus (signed)
+constant c_SC_DATA_R_PIP_NB   : integer:= 2                                                                 ; --! Science Data register: pipeline number
 
-constant c_PIXEL_POS_MAX_VAL  : integer:= c_MUX_FACT - 1                                                    ; --! Pixel position: maximal value
-constant c_PIXEL_POS_S        : integer:= log2_ceil(c_PIXEL_POS_MAX_VAL+1)                                  ; --! Pixel position: size bus
+constant c_PLS_CNT_NB_VAL     : integer:= c_PIXEL_ADC_NB_CYC                                                ; --! Pulse counter (Dump case): number of value
+constant c_PLS_CNT_MAX_VAL    : integer:= c_PLS_CNT_NB_VAL - 2                                              ; --! Pulse counter (Dump case): maximal value
+constant c_PLS_CNT_S          : integer:= log2_ceil(c_PLS_CNT_MAX_VAL + 1) + 1                              ; --! Pulse counter (Dump case): size bus (signed)
 
-constant c_SEQ_CNT_MAX_VAL    : integer:= c_DMP_SEQ_ACQ_NB - 1                                              ; --! Sequence counter: maximal value
-constant c_SEQ_CNT_S          : integer:= log2_ceil(c_SEQ_CNT_MAX_VAL + 1)                                  ; --! Sequence counter: size bus
+constant c_PIXEL_POS_MAX_VAL  : integer:= c_MUX_FACT - 1                                                    ; --! Pixel position (Dump case): maximal value
+constant c_PIXEL_POS_S        : integer:= log2_ceil(c_PIXEL_POS_MAX_VAL+1)                                  ; --! Pixel position (Dump case): size bus
+
+constant c_SEQ_CNT_MAX_VAL    : integer:= c_DMP_SEQ_ACQ_NB - 1                                              ; --! Sequence counter (Dump case): maximal value
+constant c_SEQ_CNT_S          : integer:= log2_ceil(c_SEQ_CNT_MAX_VAL + 1)                                  ; --! Sequence counter (Dump case): size bus
+
+constant c_PLS_CNT_SC_NB_VAL  : integer:= c_MUX_FACT                                                        ; --! Pulse counter (Science case): number of value
+constant c_PLS_CNT_SC_MAX_VAL : integer:= c_PLS_CNT_SC_NB_VAL - 1                                           ; --! Pulse counter (Science case): maximal value
+constant c_PLS_CNT_SC_S       : integer:= log2_ceil(c_PLS_CNT_SC_MAX_VAL + 1)                               ; --! Pulse counter (Science case): size bus
 
 signal   squid_del            : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SMFBD_COL_S-1 downto 0)                   ; --! SQUID Feedback delay
 
-signal   pls_cnt              : std_logic_vector(            c_PLS_CNT_S-1 downto 0)                        ; --! Pulse counter
-signal   pls_cnt_pos_del      : t_slv_arr(0 to c_NB_COL-1)(  c_PLS_CNT_S-1 downto 0)                        ; --! Pulse counter position with delay
-signal   pixel_pos            : std_logic_vector(          c_PIXEL_POS_S-1 downto 0)                        ; --! Pixel position
-signal   pixel_pos_del        : t_slv_arr(0 to c_NB_COL-1)(c_PIXEL_POS_S-1 downto 0)                        ; --! Pixel position with delay
-signal   seq_cnt              : std_logic_vector(            c_SEQ_CNT_S-1 downto 0)                        ; --! Sequence counter
+signal   pls_cnt              : std_logic_vector(            c_PLS_CNT_S-1 downto 0)                        ; --! Pulse counter (Dump case)
+signal   pls_cnt_pos_del      : t_slv_arr(0 to c_NB_COL-1)(  c_PLS_CNT_S-1 downto 0)                        ; --! Pulse counter (Dump case) position with delay
+signal   pixel_pos            : std_logic_vector(          c_PIXEL_POS_S-1 downto 0)                        ; --! Pixel position (Dump case)
+signal   pixel_pos_del        : t_slv_arr(0 to c_NB_COL-1)(c_PIXEL_POS_S-1 downto 0)                        ; --! Pixel position (Dump case) with delay
+signal   seq_cnt              : std_logic_vector(            c_SEQ_CNT_S-1 downto 0)                        ; --! Sequence counter (Dump case)
+
+signal   pls_cnt_sc           : std_logic_vector(         c_PLS_CNT_SC_S-1 downto 0)                        ; --! Pulse counter (Science case)
+
+signal   dump_mode_sel        : std_logic                                                                   ; --! Dump mode select ('0' = Science mode, '1' = Dump mode)
 
 signal   science_data_rdy_r   : std_logic_vector(1 downto 0)                                                ; --! Science Data Ready register ('0' = Inactive, '1' = Active)
+signal   science_data_r       : t_slv_arr_tab(0 to c_NB_COL-1)(0 to c_SC_DATA_R_PIP_NB-1)
+                                             (c_SC_DATA_SER_NB*c_SC_DATA_SER_W_S-1 downto 0)                ; --! Science Data register
+
 
 signal   mem_adc_dump_dta2cmp : t_slv_arr_tab(0 to c_NB_COL-1)(0 to c_MUX_FACT-1)
-                                (c_SQM_ADC_DATA_S+1 downto 0):= (others => (others => (others => '0')))     ; --! Dual port memory for adc dump data to compare
+                                             (c_SQM_ADC_DATA_S+1 downto 0):=
+                                             (others => (others => (others => '0')))                        ; --! Dual port memory for adc dump data to compare
+signal   mem_science_dta2cmp  : t_slv_arr_tab(0 to c_NB_COL-1)(0 to c_MUX_FACT-1)
+                                             (c_SC_DATA_SER_NB*c_SC_DATA_SER_W_S-1 downto 0):=
+                                             (others => (others => (others => '0')))                        ; --! Dual port memory for science data to compare
 
 signal   adc_dump_dta2cmp     : t_slv_arr(0 to c_NB_COL-1)(c_SQM_ADC_DATA_S+1 downto 0)                     ; --! adc dump data to compare
 signal   adc_dump_dta2cmp_lst : t_slv_arr(0 to c_NB_COL-1)(c_SQM_ADC_DATA_S+1 downto 0)                     ; --! adc dump data to compare last value
+signal   science_dta2cmp      : t_slv_arr(0 to c_NB_COL-1)(c_SC_DATA_SER_NB*c_SC_DATA_SER_W_S-1 downto 0)   ; --! science data to compare
 
 signal   science_data_err     : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! Science data error ('0' = No error, '1' = Error)
 
 begin
 
    -- ------------------------------------------------------------------------------------------------------
-   --!   Pulse counter
+   --!   Pulse counter (Dump case)
    -- ------------------------------------------------------------------------------------------------------
    P_pls_cnt : process (i_rst, i_clk_science)
    begin
@@ -120,7 +139,7 @@ begin
    end process P_pls_cnt;
 
    -- ------------------------------------------------------------------------------------------------------
-   --!   Pixel position
+   --!   Pixel position (Dump case)
    -- ------------------------------------------------------------------------------------------------------
    P_pixel_pos : process (i_rst, i_clk_science)
    begin
@@ -151,7 +170,7 @@ begin
    end process P_pixel_pos;
 
    -- ------------------------------------------------------------------------------------------------------
-   --!   Sequence counter
+   --!   Sequence counter (Dump case)
    -- ------------------------------------------------------------------------------------------------------
    P_seq_cnt : process (i_rst, i_clk_science)
    begin
@@ -177,6 +196,53 @@ begin
    end process P_seq_cnt;
 
    -- ------------------------------------------------------------------------------------------------------
+   --!   Pulse counter (Science case)
+   -- ------------------------------------------------------------------------------------------------------
+   P_pls_cnt_sc : process (i_rst, i_clk_science)
+   begin
+
+      if i_rst = '1' then
+         pls_cnt_sc  <= (others => '0');
+
+      elsif rising_edge(i_clk_science) then
+         if i_science_data_rdy = '1' then
+
+            if    i_science_data_ctrl = c_SC_CTRL_ERRS or i_science_data_ctrl = c_SC_CTRL_SC_DTA then
+               pls_cnt_sc <= std_logic_vector(to_unsigned(0, pls_cnt_sc'length));
+
+            elsif pls_cnt_sc < std_logic_vector(to_unsigned(c_PLS_CNT_SC_MAX_VAL, pls_cnt_sc'length)) then
+               pls_cnt_sc <= std_logic_vector(unsigned(pls_cnt_sc) + 1);
+
+            end if;
+
+         end if;
+
+      end if;
+
+   end process P_pls_cnt_sc;
+
+   -- ------------------------------------------------------------------------------------------------------
+   --!   Dump mode select
+   -- ------------------------------------------------------------------------------------------------------
+   P_dump_mode_sel : process (i_rst, i_clk_science)
+   begin
+
+      if i_rst = '1' then
+         dump_mode_sel   <= '0';
+
+      elsif rising_edge(i_clk_science) then
+         if    i_science_data_ctrl = c_SC_CTRL_ERRS or i_science_data_ctrl = c_SC_CTRL_SC_DTA then
+            dump_mode_sel   <= '0';
+
+         elsif  i_science_data_ctrl = c_SC_CTRL_ADC_DMP then
+            dump_mode_sel   <= '1';
+
+         end if;
+      end if;
+
+   end process P_dump_mode_sel;
+
+   -- ------------------------------------------------------------------------------------------------------
    --!   Science Data Ready register
    -- ------------------------------------------------------------------------------------------------------
    P_science_data_rdy : process (i_rst, i_clk_science)
@@ -193,16 +259,33 @@ begin
    end process P_science_data_rdy;
 
    -- ------------------------------------------------------------------------------------------------------
-   --!   Dual port memory for adc dump data compare
+   --!   Science Data register
    -- ------------------------------------------------------------------------------------------------------
    G_mem_adc_dmp_dta : for k in 0 to c_NB_COL-1 generate
    begin
 
+      P_science_data_r : process (i_rst, i_clk_science)
+      begin
+
+         if i_rst = '1' then
+            science_data_r(k) <= (others => (others => '0'));
+
+         elsif rising_edge(i_clk_science) then
+            science_data_r(k) <= i_science_data(k) & science_data_r(k)(0 to c_SC_DATA_R_PIP_NB-2);
+
+         end if;
+
+      end process P_science_data_r;
+
+      -- ------------------------------------------------------------------------------------------------------
+      --!   Dual port memory for adc dump data compare
+      -- ------------------------------------------------------------------------------------------------------
       P_mem_adc_dmp_dta_w : process(i_clk_science)
       begin
          if rising_edge(i_clk_science) then
             if i_adc_dmp_mem_cs(k) = '1' then
                mem_adc_dump_dta2cmp(k)(to_integer(unsigned(i_adc_dmp_mem_add))) <=  i_adc_dmp_mem_data;
+               mem_science_dta2cmp(k)( to_integer(unsigned(i_adc_dmp_mem_add))) <=  i_science_mem_data;
 
            end if;
          end if;
@@ -212,6 +295,7 @@ begin
       begin
          if rising_edge(i_clk_science) then
             adc_dump_dta2cmp(k) <= mem_adc_dump_dta2cmp(k)(to_integer(unsigned(pixel_pos_del(k))));
+            science_dta2cmp(k)  <= mem_science_dta2cmp(k)(to_integer(unsigned(pls_cnt_sc)));
 
          end if;
       end process P_mem_adc_dmp_dta_r;
@@ -298,8 +382,10 @@ begin
                                         pixel_pos = std_logic_vector(to_unsigned(0, pixel_pos'length)) and
                                         seq_cnt   = std_logic_vector(to_unsigned(0, seq_cnt'length)))  else
                               '1' when (i_sw_adc_vin = c_SW_ADC_VIN_ST_SQA and i_science_data(k) /= adc_dump_dta2cmp_lst(k)) else
-                              '1' when (i_sw_adc_vin = c_SW_ADC_VIN_ST_SQM) and (pls_cnt = pls_cnt_pos_del(k)) and (
+                              '1' when (i_sw_adc_vin = c_SW_ADC_VIN_ST_SQM) and (pls_cnt = pls_cnt_pos_del(k)) and (dump_mode_sel = '1') and (
                                         abs(signed(i_science_data(k)) - signed(adc_dump_dta2cmp_lst(k))) > to_signed(1, i_science_data(k)'length)) else
+                              '1' when (i_sw_adc_vin = c_SW_ADC_VIN_ST_SQM) and (dump_mode_sel = '0') and (
+                                        abs(signed(science_data_r(k)(c_SC_DATA_R_PIP_NB-1)) - signed(science_dta2cmp(k))) > to_signed(1, i_science_data(k)'length)) else
                               '0';
 
    end generate G_mem_adc_dmp_dta;

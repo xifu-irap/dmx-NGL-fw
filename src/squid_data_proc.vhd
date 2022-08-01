@@ -29,14 +29,22 @@ use     ieee.std_logic_1164.all;
 use     ieee.numeric_std.all;
 
 library work;
+use     work.pkg_fpga_tech.all;
 use     work.pkg_func_math.all;
 use     work.pkg_project.all;
+use     work.pkg_ep_cmd.all;
 
 entity squid_data_proc is port
    (     i_rst                : in     std_logic                                                            ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                : in     std_logic                                                            ; --! Clock
 
+         i_aqmde              : in     std_logic_vector(c_DFLD_AQMDE_S-1 downto 0)                          ; --! Telemetry mode
+         i_smfmd              : in     std_logic_vector(c_DFLD_SMFMD_COL_S-1 downto 0)                      ; --! SQUID MUX feedback mode
+         i_bxlgt              : in     std_logic_vector(c_DFLD_BXLGT_COL_S-1 downto 0)                      ; --! ADC sample number for averaging
          i_sqm_data_err       : in     std_logic_vector(c_SQM_DATA_ERR_S-1 downto 0)                        ; --! SQUID MUX Data error
+         i_sqm_data_err_frst  : in     std_logic                                                            ; --! SQUID MUX Data error first pixel ('0' = No, '1' = Yes)
+         i_sqm_data_err_last  : in     std_logic                                                            ; --! SQUID MUX Data error last pixel ('0' = No, '1' = Yes)
+         i_sqm_data_err_rdy   : in     std_logic                                                            ; --! SQUID MUX Data error ready ('0' = Not ready, '1' = Ready)
 
          o_sqm_data_sc_msb    : out    std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0)                       ; --! SQUID MUX Data science MSB
          o_sqm_data_sc_lsb    : out    std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0)                       ; --! SQUID MUX Data science LSB
@@ -51,73 +59,213 @@ entity squid_data_proc is port
 end entity squid_data_proc;
 
 architecture RTL of squid_data_proc is
+constant c_ADC_SMP_AVE_NPER   : integer := c_DSP_NPER + 2                                                   ; --! Clock period number for ADC sample average from SQUID MUX Data error ready
 
--- TODO
-constant c_CK_PLS_CNT_MAX_VAL : integer:= (c_PIXEL_ADC_NB_CYC * c_CLK_MULT / c_CLK_ADC_DAC_MULT) - 2        ; --! System clock pulse counter: maximal value
-constant c_CK_PLS_CNT_S       : integer:= log2_ceil(c_CK_PLS_CNT_MAX_VAL+1)+1                               ; --! System clock pulse counter: size bus (signed)
+constant c_ADC_SMP_AVE_TOT_S  : integer := c_SQM_ADC_DATA_S + c_ASP_CF_S - 1                                ; --! ADC sample average: DSP Result total size
+constant c_ADC_SMP_AVE_LSB    : integer := c_ADC_SMP_AVE_TOT_S - c_ADC_SMP_AVE_S                            ; --! ADC sample average: DSP Result LSB position
+constant c_ADC_SMP_AVE_SAT    : integer := c_ADC_SMP_AVE_TOT_S - 1                                          ; --! ADC sample average: saturation
 
-constant c_PIXEL_POS_MAX_VAL  : integer:= c_MUX_FACT - 2                                                    ; --! Pixel position: maximal value
-constant c_PIXEL_POS_S        : integer:= log2_ceil(c_PIXEL_POS_MAX_VAL+1)+1                                ; --! Pixel position: size bus (signed)
+signal   sqm_data_err_frst_r  : std_logic_vector(c_ADC_SMP_AVE_NPER-1 downto 0)                             ; --! SQUID MUX Data science first pixel register
+signal   sqm_data_err_last_r  : std_logic_vector(c_ADC_SMP_AVE_NPER-1 downto 0)                             ; --! SQUID MUX Data science last pixel register
+signal   sqm_data_err_rdy_r   : std_logic_vector(c_ADC_SMP_AVE_NPER-1 downto 0)                             ; --! SQUID MUX Data science ready register
 
-signal   ck_pls_cnt           : std_logic_vector(c_CK_PLS_CNT_S-1 downto 0)                                 ; --! System clock pulse counter
-signal   pixel_pos            : std_logic_vector( c_PIXEL_POS_S-1 downto 0)                                 ; --! Pixel position
+signal   sqm_adc_ena          : std_logic                                                                   ; --! ADC enable ('0'= No, '1'= Yes)
+signal   aqmde_sync           : std_logic_vector(c_DFLD_AQMDE_S-1 downto 0)                                 ; --! Telemetry mode, sync. on first pixel
+signal   bxlgt_sync           : std_logic_vector(c_DFLD_BXLGT_COL_S-1 downto 0)                             ; --! ADC sample number for averaging, sync. on first pixel
+
+signal   sqm_data_err         : std_logic_vector(c_SQM_DATA_ERR_S-1 downto 0)                               ; --! SQUID MUX Data error
+
+signal   adc_smp_ave_coef     : std_logic_vector(c_ASP_CF_S-1 downto 0)                                     ; --! ADC sample number for averaging coefficient (unsigned)
+signal   adc_smp_ave          : std_logic_vector(c_ADC_SMP_AVE_S-1 downto 0)                                ; --! ADC sample average (unsigned)
+signal   adc_smp_ave_sc       : std_logic_vector(c_SC_DATA_SER_NB*c_SC_DATA_SER_W_S-1 downto 0)             ; --! ADC sample average for data science (unsigned)
+
+signal   sqm_data_sc          : std_logic_vector(c_SC_DATA_SER_NB*c_SC_DATA_SER_W_S-1 downto 0)             ; --! SQUID MUX Data science
+signal   sqm_data_sc_first    : std_logic                                                                   ; --! SQUID MUX Data science first pixel ('0' = No, '1' = Yes)
+signal   sqm_data_sc_last     : std_logic                                                                   ; --! SQUID MUX Data science last pixel ('0' = No, '1' = Yes)
+signal   sqm_data_sc_rdy      : std_logic                                                                   ; --! SQUID MUX Data science ready ('0' = Not ready, '1' = Ready)
 
 begin
 
-   -- TODO
-   P_pixel_seq : process (i_rst, i_clk)
+   -- ------------------------------------------------------------------------------------------------------
+   --!   Signal registered
+   -- ------------------------------------------------------------------------------------------------------
+   P_sig_r : process (i_rst, i_clk)
    begin
 
       if i_rst = '1' then
-         ck_pls_cnt  <= std_logic_vector(to_signed(c_CK_PLS_CNT_MAX_VAL, ck_pls_cnt'length));
-         pixel_pos   <= (others => '1');
+         sqm_data_err_frst_r  <= (others => '0');
+         sqm_data_err_last_r  <= (others => '0');
+         sqm_data_err_rdy_r   <= (others => '0');
+
+      elsif rising_edge(i_clk) then
+         sqm_data_err_frst_r  <= sqm_data_err_frst_r(sqm_data_err_frst_r'high-1 downto 0) & i_sqm_data_err_frst;
+         sqm_data_err_last_r  <= sqm_data_err_last_r(sqm_data_err_last_r'high-1 downto 0) & i_sqm_data_err_last;
+         sqm_data_err_rdy_r   <= sqm_data_err_rdy_r( sqm_data_err_rdy_r'high-1  downto 0) & i_sqm_data_err_rdy;
+
+      end if;
+
+   end process P_sig_r;
+
+   -- ------------------------------------------------------------------------------------------------------
+   --!   Registers sync. on first pixel
+   -- ------------------------------------------------------------------------------------------------------
+   P_reg_sync : process (i_rst, i_clk)
+   begin
+
+      if i_rst = '1' then
+         sqm_adc_ena <= '0';
+         aqmde_sync  <= c_EP_CMD_DEF_AQMDE;
+         bxlgt_sync  <= c_EP_CMD_DEF_BXLGT;
+
+      elsif rising_edge(i_clk) then
+         if (sqm_data_err_frst_r(2) and sqm_data_err_rdy_r(2)) = '1' then
+            aqmde_sync <= i_aqmde;
+
+         end if;
+
+         if (i_sqm_data_err_frst and i_sqm_data_err_rdy) = '1' then
+
+            if i_aqmde = c_DST_AQMDE_DUMP or i_aqmde = c_DST_AQMDE_SCIE or i_aqmde = c_DST_AQMDE_ERRS or i_smfmd = c_DST_SMFMD_ON then
+               sqm_adc_ena <= '1';
+
+            else
+               sqm_adc_ena <= '0';
+
+            end if;
+
+         end if;
+
+         if sqm_adc_ena = '0' then
+            bxlgt_sync <= c_EP_CMD_DEF_BXLGT;
+
+         elsif (i_sqm_data_err_frst and i_sqm_data_err_rdy) = '1' then
+            bxlgt_sync <= i_bxlgt;
+
+         end if;
+
+      end if;
+
+   end process P_reg_sync;
+
+   -- ------------------------------------------------------------------------------------------------------
+   --!   SQUID MUX Data error
+   -- ------------------------------------------------------------------------------------------------------
+   P_sqm_data_err : process (i_rst, i_clk)
+   begin
+
+      if i_rst = '1' then
+         sqm_data_err <= std_logic_vector(resize(unsigned(c_I_SQM_ADC_DATA_DEF), sqm_data_err'length));
+
+      elsif rising_edge(i_clk) then
+         if sqm_adc_ena = '1' then
+            sqm_data_err <= i_sqm_data_err;
+
+         else
+            sqm_data_err <= std_logic_vector(resize(unsigned(c_I_SQM_ADC_DATA_DEF), sqm_data_err'length));
+
+         end if;
+
+      end if;
+
+   end process P_sqm_data_err;
+
+   -- ------------------------------------------------------------------------------------------------------
+   --!   Get ADC sample number for averaging coefficient from table
+   --    @Req : DRE-DMX-FW-REQ-0145
+   -- ------------------------------------------------------------------------------------------------------
+   P_adc_smp_ave_coef : process (i_rst, i_clk)
+   begin
+
+      if i_rst = '1' then
+         adc_smp_ave_coef <= c_ADC_SMP_AVE_TAB(to_integer(unsigned(c_EP_CMD_DEF_BXLGT)));
+
+      elsif rising_edge(i_clk) then
+         adc_smp_ave_coef <= c_ADC_SMP_AVE_TAB(to_integer(unsigned(bxlgt_sync)));
+
+      end if;
+
+   end process P_adc_smp_ave_coef;
+
+   -- ------------------------------------------------------------------------------------------------------
+   --!   ADC sample average
+   --    @Req : DRE-DMX-FW-REQ-0140
+   -- ------------------------------------------------------------------------------------------------------
+   I_adc_smp_ave: entity work.dsp generic map
+   (     g_PORTA_S            => c_ASP_CF_S           , -- integer                                          ; --! Port A bus size (<= c_MULT_ALU_PORTA_S)
+         g_PORTB_S            => c_SQM_DATA_ERR_S     , -- integer                                          ; --! Port B bus size (<= c_MULT_ALU_PORTB_S)
+         g_PORTC_S            => c_SQM_DATA_ERR_S     , -- integer                                          ; --! Port C bus size (<= c_MULT_ALU_PORTC_S)
+         g_RESULT_S           => c_ADC_SMP_AVE_S      , -- integer                                          ; --! Result bus size (<= c_MULT_ALU_RESULT_S)
+         g_RESULT_LSB_POS     => c_ADC_SMP_AVE_LSB    , -- integer                                          ; --! Result LSB position
+
+         g_DATA_TYPE          => c_MULT_ALU_UNSIGNED  , -- bit                                              ; --! Data type               ('0' = unsigned,           '1' = signed)
+         g_SAT_RANK           => c_ADC_SMP_AVE_SAT    , -- integer                                          ; --! Extrem values reached on result bus
+                                                                                                              --!   unsigned: range from               0  to 2**(g_SAT_RANK+1) - 1
+                                                                                                              --!     signed: range from -2**(g_SAT_RANK) to 2**(g_SAT_RANK)   - 1
+         g_PRE_ADDER_OP       => '0'                  , -- bit                                              ; --! Pre-Adder operation     ('0' = add,    '1' = subtract)
+         g_MUX_C_CZ           => '0'                    -- bit                                                --! Multiplexer ALU operand ('0' = Port C, '1' = Cascaded Result Input)
+   ) port map
+   (     i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+         i_clk                => i_clk                , -- in     std_logic                                 ; --! Clock
+
+         i_carry              => '0'                  , -- in     std_logic                                 ; --! Carry In
+         i_a                  => adc_smp_ave_coef     , -- in     std_logic_vector( g_PORTA_S-1 downto 0)   ; --! Port A
+         i_b                  => sqm_data_err         , -- in     std_logic_vector( g_PORTB_S-1 downto 0)   ; --! Port B
+         i_c                  => (others => '0')      , -- in     std_logic_vector( g_PORTC_S-1 downto 0)   ; --! Port C
+         i_d                  => (others => '0')      , -- in     std_logic_vector( g_PORTB_S-1 downto 0)   ; --! Port D
+         i_cz                 => (others => '0')      , -- in     slv(c_MULT_ALU_RESULT_S-1 downto 0)       ; --! Cascaded Result Input
+
+         o_z                  => adc_smp_ave          , -- out    std_logic_vector(g_RESULT_S-1 downto 0)   ; --! Result
+         o_cz                 => open                   -- out    slv(c_MULT_ALU_RESULT_S-1 downto 0)         --! Cascaded Result
+   );
+
+   -- ------------------------------------------------------------------------------------------------------
+   --!   ADC sample average for science (rounded operation)
+   -- ------------------------------------------------------------------------------------------------------
+   adc_smp_ave_sc <= std_logic_vector(unsigned(adc_smp_ave(adc_smp_ave'high                                        downto adc_smp_ave'length-c_SC_DATA_SER_NB*c_SC_DATA_SER_W_S)) +
+                               resize(unsigned(adc_smp_ave(adc_smp_ave'length-c_SC_DATA_SER_NB*c_SC_DATA_SER_W_S-1 downto adc_smp_ave'length-c_SC_DATA_SER_NB*c_SC_DATA_SER_W_S-1)),
+                                               adc_smp_ave_sc'length));
+
+   -- ------------------------------------------------------------------------------------------------------
+   --!   SQUID MUX Data science
+   -- ------------------------------------------------------------------------------------------------------
+   P_sqm_data_sc : process (i_rst, i_clk)
+   begin
+
+      if i_rst = '1' then
+         o_sqm_data_sc_msb    <= (others => '0');
+         o_sqm_data_sc_lsb    <= (others => '0');
          o_sqm_data_sc_first  <= '0';
+         o_sqm_data_sc_last   <= '0';
          o_sqm_data_sc_rdy    <= '0';
 
       elsif rising_edge(i_clk) then
-         if ck_pls_cnt(ck_pls_cnt'high) = '1' then
-            ck_pls_cnt <= std_logic_vector(to_signed(c_CK_PLS_CNT_MAX_VAL, ck_pls_cnt'length));
+         if aqmde_sync = c_DST_AQMDE_ERRS then
+            o_sqm_data_sc_msb    <= adc_smp_ave_sc(2*c_SC_DATA_SER_W_S-1 downto c_SC_DATA_SER_W_S);
+            o_sqm_data_sc_lsb    <= adc_smp_ave_sc(  c_SC_DATA_SER_W_S-1 downto 0);
+            o_sqm_data_sc_first  <= sqm_data_err_frst_r(sqm_data_err_frst_r'high);
+            o_sqm_data_sc_last   <= sqm_data_err_last_r(sqm_data_err_last_r'high);
+            o_sqm_data_sc_rdy    <= sqm_data_err_rdy_r(sqm_data_err_rdy_r'high);
 
          else
-            ck_pls_cnt <= std_logic_vector(signed(ck_pls_cnt) - 1);
+            o_sqm_data_sc_msb    <= sqm_data_sc(2*c_SC_DATA_SER_W_S-1 downto c_SC_DATA_SER_W_S);
+            o_sqm_data_sc_lsb    <= sqm_data_sc(  c_SC_DATA_SER_W_S-1 downto 0);
+            o_sqm_data_sc_first  <= sqm_data_sc_first;
+            o_sqm_data_sc_last   <= sqm_data_sc_last;
+            o_sqm_data_sc_rdy    <= sqm_data_sc_rdy;
 
          end if;
-
-         if (pixel_pos(pixel_pos'high) and ck_pls_cnt(ck_pls_cnt'high)) = '1' then
-            o_sqm_data_sc_first  <= '1';
-            pixel_pos            <= std_logic_vector(to_signed(c_PIXEL_POS_MAX_VAL , pixel_pos'length));
-
-         elsif (not(pixel_pos(pixel_pos'high)) and ck_pls_cnt(ck_pls_cnt'high)) = '1' then
-            o_sqm_data_sc_first  <= '0';
-            pixel_pos <= std_logic_vector(signed(pixel_pos) - 1);
-
-         end if;
-
-         o_sqm_data_sc_rdy <= ck_pls_cnt(ck_pls_cnt'high);
-
       end if;
 
-   end process P_pixel_seq;
+   end process P_sqm_data_sc;
 
-   o_sqm_data_sc_msb <= std_logic_vector(resize(signed(pixel_pos), o_sqm_data_sc_msb'length));
-   o_sqm_data_sc_lsb <= std_logic_vector(resize(signed(pixel_pos), o_sqm_data_sc_msb'length));
-   o_sqm_data_sc_last<= pixel_pos(pixel_pos'high);
+   --TODO
+   sqm_data_sc       <= (others => '0');
+   sqm_data_sc_first <= sqm_data_err_frst_r(sqm_data_err_frst_r'high);
+   sqm_data_sc_last  <= sqm_data_err_last_r(sqm_data_err_last_r'high);
+   sqm_data_sc_rdy   <= sqm_data_err_rdy_r(sqm_data_err_rdy_r'high);
 
-   P_todo : process (i_rst, i_clk)
-   begin
-
-      if i_rst = '1' then
-         o_sqm_dta_pixel_pos   <= (others => '1');
-         o_sqm_dta_err_cor     <= (others => '0');
-         o_sqm_dta_err_cor_cs  <= '0';
-
-      elsif rising_edge(i_clk) then
-         o_sqm_dta_pixel_pos   <= std_logic_vector(resize(signed(pixel_pos), o_sqm_dta_pixel_pos'length));
-         o_sqm_dta_err_cor     <= i_sqm_data_err(o_sqm_dta_err_cor'high downto 0);
-         o_sqm_dta_err_cor_cs  <= ck_pls_cnt(ck_pls_cnt'high);
-
-      end if;
-
-   end process P_todo;
+   o_sqm_dta_pixel_pos  <= (others => '0');
+   o_sqm_dta_err_cor    <= (others => '0');
+   o_sqm_dta_err_cor_cs <= '0';
 
 end architecture RTL;

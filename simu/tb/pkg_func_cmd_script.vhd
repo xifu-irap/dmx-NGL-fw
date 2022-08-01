@@ -194,7 +194,8 @@ type     t_wait_cmd_end         is (none, wait_cmd_end_tx, wait_rcmd_end_rx)    
    );
 
    -- ------------------------------------------------------------------------------------------------------
-   --! Get parameters command WMDC [channel] [index] [data]: Write in ADC memory dump for data compare
+   --! Get parameters command WMDC [channel] [index] [data]:
+   --!  Write in ADC dump/science memories for data compare
    -- ------------------------------------------------------------------------------------------------------
    procedure get_param_wmdc
    (     b_cmd_file_line      : inout  line                                                                 ; --  Command file line
@@ -639,7 +640,8 @@ package body pkg_func_cmd_script is
    end get_param_wdis;
 
    -- ------------------------------------------------------------------------------------------------------
-   --! Get parameters command WMDC [channel] [index] [data]: Write in ADC memory dump for data compare
+   --! Get parameters command WMDC [channel] [index] [data]:
+   --!  Write in ADC dump/science memories for data compare
    -- ------------------------------------------------------------------------------------------------------
    procedure get_param_wmdc
    (     b_cmd_file_line      : inout  line                                                                 ; --  Command file line

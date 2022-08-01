@@ -68,7 +68,8 @@ constant c_EP_CMD_ERR_FST_POS : integer   := 10                                 
 constant c_EP_CMD_POS_AQMDE   : integer   := 0                                                              ; --! EP command: Position, DATA_ACQ_MODE
 constant c_EP_CMD_POS_SMFMD   : integer   := c_EP_CMD_POS_AQMDE   + 1                                       ; --! EP command: Position, SQ_MUX_FB_ON_OFF
 constant c_EP_CMD_POS_SAOFM   : integer   := c_EP_CMD_POS_SMFMD   + 1                                       ; --! EP command: Position, SQ_AMP_OFFSET_MODE
-constant c_EP_CMD_POS_STATUS  : integer   := c_EP_CMD_POS_SAOFM   + 1                                       ; --! EP command: Position, Status
+constant c_EP_CMD_POS_BXLGT   : integer   := c_EP_CMD_POS_SAOFM   + 1                                       ; --! EP command: Position, BOXCAR_LENGTH
+constant c_EP_CMD_POS_STATUS  : integer   := c_EP_CMD_POS_BXLGT   + 1                                       ; --! EP command: Position, Status
 constant c_EP_CMD_POS_FW_VER  : integer   := c_EP_CMD_POS_STATUS  + 1                                       ; --! EP command: Position, Firmware Version
 constant c_EP_CMD_POS_HW_VER  : integer   := c_EP_CMD_POS_FW_VER  + 1                                       ; --! EP command: Position, Hardware Version
 constant c_EP_CMD_POS_SMFB0   : integer   := c_EP_CMD_POS_HW_VER  + 1                                       ; --! EP command: Position, CY_MUX_SQ_FB0
@@ -79,7 +80,8 @@ constant c_EP_CMD_POS_SAOFL   : integer   := c_EP_CMD_POS_SAOFC   + 1           
 constant c_EP_CMD_POS_SMFBD   : integer   := c_EP_CMD_POS_SAOFL   + 1                                       ; --! EP command: Position, CY_MUX_SQ_FB_DELAY
 constant c_EP_CMD_POS_SAODD   : integer   := c_EP_CMD_POS_SMFBD   + 1                                       ; --! EP command: Position, CY_AMP_SQ_OFFSET_DAC_DELAY
 constant c_EP_CMD_POS_SAOMD   : integer   := c_EP_CMD_POS_SAODD   + 1                                       ; --! EP command: Position, CY_AMP_SQ_OFFSET_MUX_DELAY
-constant c_EP_CMD_POS_PLSSH   : integer   := c_EP_CMD_POS_SAOMD   + 1                                       ; --! EP command: Position, CY_FB1_PULSE_SHAPING
+constant c_EP_CMD_POS_SMPDL   : integer   := c_EP_CMD_POS_SAOMD   + 1                                       ; --! EP command: Position, CY_SAMPLING_DELAY
+constant c_EP_CMD_POS_PLSSH   : integer   := c_EP_CMD_POS_SMPDL   + 1                                       ; --! EP command: Position, CY_FB1_PULSE_SHAPING
 constant c_EP_CMD_POS_PLSSS   : integer   := c_EP_CMD_POS_PLSSH   + 1                                       ; --! EP command: Position, CY_FB1_PULSE_SHAPING_SELECTION
 
 constant c_EP_CMD_POS_LAST    : integer   := c_EP_CMD_POS_PLSSS   + 1                                       ; --! EP command: last position
@@ -96,6 +98,7 @@ constant c_EP_CMD_ADD_COLPOSH : integer   := c_EP_CMD_ADD_COLPOSL + log2_ceil(c_
 constant c_EP_CMD_ADD_AQMDE   : std_logic_vector(c_EP_SPI_WD_S-1 downto 0):= x"4000"                        ; --! EP command: Address, DATA_ACQ_MODE
 constant c_EP_CMD_ADD_SMFMD   : std_logic_vector(c_EP_SPI_WD_S-1 downto 0):= x"4001"                        ; --! EP command: Address, SQ_MUX_FB_ON_OFF
 constant c_EP_CMD_ADD_SAOFM   : std_logic_vector(c_EP_SPI_WD_S-1 downto 0):= x"4002"                        ; --! EP command: Address, SQ_AMP_OFFSET_MODE
+constant c_EP_CMD_ADD_BXLGT   : std_logic_vector(c_EP_SPI_WD_S-1 downto 0):= x"4003"                        ; --! EP command: Address, BOXCAR_LENGTH
 
 constant c_EP_CMD_ADD_STATUS  : std_logic_vector(c_EP_SPI_WD_S-1 downto 0):= x"6000"                        ; --! EP command: Address, Status
 constant c_EP_CMD_ADD_FW_VER  : std_logic_vector(c_EP_SPI_WD_S-1 downto 0):= x"6001"                        ; --! EP command: Address, Firmware Version
@@ -117,6 +120,8 @@ constant c_EP_CMD_ADD_SAODD   : t_slv_arr(0 to c_NB_COL-1)(c_EP_SPI_WD_S-1 downt
                                  (x"0501", x"1501", x"2501", x"3501")                                       ; --! EP command: Address basis, CY_AMP_SQ_OFFSET_DAC_DELAY
 constant c_EP_CMD_ADD_SAOMD   : t_slv_arr(0 to c_NB_COL-1)(c_EP_SPI_WD_S-1 downto 0) :=
                                  (x"0502", x"1502", x"2502", x"3502")                                       ; --! EP command: Address basis, CY_AMP_SQ_OFFSET_MUX_DELAY
+constant c_EP_CMD_ADD_SMPDL   : t_slv_arr(0 to c_NB_COL-1)(c_EP_SPI_WD_S-1 downto 0) :=
+                                 (x"0504", x"1504", x"2504", x"3504")                                       ; --! EP command: Address basis, CY_SAMPLING_DELAY
 constant c_EP_CMD_ADD_PLSSH   : t_slv_arr(0 to c_NB_COL-1)(c_EP_SPI_WD_S-1 downto 0) :=
                                  (x"0800", x"1800", x"2800", x"3800")                                       ; --! EP command: Address basis, CY_FB1_PULSE_SHAPING
 constant c_EP_CMD_ADD_PLSSS   : t_slv_arr(0 to c_NB_COL-1)(c_EP_SPI_WD_S-1 downto 0) :=
@@ -145,6 +150,7 @@ constant c_MEM_PLSSH_ADD_END  : integer   := (c_DAC_PLS_SHP_SET_NB-1) * 2**c_TAB
 constant c_EP_CMD_AUTH_AQMDE  : std_logic := c_EP_CMD_ERR_CLR                                               ; --! EP command: Authorization, DATA_ACQ_MODE
 constant c_EP_CMD_AUTH_SMFMD  : std_logic := c_EP_CMD_ERR_CLR                                               ; --! EP command: Authorization, SQ_MUX_FB_ON_OFF
 constant c_EP_CMD_AUTH_SAOFM  : std_logic := c_EP_CMD_ERR_CLR                                               ; --! EP command: Authorization, SQ_AMP_OFFSET_MODE
+constant c_EP_CMD_AUTH_BXLGT  : std_logic := c_EP_CMD_ERR_CLR                                               ; --! EP command: Authorization, BOXCAR_LENGTH
 
 constant c_EP_CMD_AUTH_STATUS : std_logic := c_EP_CMD_ERR_SET                                               ; --! EP command: Authorization, Status
 constant c_EP_CMD_AUTH_FW_VER : std_logic := c_EP_CMD_ERR_SET                                               ; --! EP command: Authorization, Firmware Version
@@ -158,6 +164,7 @@ constant c_EP_CMD_AUTH_SAOFL  : std_logic := c_EP_CMD_ERR_CLR                   
 constant c_EP_CMD_AUTH_SMFBD  : std_logic := c_EP_CMD_ERR_CLR                                               ; --! EP command: Authorization, CY_MUX_SQ_FB_DELAY
 constant c_EP_CMD_AUTH_SAODD  : std_logic := c_EP_CMD_ERR_CLR                                               ; --! EP command: Authorization, CY_AMP_SQ_OFFSET_DAC_DELAY
 constant c_EP_CMD_AUTH_SAOMD  : std_logic := c_EP_CMD_ERR_CLR                                               ; --! EP command: Authorization, CY_AMP_SQ_OFFSET_MUX_DELAY
+constant c_EP_CMD_AUTH_SMPDL  : std_logic := c_EP_CMD_ERR_CLR                                               ; --! EP command: Authorization, CY_SAMPLING_DELAY
 constant c_EP_CMD_AUTH_PLSSH  : std_logic := c_EP_CMD_ERR_CLR                                               ; --! EP command: Authorization, CY_FB1_PULSE_SHAPING
 constant c_EP_CMD_AUTH_PLSSS  : std_logic := c_EP_CMD_ERR_CLR                                               ; --! EP command: Authorization, CY_FB1_PULSE_SHAPING_SELECTION
 
@@ -167,6 +174,7 @@ constant c_EP_CMD_AUTH_PLSSS  : std_logic := c_EP_CMD_ERR_CLR                   
 constant c_DFLD_AQMDE_S       : integer   :=  3                                                             ; --! EP command: Data field, DATA_ACQ_MODE bus size
 constant c_DFLD_SMFMD_COL_S   : integer   :=  1                                                             ; --! EP command: Data field, SQ_MUX_FB_ON_OFF mode bus size
 constant c_DFLD_SAOFM_COL_S   : integer   :=  2                                                             ; --! EP command: Data field, SQ_AMP_OFFSET_MODE bus size
+constant c_DFLD_BXLGT_COL_S   : integer   :=  c_ADC_SMP_AVE_ADD_S                                           ; --! EP command: Data field, BOXCAR_LENGTH bus size
 constant c_DFLD_SMFB0_PIX_S   : integer   :=  c_EP_SPI_WD_S                                                 ; --! EP command: Data field, CY_MUX_SQ_FB0 bus size
 constant c_DFLD_SMFBM_PIX_S   : integer   :=  2                                                             ; --! EP command: Data field, CY_MUX_SQ_FB_MODE bus size
 constant c_DFLD_SAOFF_PIX_S   : integer   :=  c_SQA_DAC_MUX_S                                               ; --! EP command: Data field, CY_AMP_SQ_OFFSET_FINE bus size
@@ -175,6 +183,7 @@ constant c_DFLD_SAOFL_COL_S   : integer   :=  c_SQA_DAC_DATA_S                  
 constant c_DFLD_SMFBD_COL_S   : integer   :=  5                                                             ; --! EP command: Data field, CY_MUX_SQ_FB_DELAY bus size
 constant c_DFLD_SAODD_COL_S   : integer   :=  10                                                            ; --! EP command: Data field, CY_AMP_SQ_OFFSET_DAC_DELAY bus size
 constant c_DFLD_SAOMD_COL_S   : integer   :=  5                                                             ; --! EP command: Data field, CY_AMP_SQ_OFFSET_MUX_DELAY bus size
+constant c_DFLD_SMPDL_COL_S   : integer   :=  5                                                             ; --! EP command: Data field, CY_SAMPLING_DELAY bus size
 constant c_DFLD_PLSSH_PLS_S   : integer   :=  c_EP_SPI_WD_S                                                 ; --! EP command: Data field, CY_FB1_PULSE_SHAPING bus size
 constant c_DFLD_PLSSS_PLS_S   : integer   :=  log2_ceil(c_DAC_PLS_SHP_SET_NB)                               ; --! EP command: Data field, CY_FB1_PULSE_SHAPING_SELECTION bus size
 
@@ -216,6 +225,8 @@ constant c_EP_CMD_DEF_AQMDE   : std_logic_vector(c_DFLD_AQMDE_S-1 downto 0)     
 
 constant c_EP_CMD_DEF_SMFMD   : std_logic_vector(c_DFLD_SMFMD_COL_S-1 downto 0)  := c_DST_SMFMD_OFF         ; --! EP command: Default value, SQ_MUX_FB_ON_OFF
 constant c_EP_CMD_DEF_SAOFM   : std_logic_vector(c_DFLD_SAOFM_COL_S-1 downto 0)  := c_DST_SAOFM_OFF         ; --! EP command: Default value, SQ_AMP_OFFSET_MODE
+constant c_EP_CMD_DEF_BXLGT   : std_logic_vector(c_DFLD_BXLGT_COL_S-1 downto 0)  :=
+                                std_logic_vector(to_unsigned(0, c_DFLD_BXLGT_COL_S))                        ; --! EP command: Default value, BOXCAR_LENGTH
 
 constant c_EP_CMD_DEF_SMFB0   : t_int_arr(0 to 2*c_TAB_SMFB0_NW-1) := (others => 0)                         ; --! EP command: Default value, CY_MUX_SQ_FB0 memory with ping-pong buffer bit
 
@@ -237,10 +248,13 @@ constant c_EP_CMD_DEF_SAODD   : std_logic_vector(c_DFLD_SAODD_COL_S-1 downto 0):
 constant c_EP_CMD_DEF_SAOMD   : std_logic_vector(c_DFLD_SAOMD_COL_S-1 downto 0):=
                                 std_logic_vector(to_unsigned(0, c_DFLD_SAOMD_COL_S))                        ; --! EP command: Default value, CY_AMP_SQ_OFFSET_MUX_DELAY
 
+constant c_EP_CMD_DEF_SMPDL   : std_logic_vector(c_DFLD_SMPDL_COL_S-1 downto 0):=
+                                std_logic_vector(to_unsigned(0, c_DFLD_SMPDL_COL_S))                        ; --! EP command: Default value, CY_SAMPLING_DELAY
+
 constant c_EP_CMD_DEF_PLSSH   : t_int_arr(0 to 2**(c_MEM_PLSSH_ADD_S+1)-1) :=
-                                (37364, 21302, 12145,  6924,  3948,  2251,  1283,   732,
-                                   417,   238,   136,    77,    44,    25,    14,     8,
-                                     5,     3,     2,     1,     0,     0,     0,     0,
+                                (    0,     0,     0,     0,     0,     0,     0,     0,
+                                     0,     0,     0,     0,     0,     0,     0,     0,
+                                     0,     0,     0,     0,     0,     0,     0,     0,
                                      0,     0,     0,     0,     0,     0,     0,     0,
 
                                  32681, 16297,  8127,  4053,  2021,  1008,   503,   251,
@@ -258,9 +272,9 @@ constant c_EP_CMD_DEF_PLSSH   : t_int_arr(0 to 2**(c_MEM_PLSSH_ADD_S+1)-1) :=
                                      0,     0,     0,     0,     0,     0,     0,     0,
                                      0,     0,     0,     0,     0,     0,     0,     0,
 
-                                 37364, 21302, 12145,  6924,  3948,  2251,  1283,   732,
-                                   417,   238,   136,    77,    44,    25,    14,     8,
-                                     5,     3,     2,     1,     0,     0,     0,     0,
+                                     0,     0,     0,     0,     0,     0,     0,     0,
+                                     0,     0,     0,     0,     0,     0,     0,     0,
+                                     0,     0,     0,     0,     0,     0,     0,     0,
                                      0,     0,     0,     0,     0,     0,     0,     0,
 
                                  32681, 16297,  8127,  4053,  2021,  1008,   503,   251,
@@ -276,7 +290,7 @@ constant c_EP_CMD_DEF_PLSSH   : t_int_arr(0 to 2**(c_MEM_PLSSH_ADD_S+1)-1) :=
                                  26131, 10419,  4154,  1657,   661,   263,   105,    42,
                                     17,     7,     3,     1,     0,     0,     0,     0,
                                      0,     0,     0,     0,     0,     0,     0,     0,
-                                     0,     0,     0,     0,     0,     0,     0,     0)                    ; --! EP command: Default value, CY_FB1_PULSE_SHAPING mem. (Low filter fc=15/20/25/30 MHz)
+                                     0,     0,     0,     0,     0,     0,     0,     0)                    ; --! EP command: Default value, CY_FB1_PULSE_SHAPING mem. (fc=No filter/20/25/30 MHz)
 
 constant c_EP_CMD_DEF_PLSSS   : std_logic_vector(c_DFLD_PLSSS_PLS_S-1 downto 0):= c_DST_PLSSS_PLS_1         ; --! EP command: Default value, CY_FB1_PULSE_SHAPING_SELECTION
 

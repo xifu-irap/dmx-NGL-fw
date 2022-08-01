@@ -73,8 +73,8 @@ proc run_utest {args} {
       ${SRC_DIR}/signal_reg.vhd           \
       ${SRC_DIR}/mem_scrubbing.vhd        \
       ${IP_DIR}/lowskew.vhd               \
+      ${IP_DIR}/dsp.vhd                   \
       ${IP_DIR}/pll.vhd                   \
-      ${IP_DIR}/pulse_shaping.vhd         \
       ${IP_DIR}/dmem_ecc.vhd              \
       ${SRC_DIR}/im_ck.vhd                \
       ${SRC_DIR}/rst_clk_mgt.vhd          \
@@ -95,11 +95,12 @@ proc run_utest {args} {
       ${SRC_DIR}/hk_mgt.vhd               \
       ${SRC_DIR}/squid_adc_mgt.vhd        \
       ${SRC_DIR}/squid_data_proc.vhd      \
-      ${SRC_DIR}/sqm_fbk_mgt.vhd       \
-      ${SRC_DIR}/sqm_dac_mgt.vhd       \
-      ${SRC_DIR}/sqa_fbk_mgt.vhd       \
-      ${SRC_DIR}/sqa_dac_mgt.vhd       \
-      ${SRC_DIR}/sqm_spi_mgt.vhd       \
+      ${SRC_DIR}/sqm_fbk_mgt.vhd          \
+      ${SRC_DIR}/pulse_shaping.vhd        \
+      ${SRC_DIR}/sqm_dac_mgt.vhd          \
+      ${SRC_DIR}/sqa_fbk_mgt.vhd          \
+      ${SRC_DIR}/sqa_dac_mgt.vhd          \
+      ${SRC_DIR}/sqm_spi_mgt.vhd          \
       ${SRC_DIR}/top_dmx.vhd              \
       ${TB_DIR}/pkg_model.vhd             \
       ${TB_DIR}/pkg_mess.vhd              \
@@ -115,7 +116,7 @@ proc run_utest {args} {
       ${TB_DIR}/spi_check_model.vhd       \
       ${TB_DIR}/ep_spi_model.vhd          \
       ${TB_DIR}/pulse_shaping_check.vhd   \
-      ${TB_DIR}/sqa_dac_model.vhd      \
+      ${TB_DIR}/sqa_dac_model.vhd         \
       ${TB_DIR}/squid_model.vhd           \
       ${TB_DIR}/science_data_rx.vhd       \
       ${TB_DIR}/science_data_check.vhd    \

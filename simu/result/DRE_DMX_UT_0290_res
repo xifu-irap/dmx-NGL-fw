@@ -1,0 +1,1064 @@
+# ------------------------------------------------------------------------------------------------------------------------------------------------------
+# Simulation DRE_DMX_UT_0290
+# ------------------------------------------------------------------------------------------------------------------------------------------------------
+#             (0 ps) **********************************************************************************************
+#             (0 ps)   Test: ADC Error signal on science data telemetry
+#             (0 ps) **********************************************************************************************
+#             (0 ps) 
+#             (0 ps) ==============================================================================================
+#             (0 ps)   Asynchronous reset activated
+#             (0 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (0 ps) Write discrete: arst_n = '0'
+# ** Note   : (80000 ps) Waiting time for 80000 ps
+#             (80000 ps) 
+#             (80000 ps) ==============================================================================================
+#             (80000 ps)   Asynchronous reset deactivated
+#             (80000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (80000 ps) Write discrete: arst_n = '1'
+#             (80000 ps) 
+#             (80000 ps) ==============================================================================================
+#             (80000 ps)   Wait internal reset deactivated
+#             (80000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (6995496 ps) Waiting event rst = '0' for 6915496 ps
+#             (6995496 ps) 
+#             (6995496 ps) ==============================================================================================
+#             (6995496 ps)   Writing a new table in feedback open loop memories (first ping pong memory)
+#             (6995496 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (6995496 ps) Send SPI command value 0401_FFFF (C0_MUX_SQ_FB0, mode Write, data FFFF)
+# ** Note   : (9312000 ps) Waiting SPI command end for 2280504 ps
+# ** Note   : (9312000 ps) Send SPI command value 0403_745E (C0_MUX_SQ_FB0, mode Write, data 745E)
+# ** Note   : (11634000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (11634000 ps) Send SPI command value 0405_F840 (C0_MUX_SQ_FB0, mode Write, data F840)
+# ** Note   : (13956000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (13956000 ps) Send SPI command value 0407_6C9C (C0_MUX_SQ_FB0, mode Write, data 6C9C)
+# ** Note   : (16278000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (16278000 ps) Send SPI command value 0409_F07E (C0_MUX_SQ_FB0, mode Write, data F07E)
+# ** Note   : (18600000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (18600000 ps) Send SPI command value 040B_64DA (C0_MUX_SQ_FB0, mode Write, data 64DA)
+# ** Note   : (20922000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (20922000 ps) Send SPI command value 040D_E8BC (C0_MUX_SQ_FB0, mode Write, data E8BC)
+# ** Note   : (23244000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (23244000 ps) Send SPI command value 040F_5D18 (C0_MUX_SQ_FB0, mode Write, data 5D18)
+# ** Note   : (25566000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (25566000 ps) Send SPI command value 0411_E0FA (C0_MUX_SQ_FB0, mode Write, data E0FA)
+# ** Note   : (27888000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (27888000 ps) Send SPI command value 0413_5556 (C0_MUX_SQ_FB0, mode Write, data 5556)
+# ** Note   : (30210000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (30210000 ps) Send SPI command value 0415_D938 (C0_MUX_SQ_FB0, mode Write, data D938)
+# ** Note   : (32532000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (32532000 ps) Send SPI command value 0417_4D94 (C0_MUX_SQ_FB0, mode Write, data 4D94)
+# ** Note   : (34854000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (34854000 ps) Send SPI command value 0419_D176 (C0_MUX_SQ_FB0, mode Write, data D176)
+# ** Note   : (37176000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (37176000 ps) Send SPI command value 041B_45D2 (C0_MUX_SQ_FB0, mode Write, data 45D2)
+# ** Note   : (39498000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (39498000 ps) Send SPI command value 041D_C9B4 (C0_MUX_SQ_FB0, mode Write, data C9B4)
+# ** Note   : (41820000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (41820000 ps) Send SPI command value 041F_3E10 (C0_MUX_SQ_FB0, mode Write, data 3E10)
+# ** Note   : (44142000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (44142000 ps) Send SPI command value 0421_C1F2 (C0_MUX_SQ_FB0, mode Write, data C1F2)
+# ** Note   : (46464000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (46464000 ps) Send SPI command value 0423_364E (C0_MUX_SQ_FB0, mode Write, data 364E)
+# ** Note   : (48786000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (48786000 ps) Send SPI command value 0425_BA30 (C0_MUX_SQ_FB0, mode Write, data BA30)
+# ** Note   : (51108000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (51108000 ps) Send SPI command value 0427_2E8C (C0_MUX_SQ_FB0, mode Write, data 2E8C)
+# ** Note   : (53430000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (53430000 ps) Send SPI command value 0429_B26E (C0_MUX_SQ_FB0, mode Write, data B26E)
+# ** Note   : (55752000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (55752000 ps) Send SPI command value 042B_26CA (C0_MUX_SQ_FB0, mode Write, data 26CA)
+# ** Note   : (58074000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (58074000 ps) Send SPI command value 042D_AAAC (C0_MUX_SQ_FB0, mode Write, data AAAC)
+# ** Note   : (60396000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (60396000 ps) Send SPI command value 042F_1F08 (C0_MUX_SQ_FB0, mode Write, data 1F08)
+# ** Note   : (62718000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (62718000 ps) Send SPI command value 0431_A2EA (C0_MUX_SQ_FB0, mode Write, data A2EA)
+# ** Note   : (65040000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (65040000 ps) Send SPI command value 0433_1746 (C0_MUX_SQ_FB0, mode Write, data 1746)
+# ** Note   : (67362000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (67362000 ps) Send SPI command value 0435_9B28 (C0_MUX_SQ_FB0, mode Write, data 9B28)
+# ** Note   : (69684000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (69684000 ps) Send SPI command value 0437_0F84 (C0_MUX_SQ_FB0, mode Write, data 0F84)
+# ** Note   : (72006000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (72006000 ps) Send SPI command value 0439_9366 (C0_MUX_SQ_FB0, mode Write, data 9366)
+# ** Note   : (74328000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (74328000 ps) Send SPI command value 043B_07C2 (C0_MUX_SQ_FB0, mode Write, data 07C2)
+# ** Note   : (76650000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (76650000 ps) Send SPI command value 043D_8BA4 (C0_MUX_SQ_FB0, mode Write, data 8BA4)
+# ** Note   : (78972000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (78972000 ps) Send SPI command value 043F_0000 (C0_MUX_SQ_FB0, mode Write, data 0000)
+# ** Note   : (81294000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (81294000 ps) Send SPI command value 0441_83E2 (C0_MUX_SQ_FB0, mode Write, data 83E2)
+# ** Note   : (83616000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (83616000 ps) Send SPI command value 0443_7C20 (C0_MUX_SQ_FB0, mode Write, data 7C20)
+# ** Note   : (85938000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (85938000 ps) Send SPI command value 2401_FFFF (C1_MUX_SQ_FB0, mode Write, data FFFF)
+# ** Note   : (88260000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (88260000 ps) Send SPI command value 2403_745E (C1_MUX_SQ_FB0, mode Write, data 745E)
+# ** Note   : (90582000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (90582000 ps) Send SPI command value 2405_F840 (C1_MUX_SQ_FB0, mode Write, data F840)
+# ** Note   : (92904000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (92904000 ps) Send SPI command value 2407_6C9C (C1_MUX_SQ_FB0, mode Write, data 6C9C)
+# ** Note   : (95226000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (95226000 ps) Send SPI command value 2409_F07E (C1_MUX_SQ_FB0, mode Write, data F07E)
+# ** Note   : (97548000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (97548000 ps) Send SPI command value 240B_64DA (C1_MUX_SQ_FB0, mode Write, data 64DA)
+# ** Note   : (99870000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (99870000 ps) Send SPI command value 240D_E8BC (C1_MUX_SQ_FB0, mode Write, data E8BC)
+# ** Note   : (102192000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (102192000 ps) Send SPI command value 240F_5D18 (C1_MUX_SQ_FB0, mode Write, data 5D18)
+# ** Note   : (104514000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (104514000 ps) Send SPI command value 2411_E0FA (C1_MUX_SQ_FB0, mode Write, data E0FA)
+# ** Note   : (106836000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (106836000 ps) Send SPI command value 2413_5556 (C1_MUX_SQ_FB0, mode Write, data 5556)
+# ** Note   : (109158000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (109158000 ps) Send SPI command value 2415_D938 (C1_MUX_SQ_FB0, mode Write, data D938)
+# ** Note   : (111480000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (111480000 ps) Send SPI command value 2417_4D94 (C1_MUX_SQ_FB0, mode Write, data 4D94)
+# ** Note   : (113802000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (113802000 ps) Send SPI command value 2419_D176 (C1_MUX_SQ_FB0, mode Write, data D176)
+# ** Note   : (116124000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (116124000 ps) Send SPI command value 241B_45D2 (C1_MUX_SQ_FB0, mode Write, data 45D2)
+# ** Note   : (118446000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (118446000 ps) Send SPI command value 241D_C9B4 (C1_MUX_SQ_FB0, mode Write, data C9B4)
+# ** Note   : (120768000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (120768000 ps) Send SPI command value 241F_3E10 (C1_MUX_SQ_FB0, mode Write, data 3E10)
+# ** Note   : (123090000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (123090000 ps) Send SPI command value 2421_C1F2 (C1_MUX_SQ_FB0, mode Write, data C1F2)
+# ** Note   : (125412000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (125412000 ps) Send SPI command value 2423_364E (C1_MUX_SQ_FB0, mode Write, data 364E)
+# ** Note   : (127734000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (127734000 ps) Send SPI command value 2425_BA30 (C1_MUX_SQ_FB0, mode Write, data BA30)
+# ** Note   : (130056000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (130056000 ps) Send SPI command value 2427_2E8C (C1_MUX_SQ_FB0, mode Write, data 2E8C)
+# ** Note   : (132378000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (132378000 ps) Send SPI command value 2429_B26E (C1_MUX_SQ_FB0, mode Write, data B26E)
+# ** Note   : (134700000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (134700000 ps) Send SPI command value 242B_26CA (C1_MUX_SQ_FB0, mode Write, data 26CA)
+# ** Note   : (137022000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (137022000 ps) Send SPI command value 242D_AAAC (C1_MUX_SQ_FB0, mode Write, data AAAC)
+# ** Note   : (139344000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (139344000 ps) Send SPI command value 242F_1F08 (C1_MUX_SQ_FB0, mode Write, data 1F08)
+# ** Note   : (141666000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (141666000 ps) Send SPI command value 2431_A2EA (C1_MUX_SQ_FB0, mode Write, data A2EA)
+# ** Note   : (143988000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (143988000 ps) Send SPI command value 2433_1746 (C1_MUX_SQ_FB0, mode Write, data 1746)
+# ** Note   : (146310000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (146310000 ps) Send SPI command value 2435_9B28 (C1_MUX_SQ_FB0, mode Write, data 9B28)
+# ** Note   : (148632000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (148632000 ps) Send SPI command value 2437_0F84 (C1_MUX_SQ_FB0, mode Write, data 0F84)
+# ** Note   : (150954000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (150954000 ps) Send SPI command value 2439_9366 (C1_MUX_SQ_FB0, mode Write, data 9366)
+# ** Note   : (153276000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (153276000 ps) Send SPI command value 243B_07C2 (C1_MUX_SQ_FB0, mode Write, data 07C2)
+# ** Note   : (155598000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (155598000 ps) Send SPI command value 243D_8BA4 (C1_MUX_SQ_FB0, mode Write, data 8BA4)
+# ** Note   : (157920000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (157920000 ps) Send SPI command value 243F_0000 (C1_MUX_SQ_FB0, mode Write, data 0000)
+# ** Note   : (160242000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (160242000 ps) Send SPI command value 2441_83E2 (C1_MUX_SQ_FB0, mode Write, data 83E2)
+# ** Note   : (162564000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (162564000 ps) Send SPI command value 2443_7C20 (C1_MUX_SQ_FB0, mode Write, data 7C20)
+# ** Note   : (164886000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (164886000 ps) Send SPI command value 4401_FFFF (C2_MUX_SQ_FB0, mode Write, data FFFF)
+# ** Note   : (167208000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (167208000 ps) Send SPI command value 4403_745E (C2_MUX_SQ_FB0, mode Write, data 745E)
+# ** Note   : (169530000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (169530000 ps) Send SPI command value 4405_F840 (C2_MUX_SQ_FB0, mode Write, data F840)
+# ** Note   : (171852000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (171852000 ps) Send SPI command value 4407_6C9C (C2_MUX_SQ_FB0, mode Write, data 6C9C)
+# ** Note   : (174174000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (174174000 ps) Send SPI command value 4409_F07E (C2_MUX_SQ_FB0, mode Write, data F07E)
+# ** Note   : (176496000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (176496000 ps) Send SPI command value 440B_64DA (C2_MUX_SQ_FB0, mode Write, data 64DA)
+# ** Note   : (178818000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (178818000 ps) Send SPI command value 440D_E8BC (C2_MUX_SQ_FB0, mode Write, data E8BC)
+# ** Note   : (181140000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (181140000 ps) Send SPI command value 440F_5D18 (C2_MUX_SQ_FB0, mode Write, data 5D18)
+# ** Note   : (183462000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (183462000 ps) Send SPI command value 4411_E0FA (C2_MUX_SQ_FB0, mode Write, data E0FA)
+# ** Note   : (185784000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (185784000 ps) Send SPI command value 4413_5556 (C2_MUX_SQ_FB0, mode Write, data 5556)
+# ** Note   : (188106000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (188106000 ps) Send SPI command value 4415_D938 (C2_MUX_SQ_FB0, mode Write, data D938)
+# ** Note   : (190428000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (190428000 ps) Send SPI command value 4417_4D94 (C2_MUX_SQ_FB0, mode Write, data 4D94)
+# ** Note   : (192750000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (192750000 ps) Send SPI command value 4419_D176 (C2_MUX_SQ_FB0, mode Write, data D176)
+# ** Note   : (195072000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (195072000 ps) Send SPI command value 441B_45D2 (C2_MUX_SQ_FB0, mode Write, data 45D2)
+# ** Note   : (197394000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (197394000 ps) Send SPI command value 441D_C9B4 (C2_MUX_SQ_FB0, mode Write, data C9B4)
+# ** Note   : (199716000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (199716000 ps) Send SPI command value 441F_3E10 (C2_MUX_SQ_FB0, mode Write, data 3E10)
+# ** Note   : (202038000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (202038000 ps) Send SPI command value 4421_C1F2 (C2_MUX_SQ_FB0, mode Write, data C1F2)
+# ** Note   : (204360000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (204360000 ps) Send SPI command value 4423_364E (C2_MUX_SQ_FB0, mode Write, data 364E)
+# ** Note   : (206682000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (206682000 ps) Send SPI command value 4425_BA30 (C2_MUX_SQ_FB0, mode Write, data BA30)
+# ** Note   : (209004000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (209004000 ps) Send SPI command value 4427_2E8C (C2_MUX_SQ_FB0, mode Write, data 2E8C)
+# ** Note   : (211326000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (211326000 ps) Send SPI command value 4429_B26E (C2_MUX_SQ_FB0, mode Write, data B26E)
+# ** Note   : (213648000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (213648000 ps) Send SPI command value 442B_26CA (C2_MUX_SQ_FB0, mode Write, data 26CA)
+# ** Note   : (215970000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (215970000 ps) Send SPI command value 442D_AAAC (C2_MUX_SQ_FB0, mode Write, data AAAC)
+# ** Note   : (218292000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (218292000 ps) Send SPI command value 442F_1F08 (C2_MUX_SQ_FB0, mode Write, data 1F08)
+# ** Note   : (220614000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (220614000 ps) Send SPI command value 4431_A2EA (C2_MUX_SQ_FB0, mode Write, data A2EA)
+# ** Note   : (222936000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (222936000 ps) Send SPI command value 4433_1746 (C2_MUX_SQ_FB0, mode Write, data 1746)
+# ** Note   : (225258000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (225258000 ps) Send SPI command value 4435_9B28 (C2_MUX_SQ_FB0, mode Write, data 9B28)
+# ** Note   : (227580000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (227580000 ps) Send SPI command value 4437_0F84 (C2_MUX_SQ_FB0, mode Write, data 0F84)
+# ** Note   : (229902000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (229902000 ps) Send SPI command value 4439_9366 (C2_MUX_SQ_FB0, mode Write, data 9366)
+# ** Note   : (232224000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (232224000 ps) Send SPI command value 443B_07C2 (C2_MUX_SQ_FB0, mode Write, data 07C2)
+# ** Note   : (234546000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (234546000 ps) Send SPI command value 443D_8BA4 (C2_MUX_SQ_FB0, mode Write, data 8BA4)
+# ** Note   : (236868000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (236868000 ps) Send SPI command value 443F_0000 (C2_MUX_SQ_FB0, mode Write, data 0000)
+# ** Note   : (239190000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (239190000 ps) Send SPI command value 4441_83E2 (C2_MUX_SQ_FB0, mode Write, data 83E2)
+# ** Note   : (241512000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (241512000 ps) Send SPI command value 4443_7C20 (C2_MUX_SQ_FB0, mode Write, data 7C20)
+# ** Note   : (243834000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (243834000 ps) Send SPI command value 6401_FFFF (C3_MUX_SQ_FB0, mode Write, data FFFF)
+# ** Note   : (246156000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (246156000 ps) Send SPI command value 6403_745E (C3_MUX_SQ_FB0, mode Write, data 745E)
+# ** Note   : (248478000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (248478000 ps) Send SPI command value 6405_F840 (C3_MUX_SQ_FB0, mode Write, data F840)
+# ** Note   : (250800000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (250800000 ps) Send SPI command value 6407_6C9C (C3_MUX_SQ_FB0, mode Write, data 6C9C)
+# ** Note   : (253122000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (253122000 ps) Send SPI command value 6409_F07E (C3_MUX_SQ_FB0, mode Write, data F07E)
+# ** Note   : (255444000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (255444000 ps) Send SPI command value 640B_64DA (C3_MUX_SQ_FB0, mode Write, data 64DA)
+# ** Note   : (257766000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (257766000 ps) Send SPI command value 640D_E8BC (C3_MUX_SQ_FB0, mode Write, data E8BC)
+# ** Note   : (260088000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (260088000 ps) Send SPI command value 640F_5D18 (C3_MUX_SQ_FB0, mode Write, data 5D18)
+# ** Note   : (262410000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (262410000 ps) Send SPI command value 6411_E0FA (C3_MUX_SQ_FB0, mode Write, data E0FA)
+# ** Note   : (264732000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (264732000 ps) Send SPI command value 6413_5556 (C3_MUX_SQ_FB0, mode Write, data 5556)
+# ** Note   : (267054000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (267054000 ps) Send SPI command value 6415_D938 (C3_MUX_SQ_FB0, mode Write, data D938)
+# ** Note   : (269376000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (269376000 ps) Send SPI command value 6417_4D94 (C3_MUX_SQ_FB0, mode Write, data 4D94)
+# ** Note   : (271698000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (271698000 ps) Send SPI command value 6419_D176 (C3_MUX_SQ_FB0, mode Write, data D176)
+# ** Note   : (274020000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (274020000 ps) Send SPI command value 641B_45D2 (C3_MUX_SQ_FB0, mode Write, data 45D2)
+# ** Note   : (276342000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (276342000 ps) Send SPI command value 641D_C9B4 (C3_MUX_SQ_FB0, mode Write, data C9B4)
+# ** Note   : (278664000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (278664000 ps) Send SPI command value 641F_3E10 (C3_MUX_SQ_FB0, mode Write, data 3E10)
+# ** Note   : (280986000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (280986000 ps) Send SPI command value 6421_C1F2 (C3_MUX_SQ_FB0, mode Write, data C1F2)
+# ** Note   : (283308000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (283308000 ps) Send SPI command value 6423_364E (C3_MUX_SQ_FB0, mode Write, data 364E)
+# ** Note   : (285630000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (285630000 ps) Send SPI command value 6425_BA30 (C3_MUX_SQ_FB0, mode Write, data BA30)
+# ** Note   : (287952000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (287952000 ps) Send SPI command value 6427_2E8C (C3_MUX_SQ_FB0, mode Write, data 2E8C)
+# ** Note   : (290274000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (290274000 ps) Send SPI command value 6429_B26E (C3_MUX_SQ_FB0, mode Write, data B26E)
+# ** Note   : (292596000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (292596000 ps) Send SPI command value 642B_26CA (C3_MUX_SQ_FB0, mode Write, data 26CA)
+# ** Note   : (294918000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (294918000 ps) Send SPI command value 642D_AAAC (C3_MUX_SQ_FB0, mode Write, data AAAC)
+# ** Note   : (297240000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (297240000 ps) Send SPI command value 642F_1F08 (C3_MUX_SQ_FB0, mode Write, data 1F08)
+# ** Note   : (299562000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (299562000 ps) Send SPI command value 6431_A2EA (C3_MUX_SQ_FB0, mode Write, data A2EA)
+# ** Note   : (301884000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (301884000 ps) Send SPI command value 6433_1746 (C3_MUX_SQ_FB0, mode Write, data 1746)
+# ** Note   : (304206000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (304206000 ps) Send SPI command value 6435_9B28 (C3_MUX_SQ_FB0, mode Write, data 9B28)
+# ** Note   : (306528000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (306528000 ps) Send SPI command value 6437_0F84 (C3_MUX_SQ_FB0, mode Write, data 0F84)
+# ** Note   : (308850000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (308850000 ps) Send SPI command value 6439_9366 (C3_MUX_SQ_FB0, mode Write, data 9366)
+# ** Note   : (311172000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (311172000 ps) Send SPI command value 643B_07C2 (C3_MUX_SQ_FB0, mode Write, data 07C2)
+# ** Note   : (313494000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (313494000 ps) Send SPI command value 643D_8BA4 (C3_MUX_SQ_FB0, mode Write, data 8BA4)
+# ** Note   : (315816000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (315816000 ps) Send SPI command value 643F_0000 (C3_MUX_SQ_FB0, mode Write, data 0000)
+# ** Note   : (318138000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (318138000 ps) Send SPI command value 6441_83E2 (C3_MUX_SQ_FB0, mode Write, data 83E2)
+# ** Note   : (320460000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (320460000 ps) Send SPI command value 6443_7C20 (C3_MUX_SQ_FB0, mode Write, data 7C20)
+# ** Note   : (322782000 ps) Waiting SPI command end for 2286000 ps
+#             (322782000 ps) 
+#             (322782000 ps) ==============================================================================================
+#             (322782000 ps)   Writing a new table in feedback open loop memories (second ping pong memory)
+#             (322782000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (322782000 ps) Send SPI command value 0401_7C20 (C0_MUX_SQ_FB0, mode Write, data 7C20)
+# ** Note   : (325104000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (325104000 ps) Send SPI command value 0403_FFFF (C0_MUX_SQ_FB0, mode Write, data FFFF)
+# ** Note   : (327426000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (327426000 ps) Send SPI command value 0405_745E (C0_MUX_SQ_FB0, mode Write, data 745E)
+# ** Note   : (329748000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (329748000 ps) Send SPI command value 0407_F840 (C0_MUX_SQ_FB0, mode Write, data F840)
+# ** Note   : (332070000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (332070000 ps) Send SPI command value 0409_6C9C (C0_MUX_SQ_FB0, mode Write, data 6C9C)
+# ** Note   : (334392000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (334392000 ps) Send SPI command value 040B_F07E (C0_MUX_SQ_FB0, mode Write, data F07E)
+# ** Note   : (336714000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (336714000 ps) Send SPI command value 040D_64DA (C0_MUX_SQ_FB0, mode Write, data 64DA)
+# ** Note   : (339036000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (339036000 ps) Send SPI command value 040F_E8BC (C0_MUX_SQ_FB0, mode Write, data E8BC)
+# ** Note   : (341358000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (341358000 ps) Send SPI command value 0411_5D18 (C0_MUX_SQ_FB0, mode Write, data 5D18)
+# ** Note   : (343680000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (343680000 ps) Send SPI command value 0413_E0FA (C0_MUX_SQ_FB0, mode Write, data E0FA)
+# ** Note   : (346002000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (346002000 ps) Send SPI command value 0415_5556 (C0_MUX_SQ_FB0, mode Write, data 5556)
+# ** Note   : (348324000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (348324000 ps) Send SPI command value 0417_D938 (C0_MUX_SQ_FB0, mode Write, data D938)
+# ** Note   : (350646000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (350646000 ps) Send SPI command value 0419_4D94 (C0_MUX_SQ_FB0, mode Write, data 4D94)
+# ** Note   : (352968000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (352968000 ps) Send SPI command value 041B_D176 (C0_MUX_SQ_FB0, mode Write, data D176)
+# ** Note   : (355290000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (355290000 ps) Send SPI command value 041D_45D2 (C0_MUX_SQ_FB0, mode Write, data 45D2)
+# ** Note   : (357612000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (357612000 ps) Send SPI command value 041F_C9B4 (C0_MUX_SQ_FB0, mode Write, data C9B4)
+# ** Note   : (359934000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (359934000 ps) Send SPI command value 0421_3E10 (C0_MUX_SQ_FB0, mode Write, data 3E10)
+# ** Note   : (362256000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (362256000 ps) Send SPI command value 0423_C1F2 (C0_MUX_SQ_FB0, mode Write, data C1F2)
+# ** Note   : (364578000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (364578000 ps) Send SPI command value 0425_364E (C0_MUX_SQ_FB0, mode Write, data 364E)
+# ** Note   : (366900000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (366900000 ps) Send SPI command value 0427_BA30 (C0_MUX_SQ_FB0, mode Write, data BA30)
+# ** Note   : (369222000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (369222000 ps) Send SPI command value 0429_2E8C (C0_MUX_SQ_FB0, mode Write, data 2E8C)
+# ** Note   : (371544000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (371544000 ps) Send SPI command value 042B_B26E (C0_MUX_SQ_FB0, mode Write, data B26E)
+# ** Note   : (373866000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (373866000 ps) Send SPI command value 042D_26CA (C0_MUX_SQ_FB0, mode Write, data 26CA)
+# ** Note   : (376188000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (376188000 ps) Send SPI command value 042F_AAAC (C0_MUX_SQ_FB0, mode Write, data AAAC)
+# ** Note   : (378510000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (378510000 ps) Send SPI command value 0431_1F08 (C0_MUX_SQ_FB0, mode Write, data 1F08)
+# ** Note   : (380832000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (380832000 ps) Send SPI command value 0433_A2EA (C0_MUX_SQ_FB0, mode Write, data A2EA)
+# ** Note   : (383154000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (383154000 ps) Send SPI command value 0435_1746 (C0_MUX_SQ_FB0, mode Write, data 1746)
+# ** Note   : (385476000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (385476000 ps) Send SPI command value 0437_9B28 (C0_MUX_SQ_FB0, mode Write, data 9B28)
+# ** Note   : (387798000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (387798000 ps) Send SPI command value 0439_0F84 (C0_MUX_SQ_FB0, mode Write, data 0F84)
+# ** Note   : (390120000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (390120000 ps) Send SPI command value 043B_9366 (C0_MUX_SQ_FB0, mode Write, data 9366)
+# ** Note   : (392442000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (392442000 ps) Send SPI command value 043D_07C2 (C0_MUX_SQ_FB0, mode Write, data 07C2)
+# ** Note   : (394764000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (394764000 ps) Send SPI command value 043F_8BA4 (C0_MUX_SQ_FB0, mode Write, data 8BA4)
+# ** Note   : (397086000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (397086000 ps) Send SPI command value 0441_0000 (C0_MUX_SQ_FB0, mode Write, data 0000)
+# ** Note   : (399408000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (399408000 ps) Send SPI command value 0443_83E2 (C0_MUX_SQ_FB0, mode Write, data 83E2)
+# ** Note   : (401730000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (401730000 ps) Send SPI command value 2401_7C20 (C1_MUX_SQ_FB0, mode Write, data 7C20)
+# ** Note   : (404052000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (404052000 ps) Send SPI command value 2403_FFFF (C1_MUX_SQ_FB0, mode Write, data FFFF)
+# ** Note   : (406374000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (406374000 ps) Send SPI command value 2405_745E (C1_MUX_SQ_FB0, mode Write, data 745E)
+# ** Note   : (408696000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (408696000 ps) Send SPI command value 2407_F840 (C1_MUX_SQ_FB0, mode Write, data F840)
+# ** Note   : (411018000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (411018000 ps) Send SPI command value 2409_6C9C (C1_MUX_SQ_FB0, mode Write, data 6C9C)
+# ** Note   : (413340000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (413340000 ps) Send SPI command value 240B_F07E (C1_MUX_SQ_FB0, mode Write, data F07E)
+# ** Note   : (415662000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (415662000 ps) Send SPI command value 240D_64DA (C1_MUX_SQ_FB0, mode Write, data 64DA)
+# ** Note   : (417984000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (417984000 ps) Send SPI command value 240F_E8BC (C1_MUX_SQ_FB0, mode Write, data E8BC)
+# ** Note   : (420306000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (420306000 ps) Send SPI command value 2411_5D18 (C1_MUX_SQ_FB0, mode Write, data 5D18)
+# ** Note   : (422628000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (422628000 ps) Send SPI command value 2413_E0FA (C1_MUX_SQ_FB0, mode Write, data E0FA)
+# ** Note   : (424950000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (424950000 ps) Send SPI command value 2415_5556 (C1_MUX_SQ_FB0, mode Write, data 5556)
+# ** Note   : (427272000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (427272000 ps) Send SPI command value 2417_D938 (C1_MUX_SQ_FB0, mode Write, data D938)
+# ** Note   : (429594000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (429594000 ps) Send SPI command value 2419_4D94 (C1_MUX_SQ_FB0, mode Write, data 4D94)
+# ** Note   : (431916000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (431916000 ps) Send SPI command value 241B_D176 (C1_MUX_SQ_FB0, mode Write, data D176)
+# ** Note   : (434238000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (434238000 ps) Send SPI command value 241D_45D2 (C1_MUX_SQ_FB0, mode Write, data 45D2)
+# ** Note   : (436560000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (436560000 ps) Send SPI command value 241F_C9B4 (C1_MUX_SQ_FB0, mode Write, data C9B4)
+# ** Note   : (438882000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (438882000 ps) Send SPI command value 2421_3E10 (C1_MUX_SQ_FB0, mode Write, data 3E10)
+# ** Note   : (441204000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (441204000 ps) Send SPI command value 2423_C1F2 (C1_MUX_SQ_FB0, mode Write, data C1F2)
+# ** Note   : (443526000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (443526000 ps) Send SPI command value 2425_364E (C1_MUX_SQ_FB0, mode Write, data 364E)
+# ** Note   : (445848000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (445848000 ps) Send SPI command value 2427_BA30 (C1_MUX_SQ_FB0, mode Write, data BA30)
+# ** Note   : (448170000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (448170000 ps) Send SPI command value 2429_2E8C (C1_MUX_SQ_FB0, mode Write, data 2E8C)
+# ** Note   : (450492000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (450492000 ps) Send SPI command value 242B_B26E (C1_MUX_SQ_FB0, mode Write, data B26E)
+# ** Note   : (452814000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (452814000 ps) Send SPI command value 242D_26CA (C1_MUX_SQ_FB0, mode Write, data 26CA)
+# ** Note   : (455136000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (455136000 ps) Send SPI command value 242F_AAAC (C1_MUX_SQ_FB0, mode Write, data AAAC)
+# ** Note   : (457458000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (457458000 ps) Send SPI command value 2431_1F08 (C1_MUX_SQ_FB0, mode Write, data 1F08)
+# ** Note   : (459780000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (459780000 ps) Send SPI command value 2433_A2EA (C1_MUX_SQ_FB0, mode Write, data A2EA)
+# ** Note   : (462102000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (462102000 ps) Send SPI command value 2435_1746 (C1_MUX_SQ_FB0, mode Write, data 1746)
+# ** Note   : (464424000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (464424000 ps) Send SPI command value 2437_9B28 (C1_MUX_SQ_FB0, mode Write, data 9B28)
+# ** Note   : (466746000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (466746000 ps) Send SPI command value 2439_0F84 (C1_MUX_SQ_FB0, mode Write, data 0F84)
+# ** Note   : (469068000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (469068000 ps) Send SPI command value 243B_9366 (C1_MUX_SQ_FB0, mode Write, data 9366)
+# ** Note   : (471390000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (471390000 ps) Send SPI command value 243D_07C2 (C1_MUX_SQ_FB0, mode Write, data 07C2)
+# ** Note   : (473712000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (473712000 ps) Send SPI command value 243F_8BA4 (C1_MUX_SQ_FB0, mode Write, data 8BA4)
+# ** Note   : (476034000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (476034000 ps) Send SPI command value 2441_0000 (C1_MUX_SQ_FB0, mode Write, data 0000)
+# ** Note   : (478356000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (478356000 ps) Send SPI command value 2443_83E2 (C1_MUX_SQ_FB0, mode Write, data 83E2)
+# ** Note   : (480678000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (480678000 ps) Send SPI command value 4401_7C20 (C2_MUX_SQ_FB0, mode Write, data 7C20)
+# ** Note   : (483000000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (483000000 ps) Send SPI command value 4403_FFFF (C2_MUX_SQ_FB0, mode Write, data FFFF)
+# ** Note   : (485322000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (485322000 ps) Send SPI command value 4405_745E (C2_MUX_SQ_FB0, mode Write, data 745E)
+# ** Note   : (487644000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (487644000 ps) Send SPI command value 4407_F840 (C2_MUX_SQ_FB0, mode Write, data F840)
+# ** Note   : (489966000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (489966000 ps) Send SPI command value 4409_6C9C (C2_MUX_SQ_FB0, mode Write, data 6C9C)
+# ** Note   : (492288000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (492288000 ps) Send SPI command value 440B_F07E (C2_MUX_SQ_FB0, mode Write, data F07E)
+# ** Note   : (494610000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (494610000 ps) Send SPI command value 440D_64DA (C2_MUX_SQ_FB0, mode Write, data 64DA)
+# ** Note   : (496932000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (496932000 ps) Send SPI command value 440F_E8BC (C2_MUX_SQ_FB0, mode Write, data E8BC)
+# ** Note   : (499254000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (499254000 ps) Send SPI command value 4411_5D18 (C2_MUX_SQ_FB0, mode Write, data 5D18)
+# ** Note   : (501576000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (501576000 ps) Send SPI command value 4413_E0FA (C2_MUX_SQ_FB0, mode Write, data E0FA)
+# ** Note   : (503898000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (503898000 ps) Send SPI command value 4415_5556 (C2_MUX_SQ_FB0, mode Write, data 5556)
+# ** Note   : (506220000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (506220000 ps) Send SPI command value 4417_D938 (C2_MUX_SQ_FB0, mode Write, data D938)
+# ** Note   : (508542000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (508542000 ps) Send SPI command value 4419_4D94 (C2_MUX_SQ_FB0, mode Write, data 4D94)
+# ** Note   : (510864000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (510864000 ps) Send SPI command value 441B_D176 (C2_MUX_SQ_FB0, mode Write, data D176)
+# ** Note   : (513186000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (513186000 ps) Send SPI command value 441D_45D2 (C2_MUX_SQ_FB0, mode Write, data 45D2)
+# ** Note   : (515508000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (515508000 ps) Send SPI command value 441F_C9B4 (C2_MUX_SQ_FB0, mode Write, data C9B4)
+# ** Note   : (517830000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (517830000 ps) Send SPI command value 4421_3E10 (C2_MUX_SQ_FB0, mode Write, data 3E10)
+# ** Note   : (520152000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (520152000 ps) Send SPI command value 4423_C1F2 (C2_MUX_SQ_FB0, mode Write, data C1F2)
+# ** Note   : (522474000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (522474000 ps) Send SPI command value 4425_364E (C2_MUX_SQ_FB0, mode Write, data 364E)
+# ** Note   : (524796000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (524796000 ps) Send SPI command value 4427_BA30 (C2_MUX_SQ_FB0, mode Write, data BA30)
+# ** Note   : (527118000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (527118000 ps) Send SPI command value 4429_2E8C (C2_MUX_SQ_FB0, mode Write, data 2E8C)
+# ** Note   : (529440000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (529440000 ps) Send SPI command value 442B_B26E (C2_MUX_SQ_FB0, mode Write, data B26E)
+# ** Note   : (531762000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (531762000 ps) Send SPI command value 442D_26CA (C2_MUX_SQ_FB0, mode Write, data 26CA)
+# ** Note   : (534084000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (534084000 ps) Send SPI command value 442F_AAAC (C2_MUX_SQ_FB0, mode Write, data AAAC)
+# ** Note   : (536406000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (536406000 ps) Send SPI command value 4431_1F08 (C2_MUX_SQ_FB0, mode Write, data 1F08)
+# ** Note   : (538728000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (538728000 ps) Send SPI command value 4433_A2EA (C2_MUX_SQ_FB0, mode Write, data A2EA)
+# ** Note   : (541050000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (541050000 ps) Send SPI command value 4435_1746 (C2_MUX_SQ_FB0, mode Write, data 1746)
+# ** Note   : (543372000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (543372000 ps) Send SPI command value 4437_9B28 (C2_MUX_SQ_FB0, mode Write, data 9B28)
+# ** Note   : (545694000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (545694000 ps) Send SPI command value 4439_0F84 (C2_MUX_SQ_FB0, mode Write, data 0F84)
+# ** Note   : (548016000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (548016000 ps) Send SPI command value 443B_9366 (C2_MUX_SQ_FB0, mode Write, data 9366)
+# ** Note   : (550338000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (550338000 ps) Send SPI command value 443D_07C2 (C2_MUX_SQ_FB0, mode Write, data 07C2)
+# ** Note   : (552660000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (552660000 ps) Send SPI command value 443F_8BA4 (C2_MUX_SQ_FB0, mode Write, data 8BA4)
+# ** Note   : (554982000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (554982000 ps) Send SPI command value 4441_0000 (C2_MUX_SQ_FB0, mode Write, data 0000)
+# ** Note   : (557304000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (557304000 ps) Send SPI command value 4443_83E2 (C2_MUX_SQ_FB0, mode Write, data 83E2)
+# ** Note   : (559626000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (559626000 ps) Send SPI command value 6401_7C20 (C3_MUX_SQ_FB0, mode Write, data 7C20)
+# ** Note   : (561948000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (561948000 ps) Send SPI command value 6403_FFFF (C3_MUX_SQ_FB0, mode Write, data FFFF)
+# ** Note   : (564270000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (564270000 ps) Send SPI command value 6405_745E (C3_MUX_SQ_FB0, mode Write, data 745E)
+# ** Note   : (566592000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (566592000 ps) Send SPI command value 6407_F840 (C3_MUX_SQ_FB0, mode Write, data F840)
+# ** Note   : (568914000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (568914000 ps) Send SPI command value 6409_6C9C (C3_MUX_SQ_FB0, mode Write, data 6C9C)
+# ** Note   : (571236000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (571236000 ps) Send SPI command value 640B_F07E (C3_MUX_SQ_FB0, mode Write, data F07E)
+# ** Note   : (573558000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (573558000 ps) Send SPI command value 640D_64DA (C3_MUX_SQ_FB0, mode Write, data 64DA)
+# ** Note   : (575880000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (575880000 ps) Send SPI command value 640F_E8BC (C3_MUX_SQ_FB0, mode Write, data E8BC)
+# ** Note   : (578202000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (578202000 ps) Send SPI command value 6411_5D18 (C3_MUX_SQ_FB0, mode Write, data 5D18)
+# ** Note   : (580524000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (580524000 ps) Send SPI command value 6413_E0FA (C3_MUX_SQ_FB0, mode Write, data E0FA)
+# ** Note   : (582846000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (582846000 ps) Send SPI command value 6415_5556 (C3_MUX_SQ_FB0, mode Write, data 5556)
+# ** Note   : (585168000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (585168000 ps) Send SPI command value 6417_D938 (C3_MUX_SQ_FB0, mode Write, data D938)
+# ** Note   : (587490000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (587490000 ps) Send SPI command value 6419_4D94 (C3_MUX_SQ_FB0, mode Write, data 4D94)
+# ** Note   : (589812000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (589812000 ps) Send SPI command value 641B_D176 (C3_MUX_SQ_FB0, mode Write, data D176)
+# ** Note   : (592134000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (592134000 ps) Send SPI command value 641D_45D2 (C3_MUX_SQ_FB0, mode Write, data 45D2)
+# ** Note   : (594456000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (594456000 ps) Send SPI command value 641F_C9B4 (C3_MUX_SQ_FB0, mode Write, data C9B4)
+# ** Note   : (596778000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (596778000 ps) Send SPI command value 6421_3E10 (C3_MUX_SQ_FB0, mode Write, data 3E10)
+# ** Note   : (599100000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (599100000 ps) Send SPI command value 6423_C1F2 (C3_MUX_SQ_FB0, mode Write, data C1F2)
+# ** Note   : (601422000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (601422000 ps) Send SPI command value 6425_364E (C3_MUX_SQ_FB0, mode Write, data 364E)
+# ** Note   : (603744000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (603744000 ps) Send SPI command value 6427_BA30 (C3_MUX_SQ_FB0, mode Write, data BA30)
+# ** Note   : (606066000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (606066000 ps) Send SPI command value 6429_2E8C (C3_MUX_SQ_FB0, mode Write, data 2E8C)
+# ** Note   : (608388000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (608388000 ps) Send SPI command value 642B_B26E (C3_MUX_SQ_FB0, mode Write, data B26E)
+# ** Note   : (610710000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (610710000 ps) Send SPI command value 642D_26CA (C3_MUX_SQ_FB0, mode Write, data 26CA)
+# ** Note   : (613032000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (613032000 ps) Send SPI command value 642F_AAAC (C3_MUX_SQ_FB0, mode Write, data AAAC)
+# ** Note   : (615354000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (615354000 ps) Send SPI command value 6431_1F08 (C3_MUX_SQ_FB0, mode Write, data 1F08)
+# ** Note   : (617676000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (617676000 ps) Send SPI command value 6433_A2EA (C3_MUX_SQ_FB0, mode Write, data A2EA)
+# ** Note   : (619998000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (619998000 ps) Send SPI command value 6435_1746 (C3_MUX_SQ_FB0, mode Write, data 1746)
+# ** Note   : (622320000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (622320000 ps) Send SPI command value 6437_9B28 (C3_MUX_SQ_FB0, mode Write, data 9B28)
+# ** Note   : (624642000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (624642000 ps) Send SPI command value 6439_0F84 (C3_MUX_SQ_FB0, mode Write, data 0F84)
+# ** Note   : (626964000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (626964000 ps) Send SPI command value 643B_9366 (C3_MUX_SQ_FB0, mode Write, data 9366)
+# ** Note   : (629286000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (629286000 ps) Send SPI command value 643D_07C2 (C3_MUX_SQ_FB0, mode Write, data 07C2)
+# ** Note   : (631608000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (631608000 ps) Send SPI command value 643F_8BA4 (C3_MUX_SQ_FB0, mode Write, data 8BA4)
+# ** Note   : (633930000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (633930000 ps) Send SPI command value 6441_0000 (C3_MUX_SQ_FB0, mode Write, data 0000)
+# ** Note   : (636252000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (636252000 ps) Send SPI command value 6443_83E2 (C3_MUX_SQ_FB0, mode Write, data 83E2)
+# ** Note   : (638574000 ps) Waiting SPI command end for 2286000 ps
+#             (638574000 ps) 
+#             (638574000 ps) ==============================================================================================
+#             (638574000 ps)   Writing memory dump data to compare
+#             (638574000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (638574000 ps) Write in ADC dump and science memories column 0, adress index 0, ADC dump & Science value 3F08_FC20
+# ** Note   : (638590008 ps) Write in ADC dump and science memories column 0, adress index 1, ADC dump & Science value 1FFF_7FFC
+# ** Note   : (638606016 ps) Write in ADC dump and science memories column 0, adress index 2, ADC dump & Science value 3D17_F45C
+# ** Note   : (638622024 ps) Write in ADC dump and science memories column 0, adress index 3, ADC dump & Science value 1E10_7840
+# ** Note   : (638638032 ps) Write in ADC dump and science memories column 0, adress index 4, ADC dump & Science value 3B27_EC9C
+# ** Note   : (638654040 ps) Write in ADC dump and science memories column 0, adress index 5, ADC dump & Science value 1C1F_707C
+# ** Note   : (638670048 ps) Write in ADC dump and science memories column 0, adress index 6, ADC dump & Science value 3936_E4D8
+# ** Note   : (638686056 ps) Write in ADC dump and science memories column 0, adress index 7, ADC dump & Science value 1A2F_68BC
+# ** Note   : (638702064 ps) Write in ADC dump and science memories column 0, adress index 8, ADC dump & Science value 3746_DD18
+# ** Note   : (638718072 ps) Write in ADC dump and science memories column 0, adress index 9, ADC dump & Science value 183E_60F8
+# ** Note   : (638734080 ps) Write in ADC dump and science memories column 0, adress index 10, ADC dump & Science value 3555_D554
+# ** Note   : (638750088 ps) Write in ADC dump and science memories column 0, adress index 11, ADC dump & Science value 164E_5938
+# ** Note   : (638766096 ps) Write in ADC dump and science memories column 0, adress index 12, ADC dump & Science value 3365_CD94
+# ** Note   : (638782104 ps) Write in ADC dump and science memories column 0, adress index 13, ADC dump & Science value 145D_5174
+# ** Note   : (638798112 ps) Write in ADC dump and science memories column 0, adress index 14, ADC dump & Science value 3174_C5D0
+# ** Note   : (638814120 ps) Write in ADC dump and science memories column 0, adress index 15, ADC dump & Science value 126D_49B4
+# ** Note   : (638830128 ps) Write in ADC dump and science memories column 0, adress index 16, ADC dump & Science value 2F84_BE10
+# ** Note   : (638846136 ps) Write in ADC dump and science memories column 0, adress index 17, ADC dump & Science value 107C_41F0
+# ** Note   : (638862144 ps) Write in ADC dump and science memories column 0, adress index 18, ADC dump & Science value 2D93_B64C
+# ** Note   : (638878152 ps) Write in ADC dump and science memories column 0, adress index 19, ADC dump & Science value 0E8C_3A30
+# ** Note   : (638894160 ps) Write in ADC dump and science memories column 0, adress index 20, ADC dump & Science value 2BA3_AE8C
+# ** Note   : (638910168 ps) Write in ADC dump and science memories column 0, adress index 21, ADC dump & Science value 0C9B_326C
+# ** Note   : (638926176 ps) Write in ADC dump and science memories column 0, adress index 22, ADC dump & Science value 29B2_A6C8
+# ** Note   : (638942184 ps) Write in ADC dump and science memories column 0, adress index 23, ADC dump & Science value 0AAB_2AAC
+# ** Note   : (638958192 ps) Write in ADC dump and science memories column 0, adress index 24, ADC dump & Science value 27C2_9F08
+# ** Note   : (638974200 ps) Write in ADC dump and science memories column 0, adress index 25, ADC dump & Science value 08BA_22E8
+# ** Note   : (638990208 ps) Write in ADC dump and science memories column 0, adress index 26, ADC dump & Science value 25D1_9744
+# ** Note   : (639006216 ps) Write in ADC dump and science memories column 0, adress index 27, ADC dump & Science value 06CA_1B28
+# ** Note   : (639022224 ps) Write in ADC dump and science memories column 0, adress index 28, ADC dump & Science value 23E1_8F84
+# ** Note   : (639038232 ps) Write in ADC dump and science memories column 0, adress index 29, ADC dump & Science value 04D9_1364
+# ** Note   : (639054240 ps) Write in ADC dump and science memories column 0, adress index 30, ADC dump & Science value 21F0_87C0
+# ** Note   : (639070248 ps) Write in ADC dump and science memories column 0, adress index 31, ADC dump & Science value 02E9_0BA4
+# ** Note   : (639086256 ps) Write in ADC dump and science memories column 0, adress index 32, ADC dump & Science value 2000_8000
+# ** Note   : (639102264 ps) Write in ADC dump and science memories column 0, adress index 33, ADC dump & Science value 00F8_03E0
+#             (639118272 ps) 
+# ** Note   : (639118272 ps) Write in ADC dump and science memories column 1, adress index 0, ADC dump & Science value 3F08_FC20
+# ** Note   : (639134280 ps) Write in ADC dump and science memories column 1, adress index 1, ADC dump & Science value 1FFF_7FFC
+# ** Note   : (639150288 ps) Write in ADC dump and science memories column 1, adress index 2, ADC dump & Science value 3D17_F45C
+# ** Note   : (639166296 ps) Write in ADC dump and science memories column 1, adress index 3, ADC dump & Science value 1E10_7840
+# ** Note   : (639182304 ps) Write in ADC dump and science memories column 1, adress index 4, ADC dump & Science value 3B27_EC9C
+# ** Note   : (639198312 ps) Write in ADC dump and science memories column 1, adress index 5, ADC dump & Science value 1C1F_707C
+# ** Note   : (639214320 ps) Write in ADC dump and science memories column 1, adress index 6, ADC dump & Science value 3936_E4D8
+# ** Note   : (639230328 ps) Write in ADC dump and science memories column 1, adress index 7, ADC dump & Science value 1A2F_68BC
+# ** Note   : (639246336 ps) Write in ADC dump and science memories column 1, adress index 8, ADC dump & Science value 3746_DD18
+# ** Note   : (639262344 ps) Write in ADC dump and science memories column 1, adress index 9, ADC dump & Science value 183E_60F8
+# ** Note   : (639278352 ps) Write in ADC dump and science memories column 1, adress index 10, ADC dump & Science value 3555_D554
+# ** Note   : (639294360 ps) Write in ADC dump and science memories column 1, adress index 11, ADC dump & Science value 164E_5938
+# ** Note   : (639310368 ps) Write in ADC dump and science memories column 1, adress index 12, ADC dump & Science value 3365_CD94
+# ** Note   : (639326376 ps) Write in ADC dump and science memories column 1, adress index 13, ADC dump & Science value 145D_5174
+# ** Note   : (639342384 ps) Write in ADC dump and science memories column 1, adress index 14, ADC dump & Science value 3174_C5D0
+# ** Note   : (639358392 ps) Write in ADC dump and science memories column 1, adress index 15, ADC dump & Science value 126D_49B4
+# ** Note   : (639374400 ps) Write in ADC dump and science memories column 1, adress index 16, ADC dump & Science value 2F84_BE10
+# ** Note   : (639390408 ps) Write in ADC dump and science memories column 1, adress index 17, ADC dump & Science value 107C_41F0
+# ** Note   : (639406416 ps) Write in ADC dump and science memories column 1, adress index 18, ADC dump & Science value 2D93_B64C
+# ** Note   : (639422424 ps) Write in ADC dump and science memories column 1, adress index 19, ADC dump & Science value 0E8C_3A30
+# ** Note   : (639438432 ps) Write in ADC dump and science memories column 1, adress index 20, ADC dump & Science value 2BA3_AE8C
+# ** Note   : (639454440 ps) Write in ADC dump and science memories column 1, adress index 21, ADC dump & Science value 0C9B_326C
+# ** Note   : (639470448 ps) Write in ADC dump and science memories column 1, adress index 22, ADC dump & Science value 29B2_A6C8
+# ** Note   : (639486456 ps) Write in ADC dump and science memories column 1, adress index 23, ADC dump & Science value 0AAB_2AAC
+# ** Note   : (639502464 ps) Write in ADC dump and science memories column 1, adress index 24, ADC dump & Science value 27C2_9F08
+# ** Note   : (639518472 ps) Write in ADC dump and science memories column 1, adress index 25, ADC dump & Science value 08BA_22E8
+# ** Note   : (639534480 ps) Write in ADC dump and science memories column 1, adress index 26, ADC dump & Science value 25D1_9744
+# ** Note   : (639550488 ps) Write in ADC dump and science memories column 1, adress index 27, ADC dump & Science value 06CA_1B28
+# ** Note   : (639566496 ps) Write in ADC dump and science memories column 1, adress index 28, ADC dump & Science value 23E1_8F84
+# ** Note   : (639582504 ps) Write in ADC dump and science memories column 1, adress index 29, ADC dump & Science value 04D9_1364
+# ** Note   : (639598512 ps) Write in ADC dump and science memories column 1, adress index 30, ADC dump & Science value 21F0_87C0
+# ** Note   : (639614520 ps) Write in ADC dump and science memories column 1, adress index 31, ADC dump & Science value 02E9_0BA4
+# ** Note   : (639630528 ps) Write in ADC dump and science memories column 1, adress index 32, ADC dump & Science value 2000_8000
+# ** Note   : (639646536 ps) Write in ADC dump and science memories column 1, adress index 33, ADC dump & Science value 00F8_03E0
+#             (639662544 ps) 
+# ** Note   : (639662544 ps) Write in ADC dump and science memories column 2, adress index 0, ADC dump & Science value 3F08_FC20
+# ** Note   : (639678552 ps) Write in ADC dump and science memories column 2, adress index 1, ADC dump & Science value 1FFF_7FFC
+# ** Note   : (639694560 ps) Write in ADC dump and science memories column 2, adress index 2, ADC dump & Science value 3D17_F45C
+# ** Note   : (639710568 ps) Write in ADC dump and science memories column 2, adress index 3, ADC dump & Science value 1E10_7840
+# ** Note   : (639726576 ps) Write in ADC dump and science memories column 2, adress index 4, ADC dump & Science value 3B27_EC9C
+# ** Note   : (639742584 ps) Write in ADC dump and science memories column 2, adress index 5, ADC dump & Science value 1C1F_707C
+# ** Note   : (639758592 ps) Write in ADC dump and science memories column 2, adress index 6, ADC dump & Science value 3936_E4D8
+# ** Note   : (639774600 ps) Write in ADC dump and science memories column 2, adress index 7, ADC dump & Science value 1A2F_68BC
+# ** Note   : (639790608 ps) Write in ADC dump and science memories column 2, adress index 8, ADC dump & Science value 3746_DD18
+# ** Note   : (639806616 ps) Write in ADC dump and science memories column 2, adress index 9, ADC dump & Science value 183E_60F8
+# ** Note   : (639822624 ps) Write in ADC dump and science memories column 2, adress index 10, ADC dump & Science value 3555_D554
+# ** Note   : (639838632 ps) Write in ADC dump and science memories column 2, adress index 11, ADC dump & Science value 164E_5938
+# ** Note   : (639854640 ps) Write in ADC dump and science memories column 2, adress index 12, ADC dump & Science value 3365_CD94
+# ** Note   : (639870648 ps) Write in ADC dump and science memories column 2, adress index 13, ADC dump & Science value 145D_5174
+# ** Note   : (639886656 ps) Write in ADC dump and science memories column 2, adress index 14, ADC dump & Science value 3174_C5D0
+# ** Note   : (639902664 ps) Write in ADC dump and science memories column 2, adress index 15, ADC dump & Science value 126D_49B4
+# ** Note   : (639918672 ps) Write in ADC dump and science memories column 2, adress index 16, ADC dump & Science value 2F84_BE10
+# ** Note   : (639934680 ps) Write in ADC dump and science memories column 2, adress index 17, ADC dump & Science value 107C_41F0
+# ** Note   : (639950688 ps) Write in ADC dump and science memories column 2, adress index 18, ADC dump & Science value 2D93_B64C
+# ** Note   : (639966696 ps) Write in ADC dump and science memories column 2, adress index 19, ADC dump & Science value 0E8C_3A30
+# ** Note   : (639982704 ps) Write in ADC dump and science memories column 2, adress index 20, ADC dump & Science value 2BA3_AE8C
+# ** Note   : (639998712 ps) Write in ADC dump and science memories column 2, adress index 21, ADC dump & Science value 0C9B_326C
+# ** Note   : (640014720 ps) Write in ADC dump and science memories column 2, adress index 22, ADC dump & Science value 29B2_A6C8
+# ** Note   : (640030728 ps) Write in ADC dump and science memories column 2, adress index 23, ADC dump & Science value 0AAB_2AAC
+# ** Note   : (640046736 ps) Write in ADC dump and science memories column 2, adress index 24, ADC dump & Science value 27C2_9F08
+# ** Note   : (640062744 ps) Write in ADC dump and science memories column 2, adress index 25, ADC dump & Science value 08BA_22E8
+# ** Note   : (640078752 ps) Write in ADC dump and science memories column 2, adress index 26, ADC dump & Science value 25D1_9744
+# ** Note   : (640094760 ps) Write in ADC dump and science memories column 2, adress index 27, ADC dump & Science value 06CA_1B28
+# ** Note   : (640110768 ps) Write in ADC dump and science memories column 2, adress index 28, ADC dump & Science value 23E1_8F84
+# ** Note   : (640126776 ps) Write in ADC dump and science memories column 2, adress index 29, ADC dump & Science value 04D9_1364
+# ** Note   : (640142784 ps) Write in ADC dump and science memories column 2, adress index 30, ADC dump & Science value 21F0_87C0
+# ** Note   : (640158792 ps) Write in ADC dump and science memories column 2, adress index 31, ADC dump & Science value 02E9_0BA4
+# ** Note   : (640174800 ps) Write in ADC dump and science memories column 2, adress index 32, ADC dump & Science value 2000_8000
+# ** Note   : (640190808 ps) Write in ADC dump and science memories column 2, adress index 33, ADC dump & Science value 00F8_03E0
+#             (640206816 ps) 
+# ** Note   : (640206816 ps) Write in ADC dump and science memories column 3, adress index 0, ADC dump & Science value 3F08_FC20
+# ** Note   : (640222824 ps) Write in ADC dump and science memories column 3, adress index 1, ADC dump & Science value 1FFF_7FFC
+# ** Note   : (640238832 ps) Write in ADC dump and science memories column 3, adress index 2, ADC dump & Science value 3D17_F45C
+# ** Note   : (640254840 ps) Write in ADC dump and science memories column 3, adress index 3, ADC dump & Science value 1E10_7840
+# ** Note   : (640270848 ps) Write in ADC dump and science memories column 3, adress index 4, ADC dump & Science value 3B27_EC9C
+# ** Note   : (640286856 ps) Write in ADC dump and science memories column 3, adress index 5, ADC dump & Science value 1C1F_707C
+# ** Note   : (640302864 ps) Write in ADC dump and science memories column 3, adress index 6, ADC dump & Science value 3936_E4D8
+# ** Note   : (640318872 ps) Write in ADC dump and science memories column 3, adress index 7, ADC dump & Science value 1A2F_68BC
+# ** Note   : (640334880 ps) Write in ADC dump and science memories column 3, adress index 8, ADC dump & Science value 3746_DD18
+# ** Note   : (640350888 ps) Write in ADC dump and science memories column 3, adress index 9, ADC dump & Science value 183E_60F8
+# ** Note   : (640366896 ps) Write in ADC dump and science memories column 3, adress index 10, ADC dump & Science value 3555_D554
+# ** Note   : (640382904 ps) Write in ADC dump and science memories column 3, adress index 11, ADC dump & Science value 164E_5938
+# ** Note   : (640398912 ps) Write in ADC dump and science memories column 3, adress index 12, ADC dump & Science value 3365_CD94
+# ** Note   : (640414920 ps) Write in ADC dump and science memories column 3, adress index 13, ADC dump & Science value 145D_5174
+# ** Note   : (640430928 ps) Write in ADC dump and science memories column 3, adress index 14, ADC dump & Science value 3174_C5D0
+# ** Note   : (640446936 ps) Write in ADC dump and science memories column 3, adress index 15, ADC dump & Science value 126D_49B4
+# ** Note   : (640462944 ps) Write in ADC dump and science memories column 3, adress index 16, ADC dump & Science value 2F84_BE10
+# ** Note   : (640478952 ps) Write in ADC dump and science memories column 3, adress index 17, ADC dump & Science value 107C_41F0
+# ** Note   : (640494960 ps) Write in ADC dump and science memories column 3, adress index 18, ADC dump & Science value 2D93_B64C
+# ** Note   : (640510968 ps) Write in ADC dump and science memories column 3, adress index 19, ADC dump & Science value 0E8C_3A30
+# ** Note   : (640526976 ps) Write in ADC dump and science memories column 3, adress index 20, ADC dump & Science value 2BA3_AE8C
+# ** Note   : (640542984 ps) Write in ADC dump and science memories column 3, adress index 21, ADC dump & Science value 0C9B_326C
+# ** Note   : (640558992 ps) Write in ADC dump and science memories column 3, adress index 22, ADC dump & Science value 29B2_A6C8
+# ** Note   : (640575000 ps) Write in ADC dump and science memories column 3, adress index 23, ADC dump & Science value 0AAB_2AAC
+# ** Note   : (640591008 ps) Write in ADC dump and science memories column 3, adress index 24, ADC dump & Science value 27C2_9F08
+# ** Note   : (640607016 ps) Write in ADC dump and science memories column 3, adress index 25, ADC dump & Science value 08BA_22E8
+# ** Note   : (640623024 ps) Write in ADC dump and science memories column 3, adress index 26, ADC dump & Science value 25D1_9744
+# ** Note   : (640639032 ps) Write in ADC dump and science memories column 3, adress index 27, ADC dump & Science value 06CA_1B28
+# ** Note   : (640655040 ps) Write in ADC dump and science memories column 3, adress index 28, ADC dump & Science value 23E1_8F84
+# ** Note   : (640671048 ps) Write in ADC dump and science memories column 3, adress index 29, ADC dump & Science value 04D9_1364
+# ** Note   : (640687056 ps) Write in ADC dump and science memories column 3, adress index 30, ADC dump & Science value 21F0_87C0
+# ** Note   : (640703064 ps) Write in ADC dump and science memories column 3, adress index 31, ADC dump & Science value 02E9_0BA4
+# ** Note   : (640719072 ps) Write in ADC dump and science memories column 3, adress index 32, ADC dump & Science value 2000_8000
+# ** Note   : (640735080 ps) Write in ADC dump and science memories column 3, adress index 33, ADC dump & Science value 00F8_03E0
+#             (640751088 ps) 
+#             (640751088 ps) ==============================================================================================
+#             (640751088 ps)   Configure DAC pulse shaping set 0: fc = No filter
+#             (640751088 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (640751088 ps) Send SPI command value 1101_0000 (C0_FB1_PULSE_SHAPING_SELECTION, mode Write, data 0000)
+# ** Note   : (643056000 ps) Waiting SPI command end for 2268912 ps
+# ** Note   : (643056000 ps) Send SPI command value 3101_0000 (C1_FB1_PULSE_SHAPING_SELECTION, mode Write, data 0000)
+# ** Note   : (645378000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (645378000 ps) Send SPI command value 5101_0000 (C2_FB1_PULSE_SHAPING_SELECTION, mode Write, data 0000)
+# ** Note   : (647700000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (647700000 ps) Send SPI command value 7101_0000 (C3_FB1_PULSE_SHAPING_SELECTION, mode Write, data 0000)
+# ** Note   : (650022000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (650022000 ps) Send SPI command value 8003_1111 (SQ_MUX_FB_ON_OFF, mode Write, data 1111)
+# ** Note   : (652344000 ps) Waiting SPI command end for 2286000 ps
+#             (652344000 ps) 
+#             (652344000 ps) ==============================================================================================
+#             (652344000 ps)   Set command 0: Feedback open loop mem. select, DAC delays,
+#             (652344000 ps)   ADC sampling delays and sample number for ADC error signal average
+#             (652344000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (652344000 ps) Send SPI command value 0443_7C20 (C0_MUX_SQ_FB0, mode Write, data 7C20)
+# ** Note   : (654666000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (654666000 ps) Send SPI command value 2443_7C20 (C1_MUX_SQ_FB0, mode Write, data 7C20)
+# ** Note   : (656988000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (656988000 ps) Send SPI command value 4443_7C20 (C2_MUX_SQ_FB0, mode Write, data 7C20)
+# ** Note   : (659310000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (659310000 ps) Send SPI command value 6443_7C20 (C3_MUX_SQ_FB0, mode Write, data 7C20)
+# ** Note   : (661632000 ps) Waiting SPI command end for 2286000 ps
+#             (661632000 ps) 
+# ** Note   : (661632000 ps) Send SPI command value 0A01_0013 (C0_MUX_SQ_FB_DELAY, mode Write, data 0013)
+# ** Note   : (663954000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (663954000 ps) Send SPI command value 2A01_0013 (C1_MUX_SQ_FB_DELAY, mode Write, data 0013)
+# ** Note   : (666276000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (666276000 ps) Send SPI command value 4A01_0013 (C2_MUX_SQ_FB_DELAY, mode Write, data 0013)
+# ** Note   : (668598000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (668598000 ps) Send SPI command value 6A01_0013 (C3_MUX_SQ_FB_DELAY, mode Write, data 0013)
+# ** Note   : (670920000 ps) Waiting SPI command end for 2286000 ps
+#             (670920000 ps) 
+# ** Note   : (670920000 ps) Send SPI command value 0A09_0000 (C0_SAMPLING_DELAY, mode Write, data 0000)
+# ** Note   : (673242000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (673242000 ps) Send SPI command value 2A09_0000 (C1_SAMPLING_DELAY, mode Write, data 0000)
+# ** Note   : (675564000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (675564000 ps) Send SPI command value 4A09_0000 (C2_SAMPLING_DELAY, mode Write, data 0000)
+# ** Note   : (677886000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (677886000 ps) Send SPI command value 6A09_0000 (C3_SAMPLING_DELAY, mode Write, data 0000)
+# ** Note   : (680208000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (680208000 ps) Send SPI command value 8007_0000 (BOXCAR_LENGTH, mode Write, data 0000)
+# ** Note   : (682530000 ps) Waiting SPI command end for 2286000 ps
+#             (682530000 ps) 
+# ** Note   : (682530000 ps) Send SPI command value 8001_0002 (DATA_ACQ_MODE, mode Write, data 0002)
+# ** Note   : (684852000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (690852000 ps) Waiting time for 6000000 ps
+#             (690852000 ps) 
+#             (690852000 ps) ==============================================================================================
+#             (690852000 ps)   Set command 1: Feedback open loop mem. select, DAC delays,
+#             (690852000 ps)   ADC sampling delays and sample number for ADC error signal average
+#             (690852000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (690852000 ps) Send SPI command value 8001_0000 (DATA_ACQ_MODE, mode Write, data 0000)
+# ** Note   : (693168000 ps) Waiting SPI command end for 2280000 ps
+# ** Note   : (699168000 ps) Waiting time for 6000000 ps
+#             (699168000 ps) 
+# ** Note   : (699168000 ps) Send SPI command value 0443_83E2 (C0_MUX_SQ_FB0, mode Write, data 83E2)
+# ** Note   : (701484000 ps) Waiting SPI command end for 2280000 ps
+# ** Note   : (701484000 ps) Send SPI command value 2443_83E2 (C1_MUX_SQ_FB0, mode Write, data 83E2)
+# ** Note   : (703806000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (703806000 ps) Send SPI command value 4443_83E2 (C2_MUX_SQ_FB0, mode Write, data 83E2)
+# ** Note   : (706128000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (706128000 ps) Send SPI command value 6443_83E2 (C3_MUX_SQ_FB0, mode Write, data 83E2)
+# ** Note   : (708450000 ps) Waiting SPI command end for 2286000 ps
+#             (708450000 ps) 
+# ** Note   : (708450000 ps) Send SPI command value 0A01_0012 (C0_MUX_SQ_FB_DELAY, mode Write, data 0012)
+# ** Note   : (710772000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (710772000 ps) Send SPI command value 2A01_0012 (C1_MUX_SQ_FB_DELAY, mode Write, data 0012)
+# ** Note   : (713094000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (713094000 ps) Send SPI command value 4A01_0012 (C2_MUX_SQ_FB_DELAY, mode Write, data 0012)
+# ** Note   : (715416000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (715416000 ps) Send SPI command value 6A01_0012 (C3_MUX_SQ_FB_DELAY, mode Write, data 0012)
+# ** Note   : (717738000 ps) Waiting SPI command end for 2286000 ps
+#             (717738000 ps) 
+# ** Note   : (717738000 ps) Send SPI command value 0A09_0013 (C0_SAMPLING_DELAY, mode Write, data 0013)
+# ** Note   : (720060000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (720060000 ps) Send SPI command value 2A09_0013 (C1_SAMPLING_DELAY, mode Write, data 0013)
+# ** Note   : (722382000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (722382000 ps) Send SPI command value 4A09_0013 (C2_SAMPLING_DELAY, mode Write, data 0013)
+# ** Note   : (724704000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (724704000 ps) Send SPI command value 6A09_0013 (C3_SAMPLING_DELAY, mode Write, data 0013)
+# ** Note   : (727026000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (727026000 ps) Send SPI command value 8007_FFFF (BOXCAR_LENGTH, mode Write, data FFFF)
+# ** Note   : (729348000 ps) Waiting SPI command end for 2286000 ps
+#             (729348000 ps) 
+# ** Note   : (729348000 ps) Send SPI command value 8001_0002 (DATA_ACQ_MODE, mode Write, data 0002)
+# ** Note   : (731670000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (737670000 ps) Waiting time for 6000000 ps
+#             (737670000 ps) 
+#             (737670000 ps) ==============================================================================================
+#             (737670000 ps)   Set command 2: Feedback open loop mem. select, DAC delays,
+#             (737670000 ps)   ADC sampling delays and sample number for ADC error signal average
+#             (737670000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (737670000 ps) Send SPI command value 8001_0000 (DATA_ACQ_MODE, mode Write, data 0000)
+# ** Note   : (739986000 ps) Waiting SPI command end for 2280000 ps
+# ** Note   : (745986000 ps) Waiting time for 6000000 ps
+#             (745986000 ps) 
+# ** Note   : (745986000 ps) Send SPI command value 0443_7C20 (C0_MUX_SQ_FB0, mode Write, data 7C20)
+# ** Note   : (748302000 ps) Waiting SPI command end for 2280000 ps
+#             (748302000 ps) 
+# ** Note   : (748302000 ps) Send SPI command value 0A01_0013 (C0_MUX_SQ_FB_DELAY, mode Write, data 0013)
+# ** Note   : (750624000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (750624000 ps) Send SPI command value 2A01_0006 (C1_MUX_SQ_FB_DELAY, mode Write, data 0006)
+# ** Note   : (752946000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (752946000 ps) Send SPI command value 4A01_000D (C2_MUX_SQ_FB_DELAY, mode Write, data 000D)
+# ** Note   : (755268000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (755268000 ps) Send SPI command value 6A01_0012 (C3_MUX_SQ_FB_DELAY, mode Write, data 0012)
+# ** Note   : (757590000 ps) Waiting SPI command end for 2286000 ps
+#             (757590000 ps) 
+# ** Note   : (757590000 ps) Send SPI command value 0A09_0000 (C0_SAMPLING_DELAY, mode Write, data 0000)
+# ** Note   : (759912000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (759912000 ps) Send SPI command value 2A09_0007 (C1_SAMPLING_DELAY, mode Write, data 0007)
+# ** Note   : (762234000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (762234000 ps) Send SPI command value 4A09_000E (C2_SAMPLING_DELAY, mode Write, data 000E)
+# ** Note   : (764556000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (764556000 ps) Send SPI command value 6A09_0013 (C3_SAMPLING_DELAY, mode Write, data 0013)
+# ** Note   : (766878000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (766878000 ps) Send SPI command value 8007_FA50 (BOXCAR_LENGTH, mode Write, data FA50)
+# ** Note   : (769200000 ps) Waiting SPI command end for 2286000 ps
+#             (769200000 ps) 
+# ** Note   : (769200000 ps) Send SPI command value 8001_0002 (DATA_ACQ_MODE, mode Write, data 0002)
+# ** Note   : (771522000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (777522000 ps) Waiting time for 6000000 ps
+#             (777522000 ps) 
+#             (777522000 ps) ==============================================================================================
+#             (777522000 ps)   Set command 3: Feedback open loop mem. select, DAC delays,
+#             (777522000 ps)   ADC sampling delays and sample number for ADC error signal average
+#             (777522000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (777522000 ps) Send SPI command value 8001_0000 (DATA_ACQ_MODE, mode Write, data 0000)
+# ** Note   : (779838000 ps) Waiting SPI command end for 2280000 ps
+# ** Note   : (785838000 ps) Waiting time for 6000000 ps
+#             (785838000 ps) 
+# ** Note   : (785838000 ps) Send SPI command value 0443_83E2 (C0_MUX_SQ_FB0, mode Write, data 83E2)
+# ** Note   : (788154000 ps) Waiting SPI command end for 2280000 ps
+#             (788154000 ps) 
+# ** Note   : (788154000 ps) Send SPI command value 0A01_000E (C0_MUX_SQ_FB_DELAY, mode Write, data 000E)
+# ** Note   : (790476000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (790476000 ps) Send SPI command value 2A01_0000 (C1_MUX_SQ_FB_DELAY, mode Write, data 0000)
+# ** Note   : (792798000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (792798000 ps) Send SPI command value 4A01_0011 (C2_MUX_SQ_FB_DELAY, mode Write, data 0011)
+# ** Note   : (795120000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (795120000 ps) Send SPI command value 6A01_0007 (C3_MUX_SQ_FB_DELAY, mode Write, data 0007)
+# ** Note   : (797442000 ps) Waiting SPI command end for 2286000 ps
+#             (797442000 ps) 
+# ** Note   : (797442000 ps) Send SPI command value 0A09_000F (C0_SAMPLING_DELAY, mode Write, data 000F)
+# ** Note   : (799764000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (799764000 ps) Send SPI command value 2A09_0001 (C1_SAMPLING_DELAY, mode Write, data 0001)
+# ** Note   : (802086000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (802086000 ps) Send SPI command value 4A09_0012 (C2_SAMPLING_DELAY, mode Write, data 0012)
+# ** Note   : (804408000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (804408000 ps) Send SPI command value 6A09_0008 (C3_SAMPLING_DELAY, mode Write, data 0008)
+# ** Note   : (806730000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (806730000 ps) Send SPI command value 8007_B416 (BOXCAR_LENGTH, mode Write, data B416)
+# ** Note   : (809052000 ps) Waiting SPI command end for 2286000 ps
+#             (809052000 ps) 
+# ** Note   : (809052000 ps) Send SPI command value 8001_0002 (DATA_ACQ_MODE, mode Write, data 0002)
+# ** Note   : (811374000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (817374000 ps) Waiting time for 6000000 ps
+#             (817374000 ps) 
+#             (817374000 ps) ==============================================================================================
+#             (817374000 ps)   Set command 4: Feedback open loop mem. select, DAC delays,
+#             (817374000 ps)   ADC sampling delays and sample number for ADC error signal average
+#             (817374000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (817374000 ps) Send SPI command value 8001_0000 (DATA_ACQ_MODE, mode Write, data 0000)
+# ** Note   : (819690000 ps) Waiting SPI command end for 2280000 ps
+# ** Note   : (825690000 ps) Waiting time for 6000000 ps
+#             (825690000 ps) 
+# ** Note   : (825690000 ps) Send SPI command value 0A01_0010 (C0_MUX_SQ_FB_DELAY, mode Write, data 0010)
+# ** Note   : (828006000 ps) Waiting SPI command end for 2280000 ps
+# ** Note   : (828006000 ps) Send SPI command value 2A01_0008 (C1_MUX_SQ_FB_DELAY, mode Write, data 0008)
+# ** Note   : (830328000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (830328000 ps) Send SPI command value 4A01_0001 (C2_MUX_SQ_FB_DELAY, mode Write, data 0001)
+# ** Note   : (832650000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (832650000 ps) Send SPI command value 6A01_000C (C3_MUX_SQ_FB_DELAY, mode Write, data 000C)
+# ** Note   : (834972000 ps) Waiting SPI command end for 2286000 ps
+#             (834972000 ps) 
+# ** Note   : (834972000 ps) Send SPI command value 0A09_0011 (C0_SAMPLING_DELAY, mode Write, data 0011)
+# ** Note   : (837294000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (837294000 ps) Send SPI command value 2A09_0009 (C1_SAMPLING_DELAY, mode Write, data 0009)
+# ** Note   : (839616000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (839616000 ps) Send SPI command value 4A09_0002 (C2_SAMPLING_DELAY, mode Write, data 0002)
+# ** Note   : (841938000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (841938000 ps) Send SPI command value 6A09_000D (C3_SAMPLING_DELAY, mode Write, data 000D)
+# ** Note   : (844260000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (844260000 ps) Send SPI command value 8007_92C7 (BOXCAR_LENGTH, mode Write, data 92C7)
+# ** Note   : (846582000 ps) Waiting SPI command end for 2286000 ps
+#             (846582000 ps) 
+# ** Note   : (846582000 ps) Send SPI command value 8001_0002 (DATA_ACQ_MODE, mode Write, data 0002)
+# ** Note   : (848904000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (854904000 ps) Waiting time for 6000000 ps
+#             (854904000 ps) 
+#             (854904000 ps) ==============================================================================================
+#             (854904000 ps)   Set command 5: Feedback open loop mem. select, DAC delays,
+#             (854904000 ps)   ADC sampling delays and sample number for ADC error signal average
+#             (854904000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (854904000 ps) Send SPI command value 8001_0000 (DATA_ACQ_MODE, mode Write, data 0000)
+# ** Note   : (857220000 ps) Waiting SPI command end for 2280000 ps
+# ** Note   : (863220000 ps) Waiting time for 6000000 ps
+#             (863220000 ps) 
+# ** Note   : (863220000 ps) Send SPI command value 0A01_0012 (C0_MUX_SQ_FB_DELAY, mode Write, data 0012)
+# ** Note   : (865536000 ps) Waiting SPI command end for 2280000 ps
+# ** Note   : (865536000 ps) Send SPI command value 2A01_000B (C1_MUX_SQ_FB_DELAY, mode Write, data 000B)
+# ** Note   : (867858000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (867858000 ps) Send SPI command value 4A01_0009 (C2_MUX_SQ_FB_DELAY, mode Write, data 0009)
+# ** Note   : (870180000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (870180000 ps) Send SPI command value 6A01_0002 (C3_MUX_SQ_FB_DELAY, mode Write, data 0002)
+# ** Note   : (872502000 ps) Waiting SPI command end for 2286000 ps
+#             (872502000 ps) 
+# ** Note   : (872502000 ps) Send SPI command value 0A09_0013 (C0_SAMPLING_DELAY, mode Write, data 0013)
+# ** Note   : (874824000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (874824000 ps) Send SPI command value 2A09_000C (C1_SAMPLING_DELAY, mode Write, data 000C)
+# ** Note   : (877146000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (877146000 ps) Send SPI command value 4A09_000A (C2_SAMPLING_DELAY, mode Write, data 000A)
+# ** Note   : (879468000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (879468000 ps) Send SPI command value 6A09_0003 (C3_SAMPLING_DELAY, mode Write, data 0003)
+# ** Note   : (881790000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (881790000 ps) Send SPI command value 8007_35E8 (BOXCAR_LENGTH, mode Write, data 35E8)
+# ** Note   : (884112000 ps) Waiting SPI command end for 2286000 ps
+#             (884112000 ps) 
+# ** Note   : (884112000 ps) Send SPI command value 8001_0002 (DATA_ACQ_MODE, mode Write, data 0002)
+# ** Note   : (886434000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (892434000 ps) Waiting time for 6000000 ps
+#             (892434000 ps) 
+#             (892434000 ps) ==============================================================================================
+#             (892434000 ps)   Set command 6: Feedback open loop mem. select, DAC delays,
+#             (892434000 ps)   ADC sampling delays and sample number for ADC error signal average
+#             (892434000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (892434000 ps) Send SPI command value 8001_0000 (DATA_ACQ_MODE, mode Write, data 0000)
+# ** Note   : (894750000 ps) Waiting SPI command end for 2280000 ps
+# ** Note   : (900750000 ps) Waiting time for 6000000 ps
+#             (900750000 ps) 
+# ** Note   : (900750000 ps) Send SPI command value 0A01_0003 (C0_MUX_SQ_FB_DELAY, mode Write, data 0003)
+# ** Note   : (903066000 ps) Waiting SPI command end for 2280000 ps
+# ** Note   : (903066000 ps) Send SPI command value 2A01_000F (C1_MUX_SQ_FB_DELAY, mode Write, data 000F)
+# ** Note   : (905388000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (905388000 ps) Send SPI command value 4A01_000A (C2_MUX_SQ_FB_DELAY, mode Write, data 000A)
+# ** Note   : (907710000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (907710000 ps) Send SPI command value 6A01_0005 (C3_MUX_SQ_FB_DELAY, mode Write, data 0005)
+# ** Note   : (910032000 ps) Waiting SPI command end for 2286000 ps
+#             (910032000 ps) 
+# ** Note   : (910032000 ps) Send SPI command value 0A09_0004 (C0_SAMPLING_DELAY, mode Write, data 0004)
+# ** Note   : (912354000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (912354000 ps) Send SPI command value 2A09_0010 (C1_SAMPLING_DELAY, mode Write, data 0010)
+# ** Note   : (914676000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (914676000 ps) Send SPI command value 4A09_000B (C2_SAMPLING_DELAY, mode Write, data 000B)
+# ** Note   : (916998000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (916998000 ps) Send SPI command value 6A09_0006 (C3_SAMPLING_DELAY, mode Write, data 0006)
+# ** Note   : (919320000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (919320000 ps) Send SPI command value 8007_0DF4 (BOXCAR_LENGTH, mode Write, data 0DF4)
+# ** Note   : (921642000 ps) Waiting SPI command end for 2286000 ps
+#             (921642000 ps) 
+# ** Note   : (921642000 ps) Send SPI command value 8001_0002 (DATA_ACQ_MODE, mode Write, data 0002)
+# ** Note   : (923964000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (929964000 ps) Waiting time for 6000000 ps
+#             (929964000 ps) 
+#             (929964000 ps) ==============================================================================================
+#             (929964000 ps)   Set command 7: Feedback open loop mem. select, DAC delays,
+#             (929964000 ps)   ADC sampling delays and sample number for ADC error signal average
+#             (929964000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (929964000 ps) Send SPI command value 8001_0000 (DATA_ACQ_MODE, mode Write, data 0000)
+# ** Note   : (932280000 ps) Waiting SPI command end for 2280000 ps
+# ** Note   : (938280000 ps) Waiting time for 6000000 ps
+#             (938280000 ps) 
+# ** Note   : (938280000 ps) Send SPI command value 2443_7C20 (C1_MUX_SQ_FB0, mode Write, data 7C20)
+# ** Note   : (940596000 ps) Waiting SPI command end for 2280000 ps
+#             (940596000 ps) 
+# ** Note   : (940596000 ps) Send SPI command value 0A01_000B (C0_MUX_SQ_FB_DELAY, mode Write, data 000B)
+# ** Note   : (942918000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (942918000 ps) Send SPI command value 2A01_0013 (C1_MUX_SQ_FB_DELAY, mode Write, data 0013)
+# ** Note   : (945240000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (945240000 ps) Send SPI command value 4A01_0012 (C2_MUX_SQ_FB_DELAY, mode Write, data 0012)
+# ** Note   : (947562000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (947562000 ps) Send SPI command value 6A01_0004 (C3_MUX_SQ_FB_DELAY, mode Write, data 0004)
+# ** Note   : (949884000 ps) Waiting SPI command end for 2286000 ps
+#             (949884000 ps) 
+# ** Note   : (949884000 ps) Send SPI command value 0A09_000C (C0_SAMPLING_DELAY, mode Write, data 000C)
+# ** Note   : (952206000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (952206000 ps) Send SPI command value 2A09_0000 (C1_SAMPLING_DELAY, mode Write, data 0000)
+# ** Note   : (954528000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (954528000 ps) Send SPI command value 4A09_0013 (C2_SAMPLING_DELAY, mode Write, data 0013)
+# ** Note   : (956850000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (956850000 ps) Send SPI command value 6A09_0005 (C3_SAMPLING_DELAY, mode Write, data 0005)
+# ** Note   : (959172000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (959172000 ps) Send SPI command value 8007_30F7 (BOXCAR_LENGTH, mode Write, data 30F7)
+# ** Note   : (961494000 ps) Waiting SPI command end for 2286000 ps
+#             (961494000 ps) 
+# ** Note   : (961494000 ps) Send SPI command value 8001_0002 (DATA_ACQ_MODE, mode Write, data 0002)
+# ** Note   : (963816000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (969816000 ps) Waiting time for 6000000 ps
+#             (969816000 ps) 
+#             (969816000 ps) ==============================================================================================
+#             (969816000 ps)   Set command 8: Feedback open loop mem. select, DAC delays,
+#             (969816000 ps)   ADC sampling delays and sample number for ADC error signal average
+#             (969816000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (969816000 ps) Send SPI command value 8001_0000 (DATA_ACQ_MODE, mode Write, data 0000)
+# ** Note   : (972132000 ps) Waiting SPI command end for 2280000 ps
+# ** Note   : (978132000 ps) Waiting time for 6000000 ps
+#             (978132000 ps) 
+# ** Note   : (978132000 ps) Send SPI command value 2443_83E2 (C1_MUX_SQ_FB0, mode Write, data 83E2)
+# ** Note   : (980448000 ps) Waiting SPI command end for 2280000 ps
+#             (980448000 ps) 
+# ** Note   : (980448000 ps) Send SPI command value 0A01_0000 (C0_MUX_SQ_FB_DELAY, mode Write, data 0000)
+# ** Note   : (982770000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (982770000 ps) Send SPI command value 2A01_0000 (C1_MUX_SQ_FB_DELAY, mode Write, data 0000)
+# ** Note   : (985092000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (985092000 ps) Send SPI command value 4A01_0000 (C2_MUX_SQ_FB_DELAY, mode Write, data 0000)
+# ** Note   : (987414000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (987414000 ps) Send SPI command value 6A01_0000 (C3_MUX_SQ_FB_DELAY, mode Write, data 0000)
+# ** Note   : (989736000 ps) Waiting SPI command end for 2286000 ps
+#             (989736000 ps) 
+# ** Note   : (989736000 ps) Send SPI command value 0A09_0013 (C0_SAMPLING_DELAY, mode Write, data 0013)
+# ** Note   : (992058000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (992058000 ps) Send SPI command value 2A09_0013 (C1_SAMPLING_DELAY, mode Write, data 0013)
+# ** Note   : (994380000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (994380000 ps) Send SPI command value 4A09_0013 (C2_SAMPLING_DELAY, mode Write, data 0013)
+# ** Note   : (996702000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (996702000 ps) Send SPI command value 6A09_0013 (C3_SAMPLING_DELAY, mode Write, data 0013)
+# ** Note   : (999024000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (999024000 ps) Send SPI command value 8007_0000 (BOXCAR_LENGTH, mode Write, data 0000)
+# ** Note   : (1001346000 ps) Waiting SPI command end for 2286000 ps
+#             (1001346000 ps) 
+# ** Note   : (1001346000 ps) Send SPI command value 8001_0002 (DATA_ACQ_MODE, mode Write, data 0002)
+# ** Note   : (1003668000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (1009668000 ps) Waiting time for 6000000 ps
+#             (1009668000 ps) 
+#             (1009668000 ps) ==============================================================================================
+#             (1009668000 ps)   Change Telemetry mode in Dump mode
+#             (1009668000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (1009668000 ps) Send SPI command value 8001_0004 (DATA_ACQ_MODE, mode Write, data 0004)
+# ** Note   : (1011984000 ps) Waiting SPI command end for 2280000 ps
+# ------------------------------------------------------------------------------------------------------------------------------------------------------
+# Error simulation time         : '0'
+# Error check discrete level    : '0'
+# Error check command return    : '0'
+# Error check time              : '0'
+# Error check clocks parameters : '0'
+# Error check spi parameters    : '0'
+# Error check science packets   : '0'
+# Error check pulse shaping     : '0'
+# ------------------------------------------------------------------------------------------------------------------------------------------------------
+# Simulation time               : 1216000000 ps
+# Simulation status             : PASS
+# ------------------------------------------------------------------------------------------------------------------------------------------------------

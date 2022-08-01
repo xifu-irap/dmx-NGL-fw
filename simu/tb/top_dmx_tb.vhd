@@ -121,6 +121,7 @@ signal   sw_adc_vin           : std_logic_vector(c_SW_ADC_VIN_S-1 downto 0)     
 
 signal   adc_dmp_mem_add      : std_logic_vector(    c_MUX_FACT_S-1 downto 0)                               ; --! ADC Dump memory for data compare: address
 signal   adc_dmp_mem_data     : std_logic_vector(c_SQM_ADC_DATA_S+1 downto 0)                               ; --! ADC Dump memory for data compare: data
+signal   science_mem_data     : std_logic_vector(c_SC_DATA_SER_NB*c_SC_DATA_SER_W_S-1 downto 0)             ; --! Science  memory for data compare: data
 signal   adc_dmp_mem_cs       : std_logic_vector(        c_NB_COL-1 downto 0)                               ; --! ADC Dump memory for data compare: chip select ('0' = Inactive, '1' = Active)
 
 begin
@@ -392,6 +393,7 @@ begin
 
          i_adc_dmp_mem_add    => adc_dmp_mem_add      , -- in     slv(    c_MUX_FACT_S-1 downto 0)          ; --! ADC Dump memory for data compare: address
          i_adc_dmp_mem_data   => adc_dmp_mem_data     , -- in     slv(c_SQM_ADC_DATA_S+1 downto 0)          ; --! ADC Dump memory for data compare: data
+         i_science_mem_data   => science_mem_data     , -- in     slv c_SC_DATA_SER_NB*c_SC_DATA_SER_W_S    ; --! Science  memory for data compare: data
          i_adc_dmp_mem_cs     => adc_dmp_mem_cs       , -- in     std_logic                                 ; --! ADC Dump memory for data compare: chip select ('0' = Inactive, '1' = Active)
 
          o_sc_pkt_type        => sc_pkt_type          , -- out    slv(c_SC_DATA_SER_W_S-1 downto 0)         ; --! Science packet type
@@ -459,6 +461,7 @@ begin
 
          o_adc_dmp_mem_add    => adc_dmp_mem_add      , -- out    slv(    c_MUX_FACT_S-1 downto 0)          ; --! ADC Dump memory for data compare: address
          o_adc_dmp_mem_data   => adc_dmp_mem_data     , -- out    slv(c_SQM_ADC_DATA_S+1 downto 0)          ; --! ADC Dump memory for data compare: data
+         o_science_mem_data   => science_mem_data     , -- out    slv c_SC_DATA_SER_NB*c_SC_DATA_SER_W_S    ; --! Science  memory for data compare: data
          o_adc_dmp_mem_cs     => adc_dmp_mem_cs       , -- out    std_logic                                 ; --! ADC Dump memory for data compare: chip select ('0' = Inactive, '1' = Active)
 
          o_pls_shp_fc         => pls_shp_fc           , -- out    t_int_arr(0 to c_NB_COL-1)                ; --! Pulse shaping cut frequency (Hz)

@@ -68,6 +68,9 @@ begin
             elsif i_ep_cmd_rx_add_norw = c_EP_CMD_ADD_SAOFM  then
                o_ep_cmd_sts_err_wrt <= c_EP_CMD_AUTH_SAOFM;
 
+            elsif i_ep_cmd_rx_add_norw = c_EP_CMD_ADD_BXLGT  then
+               o_ep_cmd_sts_err_wrt <= c_EP_CMD_AUTH_BXLGT;
+
             elsif i_ep_cmd_rx_add_norw = c_EP_CMD_ADD_STATUS   then
                o_ep_cmd_sts_err_wrt <= c_EP_CMD_AUTH_STATUS;
 
@@ -111,6 +114,10 @@ begin
             elsif i_ep_cmd_rx_add_norw(i_ep_cmd_rx_add_norw'high downto c_EP_CMD_ADD_COLPOSH+1) = c_EP_CMD_ADD_SAOMD(0)(i_ep_cmd_rx_add_norw'high downto c_EP_CMD_ADD_COLPOSH+1) and
                   i_ep_cmd_rx_add_norw(c_EP_CMD_ADD_COLPOSL-1    downto 0)                      = c_EP_CMD_ADD_SAOMD(0)(c_EP_CMD_ADD_COLPOSL-1    downto 0)                      then
                o_ep_cmd_sts_err_wrt <= c_EP_CMD_AUTH_SAOMD;
+
+            elsif i_ep_cmd_rx_add_norw(i_ep_cmd_rx_add_norw'high downto c_EP_CMD_ADD_COLPOSH+1) = c_EP_CMD_ADD_SMPDL(0)(i_ep_cmd_rx_add_norw'high downto c_EP_CMD_ADD_COLPOSH+1) and
+                  i_ep_cmd_rx_add_norw(c_EP_CMD_ADD_COLPOSL-1    downto 0)                      = c_EP_CMD_ADD_SMPDL(0)(c_EP_CMD_ADD_COLPOSL-1    downto 0)                      then
+               o_ep_cmd_sts_err_wrt <= c_EP_CMD_AUTH_SMPDL;
 
             elsif i_ep_cmd_rx_add_norw(i_ep_cmd_rx_add_norw'high downto c_EP_CMD_ADD_COLPOSH+1) = c_EP_CMD_ADD_PLSSH(0)(i_ep_cmd_rx_add_norw'high downto c_EP_CMD_ADD_COLPOSH+1) and
                   i_ep_cmd_rx_add_norw(c_EP_CMD_ADD_COLPOSL-1    downto c_MEM_PLSSH_ADD_S)      = c_EP_CMD_ADD_PLSSH(0)(c_EP_CMD_ADD_COLPOSL-1    downto c_MEM_PLSSH_ADD_S)      and

@@ -62,6 +62,7 @@ entity science_data_model is generic
 
          i_adc_dmp_mem_add    : in     std_logic_vector(    c_MUX_FACT_S-1 downto 0)                        ; --! ADC Dump memory for data compare: address
          i_adc_dmp_mem_data   : in     std_logic_vector(c_SQM_ADC_DATA_S+1 downto 0)                        ; --! ADC Dump memory for data compare: data
+         i_science_mem_data   : in     std_logic_vector(c_SC_DATA_SER_NB*c_SC_DATA_SER_W_S-1 downto 0)      ; --! Science  memory for data compare: data
          i_adc_dmp_mem_cs     : in     std_logic_vector(        c_NB_COL-1 downto 0)                        ; --! ADC Dump memory for data compare: chip select ('0' = Inactive, '1' = Active)
 
          o_sc_pkt_type        : out    std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0)                       ; --! Science packet type
@@ -236,6 +237,7 @@ begin
 
          i_adc_dmp_mem_add    => i_adc_dmp_mem_add    , -- in     std_logic_vector(c_MUX_FACT_S-1 downto 0) ; --! ADC Dump memory for data compare: address
          i_adc_dmp_mem_data   => i_adc_dmp_mem_data   , -- in     slv(c_SQM_ADC_DATA_S+1 downto 0)          ; --! ADC Dump memory for data compare: data
+         i_science_mem_data   => i_science_mem_data   , -- in     slv c_SC_DATA_SER_NB*c_SC_DATA_SER_W_S    ; --! Science  memory for data compare: data
          i_adc_dmp_mem_cs     => i_adc_dmp_mem_cs     , -- in     std_logic_vector(c_NB_COL-1 downto 0)     ; --! ADC Dump memory for data compare: chip select ('0' = Inactive, '1' = Active)
 
          i_science_data_ctrl  => science_data_ctrl(0) , -- in     slv(c_SC_DATA_SER_W_S-1 downto 0)         ; --! Science Data: Control word
@@ -318,7 +320,7 @@ begin
                -- ------------------------------------------------------------------------------------------------------
                --    Case Start Science Data/Test pattern packet
                -- ------------------------------------------------------------------------------------------------------
-               when c_SC_CTRL_SC_DTA | c_SC_CTRL_TST_PAT | c_SC_CTRL_ADC_DMP =>
+               when c_SC_CTRL_SC_DTA | c_SC_CTRL_TST_PAT | c_SC_CTRL_ADC_DMP | c_SC_CTRL_ERRS =>
                   v_ctrl_first_pkt  := '1';
                   v_packet_tx_time  := now - (2*c_SC_DATA_SER_W_S+1)*c_CLK_SC_HPER;
                   v_packet_size     := 1;

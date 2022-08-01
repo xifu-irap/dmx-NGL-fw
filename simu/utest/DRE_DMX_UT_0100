@@ -35,7 +35,7 @@ COMM
 COMM ==============================================================================================
 COMM   Check error position SPI data out of range detected
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-Status-EFFF W          # Return Command 1
+CCMD R-Status-EFFF W                 # Return Command 1
 WCMD R-SQ_AMP_OFFSET_MODE-XXXX R     # Command 4
 COMM
 COMM ==============================================================================================
@@ -47,7 +47,7 @@ COMM
 COMM ==============================================================================================
 COMM   Check error position SPI data out of range detected
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-Status-EFFF W          # Return Command 3
+CCMD R-Status-EFFF W                 # Return Command 3
 WCMD R-SQ_AMP_OFFSET_MODE-XXXX R     # Command 6
 COMM
 COMM ==============================================================================================
@@ -59,7 +59,7 @@ COMM
 COMM ==============================================================================================
 COMM   Check error position SPI data out of range detected
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-Status-EFFF W          # Return Command 5
+CCMD R-Status-EFFF W                 # Return Command 5
 WCMD R-SQ_AMP_OFFSET_MODE-XXXX R     # Command 8
 COMM
 COMM ==============================================================================================
@@ -71,7 +71,7 @@ COMM
 COMM ==============================================================================================
 COMM   Check error position SPI data out of range detected
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-Status-EFFF W          # Return Command 7
+CCMD R-Status-EFFF W                 # Return Command 7
 WCMD R-SQ_AMP_OFFSET_MODE-XXXX R     # Command 10
 COMM
 COMM ==============================================================================================
@@ -83,7 +83,7 @@ COMM
 COMM ==============================================================================================
 COMM   Check error position SPI data out of range detected
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-Status-EFFF W          # Return Command 9
+CCMD R-Status-EFFF W                 # Return Command 9
 WCMD R-SQ_AMP_OFFSET_MODE-XXXX R     # Command 12
 COMM
 COMM ==============================================================================================
@@ -95,7 +95,7 @@ COMM
 COMM ==============================================================================================
 COMM   Check error position SPI data out of range detected
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-Status-EFFF W          # Return Command 11
+CCMD R-Status-EFFF W                 # Return Command 11
 WCMD R-SQ_AMP_OFFSET_MODE-XXXX R     # Command 14
 COMM
 COMM ==============================================================================================
@@ -107,7 +107,7 @@ COMM
 COMM ==============================================================================================
 COMM   Check error position SPI data out of range detected
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-Status-EFFF W          # Return Command 13
+CCMD R-Status-EFFF W                 # Return Command 13
 WCMD R-SQ_AMP_OFFSET_MODE-XXXX R     # Command 16
 COMM
 COMM ==============================================================================================
@@ -119,7 +119,7 @@ COMM
 COMM ==============================================================================================
 COMM   Check error position SPI data out of range detected
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-Status-EFFF W          # Return Command 15
+CCMD R-Status-EFFF W                 # Return Command 15
 WCMD R-SQ_AMP_OFFSET_MODE-XXXX R     # Command 18
 COMM
 COMM ==============================================================================================
@@ -131,7 +131,7 @@ COMM
 COMM ==============================================================================================
 COMM   Check no error
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-Status-FFFF W          # Return Command 17
+CCMD R-Status-FFFF W                 # Return Command 17
 WCMD R-SQ_AMP_OFFSET_MODE-XXXX R     # Command 20
 COMM
 COMM ==============================================================================================
@@ -144,7 +144,7 @@ COMM
 COMM ==============================================================================================
 COMM   Check no error
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-Status-FFFF W          # Return Command 19
+CCMD R-Status-FFFF W                 # Return Command 19
 WCMD R-SQ_AMP_OFFSET_MODE-XXXX R     # Command 22
 COMM
 COMM ==============================================================================================
@@ -157,7 +157,7 @@ COMM
 COMM ==============================================================================================
 COMM   Check no error
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-Status-FFFF W          # Return Command 21
+CCMD R-Status-FFFF W                 # Return Command 21
 WCMD R-SQ_AMP_OFFSET_MODE-XXXX R     # Command 24
 COMM
 COMM ==============================================================================================
@@ -170,7 +170,7 @@ COMM
 COMM ==============================================================================================
 COMM   Check no error
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-Status-FFFF W          # Return Command 23
+CCMD R-Status-FFFF W                 # Return Command 23
 WCMD R-SQ_AMP_OFFSET_MODE-XXXX R     # Command 26
 COMM
 COMM ==============================================================================================
@@ -183,7 +183,7 @@ COMM
 COMM ==============================================================================================
 COMM   Check no error
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-Status-FFFF W          # Return Command 25
+CCMD R-Status-FFFF W                 # Return Command 25
 WCMD R-SQ_AMP_OFFSET_MODE-XXXX R     # Command 28
 COMM
 COMM ==============================================================================================
@@ -196,7 +196,7 @@ COMM
 COMM ==============================================================================================
 COMM   Check no error
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-Status-FFFF W          # Return Command 27
+CCMD R-Status-FFFF W                 # Return Command 27
 WCMD R-SQ_AMP_OFFSET_MODE-XXXX R     # Command 30
 COMM
 COMM ==============================================================================================
@@ -209,7 +209,7 @@ COMM
 COMM ==============================================================================================
 COMM   Check no error
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-Status-FFFF W          # Return Command 29
+CCMD R-Status-FFFF W                 # Return Command 29
 WCMD R-SQ_AMP_OFFSET_MODE-XXXX R     # Command 32
 COMM
 COMM ==============================================================================================
@@ -222,7 +222,7 @@ COMM
 COMM ==============================================================================================
 COMM   Check no error
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-Status-FFFF W          # Return Command 31
+CCMD R-Status-FFFF W                 # Return Command 31
 WCMD R-SQ_AMP_OFFSET_MODE-XXXX R     # Command 33
 COMM
 COMM ==============================================================================================

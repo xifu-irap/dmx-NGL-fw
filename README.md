@@ -216,10 +216,10 @@ DRE-DEMUX TDM firmware.
       + Parameter **value** : (1 bit U/X/0/1/Z/W/L/H/-) discrete output value
 
 
-   - Command WMDC **channel** **index** **data**: Write in ADC memory dump for data compare
+   - Command WMDC **channel** **index** **data**: Write in ADC dump/science memories for data compare
       + Parameter **channel** : decimal range 0 to c_NB_COL-1, channel number
       + Parameter **index** : decimal range 0 to c_MUX_FACT-1, memory index
-      + Parameter **data**  : 16 bits hexa (underscore can be inserted), data to compare
+      + Parameter **data**  : 32 bits hexa (underscore can be inserted), data ADC dump (16 bits) & Science (16 bits) to compare
 
 
    - Command WNBD **number**: write board reference number

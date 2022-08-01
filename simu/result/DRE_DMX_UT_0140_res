@@ -24,7 +24,7 @@
 #             (6995496 ps) ==============================================================================================
 #             (6995496 ps)   C0_FB1_PULSE_SHAPING: writing the set 0 in ping-pong memory (low pass filter, fc=13 MHz)
 #             (6995496 ps)    and check reading of the memory part currently applicable is kept to its initial value
-#             (6995496 ps)    (low pass filter, fc=15 MHz)
+#             (6995496 ps)    (low pass filter, fc=No filter)
 #             (6995496 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (6995496 ps) Send SPI command value 1001_8CE8 (C0_FB1_PULSE_SHAPING, mode Write, data 8CE8)
 # ** Note   : (9312000 ps) Waiting SPI command end for 2280504 ps
@@ -39,7 +39,7 @@
 # ** Note   : (13956000 ps) Send SPI command value 1002_XXXX (C0_FB1_PULSE_SHAPING, mode Read, data XXXX)
 # ** Note   : (14028000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (14046000 ps) Check command return: PASS
-# ** Note   : (14046000 ps)  * Read 1000_91F4, expected value 1000_91F4 (C0_FB1_PULSE_SHAPING, mode Read, data 91F4)
+# ** Note   : (14046000 ps)  * Read 1000_0000, expected value 1000_0000 (C0_FB1_PULSE_SHAPING, mode Read, data 0000)
 # ** Note   : (16278000 ps) Waiting SPI command end for 2232000 ps
 #             (16278000 ps) 
 # ** Note   : (16278000 ps) Send SPI command value 1005_2AB0 (C0_FB1_PULSE_SHAPING, mode Write, data 2AB0)
@@ -50,7 +50,7 @@
 # ** Note   : (18600000 ps) Send SPI command value 1004_XXXX (C0_FB1_PULSE_SHAPING, mode Read, data XXXX)
 # ** Note   : (18672000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (18690000 ps) Check command return: PASS
-# ** Note   : (18690000 ps)  * Read 1002_5336, expected value 1002_5336 (C0_FB1_PULSE_SHAPING, mode Read, data 5336)
+# ** Note   : (18690000 ps)  * Read 1002_0000, expected value 1002_0000 (C0_FB1_PULSE_SHAPING, mode Read, data 0000)
 # ** Note   : (20922000 ps) Waiting SPI command end for 2232000 ps
 #             (20922000 ps) 
 # ** Note   : (20922000 ps) Send SPI command value 1007_177F (C0_FB1_PULSE_SHAPING, mode Write, data 177F)
@@ -61,7 +61,7 @@
 # ** Note   : (23244000 ps) Send SPI command value 1006_XXXX (C0_FB1_PULSE_SHAPING, mode Read, data XXXX)
 # ** Note   : (23316000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (23334000 ps) Check command return: PASS
-# ** Note   : (23334000 ps)  * Read 1004_2F71, expected value 1004_2F71 (C0_FB1_PULSE_SHAPING, mode Read, data 2F71)
+# ** Note   : (23334000 ps)  * Read 1004_0000, expected value 1004_0000 (C0_FB1_PULSE_SHAPING, mode Read, data 0000)
 # ** Note   : (25566000 ps) Waiting SPI command end for 2232000 ps
 #             (25566000 ps) 
 # ** Note   : (25566000 ps) Send SPI command value 1009_0CEF (C0_FB1_PULSE_SHAPING, mode Write, data 0CEF)
@@ -72,7 +72,7 @@
 # ** Note   : (27888000 ps) Send SPI command value 1008_XXXX (C0_FB1_PULSE_SHAPING, mode Read, data XXXX)
 # ** Note   : (27960000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (27978000 ps) Check command return: PASS
-# ** Note   : (27978000 ps)  * Read 1006_1B0C, expected value 1006_1B0C (C0_FB1_PULSE_SHAPING, mode Read, data 1B0C)
+# ** Note   : (27978000 ps)  * Read 1006_0000, expected value 1006_0000 (C0_FB1_PULSE_SHAPING, mode Read, data 0000)
 # ** Note   : (30210000 ps) Waiting SPI command end for 2232000 ps
 #             (30210000 ps) 
 # ** Note   : (30210000 ps) Send SPI command value 100B_071E (C0_FB1_PULSE_SHAPING, mode Write, data 071E)
@@ -83,7 +83,7 @@
 # ** Note   : (32532000 ps) Send SPI command value 100A_XXXX (C0_FB1_PULSE_SHAPING, mode Read, data XXXX)
 # ** Note   : (32604000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (32622000 ps) Check command return: PASS
-# ** Note   : (32622000 ps)  * Read 1008_0F6C, expected value 1008_0F6C (C0_FB1_PULSE_SHAPING, mode Read, data 0F6C)
+# ** Note   : (32622000 ps)  * Read 1008_0000, expected value 1008_0000 (C0_FB1_PULSE_SHAPING, mode Read, data 0000)
 # ** Note   : (34854000 ps) Waiting SPI command end for 2232000 ps
 #             (34854000 ps) 
 # ** Note   : (34854000 ps) Send SPI command value 100D_03EB (C0_FB1_PULSE_SHAPING, mode Write, data 03EB)
@@ -94,7 +94,7 @@
 # ** Note   : (37176000 ps) Send SPI command value 100C_XXXX (C0_FB1_PULSE_SHAPING, mode Read, data XXXX)
 # ** Note   : (37248000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (37266000 ps) Check command return: PASS
-# ** Note   : (37266000 ps)  * Read 100A_08CB, expected value 100A_08CB (C0_FB1_PULSE_SHAPING, mode Read, data 08CB)
+# ** Note   : (37266000 ps)  * Read 100A_0000, expected value 100A_0000 (C0_FB1_PULSE_SHAPING, mode Read, data 0000)
 # ** Note   : (39498000 ps) Waiting SPI command end for 2232000 ps
 #             (39498000 ps) 
 # ** Note   : (39498000 ps) Send SPI command value 100F_0228 (C0_FB1_PULSE_SHAPING, mode Write, data 0228)
@@ -105,7 +105,7 @@
 # ** Note   : (41820000 ps) Send SPI command value 100E_XXXX (C0_FB1_PULSE_SHAPING, mode Read, data XXXX)
 # ** Note   : (41892000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (41910000 ps) Check command return: PASS
-# ** Note   : (41910000 ps)  * Read 100C_0503, expected value 100C_0503 (C0_FB1_PULSE_SHAPING, mode Read, data 0503)
+# ** Note   : (41910000 ps)  * Read 100C_0000, expected value 100C_0000 (C0_FB1_PULSE_SHAPING, mode Read, data 0000)
 # ** Note   : (44142000 ps) Waiting SPI command end for 2232000 ps
 #             (44142000 ps) 
 # ** Note   : (44142000 ps) Send SPI command value 1011_0130 (C0_FB1_PULSE_SHAPING, mode Write, data 0130)
@@ -116,7 +116,7 @@
 # ** Note   : (46464000 ps) Send SPI command value 1010_XXXX (C0_FB1_PULSE_SHAPING, mode Read, data XXXX)
 # ** Note   : (46536000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (46554000 ps) Check command return: PASS
-# ** Note   : (46554000 ps)  * Read 100E_02DC, expected value 100E_02DC (C0_FB1_PULSE_SHAPING, mode Read, data 02DC)
+# ** Note   : (46554000 ps)  * Read 100E_0000, expected value 100E_0000 (C0_FB1_PULSE_SHAPING, mode Read, data 0000)
 # ** Note   : (48786000 ps) Waiting SPI command end for 2232000 ps
 #             (48786000 ps) 
 # ** Note   : (48786000 ps) Send SPI command value 1013_00A7 (C0_FB1_PULSE_SHAPING, mode Write, data 00A7)
@@ -127,7 +127,7 @@
 # ** Note   : (51108000 ps) Send SPI command value 1012_XXXX (C0_FB1_PULSE_SHAPING, mode Read, data XXXX)
 # ** Note   : (51180000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (51198000 ps) Check command return: PASS
-# ** Note   : (51198000 ps)  * Read 1010_01A1, expected value 1010_01A1 (C0_FB1_PULSE_SHAPING, mode Read, data 01A1)
+# ** Note   : (51198000 ps)  * Read 1010_0000, expected value 1010_0000 (C0_FB1_PULSE_SHAPING, mode Read, data 0000)
 # ** Note   : (53430000 ps) Waiting SPI command end for 2232000 ps
 #             (53430000 ps) 
 # ** Note   : (53430000 ps) Send SPI command value 1015_005C (C0_FB1_PULSE_SHAPING, mode Write, data 005C)
@@ -138,7 +138,7 @@
 # ** Note   : (55752000 ps) Send SPI command value 1014_XXXX (C0_FB1_PULSE_SHAPING, mode Read, data XXXX)
 # ** Note   : (55824000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (55842000 ps) Check command return: PASS
-# ** Note   : (55842000 ps)  * Read 1012_00EE, expected value 1012_00EE (C0_FB1_PULSE_SHAPING, mode Read, data 00EE)
+# ** Note   : (55842000 ps)  * Read 1012_0000, expected value 1012_0000 (C0_FB1_PULSE_SHAPING, mode Read, data 0000)
 # ** Note   : (58074000 ps) Waiting SPI command end for 2232000 ps
 #             (58074000 ps) 
 # ** Note   : (58074000 ps) Send SPI command value 1017_0033 (C0_FB1_PULSE_SHAPING, mode Write, data 0033)
@@ -149,7 +149,7 @@
 # ** Note   : (60396000 ps) Send SPI command value 1016_XXXX (C0_FB1_PULSE_SHAPING, mode Read, data XXXX)
 # ** Note   : (60468000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (60486000 ps) Check command return: PASS
-# ** Note   : (60486000 ps)  * Read 1014_0088, expected value 1014_0088 (C0_FB1_PULSE_SHAPING, mode Read, data 0088)
+# ** Note   : (60486000 ps)  * Read 1014_0000, expected value 1014_0000 (C0_FB1_PULSE_SHAPING, mode Read, data 0000)
 # ** Note   : (62718000 ps) Waiting SPI command end for 2232000 ps
 #             (62718000 ps) 
 # ** Note   : (62718000 ps) Send SPI command value 1019_001C (C0_FB1_PULSE_SHAPING, mode Write, data 001C)
@@ -160,7 +160,7 @@
 # ** Note   : (65040000 ps) Send SPI command value 1018_XXXX (C0_FB1_PULSE_SHAPING, mode Read, data XXXX)
 # ** Note   : (65112000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (65130000 ps) Check command return: PASS
-# ** Note   : (65130000 ps)  * Read 1016_004D, expected value 1016_004D (C0_FB1_PULSE_SHAPING, mode Read, data 004D)
+# ** Note   : (65130000 ps)  * Read 1016_0000, expected value 1016_0000 (C0_FB1_PULSE_SHAPING, mode Read, data 0000)
 # ** Note   : (67362000 ps) Waiting SPI command end for 2232000 ps
 #             (67362000 ps) 
 # ** Note   : (67362000 ps) Send SPI command value 101B_000F (C0_FB1_PULSE_SHAPING, mode Write, data 000F)
@@ -171,7 +171,7 @@
 # ** Note   : (69684000 ps) Send SPI command value 101A_XXXX (C0_FB1_PULSE_SHAPING, mode Read, data XXXX)
 # ** Note   : (69756000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (69774000 ps) Check command return: PASS
-# ** Note   : (69774000 ps)  * Read 1018_002C, expected value 1018_002C (C0_FB1_PULSE_SHAPING, mode Read, data 002C)
+# ** Note   : (69774000 ps)  * Read 1018_0000, expected value 1018_0000 (C0_FB1_PULSE_SHAPING, mode Read, data 0000)
 # ** Note   : (72006000 ps) Waiting SPI command end for 2232000 ps
 #             (72006000 ps) 
 # ** Note   : (72006000 ps) Send SPI command value 101D_0008 (C0_FB1_PULSE_SHAPING, mode Write, data 0008)
@@ -182,7 +182,7 @@
 # ** Note   : (74328000 ps) Send SPI command value 101C_XXXX (C0_FB1_PULSE_SHAPING, mode Read, data XXXX)
 # ** Note   : (74400000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (74418000 ps) Check command return: PASS
-# ** Note   : (74418000 ps)  * Read 101A_0019, expected value 101A_0019 (C0_FB1_PULSE_SHAPING, mode Read, data 0019)
+# ** Note   : (74418000 ps)  * Read 101A_0000, expected value 101A_0000 (C0_FB1_PULSE_SHAPING, mode Read, data 0000)
 # ** Note   : (76650000 ps) Waiting SPI command end for 2232000 ps
 #             (76650000 ps) 
 # ** Note   : (76650000 ps) Send SPI command value 101F_0005 (C0_FB1_PULSE_SHAPING, mode Write, data 0005)
@@ -193,7 +193,7 @@
 # ** Note   : (78972000 ps) Send SPI command value 101E_XXXX (C0_FB1_PULSE_SHAPING, mode Read, data XXXX)
 # ** Note   : (79044000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (79062000 ps) Check command return: PASS
-# ** Note   : (79062000 ps)  * Read 101C_000E, expected value 101C_000E (C0_FB1_PULSE_SHAPING, mode Read, data 000E)
+# ** Note   : (79062000 ps)  * Read 101C_0000, expected value 101C_0000 (C0_FB1_PULSE_SHAPING, mode Read, data 0000)
 # ** Note   : (81294000 ps) Waiting SPI command end for 2232000 ps
 #             (81294000 ps) 
 # ** Note   : (81294000 ps) Send SPI command value 1021_0003 (C0_FB1_PULSE_SHAPING, mode Write, data 0003)
@@ -204,7 +204,7 @@
 # ** Note   : (83616000 ps) Send SPI command value 1020_XXXX (C0_FB1_PULSE_SHAPING, mode Read, data XXXX)
 # ** Note   : (83688000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (83706000 ps) Check command return: PASS
-# ** Note   : (83706000 ps)  * Read 101E_0008, expected value 101E_0008 (C0_FB1_PULSE_SHAPING, mode Read, data 0008)
+# ** Note   : (83706000 ps)  * Read 101E_0000, expected value 101E_0000 (C0_FB1_PULSE_SHAPING, mode Read, data 0000)
 # ** Note   : (85938000 ps) Waiting SPI command end for 2232000 ps
 #             (85938000 ps) 
 # ** Note   : (85938000 ps) Send SPI command value 1023_0001 (C0_FB1_PULSE_SHAPING, mode Write, data 0001)
@@ -215,7 +215,7 @@
 # ** Note   : (88260000 ps) Send SPI command value 1022_XXXX (C0_FB1_PULSE_SHAPING, mode Read, data XXXX)
 # ** Note   : (88332000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (88350000 ps) Check command return: PASS
-# ** Note   : (88350000 ps)  * Read 1020_0005, expected value 1020_0005 (C0_FB1_PULSE_SHAPING, mode Read, data 0005)
+# ** Note   : (88350000 ps)  * Read 1020_0000, expected value 1020_0000 (C0_FB1_PULSE_SHAPING, mode Read, data 0000)
 # ** Note   : (90582000 ps) Waiting SPI command end for 2232000 ps
 #             (90582000 ps) 
 # ** Note   : (90582000 ps) Send SPI command value 1025_0001 (C0_FB1_PULSE_SHAPING, mode Write, data 0001)
@@ -226,7 +226,7 @@
 # ** Note   : (92904000 ps) Send SPI command value 1024_XXXX (C0_FB1_PULSE_SHAPING, mode Read, data XXXX)
 # ** Note   : (92976000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (92994000 ps) Check command return: PASS
-# ** Note   : (92994000 ps)  * Read 1022_0003, expected value 1022_0003 (C0_FB1_PULSE_SHAPING, mode Read, data 0003)
+# ** Note   : (92994000 ps)  * Read 1022_0000, expected value 1022_0000 (C0_FB1_PULSE_SHAPING, mode Read, data 0000)
 # ** Note   : (95226000 ps) Waiting SPI command end for 2232000 ps
 #             (95226000 ps) 
 # ** Note   : (95226000 ps) Send SPI command value 1027_0000 (C0_FB1_PULSE_SHAPING, mode Write, data 0000)
@@ -237,7 +237,7 @@
 # ** Note   : (97548000 ps) Send SPI command value 1026_XXXX (C0_FB1_PULSE_SHAPING, mode Read, data XXXX)
 # ** Note   : (97620000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (97638000 ps) Check command return: PASS
-# ** Note   : (97638000 ps)  * Read 1024_0002, expected value 1024_0002 (C0_FB1_PULSE_SHAPING, mode Read, data 0002)
+# ** Note   : (97638000 ps)  * Read 1024_0000, expected value 1024_0000 (C0_FB1_PULSE_SHAPING, mode Read, data 0000)
 # ** Note   : (99870000 ps) Waiting SPI command end for 2232000 ps
 #             (99870000 ps) 
 # ** Note   : (99870000 ps) Send SPI command value 1029_XXXX (C0_FB1_PULSE_SHAPING, mode Write, data XXXX)
@@ -248,7 +248,7 @@
 # ** Note   : (102192000 ps) Send SPI command value 1028_XXXX (C0_FB1_PULSE_SHAPING, mode Read, data XXXX)
 # ** Note   : (102264000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (102282000 ps) Check command return: PASS
-# ** Note   : (102282000 ps)  * Read 1026_0001, expected value 1026_0001 (C0_FB1_PULSE_SHAPING, mode Read, data 0001)
+# ** Note   : (102282000 ps)  * Read 1026_0000, expected value 1026_0000 (C0_FB1_PULSE_SHAPING, mode Read, data 0000)
 # ** Note   : (104514000 ps) Waiting SPI command end for 2232000 ps
 #             (104514000 ps) 
 #             (104514000 ps) ==============================================================================================
@@ -1960,7 +1960,7 @@
 #             (801114000 ps) ==============================================================================================
 #             (801114000 ps)   C1_FB1_PULSE_SHAPING: writing the set 0 in ping-pong memory (low pass filter, fc=13 MHz)
 #             (801114000 ps)    and check reading of the memory part currently applicable is kept to its initial value
-#             (801114000 ps)    (low pass filter, fc=15 MHz)
+#             (801114000 ps)    (low pass filter, fc=No filter)
 #             (801114000 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (801114000 ps) Send SPI command value 3003_4D8E (C1_FB1_PULSE_SHAPING, mode Write, data 4D8E)
 # ** Note   : (801186000 ps) Waiting SPI command return end for 36000 ps
@@ -1970,7 +1970,7 @@
 # ** Note   : (803436000 ps) Send SPI command value 3002_XXXX (C1_FB1_PULSE_SHAPING, mode Read, data XXXX)
 # ** Note   : (803508000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (803526000 ps) Check command return: PASS
-# ** Note   : (803526000 ps)  * Read 3000_91F4, expected value 3000_91F4 (C1_FB1_PULSE_SHAPING, mode Read, data 91F4)
+# ** Note   : (803526000 ps)  * Read 3000_0000, expected value 3000_0000 (C1_FB1_PULSE_SHAPING, mode Read, data 0000)
 # ** Note   : (805758000 ps) Waiting SPI command end for 2232000 ps
 #             (805758000 ps) 
 # ** Note   : (805758000 ps) Send SPI command value 3005_2AB0 (C1_FB1_PULSE_SHAPING, mode Write, data 2AB0)
@@ -1981,7 +1981,7 @@
 # ** Note   : (808080000 ps) Send SPI command value 3004_XXXX (C1_FB1_PULSE_SHAPING, mode Read, data XXXX)
 # ** Note   : (808152000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (808170000 ps) Check command return: PASS
-# ** Note   : (808170000 ps)  * Read 3002_5336, expected value 3002_5336 (C1_FB1_PULSE_SHAPING, mode Read, data 5336)
+# ** Note   : (808170000 ps)  * Read 3002_0000, expected value 3002_0000 (C1_FB1_PULSE_SHAPING, mode Read, data 0000)
 # ** Note   : (810402000 ps) Waiting SPI command end for 2232000 ps
 #             (810402000 ps) 
 # ** Note   : (810402000 ps) Send SPI command value 3007_177F (C1_FB1_PULSE_SHAPING, mode Write, data 177F)
@@ -1992,7 +1992,7 @@
 # ** Note   : (812724000 ps) Send SPI command value 3006_XXXX (C1_FB1_PULSE_SHAPING, mode Read, data XXXX)
 # ** Note   : (812796000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (812814000 ps) Check command return: PASS
-# ** Note   : (812814000 ps)  * Read 3004_2F71, expected value 3004_2F71 (C1_FB1_PULSE_SHAPING, mode Read, data 2F71)
+# ** Note   : (812814000 ps)  * Read 3004_0000, expected value 3004_0000 (C1_FB1_PULSE_SHAPING, mode Read, data 0000)
 # ** Note   : (815046000 ps) Waiting SPI command end for 2232000 ps
 #             (815046000 ps) 
 # ** Note   : (815046000 ps) Send SPI command value 3009_0CEF (C1_FB1_PULSE_SHAPING, mode Write, data 0CEF)
@@ -2003,7 +2003,7 @@
 # ** Note   : (817368000 ps) Send SPI command value 3008_XXXX (C1_FB1_PULSE_SHAPING, mode Read, data XXXX)
 # ** Note   : (817440000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (817458000 ps) Check command return: PASS
-# ** Note   : (817458000 ps)  * Read 3006_1B0C, expected value 3006_1B0C (C1_FB1_PULSE_SHAPING, mode Read, data 1B0C)
+# ** Note   : (817458000 ps)  * Read 3006_0000, expected value 3006_0000 (C1_FB1_PULSE_SHAPING, mode Read, data 0000)
 # ** Note   : (819690000 ps) Waiting SPI command end for 2232000 ps
 #             (819690000 ps) 
 # ** Note   : (819690000 ps) Send SPI command value 300B_071E (C1_FB1_PULSE_SHAPING, mode Write, data 071E)
@@ -2014,7 +2014,7 @@
 # ** Note   : (822012000 ps) Send SPI command value 300A_XXXX (C1_FB1_PULSE_SHAPING, mode Read, data XXXX)
 # ** Note   : (822084000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (822102000 ps) Check command return: PASS
-# ** Note   : (822102000 ps)  * Read 3008_0F6C, expected value 3008_0F6C (C1_FB1_PULSE_SHAPING, mode Read, data 0F6C)
+# ** Note   : (822102000 ps)  * Read 3008_0000, expected value 3008_0000 (C1_FB1_PULSE_SHAPING, mode Read, data 0000)
 # ** Note   : (824334000 ps) Waiting SPI command end for 2232000 ps
 #             (824334000 ps) 
 # ** Note   : (824334000 ps) Send SPI command value 300D_03EB (C1_FB1_PULSE_SHAPING, mode Write, data 03EB)
@@ -2025,7 +2025,7 @@
 # ** Note   : (826656000 ps) Send SPI command value 300C_XXXX (C1_FB1_PULSE_SHAPING, mode Read, data XXXX)
 # ** Note   : (826728000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (826746000 ps) Check command return: PASS
-# ** Note   : (826746000 ps)  * Read 300A_08CB, expected value 300A_08CB (C1_FB1_PULSE_SHAPING, mode Read, data 08CB)
+# ** Note   : (826746000 ps)  * Read 300A_0000, expected value 300A_0000 (C1_FB1_PULSE_SHAPING, mode Read, data 0000)
 # ** Note   : (828978000 ps) Waiting SPI command end for 2232000 ps
 #             (828978000 ps) 
 # ** Note   : (828978000 ps) Send SPI command value 300F_0228 (C1_FB1_PULSE_SHAPING, mode Write, data 0228)
@@ -2036,7 +2036,7 @@
 # ** Note   : (831300000 ps) Send SPI command value 300E_XXXX (C1_FB1_PULSE_SHAPING, mode Read, data XXXX)
 # ** Note   : (831372000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (831390000 ps) Check command return: PASS
-# ** Note   : (831390000 ps)  * Read 300C_0503, expected value 300C_0503 (C1_FB1_PULSE_SHAPING, mode Read, data 0503)
+# ** Note   : (831390000 ps)  * Read 300C_0000, expected value 300C_0000 (C1_FB1_PULSE_SHAPING, mode Read, data 0000)
 # ** Note   : (833622000 ps) Waiting SPI command end for 2232000 ps
 #             (833622000 ps) 
 # ** Note   : (833622000 ps) Send SPI command value 3011_0130 (C1_FB1_PULSE_SHAPING, mode Write, data 0130)
@@ -2047,7 +2047,7 @@
 # ** Note   : (835944000 ps) Send SPI command value 3010_XXXX (C1_FB1_PULSE_SHAPING, mode Read, data XXXX)
 # ** Note   : (836016000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (836034000 ps) Check command return: PASS
-# ** Note   : (836034000 ps)  * Read 300E_02DC, expected value 300E_02DC (C1_FB1_PULSE_SHAPING, mode Read, data 02DC)
+# ** Note   : (836034000 ps)  * Read 300E_0000, expected value 300E_0000 (C1_FB1_PULSE_SHAPING, mode Read, data 0000)
 # ** Note   : (838266000 ps) Waiting SPI command end for 2232000 ps
 #             (838266000 ps) 
 # ** Note   : (838266000 ps) Send SPI command value 3013_00A7 (C1_FB1_PULSE_SHAPING, mode Write, data 00A7)
@@ -2058,7 +2058,7 @@
 # ** Note   : (840588000 ps) Send SPI command value 3012_XXXX (C1_FB1_PULSE_SHAPING, mode Read, data XXXX)
 # ** Note   : (840660000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (840678000 ps) Check command return: PASS
-# ** Note   : (840678000 ps)  * Read 3010_01A1, expected value 3010_01A1 (C1_FB1_PULSE_SHAPING, mode Read, data 01A1)
+# ** Note   : (840678000 ps)  * Read 3010_0000, expected value 3010_0000 (C1_FB1_PULSE_SHAPING, mode Read, data 0000)
 # ** Note   : (842910000 ps) Waiting SPI command end for 2232000 ps
 #             (842910000 ps) 
 # ** Note   : (842910000 ps) Send SPI command value 3015_005C (C1_FB1_PULSE_SHAPING, mode Write, data 005C)
@@ -2069,7 +2069,7 @@
 # ** Note   : (845232000 ps) Send SPI command value 3014_XXXX (C1_FB1_PULSE_SHAPING, mode Read, data XXXX)
 # ** Note   : (845304000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (845322000 ps) Check command return: PASS
-# ** Note   : (845322000 ps)  * Read 3012_00EE, expected value 3012_00EE (C1_FB1_PULSE_SHAPING, mode Read, data 00EE)
+# ** Note   : (845322000 ps)  * Read 3012_0000, expected value 3012_0000 (C1_FB1_PULSE_SHAPING, mode Read, data 0000)
 # ** Note   : (847554000 ps) Waiting SPI command end for 2232000 ps
 #             (847554000 ps) 
 # ** Note   : (847554000 ps) Send SPI command value 3017_0033 (C1_FB1_PULSE_SHAPING, mode Write, data 0033)
@@ -2080,7 +2080,7 @@
 # ** Note   : (849876000 ps) Send SPI command value 3016_XXXX (C1_FB1_PULSE_SHAPING, mode Read, data XXXX)
 # ** Note   : (849948000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (849966000 ps) Check command return: PASS
-# ** Note   : (849966000 ps)  * Read 3014_0088, expected value 3014_0088 (C1_FB1_PULSE_SHAPING, mode Read, data 0088)
+# ** Note   : (849966000 ps)  * Read 3014_0000, expected value 3014_0000 (C1_FB1_PULSE_SHAPING, mode Read, data 0000)
 # ** Note   : (852198000 ps) Waiting SPI command end for 2232000 ps
 #             (852198000 ps) 
 # ** Note   : (852198000 ps) Send SPI command value 3019_001C (C1_FB1_PULSE_SHAPING, mode Write, data 001C)
@@ -2091,7 +2091,7 @@
 # ** Note   : (854520000 ps) Send SPI command value 3018_XXXX (C1_FB1_PULSE_SHAPING, mode Read, data XXXX)
 # ** Note   : (854592000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (854610000 ps) Check command return: PASS
-# ** Note   : (854610000 ps)  * Read 3016_004D, expected value 3016_004D (C1_FB1_PULSE_SHAPING, mode Read, data 004D)
+# ** Note   : (854610000 ps)  * Read 3016_0000, expected value 3016_0000 (C1_FB1_PULSE_SHAPING, mode Read, data 0000)
 # ** Note   : (856842000 ps) Waiting SPI command end for 2232000 ps
 #             (856842000 ps) 
 # ** Note   : (856842000 ps) Send SPI command value 301B_000F (C1_FB1_PULSE_SHAPING, mode Write, data 000F)
@@ -2102,7 +2102,7 @@
 # ** Note   : (859164000 ps) Send SPI command value 301A_XXXX (C1_FB1_PULSE_SHAPING, mode Read, data XXXX)
 # ** Note   : (859236000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (859254000 ps) Check command return: PASS
-# ** Note   : (859254000 ps)  * Read 3018_002C, expected value 3018_002C (C1_FB1_PULSE_SHAPING, mode Read, data 002C)
+# ** Note   : (859254000 ps)  * Read 3018_0000, expected value 3018_0000 (C1_FB1_PULSE_SHAPING, mode Read, data 0000)
 # ** Note   : (861486000 ps) Waiting SPI command end for 2232000 ps
 #             (861486000 ps) 
 # ** Note   : (861486000 ps) Send SPI command value 301D_0008 (C1_FB1_PULSE_SHAPING, mode Write, data 0008)
@@ -2113,7 +2113,7 @@
 # ** Note   : (863808000 ps) Send SPI command value 301C_XXXX (C1_FB1_PULSE_SHAPING, mode Read, data XXXX)
 # ** Note   : (863880000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (863898000 ps) Check command return: PASS
-# ** Note   : (863898000 ps)  * Read 301A_0019, expected value 301A_0019 (C1_FB1_PULSE_SHAPING, mode Read, data 0019)
+# ** Note   : (863898000 ps)  * Read 301A_0000, expected value 301A_0000 (C1_FB1_PULSE_SHAPING, mode Read, data 0000)
 # ** Note   : (866130000 ps) Waiting SPI command end for 2232000 ps
 #             (866130000 ps) 
 # ** Note   : (866130000 ps) Send SPI command value 301F_0005 (C1_FB1_PULSE_SHAPING, mode Write, data 0005)
@@ -2124,7 +2124,7 @@
 # ** Note   : (868452000 ps) Send SPI command value 301E_XXXX (C1_FB1_PULSE_SHAPING, mode Read, data XXXX)
 # ** Note   : (868524000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (868542000 ps) Check command return: PASS
-# ** Note   : (868542000 ps)  * Read 301C_000E, expected value 301C_000E (C1_FB1_PULSE_SHAPING, mode Read, data 000E)
+# ** Note   : (868542000 ps)  * Read 301C_0000, expected value 301C_0000 (C1_FB1_PULSE_SHAPING, mode Read, data 0000)
 # ** Note   : (870774000 ps) Waiting SPI command end for 2232000 ps
 #             (870774000 ps) 
 # ** Note   : (870774000 ps) Send SPI command value 3021_0003 (C1_FB1_PULSE_SHAPING, mode Write, data 0003)
@@ -2135,7 +2135,7 @@
 # ** Note   : (873096000 ps) Send SPI command value 3020_XXXX (C1_FB1_PULSE_SHAPING, mode Read, data XXXX)
 # ** Note   : (873168000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (873186000 ps) Check command return: PASS
-# ** Note   : (873186000 ps)  * Read 301E_0008, expected value 301E_0008 (C1_FB1_PULSE_SHAPING, mode Read, data 0008)
+# ** Note   : (873186000 ps)  * Read 301E_0000, expected value 301E_0000 (C1_FB1_PULSE_SHAPING, mode Read, data 0000)
 # ** Note   : (875418000 ps) Waiting SPI command end for 2232000 ps
 #             (875418000 ps) 
 # ** Note   : (875418000 ps) Send SPI command value 3023_0001 (C1_FB1_PULSE_SHAPING, mode Write, data 0001)
@@ -2146,7 +2146,7 @@
 # ** Note   : (877740000 ps) Send SPI command value 3022_XXXX (C1_FB1_PULSE_SHAPING, mode Read, data XXXX)
 # ** Note   : (877812000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (877830000 ps) Check command return: PASS
-# ** Note   : (877830000 ps)  * Read 3020_0005, expected value 3020_0005 (C1_FB1_PULSE_SHAPING, mode Read, data 0005)
+# ** Note   : (877830000 ps)  * Read 3020_0000, expected value 3020_0000 (C1_FB1_PULSE_SHAPING, mode Read, data 0000)
 # ** Note   : (880062000 ps) Waiting SPI command end for 2232000 ps
 #             (880062000 ps) 
 # ** Note   : (880062000 ps) Send SPI command value 3025_0001 (C1_FB1_PULSE_SHAPING, mode Write, data 0001)
@@ -2157,7 +2157,7 @@
 # ** Note   : (882384000 ps) Send SPI command value 3024_XXXX (C1_FB1_PULSE_SHAPING, mode Read, data XXXX)
 # ** Note   : (882456000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (882474000 ps) Check command return: PASS
-# ** Note   : (882474000 ps)  * Read 3022_0003, expected value 3022_0003 (C1_FB1_PULSE_SHAPING, mode Read, data 0003)
+# ** Note   : (882474000 ps)  * Read 3022_0000, expected value 3022_0000 (C1_FB1_PULSE_SHAPING, mode Read, data 0000)
 # ** Note   : (884706000 ps) Waiting SPI command end for 2232000 ps
 #             (884706000 ps) 
 # ** Note   : (884706000 ps) Send SPI command value 3027_0000 (C1_FB1_PULSE_SHAPING, mode Write, data 0000)
@@ -2168,7 +2168,7 @@
 # ** Note   : (887028000 ps) Send SPI command value 3026_XXXX (C1_FB1_PULSE_SHAPING, mode Read, data XXXX)
 # ** Note   : (887100000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (887118000 ps) Check command return: PASS
-# ** Note   : (887118000 ps)  * Read 3024_0002, expected value 3024_0002 (C1_FB1_PULSE_SHAPING, mode Read, data 0002)
+# ** Note   : (887118000 ps)  * Read 3024_0000, expected value 3024_0000 (C1_FB1_PULSE_SHAPING, mode Read, data 0000)
 # ** Note   : (889350000 ps) Waiting SPI command end for 2232000 ps
 #             (889350000 ps) 
 # ** Note   : (889350000 ps) Send SPI command value 3029_XXXX (C1_FB1_PULSE_SHAPING, mode Write, data XXXX)
@@ -2179,7 +2179,7 @@
 # ** Note   : (891672000 ps) Send SPI command value 3028_XXXX (C1_FB1_PULSE_SHAPING, mode Read, data XXXX)
 # ** Note   : (891744000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (891762000 ps) Check command return: PASS
-# ** Note   : (891762000 ps)  * Read 3026_0001, expected value 3026_0001 (C1_FB1_PULSE_SHAPING, mode Read, data 0001)
+# ** Note   : (891762000 ps)  * Read 3026_0000, expected value 3026_0000 (C1_FB1_PULSE_SHAPING, mode Read, data 0000)
 # ** Note   : (893994000 ps) Waiting SPI command end for 2232000 ps
 #             (893994000 ps) 
 #             (893994000 ps) ==============================================================================================
@@ -3891,7 +3891,7 @@
 #             (1590594000 ps) ==============================================================================================
 #             (1590594000 ps)   C2_FB1_PULSE_SHAPING: writing the set 0 in ping-pong memory (low pass filter, fc=13 MHz)
 #             (1590594000 ps)    and check reading of the memory part currently applicable is kept to its initial value
-#             (1590594000 ps)    (low pass filter, fc=15 MHz)
+#             (1590594000 ps)    (low pass filter, fc=No filter)
 #             (1590594000 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (1590594000 ps) Send SPI command value 5003_4D8E (C2_FB1_PULSE_SHAPING, mode Write, data 4D8E)
 # ** Note   : (1590666000 ps) Waiting SPI command return end for 36000 ps
@@ -3901,7 +3901,7 @@
 # ** Note   : (1592916000 ps) Send SPI command value 5002_XXXX (C2_FB1_PULSE_SHAPING, mode Read, data XXXX)
 # ** Note   : (1592988000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (1593006000 ps) Check command return: PASS
-# ** Note   : (1593006000 ps)  * Read 5000_91F4, expected value 5000_91F4 (C2_FB1_PULSE_SHAPING, mode Read, data 91F4)
+# ** Note   : (1593006000 ps)  * Read 5000_0000, expected value 5000_0000 (C2_FB1_PULSE_SHAPING, mode Read, data 0000)
 # ** Note   : (1595238000 ps) Waiting SPI command end for 2232000 ps
 #             (1595238000 ps) 
 # ** Note   : (1595238000 ps) Send SPI command value 5005_2AB0 (C2_FB1_PULSE_SHAPING, mode Write, data 2AB0)
@@ -3912,7 +3912,7 @@
 # ** Note   : (1597560000 ps) Send SPI command value 5004_XXXX (C2_FB1_PULSE_SHAPING, mode Read, data XXXX)
 # ** Note   : (1597632000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (1597650000 ps) Check command return: PASS
-# ** Note   : (1597650000 ps)  * Read 5002_5336, expected value 5002_5336 (C2_FB1_PULSE_SHAPING, mode Read, data 5336)
+# ** Note   : (1597650000 ps)  * Read 5002_0000, expected value 5002_0000 (C2_FB1_PULSE_SHAPING, mode Read, data 0000)
 # ** Note   : (1599882000 ps) Waiting SPI command end for 2232000 ps
 #             (1599882000 ps) 
 # ** Note   : (1599882000 ps) Send SPI command value 5007_177F (C2_FB1_PULSE_SHAPING, mode Write, data 177F)
@@ -3923,7 +3923,7 @@
 # ** Note   : (1602204000 ps) Send SPI command value 5006_XXXX (C2_FB1_PULSE_SHAPING, mode Read, data XXXX)
 # ** Note   : (1602276000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (1602294000 ps) Check command return: PASS
-# ** Note   : (1602294000 ps)  * Read 5004_2F71, expected value 5004_2F71 (C2_FB1_PULSE_SHAPING, mode Read, data 2F71)
+# ** Note   : (1602294000 ps)  * Read 5004_0000, expected value 5004_0000 (C2_FB1_PULSE_SHAPING, mode Read, data 0000)
 # ** Note   : (1604526000 ps) Waiting SPI command end for 2232000 ps
 #             (1604526000 ps) 
 # ** Note   : (1604526000 ps) Send SPI command value 5009_0CEF (C2_FB1_PULSE_SHAPING, mode Write, data 0CEF)
@@ -3934,7 +3934,7 @@
 # ** Note   : (1606848000 ps) Send SPI command value 5008_XXXX (C2_FB1_PULSE_SHAPING, mode Read, data XXXX)
 # ** Note   : (1606920000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (1606938000 ps) Check command return: PASS
-# ** Note   : (1606938000 ps)  * Read 5006_1B0C, expected value 5006_1B0C (C2_FB1_PULSE_SHAPING, mode Read, data 1B0C)
+# ** Note   : (1606938000 ps)  * Read 5006_0000, expected value 5006_0000 (C2_FB1_PULSE_SHAPING, mode Read, data 0000)
 # ** Note   : (1609170000 ps) Waiting SPI command end for 2232000 ps
 #             (1609170000 ps) 
 # ** Note   : (1609170000 ps) Send SPI command value 500B_071E (C2_FB1_PULSE_SHAPING, mode Write, data 071E)
@@ -3945,7 +3945,7 @@
 # ** Note   : (1611492000 ps) Send SPI command value 500A_XXXX (C2_FB1_PULSE_SHAPING, mode Read, data XXXX)
 # ** Note   : (1611564000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (1611582000 ps) Check command return: PASS
-# ** Note   : (1611582000 ps)  * Read 5008_0F6C, expected value 5008_0F6C (C2_FB1_PULSE_SHAPING, mode Read, data 0F6C)
+# ** Note   : (1611582000 ps)  * Read 5008_0000, expected value 5008_0000 (C2_FB1_PULSE_SHAPING, mode Read, data 0000)
 # ** Note   : (1613814000 ps) Waiting SPI command end for 2232000 ps
 #             (1613814000 ps) 
 # ** Note   : (1613814000 ps) Send SPI command value 500D_03EB (C2_FB1_PULSE_SHAPING, mode Write, data 03EB)
@@ -3956,7 +3956,7 @@
 # ** Note   : (1616136000 ps) Send SPI command value 500C_XXXX (C2_FB1_PULSE_SHAPING, mode Read, data XXXX)
 # ** Note   : (1616208000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (1616226000 ps) Check command return: PASS
-# ** Note   : (1616226000 ps)  * Read 500A_08CB, expected value 500A_08CB (C2_FB1_PULSE_SHAPING, mode Read, data 08CB)
+# ** Note   : (1616226000 ps)  * Read 500A_0000, expected value 500A_0000 (C2_FB1_PULSE_SHAPING, mode Read, data 0000)
 # ** Note   : (1618458000 ps) Waiting SPI command end for 2232000 ps
 #             (1618458000 ps) 
 # ** Note   : (1618458000 ps) Send SPI command value 500F_0228 (C2_FB1_PULSE_SHAPING, mode Write, data 0228)
@@ -3967,7 +3967,7 @@
 # ** Note   : (1620780000 ps) Send SPI command value 500E_XXXX (C2_FB1_PULSE_SHAPING, mode Read, data XXXX)
 # ** Note   : (1620852000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (1620870000 ps) Check command return: PASS
-# ** Note   : (1620870000 ps)  * Read 500C_0503, expected value 500C_0503 (C2_FB1_PULSE_SHAPING, mode Read, data 0503)
+# ** Note   : (1620870000 ps)  * Read 500C_0000, expected value 500C_0000 (C2_FB1_PULSE_SHAPING, mode Read, data 0000)
 # ** Note   : (1623102000 ps) Waiting SPI command end for 2232000 ps
 #             (1623102000 ps) 
 # ** Note   : (1623102000 ps) Send SPI command value 5011_0130 (C2_FB1_PULSE_SHAPING, mode Write, data 0130)
@@ -3978,7 +3978,7 @@
 # ** Note   : (1625424000 ps) Send SPI command value 5010_XXXX (C2_FB1_PULSE_SHAPING, mode Read, data XXXX)
 # ** Note   : (1625496000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (1625514000 ps) Check command return: PASS
-# ** Note   : (1625514000 ps)  * Read 500E_02DC, expected value 500E_02DC (C2_FB1_PULSE_SHAPING, mode Read, data 02DC)
+# ** Note   : (1625514000 ps)  * Read 500E_0000, expected value 500E_0000 (C2_FB1_PULSE_SHAPING, mode Read, data 0000)
 # ** Note   : (1627746000 ps) Waiting SPI command end for 2232000 ps
 #             (1627746000 ps) 
 # ** Note   : (1627746000 ps) Send SPI command value 5013_00A7 (C2_FB1_PULSE_SHAPING, mode Write, data 00A7)
@@ -3989,7 +3989,7 @@
 # ** Note   : (1630068000 ps) Send SPI command value 5012_XXXX (C2_FB1_PULSE_SHAPING, mode Read, data XXXX)
 # ** Note   : (1630140000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (1630158000 ps) Check command return: PASS
-# ** Note   : (1630158000 ps)  * Read 5010_01A1, expected value 5010_01A1 (C2_FB1_PULSE_SHAPING, mode Read, data 01A1)
+# ** Note   : (1630158000 ps)  * Read 5010_0000, expected value 5010_0000 (C2_FB1_PULSE_SHAPING, mode Read, data 0000)
 # ** Note   : (1632390000 ps) Waiting SPI command end for 2232000 ps
 #             (1632390000 ps) 
 # ** Note   : (1632390000 ps) Send SPI command value 5015_005C (C2_FB1_PULSE_SHAPING, mode Write, data 005C)
@@ -4000,7 +4000,7 @@
 # ** Note   : (1634712000 ps) Send SPI command value 5014_XXXX (C2_FB1_PULSE_SHAPING, mode Read, data XXXX)
 # ** Note   : (1634784000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (1634802000 ps) Check command return: PASS
-# ** Note   : (1634802000 ps)  * Read 5012_00EE, expected value 5012_00EE (C2_FB1_PULSE_SHAPING, mode Read, data 00EE)
+# ** Note   : (1634802000 ps)  * Read 5012_0000, expected value 5012_0000 (C2_FB1_PULSE_SHAPING, mode Read, data 0000)
 # ** Note   : (1637034000 ps) Waiting SPI command end for 2232000 ps
 #             (1637034000 ps) 
 # ** Note   : (1637034000 ps) Send SPI command value 5017_0033 (C2_FB1_PULSE_SHAPING, mode Write, data 0033)
@@ -4011,7 +4011,7 @@
 # ** Note   : (1639356000 ps) Send SPI command value 5016_XXXX (C2_FB1_PULSE_SHAPING, mode Read, data XXXX)
 # ** Note   : (1639428000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (1639446000 ps) Check command return: PASS
-# ** Note   : (1639446000 ps)  * Read 5014_0088, expected value 5014_0088 (C2_FB1_PULSE_SHAPING, mode Read, data 0088)
+# ** Note   : (1639446000 ps)  * Read 5014_0000, expected value 5014_0000 (C2_FB1_PULSE_SHAPING, mode Read, data 0000)
 # ** Note   : (1641678000 ps) Waiting SPI command end for 2232000 ps
 #             (1641678000 ps) 
 # ** Note   : (1641678000 ps) Send SPI command value 5019_001C (C2_FB1_PULSE_SHAPING, mode Write, data 001C)
@@ -4022,7 +4022,7 @@
 # ** Note   : (1644000000 ps) Send SPI command value 5018_XXXX (C2_FB1_PULSE_SHAPING, mode Read, data XXXX)
 # ** Note   : (1644072000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (1644090000 ps) Check command return: PASS
-# ** Note   : (1644090000 ps)  * Read 5016_004D, expected value 5016_004D (C2_FB1_PULSE_SHAPING, mode Read, data 004D)
+# ** Note   : (1644090000 ps)  * Read 5016_0000, expected value 5016_0000 (C2_FB1_PULSE_SHAPING, mode Read, data 0000)
 # ** Note   : (1646322000 ps) Waiting SPI command end for 2232000 ps
 #             (1646322000 ps) 
 # ** Note   : (1646322000 ps) Send SPI command value 501B_000F (C2_FB1_PULSE_SHAPING, mode Write, data 000F)
@@ -4033,7 +4033,7 @@
 # ** Note   : (1648644000 ps) Send SPI command value 501A_XXXX (C2_FB1_PULSE_SHAPING, mode Read, data XXXX)
 # ** Note   : (1648716000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (1648734000 ps) Check command return: PASS
-# ** Note   : (1648734000 ps)  * Read 5018_002C, expected value 5018_002C (C2_FB1_PULSE_SHAPING, mode Read, data 002C)
+# ** Note   : (1648734000 ps)  * Read 5018_0000, expected value 5018_0000 (C2_FB1_PULSE_SHAPING, mode Read, data 0000)
 # ** Note   : (1650966000 ps) Waiting SPI command end for 2232000 ps
 #             (1650966000 ps) 
 # ** Note   : (1650966000 ps) Send SPI command value 501D_0008 (C2_FB1_PULSE_SHAPING, mode Write, data 0008)
@@ -4044,7 +4044,7 @@
 # ** Note   : (1653288000 ps) Send SPI command value 501C_XXXX (C2_FB1_PULSE_SHAPING, mode Read, data XXXX)
 # ** Note   : (1653360000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (1653378000 ps) Check command return: PASS
-# ** Note   : (1653378000 ps)  * Read 501A_0019, expected value 501A_0019 (C2_FB1_PULSE_SHAPING, mode Read, data 0019)
+# ** Note   : (1653378000 ps)  * Read 501A_0000, expected value 501A_0000 (C2_FB1_PULSE_SHAPING, mode Read, data 0000)
 # ** Note   : (1655610000 ps) Waiting SPI command end for 2232000 ps
 #             (1655610000 ps) 
 # ** Note   : (1655610000 ps) Send SPI command value 501F_0005 (C2_FB1_PULSE_SHAPING, mode Write, data 0005)
@@ -4055,7 +4055,7 @@
 # ** Note   : (1657932000 ps) Send SPI command value 501E_XXXX (C2_FB1_PULSE_SHAPING, mode Read, data XXXX)
 # ** Note   : (1658004000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (1658022000 ps) Check command return: PASS
-# ** Note   : (1658022000 ps)  * Read 501C_000E, expected value 501C_000E (C2_FB1_PULSE_SHAPING, mode Read, data 000E)
+# ** Note   : (1658022000 ps)  * Read 501C_0000, expected value 501C_0000 (C2_FB1_PULSE_SHAPING, mode Read, data 0000)
 # ** Note   : (1660254000 ps) Waiting SPI command end for 2232000 ps
 #             (1660254000 ps) 
 # ** Note   : (1660254000 ps) Send SPI command value 5021_0003 (C2_FB1_PULSE_SHAPING, mode Write, data 0003)
@@ -4066,7 +4066,7 @@
 # ** Note   : (1662576000 ps) Send SPI command value 5020_XXXX (C2_FB1_PULSE_SHAPING, mode Read, data XXXX)
 # ** Note   : (1662648000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (1662666000 ps) Check command return: PASS
-# ** Note   : (1662666000 ps)  * Read 501E_0008, expected value 501E_0008 (C2_FB1_PULSE_SHAPING, mode Read, data 0008)
+# ** Note   : (1662666000 ps)  * Read 501E_0000, expected value 501E_0000 (C2_FB1_PULSE_SHAPING, mode Read, data 0000)
 # ** Note   : (1664898000 ps) Waiting SPI command end for 2232000 ps
 #             (1664898000 ps) 
 # ** Note   : (1664898000 ps) Send SPI command value 5023_0001 (C2_FB1_PULSE_SHAPING, mode Write, data 0001)
@@ -4077,7 +4077,7 @@
 # ** Note   : (1667220000 ps) Send SPI command value 5022_XXXX (C2_FB1_PULSE_SHAPING, mode Read, data XXXX)
 # ** Note   : (1667292000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (1667310000 ps) Check command return: PASS
-# ** Note   : (1667310000 ps)  * Read 5020_0005, expected value 5020_0005 (C2_FB1_PULSE_SHAPING, mode Read, data 0005)
+# ** Note   : (1667310000 ps)  * Read 5020_0000, expected value 5020_0000 (C2_FB1_PULSE_SHAPING, mode Read, data 0000)
 # ** Note   : (1669542000 ps) Waiting SPI command end for 2232000 ps
 #             (1669542000 ps) 
 # ** Note   : (1669542000 ps) Send SPI command value 5025_0001 (C2_FB1_PULSE_SHAPING, mode Write, data 0001)
@@ -4088,7 +4088,7 @@
 # ** Note   : (1671864000 ps) Send SPI command value 5024_XXXX (C2_FB1_PULSE_SHAPING, mode Read, data XXXX)
 # ** Note   : (1671936000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (1671954000 ps) Check command return: PASS
-# ** Note   : (1671954000 ps)  * Read 5022_0003, expected value 5022_0003 (C2_FB1_PULSE_SHAPING, mode Read, data 0003)
+# ** Note   : (1671954000 ps)  * Read 5022_0000, expected value 5022_0000 (C2_FB1_PULSE_SHAPING, mode Read, data 0000)
 # ** Note   : (1674186000 ps) Waiting SPI command end for 2232000 ps
 #             (1674186000 ps) 
 # ** Note   : (1674186000 ps) Send SPI command value 5027_0000 (C2_FB1_PULSE_SHAPING, mode Write, data 0000)
@@ -4099,7 +4099,7 @@
 # ** Note   : (1676508000 ps) Send SPI command value 5026_XXXX (C2_FB1_PULSE_SHAPING, mode Read, data XXXX)
 # ** Note   : (1676580000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (1676598000 ps) Check command return: PASS
-# ** Note   : (1676598000 ps)  * Read 5024_0002, expected value 5024_0002 (C2_FB1_PULSE_SHAPING, mode Read, data 0002)
+# ** Note   : (1676598000 ps)  * Read 5024_0000, expected value 5024_0000 (C2_FB1_PULSE_SHAPING, mode Read, data 0000)
 # ** Note   : (1678830000 ps) Waiting SPI command end for 2232000 ps
 #             (1678830000 ps) 
 # ** Note   : (1678830000 ps) Send SPI command value 5029_XXXX (C2_FB1_PULSE_SHAPING, mode Write, data XXXX)
@@ -4110,7 +4110,7 @@
 # ** Note   : (1681152000 ps) Send SPI command value 5028_XXXX (C2_FB1_PULSE_SHAPING, mode Read, data XXXX)
 # ** Note   : (1681224000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (1681242000 ps) Check command return: PASS
-# ** Note   : (1681242000 ps)  * Read 5026_0001, expected value 5026_0001 (C2_FB1_PULSE_SHAPING, mode Read, data 0001)
+# ** Note   : (1681242000 ps)  * Read 5026_0000, expected value 5026_0000 (C2_FB1_PULSE_SHAPING, mode Read, data 0000)
 # ** Note   : (1683474000 ps) Waiting SPI command end for 2232000 ps
 #             (1683474000 ps) 
 #             (1683474000 ps) ==============================================================================================
@@ -5822,7 +5822,7 @@
 #             (2380074000 ps) ==============================================================================================
 #             (2380074000 ps)   C3_FB1_PULSE_SHAPING: writing the set 0 in ping-pong memory (low pass filter, fc=13 MHz)
 #             (2380074000 ps)    and check reading of the memory part currently applicable is kept to its initial value
-#             (2380074000 ps)    (low pass filter, fc=15 MHz)
+#             (2380074000 ps)    (low pass filter, fc=No filter)
 #             (2380074000 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (2380074000 ps) Send SPI command value 7003_4D8E (C3_FB1_PULSE_SHAPING, mode Write, data 4D8E)
 # ** Note   : (2380146000 ps) Waiting SPI command return end for 36000 ps
@@ -5832,7 +5832,7 @@
 # ** Note   : (2382396000 ps) Send SPI command value 7002_XXXX (C3_FB1_PULSE_SHAPING, mode Read, data XXXX)
 # ** Note   : (2382468000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (2382486000 ps) Check command return: PASS
-# ** Note   : (2382486000 ps)  * Read 7000_91F4, expected value 7000_91F4 (C3_FB1_PULSE_SHAPING, mode Read, data 91F4)
+# ** Note   : (2382486000 ps)  * Read 7000_0000, expected value 7000_0000 (C3_FB1_PULSE_SHAPING, mode Read, data 0000)
 # ** Note   : (2384718000 ps) Waiting SPI command end for 2232000 ps
 #             (2384718000 ps) 
 # ** Note   : (2384718000 ps) Send SPI command value 7005_2AB0 (C3_FB1_PULSE_SHAPING, mode Write, data 2AB0)
@@ -5843,7 +5843,7 @@
 # ** Note   : (2387040000 ps) Send SPI command value 7004_XXXX (C3_FB1_PULSE_SHAPING, mode Read, data XXXX)
 # ** Note   : (2387112000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (2387130000 ps) Check command return: PASS
-# ** Note   : (2387130000 ps)  * Read 7002_5336, expected value 7002_5336 (C3_FB1_PULSE_SHAPING, mode Read, data 5336)
+# ** Note   : (2387130000 ps)  * Read 7002_0000, expected value 7002_0000 (C3_FB1_PULSE_SHAPING, mode Read, data 0000)
 # ** Note   : (2389362000 ps) Waiting SPI command end for 2232000 ps
 #             (2389362000 ps) 
 # ** Note   : (2389362000 ps) Send SPI command value 7007_177F (C3_FB1_PULSE_SHAPING, mode Write, data 177F)
@@ -5854,7 +5854,7 @@
 # ** Note   : (2391684000 ps) Send SPI command value 7006_XXXX (C3_FB1_PULSE_SHAPING, mode Read, data XXXX)
 # ** Note   : (2391756000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (2391774000 ps) Check command return: PASS
-# ** Note   : (2391774000 ps)  * Read 7004_2F71, expected value 7004_2F71 (C3_FB1_PULSE_SHAPING, mode Read, data 2F71)
+# ** Note   : (2391774000 ps)  * Read 7004_0000, expected value 7004_0000 (C3_FB1_PULSE_SHAPING, mode Read, data 0000)
 # ** Note   : (2394006000 ps) Waiting SPI command end for 2232000 ps
 #             (2394006000 ps) 
 # ** Note   : (2394006000 ps) Send SPI command value 7009_0CEF (C3_FB1_PULSE_SHAPING, mode Write, data 0CEF)
@@ -5865,7 +5865,7 @@
 # ** Note   : (2396328000 ps) Send SPI command value 7008_XXXX (C3_FB1_PULSE_SHAPING, mode Read, data XXXX)
 # ** Note   : (2396400000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (2396418000 ps) Check command return: PASS
-# ** Note   : (2396418000 ps)  * Read 7006_1B0C, expected value 7006_1B0C (C3_FB1_PULSE_SHAPING, mode Read, data 1B0C)
+# ** Note   : (2396418000 ps)  * Read 7006_0000, expected value 7006_0000 (C3_FB1_PULSE_SHAPING, mode Read, data 0000)
 # ** Note   : (2398650000 ps) Waiting SPI command end for 2232000 ps
 #             (2398650000 ps) 
 # ** Note   : (2398650000 ps) Send SPI command value 700B_071E (C3_FB1_PULSE_SHAPING, mode Write, data 071E)
@@ -5876,7 +5876,7 @@
 # ** Note   : (2400972000 ps) Send SPI command value 700A_XXXX (C3_FB1_PULSE_SHAPING, mode Read, data XXXX)
 # ** Note   : (2401044000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (2401062000 ps) Check command return: PASS
-# ** Note   : (2401062000 ps)  * Read 7008_0F6C, expected value 7008_0F6C (C3_FB1_PULSE_SHAPING, mode Read, data 0F6C)
+# ** Note   : (2401062000 ps)  * Read 7008_0000, expected value 7008_0000 (C3_FB1_PULSE_SHAPING, mode Read, data 0000)
 # ** Note   : (2403294000 ps) Waiting SPI command end for 2232000 ps
 #             (2403294000 ps) 
 # ** Note   : (2403294000 ps) Send SPI command value 700D_03EB (C3_FB1_PULSE_SHAPING, mode Write, data 03EB)
@@ -5887,7 +5887,7 @@
 # ** Note   : (2405616000 ps) Send SPI command value 700C_XXXX (C3_FB1_PULSE_SHAPING, mode Read, data XXXX)
 # ** Note   : (2405688000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (2405706000 ps) Check command return: PASS
-# ** Note   : (2405706000 ps)  * Read 700A_08CB, expected value 700A_08CB (C3_FB1_PULSE_SHAPING, mode Read, data 08CB)
+# ** Note   : (2405706000 ps)  * Read 700A_0000, expected value 700A_0000 (C3_FB1_PULSE_SHAPING, mode Read, data 0000)
 # ** Note   : (2407938000 ps) Waiting SPI command end for 2232000 ps
 #             (2407938000 ps) 
 # ** Note   : (2407938000 ps) Send SPI command value 700F_0228 (C3_FB1_PULSE_SHAPING, mode Write, data 0228)
@@ -5898,7 +5898,7 @@
 # ** Note   : (2410260000 ps) Send SPI command value 700E_XXXX (C3_FB1_PULSE_SHAPING, mode Read, data XXXX)
 # ** Note   : (2410332000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (2410350000 ps) Check command return: PASS
-# ** Note   : (2410350000 ps)  * Read 700C_0503, expected value 700C_0503 (C3_FB1_PULSE_SHAPING, mode Read, data 0503)
+# ** Note   : (2410350000 ps)  * Read 700C_0000, expected value 700C_0000 (C3_FB1_PULSE_SHAPING, mode Read, data 0000)
 # ** Note   : (2412582000 ps) Waiting SPI command end for 2232000 ps
 #             (2412582000 ps) 
 # ** Note   : (2412582000 ps) Send SPI command value 7011_0130 (C3_FB1_PULSE_SHAPING, mode Write, data 0130)
@@ -5909,7 +5909,7 @@
 # ** Note   : (2414904000 ps) Send SPI command value 7010_XXXX (C3_FB1_PULSE_SHAPING, mode Read, data XXXX)
 # ** Note   : (2414976000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (2414994000 ps) Check command return: PASS
-# ** Note   : (2414994000 ps)  * Read 700E_02DC, expected value 700E_02DC (C3_FB1_PULSE_SHAPING, mode Read, data 02DC)
+# ** Note   : (2414994000 ps)  * Read 700E_0000, expected value 700E_0000 (C3_FB1_PULSE_SHAPING, mode Read, data 0000)
 # ** Note   : (2417226000 ps) Waiting SPI command end for 2232000 ps
 #             (2417226000 ps) 
 # ** Note   : (2417226000 ps) Send SPI command value 7013_00A7 (C3_FB1_PULSE_SHAPING, mode Write, data 00A7)
@@ -5920,7 +5920,7 @@
 # ** Note   : (2419548000 ps) Send SPI command value 7012_XXXX (C3_FB1_PULSE_SHAPING, mode Read, data XXXX)
 # ** Note   : (2419620000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (2419638000 ps) Check command return: PASS
-# ** Note   : (2419638000 ps)  * Read 7010_01A1, expected value 7010_01A1 (C3_FB1_PULSE_SHAPING, mode Read, data 01A1)
+# ** Note   : (2419638000 ps)  * Read 7010_0000, expected value 7010_0000 (C3_FB1_PULSE_SHAPING, mode Read, data 0000)
 # ** Note   : (2421870000 ps) Waiting SPI command end for 2232000 ps
 #             (2421870000 ps) 
 # ** Note   : (2421870000 ps) Send SPI command value 7015_005C (C3_FB1_PULSE_SHAPING, mode Write, data 005C)
@@ -5931,7 +5931,7 @@
 # ** Note   : (2424192000 ps) Send SPI command value 7014_XXXX (C3_FB1_PULSE_SHAPING, mode Read, data XXXX)
 # ** Note   : (2424264000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (2424282000 ps) Check command return: PASS
-# ** Note   : (2424282000 ps)  * Read 7012_00EE, expected value 7012_00EE (C3_FB1_PULSE_SHAPING, mode Read, data 00EE)
+# ** Note   : (2424282000 ps)  * Read 7012_0000, expected value 7012_0000 (C3_FB1_PULSE_SHAPING, mode Read, data 0000)
 # ** Note   : (2426514000 ps) Waiting SPI command end for 2232000 ps
 #             (2426514000 ps) 
 # ** Note   : (2426514000 ps) Send SPI command value 7017_0033 (C3_FB1_PULSE_SHAPING, mode Write, data 0033)
@@ -5942,7 +5942,7 @@
 # ** Note   : (2428836000 ps) Send SPI command value 7016_XXXX (C3_FB1_PULSE_SHAPING, mode Read, data XXXX)
 # ** Note   : (2428908000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (2428926000 ps) Check command return: PASS
-# ** Note   : (2428926000 ps)  * Read 7014_0088, expected value 7014_0088 (C3_FB1_PULSE_SHAPING, mode Read, data 0088)
+# ** Note   : (2428926000 ps)  * Read 7014_0000, expected value 7014_0000 (C3_FB1_PULSE_SHAPING, mode Read, data 0000)
 # ** Note   : (2431158000 ps) Waiting SPI command end for 2232000 ps
 #             (2431158000 ps) 
 # ** Note   : (2431158000 ps) Send SPI command value 7019_001C (C3_FB1_PULSE_SHAPING, mode Write, data 001C)
@@ -5953,7 +5953,7 @@
 # ** Note   : (2433480000 ps) Send SPI command value 7018_XXXX (C3_FB1_PULSE_SHAPING, mode Read, data XXXX)
 # ** Note   : (2433552000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (2433570000 ps) Check command return: PASS
-# ** Note   : (2433570000 ps)  * Read 7016_004D, expected value 7016_004D (C3_FB1_PULSE_SHAPING, mode Read, data 004D)
+# ** Note   : (2433570000 ps)  * Read 7016_0000, expected value 7016_0000 (C3_FB1_PULSE_SHAPING, mode Read, data 0000)
 # ** Note   : (2435802000 ps) Waiting SPI command end for 2232000 ps
 #             (2435802000 ps) 
 # ** Note   : (2435802000 ps) Send SPI command value 701B_000F (C3_FB1_PULSE_SHAPING, mode Write, data 000F)
@@ -5964,7 +5964,7 @@
 # ** Note   : (2438124000 ps) Send SPI command value 701A_XXXX (C3_FB1_PULSE_SHAPING, mode Read, data XXXX)
 # ** Note   : (2438196000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (2438214000 ps) Check command return: PASS
-# ** Note   : (2438214000 ps)  * Read 7018_002C, expected value 7018_002C (C3_FB1_PULSE_SHAPING, mode Read, data 002C)
+# ** Note   : (2438214000 ps)  * Read 7018_0000, expected value 7018_0000 (C3_FB1_PULSE_SHAPING, mode Read, data 0000)
 # ** Note   : (2440446000 ps) Waiting SPI command end for 2232000 ps
 #             (2440446000 ps) 
 # ** Note   : (2440446000 ps) Send SPI command value 701D_0008 (C3_FB1_PULSE_SHAPING, mode Write, data 0008)
@@ -5975,7 +5975,7 @@
 # ** Note   : (2442768000 ps) Send SPI command value 701C_XXXX (C3_FB1_PULSE_SHAPING, mode Read, data XXXX)
 # ** Note   : (2442840000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (2442858000 ps) Check command return: PASS
-# ** Note   : (2442858000 ps)  * Read 701A_0019, expected value 701A_0019 (C3_FB1_PULSE_SHAPING, mode Read, data 0019)
+# ** Note   : (2442858000 ps)  * Read 701A_0000, expected value 701A_0000 (C3_FB1_PULSE_SHAPING, mode Read, data 0000)
 # ** Note   : (2445090000 ps) Waiting SPI command end for 2232000 ps
 #             (2445090000 ps) 
 # ** Note   : (2445090000 ps) Send SPI command value 701F_0005 (C3_FB1_PULSE_SHAPING, mode Write, data 0005)
@@ -5986,7 +5986,7 @@
 # ** Note   : (2447412000 ps) Send SPI command value 701E_XXXX (C3_FB1_PULSE_SHAPING, mode Read, data XXXX)
 # ** Note   : (2447484000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (2447502000 ps) Check command return: PASS
-# ** Note   : (2447502000 ps)  * Read 701C_000E, expected value 701C_000E (C3_FB1_PULSE_SHAPING, mode Read, data 000E)
+# ** Note   : (2447502000 ps)  * Read 701C_0000, expected value 701C_0000 (C3_FB1_PULSE_SHAPING, mode Read, data 0000)
 # ** Note   : (2449734000 ps) Waiting SPI command end for 2232000 ps
 #             (2449734000 ps) 
 # ** Note   : (2449734000 ps) Send SPI command value 7021_0003 (C3_FB1_PULSE_SHAPING, mode Write, data 0003)
@@ -5997,7 +5997,7 @@
 # ** Note   : (2452056000 ps) Send SPI command value 7020_XXXX (C3_FB1_PULSE_SHAPING, mode Read, data XXXX)
 # ** Note   : (2452128000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (2452146000 ps) Check command return: PASS
-# ** Note   : (2452146000 ps)  * Read 701E_0008, expected value 701E_0008 (C3_FB1_PULSE_SHAPING, mode Read, data 0008)
+# ** Note   : (2452146000 ps)  * Read 701E_0000, expected value 701E_0000 (C3_FB1_PULSE_SHAPING, mode Read, data 0000)
 # ** Note   : (2454378000 ps) Waiting SPI command end for 2232000 ps
 #             (2454378000 ps) 
 # ** Note   : (2454378000 ps) Send SPI command value 7023_0001 (C3_FB1_PULSE_SHAPING, mode Write, data 0001)
@@ -6008,7 +6008,7 @@
 # ** Note   : (2456700000 ps) Send SPI command value 7022_XXXX (C3_FB1_PULSE_SHAPING, mode Read, data XXXX)
 # ** Note   : (2456772000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (2456790000 ps) Check command return: PASS
-# ** Note   : (2456790000 ps)  * Read 7020_0005, expected value 7020_0005 (C3_FB1_PULSE_SHAPING, mode Read, data 0005)
+# ** Note   : (2456790000 ps)  * Read 7020_0000, expected value 7020_0000 (C3_FB1_PULSE_SHAPING, mode Read, data 0000)
 # ** Note   : (2459022000 ps) Waiting SPI command end for 2232000 ps
 #             (2459022000 ps) 
 # ** Note   : (2459022000 ps) Send SPI command value 7025_0001 (C3_FB1_PULSE_SHAPING, mode Write, data 0001)
@@ -6019,7 +6019,7 @@
 # ** Note   : (2461344000 ps) Send SPI command value 7024_XXXX (C3_FB1_PULSE_SHAPING, mode Read, data XXXX)
 # ** Note   : (2461416000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (2461434000 ps) Check command return: PASS
-# ** Note   : (2461434000 ps)  * Read 7022_0003, expected value 7022_0003 (C3_FB1_PULSE_SHAPING, mode Read, data 0003)
+# ** Note   : (2461434000 ps)  * Read 7022_0000, expected value 7022_0000 (C3_FB1_PULSE_SHAPING, mode Read, data 0000)
 # ** Note   : (2463666000 ps) Waiting SPI command end for 2232000 ps
 #             (2463666000 ps) 
 # ** Note   : (2463666000 ps) Send SPI command value 7027_0000 (C3_FB1_PULSE_SHAPING, mode Write, data 0000)
@@ -6030,7 +6030,7 @@
 # ** Note   : (2465988000 ps) Send SPI command value 7026_XXXX (C3_FB1_PULSE_SHAPING, mode Read, data XXXX)
 # ** Note   : (2466060000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (2466078000 ps) Check command return: PASS
-# ** Note   : (2466078000 ps)  * Read 7024_0002, expected value 7024_0002 (C3_FB1_PULSE_SHAPING, mode Read, data 0002)
+# ** Note   : (2466078000 ps)  * Read 7024_0000, expected value 7024_0000 (C3_FB1_PULSE_SHAPING, mode Read, data 0000)
 # ** Note   : (2468310000 ps) Waiting SPI command end for 2232000 ps
 #             (2468310000 ps) 
 # ** Note   : (2468310000 ps) Send SPI command value 7029_XXXX (C3_FB1_PULSE_SHAPING, mode Write, data XXXX)
@@ -6041,7 +6041,7 @@
 # ** Note   : (2470632000 ps) Send SPI command value 7028_XXXX (C3_FB1_PULSE_SHAPING, mode Read, data XXXX)
 # ** Note   : (2470704000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (2470722000 ps) Check command return: PASS
-# ** Note   : (2470722000 ps)  * Read 7026_0001, expected value 7026_0001 (C3_FB1_PULSE_SHAPING, mode Read, data 0001)
+# ** Note   : (2470722000 ps)  * Read 7026_0000, expected value 7026_0000 (C3_FB1_PULSE_SHAPING, mode Read, data 0000)
 # ** Note   : (2472954000 ps) Waiting SPI command end for 2232000 ps
 #             (2472954000 ps) 
 #             (2472954000 ps) ==============================================================================================
