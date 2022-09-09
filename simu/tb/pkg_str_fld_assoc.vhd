@@ -430,8 +430,20 @@ constant c_PAD                : character := ' '                                
          when "Hw_Version                    "  =>
             o_fld_add_val:= c_EP_CMD_ADD_HW_VER;
 
+         when "C0_A                          "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_PARMA(0);
+
+         when "C0_KI_KNORM                   "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_KIKNM(0);
+
+         when "C0_KNORM                      "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_KNORM(0);
+
          when "C0_MUX_SQ_FB0                 "  =>
             o_fld_add_val:= c_EP_CMD_ADD_SMFB0(0);
+
+         when "C0_MUX_SQ_LOCKPOINT_V         "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_SMLKV(0);
 
          when "C0_MUX_SQ_FB_MODE             "  =>
             o_fld_add_val:= c_EP_CMD_ADD_SMFBM(0);
@@ -463,8 +475,20 @@ constant c_PAD                : character := ' '                                
          when "C0_FB1_PULSE_SHAPING_SELECTION"  =>
             o_fld_add_val:= c_EP_CMD_ADD_PLSSS(0);
 
+         when "C1_A                          "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_PARMA(1);
+
+         when "C1_KI_KNORM                   "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_KIKNM(1);
+
+         when "C1_KNORM                      "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_KNORM(1);
+
          when "C1_MUX_SQ_FB0                 "  =>
             o_fld_add_val:= c_EP_CMD_ADD_SMFB0(1);
+
+         when "C1_MUX_SQ_LOCKPOINT_V         "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_SMLKV(1);
 
          when "C1_MUX_SQ_FB_MODE             "  =>
             o_fld_add_val:= c_EP_CMD_ADD_SMFBM(1);
@@ -496,8 +520,20 @@ constant c_PAD                : character := ' '                                
          when "C1_FB1_PULSE_SHAPING_SELECTION"  =>
             o_fld_add_val:= c_EP_CMD_ADD_PLSSS(1);
 
+         when "C2_A                          "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_PARMA(2);
+
+         when "C2_KI_KNORM                   "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_KIKNM(2);
+
+         when "C2_KNORM                      "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_KNORM(2);
+
          when "C2_MUX_SQ_FB0                 "  =>
             o_fld_add_val:= c_EP_CMD_ADD_SMFB0(2);
+
+         when "C2_MUX_SQ_LOCKPOINT_V         "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_SMLKV(2);
 
          when "C2_MUX_SQ_FB_MODE             "  =>
             o_fld_add_val:= c_EP_CMD_ADD_SMFBM(2);
@@ -529,8 +565,20 @@ constant c_PAD                : character := ' '                                
          when "C2_FB1_PULSE_SHAPING_SELECTION"  =>
             o_fld_add_val:= c_EP_CMD_ADD_PLSSS(2);
 
+         when "C3_A                          "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_PARMA(3);
+
+         when "C3_KI_KNORM                   "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_KIKNM(3);
+
+         when "C3_KNORM                      "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_KNORM(3);
+
          when "C3_MUX_SQ_FB0                 "  =>
             o_fld_add_val:= c_EP_CMD_ADD_SMFB0(3);
+
+         when "C3_MUX_SQ_LOCKPOINT_V         "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_SMLKV(3);
 
          when "C3_MUX_SQ_FB_MODE             "  =>
             o_fld_add_val:= c_EP_CMD_ADD_SMFBM(3);

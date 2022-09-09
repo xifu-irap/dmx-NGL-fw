@@ -58,7 +58,10 @@ entity sqm_fbk_mgt is port
                                        data_w(          c_DFLD_SMFBM_PIX_S-1 downto 0))                     ; --! SQUID MUX feedback mode: memory inputs
          o_smfbm_data         : out    std_logic_vector(c_DFLD_SMFBM_PIX_S-1 downto 0)                      ; --! SQUID MUX feedback mode: data read
 
-         o_sqm_data_fbk       : out    std_logic_vector( c_SQM_DATA_FBK_S-1 downto 0)                         --! SQUID MUX Data feedback (signed)
+         o_sqm_data_fbk       : out    std_logic_vector( c_SQM_DATA_FBK_S-1 downto 0)                       ; --! SQUID MUX Data feedback (signed)
+
+         o_init_fbk_pixel_pos : out    std_logic_vector(c_MUX_FACT_S-1      downto 0)                       ; --! Initialization feedback chain accumulators Pixel position
+         o_init_fbk_acc       : out    std_logic                                                              --! Initialization feedback chain accumulators ('0' = Inactive, '1' = Active)
    );
 end entity sqm_fbk_mgt;
 
@@ -80,6 +83,7 @@ signal   pls_cnt_init         : std_logic_vector(       c_PLS_CNT_S-1 downto 0) 
 signal   pixel_pos            : std_logic_vector(     c_PIXEL_POS_S-1 downto 0)                             ; --! Pixel position
 signal   pixel_pos_init       : std_logic_vector(     c_PIXEL_POS_S-1 downto 0)                             ; --! Pixel position initialization
 signal   pixel_pos_inc        : std_logic_vector(     c_PIXEL_POS_S-2 downto 0)                             ; --! Pixel position increasing
+signal   pixel_pos_inc_r      : t_slv_arr(0 to c_MEM_RD_DATA_NPER)(c_PIXEL_POS_S-2 downto 0)                ; --! Pixel position increasing register
 
 signal   mem_smfb0_pp         : std_logic                                                                   ; --! SQUID MUX feedback value in open loop, TH/HK side: ping-pong buffer bit
 signal   mem_smfb0_prm        : t_mem(
@@ -92,6 +96,7 @@ signal   mem_smfbm_prm        : t_mem(
                                 data_w(          c_DFLD_SMFBM_PIX_S-1 downto 0))                            ; --! SQUID MUX feedback mode, getting parameter side: memory inputs
 
 signal   smfmd_sync           : std_logic_vector(c_DFLD_SMFMD_COL_S-1 downto 0)                             ; --! SQUID MUX feedback mode synchronized on first Pixel sequence
+signal   smfmd_sync_r         : t_slv_arr(0 to c_MEM_RD_DATA_NPER-1)(c_DFLD_SMFMD_COL_S-1 downto 0)         ; --! SQUID MUX feedback mode synchronized on first Pixel sequence register
 
 signal   smfbm                : std_logic_vector(c_DFLD_SMFBM_PIX_S-1 downto 0)                             ; --! SQUID MUX feedback mode
 
@@ -190,11 +195,14 @@ begin
    begin
 
       if i_rst = '1' then
+         smfmd_sync_r          <= (others => c_DST_SMFMD_OFF);
          smfmd_sync            <= c_DST_SMFMD_OFF;
          mem_smfb0_prm.pp      <= c_MEM_STR_ADD_PP_DEF;
          mem_smfbm_prm.pp      <= c_MEM_STR_ADD_PP_DEF;
 
       elsif rising_edge(i_clk) then
+         smfmd_sync_r <= smfmd_sync & smfmd_sync_r(0 to smfmd_sync_r'high-1);
+
          if (pls_cnt(pls_cnt'high) and pixel_pos(pixel_pos'high)) = '1' then
             smfmd_sync         <= i_smfmd;
             mem_smfb0_prm.pp   <= mem_smfb0_pp;
@@ -245,7 +253,7 @@ begin
    end generate;
 
    -- ------------------------------------------------------------------------------------------------------
-   --!   Dual port memory SQUID MUX feedback value in open loop: writing data signals
+   --!   Dual port memory SQUID MUX feedback value in open loop: memory signals management
    --!      (Getting parameter side)
    -- ------------------------------------------------------------------------------------------------------
    mem_smfb0_prm.add     <= pixel_pos_inc;
@@ -347,7 +355,34 @@ begin
 
    end process P_sqm_data_fbk;
 
+   -- ------------------------------------------------------------------------------------------------------
+   --!   Initialization feedback chain accumulators
+   -- ------------------------------------------------------------------------------------------------------
+   P_init_fbk_acc : process (i_rst, i_clk)
+   begin
+
+      if i_rst = '1' then
+         pixel_pos_inc_r   <= (others => std_logic_vector(to_unsigned(0, c_PIXEL_POS_S-1)));
+         o_init_fbk_acc    <= '1';
+
+      elsif rising_edge(i_clk) then
+         pixel_pos_inc_r   <= pixel_pos_inc & pixel_pos_inc_r(0 to pixel_pos_inc_r'high-1);
+
+         if (smfbm = c_DST_SMFBM_CLOSE and smfmd_sync_r(smfmd_sync_r'high) = c_DST_SMFMD_ON) then
+            o_init_fbk_acc <= '0';
+
+         else
+            o_init_fbk_acc <= '1';
+
+         end if;
+
+      end if;
+
+   end process P_init_fbk_acc;
+
+   o_init_fbk_pixel_pos <= pixel_pos_inc_r(pixel_pos_inc_r'high);
+
    --TODO
-   sqm_fb_tst_pattern      <= std_logic_vector(to_unsigned(0, o_sqm_data_fbk'length));
+   sqm_fb_tst_pattern   <= std_logic_vector(to_unsigned(0, o_sqm_data_fbk'length));
 
 end architecture RTL;

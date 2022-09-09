@@ -760,7 +760,7 @@
 # ** Note   : (677886000 ps) Waiting SPI command end for 2286000 ps
 # ** Note   : (677886000 ps) Send SPI command value 6A09_0000 (C3_SAMPLING_DELAY, mode Write, data 0000)
 # ** Note   : (680208000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (680208000 ps) Send SPI command value 8007_0000 (BOXCAR_LENGTH, mode Write, data 0000)
+# ** Note   : (680208000 ps) Send SPI command value 8401_0000 (BOXCAR_LENGTH, mode Write, data 0000)
 # ** Note   : (682530000 ps) Waiting SPI command end for 2286000 ps
 #             (682530000 ps) 
 # ** Note   : (682530000 ps) Send SPI command value 8001_0002 (DATA_ACQ_MODE, mode Write, data 0002)
@@ -801,7 +801,7 @@
 # ** Note   : (724704000 ps) Waiting SPI command end for 2286000 ps
 # ** Note   : (724704000 ps) Send SPI command value 6A09_0013 (C3_SAMPLING_DELAY, mode Write, data 0013)
 # ** Note   : (727026000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (727026000 ps) Send SPI command value 8007_FFFF (BOXCAR_LENGTH, mode Write, data FFFF)
+# ** Note   : (727026000 ps) Send SPI command value 8401_FFFF (BOXCAR_LENGTH, mode Write, data FFFF)
 # ** Note   : (729348000 ps) Waiting SPI command end for 2286000 ps
 #             (729348000 ps) 
 # ** Note   : (729348000 ps) Send SPI command value 8001_0002 (DATA_ACQ_MODE, mode Write, data 0002)
@@ -836,7 +836,7 @@
 # ** Note   : (764556000 ps) Waiting SPI command end for 2286000 ps
 # ** Note   : (764556000 ps) Send SPI command value 6A09_0013 (C3_SAMPLING_DELAY, mode Write, data 0013)
 # ** Note   : (766878000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (766878000 ps) Send SPI command value 8007_FA50 (BOXCAR_LENGTH, mode Write, data FA50)
+# ** Note   : (766878000 ps) Send SPI command value 8401_FA50 (BOXCAR_LENGTH, mode Write, data FA50)
 # ** Note   : (769200000 ps) Waiting SPI command end for 2286000 ps
 #             (769200000 ps) 
 # ** Note   : (769200000 ps) Send SPI command value 8001_0002 (DATA_ACQ_MODE, mode Write, data 0002)
@@ -871,7 +871,7 @@
 # ** Note   : (804408000 ps) Waiting SPI command end for 2286000 ps
 # ** Note   : (804408000 ps) Send SPI command value 6A09_0008 (C3_SAMPLING_DELAY, mode Write, data 0008)
 # ** Note   : (806730000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (806730000 ps) Send SPI command value 8007_B416 (BOXCAR_LENGTH, mode Write, data B416)
+# ** Note   : (806730000 ps) Send SPI command value 8401_B416 (BOXCAR_LENGTH, mode Write, data B416)
 # ** Note   : (809052000 ps) Waiting SPI command end for 2286000 ps
 #             (809052000 ps) 
 # ** Note   : (809052000 ps) Send SPI command value 8001_0002 (DATA_ACQ_MODE, mode Write, data 0002)
@@ -903,7 +903,7 @@
 # ** Note   : (841938000 ps) Waiting SPI command end for 2286000 ps
 # ** Note   : (841938000 ps) Send SPI command value 6A09_000D (C3_SAMPLING_DELAY, mode Write, data 000D)
 # ** Note   : (844260000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (844260000 ps) Send SPI command value 8007_92C7 (BOXCAR_LENGTH, mode Write, data 92C7)
+# ** Note   : (844260000 ps) Send SPI command value 8401_92C7 (BOXCAR_LENGTH, mode Write, data 92C7)
 # ** Note   : (846582000 ps) Waiting SPI command end for 2286000 ps
 #             (846582000 ps) 
 # ** Note   : (846582000 ps) Send SPI command value 8001_0002 (DATA_ACQ_MODE, mode Write, data 0002)
@@ -935,7 +935,7 @@
 # ** Note   : (879468000 ps) Waiting SPI command end for 2286000 ps
 # ** Note   : (879468000 ps) Send SPI command value 6A09_0003 (C3_SAMPLING_DELAY, mode Write, data 0003)
 # ** Note   : (881790000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (881790000 ps) Send SPI command value 8007_35E8 (BOXCAR_LENGTH, mode Write, data 35E8)
+# ** Note   : (881790000 ps) Send SPI command value 8401_35E8 (BOXCAR_LENGTH, mode Write, data 35E8)
 # ** Note   : (884112000 ps) Waiting SPI command end for 2286000 ps
 #             (884112000 ps) 
 # ** Note   : (884112000 ps) Send SPI command value 8001_0002 (DATA_ACQ_MODE, mode Write, data 0002)
@@ -967,7 +967,7 @@
 # ** Note   : (916998000 ps) Waiting SPI command end for 2286000 ps
 # ** Note   : (916998000 ps) Send SPI command value 6A09_0006 (C3_SAMPLING_DELAY, mode Write, data 0006)
 # ** Note   : (919320000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (919320000 ps) Send SPI command value 8007_0DF4 (BOXCAR_LENGTH, mode Write, data 0DF4)
+# ** Note   : (919320000 ps) Send SPI command value 8401_0DF4 (BOXCAR_LENGTH, mode Write, data 0DF4)
 # ** Note   : (921642000 ps) Waiting SPI command end for 2286000 ps
 #             (921642000 ps) 
 # ** Note   : (921642000 ps) Send SPI command value 8001_0002 (DATA_ACQ_MODE, mode Write, data 0002)
@@ -1002,7 +1002,7 @@
 # ** Note   : (956850000 ps) Waiting SPI command end for 2286000 ps
 # ** Note   : (956850000 ps) Send SPI command value 6A09_0005 (C3_SAMPLING_DELAY, mode Write, data 0005)
 # ** Note   : (959172000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (959172000 ps) Send SPI command value 8007_30F7 (BOXCAR_LENGTH, mode Write, data 30F7)
+# ** Note   : (959172000 ps) Send SPI command value 8401_30F7 (BOXCAR_LENGTH, mode Write, data 30F7)
 # ** Note   : (961494000 ps) Waiting SPI command end for 2286000 ps
 #             (961494000 ps) 
 # ** Note   : (961494000 ps) Send SPI command value 8001_0002 (DATA_ACQ_MODE, mode Write, data 0002)
@@ -1037,7 +1037,7 @@
 # ** Note   : (996702000 ps) Waiting SPI command end for 2286000 ps
 # ** Note   : (996702000 ps) Send SPI command value 6A09_0013 (C3_SAMPLING_DELAY, mode Write, data 0013)
 # ** Note   : (999024000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (999024000 ps) Send SPI command value 8007_0000 (BOXCAR_LENGTH, mode Write, data 0000)
+# ** Note   : (999024000 ps) Send SPI command value 8401_0000 (BOXCAR_LENGTH, mode Write, data 0000)
 # ** Note   : (1001346000 ps) Waiting SPI command end for 2286000 ps
 #             (1001346000 ps) 
 # ** Note   : (1001346000 ps) Send SPI command value 8001_0002 (DATA_ACQ_MODE, mode Write, data 0002)

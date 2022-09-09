@@ -253,7 +253,7 @@ begin
    );
 
    -- ------------------------------------------------------------------------------------------------------
-   --!   Memory SQUID AMP lockpoint fine offset signals: writing data signals
+   --!   Memory SQUID AMP lockpoint fine offset signals: memory signals management
    --!      (Getting parameter side)
    -- ------------------------------------------------------------------------------------------------------
    mem_saoff_prm.add     <= pixel_pos_inc;

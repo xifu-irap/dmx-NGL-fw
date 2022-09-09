@@ -41,6 +41,7 @@ entity science_data_check is port
 
          i_smfbd              : in     t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SMFBD_COL_S-1 downto 0)            ; --! SQUID MUX feedback delay
          i_saomd              : in     t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SAOMD_COL_S-1 downto 0)            ; --! SQUID AMP offset MUX delay
+         i_sqm_fbm_cls_lp_n   : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! SQUID MUX feedback mode Closed loop ('0': Yes; '1': No)
          i_sw_adc_vin         : in     std_logic_vector(c_SW_ADC_VIN_S-1 downto 0)                          ; --! Switch ADC Voltage input
 
          i_adc_dmp_mem_add    : in     std_logic_vector(    c_MUX_FACT_S-1 downto 0)                        ; --! ADC Dump memory for data compare: address
@@ -74,6 +75,8 @@ constant c_PLS_CNT_SC_NB_VAL  : integer:= c_MUX_FACT                            
 constant c_PLS_CNT_SC_MAX_VAL : integer:= c_PLS_CNT_SC_NB_VAL - 1                                           ; --! Pulse counter (Science case): maximal value
 constant c_PLS_CNT_SC_S       : integer:= log2_ceil(c_PLS_CNT_SC_MAX_VAL + 1)                               ; --! Pulse counter (Science case): size bus
 
+type     t_tm_mode_sel          is  (idle, science, error_sig, dump, test_pattern)                          ; --! Mode selection type
+
 signal   squid_del            : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SMFBD_COL_S-1 downto 0)                   ; --! SQUID Feedback delay
 
 signal   pls_cnt              : std_logic_vector(            c_PLS_CNT_S-1 downto 0)                        ; --! Pulse counter (Dump case)
@@ -84,7 +87,7 @@ signal   seq_cnt              : std_logic_vector(            c_SEQ_CNT_S-1 downt
 
 signal   pls_cnt_sc           : std_logic_vector(         c_PLS_CNT_SC_S-1 downto 0)                        ; --! Pulse counter (Science case)
 
-signal   dump_mode_sel        : std_logic                                                                   ; --! Dump mode select ('0' = Science mode, '1' = Dump mode)
+signal   sm_mode_sel          : t_tm_mode_sel                                                               ; --! Mode selection FSM
 
 signal   science_data_rdy_r   : std_logic_vector(1 downto 0)                                                ; --! Science Data Ready register ('0' = Inactive, '1' = Active)
 signal   science_data_r       : t_slv_arr_tab(0 to c_NB_COL-1)(0 to c_SC_DATA_R_PIP_NB-1)
@@ -222,25 +225,28 @@ begin
    end process P_pls_cnt_sc;
 
    -- ------------------------------------------------------------------------------------------------------
-   --!   Dump mode select
+   --!   Mode selection
    -- ------------------------------------------------------------------------------------------------------
-   P_dump_mode_sel : process (i_rst, i_clk_science)
+   P_mode_sel : process (i_rst, i_clk_science)
    begin
 
       if i_rst = '1' then
-         dump_mode_sel   <= '0';
+         sm_mode_sel <= idle;
 
       elsif rising_edge(i_clk_science) then
-         if    i_science_data_ctrl = c_SC_CTRL_ERRS or i_science_data_ctrl = c_SC_CTRL_SC_DTA then
-            dump_mode_sel   <= '0';
+         if    i_science_data_ctrl = c_SC_CTRL_ERRS then
+            sm_mode_sel   <= error_sig;
+
+         elsif i_science_data_ctrl = c_SC_CTRL_SC_DTA then
+            sm_mode_sel   <= science;
 
          elsif  i_science_data_ctrl = c_SC_CTRL_ADC_DMP then
-            dump_mode_sel   <= '1';
+            sm_mode_sel   <= dump;
 
          end if;
       end if;
 
-   end process P_dump_mode_sel;
+   end process P_mode_sel;
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Science Data Ready register
@@ -382,9 +388,11 @@ begin
                                         pixel_pos = std_logic_vector(to_unsigned(0, pixel_pos'length)) and
                                         seq_cnt   = std_logic_vector(to_unsigned(0, seq_cnt'length)))  else
                               '1' when (i_sw_adc_vin = c_SW_ADC_VIN_ST_SQA and i_science_data(k) /= adc_dump_dta2cmp_lst(k)) else
-                              '1' when (i_sw_adc_vin = c_SW_ADC_VIN_ST_SQM) and (pls_cnt = pls_cnt_pos_del(k)) and (dump_mode_sel = '1') and (
+                              '1' when (i_sw_adc_vin = c_SW_ADC_VIN_ST_SQM) and (pls_cnt = pls_cnt_pos_del(k)) and (sm_mode_sel = dump) and (
                                         abs(signed(i_science_data(k)) - signed(adc_dump_dta2cmp_lst(k))) > to_signed(1, i_science_data(k)'length)) else
-                              '1' when (i_sw_adc_vin = c_SW_ADC_VIN_ST_SQM) and (dump_mode_sel = '0') and (
+                              '1' when (i_sw_adc_vin = c_SW_ADC_VIN_ST_SQM) and (sm_mode_sel = error_sig) and (
+                                        abs(signed(science_data_r(k)(c_SC_DATA_R_PIP_NB-1)) - signed(science_dta2cmp(k))) > to_signed(1, i_science_data(k)'length)) else
+                              '1' when (i_sw_adc_vin = c_SW_ADC_VIN_ST_SQM) and (sm_mode_sel = science) and (i_sqm_fbm_cls_lp_n(k) = '1') and (
                                         abs(signed(science_data_r(k)(c_SC_DATA_R_PIP_NB-1)) - signed(science_dta2cmp(k))) > to_signed(1, i_science_data(k)'length)) else
                               '0';
 

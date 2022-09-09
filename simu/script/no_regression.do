@@ -79,6 +79,8 @@ proc run_utest {args} {
       ${SRC_DIR}/im_ck.vhd                \
       ${SRC_DIR}/rst_clk_mgt.vhd          \
       ${SRC_DIR}/in_rs_clk.vhd            \
+      ${SRC_DIR}/round_sat.vhd            \
+      ${SRC_DIR}/adder_sat.vhd            \
       ${SRC_DIR}/spi_slave.vhd            \
       ${SRC_DIR}/sts_err_wrt_mgt.vhd      \
       ${SRC_DIR}/sts_err_out_mgt.vhd      \
@@ -93,6 +95,7 @@ proc run_utest {args} {
       ${SRC_DIR}/science_data_tx.vhd      \
       ${SRC_DIR}/science_data_mgt.vhd     \
       ${SRC_DIR}/hk_mgt.vhd               \
+      ${SRC_DIR}/adder_acc.vhd            \
       ${SRC_DIR}/squid_adc_mgt.vhd        \
       ${SRC_DIR}/squid_data_proc.vhd      \
       ${SRC_DIR}/sqm_fbk_mgt.vhd          \

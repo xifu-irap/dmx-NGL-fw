@@ -354,7 +354,7 @@ begin
    end process P_sqm_data_err;
 
    -- ------------------------------------------------------------------------------------------------------
-   --!   Dual port memory for data transfer in Dump mode: writing data signals
+   --!   Dual port memory for data transfer in Dump mode: memory signals management
    --!      (SQUID MUX ADC acquisition Clock side)
    -- ------------------------------------------------------------------------------------------------------
    P_mem_dump_adc_cnt_w : process (rst_sqm_adc, i_clk_sqm_adc_dac)
@@ -413,7 +413,7 @@ begin
    );
 
    -- ------------------------------------------------------------------------------------------------------
-   --!   Dual port memory for data transfer in Dump mode: writing data signals
+   --!   Dual port memory for data transfer in Dump mode: memory signals management
    --!      (System Clock side)
    -- ------------------------------------------------------------------------------------------------------
    mem_dump_sc.pp       <= '0';

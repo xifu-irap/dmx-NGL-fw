@@ -80,10 +80,32 @@ begin
             elsif i_ep_cmd_rx_add_norw = c_EP_CMD_ADD_HW_VER  then
                o_ep_cmd_sts_err_wrt <= c_EP_CMD_AUTH_HW_VER;
 
+            elsif i_ep_cmd_rx_add_norw(i_ep_cmd_rx_add_norw'high downto c_EP_CMD_ADD_COLPOSH+1) = c_EP_CMD_ADD_PARMA(0)(i_ep_cmd_rx_add_norw'high downto c_EP_CMD_ADD_COLPOSH+1) and
+                  i_ep_cmd_rx_add_norw(c_EP_CMD_ADD_COLPOSL-1    downto c_MEM_PARMA_ADD_S)      = c_EP_CMD_ADD_PARMA(0)(c_EP_CMD_ADD_COLPOSL-1    downto c_MEM_PARMA_ADD_S)      and
+                  i_ep_cmd_rx_add_norw(   c_MEM_PARMA_ADD_S-1    downto 0)                      < std_logic_vector(to_unsigned(c_TAB_PARMA_NW, c_MEM_PARMA_ADD_S))               then
+               o_ep_cmd_sts_err_wrt <= c_EP_CMD_AUTH_PARMA;
+
+            elsif i_ep_cmd_rx_add_norw(i_ep_cmd_rx_add_norw'high downto c_EP_CMD_ADD_COLPOSH+1) = c_EP_CMD_ADD_KIKNM(0)(i_ep_cmd_rx_add_norw'high downto c_EP_CMD_ADD_COLPOSH+1) and
+                  i_ep_cmd_rx_add_norw(c_EP_CMD_ADD_COLPOSL-1    downto 0)                     >= c_EP_CMD_ADD_KIKNM(0)(c_EP_CMD_ADD_COLPOSL-1  downto 0)                        and
+                  i_ep_cmd_rx_add_norw(c_EP_CMD_ADD_COLPOSL-1    downto 0)                      < std_logic_vector(unsigned(c_EP_CMD_ADD_KIKNM(0)(c_EP_CMD_ADD_COLPOSL-1 downto 0))
+                                                                                                              + to_unsigned(c_TAB_KIKNM_NW, c_EP_CMD_ADD_COLPOSL))               then
+               o_ep_cmd_sts_err_wrt <= c_EP_CMD_AUTH_KIKNM;
+
+            elsif i_ep_cmd_rx_add_norw(i_ep_cmd_rx_add_norw'high downto c_EP_CMD_ADD_COLPOSH+1) = c_EP_CMD_ADD_SMFB0(0)(i_ep_cmd_rx_add_norw'high downto c_EP_CMD_ADD_COLPOSH+1) and
+                  i_ep_cmd_rx_add_norw(c_EP_CMD_ADD_COLPOSL-1    downto c_MEM_KNORM_ADD_S)      = c_EP_CMD_ADD_SMFB0(0)(c_EP_CMD_ADD_COLPOSL-1    downto c_MEM_KNORM_ADD_S)      and
+                  i_ep_cmd_rx_add_norw(   c_MEM_KNORM_ADD_S-1    downto 0)                      < std_logic_vector(to_unsigned(c_TAB_KNORM_NW, c_MEM_KNORM_ADD_S))               then
+               o_ep_cmd_sts_err_wrt <= c_EP_CMD_AUTH_KNORM;
+
             elsif i_ep_cmd_rx_add_norw(i_ep_cmd_rx_add_norw'high downto c_EP_CMD_ADD_COLPOSH+1) = c_EP_CMD_ADD_SMFB0(0)(i_ep_cmd_rx_add_norw'high downto c_EP_CMD_ADD_COLPOSH+1) and
                   i_ep_cmd_rx_add_norw(c_EP_CMD_ADD_COLPOSL-1    downto c_MEM_SMFB0_ADD_S)      = c_EP_CMD_ADD_SMFB0(0)(c_EP_CMD_ADD_COLPOSL-1    downto c_MEM_SMFB0_ADD_S)      and
                   i_ep_cmd_rx_add_norw(   c_MEM_SMFB0_ADD_S-1    downto 0)                      < std_logic_vector(to_unsigned(c_TAB_SMFB0_NW, c_MEM_SMFB0_ADD_S))               then
                o_ep_cmd_sts_err_wrt <= c_EP_CMD_AUTH_SMFB0;
+
+            elsif i_ep_cmd_rx_add_norw(i_ep_cmd_rx_add_norw'high downto c_EP_CMD_ADD_COLPOSH+1) = c_EP_CMD_ADD_SMLKV(0)(i_ep_cmd_rx_add_norw'high downto c_EP_CMD_ADD_COLPOSH+1) and
+                  i_ep_cmd_rx_add_norw(c_EP_CMD_ADD_COLPOSL-1    downto 0)                     >= c_EP_CMD_ADD_SMLKV(0)(c_EP_CMD_ADD_COLPOSL-1  downto 0)                        and
+                  i_ep_cmd_rx_add_norw(c_EP_CMD_ADD_COLPOSL-1    downto 0)                      < std_logic_vector(unsigned(c_EP_CMD_ADD_SMLKV(0)(c_EP_CMD_ADD_COLPOSL-1 downto 0))
+                                                                                                              + to_unsigned(c_TAB_SMLKV_NW, c_EP_CMD_ADD_COLPOSL))               then
+               o_ep_cmd_sts_err_wrt <= c_EP_CMD_AUTH_SMLKV;
 
             elsif i_ep_cmd_rx_add_norw(i_ep_cmd_rx_add_norw'high downto c_EP_CMD_ADD_COLPOSH+1) = c_EP_CMD_ADD_SMFBM(0)(i_ep_cmd_rx_add_norw'high downto c_EP_CMD_ADD_COLPOSH+1) and
                   i_ep_cmd_rx_add_norw(c_EP_CMD_ADD_COLPOSL-1    downto c_MEM_SMFBM_ADD_S)      = c_EP_CMD_ADD_SMFBM(0)(c_EP_CMD_ADD_COLPOSL-1    downto c_MEM_SMFBM_ADD_S)      and

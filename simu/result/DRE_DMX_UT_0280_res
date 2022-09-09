@@ -24,20 +24,20 @@
 #             (6995496 ps) ==============================================================================================
 #             (6995496 ps)   Start BOXCAR_LENGTH register test
 #             (6995496 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (6995496 ps) Send SPI command value 8006_XXXX (BOXCAR_LENGTH, mode Read, data XXXX)
+# ** Note   : (6995496 ps) Send SPI command value 8400_XXXX (BOXCAR_LENGTH, mode Read, data XXXX)
 # ** Note   : (14496000 ps) Waiting SPI command end for 7464504 ps
-# ** Note   : (14496000 ps) Send SPI command value 8007_5AB6 (BOXCAR_LENGTH, mode Write, data 5AB6)
+# ** Note   : (14496000 ps) Send SPI command value 8401_5AB6 (BOXCAR_LENGTH, mode Write, data 5AB6)
 # ** Note   : (22002000 ps) Waiting SPI command end for 7470000 ps
-# ** Note   : (22002000 ps) Send SPI command value 8006_XXXX (BOXCAR_LENGTH, mode Read, data XXXX)
+# ** Note   : (22002000 ps) Send SPI command value 8400_XXXX (BOXCAR_LENGTH, mode Read, data XXXX)
 # ** Note   : (22074000 ps) Waiting SPI command return end for 36000 ps
 #             (22074000 ps) 
 #             (22074000 ps) ==============================================================================================
 #             (22074000 ps)   Check BOXCAR_LENGTH content at start:
 #             (22074000 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (22092000 ps) Check command return: PASS
-# ** Note   : (22092000 ps)  * Read 8006_0000, expected value 8006_0000 (BOXCAR_LENGTH, mode Read, data 0000)
+# ** Note   : (22092000 ps)  * Read 8400_0000, expected value 8400_0000 (BOXCAR_LENGTH, mode Read, data 0000)
 # ** Note   : (29508000 ps) Waiting SPI command end for 7416000 ps
-# ** Note   : (29508000 ps) Send SPI command value 8007_65AB (BOXCAR_LENGTH, mode Write, data 65AB)
+# ** Note   : (29508000 ps) Send SPI command value 8401_65AB (BOXCAR_LENGTH, mode Write, data 65AB)
 # ** Note   : (29580000 ps) Waiting SPI command return end for 36000 ps
 #             (29580000 ps) 
 #             (29580000 ps) ==============================================================================================
@@ -46,16 +46,16 @@
 # ** Note   : (29598000 ps) Check command return: PASS
 # ** Note   : (29598000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
 # ** Note   : (37014000 ps) Waiting SPI command end for 7416000 ps
-# ** Note   : (37014000 ps) Send SPI command value 8006_XXXX (BOXCAR_LENGTH, mode Read, data XXXX)
+# ** Note   : (37014000 ps) Send SPI command value 8400_XXXX (BOXCAR_LENGTH, mode Read, data XXXX)
 # ** Note   : (37086000 ps) Waiting SPI command return end for 36000 ps
 #             (37086000 ps) 
 #             (37086000 ps) ==============================================================================================
 #             (37086000 ps)   Check BOXCAR_LENGTH content:
 #             (37086000 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (37104000 ps) Check command return: PASS
-# ** Note   : (37104000 ps)  * Read 8006_5AB6, expected value 8006_5AB6 (BOXCAR_LENGTH, mode Read, data 5AB6)
+# ** Note   : (37104000 ps)  * Read 8400_5AB6, expected value 8400_5AB6 (BOXCAR_LENGTH, mode Read, data 5AB6)
 # ** Note   : (44520000 ps) Waiting SPI command end for 7416000 ps
-# ** Note   : (44520000 ps) Send SPI command value 8007_B65A (BOXCAR_LENGTH, mode Write, data B65A)
+# ** Note   : (44520000 ps) Send SPI command value 8401_B65A (BOXCAR_LENGTH, mode Write, data B65A)
 # ** Note   : (44592000 ps) Waiting SPI command return end for 36000 ps
 #             (44592000 ps) 
 #             (44592000 ps) ==============================================================================================
@@ -64,16 +64,16 @@
 # ** Note   : (44610000 ps) Check command return: PASS
 # ** Note   : (44610000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
 # ** Note   : (52026000 ps) Waiting SPI command end for 7416000 ps
-# ** Note   : (52026000 ps) Send SPI command value 8006_XXXX (BOXCAR_LENGTH, mode Read, data XXXX)
+# ** Note   : (52026000 ps) Send SPI command value 8400_XXXX (BOXCAR_LENGTH, mode Read, data XXXX)
 # ** Note   : (52098000 ps) Waiting SPI command return end for 36000 ps
 #             (52098000 ps) 
 #             (52098000 ps) ==============================================================================================
 #             (52098000 ps)   Check BOXCAR_LENGTH content:
 #             (52098000 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (52116000 ps) Check command return: PASS
-# ** Note   : (52116000 ps)  * Read 8006_65AB, expected value 8006_65AB (BOXCAR_LENGTH, mode Read, data 65AB)
+# ** Note   : (52116000 ps)  * Read 8400_65AB, expected value 8400_65AB (BOXCAR_LENGTH, mode Read, data 65AB)
 # ** Note   : (59532000 ps) Waiting SPI command end for 7416000 ps
-# ** Note   : (59532000 ps) Send SPI command value 8007_AB65 (BOXCAR_LENGTH, mode Write, data AB65)
+# ** Note   : (59532000 ps) Send SPI command value 8401_AB65 (BOXCAR_LENGTH, mode Write, data AB65)
 # ** Note   : (59604000 ps) Waiting SPI command return end for 36000 ps
 #             (59604000 ps) 
 #             (59604000 ps) ==============================================================================================
@@ -82,16 +82,16 @@
 # ** Note   : (59622000 ps) Check command return: PASS
 # ** Note   : (59622000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
 # ** Note   : (67038000 ps) Waiting SPI command end for 7416000 ps
-# ** Note   : (67038000 ps) Send SPI command value 8006_XXXX (BOXCAR_LENGTH, mode Read, data XXXX)
+# ** Note   : (67038000 ps) Send SPI command value 8400_XXXX (BOXCAR_LENGTH, mode Read, data XXXX)
 # ** Note   : (67110000 ps) Waiting SPI command return end for 36000 ps
 #             (67110000 ps) 
 #             (67110000 ps) ==============================================================================================
 #             (67110000 ps)   Check BOXCAR_LENGTH content:
 #             (67110000 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (67128000 ps) Check command return: PASS
-# ** Note   : (67128000 ps)  * Read 8006_B65A, expected value 8006_B65A (BOXCAR_LENGTH, mode Read, data B65A)
+# ** Note   : (67128000 ps)  * Read 8400_B65A, expected value 8400_B65A (BOXCAR_LENGTH, mode Read, data B65A)
 # ** Note   : (74544000 ps) Waiting SPI command end for 7416000 ps
-# ** Note   : (74544000 ps) Send SPI command value 8007_FFFF (BOXCAR_LENGTH, mode Write, data FFFF)
+# ** Note   : (74544000 ps) Send SPI command value 8401_FFFF (BOXCAR_LENGTH, mode Write, data FFFF)
 # ** Note   : (74616000 ps) Waiting SPI command return end for 36000 ps
 #             (74616000 ps) 
 #             (74616000 ps) ==============================================================================================
@@ -100,16 +100,16 @@
 # ** Note   : (74634000 ps) Check command return: PASS
 # ** Note   : (74634000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
 # ** Note   : (82050000 ps) Waiting SPI command end for 7416000 ps
-# ** Note   : (82050000 ps) Send SPI command value 8006_XXXX (BOXCAR_LENGTH, mode Read, data XXXX)
+# ** Note   : (82050000 ps) Send SPI command value 8400_XXXX (BOXCAR_LENGTH, mode Read, data XXXX)
 # ** Note   : (82122000 ps) Waiting SPI command return end for 36000 ps
 #             (82122000 ps) 
 #             (82122000 ps) ==============================================================================================
 #             (82122000 ps)   Check BOXCAR_LENGTH content:
 #             (82122000 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (82140000 ps) Check command return: PASS
-# ** Note   : (82140000 ps)  * Read 8006_AB65, expected value 8006_AB65 (BOXCAR_LENGTH, mode Read, data AB65)
+# ** Note   : (82140000 ps)  * Read 8400_AB65, expected value 8400_AB65 (BOXCAR_LENGTH, mode Read, data AB65)
 # ** Note   : (89556000 ps) Waiting SPI command end for 7416000 ps
-# ** Note   : (89556000 ps) Send SPI command value 8007_0000 (BOXCAR_LENGTH, mode Write, data 0000)
+# ** Note   : (89556000 ps) Send SPI command value 8401_0000 (BOXCAR_LENGTH, mode Write, data 0000)
 # ** Note   : (89628000 ps) Waiting SPI command return end for 36000 ps
 #             (89628000 ps) 
 #             (89628000 ps) ==============================================================================================
@@ -118,16 +118,16 @@
 # ** Note   : (89646000 ps) Check command return: PASS
 # ** Note   : (89646000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
 # ** Note   : (97062000 ps) Waiting SPI command end for 7416000 ps
-# ** Note   : (97062000 ps) Send SPI command value 8006_XXXX (BOXCAR_LENGTH, mode Read, data XXXX)
+# ** Note   : (97062000 ps) Send SPI command value 8400_XXXX (BOXCAR_LENGTH, mode Read, data XXXX)
 # ** Note   : (97134000 ps) Waiting SPI command return end for 36000 ps
 #             (97134000 ps) 
 #             (97134000 ps) ==============================================================================================
 #             (97134000 ps)   Check BOXCAR_LENGTH content:
 #             (97134000 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (97152000 ps) Check command return: PASS
-# ** Note   : (97152000 ps)  * Read 8006_FFFF, expected value 8006_FFFF (BOXCAR_LENGTH, mode Read, data FFFF)
+# ** Note   : (97152000 ps)  * Read 8400_FFFF, expected value 8400_FFFF (BOXCAR_LENGTH, mode Read, data FFFF)
 # ** Note   : (104568000 ps) Waiting SPI command end for 7416000 ps
-# ** Note   : (104568000 ps) Send SPI command value 8007_0000 (BOXCAR_LENGTH, mode Write, data 0000)
+# ** Note   : (104568000 ps) Send SPI command value 8401_0000 (BOXCAR_LENGTH, mode Write, data 0000)
 # ** Note   : (104640000 ps) Waiting SPI command return end for 36000 ps
 #             (104640000 ps) 
 #             (104640000 ps) ==============================================================================================
@@ -136,14 +136,14 @@
 # ** Note   : (104658000 ps) Check command return: PASS
 # ** Note   : (104658000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
 # ** Note   : (112074000 ps) Waiting SPI command end for 7416000 ps
-# ** Note   : (112074000 ps) Send SPI command value 8007_0000 (BOXCAR_LENGTH, mode Write, data 0000)
+# ** Note   : (112074000 ps) Send SPI command value 8401_0000 (BOXCAR_LENGTH, mode Write, data 0000)
 # ** Note   : (112146000 ps) Waiting SPI command return end for 36000 ps
 #             (112146000 ps) 
 #             (112146000 ps) ==============================================================================================
 #             (112146000 ps)   Check BOXCAR_LENGTH content:
 #             (112146000 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (112164000 ps) Check command return: PASS
-# ** Note   : (112164000 ps)  * Read 8006_0000, expected value 8006_0000 (BOXCAR_LENGTH, mode Read, data 0000)
+# ** Note   : (112164000 ps)  * Read 8400_0000, expected value 8400_0000 (BOXCAR_LENGTH, mode Read, data 0000)
 # ** Note   : (119580000 ps) Waiting SPI command end for 7416000 ps
 # ------------------------------------------------------------------------------------------------------------------------------------------------------
 # Error simulation time         : '0'

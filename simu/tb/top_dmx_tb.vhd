@@ -104,6 +104,7 @@ signal   d_clk_sqm_pls_shape  : std_logic                                       
 signal   d_aqmde              : std_logic_vector(c_DFLD_AQMDE_S-1 downto 0)                                 ; --! Internal design: Telemetry mode
 signal   d_smfbd              : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SMFBD_COL_S-1 downto 0)                   ; --! Internal design: SQUID MUX feedback delay
 signal   d_saomd              : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SAOMD_COL_S  -1 downto 0)                 ; --! Internal design: SQUID AMP offset MUX delay
+signal   d_sqm_fbm_cls_lp_n   : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! Internal design: SQUID MUX feedback mode Closed loop ('0': Yes; '1': No)
 
 signal   sc_pkt_type          : std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0)                              ; --! Science packet type
 signal   sc_pkt_err           : std_logic                                                                   ; --! Science packet error ('0' = No error, '1' = Error)
@@ -233,6 +234,18 @@ begin
                                  <<signal .top_dmx_tb.I_top_dmx.saomd:
                                    t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SAOMD_COL_S-1 downto 0)>>              ; --! Internal design: SQUID AMP offset MUX delay
 
+   alias td_sqm_fbm_clslp_n_0 : std_logic is <<signal
+                                .top_dmx_tb.I_top_dmx.G_column_mgt(0).I_squid_data_proc.init_fbk_acc_fb
+                                                                                             : std_logic>>  ; --! Internal design: SQUID MUX feedback mode Closed loop
+   alias td_sqm_fbm_clslp_n_1 : std_logic is <<signal
+                                .top_dmx_tb.I_top_dmx.G_column_mgt(1).I_squid_data_proc.init_fbk_acc_fb
+                                                                                             : std_logic>>  ; --! Internal design: SQUID MUX feedback mode Closed loop
+   alias td_sqm_fbm_clslp_n_2 : std_logic is <<signal
+                                .top_dmx_tb.I_top_dmx.G_column_mgt(2).I_squid_data_proc.init_fbk_acc_fb
+                                                                                             : std_logic>>  ; --! Internal design: SQUID MUX feedback mode Closed loop
+   alias td_sqm_fbm_clslp_n_3 : std_logic is <<signal
+                                .top_dmx_tb.I_top_dmx.G_column_mgt(3).I_squid_data_proc.init_fbk_acc_fb
+                                                                                             : std_logic>>  ; --! Internal design: SQUID MUX feedback mode Closed loop
    begin
 
       d_rst                <= td_rst;
@@ -254,6 +267,10 @@ begin
       d_aqmde              <= td_aqmde;
       d_smfbd              <= td_smfbd;
       d_saomd              <= td_saomd;
+      d_sqm_fbm_cls_lp_n(0)<= td_sqm_fbm_clslp_n_0;
+      d_sqm_fbm_cls_lp_n(1)<= td_sqm_fbm_clslp_n_1;
+      d_sqm_fbm_cls_lp_n(2)<= td_sqm_fbm_clslp_n_2;
+      d_sqm_fbm_cls_lp_n(3)<= td_sqm_fbm_clslp_n_3;
 
    end generate G_get_top_level_sig;
 
@@ -386,6 +403,7 @@ begin
          i_aqmde              => d_aqmde              , -- in     t_slv_arr c_NB_COL c_DFLD_AQMDE_S         ; --! Telemetry mode
          i_smfbd              => d_smfbd              , -- in     t_slv_arr c_NB_COL c_DFLD_SMFBD_COL_S     ; --! SQUID MUX feedback delay
          i_saomd              => d_saomd              , -- in     t_slv_arr c_NB_COL c_DFLD_SAOMD_COL_S     ; --! SQUID AMP offset MUX delay
+         i_sqm_fbm_cls_lp_n   => d_sqm_fbm_cls_lp_n   , -- in     std_logic_vector(c_NB_COL-1 downto 0)     ; --! SQUID MUX feedback mode Closed loop ('0': Yes; '1': No)
          i_sw_adc_vin         => sw_adc_vin           , -- in     slv(c_SW_ADC_VIN_S-1 downto 0)            ; --! Switch ADC Voltage input
 
          i_sqm_adc_data       => sqm_adc_data         , -- in     t_slv_arr c_NB_COL c_SQM_ADC_DATA_S       ; --! SQUID MUX ADC: Data buses

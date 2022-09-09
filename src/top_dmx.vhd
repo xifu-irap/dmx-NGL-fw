@@ -167,10 +167,30 @@ signal   saomd                : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SAOMD_COL_S-1 
 signal   smpdl                : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SMPDL_COL_S-1 downto 0)                   ; --! ADC sample delay
 signal   plsss                : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_PLSSS_PLS_S-1 downto 0)                   ; --! SQUID MUX feedback pulse shaping set
 
+signal   mem_parma            : t_mem_arr(0 to c_NB_COL-1)(
+                                add(    c_MEM_PARMA_ADD_S-1 downto 0),
+                                data_w(c_DFLD_PARMA_PIX_S-1 downto 0))                                      ; --! SQUID MUX feedback value in open loop: memory inputs
+signal   parma_data           : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_PARMA_PIX_S-1 downto 0)                   ; --! SQUID MUX feedback value in open loop: data read
+
+signal   mem_kiknm            : t_mem_arr(0 to c_NB_COL-1)(
+                                add(    c_MEM_KIKNM_ADD_S-1 downto 0),
+                                data_w(c_DFLD_KIKNM_PIX_S-1 downto 0))                                      ; --! SQUID MUX feedback value in open loop: memory inputs
+signal   kiknm_data           : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_KIKNM_PIX_S-1 downto 0)                   ; --! SQUID MUX feedback value in open loop: data read
+
+signal   mem_knorm            : t_mem_arr(0 to c_NB_COL-1)(
+                                add(    c_MEM_KNORM_ADD_S-1 downto 0),
+                                data_w(c_DFLD_KNORM_PIX_S-1 downto 0))                                      ; --! SQUID MUX feedback value in open loop: memory inputs
+signal   knorm_data           : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_KNORM_PIX_S-1 downto 0)                   ; --! SQUID MUX feedback value in open loop: data read
+
 signal   mem_smfb0            : t_mem_arr(0 to c_NB_COL-1)(
                                 add(    c_MEM_SMFB0_ADD_S-1 downto 0),
                                 data_w(c_DFLD_SMFB0_PIX_S-1 downto 0))                                      ; --! SQUID MUX feedback value in open loop: memory inputs
 signal   smfb0_data           : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SMFB0_PIX_S-1 downto 0)                   ; --! SQUID MUX feedback value in open loop: data read
+
+signal   mem_smlkv            : t_mem_arr(0 to c_NB_COL-1)(
+                                add(    c_MEM_SMLKV_ADD_S-1 downto 0),
+                                data_w(c_DFLD_SMLKV_PIX_S-1 downto 0))                                      ; --! SQUID MUX feedback value in open loop: memory inputs
+signal   smlkv_data           : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SMLKV_PIX_S-1 downto 0)                   ; --! SQUID MUX feedback value in open loop: data read
 
 signal   mem_smfbm            : t_mem_arr(0 to c_NB_COL-1)(
                                 add(    c_MEM_SMFBM_ADD_S-1 downto 0),
@@ -186,6 +206,9 @@ signal   mem_plssh            : t_mem_arr(0 to c_NB_COL-1)(
                                 add(    c_MEM_PLSSH_ADD_S-1 downto 0),
                                 data_w(c_DFLD_PLSSH_PLS_S-1 downto 0))                                      ; --! SQUID MUX feedback pulse shaping coefficient: memory inputs
 signal   plssh_data           : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_PLSSH_PLS_S-1 downto 0)                   ; --! SQUID MUX feedback pulse shaping coefficient: data read
+
+signal   init_fbk_pixel_pos   : t_slv_arr(0 to c_NB_COL-1)(c_MUX_FACT_S-1 downto 0)                         ; --! Initialization feedback chain accumulators Pixel position
+signal   init_fbk_acc         : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! Initialization feedback chain accumulators ('0' = Inactive, '1' = Active)
 
 begin
 
@@ -317,8 +340,20 @@ begin
          o_smpdl              => smpdl                , -- out    t_slv_arr c_NB_COL c_DFLD_SMPDL_COL_S     ; --! ADC sample delay
          o_plsss              => plsss                , -- out    t_slv_arr c_NB_COL c_DFLD_PLSSS_PLS_S     ; --! SQUID MUX feedback pulse shaping set
 
+         o_mem_parma          => mem_parma            , -- out    t_mem_arr(0 to c_NB_COL-1)                ; --! SQUID MUX feedback value in open loop: memory inputs
+         i_parma_data         => parma_data           , -- in     t_slv_arr c_NB_COL c_DFLD_PARMA_PIX_S     ; --! SQUID MUX feedback value in open loop: data read
+
+         o_mem_kiknm          => mem_kiknm            , -- out    t_mem_arr(0 to c_NB_COL-1)                ; --! SQUID MUX feedback value in open loop: memory inputs
+         i_kiknm_data         => kiknm_data           , -- in     t_slv_arr c_NB_COL c_DFLD_KIKNM_PIX_S     ; --! SQUID MUX feedback value in open loop: data read
+
+         o_mem_knorm          => mem_knorm            , -- out    t_mem_arr(0 to c_NB_COL-1)                ; --! SQUID MUX feedback value in open loop: memory inputs
+         i_knorm_data         => knorm_data           , -- in     t_slv_arr c_NB_COL c_DFLD_KNORM_PIX_S     ; --! SQUID MUX feedback value in open loop: data read
+
          o_mem_smfb0          => mem_smfb0            , -- out    t_mem_arr(0 to c_NB_COL-1)                ; --! SQUID MUX feedback value in open loop: memory inputs
          i_smfb0_data         => smfb0_data           , -- in     t_slv_arr c_NB_COL c_DFLD_SMFB0_PIX_S     ; --! SQUID MUX feedback value in open loop: data read
+
+         o_mem_smlkv          => mem_smlkv            , -- out    t_mem_arr(0 to c_NB_COL-1)                ; --! SQUID MUX feedback value in open loop: memory inputs
+         i_smlkv_data         => smlkv_data           , -- in     t_slv_arr c_NB_COL c_DFLD_SMLKV_PIX_S     ; --! SQUID MUX feedback value in open loop: data read
 
          o_mem_smfbm          => mem_smfbm            , -- out    t_mem_arr(0 to c_NB_COL-1)                ; --! SQUID MUX feedback mode: memory inputs
          i_smfbm_data         => smfbm_data           , -- in     t_slv_arr c_NB_COL c_DFLD_SMFBM_PIX_S     ; --! SQUID MUX feedback mode: data read
@@ -420,10 +455,28 @@ begin
       I_squid_data_proc: entity work.squid_data_proc port map
       (  i_rst                => rst                  , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                => clk                  , -- in     std_logic                                 ; --! System Clock
+         i_clk_90             => clk_90               , -- in     std_logic                                 ; --! System Clock 90 degrees shift
 
          i_aqmde              => aqmde                , -- in     slv(c_DFLD_AQMDE_S-1 downto 0)            ; --! Telemetry mode
          i_smfmd              => smfmd(k)             , -- in     slv(c_DFLD_SMFMD_COL_S-1 downto 0)        ; --! SQUID MUX feedback mode
          i_bxlgt              => bxlgt(k)             , -- in     slv(c_DFLD_BXLGT_COL_S-1 downto 0)        ; --! ADC sample number for averaging
+         i_sqm_adc_pwdn       => o_sqm_adc_pwdn(k)    , -- in     std_logic                                 ; --! SQUID MUX ADC: Power Down ('0' = Inactive, '1' = Active)
+
+         i_mem_parma          => mem_parma(k)         , -- in     t_mem                                     ; --! SQUID MUX feedback value in open loop: memory inputs
+         o_parma_data         => parma_data(k)        , -- out    slv(c_DFLD_PARMA_PIX_S-1 downto 0)        ; --! SQUID MUX feedback value in open loop: data read
+
+         i_mem_kiknm          => mem_kiknm(k)         , -- in     t_mem                                     ; --! SQUID MUX feedback value in open loop: memory inputs
+         o_kiknm_data         => kiknm_data(k)        , -- out    slv(c_DFLD_KIKNM_PIX_S-1 downto 0)        ; --! SQUID MUX feedback value in open loop: data read
+
+         i_mem_knorm          => mem_knorm(k)         , -- in     t_mem                                     ; --! SQUID MUX feedback value in open loop: memory inputs
+         o_knorm_data         => knorm_data(k)        , -- out    slv(c_DFLD_KNORM_PIX_S-1 downto 0)        ; --! SQUID MUX feedback value in open loop: data read
+
+         i_mem_smlkv          => mem_smlkv(k)         , -- in     t_mem                                     ; --! SQUID MUX feedback value in open loop: memory inputs
+         o_smlkv_data         => smlkv_data(k)        , -- out    slv(c_DFLD_SMLKV_PIX_S-1 downto 0)        ; --! SQUID MUX feedback value in open loop: data read
+
+         i_init_fbk_pixel_pos => init_fbk_pixel_pos(k), -- in     slv(c_MUX_FACT_S-1 downto 0)              ; --! Initialization feedback chain accumulators Pixel position
+         i_init_fbk_acc       => init_fbk_acc(k)      , -- in     std_logic                                 ; --! Initialization feedback chain accumulators ('0' = Inactive, '1' = Active)
+
          i_sqm_data_err       => sqm_data_err(k)      , -- in     slv(c_SQM_DATA_ERR_S-1 downto 0)          ; --! SQUID MUX Data error
          i_sqm_data_err_frst  => sqm_data_err_frst(k) , -- in     std_logic                                 ; --! SQUID MUX Data error first pixel ('0' = No, '1' = Yes)
          i_sqm_data_err_last  => sqm_data_err_last(k) , -- in     std_logic                                 ; --! SQUID MUX Data error last pixel ('0' = No, '1' = Yes)
@@ -455,11 +508,14 @@ begin
          o_smfb0_data         => smfb0_data(k)        , -- out    slv(c_DFLD_SMFB0_PIX_S-1 downto 0)        ; --! SQUID MUX feedback value in open loop: data read
 
          i_smfmd              => smfmd(k)             , -- in     slv(c_DFLD_SMFMD_COL_S-1 downto 0)        ; --! SQUID MUX feedback mode
-         i_smfbd              => smfbd(k)             , -- in     slv(c_DFLD_SMFBD_COL_S  -1 downto 0)      ; --! SQUID MUX feedback delay
+         i_smfbd              => smfbd(k)             , -- in     slv(c_DFLD_SMFBD_COL_S-1 downto 0)        ; --! SQUID MUX feedback delay
          i_mem_smfbm          => mem_smfbm(k)         , -- in     t_mem                                     ; --! SQUID MUX feedback mode: memory inputs
          o_smfbm_data         => smfbm_data(k)        , -- out    slv(c_DFLD_SMFBM_PIX_S-1 downto 0)        ; --! SQUID MUX feedback mode: data read
 
-         o_sqm_data_fbk       => sqm_data_fbk(k)        -- out    slv( c_SQM_DATA_FBK_S-1 downto 0)           --! SQUID MUX Data feedback (signed)
+         o_sqm_data_fbk       => sqm_data_fbk(k)      , -- out    slv( c_SQM_DATA_FBK_S-1 downto 0)         ; --! SQUID MUX Data feedback (signed)
+
+         o_init_fbk_pixel_pos => init_fbk_pixel_pos(k), -- out    slv(c_MUX_FACT_S-1 downto 0)              ; --! Initialization feedback chain accumulators Pixel position
+         o_init_fbk_acc       => init_fbk_acc(k)        -- out    std_logic                                   --! Initialization feedback chain accumulators ('0' = Inactive, '1' = Active)
       );
 
       I_sqm_dac_mgt: entity work.sqm_dac_mgt port map

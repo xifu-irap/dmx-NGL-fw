@@ -27,6 +27,7 @@
 library ieee;
 use     ieee.std_logic_1164.all;
 use     ieee.numeric_std.all;
+use     ieee.math_real.all;
 
 library work;
 use     work.pkg_type.all;
@@ -72,8 +73,12 @@ constant c_EP_CMD_POS_BXLGT   : integer   := c_EP_CMD_POS_SAOFM   + 1           
 constant c_EP_CMD_POS_STATUS  : integer   := c_EP_CMD_POS_BXLGT   + 1                                       ; --! EP command: Position, Status
 constant c_EP_CMD_POS_FW_VER  : integer   := c_EP_CMD_POS_STATUS  + 1                                       ; --! EP command: Position, Firmware Version
 constant c_EP_CMD_POS_HW_VER  : integer   := c_EP_CMD_POS_FW_VER  + 1                                       ; --! EP command: Position, Hardware Version
-constant c_EP_CMD_POS_SMFB0   : integer   := c_EP_CMD_POS_HW_VER  + 1                                       ; --! EP command: Position, CY_MUX_SQ_FB0
-constant c_EP_CMD_POS_SMFBM   : integer   := c_EP_CMD_POS_SMFB0   + 1                                       ; --! EP command: Position, CY_MUX_SQ_FB_MODE
+constant c_EP_CMD_POS_PARMA   : integer   := c_EP_CMD_POS_HW_VER  + 1                                       ; --! EP command: Position, CY_A
+constant c_EP_CMD_POS_KIKNM   : integer   := c_EP_CMD_POS_PARMA   + 1                                       ; --! EP command: Position, CY_KI_KNORM
+constant c_EP_CMD_POS_KNORM   : integer   := c_EP_CMD_POS_KIKNM   + 1                                       ; --! EP command: Position, CY_KNORM
+constant c_EP_CMD_POS_SMFB0   : integer   := c_EP_CMD_POS_KNORM   + 1                                       ; --! EP command: Position, CY_MUX_SQ_FB0
+constant c_EP_CMD_POS_SMLKV   : integer   := c_EP_CMD_POS_SMFB0   + 1                                       ; --! EP command: Position, CY_MUX_SQ_LOCKPOINT_V
+constant c_EP_CMD_POS_SMFBM   : integer   := c_EP_CMD_POS_SMLKV   + 1                                       ; --! EP command: Position, CY_MUX_SQ_FB_MODE
 constant c_EP_CMD_POS_SAOFF   : integer   := c_EP_CMD_POS_SMFBM   + 1                                       ; --! EP command: Position, CY_AMP_SQ_OFFSET_FINE
 constant c_EP_CMD_POS_SAOFC   : integer   := c_EP_CMD_POS_SAOFF   + 1                                       ; --! EP command: Position, CY_AMP_SQ_OFFSET_COARSE
 constant c_EP_CMD_POS_SAOFL   : integer   := c_EP_CMD_POS_SAOFC   + 1                                       ; --! EP command: Position, CY_AMP_SQ_OFFSET_LSB
@@ -98,14 +103,22 @@ constant c_EP_CMD_ADD_COLPOSH : integer   := c_EP_CMD_ADD_COLPOSL + log2_ceil(c_
 constant c_EP_CMD_ADD_AQMDE   : std_logic_vector(c_EP_SPI_WD_S-1 downto 0):= x"4000"                        ; --! EP command: Address, DATA_ACQ_MODE
 constant c_EP_CMD_ADD_SMFMD   : std_logic_vector(c_EP_SPI_WD_S-1 downto 0):= x"4001"                        ; --! EP command: Address, SQ_MUX_FB_ON_OFF
 constant c_EP_CMD_ADD_SAOFM   : std_logic_vector(c_EP_SPI_WD_S-1 downto 0):= x"4002"                        ; --! EP command: Address, SQ_AMP_OFFSET_MODE
-constant c_EP_CMD_ADD_BXLGT   : std_logic_vector(c_EP_SPI_WD_S-1 downto 0):= x"4003"                        ; --! EP command: Address, BOXCAR_LENGTH
+constant c_EP_CMD_ADD_BXLGT   : std_logic_vector(c_EP_SPI_WD_S-1 downto 0):= x"4200"                        ; --! EP command: Address, BOXCAR_LENGTH
 
 constant c_EP_CMD_ADD_STATUS  : std_logic_vector(c_EP_SPI_WD_S-1 downto 0):= x"6000"                        ; --! EP command: Address, Status
 constant c_EP_CMD_ADD_FW_VER  : std_logic_vector(c_EP_SPI_WD_S-1 downto 0):= x"6001"                        ; --! EP command: Address, Firmware Version
 constant c_EP_CMD_ADD_HW_VER  : std_logic_vector(c_EP_SPI_WD_S-1 downto 0):= x"6002"                        ; --! EP command: Address, Hardware Version
 
+constant c_EP_CMD_ADD_PARMA   : t_slv_arr(0 to c_NB_COL-1)(c_EP_SPI_WD_S-1 downto 0) :=
+                                 (x"0000", x"1000", x"2000", x"3000")                                       ; --! EP command: Address basis, CY_A
+constant c_EP_CMD_ADD_KIKNM   : t_slv_arr(0 to c_NB_COL-1)(c_EP_SPI_WD_S-1 downto 0) :=
+                                 (x"0022", x"1022", x"2022", x"3022")                                       ; --! EP command: Address basis, CY_KI_KNORM
+constant c_EP_CMD_ADD_KNORM   : t_slv_arr(0 to c_NB_COL-1)(c_EP_SPI_WD_S-1 downto 0) :=
+                                 (x"0100", x"1100", x"2100", x"3100")                                       ; --! EP command: Address basis, CY_KNORM
 constant c_EP_CMD_ADD_SMFB0   : t_slv_arr(0 to c_NB_COL-1)(c_EP_SPI_WD_S-1 downto 0) :=
                                  (x"0200", x"1200", x"2200", x"3200")                                       ; --! EP command: Address basis, CY_MUX_SQ_FB0
+constant c_EP_CMD_ADD_SMLKV   : t_slv_arr(0 to c_NB_COL-1)(c_EP_SPI_WD_S-1 downto 0) :=
+                                 (x"0222", x"1222", x"2222", x"3222")                                       ; --! EP command: Address basis, CY_MUX_SQ_LOCKPOINT_V
 constant c_EP_CMD_ADD_SMFBM   : t_slv_arr(0 to c_NB_COL-1)(c_EP_SPI_WD_S-1 downto 0) :=
                                  (x"0300", x"1300", x"2300", x"3300")                                       ; --! EP command: Address basis, CY_MUX_SQ_FB_MODE
 constant c_EP_CMD_ADD_SAOFF   : t_slv_arr(0 to c_NB_COL-1)(c_EP_SPI_WD_S-1 downto 0) :=
@@ -130,8 +143,20 @@ constant c_EP_CMD_ADD_PLSSS   : t_slv_arr(0 to c_NB_COL-1)(c_EP_SPI_WD_S-1 downt
    -- ------------------------------------------------------------------------------------------------------
    --    EP command: Table and Memory Address size
    -- ------------------------------------------------------------------------------------------------------
+constant c_TAB_PARMA_NW       : integer   := c_MUX_FACT                                                     ; --! Table number word, CY_A
+constant c_MEM_PARMA_ADD_S    : integer   := log2_ceil(c_TAB_PARMA_NW)                                      ; --! Address size memory without ping-pong buffer bit, CY_A
+
+constant c_TAB_KIKNM_NW       : integer   := c_MUX_FACT                                                     ; --! Table number word, CY_KI_KNORM
+constant c_MEM_KIKNM_ADD_S    : integer   := log2_ceil(c_TAB_KIKNM_NW)                                      ; --! Address size memory without ping-pong buffer bit, CY_KI_KNORM
+
+constant c_TAB_KNORM_NW       : integer   := c_MUX_FACT                                                     ; --! Table number word, CY_KNORM
+constant c_MEM_KNORM_ADD_S    : integer   := log2_ceil(c_TAB_KNORM_NW)                                      ; --! Address size memory without ping-pong buffer bit, CY_KNORM
+
 constant c_TAB_SMFB0_NW       : integer   := c_MUX_FACT                                                     ; --! Table number word, CY_MUX_SQ_FB0
 constant c_MEM_SMFB0_ADD_S    : integer   := log2_ceil(c_TAB_SMFB0_NW)                                      ; --! Address size memory without ping-pong buffer bit, CY_MUX_SQ_FB0
+
+constant c_TAB_SMLKV_NW       : integer   := c_MUX_FACT                                                     ; --! Table number word, CY_MUX_SQ_LOCKPOINT_V
+constant c_MEM_SMLKV_ADD_S    : integer   := log2_ceil(c_TAB_SMLKV_NW)                                      ; --! Address size memory without ping-pong buffer bit, CY_MUX_SQ_LOCKPOINT_V
 
 constant c_TAB_SMFBM_NW       : integer   := c_MUX_FACT                                                     ; --! Table number word, CY_MUX_SQ_FB_MODE
 constant c_MEM_SMFBM_ADD_S    : integer   := log2_ceil(c_TAB_SMFBM_NW)                                      ; --! Address size memory without ping-pong buffer bit, CY_MUX_SQ_FB_MODE
@@ -156,7 +181,11 @@ constant c_EP_CMD_AUTH_STATUS : std_logic := c_EP_CMD_ERR_SET                   
 constant c_EP_CMD_AUTH_FW_VER : std_logic := c_EP_CMD_ERR_SET                                               ; --! EP command: Authorization, Firmware Version
 constant c_EP_CMD_AUTH_HW_VER : std_logic := c_EP_CMD_ERR_SET                                               ; --! EP command: Authorization, Hardware Version
 
+constant c_EP_CMD_AUTH_PARMA  : std_logic := c_EP_CMD_ERR_CLR                                               ; --! EP command: Authorization, CY_A
+constant c_EP_CMD_AUTH_KIKNM  : std_logic := c_EP_CMD_ERR_CLR                                               ; --! EP command: Authorization, CY_KI_KNORM
+constant c_EP_CMD_AUTH_KNORM  : std_logic := c_EP_CMD_ERR_CLR                                               ; --! EP command: Authorization, CY_KNORM
 constant c_EP_CMD_AUTH_SMFB0  : std_logic := c_EP_CMD_ERR_CLR                                               ; --! EP command: Authorization, CY_MUX_SQ_FB0
+constant c_EP_CMD_AUTH_SMLKV  : std_logic := c_EP_CMD_ERR_CLR                                               ; --! EP command: Authorization, CY_MUX_SQ_LOCKPOINT_V
 constant c_EP_CMD_AUTH_SMFBM  : std_logic := c_EP_CMD_ERR_CLR                                               ; --! EP command: Authorization, CY_MUX_SQ_FB_MODE
 constant c_EP_CMD_AUTH_SAOFF  : std_logic := c_EP_CMD_ERR_CLR                                               ; --! EP command: Authorization, CY_AMP_SQ_OFFSET_FINE
 constant c_EP_CMD_AUTH_SAOFC  : std_logic := c_EP_CMD_ERR_CLR                                               ; --! EP command: Authorization, CY_AMP_SQ_OFFSET_COARSE
@@ -175,7 +204,11 @@ constant c_DFLD_AQMDE_S       : integer   :=  3                                 
 constant c_DFLD_SMFMD_COL_S   : integer   :=  1                                                             ; --! EP command: Data field, SQ_MUX_FB_ON_OFF mode bus size
 constant c_DFLD_SAOFM_COL_S   : integer   :=  2                                                             ; --! EP command: Data field, SQ_AMP_OFFSET_MODE bus size
 constant c_DFLD_BXLGT_COL_S   : integer   :=  c_ADC_SMP_AVE_ADD_S                                           ; --! EP command: Data field, BOXCAR_LENGTH bus size
+constant c_DFLD_PARMA_PIX_S   : integer   :=  c_EP_SPI_WD_S                                                 ; --! EP command: Data field, CY_A bus size
+constant c_DFLD_KIKNM_PIX_S   : integer   :=  c_EP_SPI_WD_S                                                 ; --! EP command: Data field, CY_KI_KNORM bus size
+constant c_DFLD_KNORM_PIX_S   : integer   :=  c_EP_SPI_WD_S                                                 ; --! EP command: Data field, CY_KNORM bus size
 constant c_DFLD_SMFB0_PIX_S   : integer   :=  c_EP_SPI_WD_S                                                 ; --! EP command: Data field, CY_MUX_SQ_FB0 bus size
+constant c_DFLD_SMLKV_PIX_S   : integer   :=  c_EP_SPI_WD_S                                                 ; --! EP command: Data field, CY_MUX_SQ_LOCKPOINT_V bus size
 constant c_DFLD_SMFBM_PIX_S   : integer   :=  2                                                             ; --! EP command: Data field, CY_MUX_SQ_FB_MODE bus size
 constant c_DFLD_SAOFF_PIX_S   : integer   :=  c_SQA_DAC_MUX_S                                               ; --! EP command: Data field, CY_AMP_SQ_OFFSET_FINE bus size
 constant c_DFLD_SAOFC_COL_S   : integer   :=  c_SQA_DAC_DATA_S                                              ; --! EP command: Data field, CY_AMP_SQ_OFFSET_COARSE bus size
@@ -219,6 +252,59 @@ constant c_DST_SQADAC_PD100K  : std_logic_vector(c_SQA_DAC_MODE_S-1 downto 0):= 
 constant c_DST_SQADAC_PDZ     : std_logic_vector(c_SQA_DAC_MODE_S-1 downto 0):= "11"                        ; --! EP command: Data state, SQUID AMP DACs mode "Power down High Z"
 
    -- ------------------------------------------------------------------------------------------------------
+   --!   Calculus chain parameters
+   -- ------------------------------------------------------------------------------------------------------
+constant c_A_P_FRC_S          : integer := c_DFLD_PARMA_PIX_S                                               ; --! a(p) fractional part bus size
+constant c_ELP_P_FRC_S        : integer := c_DFLD_SMLKV_PIX_S - c_SQM_ADC_DATA_S                            ; --! Elp(p) fractional part bus size
+constant c_KI_KNORM_P_FRC_S   : integer := c_DFLD_KIKNM_PIX_S                                               ; --! ki(p)*knorm(p) fractional part bus size
+constant c_KNORM_P_FRC_S      : integer := 18                                                               ; --! knorm(p) fractional part bus size
+
+constant c_ADC_SMP_AVE_TOT_S  : integer := c_SQM_ADC_DATA_S + c_ASP_CF_S - 1                                ; --! ADC sample average: DSP Result total size
+constant c_ADC_SMP_AVE_SAT    : integer := c_ADC_SMP_AVE_TOT_S - 1                                          ; --! ADC sample average: saturation (unsigned)
+constant c_ADC_SMP_AVE_S      : integer := c_MULT_ALU_PORTA_S - 1                                           ; --! ADC sample average: bus size
+constant c_ADC_SMP_AVE_C_S    : integer := c_ADC_SMP_AVE_S + 1                                              ; --! ADC sample average: with carry bus size
+constant c_ADC_SMP_AVE_FRC_S  : integer := c_ADC_SMP_AVE_S - c_SQM_ADC_DATA_S                               ; --! ADC sample average: fractional part bus size
+constant c_ADC_SMP_AVE_LSB    : integer := c_ADC_SMP_AVE_SAT + 1 - c_ADC_SMP_AVE_C_S                        ; --! ADC sample average: DSP Result LSB position
+
+constant c_DFB_PN_PRM_CTRL    : integer := 4                                                                ; --! dFB(p,n) Adder and accumulator input, control parameter
+
+constant c_DFB_PN_INIT_VAL    : integer := 0                                                                ; --! dFB(p,n): initialization value
+constant c_DFB_PN_S           : integer := c_MULT_ALU_PORTA_S                                               ; --! dFB(p,n): bus size
+constant c_DFB_PN_DACC_S      : integer := c_DFB_PN_S - c_DFB_PN_PRM_CTRL                                   ; --! dFB(p,n): data to accumulate bus size
+constant c_DFB_PN_DACC_FRC_S  : integer := c_DFB_PN_DACC_S - c_SQM_ADC_DATA_S - 1                           ; --! dFB(p,n): data to accumulate fractional part bus size
+constant c_DFB_PN_FRC_S       : integer := c_DFB_PN_DACC_FRC_S                                              ; --! dFB(p,n): fractional part bus size
+
+constant c_PC1_PN_TOT_S       : integer := c_DFLD_PARMA_PIX_S + c_DFB_PN_S                                  ; --! PC1(p,n): DSP Result total bus size
+constant c_PC1_PN_TOT_FRC_S   : integer := c_A_P_FRC_S + c_DFB_PN_FRC_S                                     ; --! PC1(p,n): DSP Result total fractional part bus size
+constant c_PC1_PN_TOT_INT_S   : integer := minimum(c_SQM_ADC_DATA_S, c_PC1_PN_TOT_S - c_PC1_PN_TOT_FRC_S)   ; --! PC1(p,n): DSP Result total integer part bus size
+constant c_PC1_PN_SAT         : integer := c_PC1_PN_TOT_INT_S + c_PC1_PN_TOT_FRC_S - 1                      ; --! PC1(p,n): saturation
+constant c_PC1_PN_S           : integer := 2 * c_RFB_DATA_S                                                 ; --! PC1(p,n): bus size
+constant c_PC1_PN_C_S         : integer := c_PC1_PN_S + 1                                                   ; --! PC1(p,n): with carry bus size
+constant c_PC1_PN_FRC_S       : integer := c_PC1_PN_S - c_PC1_PN_TOT_INT_S                                  ; --! PC1(p,n): fractional part bus size
+constant c_PC1_PN_LSB         : integer := c_PC1_PN_SAT + 1 - c_PC1_PN_C_S                                  ; --! PC1(p,n): DSP Result LSB position
+
+constant c_M_PN_TOT_S         : integer := c_DFLD_KIKNM_PIX_S + c_ADC_SMP_AVE_S + 1                         ; --! M(p,n): DSP Result total bus size
+constant c_M_PN_TOT_FRC_S     : integer := c_KI_KNORM_P_FRC_S + c_ADC_SMP_AVE_FRC_S                         ; --! M(p,n): DSP Result total fractional part bus size
+constant c_M_PN_SAT           : integer := c_M_PN_TOT_S - 1                                                 ; --! M(p,n): saturation
+constant c_M_PN_S             : integer := c_PC1_PN_TOT_FRC_S + c_SQM_ADC_DATA_S + 1                        ; --! M(p,n): bus size
+constant c_M_PN_C_S           : integer := c_M_PN_S + 1                                                     ; --! M(p,n): with carry bus size
+constant c_M_PN_FRC_S         : integer := c_PC1_PN_TOT_FRC_S                                               ; --! M(p,n): fractional part bus size
+constant c_M_PN_LSB           : integer := c_M_PN_SAT + 1 - c_M_PN_C_S                                      ; --! M(p,n): DSP Result LSB position
+
+constant c_FB_PN_INIT_VAL     : integer := 0                                                                ; --! FB(p,n): initialization value
+constant c_FB_PN_S            : integer := c_PC1_PN_S                                                       ; --! FB(p,n): bus size
+constant c_FB_PN_FRC_S        : integer := c_FB_PN_S - c_SQM_ADC_DATA_S                                     ; --! FB(p,n): fractional part bus size
+
+constant c_NRM_PN_TOT_S       : integer := c_DFLD_KNORM_PIX_S + c_ADC_SMP_AVE_S + 1                         ; --! NRM(p,n): DSP Result total bus size
+constant c_NRM_PN_TOT_FRC_S   : integer := c_KNORM_P_FRC_S    + c_ADC_SMP_AVE_FRC_S                         ; --! NRM(p,n): DSP Result total fractional part bus size
+constant c_NRM_PN_TOT_INT_S   : integer := minimum(c_SQM_ADC_DATA_S, c_NRM_PN_TOT_S - c_NRM_PN_TOT_FRC_S)   ; --! NRM(p,n): DSP Result total integer part bus size
+constant c_NRM_PN_SAT         : integer := c_NRM_PN_TOT_INT_S + c_NRM_PN_TOT_FRC_S - 1                      ; --! NRM(p,n): saturation
+constant c_NRM_PN_S           : integer := c_FB_PN_S                                                        ; --! NRM(p,n): bus size
+constant c_NRM_PN_C_S         : integer := c_NRM_PN_S + 1                                                   ; --! NRM(p,n): with carry bus size
+constant c_NRM_PN_FRC_S       : integer := c_FB_PN_FRC_S                                                    ; --! NRM(p,n): fractional part bus size
+constant c_NRM_PN_LSB         : integer := c_SQM_ADC_DATA_S + c_NRM_PN_TOT_FRC_S - c_NRM_PN_C_S             ; --! NRM(p,n): DSP Result LSB position
+
+   -- ------------------------------------------------------------------------------------------------------
    --    EP command: Default value
    -- ------------------------------------------------------------------------------------------------------
 constant c_EP_CMD_DEF_AQMDE   : std_logic_vector(c_DFLD_AQMDE_S-1 downto 0)      := c_DST_AQMDE_IDLE        ; --! EP command: Default value, DATA_ACQ_MODE
@@ -228,7 +314,24 @@ constant c_EP_CMD_DEF_SAOFM   : std_logic_vector(c_DFLD_SAOFM_COL_S-1 downto 0) 
 constant c_EP_CMD_DEF_BXLGT   : std_logic_vector(c_DFLD_BXLGT_COL_S-1 downto 0)  :=
                                 std_logic_vector(to_unsigned(0, c_DFLD_BXLGT_COL_S))                        ; --! EP command: Default value, BOXCAR_LENGTH
 
+constant c_DEF_PARMA_RL       : real := 0.2                                                                 ; --! Default value in real, CY_A
+constant c_DEF_KI_RL          : real := 2.2                                                                 ; --! Default value in real, KI parameter
+constant c_DEF_KNORM_RL       : real := 0.1076438                                                           ; --! Default value in real, CY_KNORM
+constant c_DEF_KIKNM_RL       : real := c_DEF_KI_RL * c_DEF_KNORM_RL                                        ; --! Default value in real, CY_KI_KNORM
+
+constant c_EP_CMD_DEF_PARMA   : t_int_arr(0 to 2*c_TAB_PARMA_NW-1) :=
+                                (others => integer(round(c_DEF_PARMA_RL * real(2**c_A_P_FRC_S))))           ; --! EP command: Default value, CY_A memory with ping-pong buffer bit
+
+constant c_EP_CMD_DEF_KIKNM   : t_int_arr(0 to 2*c_TAB_KIKNM_NW-1) :=
+                                (others => integer(round(c_DEF_KIKNM_RL * real(2**c_KI_KNORM_P_FRC_S))))    ; --! EP command: Default value, CY_KI_KNORM memory with ping-pong buffer bit
+
+constant c_EP_CMD_DEF_KNORM   : t_int_arr(0 to 2*c_TAB_KNORM_NW-1) :=
+                                (others => integer(round(c_DEF_KNORM_RL * real(2**c_KNORM_P_FRC_S))))       ; --! EP command: Default value, CY_KNORM memory with ping-pong buffer bit
+
 constant c_EP_CMD_DEF_SMFB0   : t_int_arr(0 to 2*c_TAB_SMFB0_NW-1) := (others => 0)                         ; --! EP command: Default value, CY_MUX_SQ_FB0 memory with ping-pong buffer bit
+
+constant c_EP_CMD_DEF_SMLKV   : t_int_arr(0 to 2*c_TAB_SMLKV_NW-1) :=
+                                (others => to_integer(unsigned(c_I_SQM_ADC_DATA_DEF) * 2**c_ELP_P_FRC_S))   ; --! EP command: Default value, CY_MUX_SQ_LOCKPOINT_V memory with ping-pong buffer bit
 
 constant c_EP_CMD_DEF_SMFBM   : t_int_arr(0 to 2*c_TAB_SMFBM_NW-1) :=
                                 (others => to_integer(unsigned(c_DST_SMFBM_OPEN)))                          ; --! EP command: Default value, CY_MUX_SQ_FB_MODE memory with ping-pong buffer bit

@@ -69,10 +69,30 @@ entity register_mgt is port
          o_smpdl              : out    t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SMPDL_COL_S-1 downto 0)            ; --! ADC sample delay
          o_plsss              : out    t_slv_arr(0 to c_NB_COL-1)(c_DFLD_PLSSS_PLS_S-1 downto 0)            ; --! SQUID MUX feedback pulse shaping set
 
+         o_mem_parma          : out    t_mem_arr(0 to c_NB_COL-1)(
+                                       add(    c_MEM_PARMA_ADD_S-1 downto 0),
+                                       data_w(c_DFLD_PARMA_PIX_S-1 downto 0))                               ; --! SQUID MUX feedback value in open loop: memory inputs
+         i_parma_data         : in     t_slv_arr(0 to c_NB_COL-1)(c_DFLD_PARMA_PIX_S-1 downto 0)            ; --! SQUID MUX feedback value in open loop: data read
+
+         o_mem_kiknm          : out    t_mem_arr(0 to c_NB_COL-1)(
+                                       add(    c_MEM_KIKNM_ADD_S-1 downto 0),
+                                       data_w(c_DFLD_KIKNM_PIX_S-1 downto 0))                               ; --! SQUID MUX feedback value in open loop: memory inputs
+         i_kiknm_data         : in     t_slv_arr(0 to c_NB_COL-1)(c_DFLD_KIKNM_PIX_S-1 downto 0)            ; --! SQUID MUX feedback value in open loop: data read
+
+         o_mem_knorm          : out    t_mem_arr(0 to c_NB_COL-1)(
+                                       add(    c_MEM_KNORM_ADD_S-1 downto 0),
+                                       data_w(c_DFLD_KNORM_PIX_S-1 downto 0))                               ; --! SQUID MUX feedback value in open loop: memory inputs
+         i_knorm_data         : in     t_slv_arr(0 to c_NB_COL-1)(c_DFLD_KNORM_PIX_S-1 downto 0)            ; --! SQUID MUX feedback value in open loop: data read
+
          o_mem_smfb0          : out    t_mem_arr(0 to c_NB_COL-1)(
                                        add(    c_MEM_SMFB0_ADD_S-1 downto 0),
                                        data_w(c_DFLD_SMFB0_PIX_S-1 downto 0))                               ; --! SQUID MUX feedback value in open loop: memory inputs
          i_smfb0_data         : in     t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SMFB0_PIX_S-1 downto 0)            ; --! SQUID MUX feedback value in open loop: data read
+
+         o_mem_smlkv          : out    t_mem_arr(0 to c_NB_COL-1)(
+                                       add(    c_MEM_SMLKV_ADD_S-1 downto 0),
+                                       data_w(c_DFLD_SMLKV_PIX_S-1 downto 0))                               ; --! SQUID MUX feedback value in open loop: memory inputs
+         i_smlkv_data         : in     t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SMLKV_PIX_S-1 downto 0)            ; --! SQUID MUX feedback value in open loop: data read
 
          o_mem_smfbm          : out    t_mem_arr(0 to c_NB_COL-1)(
                                        add(    c_MEM_SMFBM_ADD_S-1 downto 0),
@@ -113,7 +133,14 @@ signal   rg_saomd             : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SAOMD_COL_S-1 
 signal   rg_smpdl             : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SMPDL_COL_S-1 downto 0)                   ; --! EP register: CY_SAMPLING_DELAY
 signal   rg_plsss             : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_PLSSS_PLS_S-1 downto 0)                   ; --! EP register: CY_FB1_PULSE_SHAPING_SELECTION
 
+signal   kiknm_add            : std_logic_vector(c_MEM_KIKNM_ADD_S-1 downto 0)                              ; --! Address memory: CY_KI_KNORM
+signal   smlkv_add            : std_logic_vector(c_MEM_SMLKV_ADD_S-1 downto 0)                              ; --! Address memory: CY_MUX_SQ_LOCKPOINT_V
+
+signal   parma_cs             : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! Chip select data read ('0'=Inactive, '1'=Active): CY_A
+signal   kiknm_cs             : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! Chip select data read ('0'=Inactive, '1'=Active): CY_KI_KNORM
+signal   knorm_cs             : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! Chip select data read ('0'=Inactive, '1'=Active): CY_KNORM
 signal   smfb0_cs             : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! Chip select data read ('0'=Inactive, '1'=Active): CY_MUX_SQ_FB0
+signal   smlkv_cs             : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! Chip select data read ('0'=Inactive, '1'=Active): CY_MUX_SQ_LOCKPOINT_V
 signal   smfbm_cs             : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! Chip select data read ('0'=Inactive, '1'=Active): CY_MUX_SQ_FB_MODE
 signal   saoff_cs             : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! Chip select data read ('0'=Inactive, '1'=Active): CY_AMP_SQ_OFFSET_FINE
 signal   saofl_cs             : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! Chip select data read ('0'=Inactive, '1'=Active): CY_AMP_SQ_OFFSET_LSB
@@ -167,11 +194,31 @@ begin
    cs_rg(c_EP_CMD_POS_FW_VER) <= '1' when  ep_cmd_rx_wd_add_r = c_EP_CMD_ADD_FW_VER else '0';
    cs_rg(c_EP_CMD_POS_HW_VER) <= '1' when  ep_cmd_rx_wd_add_r = c_EP_CMD_ADD_HW_VER else '0';
 
+   cs_rg(c_EP_CMD_POS_PARMA)  <= '1' when
+      (ep_cmd_rx_wd_add_r(ep_cmd_rx_wd_add_r'high downto c_EP_CMD_ADD_COLPOSH+1) = c_EP_CMD_ADD_PARMA(0)(ep_cmd_rx_wd_add_r'high downto c_EP_CMD_ADD_COLPOSH+1) and
+       ep_cmd_rx_wd_add_r(c_EP_CMD_ADD_COLPOSL-1  downto c_MEM_PARMA_ADD_S)      = c_EP_CMD_ADD_PARMA(0)(c_EP_CMD_ADD_COLPOSL-1  downto c_MEM_PARMA_ADD_S)      and
+       ep_cmd_rx_wd_add_r(   c_MEM_PARMA_ADD_S-1  downto 0)                      < std_logic_vector(to_unsigned(c_TAB_PARMA_NW, c_MEM_PARMA_ADD_S)))            else '0';
+
+   cs_rg(c_EP_CMD_POS_KIKNM)  <= '1' when
+      (ep_cmd_rx_wd_add_r(ep_cmd_rx_wd_add_r'high downto c_EP_CMD_ADD_COLPOSH+1) = c_EP_CMD_ADD_KIKNM(0)(ep_cmd_rx_wd_add_r'high downto c_EP_CMD_ADD_COLPOSH+1) and
+       ep_cmd_rx_wd_add_r(c_EP_CMD_ADD_COLPOSL-1  downto 0)                     >= c_EP_CMD_ADD_KIKNM(0)(c_EP_CMD_ADD_COLPOSL-1  downto 0)                      and
+       ep_cmd_rx_wd_add_r(c_EP_CMD_ADD_COLPOSL-1  downto 0)                      < std_logic_vector(unsigned(c_EP_CMD_ADD_KIKNM(0)(c_EP_CMD_ADD_COLPOSL-1 downto 0))
+                                                                                               + to_unsigned(c_TAB_KIKNM_NW, c_EP_CMD_ADD_COLPOSL)))            else '0';
+   cs_rg(c_EP_CMD_POS_KNORM)  <= '1' when
+      (ep_cmd_rx_wd_add_r(ep_cmd_rx_wd_add_r'high downto c_EP_CMD_ADD_COLPOSH+1) = c_EP_CMD_ADD_KNORM(0)(ep_cmd_rx_wd_add_r'high downto c_EP_CMD_ADD_COLPOSH+1) and
+       ep_cmd_rx_wd_add_r(c_EP_CMD_ADD_COLPOSL-1  downto c_MEM_KNORM_ADD_S)      = c_EP_CMD_ADD_KNORM(0)(c_EP_CMD_ADD_COLPOSL-1  downto c_MEM_KNORM_ADD_S)      and
+       ep_cmd_rx_wd_add_r(   c_MEM_KNORM_ADD_S-1  downto 0)                      < std_logic_vector(to_unsigned(c_TAB_KNORM_NW, c_MEM_KNORM_ADD_S)))            else '0';
+
    cs_rg(c_EP_CMD_POS_SMFB0)  <= '1' when
       (ep_cmd_rx_wd_add_r(ep_cmd_rx_wd_add_r'high downto c_EP_CMD_ADD_COLPOSH+1) = c_EP_CMD_ADD_SMFB0(0)(ep_cmd_rx_wd_add_r'high downto c_EP_CMD_ADD_COLPOSH+1) and
        ep_cmd_rx_wd_add_r(c_EP_CMD_ADD_COLPOSL-1  downto c_MEM_SMFB0_ADD_S)      = c_EP_CMD_ADD_SMFB0(0)(c_EP_CMD_ADD_COLPOSL-1  downto c_MEM_SMFB0_ADD_S)      and
        ep_cmd_rx_wd_add_r(   c_MEM_SMFB0_ADD_S-1  downto 0)                      < std_logic_vector(to_unsigned(c_TAB_SMFB0_NW, c_MEM_SMFB0_ADD_S)))            else '0';
 
+   cs_rg(c_EP_CMD_POS_SMLKV)  <= '1' when
+      (ep_cmd_rx_wd_add_r(ep_cmd_rx_wd_add_r'high downto c_EP_CMD_ADD_COLPOSH+1) = c_EP_CMD_ADD_SMLKV(0)(ep_cmd_rx_wd_add_r'high downto c_EP_CMD_ADD_COLPOSH+1) and
+       ep_cmd_rx_wd_add_r(c_EP_CMD_ADD_COLPOSL-1  downto 0)                     >= c_EP_CMD_ADD_SMLKV(0)(c_EP_CMD_ADD_COLPOSL-1  downto 0)                      and
+       ep_cmd_rx_wd_add_r(c_EP_CMD_ADD_COLPOSL-1  downto 0)                      < std_logic_vector(unsigned(c_EP_CMD_ADD_SMLKV(0)(c_EP_CMD_ADD_COLPOSL-1 downto 0))
+                                                                                               + to_unsigned(c_TAB_SMLKV_NW, c_EP_CMD_ADD_COLPOSL)))            else '0';
    cs_rg(c_EP_CMD_POS_SMFBM)  <= '1' when
       (ep_cmd_rx_wd_add_r(ep_cmd_rx_wd_add_r'high downto c_EP_CMD_ADD_COLPOSH+1) = c_EP_CMD_ADD_SMFBM(0)(ep_cmd_rx_wd_add_r'high downto c_EP_CMD_ADD_COLPOSH+1) and
        ep_cmd_rx_wd_add_r(c_EP_CMD_ADD_COLPOSL-1  downto c_MEM_SMFBM_ADD_S)      = c_EP_CMD_ADD_SMFBM(0)(c_EP_CMD_ADD_COLPOSL-1  downto c_MEM_SMFBM_ADD_S)      and
@@ -386,6 +433,75 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   Memories inputs generation
    -- ------------------------------------------------------------------------------------------------------
+   -- @Req : REG_CY_A
+   -- @Req : DRE-DMX-FW-REQ-0180
+   I_mem_parma: entity work.mem_in_gen generic map
+   (     g_MEM_ADD_S          => c_MEM_PARMA_ADD_S    , -- integer                                          ; --! Memory address size
+         g_MEM_DATA_S         => c_DFLD_PARMA_PIX_S   , -- integer                                          ; --! Memory data size
+         g_MEM_ADD_END        => c_TAB_PARMA_NW-1       -- integer                                            --! Memory address end
+   ) port map
+   (     i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+         i_clk                => i_clk                , -- in     std_logic                                 ; --! System Clock
+
+         i_col_nb             => col_nb               , -- in     slv(log2_ceil(c_NB_COL)-1 downto 0)       ; --! Column number
+         i_ep_cmd_rx_wd_add_r => ep_cmd_rx_wd_add_r(  c_MEM_PARMA_ADD_S-1 downto 0), -- in slv g_MEM_ADD_S  ; --! EP command receipted: address word, read/write bit cleared, registered
+         i_ep_cmd_rx_wd_dta_r => ep_cmd_rx_wd_data_r(c_DFLD_PARMA_PIX_S-1 downto 0), -- in slv g_MEM_DATA_S ; --! EP command receipted: data word, registered
+         i_ep_cmd_rx_rw_r     => ep_cmd_rx_rw_r       , -- in     std_logic                                 ; --! EP command receipted: read/write bit, registered
+         i_ep_cmd_rx_ner_ry_r => ep_cmd_rx_nerr_rdy_r , -- in     std_logic                                 ; --! EP command receipted with no error ready, registered ('0'= Not ready, '1'= Ready)
+
+         i_cs_rg              => cs_rg_r(c_EP_CMD_POS_PARMA), --  std_logic                                 ; --! Chip select register ('0' = Inactive, '1' = Active)
+
+         o_mem_in             => o_mem_parma          , -- out    t_mem_arr(0 to c_NB_COL-1)                ; --! Memory inputs
+         o_cs_data_rd         => parma_cs               -- out    std_logic_vector(c_NB_COL-1 downto 0)       --! Chip select data read ('0' = Inactive, '1' = Active)
+   );
+
+   kiknm_add <= std_logic_vector(signed(ep_cmd_rx_wd_add_r(   kiknm_add'high downto 0)) -
+                                 signed(c_EP_CMD_ADD_KIKNM(0)(kiknm_add'high downto 0)));
+
+   -- @Req : REG_CY_KI_KNORM
+   -- @Req : DRE-DMX-FW-REQ-0170
+   I_mem_kiknm: entity work.mem_in_gen generic map
+   (     g_MEM_ADD_S          => c_MEM_KIKNM_ADD_S    , -- integer                                          ; --! Memory address size
+         g_MEM_DATA_S         => c_DFLD_KIKNM_PIX_S   , -- integer                                          ; --! Memory data size
+         g_MEM_ADD_END        => c_TAB_KIKNM_NW-1       -- integer                                            --! Memory address end
+   ) port map
+   (     i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+         i_clk                => i_clk                , -- in     std_logic                                 ; --! System Clock
+
+         i_col_nb             => col_nb               , -- in     slv(log2_ceil(c_NB_COL)-1 downto 0)       ; --! Column number
+         i_ep_cmd_rx_wd_add_r => kiknm_add            , -- in     slv g_MEM_ADD_S                           ; --! EP command receipted: address word, read/write bit cleared, registered
+         i_ep_cmd_rx_wd_dta_r => ep_cmd_rx_wd_data_r(c_DFLD_KIKNM_PIX_S-1 downto 0), -- in slv g_MEM_DATA_S ; --! EP command receipted: data word, registered
+         i_ep_cmd_rx_rw_r     => ep_cmd_rx_rw_r       , -- in     std_logic                                 ; --! EP command receipted: read/write bit, registered
+         i_ep_cmd_rx_ner_ry_r => ep_cmd_rx_nerr_rdy_r , -- in     std_logic                                 ; --! EP command receipted with no error ready, registered ('0'= Not ready, '1'= Ready)
+
+         i_cs_rg              => cs_rg_r(c_EP_CMD_POS_KIKNM), --  std_logic                                 ; --! Chip select register ('0' = Inactive, '1' = Active)
+
+         o_mem_in             => o_mem_kiknm          , -- out    t_mem_arr(0 to c_NB_COL-1)                ; --! Memory inputs
+         o_cs_data_rd         => kiknm_cs               -- out    std_logic_vector(c_NB_COL-1 downto 0)       --! Chip select data read ('0' = Inactive, '1' = Active)
+   );
+
+   -- @Req : REG_CY_KNORM
+   -- @Req : DRE-DMX-FW-REQ-0185
+   I_mem_knorm: entity work.mem_in_gen generic map
+   (     g_MEM_ADD_S          => c_MEM_KNORM_ADD_S    , -- integer                                          ; --! Memory address size
+         g_MEM_DATA_S         => c_DFLD_KNORM_PIX_S   , -- integer                                          ; --! Memory data size
+         g_MEM_ADD_END        => c_TAB_KNORM_NW-1       -- integer                                            --! Memory address end
+   ) port map
+   (     i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+         i_clk                => i_clk                , -- in     std_logic                                 ; --! System Clock
+
+         i_col_nb             => col_nb               , -- in     slv(log2_ceil(c_NB_COL)-1 downto 0)       ; --! Column number
+         i_ep_cmd_rx_wd_add_r => ep_cmd_rx_wd_add_r(  c_MEM_KNORM_ADD_S-1 downto 0), -- in slv g_MEM_ADD_S  ; --! EP command receipted: address word, read/write bit cleared, registered
+         i_ep_cmd_rx_wd_dta_r => ep_cmd_rx_wd_data_r(c_DFLD_KNORM_PIX_S-1 downto 0), -- in slv g_MEM_DATA_S ; --! EP command receipted: data word, registered
+         i_ep_cmd_rx_rw_r     => ep_cmd_rx_rw_r       , -- in     std_logic                                 ; --! EP command receipted: read/write bit, registered
+         i_ep_cmd_rx_ner_ry_r => ep_cmd_rx_nerr_rdy_r , -- in     std_logic                                 ; --! EP command receipted with no error ready, registered ('0'= Not ready, '1'= Ready)
+
+         i_cs_rg              => cs_rg_r(c_EP_CMD_POS_KNORM), --  std_logic                                 ; --! Chip select register ('0' = Inactive, '1' = Active)
+
+         o_mem_in             => o_mem_knorm          , -- out    t_mem_arr(0 to c_NB_COL-1)                ; --! Memory inputs
+         o_cs_data_rd         => knorm_cs               -- out    std_logic_vector(c_NB_COL-1 downto 0)       --! Chip select data read ('0' = Inactive, '1' = Active)
+   );
+
    -- @Req : REG_CY_MUX_SQ_FB0
    -- @Req : DRE-DMX-FW-REQ-0200
    I_mem_smfb0: entity work.mem_in_gen generic map
@@ -406,6 +522,31 @@ begin
 
          o_mem_in             => o_mem_smfb0          , -- out    t_mem_arr(0 to c_NB_COL-1)                ; --! Memory inputs
          o_cs_data_rd         => smfb0_cs               -- out    std_logic_vector(c_NB_COL-1 downto 0)       --! Chip select data read ('0' = Inactive, '1' = Active)
+   );
+
+   smlkv_add <= std_logic_vector(signed(ep_cmd_rx_wd_add_r(   smlkv_add'high downto 0)) -
+                                 signed(c_EP_CMD_ADD_SMLKV(0)(smlkv_add'high downto 0)));
+
+   -- @Req : REG_CY_MUX_SQ_LOCKPOINT_V
+   -- @Req : DRE-DMX-FW-REQ-0190
+   I_mem_smlkv: entity work.mem_in_gen generic map
+   (     g_MEM_ADD_S          => c_MEM_SMLKV_ADD_S    , -- integer                                          ; --! Memory address size
+         g_MEM_DATA_S         => c_DFLD_SMLKV_PIX_S   , -- integer                                          ; --! Memory data size
+         g_MEM_ADD_END        => c_TAB_SMLKV_NW-1       -- integer                                            --! Memory address end
+   ) port map
+   (     i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+         i_clk                => i_clk                , -- in     std_logic                                 ; --! System Clock
+
+         i_col_nb             => col_nb               , -- in     slv(log2_ceil(c_NB_COL)-1 downto 0)       ; --! Column number
+         i_ep_cmd_rx_wd_add_r => smlkv_add            , -- in     slv g_MEM_ADD_S                           ; --! EP command receipted: address word, read/write bit cleared, registered
+         i_ep_cmd_rx_wd_dta_r => ep_cmd_rx_wd_data_r(c_DFLD_SMLKV_PIX_S-1 downto 0), -- in slv g_MEM_DATA_S ; --! EP command receipted: data word, registered
+         i_ep_cmd_rx_rw_r     => ep_cmd_rx_rw_r       , -- in     std_logic                                 ; --! EP command receipted: read/write bit, registered
+         i_ep_cmd_rx_ner_ry_r => ep_cmd_rx_nerr_rdy_r , -- in     std_logic                                 ; --! EP command receipted with no error ready, registered ('0'= Not ready, '1'= Ready)
+
+         i_cs_rg              => cs_rg_r(c_EP_CMD_POS_SMLKV), --  std_logic                                 ; --! Chip select register ('0' = Inactive, '1' = Active)
+
+         o_mem_in             => o_mem_smlkv          , -- out    t_mem_arr(0 to c_NB_COL-1)                ; --! Memory inputs
+         o_cs_data_rd         => smlkv_cs               -- out    std_logic_vector(c_NB_COL-1 downto 0)       --! Chip select data read ('0' = Inactive, '1' = Active)
    );
 
    -- @Req : REG_CY_MUX_SQ_FB_MODE
@@ -494,8 +635,20 @@ begin
          i_rg_bxlgt           => rg_bxlgt             , -- in     t_slv_arr c_NB_COL c_DFLD_BXLGT_COL_S     ; --! EP register: BOXCAR_LENGTH
          i_ep_cmd_sts_rg_r    => ep_cmd_sts_rg_r      , -- in     slv(c_EP_SPI_WD_S-1 downto 0)             ; --! EP command: Status register, registered
 
+         i_parma_data         => i_parma_data         , -- in     t_slv_arr c_NB_COL c_DFLD_PARMA_PIX_S     ; --! Data read: CY_A
+         i_parma_cs           => parma_cs             , -- in     std_logic_vector(c_NB_COL-1 downto 0)     ; --! Chip select data read ('0' = Inactive,'1'=Active): CY_A
+
+         i_kiknm_data         => i_kiknm_data         , -- in     t_slv_arr c_NB_COL c_DFLD_KIKNM_PIX_S     ; --! Data read: CY_KI_KNORM
+         i_kiknm_cs           => kiknm_cs             , -- in     std_logic_vector(c_NB_COL-1 downto 0)     ; --! Chip select data read ('0' = Inactive,'1'=Active): CY_KI_KNORM
+
+         i_knorm_data         => i_knorm_data         , -- in     t_slv_arr c_NB_COL c_DFLD_KNORM_PIX_S     ; --! Data read: CY_KNORM
+         i_knorm_cs           => knorm_cs             , -- in     std_logic_vector(c_NB_COL-1 downto 0)     ; --! Chip select data read ('0' = Inactive,'1'=Active): CY_KNORM
+
          i_smfb0_data         => i_smfb0_data         , -- in     t_slv_arr c_NB_COL c_DFLD_SMFB0_PIX_S     ; --! Data read: CY_MUX_SQ_FB0
          i_smfb0_cs           => smfb0_cs             , -- in     std_logic_vector(c_NB_COL-1 downto 0)     ; --! Chip select data read ('0' = Inactive,'1'=Active): CY_MUX_SQ_FB0
+
+         i_smlkv_data         => i_smlkv_data         , -- in     t_slv_arr c_NB_COL c_DFLD_SMLKV_PIX_S     ; --! Data read: CY_MUX_SQ_LOCKPOINT_V
+         i_smlkv_cs           => smlkv_cs             , -- in     std_logic_vector(c_NB_COL-1 downto 0)     ; --! Chip select data read ('0' = Inactive,'1'=Active): CY_MUX_SQ_LOCKPOINT_V
 
          i_smfbm_data         => i_smfbm_data         , -- in     t_slv_arr c_NB_COL c_DFLD_SMFBM_PIX_S     ; --! Data read: CY_MUX_SQ_FB_MODE
          i_smfbm_cs           => smfbm_cs             , -- in     std_logic_vector(c_NB_COL-1 downto 0)     ; --! Chip select data read ('0' = Inactive,'1'=Active): CY_MUX_SQ_FB_MODE

@@ -1,0 +1,1459 @@
+COMM **********************************************************************************************
+COMM   Test: EP command, CY_MUX_SQ_LOCKPOINT_V memory
+COMM **********************************************************************************************
+COMM
+COMM ==============================================================================================
+COMM   Asynchronous reset activated
+COMM ----------------------------------------------------------------------------------------------
+WDIS arst_n 0
+WAIT 80 ns
+COMM
+COMM ==============================================================================================
+COMM   Asynchronous reset deactivated
+COMM ----------------------------------------------------------------------------------------------
+WDIS arst_n 1
+COMM
+COMM ==============================================================================================
+COMM   Wait internal reset deactivated
+COMM ----------------------------------------------------------------------------------------------
+WUDI rst 0
+COMM
+COMM ==============================================================================================
+COMM   C0_MUX_SQ_LOCKPOINT_V: writing a new table in ping-pong memory
+COMM    and check reading of the memory part currently applicable is kept to its initial value
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-C0_MUX_SQ_LOCKPOINT_V(0)-0782 W        #  Command C0-0
+WCMD R-C0_MUX_SQ_LOCKPOINT_V(0)-XXXX W        #  Command C0-1
+COMM
+WCMD W-C0_MUX_SQ_LOCKPOINT_V(1)-0F04 R        #  Command C0-2
+CCMD R-Status-FFFF W                          #  Return Command C0-0
+WCMD R-C0_MUX_SQ_LOCKPOINT_V(1)-XXXX R        #  Command C0-3
+CCMD R-C0_MUX_SQ_LOCKPOINT_V(0)-8000 W        #  Return Command C0-1
+COMM
+WCMD W-C0_MUX_SQ_LOCKPOINT_V(2)-1686 R        #  Command C0-4
+CCMD R-Status-FFFF W                          #  Return Command C0-2
+WCMD R-C0_MUX_SQ_LOCKPOINT_V(2)-XXXX R        #  Command C0-5
+CCMD R-C0_MUX_SQ_LOCKPOINT_V(1)-8000 W        #  Return Command C0-3
+COMM
+WCMD W-C0_MUX_SQ_LOCKPOINT_V(3)-1E08 R        #  Command C0-6
+CCMD R-Status-FFFF W                          #  Return Command C0-4
+WCMD R-C0_MUX_SQ_LOCKPOINT_V(3)-XXXX R        #  Command C0-7
+CCMD R-C0_MUX_SQ_LOCKPOINT_V(2)-8000 W        #  Return Command C0-5
+COMM
+WCMD W-C0_MUX_SQ_LOCKPOINT_V(4)-258A R        #  Command C0-8
+CCMD R-Status-FFFF W                          #  Return Command C0-6
+WCMD R-C0_MUX_SQ_LOCKPOINT_V(4)-XXXX R        #  Command C0-9
+CCMD R-C0_MUX_SQ_LOCKPOINT_V(3)-8000 W        #  Return Command C0-7
+COMM
+WCMD W-C0_MUX_SQ_LOCKPOINT_V(5)-2D0C R        #  Command C0-10
+CCMD R-Status-FFFF W                          #  Return Command C0-8
+WCMD R-C0_MUX_SQ_LOCKPOINT_V(5)-XXXX R        #  Command C0-11
+CCMD R-C0_MUX_SQ_LOCKPOINT_V(4)-8000 W        #  Return Command C0-9
+COMM
+WCMD W-C0_MUX_SQ_LOCKPOINT_V(6)-348E R        #  Command C0-12
+CCMD R-Status-FFFF W                          #  Return Command C0-10
+WCMD R-C0_MUX_SQ_LOCKPOINT_V(6)-XXXX R        #  Command C0-13
+CCMD R-C0_MUX_SQ_LOCKPOINT_V(5)-8000 W        #  Return Command C0-11
+COMM
+WCMD W-C0_MUX_SQ_LOCKPOINT_V(7)-3C10 R        #  Command C0-14
+CCMD R-Status-FFFF W                          #  Return Command C0-12
+WCMD R-C0_MUX_SQ_LOCKPOINT_V(7)-XXXX R        #  Command C0-15
+CCMD R-C0_MUX_SQ_LOCKPOINT_V(6)-8000 W        #  Return Command C0-13
+COMM
+WCMD W-C0_MUX_SQ_LOCKPOINT_V(8)-4392 R        #  Command C0-16
+CCMD R-Status-FFFF W                          #  Return Command C0-14
+WCMD R-C0_MUX_SQ_LOCKPOINT_V(8)-XXXX R        #  Command C0-17
+CCMD R-C0_MUX_SQ_LOCKPOINT_V(7)-8000 W        #  Return Command C0-15
+COMM
+WCMD W-C0_MUX_SQ_LOCKPOINT_V(9)-4B14 R        #  Command C0-18
+CCMD R-Status-FFFF W                          #  Return Command C0-16
+WCMD R-C0_MUX_SQ_LOCKPOINT_V(9)-XXXX R        #  Command C0-19
+CCMD R-C0_MUX_SQ_LOCKPOINT_V(8)-8000 W        #  Return Command C0-17
+COMM
+WCMD W-C0_MUX_SQ_LOCKPOINT_V(10)-5296 R       #  Command C0-20
+CCMD R-Status-FFFF W                          #  Return Command C0-18
+WCMD R-C0_MUX_SQ_LOCKPOINT_V(10)-XXXX R       #  Command C0-21
+CCMD R-C0_MUX_SQ_LOCKPOINT_V(9)-8000 W        #  Return Command C0-19
+COMM
+WCMD W-C0_MUX_SQ_LOCKPOINT_V(11)-5A18 R       #  Command C0-22
+CCMD R-Status-FFFF W                          #  Return Command C0-20
+WCMD R-C0_MUX_SQ_LOCKPOINT_V(11)-XXXX R       #  Command C0-23
+CCMD R-C0_MUX_SQ_LOCKPOINT_V(10)-8000 W       #  Return Command C0-21
+COMM
+WCMD W-C0_MUX_SQ_LOCKPOINT_V(12)-619A R       #  Command C0-24
+CCMD R-Status-FFFF W                          #  Return Command C0-22
+WCMD R-C0_MUX_SQ_LOCKPOINT_V(12)-XXXX R       #  Command C0-25
+CCMD R-C0_MUX_SQ_LOCKPOINT_V(11)-8000 W       #  Return Command C0-23
+COMM
+WCMD W-C0_MUX_SQ_LOCKPOINT_V(13)-691C R       #  Command C0-26
+CCMD R-Status-FFFF W                          #  Return Command C0-24
+WCMD R-C0_MUX_SQ_LOCKPOINT_V(13)-XXXX R       #  Command C0-27
+CCMD R-C0_MUX_SQ_LOCKPOINT_V(12)-8000 W       #  Return Command C0-25
+COMM
+WCMD W-C0_MUX_SQ_LOCKPOINT_V(14)-709E R       #  Command C0-28
+CCMD R-Status-FFFF W                          #  Return Command C0-26
+WCMD R-C0_MUX_SQ_LOCKPOINT_V(14)-XXXX R       #  Command C0-29
+CCMD R-C0_MUX_SQ_LOCKPOINT_V(13)-8000 W       #  Return Command C0-27
+COMM
+WCMD W-C0_MUX_SQ_LOCKPOINT_V(15)-7820 R       #  Command C0-30
+CCMD R-Status-FFFF W                          #  Return Command C0-28
+WCMD R-C0_MUX_SQ_LOCKPOINT_V(15)-XXXX R       #  Command C0-31
+CCMD R-C0_MUX_SQ_LOCKPOINT_V(14)-8000 W       #  Return Command C0-29
+COMM
+WCMD W-C0_MUX_SQ_LOCKPOINT_V(16)-7FA2 R       #  Command C0-32
+CCMD R-Status-FFFF W                          #  Return Command C0-30
+WCMD R-C0_MUX_SQ_LOCKPOINT_V(16)-XXXX R       #  Command C0-33
+CCMD R-C0_MUX_SQ_LOCKPOINT_V(15)-8000 W       #  Return Command C0-31
+COMM
+WCMD W-C0_MUX_SQ_LOCKPOINT_V(17)-8724 R       #  Command C0-34
+CCMD R-Status-FFFF W                          #  Return Command C0-32
+WCMD R-C0_MUX_SQ_LOCKPOINT_V(17)-XXXX R       #  Command C0-35
+CCMD R-C0_MUX_SQ_LOCKPOINT_V(16)-8000 W       #  Return Command C0-33
+COMM
+WCMD W-C0_MUX_SQ_LOCKPOINT_V(18)-8EA6 R       #  Command C0-36
+CCMD R-Status-FFFF W                          #  Return Command C0-34
+WCMD R-C0_MUX_SQ_LOCKPOINT_V(18)-XXXX R       #  Command C0-37
+CCMD R-C0_MUX_SQ_LOCKPOINT_V(17)-8000 W       #  Return Command C0-35
+COMM
+WCMD W-C0_MUX_SQ_LOCKPOINT_V(19)-9628 R       #  Command C0-38
+CCMD R-Status-FFFF W                          #  Return Command C0-36
+WCMD R-C0_MUX_SQ_LOCKPOINT_V(19)-XXXX R       #  Command C0-39
+CCMD R-C0_MUX_SQ_LOCKPOINT_V(18)-8000 W       #  Return Command C0-37
+COMM
+WCMD W-C0_MUX_SQ_LOCKPOINT_V(20)-9DAA R       #  Command C0-40
+CCMD R-Status-FFFF W                          #  Return Command C0-38
+WCMD R-C0_MUX_SQ_LOCKPOINT_V(20)-XXXX R       #  Command C0-41
+CCMD R-C0_MUX_SQ_LOCKPOINT_V(19)-8000 W       #  Return Command C0-39
+COMM
+WCMD W-C0_MUX_SQ_LOCKPOINT_V(21)-A52C R       #  Command C0-42
+CCMD R-Status-FFFF W                          #  Return Command C0-40
+WCMD R-C0_MUX_SQ_LOCKPOINT_V(21)-XXXX R       #  Command C0-43
+CCMD R-C0_MUX_SQ_LOCKPOINT_V(20)-8000 W       #  Return Command C0-41
+COMM
+WCMD W-C0_MUX_SQ_LOCKPOINT_V(22)-ACAE R       #  Command C0-44
+CCMD R-Status-FFFF W                          #  Return Command C0-42
+WCMD R-C0_MUX_SQ_LOCKPOINT_V(22)-XXXX R       #  Command C0-45
+CCMD R-C0_MUX_SQ_LOCKPOINT_V(21)-8000 W       #  Return Command C0-43
+COMM
+WCMD W-C0_MUX_SQ_LOCKPOINT_V(23)-B430 R       #  Command C0-46
+CCMD R-Status-FFFF W                          #  Return Command C0-44
+WCMD R-C0_MUX_SQ_LOCKPOINT_V(23)-XXXX R       #  Command C0-47
+CCMD R-C0_MUX_SQ_LOCKPOINT_V(22)-8000 W       #  Return Command C0-45
+COMM
+WCMD W-C0_MUX_SQ_LOCKPOINT_V(24)-BBB2 R       #  Command C0-48
+CCMD R-Status-FFFF W                          #  Return Command C0-46
+WCMD R-C0_MUX_SQ_LOCKPOINT_V(24)-XXXX R       #  Command C0-49
+CCMD R-C0_MUX_SQ_LOCKPOINT_V(23)-8000 W       #  Return Command C0-47
+COMM
+WCMD W-C0_MUX_SQ_LOCKPOINT_V(25)-C334 R       #  Command C0-50
+CCMD R-Status-FFFF W                          #  Return Command C0-48
+WCMD R-C0_MUX_SQ_LOCKPOINT_V(25)-XXXX R       #  Command C0-51
+CCMD R-C0_MUX_SQ_LOCKPOINT_V(24)-8000 W       #  Return Command C0-49
+COMM
+WCMD W-C0_MUX_SQ_LOCKPOINT_V(26)-CAB6 R       #  Command C0-52
+CCMD R-Status-FFFF W                          #  Return Command C0-50
+WCMD R-C0_MUX_SQ_LOCKPOINT_V(26)-XXXX R       #  Command C0-53
+CCMD R-C0_MUX_SQ_LOCKPOINT_V(25)-8000 W       #  Return Command C0-51
+COMM
+WCMD W-C0_MUX_SQ_LOCKPOINT_V(27)-D238 R       #  Command C0-54
+CCMD R-Status-FFFF W                          #  Return Command C0-52
+WCMD R-C0_MUX_SQ_LOCKPOINT_V(27)-XXXX R       #  Command C0-55
+CCMD R-C0_MUX_SQ_LOCKPOINT_V(26)-8000 W       #  Return Command C0-53
+COMM
+WCMD W-C0_MUX_SQ_LOCKPOINT_V(28)-D9BA R       #  Command C0-56
+CCMD R-Status-FFFF W                          #  Return Command C0-54
+WCMD R-C0_MUX_SQ_LOCKPOINT_V(28)-XXXX R       #  Command C0-57
+CCMD R-C0_MUX_SQ_LOCKPOINT_V(27)-8000 W       #  Return Command C0-55
+COMM
+WCMD W-C0_MUX_SQ_LOCKPOINT_V(29)-E13C R       #  Command C0-58
+CCMD R-Status-FFFF W                          #  Return Command C0-56
+WCMD R-C0_MUX_SQ_LOCKPOINT_V(29)-XXXX R       #  Command C0-59
+CCMD R-C0_MUX_SQ_LOCKPOINT_V(28)-8000 W       #  Return Command C0-57
+COMM
+WCMD W-C0_MUX_SQ_LOCKPOINT_V(30)-E8BE R       #  Command C0-60
+CCMD R-Status-FFFF W                          #  Return Command C0-58
+WCMD R-C0_MUX_SQ_LOCKPOINT_V(30)-XXXX R       #  Command C0-61
+CCMD R-C0_MUX_SQ_LOCKPOINT_V(29)-8000 W       #  Return Command C0-59
+COMM
+WCMD W-C0_MUX_SQ_LOCKPOINT_V(31)-F040 R       #  Command C0-62
+CCMD R-Status-FFFF W                          #  Return Command C0-60
+WCMD R-C0_MUX_SQ_LOCKPOINT_V(31)-XXXX R       #  Command C0-63
+CCMD R-C0_MUX_SQ_LOCKPOINT_V(30)-8000 W       #  Return Command C0-61
+COMM
+WCMD W-C0_MUX_SQ_LOCKPOINT_V(32)-F7C2 R       #  Command C0-64
+CCMD R-Status-FFFF W                          #  Return Command C0-62
+WCMD R-C0_MUX_SQ_LOCKPOINT_V(32)-XXXX R       #  Command C0-65
+CCMD R-C0_MUX_SQ_LOCKPOINT_V(31)-8000 W       #  Return Command C0-63
+COMM
+WCMD W-C0_MUX_SQ_LOCKPOINT_V(33)-FF44 R       #  Command C0-66
+CCMD R-Status-FFFF W                          #  Return Command C0-64
+WCMD R-C0_MUX_SQ_LOCKPOINT_V(33)-XXXX R       #  Command C0-67
+CCMD R-C0_MUX_SQ_LOCKPOINT_V(32)-8000 W       #  Return Command C0-65
+COMM
+COMM ==============================================================================================
+COMM   C0_MUX_SQ_LOCKPOINT_V: check ping-pong memory toggle after writing the last word of the table
+COMM     and check the memory content
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-C0_MUX_SQ_LOCKPOINT_V(0)-8207 R        #  Command C0-68
+CCMD R-Status-FFFF W                          #  Return Command C0-66
+WCMD R-C0_MUX_SQ_LOCKPOINT_V(0)-XXXX R        #  Command C0-69
+CCMD R-C0_MUX_SQ_LOCKPOINT_V(33)-FF44 W       #  Return Command C0-67
+COMM
+WCMD W-C0_MUX_SQ_LOCKPOINT_V(1)-040F R        #  Command C0-70
+CCMD R-Status-FFFF W                          #  Return Command C0-68
+WCMD R-C0_MUX_SQ_LOCKPOINT_V(1)-XXXX R        #  Command C0-71
+CCMD R-C0_MUX_SQ_LOCKPOINT_V(0)-0782 W        #  Return Command C0-69
+COMM
+WCMD W-C0_MUX_SQ_LOCKPOINT_V(2)-8616 R        #  Command C0-72
+CCMD R-Status-FFFF W                          #  Return Command C0-70
+WCMD R-C0_MUX_SQ_LOCKPOINT_V(2)-XXXX R        #  Command C0-73
+CCMD R-C0_MUX_SQ_LOCKPOINT_V(1)-0F04 W        #  Return Command C0-71
+COMM
+WCMD W-C0_MUX_SQ_LOCKPOINT_V(3)-081E R        #  Command C0-74
+CCMD R-Status-FFFF W                          #  Return Command C0-72
+WCMD R-C0_MUX_SQ_LOCKPOINT_V(3)-XXXX R        #  Command C0-75
+CCMD R-C0_MUX_SQ_LOCKPOINT_V(2)-1686 W        #  Return Command C0-73
+COMM
+WCMD W-C0_MUX_SQ_LOCKPOINT_V(4)-8A25 R        #  Command C0-76
+CCMD R-Status-FFFF W                          #  Return Command C0-74
+WCMD R-C0_MUX_SQ_LOCKPOINT_V(4)-XXXX R        #  Command C0-77
+CCMD R-C0_MUX_SQ_LOCKPOINT_V(3)-1E08 W        #  Return Command C0-75
+COMM
+WCMD W-C0_MUX_SQ_LOCKPOINT_V(5)-0C2D R        #  Command C0-78
+CCMD R-Status-FFFF W                          #  Return Command C0-76
+WCMD R-C0_MUX_SQ_LOCKPOINT_V(5)-XXXX R        #  Command C0-79
+CCMD R-C0_MUX_SQ_LOCKPOINT_V(4)-258A W        #  Return Command C0-77
+COMM
+WCMD W-C0_MUX_SQ_LOCKPOINT_V(6)-8E34 R        #  Command C0-80
+CCMD R-Status-FFFF W                          #  Return Command C0-78
+WCMD R-C0_MUX_SQ_LOCKPOINT_V(6)-XXXX R        #  Command C0-81
+CCMD R-C0_MUX_SQ_LOCKPOINT_V(5)-2D0C W        #  Return Command C0-79
+COMM
+WCMD W-C0_MUX_SQ_LOCKPOINT_V(7)-103C R        #  Command C0-82
+CCMD R-Status-FFFF W                          #  Return Command C0-80
+WCMD R-C0_MUX_SQ_LOCKPOINT_V(7)-XXXX R        #  Command C0-83
+CCMD R-C0_MUX_SQ_LOCKPOINT_V(6)-348E W        #  Return Command C0-81
+COMM
+WCMD W-C0_MUX_SQ_LOCKPOINT_V(8)-9243 R        #  Command C0-84
+CCMD R-Status-FFFF W                          #  Return Command C0-82
+WCMD R-C0_MUX_SQ_LOCKPOINT_V(8)-XXXX R        #  Command C0-85
+CCMD R-C0_MUX_SQ_LOCKPOINT_V(7)-3C10 W        #  Return Command C0-83
+COMM
+WCMD W-C0_MUX_SQ_LOCKPOINT_V(9)-144B R        #  Command C0-86
+CCMD R-Status-FFFF W                          #  Return Command C0-84
+WCMD R-C0_MUX_SQ_LOCKPOINT_V(9)-XXXX R        #  Command C0-87
+CCMD R-C0_MUX_SQ_LOCKPOINT_V(8)-4392 W        #  Return Command C0-85
+COMM
+WCMD W-C0_MUX_SQ_LOCKPOINT_V(10)-9652 R       #  Command C0-88
+CCMD R-Status-FFFF W                          #  Return Command C0-86
+WCMD R-C0_MUX_SQ_LOCKPOINT_V(10)-XXXX R       #  Command C0-89
+CCMD R-C0_MUX_SQ_LOCKPOINT_V(9)-4B14 W        #  Return Command C0-87
+COMM
+WCMD W-C0_MUX_SQ_LOCKPOINT_V(11)-185A R       #  Command C0-90
+CCMD R-Status-FFFF W                          #  Return Command C0-88
+WCMD R-C0_MUX_SQ_LOCKPOINT_V(11)-XXXX R       #  Command C0-91
+CCMD R-C0_MUX_SQ_LOCKPOINT_V(10)-5296 W       #  Return Command C0-89
+COMM
+WCMD W-C0_MUX_SQ_LOCKPOINT_V(12)-9A61 R       #  Command C0-92
+CCMD R-Status-FFFF W                          #  Return Command C0-90
+WCMD R-C0_MUX_SQ_LOCKPOINT_V(12)-XXXX R       #  Command C0-93
+CCMD R-C0_MUX_SQ_LOCKPOINT_V(11)-5A18 W       #  Return Command C0-91
+COMM
+WCMD W-C0_MUX_SQ_LOCKPOINT_V(13)-1C69 R       #  Command C0-94
+CCMD R-Status-FFFF W                          #  Return Command C0-92
+WCMD R-C0_MUX_SQ_LOCKPOINT_V(13)-XXXX R       #  Command C0-95
+CCMD R-C0_MUX_SQ_LOCKPOINT_V(12)-619A W       #  Return Command C0-93
+COMM
+WCMD W-C0_MUX_SQ_LOCKPOINT_V(14)-9E70 R       #  Command C0-96
+CCMD R-Status-FFFF W                          #  Return Command C0-94
+WCMD R-C0_MUX_SQ_LOCKPOINT_V(14)-XXXX R       #  Command C0-97
+CCMD R-C0_MUX_SQ_LOCKPOINT_V(13)-691C W       #  Return Command C0-95
+COMM
+WCMD W-C0_MUX_SQ_LOCKPOINT_V(15)-2078 R       #  Command C0-98
+CCMD R-Status-FFFF W                          #  Return Command C0-96
+WCMD R-C0_MUX_SQ_LOCKPOINT_V(15)-XXXX R       #  Command C0-99
+CCMD R-C0_MUX_SQ_LOCKPOINT_V(14)-709E W       #  Return Command C0-97
+COMM
+WCMD W-C0_MUX_SQ_LOCKPOINT_V(16)-A27F R       #  Command C0-100
+CCMD R-Status-FFFF W                          #  Return Command C0-98
+WCMD R-C0_MUX_SQ_LOCKPOINT_V(16)-XXXX R       #  Command C0-101
+CCMD R-C0_MUX_SQ_LOCKPOINT_V(15)-7820 W       #  Return Command C0-99
+COMM
+WCMD W-C0_MUX_SQ_LOCKPOINT_V(17)-2487 R       #  Command C0-102
+CCMD R-Status-FFFF W                          #  Return Command C0-100
+WCMD R-C0_MUX_SQ_LOCKPOINT_V(17)-XXXX R       #  Command C0-103
+CCMD R-C0_MUX_SQ_LOCKPOINT_V(16)-7FA2 W       #  Return Command C0-101
+COMM
+WCMD W-C0_MUX_SQ_LOCKPOINT_V(18)-A68E R       #  Command C0-104
+CCMD R-Status-FFFF W                          #  Return Command C0-102
+WCMD R-C0_MUX_SQ_LOCKPOINT_V(18)-XXXX R       #  Command C0-105
+CCMD R-C0_MUX_SQ_LOCKPOINT_V(17)-8724 W       #  Return Command C0-103
+COMM
+WCMD W-C0_MUX_SQ_LOCKPOINT_V(19)-2896 R       #  Command C0-106
+CCMD R-Status-FFFF W                          #  Return Command C0-104
+WCMD R-C0_MUX_SQ_LOCKPOINT_V(19)-XXXX R       #  Command C0-107
+CCMD R-C0_MUX_SQ_LOCKPOINT_V(18)-8EA6 W       #  Return Command C0-105
+COMM
+WCMD W-C0_MUX_SQ_LOCKPOINT_V(20)-AA9D R       #  Command C0-108
+CCMD R-Status-FFFF W                          #  Return Command C0-106
+WCMD R-C0_MUX_SQ_LOCKPOINT_V(20)-XXXX R       #  Command C0-109
+CCMD R-C0_MUX_SQ_LOCKPOINT_V(19)-9628 W       #  Return Command C0-107
+COMM
+WCMD W-C0_MUX_SQ_LOCKPOINT_V(21)-2CA5 R       #  Command C0-110
+CCMD R-Status-FFFF W                          #  Return Command C0-108
+WCMD R-C0_MUX_SQ_LOCKPOINT_V(21)-XXXX R       #  Command C0-111
+CCMD R-C0_MUX_SQ_LOCKPOINT_V(20)-9DAA W       #  Return Command C0-109
+COMM
+WCMD W-C0_MUX_SQ_LOCKPOINT_V(22)-AEAC R       #  Command C0-112
+CCMD R-Status-FFFF W                          #  Return Command C0-110
+WCMD R-C0_MUX_SQ_LOCKPOINT_V(22)-XXXX R       #  Command C0-113
+CCMD R-C0_MUX_SQ_LOCKPOINT_V(21)-A52C W       #  Return Command C0-111
+COMM
+WCMD W-C0_MUX_SQ_LOCKPOINT_V(23)-30B4 R       #  Command C0-114
+CCMD R-Status-FFFF W                          #  Return Command C0-112
+WCMD R-C0_MUX_SQ_LOCKPOINT_V(23)-XXXX R       #  Command C0-115
+CCMD R-C0_MUX_SQ_LOCKPOINT_V(22)-ACAE W       #  Return Command C0-113
+COMM
+WCMD W-C0_MUX_SQ_LOCKPOINT_V(24)-B2BB R       #  Command C0-116
+CCMD R-Status-FFFF W                          #  Return Command C0-114
+WCMD R-C0_MUX_SQ_LOCKPOINT_V(24)-XXXX R       #  Command C0-117
+CCMD R-C0_MUX_SQ_LOCKPOINT_V(23)-B430 W       #  Return Command C0-115
+COMM
+WCMD W-C0_MUX_SQ_LOCKPOINT_V(25)-34C3 R       #  Command C0-118
+CCMD R-Status-FFFF W                          #  Return Command C0-116
+WCMD R-C0_MUX_SQ_LOCKPOINT_V(25)-XXXX R       #  Command C0-119
+CCMD R-C0_MUX_SQ_LOCKPOINT_V(24)-BBB2 W       #  Return Command C0-117
+COMM
+WCMD W-C0_MUX_SQ_LOCKPOINT_V(26)-B6CA R       #  Command C0-120
+CCMD R-Status-FFFF W                          #  Return Command C0-118
+WCMD R-C0_MUX_SQ_LOCKPOINT_V(26)-XXXX R       #  Command C0-121
+CCMD R-C0_MUX_SQ_LOCKPOINT_V(25)-C334 W       #  Return Command C0-119
+COMM
+WCMD W-C0_MUX_SQ_LOCKPOINT_V(27)-38D2 R       #  Command C0-122
+CCMD R-Status-FFFF W                          #  Return Command C0-120
+WCMD R-C0_MUX_SQ_LOCKPOINT_V(27)-XXXX R       #  Command C0-123
+CCMD R-C0_MUX_SQ_LOCKPOINT_V(26)-CAB6 W       #  Return Command C0-121
+COMM
+WCMD W-C0_MUX_SQ_LOCKPOINT_V(28)-BAD9 R       #  Command C0-124
+CCMD R-Status-FFFF W                          #  Return Command C0-122
+WCMD R-C0_MUX_SQ_LOCKPOINT_V(28)-XXXX R       #  Command C0-125
+CCMD R-C0_MUX_SQ_LOCKPOINT_V(27)-D238 W       #  Return Command C0-123
+COMM
+WCMD W-C0_MUX_SQ_LOCKPOINT_V(29)-3CE1 R       #  Command C0-126
+CCMD R-Status-FFFF W                          #  Return Command C0-124
+WCMD R-C0_MUX_SQ_LOCKPOINT_V(29)-XXXX R       #  Command C0-127
+CCMD R-C0_MUX_SQ_LOCKPOINT_V(28)-D9BA W       #  Return Command C0-125
+COMM
+WCMD W-C0_MUX_SQ_LOCKPOINT_V(30)-BEE8 R       #  Command C0-128
+CCMD R-Status-FFFF W                          #  Return Command C0-126
+WCMD R-C0_MUX_SQ_LOCKPOINT_V(30)-XXXX R       #  Command C0-129
+CCMD R-C0_MUX_SQ_LOCKPOINT_V(29)-E13C W       #  Return Command C0-127
+COMM
+WCMD W-C0_MUX_SQ_LOCKPOINT_V(31)-40F0 R       #  Command C0-130
+CCMD R-Status-FFFF W                          #  Return Command C0-128
+WCMD R-C0_MUX_SQ_LOCKPOINT_V(31)-XXXX R       #  Command C0-131
+CCMD R-C0_MUX_SQ_LOCKPOINT_V(30)-E8BE W       #  Return Command C0-129
+COMM
+WCMD W-C0_MUX_SQ_LOCKPOINT_V(32)-C2F7 R       #  Command C0-132
+CCMD R-Status-FFFF W                          #  Return Command C0-130
+WCMD R-C0_MUX_SQ_LOCKPOINT_V(32)-XXXX R       #  Command C0-133
+CCMD R-C0_MUX_SQ_LOCKPOINT_V(31)-F040 W       #  Return Command C0-131
+COMM
+WCMD W-C0_MUX_SQ_LOCKPOINT_V(33)-44FF R       #  Command C0-134
+CCMD R-Status-FFFF W                          #  Return Command C0-132
+WCMD R-C0_MUX_SQ_LOCKPOINT_V(33)-XXXX R       #  Command C0-135
+CCMD R-C0_MUX_SQ_LOCKPOINT_V(32)-F7C2 W       #  Return Command C0-133
+COMM
+COMM ==============================================================================================
+COMM   C0_MUX_SQ_LOCKPOINT_V: check ping-pong memory toggle after writing the last word of the table
+COMM     and check the first memory content
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-C0_MUX_SQ_LOCKPOINT_V(0)-1111 R        #  Command C0-136
+CCMD R-Status-FFFF W                          #  Return Command C0-134
+WCMD R-C0_MUX_SQ_LOCKPOINT_V(0)-XXXX R        #  Command C0-137
+CCMD R-C0_MUX_SQ_LOCKPOINT_V(33)-44FF W       #  Return Command C0-135
+COMM
+WCMD W-C0_MUX_SQ_LOCKPOINT_V(1)-040F R        #  Command C0-138
+CCMD R-Status-FFFF W                          #  Return Command C0-136
+WCMD R-C0_MUX_SQ_LOCKPOINT_V(1)-XXXX R        #  Command C0-139
+CCMD R-C0_MUX_SQ_LOCKPOINT_V(0)-8207 W        #  Return Command C0-137
+COMM
+COMM ==============================================================================================
+COMM   C1_MUX_SQ_LOCKPOINT_V: writing a new table in ping-pong memory
+COMM    and check reading of the memory part currently applicable is kept to its initial value
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-C1_MUX_SQ_LOCKPOINT_V(0)-0782 W        #  Command C1-0
+WCMD R-C1_MUX_SQ_LOCKPOINT_V(0)-XXXX W        #  Command C1-1
+COMM
+WCMD W-C1_MUX_SQ_LOCKPOINT_V(1)-0F04 R        #  Command C1-2
+CCMD R-Status-FFFF W                          #  Return Command C1-0
+WCMD R-C1_MUX_SQ_LOCKPOINT_V(1)-XXXX R        #  Command C1-3
+CCMD R-C1_MUX_SQ_LOCKPOINT_V(0)-8000 W        #  Return Command C1-1
+COMM
+WCMD W-C1_MUX_SQ_LOCKPOINT_V(2)-1686 R        #  Command C1-4
+CCMD R-Status-FFFF W                          #  Return Command C1-2
+WCMD R-C1_MUX_SQ_LOCKPOINT_V(2)-XXXX R        #  Command C1-5
+CCMD R-C1_MUX_SQ_LOCKPOINT_V(1)-8000 W        #  Return Command C1-3
+COMM
+WCMD W-C1_MUX_SQ_LOCKPOINT_V(3)-1E08 R        #  Command C1-6
+CCMD R-Status-FFFF W                          #  Return Command C1-4
+WCMD R-C1_MUX_SQ_LOCKPOINT_V(3)-XXXX R        #  Command C1-7
+CCMD R-C1_MUX_SQ_LOCKPOINT_V(2)-8000 W        #  Return Command C1-5
+COMM
+WCMD W-C1_MUX_SQ_LOCKPOINT_V(4)-258A R        #  Command C1-8
+CCMD R-Status-FFFF W                          #  Return Command C1-6
+WCMD R-C1_MUX_SQ_LOCKPOINT_V(4)-XXXX R        #  Command C1-9
+CCMD R-C1_MUX_SQ_LOCKPOINT_V(3)-8000 W        #  Return Command C1-7
+COMM
+WCMD W-C1_MUX_SQ_LOCKPOINT_V(5)-2D0C R        #  Command C1-10
+CCMD R-Status-FFFF W                          #  Return Command C1-8
+WCMD R-C1_MUX_SQ_LOCKPOINT_V(5)-XXXX R        #  Command C1-11
+CCMD R-C1_MUX_SQ_LOCKPOINT_V(4)-8000 W        #  Return Command C1-9
+COMM
+WCMD W-C1_MUX_SQ_LOCKPOINT_V(6)-348E R        #  Command C1-12
+CCMD R-Status-FFFF W                          #  Return Command C1-10
+WCMD R-C1_MUX_SQ_LOCKPOINT_V(6)-XXXX R        #  Command C1-13
+CCMD R-C1_MUX_SQ_LOCKPOINT_V(5)-8000 W        #  Return Command C1-11
+COMM
+WCMD W-C1_MUX_SQ_LOCKPOINT_V(7)-3C10 R        #  Command C1-14
+CCMD R-Status-FFFF W                          #  Return Command C1-12
+WCMD R-C1_MUX_SQ_LOCKPOINT_V(7)-XXXX R        #  Command C1-15
+CCMD R-C1_MUX_SQ_LOCKPOINT_V(6)-8000 W        #  Return Command C1-13
+COMM
+WCMD W-C1_MUX_SQ_LOCKPOINT_V(8)-4392 R        #  Command C1-16
+CCMD R-Status-FFFF W                          #  Return Command C1-14
+WCMD R-C1_MUX_SQ_LOCKPOINT_V(8)-XXXX R        #  Command C1-17
+CCMD R-C1_MUX_SQ_LOCKPOINT_V(7)-8000 W        #  Return Command C1-15
+COMM
+WCMD W-C1_MUX_SQ_LOCKPOINT_V(9)-4B14 R        #  Command C1-18
+CCMD R-Status-FFFF W                          #  Return Command C1-16
+WCMD R-C1_MUX_SQ_LOCKPOINT_V(9)-XXXX R        #  Command C1-19
+CCMD R-C1_MUX_SQ_LOCKPOINT_V(8)-8000 W        #  Return Command C1-17
+COMM
+WCMD W-C1_MUX_SQ_LOCKPOINT_V(10)-5296 R       #  Command C1-20
+CCMD R-Status-FFFF W                          #  Return Command C1-18
+WCMD R-C1_MUX_SQ_LOCKPOINT_V(10)-XXXX R       #  Command C1-21
+CCMD R-C1_MUX_SQ_LOCKPOINT_V(9)-8000 W        #  Return Command C1-19
+COMM
+WCMD W-C1_MUX_SQ_LOCKPOINT_V(11)-5A18 R       #  Command C1-22
+CCMD R-Status-FFFF W                          #  Return Command C1-20
+WCMD R-C1_MUX_SQ_LOCKPOINT_V(11)-XXXX R       #  Command C1-23
+CCMD R-C1_MUX_SQ_LOCKPOINT_V(10)-8000 W       #  Return Command C1-21
+COMM
+WCMD W-C1_MUX_SQ_LOCKPOINT_V(12)-619A R       #  Command C1-24
+CCMD R-Status-FFFF W                          #  Return Command C1-22
+WCMD R-C1_MUX_SQ_LOCKPOINT_V(12)-XXXX R       #  Command C1-25
+CCMD R-C1_MUX_SQ_LOCKPOINT_V(11)-8000 W       #  Return Command C1-23
+COMM
+WCMD W-C1_MUX_SQ_LOCKPOINT_V(13)-691C R       #  Command C1-26
+CCMD R-Status-FFFF W                          #  Return Command C1-24
+WCMD R-C1_MUX_SQ_LOCKPOINT_V(13)-XXXX R       #  Command C1-27
+CCMD R-C1_MUX_SQ_LOCKPOINT_V(12)-8000 W       #  Return Command C1-25
+COMM
+WCMD W-C1_MUX_SQ_LOCKPOINT_V(14)-709E R       #  Command C1-28
+CCMD R-Status-FFFF W                          #  Return Command C1-26
+WCMD R-C1_MUX_SQ_LOCKPOINT_V(14)-XXXX R       #  Command C1-29
+CCMD R-C1_MUX_SQ_LOCKPOINT_V(13)-8000 W       #  Return Command C1-27
+COMM
+WCMD W-C1_MUX_SQ_LOCKPOINT_V(15)-7820 R       #  Command C1-30
+CCMD R-Status-FFFF W                          #  Return Command C1-28
+WCMD R-C1_MUX_SQ_LOCKPOINT_V(15)-XXXX R       #  Command C1-31
+CCMD R-C1_MUX_SQ_LOCKPOINT_V(14)-8000 W       #  Return Command C1-29
+COMM
+WCMD W-C1_MUX_SQ_LOCKPOINT_V(16)-7FA2 R       #  Command C1-32
+CCMD R-Status-FFFF W                          #  Return Command C1-30
+WCMD R-C1_MUX_SQ_LOCKPOINT_V(16)-XXXX R       #  Command C1-33
+CCMD R-C1_MUX_SQ_LOCKPOINT_V(15)-8000 W       #  Return Command C1-31
+COMM
+WCMD W-C1_MUX_SQ_LOCKPOINT_V(17)-8724 R       #  Command C1-34
+CCMD R-Status-FFFF W                          #  Return Command C1-32
+WCMD R-C1_MUX_SQ_LOCKPOINT_V(17)-XXXX R       #  Command C1-35
+CCMD R-C1_MUX_SQ_LOCKPOINT_V(16)-8000 W       #  Return Command C1-33
+COMM
+WCMD W-C1_MUX_SQ_LOCKPOINT_V(18)-8EA6 R       #  Command C1-36
+CCMD R-Status-FFFF W                          #  Return Command C1-34
+WCMD R-C1_MUX_SQ_LOCKPOINT_V(18)-XXXX R       #  Command C1-37
+CCMD R-C1_MUX_SQ_LOCKPOINT_V(17)-8000 W       #  Return Command C1-35
+COMM
+WCMD W-C1_MUX_SQ_LOCKPOINT_V(19)-9628 R       #  Command C1-38
+CCMD R-Status-FFFF W                          #  Return Command C1-36
+WCMD R-C1_MUX_SQ_LOCKPOINT_V(19)-XXXX R       #  Command C1-39
+CCMD R-C1_MUX_SQ_LOCKPOINT_V(18)-8000 W       #  Return Command C1-37
+COMM
+WCMD W-C1_MUX_SQ_LOCKPOINT_V(20)-9DAA R       #  Command C1-40
+CCMD R-Status-FFFF W                          #  Return Command C1-38
+WCMD R-C1_MUX_SQ_LOCKPOINT_V(20)-XXXX R       #  Command C1-41
+CCMD R-C1_MUX_SQ_LOCKPOINT_V(19)-8000 W       #  Return Command C1-39
+COMM
+WCMD W-C1_MUX_SQ_LOCKPOINT_V(21)-A52C R       #  Command C1-42
+CCMD R-Status-FFFF W                          #  Return Command C1-40
+WCMD R-C1_MUX_SQ_LOCKPOINT_V(21)-XXXX R       #  Command C1-43
+CCMD R-C1_MUX_SQ_LOCKPOINT_V(20)-8000 W       #  Return Command C1-41
+COMM
+WCMD W-C1_MUX_SQ_LOCKPOINT_V(22)-ACAE R       #  Command C1-44
+CCMD R-Status-FFFF W                          #  Return Command C1-42
+WCMD R-C1_MUX_SQ_LOCKPOINT_V(22)-XXXX R       #  Command C1-45
+CCMD R-C1_MUX_SQ_LOCKPOINT_V(21)-8000 W       #  Return Command C1-43
+COMM
+WCMD W-C1_MUX_SQ_LOCKPOINT_V(23)-B430 R       #  Command C1-46
+CCMD R-Status-FFFF W                          #  Return Command C1-44
+WCMD R-C1_MUX_SQ_LOCKPOINT_V(23)-XXXX R       #  Command C1-47
+CCMD R-C1_MUX_SQ_LOCKPOINT_V(22)-8000 W       #  Return Command C1-45
+COMM
+WCMD W-C1_MUX_SQ_LOCKPOINT_V(24)-BBB2 R       #  Command C1-48
+CCMD R-Status-FFFF W                          #  Return Command C1-46
+WCMD R-C1_MUX_SQ_LOCKPOINT_V(24)-XXXX R       #  Command C1-49
+CCMD R-C1_MUX_SQ_LOCKPOINT_V(23)-8000 W       #  Return Command C1-47
+COMM
+WCMD W-C1_MUX_SQ_LOCKPOINT_V(25)-C334 R       #  Command C1-50
+CCMD R-Status-FFFF W                          #  Return Command C1-48
+WCMD R-C1_MUX_SQ_LOCKPOINT_V(25)-XXXX R       #  Command C1-51
+CCMD R-C1_MUX_SQ_LOCKPOINT_V(24)-8000 W       #  Return Command C1-49
+COMM
+WCMD W-C1_MUX_SQ_LOCKPOINT_V(26)-CAB6 R       #  Command C1-52
+CCMD R-Status-FFFF W                          #  Return Command C1-50
+WCMD R-C1_MUX_SQ_LOCKPOINT_V(26)-XXXX R       #  Command C1-53
+CCMD R-C1_MUX_SQ_LOCKPOINT_V(25)-8000 W       #  Return Command C1-51
+COMM
+WCMD W-C1_MUX_SQ_LOCKPOINT_V(27)-D238 R       #  Command C1-54
+CCMD R-Status-FFFF W                          #  Return Command C1-52
+WCMD R-C1_MUX_SQ_LOCKPOINT_V(27)-XXXX R       #  Command C1-55
+CCMD R-C1_MUX_SQ_LOCKPOINT_V(26)-8000 W       #  Return Command C1-53
+COMM
+WCMD W-C1_MUX_SQ_LOCKPOINT_V(28)-D9BA R       #  Command C1-56
+CCMD R-Status-FFFF W                          #  Return Command C1-54
+WCMD R-C1_MUX_SQ_LOCKPOINT_V(28)-XXXX R       #  Command C1-57
+CCMD R-C1_MUX_SQ_LOCKPOINT_V(27)-8000 W       #  Return Command C1-55
+COMM
+WCMD W-C1_MUX_SQ_LOCKPOINT_V(29)-E13C R       #  Command C1-58
+CCMD R-Status-FFFF W                          #  Return Command C1-56
+WCMD R-C1_MUX_SQ_LOCKPOINT_V(29)-XXXX R       #  Command C1-59
+CCMD R-C1_MUX_SQ_LOCKPOINT_V(28)-8000 W       #  Return Command C1-57
+COMM
+WCMD W-C1_MUX_SQ_LOCKPOINT_V(30)-E8BE R       #  Command C1-60
+CCMD R-Status-FFFF W                          #  Return Command C1-58
+WCMD R-C1_MUX_SQ_LOCKPOINT_V(30)-XXXX R       #  Command C1-61
+CCMD R-C1_MUX_SQ_LOCKPOINT_V(29)-8000 W       #  Return Command C1-59
+COMM
+WCMD W-C1_MUX_SQ_LOCKPOINT_V(31)-F040 R       #  Command C1-62
+CCMD R-Status-FFFF W                          #  Return Command C1-60
+WCMD R-C1_MUX_SQ_LOCKPOINT_V(31)-XXXX R       #  Command C1-63
+CCMD R-C1_MUX_SQ_LOCKPOINT_V(30)-8000 W       #  Return Command C1-61
+COMM
+WCMD W-C1_MUX_SQ_LOCKPOINT_V(32)-F7C2 R       #  Command C1-64
+CCMD R-Status-FFFF W                          #  Return Command C1-62
+WCMD R-C1_MUX_SQ_LOCKPOINT_V(32)-XXXX R       #  Command C1-65
+CCMD R-C1_MUX_SQ_LOCKPOINT_V(31)-8000 W       #  Return Command C1-63
+COMM
+WCMD W-C1_MUX_SQ_LOCKPOINT_V(33)-FF44 R       #  Command C1-66
+CCMD R-Status-FFFF W                          #  Return Command C1-64
+WCMD R-C1_MUX_SQ_LOCKPOINT_V(33)-XXXX R       #  Command C1-67
+CCMD R-C1_MUX_SQ_LOCKPOINT_V(32)-8000 W       #  Return Command C1-65
+COMM
+COMM ==============================================================================================
+COMM   C1_MUX_SQ_LOCKPOINT_V: check ping-pong memory toggle after writing the last word of the table
+COMM     and check the memory content
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-C1_MUX_SQ_LOCKPOINT_V(0)-8207 R        #  Command C1-68
+CCMD R-Status-FFFF W                          #  Return Command C1-66
+WCMD R-C1_MUX_SQ_LOCKPOINT_V(0)-XXXX R        #  Command C1-69
+CCMD R-C1_MUX_SQ_LOCKPOINT_V(33)-FF44 W       #  Return Command C1-67
+COMM
+WCMD W-C1_MUX_SQ_LOCKPOINT_V(1)-040F R        #  Command C1-70
+CCMD R-Status-FFFF W                          #  Return Command C1-68
+WCMD R-C1_MUX_SQ_LOCKPOINT_V(1)-XXXX R        #  Command C1-71
+CCMD R-C1_MUX_SQ_LOCKPOINT_V(0)-0782 W        #  Return Command C1-69
+COMM
+WCMD W-C1_MUX_SQ_LOCKPOINT_V(2)-8616 R        #  Command C1-72
+CCMD R-Status-FFFF W                          #  Return Command C1-70
+WCMD R-C1_MUX_SQ_LOCKPOINT_V(2)-XXXX R        #  Command C1-73
+CCMD R-C1_MUX_SQ_LOCKPOINT_V(1)-0F04 W        #  Return Command C1-71
+COMM
+WCMD W-C1_MUX_SQ_LOCKPOINT_V(3)-081E R        #  Command C1-74
+CCMD R-Status-FFFF W                          #  Return Command C1-72
+WCMD R-C1_MUX_SQ_LOCKPOINT_V(3)-XXXX R        #  Command C1-75
+CCMD R-C1_MUX_SQ_LOCKPOINT_V(2)-1686 W        #  Return Command C1-73
+COMM
+WCMD W-C1_MUX_SQ_LOCKPOINT_V(4)-8A25 R        #  Command C1-76
+CCMD R-Status-FFFF W                          #  Return Command C1-74
+WCMD R-C1_MUX_SQ_LOCKPOINT_V(4)-XXXX R        #  Command C1-77
+CCMD R-C1_MUX_SQ_LOCKPOINT_V(3)-1E08 W        #  Return Command C1-75
+COMM
+WCMD W-C1_MUX_SQ_LOCKPOINT_V(5)-0C2D R        #  Command C1-78
+CCMD R-Status-FFFF W                          #  Return Command C1-76
+WCMD R-C1_MUX_SQ_LOCKPOINT_V(5)-XXXX R        #  Command C1-79
+CCMD R-C1_MUX_SQ_LOCKPOINT_V(4)-258A W        #  Return Command C1-77
+COMM
+WCMD W-C1_MUX_SQ_LOCKPOINT_V(6)-8E34 R        #  Command C1-80
+CCMD R-Status-FFFF W                          #  Return Command C1-78
+WCMD R-C1_MUX_SQ_LOCKPOINT_V(6)-XXXX R        #  Command C1-81
+CCMD R-C1_MUX_SQ_LOCKPOINT_V(5)-2D0C W        #  Return Command C1-79
+COMM
+WCMD W-C1_MUX_SQ_LOCKPOINT_V(7)-103C R        #  Command C1-82
+CCMD R-Status-FFFF W                          #  Return Command C1-80
+WCMD R-C1_MUX_SQ_LOCKPOINT_V(7)-XXXX R        #  Command C1-83
+CCMD R-C1_MUX_SQ_LOCKPOINT_V(6)-348E W        #  Return Command C1-81
+COMM
+WCMD W-C1_MUX_SQ_LOCKPOINT_V(8)-9243 R        #  Command C1-84
+CCMD R-Status-FFFF W                          #  Return Command C1-82
+WCMD R-C1_MUX_SQ_LOCKPOINT_V(8)-XXXX R        #  Command C1-85
+CCMD R-C1_MUX_SQ_LOCKPOINT_V(7)-3C10 W        #  Return Command C1-83
+COMM
+WCMD W-C1_MUX_SQ_LOCKPOINT_V(9)-144B R        #  Command C1-86
+CCMD R-Status-FFFF W                          #  Return Command C1-84
+WCMD R-C1_MUX_SQ_LOCKPOINT_V(9)-XXXX R        #  Command C1-87
+CCMD R-C1_MUX_SQ_LOCKPOINT_V(8)-4392 W        #  Return Command C1-85
+COMM
+WCMD W-C1_MUX_SQ_LOCKPOINT_V(10)-9652 R       #  Command C1-88
+CCMD R-Status-FFFF W                          #  Return Command C1-86
+WCMD R-C1_MUX_SQ_LOCKPOINT_V(10)-XXXX R       #  Command C1-89
+CCMD R-C1_MUX_SQ_LOCKPOINT_V(9)-4B14 W        #  Return Command C1-87
+COMM
+WCMD W-C1_MUX_SQ_LOCKPOINT_V(11)-185A R       #  Command C1-90
+CCMD R-Status-FFFF W                          #  Return Command C1-88
+WCMD R-C1_MUX_SQ_LOCKPOINT_V(11)-XXXX R       #  Command C1-91
+CCMD R-C1_MUX_SQ_LOCKPOINT_V(10)-5296 W       #  Return Command C1-89
+COMM
+WCMD W-C1_MUX_SQ_LOCKPOINT_V(12)-9A61 R       #  Command C1-92
+CCMD R-Status-FFFF W                          #  Return Command C1-90
+WCMD R-C1_MUX_SQ_LOCKPOINT_V(12)-XXXX R       #  Command C1-93
+CCMD R-C1_MUX_SQ_LOCKPOINT_V(11)-5A18 W       #  Return Command C1-91
+COMM
+WCMD W-C1_MUX_SQ_LOCKPOINT_V(13)-1C69 R       #  Command C1-94
+CCMD R-Status-FFFF W                          #  Return Command C1-92
+WCMD R-C1_MUX_SQ_LOCKPOINT_V(13)-XXXX R       #  Command C1-95
+CCMD R-C1_MUX_SQ_LOCKPOINT_V(12)-619A W       #  Return Command C1-93
+COMM
+WCMD W-C1_MUX_SQ_LOCKPOINT_V(14)-9E70 R       #  Command C1-96
+CCMD R-Status-FFFF W                          #  Return Command C1-94
+WCMD R-C1_MUX_SQ_LOCKPOINT_V(14)-XXXX R       #  Command C1-97
+CCMD R-C1_MUX_SQ_LOCKPOINT_V(13)-691C W       #  Return Command C1-95
+COMM
+WCMD W-C1_MUX_SQ_LOCKPOINT_V(15)-2078 R       #  Command C1-98
+CCMD R-Status-FFFF W                          #  Return Command C1-96
+WCMD R-C1_MUX_SQ_LOCKPOINT_V(15)-XXXX R       #  Command C1-99
+CCMD R-C1_MUX_SQ_LOCKPOINT_V(14)-709E W       #  Return Command C1-97
+COMM
+WCMD W-C1_MUX_SQ_LOCKPOINT_V(16)-A27F R       #  Command C1-100
+CCMD R-Status-FFFF W                          #  Return Command C1-98
+WCMD R-C1_MUX_SQ_LOCKPOINT_V(16)-XXXX R       #  Command C1-101
+CCMD R-C1_MUX_SQ_LOCKPOINT_V(15)-7820 W       #  Return Command C1-99
+COMM
+WCMD W-C1_MUX_SQ_LOCKPOINT_V(17)-2487 R       #  Command C1-102
+CCMD R-Status-FFFF W                          #  Return Command C1-100
+WCMD R-C1_MUX_SQ_LOCKPOINT_V(17)-XXXX R       #  Command C1-103
+CCMD R-C1_MUX_SQ_LOCKPOINT_V(16)-7FA2 W       #  Return Command C1-101
+COMM
+WCMD W-C1_MUX_SQ_LOCKPOINT_V(18)-A68E R       #  Command C1-104
+CCMD R-Status-FFFF W                          #  Return Command C1-102
+WCMD R-C1_MUX_SQ_LOCKPOINT_V(18)-XXXX R       #  Command C1-105
+CCMD R-C1_MUX_SQ_LOCKPOINT_V(17)-8724 W       #  Return Command C1-103
+COMM
+WCMD W-C1_MUX_SQ_LOCKPOINT_V(19)-2896 R       #  Command C1-106
+CCMD R-Status-FFFF W                          #  Return Command C1-104
+WCMD R-C1_MUX_SQ_LOCKPOINT_V(19)-XXXX R       #  Command C1-107
+CCMD R-C1_MUX_SQ_LOCKPOINT_V(18)-8EA6 W       #  Return Command C1-105
+COMM
+WCMD W-C1_MUX_SQ_LOCKPOINT_V(20)-AA9D R       #  Command C1-108
+CCMD R-Status-FFFF W                          #  Return Command C1-106
+WCMD R-C1_MUX_SQ_LOCKPOINT_V(20)-XXXX R       #  Command C1-109
+CCMD R-C1_MUX_SQ_LOCKPOINT_V(19)-9628 W       #  Return Command C1-107
+COMM
+WCMD W-C1_MUX_SQ_LOCKPOINT_V(21)-2CA5 R       #  Command C1-110
+CCMD R-Status-FFFF W                          #  Return Command C1-108
+WCMD R-C1_MUX_SQ_LOCKPOINT_V(21)-XXXX R       #  Command C1-111
+CCMD R-C1_MUX_SQ_LOCKPOINT_V(20)-9DAA W       #  Return Command C1-109
+COMM
+WCMD W-C1_MUX_SQ_LOCKPOINT_V(22)-AEAC R       #  Command C1-112
+CCMD R-Status-FFFF W                          #  Return Command C1-110
+WCMD R-C1_MUX_SQ_LOCKPOINT_V(22)-XXXX R       #  Command C1-113
+CCMD R-C1_MUX_SQ_LOCKPOINT_V(21)-A52C W       #  Return Command C1-111
+COMM
+WCMD W-C1_MUX_SQ_LOCKPOINT_V(23)-30B4 R       #  Command C1-114
+CCMD R-Status-FFFF W                          #  Return Command C1-112
+WCMD R-C1_MUX_SQ_LOCKPOINT_V(23)-XXXX R       #  Command C1-115
+CCMD R-C1_MUX_SQ_LOCKPOINT_V(22)-ACAE W       #  Return Command C1-113
+COMM
+WCMD W-C1_MUX_SQ_LOCKPOINT_V(24)-B2BB R       #  Command C1-116
+CCMD R-Status-FFFF W                          #  Return Command C1-114
+WCMD R-C1_MUX_SQ_LOCKPOINT_V(24)-XXXX R       #  Command C1-117
+CCMD R-C1_MUX_SQ_LOCKPOINT_V(23)-B430 W       #  Return Command C1-115
+COMM
+WCMD W-C1_MUX_SQ_LOCKPOINT_V(25)-34C3 R       #  Command C1-118
+CCMD R-Status-FFFF W                          #  Return Command C1-116
+WCMD R-C1_MUX_SQ_LOCKPOINT_V(25)-XXXX R       #  Command C1-119
+CCMD R-C1_MUX_SQ_LOCKPOINT_V(24)-BBB2 W       #  Return Command C1-117
+COMM
+WCMD W-C1_MUX_SQ_LOCKPOINT_V(26)-B6CA R       #  Command C1-120
+CCMD R-Status-FFFF W                          #  Return Command C1-118
+WCMD R-C1_MUX_SQ_LOCKPOINT_V(26)-XXXX R       #  Command C1-121
+CCMD R-C1_MUX_SQ_LOCKPOINT_V(25)-C334 W       #  Return Command C1-119
+COMM
+WCMD W-C1_MUX_SQ_LOCKPOINT_V(27)-38D2 R       #  Command C1-122
+CCMD R-Status-FFFF W                          #  Return Command C1-120
+WCMD R-C1_MUX_SQ_LOCKPOINT_V(27)-XXXX R       #  Command C1-123
+CCMD R-C1_MUX_SQ_LOCKPOINT_V(26)-CAB6 W       #  Return Command C1-121
+COMM
+WCMD W-C1_MUX_SQ_LOCKPOINT_V(28)-BAD9 R       #  Command C1-124
+CCMD R-Status-FFFF W                          #  Return Command C1-122
+WCMD R-C1_MUX_SQ_LOCKPOINT_V(28)-XXXX R       #  Command C1-125
+CCMD R-C1_MUX_SQ_LOCKPOINT_V(27)-D238 W       #  Return Command C1-123
+COMM
+WCMD W-C1_MUX_SQ_LOCKPOINT_V(29)-3CE1 R       #  Command C1-126
+CCMD R-Status-FFFF W                          #  Return Command C1-124
+WCMD R-C1_MUX_SQ_LOCKPOINT_V(29)-XXXX R       #  Command C1-127
+CCMD R-C1_MUX_SQ_LOCKPOINT_V(28)-D9BA W       #  Return Command C1-125
+COMM
+WCMD W-C1_MUX_SQ_LOCKPOINT_V(30)-BEE8 R       #  Command C1-128
+CCMD R-Status-FFFF W                          #  Return Command C1-126
+WCMD R-C1_MUX_SQ_LOCKPOINT_V(30)-XXXX R       #  Command C1-129
+CCMD R-C1_MUX_SQ_LOCKPOINT_V(29)-E13C W       #  Return Command C1-127
+COMM
+WCMD W-C1_MUX_SQ_LOCKPOINT_V(31)-40F0 R       #  Command C1-130
+CCMD R-Status-FFFF W                          #  Return Command C1-128
+WCMD R-C1_MUX_SQ_LOCKPOINT_V(31)-XXXX R       #  Command C1-131
+CCMD R-C1_MUX_SQ_LOCKPOINT_V(30)-E8BE W       #  Return Command C1-129
+COMM
+WCMD W-C1_MUX_SQ_LOCKPOINT_V(32)-C2F7 R       #  Command C1-132
+CCMD R-Status-FFFF W                          #  Return Command C1-130
+WCMD R-C1_MUX_SQ_LOCKPOINT_V(32)-XXXX R       #  Command C1-133
+CCMD R-C1_MUX_SQ_LOCKPOINT_V(31)-F040 W       #  Return Command C1-131
+COMM
+WCMD W-C1_MUX_SQ_LOCKPOINT_V(33)-44FF R       #  Command C1-134
+CCMD R-Status-FFFF W                          #  Return Command C1-132
+WCMD R-C1_MUX_SQ_LOCKPOINT_V(33)-XXXX R       #  Command C1-135
+CCMD R-C1_MUX_SQ_LOCKPOINT_V(32)-F7C2 W       #  Return Command C1-133
+COMM
+COMM ==============================================================================================
+COMM   C1_MUX_SQ_LOCKPOINT_V: check ping-pong memory toggle after writing the last word of the table
+COMM     and check the first memory content
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-C1_MUX_SQ_LOCKPOINT_V(0)-1111 R        #  Command C1-136
+CCMD R-Status-FFFF W                          #  Return Command C1-134
+WCMD R-C1_MUX_SQ_LOCKPOINT_V(0)-XXXX R        #  Command C1-137
+CCMD R-C1_MUX_SQ_LOCKPOINT_V(33)-44FF W       #  Return Command C1-135
+COMM
+WCMD W-C1_MUX_SQ_LOCKPOINT_V(1)-040F R        #  Command C1-138
+CCMD R-Status-FFFF W                          #  Return Command C1-136
+WCMD R-C1_MUX_SQ_LOCKPOINT_V(1)-XXXX R        #  Command C1-139
+CCMD R-C1_MUX_SQ_LOCKPOINT_V(0)-8207 W        #  Return Command C1-137
+COMM
+COMM ==============================================================================================
+COMM   C2_MUX_SQ_LOCKPOINT_V: writing a new table in ping-pong memory
+COMM    and check reading of the memory part currently applicable is kept to its initial value
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-C2_MUX_SQ_LOCKPOINT_V(0)-0782 W        #  Command C2-0
+WCMD R-C2_MUX_SQ_LOCKPOINT_V(0)-XXXX W        #  Command C2-1
+COMM
+WCMD W-C2_MUX_SQ_LOCKPOINT_V(1)-0F04 R        #  Command C2-2
+CCMD R-Status-FFFF W                          #  Return Command C2-0
+WCMD R-C2_MUX_SQ_LOCKPOINT_V(1)-XXXX R        #  Command C2-3
+CCMD R-C2_MUX_SQ_LOCKPOINT_V(0)-8000 W        #  Return Command C2-1
+COMM
+WCMD W-C2_MUX_SQ_LOCKPOINT_V(2)-1686 R        #  Command C2-4
+CCMD R-Status-FFFF W                          #  Return Command C2-2
+WCMD R-C2_MUX_SQ_LOCKPOINT_V(2)-XXXX R        #  Command C2-5
+CCMD R-C2_MUX_SQ_LOCKPOINT_V(1)-8000 W        #  Return Command C2-3
+COMM
+WCMD W-C2_MUX_SQ_LOCKPOINT_V(3)-1E08 R        #  Command C2-6
+CCMD R-Status-FFFF W                          #  Return Command C2-4
+WCMD R-C2_MUX_SQ_LOCKPOINT_V(3)-XXXX R        #  Command C2-7
+CCMD R-C2_MUX_SQ_LOCKPOINT_V(2)-8000 W        #  Return Command C2-5
+COMM
+WCMD W-C2_MUX_SQ_LOCKPOINT_V(4)-258A R        #  Command C2-8
+CCMD R-Status-FFFF W                          #  Return Command C2-6
+WCMD R-C2_MUX_SQ_LOCKPOINT_V(4)-XXXX R        #  Command C2-9
+CCMD R-C2_MUX_SQ_LOCKPOINT_V(3)-8000 W        #  Return Command C2-7
+COMM
+WCMD W-C2_MUX_SQ_LOCKPOINT_V(5)-2D0C R        #  Command C2-10
+CCMD R-Status-FFFF W                          #  Return Command C2-8
+WCMD R-C2_MUX_SQ_LOCKPOINT_V(5)-XXXX R        #  Command C2-11
+CCMD R-C2_MUX_SQ_LOCKPOINT_V(4)-8000 W        #  Return Command C2-9
+COMM
+WCMD W-C2_MUX_SQ_LOCKPOINT_V(6)-348E R        #  Command C2-12
+CCMD R-Status-FFFF W                          #  Return Command C2-10
+WCMD R-C2_MUX_SQ_LOCKPOINT_V(6)-XXXX R        #  Command C2-13
+CCMD R-C2_MUX_SQ_LOCKPOINT_V(5)-8000 W        #  Return Command C2-11
+COMM
+WCMD W-C2_MUX_SQ_LOCKPOINT_V(7)-3C10 R        #  Command C2-14
+CCMD R-Status-FFFF W                          #  Return Command C2-12
+WCMD R-C2_MUX_SQ_LOCKPOINT_V(7)-XXXX R        #  Command C2-15
+CCMD R-C2_MUX_SQ_LOCKPOINT_V(6)-8000 W        #  Return Command C2-13
+COMM
+WCMD W-C2_MUX_SQ_LOCKPOINT_V(8)-4392 R        #  Command C2-16
+CCMD R-Status-FFFF W                          #  Return Command C2-14
+WCMD R-C2_MUX_SQ_LOCKPOINT_V(8)-XXXX R        #  Command C2-17
+CCMD R-C2_MUX_SQ_LOCKPOINT_V(7)-8000 W        #  Return Command C2-15
+COMM
+WCMD W-C2_MUX_SQ_LOCKPOINT_V(9)-4B14 R        #  Command C2-18
+CCMD R-Status-FFFF W                          #  Return Command C2-16
+WCMD R-C2_MUX_SQ_LOCKPOINT_V(9)-XXXX R        #  Command C2-19
+CCMD R-C2_MUX_SQ_LOCKPOINT_V(8)-8000 W        #  Return Command C2-17
+COMM
+WCMD W-C2_MUX_SQ_LOCKPOINT_V(10)-5296 R       #  Command C2-20
+CCMD R-Status-FFFF W                          #  Return Command C2-18
+WCMD R-C2_MUX_SQ_LOCKPOINT_V(10)-XXXX R       #  Command C2-21
+CCMD R-C2_MUX_SQ_LOCKPOINT_V(9)-8000 W        #  Return Command C2-19
+COMM
+WCMD W-C2_MUX_SQ_LOCKPOINT_V(11)-5A18 R       #  Command C2-22
+CCMD R-Status-FFFF W                          #  Return Command C2-20
+WCMD R-C2_MUX_SQ_LOCKPOINT_V(11)-XXXX R       #  Command C2-23
+CCMD R-C2_MUX_SQ_LOCKPOINT_V(10)-8000 W       #  Return Command C2-21
+COMM
+WCMD W-C2_MUX_SQ_LOCKPOINT_V(12)-619A R       #  Command C2-24
+CCMD R-Status-FFFF W                          #  Return Command C2-22
+WCMD R-C2_MUX_SQ_LOCKPOINT_V(12)-XXXX R       #  Command C2-25
+CCMD R-C2_MUX_SQ_LOCKPOINT_V(11)-8000 W       #  Return Command C2-23
+COMM
+WCMD W-C2_MUX_SQ_LOCKPOINT_V(13)-691C R       #  Command C2-26
+CCMD R-Status-FFFF W                          #  Return Command C2-24
+WCMD R-C2_MUX_SQ_LOCKPOINT_V(13)-XXXX R       #  Command C2-27
+CCMD R-C2_MUX_SQ_LOCKPOINT_V(12)-8000 W       #  Return Command C2-25
+COMM
+WCMD W-C2_MUX_SQ_LOCKPOINT_V(14)-709E R       #  Command C2-28
+CCMD R-Status-FFFF W                          #  Return Command C2-26
+WCMD R-C2_MUX_SQ_LOCKPOINT_V(14)-XXXX R       #  Command C2-29
+CCMD R-C2_MUX_SQ_LOCKPOINT_V(13)-8000 W       #  Return Command C2-27
+COMM
+WCMD W-C2_MUX_SQ_LOCKPOINT_V(15)-7820 R       #  Command C2-30
+CCMD R-Status-FFFF W                          #  Return Command C2-28
+WCMD R-C2_MUX_SQ_LOCKPOINT_V(15)-XXXX R       #  Command C2-31
+CCMD R-C2_MUX_SQ_LOCKPOINT_V(14)-8000 W       #  Return Command C2-29
+COMM
+WCMD W-C2_MUX_SQ_LOCKPOINT_V(16)-7FA2 R       #  Command C2-32
+CCMD R-Status-FFFF W                          #  Return Command C2-30
+WCMD R-C2_MUX_SQ_LOCKPOINT_V(16)-XXXX R       #  Command C2-33
+CCMD R-C2_MUX_SQ_LOCKPOINT_V(15)-8000 W       #  Return Command C2-31
+COMM
+WCMD W-C2_MUX_SQ_LOCKPOINT_V(17)-8724 R       #  Command C2-34
+CCMD R-Status-FFFF W                          #  Return Command C2-32
+WCMD R-C2_MUX_SQ_LOCKPOINT_V(17)-XXXX R       #  Command C2-35
+CCMD R-C2_MUX_SQ_LOCKPOINT_V(16)-8000 W       #  Return Command C2-33
+COMM
+WCMD W-C2_MUX_SQ_LOCKPOINT_V(18)-8EA6 R       #  Command C2-36
+CCMD R-Status-FFFF W                          #  Return Command C2-34
+WCMD R-C2_MUX_SQ_LOCKPOINT_V(18)-XXXX R       #  Command C2-37
+CCMD R-C2_MUX_SQ_LOCKPOINT_V(17)-8000 W       #  Return Command C2-35
+COMM
+WCMD W-C2_MUX_SQ_LOCKPOINT_V(19)-9628 R       #  Command C2-38
+CCMD R-Status-FFFF W                          #  Return Command C2-36
+WCMD R-C2_MUX_SQ_LOCKPOINT_V(19)-XXXX R       #  Command C2-39
+CCMD R-C2_MUX_SQ_LOCKPOINT_V(18)-8000 W       #  Return Command C2-37
+COMM
+WCMD W-C2_MUX_SQ_LOCKPOINT_V(20)-9DAA R       #  Command C2-40
+CCMD R-Status-FFFF W                          #  Return Command C2-38
+WCMD R-C2_MUX_SQ_LOCKPOINT_V(20)-XXXX R       #  Command C2-41
+CCMD R-C2_MUX_SQ_LOCKPOINT_V(19)-8000 W       #  Return Command C2-39
+COMM
+WCMD W-C2_MUX_SQ_LOCKPOINT_V(21)-A52C R       #  Command C2-42
+CCMD R-Status-FFFF W                          #  Return Command C2-40
+WCMD R-C2_MUX_SQ_LOCKPOINT_V(21)-XXXX R       #  Command C2-43
+CCMD R-C2_MUX_SQ_LOCKPOINT_V(20)-8000 W       #  Return Command C2-41
+COMM
+WCMD W-C2_MUX_SQ_LOCKPOINT_V(22)-ACAE R       #  Command C2-44
+CCMD R-Status-FFFF W                          #  Return Command C2-42
+WCMD R-C2_MUX_SQ_LOCKPOINT_V(22)-XXXX R       #  Command C2-45
+CCMD R-C2_MUX_SQ_LOCKPOINT_V(21)-8000 W       #  Return Command C2-43
+COMM
+WCMD W-C2_MUX_SQ_LOCKPOINT_V(23)-B430 R       #  Command C2-46
+CCMD R-Status-FFFF W                          #  Return Command C2-44
+WCMD R-C2_MUX_SQ_LOCKPOINT_V(23)-XXXX R       #  Command C2-47
+CCMD R-C2_MUX_SQ_LOCKPOINT_V(22)-8000 W       #  Return Command C2-45
+COMM
+WCMD W-C2_MUX_SQ_LOCKPOINT_V(24)-BBB2 R       #  Command C2-48
+CCMD R-Status-FFFF W                          #  Return Command C2-46
+WCMD R-C2_MUX_SQ_LOCKPOINT_V(24)-XXXX R       #  Command C2-49
+CCMD R-C2_MUX_SQ_LOCKPOINT_V(23)-8000 W       #  Return Command C2-47
+COMM
+WCMD W-C2_MUX_SQ_LOCKPOINT_V(25)-C334 R       #  Command C2-50
+CCMD R-Status-FFFF W                          #  Return Command C2-48
+WCMD R-C2_MUX_SQ_LOCKPOINT_V(25)-XXXX R       #  Command C2-51
+CCMD R-C2_MUX_SQ_LOCKPOINT_V(24)-8000 W       #  Return Command C2-49
+COMM
+WCMD W-C2_MUX_SQ_LOCKPOINT_V(26)-CAB6 R       #  Command C2-52
+CCMD R-Status-FFFF W                          #  Return Command C2-50
+WCMD R-C2_MUX_SQ_LOCKPOINT_V(26)-XXXX R       #  Command C2-53
+CCMD R-C2_MUX_SQ_LOCKPOINT_V(25)-8000 W       #  Return Command C2-51
+COMM
+WCMD W-C2_MUX_SQ_LOCKPOINT_V(27)-D238 R       #  Command C2-54
+CCMD R-Status-FFFF W                          #  Return Command C2-52
+WCMD R-C2_MUX_SQ_LOCKPOINT_V(27)-XXXX R       #  Command C2-55
+CCMD R-C2_MUX_SQ_LOCKPOINT_V(26)-8000 W       #  Return Command C2-53
+COMM
+WCMD W-C2_MUX_SQ_LOCKPOINT_V(28)-D9BA R       #  Command C2-56
+CCMD R-Status-FFFF W                          #  Return Command C2-54
+WCMD R-C2_MUX_SQ_LOCKPOINT_V(28)-XXXX R       #  Command C2-57
+CCMD R-C2_MUX_SQ_LOCKPOINT_V(27)-8000 W       #  Return Command C2-55
+COMM
+WCMD W-C2_MUX_SQ_LOCKPOINT_V(29)-E13C R       #  Command C2-58
+CCMD R-Status-FFFF W                          #  Return Command C2-56
+WCMD R-C2_MUX_SQ_LOCKPOINT_V(29)-XXXX R       #  Command C2-59
+CCMD R-C2_MUX_SQ_LOCKPOINT_V(28)-8000 W       #  Return Command C2-57
+COMM
+WCMD W-C2_MUX_SQ_LOCKPOINT_V(30)-E8BE R       #  Command C2-60
+CCMD R-Status-FFFF W                          #  Return Command C2-58
+WCMD R-C2_MUX_SQ_LOCKPOINT_V(30)-XXXX R       #  Command C2-61
+CCMD R-C2_MUX_SQ_LOCKPOINT_V(29)-8000 W       #  Return Command C2-59
+COMM
+WCMD W-C2_MUX_SQ_LOCKPOINT_V(31)-F040 R       #  Command C2-62
+CCMD R-Status-FFFF W                          #  Return Command C2-60
+WCMD R-C2_MUX_SQ_LOCKPOINT_V(31)-XXXX R       #  Command C2-63
+CCMD R-C2_MUX_SQ_LOCKPOINT_V(30)-8000 W       #  Return Command C2-61
+COMM
+WCMD W-C2_MUX_SQ_LOCKPOINT_V(32)-F7C2 R       #  Command C2-64
+CCMD R-Status-FFFF W                          #  Return Command C2-62
+WCMD R-C2_MUX_SQ_LOCKPOINT_V(32)-XXXX R       #  Command C2-65
+CCMD R-C2_MUX_SQ_LOCKPOINT_V(31)-8000 W       #  Return Command C2-63
+COMM
+WCMD W-C2_MUX_SQ_LOCKPOINT_V(33)-FF44 R       #  Command C2-66
+CCMD R-Status-FFFF W                          #  Return Command C2-64
+WCMD R-C2_MUX_SQ_LOCKPOINT_V(33)-XXXX R       #  Command C2-67
+CCMD R-C2_MUX_SQ_LOCKPOINT_V(32)-8000 W       #  Return Command C2-65
+COMM
+COMM ==============================================================================================
+COMM   C2_MUX_SQ_LOCKPOINT_V: check ping-pong memory toggle after writing the last word of the table
+COMM     and check the memory content
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-C2_MUX_SQ_LOCKPOINT_V(0)-8207 R        #  Command C2-68
+CCMD R-Status-FFFF W                          #  Return Command C2-66
+WCMD R-C2_MUX_SQ_LOCKPOINT_V(0)-XXXX R        #  Command C2-69
+CCMD R-C2_MUX_SQ_LOCKPOINT_V(33)-FF44 W       #  Return Command C2-67
+COMM
+WCMD W-C2_MUX_SQ_LOCKPOINT_V(1)-040F R        #  Command C2-70
+CCMD R-Status-FFFF W                          #  Return Command C2-68
+WCMD R-C2_MUX_SQ_LOCKPOINT_V(1)-XXXX R        #  Command C2-71
+CCMD R-C2_MUX_SQ_LOCKPOINT_V(0)-0782 W        #  Return Command C2-69
+COMM
+WCMD W-C2_MUX_SQ_LOCKPOINT_V(2)-8616 R        #  Command C2-72
+CCMD R-Status-FFFF W                          #  Return Command C2-70
+WCMD R-C2_MUX_SQ_LOCKPOINT_V(2)-XXXX R        #  Command C2-73
+CCMD R-C2_MUX_SQ_LOCKPOINT_V(1)-0F04 W        #  Return Command C2-71
+COMM
+WCMD W-C2_MUX_SQ_LOCKPOINT_V(3)-081E R        #  Command C2-74
+CCMD R-Status-FFFF W                          #  Return Command C2-72
+WCMD R-C2_MUX_SQ_LOCKPOINT_V(3)-XXXX R        #  Command C2-75
+CCMD R-C2_MUX_SQ_LOCKPOINT_V(2)-1686 W        #  Return Command C2-73
+COMM
+WCMD W-C2_MUX_SQ_LOCKPOINT_V(4)-8A25 R        #  Command C2-76
+CCMD R-Status-FFFF W                          #  Return Command C2-74
+WCMD R-C2_MUX_SQ_LOCKPOINT_V(4)-XXXX R        #  Command C2-77
+CCMD R-C2_MUX_SQ_LOCKPOINT_V(3)-1E08 W        #  Return Command C2-75
+COMM
+WCMD W-C2_MUX_SQ_LOCKPOINT_V(5)-0C2D R        #  Command C2-78
+CCMD R-Status-FFFF W                          #  Return Command C2-76
+WCMD R-C2_MUX_SQ_LOCKPOINT_V(5)-XXXX R        #  Command C2-79
+CCMD R-C2_MUX_SQ_LOCKPOINT_V(4)-258A W        #  Return Command C2-77
+COMM
+WCMD W-C2_MUX_SQ_LOCKPOINT_V(6)-8E34 R        #  Command C2-80
+CCMD R-Status-FFFF W                          #  Return Command C2-78
+WCMD R-C2_MUX_SQ_LOCKPOINT_V(6)-XXXX R        #  Command C2-81
+CCMD R-C2_MUX_SQ_LOCKPOINT_V(5)-2D0C W        #  Return Command C2-79
+COMM
+WCMD W-C2_MUX_SQ_LOCKPOINT_V(7)-103C R        #  Command C2-82
+CCMD R-Status-FFFF W                          #  Return Command C2-80
+WCMD R-C2_MUX_SQ_LOCKPOINT_V(7)-XXXX R        #  Command C2-83
+CCMD R-C2_MUX_SQ_LOCKPOINT_V(6)-348E W        #  Return Command C2-81
+COMM
+WCMD W-C2_MUX_SQ_LOCKPOINT_V(8)-9243 R        #  Command C2-84
+CCMD R-Status-FFFF W                          #  Return Command C2-82
+WCMD R-C2_MUX_SQ_LOCKPOINT_V(8)-XXXX R        #  Command C2-85
+CCMD R-C2_MUX_SQ_LOCKPOINT_V(7)-3C10 W        #  Return Command C2-83
+COMM
+WCMD W-C2_MUX_SQ_LOCKPOINT_V(9)-144B R        #  Command C2-86
+CCMD R-Status-FFFF W                          #  Return Command C2-84
+WCMD R-C2_MUX_SQ_LOCKPOINT_V(9)-XXXX R        #  Command C2-87
+CCMD R-C2_MUX_SQ_LOCKPOINT_V(8)-4392 W        #  Return Command C2-85
+COMM
+WCMD W-C2_MUX_SQ_LOCKPOINT_V(10)-9652 R       #  Command C2-88
+CCMD R-Status-FFFF W                          #  Return Command C2-86
+WCMD R-C2_MUX_SQ_LOCKPOINT_V(10)-XXXX R       #  Command C2-89
+CCMD R-C2_MUX_SQ_LOCKPOINT_V(9)-4B14 W        #  Return Command C2-87
+COMM
+WCMD W-C2_MUX_SQ_LOCKPOINT_V(11)-185A R       #  Command C2-90
+CCMD R-Status-FFFF W                          #  Return Command C2-88
+WCMD R-C2_MUX_SQ_LOCKPOINT_V(11)-XXXX R       #  Command C2-91
+CCMD R-C2_MUX_SQ_LOCKPOINT_V(10)-5296 W       #  Return Command C2-89
+COMM
+WCMD W-C2_MUX_SQ_LOCKPOINT_V(12)-9A61 R       #  Command C2-92
+CCMD R-Status-FFFF W                          #  Return Command C2-90
+WCMD R-C2_MUX_SQ_LOCKPOINT_V(12)-XXXX R       #  Command C2-93
+CCMD R-C2_MUX_SQ_LOCKPOINT_V(11)-5A18 W       #  Return Command C2-91
+COMM
+WCMD W-C2_MUX_SQ_LOCKPOINT_V(13)-1C69 R       #  Command C2-94
+CCMD R-Status-FFFF W                          #  Return Command C2-92
+WCMD R-C2_MUX_SQ_LOCKPOINT_V(13)-XXXX R       #  Command C2-95
+CCMD R-C2_MUX_SQ_LOCKPOINT_V(12)-619A W       #  Return Command C2-93
+COMM
+WCMD W-C2_MUX_SQ_LOCKPOINT_V(14)-9E70 R       #  Command C2-96
+CCMD R-Status-FFFF W                          #  Return Command C2-94
+WCMD R-C2_MUX_SQ_LOCKPOINT_V(14)-XXXX R       #  Command C2-97
+CCMD R-C2_MUX_SQ_LOCKPOINT_V(13)-691C W       #  Return Command C2-95
+COMM
+WCMD W-C2_MUX_SQ_LOCKPOINT_V(15)-2078 R       #  Command C2-98
+CCMD R-Status-FFFF W                          #  Return Command C2-96
+WCMD R-C2_MUX_SQ_LOCKPOINT_V(15)-XXXX R       #  Command C2-99
+CCMD R-C2_MUX_SQ_LOCKPOINT_V(14)-709E W       #  Return Command C2-97
+COMM
+WCMD W-C2_MUX_SQ_LOCKPOINT_V(16)-A27F R       #  Command C2-100
+CCMD R-Status-FFFF W                          #  Return Command C2-98
+WCMD R-C2_MUX_SQ_LOCKPOINT_V(16)-XXXX R       #  Command C2-101
+CCMD R-C2_MUX_SQ_LOCKPOINT_V(15)-7820 W       #  Return Command C2-99
+COMM
+WCMD W-C2_MUX_SQ_LOCKPOINT_V(17)-2487 R       #  Command C2-102
+CCMD R-Status-FFFF W                          #  Return Command C2-100
+WCMD R-C2_MUX_SQ_LOCKPOINT_V(17)-XXXX R       #  Command C2-103
+CCMD R-C2_MUX_SQ_LOCKPOINT_V(16)-7FA2 W       #  Return Command C2-101
+COMM
+WCMD W-C2_MUX_SQ_LOCKPOINT_V(18)-A68E R       #  Command C2-104
+CCMD R-Status-FFFF W                          #  Return Command C2-102
+WCMD R-C2_MUX_SQ_LOCKPOINT_V(18)-XXXX R       #  Command C2-105
+CCMD R-C2_MUX_SQ_LOCKPOINT_V(17)-8724 W       #  Return Command C2-103
+COMM
+WCMD W-C2_MUX_SQ_LOCKPOINT_V(19)-2896 R       #  Command C2-106
+CCMD R-Status-FFFF W                          #  Return Command C2-104
+WCMD R-C2_MUX_SQ_LOCKPOINT_V(19)-XXXX R       #  Command C2-107
+CCMD R-C2_MUX_SQ_LOCKPOINT_V(18)-8EA6 W       #  Return Command C2-105
+COMM
+WCMD W-C2_MUX_SQ_LOCKPOINT_V(20)-AA9D R       #  Command C2-108
+CCMD R-Status-FFFF W                          #  Return Command C2-106
+WCMD R-C2_MUX_SQ_LOCKPOINT_V(20)-XXXX R       #  Command C2-109
+CCMD R-C2_MUX_SQ_LOCKPOINT_V(19)-9628 W       #  Return Command C2-107
+COMM
+WCMD W-C2_MUX_SQ_LOCKPOINT_V(21)-2CA5 R       #  Command C2-110
+CCMD R-Status-FFFF W                          #  Return Command C2-108
+WCMD R-C2_MUX_SQ_LOCKPOINT_V(21)-XXXX R       #  Command C2-111
+CCMD R-C2_MUX_SQ_LOCKPOINT_V(20)-9DAA W       #  Return Command C2-109
+COMM
+WCMD W-C2_MUX_SQ_LOCKPOINT_V(22)-AEAC R       #  Command C2-112
+CCMD R-Status-FFFF W                          #  Return Command C2-110
+WCMD R-C2_MUX_SQ_LOCKPOINT_V(22)-XXXX R       #  Command C2-113
+CCMD R-C2_MUX_SQ_LOCKPOINT_V(21)-A52C W       #  Return Command C2-111
+COMM
+WCMD W-C2_MUX_SQ_LOCKPOINT_V(23)-30B4 R       #  Command C2-114
+CCMD R-Status-FFFF W                          #  Return Command C2-112
+WCMD R-C2_MUX_SQ_LOCKPOINT_V(23)-XXXX R       #  Command C2-115
+CCMD R-C2_MUX_SQ_LOCKPOINT_V(22)-ACAE W       #  Return Command C2-113
+COMM
+WCMD W-C2_MUX_SQ_LOCKPOINT_V(24)-B2BB R       #  Command C2-116
+CCMD R-Status-FFFF W                          #  Return Command C2-114
+WCMD R-C2_MUX_SQ_LOCKPOINT_V(24)-XXXX R       #  Command C2-117
+CCMD R-C2_MUX_SQ_LOCKPOINT_V(23)-B430 W       #  Return Command C2-115
+COMM
+WCMD W-C2_MUX_SQ_LOCKPOINT_V(25)-34C3 R       #  Command C2-118
+CCMD R-Status-FFFF W                          #  Return Command C2-116
+WCMD R-C2_MUX_SQ_LOCKPOINT_V(25)-XXXX R       #  Command C2-119
+CCMD R-C2_MUX_SQ_LOCKPOINT_V(24)-BBB2 W       #  Return Command C2-117
+COMM
+WCMD W-C2_MUX_SQ_LOCKPOINT_V(26)-B6CA R       #  Command C2-120
+CCMD R-Status-FFFF W                          #  Return Command C2-118
+WCMD R-C2_MUX_SQ_LOCKPOINT_V(26)-XXXX R       #  Command C2-121
+CCMD R-C2_MUX_SQ_LOCKPOINT_V(25)-C334 W       #  Return Command C2-119
+COMM
+WCMD W-C2_MUX_SQ_LOCKPOINT_V(27)-38D2 R       #  Command C2-122
+CCMD R-Status-FFFF W                          #  Return Command C2-120
+WCMD R-C2_MUX_SQ_LOCKPOINT_V(27)-XXXX R       #  Command C2-123
+CCMD R-C2_MUX_SQ_LOCKPOINT_V(26)-CAB6 W       #  Return Command C2-121
+COMM
+WCMD W-C2_MUX_SQ_LOCKPOINT_V(28)-BAD9 R       #  Command C2-124
+CCMD R-Status-FFFF W                          #  Return Command C2-122
+WCMD R-C2_MUX_SQ_LOCKPOINT_V(28)-XXXX R       #  Command C2-125
+CCMD R-C2_MUX_SQ_LOCKPOINT_V(27)-D238 W       #  Return Command C2-123
+COMM
+WCMD W-C2_MUX_SQ_LOCKPOINT_V(29)-3CE1 R       #  Command C2-126
+CCMD R-Status-FFFF W                          #  Return Command C2-124
+WCMD R-C2_MUX_SQ_LOCKPOINT_V(29)-XXXX R       #  Command C2-127
+CCMD R-C2_MUX_SQ_LOCKPOINT_V(28)-D9BA W       #  Return Command C2-125
+COMM
+WCMD W-C2_MUX_SQ_LOCKPOINT_V(30)-BEE8 R       #  Command C2-128
+CCMD R-Status-FFFF W                          #  Return Command C2-126
+WCMD R-C2_MUX_SQ_LOCKPOINT_V(30)-XXXX R       #  Command C2-129
+CCMD R-C2_MUX_SQ_LOCKPOINT_V(29)-E13C W       #  Return Command C2-127
+COMM
+WCMD W-C2_MUX_SQ_LOCKPOINT_V(31)-40F0 R       #  Command C2-130
+CCMD R-Status-FFFF W                          #  Return Command C2-128
+WCMD R-C2_MUX_SQ_LOCKPOINT_V(31)-XXXX R       #  Command C2-131
+CCMD R-C2_MUX_SQ_LOCKPOINT_V(30)-E8BE W       #  Return Command C2-129
+COMM
+WCMD W-C2_MUX_SQ_LOCKPOINT_V(32)-C2F7 R       #  Command C2-132
+CCMD R-Status-FFFF W                          #  Return Command C2-130
+WCMD R-C2_MUX_SQ_LOCKPOINT_V(32)-XXXX R       #  Command C2-133
+CCMD R-C2_MUX_SQ_LOCKPOINT_V(31)-F040 W       #  Return Command C2-131
+COMM
+WCMD W-C2_MUX_SQ_LOCKPOINT_V(33)-44FF R       #  Command C2-134
+CCMD R-Status-FFFF W                          #  Return Command C2-132
+WCMD R-C2_MUX_SQ_LOCKPOINT_V(33)-XXXX R       #  Command C2-135
+CCMD R-C2_MUX_SQ_LOCKPOINT_V(32)-F7C2 W       #  Return Command C2-133
+COMM
+COMM ==============================================================================================
+COMM   C2_MUX_SQ_LOCKPOINT_V: check ping-pong memory toggle after writing the last word of the table
+COMM     and check the first memory content
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-C2_MUX_SQ_LOCKPOINT_V(0)-1111 R        #  Command C2-136
+CCMD R-Status-FFFF W                          #  Return Command C2-134
+WCMD R-C2_MUX_SQ_LOCKPOINT_V(0)-XXXX R        #  Command C2-137
+CCMD R-C2_MUX_SQ_LOCKPOINT_V(33)-44FF W       #  Return Command C2-135
+COMM
+WCMD W-C2_MUX_SQ_LOCKPOINT_V(1)-040F R        #  Command C2-138
+CCMD R-Status-FFFF W                          #  Return Command C2-136
+WCMD R-C2_MUX_SQ_LOCKPOINT_V(1)-XXXX R        #  Command C2-139
+CCMD R-C2_MUX_SQ_LOCKPOINT_V(0)-8207 W        #  Return Command C2-137
+COMM
+COMM ==============================================================================================
+COMM   C3_MUX_SQ_LOCKPOINT_V: writing a new table in ping-pong memory
+COMM    and check reading of the memory part currently applicable is kept to its initial value
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-C3_MUX_SQ_LOCKPOINT_V(0)-0782 W        #  Command C3-0
+WCMD R-C3_MUX_SQ_LOCKPOINT_V(0)-XXXX W        #  Command C3-1
+COMM
+WCMD W-C3_MUX_SQ_LOCKPOINT_V(1)-0F04 R        #  Command C3-2
+CCMD R-Status-FFFF W                          #  Return Command C3-0
+WCMD R-C3_MUX_SQ_LOCKPOINT_V(1)-XXXX R        #  Command C3-3
+CCMD R-C3_MUX_SQ_LOCKPOINT_V(0)-8000 W        #  Return Command C3-1
+COMM
+WCMD W-C3_MUX_SQ_LOCKPOINT_V(2)-1686 R        #  Command C3-4
+CCMD R-Status-FFFF W                          #  Return Command C3-2
+WCMD R-C3_MUX_SQ_LOCKPOINT_V(2)-XXXX R        #  Command C3-5
+CCMD R-C3_MUX_SQ_LOCKPOINT_V(1)-8000 W        #  Return Command C3-3
+COMM
+WCMD W-C3_MUX_SQ_LOCKPOINT_V(3)-1E08 R        #  Command C3-6
+CCMD R-Status-FFFF W                          #  Return Command C3-4
+WCMD R-C3_MUX_SQ_LOCKPOINT_V(3)-XXXX R        #  Command C3-7
+CCMD R-C3_MUX_SQ_LOCKPOINT_V(2)-8000 W        #  Return Command C3-5
+COMM
+WCMD W-C3_MUX_SQ_LOCKPOINT_V(4)-258A R        #  Command C3-8
+CCMD R-Status-FFFF W                          #  Return Command C3-6
+WCMD R-C3_MUX_SQ_LOCKPOINT_V(4)-XXXX R        #  Command C3-9
+CCMD R-C3_MUX_SQ_LOCKPOINT_V(3)-8000 W        #  Return Command C3-7
+COMM
+WCMD W-C3_MUX_SQ_LOCKPOINT_V(5)-2D0C R        #  Command C3-10
+CCMD R-Status-FFFF W                          #  Return Command C3-8
+WCMD R-C3_MUX_SQ_LOCKPOINT_V(5)-XXXX R        #  Command C3-11
+CCMD R-C3_MUX_SQ_LOCKPOINT_V(4)-8000 W        #  Return Command C3-9
+COMM
+WCMD W-C3_MUX_SQ_LOCKPOINT_V(6)-348E R        #  Command C3-12
+CCMD R-Status-FFFF W                          #  Return Command C3-10
+WCMD R-C3_MUX_SQ_LOCKPOINT_V(6)-XXXX R        #  Command C3-13
+CCMD R-C3_MUX_SQ_LOCKPOINT_V(5)-8000 W        #  Return Command C3-11
+COMM
+WCMD W-C3_MUX_SQ_LOCKPOINT_V(7)-3C10 R        #  Command C3-14
+CCMD R-Status-FFFF W                          #  Return Command C3-12
+WCMD R-C3_MUX_SQ_LOCKPOINT_V(7)-XXXX R        #  Command C3-15
+CCMD R-C3_MUX_SQ_LOCKPOINT_V(6)-8000 W        #  Return Command C3-13
+COMM
+WCMD W-C3_MUX_SQ_LOCKPOINT_V(8)-4392 R        #  Command C3-16
+CCMD R-Status-FFFF W                          #  Return Command C3-14
+WCMD R-C3_MUX_SQ_LOCKPOINT_V(8)-XXXX R        #  Command C3-17
+CCMD R-C3_MUX_SQ_LOCKPOINT_V(7)-8000 W        #  Return Command C3-15
+COMM
+WCMD W-C3_MUX_SQ_LOCKPOINT_V(9)-4B14 R        #  Command C3-18
+CCMD R-Status-FFFF W                          #  Return Command C3-16
+WCMD R-C3_MUX_SQ_LOCKPOINT_V(9)-XXXX R        #  Command C3-19
+CCMD R-C3_MUX_SQ_LOCKPOINT_V(8)-8000 W        #  Return Command C3-17
+COMM
+WCMD W-C3_MUX_SQ_LOCKPOINT_V(10)-5296 R       #  Command C3-20
+CCMD R-Status-FFFF W                          #  Return Command C3-18
+WCMD R-C3_MUX_SQ_LOCKPOINT_V(10)-XXXX R       #  Command C3-21
+CCMD R-C3_MUX_SQ_LOCKPOINT_V(9)-8000 W        #  Return Command C3-19
+COMM
+WCMD W-C3_MUX_SQ_LOCKPOINT_V(11)-5A18 R       #  Command C3-22
+CCMD R-Status-FFFF W                          #  Return Command C3-20
+WCMD R-C3_MUX_SQ_LOCKPOINT_V(11)-XXXX R       #  Command C3-23
+CCMD R-C3_MUX_SQ_LOCKPOINT_V(10)-8000 W       #  Return Command C3-21
+COMM
+WCMD W-C3_MUX_SQ_LOCKPOINT_V(12)-619A R       #  Command C3-24
+CCMD R-Status-FFFF W                          #  Return Command C3-22
+WCMD R-C3_MUX_SQ_LOCKPOINT_V(12)-XXXX R       #  Command C3-25
+CCMD R-C3_MUX_SQ_LOCKPOINT_V(11)-8000 W       #  Return Command C3-23
+COMM
+WCMD W-C3_MUX_SQ_LOCKPOINT_V(13)-691C R       #  Command C3-26
+CCMD R-Status-FFFF W                          #  Return Command C3-24
+WCMD R-C3_MUX_SQ_LOCKPOINT_V(13)-XXXX R       #  Command C3-27
+CCMD R-C3_MUX_SQ_LOCKPOINT_V(12)-8000 W       #  Return Command C3-25
+COMM
+WCMD W-C3_MUX_SQ_LOCKPOINT_V(14)-709E R       #  Command C3-28
+CCMD R-Status-FFFF W                          #  Return Command C3-26
+WCMD R-C3_MUX_SQ_LOCKPOINT_V(14)-XXXX R       #  Command C3-29
+CCMD R-C3_MUX_SQ_LOCKPOINT_V(13)-8000 W       #  Return Command C3-27
+COMM
+WCMD W-C3_MUX_SQ_LOCKPOINT_V(15)-7820 R       #  Command C3-30
+CCMD R-Status-FFFF W                          #  Return Command C3-28
+WCMD R-C3_MUX_SQ_LOCKPOINT_V(15)-XXXX R       #  Command C3-31
+CCMD R-C3_MUX_SQ_LOCKPOINT_V(14)-8000 W       #  Return Command C3-29
+COMM
+WCMD W-C3_MUX_SQ_LOCKPOINT_V(16)-7FA2 R       #  Command C3-32
+CCMD R-Status-FFFF W                          #  Return Command C3-30
+WCMD R-C3_MUX_SQ_LOCKPOINT_V(16)-XXXX R       #  Command C3-33
+CCMD R-C3_MUX_SQ_LOCKPOINT_V(15)-8000 W       #  Return Command C3-31
+COMM
+WCMD W-C3_MUX_SQ_LOCKPOINT_V(17)-8724 R       #  Command C3-34
+CCMD R-Status-FFFF W                          #  Return Command C3-32
+WCMD R-C3_MUX_SQ_LOCKPOINT_V(17)-XXXX R       #  Command C3-35
+CCMD R-C3_MUX_SQ_LOCKPOINT_V(16)-8000 W       #  Return Command C3-33
+COMM
+WCMD W-C3_MUX_SQ_LOCKPOINT_V(18)-8EA6 R       #  Command C3-36
+CCMD R-Status-FFFF W                          #  Return Command C3-34
+WCMD R-C3_MUX_SQ_LOCKPOINT_V(18)-XXXX R       #  Command C3-37
+CCMD R-C3_MUX_SQ_LOCKPOINT_V(17)-8000 W       #  Return Command C3-35
+COMM
+WCMD W-C3_MUX_SQ_LOCKPOINT_V(19)-9628 R       #  Command C3-38
+CCMD R-Status-FFFF W                          #  Return Command C3-36
+WCMD R-C3_MUX_SQ_LOCKPOINT_V(19)-XXXX R       #  Command C3-39
+CCMD R-C3_MUX_SQ_LOCKPOINT_V(18)-8000 W       #  Return Command C3-37
+COMM
+WCMD W-C3_MUX_SQ_LOCKPOINT_V(20)-9DAA R       #  Command C3-40
+CCMD R-Status-FFFF W                          #  Return Command C3-38
+WCMD R-C3_MUX_SQ_LOCKPOINT_V(20)-XXXX R       #  Command C3-41
+CCMD R-C3_MUX_SQ_LOCKPOINT_V(19)-8000 W       #  Return Command C3-39
+COMM
+WCMD W-C3_MUX_SQ_LOCKPOINT_V(21)-A52C R       #  Command C3-42
+CCMD R-Status-FFFF W                          #  Return Command C3-40
+WCMD R-C3_MUX_SQ_LOCKPOINT_V(21)-XXXX R       #  Command C3-43
+CCMD R-C3_MUX_SQ_LOCKPOINT_V(20)-8000 W       #  Return Command C3-41
+COMM
+WCMD W-C3_MUX_SQ_LOCKPOINT_V(22)-ACAE R       #  Command C3-44
+CCMD R-Status-FFFF W                          #  Return Command C3-42
+WCMD R-C3_MUX_SQ_LOCKPOINT_V(22)-XXXX R       #  Command C3-45
+CCMD R-C3_MUX_SQ_LOCKPOINT_V(21)-8000 W       #  Return Command C3-43
+COMM
+WCMD W-C3_MUX_SQ_LOCKPOINT_V(23)-B430 R       #  Command C3-46
+CCMD R-Status-FFFF W                          #  Return Command C3-44
+WCMD R-C3_MUX_SQ_LOCKPOINT_V(23)-XXXX R       #  Command C3-47
+CCMD R-C3_MUX_SQ_LOCKPOINT_V(22)-8000 W       #  Return Command C3-45
+COMM
+WCMD W-C3_MUX_SQ_LOCKPOINT_V(24)-BBB2 R       #  Command C3-48
+CCMD R-Status-FFFF W                          #  Return Command C3-46
+WCMD R-C3_MUX_SQ_LOCKPOINT_V(24)-XXXX R       #  Command C3-49
+CCMD R-C3_MUX_SQ_LOCKPOINT_V(23)-8000 W       #  Return Command C3-47
+COMM
+WCMD W-C3_MUX_SQ_LOCKPOINT_V(25)-C334 R       #  Command C3-50
+CCMD R-Status-FFFF W                          #  Return Command C3-48
+WCMD R-C3_MUX_SQ_LOCKPOINT_V(25)-XXXX R       #  Command C3-51
+CCMD R-C3_MUX_SQ_LOCKPOINT_V(24)-8000 W       #  Return Command C3-49
+COMM
+WCMD W-C3_MUX_SQ_LOCKPOINT_V(26)-CAB6 R       #  Command C3-52
+CCMD R-Status-FFFF W                          #  Return Command C3-50
+WCMD R-C3_MUX_SQ_LOCKPOINT_V(26)-XXXX R       #  Command C3-53
+CCMD R-C3_MUX_SQ_LOCKPOINT_V(25)-8000 W       #  Return Command C3-51
+COMM
+WCMD W-C3_MUX_SQ_LOCKPOINT_V(27)-D238 R       #  Command C3-54
+CCMD R-Status-FFFF W                          #  Return Command C3-52
+WCMD R-C3_MUX_SQ_LOCKPOINT_V(27)-XXXX R       #  Command C3-55
+CCMD R-C3_MUX_SQ_LOCKPOINT_V(26)-8000 W       #  Return Command C3-53
+COMM
+WCMD W-C3_MUX_SQ_LOCKPOINT_V(28)-D9BA R       #  Command C3-56
+CCMD R-Status-FFFF W                          #  Return Command C3-54
+WCMD R-C3_MUX_SQ_LOCKPOINT_V(28)-XXXX R       #  Command C3-57
+CCMD R-C3_MUX_SQ_LOCKPOINT_V(27)-8000 W       #  Return Command C3-55
+COMM
+WCMD W-C3_MUX_SQ_LOCKPOINT_V(29)-E13C R       #  Command C3-58
+CCMD R-Status-FFFF W                          #  Return Command C3-56
+WCMD R-C3_MUX_SQ_LOCKPOINT_V(29)-XXXX R       #  Command C3-59
+CCMD R-C3_MUX_SQ_LOCKPOINT_V(28)-8000 W       #  Return Command C3-57
+COMM
+WCMD W-C3_MUX_SQ_LOCKPOINT_V(30)-E8BE R       #  Command C3-60
+CCMD R-Status-FFFF W                          #  Return Command C3-58
+WCMD R-C3_MUX_SQ_LOCKPOINT_V(30)-XXXX R       #  Command C3-61
+CCMD R-C3_MUX_SQ_LOCKPOINT_V(29)-8000 W       #  Return Command C3-59
+COMM
+WCMD W-C3_MUX_SQ_LOCKPOINT_V(31)-F040 R       #  Command C3-62
+CCMD R-Status-FFFF W                          #  Return Command C3-60
+WCMD R-C3_MUX_SQ_LOCKPOINT_V(31)-XXXX R       #  Command C3-63
+CCMD R-C3_MUX_SQ_LOCKPOINT_V(30)-8000 W       #  Return Command C3-61
+COMM
+WCMD W-C3_MUX_SQ_LOCKPOINT_V(32)-F7C2 R       #  Command C3-64
+CCMD R-Status-FFFF W                          #  Return Command C3-62
+WCMD R-C3_MUX_SQ_LOCKPOINT_V(32)-XXXX R       #  Command C3-65
+CCMD R-C3_MUX_SQ_LOCKPOINT_V(31)-8000 W       #  Return Command C3-63
+COMM
+WCMD W-C3_MUX_SQ_LOCKPOINT_V(33)-FF44 R       #  Command C3-66
+CCMD R-Status-FFFF W                          #  Return Command C3-64
+WCMD R-C3_MUX_SQ_LOCKPOINT_V(33)-XXXX R       #  Command C3-67
+CCMD R-C3_MUX_SQ_LOCKPOINT_V(32)-8000 W       #  Return Command C3-65
+COMM
+COMM ==============================================================================================
+COMM   C3_MUX_SQ_LOCKPOINT_V: check ping-pong memory toggle after writing the last word of the table
+COMM     and check the memory content
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-C3_MUX_SQ_LOCKPOINT_V(0)-8207 R        #  Command C3-68
+CCMD R-Status-FFFF W                          #  Return Command C3-66
+WCMD R-C3_MUX_SQ_LOCKPOINT_V(0)-XXXX R        #  Command C3-69
+CCMD R-C3_MUX_SQ_LOCKPOINT_V(33)-FF44 W       #  Return Command C3-67
+COMM
+WCMD W-C3_MUX_SQ_LOCKPOINT_V(1)-040F R        #  Command C3-70
+CCMD R-Status-FFFF W                          #  Return Command C3-68
+WCMD R-C3_MUX_SQ_LOCKPOINT_V(1)-XXXX R        #  Command C3-71
+CCMD R-C3_MUX_SQ_LOCKPOINT_V(0)-0782 W        #  Return Command C3-69
+COMM
+WCMD W-C3_MUX_SQ_LOCKPOINT_V(2)-8616 R        #  Command C3-72
+CCMD R-Status-FFFF W                          #  Return Command C3-70
+WCMD R-C3_MUX_SQ_LOCKPOINT_V(2)-XXXX R        #  Command C3-73
+CCMD R-C3_MUX_SQ_LOCKPOINT_V(1)-0F04 W        #  Return Command C3-71
+COMM
+WCMD W-C3_MUX_SQ_LOCKPOINT_V(3)-081E R        #  Command C3-74
+CCMD R-Status-FFFF W                          #  Return Command C3-72
+WCMD R-C3_MUX_SQ_LOCKPOINT_V(3)-XXXX R        #  Command C3-75
+CCMD R-C3_MUX_SQ_LOCKPOINT_V(2)-1686 W        #  Return Command C3-73
+COMM
+WCMD W-C3_MUX_SQ_LOCKPOINT_V(4)-8A25 R        #  Command C3-76
+CCMD R-Status-FFFF W                          #  Return Command C3-74
+WCMD R-C3_MUX_SQ_LOCKPOINT_V(4)-XXXX R        #  Command C3-77
+CCMD R-C3_MUX_SQ_LOCKPOINT_V(3)-1E08 W        #  Return Command C3-75
+COMM
+WCMD W-C3_MUX_SQ_LOCKPOINT_V(5)-0C2D R        #  Command C3-78
+CCMD R-Status-FFFF W                          #  Return Command C3-76
+WCMD R-C3_MUX_SQ_LOCKPOINT_V(5)-XXXX R        #  Command C3-79
+CCMD R-C3_MUX_SQ_LOCKPOINT_V(4)-258A W        #  Return Command C3-77
+COMM
+WCMD W-C3_MUX_SQ_LOCKPOINT_V(6)-8E34 R        #  Command C3-80
+CCMD R-Status-FFFF W                          #  Return Command C3-78
+WCMD R-C3_MUX_SQ_LOCKPOINT_V(6)-XXXX R        #  Command C3-81
+CCMD R-C3_MUX_SQ_LOCKPOINT_V(5)-2D0C W        #  Return Command C3-79
+COMM
+WCMD W-C3_MUX_SQ_LOCKPOINT_V(7)-103C R        #  Command C3-82
+CCMD R-Status-FFFF W                          #  Return Command C3-80
+WCMD R-C3_MUX_SQ_LOCKPOINT_V(7)-XXXX R        #  Command C3-83
+CCMD R-C3_MUX_SQ_LOCKPOINT_V(6)-348E W        #  Return Command C3-81
+COMM
+WCMD W-C3_MUX_SQ_LOCKPOINT_V(8)-9243 R        #  Command C3-84
+CCMD R-Status-FFFF W                          #  Return Command C3-82
+WCMD R-C3_MUX_SQ_LOCKPOINT_V(8)-XXXX R        #  Command C3-85
+CCMD R-C3_MUX_SQ_LOCKPOINT_V(7)-3C10 W        #  Return Command C3-83
+COMM
+WCMD W-C3_MUX_SQ_LOCKPOINT_V(9)-144B R        #  Command C3-86
+CCMD R-Status-FFFF W                          #  Return Command C3-84
+WCMD R-C3_MUX_SQ_LOCKPOINT_V(9)-XXXX R        #  Command C3-87
+CCMD R-C3_MUX_SQ_LOCKPOINT_V(8)-4392 W        #  Return Command C3-85
+COMM
+WCMD W-C3_MUX_SQ_LOCKPOINT_V(10)-9652 R       #  Command C3-88
+CCMD R-Status-FFFF W                          #  Return Command C3-86
+WCMD R-C3_MUX_SQ_LOCKPOINT_V(10)-XXXX R       #  Command C3-89
+CCMD R-C3_MUX_SQ_LOCKPOINT_V(9)-4B14 W        #  Return Command C3-87
+COMM
+WCMD W-C3_MUX_SQ_LOCKPOINT_V(11)-185A R       #  Command C3-90
+CCMD R-Status-FFFF W                          #  Return Command C3-88
+WCMD R-C3_MUX_SQ_LOCKPOINT_V(11)-XXXX R       #  Command C3-91
+CCMD R-C3_MUX_SQ_LOCKPOINT_V(10)-5296 W       #  Return Command C3-89
+COMM
+WCMD W-C3_MUX_SQ_LOCKPOINT_V(12)-9A61 R       #  Command C3-92
+CCMD R-Status-FFFF W                          #  Return Command C3-90
+WCMD R-C3_MUX_SQ_LOCKPOINT_V(12)-XXXX R       #  Command C3-93
+CCMD R-C3_MUX_SQ_LOCKPOINT_V(11)-5A18 W       #  Return Command C3-91
+COMM
+WCMD W-C3_MUX_SQ_LOCKPOINT_V(13)-1C69 R       #  Command C3-94
+CCMD R-Status-FFFF W                          #  Return Command C3-92
+WCMD R-C3_MUX_SQ_LOCKPOINT_V(13)-XXXX R       #  Command C3-95
+CCMD R-C3_MUX_SQ_LOCKPOINT_V(12)-619A W       #  Return Command C3-93
+COMM
+WCMD W-C3_MUX_SQ_LOCKPOINT_V(14)-9E70 R       #  Command C3-96
+CCMD R-Status-FFFF W                          #  Return Command C3-94
+WCMD R-C3_MUX_SQ_LOCKPOINT_V(14)-XXXX R       #  Command C3-97
+CCMD R-C3_MUX_SQ_LOCKPOINT_V(13)-691C W       #  Return Command C3-95
+COMM
+WCMD W-C3_MUX_SQ_LOCKPOINT_V(15)-2078 R       #  Command C3-98
+CCMD R-Status-FFFF W                          #  Return Command C3-96
+WCMD R-C3_MUX_SQ_LOCKPOINT_V(15)-XXXX R       #  Command C3-99
+CCMD R-C3_MUX_SQ_LOCKPOINT_V(14)-709E W       #  Return Command C3-97
+COMM
+WCMD W-C3_MUX_SQ_LOCKPOINT_V(16)-A27F R       #  Command C3-100
+CCMD R-Status-FFFF W                          #  Return Command C3-98
+WCMD R-C3_MUX_SQ_LOCKPOINT_V(16)-XXXX R       #  Command C3-101
+CCMD R-C3_MUX_SQ_LOCKPOINT_V(15)-7820 W       #  Return Command C3-99
+COMM
+WCMD W-C3_MUX_SQ_LOCKPOINT_V(17)-2487 R       #  Command C3-102
+CCMD R-Status-FFFF W                          #  Return Command C3-100
+WCMD R-C3_MUX_SQ_LOCKPOINT_V(17)-XXXX R       #  Command C3-103
+CCMD R-C3_MUX_SQ_LOCKPOINT_V(16)-7FA2 W       #  Return Command C3-101
+COMM
+WCMD W-C3_MUX_SQ_LOCKPOINT_V(18)-A68E R       #  Command C3-104
+CCMD R-Status-FFFF W                          #  Return Command C3-102
+WCMD R-C3_MUX_SQ_LOCKPOINT_V(18)-XXXX R       #  Command C3-105
+CCMD R-C3_MUX_SQ_LOCKPOINT_V(17)-8724 W       #  Return Command C3-103
+COMM
+WCMD W-C3_MUX_SQ_LOCKPOINT_V(19)-2896 R       #  Command C3-106
+CCMD R-Status-FFFF W                          #  Return Command C3-104
+WCMD R-C3_MUX_SQ_LOCKPOINT_V(19)-XXXX R       #  Command C3-107
+CCMD R-C3_MUX_SQ_LOCKPOINT_V(18)-8EA6 W       #  Return Command C3-105
+COMM
+WCMD W-C3_MUX_SQ_LOCKPOINT_V(20)-AA9D R       #  Command C3-108
+CCMD R-Status-FFFF W                          #  Return Command C3-106
+WCMD R-C3_MUX_SQ_LOCKPOINT_V(20)-XXXX R       #  Command C3-109
+CCMD R-C3_MUX_SQ_LOCKPOINT_V(19)-9628 W       #  Return Command C3-107
+COMM
+WCMD W-C3_MUX_SQ_LOCKPOINT_V(21)-2CA5 R       #  Command C3-110
+CCMD R-Status-FFFF W                          #  Return Command C3-108
+WCMD R-C3_MUX_SQ_LOCKPOINT_V(21)-XXXX R       #  Command C3-111
+CCMD R-C3_MUX_SQ_LOCKPOINT_V(20)-9DAA W       #  Return Command C3-109
+COMM
+WCMD W-C3_MUX_SQ_LOCKPOINT_V(22)-AEAC R       #  Command C3-112
+CCMD R-Status-FFFF W                          #  Return Command C3-110
+WCMD R-C3_MUX_SQ_LOCKPOINT_V(22)-XXXX R       #  Command C3-113
+CCMD R-C3_MUX_SQ_LOCKPOINT_V(21)-A52C W       #  Return Command C3-111
+COMM
+WCMD W-C3_MUX_SQ_LOCKPOINT_V(23)-30B4 R       #  Command C3-114
+CCMD R-Status-FFFF W                          #  Return Command C3-112
+WCMD R-C3_MUX_SQ_LOCKPOINT_V(23)-XXXX R       #  Command C3-115
+CCMD R-C3_MUX_SQ_LOCKPOINT_V(22)-ACAE W       #  Return Command C3-113
+COMM
+WCMD W-C3_MUX_SQ_LOCKPOINT_V(24)-B2BB R       #  Command C3-116
+CCMD R-Status-FFFF W                          #  Return Command C3-114
+WCMD R-C3_MUX_SQ_LOCKPOINT_V(24)-XXXX R       #  Command C3-117
+CCMD R-C3_MUX_SQ_LOCKPOINT_V(23)-B430 W       #  Return Command C3-115
+COMM
+WCMD W-C3_MUX_SQ_LOCKPOINT_V(25)-34C3 R       #  Command C3-118
+CCMD R-Status-FFFF W                          #  Return Command C3-116
+WCMD R-C3_MUX_SQ_LOCKPOINT_V(25)-XXXX R       #  Command C3-119
+CCMD R-C3_MUX_SQ_LOCKPOINT_V(24)-BBB2 W       #  Return Command C3-117
+COMM
+WCMD W-C3_MUX_SQ_LOCKPOINT_V(26)-B6CA R       #  Command C3-120
+CCMD R-Status-FFFF W                          #  Return Command C3-118
+WCMD R-C3_MUX_SQ_LOCKPOINT_V(26)-XXXX R       #  Command C3-121
+CCMD R-C3_MUX_SQ_LOCKPOINT_V(25)-C334 W       #  Return Command C3-119
+COMM
+WCMD W-C3_MUX_SQ_LOCKPOINT_V(27)-38D2 R       #  Command C3-122
+CCMD R-Status-FFFF W                          #  Return Command C3-120
+WCMD R-C3_MUX_SQ_LOCKPOINT_V(27)-XXXX R       #  Command C3-123
+CCMD R-C3_MUX_SQ_LOCKPOINT_V(26)-CAB6 W       #  Return Command C3-121
+COMM
+WCMD W-C3_MUX_SQ_LOCKPOINT_V(28)-BAD9 R       #  Command C3-124
+CCMD R-Status-FFFF W                          #  Return Command C3-122
+WCMD R-C3_MUX_SQ_LOCKPOINT_V(28)-XXXX R       #  Command C3-125
+CCMD R-C3_MUX_SQ_LOCKPOINT_V(27)-D238 W       #  Return Command C3-123
+COMM
+WCMD W-C3_MUX_SQ_LOCKPOINT_V(29)-3CE1 R       #  Command C3-126
+CCMD R-Status-FFFF W                          #  Return Command C3-124
+WCMD R-C3_MUX_SQ_LOCKPOINT_V(29)-XXXX R       #  Command C3-127
+CCMD R-C3_MUX_SQ_LOCKPOINT_V(28)-D9BA W       #  Return Command C3-125
+COMM
+WCMD W-C3_MUX_SQ_LOCKPOINT_V(30)-BEE8 R       #  Command C3-128
+CCMD R-Status-FFFF W                          #  Return Command C3-126
+WCMD R-C3_MUX_SQ_LOCKPOINT_V(30)-XXXX R       #  Command C3-129
+CCMD R-C3_MUX_SQ_LOCKPOINT_V(29)-E13C W       #  Return Command C3-127
+COMM
+WCMD W-C3_MUX_SQ_LOCKPOINT_V(31)-40F0 R       #  Command C3-130
+CCMD R-Status-FFFF W                          #  Return Command C3-128
+WCMD R-C3_MUX_SQ_LOCKPOINT_V(31)-XXXX R       #  Command C3-131
+CCMD R-C3_MUX_SQ_LOCKPOINT_V(30)-E8BE W       #  Return Command C3-129
+COMM
+WCMD W-C3_MUX_SQ_LOCKPOINT_V(32)-C2F7 R       #  Command C3-132
+CCMD R-Status-FFFF W                          #  Return Command C3-130
+WCMD R-C3_MUX_SQ_LOCKPOINT_V(32)-XXXX R       #  Command C3-133
+CCMD R-C3_MUX_SQ_LOCKPOINT_V(31)-F040 W       #  Return Command C3-131
+COMM
+WCMD W-C3_MUX_SQ_LOCKPOINT_V(33)-44FF R       #  Command C3-134
+CCMD R-Status-FFFF W                          #  Return Command C3-132
+WCMD R-C3_MUX_SQ_LOCKPOINT_V(33)-XXXX R       #  Command C3-135
+CCMD R-C3_MUX_SQ_LOCKPOINT_V(32)-F7C2 W       #  Return Command C3-133
+COMM
+COMM ==============================================================================================
+COMM   C3_MUX_SQ_LOCKPOINT_V: check ping-pong memory toggle after writing the last word of the table
+COMM     and check the first memory content
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-C3_MUX_SQ_LOCKPOINT_V(0)-1111 R        #  Command C3-136
+CCMD R-Status-FFFF W                          #  Return Command C3-134
+WCMD R-C3_MUX_SQ_LOCKPOINT_V(0)-XXXX R        #  Command C3-137
+CCMD R-C3_MUX_SQ_LOCKPOINT_V(33)-44FF W       #  Return Command C3-135
+COMM
+WCMD W-C3_MUX_SQ_LOCKPOINT_V(1)-040F R        #  Command C3-138
+CCMD R-Status-FFFF W                          #  Return Command C3-136
+WCMD R-C3_MUX_SQ_LOCKPOINT_V(1)-XXXX R        #  Command C3-139
+CCMD R-C3_MUX_SQ_LOCKPOINT_V(0)-8207 W        #  Return Command C3-137

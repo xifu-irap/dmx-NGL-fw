@@ -223,12 +223,4 @@ constant c_SC_CTRL_IDLE       : std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0) :
 
 constant c_SC_DATA_IDLE_VAL   : std_logic_vector(c_SC_DATA_SER_W_S*c_SC_DATA_SER_NB-1 downto 0) := x"0000"  ; --! Science data: word sent when Telemetry mode on one column is in Idle
 
-   -- ------------------------------------------------------------------------------------------------------
-   --!   Calculus chain parameters
-   -- ------------------------------------------------------------------------------------------------------
-constant c_ASP_CF_FRC_S       : integer := c_ASP_CF_S - 1                                                   ; --! ADC sample number for averaging coefficient fractional part bus size
-
-constant c_ADC_SMP_AVE_S      : integer := c_MULT_ALU_PORTA_S                                               ; --! ADC sample average bus size
-constant c_ADC_SMP_AVE_FRC_S  : integer := c_ADC_SMP_AVE_S - c_SQM_ADC_DATA_S                               ; --! ADC sample average fractional part bus size
-
 end pkg_project;
