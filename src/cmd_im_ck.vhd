@@ -42,6 +42,7 @@ end entity cmd_im_ck;
 
 architecture RTL of cmd_im_ck is
 signal   cmd_ck_dis_r         : std_logic                                                                   ; --! Clock switch command disable register
+signal   cmd_ck_sleep         : std_logic                                                                   ; --! Clock switch command sleep ('0' = Inactive, '1' = Active)
 
 begin
 
@@ -54,6 +55,7 @@ begin
       if i_rst = '1' then
          cmd_ck_dis_r   <= '0';
          o_cmd_ck       <= g_CK_CMD_DEF;
+         cmd_ck_sleep   <= not(g_CK_CMD_DEF);
          o_cmd_ck_sleep <= not(g_CK_CMD_DEF);
 
       elsif rising_edge(i_clk) then
@@ -68,12 +70,14 @@ begin
          end if;
 
          if    i_cmd_ck_ena = '1' then
-            o_cmd_ck_sleep <= '0';
+            cmd_ck_sleep <= '0';
 
          elsif cmd_ck_dis_r = '1' then
-            o_cmd_ck_sleep <= '1';
+            cmd_ck_sleep <= '1';
 
          end if;
+
+         o_cmd_ck_sleep <= cmd_ck_sleep;
 
       end if;
 

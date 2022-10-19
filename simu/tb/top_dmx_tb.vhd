@@ -185,40 +185,40 @@ begin
    G_get_top_level_sig: if true generate
    alias td_rst               : std_logic is <<signal .top_dmx_tb.I_top_dmx.rst              : std_logic>>  ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
    alias td_rst_sqm_adc_0     : std_logic is <<signal
-                                .top_dmx_tb.I_top_dmx.G_column_mgt(0).I_squid_adc_mgt.rst_sqm_adc
+                                .top_dmx_tb.I_top_dmx.G_column_mgt(0).I_squid_adc_mgt.i_rst_sqm_adc_dac
                                                                                              : std_logic>>  ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
    alias td_rst_sqm_adc_1     : std_logic is <<signal
-                                .top_dmx_tb.I_top_dmx.G_column_mgt(1).I_squid_adc_mgt.rst_sqm_adc
+                                .top_dmx_tb.I_top_dmx.G_column_mgt(1).I_squid_adc_mgt.i_rst_sqm_adc_dac
                                                                                              : std_logic>>  ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
    alias td_rst_sqm_adc_2     : std_logic is <<signal
-                                .top_dmx_tb.I_top_dmx.G_column_mgt(2).I_squid_adc_mgt.rst_sqm_adc
+                                .top_dmx_tb.I_top_dmx.G_column_mgt(2).I_squid_adc_mgt.i_rst_sqm_adc_dac
                                                                                              : std_logic>>  ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
    alias td_rst_sqm_adc_3     : std_logic is <<signal
-                                .top_dmx_tb.I_top_dmx.G_column_mgt(3).I_squid_adc_mgt.rst_sqm_adc
+                                .top_dmx_tb.I_top_dmx.G_column_mgt(3).I_squid_adc_mgt.i_rst_sqm_adc_dac
                                                                                              : std_logic>>  ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
    alias td_rst_sqm_dac_0     : std_logic is <<signal
-                                .top_dmx_tb.I_top_dmx.G_column_mgt(0).I_sqm_dac_mgt.rst_sqm_pls_shape
+                                .top_dmx_tb.I_top_dmx.G_column_mgt(0).I_sqm_dac_mgt.i_rst_sqm_adc_dac
                                                                                              : std_logic>>  ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
    alias td_rst_sqm_dac_1     : std_logic is <<signal
-                                .top_dmx_tb.I_top_dmx.G_column_mgt(1).I_sqm_dac_mgt.rst_sqm_pls_shape
+                                .top_dmx_tb.I_top_dmx.G_column_mgt(1).I_sqm_dac_mgt.i_rst_sqm_adc_dac
                                                                                              : std_logic>>  ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
    alias td_rst_sqm_dac_2     : std_logic is <<signal
-                                .top_dmx_tb.I_top_dmx.G_column_mgt(2).I_sqm_dac_mgt.rst_sqm_pls_shape
+                                .top_dmx_tb.I_top_dmx.G_column_mgt(2).I_sqm_dac_mgt.i_rst_sqm_adc_dac
                                                                                              : std_logic>>  ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
    alias td_rst_sqm_dac_3     : std_logic is <<signal
-                                .top_dmx_tb.I_top_dmx.G_column_mgt(3).I_sqm_dac_mgt.rst_sqm_pls_shape
+                                .top_dmx_tb.I_top_dmx.G_column_mgt(3).I_sqm_dac_mgt.i_rst_sqm_adc_dac
                                                                                              : std_logic>>  ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
    alias td_rst_sqa_mux_0     : std_logic is <<signal
-                                .top_dmx_tb.I_top_dmx.G_column_mgt(0).I_sqa_dac_mgt.rst_sqa_dac
+                                .top_dmx_tb.I_top_dmx.G_column_mgt(0).I_sqa_dac_mgt.i_rst_sqm_adc_dac
                                                                                              : std_logic>>  ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
    alias td_rst_sqa_mux_1     : std_logic is <<signal
-                                .top_dmx_tb.I_top_dmx.G_column_mgt(1).I_sqa_dac_mgt.rst_sqa_dac
+                                .top_dmx_tb.I_top_dmx.G_column_mgt(1).I_sqa_dac_mgt.i_rst_sqm_adc_dac
                                                                                              : std_logic>>  ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
    alias td_rst_sqa_mux_2     : std_logic is <<signal
-                                .top_dmx_tb.I_top_dmx.G_column_mgt(2).I_sqa_dac_mgt.rst_sqa_dac
+                                .top_dmx_tb.I_top_dmx.G_column_mgt(2).I_sqa_dac_mgt.i_rst_sqm_adc_dac
                                                                                              : std_logic>>  ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
    alias td_rst_sqa_mux_3     : std_logic is <<signal
-                                .top_dmx_tb.I_top_dmx.G_column_mgt(3).I_sqa_dac_mgt.rst_sqa_dac
+                                .top_dmx_tb.I_top_dmx.G_column_mgt(3).I_sqa_dac_mgt.i_rst_sqm_adc_dac
                                                                                              : std_logic>>  ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
    alias td_clk               : std_logic is <<signal .top_dmx_tb.I_top_dmx.clk              : std_logic>>  ; --! Internal design: System Clock
    alias td_clk_sqm_adc_acq   : std_logic is <<signal .top_dmx_tb.I_top_dmx.clk_sqm_adc_dac  : std_logic>>  ; --! Internal design: SQUID MUX ADC acquisition Clock

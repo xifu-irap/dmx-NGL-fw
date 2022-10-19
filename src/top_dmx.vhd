@@ -29,6 +29,7 @@ use     ieee.std_logic_1164.all;
 
 library work;
 use     work.pkg_type.all;
+use     work.pkg_fpga_tech.all;
 use     work.pkg_project.all;
 use     work.pkg_ep_cmd.all;
 
@@ -84,21 +85,17 @@ end entity top_dmx;
 architecture RTL of top_dmx is
 signal   arst                 : std_logic                                                                   ; --! Asynchronous reset ('0' = Inactive, '1' = Active)
 signal   rst                  : std_logic                                                                   ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
-signal   rst_sys_sqm_adc      : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! Reset for SQUID MUX ADC, de-assertion on system clock ('0' = Inactive, '1' = Active)
-signal   rst_sys_sqm_dac      : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! Reset for SQUID MUX DAC, de-assertion on system clock ('0' = Inactive, '1' = Active)
-signal   rst_sys_sqa_dac      : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! Reset for SQUID AMP DAC, de-assertion on system clock ('0' = Inactive, '1' = Active)
+signal   rst_sqm_adc_dac      : std_logic                                                                   ; --! Reset for SQUID ADC/DAC, de-assertion on system clock ('0' = Inactive, '1' = Active)
+signal   rst_sqm_adc_dac_pd   :  std_logic                                                                  ; --! Reset for SQUID ADC/DAC pads, de-assertion on system clock
 
 signal   clk                  : std_logic                                                                   ; --! System Clock
-signal   clk_sqm_adc_dac      : std_logic                                                                   ; --! SQUID MUX ADC/DAC internal Clock
+signal   clk_sqm_adc_dac      : std_logic                                                                   ; --! SQUID ADC/DAC internal Clock
 signal   clk_90               : std_logic                                                                   ; --! System Clock 90 degrees shift
-signal   clk_sqm_adc_dac_90   : std_logic                                                                   ; --! SQUID MUX ADC/DAC internal 90 degrees shift
+signal   clk_sqm_adc_dac_90   : std_logic                                                                   ; --! SQUID ADC/DAC internal 90 degrees shift
 
 signal   brd_ref_rs           : std_logic_vector(  c_BRD_REF_S-1 downto 0)                                  ; --! Board reference, synchronized on System Clock
 signal   brd_model_rs         : std_logic_vector(c_BRD_MODEL_S-1 downto 0)                                  ; --! Board model, synchronized on System Clock
-signal   sync_rs              : std_logic                                                                   ; --! Pixel sequence synchronization, synchronized on System Clock
-signal   sync_sqm_adc_rs      : std_logic_vector(     c_NB_COL-1 downto 0)                                  ; --! Pixel sequence synchronization for SQUID MUX ADC, synchronized on System Clock
-signal   sync_sqm_dac_rs      : std_logic_vector(     c_NB_COL-1 downto 0)                                  ; --! Pixel sequence synchronization for SQUID MUX DAC, synchronized on System Clock
-signal   sync_sqa_dac_rs      : std_logic_vector(     c_NB_COL-1 downto 0)                                  ; --! Pixel sequence synchronization for SQUID AMP DAC, synchronized on System Clock
+signal   sync_rs              : std_logic_vector(     c_NB_COL   downto 0)                                  ; --! Pixel sequence synchronization, synchronized on System Clock
 
 signal   hk1_spi_miso_rs      : std_logic                                                                   ; --! HouseKeeping 1: SPI Master Input Slave Output, synchronized on System Clock
 signal   ep_spi_mosi_rs       : std_logic                                                                   ; --! EP: SPI Master Input Slave Output (MSB first), synchronized on System Clock
@@ -228,19 +225,18 @@ begin
          i_cmd_ck_sqm_dac_dis => cmd_ck_sqm_dac_dis   , -- in     std_logic_vector(c_NB_COL-1 downto 0)     ; --! SQUID MUX DAC Clocks switch commands disable ('0' = Inactive, '1' = Active)
 
          o_rst                => rst                  , -- out    std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
-         o_rst_sys_sqm_adc    => rst_sys_sqm_adc      , -- out    std_logic_vector(c_NB_COL-1 downto 0)     ; --! Reset for SQUID MUX ADC, de-assertion on system clock ('0' = Inactive, '1' = Active)
-         o_rst_sys_sqm_dac    => rst_sys_sqm_dac      , -- out    std_logic_vector(c_NB_COL-1 downto 0)     ; --! Reset for SQUID MUX DAC, de-assertion on system clock ('0' = Inactive, '1' = Active)
-         o_rst_sys_sqa_dac    => rst_sys_sqa_dac      , -- out    std_logic_vector(c_NB_COL-1 downto 0)     ; --! Reset for SQUID AMP DAC, de-assertion on system clock ('0' = Inactive, '1' = Active)
+         o_rst_sqm_adc_dac    => rst_sqm_adc_dac      , -- out    std_logic                                 ; --! Reset for SQUID ADC/DAC, de-assertion on system clock ('0' = Inactive, '1' = Active)
+         o_rst_sqm_adc_dac_pd => rst_sqm_adc_dac_pd   , -- out    std_logic                                 ; --! Reset for SQUID ADC/DAC pads, de-assertion on system clock
 
          o_clk                => clk                  , -- out    std_logic                                 ; --! System Clock
-         o_clk_sqm_adc_dac    => clk_sqm_adc_dac      , -- out    std_logic                                 ; --! SQUID MUX ADC/DAC internal Clock
+         o_clk_sqm_adc_dac    => clk_sqm_adc_dac      , -- out    std_logic                                 ; --! SQUID ADC/DAC internal Clock
 
          o_ck_sqm_adc         => o_clk_sqm_adc        , -- out    std_logic_vector(c_NB_COL-1 downto 0)     ; --! SQUID MUX ADC Image Clocks
          o_ck_sqm_dac         => o_clk_sqm_dac        , -- out    std_logic_vector(c_NB_COL-1 downto 0)     ; --! SQUID MUX DAC Image Clocks
          o_ck_science         => ck_science           , -- out    std_logic                                 ; --! Science Data Image Clock
 
          o_clk_90             => clk_90               , -- out    std_logic                                 ; --! System Clock 90 degrees shift
-         o_clk_sqm_adc_dac_90 => clk_sqm_adc_dac_90   , -- out    std_logic                                 ; --! SQUID MUX ADC/DAC internal 90 degrees shift
+         o_clk_sqm_adc_dac_90 => clk_sqm_adc_dac_90   , -- out    std_logic                                 ; --! SQUID ADC/DAC internal 90 degrees shift
 
          o_sqm_adc_pwdn       => o_sqm_adc_pwdn       , -- out    std_logic_vector(c_NB_COL-1 downto 0)     ; --! SQUID MUX ADC: Power Down ('0' = Inactive, '1' = Active)
          o_sqm_dac_sleep      => o_sqm_dac_sleep        -- out    std_logic_vector(c_NB_COL-1 downto 0)       --! SQUID MUX DAC: Sleep ('0' = Inactive, '1' = Active)
@@ -265,10 +261,7 @@ begin
 
          o_brd_ref_rs         => brd_ref_rs           , -- out    std_logic_vector(  c_BRD_REF_S-1 downto 0); --! Board reference, synchronized on System Clock
          o_brd_model_rs       => brd_model_rs         , -- out    std_logic_vector(c_BRD_MODEL_S-1 downto 0); --! Board model, synchronized on System Clock
-         o_sync_rs            => sync_rs              , -- out    std_logic                                 ; --! Pixel sequence synchronization, synchronized on System Clock
-         o_sync_sqm_adc_rs    => sync_sqm_adc_rs      , -- out    std_logic_vector(     c_NB_COL-1 downto 0); --! Pixel sequence synchronization for SQUID MUX ADC, synchronized on System Clock
-         o_sync_sqm_dac_rs    => sync_sqm_dac_rs      , -- out    std_logic_vector(     c_NB_COL-1 downto 0); --! Pixel sequence synchronization for SQUID MUX DAC, synchronized on System Clock
-         o_sync_sqa_dac_rs    => sync_sqa_dac_rs      , -- out    std_logic_vector(     c_NB_COL-1 downto 0); --! Pixel sequence synchronization for SQUID AMP DAC, synchronized on System Clock
+         o_sync_rs            => sync_rs              , -- out    std_logic_vector(     c_NB_COL   downto 0); --! Pixel sequence synchronization, synchronized on System Clock
 
          o_hk1_spi_miso_rs    => hk1_spi_miso_rs      , -- out    std_logic                                 ; --! HouseKeeping 1: SPI Master Input Slave Output, synchronized on System Clock
 
@@ -396,7 +389,7 @@ begin
    I_dmx_cmd: entity work.dmx_cmd port map
    (     i_rst                => rst                  , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                => clk                  , -- in     std_logic                                 ; --! System Clock
-         i_sync_rs            => sync_rs              , -- in     std_logic                                 ; --! Pixel sequence synchronization, synchronized on System Clock
+         i_sync_rs            => sync_rs(sync_rs'high), -- in     std_logic                                 ; --! Pixel sequence synchronization, synchronized on System Clock
          i_aqmde              => aqmde                , -- in     slv(c_DFLD_AQMDE_S-1 downto 0)            ; --! Telemetry mode
          i_smfmd              => smfmd                , -- in     t_slv_arr c_NB_COL c_DFLD_SMFMD_COL_S     ; --! SQUID MUX feedback mode
          o_sync_re            => sync_re              , -- out    std_logic                                 ; --! Pixel sequence synchronization, rising edge
@@ -429,13 +422,14 @@ begin
    begin
 
       I_squid_adc_mgt: entity work.squid_adc_mgt port map
-      (  i_rst_sys_sqm_adc    => rst_sys_sqm_adc(k)   , -- in     std_logic_vector(c_NB_COL-1 downto 0)     ; --! Reset for SQUID MUX ADC, de-assertion on system clock ('0' = Inactive, '1' = Active)
-         i_clk_sqm_adc_dac    => clk_sqm_adc_dac      , -- in     std_logic                                 ; --! SQUID MUX ADC/DAC internal Clock
+      (  i_rst_sqm_adc_dac_pd => rst_sqm_adc_dac_pd   , -- in     std_logic                                 ; --! Reset for SQUID ADC/DAC pads, de-assertion on system clock
+         i_rst_sqm_adc_dac    => rst_sqm_adc_dac      , -- in     std_logic                                 ; --! Reset for SQUID ADC/DAC, de-assertion on system clock ('0' = Inactive, '1' = Active)
+         i_clk_sqm_adc_dac    => clk_sqm_adc_dac      , -- in     std_logic                                 ; --! SQUID ADC/DAC internal Clock
 
          i_rst                => rst                  , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                => clk                  , -- in     std_logic                                 ; --! System Clock
 
-         i_sync_rs            => sync_sqm_adc_rs(k)   , -- in     std_logic                                 ; --! Pixel sequence synchronization, synchronized on System Clock
+         i_sync_rs            => sync_rs(c_FPGA_POS_ADC(k)), --in std_logic                                 ; --! Pixel sequence synchronization, synchronized on System Clock
          i_aqmde_dmp_cmp      => aqmde_dmp_cmp(k)     , -- in     std_logic                                 ; --! Telemetry mode, status "Dump" compared ('0' = Inactive, '1' = Active)
          i_bxlgt              => bxlgt(k)             , -- in     slv(c_DFLD_BXLGT_COL_S-1 downto 0)        ; --! ADC sample number for averaging
          i_smpdl              => smpdl(k)             , -- in     slv(c_DFLD_SMPDL_COL_S-1 downto 0)        ; --! ADC sample delay
@@ -519,15 +513,16 @@ begin
       );
 
       I_sqm_dac_mgt: entity work.sqm_dac_mgt port map
-      (  i_rst_sys_sqm_dac    => rst_sys_sqm_dac(k)   , -- in     std_logic_vector(c_NB_COL-1 downto 0)     ; --! Reset for SQUID MUX DAC, de-assertion on system clock ('0' = Inactive, '1' = Active)
-         i_clk_sqm_adc_dac    => clk_sqm_adc_dac      , -- in     std_logic                                 ; --! SQUID MUX ADC/DAC internal Clock
-         i_clk_sqm_adc_dac_90 => clk_sqm_adc_dac_90   , -- in     std_logic                                 ; --! SQUID MUX ADC/DAC internal 90 degrees shift
+      (  i_rst_sqm_adc_dac_pd => rst_sqm_adc_dac_pd   , -- in     std_logic                                 ; --! Reset for SQUID ADC/DAC pads, de-assertion on system clock
+         i_rst_sqm_adc_dac    => rst_sqm_adc_dac      , -- in     std_logic                                 ; --! Reset for SQUID MUX DAC, de-assertion on system clock ('0' = Inactive, '1' = Active)
+         i_clk_sqm_adc_dac    => clk_sqm_adc_dac      , -- in     std_logic                                 ; --! SQUID ADC/DAC internal Clock
+         i_clk_sqm_adc_dac_90 => clk_sqm_adc_dac_90   , -- in     std_logic                                 ; --! SQUID ADC/DAC internal 90 degrees shift
 
          i_rst                => rst                  , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                => clk                  , -- in     std_logic                                 ; --! System Clock
          i_clk_90             => clk_90               , -- in     std_logic                                 ; --! System Clock 90 degrees shift
 
-         i_sync_rs            => sync_sqm_dac_rs(k)   , -- in     std_logic                                 ; --! Pixel sequence synchronization, synchronized on System Clock
+         i_sync_rs            => sync_rs(c_FPGA_POS_SQM_DAC(k)), -- in     std_logic                        ; --! Pixel sequence synchronization, synchronized on System Clock
          i_sqm_data_fbk       => sqm_data_fbk(k)      , -- in     slv(c_SQM_DATA_FBK_S-1 downto 0)          ; --! SQUID MUX Data feedback
          i_plsss              => plsss(k)             , -- in     slv(c_DFLD_PLSSS_PLS_S  -1 downto 0)      ; --! SQUID MUX feedback pulse shaping set
          i_smfbd              => smfbd(k)             , -- in     slv(c_DFLD_SMFBD_COL_S  -1 downto 0)      ; --! SQUID MUX feedback delay
@@ -558,10 +553,14 @@ begin
       );
 
       I_sqa_dac_mgt: entity work.sqa_dac_mgt port map
-      (  i_rst_sys_sqa_dac    => rst_sys_sqa_dac(k)   , -- in     std_logic_vector(c_NB_COL-1 downto 0)     ; --! Reset for SQUID AMP DAC, de-assertion on system clock ('0' = Inactive, '1' = Active)
-         i_clk_sqm_adc_dac    => clk_sqm_adc_dac      , -- in     std_logic                                 ; --! SQUID MUX ADC/DAC internal Clock
+      (  i_rst_sqm_adc_dac_pd => rst_sqm_adc_dac_pd   , -- in     std_logic                                 ; --! Reset for SQUID ADC/DAC pads, de-assertion on system clock
+         i_rst_sqm_adc_dac    => rst_sqm_adc_dac      , -- in     std_logic                                 ; --! Reset for SQUID AMP DAC, de-assertion on system clock ('0' = Inactive, '1' = Active)
+         i_clk_sqm_adc_dac    => clk_sqm_adc_dac      , -- in     std_logic                                 ; --! SQUID ADC/DAC internal Clock
 
-         i_sync_rs            => sync_sqa_dac_rs(k)   , -- in     std_logic                                 ; --! Pixel sequence synchronization, synchronized on System Clock
+         i_rst                => rst                  , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+         i_clk                => clk                  , -- in     std_logic                                 ; --! System Clock
+
+         i_sync_rs            => sync_rs(c_FPGA_POS_SQM_DAC(k)), -- in     std_logic                        ; --! Pixel sequence synchronization, synchronized on System Clock
          i_saofl              => saofl(k)             , -- in     slv(c_DFLD_SAOFC_COL_S-1 downto 0)        ; --! SQUID AMP offset DAC LSB
          i_sqa_fbk_mux        => sqa_fbk_mux(k)       , -- in     slv(c_DFLD_SAOFF_PIX_S-1 downto 0)        ; --! SQUID AMP Feedback Multiplexer
          i_sqa_fbk_off        => sqa_fbk_off(k)       , -- in     slv(c_DFLD_SAOFC_COL_S-1 downto 0)        ; --! SQUID AMP coarse offset

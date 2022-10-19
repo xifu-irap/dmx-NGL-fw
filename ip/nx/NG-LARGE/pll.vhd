@@ -44,7 +44,6 @@ entity pll is port
          o_clk_sqm_adc_dac    : out    std_logic                                                            ; --! SQUID MUX ADC/DAC internal Clock
          o_clk_sqm_adc        : out    std_logic                                                            ; --! Clock for SQUID MUX ADC Image Clock
          o_clk_sqm_dac_out    : out    std_logic                                                            ; --! Clock for SQUID MUX DAC output Image Clock
-         o_pll_main_lock      : out    std_logic                                                            ; --! Main Pll Status ('0' = Pll not locked, '1' = Pll locked)
 
          o_clk_90             : out    std_logic                                                            ; --! System Clock 90 degrees shift
          o_clk_sqm_adc_dac_90 : out    std_logic                                                              --! SQUID MUX ADC/DAC internal 90 degrees shift
@@ -127,8 +126,6 @@ begin
          pll_locked           => pll_main_lock        , -- out    std_logic                                 ; --! Pll Status ('0' = Pll not locked, '1' = Pll locked)
          cal_locked           => open                   -- out    std_logic                                   --! Automatic calibration complete ('0' = not complete , '1' = complete)
    );
-
-   o_pll_main_lock <= pll_main_lock;
 
    -- ------------------------------------------------------------------------------------------------------
    --!  Clock synchronous to Reference Clock input generation

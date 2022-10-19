@@ -36,9 +36,10 @@ use     work.pkg_project.all;
 use     work.pkg_ep_cmd.all;
 
 entity sqm_dac_mgt is port
-   (     i_rst_sys_sqm_dac    : in     std_logic                                                            ; --! Reset for SQUID MUX DAC, de-assertion on system clock ('0' = Inactive, '1' = Active)
-         i_clk_sqm_adc_dac    : in     std_logic                                                            ; --! SQUID MUX ADC/DAC internal Clock
-         i_clk_sqm_adc_dac_90 : in     std_logic                                                            ; --! SQUID MUX ADC/DAC internal 90 degrees shift
+   (     i_rst_sqm_adc_dac_pd : in     std_logic                                                            ; --! Reset for SQUID ADC/DAC for pad, de-assertion on system clock
+         i_rst_sqm_adc_dac    : in     std_logic                                                            ; --! Reset for SQUID ADC/DAC, de-assertion on system clock ('0' = Inactive, '1' = Active)
+         i_clk_sqm_adc_dac    : in     std_logic                                                            ; --! SQUID ADC/DAC internal Clock
+         i_clk_sqm_adc_dac_90 : in     std_logic                                                            ; --! SQUID ADC/DAC internal 90 degrees shift
 
          i_rst                : in     std_logic                                                            ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                : in     std_logic                                                            ; --! System Clock
@@ -70,7 +71,11 @@ constant c_PIXEL_POS_MAX_VAL  : integer:= c_MUX_FACT - 2                        
 constant c_PIXEL_POS_INIT     : integer:= -1                                                                ; --! Pixel position: initialization value
 constant c_PIXEL_POS_S        : integer:= log2_ceil(c_PIXEL_POS_MAX_VAL+1)+1                                ; --! Pixel position: size bus (signed)
 
-signal   rst_sqm_pls_shape    : std_logic                                                                   ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+signal   rst_sqm_adc_dac_pad  : std_logic                                                                   ; --! Reset for SQUID ADC/DAC pads, de-assertion on system clock
+
+signal   sync_rs_sys          : std_logic                                                                   ; --! Pixel sequence synchronization, synchronized on System Clock register (System clock)
+signal   plsss_sys            : std_logic_vector(c_DFLD_PLSSS_PLS_S-1 downto 0)                             ; --! SQUID MUX feedback pulse shaping set register (System clock)
+signal   smfbd_sys            : std_logic_vector(c_DFLD_SMFBD_COL_S-1 downto 0)                             ; --! SQUID MUX feedback delay register (System clock)
 
 signal   sync_r               : std_logic_vector(       c_FF_RSYNC_NB   downto 0)                           ; --! Pixel sequence sync. register (R.E. detected = position sequence to the first pixel)
 signal   sync_re              : std_logic                                                                   ; --! Pixel sequence sync. rising edge
@@ -96,31 +101,66 @@ signal   x_final              : std_logic_vector(    c_SQM_DATA_FBK_S-1 downto 0
 signal   a_mant_k             : std_logic_vector(  c_DFLD_PLSSH_PLS_S-1 downto 0)                           ; --! Pulse shaping: A[k] filter mantissa parameter (unsigned)
 signal   a_mant_k_rs          : std_logic_vector( c_SQM_PLS_SHP_A_EXP-1 downto 0)                           ; --! Pulse shaping: A[k] filter mantissa parameter (unsigned) resized
 
+attribute syn_preserve        : boolean                                                                     ;
+attribute syn_preserve          of rst_sqm_adc_dac_pad   : signal is true                                   ;
+attribute syn_preserve          of sync_r                : signal is true                                   ;
+attribute syn_preserve          of sync_re               : signal is true                                   ;
+
 begin
 
    -- ------------------------------------------------------------------------------------------------------
-   --!   Reset on SQUID MUX pulse shaping Clock generation
-   --!     Necessity to generate local reset in order to reach expected frequency
+   --!   Reset on SQUID ADC/DAC internal Clock Clock
    --    @Req : DRE-DMX-FW-REQ-0050
    -- ------------------------------------------------------------------------------------------------------
-   I_rst_sqm_pls_shape: entity work.signal_reg generic map
-   (     g_SIG_FF_NB          => c_FF_RST_ADC_DAC_NB  , -- integer                                          ; --! Signal registered flip-flop number
-         g_SIG_DEF            => '1'                    -- std_logic                                          --! Signal registered default value at reset
-   )  port map
-   (     i_reset              => i_rst_sys_sqm_dac    , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
-         i_clock              => i_clk_sqm_adc_dac    , -- in     std_logic                                 ; --! Clock
+   P_rst_sqm_adc_dac_pd: process (i_rst_sqm_adc_dac_pd, i_clk_sqm_adc_dac)
+   begin
 
-         i_sig                => '0'                  , -- in     std_logic                                 ; --! Signal
-         o_sig_r              => rst_sqm_pls_shape      -- out    std_logic                                   --! Signal registered
+      if i_rst_sqm_adc_dac_pd = '1' then
+         rst_sqm_adc_dac_pad <= '1';
+
+      elsif rising_edge(i_clk_sqm_adc_dac) then
+         rst_sqm_adc_dac_pad <= '0';
+
+      end if;
+
+   end process P_rst_sqm_adc_dac_pd;
+
+   -- ------------------------------------------------------------------------------------------------------
+   --!   Inputs registered on system clock before resynchronization
+   -- ------------------------------------------------------------------------------------------------------
+   I_sync_rs_sys: entity work.signal_reg generic map
+   (  g_SIG_FF_NB          => 1                    , -- integer                                          ; --! Signal registered flip-flop number
+      g_SIG_DEF            => c_I_SYNC_DEF           -- std_logic                                          --! Signal registered default value at reset
+   )  port map
+   (  i_reset              => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+      i_clock              => i_clk                , -- in     std_logic                                 ; --! Clock
+
+      i_sig                => i_sync_rs            , -- in     std_logic                                 ; --! Signal
+      o_sig_r              => sync_rs_sys            -- out    std_logic                                   --! Signal registered
    );
+
+   P_reg_sys: process (i_rst, i_clk)
+   begin
+
+      if i_rst = '1' then
+         plsss_sys         <= c_EP_CMD_DEF_PLSSS;
+         smfbd_sys         <= c_EP_CMD_DEF_SMFBD;
+
+      elsif rising_edge(i_clk) then
+         plsss_sys         <= i_plsss;
+         smfbd_sys         <= i_smfbd;
+
+      end if;
+
+   end process P_reg_sys;
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Inputs Resynchronization
    -- ------------------------------------------------------------------------------------------------------
-   P_rsync : process (rst_sqm_pls_shape, i_clk_sqm_adc_dac)
+   P_rsync : process (i_rst_sqm_adc_dac, i_clk_sqm_adc_dac)
    begin
 
-      if rst_sqm_pls_shape = '1' then
+      if i_rst_sqm_adc_dac = '1' then
          sync_r               <= (others => c_I_SYNC_DEF);
          sqm_data_fbk_r       <= (others => std_logic_vector(to_unsigned(c_DAC_MDL_POINT, c_SQM_DATA_FBK_S)));
          plsss_r              <= (others => c_EP_CMD_DEF_PLSSS);
@@ -128,10 +168,10 @@ begin
          mem_plssh_pp_r       <= (others => c_MEM_STR_ADD_PP_DEF);
 
       elsif rising_edge(i_clk_sqm_adc_dac) then
-         sync_r               <= sync_r(sync_r'high-1 downto 0) & i_sync_rs;
+         sync_r               <= sync_r(sync_r'high-1 downto 0) & sync_rs_sys;
          sqm_data_fbk_r       <= i_sqm_data_fbk & sqm_data_fbk_r( 0 to sqm_data_fbk_r'high-1);
-         plsss_r              <= i_plsss        & plsss_r(        0 to plsss_r'high-1);
-         smfbd_r              <= i_smfbd        & smfbd_r(        0 to smfbd_r'high-1);
+         plsss_r              <= plsss_sys      & plsss_r(        0 to plsss_r'high-1);
+         smfbd_r              <= smfbd_sys      & smfbd_r(        0 to smfbd_r'high-1);
          mem_plssh_pp_r       <= mem_plssh_pp_r(mem_plssh_pp_r'high-1 downto 0) & mem_plssh_pp;
 
       end if;
@@ -141,10 +181,10 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   Specific signals
    -- ------------------------------------------------------------------------------------------------------
-   P_sig : process (rst_sqm_pls_shape, i_clk_sqm_adc_dac)
+   P_sig : process (i_rst_sqm_adc_dac, i_clk_sqm_adc_dac)
    begin
 
-      if rst_sqm_pls_shape = '1' then
+      if i_rst_sqm_adc_dac = '1' then
          sync_re            <= '0';
 
       elsif rising_edge(i_clk_sqm_adc_dac) then
@@ -158,10 +198,10 @@ begin
    --!   Pulse shaping counter/Pixel position initialization
    --    @Req : DRE-DMX-FW-REQ-0280
    -- ------------------------------------------------------------------------------------------------------
-   P_pls_cnt_del : process (rst_sqm_pls_shape, i_clk_sqm_adc_dac)
+   P_pls_cnt_del : process (i_rst_sqm_adc_dac, i_clk_sqm_adc_dac)
    begin
 
-      if rst_sqm_pls_shape = '1' then
+      if i_rst_sqm_adc_dac = '1' then
          pls_cnt_init   <= std_logic_vector(unsigned(to_signed(c_PLS_CNT_INIT, pls_cnt_init'length)));
          pixel_pos_init <= std_logic_vector(to_signed(c_PIXEL_POS_INIT , pixel_pos'length));
 
@@ -184,10 +224,10 @@ begin
    --!   Pulse shaping counter
    --    @Req : DRE-DMX-FW-REQ-0275
    -- ------------------------------------------------------------------------------------------------------
-   P_pls_cnt : process (rst_sqm_pls_shape, i_clk_sqm_adc_dac)
+   P_pls_cnt : process (i_rst_sqm_adc_dac, i_clk_sqm_adc_dac)
    begin
 
-      if rst_sqm_pls_shape = '1' then
+      if i_rst_sqm_adc_dac = '1' then
          pls_cnt        <= std_logic_vector(to_unsigned(c_PLS_CNT_MAX_VAL, pls_cnt'length));
          pls_cnt_msb_r  <= '0';
 
@@ -215,10 +255,10 @@ begin
    --    @Req : DRE-DMX-FW-REQ-0090
    --    @Req : DRE-DMX-FW-REQ-0285
    -- ------------------------------------------------------------------------------------------------------
-   P_pixel_pos : process (rst_sqm_pls_shape, i_clk_sqm_adc_dac)
+   P_pixel_pos : process (i_rst_sqm_adc_dac, i_clk_sqm_adc_dac)
    begin
 
-      if rst_sqm_pls_shape = '1' then
+      if i_rst_sqm_adc_dac = '1' then
          pixel_pos   <= (others => '1');
 
       elsif rising_edge(i_clk_sqm_adc_dac) then
@@ -258,7 +298,7 @@ begin
 
          o_a_flg_err          => open                 , -- out    std_logic                                 ; --! Memory port A: flag error uncorrectable detected ('0' = No, '1' = Yes)
 
-         i_b_rst              => rst_sqm_pls_shape    , -- in     std_logic                                 ; --! Memory port B: registers reset ('0' = Inactive, '1' = Active)
+         i_b_rst              => i_rst_sqm_adc_dac    , -- in     std_logic                                 ; --! Memory port B: registers reset ('0' = Inactive, '1' = Active)
          i_b_clk              => i_clk_sqm_adc_dac    , -- in     std_logic                                 ; --! Memory port B: main clock
          i_b_clk_shift        => i_clk_sqm_adc_dac_90 , -- in     std_logic                                 ; --! Memory port B: 90 degrees shifted clock (used for memory content correction)
 
@@ -273,10 +313,10 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   Memory pulse shaping coefficient signals, DAC side
    -- ------------------------------------------------------------------------------------------------------
-   P_mem_plssh_dac : process (rst_sqm_pls_shape, i_clk_sqm_adc_dac)
+   P_mem_plssh_dac : process (i_rst_sqm_adc_dac, i_clk_sqm_adc_dac)
    begin
 
-      if rst_sqm_pls_shape = '1' then
+      if i_rst_sqm_adc_dac = '1' then
          mem_plssh_add_lsb <= std_logic_vector(to_unsigned(0, mem_plssh_add_lsb'length));
          mem_plssh_prm.add(mem_plssh_prm.add'high downto mem_plssh_add_lsb'high) <= c_EP_CMD_DEF_PLSSS;
          mem_plssh_prm.pp <= c_MEM_STR_ADD_PP_DEF;
@@ -306,10 +346,10 @@ begin
    --     - i_sqm_data_fbk =  2^(c_SQM_DATA_FBK_S-1)-1 -> o_sqm_dac_data = 2^(c_SQM_DAC_DATA_S)-1 (DAC analog output =   Vref)
    --     Either: x_final = i_sqm_data_fbk + 2^(c_SQM_DATA_FBK_S-1)
    -- ------------------------------------------------------------------------------------------------------
-   P_pulse_shaping_in : process (rst_sqm_pls_shape, i_clk_sqm_adc_dac)
+   P_pulse_shaping_in : process (i_rst_sqm_adc_dac, i_clk_sqm_adc_dac)
    begin
 
-      if rst_sqm_pls_shape = '1' then
+      if i_rst_sqm_adc_dac = '1' then
          x_init   <= std_logic_vector(to_unsigned(c_DAC_MDL_POINT, x_init'length));
          x_final  <= std_logic_vector(to_unsigned(c_DAC_MDL_POINT, x_final'length));
 
@@ -334,7 +374,8 @@ begin
          g_A_EXP              => c_SQM_PLS_SHP_A_EXP  , -- integer                                          ; --! A[k]: filter exponent parameter (<= c_MULT_ALU_PORTC_S-g_X_K_S-1)
          g_Y_K_S              => c_SQM_DAC_DATA_S       -- integer                                            --! y[k]: filtered data out bus size
    ) port map
-      (  i_rst_sqm_pls_shape  => rst_sqm_pls_shape    , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+      (  i_rst_sqm_adc_dac_pd => rst_sqm_adc_dac_pad  , -- in     std_logic                                 ; --! Reset for SQUID ADC/DAC pads, de-assertion on system clock
+         i_rst_sqm_adc_dac    => i_rst_sqm_adc_dac    , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk_sqm_adc_dac    => i_clk_sqm_adc_dac    , -- in     std_logic                                 ; --! SQUID MUX pulse shaping Clock
          i_x_init             => x_init               , -- in     std_logic_vector(g_X_K_S-1 downto 0)      ; --! Last value reached by y[k] at the end of last slice (unsigned)
          i_x_final            => x_final              , -- in     std_logic_vector(g_X_K_S-1 downto 0)      ; --! Final value to reach by y[k] (unsigned)

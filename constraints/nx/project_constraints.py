@@ -21,314 +21,136 @@
 # ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 #    @details                Nxmap project constraints
 # ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+from nxmap import *
+
+class Region:
+    def __init__(self, name, col, row, width, height):
+        self.n  = name
+        self.c  = col
+        self.r  = row
+        self.w  = width
+        self.h  = height
+        self.c2 = col + width   # Col2
+        self.r2 = row + height  # Row2
 
 def synthesis_constraints(p,variant,option):
     if variant == 'NG-LARGE' or variant == 'NG-LARGE-EMBEDDED':
 
         # ------------------------------------------------------------------------------------------------------
+        #   Timing constraints (ns)
+        # ------------------------------------------------------------------------------------------------------
+        clk_per = 16.0          # System clock period
+        clk_adc_dac = 8.0       # ADC/DAC clock period
+        clk_adc_dac_ck = 4.0    # ADC/DAC clock period for external clock generation
+
+        # ------------------------------------------------------------------------------------------------------
+        #   Region creation
+        # ------------------------------------------------------------------------------------------------------
+        CLK_SQM_ADC_0   = Region('CLK_SQM_ADC_0', 30, 22,  1,  1)
+        CLK_SQM_ADC_1   = Region('CLK_SQM_ADC_1', 41,  2,  1,  1)
+        CLK_SQM_ADC_2   = Region('CLK_SQM_ADC_2', 13,  2,  1,  1)
+        CLK_SQM_ADC_3   = Region('CLK_SQM_ADC_3',  8, 22,  1,  1)
+
+        SQM_ADC_0       = Region('SQM_ADC_0'    , 31, 16,  2,  3)
+        SQM_ADC_1       = Region('SQM_ADC_1'    , 36,  6,  2,  3)
+        SQM_ADC_2       = Region('SQM_ADC_2'    , 13,  6,  2,  3)
+        SQM_ADC_3       = Region('SQM_ADC_3'    , 13, 16,  2,  3)
+
+        CLK_SQM_DAC_0   = Region('CLK_SQM_DAC_0', 22, 22,  1,  1)
+        CLK_SQM_DAC_1   = Region('CLK_SQM_DAC_1', 35,  2,  1,  1)
+        CLK_SQM_DAC_2   = Region('CLK_SQM_DAC_2', 19,  2,  1,  1)
+        CLK_SQM_DAC_3   = Region('CLK_SQM_DAC_3', 14, 22,  1,  1)
+
+        SQM_DAC_0       = Region('SQM_DAC_0'    , 25, 18,  1,  3)
+        SQM_DAC_1       = Region('SQM_DAC_1'    , 33,  4,  1,  3)
+        SQM_DAC_2       = Region('SQM_DAC_2'    , 15,  4,  1,  3)
+        SQM_DAC_3       = Region('SQM_DAC_3'    , 17, 18,  1,  3)
+
+        SQM_DAC_SLEEP   = Region('SQM_DAC_SLEEP',  1,  2,  1,  1)
+
+        SQA_DAC_0       = Region('SQA_DAC_0'    , 47,  6,  2,  1)
+        SQA_DAC_1       = Region('SQA_DAC_1'    , 47,  2,  2,  1)
+        SQA_DAC_2       = Region('SQA_DAC_2'    ,  1,  2,  2,  1)
+        SQA_DAC_3       = Region('SQA_DAC_3'    ,  1,  6,  2,  1)
+
+        SQA_FBK_0       = Region('SQA_FBK_0'    , 46,  6,  2,  3)
+        SQA_FBK_1       = Region('SQA_FBK_1'    , 46,  2,  2,  3)
+        SQA_FBK_2       = Region('SQA_FBK_2'    ,  2,  2,  2,  3)
+        SQA_FBK_3       = Region('SQA_FBK_3'    ,  2,  6,  2,  3)
+
+        EP_CMD          = Region('EP_CMD'       , 38, 12,  1,  1)
+        REGISTER_MGT    = Region('REGISTER_MGT' , 23, 12,  6,  4)
+
+        # ------------------------------------------------------------------------------------------------------
         #   SQUID MUX ADC clocks constraints
         # ------------------------------------------------------------------------------------------------------
-        p.constrainModule('|-> im_ck(XAB653E3C) [ I_rst_clk_mgt|G_column_mgt[0].I_sqm_adc ]', 'clk_squid_adc_0', 'Soft', 30, 22, 1, 1, 'CLK_SQM_ADC_0', False)
-        p.constrainModule('|-> im_ck(XAB653E3C) [ I_rst_clk_mgt|G_column_mgt[1].I_sqm_adc ]', 'clk_squid_adc_1', 'Soft', 41,  2, 2, 1, 'CLK_SQM_ADC_1', False)
-        p.constrainModule('|-> im_ck(XAB653E3C) [ I_rst_clk_mgt|G_column_mgt[2].I_sqm_adc ]', 'clk_squid_adc_2', 'Soft', 13,  2, 1, 1, 'CLK_SQM_ADC_2', False)
-        p.constrainModule('|-> im_ck(XAB653E3C) [ I_rst_clk_mgt|G_column_mgt[3].I_sqm_adc ]', 'clk_squid_adc_3', 'Soft',  8, 22, 1, 1, 'CLK_SQM_ADC_3', False)
+        p.constrainPath(['I_rst_clk_mgt|G_column_mgt[0].I_cmd_ck_adc|o_cmd_ck_reg'],['I_rst_clk_mgt|G_column_mgt[0].I_sqm_adc|cmd_ck_r_reg[0]'], 'cmd_ck_adc_0', 'Soft', CLK_SQM_ADC_0.c, CLK_SQM_ADC_0.r, CLK_SQM_ADC_0.w, CLK_SQM_ADC_0.h, CLK_SQM_ADC_0.n, False)
+        p.constrainPath(['I_rst_clk_mgt|G_column_mgt[1].I_cmd_ck_adc|o_cmd_ck_reg'],['I_rst_clk_mgt|G_column_mgt[1].I_sqm_adc|cmd_ck_r_reg[0]'], 'cmd_ck_adc_1', 'Soft', CLK_SQM_ADC_1.c, CLK_SQM_ADC_1.r, CLK_SQM_ADC_1.w, CLK_SQM_ADC_1.h, CLK_SQM_ADC_1.n, False)
+        p.constrainPath(['I_rst_clk_mgt|G_column_mgt[2].I_cmd_ck_adc|o_cmd_ck_reg'],['I_rst_clk_mgt|G_column_mgt[2].I_sqm_adc|cmd_ck_r_reg[0]'], 'cmd_ck_adc_2', 'Soft', CLK_SQM_ADC_2.c, CLK_SQM_ADC_2.r, CLK_SQM_ADC_2.w, CLK_SQM_ADC_2.h, CLK_SQM_ADC_2.n, False)
+        p.constrainPath(['I_rst_clk_mgt|G_column_mgt[3].I_cmd_ck_adc|o_cmd_ck_reg'],['I_rst_clk_mgt|G_column_mgt[3].I_sqm_adc|cmd_ck_r_reg[0]'], 'cmd_ck_adc_3', 'Soft', CLK_SQM_ADC_3.c, CLK_SQM_ADC_3.r, CLK_SQM_ADC_3.w, CLK_SQM_ADC_3.h, CLK_SQM_ADC_3.n, False)
 
-        p.constrainModule('|-> cmd_im_ck(X118953C2) [ I_rst_clk_mgt|G_column_mgt[0].I_cmd_ck_adc ]', 'cmd_ck_adc_0', 'Soft', 30, 22, 1, 1, 'CLK_SQM_ADC_0', False)
-        p.constrainModule('|-> cmd_im_ck(X118953C2) [ I_rst_clk_mgt|G_column_mgt[1].I_cmd_ck_adc ]', 'cmd_ck_adc_1', 'Soft', 41,  2, 2, 1, 'CLK_SQM_ADC_1', False)
-        p.constrainModule('|-> cmd_im_ck(X118953C2) [ I_rst_clk_mgt|G_column_mgt[2].I_cmd_ck_adc ]', 'cmd_ck_adc_2', 'Soft', 13,  2, 1, 1, 'CLK_SQM_ADC_2', False)
-        p.constrainModule('|-> cmd_im_ck(X118953C2) [ I_rst_clk_mgt|G_column_mgt[3].I_cmd_ck_adc ]', 'cmd_ck_adc_3', 'Soft',  8, 22, 1, 1, 'CLK_SQM_ADC_3', False)
+        p.constrainModule('|-> im_ck(X369A4EF0) [ I_rst_clk_mgt|G_column_mgt[0].I_sqm_adc ]', 'ck_adc_0', 'Soft', CLK_SQM_ADC_0.c, CLK_SQM_ADC_0.r, CLK_SQM_ADC_0.w, CLK_SQM_ADC_0.h, CLK_SQM_ADC_0.n, False)
+        p.constrainModule('|-> im_ck(X369A4EF0) [ I_rst_clk_mgt|G_column_mgt[1].I_sqm_adc ]', 'ck_adc_1', 'Soft', CLK_SQM_ADC_1.c, CLK_SQM_ADC_1.r, CLK_SQM_ADC_1.w, CLK_SQM_ADC_1.h, CLK_SQM_ADC_1.n, False)
+        p.constrainModule('|-> im_ck(X369A4EF0) [ I_rst_clk_mgt|G_column_mgt[2].I_sqm_adc ]', 'ck_adc_2', 'Soft', CLK_SQM_ADC_2.c, CLK_SQM_ADC_2.r, CLK_SQM_ADC_2.w, CLK_SQM_ADC_2.h, CLK_SQM_ADC_2.n, False)
+        p.constrainModule('|-> im_ck(X369A4EF0) [ I_rst_clk_mgt|G_column_mgt[3].I_sqm_adc ]', 'ck_adc_3', 'Soft', CLK_SQM_ADC_3.c, CLK_SQM_ADC_3.r, CLK_SQM_ADC_3.w, CLK_SQM_ADC_3.h, CLK_SQM_ADC_3.n, False)
 
         # ------------------------------------------------------------------------------------------------------
         #   SQUID MUX ADC management constraints
         # ------------------------------------------------------------------------------------------------------
-        p.constrainModule('|-> signal_reg(X0EFFAF6C) [ I_rst_clk_mgt|G_rst_column_mgt[0].I_rst_sys_sqm_adc ]', 'rst_sys_sqm_adc_0', 'Soft', 31, 16, 2, 4, 'SQM_ADC_0', False)
-        p.constrainModule('|-> signal_reg(X0EFFAF6C) [ I_rst_clk_mgt|G_rst_column_mgt[1].I_rst_sys_sqm_adc ]', 'rst_sys_sqm_adc_1', 'Soft', 36,  6, 2, 4, 'SQM_ADC_1', False)
-        p.constrainModule('|-> signal_reg(X0EFFAF6C) [ I_rst_clk_mgt|G_rst_column_mgt[2].I_rst_sys_sqm_adc ]', 'rst_sys_sqm_adc_2', 'Soft', 12,  6, 2, 4, 'SQM_ADC_2', False)
-        p.constrainModule('|-> signal_reg(X0EFFAF6C) [ I_rst_clk_mgt|G_rst_column_mgt[3].I_rst_sys_sqm_adc ]', 'rst_sys_sqm_adc_3', 'Soft', 13, 16, 2, 4, 'SQM_ADC_3', False)
+        p.constrainPath(['I_rst_clk_mgt|G_column_mgt[0].I_cmd_ck_adc|cmd_ck_sleep_reg'],['I_rst_clk_mgt|G_column_mgt[0].I_cmd_ck_adc|o_cmd_ck_sleep_reg'], 'adc_pwdn_0', 'Soft', CLK_SQM_ADC_0.c, CLK_SQM_ADC_0.r, CLK_SQM_ADC_0.w, CLK_SQM_ADC_0.h, CLK_SQM_ADC_0.n, False)
+        p.constrainPath(['I_rst_clk_mgt|G_column_mgt[1].I_cmd_ck_adc|cmd_ck_sleep_reg'],['I_rst_clk_mgt|G_column_mgt[1].I_cmd_ck_adc|o_cmd_ck_sleep_reg'], 'adc_pwdn_1', 'Soft', CLK_SQM_ADC_1.c, CLK_SQM_ADC_1.r, CLK_SQM_ADC_1.w, CLK_SQM_ADC_1.h, CLK_SQM_ADC_1.n, False)
+        p.constrainPath(['I_rst_clk_mgt|G_column_mgt[2].I_cmd_ck_adc|cmd_ck_sleep_reg'],['I_rst_clk_mgt|G_column_mgt[2].I_cmd_ck_adc|o_cmd_ck_sleep_reg'], 'adc_pwdn_2', 'Soft', CLK_SQM_ADC_2.c, CLK_SQM_ADC_2.r, CLK_SQM_ADC_2.w, CLK_SQM_ADC_2.h, CLK_SQM_ADC_2.n, False)
+        p.constrainPath(['I_rst_clk_mgt|G_column_mgt[3].I_cmd_ck_adc|cmd_ck_sleep_reg'],['I_rst_clk_mgt|G_column_mgt[3].I_cmd_ck_adc|o_cmd_ck_sleep_reg'], 'adc_pwdn_3', 'Soft', CLK_SQM_ADC_3.c, CLK_SQM_ADC_3.r, CLK_SQM_ADC_3.w, CLK_SQM_ADC_3.h, CLK_SQM_ADC_3.n, False)
 
-        p.constrainModule('|-> signal_reg(X0EFFAF6C) [ I_in_rs_clk|G_column_mgt[0].I_sync_sqm_adc_rs ]', 'sync_sqm_adc_rs_0', 'Soft', 31, 16, 2, 4, 'SQM_ADC_0', False)
-        p.constrainModule('|-> signal_reg(X0EFFAF6C) [ I_in_rs_clk|G_column_mgt[1].I_sync_sqm_adc_rs ]', 'sync_sqm_adc_rs_1', 'Soft', 36,  6, 2, 4, 'SQM_ADC_1', False)
-        p.constrainModule('|-> signal_reg(X0EFFAF6C) [ I_in_rs_clk|G_column_mgt[2].I_sync_sqm_adc_rs ]', 'sync_sqm_adc_rs_2', 'Soft', 12,  6, 2, 4, 'SQM_ADC_2', False)
-        p.constrainModule('|-> signal_reg(X0EFFAF6C) [ I_in_rs_clk|G_column_mgt[3].I_sync_sqm_adc_rs ]', 'sync_sqm_adc_rs_3', 'Soft', 13, 16, 2, 4, 'SQM_ADC_3', False)
-
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[0].I_aqmde_dmp_cmp ]', 'aqmde_dmp_cmp_0', 'Soft', 31, 16, 2, 4, 'SQM_ADC_0', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[1].I_aqmde_dmp_cmp ]', 'aqmde_dmp_cmp_1', 'Soft', 36,  6, 2, 4, 'SQM_ADC_1', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[2].I_aqmde_dmp_cmp ]', 'aqmde_dmp_cmp_2', 'Soft', 12,  6, 2, 4, 'SQM_ADC_2', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[3].I_aqmde_dmp_cmp ]', 'aqmde_dmp_cmp_3', 'Soft', 13, 16, 2, 4, 'SQM_ADC_3', False)
-
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[0].G_bxlgt[0].I_bxlgt ]', 'bxlgt0_0', 'Soft', 31, 16, 2, 4, 'SQM_ADC_0', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[0].G_bxlgt[1].I_bxlgt ]', 'bxlgt0_1', 'Soft', 31, 16, 2, 4, 'SQM_ADC_0', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[0].G_bxlgt[2].I_bxlgt ]', 'bxlgt0_2', 'Soft', 31, 16, 2, 4, 'SQM_ADC_0', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[0].G_bxlgt[3].I_bxlgt ]', 'bxlgt0_3', 'Soft', 31, 16, 2, 4, 'SQM_ADC_0', False)
-
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[1].G_bxlgt[0].I_bxlgt ]', 'bxlgt1_0', 'Soft', 36,  6, 2, 4, 'SQM_ADC_1', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[1].G_bxlgt[1].I_bxlgt ]', 'bxlgt1_1', 'Soft', 36,  6, 2, 4, 'SQM_ADC_1', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[1].G_bxlgt[2].I_bxlgt ]', 'bxlgt1_2', 'Soft', 36,  6, 2, 4, 'SQM_ADC_1', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[1].G_bxlgt[3].I_bxlgt ]', 'bxlgt1_3', 'Soft', 36,  6, 2, 4, 'SQM_ADC_1', False)
-
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[2].G_bxlgt[0].I_bxlgt ]', 'bxlgt2_0', 'Soft', 12,  6, 2, 4, 'SQM_ADC_2', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[2].G_bxlgt[1].I_bxlgt ]', 'bxlgt2_1', 'Soft', 12,  6, 2, 4, 'SQM_ADC_2', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[2].G_bxlgt[2].I_bxlgt ]', 'bxlgt2_2', 'Soft', 12,  6, 2, 4, 'SQM_ADC_2', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[2].G_bxlgt[3].I_bxlgt ]', 'bxlgt2_3', 'Soft', 12,  6, 2, 4, 'SQM_ADC_2', False)
-
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[3].G_bxlgt[0].I_bxlgt ]', 'bxlgt3_0', 'Soft', 13, 16, 2, 4, 'SQM_ADC_3', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[3].G_bxlgt[1].I_bxlgt ]', 'bxlgt3_1', 'Soft', 13, 16, 2, 4, 'SQM_ADC_3', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[3].G_bxlgt[2].I_bxlgt ]', 'bxlgt3_2', 'Soft', 13, 16, 2, 4, 'SQM_ADC_3', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[3].G_bxlgt[3].I_bxlgt ]', 'bxlgt3_3', 'Soft', 13, 16, 2, 4, 'SQM_ADC_3', False)
-
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[0].G_smpdl[0].I_smpdl ]', 'smpdl0_0', 'Soft', 31, 16, 2, 4, 'SQM_ADC_0', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[0].G_smpdl[1].I_smpdl ]', 'smpdl0_1', 'Soft', 31, 16, 2, 4, 'SQM_ADC_0', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[0].G_smpdl[2].I_smpdl ]', 'smpdl0_2', 'Soft', 31, 16, 2, 4, 'SQM_ADC_0', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[0].G_smpdl[3].I_smpdl ]', 'smpdl0_3', 'Soft', 31, 16, 2, 4, 'SQM_ADC_0', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[0].G_smpdl[4].I_smpdl ]', 'smpdl0_4', 'Soft', 31, 16, 2, 4, 'SQM_ADC_0', False)
-
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[1].G_smpdl[0].I_smpdl ]', 'smpdl1_0', 'Soft', 36,  6, 2, 4, 'SQM_ADC_1', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[1].G_smpdl[1].I_smpdl ]', 'smpdl1_1', 'Soft', 36,  6, 2, 4, 'SQM_ADC_1', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[1].G_smpdl[2].I_smpdl ]', 'smpdl1_2', 'Soft', 36,  6, 2, 4, 'SQM_ADC_1', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[1].G_smpdl[3].I_smpdl ]', 'smpdl1_3', 'Soft', 36,  6, 2, 4, 'SQM_ADC_1', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[1].G_smpdl[4].I_smpdl ]', 'smpdl1_4', 'Soft', 36,  6, 2, 4, 'SQM_ADC_1', False)
-
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[2].G_smpdl[0].I_smpdl ]', 'smpdl2_0', 'Soft', 12,  6, 2, 4, 'SQM_ADC_2', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[2].G_smpdl[1].I_smpdl ]', 'smpdl2_1', 'Soft', 12,  6, 2, 4, 'SQM_ADC_2', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[2].G_smpdl[2].I_smpdl ]', 'smpdl2_2', 'Soft', 12,  6, 2, 4, 'SQM_ADC_2', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[2].G_smpdl[3].I_smpdl ]', 'smpdl2_3', 'Soft', 12,  6, 2, 4, 'SQM_ADC_2', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[2].G_smpdl[4].I_smpdl ]', 'smpdl2_4', 'Soft', 12,  6, 2, 4, 'SQM_ADC_2', False)
-
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[3].G_smpdl[0].I_smpdl ]', 'smpdl3_0', 'Soft', 13, 16, 2, 4, 'SQM_ADC_3', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[3].G_smpdl[1].I_smpdl ]', 'smpdl3_1', 'Soft', 13, 16, 2, 4, 'SQM_ADC_3', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[3].G_smpdl[2].I_smpdl ]', 'smpdl3_2', 'Soft', 13, 16, 2, 4, 'SQM_ADC_3', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[3].G_smpdl[3].I_smpdl ]', 'smpdl3_3', 'Soft', 13, 16, 2, 4, 'SQM_ADC_3', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[3].G_smpdl[4].I_smpdl ]', 'smpdl3_4', 'Soft', 13, 16, 2, 4, 'SQM_ADC_3', False)
-
-        p.constrainModule('|-> squid_adc_mgt [ G_column_mgt[0].I_squid_adc_mgt ]', 'squid_adc_mgt_0', 'Soft', 31, 16, 2, 4, 'SQM_ADC_0', False)
-        p.constrainModule('|-> squid_adc_mgt [ G_column_mgt[1].I_squid_adc_mgt ]', 'squid_adc_mgt_1', 'Soft', 36,  6, 2, 4, 'SQM_ADC_1', False)
-        p.constrainModule('|-> squid_adc_mgt [ G_column_mgt[2].I_squid_adc_mgt ]', 'squid_adc_mgt_2', 'Soft', 12,  6, 2, 4, 'SQM_ADC_2', False)
-        p.constrainModule('|-> squid_adc_mgt [ G_column_mgt[3].I_squid_adc_mgt ]', 'squid_adc_mgt_3', 'Soft', 13, 16, 2, 4, 'SQM_ADC_3', False)
+        p.constrainModule('|-> squid_adc_mgt [ G_column_mgt[0].I_squid_adc_mgt ]', 'squid_adc_mgt_0', 'Soft', SQM_ADC_0.c, SQM_ADC_0.r, SQM_ADC_0.w, SQM_ADC_0.h, SQM_ADC_0.n, False)
+        p.constrainModule('|-> squid_adc_mgt [ G_column_mgt[1].I_squid_adc_mgt ]', 'squid_adc_mgt_1', 'Soft', SQM_ADC_1.c, SQM_ADC_1.r, SQM_ADC_1.w, SQM_ADC_1.h, SQM_ADC_1.n, False)
+        p.constrainModule('|-> squid_adc_mgt [ G_column_mgt[2].I_squid_adc_mgt ]', 'squid_adc_mgt_2', 'Soft', SQM_ADC_2.c, SQM_ADC_2.r, SQM_ADC_2.w, SQM_ADC_2.h, SQM_ADC_2.n, False)
+        p.constrainModule('|-> squid_adc_mgt [ G_column_mgt[3].I_squid_adc_mgt ]', 'squid_adc_mgt_3', 'Soft', SQM_ADC_3.c, SQM_ADC_3.r, SQM_ADC_3.w, SQM_ADC_3.h, SQM_ADC_3.n, False)
 
         # ------------------------------------------------------------------------------------------------------
         #   SQUID MUX DAC clocks constraints
         # ------------------------------------------------------------------------------------------------------
-        p.constrainModule('|-> im_ck(X29E9E6A4) [ I_rst_clk_mgt|G_column_mgt[0].I_sqm_dac_out ]', 'clk_squid_dac_0', 'Soft', 22, 22, 1, 1, 'CLK_SQM_DAC_0', False)
-        p.constrainModule('|-> im_ck(X29E9E6A4) [ I_rst_clk_mgt|G_column_mgt[1].I_sqm_dac_out ]', 'clk_squid_dac_1', 'Soft', 35,  2, 1, 1, 'CLK_SQM_DAC_1', False)
-        p.constrainModule('|-> im_ck(X29E9E6A4) [ I_rst_clk_mgt|G_column_mgt[2].I_sqm_dac_out ]', 'clk_squid_dac_2', 'Soft', 19,  2, 1, 1, 'CLK_SQM_DAC_2', False)
-        p.constrainModule('|-> im_ck(X29E9E6A4) [ I_rst_clk_mgt|G_column_mgt[3].I_sqm_dac_out ]', 'clk_squid_dac_3', 'Soft', 14, 22, 1, 1, 'CLK_SQM_DAC_3', False)
+        p.constrainPath(['I_rst_clk_mgt|G_column_mgt[0].I_cmd_ck_sqm_dac|o_cmd_ck_reg'],['I_rst_clk_mgt|G_column_mgt[0].I_sqm_dac_out|cmd_ck_r_reg[0]'], 'cmd_ck_dac_0', 'Soft', CLK_SQM_DAC_0.c, CLK_SQM_DAC_0.r, CLK_SQM_DAC_0.w, CLK_SQM_DAC_0.h, CLK_SQM_DAC_0.n, False)
+        p.constrainPath(['I_rst_clk_mgt|G_column_mgt[1].I_cmd_ck_sqm_dac|o_cmd_ck_reg'],['I_rst_clk_mgt|G_column_mgt[1].I_sqm_dac_out|cmd_ck_r_reg[0]'], 'cmd_ck_dac_1', 'Soft', CLK_SQM_DAC_1.c, CLK_SQM_DAC_1.r, CLK_SQM_DAC_1.w, CLK_SQM_DAC_1.h, CLK_SQM_DAC_1.n, False)
+        p.constrainPath(['I_rst_clk_mgt|G_column_mgt[2].I_cmd_ck_sqm_dac|o_cmd_ck_reg'],['I_rst_clk_mgt|G_column_mgt[2].I_sqm_dac_out|cmd_ck_r_reg[0]'], 'cmd_ck_dac_2', 'Soft', CLK_SQM_DAC_2.c, CLK_SQM_DAC_2.r, CLK_SQM_DAC_2.w, CLK_SQM_DAC_2.h, CLK_SQM_DAC_2.n, False)
+        p.constrainPath(['I_rst_clk_mgt|G_column_mgt[3].I_cmd_ck_sqm_dac|o_cmd_ck_reg'],['I_rst_clk_mgt|G_column_mgt[3].I_sqm_dac_out|cmd_ck_r_reg[0]'], 'cmd_ck_dac_3', 'Soft', CLK_SQM_DAC_3.c, CLK_SQM_DAC_3.r, CLK_SQM_DAC_3.w, CLK_SQM_DAC_3.h, CLK_SQM_DAC_3.n, False)
 
-        p.constrainModule('|-> cmd_im_ck(X118953C2) [ I_rst_clk_mgt|G_column_mgt[0].I_cmd_ck_sqm_dac ]', 'cmd_ck_sqm_dac_0', 'Soft', 22, 22, 1, 1, 'CLK_SQM_DAC_0', False)
-        p.constrainModule('|-> cmd_im_ck(X118953C2) [ I_rst_clk_mgt|G_column_mgt[1].I_cmd_ck_sqm_dac ]', 'cmd_ck_sqm_dac_1', 'Soft', 35,  2, 1, 1, 'CLK_SQM_DAC_1', False)
-        p.constrainModule('|-> cmd_im_ck(X118953C2) [ I_rst_clk_mgt|G_column_mgt[2].I_cmd_ck_sqm_dac ]', 'cmd_ck_sqm_dac_2', 'Soft', 19,  2, 1, 1, 'CLK_SQM_DAC_2', False)
-        p.constrainModule('|-> cmd_im_ck(X118953C2) [ I_rst_clk_mgt|G_column_mgt[3].I_cmd_ck_sqm_dac ]', 'cmd_ck_sqm_dac_3', 'Soft', 14, 22, 1, 1, 'CLK_SQM_DAC_3', False)
+        p.constrainModule('|-> im_ck(X2C9B091B) [ I_rst_clk_mgt|G_column_mgt[0].I_sqm_dac_out ]', 'squid_dac_mgt_0', 'Soft', CLK_SQM_DAC_0.c, CLK_SQM_DAC_0.r, CLK_SQM_DAC_0.w, CLK_SQM_DAC_0.h, CLK_SQM_DAC_0.n, False)
+        p.constrainModule('|-> im_ck(X2C9B091B) [ I_rst_clk_mgt|G_column_mgt[1].I_sqm_dac_out ]', 'squid_dac_mgt_1', 'Soft', CLK_SQM_DAC_1.c, CLK_SQM_DAC_1.r, CLK_SQM_DAC_1.w, CLK_SQM_DAC_1.h, CLK_SQM_DAC_1.n, False)
+        p.constrainModule('|-> im_ck(X2C9B091B) [ I_rst_clk_mgt|G_column_mgt[2].I_sqm_dac_out ]', 'squid_dac_mgt_2', 'Soft', CLK_SQM_DAC_2.c, CLK_SQM_DAC_2.r, CLK_SQM_DAC_2.w, CLK_SQM_DAC_2.h, CLK_SQM_DAC_2.n, False)
+        p.constrainModule('|-> im_ck(X2C9B091B) [ I_rst_clk_mgt|G_column_mgt[3].I_sqm_dac_out ]', 'squid_dac_mgt_3', 'Soft', CLK_SQM_DAC_3.c, CLK_SQM_DAC_3.r, CLK_SQM_DAC_3.w, CLK_SQM_DAC_3.h, CLK_SQM_DAC_3.n, False)
 
         # ------------------------------------------------------------------------------------------------------
         #   SQUID MUX DAC management constraints
         # ------------------------------------------------------------------------------------------------------
-        p.constrainModule('|-> signal_reg(X0EFFAF6C) [ I_rst_clk_mgt|G_rst_column_mgt[0].I_rst_sys_sqm_dac ]', 'rst_sys_sqm_dac_0', 'Soft', 25, 18, 1, 4, 'SQM_DAC_0', False)
-        p.constrainModule('|-> signal_reg(X0EFFAF6C) [ I_rst_clk_mgt|G_rst_column_mgt[1].I_rst_sys_sqm_dac ]', 'rst_sys_sqm_dac_1', 'Soft', 33,  4, 1, 4, 'SQM_DAC_1', False)
-        p.constrainModule('|-> signal_reg(X0EFFAF6C) [ I_rst_clk_mgt|G_rst_column_mgt[2].I_rst_sys_sqm_dac ]', 'rst_sys_sqm_dac_2', 'Soft', 15,  4, 1, 4, 'SQM_DAC_2', False)
-        p.constrainModule('|-> signal_reg(X0EFFAF6C) [ I_rst_clk_mgt|G_rst_column_mgt[3].I_rst_sys_sqm_dac ]', 'rst_sys_sqm_dac_3', 'Soft', 17, 18, 1, 4, 'SQM_DAC_3', False)
+        p.constrainPath(['I_rst_clk_mgt|G_column_mgt[0].I_cmd_ck_sqm_dac|cmd_ck_sleep_reg'],['I_rst_clk_mgt|G_column_mgt[0].I_cmd_ck_sqm_dac|o_cmd_ck_sleep_reg'], 'dac_sleep_0', 'Soft', SQM_DAC_SLEEP.c, SQM_DAC_SLEEP.r, SQM_DAC_SLEEP.w, SQM_DAC_SLEEP.h, SQM_DAC_SLEEP.n, False)
+        p.constrainPath(['I_rst_clk_mgt|G_column_mgt[1].I_cmd_ck_sqm_dac|cmd_ck_sleep_reg'],['I_rst_clk_mgt|G_column_mgt[1].I_cmd_ck_sqm_dac|o_cmd_ck_sleep_reg'], 'dac_sleep_1', 'Soft', SQM_DAC_SLEEP.c, SQM_DAC_SLEEP.r, SQM_DAC_SLEEP.w, SQM_DAC_SLEEP.h, SQM_DAC_SLEEP.n, False)
+        p.constrainPath(['I_rst_clk_mgt|G_column_mgt[2].I_cmd_ck_sqm_dac|cmd_ck_sleep_reg'],['I_rst_clk_mgt|G_column_mgt[2].I_cmd_ck_sqm_dac|o_cmd_ck_sleep_reg'], 'dac_sleep_2', 'Soft', SQM_DAC_SLEEP.c, SQM_DAC_SLEEP.r, SQM_DAC_SLEEP.w, SQM_DAC_SLEEP.h, SQM_DAC_SLEEP.n, False)
+        p.constrainPath(['I_rst_clk_mgt|G_column_mgt[3].I_cmd_ck_sqm_dac|cmd_ck_sleep_reg'],['I_rst_clk_mgt|G_column_mgt[3].I_cmd_ck_sqm_dac|o_cmd_ck_sleep_reg'], 'dac_sleep_3', 'Soft', SQM_DAC_SLEEP.c, SQM_DAC_SLEEP.r, SQM_DAC_SLEEP.w, SQM_DAC_SLEEP.h, SQM_DAC_SLEEP.n, False)
 
-        p.constrainModule('|-> signal_reg(X0EFFAF6C) [ I_in_rs_clk|G_column_mgt[0].I_sync_sqm_dac_rs ]', 'sync_sqm_dac_rs_0', 'Soft', 25, 18, 1, 4, 'SQM_DAC_0', False)
-        p.constrainModule('|-> signal_reg(X0EFFAF6C) [ I_in_rs_clk|G_column_mgt[1].I_sync_sqm_dac_rs ]', 'sync_sqm_dac_rs_1', 'Soft', 33,  4, 1, 4, 'SQM_DAC_1', False)
-        p.constrainModule('|-> signal_reg(X0EFFAF6C) [ I_in_rs_clk|G_column_mgt[2].I_sync_sqm_dac_rs ]', 'sync_sqm_dac_rs_2', 'Soft', 15,  4, 1, 4, 'SQM_DAC_2', False)
-        p.constrainModule('|-> signal_reg(X0EFFAF6C) [ I_in_rs_clk|G_column_mgt[3].I_sync_sqm_dac_rs ]', 'sync_sqm_dac_rs_3', 'Soft', 17, 18, 1, 4, 'SQM_DAC_3', False)
-
-        p.constrainModule('|-> signal_reg(X0EFFAF6C) [ I_register_mgt|G_column_mgt_out[0].G_plsss[0].I_plsss ]', 'plsss0_0', 'Soft', 25, 18, 1, 4, 'SQM_DAC_0', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[0].G_plsss[1].I_plsss ]', 'plsss1_0', 'Soft', 25, 18, 1, 4, 'SQM_DAC_0', False)
-
-        p.constrainModule('|-> signal_reg(X0EFFAF6C) [ I_register_mgt|G_column_mgt_out[1].G_plsss[0].I_plsss ]', 'plsss0_1', 'Soft', 33,  4, 1, 4, 'SQM_DAC_1', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[1].G_plsss[1].I_plsss ]', 'plsss1_1', 'Soft', 33,  4, 1, 4, 'SQM_DAC_1', False)
-
-        p.constrainModule('|-> signal_reg(X0EFFAF6C) [ I_register_mgt|G_column_mgt_out[2].G_plsss[0].I_plsss ]', 'plsss0_2', 'Soft', 15,  4, 1, 4, 'SQM_DAC_2', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[2].G_plsss[1].I_plsss ]', 'plsss1_2', 'Soft', 15,  4, 1, 4, 'SQM_DAC_2', False)
-
-        p.constrainModule('|-> signal_reg(X0EFFAF6C) [ I_register_mgt|G_column_mgt_out[3].G_plsss[0].I_plsss ]', 'plsss0_3', 'Soft', 17, 18, 1, 4, 'SQM_DAC_3', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[3].G_plsss[1].I_plsss ]', 'plsss1_3', 'Soft', 17, 18, 1, 4, 'SQM_DAC_3', False)
-
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[0].G_smfbd[0].I_smfbd ]', 'smfbd0_0', 'Soft', 25, 18, 1, 4, 'SQM_DAC_0', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[0].G_smfbd[1].I_smfbd ]', 'smfbd0_1', 'Soft', 25, 18, 1, 4, 'SQM_DAC_0', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[0].G_smfbd[2].I_smfbd ]', 'smfbd0_2', 'Soft', 25, 18, 1, 4, 'SQM_DAC_0', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[0].G_smfbd[3].I_smfbd ]', 'smfbd0_3', 'Soft', 25, 18, 1, 4, 'SQM_DAC_0', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[0].G_smfbd[4].I_smfbd ]', 'smfbd0_4', 'Soft', 25, 18, 1, 4, 'SQM_DAC_0', False)
-
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[1].G_smfbd[0].I_smfbd ]', 'smfbd1_0', 'Soft', 33,  4, 1, 4, 'SQM_DAC_1', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[1].G_smfbd[1].I_smfbd ]', 'smfbd1_1', 'Soft', 33,  4, 1, 4, 'SQM_DAC_1', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[1].G_smfbd[2].I_smfbd ]', 'smfbd1_2', 'Soft', 33,  4, 1, 4, 'SQM_DAC_1', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[1].G_smfbd[3].I_smfbd ]', 'smfbd1_3', 'Soft', 33,  4, 1, 4, 'SQM_DAC_1', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[1].G_smfbd[4].I_smfbd ]', 'smfbd1_4', 'Soft', 33,  4, 1, 4, 'SQM_DAC_1', False)
-
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[2].G_smfbd[0].I_smfbd ]', 'smfbd2_0', 'Soft', 15,  4, 1, 4, 'SQM_DAC_2', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[2].G_smfbd[1].I_smfbd ]', 'smfbd2_1', 'Soft', 15,  4, 1, 4, 'SQM_DAC_2', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[2].G_smfbd[2].I_smfbd ]', 'smfbd2_2', 'Soft', 15,  4, 1, 4, 'SQM_DAC_2', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[2].G_smfbd[3].I_smfbd ]', 'smfbd2_3', 'Soft', 15,  4, 1, 4, 'SQM_DAC_2', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[2].G_smfbd[4].I_smfbd ]', 'smfbd2_4', 'Soft', 15,  4, 1, 4, 'SQM_DAC_2', False)
-
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[3].G_smfbd[0].I_smfbd ]', 'smfbd3_0', 'Soft', 17, 18, 1, 4, 'SQM_DAC_3', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[3].G_smfbd[1].I_smfbd ]', 'smfbd3_1', 'Soft', 17, 18, 1, 4, 'SQM_DAC_3', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[3].G_smfbd[2].I_smfbd ]', 'smfbd3_2', 'Soft', 17, 18, 1, 4, 'SQM_DAC_3', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[3].G_smfbd[3].I_smfbd ]', 'smfbd3_3', 'Soft', 17, 18, 1, 4, 'SQM_DAC_3', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[3].G_smfbd[4].I_smfbd ]', 'smfbd3_4', 'Soft', 17, 18, 1, 4, 'SQM_DAC_3', False)
-
-        p.constrainModule('|-> sqm_dac_mgt [ G_column_mgt[0].I_sqm_dac_mgt ]', 'sqm_dac_mgt_0', 'Soft', 25, 18, 1, 4, 'SQM_DAC_0', False)
-        p.constrainModule('|-> sqm_dac_mgt [ G_column_mgt[1].I_sqm_dac_mgt ]', 'sqm_dac_mgt_1', 'Soft', 33,  4, 1, 4, 'SQM_DAC_1', False)
-        p.constrainModule('|-> sqm_dac_mgt [ G_column_mgt[2].I_sqm_dac_mgt ]', 'sqm_dac_mgt_2', 'Soft', 15,  4, 1, 4, 'SQM_DAC_2', False)
-        p.constrainModule('|-> sqm_dac_mgt [ G_column_mgt[3].I_sqm_dac_mgt ]', 'sqm_dac_mgt_3', 'Soft', 17, 18, 1, 4, 'SQM_DAC_3', False)
-
-        p.constrainModule('|-> sqm_fbk_mgt [ G_column_mgt[0].I_sqm_fbk_mgt ]', 'sqm_fbk_mgt_0', 'Soft', 24, 16, 2, 4, 'SQM_FBK_0', False)
-        p.constrainModule('|-> sqm_fbk_mgt [ G_column_mgt[1].I_sqm_fbk_mgt ]', 'sqm_fbk_mgt_1', 'Soft', 32,  6, 2, 4, 'SQM_FBK_1', False)
-        p.constrainModule('|-> sqm_fbk_mgt [ G_column_mgt[2].I_sqm_fbk_mgt ]', 'sqm_fbk_mgt_2', 'Soft', 15,  6, 2, 4, 'SQM_FBK_2', False)
-        p.constrainModule('|-> sqm_fbk_mgt [ G_column_mgt[3].I_sqm_fbk_mgt ]', 'sqm_fbk_mgt_3', 'Soft', 17, 16, 2, 4, 'SQM_FBK_3', False)
+        p.constrainModule('|-> sqm_dac_mgt [ G_column_mgt[0].I_sqm_dac_mgt ]', 'sqm_dac_mgt_0', 'Soft', SQM_DAC_0.c, SQM_DAC_0.r, SQM_DAC_0.w, SQM_DAC_0.h, SQM_DAC_0.n, False)
+        p.constrainModule('|-> sqm_dac_mgt [ G_column_mgt[1].I_sqm_dac_mgt ]', 'sqm_dac_mgt_1', 'Soft', SQM_DAC_1.c, SQM_DAC_1.r, SQM_DAC_1.w, SQM_DAC_1.h, SQM_DAC_1.n, False)
+        p.constrainModule('|-> sqm_dac_mgt [ G_column_mgt[2].I_sqm_dac_mgt ]', 'sqm_dac_mgt_2', 'Soft', SQM_DAC_2.c, SQM_DAC_2.r, SQM_DAC_2.w, SQM_DAC_2.h, SQM_DAC_2.n, False)
+        p.constrainModule('|-> sqm_dac_mgt [ G_column_mgt[3].I_sqm_dac_mgt ]', 'sqm_dac_mgt_3', 'Soft', SQM_DAC_3.c, SQM_DAC_3.r, SQM_DAC_3.w, SQM_DAC_3.h, SQM_DAC_3.n, False)
 
         # ------------------------------------------------------------------------------------------------------
         #   SQUID AMP DAC management constraints
         # ------------------------------------------------------------------------------------------------------
-        p.constrainModule('|-> signal_reg(X0EFFAF6C) [ I_rst_clk_mgt|G_rst_column_mgt[0].I_rst_sys_sqa_dac ]', 'rst_sys_sqa_dac_0', 'Soft', 48,  6, 1, 1, 'SQA_DAC_RST_0', False)
-        p.constrainModule('|-> signal_reg(X0EFFAF6C) [ I_rst_clk_mgt|G_rst_column_mgt[1].I_rst_sys_sqa_dac ]', 'rst_sys_sqa_dac_1', 'Soft', 48,  2, 1, 1, 'SQA_DAC_RST_1', False)
-        p.constrainModule('|-> signal_reg(X0EFFAF6C) [ I_rst_clk_mgt|G_rst_column_mgt[2].I_rst_sys_sqa_dac ]', 'rst_sys_sqa_dac_2', 'Soft',  1,  2, 1, 1, 'SQA_DAC_RST_2', False)
-        p.constrainModule('|-> signal_reg(X0EFFAF6C) [ I_rst_clk_mgt|G_rst_column_mgt[3].I_rst_sys_sqa_dac ]', 'rst_sys_sqa_dac_3', 'Soft',  1,  6, 1, 1, 'SQA_DAC_RST_3', False)
+        p.constrainModule('|-> sqa_dac_mgt [ G_column_mgt[0].I_sqa_dac_mgt ]', 'sqa_dac_mgt_0', 'Soft', SQA_DAC_0.c, SQA_DAC_0.r, SQA_DAC_0.w, SQA_DAC_0.h, SQA_DAC_0.n, False)
+        p.constrainModule('|-> sqa_dac_mgt [ G_column_mgt[1].I_sqa_dac_mgt ]', 'sqa_dac_mgt_1', 'Soft', SQA_DAC_1.c, SQA_DAC_1.r, SQA_DAC_1.w, SQA_DAC_1.h, SQA_DAC_1.n, False)
+        p.constrainModule('|-> sqa_dac_mgt [ G_column_mgt[2].I_sqa_dac_mgt ]', 'sqa_dac_mgt_2', 'Soft', SQA_DAC_2.c, SQA_DAC_2.r, SQA_DAC_2.w, SQA_DAC_2.h, SQA_DAC_2.n, False)
+        p.constrainModule('|-> sqa_dac_mgt [ G_column_mgt[3].I_sqa_dac_mgt ]', 'sqa_dac_mgt_3', 'Soft', SQA_DAC_3.c, SQA_DAC_3.r, SQA_DAC_3.w, SQA_DAC_3.h, SQA_DAC_3.n, False)
 
-        p.constrainModule('|-> sqa_fbk_mgt [ G_column_mgt[0].I_sqa_fbk_mgt ]', 'sqa_fbk_mgt_0', 'Soft', 45,  6, 3, 6, 'SQA_FBK_0', False)
-        p.constrainModule('|-> sqa_fbk_mgt [ G_column_mgt[1].I_sqa_fbk_mgt ]', 'sqa_fbk_mgt_1', 'Soft', 45,  2, 3, 4, 'SQA_FBK_1', False)
-        p.constrainModule('|-> sqa_fbk_mgt [ G_column_mgt[2].I_sqa_fbk_mgt ]', 'sqa_fbk_mgt_2', 'Soft',  3,  2, 3, 6, 'SQA_FBK_2', False)
-        p.constrainModule('|-> sqa_fbk_mgt [ G_column_mgt[3].I_sqa_fbk_mgt ]', 'sqa_fbk_mgt_3', 'Soft',  3,  6, 3, 6, 'SQA_FBK_3', False)
-
-        p.constrainModule('|-> spi_master(XBF188228) [ G_column_mgt[0].I_sqa_dac_mgt|I_sqa_spi_master ]', 'sqa_spi_master_0', 'Soft', 48,  6, 1, 1, 'SQA_SPI_0', False)
-        p.constrainModule('|-> spi_master(XBF188228) [ G_column_mgt[1].I_sqa_dac_mgt|I_sqa_spi_master ]', 'sqa_spi_master_1', 'Soft', 48,  2, 1, 1, 'SQA_SPI_1', False)
-        p.constrainModule('|-> spi_master(XBF188228) [ G_column_mgt[2].I_sqa_dac_mgt|I_sqa_spi_master ]', 'sqa_spi_master_2', 'Soft',  1,  2, 1, 1, 'SQA_SPI_2', False)
-        p.constrainModule('|-> spi_master(XBF188228) [ G_column_mgt[3].I_sqa_dac_mgt|I_sqa_spi_master ]', 'sqa_spi_master_3', 'Soft',  1,  6, 1, 1, 'SQA_SPI_3', False)
-
-        p.constrainModule('|-> signal_reg(X0EFFAF6C) [ I_in_rs_clk|G_column_mgt[0].I_sync_sqa_dac_rs ]', 'sync_sqa_dac_rs_0', 'Soft', 47,  6, 2, 1, 'SQA_DAC_0', False)
-        p.constrainModule('|-> signal_reg(X0EFFAF6C) [ I_in_rs_clk|G_column_mgt[1].I_sync_sqa_dac_rs ]', 'sync_sqa_dac_rs_1', 'Soft', 47,  2, 2, 1, 'SQA_DAC_1', False)
-        p.constrainModule('|-> signal_reg(X0EFFAF6C) [ I_in_rs_clk|G_column_mgt[2].I_sync_sqa_dac_rs ]', 'sync_sqa_dac_rs_2', 'Soft',  2,  2, 2, 1, 'SQA_DAC_2', False)
-        p.constrainModule('|-> signal_reg(X0EFFAF6C) [ I_in_rs_clk|G_column_mgt[3].I_sync_sqa_dac_rs ]', 'sync_sqa_dac_rs_3', 'Soft',  2,  6, 2, 1, 'SQA_DAC_3', False)
-
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[0].G_saofl[0].I_saofl ]', 'saofl0_0', 'Soft', 47,  6, 2, 1, 'SQA_DAC_0', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[0].G_saofl[1].I_saofl ]', 'saofl1_0', 'Soft', 47,  6, 2, 1, 'SQA_DAC_0', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[0].G_saofl[2].I_saofl ]', 'saofl2_0', 'Soft', 47,  6, 2, 1, 'SQA_DAC_0', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[0].G_saofl[3].I_saofl ]', 'saofl3_0', 'Soft', 47,  6, 2, 1, 'SQA_DAC_0', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[0].G_saofl[4].I_saofl ]', 'saofl4_0', 'Soft', 47,  6, 2, 1, 'SQA_DAC_0', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[0].G_saofl[5].I_saofl ]', 'saofl5_0', 'Soft', 47,  6, 2, 1, 'SQA_DAC_0', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[0].G_saofl[6].I_saofl ]', 'saofl6_0', 'Soft', 47,  6, 2, 1, 'SQA_DAC_0', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[0].G_saofl[7].I_saofl ]', 'saofl7_0', 'Soft', 47,  6, 2, 1, 'SQA_DAC_0', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[0].G_saofl[8].I_saofl ]', 'saofl8_0', 'Soft', 47,  6, 2, 1, 'SQA_DAC_0', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[0].G_saofl[9].I_saofl ]', 'saofl9_0', 'Soft', 47,  6, 2, 1, 'SQA_DAC_0', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[0].G_saofl[10].I_saofl ]', 'saofl10_0', 'Soft', 47,  6, 2, 1, 'SQA_DAC_0', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[0].G_saofl[11].I_saofl ]', 'saofl11_0', 'Soft', 47,  6, 2, 1, 'SQA_DAC_0', False)
-
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[1].G_saofl[0].I_saofl ]', 'saofl0_1', 'Soft', 47,  2, 2, 1, 'SQA_DAC_1', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[1].G_saofl[1].I_saofl ]', 'saofl1_1', 'Soft', 47,  2, 2, 1, 'SQA_DAC_1', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[1].G_saofl[2].I_saofl ]', 'saofl2_1', 'Soft', 47,  2, 2, 1, 'SQA_DAC_1', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[1].G_saofl[3].I_saofl ]', 'saofl3_1', 'Soft', 47,  2, 2, 1, 'SQA_DAC_1', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[1].G_saofl[4].I_saofl ]', 'saofl4_1', 'Soft', 47,  2, 2, 1, 'SQA_DAC_1', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[1].G_saofl[5].I_saofl ]', 'saofl5_1', 'Soft', 47,  2, 2, 1, 'SQA_DAC_1', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[1].G_saofl[6].I_saofl ]', 'saofl6_1', 'Soft', 47,  2, 2, 1, 'SQA_DAC_1', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[1].G_saofl[7].I_saofl ]', 'saofl7_1', 'Soft', 47,  2, 2, 1, 'SQA_DAC_1', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[1].G_saofl[8].I_saofl ]', 'saofl8_1', 'Soft', 47,  2, 2, 1, 'SQA_DAC_1', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[1].G_saofl[9].I_saofl ]', 'saofl9_1', 'Soft', 47,  2, 2, 1, 'SQA_DAC_1', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[1].G_saofl[10].I_saofl ]', 'saofl10_1', 'Soft', 47,  2, 2, 1, 'SQA_DAC_1', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[1].G_saofl[11].I_saofl ]', 'saofl11_1', 'Soft', 47,  2, 2, 1, 'SQA_DAC_1', False)
-
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[2].G_saofl[0].I_saofl ]', 'saofl0_2', 'Soft',  2,  2, 2, 1, 'SQA_DAC_2', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[2].G_saofl[1].I_saofl ]', 'saofl1_2', 'Soft',  2,  2, 2, 1, 'SQA_DAC_2', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[2].G_saofl[2].I_saofl ]', 'saofl2_2', 'Soft',  2,  2, 2, 1, 'SQA_DAC_2', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[2].G_saofl[3].I_saofl ]', 'saofl3_2', 'Soft',  2,  2, 2, 1, 'SQA_DAC_2', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[2].G_saofl[4].I_saofl ]', 'saofl4_2', 'Soft',  2,  2, 2, 1, 'SQA_DAC_2', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[2].G_saofl[5].I_saofl ]', 'saofl5_2', 'Soft',  2,  2, 2, 1, 'SQA_DAC_2', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[2].G_saofl[6].I_saofl ]', 'saofl6_2', 'Soft',  2,  2, 2, 1, 'SQA_DAC_2', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[2].G_saofl[7].I_saofl ]', 'saofl7_2', 'Soft',  2,  2, 2, 1, 'SQA_DAC_2', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[2].G_saofl[8].I_saofl ]', 'saofl8_2', 'Soft',  2,  2, 2, 1, 'SQA_DAC_2', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[2].G_saofl[9].I_saofl ]', 'saofl9_2', 'Soft',  2,  2, 2, 1, 'SQA_DAC_2', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[2].G_saofl[10].I_saofl ]', 'saofl10_2', 'Soft',  2,  2, 2, 1, 'SQA_DAC_2', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[2].G_saofl[11].I_saofl ]', 'saofl11_2', 'Soft',  2,  2, 2, 1, 'SQA_DAC_2', False)
-
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[3].G_saofl[0].I_saofl ]', 'saofl0_3', 'Soft',  2,  6, 2, 1, 'SQA_DAC_3', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[3].G_saofl[1].I_saofl ]', 'saofl1_3', 'Soft',  2,  6, 2, 1, 'SQA_DAC_3', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[3].G_saofl[2].I_saofl ]', 'saofl2_3', 'Soft',  2,  6, 2, 1, 'SQA_DAC_3', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[3].G_saofl[3].I_saofl ]', 'saofl3_3', 'Soft',  2,  6, 2, 1, 'SQA_DAC_3', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[3].G_saofl[4].I_saofl ]', 'saofl4_3', 'Soft',  2,  6, 2, 1, 'SQA_DAC_3', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[3].G_saofl[5].I_saofl ]', 'saofl5_3', 'Soft',  2,  6, 2, 1, 'SQA_DAC_3', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[3].G_saofl[6].I_saofl ]', 'saofl6_3', 'Soft',  2,  6, 2, 1, 'SQA_DAC_3', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[3].G_saofl[7].I_saofl ]', 'saofl7_3', 'Soft',  2,  6, 2, 1, 'SQA_DAC_3', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[3].G_saofl[8].I_saofl ]', 'saofl8_3', 'Soft',  2,  6, 2, 1, 'SQA_DAC_3', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[3].G_saofl[9].I_saofl ]', 'saofl9_3', 'Soft',  2,  6, 2, 1, 'SQA_DAC_3', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[3].G_saofl[10].I_saofl ]', 'saofl10_3', 'Soft',  2,  6, 2, 1, 'SQA_DAC_3', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[3].G_saofl[11].I_saofl ]', 'saofl11_3', 'Soft',  2,  6, 2, 1, 'SQA_DAC_3', False)
-
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[0].G_saomd[0].I_saomd ]','saomd_0_0', 'Soft', 47,  6, 2, 1, 'SQA_DAC_0', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[0].G_saomd[1].I_saomd ]','saomd_0_1', 'Soft', 47,  6, 2, 1, 'SQA_DAC_0', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[0].G_saomd[2].I_saomd ]','saomd_0_2', 'Soft', 47,  6, 2, 1, 'SQA_DAC_0', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[0].G_saomd[3].I_saomd ]','saomd_0_3', 'Soft', 47,  6, 2, 1, 'SQA_DAC_0', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[0].G_saomd[4].I_saomd ]','saomd_0_4', 'Soft', 47,  6, 2, 1, 'SQA_DAC_0', False)
-
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[1].G_saomd[0].I_saomd ]','saomd_1_0', 'Soft', 47,  2, 2, 1, 'SQA_DAC_1', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[1].G_saomd[1].I_saomd ]','saomd_1_1', 'Soft', 47,  2, 2, 1, 'SQA_DAC_1', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[1].G_saomd[2].I_saomd ]','saomd_1_2', 'Soft', 47,  2, 2, 1, 'SQA_DAC_1', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[1].G_saomd[3].I_saomd ]','saomd_1_3', 'Soft', 47,  2, 2, 1, 'SQA_DAC_1', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[1].G_saomd[4].I_saomd ]','saomd_1_4', 'Soft', 47,  2, 2, 1, 'SQA_DAC_1', False)
-
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[2].G_saomd[0].I_saomd ]','saomd_2_0', 'Soft',  2,  2, 2, 1, 'SQA_DAC_2', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[2].G_saomd[1].I_saomd ]','saomd_2_1', 'Soft',  2,  2, 2, 1, 'SQA_DAC_2', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[2].G_saomd[2].I_saomd ]','saomd_2_2', 'Soft',  2,  2, 2, 1, 'SQA_DAC_2', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[2].G_saomd[3].I_saomd ]','saomd_2_3', 'Soft',  2,  2, 2, 1, 'SQA_DAC_2', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[2].G_saomd[4].I_saomd ]','saomd_2_4', 'Soft',  2,  2, 2, 1, 'SQA_DAC_2', False)
-
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[3].G_saomd[0].I_saomd ]','saomd_3_0', 'Soft',  2,  6, 2, 1, 'SQA_DAC_3', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[3].G_saomd[1].I_saomd ]','saomd_3_1', 'Soft',  2,  6, 2, 1, 'SQA_DAC_3', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[3].G_saomd[2].I_saomd ]','saomd_3_2', 'Soft',  2,  6, 2, 1, 'SQA_DAC_3', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[3].G_saomd[3].I_saomd ]','saomd_3_3', 'Soft',  2,  6, 2, 1, 'SQA_DAC_3', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[3].G_saomd[4].I_saomd ]','saomd_3_4', 'Soft',  2,  6, 2, 1, 'SQA_DAC_3', False)
-
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[0].G_saodd[0].I_saodd ]','saodd_0_0', 'Soft', 47,  6, 2, 1, 'SQA_DAC_0', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[0].G_saodd[1].I_saodd ]','saodd_0_1', 'Soft', 47,  6, 2, 1, 'SQA_DAC_0', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[0].G_saodd[2].I_saodd ]','saodd_0_2', 'Soft', 47,  6, 2, 1, 'SQA_DAC_0', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[0].G_saodd[3].I_saodd ]','saodd_0_3', 'Soft', 47,  6, 2, 1, 'SQA_DAC_0', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[0].G_saodd[4].I_saodd ]','saodd_0_4', 'Soft', 47,  6, 2, 1, 'SQA_DAC_0', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[0].G_saodd[5].I_saodd ]','saodd_0_5', 'Soft', 47,  6, 2, 1, 'SQA_DAC_0', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[0].G_saodd[6].I_saodd ]','saodd_0_6', 'Soft', 47,  6, 2, 1, 'SQA_DAC_0', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[0].G_saodd[7].I_saodd ]','saodd_0_7', 'Soft', 47,  6, 2, 1, 'SQA_DAC_0', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[0].G_saodd[8].I_saodd ]','saodd_0_8', 'Soft', 47,  6, 2, 1, 'SQA_DAC_0', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[0].G_saodd[9].I_saodd ]','saodd_0_9', 'Soft', 47,  6, 2, 1, 'SQA_DAC_0', False)
-
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[1].G_saodd[0].I_saodd ]','saodd_1_0', 'Soft', 47,  2, 2, 1, 'SQA_DAC_1', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[1].G_saodd[1].I_saodd ]','saodd_1_1', 'Soft', 47,  2, 2, 1, 'SQA_DAC_1', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[1].G_saodd[2].I_saodd ]','saodd_1_2', 'Soft', 47,  2, 2, 1, 'SQA_DAC_1', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[1].G_saodd[3].I_saodd ]','saodd_1_3', 'Soft', 47,  2, 2, 1, 'SQA_DAC_1', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[1].G_saodd[4].I_saodd ]','saodd_1_4', 'Soft', 47,  2, 2, 1, 'SQA_DAC_1', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[1].G_saodd[5].I_saodd ]','saodd_1_5', 'Soft', 47,  2, 2, 1, 'SQA_DAC_1', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[1].G_saodd[6].I_saodd ]','saodd_1_6', 'Soft', 47,  2, 2, 1, 'SQA_DAC_1', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[1].G_saodd[7].I_saodd ]','saodd_1_7', 'Soft', 47,  2, 2, 1, 'SQA_DAC_1', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[1].G_saodd[8].I_saodd ]','saodd_1_8', 'Soft', 47,  2, 2, 1, 'SQA_DAC_1', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[1].G_saodd[9].I_saodd ]','saodd_1_9', 'Soft', 47,  2, 2, 1, 'SQA_DAC_1', False)
-
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[2].G_saodd[0].I_saodd ]','saodd_2_0', 'Soft',  2,  2, 2, 1, 'SQA_DAC_2', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[2].G_saodd[1].I_saodd ]','saodd_2_1', 'Soft',  2,  2, 2, 1, 'SQA_DAC_2', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[2].G_saodd[2].I_saodd ]','saodd_2_2', 'Soft',  2,  2, 2, 1, 'SQA_DAC_2', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[2].G_saodd[3].I_saodd ]','saodd_2_3', 'Soft',  2,  2, 2, 1, 'SQA_DAC_2', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[2].G_saodd[4].I_saodd ]','saodd_2_4', 'Soft',  2,  2, 2, 1, 'SQA_DAC_2', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[2].G_saodd[5].I_saodd ]','saodd_2_5', 'Soft',  2,  2, 2, 1, 'SQA_DAC_2', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[2].G_saodd[6].I_saodd ]','saodd_2_6', 'Soft',  2,  2, 2, 1, 'SQA_DAC_2', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[2].G_saodd[7].I_saodd ]','saodd_2_7', 'Soft',  2,  2, 2, 1, 'SQA_DAC_2', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[2].G_saodd[8].I_saodd ]','saodd_2_8', 'Soft',  2,  2, 2, 1, 'SQA_DAC_2', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[2].G_saodd[9].I_saodd ]','saodd_2_9', 'Soft',  2,  2, 2, 1, 'SQA_DAC_2', False)
-
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[3].G_saodd[0].I_saodd ]','saodd_3_0', 'Soft',  2,  6, 2, 1, 'SQA_DAC_3', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[3].G_saodd[1].I_saodd ]','saodd_3_1', 'Soft',  2,  6, 2, 1, 'SQA_DAC_3', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[3].G_saodd[2].I_saodd ]','saodd_3_2', 'Soft',  2,  6, 2, 1, 'SQA_DAC_3', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[3].G_saodd[3].I_saodd ]','saodd_3_3', 'Soft',  2,  6, 2, 1, 'SQA_DAC_3', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[3].G_saodd[4].I_saodd ]','saodd_3_4', 'Soft',  2,  6, 2, 1, 'SQA_DAC_3', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[3].G_saodd[5].I_saodd ]','saodd_3_5', 'Soft',  2,  6, 2, 1, 'SQA_DAC_3', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[3].G_saodd[6].I_saodd ]','saodd_3_6', 'Soft',  2,  6, 2, 1, 'SQA_DAC_3', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[3].G_saodd[7].I_saodd ]','saodd_3_7', 'Soft',  2,  6, 2, 1, 'SQA_DAC_3', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[3].G_saodd[8].I_saodd ]','saodd_3_8', 'Soft',  2,  6, 2, 1, 'SQA_DAC_3', False)
-        p.constrainModule('|-> signal_reg(XE2A9ECEC) [ I_register_mgt|G_column_mgt_out[3].G_saodd[9].I_saodd ]','saodd_3_9', 'Soft',  2,  6, 2, 1, 'SQA_DAC_3', False)
-
-        p.constrainModule('|-> sqa_dac_mgt [ G_column_mgt[0].I_sqa_dac_mgt ]', 'sqa_dac_mgt_0', 'Soft', 47,  6, 2, 1, 'SQA_DAC_0', False)
-        p.constrainModule('|-> sqa_dac_mgt [ G_column_mgt[1].I_sqa_dac_mgt ]', 'sqa_dac_mgt_1', 'Soft', 47,  2, 2, 1, 'SQA_DAC_1', False)
-        p.constrainModule('|-> sqa_dac_mgt [ G_column_mgt[2].I_sqa_dac_mgt ]', 'sqa_dac_mgt_2', 'Soft',  2,  2, 2, 1, 'SQA_DAC_2', False)
-        p.constrainModule('|-> sqa_dac_mgt [ G_column_mgt[3].I_sqa_dac_mgt ]', 'sqa_dac_mgt_3', 'Soft',  2,  6, 2, 1, 'SQA_DAC_3', False)
+        p.constrainModule('|-> sqa_fbk_mgt [ G_column_mgt[0].I_sqa_fbk_mgt ]', 'sqa_fbk_mgt_0', 'Soft', SQA_FBK_0.c, SQA_FBK_0.r, SQA_FBK_0.w, SQA_FBK_0.h, SQA_FBK_0.n, False)
+        p.constrainModule('|-> sqa_fbk_mgt [ G_column_mgt[1].I_sqa_fbk_mgt ]', 'sqa_fbk_mgt_1', 'Soft', SQA_FBK_1.c, SQA_FBK_1.r, SQA_FBK_1.w, SQA_FBK_1.h, SQA_FBK_1.n, False)
+        p.constrainModule('|-> sqa_fbk_mgt [ G_column_mgt[2].I_sqa_fbk_mgt ]', 'sqa_fbk_mgt_2', 'Soft', SQA_FBK_2.c, SQA_FBK_2.r, SQA_FBK_2.w, SQA_FBK_2.h, SQA_FBK_2.n, False)
+        p.constrainModule('|-> sqa_fbk_mgt [ G_column_mgt[3].I_sqa_fbk_mgt ]', 'sqa_fbk_mgt_3', 'Soft', SQA_FBK_3.c, SQA_FBK_3.r, SQA_FBK_3.w, SQA_FBK_3.h, SQA_FBK_3.n, False)
 
         # ------------------------------------------------------------------------------------------------------
         #   EP SPI constraints
         # ------------------------------------------------------------------------------------------------------
-        p.constrainModule('|-> ep_cmd [ I_ep_cmd ]', 'ep_cmd', 'Soft', 23, 12, 6, 4, 'REGISTER_MGT', False)
+        p.constrainModule('|-> spi_slave(X077D3D2A) [ I_ep_cmd|I_spi_slave ]', 'ep_cmd_spi_slave', 'Soft', EP_CMD.c, EP_CMD.r, EP_CMD.w, EP_CMD.h, EP_CMD.n, False)
+        p.constrainModule('|-> ep_cmd [ I_ep_cmd ]', 'ep_cmd', 'Soft', REGISTER_MGT.c, REGISTER_MGT.r, REGISTER_MGT.w, REGISTER_MGT.h, REGISTER_MGT.n, False)
 
         # ------------------------------------------------------------------------------------------------------
         #   Science transmit constraints
@@ -337,9 +159,7 @@ def synthesis_constraints(p,variant,option):
         # ------------------------------------------------------------------------------------------------------
         #   Internal constraints
         # ------------------------------------------------------------------------------------------------------
-        p.constrainModule('|-> signal_reg(X41D2BCF8) [ I_rst_clk_mgt|I_rst_first_pipe ]', 'rst_first_pipe', 'Soft', 25, 12, 1, 1, 'RST', False)
-        p.constrainModule('|-> register_mgt [ I_register_mgt ]', 'register_mgt', 'Soft', 23, 12, 6, 4, 'REGISTER_MGT', False)
-
+        p.constrainModule('|-> register_mgt [ I_register_mgt ]', 'register_mgt', 'Soft', REGISTER_MGT.c, REGISTER_MGT.r, REGISTER_MGT.w, REGISTER_MGT.h, REGISTER_MGT.n, False)
 
     if option=='USE_DSP':
         p.addMappingDirective('getModels(*)','ADD','DSP')

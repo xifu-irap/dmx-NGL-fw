@@ -76,7 +76,7 @@ def __main__(TopCellLib,TopCellName,Suffix,Variant,Progress,Option,TimingDriven,
     ###########################################GLOBAL SETTING###########################################
 
     p = createProject(project_path)
-    p.setTimingUnit('ps')
+    p.setTimingUnit('ns')
 
     if Progress == 'scratch':
         p.setVariantName(Variant)
@@ -135,6 +135,7 @@ def __main__(TopCellLib,TopCellName,Suffix,Variant,Progress,Option,TimingDriven,
     ##########################################BISTREAM GENERATION#######################################
 
     if Bitstream == 'Yes':
+        p.setDeviceID(15)                           # Broadcast mode
         p.generateBitstream('bitstream'+'.nxb')
 
     ################################################SUMMARY#############################################

@@ -247,6 +247,7 @@ begin
          sqm_data_sc_lst_all  <= '0';
          sqm_dta_sc_rdy_all_r <= (others => '0');
          sqm_dta_sc_fst_all_r <= (others => '0');
+         sqm_dta_sc_lst_all_r <= '0';
 
       elsif rising_edge(i_clk) then
          if sqm_data_sc_rdy_and(sqm_data_sc_rdy_and'high) = '1' then

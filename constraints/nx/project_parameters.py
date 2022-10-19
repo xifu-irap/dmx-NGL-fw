@@ -24,4 +24,4 @@
 
 def add_parameters(p,variant,option):
     print("Common parameters")
-    p.createClock('getClockNet(i_clk_ref)', 'clk', 16000, 0, 8000)
+    p.createClock('getClockNet(i_clk_ref)', 'clk', 16.0, 0, 8.0)

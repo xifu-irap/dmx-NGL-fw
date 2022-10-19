@@ -58,28 +58,28 @@
 # ** Note   : (10937448 ps)  * sqm_adc_pwdn(2) last event 10937448 ps equal to expected value 10937448 ps
 # ** Note   : (10937448 ps) Check time, sqm_adc_pwdn(3) last event: PASS
 # ** Note   : (10937448 ps)  * sqm_adc_pwdn(3) last event 10937448 ps equal to expected value 10937448 ps
-# ** Note   : (21562776 ps) Waiting event sqm_adc_pwdn(0) = '0' for 10625328 ps
-#             (21562776 ps) 
-#             (21562776 ps) ==============================================================================================
-#             (21562776 ps)   Check timing between o_c0_clk_sqm_adc rising edge
-#             (21562776 ps)    and internal MUX SQUID ADC clock falling edge
-#             (21562776 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (21578300 ps) Waiting event clk_sqm_adc(0) = '1' for 15524 ps
-# ** Note   : (21578300 ps) Record current time
-# ** Note   : (21578784 ps) Waiting event clk_sqm_adc_acq = '1' for 484 ps
-# ** Note   : (21582786 ps) Waiting event clk_sqm_adc_acq = '0' for 4002 ps
-# ** Note   : (21582786 ps) Check time, record time: PASS
-# ** Note   : (21582786 ps)  * record time 4486 ps greater than or equal to expected value 4400 ps
-# ** Note   : (21582786 ps) Check time, record time: PASS
-# ** Note   : (21582786 ps)  * record time 4486 ps strictly less than expected value 4560 ps
-#             (21582786 ps) 
-#             (21582786 ps) ==============================================================================================
-#             (21582786 ps)   Check timing between o_c0_sqm_adc_pwdn deactivation and i_sync rising edge
-#             (21582786 ps)     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
-#             (21582786 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (21786888 ps) Waiting event sync = '1' for 204102 ps
+# ** Note   : (21546768 ps) Waiting event sqm_adc_pwdn(0) = '0' for 10609320 ps
+#             (21546768 ps) 
+#             (21546768 ps) ==============================================================================================
+#             (21546768 ps)   Check timing between o_c0_clk_sqm_adc rising edge
+#             (21546768 ps)    and internal MUX SQUID ADC clock falling edge
+#             (21546768 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (21562292 ps) Waiting event clk_sqm_adc(0) = '1' for 15524 ps
+# ** Note   : (21562292 ps) Record current time
+# ** Note   : (21562776 ps) Waiting event clk_sqm_adc_acq = '1' for 484 ps
+# ** Note   : (21566778 ps) Waiting event clk_sqm_adc_acq = '0' for 4002 ps
+# ** Note   : (21566778 ps) Check time, record time: PASS
+# ** Note   : (21566778 ps)  * record time 4486 ps greater than or equal to expected value 4400 ps
+# ** Note   : (21566778 ps) Check time, record time: PASS
+# ** Note   : (21566778 ps)  * record time 4486 ps strictly less than expected value 4560 ps
+#             (21566778 ps) 
+#             (21566778 ps) ==============================================================================================
+#             (21566778 ps)   Check timing between o_c0_sqm_adc_pwdn deactivation and i_sync rising edge
+#             (21566778 ps)     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
+#             (21566778 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (21786888 ps) Waiting event sync = '1' for 220110 ps
 # ** Note   : (21786888 ps) Check time, sqm_adc_pwdn(0) last event: PASS
-# ** Note   : (21786888 ps)  * sqm_adc_pwdn(0) last event 224112 ps greater than or equal to expected value 160080 ps
+# ** Note   : (21786888 ps)  * sqm_adc_pwdn(0) last event 240120 ps greater than or equal to expected value 160080 ps
 #             (21786888 ps) 
 #             (21786888 ps) ==============================================================================================
 #             (21786888 ps)   Send command DATA_ACQ_MODE column 0 to Test pattern for o_c0_sqm_adc_pwdn activation
@@ -99,42 +99,42 @@
 #             (32672328 ps)   Check timing between i_sync rising edge and o_c0_sqm_adc_pwdn activation
 #             (32672328 ps)     (c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ < .. < 2*c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
 #             (32672328 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (32944464 ps) Waiting event sqm_adc_pwdn(0) = '1' for 272136 ps
-# ** Note   : (32944464 ps) Check time, record time: PASS
-# ** Note   : (32944464 ps)  * record time 272136 ps strictly less than expected value 320160 ps
-# ** Note   : (32944464 ps) Check time, record time: PASS
-# ** Note   : (32944464 ps)  * record time 272136 ps strictly greater than expected value 160080 ps
-#             (32944464 ps) 
-#             (32944464 ps) ==============================================================================================
-#             (32944464 ps)   Send command DATA_ACQ_MODE column 0 to Error signal for o_c0_sqm_adc_pwdn deactivation
-#             (32944464 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (32944464 ps) Send SPI command value 8001_0002 (DATA_ACQ_MODE, mode Write, data 0002)
-#             (32980464 ps) 
-#             (32980464 ps) ==============================================================================================
-#             (32980464 ps)   Wait o_c0_sqm_adc_pwdn deactivation
-#             (32980464 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (43333656 ps) Waiting event sqm_adc_pwdn(0) = '0' for 10353192 ps
-#             (43333656 ps) 
-#             (43333656 ps) ==============================================================================================
-#             (43333656 ps)   Check timing between o_c0_clk_sqm_adc rising edge
-#             (43333656 ps)    and internal MUX SQUID ADC clock falling edge
-#             (43333656 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (43349180 ps) Waiting event clk_sqm_adc(0) = '1' for 15524 ps
-# ** Note   : (43349180 ps) Record current time
-# ** Note   : (43349664 ps) Waiting event clk_sqm_adc_acq = '1' for 484 ps
-# ** Note   : (43353666 ps) Waiting event clk_sqm_adc_acq = '0' for 4002 ps
-# ** Note   : (43353666 ps) Check time, record time: PASS
-# ** Note   : (43353666 ps)  * record time 4486 ps greater than or equal to expected value 4400 ps
-# ** Note   : (43353666 ps) Check time, record time: PASS
-# ** Note   : (43353666 ps)  * record time 4486 ps strictly less than expected value 4560 ps
-#             (43353666 ps) 
-#             (43353666 ps) ==============================================================================================
-#             (43353666 ps)   Check timing between o_c0_sqm_adc_pwdn deactivation and i_sync rising edge
-#             (43353666 ps)     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
-#             (43353666 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (43557768 ps) Waiting event sync = '1' for 204102 ps
+# ** Note   : (32928456 ps) Waiting event sqm_adc_pwdn(0) = '1' for 256128 ps
+# ** Note   : (32928456 ps) Check time, record time: PASS
+# ** Note   : (32928456 ps)  * record time 256128 ps strictly less than expected value 320160 ps
+# ** Note   : (32928456 ps) Check time, record time: PASS
+# ** Note   : (32928456 ps)  * record time 256128 ps strictly greater than expected value 160080 ps
+#             (32928456 ps) 
+#             (32928456 ps) ==============================================================================================
+#             (32928456 ps)   Send command DATA_ACQ_MODE column 0 to Error signal for o_c0_sqm_adc_pwdn deactivation
+#             (32928456 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (32928456 ps) Send SPI command value 8001_0002 (DATA_ACQ_MODE, mode Write, data 0002)
+#             (32964456 ps) 
+#             (32964456 ps) ==============================================================================================
+#             (32964456 ps)   Wait o_c0_sqm_adc_pwdn deactivation
+#             (32964456 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (43317648 ps) Waiting event sqm_adc_pwdn(0) = '0' for 10353192 ps
+#             (43317648 ps) 
+#             (43317648 ps) ==============================================================================================
+#             (43317648 ps)   Check timing between o_c0_clk_sqm_adc rising edge
+#             (43317648 ps)    and internal MUX SQUID ADC clock falling edge
+#             (43317648 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (43333172 ps) Waiting event clk_sqm_adc(0) = '1' for 15524 ps
+# ** Note   : (43333172 ps) Record current time
+# ** Note   : (43333656 ps) Waiting event clk_sqm_adc_acq = '1' for 484 ps
+# ** Note   : (43337658 ps) Waiting event clk_sqm_adc_acq = '0' for 4002 ps
+# ** Note   : (43337658 ps) Check time, record time: PASS
+# ** Note   : (43337658 ps)  * record time 4486 ps greater than or equal to expected value 4400 ps
+# ** Note   : (43337658 ps) Check time, record time: PASS
+# ** Note   : (43337658 ps)  * record time 4486 ps strictly less than expected value 4560 ps
+#             (43337658 ps) 
+#             (43337658 ps) ==============================================================================================
+#             (43337658 ps)   Check timing between o_c0_sqm_adc_pwdn deactivation and i_sync rising edge
+#             (43337658 ps)     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
+#             (43337658 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (43557768 ps) Waiting event sync = '1' for 220110 ps
 # ** Note   : (43557768 ps) Check time, sqm_adc_pwdn(0) last event: PASS
-# ** Note   : (43557768 ps)  * sqm_adc_pwdn(0) last event 224112 ps greater than or equal to expected value 160080 ps
+# ** Note   : (43557768 ps)  * sqm_adc_pwdn(0) last event 240120 ps greater than or equal to expected value 160080 ps
 #             (43557768 ps) 
 #             (43557768 ps) ==============================================================================================
 #             (43557768 ps)   Send command DATA_ACQ_MODE column 0 to Test pattern for o_c0_sqm_adc_pwdn activation
@@ -154,44 +154,44 @@
 #             (54443208 ps)   Check timing between i_sync rising edge and o_c0_sqm_adc_pwdn activation
 #             (54443208 ps)     (c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ < .. < 2*c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
 #             (54443208 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (54715344 ps) Waiting event sqm_adc_pwdn(0) = '1' for 272136 ps
-# ** Note   : (54715344 ps) Check time, record time: PASS
-# ** Note   : (54715344 ps)  * record time 272136 ps strictly less than expected value 320160 ps
-# ** Note   : (54715344 ps) Check time, record time: PASS
-# ** Note   : (54715344 ps)  * record time 272136 ps strictly greater than expected value 160080 ps
-#             (54715344 ps) 
-#             (54715344 ps) ==============================================================================================
-#             (54715344 ps)   Send command DATA_ACQ_MODE column 0 to Dump for o_c0_sqm_adc_pwdn deactivation
-#             (54715344 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (54715344 ps) Send SPI command value 8001_0004 (DATA_ACQ_MODE, mode Write, data 0004)
-#             (54751344 ps) 
-#             (54751344 ps) ==============================================================================================
-#             (54751344 ps)   Check no event is appeared on o_c0_sqm_adc_pwdn and wait o_c0_sqm_adc_pwdn deactivation
-#             (54751344 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (54751344 ps) Check discrete level: PASS
-# ** Note   : (54751344 ps)  * Read discrete: sqm_adc_pwdn(0), value '1', expected '1'
-# ** Note   : (65104536 ps) Waiting event sqm_adc_pwdn(0) = '0' for 10353192 ps
-#             (65104536 ps) 
-#             (65104536 ps) ==============================================================================================
-#             (65104536 ps)   Check timing between o_c0_clk_sqm_adc rising edge
-#             (65104536 ps)    and internal MUX SQUID ADC clock falling edge
-#             (65104536 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (65120060 ps) Waiting event clk_sqm_adc(0) = '1' for 15524 ps
-# ** Note   : (65120060 ps) Record current time
-# ** Note   : (65120544 ps) Waiting event clk_sqm_adc_acq = '1' for 484 ps
-# ** Note   : (65124546 ps) Waiting event clk_sqm_adc_acq = '0' for 4002 ps
-# ** Note   : (65124546 ps) Check time, record time: PASS
-# ** Note   : (65124546 ps)  * record time 4486 ps greater than or equal to expected value 4400 ps
-# ** Note   : (65124546 ps) Check time, record time: PASS
-# ** Note   : (65124546 ps)  * record time 4486 ps strictly less than expected value 4560 ps
-#             (65124546 ps) 
-#             (65124546 ps) ==============================================================================================
-#             (65124546 ps)   Check timing between o_c0_sqm_adc_pwdn deactivation and i_sync rising edge
-#             (65124546 ps)     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
-#             (65124546 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (65328648 ps) Waiting event sync = '1' for 204102 ps
+# ** Note   : (54699336 ps) Waiting event sqm_adc_pwdn(0) = '1' for 256128 ps
+# ** Note   : (54699336 ps) Check time, record time: PASS
+# ** Note   : (54699336 ps)  * record time 256128 ps strictly less than expected value 320160 ps
+# ** Note   : (54699336 ps) Check time, record time: PASS
+# ** Note   : (54699336 ps)  * record time 256128 ps strictly greater than expected value 160080 ps
+#             (54699336 ps) 
+#             (54699336 ps) ==============================================================================================
+#             (54699336 ps)   Send command DATA_ACQ_MODE column 0 to Dump for o_c0_sqm_adc_pwdn deactivation
+#             (54699336 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (54699336 ps) Send SPI command value 8001_0004 (DATA_ACQ_MODE, mode Write, data 0004)
+#             (54735336 ps) 
+#             (54735336 ps) ==============================================================================================
+#             (54735336 ps)   Check no event is appeared on o_c0_sqm_adc_pwdn and wait o_c0_sqm_adc_pwdn deactivation
+#             (54735336 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (54735336 ps) Check discrete level: PASS
+# ** Note   : (54735336 ps)  * Read discrete: sqm_adc_pwdn(0), value '1', expected '1'
+# ** Note   : (65088528 ps) Waiting event sqm_adc_pwdn(0) = '0' for 10353192 ps
+#             (65088528 ps) 
+#             (65088528 ps) ==============================================================================================
+#             (65088528 ps)   Check timing between o_c0_clk_sqm_adc rising edge
+#             (65088528 ps)    and internal MUX SQUID ADC clock falling edge
+#             (65088528 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (65104052 ps) Waiting event clk_sqm_adc(0) = '1' for 15524 ps
+# ** Note   : (65104052 ps) Record current time
+# ** Note   : (65104536 ps) Waiting event clk_sqm_adc_acq = '1' for 484 ps
+# ** Note   : (65108538 ps) Waiting event clk_sqm_adc_acq = '0' for 4002 ps
+# ** Note   : (65108538 ps) Check time, record time: PASS
+# ** Note   : (65108538 ps)  * record time 4486 ps greater than or equal to expected value 4400 ps
+# ** Note   : (65108538 ps) Check time, record time: PASS
+# ** Note   : (65108538 ps)  * record time 4486 ps strictly less than expected value 4560 ps
+#             (65108538 ps) 
+#             (65108538 ps) ==============================================================================================
+#             (65108538 ps)   Check timing between o_c0_sqm_adc_pwdn deactivation and i_sync rising edge
+#             (65108538 ps)     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
+#             (65108538 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (65328648 ps) Waiting event sync = '1' for 220110 ps
 # ** Note   : (65328648 ps) Check time, sqm_adc_pwdn(0) last event: PASS
-# ** Note   : (65328648 ps)  * sqm_adc_pwdn(0) last event 224112 ps greater than or equal to expected value 160080 ps
+# ** Note   : (65328648 ps)  * sqm_adc_pwdn(0) last event 240120 ps greater than or equal to expected value 160080 ps
 #             (65328648 ps) 
 #             (65328648 ps) ==============================================================================================
 #             (65328648 ps)    Wait DATA_ACQ_MODE column 0 goes automatically to Idle and
@@ -208,44 +208,44 @@
 #             (244938408 ps)   Check timing between i_sync rising edge and o_c0_sqm_adc_pwdn activation
 #             (244938408 ps)     (c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ < .. < 2*c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
 #             (244938408 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (245210544 ps) Waiting event sqm_adc_pwdn(0) = '1' for 272136 ps
-# ** Note   : (245210544 ps) Check time, record time: PASS
-# ** Note   : (245210544 ps)  * record time 272136 ps strictly less than expected value 320160 ps
-# ** Note   : (245210544 ps) Check time, record time: PASS
-# ** Note   : (245210544 ps)  * record time 272136 ps strictly greater than expected value 160080 ps
-#             (245210544 ps) 
-#             (245210544 ps) ==============================================================================================
-#             (245210544 ps)   Send command SQ_MUX_FB_ON_OFF column 0 to On for o_c0_sqm_adc_pwdn deactivation
-#             (245210544 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (245210544 ps) Send SPI command value 8003_0001 (SQ_MUX_FB_ON_OFF, mode Write, data 0001)
-#             (245246544 ps) 
-#             (245246544 ps) ==============================================================================================
-#             (245246544 ps)   Check no event is appeared on o_c0_sqm_adc_pwdn and wait o_c0_sqm_adc_pwdn deactivation
-#             (245246544 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (245246544 ps) Check discrete level: PASS
-# ** Note   : (245246544 ps)  * Read discrete: sqm_adc_pwdn(0), value '1', expected '1'
-# ** Note   : (255599736 ps) Waiting event sqm_adc_pwdn(0) = '0' for 10353192 ps
-#             (255599736 ps) 
-#             (255599736 ps) ==============================================================================================
-#             (255599736 ps)   Check timing between o_c0_clk_sqm_adc rising edge
-#             (255599736 ps)    and internal MUX SQUID ADC clock falling edge
-#             (255599736 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (255615260 ps) Waiting event clk_sqm_adc(0) = '1' for 15524 ps
-# ** Note   : (255615260 ps) Record current time
-# ** Note   : (255615744 ps) Waiting event clk_sqm_adc_acq = '1' for 484 ps
-# ** Note   : (255619746 ps) Waiting event clk_sqm_adc_acq = '0' for 4002 ps
-# ** Note   : (255619746 ps) Check time, record time: PASS
-# ** Note   : (255619746 ps)  * record time 4486 ps greater than or equal to expected value 4400 ps
-# ** Note   : (255619746 ps) Check time, record time: PASS
-# ** Note   : (255619746 ps)  * record time 4486 ps strictly less than expected value 4560 ps
-#             (255619746 ps) 
-#             (255619746 ps) ==============================================================================================
-#             (255619746 ps)   Check timing between o_c0_sqm_adc_pwdn deactivation and i_sync rising edge
-#             (255619746 ps)     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
-#             (255619746 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (255823848 ps) Waiting event sync = '1' for 204102 ps
+# ** Note   : (245194536 ps) Waiting event sqm_adc_pwdn(0) = '1' for 256128 ps
+# ** Note   : (245194536 ps) Check time, record time: PASS
+# ** Note   : (245194536 ps)  * record time 256128 ps strictly less than expected value 320160 ps
+# ** Note   : (245194536 ps) Check time, record time: PASS
+# ** Note   : (245194536 ps)  * record time 256128 ps strictly greater than expected value 160080 ps
+#             (245194536 ps) 
+#             (245194536 ps) ==============================================================================================
+#             (245194536 ps)   Send command SQ_MUX_FB_ON_OFF column 0 to On for o_c0_sqm_adc_pwdn deactivation
+#             (245194536 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (245194536 ps) Send SPI command value 8003_0001 (SQ_MUX_FB_ON_OFF, mode Write, data 0001)
+#             (245230536 ps) 
+#             (245230536 ps) ==============================================================================================
+#             (245230536 ps)   Check no event is appeared on o_c0_sqm_adc_pwdn and wait o_c0_sqm_adc_pwdn deactivation
+#             (245230536 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (245230536 ps) Check discrete level: PASS
+# ** Note   : (245230536 ps)  * Read discrete: sqm_adc_pwdn(0), value '1', expected '1'
+# ** Note   : (255583728 ps) Waiting event sqm_adc_pwdn(0) = '0' for 10353192 ps
+#             (255583728 ps) 
+#             (255583728 ps) ==============================================================================================
+#             (255583728 ps)   Check timing between o_c0_clk_sqm_adc rising edge
+#             (255583728 ps)    and internal MUX SQUID ADC clock falling edge
+#             (255583728 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (255599252 ps) Waiting event clk_sqm_adc(0) = '1' for 15524 ps
+# ** Note   : (255599252 ps) Record current time
+# ** Note   : (255599736 ps) Waiting event clk_sqm_adc_acq = '1' for 484 ps
+# ** Note   : (255603738 ps) Waiting event clk_sqm_adc_acq = '0' for 4002 ps
+# ** Note   : (255603738 ps) Check time, record time: PASS
+# ** Note   : (255603738 ps)  * record time 4486 ps greater than or equal to expected value 4400 ps
+# ** Note   : (255603738 ps) Check time, record time: PASS
+# ** Note   : (255603738 ps)  * record time 4486 ps strictly less than expected value 4560 ps
+#             (255603738 ps) 
+#             (255603738 ps) ==============================================================================================
+#             (255603738 ps)   Check timing between o_c0_sqm_adc_pwdn deactivation and i_sync rising edge
+#             (255603738 ps)     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
+#             (255603738 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (255823848 ps) Waiting event sync = '1' for 220110 ps
 # ** Note   : (255823848 ps) Check time, sqm_adc_pwdn(0) last event: PASS
-# ** Note   : (255823848 ps)  * sqm_adc_pwdn(0) last event 224112 ps greater than or equal to expected value 160080 ps
+# ** Note   : (255823848 ps)  * sqm_adc_pwdn(0) last event 240120 ps greater than or equal to expected value 160080 ps
 #             (255823848 ps) 
 #             (255823848 ps) ==============================================================================================
 #             (255823848 ps)   Send command SQ_MUX_FB_ON_OFF column 0 to Off loop for o_c0_sqm_adc_pwdn activation
@@ -265,44 +265,44 @@
 #             (266709288 ps)   Check timing between i_sync rising edge and o_c0_sqm_adc_pwdn activation
 #             (266709288 ps)     (c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ < .. < 2*c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
 #             (266709288 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (266981424 ps) Waiting event sqm_adc_pwdn(0) = '1' for 272136 ps
-# ** Note   : (266981424 ps) Check time, record time: PASS
-# ** Note   : (266981424 ps)  * record time 272136 ps strictly less than expected value 320160 ps
-# ** Note   : (266981424 ps) Check time, record time: PASS
-# ** Note   : (266981424 ps)  * record time 272136 ps strictly greater than expected value 160080 ps
-#             (266981424 ps) 
-#             (266981424 ps) ==============================================================================================
-#             (266981424 ps)   Send command SQ_MUX_FB_ON_OFF column 0 to On for o_c0_sqm_adc_pwdn deactivation
-#             (266981424 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (266981424 ps) Send SPI command value 8003_0001 (SQ_MUX_FB_ON_OFF, mode Write, data 0001)
-#             (267017424 ps) 
-#             (267017424 ps) ==============================================================================================
-#             (267017424 ps)   Check no event is appeared on o_c0_sqm_adc_pwdn and wait o_c0_sqm_adc_pwdn deactivation
-#             (267017424 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (267017424 ps) Check discrete level: PASS
-# ** Note   : (267017424 ps)  * Read discrete: sqm_adc_pwdn(0), value '1', expected '1'
-# ** Note   : (277370616 ps) Waiting event sqm_adc_pwdn(0) = '0' for 10353192 ps
-#             (277370616 ps) 
-#             (277370616 ps) ==============================================================================================
-#             (277370616 ps)   Check timing between o_c0_clk_sqm_adc rising edge
-#             (277370616 ps)    and internal MUX SQUID ADC clock falling edge
-#             (277370616 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (277386140 ps) Waiting event clk_sqm_adc(0) = '1' for 15524 ps
-# ** Note   : (277386140 ps) Record current time
-# ** Note   : (277386624 ps) Waiting event clk_sqm_adc_acq = '1' for 484 ps
-# ** Note   : (277390626 ps) Waiting event clk_sqm_adc_acq = '0' for 4002 ps
-# ** Note   : (277390626 ps) Check time, record time: PASS
-# ** Note   : (277390626 ps)  * record time 4486 ps greater than or equal to expected value 4400 ps
-# ** Note   : (277390626 ps) Check time, record time: PASS
-# ** Note   : (277390626 ps)  * record time 4486 ps strictly less than expected value 4560 ps
-#             (277390626 ps) 
-#             (277390626 ps) ==============================================================================================
-#             (277390626 ps)   Check timing between o_c0_sqm_adc_pwdn deactivation and i_sync rising edge
-#             (277390626 ps)     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
-#             (277390626 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (277594728 ps) Waiting event sync = '1' for 204102 ps
+# ** Note   : (266965416 ps) Waiting event sqm_adc_pwdn(0) = '1' for 256128 ps
+# ** Note   : (266965416 ps) Check time, record time: PASS
+# ** Note   : (266965416 ps)  * record time 256128 ps strictly less than expected value 320160 ps
+# ** Note   : (266965416 ps) Check time, record time: PASS
+# ** Note   : (266965416 ps)  * record time 256128 ps strictly greater than expected value 160080 ps
+#             (266965416 ps) 
+#             (266965416 ps) ==============================================================================================
+#             (266965416 ps)   Send command SQ_MUX_FB_ON_OFF column 0 to On for o_c0_sqm_adc_pwdn deactivation
+#             (266965416 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (266965416 ps) Send SPI command value 8003_0001 (SQ_MUX_FB_ON_OFF, mode Write, data 0001)
+#             (267001416 ps) 
+#             (267001416 ps) ==============================================================================================
+#             (267001416 ps)   Check no event is appeared on o_c0_sqm_adc_pwdn and wait o_c0_sqm_adc_pwdn deactivation
+#             (267001416 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (267001416 ps) Check discrete level: PASS
+# ** Note   : (267001416 ps)  * Read discrete: sqm_adc_pwdn(0), value '1', expected '1'
+# ** Note   : (277354608 ps) Waiting event sqm_adc_pwdn(0) = '0' for 10353192 ps
+#             (277354608 ps) 
+#             (277354608 ps) ==============================================================================================
+#             (277354608 ps)   Check timing between o_c0_clk_sqm_adc rising edge
+#             (277354608 ps)    and internal MUX SQUID ADC clock falling edge
+#             (277354608 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (277370132 ps) Waiting event clk_sqm_adc(0) = '1' for 15524 ps
+# ** Note   : (277370132 ps) Record current time
+# ** Note   : (277370616 ps) Waiting event clk_sqm_adc_acq = '1' for 484 ps
+# ** Note   : (277374618 ps) Waiting event clk_sqm_adc_acq = '0' for 4002 ps
+# ** Note   : (277374618 ps) Check time, record time: PASS
+# ** Note   : (277374618 ps)  * record time 4486 ps greater than or equal to expected value 4400 ps
+# ** Note   : (277374618 ps) Check time, record time: PASS
+# ** Note   : (277374618 ps)  * record time 4486 ps strictly less than expected value 4560 ps
+#             (277374618 ps) 
+#             (277374618 ps) ==============================================================================================
+#             (277374618 ps)   Check timing between o_c0_sqm_adc_pwdn deactivation and i_sync rising edge
+#             (277374618 ps)     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
+#             (277374618 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (277594728 ps) Waiting event sync = '1' for 220110 ps
 # ** Note   : (277594728 ps) Check time, sqm_adc_pwdn(0) last event: PASS
-# ** Note   : (277594728 ps)  * sqm_adc_pwdn(0) last event 224112 ps greater than or equal to expected value 160080 ps
+# ** Note   : (277594728 ps)  * sqm_adc_pwdn(0) last event 240120 ps greater than or equal to expected value 160080 ps
 #             (277594728 ps) 
 #             (277594728 ps) ==============================================================================================
 #             (277594728 ps)   Send command SQ_MUX_FB_ON_OFF column 0 to Off for o_c0_sqm_adc_pwdn activation
@@ -322,44 +322,44 @@
 #             (288480168 ps)   Check timing between i_sync rising edge and o_c0_sqm_adc_pwdn activation
 #             (288480168 ps)     (c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ < .. < 2*c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
 #             (288480168 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (288752304 ps) Waiting event sqm_adc_pwdn(0) = '1' for 272136 ps
-# ** Note   : (288752304 ps) Check time, record time: PASS
-# ** Note   : (288752304 ps)  * record time 272136 ps strictly less than expected value 320160 ps
-# ** Note   : (288752304 ps) Check time, record time: PASS
-# ** Note   : (288752304 ps)  * record time 272136 ps strictly greater than expected value 160080 ps
-#             (288752304 ps) 
-#             (288752304 ps) ==============================================================================================
-#             (288752304 ps)   Send command SQ_MUX_FB_ON_OFF column 0 to On for o_c0_sqm_adc_pwdn deactivation
-#             (288752304 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (288752304 ps) Send SPI command value 8003_0001 (SQ_MUX_FB_ON_OFF, mode Write, data 0001)
-#             (288788304 ps) 
-#             (288788304 ps) ==============================================================================================
-#             (288788304 ps)   Check no event is appeared on o_c0_sqm_adc_pwdn and wait o_c0_sqm_adc_pwdn deactivation
-#             (288788304 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (288788304 ps) Check discrete level: PASS
-# ** Note   : (288788304 ps)  * Read discrete: sqm_adc_pwdn(0), value '1', expected '1'
-# ** Note   : (299141496 ps) Waiting event sqm_adc_pwdn(0) = '0' for 10353192 ps
-#             (299141496 ps) 
-#             (299141496 ps) ==============================================================================================
-#             (299141496 ps)   Check timing between o_c0_clk_sqm_adc rising edge
-#             (299141496 ps)    and internal MUX SQUID ADC clock falling edge
-#             (299141496 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (299157020 ps) Waiting event clk_sqm_adc(0) = '1' for 15524 ps
-# ** Note   : (299157020 ps) Record current time
-# ** Note   : (299157504 ps) Waiting event clk_sqm_adc_acq = '1' for 484 ps
-# ** Note   : (299161506 ps) Waiting event clk_sqm_adc_acq = '0' for 4002 ps
-# ** Note   : (299161506 ps) Check time, record time: PASS
-# ** Note   : (299161506 ps)  * record time 4486 ps greater than or equal to expected value 4400 ps
-# ** Note   : (299161506 ps) Check time, record time: PASS
-# ** Note   : (299161506 ps)  * record time 4486 ps strictly less than expected value 4560 ps
-#             (299161506 ps) 
-#             (299161506 ps) ==============================================================================================
-#             (299161506 ps)   Check timing between o_c0_sqm_adc_pwdn deactivation and i_sync rising edge
-#             (299161506 ps)     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
-#             (299161506 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (299365608 ps) Waiting event sync = '1' for 204102 ps
+# ** Note   : (288736296 ps) Waiting event sqm_adc_pwdn(0) = '1' for 256128 ps
+# ** Note   : (288736296 ps) Check time, record time: PASS
+# ** Note   : (288736296 ps)  * record time 256128 ps strictly less than expected value 320160 ps
+# ** Note   : (288736296 ps) Check time, record time: PASS
+# ** Note   : (288736296 ps)  * record time 256128 ps strictly greater than expected value 160080 ps
+#             (288736296 ps) 
+#             (288736296 ps) ==============================================================================================
+#             (288736296 ps)   Send command SQ_MUX_FB_ON_OFF column 0 to On for o_c0_sqm_adc_pwdn deactivation
+#             (288736296 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (288736296 ps) Send SPI command value 8003_0001 (SQ_MUX_FB_ON_OFF, mode Write, data 0001)
+#             (288772296 ps) 
+#             (288772296 ps) ==============================================================================================
+#             (288772296 ps)   Check no event is appeared on o_c0_sqm_adc_pwdn and wait o_c0_sqm_adc_pwdn deactivation
+#             (288772296 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (288772296 ps) Check discrete level: PASS
+# ** Note   : (288772296 ps)  * Read discrete: sqm_adc_pwdn(0), value '1', expected '1'
+# ** Note   : (299125488 ps) Waiting event sqm_adc_pwdn(0) = '0' for 10353192 ps
+#             (299125488 ps) 
+#             (299125488 ps) ==============================================================================================
+#             (299125488 ps)   Check timing between o_c0_clk_sqm_adc rising edge
+#             (299125488 ps)    and internal MUX SQUID ADC clock falling edge
+#             (299125488 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (299141012 ps) Waiting event clk_sqm_adc(0) = '1' for 15524 ps
+# ** Note   : (299141012 ps) Record current time
+# ** Note   : (299141496 ps) Waiting event clk_sqm_adc_acq = '1' for 484 ps
+# ** Note   : (299145498 ps) Waiting event clk_sqm_adc_acq = '0' for 4002 ps
+# ** Note   : (299145498 ps) Check time, record time: PASS
+# ** Note   : (299145498 ps)  * record time 4486 ps greater than or equal to expected value 4400 ps
+# ** Note   : (299145498 ps) Check time, record time: PASS
+# ** Note   : (299145498 ps)  * record time 4486 ps strictly less than expected value 4560 ps
+#             (299145498 ps) 
+#             (299145498 ps) ==============================================================================================
+#             (299145498 ps)   Check timing between o_c0_sqm_adc_pwdn deactivation and i_sync rising edge
+#             (299145498 ps)     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
+#             (299145498 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (299365608 ps) Waiting event sync = '1' for 220110 ps
 # ** Note   : (299365608 ps) Check time, sqm_adc_pwdn(0) last event: PASS
-# ** Note   : (299365608 ps)  * sqm_adc_pwdn(0) last event 224112 ps greater than or equal to expected value 160080 ps
+# ** Note   : (299365608 ps)  * sqm_adc_pwdn(0) last event 240120 ps greater than or equal to expected value 160080 ps
 #             (299365608 ps) 
 #             (299365608 ps) ==============================================================================================
 #             (299365608 ps)   Send command SQ_MUX_FB_ON_OFF column 0 to Off for o_c0_sqm_adc_pwdn activation
@@ -379,42 +379,42 @@
 #             (310251048 ps)   Check timing between i_sync rising edge and o_c0_sqm_adc_pwdn activation
 #             (310251048 ps)     (c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ < .. < 2*c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
 #             (310251048 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (310523184 ps) Waiting event sqm_adc_pwdn(0) = '1' for 272136 ps
-# ** Note   : (310523184 ps) Check time, record time: PASS
-# ** Note   : (310523184 ps)  * record time 272136 ps strictly less than expected value 320160 ps
-# ** Note   : (310523184 ps) Check time, record time: PASS
-# ** Note   : (310523184 ps)  * record time 272136 ps strictly greater than expected value 160080 ps
-#             (310523184 ps) 
-#             (310523184 ps) ==============================================================================================
-#             (310523184 ps)   Send command DATA_ACQ_MODE column 1 to Science for o_c1_sqm_adc_pwdn deactivation
-#             (310523184 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (310523184 ps) Send SPI command value 8001_0001 (DATA_ACQ_MODE, mode Write, data 0001)
-#             (310559184 ps) 
-#             (310559184 ps) ==============================================================================================
-#             (310559184 ps)   Wait o_c1_sqm_adc_pwdn deactivation
-#             (310559184 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (320912376 ps) Waiting event sqm_adc_pwdn(1) = '0' for 10353192 ps
-#             (320912376 ps) 
-#             (320912376 ps) ==============================================================================================
-#             (320912376 ps)   Check timing between o_c1_clk_sqm_adc rising edge
-#             (320912376 ps)    and internal MUX SQUID ADC clock falling edge
-#             (320912376 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (320927900 ps) Waiting event clk_sqm_adc(1) = '1' for 15524 ps
-# ** Note   : (320927900 ps) Record current time
-# ** Note   : (320928384 ps) Waiting event clk_sqm_adc_acq = '1' for 484 ps
-# ** Note   : (320932386 ps) Waiting event clk_sqm_adc_acq = '0' for 4002 ps
-# ** Note   : (320932386 ps) Check time, record time: PASS
-# ** Note   : (320932386 ps)  * record time 4486 ps greater than or equal to expected value 4400 ps
-# ** Note   : (320932386 ps) Check time, record time: PASS
-# ** Note   : (320932386 ps)  * record time 4486 ps strictly less than expected value 4560 ps
-#             (320932386 ps) 
-#             (320932386 ps) ==============================================================================================
-#             (320932386 ps)   Check timing between o_c1_sqm_adc_pwdn deactivation and i_sync rising edge
-#             (320932386 ps)     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
-#             (320932386 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (321136488 ps) Waiting event sync = '1' for 204102 ps
+# ** Note   : (310507176 ps) Waiting event sqm_adc_pwdn(0) = '1' for 256128 ps
+# ** Note   : (310507176 ps) Check time, record time: PASS
+# ** Note   : (310507176 ps)  * record time 256128 ps strictly less than expected value 320160 ps
+# ** Note   : (310507176 ps) Check time, record time: PASS
+# ** Note   : (310507176 ps)  * record time 256128 ps strictly greater than expected value 160080 ps
+#             (310507176 ps) 
+#             (310507176 ps) ==============================================================================================
+#             (310507176 ps)   Send command DATA_ACQ_MODE column 1 to Science for o_c1_sqm_adc_pwdn deactivation
+#             (310507176 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (310507176 ps) Send SPI command value 8001_0001 (DATA_ACQ_MODE, mode Write, data 0001)
+#             (310543176 ps) 
+#             (310543176 ps) ==============================================================================================
+#             (310543176 ps)   Wait o_c1_sqm_adc_pwdn deactivation
+#             (310543176 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (320896368 ps) Waiting event sqm_adc_pwdn(1) = '0' for 10353192 ps
+#             (320896368 ps) 
+#             (320896368 ps) ==============================================================================================
+#             (320896368 ps)   Check timing between o_c1_clk_sqm_adc rising edge
+#             (320896368 ps)    and internal MUX SQUID ADC clock falling edge
+#             (320896368 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (320911892 ps) Waiting event clk_sqm_adc(1) = '1' for 15524 ps
+# ** Note   : (320911892 ps) Record current time
+# ** Note   : (320912376 ps) Waiting event clk_sqm_adc_acq = '1' for 484 ps
+# ** Note   : (320916378 ps) Waiting event clk_sqm_adc_acq = '0' for 4002 ps
+# ** Note   : (320916378 ps) Check time, record time: PASS
+# ** Note   : (320916378 ps)  * record time 4486 ps greater than or equal to expected value 4400 ps
+# ** Note   : (320916378 ps) Check time, record time: PASS
+# ** Note   : (320916378 ps)  * record time 4486 ps strictly less than expected value 4560 ps
+#             (320916378 ps) 
+#             (320916378 ps) ==============================================================================================
+#             (320916378 ps)   Check timing between o_c1_sqm_adc_pwdn deactivation and i_sync rising edge
+#             (320916378 ps)     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
+#             (320916378 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (321136488 ps) Waiting event sync = '1' for 220110 ps
 # ** Note   : (321136488 ps) Check time, sqm_adc_pwdn(1) last event: PASS
-# ** Note   : (321136488 ps)  * sqm_adc_pwdn(1) last event 224112 ps greater than or equal to expected value 160080 ps
+# ** Note   : (321136488 ps)  * sqm_adc_pwdn(1) last event 240120 ps greater than or equal to expected value 160080 ps
 #             (321136488 ps) 
 #             (321136488 ps) ==============================================================================================
 #             (321136488 ps)   Send command DATA_ACQ_MODE column 1 to Test pattern for o_c1_sqm_adc_pwdn activation
@@ -434,42 +434,42 @@
 #             (332021928 ps)   Check timing between i_sync rising edge and o_c1_sqm_adc_pwdn activation
 #             (332021928 ps)     (c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ < .. < 2*c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
 #             (332021928 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (332294064 ps) Waiting event sqm_adc_pwdn(1) = '1' for 272136 ps
-# ** Note   : (332294064 ps) Check time, record time: PASS
-# ** Note   : (332294064 ps)  * record time 272136 ps strictly less than expected value 320160 ps
-# ** Note   : (332294064 ps) Check time, record time: PASS
-# ** Note   : (332294064 ps)  * record time 272136 ps strictly greater than expected value 160080 ps
-#             (332294064 ps) 
-#             (332294064 ps) ==============================================================================================
-#             (332294064 ps)   Send command DATA_ACQ_MODE column 1 to Error signal for o_c1_sqm_adc_pwdn deactivation
-#             (332294064 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (332294064 ps) Send SPI command value 8001_0002 (DATA_ACQ_MODE, mode Write, data 0002)
-#             (332330064 ps) 
-#             (332330064 ps) ==============================================================================================
-#             (332330064 ps)   Wait o_c1_sqm_adc_pwdn deactivation
-#             (332330064 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (342683256 ps) Waiting event sqm_adc_pwdn(1) = '0' for 10353192 ps
-#             (342683256 ps) 
-#             (342683256 ps) ==============================================================================================
-#             (342683256 ps)   Check timing between o_c1_clk_sqm_adc rising edge
-#             (342683256 ps)    and internal MUX SQUID ADC clock falling edge
-#             (342683256 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (342698780 ps) Waiting event clk_sqm_adc(1) = '1' for 15524 ps
-# ** Note   : (342698780 ps) Record current time
-# ** Note   : (342699264 ps) Waiting event clk_sqm_adc_acq = '1' for 484 ps
-# ** Note   : (342703266 ps) Waiting event clk_sqm_adc_acq = '0' for 4002 ps
-# ** Note   : (342703266 ps) Check time, record time: PASS
-# ** Note   : (342703266 ps)  * record time 4486 ps greater than or equal to expected value 4400 ps
-# ** Note   : (342703266 ps) Check time, record time: PASS
-# ** Note   : (342703266 ps)  * record time 4486 ps strictly less than expected value 4560 ps
-#             (342703266 ps) 
-#             (342703266 ps) ==============================================================================================
-#             (342703266 ps)   Check timing between o_c1_sqm_adc_pwdn deactivation and i_sync rising edge
-#             (342703266 ps)     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
-#             (342703266 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (342907368 ps) Waiting event sync = '1' for 204102 ps
+# ** Note   : (332278056 ps) Waiting event sqm_adc_pwdn(1) = '1' for 256128 ps
+# ** Note   : (332278056 ps) Check time, record time: PASS
+# ** Note   : (332278056 ps)  * record time 256128 ps strictly less than expected value 320160 ps
+# ** Note   : (332278056 ps) Check time, record time: PASS
+# ** Note   : (332278056 ps)  * record time 256128 ps strictly greater than expected value 160080 ps
+#             (332278056 ps) 
+#             (332278056 ps) ==============================================================================================
+#             (332278056 ps)   Send command DATA_ACQ_MODE column 1 to Error signal for o_c1_sqm_adc_pwdn deactivation
+#             (332278056 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (332278056 ps) Send SPI command value 8001_0002 (DATA_ACQ_MODE, mode Write, data 0002)
+#             (332314056 ps) 
+#             (332314056 ps) ==============================================================================================
+#             (332314056 ps)   Wait o_c1_sqm_adc_pwdn deactivation
+#             (332314056 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (342667248 ps) Waiting event sqm_adc_pwdn(1) = '0' for 10353192 ps
+#             (342667248 ps) 
+#             (342667248 ps) ==============================================================================================
+#             (342667248 ps)   Check timing between o_c1_clk_sqm_adc rising edge
+#             (342667248 ps)    and internal MUX SQUID ADC clock falling edge
+#             (342667248 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (342682772 ps) Waiting event clk_sqm_adc(1) = '1' for 15524 ps
+# ** Note   : (342682772 ps) Record current time
+# ** Note   : (342683256 ps) Waiting event clk_sqm_adc_acq = '1' for 484 ps
+# ** Note   : (342687258 ps) Waiting event clk_sqm_adc_acq = '0' for 4002 ps
+# ** Note   : (342687258 ps) Check time, record time: PASS
+# ** Note   : (342687258 ps)  * record time 4486 ps greater than or equal to expected value 4400 ps
+# ** Note   : (342687258 ps) Check time, record time: PASS
+# ** Note   : (342687258 ps)  * record time 4486 ps strictly less than expected value 4560 ps
+#             (342687258 ps) 
+#             (342687258 ps) ==============================================================================================
+#             (342687258 ps)   Check timing between o_c1_sqm_adc_pwdn deactivation and i_sync rising edge
+#             (342687258 ps)     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
+#             (342687258 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (342907368 ps) Waiting event sync = '1' for 220110 ps
 # ** Note   : (342907368 ps) Check time, sqm_adc_pwdn(1) last event: PASS
-# ** Note   : (342907368 ps)  * sqm_adc_pwdn(1) last event 224112 ps greater than or equal to expected value 160080 ps
+# ** Note   : (342907368 ps)  * sqm_adc_pwdn(1) last event 240120 ps greater than or equal to expected value 160080 ps
 #             (342907368 ps) 
 #             (342907368 ps) ==============================================================================================
 #             (342907368 ps)   Send command DATA_ACQ_MODE column 1 to Test pattern for o_c1_sqm_adc_pwdn activation
@@ -489,44 +489,44 @@
 #             (353792808 ps)   Check timing between i_sync rising edge and o_c1_sqm_adc_pwdn activation
 #             (353792808 ps)     (c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ < .. < 2*c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
 #             (353792808 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (354064944 ps) Waiting event sqm_adc_pwdn(1) = '1' for 272136 ps
-# ** Note   : (354064944 ps) Check time, record time: PASS
-# ** Note   : (354064944 ps)  * record time 272136 ps strictly less than expected value 320160 ps
-# ** Note   : (354064944 ps) Check time, record time: PASS
-# ** Note   : (354064944 ps)  * record time 272136 ps strictly greater than expected value 160080 ps
-#             (354064944 ps) 
-#             (354064944 ps) ==============================================================================================
-#             (354064944 ps)   Send command DATA_ACQ_MODE column 1 to Dump for o_c1_sqm_adc_pwdn deactivation
-#             (354064944 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (354064944 ps) Send SPI command value 8001_0004 (DATA_ACQ_MODE, mode Write, data 0004)
-#             (354100944 ps) 
-#             (354100944 ps) ==============================================================================================
-#             (354100944 ps)   Check no event is appeared on o_c1_sqm_adc_pwdn and wait o_c1_sqm_adc_pwdn deactivation
-#             (354100944 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (354100944 ps) Check discrete level: PASS
-# ** Note   : (354100944 ps)  * Read discrete: sqm_adc_pwdn(1), value '1', expected '1'
-# ** Note   : (364454136 ps) Waiting event sqm_adc_pwdn(1) = '0' for 10353192 ps
-#             (364454136 ps) 
-#             (364454136 ps) ==============================================================================================
-#             (364454136 ps)   Check timing between o_c1_clk_sqm_adc rising edge
-#             (364454136 ps)    and internal MUX SQUID ADC clock falling edge
-#             (364454136 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (364469660 ps) Waiting event clk_sqm_adc(1) = '1' for 15524 ps
-# ** Note   : (364469660 ps) Record current time
-# ** Note   : (364470144 ps) Waiting event clk_sqm_adc_acq = '1' for 484 ps
-# ** Note   : (364474146 ps) Waiting event clk_sqm_adc_acq = '0' for 4002 ps
-# ** Note   : (364474146 ps) Check time, record time: PASS
-# ** Note   : (364474146 ps)  * record time 4486 ps greater than or equal to expected value 4400 ps
-# ** Note   : (364474146 ps) Check time, record time: PASS
-# ** Note   : (364474146 ps)  * record time 4486 ps strictly less than expected value 4560 ps
-#             (364474146 ps) 
-#             (364474146 ps) ==============================================================================================
-#             (364474146 ps)   Check timing between o_c1_sqm_adc_pwdn deactivation and i_sync rising edge
-#             (364474146 ps)     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
-#             (364474146 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (364678248 ps) Waiting event sync = '1' for 204102 ps
+# ** Note   : (354048936 ps) Waiting event sqm_adc_pwdn(1) = '1' for 256128 ps
+# ** Note   : (354048936 ps) Check time, record time: PASS
+# ** Note   : (354048936 ps)  * record time 256128 ps strictly less than expected value 320160 ps
+# ** Note   : (354048936 ps) Check time, record time: PASS
+# ** Note   : (354048936 ps)  * record time 256128 ps strictly greater than expected value 160080 ps
+#             (354048936 ps) 
+#             (354048936 ps) ==============================================================================================
+#             (354048936 ps)   Send command DATA_ACQ_MODE column 1 to Dump for o_c1_sqm_adc_pwdn deactivation
+#             (354048936 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (354048936 ps) Send SPI command value 8001_0004 (DATA_ACQ_MODE, mode Write, data 0004)
+#             (354084936 ps) 
+#             (354084936 ps) ==============================================================================================
+#             (354084936 ps)   Check no event is appeared on o_c1_sqm_adc_pwdn and wait o_c1_sqm_adc_pwdn deactivation
+#             (354084936 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (354084936 ps) Check discrete level: PASS
+# ** Note   : (354084936 ps)  * Read discrete: sqm_adc_pwdn(1), value '1', expected '1'
+# ** Note   : (364438128 ps) Waiting event sqm_adc_pwdn(1) = '0' for 10353192 ps
+#             (364438128 ps) 
+#             (364438128 ps) ==============================================================================================
+#             (364438128 ps)   Check timing between o_c1_clk_sqm_adc rising edge
+#             (364438128 ps)    and internal MUX SQUID ADC clock falling edge
+#             (364438128 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (364453652 ps) Waiting event clk_sqm_adc(1) = '1' for 15524 ps
+# ** Note   : (364453652 ps) Record current time
+# ** Note   : (364454136 ps) Waiting event clk_sqm_adc_acq = '1' for 484 ps
+# ** Note   : (364458138 ps) Waiting event clk_sqm_adc_acq = '0' for 4002 ps
+# ** Note   : (364458138 ps) Check time, record time: PASS
+# ** Note   : (364458138 ps)  * record time 4486 ps greater than or equal to expected value 4400 ps
+# ** Note   : (364458138 ps) Check time, record time: PASS
+# ** Note   : (364458138 ps)  * record time 4486 ps strictly less than expected value 4560 ps
+#             (364458138 ps) 
+#             (364458138 ps) ==============================================================================================
+#             (364458138 ps)   Check timing between o_c1_sqm_adc_pwdn deactivation and i_sync rising edge
+#             (364458138 ps)     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
+#             (364458138 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (364678248 ps) Waiting event sync = '1' for 220110 ps
 # ** Note   : (364678248 ps) Check time, sqm_adc_pwdn(1) last event: PASS
-# ** Note   : (364678248 ps)  * sqm_adc_pwdn(1) last event 224112 ps greater than or equal to expected value 160080 ps
+# ** Note   : (364678248 ps)  * sqm_adc_pwdn(1) last event 240120 ps greater than or equal to expected value 160080 ps
 #             (364678248 ps) 
 #             (364678248 ps) ==============================================================================================
 #             (364678248 ps)    Wait DATA_ACQ_MODE column 1 goes automatically to Idle and
@@ -543,44 +543,44 @@
 #             (544288008 ps)   Check timing between i_sync rising edge and o_c1_sqm_adc_pwdn activation
 #             (544288008 ps)     (c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ < .. < 2*c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
 #             (544288008 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (544560144 ps) Waiting event sqm_adc_pwdn(1) = '1' for 272136 ps
-# ** Note   : (544560144 ps) Check time, record time: PASS
-# ** Note   : (544560144 ps)  * record time 272136 ps strictly less than expected value 320160 ps
-# ** Note   : (544560144 ps) Check time, record time: PASS
-# ** Note   : (544560144 ps)  * record time 272136 ps strictly greater than expected value 160080 ps
-#             (544560144 ps) 
-#             (544560144 ps) ==============================================================================================
-#             (544560144 ps)   Send command SQ_MUX_FB_ON_OFF column 1 to On for o_c1_sqm_adc_pwdn deactivation
-#             (544560144 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (544560144 ps) Send SPI command value 8003_0010 (SQ_MUX_FB_ON_OFF, mode Write, data 0010)
-#             (544596144 ps) 
-#             (544596144 ps) ==============================================================================================
-#             (544596144 ps)   Check no event is appeared on o_c1_sqm_adc_pwdn and wait o_c1_sqm_adc_pwdn deactivation
-#             (544596144 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (544596144 ps) Check discrete level: PASS
-# ** Note   : (544596144 ps)  * Read discrete: sqm_adc_pwdn(1), value '1', expected '1'
-# ** Note   : (554949336 ps) Waiting event sqm_adc_pwdn(1) = '0' for 10353192 ps
-#             (554949336 ps) 
-#             (554949336 ps) ==============================================================================================
-#             (554949336 ps)   Check timing between o_c1_clk_sqm_adc rising edge
-#             (554949336 ps)    and internal MUX SQUID ADC clock falling edge
-#             (554949336 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (554964860 ps) Waiting event clk_sqm_adc(1) = '1' for 15524 ps
-# ** Note   : (554964860 ps) Record current time
-# ** Note   : (554965344 ps) Waiting event clk_sqm_adc_acq = '1' for 484 ps
-# ** Note   : (554969346 ps) Waiting event clk_sqm_adc_acq = '0' for 4002 ps
-# ** Note   : (554969346 ps) Check time, record time: PASS
-# ** Note   : (554969346 ps)  * record time 4486 ps greater than or equal to expected value 4400 ps
-# ** Note   : (554969346 ps) Check time, record time: PASS
-# ** Note   : (554969346 ps)  * record time 4486 ps strictly less than expected value 4560 ps
-#             (554969346 ps) 
-#             (554969346 ps) ==============================================================================================
-#             (554969346 ps)   Check timing between o_c1_sqm_adc_pwdn deactivation and i_sync rising edge
-#             (554969346 ps)     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
-#             (554969346 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (555173448 ps) Waiting event sync = '1' for 204102 ps
+# ** Note   : (544544136 ps) Waiting event sqm_adc_pwdn(1) = '1' for 256128 ps
+# ** Note   : (544544136 ps) Check time, record time: PASS
+# ** Note   : (544544136 ps)  * record time 256128 ps strictly less than expected value 320160 ps
+# ** Note   : (544544136 ps) Check time, record time: PASS
+# ** Note   : (544544136 ps)  * record time 256128 ps strictly greater than expected value 160080 ps
+#             (544544136 ps) 
+#             (544544136 ps) ==============================================================================================
+#             (544544136 ps)   Send command SQ_MUX_FB_ON_OFF column 1 to On for o_c1_sqm_adc_pwdn deactivation
+#             (544544136 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (544544136 ps) Send SPI command value 8003_0010 (SQ_MUX_FB_ON_OFF, mode Write, data 0010)
+#             (544580136 ps) 
+#             (544580136 ps) ==============================================================================================
+#             (544580136 ps)   Check no event is appeared on o_c1_sqm_adc_pwdn and wait o_c1_sqm_adc_pwdn deactivation
+#             (544580136 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (544580136 ps) Check discrete level: PASS
+# ** Note   : (544580136 ps)  * Read discrete: sqm_adc_pwdn(1), value '1', expected '1'
+# ** Note   : (554933328 ps) Waiting event sqm_adc_pwdn(1) = '0' for 10353192 ps
+#             (554933328 ps) 
+#             (554933328 ps) ==============================================================================================
+#             (554933328 ps)   Check timing between o_c1_clk_sqm_adc rising edge
+#             (554933328 ps)    and internal MUX SQUID ADC clock falling edge
+#             (554933328 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (554948852 ps) Waiting event clk_sqm_adc(1) = '1' for 15524 ps
+# ** Note   : (554948852 ps) Record current time
+# ** Note   : (554949336 ps) Waiting event clk_sqm_adc_acq = '1' for 484 ps
+# ** Note   : (554953338 ps) Waiting event clk_sqm_adc_acq = '0' for 4002 ps
+# ** Note   : (554953338 ps) Check time, record time: PASS
+# ** Note   : (554953338 ps)  * record time 4486 ps greater than or equal to expected value 4400 ps
+# ** Note   : (554953338 ps) Check time, record time: PASS
+# ** Note   : (554953338 ps)  * record time 4486 ps strictly less than expected value 4560 ps
+#             (554953338 ps) 
+#             (554953338 ps) ==============================================================================================
+#             (554953338 ps)   Check timing between o_c1_sqm_adc_pwdn deactivation and i_sync rising edge
+#             (554953338 ps)     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
+#             (554953338 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (555173448 ps) Waiting event sync = '1' for 220110 ps
 # ** Note   : (555173448 ps) Check time, sqm_adc_pwdn(1) last event: PASS
-# ** Note   : (555173448 ps)  * sqm_adc_pwdn(1) last event 224112 ps greater than or equal to expected value 160080 ps
+# ** Note   : (555173448 ps)  * sqm_adc_pwdn(1) last event 240120 ps greater than or equal to expected value 160080 ps
 #             (555173448 ps) 
 #             (555173448 ps) ==============================================================================================
 #             (555173448 ps)   Send command SQ_MUX_FB_ON_OFF column 1 to Off loop for o_c1_sqm_adc_pwdn activation
@@ -600,44 +600,44 @@
 #             (566058888 ps)   Check timing between i_sync rising edge and o_c1_sqm_adc_pwdn activation
 #             (566058888 ps)     (c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ < .. < 2*c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
 #             (566058888 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (566331024 ps) Waiting event sqm_adc_pwdn(1) = '1' for 272136 ps
-# ** Note   : (566331024 ps) Check time, record time: PASS
-# ** Note   : (566331024 ps)  * record time 272136 ps strictly less than expected value 320160 ps
-# ** Note   : (566331024 ps) Check time, record time: PASS
-# ** Note   : (566331024 ps)  * record time 272136 ps strictly greater than expected value 160080 ps
-#             (566331024 ps) 
-#             (566331024 ps) ==============================================================================================
-#             (566331024 ps)   Send command SQ_MUX_FB_ON_OFF column 1 to On for o_c1_sqm_adc_pwdn deactivation
-#             (566331024 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (566331024 ps) Send SPI command value 8003_0010 (SQ_MUX_FB_ON_OFF, mode Write, data 0010)
-#             (566367024 ps) 
-#             (566367024 ps) ==============================================================================================
-#             (566367024 ps)   Check no event is appeared on o_c1_sqm_adc_pwdn and wait o_c1_sqm_adc_pwdn deactivation
-#             (566367024 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (566367024 ps) Check discrete level: PASS
-# ** Note   : (566367024 ps)  * Read discrete: sqm_adc_pwdn(1), value '1', expected '1'
-# ** Note   : (576720216 ps) Waiting event sqm_adc_pwdn(1) = '0' for 10353192 ps
-#             (576720216 ps) 
-#             (576720216 ps) ==============================================================================================
-#             (576720216 ps)   Check timing between o_c1_clk_sqm_adc rising edge
-#             (576720216 ps)    and internal MUX SQUID ADC clock falling edge
-#             (576720216 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (576735740 ps) Waiting event clk_sqm_adc(1) = '1' for 15524 ps
-# ** Note   : (576735740 ps) Record current time
-# ** Note   : (576736224 ps) Waiting event clk_sqm_adc_acq = '1' for 484 ps
-# ** Note   : (576740226 ps) Waiting event clk_sqm_adc_acq = '0' for 4002 ps
-# ** Note   : (576740226 ps) Check time, record time: PASS
-# ** Note   : (576740226 ps)  * record time 4486 ps greater than or equal to expected value 4400 ps
-# ** Note   : (576740226 ps) Check time, record time: PASS
-# ** Note   : (576740226 ps)  * record time 4486 ps strictly less than expected value 4560 ps
-#             (576740226 ps) 
-#             (576740226 ps) ==============================================================================================
-#             (576740226 ps)   Check timing between o_c1_sqm_adc_pwdn deactivation and i_sync rising edge
-#             (576740226 ps)     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
-#             (576740226 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (576944328 ps) Waiting event sync = '1' for 204102 ps
+# ** Note   : (566315016 ps) Waiting event sqm_adc_pwdn(1) = '1' for 256128 ps
+# ** Note   : (566315016 ps) Check time, record time: PASS
+# ** Note   : (566315016 ps)  * record time 256128 ps strictly less than expected value 320160 ps
+# ** Note   : (566315016 ps) Check time, record time: PASS
+# ** Note   : (566315016 ps)  * record time 256128 ps strictly greater than expected value 160080 ps
+#             (566315016 ps) 
+#             (566315016 ps) ==============================================================================================
+#             (566315016 ps)   Send command SQ_MUX_FB_ON_OFF column 1 to On for o_c1_sqm_adc_pwdn deactivation
+#             (566315016 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (566315016 ps) Send SPI command value 8003_0010 (SQ_MUX_FB_ON_OFF, mode Write, data 0010)
+#             (566351016 ps) 
+#             (566351016 ps) ==============================================================================================
+#             (566351016 ps)   Check no event is appeared on o_c1_sqm_adc_pwdn and wait o_c1_sqm_adc_pwdn deactivation
+#             (566351016 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (566351016 ps) Check discrete level: PASS
+# ** Note   : (566351016 ps)  * Read discrete: sqm_adc_pwdn(1), value '1', expected '1'
+# ** Note   : (576704208 ps) Waiting event sqm_adc_pwdn(1) = '0' for 10353192 ps
+#             (576704208 ps) 
+#             (576704208 ps) ==============================================================================================
+#             (576704208 ps)   Check timing between o_c1_clk_sqm_adc rising edge
+#             (576704208 ps)    and internal MUX SQUID ADC clock falling edge
+#             (576704208 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (576719732 ps) Waiting event clk_sqm_adc(1) = '1' for 15524 ps
+# ** Note   : (576719732 ps) Record current time
+# ** Note   : (576720216 ps) Waiting event clk_sqm_adc_acq = '1' for 484 ps
+# ** Note   : (576724218 ps) Waiting event clk_sqm_adc_acq = '0' for 4002 ps
+# ** Note   : (576724218 ps) Check time, record time: PASS
+# ** Note   : (576724218 ps)  * record time 4486 ps greater than or equal to expected value 4400 ps
+# ** Note   : (576724218 ps) Check time, record time: PASS
+# ** Note   : (576724218 ps)  * record time 4486 ps strictly less than expected value 4560 ps
+#             (576724218 ps) 
+#             (576724218 ps) ==============================================================================================
+#             (576724218 ps)   Check timing between o_c1_sqm_adc_pwdn deactivation and i_sync rising edge
+#             (576724218 ps)     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
+#             (576724218 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (576944328 ps) Waiting event sync = '1' for 220110 ps
 # ** Note   : (576944328 ps) Check time, sqm_adc_pwdn(1) last event: PASS
-# ** Note   : (576944328 ps)  * sqm_adc_pwdn(1) last event 224112 ps greater than or equal to expected value 160080 ps
+# ** Note   : (576944328 ps)  * sqm_adc_pwdn(1) last event 240120 ps greater than or equal to expected value 160080 ps
 #             (576944328 ps) 
 #             (576944328 ps) ==============================================================================================
 #             (576944328 ps)   Send command SQ_MUX_FB_ON_OFF column 1 to Off for o_c1_sqm_adc_pwdn activation
@@ -657,44 +657,44 @@
 #             (587829768 ps)   Check timing between i_sync rising edge and o_c1_sqm_adc_pwdn activation
 #             (587829768 ps)     (c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ < .. < 2*c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
 #             (587829768 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (588101904 ps) Waiting event sqm_adc_pwdn(1) = '1' for 272136 ps
-# ** Note   : (588101904 ps) Check time, record time: PASS
-# ** Note   : (588101904 ps)  * record time 272136 ps strictly less than expected value 320160 ps
-# ** Note   : (588101904 ps) Check time, record time: PASS
-# ** Note   : (588101904 ps)  * record time 272136 ps strictly greater than expected value 160080 ps
-#             (588101904 ps) 
-#             (588101904 ps) ==============================================================================================
-#             (588101904 ps)   Send command SQ_MUX_FB_ON_OFF column 1 to On for o_c1_sqm_adc_pwdn deactivation
-#             (588101904 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (588101904 ps) Send SPI command value 8003_0010 (SQ_MUX_FB_ON_OFF, mode Write, data 0010)
-#             (588137904 ps) 
-#             (588137904 ps) ==============================================================================================
-#             (588137904 ps)   Check no event is appeared on o_c1_sqm_adc_pwdn and wait o_c1_sqm_adc_pwdn deactivation
-#             (588137904 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (588137904 ps) Check discrete level: PASS
-# ** Note   : (588137904 ps)  * Read discrete: sqm_adc_pwdn(1), value '1', expected '1'
-# ** Note   : (598491096 ps) Waiting event sqm_adc_pwdn(1) = '0' for 10353192 ps
-#             (598491096 ps) 
-#             (598491096 ps) ==============================================================================================
-#             (598491096 ps)   Check timing between o_c1_clk_sqm_adc rising edge
-#             (598491096 ps)    and internal MUX SQUID ADC clock falling edge
-#             (598491096 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (598506620 ps) Waiting event clk_sqm_adc(1) = '1' for 15524 ps
-# ** Note   : (598506620 ps) Record current time
-# ** Note   : (598507104 ps) Waiting event clk_sqm_adc_acq = '1' for 484 ps
-# ** Note   : (598511106 ps) Waiting event clk_sqm_adc_acq = '0' for 4002 ps
-# ** Note   : (598511106 ps) Check time, record time: PASS
-# ** Note   : (598511106 ps)  * record time 4486 ps greater than or equal to expected value 4400 ps
-# ** Note   : (598511106 ps) Check time, record time: PASS
-# ** Note   : (598511106 ps)  * record time 4486 ps strictly less than expected value 4560 ps
-#             (598511106 ps) 
-#             (598511106 ps) ==============================================================================================
-#             (598511106 ps)   Check timing between o_c1_sqm_adc_pwdn deactivation and i_sync rising edge
-#             (598511106 ps)     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
-#             (598511106 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (598715208 ps) Waiting event sync = '1' for 204102 ps
+# ** Note   : (588085896 ps) Waiting event sqm_adc_pwdn(1) = '1' for 256128 ps
+# ** Note   : (588085896 ps) Check time, record time: PASS
+# ** Note   : (588085896 ps)  * record time 256128 ps strictly less than expected value 320160 ps
+# ** Note   : (588085896 ps) Check time, record time: PASS
+# ** Note   : (588085896 ps)  * record time 256128 ps strictly greater than expected value 160080 ps
+#             (588085896 ps) 
+#             (588085896 ps) ==============================================================================================
+#             (588085896 ps)   Send command SQ_MUX_FB_ON_OFF column 1 to On for o_c1_sqm_adc_pwdn deactivation
+#             (588085896 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (588085896 ps) Send SPI command value 8003_0010 (SQ_MUX_FB_ON_OFF, mode Write, data 0010)
+#             (588121896 ps) 
+#             (588121896 ps) ==============================================================================================
+#             (588121896 ps)   Check no event is appeared on o_c1_sqm_adc_pwdn and wait o_c1_sqm_adc_pwdn deactivation
+#             (588121896 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (588121896 ps) Check discrete level: PASS
+# ** Note   : (588121896 ps)  * Read discrete: sqm_adc_pwdn(1), value '1', expected '1'
+# ** Note   : (598475088 ps) Waiting event sqm_adc_pwdn(1) = '0' for 10353192 ps
+#             (598475088 ps) 
+#             (598475088 ps) ==============================================================================================
+#             (598475088 ps)   Check timing between o_c1_clk_sqm_adc rising edge
+#             (598475088 ps)    and internal MUX SQUID ADC clock falling edge
+#             (598475088 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (598490612 ps) Waiting event clk_sqm_adc(1) = '1' for 15524 ps
+# ** Note   : (598490612 ps) Record current time
+# ** Note   : (598491096 ps) Waiting event clk_sqm_adc_acq = '1' for 484 ps
+# ** Note   : (598495098 ps) Waiting event clk_sqm_adc_acq = '0' for 4002 ps
+# ** Note   : (598495098 ps) Check time, record time: PASS
+# ** Note   : (598495098 ps)  * record time 4486 ps greater than or equal to expected value 4400 ps
+# ** Note   : (598495098 ps) Check time, record time: PASS
+# ** Note   : (598495098 ps)  * record time 4486 ps strictly less than expected value 4560 ps
+#             (598495098 ps) 
+#             (598495098 ps) ==============================================================================================
+#             (598495098 ps)   Check timing between o_c1_sqm_adc_pwdn deactivation and i_sync rising edge
+#             (598495098 ps)     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
+#             (598495098 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (598715208 ps) Waiting event sync = '1' for 220110 ps
 # ** Note   : (598715208 ps) Check time, sqm_adc_pwdn(1) last event: PASS
-# ** Note   : (598715208 ps)  * sqm_adc_pwdn(1) last event 224112 ps greater than or equal to expected value 160080 ps
+# ** Note   : (598715208 ps)  * sqm_adc_pwdn(1) last event 240120 ps greater than or equal to expected value 160080 ps
 #             (598715208 ps) 
 #             (598715208 ps) ==============================================================================================
 #             (598715208 ps)   Send command SQ_MUX_FB_ON_OFF column 1 to Off for o_c1_sqm_adc_pwdn activation
@@ -714,42 +714,42 @@
 #             (609600648 ps)   Check timing between i_sync rising edge and o_c1_sqm_adc_pwdn activation
 #             (609600648 ps)     (c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ < .. < 2*c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
 #             (609600648 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (609872784 ps) Waiting event sqm_adc_pwdn(1) = '1' for 272136 ps
-# ** Note   : (609872784 ps) Check time, record time: PASS
-# ** Note   : (609872784 ps)  * record time 272136 ps strictly less than expected value 320160 ps
-# ** Note   : (609872784 ps) Check time, record time: PASS
-# ** Note   : (609872784 ps)  * record time 272136 ps strictly greater than expected value 160080 ps
-#             (609872784 ps) 
-#             (609872784 ps) ==============================================================================================
-#             (609872784 ps)   Send command DATA_ACQ_MODE column 2 to Science for o_c2_sqm_adc_pwdn deactivation
-#             (609872784 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (609872784 ps) Send SPI command value 8001_0001 (DATA_ACQ_MODE, mode Write, data 0001)
-#             (609908784 ps) 
-#             (609908784 ps) ==============================================================================================
-#             (609908784 ps)   Wait o_c2_sqm_adc_pwdn deactivation
-#             (609908784 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (620261976 ps) Waiting event sqm_adc_pwdn(2) = '0' for 10353192 ps
-#             (620261976 ps) 
-#             (620261976 ps) ==============================================================================================
-#             (620261976 ps)   Check timing between o_c2_clk_sqm_adc rising edge
-#             (620261976 ps)    and internal MUX SQUID ADC clock falling edge
-#             (620261976 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (620277500 ps) Waiting event clk_sqm_adc(2) = '1' for 15524 ps
-# ** Note   : (620277500 ps) Record current time
-# ** Note   : (620277984 ps) Waiting event clk_sqm_adc_acq = '1' for 484 ps
-# ** Note   : (620281986 ps) Waiting event clk_sqm_adc_acq = '0' for 4002 ps
-# ** Note   : (620281986 ps) Check time, record time: PASS
-# ** Note   : (620281986 ps)  * record time 4486 ps greater than or equal to expected value 4400 ps
-# ** Note   : (620281986 ps) Check time, record time: PASS
-# ** Note   : (620281986 ps)  * record time 4486 ps strictly less than expected value 4560 ps
-#             (620281986 ps) 
-#             (620281986 ps) ==============================================================================================
-#             (620281986 ps)   Check timing between o_c2_sqm_adc_pwdn deactivation and i_sync rising edge
-#             (620281986 ps)     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
-#             (620281986 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (620486088 ps) Waiting event sync = '1' for 204102 ps
+# ** Note   : (609856776 ps) Waiting event sqm_adc_pwdn(1) = '1' for 256128 ps
+# ** Note   : (609856776 ps) Check time, record time: PASS
+# ** Note   : (609856776 ps)  * record time 256128 ps strictly less than expected value 320160 ps
+# ** Note   : (609856776 ps) Check time, record time: PASS
+# ** Note   : (609856776 ps)  * record time 256128 ps strictly greater than expected value 160080 ps
+#             (609856776 ps) 
+#             (609856776 ps) ==============================================================================================
+#             (609856776 ps)   Send command DATA_ACQ_MODE column 2 to Science for o_c2_sqm_adc_pwdn deactivation
+#             (609856776 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (609856776 ps) Send SPI command value 8001_0001 (DATA_ACQ_MODE, mode Write, data 0001)
+#             (609892776 ps) 
+#             (609892776 ps) ==============================================================================================
+#             (609892776 ps)   Wait o_c2_sqm_adc_pwdn deactivation
+#             (609892776 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (620245968 ps) Waiting event sqm_adc_pwdn(2) = '0' for 10353192 ps
+#             (620245968 ps) 
+#             (620245968 ps) ==============================================================================================
+#             (620245968 ps)   Check timing between o_c2_clk_sqm_adc rising edge
+#             (620245968 ps)    and internal MUX SQUID ADC clock falling edge
+#             (620245968 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (620261492 ps) Waiting event clk_sqm_adc(2) = '1' for 15524 ps
+# ** Note   : (620261492 ps) Record current time
+# ** Note   : (620261976 ps) Waiting event clk_sqm_adc_acq = '1' for 484 ps
+# ** Note   : (620265978 ps) Waiting event clk_sqm_adc_acq = '0' for 4002 ps
+# ** Note   : (620265978 ps) Check time, record time: PASS
+# ** Note   : (620265978 ps)  * record time 4486 ps greater than or equal to expected value 4400 ps
+# ** Note   : (620265978 ps) Check time, record time: PASS
+# ** Note   : (620265978 ps)  * record time 4486 ps strictly less than expected value 4560 ps
+#             (620265978 ps) 
+#             (620265978 ps) ==============================================================================================
+#             (620265978 ps)   Check timing between o_c2_sqm_adc_pwdn deactivation and i_sync rising edge
+#             (620265978 ps)     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
+#             (620265978 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (620486088 ps) Waiting event sync = '1' for 220110 ps
 # ** Note   : (620486088 ps) Check time, sqm_adc_pwdn(2) last event: PASS
-# ** Note   : (620486088 ps)  * sqm_adc_pwdn(2) last event 224112 ps greater than or equal to expected value 160080 ps
+# ** Note   : (620486088 ps)  * sqm_adc_pwdn(2) last event 240120 ps greater than or equal to expected value 160080 ps
 #             (620486088 ps) 
 #             (620486088 ps) ==============================================================================================
 #             (620486088 ps)   Send command DATA_ACQ_MODE column 2 to Test pattern for o_c2_sqm_adc_pwdn activation
@@ -769,42 +769,42 @@
 #             (631371528 ps)   Check timing between i_sync rising edge and o_c2_sqm_adc_pwdn activation
 #             (631371528 ps)     (c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ < .. < 2*c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
 #             (631371528 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (631643664 ps) Waiting event sqm_adc_pwdn(2) = '1' for 272136 ps
-# ** Note   : (631643664 ps) Check time, record time: PASS
-# ** Note   : (631643664 ps)  * record time 272136 ps strictly less than expected value 320160 ps
-# ** Note   : (631643664 ps) Check time, record time: PASS
-# ** Note   : (631643664 ps)  * record time 272136 ps strictly greater than expected value 160080 ps
-#             (631643664 ps) 
-#             (631643664 ps) ==============================================================================================
-#             (631643664 ps)   Send command DATA_ACQ_MODE column 2 to Error signal for o_c2_sqm_adc_pwdn deactivation
-#             (631643664 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (631643664 ps) Send SPI command value 8001_0002 (DATA_ACQ_MODE, mode Write, data 0002)
-#             (631679664 ps) 
-#             (631679664 ps) ==============================================================================================
-#             (631679664 ps)   Wait o_c2_sqm_adc_pwdn deactivation
-#             (631679664 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (642032856 ps) Waiting event sqm_adc_pwdn(2) = '0' for 10353192 ps
-#             (642032856 ps) 
-#             (642032856 ps) ==============================================================================================
-#             (642032856 ps)   Check timing between o_c2_clk_sqm_adc rising edge
-#             (642032856 ps)    and internal MUX SQUID ADC clock falling edge
-#             (642032856 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (642048380 ps) Waiting event clk_sqm_adc(2) = '1' for 15524 ps
-# ** Note   : (642048380 ps) Record current time
-# ** Note   : (642048864 ps) Waiting event clk_sqm_adc_acq = '1' for 484 ps
-# ** Note   : (642052866 ps) Waiting event clk_sqm_adc_acq = '0' for 4002 ps
-# ** Note   : (642052866 ps) Check time, record time: PASS
-# ** Note   : (642052866 ps)  * record time 4486 ps greater than or equal to expected value 4400 ps
-# ** Note   : (642052866 ps) Check time, record time: PASS
-# ** Note   : (642052866 ps)  * record time 4486 ps strictly less than expected value 4560 ps
-#             (642052866 ps) 
-#             (642052866 ps) ==============================================================================================
-#             (642052866 ps)   Check timing between o_c2_sqm_adc_pwdn deactivation and i_sync rising edge
-#             (642052866 ps)     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
-#             (642052866 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (642256968 ps) Waiting event sync = '1' for 204102 ps
+# ** Note   : (631627656 ps) Waiting event sqm_adc_pwdn(2) = '1' for 256128 ps
+# ** Note   : (631627656 ps) Check time, record time: PASS
+# ** Note   : (631627656 ps)  * record time 256128 ps strictly less than expected value 320160 ps
+# ** Note   : (631627656 ps) Check time, record time: PASS
+# ** Note   : (631627656 ps)  * record time 256128 ps strictly greater than expected value 160080 ps
+#             (631627656 ps) 
+#             (631627656 ps) ==============================================================================================
+#             (631627656 ps)   Send command DATA_ACQ_MODE column 2 to Error signal for o_c2_sqm_adc_pwdn deactivation
+#             (631627656 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (631627656 ps) Send SPI command value 8001_0002 (DATA_ACQ_MODE, mode Write, data 0002)
+#             (631663656 ps) 
+#             (631663656 ps) ==============================================================================================
+#             (631663656 ps)   Wait o_c2_sqm_adc_pwdn deactivation
+#             (631663656 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (642016848 ps) Waiting event sqm_adc_pwdn(2) = '0' for 10353192 ps
+#             (642016848 ps) 
+#             (642016848 ps) ==============================================================================================
+#             (642016848 ps)   Check timing between o_c2_clk_sqm_adc rising edge
+#             (642016848 ps)    and internal MUX SQUID ADC clock falling edge
+#             (642016848 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (642032372 ps) Waiting event clk_sqm_adc(2) = '1' for 15524 ps
+# ** Note   : (642032372 ps) Record current time
+# ** Note   : (642032856 ps) Waiting event clk_sqm_adc_acq = '1' for 484 ps
+# ** Note   : (642036858 ps) Waiting event clk_sqm_adc_acq = '0' for 4002 ps
+# ** Note   : (642036858 ps) Check time, record time: PASS
+# ** Note   : (642036858 ps)  * record time 4486 ps greater than or equal to expected value 4400 ps
+# ** Note   : (642036858 ps) Check time, record time: PASS
+# ** Note   : (642036858 ps)  * record time 4486 ps strictly less than expected value 4560 ps
+#             (642036858 ps) 
+#             (642036858 ps) ==============================================================================================
+#             (642036858 ps)   Check timing between o_c2_sqm_adc_pwdn deactivation and i_sync rising edge
+#             (642036858 ps)     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
+#             (642036858 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (642256968 ps) Waiting event sync = '1' for 220110 ps
 # ** Note   : (642256968 ps) Check time, sqm_adc_pwdn(2) last event: PASS
-# ** Note   : (642256968 ps)  * sqm_adc_pwdn(2) last event 224112 ps greater than or equal to expected value 160080 ps
+# ** Note   : (642256968 ps)  * sqm_adc_pwdn(2) last event 240120 ps greater than or equal to expected value 160080 ps
 #             (642256968 ps) 
 #             (642256968 ps) ==============================================================================================
 #             (642256968 ps)   Send command DATA_ACQ_MODE column 2 to Test pattern for o_c2_sqm_adc_pwdn activation
@@ -824,44 +824,44 @@
 #             (653142408 ps)   Check timing between i_sync rising edge and o_c2_sqm_adc_pwdn activation
 #             (653142408 ps)     (c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ < .. < 2*c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
 #             (653142408 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (653414544 ps) Waiting event sqm_adc_pwdn(2) = '1' for 272136 ps
-# ** Note   : (653414544 ps) Check time, record time: PASS
-# ** Note   : (653414544 ps)  * record time 272136 ps strictly less than expected value 320160 ps
-# ** Note   : (653414544 ps) Check time, record time: PASS
-# ** Note   : (653414544 ps)  * record time 272136 ps strictly greater than expected value 160080 ps
-#             (653414544 ps) 
-#             (653414544 ps) ==============================================================================================
-#             (653414544 ps)   Send command DATA_ACQ_MODE column 2 to Dump for o_c2_sqm_adc_pwdn deactivation
-#             (653414544 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (653414544 ps) Send SPI command value 8001_0004 (DATA_ACQ_MODE, mode Write, data 0004)
-#             (653450544 ps) 
-#             (653450544 ps) ==============================================================================================
-#             (653450544 ps)   Check no event is appeared on o_c2_sqm_adc_pwdn and wait o_c2_sqm_adc_pwdn deactivation
-#             (653450544 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (653450544 ps) Check discrete level: PASS
-# ** Note   : (653450544 ps)  * Read discrete: sqm_adc_pwdn(2), value '1', expected '1'
-# ** Note   : (663803736 ps) Waiting event sqm_adc_pwdn(2) = '0' for 10353192 ps
-#             (663803736 ps) 
-#             (663803736 ps) ==============================================================================================
-#             (663803736 ps)   Check timing between o_c2_clk_sqm_adc rising edge
-#             (663803736 ps)    and internal MUX SQUID ADC clock falling edge
-#             (663803736 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (663819260 ps) Waiting event clk_sqm_adc(2) = '1' for 15524 ps
-# ** Note   : (663819260 ps) Record current time
-# ** Note   : (663819744 ps) Waiting event clk_sqm_adc_acq = '1' for 484 ps
-# ** Note   : (663823746 ps) Waiting event clk_sqm_adc_acq = '0' for 4002 ps
-# ** Note   : (663823746 ps) Check time, record time: PASS
-# ** Note   : (663823746 ps)  * record time 4486 ps greater than or equal to expected value 4400 ps
-# ** Note   : (663823746 ps) Check time, record time: PASS
-# ** Note   : (663823746 ps)  * record time 4486 ps strictly less than expected value 4560 ps
-#             (663823746 ps) 
-#             (663823746 ps) ==============================================================================================
-#             (663823746 ps)   Check timing between o_c2_sqm_adc_pwdn deactivation and i_sync rising edge
-#             (663823746 ps)     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
-#             (663823746 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (664027848 ps) Waiting event sync = '1' for 204102 ps
+# ** Note   : (653398536 ps) Waiting event sqm_adc_pwdn(2) = '1' for 256128 ps
+# ** Note   : (653398536 ps) Check time, record time: PASS
+# ** Note   : (653398536 ps)  * record time 256128 ps strictly less than expected value 320160 ps
+# ** Note   : (653398536 ps) Check time, record time: PASS
+# ** Note   : (653398536 ps)  * record time 256128 ps strictly greater than expected value 160080 ps
+#             (653398536 ps) 
+#             (653398536 ps) ==============================================================================================
+#             (653398536 ps)   Send command DATA_ACQ_MODE column 2 to Dump for o_c2_sqm_adc_pwdn deactivation
+#             (653398536 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (653398536 ps) Send SPI command value 8001_0004 (DATA_ACQ_MODE, mode Write, data 0004)
+#             (653434536 ps) 
+#             (653434536 ps) ==============================================================================================
+#             (653434536 ps)   Check no event is appeared on o_c2_sqm_adc_pwdn and wait o_c2_sqm_adc_pwdn deactivation
+#             (653434536 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (653434536 ps) Check discrete level: PASS
+# ** Note   : (653434536 ps)  * Read discrete: sqm_adc_pwdn(2), value '1', expected '1'
+# ** Note   : (663787728 ps) Waiting event sqm_adc_pwdn(2) = '0' for 10353192 ps
+#             (663787728 ps) 
+#             (663787728 ps) ==============================================================================================
+#             (663787728 ps)   Check timing between o_c2_clk_sqm_adc rising edge
+#             (663787728 ps)    and internal MUX SQUID ADC clock falling edge
+#             (663787728 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (663803252 ps) Waiting event clk_sqm_adc(2) = '1' for 15524 ps
+# ** Note   : (663803252 ps) Record current time
+# ** Note   : (663803736 ps) Waiting event clk_sqm_adc_acq = '1' for 484 ps
+# ** Note   : (663807738 ps) Waiting event clk_sqm_adc_acq = '0' for 4002 ps
+# ** Note   : (663807738 ps) Check time, record time: PASS
+# ** Note   : (663807738 ps)  * record time 4486 ps greater than or equal to expected value 4400 ps
+# ** Note   : (663807738 ps) Check time, record time: PASS
+# ** Note   : (663807738 ps)  * record time 4486 ps strictly less than expected value 4560 ps
+#             (663807738 ps) 
+#             (663807738 ps) ==============================================================================================
+#             (663807738 ps)   Check timing between o_c2_sqm_adc_pwdn deactivation and i_sync rising edge
+#             (663807738 ps)     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
+#             (663807738 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (664027848 ps) Waiting event sync = '1' for 220110 ps
 # ** Note   : (664027848 ps) Check time, sqm_adc_pwdn(2) last event: PASS
-# ** Note   : (664027848 ps)  * sqm_adc_pwdn(2) last event 224112 ps greater than or equal to expected value 160080 ps
+# ** Note   : (664027848 ps)  * sqm_adc_pwdn(2) last event 240120 ps greater than or equal to expected value 160080 ps
 #             (664027848 ps) 
 #             (664027848 ps) ==============================================================================================
 #             (664027848 ps)    Wait DATA_ACQ_MODE column 2 goes automatically to Idle and
@@ -878,44 +878,44 @@
 #             (843637608 ps)   Check timing between i_sync rising edge and o_c2_sqm_adc_pwdn activation
 #             (843637608 ps)     (c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ < .. < 2*c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
 #             (843637608 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (843909744 ps) Waiting event sqm_adc_pwdn(2) = '1' for 272136 ps
-# ** Note   : (843909744 ps) Check time, record time: PASS
-# ** Note   : (843909744 ps)  * record time 272136 ps strictly less than expected value 320160 ps
-# ** Note   : (843909744 ps) Check time, record time: PASS
-# ** Note   : (843909744 ps)  * record time 272136 ps strictly greater than expected value 160080 ps
-#             (843909744 ps) 
-#             (843909744 ps) ==============================================================================================
-#             (843909744 ps)   Send command SQ_MUX_FB_ON_OFF column 2 to On for o_c2_sqm_adc_pwdn deactivation
-#             (843909744 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (843909744 ps) Send SPI command value 8003_0100 (SQ_MUX_FB_ON_OFF, mode Write, data 0100)
-#             (843945744 ps) 
-#             (843945744 ps) ==============================================================================================
-#             (843945744 ps)   Check no event is appeared on o_c2_sqm_adc_pwdn and wait o_c2_sqm_adc_pwdn deactivation
-#             (843945744 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (843945744 ps) Check discrete level: PASS
-# ** Note   : (843945744 ps)  * Read discrete: sqm_adc_pwdn(2), value '1', expected '1'
-# ** Note   : (854298936 ps) Waiting event sqm_adc_pwdn(2) = '0' for 10353192 ps
-#             (854298936 ps) 
-#             (854298936 ps) ==============================================================================================
-#             (854298936 ps)   Check timing between o_c2_clk_sqm_adc rising edge
-#             (854298936 ps)    and internal MUX SQUID ADC clock falling edge
-#             (854298936 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (854314460 ps) Waiting event clk_sqm_adc(2) = '1' for 15524 ps
-# ** Note   : (854314460 ps) Record current time
-# ** Note   : (854314944 ps) Waiting event clk_sqm_adc_acq = '1' for 484 ps
-# ** Note   : (854318946 ps) Waiting event clk_sqm_adc_acq = '0' for 4002 ps
-# ** Note   : (854318946 ps) Check time, record time: PASS
-# ** Note   : (854318946 ps)  * record time 4486 ps greater than or equal to expected value 4400 ps
-# ** Note   : (854318946 ps) Check time, record time: PASS
-# ** Note   : (854318946 ps)  * record time 4486 ps strictly less than expected value 4560 ps
-#             (854318946 ps) 
-#             (854318946 ps) ==============================================================================================
-#             (854318946 ps)   Check timing between o_c2_sqm_adc_pwdn deactivation and i_sync rising edge
-#             (854318946 ps)     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
-#             (854318946 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (854523048 ps) Waiting event sync = '1' for 204102 ps
+# ** Note   : (843893736 ps) Waiting event sqm_adc_pwdn(2) = '1' for 256128 ps
+# ** Note   : (843893736 ps) Check time, record time: PASS
+# ** Note   : (843893736 ps)  * record time 256128 ps strictly less than expected value 320160 ps
+# ** Note   : (843893736 ps) Check time, record time: PASS
+# ** Note   : (843893736 ps)  * record time 256128 ps strictly greater than expected value 160080 ps
+#             (843893736 ps) 
+#             (843893736 ps) ==============================================================================================
+#             (843893736 ps)   Send command SQ_MUX_FB_ON_OFF column 2 to On for o_c2_sqm_adc_pwdn deactivation
+#             (843893736 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (843893736 ps) Send SPI command value 8003_0100 (SQ_MUX_FB_ON_OFF, mode Write, data 0100)
+#             (843929736 ps) 
+#             (843929736 ps) ==============================================================================================
+#             (843929736 ps)   Check no event is appeared on o_c2_sqm_adc_pwdn and wait o_c2_sqm_adc_pwdn deactivation
+#             (843929736 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (843929736 ps) Check discrete level: PASS
+# ** Note   : (843929736 ps)  * Read discrete: sqm_adc_pwdn(2), value '1', expected '1'
+# ** Note   : (854282928 ps) Waiting event sqm_adc_pwdn(2) = '0' for 10353192 ps
+#             (854282928 ps) 
+#             (854282928 ps) ==============================================================================================
+#             (854282928 ps)   Check timing between o_c2_clk_sqm_adc rising edge
+#             (854282928 ps)    and internal MUX SQUID ADC clock falling edge
+#             (854282928 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (854298452 ps) Waiting event clk_sqm_adc(2) = '1' for 15524 ps
+# ** Note   : (854298452 ps) Record current time
+# ** Note   : (854298936 ps) Waiting event clk_sqm_adc_acq = '1' for 484 ps
+# ** Note   : (854302938 ps) Waiting event clk_sqm_adc_acq = '0' for 4002 ps
+# ** Note   : (854302938 ps) Check time, record time: PASS
+# ** Note   : (854302938 ps)  * record time 4486 ps greater than or equal to expected value 4400 ps
+# ** Note   : (854302938 ps) Check time, record time: PASS
+# ** Note   : (854302938 ps)  * record time 4486 ps strictly less than expected value 4560 ps
+#             (854302938 ps) 
+#             (854302938 ps) ==============================================================================================
+#             (854302938 ps)   Check timing between o_c2_sqm_adc_pwdn deactivation and i_sync rising edge
+#             (854302938 ps)     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
+#             (854302938 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (854523048 ps) Waiting event sync = '1' for 220110 ps
 # ** Note   : (854523048 ps) Check time, sqm_adc_pwdn(2) last event: PASS
-# ** Note   : (854523048 ps)  * sqm_adc_pwdn(2) last event 224112 ps greater than or equal to expected value 160080 ps
+# ** Note   : (854523048 ps)  * sqm_adc_pwdn(2) last event 240120 ps greater than or equal to expected value 160080 ps
 #             (854523048 ps) 
 #             (854523048 ps) ==============================================================================================
 #             (854523048 ps)   Send command SQ_MUX_FB_ON_OFF column 2 to Off loop for o_c2_sqm_adc_pwdn activation
@@ -935,44 +935,44 @@
 #             (865408488 ps)   Check timing between i_sync rising edge and o_c2_sqm_adc_pwdn activation
 #             (865408488 ps)     (c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ < .. < 2*c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
 #             (865408488 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (865680624 ps) Waiting event sqm_adc_pwdn(2) = '1' for 272136 ps
-# ** Note   : (865680624 ps) Check time, record time: PASS
-# ** Note   : (865680624 ps)  * record time 272136 ps strictly less than expected value 320160 ps
-# ** Note   : (865680624 ps) Check time, record time: PASS
-# ** Note   : (865680624 ps)  * record time 272136 ps strictly greater than expected value 160080 ps
-#             (865680624 ps) 
-#             (865680624 ps) ==============================================================================================
-#             (865680624 ps)   Send command SQ_MUX_FB_ON_OFF column 2 to On for o_c2_sqm_adc_pwdn deactivation
-#             (865680624 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (865680624 ps) Send SPI command value 8003_0100 (SQ_MUX_FB_ON_OFF, mode Write, data 0100)
-#             (865716624 ps) 
-#             (865716624 ps) ==============================================================================================
-#             (865716624 ps)   Check no event is appeared on o_c2_sqm_adc_pwdn and wait o_c2_sqm_adc_pwdn deactivation
-#             (865716624 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (865716624 ps) Check discrete level: PASS
-# ** Note   : (865716624 ps)  * Read discrete: sqm_adc_pwdn(2), value '1', expected '1'
-# ** Note   : (876069816 ps) Waiting event sqm_adc_pwdn(2) = '0' for 10353192 ps
-#             (876069816 ps) 
-#             (876069816 ps) ==============================================================================================
-#             (876069816 ps)   Check timing between o_c2_clk_sqm_adc rising edge
-#             (876069816 ps)    and internal MUX SQUID ADC clock falling edge
-#             (876069816 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (876085340 ps) Waiting event clk_sqm_adc(2) = '1' for 15524 ps
-# ** Note   : (876085340 ps) Record current time
-# ** Note   : (876085824 ps) Waiting event clk_sqm_adc_acq = '1' for 484 ps
-# ** Note   : (876089826 ps) Waiting event clk_sqm_adc_acq = '0' for 4002 ps
-# ** Note   : (876089826 ps) Check time, record time: PASS
-# ** Note   : (876089826 ps)  * record time 4486 ps greater than or equal to expected value 4400 ps
-# ** Note   : (876089826 ps) Check time, record time: PASS
-# ** Note   : (876089826 ps)  * record time 4486 ps strictly less than expected value 4560 ps
-#             (876089826 ps) 
-#             (876089826 ps) ==============================================================================================
-#             (876089826 ps)   Check timing between o_c2_sqm_adc_pwdn deactivation and i_sync rising edge
-#             (876089826 ps)     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
-#             (876089826 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (876293928 ps) Waiting event sync = '1' for 204102 ps
+# ** Note   : (865664616 ps) Waiting event sqm_adc_pwdn(2) = '1' for 256128 ps
+# ** Note   : (865664616 ps) Check time, record time: PASS
+# ** Note   : (865664616 ps)  * record time 256128 ps strictly less than expected value 320160 ps
+# ** Note   : (865664616 ps) Check time, record time: PASS
+# ** Note   : (865664616 ps)  * record time 256128 ps strictly greater than expected value 160080 ps
+#             (865664616 ps) 
+#             (865664616 ps) ==============================================================================================
+#             (865664616 ps)   Send command SQ_MUX_FB_ON_OFF column 2 to On for o_c2_sqm_adc_pwdn deactivation
+#             (865664616 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (865664616 ps) Send SPI command value 8003_0100 (SQ_MUX_FB_ON_OFF, mode Write, data 0100)
+#             (865700616 ps) 
+#             (865700616 ps) ==============================================================================================
+#             (865700616 ps)   Check no event is appeared on o_c2_sqm_adc_pwdn and wait o_c2_sqm_adc_pwdn deactivation
+#             (865700616 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (865700616 ps) Check discrete level: PASS
+# ** Note   : (865700616 ps)  * Read discrete: sqm_adc_pwdn(2), value '1', expected '1'
+# ** Note   : (876053808 ps) Waiting event sqm_adc_pwdn(2) = '0' for 10353192 ps
+#             (876053808 ps) 
+#             (876053808 ps) ==============================================================================================
+#             (876053808 ps)   Check timing between o_c2_clk_sqm_adc rising edge
+#             (876053808 ps)    and internal MUX SQUID ADC clock falling edge
+#             (876053808 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (876069332 ps) Waiting event clk_sqm_adc(2) = '1' for 15524 ps
+# ** Note   : (876069332 ps) Record current time
+# ** Note   : (876069816 ps) Waiting event clk_sqm_adc_acq = '1' for 484 ps
+# ** Note   : (876073818 ps) Waiting event clk_sqm_adc_acq = '0' for 4002 ps
+# ** Note   : (876073818 ps) Check time, record time: PASS
+# ** Note   : (876073818 ps)  * record time 4486 ps greater than or equal to expected value 4400 ps
+# ** Note   : (876073818 ps) Check time, record time: PASS
+# ** Note   : (876073818 ps)  * record time 4486 ps strictly less than expected value 4560 ps
+#             (876073818 ps) 
+#             (876073818 ps) ==============================================================================================
+#             (876073818 ps)   Check timing between o_c2_sqm_adc_pwdn deactivation and i_sync rising edge
+#             (876073818 ps)     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
+#             (876073818 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (876293928 ps) Waiting event sync = '1' for 220110 ps
 # ** Note   : (876293928 ps) Check time, sqm_adc_pwdn(2) last event: PASS
-# ** Note   : (876293928 ps)  * sqm_adc_pwdn(2) last event 224112 ps greater than or equal to expected value 160080 ps
+# ** Note   : (876293928 ps)  * sqm_adc_pwdn(2) last event 240120 ps greater than or equal to expected value 160080 ps
 #             (876293928 ps) 
 #             (876293928 ps) ==============================================================================================
 #             (876293928 ps)   Send command SQ_MUX_FB_ON_OFF column 2 to Off for o_c2_sqm_adc_pwdn activation
@@ -992,44 +992,44 @@
 #             (887179368 ps)   Check timing between i_sync rising edge and o_c2_sqm_adc_pwdn activation
 #             (887179368 ps)     (c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ < .. < 2*c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
 #             (887179368 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (887451504 ps) Waiting event sqm_adc_pwdn(2) = '1' for 272136 ps
-# ** Note   : (887451504 ps) Check time, record time: PASS
-# ** Note   : (887451504 ps)  * record time 272136 ps strictly less than expected value 320160 ps
-# ** Note   : (887451504 ps) Check time, record time: PASS
-# ** Note   : (887451504 ps)  * record time 272136 ps strictly greater than expected value 160080 ps
-#             (887451504 ps) 
-#             (887451504 ps) ==============================================================================================
-#             (887451504 ps)   Send command SQ_MUX_FB_ON_OFF column 2 to On for o_c2_sqm_adc_pwdn deactivation
-#             (887451504 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (887451504 ps) Send SPI command value 8003_0100 (SQ_MUX_FB_ON_OFF, mode Write, data 0100)
-#             (887487504 ps) 
-#             (887487504 ps) ==============================================================================================
-#             (887487504 ps)   Check no event is appeared on o_c2_sqm_adc_pwdn and wait o_c2_sqm_adc_pwdn deactivation
-#             (887487504 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (887487504 ps) Check discrete level: PASS
-# ** Note   : (887487504 ps)  * Read discrete: sqm_adc_pwdn(2), value '1', expected '1'
-# ** Note   : (897840696 ps) Waiting event sqm_adc_pwdn(2) = '0' for 10353192 ps
-#             (897840696 ps) 
-#             (897840696 ps) ==============================================================================================
-#             (897840696 ps)   Check timing between o_c2_clk_sqm_adc rising edge
-#             (897840696 ps)    and internal MUX SQUID ADC clock falling edge
-#             (897840696 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (897856220 ps) Waiting event clk_sqm_adc(2) = '1' for 15524 ps
-# ** Note   : (897856220 ps) Record current time
-# ** Note   : (897856704 ps) Waiting event clk_sqm_adc_acq = '1' for 484 ps
-# ** Note   : (897860706 ps) Waiting event clk_sqm_adc_acq = '0' for 4002 ps
-# ** Note   : (897860706 ps) Check time, record time: PASS
-# ** Note   : (897860706 ps)  * record time 4486 ps greater than or equal to expected value 4400 ps
-# ** Note   : (897860706 ps) Check time, record time: PASS
-# ** Note   : (897860706 ps)  * record time 4486 ps strictly less than expected value 4560 ps
-#             (897860706 ps) 
-#             (897860706 ps) ==============================================================================================
-#             (897860706 ps)   Check timing between o_c2_sqm_adc_pwdn deactivation and i_sync rising edge
-#             (897860706 ps)     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
-#             (897860706 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (898064808 ps) Waiting event sync = '1' for 204102 ps
+# ** Note   : (887435496 ps) Waiting event sqm_adc_pwdn(2) = '1' for 256128 ps
+# ** Note   : (887435496 ps) Check time, record time: PASS
+# ** Note   : (887435496 ps)  * record time 256128 ps strictly less than expected value 320160 ps
+# ** Note   : (887435496 ps) Check time, record time: PASS
+# ** Note   : (887435496 ps)  * record time 256128 ps strictly greater than expected value 160080 ps
+#             (887435496 ps) 
+#             (887435496 ps) ==============================================================================================
+#             (887435496 ps)   Send command SQ_MUX_FB_ON_OFF column 2 to On for o_c2_sqm_adc_pwdn deactivation
+#             (887435496 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (887435496 ps) Send SPI command value 8003_0100 (SQ_MUX_FB_ON_OFF, mode Write, data 0100)
+#             (887471496 ps) 
+#             (887471496 ps) ==============================================================================================
+#             (887471496 ps)   Check no event is appeared on o_c2_sqm_adc_pwdn and wait o_c2_sqm_adc_pwdn deactivation
+#             (887471496 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (887471496 ps) Check discrete level: PASS
+# ** Note   : (887471496 ps)  * Read discrete: sqm_adc_pwdn(2), value '1', expected '1'
+# ** Note   : (897824688 ps) Waiting event sqm_adc_pwdn(2) = '0' for 10353192 ps
+#             (897824688 ps) 
+#             (897824688 ps) ==============================================================================================
+#             (897824688 ps)   Check timing between o_c2_clk_sqm_adc rising edge
+#             (897824688 ps)    and internal MUX SQUID ADC clock falling edge
+#             (897824688 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (897840212 ps) Waiting event clk_sqm_adc(2) = '1' for 15524 ps
+# ** Note   : (897840212 ps) Record current time
+# ** Note   : (897840696 ps) Waiting event clk_sqm_adc_acq = '1' for 484 ps
+# ** Note   : (897844698 ps) Waiting event clk_sqm_adc_acq = '0' for 4002 ps
+# ** Note   : (897844698 ps) Check time, record time: PASS
+# ** Note   : (897844698 ps)  * record time 4486 ps greater than or equal to expected value 4400 ps
+# ** Note   : (897844698 ps) Check time, record time: PASS
+# ** Note   : (897844698 ps)  * record time 4486 ps strictly less than expected value 4560 ps
+#             (897844698 ps) 
+#             (897844698 ps) ==============================================================================================
+#             (897844698 ps)   Check timing between o_c2_sqm_adc_pwdn deactivation and i_sync rising edge
+#             (897844698 ps)     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
+#             (897844698 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (898064808 ps) Waiting event sync = '1' for 220110 ps
 # ** Note   : (898064808 ps) Check time, sqm_adc_pwdn(2) last event: PASS
-# ** Note   : (898064808 ps)  * sqm_adc_pwdn(2) last event 224112 ps greater than or equal to expected value 160080 ps
+# ** Note   : (898064808 ps)  * sqm_adc_pwdn(2) last event 240120 ps greater than or equal to expected value 160080 ps
 #             (898064808 ps) 
 #             (898064808 ps) ==============================================================================================
 #             (898064808 ps)   Send command SQ_MUX_FB_ON_OFF column 2 to Off for o_c2_sqm_adc_pwdn activation
@@ -1049,42 +1049,42 @@
 #             (908950248 ps)   Check timing between i_sync rising edge and o_c2_sqm_adc_pwdn activation
 #             (908950248 ps)     (c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ < .. < 2*c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
 #             (908950248 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (909222384 ps) Waiting event sqm_adc_pwdn(2) = '1' for 272136 ps
-# ** Note   : (909222384 ps) Check time, record time: PASS
-# ** Note   : (909222384 ps)  * record time 272136 ps strictly less than expected value 320160 ps
-# ** Note   : (909222384 ps) Check time, record time: PASS
-# ** Note   : (909222384 ps)  * record time 272136 ps strictly greater than expected value 160080 ps
-#             (909222384 ps) 
-#             (909222384 ps) ==============================================================================================
-#             (909222384 ps)   Send command DATA_ACQ_MODE column 3 to Science for o_c3_sqm_adc_pwdn deactivation
-#             (909222384 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (909222384 ps) Send SPI command value 8001_0001 (DATA_ACQ_MODE, mode Write, data 0001)
-#             (909258384 ps) 
-#             (909258384 ps) ==============================================================================================
-#             (909258384 ps)   Wait o_c3_sqm_adc_pwdn deactivation
-#             (909258384 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (919611576 ps) Waiting event sqm_adc_pwdn(3) = '0' for 10353192 ps
-#             (919611576 ps) 
-#             (919611576 ps) ==============================================================================================
-#             (919611576 ps)   Check timing between o_c3_clk_sqm_adc rising edge
-#             (919611576 ps)    and internal MUX SQUID ADC clock falling edge
-#             (919611576 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (919627100 ps) Waiting event clk_sqm_adc(3) = '1' for 15524 ps
-# ** Note   : (919627100 ps) Record current time
-# ** Note   : (919627584 ps) Waiting event clk_sqm_adc_acq = '1' for 484 ps
-# ** Note   : (919631586 ps) Waiting event clk_sqm_adc_acq = '0' for 4002 ps
-# ** Note   : (919631586 ps) Check time, record time: PASS
-# ** Note   : (919631586 ps)  * record time 4486 ps greater than or equal to expected value 4400 ps
-# ** Note   : (919631586 ps) Check time, record time: PASS
-# ** Note   : (919631586 ps)  * record time 4486 ps strictly less than expected value 4560 ps
-#             (919631586 ps) 
-#             (919631586 ps) ==============================================================================================
-#             (919631586 ps)   Check timing between o_c3_sqm_adc_pwdn deactivation and i_sync rising edge
-#             (919631586 ps)     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
-#             (919631586 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (919835688 ps) Waiting event sync = '1' for 204102 ps
+# ** Note   : (909206376 ps) Waiting event sqm_adc_pwdn(2) = '1' for 256128 ps
+# ** Note   : (909206376 ps) Check time, record time: PASS
+# ** Note   : (909206376 ps)  * record time 256128 ps strictly less than expected value 320160 ps
+# ** Note   : (909206376 ps) Check time, record time: PASS
+# ** Note   : (909206376 ps)  * record time 256128 ps strictly greater than expected value 160080 ps
+#             (909206376 ps) 
+#             (909206376 ps) ==============================================================================================
+#             (909206376 ps)   Send command DATA_ACQ_MODE column 3 to Science for o_c3_sqm_adc_pwdn deactivation
+#             (909206376 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (909206376 ps) Send SPI command value 8001_0001 (DATA_ACQ_MODE, mode Write, data 0001)
+#             (909242376 ps) 
+#             (909242376 ps) ==============================================================================================
+#             (909242376 ps)   Wait o_c3_sqm_adc_pwdn deactivation
+#             (909242376 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (919595568 ps) Waiting event sqm_adc_pwdn(3) = '0' for 10353192 ps
+#             (919595568 ps) 
+#             (919595568 ps) ==============================================================================================
+#             (919595568 ps)   Check timing between o_c3_clk_sqm_adc rising edge
+#             (919595568 ps)    and internal MUX SQUID ADC clock falling edge
+#             (919595568 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (919611092 ps) Waiting event clk_sqm_adc(3) = '1' for 15524 ps
+# ** Note   : (919611092 ps) Record current time
+# ** Note   : (919611576 ps) Waiting event clk_sqm_adc_acq = '1' for 484 ps
+# ** Note   : (919615578 ps) Waiting event clk_sqm_adc_acq = '0' for 4002 ps
+# ** Note   : (919615578 ps) Check time, record time: PASS
+# ** Note   : (919615578 ps)  * record time 4486 ps greater than or equal to expected value 4400 ps
+# ** Note   : (919615578 ps) Check time, record time: PASS
+# ** Note   : (919615578 ps)  * record time 4486 ps strictly less than expected value 4560 ps
+#             (919615578 ps) 
+#             (919615578 ps) ==============================================================================================
+#             (919615578 ps)   Check timing between o_c3_sqm_adc_pwdn deactivation and i_sync rising edge
+#             (919615578 ps)     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
+#             (919615578 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (919835688 ps) Waiting event sync = '1' for 220110 ps
 # ** Note   : (919835688 ps) Check time, sqm_adc_pwdn(3) last event: PASS
-# ** Note   : (919835688 ps)  * sqm_adc_pwdn(3) last event 224112 ps greater than or equal to expected value 160080 ps
+# ** Note   : (919835688 ps)  * sqm_adc_pwdn(3) last event 240120 ps greater than or equal to expected value 160080 ps
 #             (919835688 ps) 
 #             (919835688 ps) ==============================================================================================
 #             (919835688 ps)   Send command DATA_ACQ_MODE column 3 to Test pattern for o_c3_sqm_adc_pwdn activation
@@ -1104,42 +1104,42 @@
 #             (930721128 ps)   Check timing between i_sync rising edge and o_c3_sqm_adc_pwdn activation
 #             (930721128 ps)     (c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ < .. < 2*c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
 #             (930721128 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (930993264 ps) Waiting event sqm_adc_pwdn(3) = '1' for 272136 ps
-# ** Note   : (930993264 ps) Check time, record time: PASS
-# ** Note   : (930993264 ps)  * record time 272136 ps strictly less than expected value 320160 ps
-# ** Note   : (930993264 ps) Check time, record time: PASS
-# ** Note   : (930993264 ps)  * record time 272136 ps strictly greater than expected value 160080 ps
-#             (930993264 ps) 
-#             (930993264 ps) ==============================================================================================
-#             (930993264 ps)   Send command DATA_ACQ_MODE column 3 to Error signal for o_c3_sqm_adc_pwdn deactivation
-#             (930993264 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (930993264 ps) Send SPI command value 8001_0002 (DATA_ACQ_MODE, mode Write, data 0002)
-#             (931029264 ps) 
-#             (931029264 ps) ==============================================================================================
-#             (931029264 ps)   Wait o_c3_sqm_adc_pwdn deactivation
-#             (931029264 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (941382456 ps) Waiting event sqm_adc_pwdn(3) = '0' for 10353192 ps
-#             (941382456 ps) 
-#             (941382456 ps) ==============================================================================================
-#             (941382456 ps)   Check timing between o_c3_clk_sqm_adc rising edge
-#             (941382456 ps)    and internal MUX SQUID ADC clock falling edge
-#             (941382456 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (941397980 ps) Waiting event clk_sqm_adc(3) = '1' for 15524 ps
-# ** Note   : (941397980 ps) Record current time
-# ** Note   : (941398464 ps) Waiting event clk_sqm_adc_acq = '1' for 484 ps
-# ** Note   : (941402466 ps) Waiting event clk_sqm_adc_acq = '0' for 4002 ps
-# ** Note   : (941402466 ps) Check time, record time: PASS
-# ** Note   : (941402466 ps)  * record time 4486 ps greater than or equal to expected value 4400 ps
-# ** Note   : (941402466 ps) Check time, record time: PASS
-# ** Note   : (941402466 ps)  * record time 4486 ps strictly less than expected value 4560 ps
-#             (941402466 ps) 
-#             (941402466 ps) ==============================================================================================
-#             (941402466 ps)   Check timing between o_c3_sqm_adc_pwdn deactivation and i_sync rising edge
-#             (941402466 ps)     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
-#             (941402466 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (941606568 ps) Waiting event sync = '1' for 204102 ps
+# ** Note   : (930977256 ps) Waiting event sqm_adc_pwdn(3) = '1' for 256128 ps
+# ** Note   : (930977256 ps) Check time, record time: PASS
+# ** Note   : (930977256 ps)  * record time 256128 ps strictly less than expected value 320160 ps
+# ** Note   : (930977256 ps) Check time, record time: PASS
+# ** Note   : (930977256 ps)  * record time 256128 ps strictly greater than expected value 160080 ps
+#             (930977256 ps) 
+#             (930977256 ps) ==============================================================================================
+#             (930977256 ps)   Send command DATA_ACQ_MODE column 3 to Error signal for o_c3_sqm_adc_pwdn deactivation
+#             (930977256 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (930977256 ps) Send SPI command value 8001_0002 (DATA_ACQ_MODE, mode Write, data 0002)
+#             (931013256 ps) 
+#             (931013256 ps) ==============================================================================================
+#             (931013256 ps)   Wait o_c3_sqm_adc_pwdn deactivation
+#             (931013256 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (941366448 ps) Waiting event sqm_adc_pwdn(3) = '0' for 10353192 ps
+#             (941366448 ps) 
+#             (941366448 ps) ==============================================================================================
+#             (941366448 ps)   Check timing between o_c3_clk_sqm_adc rising edge
+#             (941366448 ps)    and internal MUX SQUID ADC clock falling edge
+#             (941366448 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (941381972 ps) Waiting event clk_sqm_adc(3) = '1' for 15524 ps
+# ** Note   : (941381972 ps) Record current time
+# ** Note   : (941382456 ps) Waiting event clk_sqm_adc_acq = '1' for 484 ps
+# ** Note   : (941386458 ps) Waiting event clk_sqm_adc_acq = '0' for 4002 ps
+# ** Note   : (941386458 ps) Check time, record time: PASS
+# ** Note   : (941386458 ps)  * record time 4486 ps greater than or equal to expected value 4400 ps
+# ** Note   : (941386458 ps) Check time, record time: PASS
+# ** Note   : (941386458 ps)  * record time 4486 ps strictly less than expected value 4560 ps
+#             (941386458 ps) 
+#             (941386458 ps) ==============================================================================================
+#             (941386458 ps)   Check timing between o_c3_sqm_adc_pwdn deactivation and i_sync rising edge
+#             (941386458 ps)     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
+#             (941386458 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (941606568 ps) Waiting event sync = '1' for 220110 ps
 # ** Note   : (941606568 ps) Check time, sqm_adc_pwdn(3) last event: PASS
-# ** Note   : (941606568 ps)  * sqm_adc_pwdn(3) last event 224112 ps greater than or equal to expected value 160080 ps
+# ** Note   : (941606568 ps)  * sqm_adc_pwdn(3) last event 240120 ps greater than or equal to expected value 160080 ps
 #             (941606568 ps) 
 #             (941606568 ps) ==============================================================================================
 #             (941606568 ps)   Send command DATA_ACQ_MODE column 3 to Test pattern for o_c3_sqm_adc_pwdn activation
@@ -1159,44 +1159,44 @@
 #             (952492008 ps)   Check timing between i_sync rising edge and o_c3_sqm_adc_pwdn activation
 #             (952492008 ps)     (c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ < .. < 2*c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
 #             (952492008 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (952764144 ps) Waiting event sqm_adc_pwdn(3) = '1' for 272136 ps
-# ** Note   : (952764144 ps) Check time, record time: PASS
-# ** Note   : (952764144 ps)  * record time 272136 ps strictly less than expected value 320160 ps
-# ** Note   : (952764144 ps) Check time, record time: PASS
-# ** Note   : (952764144 ps)  * record time 272136 ps strictly greater than expected value 160080 ps
-#             (952764144 ps) 
-#             (952764144 ps) ==============================================================================================
-#             (952764144 ps)   Send command DATA_ACQ_MODE column 3 to Dump for o_c3_sqm_adc_pwdn deactivation
-#             (952764144 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (952764144 ps) Send SPI command value 8001_0004 (DATA_ACQ_MODE, mode Write, data 0004)
-#             (952800144 ps) 
-#             (952800144 ps) ==============================================================================================
-#             (952800144 ps)   Check no event is appeared on o_c3_sqm_adc_pwdn and wait o_c3_sqm_adc_pwdn deactivation
-#             (952800144 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (952800144 ps) Check discrete level: PASS
-# ** Note   : (952800144 ps)  * Read discrete: sqm_adc_pwdn(3), value '1', expected '1'
-# ** Note   : (963153336 ps) Waiting event sqm_adc_pwdn(3) = '0' for 10353192 ps
-#             (963153336 ps) 
-#             (963153336 ps) ==============================================================================================
-#             (963153336 ps)   Check timing between o_c3_clk_sqm_adc rising edge
-#             (963153336 ps)    and internal MUX SQUID ADC clock falling edge
-#             (963153336 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (963168860 ps) Waiting event clk_sqm_adc(3) = '1' for 15524 ps
-# ** Note   : (963168860 ps) Record current time
-# ** Note   : (963169344 ps) Waiting event clk_sqm_adc_acq = '1' for 484 ps
-# ** Note   : (963173346 ps) Waiting event clk_sqm_adc_acq = '0' for 4002 ps
-# ** Note   : (963173346 ps) Check time, record time: PASS
-# ** Note   : (963173346 ps)  * record time 4486 ps greater than or equal to expected value 4400 ps
-# ** Note   : (963173346 ps) Check time, record time: PASS
-# ** Note   : (963173346 ps)  * record time 4486 ps strictly less than expected value 4560 ps
-#             (963173346 ps) 
-#             (963173346 ps) ==============================================================================================
-#             (963173346 ps)   Check timing between o_c3_sqm_adc_pwdn deactivation and i_sync rising edge
-#             (963173346 ps)     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
-#             (963173346 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (963377448 ps) Waiting event sync = '1' for 204102 ps
+# ** Note   : (952748136 ps) Waiting event sqm_adc_pwdn(3) = '1' for 256128 ps
+# ** Note   : (952748136 ps) Check time, record time: PASS
+# ** Note   : (952748136 ps)  * record time 256128 ps strictly less than expected value 320160 ps
+# ** Note   : (952748136 ps) Check time, record time: PASS
+# ** Note   : (952748136 ps)  * record time 256128 ps strictly greater than expected value 160080 ps
+#             (952748136 ps) 
+#             (952748136 ps) ==============================================================================================
+#             (952748136 ps)   Send command DATA_ACQ_MODE column 3 to Dump for o_c3_sqm_adc_pwdn deactivation
+#             (952748136 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (952748136 ps) Send SPI command value 8001_0004 (DATA_ACQ_MODE, mode Write, data 0004)
+#             (952784136 ps) 
+#             (952784136 ps) ==============================================================================================
+#             (952784136 ps)   Check no event is appeared on o_c3_sqm_adc_pwdn and wait o_c3_sqm_adc_pwdn deactivation
+#             (952784136 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (952784136 ps) Check discrete level: PASS
+# ** Note   : (952784136 ps)  * Read discrete: sqm_adc_pwdn(3), value '1', expected '1'
+# ** Note   : (963137328 ps) Waiting event sqm_adc_pwdn(3) = '0' for 10353192 ps
+#             (963137328 ps) 
+#             (963137328 ps) ==============================================================================================
+#             (963137328 ps)   Check timing between o_c3_clk_sqm_adc rising edge
+#             (963137328 ps)    and internal MUX SQUID ADC clock falling edge
+#             (963137328 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (963152852 ps) Waiting event clk_sqm_adc(3) = '1' for 15524 ps
+# ** Note   : (963152852 ps) Record current time
+# ** Note   : (963153336 ps) Waiting event clk_sqm_adc_acq = '1' for 484 ps
+# ** Note   : (963157338 ps) Waiting event clk_sqm_adc_acq = '0' for 4002 ps
+# ** Note   : (963157338 ps) Check time, record time: PASS
+# ** Note   : (963157338 ps)  * record time 4486 ps greater than or equal to expected value 4400 ps
+# ** Note   : (963157338 ps) Check time, record time: PASS
+# ** Note   : (963157338 ps)  * record time 4486 ps strictly less than expected value 4560 ps
+#             (963157338 ps) 
+#             (963157338 ps) ==============================================================================================
+#             (963157338 ps)   Check timing between o_c3_sqm_adc_pwdn deactivation and i_sync rising edge
+#             (963157338 ps)     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
+#             (963157338 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (963377448 ps) Waiting event sync = '1' for 220110 ps
 # ** Note   : (963377448 ps) Check time, sqm_adc_pwdn(3) last event: PASS
-# ** Note   : (963377448 ps)  * sqm_adc_pwdn(3) last event 224112 ps greater than or equal to expected value 160080 ps
+# ** Note   : (963377448 ps)  * sqm_adc_pwdn(3) last event 240120 ps greater than or equal to expected value 160080 ps
 #             (963377448 ps) 
 #             (963377448 ps) ==============================================================================================
 #             (963377448 ps)    Wait DATA_ACQ_MODE column 3 goes automatically to Idle and
@@ -1213,44 +1213,44 @@
 #             (1142987208 ps)   Check timing between i_sync rising edge and o_c3_sqm_adc_pwdn activation
 #             (1142987208 ps)     (c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ < .. < 2*c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
 #             (1142987208 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (1143259344 ps) Waiting event sqm_adc_pwdn(3) = '1' for 272136 ps
-# ** Note   : (1143259344 ps) Check time, record time: PASS
-# ** Note   : (1143259344 ps)  * record time 272136 ps strictly less than expected value 320160 ps
-# ** Note   : (1143259344 ps) Check time, record time: PASS
-# ** Note   : (1143259344 ps)  * record time 272136 ps strictly greater than expected value 160080 ps
-#             (1143259344 ps) 
-#             (1143259344 ps) ==============================================================================================
-#             (1143259344 ps)   Send command SQ_MUX_FB_ON_OFF column 3 to On for o_c3_sqm_adc_pwdn deactivation
-#             (1143259344 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (1143259344 ps) Send SPI command value 8003_1000 (SQ_MUX_FB_ON_OFF, mode Write, data 1000)
-#             (1143295344 ps) 
-#             (1143295344 ps) ==============================================================================================
-#             (1143295344 ps)   Check no event is appeared on o_c3_sqm_adc_pwdn and wait o_c3_sqm_adc_pwdn deactivation
-#             (1143295344 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (1143295344 ps) Check discrete level: PASS
-# ** Note   : (1143295344 ps)  * Read discrete: sqm_adc_pwdn(3), value '1', expected '1'
-# ** Note   : (1153648536 ps) Waiting event sqm_adc_pwdn(3) = '0' for 10353192 ps
-#             (1153648536 ps) 
-#             (1153648536 ps) ==============================================================================================
-#             (1153648536 ps)   Check timing between o_c3_clk_sqm_adc rising edge
-#             (1153648536 ps)    and internal MUX SQUID ADC clock falling edge
-#             (1153648536 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (1153664060 ps) Waiting event clk_sqm_adc(3) = '1' for 15524 ps
-# ** Note   : (1153664060 ps) Record current time
-# ** Note   : (1153664544 ps) Waiting event clk_sqm_adc_acq = '1' for 484 ps
-# ** Note   : (1153668546 ps) Waiting event clk_sqm_adc_acq = '0' for 4002 ps
-# ** Note   : (1153668546 ps) Check time, record time: PASS
-# ** Note   : (1153668546 ps)  * record time 4486 ps greater than or equal to expected value 4400 ps
-# ** Note   : (1153668546 ps) Check time, record time: PASS
-# ** Note   : (1153668546 ps)  * record time 4486 ps strictly less than expected value 4560 ps
-#             (1153668546 ps) 
-#             (1153668546 ps) ==============================================================================================
-#             (1153668546 ps)   Check timing between o_c3_sqm_adc_pwdn deactivation and i_sync rising edge
-#             (1153668546 ps)     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
-#             (1153668546 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (1153872648 ps) Waiting event sync = '1' for 204102 ps
+# ** Note   : (1143243336 ps) Waiting event sqm_adc_pwdn(3) = '1' for 256128 ps
+# ** Note   : (1143243336 ps) Check time, record time: PASS
+# ** Note   : (1143243336 ps)  * record time 256128 ps strictly less than expected value 320160 ps
+# ** Note   : (1143243336 ps) Check time, record time: PASS
+# ** Note   : (1143243336 ps)  * record time 256128 ps strictly greater than expected value 160080 ps
+#             (1143243336 ps) 
+#             (1143243336 ps) ==============================================================================================
+#             (1143243336 ps)   Send command SQ_MUX_FB_ON_OFF column 3 to On for o_c3_sqm_adc_pwdn deactivation
+#             (1143243336 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (1143243336 ps) Send SPI command value 8003_1000 (SQ_MUX_FB_ON_OFF, mode Write, data 1000)
+#             (1143279336 ps) 
+#             (1143279336 ps) ==============================================================================================
+#             (1143279336 ps)   Check no event is appeared on o_c3_sqm_adc_pwdn and wait o_c3_sqm_adc_pwdn deactivation
+#             (1143279336 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (1143279336 ps) Check discrete level: PASS
+# ** Note   : (1143279336 ps)  * Read discrete: sqm_adc_pwdn(3), value '1', expected '1'
+# ** Note   : (1153632528 ps) Waiting event sqm_adc_pwdn(3) = '0' for 10353192 ps
+#             (1153632528 ps) 
+#             (1153632528 ps) ==============================================================================================
+#             (1153632528 ps)   Check timing between o_c3_clk_sqm_adc rising edge
+#             (1153632528 ps)    and internal MUX SQUID ADC clock falling edge
+#             (1153632528 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (1153648052 ps) Waiting event clk_sqm_adc(3) = '1' for 15524 ps
+# ** Note   : (1153648052 ps) Record current time
+# ** Note   : (1153648536 ps) Waiting event clk_sqm_adc_acq = '1' for 484 ps
+# ** Note   : (1153652538 ps) Waiting event clk_sqm_adc_acq = '0' for 4002 ps
+# ** Note   : (1153652538 ps) Check time, record time: PASS
+# ** Note   : (1153652538 ps)  * record time 4486 ps greater than or equal to expected value 4400 ps
+# ** Note   : (1153652538 ps) Check time, record time: PASS
+# ** Note   : (1153652538 ps)  * record time 4486 ps strictly less than expected value 4560 ps
+#             (1153652538 ps) 
+#             (1153652538 ps) ==============================================================================================
+#             (1153652538 ps)   Check timing between o_c3_sqm_adc_pwdn deactivation and i_sync rising edge
+#             (1153652538 ps)     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
+#             (1153652538 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (1153872648 ps) Waiting event sync = '1' for 220110 ps
 # ** Note   : (1153872648 ps) Check time, sqm_adc_pwdn(3) last event: PASS
-# ** Note   : (1153872648 ps)  * sqm_adc_pwdn(3) last event 224112 ps greater than or equal to expected value 160080 ps
+# ** Note   : (1153872648 ps)  * sqm_adc_pwdn(3) last event 240120 ps greater than or equal to expected value 160080 ps
 #             (1153872648 ps) 
 #             (1153872648 ps) ==============================================================================================
 #             (1153872648 ps)   Send command SQ_MUX_FB_ON_OFF column 3 to Off loop for o_c3_sqm_adc_pwdn activation
@@ -1270,44 +1270,44 @@
 #             (1164758088 ps)   Check timing between i_sync rising edge and o_c3_sqm_adc_pwdn activation
 #             (1164758088 ps)     (c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ < .. < 2*c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
 #             (1164758088 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (1165030224 ps) Waiting event sqm_adc_pwdn(3) = '1' for 272136 ps
-# ** Note   : (1165030224 ps) Check time, record time: PASS
-# ** Note   : (1165030224 ps)  * record time 272136 ps strictly less than expected value 320160 ps
-# ** Note   : (1165030224 ps) Check time, record time: PASS
-# ** Note   : (1165030224 ps)  * record time 272136 ps strictly greater than expected value 160080 ps
-#             (1165030224 ps) 
-#             (1165030224 ps) ==============================================================================================
-#             (1165030224 ps)   Send command SQ_MUX_FB_ON_OFF column 3 to On for o_c3_sqm_adc_pwdn deactivation
-#             (1165030224 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (1165030224 ps) Send SPI command value 8003_1000 (SQ_MUX_FB_ON_OFF, mode Write, data 1000)
-#             (1165066224 ps) 
-#             (1165066224 ps) ==============================================================================================
-#             (1165066224 ps)   Check no event is appeared on o_c3_sqm_adc_pwdn and wait o_c3_sqm_adc_pwdn deactivation
-#             (1165066224 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (1165066224 ps) Check discrete level: PASS
-# ** Note   : (1165066224 ps)  * Read discrete: sqm_adc_pwdn(3), value '1', expected '1'
-# ** Note   : (1175419416 ps) Waiting event sqm_adc_pwdn(3) = '0' for 10353192 ps
-#             (1175419416 ps) 
-#             (1175419416 ps) ==============================================================================================
-#             (1175419416 ps)   Check timing between o_c3_clk_sqm_adc rising edge
-#             (1175419416 ps)    and internal MUX SQUID ADC clock falling edge
-#             (1175419416 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (1175434940 ps) Waiting event clk_sqm_adc(3) = '1' for 15524 ps
-# ** Note   : (1175434940 ps) Record current time
-# ** Note   : (1175435424 ps) Waiting event clk_sqm_adc_acq = '1' for 484 ps
-# ** Note   : (1175439426 ps) Waiting event clk_sqm_adc_acq = '0' for 4002 ps
-# ** Note   : (1175439426 ps) Check time, record time: PASS
-# ** Note   : (1175439426 ps)  * record time 4486 ps greater than or equal to expected value 4400 ps
-# ** Note   : (1175439426 ps) Check time, record time: PASS
-# ** Note   : (1175439426 ps)  * record time 4486 ps strictly less than expected value 4560 ps
-#             (1175439426 ps) 
-#             (1175439426 ps) ==============================================================================================
-#             (1175439426 ps)   Check timing between o_c3_sqm_adc_pwdn deactivation and i_sync rising edge
-#             (1175439426 ps)     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
-#             (1175439426 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (1175643528 ps) Waiting event sync = '1' for 204102 ps
+# ** Note   : (1165014216 ps) Waiting event sqm_adc_pwdn(3) = '1' for 256128 ps
+# ** Note   : (1165014216 ps) Check time, record time: PASS
+# ** Note   : (1165014216 ps)  * record time 256128 ps strictly less than expected value 320160 ps
+# ** Note   : (1165014216 ps) Check time, record time: PASS
+# ** Note   : (1165014216 ps)  * record time 256128 ps strictly greater than expected value 160080 ps
+#             (1165014216 ps) 
+#             (1165014216 ps) ==============================================================================================
+#             (1165014216 ps)   Send command SQ_MUX_FB_ON_OFF column 3 to On for o_c3_sqm_adc_pwdn deactivation
+#             (1165014216 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (1165014216 ps) Send SPI command value 8003_1000 (SQ_MUX_FB_ON_OFF, mode Write, data 1000)
+#             (1165050216 ps) 
+#             (1165050216 ps) ==============================================================================================
+#             (1165050216 ps)   Check no event is appeared on o_c3_sqm_adc_pwdn and wait o_c3_sqm_adc_pwdn deactivation
+#             (1165050216 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (1165050216 ps) Check discrete level: PASS
+# ** Note   : (1165050216 ps)  * Read discrete: sqm_adc_pwdn(3), value '1', expected '1'
+# ** Note   : (1175403408 ps) Waiting event sqm_adc_pwdn(3) = '0' for 10353192 ps
+#             (1175403408 ps) 
+#             (1175403408 ps) ==============================================================================================
+#             (1175403408 ps)   Check timing between o_c3_clk_sqm_adc rising edge
+#             (1175403408 ps)    and internal MUX SQUID ADC clock falling edge
+#             (1175403408 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (1175418932 ps) Waiting event clk_sqm_adc(3) = '1' for 15524 ps
+# ** Note   : (1175418932 ps) Record current time
+# ** Note   : (1175419416 ps) Waiting event clk_sqm_adc_acq = '1' for 484 ps
+# ** Note   : (1175423418 ps) Waiting event clk_sqm_adc_acq = '0' for 4002 ps
+# ** Note   : (1175423418 ps) Check time, record time: PASS
+# ** Note   : (1175423418 ps)  * record time 4486 ps greater than or equal to expected value 4400 ps
+# ** Note   : (1175423418 ps) Check time, record time: PASS
+# ** Note   : (1175423418 ps)  * record time 4486 ps strictly less than expected value 4560 ps
+#             (1175423418 ps) 
+#             (1175423418 ps) ==============================================================================================
+#             (1175423418 ps)   Check timing between o_c3_sqm_adc_pwdn deactivation and i_sync rising edge
+#             (1175423418 ps)     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
+#             (1175423418 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (1175643528 ps) Waiting event sync = '1' for 220110 ps
 # ** Note   : (1175643528 ps) Check time, sqm_adc_pwdn(3) last event: PASS
-# ** Note   : (1175643528 ps)  * sqm_adc_pwdn(3) last event 224112 ps greater than or equal to expected value 160080 ps
+# ** Note   : (1175643528 ps)  * sqm_adc_pwdn(3) last event 240120 ps greater than or equal to expected value 160080 ps
 #             (1175643528 ps) 
 #             (1175643528 ps) ==============================================================================================
 #             (1175643528 ps)   Send command SQ_MUX_FB_ON_OFF column 3 to Off for o_c3_sqm_adc_pwdn activation
@@ -1327,44 +1327,44 @@
 #             (1186528968 ps)   Check timing between i_sync rising edge and o_c3_sqm_adc_pwdn activation
 #             (1186528968 ps)     (c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ < .. < 2*c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
 #             (1186528968 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (1186801104 ps) Waiting event sqm_adc_pwdn(3) = '1' for 272136 ps
-# ** Note   : (1186801104 ps) Check time, record time: PASS
-# ** Note   : (1186801104 ps)  * record time 272136 ps strictly less than expected value 320160 ps
-# ** Note   : (1186801104 ps) Check time, record time: PASS
-# ** Note   : (1186801104 ps)  * record time 272136 ps strictly greater than expected value 160080 ps
-#             (1186801104 ps) 
-#             (1186801104 ps) ==============================================================================================
-#             (1186801104 ps)   Send command SQ_MUX_FB_ON_OFF column 3 to On for o_c3_sqm_adc_pwdn deactivation
-#             (1186801104 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (1186801104 ps) Send SPI command value 8003_1000 (SQ_MUX_FB_ON_OFF, mode Write, data 1000)
-#             (1186837104 ps) 
-#             (1186837104 ps) ==============================================================================================
-#             (1186837104 ps)   Check no event is appeared on o_c3_sqm_adc_pwdn and wait o_c3_sqm_adc_pwdn deactivation
-#             (1186837104 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (1186837104 ps) Check discrete level: PASS
-# ** Note   : (1186837104 ps)  * Read discrete: sqm_adc_pwdn(3), value '1', expected '1'
-# ** Note   : (1197190296 ps) Waiting event sqm_adc_pwdn(3) = '0' for 10353192 ps
-#             (1197190296 ps) 
-#             (1197190296 ps) ==============================================================================================
-#             (1197190296 ps)   Check timing between o_c3_clk_sqm_adc rising edge
-#             (1197190296 ps)    and internal MUX SQUID ADC clock falling edge
-#             (1197190296 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (1197205820 ps) Waiting event clk_sqm_adc(3) = '1' for 15524 ps
-# ** Note   : (1197205820 ps) Record current time
-# ** Note   : (1197206304 ps) Waiting event clk_sqm_adc_acq = '1' for 484 ps
-# ** Note   : (1197210306 ps) Waiting event clk_sqm_adc_acq = '0' for 4002 ps
-# ** Note   : (1197210306 ps) Check time, record time: PASS
-# ** Note   : (1197210306 ps)  * record time 4486 ps greater than or equal to expected value 4400 ps
-# ** Note   : (1197210306 ps) Check time, record time: PASS
-# ** Note   : (1197210306 ps)  * record time 4486 ps strictly less than expected value 4560 ps
-#             (1197210306 ps) 
-#             (1197210306 ps) ==============================================================================================
-#             (1197210306 ps)   Check timing between o_c3_sqm_adc_pwdn deactivation and i_sync rising edge
-#             (1197210306 ps)     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
-#             (1197210306 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (1197414408 ps) Waiting event sync = '1' for 204102 ps
+# ** Note   : (1186785096 ps) Waiting event sqm_adc_pwdn(3) = '1' for 256128 ps
+# ** Note   : (1186785096 ps) Check time, record time: PASS
+# ** Note   : (1186785096 ps)  * record time 256128 ps strictly less than expected value 320160 ps
+# ** Note   : (1186785096 ps) Check time, record time: PASS
+# ** Note   : (1186785096 ps)  * record time 256128 ps strictly greater than expected value 160080 ps
+#             (1186785096 ps) 
+#             (1186785096 ps) ==============================================================================================
+#             (1186785096 ps)   Send command SQ_MUX_FB_ON_OFF column 3 to On for o_c3_sqm_adc_pwdn deactivation
+#             (1186785096 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (1186785096 ps) Send SPI command value 8003_1000 (SQ_MUX_FB_ON_OFF, mode Write, data 1000)
+#             (1186821096 ps) 
+#             (1186821096 ps) ==============================================================================================
+#             (1186821096 ps)   Check no event is appeared on o_c3_sqm_adc_pwdn and wait o_c3_sqm_adc_pwdn deactivation
+#             (1186821096 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (1186821096 ps) Check discrete level: PASS
+# ** Note   : (1186821096 ps)  * Read discrete: sqm_adc_pwdn(3), value '1', expected '1'
+# ** Note   : (1197174288 ps) Waiting event sqm_adc_pwdn(3) = '0' for 10353192 ps
+#             (1197174288 ps) 
+#             (1197174288 ps) ==============================================================================================
+#             (1197174288 ps)   Check timing between o_c3_clk_sqm_adc rising edge
+#             (1197174288 ps)    and internal MUX SQUID ADC clock falling edge
+#             (1197174288 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (1197189812 ps) Waiting event clk_sqm_adc(3) = '1' for 15524 ps
+# ** Note   : (1197189812 ps) Record current time
+# ** Note   : (1197190296 ps) Waiting event clk_sqm_adc_acq = '1' for 484 ps
+# ** Note   : (1197194298 ps) Waiting event clk_sqm_adc_acq = '0' for 4002 ps
+# ** Note   : (1197194298 ps) Check time, record time: PASS
+# ** Note   : (1197194298 ps)  * record time 4486 ps greater than or equal to expected value 4400 ps
+# ** Note   : (1197194298 ps) Check time, record time: PASS
+# ** Note   : (1197194298 ps)  * record time 4486 ps strictly less than expected value 4560 ps
+#             (1197194298 ps) 
+#             (1197194298 ps) ==============================================================================================
+#             (1197194298 ps)   Check timing between o_c3_sqm_adc_pwdn deactivation and i_sync rising edge
+#             (1197194298 ps)     (>= c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
+#             (1197194298 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (1197414408 ps) Waiting event sync = '1' for 220110 ps
 # ** Note   : (1197414408 ps) Check time, sqm_adc_pwdn(3) last event: PASS
-# ** Note   : (1197414408 ps)  * sqm_adc_pwdn(3) last event 224112 ps greater than or equal to expected value 160080 ps
+# ** Note   : (1197414408 ps)  * sqm_adc_pwdn(3) last event 240120 ps greater than or equal to expected value 160080 ps
 #             (1197414408 ps) 
 #             (1197414408 ps) ==============================================================================================
 #             (1197414408 ps)   Send command SQ_MUX_FB_ON_OFF column 3 to Off for o_c3_sqm_adc_pwdn activation
@@ -1384,11 +1384,11 @@
 #             (1208299848 ps)   Check timing between i_sync rising edge and o_c3_sqm_adc_pwdn activation
 #             (1208299848 ps)     (c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ < .. < 2*c_PIXEL_ADC_NB_CYC / c_CLK_ADC_FREQ)
 #             (1208299848 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (1208571984 ps) Waiting event sqm_adc_pwdn(3) = '1' for 272136 ps
-# ** Note   : (1208571984 ps) Check time, record time: PASS
-# ** Note   : (1208571984 ps)  * record time 272136 ps strictly less than expected value 320160 ps
-# ** Note   : (1208571984 ps) Check time, record time: PASS
-# ** Note   : (1208571984 ps)  * record time 272136 ps strictly greater than expected value 160080 ps
+# ** Note   : (1208555976 ps) Waiting event sqm_adc_pwdn(3) = '1' for 256128 ps
+# ** Note   : (1208555976 ps) Check time, record time: PASS
+# ** Note   : (1208555976 ps)  * record time 256128 ps strictly less than expected value 320160 ps
+# ** Note   : (1208555976 ps) Check time, record time: PASS
+# ** Note   : (1208555976 ps)  * record time 256128 ps strictly greater than expected value 160080 ps
 # ----------------------------------------------------------------------------------------------------
 # Parameters check, clock c0_clk_sqm_adc   
 # ----------------------------------------------------------------------------------------------------

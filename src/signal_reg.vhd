@@ -43,6 +43,9 @@ end entity signal_reg;
 architecture RTL of signal_reg is
 signal   sig_r                : std_logic_vector(g_SIG_FF_NB-1 downto 0)                                    ; --! Signal registered
 
+attribute syn_preserve        : boolean                                                                     ;
+attribute syn_preserve          of sig_r                 : signal is true                                   ;
+
 begin
 
    -- ------------------------------------------------------------------------------------------------------

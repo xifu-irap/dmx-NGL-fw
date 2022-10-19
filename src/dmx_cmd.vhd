@@ -60,12 +60,15 @@ constant c_PIXEL_POS_MAX_VAL  : integer:= c_MUX_FACT - 1                        
 constant c_PIXEL_POS_S        : integer:= log2_ceil(c_PIXEL_POS_MAX_VAL+1)+1                                ; --! Pixel position: size bus (signed)
 
 signal   sync_rs_r            : std_logic                                                                   ; --! Pixel sequence synchronization, synchronized on System Clock register
-signal   sync_re              : std_logic                                                                   ; --! Pixel sequence synchronization, rising edge
 signal   ck_pls_cnt           : std_logic_vector(c_CK_PLS_CNT_S-1 downto 0)                                 ; --! System clock pulse counter
 signal   pixel_pos            : std_logic_vector( c_PIXEL_POS_S-1 downto 0)                                 ; --! Pixel position
 
 signal   cmd_ck_adc_ena       : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! SQUID MUX ADC Clocks switch commands enable (for each column: '0'=Inactive, '1'=Active)
 signal   cmd_ck_sqm_dac_ena   : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! SQUID MUX DAC Clocks switch commands enable (for each column: '0'=Inactive, '1'=Active)
+
+attribute syn_preserve        : boolean                                                                     ;
+attribute syn_preserve          of sync_rs_r             : signal is true                                   ;
+attribute syn_preserve          of o_sync_re             : signal is true                                   ;
 
 begin
 
@@ -80,15 +83,15 @@ begin
 
       if i_rst = '1' then
          sync_rs_r   <= c_I_SYNC_DEF;
-         sync_re     <= '0';
+         o_sync_re   <= '0';
          ck_pls_cnt  <= std_logic_vector(to_signed(c_CK_PLS_CNT_MAX_VAL, ck_pls_cnt'length));
          pixel_pos   <= (others => '1');
 
       elsif rising_edge(i_clk) then
          sync_rs_r   <= i_sync_rs;
-         sync_re     <= not(sync_rs_r) and i_sync_rs;
+         o_sync_re   <= not(sync_rs_r) and i_sync_rs;
 
-         if (sync_re or ck_pls_cnt(ck_pls_cnt'high)) = '1' then
+         if ((not(sync_rs_r) and i_sync_rs) or ck_pls_cnt(ck_pls_cnt'high)) = '1' then
             ck_pls_cnt <= std_logic_vector(to_signed(c_CK_PLS_CNT_MAX_VAL, ck_pls_cnt'length));
 
          elsif not(pixel_pos(pixel_pos'high)) = '1' then
@@ -96,7 +99,7 @@ begin
 
          end if;
 
-         if sync_re = '1' then
+         if (not(sync_rs_r) and i_sync_rs) = '1' then
             pixel_pos <= std_logic_vector(to_signed(c_PIXEL_POS_MAX_VAL , pixel_pos'length));
 
          elsif (not(pixel_pos(pixel_pos'high)) and ck_pls_cnt(ck_pls_cnt'high)) = '1' then
@@ -107,8 +110,6 @@ begin
       end if;
 
    end process P_pixel_seq;
-
-   o_sync_re <= sync_re;
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Command switch clocks
@@ -158,7 +159,7 @@ begin
 
             end if;
 
-            o_cmd_ck_sqm_dac_dis(k) <= not(cmd_ck_sqm_dac_ena(k)) and sync_re;
+            o_cmd_ck_sqm_dac_dis(k) <= not(cmd_ck_sqm_dac_ena(k)) and (not(sync_rs_r) and i_sync_rs);
 
          end if;
 

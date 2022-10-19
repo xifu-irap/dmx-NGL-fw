@@ -155,6 +155,9 @@ signal   plsss_cs             : std_logic_vector(c_NB_COL-1 downto 0)           
 signal   cs_rg                : std_logic_vector(c_EP_CMD_POS_LAST-1 downto 0)                              ; --! Chip selects register ('0' = Inactive, '1' = Active)
 signal   cs_rg_r              : std_logic_vector(c_EP_CMD_REG_MX_STIN(0)-1 downto 0)                        ; --! Chip selects register registered
 
+attribute syn_preserve        : boolean                                                                     ;
+attribute syn_preserve          of o_aqmde_dmp_cmp   : signal is true                                       ;
+
 begin
 
    -- ------------------------------------------------------------------------------------------------------
@@ -702,180 +705,40 @@ begin
    --    @Req : DRE-DMX-FW-REQ-0210
    --    @Req : DRE-DMX-FW-REQ-0330
    -- ------------------------------------------------------------------------------------------------------
-   G_column_mgt_out: for k in 0 to c_NB_COL-1 generate
+   P_out: process (i_rst, i_clk)
    begin
 
-      P_out: process (i_rst, i_clk)
-      begin
+      if i_rst = '1' then
+         o_aqmde_dmp_cmp <= (others => '0');
 
-         if i_rst = '1' then
-            o_smfmd(k) <= c_EP_CMD_DEF_SMFMD;
-            o_saofm(k) <= c_EP_CMD_DEF_SAOFM;
+         o_smfmd <= (others => c_EP_CMD_DEF_SMFMD);
+         o_saofm <= (others => c_EP_CMD_DEF_SAOFM);
+         o_bxlgt <= (others => c_EP_CMD_DEF_BXLGT);
+         o_saofc <= (others => c_EP_CMD_DEF_SAOFC);
+         o_saofl <= (others => c_EP_CMD_DEF_SAOFL);
+         o_smfbd <= (others => c_EP_CMD_DEF_SMFBD);
+         o_saodd <= (others => c_EP_CMD_DEF_SAODD);
+         o_saomd <= (others => c_EP_CMD_DEF_SAOMD);
+         o_smpdl <= (others => c_EP_CMD_DEF_SMPDL);
+         o_plsss <= (others => c_EP_CMD_DEF_PLSSS);
 
-         elsif rising_edge(i_clk) then
-            o_smfmd(k) <= rg_smfmd(k);
-            o_saofm(k) <= rg_saofm(k);
+      elsif rising_edge(i_clk) then
+         o_aqmde_dmp_cmp <= (others => rg_aqmde_dmp_cmp);
 
-         end if;
+         o_smfmd <= rg_smfmd;
+         o_saofm <= rg_saofm;
+         o_bxlgt <= rg_bxlgt;
+         o_saofc <= rg_saofc;
+         o_saofl <= rg_saofl;
+         o_smfbd <= rg_smfbd;
+         o_saodd <= rg_saodd;
+         o_saomd <= rg_saomd;
+         o_smpdl <= rg_smpdl;
+         o_plsss <= rg_plsss;
 
-      end process P_out;
+      end if;
 
-      I_aqmde_dmp_cmp: entity work.signal_reg generic map
-      (  g_SIG_FF_NB          => 1                    , -- integer                                          ; --! Signal registered flip-flop number
-         g_SIG_DEF            => '0'                    -- std_logic                                          --! Signal registered default value at reset
-      )  port map
-      (  i_reset              => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
-         i_clock              => i_clk                , -- in     std_logic                                 ; --! Clock
-
-         i_sig                => rg_aqmde_dmp_cmp     , -- in     std_logic                                 ; --! Signal
-         o_sig_r              => o_aqmde_dmp_cmp(k)     -- out    std_logic                                   --! Signal registered
-      );
-
-      G_bxlgt: for l in 0 to c_DFLD_BXLGT_COL_S-1 generate
-      begin
-
-         I_bxlgt: entity work.signal_reg generic map
-         (
-         g_SIG_FF_NB          => 1                    , -- integer                                          ; --! Signal registered flip-flop number
-         g_SIG_DEF            => c_EP_CMD_DEF_BXLGT(l)  -- std_logic                                          --! Signal registered default value at reset
-         )  port map
-         (
-         i_reset              => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
-         i_clock              => i_clk                , -- in     std_logic                                 ; --! Clock
-
-         i_sig                => rg_bxlgt(k)(l)       , -- in     std_logic                                 ; --! Signal
-         o_sig_r              => o_bxlgt(k)(l)          -- out    std_logic                                   --! Signal registered
-         );
-
-      end generate G_bxlgt;
-
-      G_saofc: for l in 0 to c_DFLD_SAOFC_COL_S-1 generate
-      begin
-
-         I_saofc: entity work.signal_reg generic map
-         (
-         g_SIG_FF_NB          => 1                    , -- integer                                          ; --! Signal registered flip-flop number
-         g_SIG_DEF            => c_EP_CMD_DEF_SAOFC(l)  -- std_logic                                          --! Signal registered default value at reset
-         )  port map
-         (
-         i_reset              => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
-         i_clock              => i_clk                , -- in     std_logic                                 ; --! Clock
-
-         i_sig                => rg_saofc(k)(l)       , -- in     std_logic                                 ; --! Signal
-         o_sig_r              => o_saofc(k)(l)          -- out    std_logic                                   --! Signal registered
-         );
-
-      end generate G_saofc;
-
-      G_saofl: for l in 0 to c_DFLD_SAOFL_COL_S-1 generate
-      begin
-
-         I_saofl: entity work.signal_reg generic map
-         (
-         g_SIG_FF_NB          => 1                    , -- integer                                          ; --! Signal registered flip-flop number
-         g_SIG_DEF            => c_EP_CMD_DEF_SAOFL(l)  -- std_logic                                          --! Signal registered default value at reset
-         )  port map
-         (
-         i_reset              => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
-         i_clock              => i_clk                , -- in     std_logic                                 ; --! Clock
-
-         i_sig                => rg_saofl(k)(l)       , -- in     std_logic                                 ; --! Signal
-         o_sig_r              => o_saofl(k)(l)          -- out    std_logic                                   --! Signal registered
-         );
-
-      end generate G_saofl;
-
-      G_smfbd: for l in 0 to c_DFLD_SMFBD_COL_S-1 generate
-      begin
-
-         I_smfbd: entity work.signal_reg generic map
-         (
-         g_SIG_FF_NB          => 1                    , -- integer                                          ; --! Signal registered flip-flop number
-         g_SIG_DEF            => c_EP_CMD_DEF_SMFBD(l)  -- std_logic                                          --! Signal registered default value at reset
-         )  port map
-         (
-         i_reset              => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
-         i_clock              => i_clk                , -- in     std_logic                                 ; --! Clock
-
-         i_sig                => rg_smfbd(k)(l)       , -- in     std_logic                                 ; --! Signal
-         o_sig_r              => o_smfbd(k)(l)          -- out    std_logic                                   --! Signal registered
-         );
-
-      end generate G_smfbd;
-
-      G_saodd: for l in 0 to c_DFLD_SAODD_COL_S-1 generate
-      begin
-
-         I_saodd: entity work.signal_reg generic map
-         (
-         g_SIG_FF_NB          => 1                    , -- integer                                          ; --! Signal registered flip-flop number
-         g_SIG_DEF            => c_EP_CMD_DEF_SAODD(l)  -- std_logic                                          --! Signal registered default value at reset
-         )  port map
-         (
-         i_reset              => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
-         i_clock              => i_clk                , -- in     std_logic                                 ; --! Clock
-
-         i_sig                => rg_saodd(k)(l)       , -- in     std_logic                                 ; --! Signal
-         o_sig_r              => o_saodd(k)(l)          -- out    std_logic                                   --! Signal registered
-         );
-
-      end generate G_saodd;
-
-      G_saomd: for l in 0 to c_DFLD_SAOMD_COL_S-1 generate
-      begin
-
-         I_saomd: entity work.signal_reg generic map
-         (
-         g_SIG_FF_NB          => 1                    , -- integer                                          ; --! Signal registered flip-flop number
-         g_SIG_DEF            => c_EP_CMD_DEF_SAOMD(l)  -- std_logic                                          --! Signal registered default value at reset
-         )  port map
-         (
-         i_reset              => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
-         i_clock              => i_clk                , -- in     std_logic                                 ; --! Clock
-
-         i_sig                => rg_saomd(k)(l)       , -- in     std_logic                                 ; --! Signal
-         o_sig_r              => o_saomd(k)(l)          -- out    std_logic                                   --! Signal registered
-         );
-
-      end generate G_saomd;
-
-      G_smpdl: for l in 0 to c_DFLD_SMPDL_COL_S-1 generate
-      begin
-
-         I_smpdl: entity work.signal_reg generic map
-         (
-         g_SIG_FF_NB          => 1                    , -- integer                                          ; --! Signal registered flip-flop number
-         g_SIG_DEF            => c_EP_CMD_DEF_SMPDL(l)  -- std_logic                                          --! Signal registered default value at reset
-         )  port map
-         (
-         i_reset              => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
-         i_clock              => i_clk                , -- in     std_logic                                 ; --! Clock
-
-         i_sig                => rg_smpdl(k)(l)       , -- in     std_logic                                 ; --! Signal
-         o_sig_r              => o_smpdl(k)(l)          -- out    std_logic                                   --! Signal registered
-         );
-
-      end generate G_smpdl;
-
-      G_plsss: for l in 0 to c_DFLD_PLSSS_PLS_S-1 generate
-      begin
-
-         I_plsss: entity work.signal_reg generic map
-         (
-         g_SIG_FF_NB          => 1                    , -- integer                                          ; --! Signal registered flip-flop number
-         g_SIG_DEF            => c_EP_CMD_DEF_PLSSS(l)  -- std_logic                                          --! Signal registered default value at reset
-         )  port map
-         (
-         i_reset              => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
-         i_clock              => i_clk                , -- in     std_logic                                 ; --! Clock
-
-         i_sig                => rg_plsss(k)(l)       , -- in     std_logic                                 ; --! Signal
-         o_sig_r              => o_plsss(k)(l)          -- out    std_logic                                   --! Signal registered
-         );
-
-      end generate G_plsss;
-
-   end generate G_column_mgt_out;
+   end process P_out;
 
    -- TODO
    o_ep_cmd_sts_err_nin   <= c_EP_CMD_ERR_CLR;

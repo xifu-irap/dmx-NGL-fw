@@ -48,7 +48,7 @@ def add_options(p,variant,timing_driven,seed,option):
         'ManageUninitializedLoops'    : 'No',
         'MappingEffort'               : 'High',
         'OptimizedMux'                : 'Yes',
-        'VariantAwareSynthesis'       : 'Yes',
+        'VariantRepairSynthesis'      : 'Yes',
         'DensityEffort'               : 'High',
         'RoutingEffort'               : 'High',
         'TimingDriven'                : timing_driven,

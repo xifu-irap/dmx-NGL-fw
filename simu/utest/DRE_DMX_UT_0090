@@ -51,8 +51,8 @@ COMM   Check synchronization between o_c0_clk_sqm_dac rising edge
 COMM    and MUX SQUID pulse shaping clock falling edge
 COMM ----------------------------------------------------------------------------------------------
 WUDI clk_sqm_dac(0) 1
-CDIS clk_sqm_pls_shape 0
 CTLE clk_sqm_pls_shape == 0 ps
+CDIS clk_sqm_pls_shape 0
 COMM
 COMM ==============================================================================================
 COMM   Check timing between o_c0_sqm_dac_sleep deactivation and i_sync rising edge
@@ -97,8 +97,8 @@ COMM   Check synchronization between o_c0_clk_sqm_dac rising edge
 COMM    and MUX SQUID pulse shaping clock falling edge
 COMM ----------------------------------------------------------------------------------------------
 WUDI clk_sqm_dac(0) 1
-CDIS clk_sqm_pls_shape 0
 CTLE clk_sqm_pls_shape == 0 ps
+CDIS clk_sqm_pls_shape 0
 COMM
 COMM ==============================================================================================
 COMM   Check timing between o_c0_sqm_dac_sleep deactivation and i_sync rising edge
@@ -143,8 +143,8 @@ COMM   Check synchronization between o_c0_clk_sqm_dac rising edge
 COMM    and MUX SQUID pulse shaping clock falling edge
 COMM ----------------------------------------------------------------------------------------------
 WUDI clk_sqm_dac(0) 1
-CDIS clk_sqm_pls_shape 0
 CTLE clk_sqm_pls_shape == 0 ps
+CDIS clk_sqm_pls_shape 0
 COMM
 COMM ==============================================================================================
 COMM   Check timing between o_c0_sqm_dac_sleep deactivation and i_sync rising edge
@@ -189,8 +189,8 @@ COMM   Check synchronization between o_c1_clk_sqm_dac rising edge
 COMM    and MUX SQUID pulse shaping clock falling edge
 COMM ----------------------------------------------------------------------------------------------
 WUDI clk_sqm_dac(1) 1
-CDIS clk_sqm_pls_shape 0
 CTLE clk_sqm_pls_shape == 0 ps
+CDIS clk_sqm_pls_shape 0
 COMM
 COMM ==============================================================================================
 COMM   Check timing between o_c1_sqm_dac_sleep deactivation and i_sync rising edge
@@ -235,8 +235,8 @@ COMM   Check synchronization between o_c1_clk_sqm_dac rising edge
 COMM    and MUX SQUID pulse shaping clock falling edge
 COMM ----------------------------------------------------------------------------------------------
 WUDI clk_sqm_dac(1) 1
-CDIS clk_sqm_pls_shape 0
 CTLE clk_sqm_pls_shape == 0 ps
+CDIS clk_sqm_pls_shape 0
 COMM
 COMM ==============================================================================================
 COMM   Check timing between o_c1_sqm_dac_sleep deactivation and i_sync rising edge
@@ -281,8 +281,8 @@ COMM   Check synchronization between o_c1_clk_sqm_dac rising edge
 COMM    and MUX SQUID pulse shaping clock falling edge
 COMM ----------------------------------------------------------------------------------------------
 WUDI clk_sqm_dac(1) 1
-CDIS clk_sqm_pls_shape 0
 CTLE clk_sqm_pls_shape == 0 ps
+CDIS clk_sqm_pls_shape 0
 COMM
 COMM ==============================================================================================
 COMM   Check timing between o_c1_sqm_dac_sleep deactivation and i_sync rising edge
@@ -327,8 +327,8 @@ COMM   Check synchronization between o_c2_clk_sqm_dac rising edge
 COMM    and MUX SQUID pulse shaping clock falling edge
 COMM ----------------------------------------------------------------------------------------------
 WUDI clk_sqm_dac(2) 1
-CDIS clk_sqm_pls_shape 0
 CTLE clk_sqm_pls_shape == 0 ps
+CDIS clk_sqm_pls_shape 0
 COMM
 COMM ==============================================================================================
 COMM   Check timing between o_c2_sqm_dac_sleep deactivation and i_sync rising edge
@@ -373,8 +373,8 @@ COMM   Check synchronization between o_c2_clk_sqm_dac rising edge
 COMM    and MUX SQUID pulse shaping clock falling edge
 COMM ----------------------------------------------------------------------------------------------
 WUDI clk_sqm_dac(2) 1
-CDIS clk_sqm_pls_shape 0
 CTLE clk_sqm_pls_shape == 0 ps
+CDIS clk_sqm_pls_shape 0
 COMM
 COMM ==============================================================================================
 COMM   Check timing between o_c2_sqm_dac_sleep deactivation and i_sync rising edge
@@ -419,8 +419,8 @@ COMM   Check synchronization between o_c2_clk_sqm_dac rising edge
 COMM    and MUX SQUID pulse shaping clock falling edge
 COMM ----------------------------------------------------------------------------------------------
 WUDI clk_sqm_dac(2) 1
-CDIS clk_sqm_pls_shape 0
 CTLE clk_sqm_pls_shape == 0 ps
+CDIS clk_sqm_pls_shape 0
 COMM
 COMM ==============================================================================================
 COMM   Check timing between o_c2_sqm_dac_sleep deactivation and i_sync rising edge
@@ -465,8 +465,8 @@ COMM   Check synchronization between o_c3_clk_sqm_dac rising edge
 COMM    and MUX SQUID pulse shaping clock falling edge
 COMM ----------------------------------------------------------------------------------------------
 WUDI clk_sqm_dac(3) 1
-CDIS clk_sqm_pls_shape 0
 CTLE clk_sqm_pls_shape == 0 ps
+CDIS clk_sqm_pls_shape 0
 COMM
 COMM ==============================================================================================
 COMM   Check timing between o_c3_sqm_dac_sleep deactivation and i_sync rising edge
@@ -511,8 +511,8 @@ COMM   Check synchronization between o_c3_clk_sqm_dac rising edge
 COMM    and MUX SQUID pulse shaping clock falling edge
 COMM ----------------------------------------------------------------------------------------------
 WUDI clk_sqm_dac(3) 1
-CDIS clk_sqm_pls_shape 0
 CTLE clk_sqm_pls_shape == 0 ps
+CDIS clk_sqm_pls_shape 0
 COMM
 COMM ==============================================================================================
 COMM   Check timing between o_c3_sqm_dac_sleep deactivation and i_sync rising edge
@@ -557,8 +557,8 @@ COMM   Check synchronization between o_c3_clk_sqm_dac rising edge
 COMM    and MUX SQUID pulse shaping clock falling edge
 COMM ----------------------------------------------------------------------------------------------
 WUDI clk_sqm_dac(3) 1
-CDIS clk_sqm_pls_shape 0
 CTLE clk_sqm_pls_shape == 0 ps
+CDIS clk_sqm_pls_shape 0
 COMM
 COMM ==============================================================================================
 COMM   Check timing between o_c3_sqm_dac_sleep deactivation and i_sync rising edge

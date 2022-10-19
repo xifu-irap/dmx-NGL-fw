@@ -37,7 +37,8 @@ entity pulse_shaping is generic
          g_A_EXP              : integer                                                                     ; --! A[k]: filter exponent parameter (<= c_MULT_ALU_PORTC_S-g_X_K_S-1)
          g_Y_K_S              : integer                                                                       --! y[k]: filtered data out bus size
    ); port
-   (     i_rst_sqm_pls_shape  : in     std_logic                                                            ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+   (     i_rst_sqm_adc_dac_pd : in     std_logic                                                            ; --! Reset for SQUID ADC/DAC for pad, de-assertion on system clock
+         i_rst_sqm_adc_dac    : in     std_logic                                                            ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk_sqm_adc_dac    : in     std_logic                                                            ; --! SQUID MUX ADC/DAC internal Clock
          i_x_init             : in     std_logic_vector(g_X_K_S-1 downto 0)                                 ; --! Last value reached by y[k] at the end of last slice (unsigned)
          i_x_final            : in     std_logic_vector(g_X_K_S-1 downto 0)                                 ; --! Final value to reach by y[k] (unsigned)
@@ -88,7 +89,7 @@ begin
          g_PRE_ADDER_OP       => '1'                  , -- bit                                              ; --! Pre-Adder operation     ('0' = add,    '1' = subtract)
          g_MUX_C_CZ           => '0'                    -- bit                                                --! Multiplexer ALU operand ('0' = Port C, '1' = Cascaded Result Input)
    ) port map
-   (     i_rst                => i_rst_sqm_pls_shape  , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+   (     i_rst                => i_rst_sqm_adc_dac    , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                => i_clk_sqm_adc_dac    , -- in     std_logic                                 ; --! Clock
 
          i_carry              => '0'                  , -- in     std_logic                                 ; --! Carry In
@@ -105,10 +106,10 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   y[k]: filtered data out
    -- ------------------------------------------------------------------------------------------------------
-   P_yk : process (i_rst_sqm_pls_shape, i_clk_sqm_adc_dac)
+   P_yk : process (i_rst_sqm_adc_dac_pd, i_clk_sqm_adc_dac)
    begin
 
-      if i_rst_sqm_pls_shape = '1' then
+      if i_rst_sqm_adc_dac_pd = '1' then
 
          if c_PAD_REG_SET_AUTH = '0' then
             o_y_k <= (others => '0');
