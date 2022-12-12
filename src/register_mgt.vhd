@@ -54,9 +54,15 @@ entity register_mgt is port
          o_ep_cmd_tx_wd_rd_rg : out    std_logic_vector(c_EP_SPI_WD_S-1 downto 0)                           ; --! EP command to transmit: read register word
 
          i_aqmde_dmp_tx_end   : in     std_logic                                                            ; --! Telemetry mode, dump transmit end ('0' = Inactive, '1' = Active)
-         i_aqmde_tst_tx_end   : in     std_logic                                                            ; --! Telemetry mode, test pattern transmit end ('0' = Inactive, '1' = Active)
          o_aqmde              : out    std_logic_vector(c_DFLD_AQMDE_S-1 downto 0)                          ; --! Telemetry mode
          o_aqmde_dmp_cmp      : out    std_logic_vector(c_NB_COL-1 downto 0)                                ; --! Telemetry mode, status "Dump" compared ('0' = Inactive, '1' = Active)
+
+         i_tst_pat_end_pat    : in     std_logic                                                            ; --! Test pattern end of one pattern  ('0' = Inactive, '1' = Active)
+         i_tst_pat_end_re     : in     std_logic                                                            ; --! Test pattern end of all patterns rising edge ('0' = Inactive, '1' = Active)
+         i_tst_pat_empty      : in     std_logic                                                            ; --! Test pattern empty ('0' = No, '1' = Yes)
+         o_tsten_lop          : out    std_logic_vector(c_DFLD_TSTEN_LOP_S-1 downto 0)                      ; --! Test pattern enable, field Loop number
+         o_tsten_inf          : out    std_logic                                                            ; --! Test pattern enable, field Infinity loop ('0' = Inactive, '1' = Active)
+         o_tsten_ena          : out    std_logic                                                            ; --! Test pattern enable, field Enable ('0' = Inactive, '1' = Active)
 
          o_smfmd              : out    t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SMFMD_COL_S-1 downto 0)            ; --! SQUID MUX feedback mode
          o_saofm              : out    t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SAOFM_COL_S-1 downto 0)            ; --! SQUID AMP offset mode
@@ -69,20 +75,25 @@ entity register_mgt is port
          o_smpdl              : out    t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SMPDL_COL_S-1 downto 0)            ; --! ADC sample delay
          o_plsss              : out    t_slv_arr(0 to c_NB_COL-1)(c_DFLD_PLSSS_PLS_S-1 downto 0)            ; --! SQUID MUX feedback pulse shaping set
 
+         o_mem_tstpt          : out    t_mem_arr(0 to c_NB_COL-1)(
+                                       add(c_MEM_TSTPT_ADD_S-1 downto 0),
+                                       data_w(c_DFLD_TSTPT_S-1 downto 0))                                   ; --! Test pattern: memory inputs
+         i_tstpt_data         : in     std_logic_vector(c_DFLD_TSTPT_S-1 downto 0)                          ; --! Test pattern: data read
+
          o_mem_parma          : out    t_mem_arr(0 to c_NB_COL-1)(
                                        add(    c_MEM_PARMA_ADD_S-1 downto 0),
-                                       data_w(c_DFLD_PARMA_PIX_S-1 downto 0))                               ; --! SQUID MUX feedback value in open loop: memory inputs
-         i_parma_data         : in     t_slv_arr(0 to c_NB_COL-1)(c_DFLD_PARMA_PIX_S-1 downto 0)            ; --! SQUID MUX feedback value in open loop: data read
+                                       data_w(c_DFLD_PARMA_PIX_S-1 downto 0))                               ; --! Parameter a(p): memory inputs
+         i_parma_data         : in     t_slv_arr(0 to c_NB_COL-1)(c_DFLD_PARMA_PIX_S-1 downto 0)            ; --! Parameter a(p): data read
 
          o_mem_kiknm          : out    t_mem_arr(0 to c_NB_COL-1)(
                                        add(    c_MEM_KIKNM_ADD_S-1 downto 0),
-                                       data_w(c_DFLD_KIKNM_PIX_S-1 downto 0))                               ; --! SQUID MUX feedback value in open loop: memory inputs
-         i_kiknm_data         : in     t_slv_arr(0 to c_NB_COL-1)(c_DFLD_KIKNM_PIX_S-1 downto 0)            ; --! SQUID MUX feedback value in open loop: data read
+                                       data_w(c_DFLD_KIKNM_PIX_S-1 downto 0))                               ; --! Parameter ki(p)*knorm(p): memory inputs
+         i_kiknm_data         : in     t_slv_arr(0 to c_NB_COL-1)(c_DFLD_KIKNM_PIX_S-1 downto 0)            ; --! Parameter ki(p)*knorm(p): data read
 
          o_mem_knorm          : out    t_mem_arr(0 to c_NB_COL-1)(
                                        add(    c_MEM_KNORM_ADD_S-1 downto 0),
-                                       data_w(c_DFLD_KNORM_PIX_S-1 downto 0))                               ; --! SQUID MUX feedback value in open loop: memory inputs
-         i_knorm_data         : in     t_slv_arr(0 to c_NB_COL-1)(c_DFLD_KNORM_PIX_S-1 downto 0)            ; --! SQUID MUX feedback value in open loop: data read
+                                       data_w(c_DFLD_KNORM_PIX_S-1 downto 0))                               ; --! Parameter knorm(p): memory inputs
+         i_knorm_data         : in     t_slv_arr(0 to c_NB_COL-1)(c_DFLD_KNORM_PIX_S-1 downto 0)            ; --! Parameter knorm(p): data read
 
          o_mem_smfb0          : out    t_mem_arr(0 to c_NB_COL-1)(
                                        add(    c_MEM_SMFB0_ADD_S-1 downto 0),
@@ -91,8 +102,8 @@ entity register_mgt is port
 
          o_mem_smlkv          : out    t_mem_arr(0 to c_NB_COL-1)(
                                        add(    c_MEM_SMLKV_ADD_S-1 downto 0),
-                                       data_w(c_DFLD_SMLKV_PIX_S-1 downto 0))                               ; --! SQUID MUX feedback value in open loop: memory inputs
-         i_smlkv_data         : in     t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SMLKV_PIX_S-1 downto 0)            ; --! SQUID MUX feedback value in open loop: data read
+                                       data_w(c_DFLD_SMLKV_PIX_S-1 downto 0))                               ; --! Parameter elp(p): memory inputs
+         i_smlkv_data         : in     t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SMLKV_PIX_S-1 downto 0)            ; --! Parameter elp(p): data read
 
          o_mem_smfbm          : out    t_mem_arr(0 to c_NB_COL-1)(
                                        add(    c_MEM_SMFBM_ADD_S-1 downto 0),
@@ -122,6 +133,12 @@ signal   ep_cmd_sts_rg_r      : std_logic_vector(c_EP_SPI_WD_S-1 downto 0)      
 signal   rg_aqmde_sav         : std_logic_vector(c_DFLD_AQMDE_S-1 downto 0)                                 ; --! EP register: DATA_ACQ_MODE save previous mode
 signal   rg_aqmde_dmp_cmp     : std_logic                                                                   ; --! EP register: DATA_ACQ_MODE, status "Dump" compared ('0' = Inactive, '1' = Active)
 
+signal   tstpt_data_arr       : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_TSTPT_S-1 downto 0)                       ; --! Data read: TEST_PATTERN
+signal   rg_tsten_lop         : std_logic_vector(c_DFLD_TSTEN_LOP_S-1 downto 0)                             ; --! Test pattern enable, field Loop number
+signal   rg_tsten_inf         : std_logic                                                                   ; --! Test pattern enable, field Infinity loop ('0' = Inactive, '1' = Active)
+signal   rg_tsten_ena         : std_logic                                                                   ; --! Test pattern enable, field Enable ('0' = Inactive, '1' = Active)
+signal   rg_tsten             : std_logic_vector(    c_DFLD_TSTEN_S-1 downto 0)                             ; --! Test pattern enable
+
 signal   rg_smfmd             : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SMFMD_COL_S-1 downto 0)                   ; --! EP register: SQ_MUX_FB_ON_OFF
 signal   rg_saofm             : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SAOFM_COL_S-1 downto 0)                   ; --! EP register: SQ_AMP_OFFSET_MODE
 signal   rg_bxlgt             : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_BXLGT_COL_S-1 downto 0)                   ; --! EP register: BOXCAR_LENGTH
@@ -136,6 +153,7 @@ signal   rg_plsss             : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_PLSSS_PLS_S-1 
 signal   kiknm_add            : std_logic_vector(c_MEM_KIKNM_ADD_S-1 downto 0)                              ; --! Address memory: CY_KI_KNORM
 signal   smlkv_add            : std_logic_vector(c_MEM_SMLKV_ADD_S-1 downto 0)                              ; --! Address memory: CY_MUX_SQ_LOCKPOINT_V
 
+signal   tstpt_cs             : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! Chip select data read ('0'=Inactive, '1'=Active): TEST_PATTERN
 signal   parma_cs             : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! Chip select data read ('0'=Inactive, '1'=Active): CY_A
 signal   kiknm_cs             : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! Chip select data read ('0'=Inactive, '1'=Active): CY_KI_KNORM
 signal   knorm_cs             : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! Chip select data read ('0'=Inactive, '1'=Active): CY_KNORM
@@ -192,10 +210,15 @@ begin
    cs_rg(c_EP_CMD_POS_AQMDE)  <= '1' when  ep_cmd_rx_wd_add_r = c_EP_CMD_ADD_AQMDE  else '0';
    cs_rg(c_EP_CMD_POS_SMFMD)  <= '1' when  ep_cmd_rx_wd_add_r = c_EP_CMD_ADD_SMFMD  else '0';
    cs_rg(c_EP_CMD_POS_SAOFM)  <= '1' when  ep_cmd_rx_wd_add_r = c_EP_CMD_ADD_SAOFM  else '0';
+   cs_rg(c_EP_CMD_POS_TSTEN)  <= '1' when  ep_cmd_rx_wd_add_r = c_EP_CMD_ADD_TSTEN  else '0';
    cs_rg(c_EP_CMD_POS_BXLGT)  <= '1' when  ep_cmd_rx_wd_add_r = c_EP_CMD_ADD_BXLGT  else '0';
    cs_rg(c_EP_CMD_POS_STATUS) <= '1' when  ep_cmd_rx_wd_add_r = c_EP_CMD_ADD_STATUS else '0';
    cs_rg(c_EP_CMD_POS_FW_VER) <= '1' when  ep_cmd_rx_wd_add_r = c_EP_CMD_ADD_FW_VER else '0';
    cs_rg(c_EP_CMD_POS_HW_VER) <= '1' when  ep_cmd_rx_wd_add_r = c_EP_CMD_ADD_HW_VER else '0';
+
+   cs_rg(c_EP_CMD_POS_TSTPT)  <= '1' when
+      (ep_cmd_rx_wd_add_r(ep_cmd_rx_wd_add_r'high downto c_MEM_TSTPT_ADD_S)      = c_EP_CMD_ADD_TSTPT(ep_cmd_rx_wd_add_r'high downto c_MEM_TSTPT_ADD_S)         and
+       ep_cmd_rx_wd_add_r(   c_MEM_TSTPT_ADD_S-1  downto 0)                      < std_logic_vector(to_unsigned(c_TAB_TSTPT_NW, c_MEM_TSTPT_ADD_S)))            else '0';
 
    cs_rg(c_EP_CMD_POS_PARMA)  <= '1' when
       (ep_cmd_rx_wd_add_r(ep_cmd_rx_wd_add_r'high downto c_EP_CMD_ADD_COLPOSH+1) = c_EP_CMD_ADD_PARMA(0)(ep_cmd_rx_wd_add_r'high downto c_EP_CMD_ADD_COLPOSH+1) and
@@ -289,6 +312,9 @@ begin
       if i_rst = '1' then
          o_aqmde      <= c_DST_AQMDE_IDLE;
          rg_aqmde_sav <= c_DST_AQMDE_IDLE;
+         rg_tsten_lop <= c_EP_CMD_DEF_TSTEN(c_DFLD_TSTEN_LOP_S + c_DFLD_TSTEN_LOP_POS-1 downto c_DFLD_TSTEN_LOP_POS);
+         rg_tsten_inf <= c_EP_CMD_DEF_TSTEN(c_DFLD_TSTEN_INF_POS);
+         rg_tsten_ena <= c_EP_CMD_DEF_TSTEN(c_DFLD_TSTEN_ENA_POS);
 
       elsif rising_edge(i_clk) then
 
@@ -297,7 +323,7 @@ begin
          if ep_cmd_rx_nerr_rdy_r = '1' and ep_cmd_rx_rw_r = c_EP_CMD_ADD_RW_W and cs_rg_r(c_EP_CMD_POS_AQMDE) = '1' then
             o_aqmde <= ep_cmd_rx_wd_data_r(o_aqmde'high downto 0);
 
-         elsif (o_aqmde = c_DST_AQMDE_TEST and i_aqmde_tst_tx_end = '1') or (o_aqmde = c_DST_AQMDE_DUMP and i_aqmde_dmp_tx_end = '1') then
+         elsif (o_aqmde = c_DST_AQMDE_TEST and i_tst_pat_end_re = '1') or (o_aqmde = c_DST_AQMDE_DUMP and i_aqmde_dmp_tx_end = '1') then
             o_aqmde <= rg_aqmde_sav;
 
          end if;
@@ -318,11 +344,46 @@ begin
 
          end if;
 
+         -- @Req : REG_TEST_PATTERN_ENABLE
+         if ep_cmd_rx_nerr_rdy_r = '1' and ep_cmd_rx_rw_r = c_EP_CMD_ADD_RW_W and cs_rg_r(c_EP_CMD_POS_TSTEN) = '1' then
+            if ep_cmd_rx_wd_data_r(c_DFLD_TSTEN_INF_POS) = '1' then
+               rg_tsten_lop <= std_logic_vector(to_unsigned(0, rg_tsten_lop'length));
+
+            else
+               rg_tsten_lop <= ep_cmd_rx_wd_data_r(c_DFLD_TSTEN_LOP_S + c_DFLD_TSTEN_LOP_POS-1 downto c_DFLD_TSTEN_LOP_POS);
+
+            end if;
+
+         elsif i_tst_pat_empty = '1' then
+            rg_tsten_lop <= std_logic_vector(to_unsigned(0, rg_tsten_lop'length));
+
+         elsif rg_tsten_lop /= std_logic_vector(to_unsigned(0, rg_tsten_lop'length)) and i_tst_pat_end_pat = '1' then
+            rg_tsten_lop <= std_logic_vector(signed(rg_tsten_lop) - 1);
+
+         end if;
+
+         if ep_cmd_rx_nerr_rdy_r = '1' and ep_cmd_rx_rw_r = c_EP_CMD_ADD_RW_W and cs_rg_r(c_EP_CMD_POS_TSTEN) = '1' then
+            rg_tsten_inf <= ep_cmd_rx_wd_data_r(c_DFLD_TSTEN_INF_POS);
+
+         elsif i_tst_pat_empty = '1' then
+            rg_tsten_inf <= '0';
+
+         end if;
+
+         if ep_cmd_rx_nerr_rdy_r = '1' and ep_cmd_rx_rw_r = c_EP_CMD_ADD_RW_W and cs_rg_r(c_EP_CMD_POS_TSTEN) = '1' then
+            rg_tsten_ena <= ep_cmd_rx_wd_data_r(c_DFLD_TSTEN_ENA_POS);
+
+         elsif (rg_tsten_lop = std_logic_vector(to_unsigned(0, rg_tsten_lop'length)) and rg_tsten_inf = '0') or i_tst_pat_empty = '1' then
+            rg_tsten_ena <= '0';
+
+         end if;
+
       end if;
 
    end process P_ep_cmd_wr_rg;
 
    rg_aqmde_dmp_cmp <= '1' when o_aqmde = c_DST_AQMDE_DUMP else '0';
+   rg_tsten         <= rg_tsten_ena & rg_tsten_inf & rg_tsten_lop;
 
    G_column_mgt : for k in 0 to c_NB_COL-1 generate
    begin
@@ -331,8 +392,8 @@ begin
       begin
 
          if i_rst = '1' then
-            rg_smfmd(k) <= c_EP_CMD_DEF_SMFMD;
             rg_saofm(k) <= c_EP_CMD_DEF_SAOFM;
+            rg_smfmd(k) <= c_EP_CMD_DEF_SMFMD;
             rg_bxlgt(k) <= c_EP_CMD_DEF_BXLGT;
 
             rg_saofc(k) <= c_EP_CMD_DEF_SAOFC;
@@ -344,18 +405,22 @@ begin
             rg_plsss(k) <= c_EP_CMD_DEF_PLSSS;
 
          elsif rising_edge(i_clk) then
+
+               -- @Req : REG_SQ_AMP_OFFSET_MODE
+               -- @Req : DRE-DMX-FW-REQ-0330
+               if ep_cmd_rx_nerr_rdy_r = '1' and ep_cmd_rx_rw_r = c_EP_CMD_ADD_RW_W and cs_rg_r(c_EP_CMD_POS_SAOFM) = '1' then
+                  rg_saofm(k) <= ep_cmd_rx_wd_data_r(c_NB_COL*k+c_DFLD_SAOFM_COL_S-1 downto c_NB_COL*k);
+
+               elsif rg_saofm(k) = c_DST_SAOFM_TEST and i_tst_pat_end_re = '1' then
+                  rg_saofm(k) <= c_DST_SAOFM_OFFSET;
+
+               end if;
+
             if ep_cmd_rx_nerr_rdy_r = '1' and ep_cmd_rx_rw_r = c_EP_CMD_ADD_RW_W then
 
                -- @Req : REG_SQ_MUX_FB_ON_OFF
                if cs_rg_r(c_EP_CMD_POS_SMFMD) = '1' then
                   rg_smfmd(k) <= ep_cmd_rx_wd_data_r(c_NB_COL*k+c_DFLD_SMFMD_COL_S-1 downto c_NB_COL*k);
-
-               end if;
-
-               -- @Req : REG_SQ_AMP_OFFSET_MODE
-               -- @Req : DRE-DMX-FW-REQ-0330
-               if cs_rg_r(c_EP_CMD_POS_SAOFM) = '1' then
-                  rg_saofm(k) <= ep_cmd_rx_wd_data_r(c_NB_COL*k+c_DFLD_SAOFM_COL_S-1 downto c_NB_COL*k);
 
                end if;
 
@@ -436,6 +501,36 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   Memories inputs generation
    -- ------------------------------------------------------------------------------------------------------
+   -- @Req : REG_TEST_PATTERN
+   -- @Req : DRE-DMX-FW-REQ-0440
+   I_mem_tstpt: entity work.mem_in_gen generic map
+   (     g_MEM_ADD_S          => c_MEM_TSTPT_ADD_S    , -- integer                                          ; --! Memory address size
+         g_MEM_DATA_S         => c_DFLD_TSTPT_S       , -- integer                                          ; --! Memory data size
+         g_MEM_ADD_END        => c_TAB_TSTPT_NW-1       -- integer                                            --! Memory address end
+   ) port map
+   (     i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+         i_clk                => i_clk                , -- in     std_logic                                 ; --! System Clock
+
+         i_col_nb             => (others => '0')      , -- in     slv(log2_ceil(c_NB_COL)-1 downto 0)       ; --! Column number
+         i_ep_cmd_rx_wd_add_r => ep_cmd_rx_wd_add_r(  c_MEM_TSTPT_ADD_S-1 downto 0), -- in slv g_MEM_ADD_S  ; --! EP command receipted: address word, read/write bit cleared, registered
+         i_ep_cmd_rx_wd_dta_r => ep_cmd_rx_wd_data_r(c_DFLD_TSTPT_S-1 downto 0),     -- in slv g_MEM_DATA_S ; --! EP command receipted: data word, registered
+         i_ep_cmd_rx_rw_r     => ep_cmd_rx_rw_r       , -- in     std_logic                                 ; --! EP command receipted: read/write bit, registered
+         i_ep_cmd_rx_ner_ry_r => ep_cmd_rx_nerr_rdy_r , -- in     std_logic                                 ; --! EP command receipted with no error ready, registered ('0'= Not ready, '1'= Ready)
+
+         i_cs_rg              => cs_rg_r(c_EP_CMD_POS_TSTPT), --  std_logic                                 ; --! Chip select register ('0' = Inactive, '1' = Active)
+
+         o_mem_in             => o_mem_tstpt          , -- out    t_mem_arr(0 to c_NB_COL-1)                ; --! Memory inputs
+         o_cs_data_rd         => tstpt_cs               -- out    std_logic_vector(c_NB_COL-1 downto 0)       --! Chip select data read ('0' = Inactive, '1' = Active)
+   );
+
+   tstpt_data_arr(0) <= i_tstpt_data;
+
+   G_col_mgt : for k in 1 to c_NB_COL-1 generate
+   begin
+      tstpt_data_arr(k) <= (others => '0');
+
+   end generate G_col_mgt;
+
    -- @Req : REG_CY_A
    -- @Req : DRE-DMX-FW-REQ-0180
    I_mem_parma: entity work.mem_in_gen generic map
@@ -635,8 +730,12 @@ begin
 
          i_rg_smfmd           => rg_smfmd             , -- in     t_slv_arr c_NB_COL c_DFLD_SMFMD_COL_S     ; --! EP register: SQ_MUX_FB_ON_OFF
          i_rg_saofm           => rg_saofm             , -- in     t_slv_arr c_NB_COL c_DFLD_SAOFM_COL_S     ; --! EP register: SQ_AMP_OFFSET_MODE
+         i_rg_tsten           => rg_tsten             , -- in     slv(c_DFLD_TSTEN_S-1 downto 0)            ; --! EP register: TEST_PATTERN_ENABLE
          i_rg_bxlgt           => rg_bxlgt             , -- in     t_slv_arr c_NB_COL c_DFLD_BXLGT_COL_S     ; --! EP register: BOXCAR_LENGTH
          i_ep_cmd_sts_rg_r    => ep_cmd_sts_rg_r      , -- in     slv(c_EP_SPI_WD_S-1 downto 0)             ; --! EP command: Status register, registered
+
+         i_tstpt_data         => tstpt_data_arr       , -- in     t_slv_arr c_NB_COL c_DFLD_TSTPT_S         ; --! Data read: TEST_PATTERN
+         i_tstpt_cs           => tstpt_cs             , -- in     std_logic_vector(c_NB_COL-1 downto 0)     ; --! Chip select data read ('0' = Inactive,'1'=Active): TEST_PATTERN
 
          i_parma_data         => i_parma_data         , -- in     t_slv_arr c_NB_COL c_DFLD_PARMA_PIX_S     ; --! Data read: CY_A
          i_parma_cs           => parma_cs             , -- in     std_logic_vector(c_NB_COL-1 downto 0)     ; --! Chip select data read ('0' = Inactive,'1'=Active): CY_A
@@ -710,6 +809,9 @@ begin
 
       if i_rst = '1' then
          o_aqmde_dmp_cmp <= (others => '0');
+         o_tsten_lop     <= c_EP_CMD_DEF_TSTEN(c_DFLD_TSTEN_LOP_S + c_DFLD_TSTEN_LOP_POS-1 downto c_DFLD_TSTEN_LOP_POS);
+         o_tsten_inf     <= c_EP_CMD_DEF_TSTEN(c_DFLD_TSTEN_INF_POS);
+         o_tsten_ena     <= c_EP_CMD_DEF_TSTEN(c_DFLD_TSTEN_ENA_POS);
 
          o_smfmd <= (others => c_EP_CMD_DEF_SMFMD);
          o_saofm <= (others => c_EP_CMD_DEF_SAOFM);
@@ -724,6 +826,9 @@ begin
 
       elsif rising_edge(i_clk) then
          o_aqmde_dmp_cmp <= (others => rg_aqmde_dmp_cmp);
+         o_tsten_lop     <= rg_tsten_lop;
+         o_tsten_inf     <= rg_tsten_inf;
+         o_tsten_ena     <= rg_tsten_ena;
 
          o_smfmd <= rg_smfmd;
          o_saofm <= rg_saofm;

@@ -120,7 +120,8 @@ signal   ep_data_rx_rdy       : std_logic                                       
 signal   pls_shp_fc           : t_int_arr(0 to c_NB_COL-1)                                                  ; --! Pulse shaping cut frequency (Hz)
 signal   sw_adc_vin           : std_logic_vector(c_SW_ADC_VIN_S-1 downto 0)                                 ; --! Switch ADC Voltage input
 
-signal   adc_dmp_mem_add      : std_logic_vector(    c_MUX_FACT_S-1 downto 0)                               ; --! ADC Dump memory for data compare: address
+signal   frm_cnt_sc_rst       : std_logic                                                                   ; --! Frame counter science reset ('0' = Inactive, '1' = Active)
+signal   adc_dmp_mem_add      : std_logic_vector(  c_MEM_SC_ADD_S-1 downto 0)                               ; --! ADC Dump memory for data compare: address
 signal   adc_dmp_mem_data     : std_logic_vector(c_SQM_ADC_DATA_S+1 downto 0)                               ; --! ADC Dump memory for data compare: data
 signal   science_mem_data     : std_logic_vector(c_SC_DATA_SER_NB*c_SC_DATA_SER_W_S-1 downto 0)             ; --! Science  memory for data compare: data
 signal   adc_dmp_mem_cs       : std_logic_vector(        c_NB_COL-1 downto 0)                               ; --! ADC Dump memory for data compare: chip select ('0' = Inactive, '1' = Active)
@@ -409,7 +410,8 @@ begin
          i_sqm_adc_data       => sqm_adc_data         , -- in     t_slv_arr c_NB_COL c_SQM_ADC_DATA_S       ; --! SQUID MUX ADC: Data buses
          i_sqm_adc_oor        => sqm_adc_oor          , -- in     std_logic_vector(c_NB_COL-1 downto 0)     ; --! SQUID MUX ADC: Out of range ('0' = No, '1' = under/over range)
 
-         i_adc_dmp_mem_add    => adc_dmp_mem_add      , -- in     slv(    c_MUX_FACT_S-1 downto 0)          ; --! ADC Dump memory for data compare: address
+         i_frm_cnt_sc_rst     => frm_cnt_sc_rst       , -- in     std_logic                                 ; --! Frame counter science reset ('0' = Inactive, '1' = Active)
+         i_adc_dmp_mem_add    => adc_dmp_mem_add      , -- in     slv(  c_MEM_SC_ADD_S-1 downto 0)          ; --! ADC Dump memory for data compare: address
          i_adc_dmp_mem_data   => adc_dmp_mem_data     , -- in     slv(c_SQM_ADC_DATA_S+1 downto 0)          ; --! ADC Dump memory for data compare: data
          i_science_mem_data   => science_mem_data     , -- in     slv c_SC_DATA_SER_NB*c_SC_DATA_SER_W_S    ; --! Science  memory for data compare: data
          i_adc_dmp_mem_cs     => adc_dmp_mem_cs       , -- in     std_logic                                 ; --! ADC Dump memory for data compare: chip select ('0' = Inactive, '1' = Active)
@@ -477,7 +479,8 @@ begin
          o_brd_ref            => brd_ref              , -- out    std_logic_vector(  c_BRD_REF_S-1 downto 0); --! Board reference
          o_brd_model          => brd_model            , -- out    std_logic_vector(c_BRD_MODEL_S-1 downto 0); --! Board model
 
-         o_adc_dmp_mem_add    => adc_dmp_mem_add      , -- out    slv(    c_MUX_FACT_S-1 downto 0)          ; --! ADC Dump memory for data compare: address
+         o_frm_cnt_sc_rst     => frm_cnt_sc_rst       , -- out    std_logic                                 ; --! Frame counter science reset ('0' = Inactive, '1' = Active)
+         o_adc_dmp_mem_add    => adc_dmp_mem_add      , -- out    slv(  c_MEM_SC_ADD_S-1 downto 0)          ; --! ADC Dump memory for data compare: address
          o_adc_dmp_mem_data   => adc_dmp_mem_data     , -- out    slv(c_SQM_ADC_DATA_S+1 downto 0)          ; --! ADC Dump memory for data compare: data
          o_science_mem_data   => science_mem_data     , -- out    slv c_SC_DATA_SER_NB*c_SC_DATA_SER_W_S    ; --! Science  memory for data compare: data
          o_adc_dmp_mem_cs     => adc_dmp_mem_cs       , -- out    std_logic                                 ; --! ADC Dump memory for data compare: chip select ('0' = Inactive, '1' = Active)

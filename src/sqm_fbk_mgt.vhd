@@ -41,7 +41,9 @@ entity sqm_fbk_mgt is port
          i_clk_90             : in     std_logic                                                            ; --! System Clock 90 degrees shift
 
          i_sync_re            : in     std_logic                                                            ; --! Pixel sequence synchronization, rising edge
+         i_tst_pat_end        : in     std_logic                                                            ; --! Test pattern end of all patterns ('0' = Inactive, '1' = Active)
 
+         i_test_pattern       : in     std_logic_vector(c_SQM_DATA_FBK_S-1 downto 0)                        ; --! Test pattern
          i_sqm_dta_pixel_pos  : in     std_logic_vector(    c_MUX_FACT_S-1 downto 0)                        ; --! SQUID MUX Data error corrected pixel position
          i_sqm_dta_err_cor    : in     std_logic_vector(c_SQM_DATA_FBK_S-1 downto 0)                        ; --! SQUID MUX Data error corrected (signed)
          i_sqm_dta_err_cor_cs : in     std_logic                                                            ; --! SQUID MUX Data error corrected chip select ('0' = Inactive, '1' = Active)
@@ -75,6 +77,11 @@ constant c_PIXEL_POS_MAX_VAL  : integer:= c_MUX_FACT - 2                        
 constant c_PIXEL_POS_INIT     : integer:= c_PIXEL_POS_MAX_VAL - 1                                           ; --! Pixel position: initialization value
 constant c_PIXEL_POS_S        : integer:= log2_ceil(c_PIXEL_POS_MAX_VAL+1)+1                                ; --! Pixel position: size bus (signed)
 
+signal   tst_pat_end_r        : std_logic                                                                   ; --! Test pattern end of all patterns register
+signal   tst_pat_end_dtc      : std_logic                                                                   ; --! Test pattern end of all patterns dectect
+signal   tst_pat_end_sync     : std_logic                                                                   ; --! Test pattern end of all patterns, sync on pixel sequence
+signal   test_pattern_sync    : std_logic_vector(  c_SQM_DATA_FBK_S-1 downto 0)                             ; --! Test pattern, synchronized on first pixel sequence
+
 signal   mem_sqm_dta_err_cor  : t_slv_arr(0 to 2**c_MUX_FACT_S-1)(c_SQM_DATA_FBK_S-1 downto 0)              ; --! Memory data storage SQUID MUX Data error corrected
 signal   sqm_dta_err_cor_rd   : std_logic_vector( c_SQM_DATA_FBK_S-1 downto 0)                              ; --! SQUID MUX Data error corrected (signed) read from memory
 
@@ -99,12 +106,40 @@ signal   smfmd_sync           : std_logic_vector(c_DFLD_SMFMD_COL_S-1 downto 0) 
 signal   smfmd_sync_r         : t_slv_arr(0 to c_MEM_RD_DATA_NPER-1)(c_DFLD_SMFMD_COL_S-1 downto 0)         ; --! SQUID MUX feedback mode synchronized on first Pixel sequence register
 
 signal   smfbm                : std_logic_vector(c_DFLD_SMFBM_PIX_S-1 downto 0)                             ; --! SQUID MUX feedback mode
-
 signal   smfb0                : std_logic_vector(c_DFLD_SMFB0_PIX_S-1 downto 0)                             ; --! SQUID MUX feedback value in open loop (signed)
-signal   smfb0_rs             : std_logic_vector(  c_SQM_DATA_FBK_S-1 downto 0)                             ; --! SQUID MUX feedback value in open loop (signed) resized
-signal   sqm_fb_tst_pattern   : std_logic_vector(  c_SQM_DATA_FBK_S-1 downto 0)                             ; --! SQUID MUX feedback test pattern (signed)
 
 begin
+
+   -- ------------------------------------------------------------------------------------------------------
+   --!   Test pattern end of all patterns
+   -- ------------------------------------------------------------------------------------------------------
+   P_tst_pat_end : process (i_rst, i_clk)
+   begin
+
+      if i_rst = '1' then
+         tst_pat_end_r     <= '1';
+         tst_pat_end_dtc   <= '0';
+         tst_pat_end_sync  <= '0';
+
+      elsif rising_edge(i_clk) then
+         tst_pat_end_r     <= i_tst_pat_end;
+
+         if (not(tst_pat_end_r) and i_tst_pat_end) = '1' then
+            tst_pat_end_dtc <= '1';
+
+         elsif i_sync_re = '1' then
+            tst_pat_end_dtc <= '0';
+
+         end if;
+
+         if i_sync_re = '1' then
+            tst_pat_end_sync  <= tst_pat_end_dtc;
+
+         end if;
+
+      end if;
+
+   end process P_tst_pat_end;
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Pulse shaping counter/Pixel position initialization
@@ -245,13 +280,6 @@ begin
          o_b_flg_err          => open                   -- out    std_logic                                   --! Memory port B: flag error uncorrectable detected ('0' = No, '1' = Yes)
    );
 
-   smfb0_rs(smfb0_rs'high downto c_SQM_DATA_FBK_S-c_DFLD_SMFB0_PIX_S) <= smfb0;
-
-   G_smfb0_rs_lsb: if c_SQM_DATA_FBK_S-c_DFLD_SMFB0_PIX_S > 0 generate
-      smfb0_rs(c_SQM_DATA_FBK_S-c_DFLD_SMFB0_PIX_S-1 downto 0) <= (others => '0');
-
-   end generate;
-
    -- ------------------------------------------------------------------------------------------------------
    --!   Dual port memory SQUID MUX feedback value in open loop: memory signals management
    --!      (Getting parameter side)
@@ -297,9 +325,27 @@ begin
    --!      (Getting parameter side)
    -- ------------------------------------------------------------------------------------------------------
    mem_smfbm_prm.add     <= pixel_pos_inc;
-   mem_smfbm_prm.we      <= '0';
    mem_smfbm_prm.cs      <= '1';
-   mem_smfbm_prm.data_w  <= (others => '0');
+   mem_smfbm_prm.data_w  <= c_DST_SMFBM_OPEN;
+
+   P_mem_smfbm_prm_we : process (i_rst, i_clk)
+   begin
+
+      if i_rst = '1' then
+         mem_smfbm_prm.we  <= '0';
+
+      elsif rising_edge(i_clk) then
+         if (smfbm = c_DST_SMFBM_TEST) and (pls_cnt = std_logic_vector(to_unsigned(c_MEM_RD_DATA_NPER, pls_cnt'length))) and (tst_pat_end_sync = '1') then
+            mem_smfbm_prm.we  <= '1';
+
+         else
+            mem_smfbm_prm.we  <= '0';
+
+         end if;
+
+      end if;
+
+   end process P_mem_smfbm_prm_we;
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Dual port memory data storage SQUID MUX Data error corrected
@@ -328,8 +374,34 @@ begin
    end process P_sqm_dta_err_cor_rd;
 
    -- ------------------------------------------------------------------------------------------------------
+   --!   Test pattern, synchronized at pixel sequence start
+   -- ------------------------------------------------------------------------------------------------------
+   P_test_pattern_sync : process (i_rst, i_clk)
+   begin
+
+      if i_rst = '1' then
+         test_pattern_sync <= (others => '0');
+
+      elsif rising_edge(i_clk) then
+         if (pixel_pos(pixel_pos'high) and pls_cnt(pls_cnt'high)) = '1' then
+            if i_tst_pat_end = '0' then
+               test_pattern_sync <= i_test_pattern;
+
+            else
+               test_pattern_sync <= resize_stall_msb(smfb0, test_pattern_sync'length);
+
+            end if;
+
+         end if;
+
+      end if;
+
+   end process P_test_pattern_sync;
+
+   -- ------------------------------------------------------------------------------------------------------
    --!   SQUID MUX Data feedback
    --    @Req : DRE-DMX-FW-REQ-0210
+   --    @Req : DRE-DMX-FW-REQ-0450
    -- ------------------------------------------------------------------------------------------------------
    P_sqm_data_fbk : process (i_rst, i_clk)
    begin
@@ -345,10 +417,10 @@ begin
             o_sqm_data_fbk <= sqm_dta_err_cor_rd;
 
          elsif smfbm = c_DST_SMFBM_TEST then
-            o_sqm_data_fbk <= sqm_fb_tst_pattern;
+            o_sqm_data_fbk <= test_pattern_sync;
 
-         else
-            o_sqm_data_fbk <= smfb0_rs;
+         elsif smfbm = c_DST_SMFBM_OPEN then
+            o_sqm_data_fbk <= resize_stall_msb(smfb0, o_sqm_data_fbk'length);
 
          end if;
       end if;
@@ -381,8 +453,5 @@ begin
    end process P_init_fbk_acc;
 
    o_init_fbk_pixel_pos <= pixel_pos_inc_r(pixel_pos_inc_r'high);
-
-   --TODO
-   sqm_fb_tst_pattern   <= std_logic_vector(to_unsigned(0, o_sqm_data_fbk'length));
 
 end architecture RTL;

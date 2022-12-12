@@ -33,3 +33,8 @@ DRE_DMX_UT_0310;EP command, CY_KI_KNORM memory;PASS
 DRE_DMX_UT_0320;EP command, CY_KNORM memory;PASS
 DRE_DMX_UT_0330;EP command, CY_MUX_SQ_LOCKPOINT_V memory;PASS
 DRE_DMX_UT_0340;Feedback chain calculation and science data telemetry;PASS
+DRE_DMX_UT_0350;EP command, TEST_PATTERN memory;PASS
+DRE_DMX_UT_0360;EP command, TEST_PATTERN_ENABLE register;PASS
+DRE_DMX_UT_0370;Test pattern on science data telemetry;PASS
+DRE_DMX_UT_0380;Test pattern on AMP SQUID;PASS
+DRE_DMX_UT_0390;Test pattern on MUX SQUID;PASS

@@ -40,8 +40,10 @@ library std;
 use std.textio.all;
 
 entity science_data_model is generic
-   (     g_SIM_TIME           : time    := c_SIM_TIME_DEF                                                   ; --! Simulation time
-         g_TST_NUM            : string  := c_TST_NUM_DEF                                                      --! Test number
+   (     g_SIM_TIME           : time      := c_SIM_TIME_DEF                                                 ; --! Simulation time
+         g_ERR_SC_DTA_ENA     : std_logic := c_ERR_SC_DTA_ENA_DEF                                           ; --! Error science data enable ('0' = No, '1' = Yes)
+         g_FRM_CNT_SC_ENA     : std_logic := c_FRM_CNT_SC_ENA_DEF                                           ; --! Frame counter science enable ('0' = No, '1' = Yes)
+         g_TST_NUM            : string    := c_TST_NUM_DEF                                                    --! Test number
    ); port
    (     i_arst               : in     std_logic                                                            ; --! Asynchronous reset ('0' = Inactive, '1' = Active)
          i_clk_sqm_adc_acq    : in     std_logic                                                            ; --! SQUID MUX ADC acquisition Clock
@@ -61,7 +63,8 @@ entity science_data_model is generic
          i_sqm_adc_data       : in     t_slv_arr(0 to c_NB_COL-1)(c_SQM_ADC_DATA_S-1 downto 0)              ; --! SQUID MUX ADC: Data buses
          i_sqm_adc_oor        : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! SQUID MUX ADC: Out of range ('0' = No, '1' = under/over range)
 
-         i_adc_dmp_mem_add    : in     std_logic_vector(    c_MUX_FACT_S-1 downto 0)                        ; --! ADC Dump memory for data compare: address
+         i_frm_cnt_sc_rst     : in     std_logic                                                            ; --! Frame counter science reset ('0' = Inactive, '1' = Active)
+         i_adc_dmp_mem_add    : in     std_logic_vector(  c_MEM_SC_ADD_S-1 downto 0)                        ; --! ADC Dump memory for data compare: address
          i_adc_dmp_mem_data   : in     std_logic_vector(c_SQM_ADC_DATA_S+1 downto 0)                        ; --! ADC Dump memory for data compare: data
          i_science_mem_data   : in     std_logic_vector(c_SC_DATA_SER_NB*c_SC_DATA_SER_W_S-1 downto 0)      ; --! Science  memory for data compare: data
          i_adc_dmp_mem_cs     : in     std_logic_vector(        c_NB_COL-1 downto 0)                        ; --! ADC Dump memory for data compare: chip select ('0' = Inactive, '1' = Active)
@@ -81,6 +84,8 @@ signal   mem_dump             : t_slv_arr_tab(0 to c_NB_COL-1)
 
 signal   sync_r               : std_logic_vector(c_ADC_DATA_NPER-2 downto 0)                                ; --! Pixel sequence sync. register (R.E. detected = position sequence to the first pixel)
 signal   sync_re_adc_data     : std_logic                                                                   ; --! Pixel sequence synchronization, rising edge, synchronized on ADC data first pixel
+
+signal   frm_cnt_sc_rst_r     : std_logic                                                                   ; --! Frame counter science reset register ('0' = Inactive, '1' = Active)
 
 signal   mem_dump_adc_cnt_w   : std_logic_vector(     c_DMP_CNT_S-1 downto 0)                               ; --! Memory Dump, ADC acquisition side: counter words
 signal   mem_dump_adc_add     : std_logic_vector(     c_DMP_CNT_S-1 downto 0)                               ; --! Memory Dump, ADC acquisition side: address
@@ -109,10 +114,12 @@ begin
       if i_arst = '1' then
          sync_r               <= (others => c_I_SYNC_DEF);
          sync_re_adc_data     <= '0';
+         frm_cnt_sc_rst_r     <= '1';
 
       elsif rising_edge(i_clk_sqm_adc_acq) then
          sync_r               <= sync_r(sync_r'high-1 downto 0) & i_sync;
          sync_re_adc_data     <= not(sync_r(sync_r'high)) and sync_r(sync_r'high-1);
+         frm_cnt_sc_rst_r     <= not(g_FRM_CNT_SC_ENA) or i_frm_cnt_sc_rst;
 
       end if;
 
@@ -237,7 +244,8 @@ begin
          i_sqm_fbm_cls_lp_n   => i_sqm_fbm_cls_lp_n   , -- in     std_logic_vector(c_NB_COL-1 downto 0)     ; --! SQUID MUX feedback mode Closed loop ('0': Yes; '1': No)
          i_sw_adc_vin         => i_sw_adc_vin         , -- in     slv(c_SW_ADC_VIN_S-1 downto 0)            ; --! Switch ADC Voltage input
 
-         i_adc_dmp_mem_add    => i_adc_dmp_mem_add    , -- in     std_logic_vector(c_MUX_FACT_S-1 downto 0) ; --! ADC Dump memory for data compare: address
+         i_frm_cnt_sc_rst     => frm_cnt_sc_rst_r     , -- in     std_logic                                 ; --! Frame counter science reset ('0' = Inactive, '1' = Active)
+         i_adc_dmp_mem_add    => i_adc_dmp_mem_add    , -- in     slv(  c_MEM_SC_ADD_S-1 downto 0)          ; --! ADC Dump memory for data compare: address
          i_adc_dmp_mem_data   => i_adc_dmp_mem_data   , -- in     slv(c_SQM_ADC_DATA_S+1 downto 0)          ; --! ADC Dump memory for data compare: data
          i_science_mem_data   => i_science_mem_data   , -- in     slv c_SC_DATA_SER_NB*c_SC_DATA_SER_W_S    ; --! Science  memory for data compare: data
          i_adc_dmp_mem_cs     => i_adc_dmp_mem_cs     , -- in     std_logic_vector(c_NB_COL-1 downto 0)     ; --! ADC Dump memory for data compare: chip select ('0' = Inactive, '1' = Active)
@@ -444,13 +452,13 @@ begin
 
             G_science_data_err : for k in 0 to c_NB_COL-1 loop
 
-               if v_err_sc_data(k) = '1' then
+               if (v_err_sc_data(k) and g_ERR_SC_DTA_ENA) = '1' then
                   o_sc_pkt_err <= '1';
                   fprintf(error, "Science Data packet content, column " & integer'image(k) &
                                  ", does not correspond to ADC input (Read: " & hfield_format(science_data(k)).all & ", Expected: " & hfield_format(mem_dump_sc_data_out(k)).all & ")", scd_file);
                end if;
 
-               if science_data_err(k) = '1' then
+               if (science_data_err(k) and g_ERR_SC_DTA_ENA) = '1' then
                   o_sc_pkt_err <= '1';
                   fprintf(error, "Science Data packet content, column " & integer'image(k) & ", not expected", scd_file);
                end if;

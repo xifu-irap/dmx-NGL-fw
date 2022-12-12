@@ -1,0 +1,189 @@
+COMM **********************************************************************************************
+COMM   Test: EP command, TEST_PATTERN memory
+COMM **********************************************************************************************
+COMM
+COMM ==============================================================================================
+COMM   Asynchronous reset activated
+COMM ----------------------------------------------------------------------------------------------
+WDIS arst_n 0
+WAIT 80 ns
+COMM
+COMM ==============================================================================================
+COMM   Asynchronous reset deactivated
+COMM ----------------------------------------------------------------------------------------------
+WDIS arst_n 1
+COMM
+COMM ==============================================================================================
+COMM   Wait internal reset deactivated
+COMM ----------------------------------------------------------------------------------------------
+WUDI rst 0
+COMM
+COMM ==============================================================================================
+COMM   TEST_PATTERN: writing a new table in ping-pong memory
+COMM    and check reading of the memory part currently applicable is kept to its initial value
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-TEST_PATTERN(0)-0782 W        #  Command C0-0
+WCMD R-TEST_PATTERN(0)-XXXX W        #  Command C0-1
+COMM
+WCMD W-TEST_PATTERN(1)-0F04 R        #  Command C0-2
+CCMD R-Status-FFFF W                 #  Return Command C0-0
+WCMD R-TEST_PATTERN(1)-XXXX R        #  Command C0-3
+CCMD R-TEST_PATTERN(0)-0000 W        #  Return Command C0-1
+COMM
+WCMD W-TEST_PATTERN(2)-1686 R        #  Command C0-4
+CCMD R-Status-FFFF W                 #  Return Command C0-2
+WCMD R-TEST_PATTERN(2)-XXXX R        #  Command C0-5
+CCMD R-TEST_PATTERN(1)-0000 W        #  Return Command C0-3
+COMM
+WCMD W-TEST_PATTERN(3)-1E08 R        #  Command C0-6
+CCMD R-Status-FFFF W                 #  Return Command C0-4
+WCMD R-TEST_PATTERN(3)-XXXX R        #  Command C0-7
+CCMD R-TEST_PATTERN(2)-0000 W        #  Return Command C0-5
+COMM
+WCMD W-TEST_PATTERN(4)-258A R        #  Command C0-8
+CCMD R-Status-FFFF W                 #  Return Command C0-6
+WCMD R-TEST_PATTERN(4)-XXXX R        #  Command C0-9
+CCMD R-TEST_PATTERN(3)-0000 W        #  Return Command C0-7
+COMM
+WCMD W-TEST_PATTERN(5)-2D0C R        #  Command C0-10
+CCMD R-Status-FFFF W                 #  Return Command C0-8
+WCMD R-TEST_PATTERN(5)-XXXX R        #  Command C0-11
+CCMD R-TEST_PATTERN(4)-0000 W        #  Return Command C0-9
+COMM
+WCMD W-TEST_PATTERN(6)-348E R        #  Command C0-12
+CCMD R-Status-FFFF W                 #  Return Command C0-10
+WCMD R-TEST_PATTERN(6)-XXXX R        #  Command C0-13
+CCMD R-TEST_PATTERN(5)-0000 W        #  Return Command C0-11
+COMM
+WCMD W-TEST_PATTERN(7)-3C10 R        #  Command C0-14
+CCMD R-Status-FFFF W                 #  Return Command C0-12
+WCMD R-TEST_PATTERN(7)-XXXX R        #  Command C0-15
+CCMD R-TEST_PATTERN(6)-0000 W        #  Return Command C0-13
+COMM
+WCMD W-TEST_PATTERN(8)-4392 R        #  Command C0-16
+CCMD R-Status-FFFF W                 #  Return Command C0-14
+WCMD R-TEST_PATTERN(8)-XXXX R        #  Command C0-17
+CCMD R-TEST_PATTERN(7)-0000 W        #  Return Command C0-15
+COMM
+WCMD W-TEST_PATTERN(9)-4B14 R        #  Command C0-18
+CCMD R-Status-FFFF W                 #  Return Command C0-16
+WCMD R-TEST_PATTERN(9)-XXXX R        #  Command C0-19
+CCMD R-TEST_PATTERN(8)-0000 W        #  Return Command C0-17
+COMM
+WCMD W-TEST_PATTERN(10)-5296 R       #  Command C0-20
+CCMD R-Status-FFFF W                 #  Return Command C0-18
+WCMD R-TEST_PATTERN(10)-XXXX R       #  Command C0-21
+CCMD R-TEST_PATTERN(9)-0000 W        #  Return Command C0-19
+COMM
+WCMD W-TEST_PATTERN(11)-5A18 R       #  Command C0-22
+CCMD R-Status-FFFF W                 #  Return Command C0-20
+WCMD R-TEST_PATTERN(11)-XXXX R       #  Command C0-23
+CCMD R-TEST_PATTERN(10)-0000 W       #  Return Command C0-21
+COMM
+WCMD W-TEST_PATTERN(12)-619A R       #  Command C0-24
+CCMD R-Status-FFFF W                 #  Return Command C0-22
+WCMD R-TEST_PATTERN(12)-XXXX R       #  Command C0-25
+CCMD R-TEST_PATTERN(11)-0000 W       #  Return Command C0-23
+COMM
+WCMD W-TEST_PATTERN(13)-691C R       #  Command C0-26
+CCMD R-Status-FFFF W                 #  Return Command C0-24
+WCMD R-TEST_PATTERN(13)-XXXX R       #  Command C0-27
+CCMD R-TEST_PATTERN(12)-0000 W       #  Return Command C0-25
+COMM
+WCMD W-TEST_PATTERN(14)-709E R       #  Command C0-28
+CCMD R-Status-FFFF W                 #  Return Command C0-26
+WCMD R-TEST_PATTERN(14)-XXXX R       #  Command C0-29
+CCMD R-TEST_PATTERN(13)-0000 W       #  Return Command C0-27
+COMM
+COMM ==============================================================================================
+COMM   TEST_PATTERN: check ping-pong memory toggle after writing the last word of the table
+COMM     and check the memory content
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-TEST_PATTERN(0)-8207 R        #  Command C0-68
+CCMD R-Status-FFFF W                 #  Return Command C0-66
+WCMD R-TEST_PATTERN(0)-XXXX R        #  Command C0-69
+CCMD R-TEST_PATTERN(14)-709E W       #  Return Command C0-67
+COMM
+WCMD W-TEST_PATTERN(1)-040F R        #  Command C0-70
+CCMD R-Status-FFFF W                 #  Return Command C0-68
+WCMD R-TEST_PATTERN(1)-XXXX R        #  Command C0-71
+CCMD R-TEST_PATTERN(0)-0782 W        #  Return Command C0-69
+COMM
+WCMD W-TEST_PATTERN(2)-8616 R        #  Command C0-72
+CCMD R-Status-FFFF W                 #  Return Command C0-70
+WCMD R-TEST_PATTERN(2)-XXXX R        #  Command C0-73
+CCMD R-TEST_PATTERN(1)-0F04 W        #  Return Command C0-71
+COMM
+WCMD W-TEST_PATTERN(3)-081E R        #  Command C0-74
+CCMD R-Status-FFFF W                 #  Return Command C0-72
+WCMD R-TEST_PATTERN(3)-XXXX R        #  Command C0-75
+CCMD R-TEST_PATTERN(2)-1686 W        #  Return Command C0-73
+COMM
+WCMD W-TEST_PATTERN(4)-8A25 R        #  Command C0-76
+CCMD R-Status-FFFF W                 #  Return Command C0-74
+WCMD R-TEST_PATTERN(4)-XXXX R        #  Command C0-77
+CCMD R-TEST_PATTERN(3)-1E08 W        #  Return Command C0-75
+COMM
+WCMD W-TEST_PATTERN(5)-0C2D R        #  Command C0-78
+CCMD R-Status-FFFF W                 #  Return Command C0-76
+WCMD R-TEST_PATTERN(5)-XXXX R        #  Command C0-79
+CCMD R-TEST_PATTERN(4)-258A W        #  Return Command C0-77
+COMM
+WCMD W-TEST_PATTERN(6)-8E34 R        #  Command C0-80
+CCMD R-Status-FFFF W                 #  Return Command C0-78
+WCMD R-TEST_PATTERN(6)-XXXX R        #  Command C0-81
+CCMD R-TEST_PATTERN(5)-2D0C W        #  Return Command C0-79
+COMM
+WCMD W-TEST_PATTERN(7)-103C R        #  Command C0-82
+CCMD R-Status-FFFF W                 #  Return Command C0-80
+WCMD R-TEST_PATTERN(7)-XXXX R        #  Command C0-83
+CCMD R-TEST_PATTERN(6)-348E W        #  Return Command C0-81
+COMM
+WCMD W-TEST_PATTERN(8)-9243 R        #  Command C0-84
+CCMD R-Status-FFFF W                 #  Return Command C0-82
+WCMD R-TEST_PATTERN(8)-XXXX R        #  Command C0-85
+CCMD R-TEST_PATTERN(7)-3C10 W        #  Return Command C0-83
+COMM
+WCMD W-TEST_PATTERN(9)-144B R        #  Command C0-86
+CCMD R-Status-FFFF W                 #  Return Command C0-84
+WCMD R-TEST_PATTERN(9)-XXXX R        #  Command C0-87
+CCMD R-TEST_PATTERN(8)-4392 W        #  Return Command C0-85
+COMM
+WCMD W-TEST_PATTERN(10)-9652 R       #  Command C0-88
+CCMD R-Status-FFFF W                 #  Return Command C0-86
+WCMD R-TEST_PATTERN(10)-XXXX R       #  Command C0-89
+CCMD R-TEST_PATTERN(9)-4B14 W        #  Return Command C0-87
+COMM
+WCMD W-TEST_PATTERN(11)-185A R       #  Command C0-90
+CCMD R-Status-FFFF W                 #  Return Command C0-88
+WCMD R-TEST_PATTERN(11)-XXXX R       #  Command C0-91
+CCMD R-TEST_PATTERN(10)-5296 W       #  Return Command C0-89
+COMM
+WCMD W-TEST_PATTERN(12)-9A61 R       #  Command C0-92
+CCMD R-Status-FFFF W                 #  Return Command C0-90
+WCMD R-TEST_PATTERN(12)-XXXX R       #  Command C0-93
+CCMD R-TEST_PATTERN(11)-5A18 W       #  Return Command C0-91
+COMM
+WCMD W-TEST_PATTERN(13)-1C69 R       #  Command C0-94
+CCMD R-Status-FFFF W                 #  Return Command C0-92
+WCMD R-TEST_PATTERN(13)-XXXX R       #  Command C0-95
+CCMD R-TEST_PATTERN(12)-619A W       #  Return Command C0-93
+COMM
+WCMD W-TEST_PATTERN(14)-9E70 R       #  Command C0-96
+CCMD R-Status-FFFF W                 #  Return Command C0-94
+WCMD R-TEST_PATTERN(14)-XXXX R       #  Command C0-97
+CCMD R-TEST_PATTERN(13)-691C W       #  Return Command C0-95
+COMM
+COMM ==============================================================================================
+COMM   TEST_PATTERN: check ping-pong memory toggle after writing the last word of the table
+COMM     and check the first memory content
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-TEST_PATTERN(0)-1111 R        #  Command C0-136
+CCMD R-Status-FFFF W                 #  Return Command C0-134
+WCMD R-TEST_PATTERN(0)-XXXX R        #  Command C0-137
+CCMD R-TEST_PATTERN(14)-9E70 W       #  Return Command C0-135
+COMM
+WCMD W-TEST_PATTERN(1)-040F R        #  Command C0-138
+CCMD R-Status-FFFF W                 #  Return Command C0-136
+WCMD R-TEST_PATTERN(1)-XXXX R        #  Command C0-139
+CCMD R-TEST_PATTERN(0)-8207 W        #  Return Command C0-137

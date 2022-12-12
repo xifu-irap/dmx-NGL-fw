@@ -45,8 +45,10 @@ configuration DRE_DMX_UT_0290_cfg of top_dmx_tb is
       for I_science_data_model: science_data_model
          use entity work.science_data_model generic map
          (
-            g_SIM_TIME           => 1216000 ns            , -- time    := c_SIM_TIME_DEF                     ; --! Simulation time
-            g_TST_NUM            => "0290"                 -- string  := c_TST_NUM_DEF                        --! Test number
+            g_SIM_TIME           => 1216000 ns            , -- time     := c_SIM_TIME_DEF                   ; --! Simulation time
+            g_ERR_SC_DTA_ENA     => c_ERR_SC_DTA_ENA_DEF , -- std_logic := c_ERR_SC_DTA_ENA_DEF             ; --! Error science data enable ('0' = No, '1' = Yes)
+            g_FRM_CNT_SC_ENA     => c_FRM_CNT_SC_ENA_DEF , -- std_logic := c_FRM_CNT_SC_ENA_DEF             ; --! Frame counter science enable ('0' = No, '1' = Yes)
+            g_TST_NUM            => "0290"                 -- string    := c_TST_NUM_DEF                      --! Test number
          );
       end for;
 

@@ -41,11 +41,13 @@ entity sqa_fbk_mgt is port
          i_clk_90             : in     std_logic                                                            ; --! System Clock 90 degrees shift
 
          i_sync_re            : in     std_logic                                                            ; --! Pixel sequence synchronization, rising edge
+         i_tst_pat_end        : in     std_logic                                                            ; --! Test pattern end of all patterns ('0' = Inactive, '1' = Active)
 
          i_saofm              : in     std_logic_vector(c_DFLD_SAOFM_COL_S-1 downto 0)                      ; --! SQUID AMP offset mode
          i_saofc              : in     std_logic_vector(c_DFLD_SAOFC_COL_S-1 downto 0)                      ; --! SQUID AMP lockpoint coarse offset
 
          i_saomd              : in     std_logic_vector(c_DFLD_SAOMD_COL_S-1 downto 0)                      ; --! SQUID AMP offset MUX delay
+         i_test_pattern       : in     std_logic_vector(  c_SQA_DAC_DATA_S-1 downto 0)                      ; --! Test pattern
          i_sqm_dta_err_cor    : in     std_logic_vector(c_SQM_DATA_FBK_S  -1 downto 0)                      ; --! SQUID MUX Data error corrected (signed)
 
          i_mem_saoff          : in     t_mem(
@@ -54,7 +56,7 @@ entity sqa_fbk_mgt is port
          o_saoff_data         : out    std_logic_vector(c_DFLD_SAOFF_PIX_S-1 downto 0)                      ; --! SQUID AMP lockpoint fine offset: data read
 
          o_sqa_fbk_mux        : out    std_logic_vector(c_DFLD_SAOFF_PIX_S-1 downto 0)                      ; --! SQUID AMP Feedback Multiplexer
-         o_sqa_fbk_off        : out    std_logic_vector(c_DFLD_SAOFC_COL_S-1 downto 0)                        --! SQUID AMP coarse offset
+         o_sqa_fbk_off        : out    std_logic_vector(  c_SQA_DAC_DATA_S-1 downto 0)                        --! SQUID AMP coarse offset
 
    );
 end entity sqa_fbk_mgt;
@@ -88,7 +90,6 @@ signal   mem_saoff_prm        : t_mem(
 
 signal   saofm_sync           : std_logic_vector(c_DFLD_SAOFM_COL_S-1 downto 0)                             ; --! SQUID AMP offset mode synchronized on first Pixel sequence
 signal   sqa_fb_close         : std_logic_vector(c_SQA_DAC_DATA_S-1 downto 0)                               ; --! SQUID AMP feedback close mode
-signal   sqa_fb_tst_pattern   : std_logic_vector(c_SQA_DAC_DATA_S-1 downto 0)                               ; --! SQUID AMP feedback test pattern mode
 signal   saoff                : std_logic_vector(c_SQA_DAC_MUX_S-1  downto 0)                               ; --! SQUID AMP lockpoint fine offset
 
 begin
@@ -289,6 +290,7 @@ begin
    --!   SQUID AMP coarse offset
    --    @Req : DRE-DMX-FW-REQ-0290
    --    @Req : DRE-DMX-FW-REQ-0330
+   --    @Req : DRE-DMX-FW-REQ-0455
    -- ------------------------------------------------------------------------------------------------------
    P_sqa_fbk_off : process (i_rst, i_clk)
    begin
@@ -299,17 +301,17 @@ begin
       elsif rising_edge(i_clk) then
          if pls_rw_cnt(pls_rw_cnt'high) = '1' then
 
-            if i_saofm = c_DST_SAOFM_OFFSET then
+            if i_saofm = c_DST_SAOFM_OFFSET or (i_saofm = c_DST_SAOFM_TEST and i_tst_pat_end = '1') then
                o_sqa_fbk_off <= i_saofc;
 
             elsif i_saofm = c_DST_SAOFM_CLOSE then
                o_sqa_fbk_off <= sqa_fb_close;
 
-            elsif i_saofm = c_DST_SAOFM_TEST then
-               o_sqa_fbk_off <= sqa_fb_tst_pattern;
+            elsif i_saofm = c_DST_SAOFM_TEST and i_tst_pat_end = '0' then
+               o_sqa_fbk_off <= std_logic_vector(signed(i_test_pattern) + to_signed(c_SQA_DAC_MDL_POINT, o_sqa_fbk_off'length));
 
-            else
-               o_sqa_fbk_off <= std_logic_vector(to_unsigned(c_SQA_DAC_MDL_POINT,c_SQA_DAC_DATA_S));
+            elsif i_saofm = c_DST_SAOFM_OFF then
+               o_sqa_fbk_off <= std_logic_vector(to_unsigned(c_SQA_DAC_MDL_POINT, o_sqa_fbk_off'length));
 
             end if;
 
@@ -321,6 +323,5 @@ begin
 
    --TODO
    sqa_fb_close    <=  i_sqm_dta_err_cor(i_sqm_dta_err_cor'high downto i_sqm_dta_err_cor'length-sqa_fb_close'length);
-   sqa_fb_tst_pattern   <=  x"555";
 
 end architecture RTL;

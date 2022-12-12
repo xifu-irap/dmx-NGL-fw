@@ -102,7 +102,8 @@ entity parser is generic
          o_pls_shp_fc         : out    t_int_arr(0 to c_NB_COL-1)                                           ; --! Pulse shaping cut frequency (Hz)
          o_sw_adc_vin         : out    std_logic_vector(c_SW_ADC_VIN_S-1 downto 0)                          ; --! Switch ADC Voltage input
 
-         o_adc_dmp_mem_add    : out    std_logic_vector(    c_MUX_FACT_S-1 downto 0)                        ; --! ADC Dump memory for data compare: address
+         o_frm_cnt_sc_rst     : out    std_logic                                                            ; --! Frame counter science reset ('0' = Inactive, '1' = Active)
+         o_adc_dmp_mem_add    : out    std_logic_vector(  c_MEM_SC_ADD_S-1 downto 0)                        ; --! ADC Dump memory for data compare: address
          o_adc_dmp_mem_data   : out    std_logic_vector(c_SQM_ADC_DATA_S+1 downto 0)                        ; --! ADC Dump memory for data compare: data
          o_science_mem_data   : out    std_logic_vector(c_SC_DATA_SER_NB*c_SC_DATA_SER_W_S-1 downto 0)      ; --! Science  memory for data compare: data
          o_adc_dmp_mem_cs     : out    std_logic_vector(        c_NB_COL-1 downto 0)                          --! ADC Dump memory for data compare: chip select ('0' = Inactive, '1' = Active)
@@ -201,6 +202,7 @@ begin
    o_brd_model(2)       <= discrete_w(c_DW_BRD_MODEL_2);
    o_sw_adc_vin(0)      <= discrete_w(c_DW_SW_ADC_VIN_0);
    o_sw_adc_vin(1)      <= discrete_w(c_DW_SW_ADC_VIN_1);
+   o_frm_cnt_sc_rst     <= discrete_w(c_DW_FRM_CNT_SC_RST);
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Discrete read signals association
@@ -276,7 +278,7 @@ begin
    variable v_fld_spi_cmd     : std_logic_vector(c_EP_CMD_S-1 downto 0)                                     ; --! Field SPI command
    variable v_wait_end        : t_wait_cmd_end                                                              ; --! Wait end
    variable v_fld_dis         : line                                                                        ; --! Field discrete
-   variable v_fld_dis_ind     : t_int_arr(1 downto 0)                                                       ; --! Field discrete index
+   variable v_fld_dis_ind     : t_int_arr(0 to 2)                                                           ; --! Field discrete index
    variable v_fld_value       : std_logic                                                                   ; --! Field value
    variable v_fld_ope         : line                                                                        ; --! Field operation
    variable v_fld_data        : std_logic_vector(c_CMD_FILE_FLD_DATA_S-1 downto 0)                          ; --! Field data
@@ -597,14 +599,14 @@ begin
                when "WMDC" =>
 
                   -- Get parameters
-                  get_param_wmdc(v_cmd_file_line, v_head_mess_stdout.all, v_fld_dis_ind(0), v_fld_dis_ind(1), v_fld_spi_cmd);
+                  get_param_wmdc(v_cmd_file_line, v_head_mess_stdout.all, v_fld_dis_ind(0), v_fld_dis_ind(1), v_fld_dis_ind(2), v_fld_spi_cmd);
 
                   -- Display command
-                  fprintf(note , "Write in ADC dump and science memories column " & integer'image(v_fld_dis_ind(0)) & ", adress index " & integer'image(v_fld_dis_ind(1)) &
-                                 ", ADC dump & Science value " & hfield_format(v_fld_spi_cmd).all, res_file);
+                  fprintf(note , "Write in ADC dump and science memories column " & integer'image(v_fld_dis_ind(0)) & ", frame number " & integer'image(v_fld_dis_ind(1)) &
+                                 ", adress index " & integer'image(v_fld_dis_ind(2)) & ", ADC dump & Science value " & hfield_format(v_fld_spi_cmd).all, res_file);
 
                   -- Write in ADC dump/science memories
-                  o_adc_dmp_mem_add    <= std_logic_vector(to_unsigned(v_fld_dis_ind(1), o_adc_dmp_mem_add'length));
+                  o_adc_dmp_mem_add    <= std_logic_vector(to_unsigned(c_MUX_FACT * v_fld_dis_ind(1) + v_fld_dis_ind(2), o_adc_dmp_mem_add'length));
                   o_adc_dmp_mem_data   <= std_logic_vector(resize(unsigned(v_fld_spi_cmd(2*c_EP_SPI_WD_S-1 downto c_EP_SPI_WD_S)), o_adc_dmp_mem_data'length));
                   o_science_mem_data   <= std_logic_vector(resize(unsigned(v_fld_spi_cmd(  c_EP_SPI_WD_S-1 downto 0)), o_science_mem_data'length));
                   o_adc_dmp_mem_cs(v_fld_dis_ind(0))  <= '1';

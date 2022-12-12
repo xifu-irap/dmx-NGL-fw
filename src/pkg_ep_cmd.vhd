@@ -69,7 +69,9 @@ constant c_EP_CMD_ERR_FST_POS : integer   := 10                                 
 constant c_EP_CMD_POS_AQMDE   : integer   := 0                                                              ; --! EP command: Position, DATA_ACQ_MODE
 constant c_EP_CMD_POS_SMFMD   : integer   := c_EP_CMD_POS_AQMDE   + 1                                       ; --! EP command: Position, SQ_MUX_FB_ON_OFF
 constant c_EP_CMD_POS_SAOFM   : integer   := c_EP_CMD_POS_SMFMD   + 1                                       ; --! EP command: Position, SQ_AMP_OFFSET_MODE
-constant c_EP_CMD_POS_BXLGT   : integer   := c_EP_CMD_POS_SAOFM   + 1                                       ; --! EP command: Position, BOXCAR_LENGTH
+constant c_EP_CMD_POS_TSTPT   : integer   := c_EP_CMD_POS_SAOFM   + 1                                       ; --! EP command: Position, TEST_PATTERN
+constant c_EP_CMD_POS_TSTEN   : integer   := c_EP_CMD_POS_TSTPT   + 1                                       ; --! EP command: Position, TEST_PATTERN_ENABLE
+constant c_EP_CMD_POS_BXLGT   : integer   := c_EP_CMD_POS_TSTEN   + 1                                       ; --! EP command: Position, BOXCAR_LENGTH
 constant c_EP_CMD_POS_STATUS  : integer   := c_EP_CMD_POS_BXLGT   + 1                                       ; --! EP command: Position, Status
 constant c_EP_CMD_POS_FW_VER  : integer   := c_EP_CMD_POS_STATUS  + 1                                       ; --! EP command: Position, Firmware Version
 constant c_EP_CMD_POS_HW_VER  : integer   := c_EP_CMD_POS_FW_VER  + 1                                       ; --! EP command: Position, Hardware Version
@@ -91,8 +93,8 @@ constant c_EP_CMD_POS_PLSSS   : integer   := c_EP_CMD_POS_PLSSH   + 1           
 
 constant c_EP_CMD_POS_LAST    : integer   := c_EP_CMD_POS_PLSSS   + 1                                       ; --! EP command: last position
 constant c_EP_CMD_REG_MX_STNB : integer   := 3                                                              ; --! EP command: Register multiplexer stage number
-constant c_EP_CMD_REG_MX_STIN : t_int_arr(0 to c_EP_CMD_REG_MX_STNB)   := (24, 30, 32, 33)                  ; --! EP command: Register inputs by multiplexer stage (accumulated)
-constant c_EP_CMD_REG_MX_INNB : t_int_arr(0 to c_EP_CMD_REG_MX_STNB-1) := ( 4,  3,  2)                      ; --! EP command: Register inputs by multiplexer
+constant c_EP_CMD_REG_MX_STIN : t_int_arr(0 to c_EP_CMD_REG_MX_STNB)   := (32, 40, 42, 43)                  ; --! EP command: Register inputs by multiplexer stage (accumulated)
+constant c_EP_CMD_REG_MX_INNB : t_int_arr(0 to c_EP_CMD_REG_MX_STNB-1) := ( 4,  4,  2)                      ; --! EP command: Register inputs by multiplexer
 
    -- ------------------------------------------------------------------------------------------------------
    --    EP command: Address
@@ -103,6 +105,8 @@ constant c_EP_CMD_ADD_COLPOSH : integer   := c_EP_CMD_ADD_COLPOSL + log2_ceil(c_
 constant c_EP_CMD_ADD_AQMDE   : std_logic_vector(c_EP_SPI_WD_S-1 downto 0):= x"4000"                        ; --! EP command: Address, DATA_ACQ_MODE
 constant c_EP_CMD_ADD_SMFMD   : std_logic_vector(c_EP_SPI_WD_S-1 downto 0):= x"4001"                        ; --! EP command: Address, SQ_MUX_FB_ON_OFF
 constant c_EP_CMD_ADD_SAOFM   : std_logic_vector(c_EP_SPI_WD_S-1 downto 0):= x"4002"                        ; --! EP command: Address, SQ_AMP_OFFSET_MODE
+constant c_EP_CMD_ADD_TSTPT   : std_logic_vector(c_EP_SPI_WD_S-1 downto 0):= x"4100"                        ; --! EP command: Address, TEST_PATTERN
+constant c_EP_CMD_ADD_TSTEN   : std_logic_vector(c_EP_SPI_WD_S-1 downto 0):= x"4150"                        ; --! EP command: Address, TEST_PATTERN_ENABLE
 constant c_EP_CMD_ADD_BXLGT   : std_logic_vector(c_EP_SPI_WD_S-1 downto 0):= x"4200"                        ; --! EP command: Address, BOXCAR_LENGTH
 
 constant c_EP_CMD_ADD_STATUS  : std_logic_vector(c_EP_SPI_WD_S-1 downto 0):= x"6000"                        ; --! EP command: Address, Status
@@ -143,6 +147,9 @@ constant c_EP_CMD_ADD_PLSSS   : t_slv_arr(0 to c_NB_COL-1)(c_EP_SPI_WD_S-1 downt
    -- ------------------------------------------------------------------------------------------------------
    --    EP command: Table and Memory Address size
    -- ------------------------------------------------------------------------------------------------------
+constant c_TAB_TSTPT_NW       : integer   := c_TST_PAT_COEF_NB * c_TST_PAT_RGN_NB                           ; --! Table number word, TEST_PATTERN
+constant c_MEM_TSTPT_ADD_S    : integer   := log2_ceil(c_TAB_TSTPT_NW)                                      ; --! Address size memory without ping-pong buffer bit, TEST_PATTERN
+
 constant c_TAB_PARMA_NW       : integer   := c_MUX_FACT                                                     ; --! Table number word, CY_A
 constant c_MEM_PARMA_ADD_S    : integer   := log2_ceil(c_TAB_PARMA_NW)                                      ; --! Address size memory without ping-pong buffer bit, CY_A
 
@@ -175,6 +182,8 @@ constant c_MEM_PLSSH_ADD_END  : integer   := (c_DAC_PLS_SHP_SET_NB-1) * 2**c_TAB
 constant c_EP_CMD_AUTH_AQMDE  : std_logic := c_EP_CMD_ERR_CLR                                               ; --! EP command: Authorization, DATA_ACQ_MODE
 constant c_EP_CMD_AUTH_SMFMD  : std_logic := c_EP_CMD_ERR_CLR                                               ; --! EP command: Authorization, SQ_MUX_FB_ON_OFF
 constant c_EP_CMD_AUTH_SAOFM  : std_logic := c_EP_CMD_ERR_CLR                                               ; --! EP command: Authorization, SQ_AMP_OFFSET_MODE
+constant c_EP_CMD_AUTH_TSTPT  : std_logic := c_EP_CMD_ERR_CLR                                               ; --! EP command: Authorization, TEST_PATTERN
+constant c_EP_CMD_AUTH_TSTEN  : std_logic := c_EP_CMD_ERR_CLR                                               ; --! EP command: Authorization, TEST_PATTERN_ENABLE
 constant c_EP_CMD_AUTH_BXLGT  : std_logic := c_EP_CMD_ERR_CLR                                               ; --! EP command: Authorization, BOXCAR_LENGTH
 
 constant c_EP_CMD_AUTH_STATUS : std_logic := c_EP_CMD_ERR_SET                                               ; --! EP command: Authorization, Status
@@ -203,6 +212,11 @@ constant c_EP_CMD_AUTH_PLSSS  : std_logic := c_EP_CMD_ERR_CLR                   
 constant c_DFLD_AQMDE_S       : integer   :=  3                                                             ; --! EP command: Data field, DATA_ACQ_MODE bus size
 constant c_DFLD_SMFMD_COL_S   : integer   :=  1                                                             ; --! EP command: Data field, SQ_MUX_FB_ON_OFF mode bus size
 constant c_DFLD_SAOFM_COL_S   : integer   :=  2                                                             ; --! EP command: Data field, SQ_AMP_OFFSET_MODE bus size
+constant c_DFLD_TSTPT_S       : integer   :=  c_EP_SPI_WD_S                                                 ; --! EP command: Data field, TEST_PATTERN bus size
+constant c_DFLD_TSTEN_LOP_S   : integer   :=  4                                                             ; --! EP command: Data field, TEST_PATTERN_ENABLE, field Loop number bus size
+constant c_DFLD_TSTEN_INF_S   : integer   :=  1                                                             ; --! EP command: Data field, TEST_PATTERN_ENABLE, field Infinity loop bus size
+constant c_DFLD_TSTEN_ENA_S   : integer   :=  1                                                             ; --! EP command: Data field, TEST_PATTERN_ENABLE, field Enable bus size
+constant c_DFLD_TSTEN_S       : integer   :=  c_DFLD_TSTEN_LOP_S + c_DFLD_TSTEN_INF_S + c_DFLD_TSTEN_ENA_S  ; --! EP command: Data field, TEST_PATTERN_ENABLE bus size
 constant c_DFLD_BXLGT_COL_S   : integer   :=  c_ADC_SMP_AVE_ADD_S                                           ; --! EP command: Data field, BOXCAR_LENGTH bus size
 constant c_DFLD_PARMA_PIX_S   : integer   :=  c_EP_SPI_WD_S                                                 ; --! EP command: Data field, CY_A bus size
 constant c_DFLD_KIKNM_PIX_S   : integer   :=  c_EP_SPI_WD_S                                                 ; --! EP command: Data field, CY_KI_KNORM bus size
@@ -219,6 +233,13 @@ constant c_DFLD_SAOMD_COL_S   : integer   :=  5                                 
 constant c_DFLD_SMPDL_COL_S   : integer   :=  5                                                             ; --! EP command: Data field, CY_SAMPLING_DELAY bus size
 constant c_DFLD_PLSSH_PLS_S   : integer   :=  c_EP_SPI_WD_S                                                 ; --! EP command: Data field, CY_FB1_PULSE_SHAPING bus size
 constant c_DFLD_PLSSS_PLS_S   : integer   :=  log2_ceil(c_DAC_PLS_SHP_SET_NB)                               ; --! EP command: Data field, CY_FB1_PULSE_SHAPING_SELECTION bus size
+
+   -- ------------------------------------------------------------------------------------------------------
+   --    EP command: Data field LSB position
+   -- ------------------------------------------------------------------------------------------------------
+constant c_DFLD_TSTEN_LOP_POS : integer   :=  0                                                             ; --! EP command: Data field, TEST_PATTERN_ENABLE, field Loop number LSB position
+constant c_DFLD_TSTEN_INF_POS : integer   :=  c_DFLD_TSTEN_LOP_S                                            ; --! EP command: Data field, TEST_PATTERN_ENABLE, field Infinity loop LSB position
+constant c_DFLD_TSTEN_ENA_POS : integer   :=  c_DFLD_TSTEN_INF_POS + c_DFLD_TSTEN_INF_S                     ; --! EP command: Data field, TEST_PATTERN_ENABLE, field Enable LSB position
 
    -- ------------------------------------------------------------------------------------------------------
    --    EP command: Data state
@@ -311,6 +332,9 @@ constant c_EP_CMD_DEF_AQMDE   : std_logic_vector(c_DFLD_AQMDE_S-1 downto 0)     
 
 constant c_EP_CMD_DEF_SMFMD   : std_logic_vector(c_DFLD_SMFMD_COL_S-1 downto 0)  := c_DST_SMFMD_OFF         ; --! EP command: Default value, SQ_MUX_FB_ON_OFF
 constant c_EP_CMD_DEF_SAOFM   : std_logic_vector(c_DFLD_SAOFM_COL_S-1 downto 0)  := c_DST_SAOFM_OFF         ; --! EP command: Default value, SQ_AMP_OFFSET_MODE
+constant c_EP_CMD_DEF_TSTPT   : t_int_arr(0 to 2*c_TAB_TSTPT_NW-1)               := (others => 0)           ; --! EP command: Default value, TEST_PATTERN
+constant c_EP_CMD_DEF_TSTEN   : std_logic_vector(c_DFLD_TSTEN_S-1 downto 0)      :=
+                                std_logic_vector(to_unsigned(0, c_DFLD_TSTEN_S))                            ; --! EP command: Default value, TEST_PATTERN_ENABLE
 constant c_EP_CMD_DEF_BXLGT   : std_logic_vector(c_DFLD_BXLGT_COL_S-1 downto 0)  :=
                                 std_logic_vector(to_unsigned(0, c_DFLD_BXLGT_COL_S))                        ; --! EP command: Default value, BOXCAR_LENGTH
 

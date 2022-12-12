@@ -96,6 +96,7 @@ DRE-DEMUX TDM firmware.
   - Position 0: **arst_n**, DRE-DEMUX input, Asynchronous reset ('0' = Active, '1' = Inactive)
   - Position 3-1: **brd_model(y)**, DRE-DEMUX input, Board model bit 'y' (0->2)
   - Position 5-4: **sw_adc_vin(1)/sw_adc_vin(0)**, SQUID model input, Switch ADC Voltage input ("00": SQUID MUX DAC voltage, "01": SQUID AMP DAC voltage)
+  - Position 6: **frm_cnt_sc_rst**, Science Data model input, Frame counter science reset ('0' = Active, '1' = Inactive)
 
 
 ## 6. Check parameters enable (seen from simulation pilot side)
@@ -216,8 +217,9 @@ DRE-DEMUX TDM firmware.
       + Parameter **value** : (1 bit U/X/0/1/Z/W/L/H/-) discrete output value
 
 
-   - Command WMDC **channel** **index** **data**: Write in ADC dump/science memories for data compare
+   - Command WMDC **channel** **frame** **index** **data**: Write in ADC dump/science memories for data compare
       + Parameter **channel** : decimal range 0 to c_NB_COL-1, channel number
+      + Parameter **frame** : decimal range 0 to c_MEM_SC_DTA_FRM_NB-1, frame number
       + Parameter **index** : decimal range 0 to c_MUX_FACT-1, memory index
       + Parameter **data**  : 32 bits hexa (underscore can be inserted), data ADC dump (16 bits) & Science (16 bits) to compare
 

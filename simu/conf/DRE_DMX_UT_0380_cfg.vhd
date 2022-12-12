@@ -17,14 +17,14 @@
 --                            along with this program.  If not, see <https://www.gnu.org/licenses/>.
 -- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --    email                   slaurent@nanoxplore.com
---!   @file                   DRE_DMX_UT_0190_cfg.vhd
+--!   @file                   DRE_DMX_UT_0380_cfg.vhd
 -- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --    Automatic Generation    No
 --    Code Rules Reference    SOC of design and VHDL handbook for VLSI development, CNES Edition (v2.1)
 -- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --!   @details                DRE DEMUX Unitary Test configuration file
 -- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-configuration DRE_DMX_UT_0190_cfg of top_dmx_tb is
+configuration DRE_DMX_UT_0380_cfg of top_dmx_tb is
 
    for Simulation
 
@@ -34,8 +34,8 @@ configuration DRE_DMX_UT_0190_cfg of top_dmx_tb is
       for I_parser : parser
          use entity work.parser generic map
          (
-            g_SIM_TIME           => 1120 us              , -- time    := c_SIM_TIME_DEF                     ; --! Simulation time
-            g_TST_NUM            => "0190"                 -- string  := c_TST_NUM_DEF                        --! Test number
+            g_SIM_TIME           =>  400 us              , -- time    := c_SIM_TIME_DEF                     ; --! Simulation time
+            g_TST_NUM            => "0380"                 -- string  := c_TST_NUM_DEF                        --! Test number
          );
       end for;
 
@@ -45,10 +45,10 @@ configuration DRE_DMX_UT_0190_cfg of top_dmx_tb is
       for I_science_data_model: science_data_model
          use entity work.science_data_model generic map
          (
-            g_SIM_TIME           => 1120 us              , -- time      := c_SIM_TIME_DEF                   ; --! Simulation time
+            g_SIM_TIME           => 400 us               , -- time      := c_SIM_TIME_DEF                   ; --! Simulation time
             g_ERR_SC_DTA_ENA     => c_ERR_SC_DTA_ENA_DEF , -- std_logic := c_ERR_SC_DTA_ENA_DEF             ; --! Error science data enable ('0' = No, '1' = Yes)
-            g_FRM_CNT_SC_ENA     => c_FRM_CNT_SC_ENA_DEF , -- std_logic := c_FRM_CNT_SC_ENA_DEF             ; --! Frame counter science enable ('0' = No, '1' = Yes)
-            g_TST_NUM            => "0190"                 -- string    := c_TST_NUM_DEF                      --! Test number
+            g_FRM_CNT_SC_ENA     => '1'                  , -- std_logic := c_FRM_CNT_SC_ENA_DEF             ; --! Frame counter science enable ('0' = No, '1' = Yes)
+            g_TST_NUM            => "0380"                 -- string    := c_TST_NUM_DEF                      --! Test number
          );
       end for;
 
@@ -131,4 +131,4 @@ configuration DRE_DMX_UT_0190_cfg of top_dmx_tb is
 
    end for;
 
-end configuration DRE_DMX_UT_0190_cfg;
+end configuration DRE_DMX_UT_0380_cfg;

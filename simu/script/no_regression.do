@@ -104,6 +104,7 @@ proc run_utest {args} {
       ${SRC_DIR}/sqa_fbk_mgt.vhd          \
       ${SRC_DIR}/sqa_dac_mgt.vhd          \
       ${SRC_DIR}/sqm_spi_mgt.vhd          \
+      ${SRC_DIR}/test_pattern_gen.vhd     \
       ${SRC_DIR}/top_dmx.vhd              \
       ${TB_DIR}/pkg_model.vhd             \
       ${TB_DIR}/pkg_mess.vhd              \
@@ -243,8 +244,6 @@ proc run_utest {args} {
          add wave -format Logic                                                                 sim/:top_dmx_tb:I_top_dmx:clk_sqm_adc_dac
          add wave -format Logic                                                                 sim/:top_dmx_tb:I_top_dmx:clk_90
          add wave -format Logic                                                                 sim/:top_dmx_tb:I_top_dmx:clk_sqm_adc_dac_90
-         add wave -format Logic -Radix decimal                                                  sim/:top_dmx_tb:I_top_dmx:I_dmx_cmd:ck_pls_cnt
-         add wave -format Logic -Radix decimal                                                  sim/:top_dmx_tb:I_top_dmx:I_dmx_cmd:pixel_pos
 
          add wave -noupdate -divider "Channel 0"
          add wave -format Analog-step -min -1.0 -max 1.0 \

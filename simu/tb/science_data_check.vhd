@@ -44,7 +44,8 @@ entity science_data_check is port
          i_sqm_fbm_cls_lp_n   : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! SQUID MUX feedback mode Closed loop ('0': Yes; '1': No)
          i_sw_adc_vin         : in     std_logic_vector(c_SW_ADC_VIN_S-1 downto 0)                          ; --! Switch ADC Voltage input
 
-         i_adc_dmp_mem_add    : in     std_logic_vector(    c_MUX_FACT_S-1 downto 0)                        ; --! ADC Dump memory for data compare: address
+         i_frm_cnt_sc_rst     : in     std_logic                                                            ; --! Frame counter science reset ('0' = Inactive, '1' = Active)
+         i_adc_dmp_mem_add    : in     std_logic_vector(  c_MEM_SC_ADD_S-1 downto 0)                        ; --! ADC Dump memory for data compare: address
          i_adc_dmp_mem_data   : in     std_logic_vector(c_SQM_ADC_DATA_S+1 downto 0)                        ; --! ADC Dump memory for data compare: data
          i_science_mem_data   : in     std_logic_vector(c_SC_DATA_SER_NB*c_SC_DATA_SER_W_S-1 downto 0)      ; --! Science  memory for data compare: data
          i_adc_dmp_mem_cs     : in     std_logic_vector(        c_NB_COL-1 downto 0)                        ; --! ADC Dump memory for data compare: chip select ('0' = Inactive, '1' = Active)
@@ -75,6 +76,10 @@ constant c_PLS_CNT_SC_NB_VAL  : integer:= c_MUX_FACT                            
 constant c_PLS_CNT_SC_MAX_VAL : integer:= c_PLS_CNT_SC_NB_VAL - 1                                           ; --! Pulse counter (Science case): maximal value
 constant c_PLS_CNT_SC_S       : integer:= log2_ceil(c_PLS_CNT_SC_MAX_VAL + 1)                               ; --! Pulse counter (Science case): size bus
 
+constant c_FRM_CNT_SC_NB_VAL  : integer:= c_MEM_SC_FRM_NB                                                   ; --! Frame counter (Science case): number of value
+constant c_FRM_CNT_SC_MAX_VAL : integer:= c_FRM_CNT_SC_NB_VAL - 1                                           ; --! Frame counter (Science case): maximal value
+constant c_FRM_CNT_SC_S       : integer:= log2_ceil(c_FRM_CNT_SC_MAX_VAL + 1)                               ; --! Frame counter (Science case): size bus
+
 type     t_tm_mode_sel          is  (idle, science, error_sig, dump, test_pattern)                          ; --! Mode selection type
 
 signal   squid_del            : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SMFBD_COL_S-1 downto 0)                   ; --! SQUID Feedback delay
@@ -86,6 +91,7 @@ signal   pixel_pos_del        : t_slv_arr(0 to c_NB_COL-1)(c_PIXEL_POS_S-1 downt
 signal   seq_cnt              : std_logic_vector(            c_SEQ_CNT_S-1 downto 0)                        ; --! Sequence counter (Dump case)
 
 signal   pls_cnt_sc           : std_logic_vector(         c_PLS_CNT_SC_S-1 downto 0)                        ; --! Pulse counter (Science case)
+signal   frm_cnt_sc           : std_logic_vector(         c_FRM_CNT_SC_S-1 downto 0)                        ; --! Frame counter (Science case)
 
 signal   sm_mode_sel          : t_tm_mode_sel                                                               ; --! Mode selection FSM
 
@@ -94,10 +100,10 @@ signal   science_data_r       : t_slv_arr_tab(0 to c_NB_COL-1)(0 to c_SC_DATA_R_
                                              (c_SC_DATA_SER_NB*c_SC_DATA_SER_W_S-1 downto 0)                ; --! Science Data register
 
 
-signal   mem_adc_dump_dta2cmp : t_slv_arr_tab(0 to c_NB_COL-1)(0 to c_MUX_FACT-1)
+signal   mem_adc_dump_dta2cmp : t_slv_arr_tab(0 to c_NB_COL-1)(0 to c_MEM_SC_FRM_NB * c_MUX_FACT-1)
                                              (c_SQM_ADC_DATA_S+1 downto 0):=
                                              (others => (others => (others => '0')))                        ; --! Dual port memory for adc dump data to compare
-signal   mem_science_dta2cmp  : t_slv_arr_tab(0 to c_NB_COL-1)(0 to c_MUX_FACT-1)
+signal   mem_science_dta2cmp  : t_slv_arr_tab(0 to c_NB_COL-1)(0 to c_MEM_SC_FRM_NB * c_MUX_FACT-1)
                                              (c_SC_DATA_SER_NB*c_SC_DATA_SER_W_S-1 downto 0):=
                                              (others => (others => (others => '0')))                        ; --! Dual port memory for science data to compare
 
@@ -210,7 +216,7 @@ begin
       elsif rising_edge(i_clk_science) then
          if i_science_data_rdy = '1' then
 
-            if    i_science_data_ctrl = c_SC_CTRL_ERRS or i_science_data_ctrl = c_SC_CTRL_SC_DTA then
+            if    i_science_data_ctrl = c_SC_CTRL_ERRS or i_science_data_ctrl = c_SC_CTRL_SC_DTA or i_science_data_ctrl = c_SC_CTRL_TST_PAT then
                pls_cnt_sc <= std_logic_vector(to_unsigned(0, pls_cnt_sc'length));
 
             elsif pls_cnt_sc < std_logic_vector(to_unsigned(c_PLS_CNT_SC_MAX_VAL, pls_cnt_sc'length)) then
@@ -223,6 +229,28 @@ begin
       end if;
 
    end process P_pls_cnt_sc;
+
+   -- ------------------------------------------------------------------------------------------------------
+   --!   Frame counter (Science case)
+   -- ------------------------------------------------------------------------------------------------------
+   P_frm_cnt_sc : process (i_rst, i_clk_science)
+   begin
+
+      if i_rst = '1' then
+         frm_cnt_sc  <= (others => '0');
+
+      elsif rising_edge(i_clk_science) then
+         if i_frm_cnt_sc_rst = '1' then
+            frm_cnt_sc <= (others => '0');
+
+         elsif science_data_rdy_r(science_data_rdy_r'high) = '1' and i_science_data_ctrl = c_SC_CTRL_EOD then
+            frm_cnt_sc <= std_logic_vector(unsigned(frm_cnt_sc) + 1);
+
+         end if;
+
+      end if;
+
+   end process P_frm_cnt_sc;
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Mode selection
@@ -242,6 +270,9 @@ begin
 
          elsif  i_science_data_ctrl = c_SC_CTRL_ADC_DMP then
             sm_mode_sel   <= dump;
+
+         elsif  i_science_data_ctrl = c_SC_CTRL_TST_PAT then
+            sm_mode_sel   <= test_pattern;
 
          end if;
       end if;
@@ -301,7 +332,7 @@ begin
       begin
          if rising_edge(i_clk_science) then
             adc_dump_dta2cmp(k) <= mem_adc_dump_dta2cmp(k)(to_integer(unsigned(pixel_pos_del(k))));
-            science_dta2cmp(k)  <= mem_science_dta2cmp(k)(to_integer(unsigned(pls_cnt_sc)));
+            science_dta2cmp(k)  <= mem_science_dta2cmp(k)(c_MUX_FACT * to_integer(unsigned(frm_cnt_sc)) + to_integer(unsigned(pls_cnt_sc)));
 
          end if;
       end process P_mem_adc_dmp_dta_r;
@@ -387,13 +418,16 @@ begin
       science_data_err(k) <=  '0' when (pls_cnt   = std_logic_vector(to_unsigned(c_PLS_CNT_MAX_VAL, pls_cnt'length)) and
                                         pixel_pos = std_logic_vector(to_unsigned(0, pixel_pos'length)) and
                                         seq_cnt   = std_logic_vector(to_unsigned(0, seq_cnt'length)))  else
-                              '1' when (i_sw_adc_vin = c_SW_ADC_VIN_ST_SQA and i_science_data(k) /= adc_dump_dta2cmp_lst(k)) else
+                              '1' when (i_sw_adc_vin = c_SW_ADC_VIN_ST_SQA and (sm_mode_sel = dump) and
+                                        i_science_data(k) /= adc_dump_dta2cmp_lst(k)) else
                               '1' when (i_sw_adc_vin = c_SW_ADC_VIN_ST_SQM) and (pls_cnt = pls_cnt_pos_del(k)) and (sm_mode_sel = dump) and (
                                         abs(signed(i_science_data(k)) - signed(adc_dump_dta2cmp_lst(k))) > to_signed(1, i_science_data(k)'length)) else
-                              '1' when (i_sw_adc_vin = c_SW_ADC_VIN_ST_SQM) and (sm_mode_sel = error_sig) and (
+                              '1' when (sm_mode_sel = error_sig) and (
                                         abs(signed(science_data_r(k)(c_SC_DATA_R_PIP_NB-1)) - signed(science_dta2cmp(k))) > to_signed(1, i_science_data(k)'length)) else
                               '1' when (i_sw_adc_vin = c_SW_ADC_VIN_ST_SQM) and (sm_mode_sel = science) and (i_sqm_fbm_cls_lp_n(k) = '1') and (
                                         abs(signed(science_data_r(k)(c_SC_DATA_R_PIP_NB-1)) - signed(science_dta2cmp(k))) > to_signed(1, i_science_data(k)'length)) else
+                              '1' when (sm_mode_sel = test_pattern) and (
+                                        signed(science_data_r(k)(c_SC_DATA_R_PIP_NB-1)) /= signed(science_dta2cmp(k))) else
                               '0';
 
    end generate G_mem_adc_dmp_dta;

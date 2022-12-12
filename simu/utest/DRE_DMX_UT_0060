@@ -27,6 +27,12 @@ COMM ---------------------------------------------------------------------------
 WUDI rst 0
 COMM
 COMM ==============================================================================================
+COMM   TEST_PATTERN: writing maximum first index for allowing test pattern generation
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-TEST_PATTERN(2)-0003 W
+WCMD W-TEST_PATTERN(14)-0003 W
+COMM
+COMM ==============================================================================================
 COMM   Start DATA_ACQ_MODE register test
 COMM ----------------------------------------------------------------------------------------------
 WCMD R-DATA_ACQ_MODE-XXXX W     # Command 0
@@ -72,7 +78,8 @@ COMM
 COMM ==============================================================================================
 COMM   Check DATA_ACQ_MODE new content: Test pattern
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-DATA_ACQ_MODE-0007 N     # Return Command 6
+CCMD R-DATA_ACQ_MODE-0007 W     # Return Command 6
+WCMD W-TEST_PATTERN_ENABLE-0021 W
 COMM
 COMM ==============================================================================================
 COMM   Wait end of test pattern mode

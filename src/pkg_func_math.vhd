@@ -32,9 +32,10 @@ use     ieee.math_real.all;
 package pkg_func_math is
 
 function log2_ceil              (X: in integer) return integer                                              ; --! return logarithm base 2 of X  (ceil integer)
-function div_ceil               (X: in integer; Y : in integer) return integer                              ; --! returns X/Y (ceil integer)
-function div_floor              (X: in integer; Y : in integer) return integer                              ; --! returns X/Y (floor integer)
-function div_round              (X: in integer; Y : in integer) return integer                              ; --! returns X/Y (round integer)
+function div_ceil               (X: in integer; Y : in integer) return integer                              ; --! return X/Y (ceil integer)
+function div_floor              (X: in integer; Y : in integer) return integer                              ; --! return X/Y (floor integer)
+function div_round              (X: in integer; Y : in integer) return integer                              ; --! return X/Y (round integer)
+function resize_stall_msb       (ARG : in std_logic_vector; NEW_SIZE : in integer) return std_logic_vector  ; --! return resized data stalled on Mean Significant Bit
 
 end pkg_func_math;
 
@@ -49,27 +50,48 @@ package body pkg_func_math is
    end function;
 
    -- ------------------------------------------------------------------------------------------------------
-   --! returns X/Y (ceil integer)
+   --! return X/Y (ceil integer)
    -- ------------------------------------------------------------------------------------------------------
    function div_ceil            (X: in integer; Y : in integer) return integer is
    begin
-       return integer(ceil(real(X)/real(Y)));
+      return integer(ceil(real(X)/real(Y)));
    end function;
 
    -- ------------------------------------------------------------------------------------------------------
-   --! returns X/Y (floor integer)
+   --! return X/Y (floor integer)
    -- ------------------------------------------------------------------------------------------------------
    function div_floor           (X: in integer; Y : in integer) return integer is
    begin
-       return integer(floor(real(X)/real(Y)));
+      return integer(floor(real(X)/real(Y)));
    end function;
 
    -- ------------------------------------------------------------------------------------------------------
-   --! returns X/Y (round integer)
+   --! return X/Y (round integer)
    -- ------------------------------------------------------------------------------------------------------
    function div_round           (X: in integer; Y : in integer) return integer is
    begin
-       return integer(round(real(X)/real(Y)));
+      return integer(round(real(X)/real(Y)));
+   end function;
+
+   -- ------------------------------------------------------------------------------------------------------
+   --! return resized data stalled on Mean Significant Bit
+   -- ------------------------------------------------------------------------------------------------------
+   function resize_stall_msb    (ARG : in std_logic_vector; NEW_SIZE : in integer) return std_logic_vector is
+   variable v_result          : std_logic_vector(NEW_SIZE-1 downto 0)                                       ; --  Result
+   begin
+      for k in 0 to v_result'high loop
+         if k <= ARG'length then
+            v_result(v_result'high - k) := ARG(ARG'high - k);
+
+         else
+            v_result(v_result'high - k) := '0';
+
+         end if;
+
+      end loop;
+
+      return v_result;
+
    end function;
 
 end pkg_func_math;

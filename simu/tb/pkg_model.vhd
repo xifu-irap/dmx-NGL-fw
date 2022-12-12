@@ -144,8 +144,9 @@ constant c_DW_BRD_MODEL_1     : integer :=  2                                   
 constant c_DW_BRD_MODEL_2     : integer :=  3                                                               ; --! Discrete output index, signal: o_brd_model(1)
 constant c_DW_SW_ADC_VIN_0    : integer :=  4                                                               ; --! Discrete output index, signal: o_sw_adc_vin(0)
 constant c_DW_SW_ADC_VIN_1    : integer :=  5                                                               ; --! Discrete output index, signal: o_sw_adc_vin(1)
+constant c_DW_FRM_CNT_SC_RST  : integer :=  6                                                               ; --! Discrete output index, signal: o_frm_cnt_sc_rst
 
-constant c_DW_S               : integer :=  6                                                               ; --! Discrete output size
+constant c_DW_S               : integer :=  7                                                               ; --! Discrete output size
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Parser check clock parameters enable
@@ -188,8 +189,10 @@ constant c_CE_S               : integer :=  23                                  
    -- ------------------------------------------------------------------------------------------------------
    --!   Model generic default values
    -- ------------------------------------------------------------------------------------------------------
-constant c_SIM_TIME_DEF       : time    := 0 us                                                             ; --! Simulation time
-constant c_TST_NUM_DEF        : string  := "XXXX"                                                           ; --! Test number
+constant c_SIM_TIME_DEF       : time      := 0 us                                                           ; --! Simulation time
+constant c_TST_NUM_DEF        : string    := "XXXX"                                                         ; --! Test number
+constant c_ERR_SC_DTA_ENA_DEF : std_logic := '1'                                                            ; --! Error science data enable ('0' = No, '1' = Yes)
+constant c_FRM_CNT_SC_ENA_DEF : std_logic := '0'                                                            ; --! Frame counter science enable ('0' = No, '1' = Yes)
 
    -- ------------------------------------------------------------------------------------------------------
    --  c_CLK_REF_PER_DEF condition to respect:
@@ -249,6 +252,10 @@ constant c_SYNC_HIGH          : time    :=  10 * c_CLK_REF_PER_DEF              
 constant c_SW_ADC_VIN_S       : integer :=  2                                                               ; --! Switch ADC voltage input bus size
 constant c_SW_ADC_VIN_ST_SQM  : std_logic_vector(c_SW_ADC_VIN_S-1 downto 0) := "00"                         ; --! Switch ADC voltage input: SQUID MUX voltage state
 constant c_SW_ADC_VIN_ST_SQA  : std_logic_vector(c_SW_ADC_VIN_S-1 downto 0) := "01"                         ; --! Switch ADC voltage input: SQUID AMP voltage state
+
+constant c_MEM_SC_FRM_NB      : integer := 32                                                               ; --! Memory science data frame number
+constant c_MEM_SC_FRM_NB_S    : integer := log2_ceil(c_MEM_SC_FRM_NB+1)                                     ; --! Memory science data frame number bus size
+constant c_MEM_SC_ADD_S       : integer := c_MEM_SC_FRM_NB_S + c_MUX_FACT_S                                 ; --! Memory science address bus size
 
    -- ------------------------------------------------------------------------------------------------------
    --    Clock parameters to check
@@ -424,7 +431,8 @@ constant c_SCHK               : t_spi_chk_prm_arr(0 to c_CHK_ENA_SPI_NB-1) :=
          o_pls_shp_fc         : out    t_int_arr(0 to c_NB_COL-1)                                           ; --! Pulse shaping cut frequency (Hz)
          o_sw_adc_vin         : out    std_logic_vector(c_SW_ADC_VIN_S-1 downto 0)                          ; --! Switch ADC Voltage input
 
-         o_adc_dmp_mem_add    : out    std_logic_vector(    c_MUX_FACT_S-1 downto 0)                        ; --! ADC Dump memory for data compare: address
+         o_frm_cnt_sc_rst     : out    std_logic                                                            ; --! Frame counter science reset ('0' = Inactive, '1' = Active)
+         o_adc_dmp_mem_add    : out    std_logic_vector(  c_MEM_SC_ADD_S-1 downto 0)                        ; --! ADC Dump memory for data compare: address
          o_adc_dmp_mem_data   : out    std_logic_vector(c_SQM_ADC_DATA_S+1 downto 0)                        ; --! ADC Dump memory for data compare: data
          o_science_mem_data   : out    std_logic_vector(c_SC_DATA_SER_NB*c_SC_DATA_SER_W_S-1 downto 0)      ; --! Science  memory for data compare: data
          o_adc_dmp_mem_cs     : out    std_logic_vector(        c_NB_COL-1 downto 0)                          --! ADC Dump memory for data compare: chip select ('0' = Inactive, '1' = Active)
@@ -432,8 +440,10 @@ constant c_SCHK               : t_spi_chk_prm_arr(0 to c_CHK_ENA_SPI_NB-1) :=
    end component;
 
    component science_data_model is generic
-   (     g_SIM_TIME           : time    := c_SIM_TIME_DEF                                                   ; --! Simulation time
-         g_TST_NUM            : string  := c_TST_NUM_DEF                                                      --! Test number
+   (     g_SIM_TIME           : time      := c_SIM_TIME_DEF                                                 ; --! Simulation time
+         g_ERR_SC_DTA_ENA     : std_logic := c_ERR_SC_DTA_ENA_DEF                                           ; --! Error science data enable ('0' = No, '1' = Yes)
+         g_FRM_CNT_SC_ENA     : std_logic := c_FRM_CNT_SC_ENA_DEF                                           ; --! Frame counter science enable ('0' = No, '1' = Yes)
+         g_TST_NUM            : string    := c_TST_NUM_DEF                                                    --! Test number
    ); port
    (     i_arst               : in     std_logic                                                            ; --! Asynchronous reset ('0' = Inactive, '1' = Active)
          i_clk_sqm_adc_acq    : in     std_logic                                                            ; --! SQUID MUX ADC acquisition Clock
@@ -453,7 +463,8 @@ constant c_SCHK               : t_spi_chk_prm_arr(0 to c_CHK_ENA_SPI_NB-1) :=
          i_sqm_adc_data       : in     t_slv_arr(0 to c_NB_COL-1)(c_SQM_ADC_DATA_S-1 downto 0)              ; --! SQUID MUX ADC: Data buses
          i_sqm_adc_oor        : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! SQUID MUX ADC: Out of range ('0' = No, '1' = under/over range)
 
-         i_adc_dmp_mem_add    : in     std_logic_vector(    c_MUX_FACT_S-1 downto 0)                        ; --! ADC Dump memory for data compare: address
+         i_frm_cnt_sc_rst     : in     std_logic                                                            ; --! Frame counter science reset ('0' = Inactive, '1' = Active)
+         i_adc_dmp_mem_add    : in     std_logic_vector(  c_MEM_SC_ADD_S-1 downto 0)                        ; --! ADC Dump memory for data compare: address
          i_adc_dmp_mem_data   : in     std_logic_vector(c_SQM_ADC_DATA_S+1 downto 0)                        ; --! ADC Dump memory for data compare: data
          i_science_mem_data   : in     std_logic_vector(c_SC_DATA_SER_NB*c_SC_DATA_SER_W_S-1 downto 0)      ; --! Science  memory for data compare: data
          i_adc_dmp_mem_cs     : in     std_logic_vector(        c_NB_COL-1 downto 0)                        ; --! ADC Dump memory for data compare: chip select ('0' = Inactive, '1' = Active)

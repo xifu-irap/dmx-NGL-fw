@@ -47,23 +47,23 @@ entity squid_data_proc is port
 
          i_mem_parma          : in     t_mem(
                                        add(    c_MEM_PARMA_ADD_S-1 downto 0),
-                                       data_w(c_DFLD_PARMA_PIX_S-1 downto 0))                               ; --! SQUID MUX feedback value in open loop: memory inputs
-         o_parma_data         : out    std_logic_vector(c_DFLD_PARMA_PIX_S-1 downto 0)                      ; --! SQUID MUX feedback value in open loop: data read
+                                       data_w(c_DFLD_PARMA_PIX_S-1 downto 0))                               ; --! Parameter a(p): memory inputs
+         o_parma_data         : out    std_logic_vector(c_DFLD_PARMA_PIX_S-1 downto 0)                      ; --! Parameter a(p): data read
 
          i_mem_kiknm          : in     t_mem(
                                        add(    c_MEM_KIKNM_ADD_S-1 downto 0),
-                                       data_w(c_DFLD_KIKNM_PIX_S-1 downto 0))                               ; --! SQUID MUX feedback value in open loop: memory inputs
-         o_kiknm_data         : out    std_logic_vector(c_DFLD_KIKNM_PIX_S-1 downto 0)                      ; --! SQUID MUX feedback value in open loop: data read
+                                       data_w(c_DFLD_KIKNM_PIX_S-1 downto 0))                               ; --! Parameter ki(p)*knorm(p): memory inputs
+         o_kiknm_data         : out    std_logic_vector(c_DFLD_KIKNM_PIX_S-1 downto 0)                      ; --! Parameter ki(p)*knorm(p): data read
 
          i_mem_knorm          : in     t_mem(
                                        add(    c_MEM_KNORM_ADD_S-1 downto 0),
-                                       data_w(c_DFLD_KNORM_PIX_S-1 downto 0))                               ; --! SQUID MUX feedback value in open loop: memory inputs
-         o_knorm_data         : out    std_logic_vector(c_DFLD_KNORM_PIX_S-1 downto 0)                      ; --! SQUID MUX feedback value in open loop: data read
+                                       data_w(c_DFLD_KNORM_PIX_S-1 downto 0))                               ; --! Parameter knorm(p): memory inputs
+         o_knorm_data         : out    std_logic_vector(c_DFLD_KNORM_PIX_S-1 downto 0)                      ; --! Parameter knorm(p): data read
 
          i_mem_smlkv          : in     t_mem(
                                        add(    c_MEM_SMLKV_ADD_S-1 downto 0),
-                                       data_w(c_DFLD_SMLKV_PIX_S-1 downto 0))                               ; --! SQUID MUX feedback value in open loop: memory inputs
-         o_smlkv_data         : out    std_logic_vector(c_DFLD_SMLKV_PIX_S-1 downto 0)                      ; --! SQUID MUX feedback value in open loop: data read
+                                       data_w(c_DFLD_SMLKV_PIX_S-1 downto 0))                               ; --! Parameter elp(p): memory inputs
+         o_smlkv_data         : out    std_logic_vector(c_DFLD_SMLKV_PIX_S-1 downto 0)                      ; --! Parameter elp(p): data read
 
          i_init_fbk_pixel_pos : in     std_logic_vector(c_MUX_FACT_S-1 downto 0)                            ; --! Initialization feedback chain accumulators Pixel position
          i_init_fbk_acc       : in     std_logic                                                            ; --! Initialization feedback chain accumulators ('0' = Inactive, '1' = Active)
@@ -123,25 +123,25 @@ signal   sqm_data_err_rdy_r   : std_logic_vector(c_TOT_NPER-1 downto 0)         
 signal   pixel_pos            : std_logic_vector(            c_PIXEL_POS_S-1 downto 0)                      ; --! Pixel position
 signal   pixel_pos_r          : t_slv_arr(0 to c_TOT_NPER-1)(c_PIXEL_POS_S-1 downto 0)                      ; --! Pixel position register
 
-signal   mem_parma_pp         : std_logic                                                                   ; --! SQUID MUX feedback mode, TH/HK side: ping-pong buffer bit
+signal   mem_parma_pp         : std_logic                                                                   ; --! Parameter a(p), TH/HK side: ping-pong buffer bit
 signal   mem_parma_prm        : t_mem(
                                 add(              c_MEM_PARMA_ADD_S-1 downto 0),
-                                data_w(          c_DFLD_PARMA_PIX_S-1 downto 0))                            ; --! SQUID MUX feedback mode, getting parameter side: memory inputs
+                                data_w(          c_DFLD_PARMA_PIX_S-1 downto 0))                            ; --! Parameter a(p), getting parameter side: memory inputs
 
-signal   mem_kiknm_pp         : std_logic                                                                   ; --! SQUID MUX feedback mode, TH/HK side: ping-pong buffer bit
+signal   mem_kiknm_pp         : std_logic                                                                   ; --! Parameter ki(p)*knorm(p), TH/HK side: ping-pong buffer bit
 signal   mem_kiknm_prm        : t_mem(
                                 add(              c_MEM_KIKNM_ADD_S-1 downto 0),
-                                data_w(          c_DFLD_KIKNM_PIX_S-1 downto 0))                            ; --! SQUID MUX feedback mode, getting parameter side: memory inputs
+                                data_w(          c_DFLD_KIKNM_PIX_S-1 downto 0))                            ; --! Parameter ki(p)*knorm(p), getting parameter side: memory inputs
 
-signal   mem_knorm_pp         : std_logic                                                                   ; --! SQUID MUX feedback mode, TH/HK side: ping-pong buffer bit
+signal   mem_knorm_pp         : std_logic                                                                   ; --! Parameter knorm(p), TH/HK side: ping-pong buffer bit
 signal   mem_knorm_prm        : t_mem(
                                 add(              c_MEM_KNORM_ADD_S-1 downto 0),
-                                data_w(          c_DFLD_KNORM_PIX_S-1 downto 0))                            ; --! SQUID MUX feedback mode, getting parameter side: memory inputs
+                                data_w(          c_DFLD_KNORM_PIX_S-1 downto 0))                            ; --! Parameter knorm(p), getting parameter side: memory inputs
 
-signal   mem_smlkv_pp         : std_logic                                                                   ; --! SQUID MUX feedback mode, TH/HK side: ping-pong buffer bit
+signal   mem_smlkv_pp         : std_logic                                                                   ; --! Parameter elp(p), TH/HK side: ping-pong buffer bit
 signal   mem_smlkv_prm        : t_mem(
                                 add(              c_MEM_SMLKV_ADD_S-1 downto 0),
-                                data_w(          c_DFLD_SMLKV_PIX_S-1 downto 0))                            ; --! SQUID MUX feedback mode, getting parameter side: memory inputs
+                                data_w(          c_DFLD_SMLKV_PIX_S-1 downto 0))                            ; --! Parameter elp(p), getting parameter side: memory inputs
 
 signal   a_p                  : std_logic_vector(c_DFLD_PARMA_PIX_S-1 downto 0)                             ; --! Parameters a(p)
 signal   ki_knorm_p           : std_logic_vector(c_DFLD_KIKNM_PIX_S-1 downto 0)                             ; --! Parameters ki(p)*knorm(p)

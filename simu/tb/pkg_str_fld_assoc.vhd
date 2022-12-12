@@ -151,6 +151,9 @@ constant c_PAD                : character := ' '                                
          when "sw_adc_vin(1)       "   =>
             o_fld_dw_ind := c_DW_SW_ADC_VIN_1;
 
+         when "frm_cnt_sc_rst      "   =>
+            o_fld_dw_ind := c_DW_FRM_CNT_SC_RST;
+
          when others                   =>
             o_fld_dw_ind := c_DW_S;
 
@@ -417,6 +420,12 @@ constant c_PAD                : character := ' '                                
 
          when "SQ_AMP_OFFSET_MODE            "  =>
             o_fld_add_val:= c_EP_CMD_ADD_SAOFM;
+
+         when "TEST_PATTERN                  "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_TSTPT;
+
+         when "TEST_PATTERN_ENABLE           "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_TSTEN;
 
          when "BOXCAR_LENGTH                 "  =>
             o_fld_add_val:= c_EP_CMD_ADD_BXLGT;

@@ -194,13 +194,14 @@ type     t_wait_cmd_end         is (none, wait_cmd_end_tx, wait_rcmd_end_rx)    
    );
 
    -- ------------------------------------------------------------------------------------------------------
-   --! Get parameters command WMDC [channel] [index] [data]:
+   --! Get parameters command WMDC [channel] [frame] [index] [data]:
    --!  Write in ADC dump/science memories for data compare
    -- ------------------------------------------------------------------------------------------------------
    procedure get_param_wmdc
    (     b_cmd_file_line      : inout  line                                                                 ; --  Command file line
          i_mess_header        : in     string                                                               ; --  Message header
          o_fld_channel        : out    integer range 0 to c_NB_COL-1                                        ; --  Field channel number
+         o_fld_frame          : out    integer range 0 to c_MEM_SC_FRM_NB-1                                 ; --  Field frame number
          o_fld_index          : out    integer range 0 to c_MUX_FACT-1                                      ; --  Field memory index number
          o_fld_data           : out    std_logic_vector                                                       --  Field data
    );
@@ -647,6 +648,7 @@ package body pkg_func_cmd_script is
    (     b_cmd_file_line      : inout  line                                                                 ; --  Command file line
          i_mess_header        : in     string                                                               ; --  Message header
          o_fld_channel        : out    integer range 0 to c_NB_COL-1                                        ; --  Field channel number
+         o_fld_frame          : out    integer range 0 to c_MEM_SC_FRM_NB-1                                 ; --  Field frame number
          o_fld_index          : out    integer range 0 to c_MUX_FACT-1                                      ; --  Field memory index number
          o_fld_data           : out    std_logic_vector                                                       --  Field data
    ) is
@@ -658,6 +660,10 @@ package body pkg_func_cmd_script is
       -- Get [channel]
       rfield(b_cmd_file_line, i_mess_header & "[channel]", o_fld_channel);
       assert o_fld_channel < c_NB_COL report i_mess_header & "[channel]" & c_MESS_ERR_SIZE severity failure;
+
+      -- Get [frame]
+      rfield(b_cmd_file_line, i_mess_header & "[frame]", o_fld_frame);
+      assert o_fld_frame < c_MEM_SC_FRM_NB report i_mess_header & "[frame]" & c_MESS_ERR_SIZE severity failure;
 
       -- Get [index]
       rfield(b_cmd_file_line, i_mess_header & "[index]", o_fld_index);

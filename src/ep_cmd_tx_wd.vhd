@@ -47,8 +47,12 @@ entity ep_cmd_tx_wd is port
 
          i_rg_smfmd           : in     t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SMFMD_COL_S-1 downto 0)            ; --! EP register: SQ_MUX_FB_ON_OFF
          i_rg_saofm           : in     t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SAOFM_COL_S-1 downto 0)            ; --! EP register: SQ_AMP_OFFSET_MODE
+         i_rg_tsten           : in     std_logic_vector(c_DFLD_TSTEN_S-1 downto 0)                          ; --! EP register: TEST_PATTERN_ENABLE
          i_rg_bxlgt           : in     t_slv_arr(0 to c_NB_COL-1)(c_DFLD_BXLGT_COL_S-1 downto 0)            ; --! EP register: BOXCAR_LENGTH
          i_ep_cmd_sts_rg_r    : in     std_logic_vector(c_EP_SPI_WD_S-1 downto 0)                           ; --! EP command: Status register, registered
+
+         i_tstpt_data         : in     t_slv_arr(0 to c_NB_COL-1)(c_DFLD_TSTPT_S-1 downto 0)                ; --! Data read: TEST_PATTERN
+         i_tstpt_cs           : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! Chip select data read ('0' = Inactive,'1'=Active): TEST_PATTERN
 
          i_parma_data         : in     t_slv_arr(0 to c_NB_COL-1)(c_DFLD_PARMA_PIX_S-1 downto 0)            ; --! Data read: CY_A
          i_parma_cs           : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! Chip select data read ('0' = Inactive,'1'=Active): CY_A
@@ -118,6 +122,7 @@ architecture RTL of ep_cmd_tx_wd is
 
    end function;
 
+signal   tstpt_data_mux       : std_logic_vector(c_DFLD_TSTPT_S-1 downto 0)                                 ; --! Data read multiplexer: TEST_PATTERN
 signal   parma_data_mux       : std_logic_vector(c_DFLD_PARMA_PIX_S-1 downto 0)                             ; --! Data read multiplexer: CY_A
 signal   kiknm_data_mux       : std_logic_vector(c_DFLD_KIKNM_PIX_S-1 downto 0)                             ; --! Data read multiplexer: CY_KI_KNORM
 signal   knorm_data_mux       : std_logic_vector(c_DFLD_KNORM_PIX_S-1 downto 0)                             ; --! Data read multiplexer: CY_KNORM
@@ -143,6 +148,18 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   Column Memory Data read multiplexer
    -- ------------------------------------------------------------------------------------------------------
+   I_tstpt_mux : entity work.mem_data_rd_mux generic map
+   (     g_MEM_RD_DATA_NPER   => c_MEM_RD_DATA_NPER   , -- integer                                          ; --! Clock period number for accessing memory data output
+         g_DATA_S             => c_DFLD_TSTPT_S       , -- integer                                          ; --! Data bus size
+         g_NB                 => c_NB_COL               -- integer                                            --! Data bus number
+   ) port map
+   (     i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+         i_clk                => i_clk                , -- in     std_logic                                 ; --! System Clock
+         i_data               => i_tstpt_data         , -- in     t_slv_arr g_NB g_DATA_S                   ; --! Data buses
+         i_cs                 => i_tstpt_cs           , -- in     std_logic_vector(g_NB-1 downto 0)         ; --! Chip selects ('0' = Inactive, '1' = Active)
+         o_data_mux           => tstpt_data_mux         -- out    std_logic_vector(g_DATA_S-1 downto 0)       --! Multiplexed data
+   );
+
    I_parma_mux : entity work.mem_data_rd_mux generic map
    (     g_MEM_RD_DATA_NPER   => c_MEM_RD_DATA_NPER   , -- integer                                          ; --! Clock period number for accessing memory data output
          g_DATA_S             => c_DFLD_PARMA_PIX_S   , -- integer                                          ; --! Data bus size
@@ -337,6 +354,13 @@ begin
    -- @Req : DRE-DMX-FW-REQ-0330
    data_rg_rd(c_EP_CMD_POS_SAOFM) <= std_logic_vector(resize(unsigned(i_rg_saofm(3)), c_EP_SPI_WD_S/4) & resize(unsigned(i_rg_saofm(2)), c_EP_SPI_WD_S/4) &
                                                       resize(unsigned(i_rg_saofm(1)), c_EP_SPI_WD_S/4) & resize(unsigned(i_rg_saofm(0)), c_EP_SPI_WD_S/4));
+   -- @Req : REG_TEST_PATTERN
+   -- @Req : DRE-DMX-FW-REQ-0440
+   data_rg_rd(c_EP_CMD_POS_TSTPT) <= std_logic_vector(resize(unsigned(tstpt_data_mux), c_EP_SPI_WD_S));
+
+   -- @Req : REG_TEST_PATTERN_ENABLE
+   data_rg_rd(c_EP_CMD_POS_TSTEN) <= std_logic_vector(resize(unsigned(i_rg_tsten), c_EP_SPI_WD_S));
+
    -- @Req : REG_BOXCAR_LENGTH
    -- @Req : DRE-DMX-FW-REQ-0145
    data_rg_rd(c_EP_CMD_POS_BXLGT) <= std_logic_vector(resize(unsigned(i_rg_bxlgt(3)), c_EP_SPI_WD_S/4) & resize(unsigned(i_rg_bxlgt(2)), c_EP_SPI_WD_S/4) &

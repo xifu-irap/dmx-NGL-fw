@@ -68,6 +68,13 @@ begin
             elsif i_ep_cmd_rx_add_norw = c_EP_CMD_ADD_SAOFM  then
                o_ep_cmd_sts_err_wrt <= c_EP_CMD_AUTH_SAOFM;
 
+            elsif i_ep_cmd_rx_add_norw(i_ep_cmd_rx_add_norw'high downto c_MEM_TSTPT_ADD_S)      = c_EP_CMD_ADD_TSTPT(i_ep_cmd_rx_add_norw'high downto c_MEM_TSTPT_ADD_S)         and
+                  i_ep_cmd_rx_add_norw(  c_MEM_TSTPT_ADD_S-1     downto 0)                      < std_logic_vector(to_unsigned(c_TAB_TSTPT_NW, c_MEM_TSTPT_ADD_S))               then
+               o_ep_cmd_sts_err_wrt <= c_EP_CMD_AUTH_TSTPT;
+
+            elsif i_ep_cmd_rx_add_norw = c_EP_CMD_ADD_TSTEN  then
+               o_ep_cmd_sts_err_wrt <= c_EP_CMD_AUTH_TSTEN;
+
             elsif i_ep_cmd_rx_add_norw = c_EP_CMD_ADD_BXLGT  then
                o_ep_cmd_sts_err_wrt <= c_EP_CMD_AUTH_BXLGT;
 

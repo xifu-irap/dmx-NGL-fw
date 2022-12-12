@@ -1,0 +1,127 @@
+COMM **********************************************************************************************
+COMM   Test: EP command, TEST_PATTERN_ENABLE register
+COMM **********************************************************************************************
+COMM
+COMM ==============================================================================================
+COMM   Asynchronous reset activated
+COMM ----------------------------------------------------------------------------------------------
+WDIS arst_n 0
+WAIT 80 ns
+COMM
+COMM ==============================================================================================
+COMM   Asynchronous reset deactivated
+COMM ----------------------------------------------------------------------------------------------
+WDIS arst_n 1
+COMM
+COMM ==============================================================================================
+COMM   Wait internal reset deactivated
+COMM ----------------------------------------------------------------------------------------------
+WUDI rst 0
+COMM
+COMM ==============================================================================================
+COMM   Start TEST_PATTERN_ENABLE register test
+COMM ----------------------------------------------------------------------------------------------
+WCMD R-TEST_PATTERN_ENABLE-XXXX W     # Command 0
+WCMD W-TEST_PATTERN_ENABLE-8XXX W     # Command 1
+WCMD R-TEST_PATTERN_ENABLE-XXXX R     # Command 2
+COMM
+COMM ==============================================================================================
+COMM   Check TEST_PATTERN_ENABLE content at start
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-TEST_PATTERN_ENABLE-0000 W     # Return Command 0
+WCMD W-TEST_PATTERN_ENABLE-4XXX R     # Command 3
+COMM
+COMM ==============================================================================================
+COMM   Check error position SPI data out of range detected
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-Status-EFFF W                  # Return Command 1
+WCMD R-TEST_PATTERN_ENABLE-XXXX R     # Command 4
+COMM
+COMM ==============================================================================================
+COMM   Check TEST_PATTERN_ENABLE no change
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-TEST_PATTERN_ENABLE-0000 W     # Return Command 2
+WCMD W-TEST_PATTERN_ENABLE-2XXX R     # Command 5
+COMM
+COMM ==============================================================================================
+COMM   Check error position SPI data out of range detected
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-Status-EFFF W                  # Return Command 3
+WCMD R-TEST_PATTERN_ENABLE-XXXX R     # Command 6
+COMM
+COMM ==============================================================================================
+COMM   Check TEST_PATTERN_ENABLE no change
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-TEST_PATTERN_ENABLE-0000 W     # Return Command 4
+WCMD W-TEST_PATTERN_ENABLE-1XXX R     # Command 7
+COMM
+COMM ==============================================================================================
+COMM   Check error position SPI data out of range detected
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-Status-EFFF W                  # Return Command 5
+WCMD R-TEST_PATTERN_ENABLE-XXXX R     # Command 8
+COMM
+COMM ==============================================================================================
+COMM   Check TEST_PATTERN_ENABLE no change
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-TEST_PATTERN_ENABLE-0000 W     # Return Command 6
+WCMD W-TEST_PATTERN_ENABLE-X8XX R     # Command 9
+COMM
+COMM ==============================================================================================
+COMM   Check error position SPI data out of range detected
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-Status-EFFF W                  # Return Command 7
+WCMD R-TEST_PATTERN_ENABLE-XXXX R     # Command 10
+COMM
+COMM ==============================================================================================
+COMM   Check TEST_PATTERN_ENABLE no change
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-TEST_PATTERN_ENABLE-0000 W     # Return Command 8
+WCMD W-TEST_PATTERN_ENABLE-X4XX R     # Command 11
+COMM
+COMM ==============================================================================================
+COMM   Check error position SPI data out of range detected
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-Status-EFFF W                  # Return Command 9
+WCMD R-TEST_PATTERN_ENABLE-XXXX R     # Command 12
+COMM
+COMM ==============================================================================================
+COMM   Check TEST_PATTERN_ENABLE no change
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-TEST_PATTERN_ENABLE-0000 W     # Return Command 10
+WCMD W-TEST_PATTERN_ENABLE-003X R     # Command 13
+COMM
+COMM ==============================================================================================
+COMM   Check error position SPI data out of range detected
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-Status-EFFF W                  # Return Command 11
+WCMD R-TEST_PATTERN_ENABLE-XXXX R     # Command 14
+COMM
+COMM ==============================================================================================
+COMM   Check TEST_PATTERN_ENABLE no change
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-TEST_PATTERN_ENABLE-0000 W     # Return Command 12
+WCMD W-TEST_PATTERN_ENABLE-0025 R     # Command 15
+COMM
+COMM ==============================================================================================
+COMM   Check no error
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-Status-FFFF W                  # Return Command 13
+WCMD R-TEST_PATTERN_ENABLE-XXXX R     # Command 16
+COMM
+COMM ==============================================================================================
+COMM   Check TEST_PATTERN_ENABLE content
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-TEST_PATTERN_ENABLE-0030 W     # Return Command 14
+WCMD R-TEST_PATTERN_ENABLE-XXXX R     # Command 17
+COMM
+COMM ==============================================================================================
+COMM   Check no error
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-Status-FFFF W                  # Return Command 15
+WCMD R-TEST_PATTERN_ENABLE-XXXX R     # Command 18
+COMM
+COMM ==============================================================================================
+COMM   Check TEST_PATTERN_ENABLE content
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-TEST_PATTERN_ENABLE-0025 W     # Return Command 16

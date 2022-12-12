@@ -30,40 +30,30 @@
 # ** Note   : (6995496 ps) Waiting event rst = '0' for 6915496 ps
 #             (6995496 ps) 
 #             (6995496 ps) ==============================================================================================
-#             (6995496 ps)   Start DATA_ACQ_MODE register test
+#             (6995496 ps)   TEST_PATTERN: writing maximum first index for allowing test pattern generation
 #             (6995496 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (6995496 ps) Send SPI command value 8000_XXXX (DATA_ACQ_MODE, mode Read, data XXXX)
+# ** Note   : (6995496 ps) Send SPI command value 8205_0003 (TEST_PATTERN, mode Write, data 0003)
 # ** Note   : (9312000 ps) Waiting SPI command end for 2280504 ps
-# ** Note   : (9312000 ps) Send SPI command value 8001_0001 (DATA_ACQ_MODE, mode Write, data 0001)
+# ** Note   : (9312000 ps) Send SPI command value 821D_0003 (TEST_PATTERN, mode Write, data 0003)
 # ** Note   : (11634000 ps) Waiting SPI command end for 2286000 ps
+#             (11634000 ps) 
+#             (11634000 ps) ==============================================================================================
+#             (11634000 ps)   Start DATA_ACQ_MODE register test
+#             (11634000 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (11634000 ps) Send SPI command value 8000_XXXX (DATA_ACQ_MODE, mode Read, data XXXX)
-# ** Note   : (11706000 ps) Waiting SPI command return end for 36000 ps
-#             (11706000 ps) 
-#             (11706000 ps) ==============================================================================================
-#             (11706000 ps)   Check DATA_ACQ_MODE content at start: Idle
-#             (11706000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (11724000 ps) Check command return: PASS
-# ** Note   : (11724000 ps)  * Read 8000_0000, expected value 8000_0000 (DATA_ACQ_MODE, mode Read, data 0000)
-# ** Note   : (13956000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (13956000 ps) Send SPI command value 8001_0002 (DATA_ACQ_MODE, mode Write, data 0002)
-# ** Note   : (14028000 ps) Waiting SPI command return end for 36000 ps
-#             (14028000 ps) 
-#             (14028000 ps) ==============================================================================================
-#             (14028000 ps)   Check no error after write DATA_ACQ_MODE command
-#             (14028000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (14046000 ps) Check command return: PASS
-# ** Note   : (14046000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
-# ** Note   : (16278000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (13956000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (13956000 ps) Send SPI command value 8001_0001 (DATA_ACQ_MODE, mode Write, data 0001)
+# ** Note   : (16278000 ps) Waiting SPI command end for 2286000 ps
 # ** Note   : (16278000 ps) Send SPI command value 8000_XXXX (DATA_ACQ_MODE, mode Read, data XXXX)
 # ** Note   : (16350000 ps) Waiting SPI command return end for 36000 ps
 #             (16350000 ps) 
 #             (16350000 ps) ==============================================================================================
-#             (16350000 ps)   Check DATA_ACQ_MODE new content: Science
+#             (16350000 ps)   Check DATA_ACQ_MODE content at start: Idle
 #             (16350000 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (16368000 ps) Check command return: PASS
-# ** Note   : (16368000 ps)  * Read 8000_0001, expected value 8000_0001 (DATA_ACQ_MODE, mode Read, data 0001)
+# ** Note   : (16368000 ps)  * Read 8000_0000, expected value 8000_0000 (DATA_ACQ_MODE, mode Read, data 0000)
 # ** Note   : (18600000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (18600000 ps) Send SPI command value 8001_0007 (DATA_ACQ_MODE, mode Write, data 0007)
+# ** Note   : (18600000 ps) Send SPI command value 8001_0002 (DATA_ACQ_MODE, mode Write, data 0002)
 # ** Note   : (18672000 ps) Waiting SPI command return end for 36000 ps
 #             (18672000 ps) 
 #             (18672000 ps) ==============================================================================================
@@ -76,12 +66,12 @@
 # ** Note   : (20994000 ps) Waiting SPI command return end for 36000 ps
 #             (20994000 ps) 
 #             (20994000 ps) ==============================================================================================
-#             (20994000 ps)   Check DATA_ACQ_MODE new content: Error Signal
+#             (20994000 ps)   Check DATA_ACQ_MODE new content: Science
 #             (20994000 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (21012000 ps) Check command return: PASS
-# ** Note   : (21012000 ps)  * Read 8000_0002, expected value 8000_0002 (DATA_ACQ_MODE, mode Read, data 0002)
+# ** Note   : (21012000 ps)  * Read 8000_0001, expected value 8000_0001 (DATA_ACQ_MODE, mode Read, data 0001)
 # ** Note   : (23244000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (23244000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (23244000 ps) Send SPI command value 8001_0007 (DATA_ACQ_MODE, mode Write, data 0007)
 # ** Note   : (23316000 ps) Waiting SPI command return end for 36000 ps
 #             (23316000 ps) 
 #             (23316000 ps) ==============================================================================================
@@ -90,533 +80,554 @@
 # ** Note   : (23334000 ps) Check command return: PASS
 # ** Note   : (23334000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
 # ** Note   : (25566000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (25566000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (25566000 ps) Send SPI command value 8000_XXXX (DATA_ACQ_MODE, mode Read, data XXXX)
 # ** Note   : (25638000 ps) Waiting SPI command return end for 36000 ps
 #             (25638000 ps) 
 #             (25638000 ps) ==============================================================================================
-#             (25638000 ps)   Check DATA_ACQ_MODE new content: Test pattern
+#             (25638000 ps)   Check DATA_ACQ_MODE new content: Error Signal
 #             (25638000 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (25656000 ps) Check command return: PASS
-# ** Note   : (25656000 ps)  * Read 8000_0007, expected value 8000_0007 (DATA_ACQ_MODE, mode Read, data 0007)
-#             (25656000 ps) 
-#             (25656000 ps) ==============================================================================================
-#             (25656000 ps)   Wait end of test pattern mode
-#             (25656000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (27229608 ps) Waiting event sync = '1' for 1573608 ps
-# ** Note   : (27389688 ps) Waiting event sync = '0' for 160080 ps
-# ** Note   : (32672328 ps) Waiting event sync = '1' for 5282640 ps
-# ** Note   : (32832408 ps) Waiting event sync = '0' for 160080 ps
-# ** Note   : (38115048 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (25656000 ps)  * Read 8000_0002, expected value 8000_0002 (DATA_ACQ_MODE, mode Read, data 0002)
+# ** Note   : (27888000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (27888000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (27960000 ps) Waiting SPI command return end for 36000 ps
+#             (27960000 ps) 
+#             (27960000 ps) ==============================================================================================
+#             (27960000 ps)   Check no error after write DATA_ACQ_MODE command
+#             (27960000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (27978000 ps) Check command return: PASS
+# ** Note   : (27978000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
+# ** Note   : (30210000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (30210000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (30282000 ps) Waiting SPI command return end for 36000 ps
+#             (30282000 ps) 
+#             (30282000 ps) ==============================================================================================
+#             (30282000 ps)   Check DATA_ACQ_MODE new content: Test pattern
+#             (30282000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (30300000 ps) Check command return: PASS
+# ** Note   : (30300000 ps)  * Read 8000_0007, expected value 8000_0007 (DATA_ACQ_MODE, mode Read, data 0007)
+# ** Note   : (32532000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (32532000 ps) Send SPI command value 82A1_0021 (TEST_PATTERN_ENABLE, mode Write, data 0021)
+# ** Note   : (34854000 ps) Waiting SPI command end for 2286000 ps
+#             (34854000 ps) 
+#             (34854000 ps) ==============================================================================================
+#             (34854000 ps)   Wait end of test pattern mode
+#             (34854000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (38115048 ps) Waiting event sync = '1' for 3261048 ps
 # ** Note   : (38275128 ps) Waiting event sync = '0' for 160080 ps
 # ** Note   : (43557768 ps) Waiting event sync = '1' for 5282640 ps
 # ** Note   : (43717848 ps) Waiting event sync = '0' for 160080 ps
-# ** Note   : (43717848 ps) Send SPI command value 8000_XXXX (DATA_ACQ_MODE, mode Read, data XXXX)
-# ** Note   : (46032000 ps) Waiting SPI command end for 2278152 ps
-# ** Note   : (46032000 ps) Send SPI command value 8001_0004 (DATA_ACQ_MODE, mode Write, data 0004)
-# ** Note   : (48354000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (48354000 ps) Send SPI command value 8000_XXXX (DATA_ACQ_MODE, mode Read, data XXXX)
-# ** Note   : (48426000 ps) Waiting SPI command return end for 36000 ps
-#             (48426000 ps) 
-#             (48426000 ps) ==============================================================================================
-#             (48426000 ps)   Check DATA_ACQ_MODE goes to Idle mode
-#             (48426000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (48444000 ps) Check command return: PASS
-# ** Note   : (48444000 ps)  * Read 8000_0000, expected value 8000_0000 (DATA_ACQ_MODE, mode Read, data 0000)
-# ** Note   : (50676000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (50676000 ps) Send SPI command value 8001_0001 (DATA_ACQ_MODE, mode Write, data 0001)
-# ** Note   : (50748000 ps) Waiting SPI command return end for 36000 ps
-#             (50748000 ps) 
-#             (50748000 ps) ==============================================================================================
-#             (50748000 ps)   Check no error after write DATA_ACQ_MODE command
-#             (50748000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (50766000 ps) Check command return: PASS
-# ** Note   : (50766000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
-# ** Note   : (52998000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (52998000 ps) Send SPI command value 8000_XXXX (DATA_ACQ_MODE, mode Read, data XXXX)
-# ** Note   : (53070000 ps) Waiting SPI command return end for 36000 ps
-#             (53070000 ps) 
-#             (53070000 ps) ==============================================================================================
-#             (53070000 ps)   Check DATA_ACQ_MODE new content: Dump
-#             (53070000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (53088000 ps) Check command return: PASS
-# ** Note   : (53088000 ps)  * Read 8000_0004, expected value 8000_0004 (DATA_ACQ_MODE, mode Read, data 0004)
-# ** Note   : (55320000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (55320000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
-# ** Note   : (55392000 ps) Waiting SPI command return end for 36000 ps
-#             (55392000 ps) 
-#             (55392000 ps) ==============================================================================================
-#             (55392000 ps)   Check error Last command discarded appears
-#             (55392000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (55410000 ps) Check command return: PASS
-# ** Note   : (55410000 ps)  * Read C000_FBFF, expected value C000_FBFF (Status, mode Read, data FBFF)
-# ** Note   : (57642000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (57642000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
-# ** Note   : (57714000 ps) Waiting SPI command return end for 36000 ps
-#             (57714000 ps) 
-#             (57714000 ps) ==============================================================================================
-#             (57714000 ps)   Check DATA_ACQ_MODE stay to Dump mode
-#             (57714000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (57732000 ps) Check command return: PASS
-# ** Note   : (57732000 ps)  * Read 8000_0004, expected value 8000_0004 (DATA_ACQ_MODE, mode Read, data 0004)
-#             (57732000 ps) 
-#             (57732000 ps) ==============================================================================================
-#             (57732000 ps)   Wait end of dump mode
-#             (57732000 ps)   (c_DMP_SEQ_ACQ_NB * c_MUX_FACT * c_PIXEL_ADC_NB_CYC * c_SC_DATA_SER_W_S * c_CLK_REF_PER_DEF)
-#             (57732000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (233732000 ps) Waiting time for 176000000 ps
-# ** Note   : (233732000 ps) Send SPI command value 8000_XXXX (DATA_ACQ_MODE, mode Read, data XXXX)
-# ** Note   : (236040000 ps) Waiting SPI command end for 2272000 ps
-# ** Note   : (236040000 ps) Send SPI command value 8001_0007 (DATA_ACQ_MODE, mode Write, data 0007)
-# ** Note   : (238362000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (238362000 ps) Send SPI command value 8000_XXXX (DATA_ACQ_MODE, mode Read, data XXXX)
-# ** Note   : (238434000 ps) Waiting SPI command return end for 36000 ps
-#             (238434000 ps) 
-#             (238434000 ps) ==============================================================================================
-#             (238434000 ps)   Check DATA_ACQ_MODE goes to Idle mode
-#             (238434000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (238452000 ps) Check command return: PASS
-# ** Note   : (238452000 ps)  * Read 8000_0000, expected value 8000_0000 (DATA_ACQ_MODE, mode Read, data 0000)
-# ** Note   : (240684000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (240684000 ps) Send SPI command value 8001_0004 (DATA_ACQ_MODE, mode Write, data 0004)
-# ** Note   : (240756000 ps) Waiting SPI command return end for 36000 ps
-#             (240756000 ps) 
-#             (240756000 ps) ==============================================================================================
-#             (240756000 ps)   Check no error after write DATA_ACQ_MODE command
-#             (240756000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (240774000 ps) Check command return: PASS
-# ** Note   : (240774000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
-# ** Note   : (243006000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (243006000 ps) Send SPI command value 8000_XXXX (DATA_ACQ_MODE, mode Read, data XXXX)
-# ** Note   : (243078000 ps) Waiting SPI command return end for 36000 ps
-#             (243078000 ps) 
-#             (243078000 ps) ==============================================================================================
-#             (243078000 ps)   Check DATA_ACQ_MODE new content: Test Pattern
-#             (243078000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (243096000 ps) Check command return: PASS
-# ** Note   : (243096000 ps)  * Read 8000_0007, expected value 8000_0007 (DATA_ACQ_MODE, mode Read, data 0007)
-# ** Note   : (245328000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (245328000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
-# ** Note   : (245400000 ps) Waiting SPI command return end for 36000 ps
-#             (245400000 ps) 
-#             (245400000 ps) ==============================================================================================
-#             (245400000 ps)   Check no error after write DATA_ACQ_MODE command
-#             (245400000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (245418000 ps) Check command return: PASS
-# ** Note   : (245418000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
-# ** Note   : (247650000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (247650000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
-# ** Note   : (247722000 ps) Waiting SPI command return end for 36000 ps
-#             (247722000 ps) 
-#             (247722000 ps) ==============================================================================================
-#             (247722000 ps)   Check DATA_ACQ_MODE new content: Dump
-#             (247722000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (247740000 ps) Check command return: PASS
-# ** Note   : (247740000 ps)  * Read 8000_0004, expected value 8000_0004 (DATA_ACQ_MODE, mode Read, data 0004)
-#             (247740000 ps) 
-#             (247740000 ps) ==============================================================================================
-#             (247740000 ps)   Wait end of dump mode
-#             (247740000 ps)   (c_DMP_SEQ_ACQ_NB * c_MUX_FACT * c_PIXEL_ADC_NB_CYC * c_SC_DATA_SER_W_S * c_CLK_REF_PER_DEF)
-#             (247740000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (423740000 ps) Waiting time for 176000000 ps
-# ** Note   : (423740000 ps) Send SPI command value 8000_XXXX (DATA_ACQ_MODE, mode Read, data XXXX)
-# ** Note   : (426048000 ps) Waiting SPI command end for 2272000 ps
-# ** Note   : (426048000 ps) Send SPI command value 8001_0001 (DATA_ACQ_MODE, mode Write, data 0001)
-# ** Note   : (428370000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (428370000 ps) Send SPI command value 8000_XXXX (DATA_ACQ_MODE, mode Read, data XXXX)
-# ** Note   : (428442000 ps) Waiting SPI command return end for 36000 ps
-#             (428442000 ps) 
-#             (428442000 ps) ==============================================================================================
-#             (428442000 ps)   Check DATA_ACQ_MODE goes to Idle mode
-#             (428442000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (428460000 ps) Check command return: PASS
-# ** Note   : (428460000 ps)  * Read 8000_0000, expected value 8000_0000 (DATA_ACQ_MODE, mode Read, data 0000)
-# ** Note   : (430692000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (430692000 ps) Send SPI command value 8001_0004 (DATA_ACQ_MODE, mode Write, data 0004)
-# ** Note   : (430764000 ps) Waiting SPI command return end for 36000 ps
-#             (430764000 ps) 
-#             (430764000 ps) ==============================================================================================
-#             (430764000 ps)   Check no error after write DATA_ACQ_MODE command
-#             (430764000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (430782000 ps) Check command return: PASS
-# ** Note   : (430782000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
-# ** Note   : (433014000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (433014000 ps) Send SPI command value 8000_XXXX (DATA_ACQ_MODE, mode Read, data XXXX)
-# ** Note   : (433086000 ps) Waiting SPI command return end for 36000 ps
-#             (433086000 ps) 
-#             (433086000 ps) ==============================================================================================
-#             (433086000 ps)   Check DATA_ACQ_MODE new content: Science
-#             (433086000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (433104000 ps) Check command return: PASS
-# ** Note   : (433104000 ps)  * Read 8000_0001, expected value 8000_0001 (DATA_ACQ_MODE, mode Read, data 0001)
-# ** Note   : (435336000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (435336000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
-# ** Note   : (435408000 ps) Waiting SPI command return end for 36000 ps
-#             (435408000 ps) 
-#             (435408000 ps) ==============================================================================================
-#             (435408000 ps)   Check no error after write DATA_ACQ_MODE command
-#             (435408000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (435426000 ps) Check command return: PASS
-# ** Note   : (435426000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
-# ** Note   : (437658000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (437658000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
-# ** Note   : (437730000 ps) Waiting SPI command return end for 36000 ps
-#             (437730000 ps) 
-#             (437730000 ps) ==============================================================================================
-#             (437730000 ps)   Check DATA_ACQ_MODE new content: Dump
-#             (437730000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (437748000 ps) Check command return: PASS
-# ** Note   : (437748000 ps)  * Read 8000_0004, expected value 8000_0004 (DATA_ACQ_MODE, mode Read, data 0004)
-#             (437748000 ps) 
-#             (437748000 ps) ==============================================================================================
-#             (437748000 ps)   Wait end of dump mode
-#             (437748000 ps)   (c_DMP_SEQ_ACQ_NB * c_MUX_FACT * c_PIXEL_ADC_NB_CYC * c_SC_DATA_SER_W_S * c_CLK_REF_PER_DEF)
-#             (437748000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (613748000 ps) Waiting time for 176000000 ps
-# ** Note   : (613748000 ps) Send SPI command value 8000_XXXX (DATA_ACQ_MODE, mode Read, data XXXX)
-# ** Note   : (616056000 ps) Waiting SPI command end for 2272000 ps
-# ** Note   : (616056000 ps) Send SPI command value 8001_0002 (DATA_ACQ_MODE, mode Write, data 0002)
-# ** Note   : (618378000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (618378000 ps) Send SPI command value 8000_XXXX (DATA_ACQ_MODE, mode Read, data XXXX)
-# ** Note   : (618450000 ps) Waiting SPI command return end for 36000 ps
-#             (618450000 ps) 
-#             (618450000 ps) ==============================================================================================
-#             (618450000 ps)   Check DATA_ACQ_MODE goes back to Science mode
-#             (618450000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (618468000 ps) Check command return: PASS
-# ** Note   : (618468000 ps)  * Read 8000_0001, expected value 8000_0001 (DATA_ACQ_MODE, mode Read, data 0001)
-# ** Note   : (620700000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (620700000 ps) Send SPI command value 8001_0004 (DATA_ACQ_MODE, mode Write, data 0004)
-# ** Note   : (620772000 ps) Waiting SPI command return end for 36000 ps
-#             (620772000 ps) 
-#             (620772000 ps) ==============================================================================================
-#             (620772000 ps)   Check no error after write DATA_ACQ_MODE command
-#             (620772000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (620790000 ps) Check command return: PASS
-# ** Note   : (620790000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
-# ** Note   : (623022000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (623022000 ps) Send SPI command value 8000_XXXX (DATA_ACQ_MODE, mode Read, data XXXX)
-# ** Note   : (623094000 ps) Waiting SPI command return end for 36000 ps
-#             (623094000 ps) 
-#             (623094000 ps) ==============================================================================================
-#             (623094000 ps)   Check DATA_ACQ_MODE new content: Error signal
-#             (623094000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (623112000 ps) Check command return: PASS
-# ** Note   : (623112000 ps)  * Read 8000_0002, expected value 8000_0002 (DATA_ACQ_MODE, mode Read, data 0002)
-# ** Note   : (625344000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (625344000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
-# ** Note   : (625416000 ps) Waiting SPI command return end for 36000 ps
-#             (625416000 ps) 
-#             (625416000 ps) ==============================================================================================
-#             (625416000 ps)   Check no error after write DATA_ACQ_MODE command
-#             (625416000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (625434000 ps) Check command return: PASS
-# ** Note   : (625434000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
-# ** Note   : (627666000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (627666000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
-# ** Note   : (627738000 ps) Waiting SPI command return end for 36000 ps
-#             (627738000 ps) 
-#             (627738000 ps) ==============================================================================================
-#             (627738000 ps)   Check DATA_ACQ_MODE new content: Dump
-#             (627738000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (627756000 ps) Check command return: PASS
-# ** Note   : (627756000 ps)  * Read 8000_0004, expected value 8000_0004 (DATA_ACQ_MODE, mode Read, data 0004)
-#             (627756000 ps) 
-#             (627756000 ps) ==============================================================================================
-#             (627756000 ps)   Wait end of dump mode
-#             (627756000 ps)   (c_DMP_SEQ_ACQ_NB * c_MUX_FACT * c_PIXEL_ADC_NB_CYC * c_SC_DATA_SER_W_S * c_CLK_REF_PER_DEF)
-#             (627756000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (803756000 ps) Waiting time for 176000000 ps
-# ** Note   : (803756000 ps) Send SPI command value 8000_XXXX (DATA_ACQ_MODE, mode Read, data XXXX)
-# ** Note   : (806064000 ps) Waiting SPI command end for 2272000 ps
-# ** Note   : (806064000 ps) Send SPI command value 8001_XXX3 (DATA_ACQ_MODE, mode Write, data XXX3)
-# ** Note   : (808386000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (808386000 ps) Send SPI command value 8000_XXXX (DATA_ACQ_MODE, mode Read, data XXXX)
-# ** Note   : (808458000 ps) Waiting SPI command return end for 36000 ps
-#             (808458000 ps) 
-#             (808458000 ps) ==============================================================================================
-#             (808458000 ps)   Check DATA_ACQ_MODE goes back to Error signal mode
-#             (808458000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (808476000 ps) Check command return: PASS
-# ** Note   : (808476000 ps)  * Read 8000_0002, expected value 8000_0002 (DATA_ACQ_MODE, mode Read, data 0002)
-# ** Note   : (810708000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (810708000 ps) Send SPI command value 8001_XXX8 (DATA_ACQ_MODE, mode Write, data XXX8)
-# ** Note   : (810780000 ps) Waiting SPI command return end for 36000 ps
-#             (810780000 ps) 
-#             (810780000 ps) ==============================================================================================
-#             (810780000 ps)   Check error position SPI data out of range detected
-#             (810780000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (810798000 ps) Check command return: PASS
-# ** Note   : (810798000 ps)  * Read C000_EFFF, expected value C000_EFFF (Status, mode Read, data EFFF)
-# ** Note   : (813030000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (813030000 ps) Send SPI command value 8000_XXXX (DATA_ACQ_MODE, mode Read, data XXXX)
-# ** Note   : (813102000 ps) Waiting SPI command return end for 36000 ps
-#             (813102000 ps) 
-#             (813102000 ps) ==============================================================================================
-#             (813102000 ps)   Check DATA_ACQ_MODE no change
-#             (813102000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (813120000 ps) Check command return: PASS
-# ** Note   : (813120000 ps)  * Read 8000_0002, expected value 8000_0002 (DATA_ACQ_MODE, mode Read, data 0002)
-# ** Note   : (815352000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (815352000 ps) Send SPI command value 8001_XX1X (DATA_ACQ_MODE, mode Write, data XX1X)
-# ** Note   : (815424000 ps) Waiting SPI command return end for 36000 ps
-#             (815424000 ps) 
-#             (815424000 ps) ==============================================================================================
-#             (815424000 ps)   Check error position SPI data out of range detected
-#             (815424000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (815442000 ps) Check command return: PASS
-# ** Note   : (815442000 ps)  * Read C000_EFFF, expected value C000_EFFF (Status, mode Read, data EFFF)
-# ** Note   : (817674000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (817674000 ps) Send SPI command value 8000_XXXX (DATA_ACQ_MODE, mode Read, data XXXX)
-# ** Note   : (817746000 ps) Waiting SPI command return end for 36000 ps
-#             (817746000 ps) 
-#             (817746000 ps) ==============================================================================================
-#             (817746000 ps)   Check DATA_ACQ_MODE no change
-#             (817746000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (817764000 ps) Check command return: PASS
-# ** Note   : (817764000 ps)  * Read 8000_0002, expected value 8000_0002 (DATA_ACQ_MODE, mode Read, data 0002)
-# ** Note   : (819996000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (819996000 ps) Send SPI command value 8001_XX2X (DATA_ACQ_MODE, mode Write, data XX2X)
-# ** Note   : (820068000 ps) Waiting SPI command return end for 36000 ps
-#             (820068000 ps) 
-#             (820068000 ps) ==============================================================================================
-#             (820068000 ps)   Check error position SPI data out of range detected
-#             (820068000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (820086000 ps) Check command return: PASS
-# ** Note   : (820086000 ps)  * Read C000_EFFF, expected value C000_EFFF (Status, mode Read, data EFFF)
-# ** Note   : (822318000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (822318000 ps) Send SPI command value 8000_XXXX (DATA_ACQ_MODE, mode Read, data XXXX)
-# ** Note   : (822390000 ps) Waiting SPI command return end for 36000 ps
-#             (822390000 ps) 
-#             (822390000 ps) ==============================================================================================
-#             (822390000 ps)   Check DATA_ACQ_MODE no change
-#             (822390000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (822408000 ps) Check command return: PASS
-# ** Note   : (822408000 ps)  * Read 8000_0002, expected value 8000_0002 (DATA_ACQ_MODE, mode Read, data 0002)
-# ** Note   : (824640000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (824640000 ps) Send SPI command value 8001_XX4X (DATA_ACQ_MODE, mode Write, data XX4X)
-# ** Note   : (824712000 ps) Waiting SPI command return end for 36000 ps
-#             (824712000 ps) 
-#             (824712000 ps) ==============================================================================================
-#             (824712000 ps)   Check error position SPI data out of range detected
-#             (824712000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (824730000 ps) Check command return: PASS
-# ** Note   : (824730000 ps)  * Read C000_EFFF, expected value C000_EFFF (Status, mode Read, data EFFF)
-# ** Note   : (826962000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (826962000 ps) Send SPI command value 8000_XXXX (DATA_ACQ_MODE, mode Read, data XXXX)
-# ** Note   : (827034000 ps) Waiting SPI command return end for 36000 ps
-#             (827034000 ps) 
-#             (827034000 ps) ==============================================================================================
-#             (827034000 ps)   Check DATA_ACQ_MODE no change
-#             (827034000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (827052000 ps) Check command return: PASS
-# ** Note   : (827052000 ps)  * Read 8000_0002, expected value 8000_0002 (DATA_ACQ_MODE, mode Read, data 0002)
-# ** Note   : (829284000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (829284000 ps) Send SPI command value 8001_XX8X (DATA_ACQ_MODE, mode Write, data XX8X)
-# ** Note   : (829356000 ps) Waiting SPI command return end for 36000 ps
-#             (829356000 ps) 
-#             (829356000 ps) ==============================================================================================
-#             (829356000 ps)   Check error position SPI data out of range detected
-#             (829356000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (829374000 ps) Check command return: PASS
-# ** Note   : (829374000 ps)  * Read C000_EFFF, expected value C000_EFFF (Status, mode Read, data EFFF)
-# ** Note   : (831606000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (831606000 ps) Send SPI command value 8000_XXXX (DATA_ACQ_MODE, mode Read, data XXXX)
-# ** Note   : (831678000 ps) Waiting SPI command return end for 36000 ps
-#             (831678000 ps) 
-#             (831678000 ps) ==============================================================================================
-#             (831678000 ps)   Check DATA_ACQ_MODE no change
-#             (831678000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (831696000 ps) Check command return: PASS
-# ** Note   : (831696000 ps)  * Read 8000_0002, expected value 8000_0002 (DATA_ACQ_MODE, mode Read, data 0002)
-# ** Note   : (833928000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (833928000 ps) Send SPI command value 8001_X1XX (DATA_ACQ_MODE, mode Write, data X1XX)
-# ** Note   : (834000000 ps) Waiting SPI command return end for 36000 ps
-#             (834000000 ps) 
-#             (834000000 ps) ==============================================================================================
-#             (834000000 ps)   Check error position SPI data out of range detected
-#             (834000000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (834018000 ps) Check command return: PASS
-# ** Note   : (834018000 ps)  * Read C000_EFFF, expected value C000_EFFF (Status, mode Read, data EFFF)
-# ** Note   : (836250000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (836250000 ps) Send SPI command value 8000_XXXX (DATA_ACQ_MODE, mode Read, data XXXX)
-# ** Note   : (836322000 ps) Waiting SPI command return end for 36000 ps
-#             (836322000 ps) 
-#             (836322000 ps) ==============================================================================================
-#             (836322000 ps)   Check DATA_ACQ_MODE no change
-#             (836322000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (836340000 ps) Check command return: PASS
-# ** Note   : (836340000 ps)  * Read 8000_0002, expected value 8000_0002 (DATA_ACQ_MODE, mode Read, data 0002)
-# ** Note   : (838572000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (838572000 ps) Send SPI command value 8001_X2XX (DATA_ACQ_MODE, mode Write, data X2XX)
-# ** Note   : (838644000 ps) Waiting SPI command return end for 36000 ps
-#             (838644000 ps) 
-#             (838644000 ps) ==============================================================================================
-#             (838644000 ps)   Check error position SPI data out of range detected
-#             (838644000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (838662000 ps) Check command return: PASS
-# ** Note   : (838662000 ps)  * Read C000_EFFF, expected value C000_EFFF (Status, mode Read, data EFFF)
-# ** Note   : (840894000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (840894000 ps) Send SPI command value 8000_XXXX (DATA_ACQ_MODE, mode Read, data XXXX)
-# ** Note   : (840966000 ps) Waiting SPI command return end for 36000 ps
-#             (840966000 ps) 
-#             (840966000 ps) ==============================================================================================
-#             (840966000 ps)   Check DATA_ACQ_MODE no change
-#             (840966000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (840984000 ps) Check command return: PASS
-# ** Note   : (840984000 ps)  * Read 8000_0002, expected value 8000_0002 (DATA_ACQ_MODE, mode Read, data 0002)
-# ** Note   : (843216000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (843216000 ps) Send SPI command value 8001_X4XX (DATA_ACQ_MODE, mode Write, data X4XX)
-# ** Note   : (843288000 ps) Waiting SPI command return end for 36000 ps
-#             (843288000 ps) 
-#             (843288000 ps) ==============================================================================================
-#             (843288000 ps)   Check error position SPI data out of range detected
-#             (843288000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (843306000 ps) Check command return: PASS
-# ** Note   : (843306000 ps)  * Read C000_EFFF, expected value C000_EFFF (Status, mode Read, data EFFF)
-# ** Note   : (845538000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (845538000 ps) Send SPI command value 8000_XXXX (DATA_ACQ_MODE, mode Read, data XXXX)
-# ** Note   : (845610000 ps) Waiting SPI command return end for 36000 ps
-#             (845610000 ps) 
-#             (845610000 ps) ==============================================================================================
-#             (845610000 ps)   Check DATA_ACQ_MODE no change
-#             (845610000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (845628000 ps) Check command return: PASS
-# ** Note   : (845628000 ps)  * Read 8000_0002, expected value 8000_0002 (DATA_ACQ_MODE, mode Read, data 0002)
-# ** Note   : (847860000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (847860000 ps) Send SPI command value 8001_X8XX (DATA_ACQ_MODE, mode Write, data X8XX)
-# ** Note   : (847932000 ps) Waiting SPI command return end for 36000 ps
-#             (847932000 ps) 
-#             (847932000 ps) ==============================================================================================
-#             (847932000 ps)   Check error position SPI data out of range detected
-#             (847932000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (847950000 ps) Check command return: PASS
-# ** Note   : (847950000 ps)  * Read C000_EFFF, expected value C000_EFFF (Status, mode Read, data EFFF)
-# ** Note   : (850182000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (850182000 ps) Send SPI command value 8000_XXXX (DATA_ACQ_MODE, mode Read, data XXXX)
-# ** Note   : (850254000 ps) Waiting SPI command return end for 36000 ps
-#             (850254000 ps) 
-#             (850254000 ps) ==============================================================================================
-#             (850254000 ps)   Check DATA_ACQ_MODE no change
-#             (850254000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (850272000 ps) Check command return: PASS
-# ** Note   : (850272000 ps)  * Read 8000_0002, expected value 8000_0002 (DATA_ACQ_MODE, mode Read, data 0002)
-# ** Note   : (852504000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (852504000 ps) Send SPI command value 8001_1XXX (DATA_ACQ_MODE, mode Write, data 1XXX)
-# ** Note   : (852576000 ps) Waiting SPI command return end for 36000 ps
-#             (852576000 ps) 
-#             (852576000 ps) ==============================================================================================
-#             (852576000 ps)   Check error position SPI data out of range detected
-#             (852576000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (852594000 ps) Check command return: PASS
-# ** Note   : (852594000 ps)  * Read C000_EFFF, expected value C000_EFFF (Status, mode Read, data EFFF)
-# ** Note   : (854826000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (854826000 ps) Send SPI command value 8000_XXXX (DATA_ACQ_MODE, mode Read, data XXXX)
-# ** Note   : (854898000 ps) Waiting SPI command return end for 36000 ps
-#             (854898000 ps) 
-#             (854898000 ps) ==============================================================================================
-#             (854898000 ps)   Check DATA_ACQ_MODE no change
-#             (854898000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (854916000 ps) Check command return: PASS
-# ** Note   : (854916000 ps)  * Read 8000_0002, expected value 8000_0002 (DATA_ACQ_MODE, mode Read, data 0002)
-# ** Note   : (857148000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (857148000 ps) Send SPI command value 8001_2XXX (DATA_ACQ_MODE, mode Write, data 2XXX)
-# ** Note   : (857220000 ps) Waiting SPI command return end for 36000 ps
-#             (857220000 ps) 
-#             (857220000 ps) ==============================================================================================
-#             (857220000 ps)   Check error position SPI data out of range detected
-#             (857220000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (857238000 ps) Check command return: PASS
-# ** Note   : (857238000 ps)  * Read C000_EFFF, expected value C000_EFFF (Status, mode Read, data EFFF)
-# ** Note   : (859470000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (859470000 ps) Send SPI command value 8000_XXXX (DATA_ACQ_MODE, mode Read, data XXXX)
-# ** Note   : (859542000 ps) Waiting SPI command return end for 36000 ps
-#             (859542000 ps) 
-#             (859542000 ps) ==============================================================================================
-#             (859542000 ps)   Check DATA_ACQ_MODE no change
-#             (859542000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (859560000 ps) Check command return: PASS
-# ** Note   : (859560000 ps)  * Read 8000_0002, expected value 8000_0002 (DATA_ACQ_MODE, mode Read, data 0002)
-# ** Note   : (861792000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (861792000 ps) Send SPI command value 8001_4XXX (DATA_ACQ_MODE, mode Write, data 4XXX)
-# ** Note   : (861864000 ps) Waiting SPI command return end for 36000 ps
-#             (861864000 ps) 
-#             (861864000 ps) ==============================================================================================
-#             (861864000 ps)   Check error position SPI data out of range detected
-#             (861864000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (861882000 ps) Check command return: PASS
-# ** Note   : (861882000 ps)  * Read C000_EFFF, expected value C000_EFFF (Status, mode Read, data EFFF)
-# ** Note   : (864114000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (864114000 ps) Send SPI command value 8000_XXXX (DATA_ACQ_MODE, mode Read, data XXXX)
-# ** Note   : (864186000 ps) Waiting SPI command return end for 36000 ps
-#             (864186000 ps) 
-#             (864186000 ps) ==============================================================================================
-#             (864186000 ps)   Check DATA_ACQ_MODE no change
-#             (864186000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (864204000 ps) Check command return: PASS
-# ** Note   : (864204000 ps)  * Read 8000_0002, expected value 8000_0002 (DATA_ACQ_MODE, mode Read, data 0002)
-# ** Note   : (866436000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (866436000 ps) Send SPI command value 8001_8XXX (DATA_ACQ_MODE, mode Write, data 8XXX)
-# ** Note   : (866508000 ps) Waiting SPI command return end for 36000 ps
-#             (866508000 ps) 
-#             (866508000 ps) ==============================================================================================
-#             (866508000 ps)   Check error position SPI data out of range detected
-#             (866508000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (866526000 ps) Check command return: PASS
-# ** Note   : (866526000 ps)  * Read C000_EFFF, expected value C000_EFFF (Status, mode Read, data EFFF)
-# ** Note   : (868758000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (868758000 ps) Send SPI command value 8000_XXXX (DATA_ACQ_MODE, mode Read, data XXXX)
-# ** Note   : (868830000 ps) Waiting SPI command return end for 36000 ps
-#             (868830000 ps) 
-#             (868830000 ps) ==============================================================================================
-#             (868830000 ps)   Check DATA_ACQ_MODE no change
-#             (868830000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (868848000 ps) Check command return: PASS
-# ** Note   : (868848000 ps)  * Read 8000_0002, expected value 8000_0002 (DATA_ACQ_MODE, mode Read, data 0002)
-# ** Note   : (871080000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (871080000 ps) Send SPI command value 8001_XXX5 (DATA_ACQ_MODE, mode Write, data XXX5)
-# ** Note   : (871152000 ps) Waiting SPI command return end for 36000 ps
-#             (871152000 ps) 
-#             (871152000 ps) ==============================================================================================
-#             (871152000 ps)   Check error position SPI data out of range detected
-#             (871152000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (871170000 ps) Check command return: PASS
-# ** Note   : (871170000 ps)  * Read C000_EFFF, expected value C000_EFFF (Status, mode Read, data EFFF)
-# ** Note   : (873402000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (873402000 ps) Send SPI command value 8000_XXXX (DATA_ACQ_MODE, mode Read, data XXXX)
-# ** Note   : (873474000 ps) Waiting SPI command return end for 36000 ps
-#             (873474000 ps) 
-#             (873474000 ps) ==============================================================================================
-#             (873474000 ps)   Check DATA_ACQ_MODE no change
-#             (873474000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (873492000 ps) Check command return: PASS
-# ** Note   : (873492000 ps)  * Read 8000_0002, expected value 8000_0002 (DATA_ACQ_MODE, mode Read, data 0002)
-# ** Note   : (875724000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (875724000 ps) Send SPI command value 8001_XXX6 (DATA_ACQ_MODE, mode Write, data XXX6)
-# ** Note   : (875796000 ps) Waiting SPI command return end for 36000 ps
-#             (875796000 ps) 
-#             (875796000 ps) ==============================================================================================
-#             (875796000 ps)   Check error position SPI data out of range detected
-#             (875796000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (875814000 ps) Check command return: PASS
-# ** Note   : (875814000 ps)  * Read C000_EFFF, expected value C000_EFFF (Status, mode Read, data EFFF)
-# ** Note   : (878046000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (878046000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
-# ** Note   : (878118000 ps) Waiting SPI command return end for 36000 ps
-#             (878118000 ps) 
-#             (878118000 ps) ==============================================================================================
-#             (878118000 ps)   Check DATA_ACQ_MODE no change
-#             (878118000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (878136000 ps) Check command return: PASS
-# ** Note   : (878136000 ps)  * Read 8000_0002, expected value 8000_0002 (DATA_ACQ_MODE, mode Read, data 0002)
-# ** Note   : (880368000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (880368000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
-# ** Note   : (880440000 ps) Waiting SPI command return end for 36000 ps
-#             (880440000 ps) 
-#             (880440000 ps) ==============================================================================================
-#             (880440000 ps)   Check error position SPI data out of range detected
-#             (880440000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (880458000 ps) Check command return: PASS
-# ** Note   : (880458000 ps)  * Read C000_EFFF, expected value C000_EFFF (Status, mode Read, data EFFF)
+# ** Note   : (49000488 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (49160568 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (54443208 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (54603288 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (54603288 ps) Send SPI command value 8000_XXXX (DATA_ACQ_MODE, mode Read, data XXXX)
+# ** Note   : (56922000 ps) Waiting SPI command end for 2282712 ps
+# ** Note   : (56922000 ps) Send SPI command value 8001_0004 (DATA_ACQ_MODE, mode Write, data 0004)
+# ** Note   : (59244000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (59244000 ps) Send SPI command value 8000_XXXX (DATA_ACQ_MODE, mode Read, data XXXX)
+# ** Note   : (59316000 ps) Waiting SPI command return end for 36000 ps
+#             (59316000 ps) 
+#             (59316000 ps) ==============================================================================================
+#             (59316000 ps)   Check DATA_ACQ_MODE goes to Idle mode
+#             (59316000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (59334000 ps) Check command return: PASS
+# ** Note   : (59334000 ps)  * Read 8000_0000, expected value 8000_0000 (DATA_ACQ_MODE, mode Read, data 0000)
+# ** Note   : (61566000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (61566000 ps) Send SPI command value 8001_0001 (DATA_ACQ_MODE, mode Write, data 0001)
+# ** Note   : (61638000 ps) Waiting SPI command return end for 36000 ps
+#             (61638000 ps) 
+#             (61638000 ps) ==============================================================================================
+#             (61638000 ps)   Check no error after write DATA_ACQ_MODE command
+#             (61638000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (61656000 ps) Check command return: PASS
+# ** Note   : (61656000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
+# ** Note   : (63888000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (63888000 ps) Send SPI command value 8000_XXXX (DATA_ACQ_MODE, mode Read, data XXXX)
+# ** Note   : (63960000 ps) Waiting SPI command return end for 36000 ps
+#             (63960000 ps) 
+#             (63960000 ps) ==============================================================================================
+#             (63960000 ps)   Check DATA_ACQ_MODE new content: Dump
+#             (63960000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (63978000 ps) Check command return: PASS
+# ** Note   : (63978000 ps)  * Read 8000_0004, expected value 8000_0004 (DATA_ACQ_MODE, mode Read, data 0004)
+# ** Note   : (66210000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (66210000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (66282000 ps) Waiting SPI command return end for 36000 ps
+#             (66282000 ps) 
+#             (66282000 ps) ==============================================================================================
+#             (66282000 ps)   Check error Last command discarded appears
+#             (66282000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (66300000 ps) Check command return: PASS
+# ** Note   : (66300000 ps)  * Read C000_FBFF, expected value C000_FBFF (Status, mode Read, data FBFF)
+# ** Note   : (68532000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (68532000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (68604000 ps) Waiting SPI command return end for 36000 ps
+#             (68604000 ps) 
+#             (68604000 ps) ==============================================================================================
+#             (68604000 ps)   Check DATA_ACQ_MODE stay to Dump mode
+#             (68604000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (68622000 ps) Check command return: PASS
+# ** Note   : (68622000 ps)  * Read 8000_0004, expected value 8000_0004 (DATA_ACQ_MODE, mode Read, data 0004)
+#             (68622000 ps) 
+#             (68622000 ps) ==============================================================================================
+#             (68622000 ps)   Wait end of dump mode
+#             (68622000 ps)   (c_DMP_SEQ_ACQ_NB * c_MUX_FACT * c_PIXEL_ADC_NB_CYC * c_SC_DATA_SER_W_S * c_CLK_REF_PER_DEF)
+#             (68622000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (244622000 ps) Waiting time for 176000000 ps
+# ** Note   : (244622000 ps) Send SPI command value 8000_XXXX (DATA_ACQ_MODE, mode Read, data XXXX)
+# ** Note   : (246930000 ps) Waiting SPI command end for 2272000 ps
+# ** Note   : (246930000 ps) Send SPI command value 8001_0007 (DATA_ACQ_MODE, mode Write, data 0007)
+# ** Note   : (249252000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (249252000 ps) Send SPI command value 8000_XXXX (DATA_ACQ_MODE, mode Read, data XXXX)
+# ** Note   : (249324000 ps) Waiting SPI command return end for 36000 ps
+#             (249324000 ps) 
+#             (249324000 ps) ==============================================================================================
+#             (249324000 ps)   Check DATA_ACQ_MODE goes to Idle mode
+#             (249324000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (249342000 ps) Check command return: PASS
+# ** Note   : (249342000 ps)  * Read 8000_0000, expected value 8000_0000 (DATA_ACQ_MODE, mode Read, data 0000)
+# ** Note   : (251574000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (251574000 ps) Send SPI command value 8001_0004 (DATA_ACQ_MODE, mode Write, data 0004)
+# ** Note   : (251646000 ps) Waiting SPI command return end for 36000 ps
+#             (251646000 ps) 
+#             (251646000 ps) ==============================================================================================
+#             (251646000 ps)   Check no error after write DATA_ACQ_MODE command
+#             (251646000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (251664000 ps) Check command return: PASS
+# ** Note   : (251664000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
+# ** Note   : (253896000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (253896000 ps) Send SPI command value 8000_XXXX (DATA_ACQ_MODE, mode Read, data XXXX)
+# ** Note   : (253968000 ps) Waiting SPI command return end for 36000 ps
+#             (253968000 ps) 
+#             (253968000 ps) ==============================================================================================
+#             (253968000 ps)   Check DATA_ACQ_MODE new content: Test Pattern
+#             (253968000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (253986000 ps) Check command return: PASS
+# ** Note   : (253986000 ps)  * Read 8000_0007, expected value 8000_0007 (DATA_ACQ_MODE, mode Read, data 0007)
+# ** Note   : (256218000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (256218000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (256290000 ps) Waiting SPI command return end for 36000 ps
+#             (256290000 ps) 
+#             (256290000 ps) ==============================================================================================
+#             (256290000 ps)   Check no error after write DATA_ACQ_MODE command
+#             (256290000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (256308000 ps) Check command return: PASS
+# ** Note   : (256308000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
+# ** Note   : (258540000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (258540000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (258612000 ps) Waiting SPI command return end for 36000 ps
+#             (258612000 ps) 
+#             (258612000 ps) ==============================================================================================
+#             (258612000 ps)   Check DATA_ACQ_MODE new content: Dump
+#             (258612000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (258630000 ps) Check command return: PASS
+# ** Note   : (258630000 ps)  * Read 8000_0004, expected value 8000_0004 (DATA_ACQ_MODE, mode Read, data 0004)
+#             (258630000 ps) 
+#             (258630000 ps) ==============================================================================================
+#             (258630000 ps)   Wait end of dump mode
+#             (258630000 ps)   (c_DMP_SEQ_ACQ_NB * c_MUX_FACT * c_PIXEL_ADC_NB_CYC * c_SC_DATA_SER_W_S * c_CLK_REF_PER_DEF)
+#             (258630000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (434630000 ps) Waiting time for 176000000 ps
+# ** Note   : (434630000 ps) Send SPI command value 8000_XXXX (DATA_ACQ_MODE, mode Read, data XXXX)
+# ** Note   : (436938000 ps) Waiting SPI command end for 2272000 ps
+# ** Note   : (436938000 ps) Send SPI command value 8001_0001 (DATA_ACQ_MODE, mode Write, data 0001)
+# ** Note   : (439260000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (439260000 ps) Send SPI command value 8000_XXXX (DATA_ACQ_MODE, mode Read, data XXXX)
+# ** Note   : (439332000 ps) Waiting SPI command return end for 36000 ps
+#             (439332000 ps) 
+#             (439332000 ps) ==============================================================================================
+#             (439332000 ps)   Check DATA_ACQ_MODE goes to Idle mode
+#             (439332000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (439350000 ps) Check command return: PASS
+# ** Note   : (439350000 ps)  * Read 8000_0000, expected value 8000_0000 (DATA_ACQ_MODE, mode Read, data 0000)
+# ** Note   : (441582000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (441582000 ps) Send SPI command value 8001_0004 (DATA_ACQ_MODE, mode Write, data 0004)
+# ** Note   : (441654000 ps) Waiting SPI command return end for 36000 ps
+#             (441654000 ps) 
+#             (441654000 ps) ==============================================================================================
+#             (441654000 ps)   Check no error after write DATA_ACQ_MODE command
+#             (441654000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (441672000 ps) Check command return: PASS
+# ** Note   : (441672000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
+# ** Note   : (443904000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (443904000 ps) Send SPI command value 8000_XXXX (DATA_ACQ_MODE, mode Read, data XXXX)
+# ** Note   : (443976000 ps) Waiting SPI command return end for 36000 ps
+#             (443976000 ps) 
+#             (443976000 ps) ==============================================================================================
+#             (443976000 ps)   Check DATA_ACQ_MODE new content: Science
+#             (443976000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (443994000 ps) Check command return: PASS
+# ** Note   : (443994000 ps)  * Read 8000_0001, expected value 8000_0001 (DATA_ACQ_MODE, mode Read, data 0001)
+# ** Note   : (446226000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (446226000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (446298000 ps) Waiting SPI command return end for 36000 ps
+#             (446298000 ps) 
+#             (446298000 ps) ==============================================================================================
+#             (446298000 ps)   Check no error after write DATA_ACQ_MODE command
+#             (446298000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (446316000 ps) Check command return: PASS
+# ** Note   : (446316000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
+# ** Note   : (448548000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (448548000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (448620000 ps) Waiting SPI command return end for 36000 ps
+#             (448620000 ps) 
+#             (448620000 ps) ==============================================================================================
+#             (448620000 ps)   Check DATA_ACQ_MODE new content: Dump
+#             (448620000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (448638000 ps) Check command return: PASS
+# ** Note   : (448638000 ps)  * Read 8000_0004, expected value 8000_0004 (DATA_ACQ_MODE, mode Read, data 0004)
+#             (448638000 ps) 
+#             (448638000 ps) ==============================================================================================
+#             (448638000 ps)   Wait end of dump mode
+#             (448638000 ps)   (c_DMP_SEQ_ACQ_NB * c_MUX_FACT * c_PIXEL_ADC_NB_CYC * c_SC_DATA_SER_W_S * c_CLK_REF_PER_DEF)
+#             (448638000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (624638000 ps) Waiting time for 176000000 ps
+# ** Note   : (624638000 ps) Send SPI command value 8000_XXXX (DATA_ACQ_MODE, mode Read, data XXXX)
+# ** Note   : (626946000 ps) Waiting SPI command end for 2272000 ps
+# ** Note   : (626946000 ps) Send SPI command value 8001_0002 (DATA_ACQ_MODE, mode Write, data 0002)
+# ** Note   : (629268000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (629268000 ps) Send SPI command value 8000_XXXX (DATA_ACQ_MODE, mode Read, data XXXX)
+# ** Note   : (629340000 ps) Waiting SPI command return end for 36000 ps
+#             (629340000 ps) 
+#             (629340000 ps) ==============================================================================================
+#             (629340000 ps)   Check DATA_ACQ_MODE goes back to Science mode
+#             (629340000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (629358000 ps) Check command return: PASS
+# ** Note   : (629358000 ps)  * Read 8000_0001, expected value 8000_0001 (DATA_ACQ_MODE, mode Read, data 0001)
+# ** Note   : (631590000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (631590000 ps) Send SPI command value 8001_0004 (DATA_ACQ_MODE, mode Write, data 0004)
+# ** Note   : (631662000 ps) Waiting SPI command return end for 36000 ps
+#             (631662000 ps) 
+#             (631662000 ps) ==============================================================================================
+#             (631662000 ps)   Check no error after write DATA_ACQ_MODE command
+#             (631662000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (631680000 ps) Check command return: PASS
+# ** Note   : (631680000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
+# ** Note   : (633912000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (633912000 ps) Send SPI command value 8000_XXXX (DATA_ACQ_MODE, mode Read, data XXXX)
+# ** Note   : (633984000 ps) Waiting SPI command return end for 36000 ps
+#             (633984000 ps) 
+#             (633984000 ps) ==============================================================================================
+#             (633984000 ps)   Check DATA_ACQ_MODE new content: Error signal
+#             (633984000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (634002000 ps) Check command return: PASS
+# ** Note   : (634002000 ps)  * Read 8000_0002, expected value 8000_0002 (DATA_ACQ_MODE, mode Read, data 0002)
+# ** Note   : (636234000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (636234000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (636306000 ps) Waiting SPI command return end for 36000 ps
+#             (636306000 ps) 
+#             (636306000 ps) ==============================================================================================
+#             (636306000 ps)   Check no error after write DATA_ACQ_MODE command
+#             (636306000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (636324000 ps) Check command return: PASS
+# ** Note   : (636324000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
+# ** Note   : (638556000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (638556000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (638628000 ps) Waiting SPI command return end for 36000 ps
+#             (638628000 ps) 
+#             (638628000 ps) ==============================================================================================
+#             (638628000 ps)   Check DATA_ACQ_MODE new content: Dump
+#             (638628000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (638646000 ps) Check command return: PASS
+# ** Note   : (638646000 ps)  * Read 8000_0004, expected value 8000_0004 (DATA_ACQ_MODE, mode Read, data 0004)
+#             (638646000 ps) 
+#             (638646000 ps) ==============================================================================================
+#             (638646000 ps)   Wait end of dump mode
+#             (638646000 ps)   (c_DMP_SEQ_ACQ_NB * c_MUX_FACT * c_PIXEL_ADC_NB_CYC * c_SC_DATA_SER_W_S * c_CLK_REF_PER_DEF)
+#             (638646000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (814646000 ps) Waiting time for 176000000 ps
+# ** Note   : (814646000 ps) Send SPI command value 8000_XXXX (DATA_ACQ_MODE, mode Read, data XXXX)
+# ** Note   : (816954000 ps) Waiting SPI command end for 2272000 ps
+# ** Note   : (816954000 ps) Send SPI command value 8001_XXX3 (DATA_ACQ_MODE, mode Write, data XXX3)
+# ** Note   : (819276000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (819276000 ps) Send SPI command value 8000_XXXX (DATA_ACQ_MODE, mode Read, data XXXX)
+# ** Note   : (819348000 ps) Waiting SPI command return end for 36000 ps
+#             (819348000 ps) 
+#             (819348000 ps) ==============================================================================================
+#             (819348000 ps)   Check DATA_ACQ_MODE goes back to Error signal mode
+#             (819348000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (819366000 ps) Check command return: PASS
+# ** Note   : (819366000 ps)  * Read 8000_0002, expected value 8000_0002 (DATA_ACQ_MODE, mode Read, data 0002)
+# ** Note   : (821598000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (821598000 ps) Send SPI command value 8001_XXX8 (DATA_ACQ_MODE, mode Write, data XXX8)
+# ** Note   : (821670000 ps) Waiting SPI command return end for 36000 ps
+#             (821670000 ps) 
+#             (821670000 ps) ==============================================================================================
+#             (821670000 ps)   Check error position SPI data out of range detected
+#             (821670000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (821688000 ps) Check command return: PASS
+# ** Note   : (821688000 ps)  * Read C000_EFFF, expected value C000_EFFF (Status, mode Read, data EFFF)
+# ** Note   : (823920000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (823920000 ps) Send SPI command value 8000_XXXX (DATA_ACQ_MODE, mode Read, data XXXX)
+# ** Note   : (823992000 ps) Waiting SPI command return end for 36000 ps
+#             (823992000 ps) 
+#             (823992000 ps) ==============================================================================================
+#             (823992000 ps)   Check DATA_ACQ_MODE no change
+#             (823992000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (824010000 ps) Check command return: PASS
+# ** Note   : (824010000 ps)  * Read 8000_0002, expected value 8000_0002 (DATA_ACQ_MODE, mode Read, data 0002)
+# ** Note   : (826242000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (826242000 ps) Send SPI command value 8001_XX1X (DATA_ACQ_MODE, mode Write, data XX1X)
+# ** Note   : (826314000 ps) Waiting SPI command return end for 36000 ps
+#             (826314000 ps) 
+#             (826314000 ps) ==============================================================================================
+#             (826314000 ps)   Check error position SPI data out of range detected
+#             (826314000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (826332000 ps) Check command return: PASS
+# ** Note   : (826332000 ps)  * Read C000_EFFF, expected value C000_EFFF (Status, mode Read, data EFFF)
+# ** Note   : (828564000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (828564000 ps) Send SPI command value 8000_XXXX (DATA_ACQ_MODE, mode Read, data XXXX)
+# ** Note   : (828636000 ps) Waiting SPI command return end for 36000 ps
+#             (828636000 ps) 
+#             (828636000 ps) ==============================================================================================
+#             (828636000 ps)   Check DATA_ACQ_MODE no change
+#             (828636000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (828654000 ps) Check command return: PASS
+# ** Note   : (828654000 ps)  * Read 8000_0002, expected value 8000_0002 (DATA_ACQ_MODE, mode Read, data 0002)
+# ** Note   : (830886000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (830886000 ps) Send SPI command value 8001_XX2X (DATA_ACQ_MODE, mode Write, data XX2X)
+# ** Note   : (830958000 ps) Waiting SPI command return end for 36000 ps
+#             (830958000 ps) 
+#             (830958000 ps) ==============================================================================================
+#             (830958000 ps)   Check error position SPI data out of range detected
+#             (830958000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (830976000 ps) Check command return: PASS
+# ** Note   : (830976000 ps)  * Read C000_EFFF, expected value C000_EFFF (Status, mode Read, data EFFF)
+# ** Note   : (833208000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (833208000 ps) Send SPI command value 8000_XXXX (DATA_ACQ_MODE, mode Read, data XXXX)
+# ** Note   : (833280000 ps) Waiting SPI command return end for 36000 ps
+#             (833280000 ps) 
+#             (833280000 ps) ==============================================================================================
+#             (833280000 ps)   Check DATA_ACQ_MODE no change
+#             (833280000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (833298000 ps) Check command return: PASS
+# ** Note   : (833298000 ps)  * Read 8000_0002, expected value 8000_0002 (DATA_ACQ_MODE, mode Read, data 0002)
+# ** Note   : (835530000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (835530000 ps) Send SPI command value 8001_XX4X (DATA_ACQ_MODE, mode Write, data XX4X)
+# ** Note   : (835602000 ps) Waiting SPI command return end for 36000 ps
+#             (835602000 ps) 
+#             (835602000 ps) ==============================================================================================
+#             (835602000 ps)   Check error position SPI data out of range detected
+#             (835602000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (835620000 ps) Check command return: PASS
+# ** Note   : (835620000 ps)  * Read C000_EFFF, expected value C000_EFFF (Status, mode Read, data EFFF)
+# ** Note   : (837852000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (837852000 ps) Send SPI command value 8000_XXXX (DATA_ACQ_MODE, mode Read, data XXXX)
+# ** Note   : (837924000 ps) Waiting SPI command return end for 36000 ps
+#             (837924000 ps) 
+#             (837924000 ps) ==============================================================================================
+#             (837924000 ps)   Check DATA_ACQ_MODE no change
+#             (837924000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (837942000 ps) Check command return: PASS
+# ** Note   : (837942000 ps)  * Read 8000_0002, expected value 8000_0002 (DATA_ACQ_MODE, mode Read, data 0002)
+# ** Note   : (840174000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (840174000 ps) Send SPI command value 8001_XX8X (DATA_ACQ_MODE, mode Write, data XX8X)
+# ** Note   : (840246000 ps) Waiting SPI command return end for 36000 ps
+#             (840246000 ps) 
+#             (840246000 ps) ==============================================================================================
+#             (840246000 ps)   Check error position SPI data out of range detected
+#             (840246000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (840264000 ps) Check command return: PASS
+# ** Note   : (840264000 ps)  * Read C000_EFFF, expected value C000_EFFF (Status, mode Read, data EFFF)
+# ** Note   : (842496000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (842496000 ps) Send SPI command value 8000_XXXX (DATA_ACQ_MODE, mode Read, data XXXX)
+# ** Note   : (842568000 ps) Waiting SPI command return end for 36000 ps
+#             (842568000 ps) 
+#             (842568000 ps) ==============================================================================================
+#             (842568000 ps)   Check DATA_ACQ_MODE no change
+#             (842568000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (842586000 ps) Check command return: PASS
+# ** Note   : (842586000 ps)  * Read 8000_0002, expected value 8000_0002 (DATA_ACQ_MODE, mode Read, data 0002)
+# ** Note   : (844818000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (844818000 ps) Send SPI command value 8001_X1XX (DATA_ACQ_MODE, mode Write, data X1XX)
+# ** Note   : (844890000 ps) Waiting SPI command return end for 36000 ps
+#             (844890000 ps) 
+#             (844890000 ps) ==============================================================================================
+#             (844890000 ps)   Check error position SPI data out of range detected
+#             (844890000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (844908000 ps) Check command return: PASS
+# ** Note   : (844908000 ps)  * Read C000_EFFF, expected value C000_EFFF (Status, mode Read, data EFFF)
+# ** Note   : (847140000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (847140000 ps) Send SPI command value 8000_XXXX (DATA_ACQ_MODE, mode Read, data XXXX)
+# ** Note   : (847212000 ps) Waiting SPI command return end for 36000 ps
+#             (847212000 ps) 
+#             (847212000 ps) ==============================================================================================
+#             (847212000 ps)   Check DATA_ACQ_MODE no change
+#             (847212000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (847230000 ps) Check command return: PASS
+# ** Note   : (847230000 ps)  * Read 8000_0002, expected value 8000_0002 (DATA_ACQ_MODE, mode Read, data 0002)
+# ** Note   : (849462000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (849462000 ps) Send SPI command value 8001_X2XX (DATA_ACQ_MODE, mode Write, data X2XX)
+# ** Note   : (849534000 ps) Waiting SPI command return end for 36000 ps
+#             (849534000 ps) 
+#             (849534000 ps) ==============================================================================================
+#             (849534000 ps)   Check error position SPI data out of range detected
+#             (849534000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (849552000 ps) Check command return: PASS
+# ** Note   : (849552000 ps)  * Read C000_EFFF, expected value C000_EFFF (Status, mode Read, data EFFF)
+# ** Note   : (851784000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (851784000 ps) Send SPI command value 8000_XXXX (DATA_ACQ_MODE, mode Read, data XXXX)
+# ** Note   : (851856000 ps) Waiting SPI command return end for 36000 ps
+#             (851856000 ps) 
+#             (851856000 ps) ==============================================================================================
+#             (851856000 ps)   Check DATA_ACQ_MODE no change
+#             (851856000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (851874000 ps) Check command return: PASS
+# ** Note   : (851874000 ps)  * Read 8000_0002, expected value 8000_0002 (DATA_ACQ_MODE, mode Read, data 0002)
+# ** Note   : (854106000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (854106000 ps) Send SPI command value 8001_X4XX (DATA_ACQ_MODE, mode Write, data X4XX)
+# ** Note   : (854178000 ps) Waiting SPI command return end for 36000 ps
+#             (854178000 ps) 
+#             (854178000 ps) ==============================================================================================
+#             (854178000 ps)   Check error position SPI data out of range detected
+#             (854178000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (854196000 ps) Check command return: PASS
+# ** Note   : (854196000 ps)  * Read C000_EFFF, expected value C000_EFFF (Status, mode Read, data EFFF)
+# ** Note   : (856428000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (856428000 ps) Send SPI command value 8000_XXXX (DATA_ACQ_MODE, mode Read, data XXXX)
+# ** Note   : (856500000 ps) Waiting SPI command return end for 36000 ps
+#             (856500000 ps) 
+#             (856500000 ps) ==============================================================================================
+#             (856500000 ps)   Check DATA_ACQ_MODE no change
+#             (856500000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (856518000 ps) Check command return: PASS
+# ** Note   : (856518000 ps)  * Read 8000_0002, expected value 8000_0002 (DATA_ACQ_MODE, mode Read, data 0002)
+# ** Note   : (858750000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (858750000 ps) Send SPI command value 8001_X8XX (DATA_ACQ_MODE, mode Write, data X8XX)
+# ** Note   : (858822000 ps) Waiting SPI command return end for 36000 ps
+#             (858822000 ps) 
+#             (858822000 ps) ==============================================================================================
+#             (858822000 ps)   Check error position SPI data out of range detected
+#             (858822000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (858840000 ps) Check command return: PASS
+# ** Note   : (858840000 ps)  * Read C000_EFFF, expected value C000_EFFF (Status, mode Read, data EFFF)
+# ** Note   : (861072000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (861072000 ps) Send SPI command value 8000_XXXX (DATA_ACQ_MODE, mode Read, data XXXX)
+# ** Note   : (861144000 ps) Waiting SPI command return end for 36000 ps
+#             (861144000 ps) 
+#             (861144000 ps) ==============================================================================================
+#             (861144000 ps)   Check DATA_ACQ_MODE no change
+#             (861144000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (861162000 ps) Check command return: PASS
+# ** Note   : (861162000 ps)  * Read 8000_0002, expected value 8000_0002 (DATA_ACQ_MODE, mode Read, data 0002)
+# ** Note   : (863394000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (863394000 ps) Send SPI command value 8001_1XXX (DATA_ACQ_MODE, mode Write, data 1XXX)
+# ** Note   : (863466000 ps) Waiting SPI command return end for 36000 ps
+#             (863466000 ps) 
+#             (863466000 ps) ==============================================================================================
+#             (863466000 ps)   Check error position SPI data out of range detected
+#             (863466000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (863484000 ps) Check command return: PASS
+# ** Note   : (863484000 ps)  * Read C000_EFFF, expected value C000_EFFF (Status, mode Read, data EFFF)
+# ** Note   : (865716000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (865716000 ps) Send SPI command value 8000_XXXX (DATA_ACQ_MODE, mode Read, data XXXX)
+# ** Note   : (865788000 ps) Waiting SPI command return end for 36000 ps
+#             (865788000 ps) 
+#             (865788000 ps) ==============================================================================================
+#             (865788000 ps)   Check DATA_ACQ_MODE no change
+#             (865788000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (865806000 ps) Check command return: PASS
+# ** Note   : (865806000 ps)  * Read 8000_0002, expected value 8000_0002 (DATA_ACQ_MODE, mode Read, data 0002)
+# ** Note   : (868038000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (868038000 ps) Send SPI command value 8001_2XXX (DATA_ACQ_MODE, mode Write, data 2XXX)
+# ** Note   : (868110000 ps) Waiting SPI command return end for 36000 ps
+#             (868110000 ps) 
+#             (868110000 ps) ==============================================================================================
+#             (868110000 ps)   Check error position SPI data out of range detected
+#             (868110000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (868128000 ps) Check command return: PASS
+# ** Note   : (868128000 ps)  * Read C000_EFFF, expected value C000_EFFF (Status, mode Read, data EFFF)
+# ** Note   : (870360000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (870360000 ps) Send SPI command value 8000_XXXX (DATA_ACQ_MODE, mode Read, data XXXX)
+# ** Note   : (870432000 ps) Waiting SPI command return end for 36000 ps
+#             (870432000 ps) 
+#             (870432000 ps) ==============================================================================================
+#             (870432000 ps)   Check DATA_ACQ_MODE no change
+#             (870432000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (870450000 ps) Check command return: PASS
+# ** Note   : (870450000 ps)  * Read 8000_0002, expected value 8000_0002 (DATA_ACQ_MODE, mode Read, data 0002)
+# ** Note   : (872682000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (872682000 ps) Send SPI command value 8001_4XXX (DATA_ACQ_MODE, mode Write, data 4XXX)
+# ** Note   : (872754000 ps) Waiting SPI command return end for 36000 ps
+#             (872754000 ps) 
+#             (872754000 ps) ==============================================================================================
+#             (872754000 ps)   Check error position SPI data out of range detected
+#             (872754000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (872772000 ps) Check command return: PASS
+# ** Note   : (872772000 ps)  * Read C000_EFFF, expected value C000_EFFF (Status, mode Read, data EFFF)
+# ** Note   : (875004000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (875004000 ps) Send SPI command value 8000_XXXX (DATA_ACQ_MODE, mode Read, data XXXX)
+# ** Note   : (875076000 ps) Waiting SPI command return end for 36000 ps
+#             (875076000 ps) 
+#             (875076000 ps) ==============================================================================================
+#             (875076000 ps)   Check DATA_ACQ_MODE no change
+#             (875076000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (875094000 ps) Check command return: PASS
+# ** Note   : (875094000 ps)  * Read 8000_0002, expected value 8000_0002 (DATA_ACQ_MODE, mode Read, data 0002)
+# ** Note   : (877326000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (877326000 ps) Send SPI command value 8001_8XXX (DATA_ACQ_MODE, mode Write, data 8XXX)
+# ** Note   : (877398000 ps) Waiting SPI command return end for 36000 ps
+#             (877398000 ps) 
+#             (877398000 ps) ==============================================================================================
+#             (877398000 ps)   Check error position SPI data out of range detected
+#             (877398000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (877416000 ps) Check command return: PASS
+# ** Note   : (877416000 ps)  * Read C000_EFFF, expected value C000_EFFF (Status, mode Read, data EFFF)
+# ** Note   : (879648000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (879648000 ps) Send SPI command value 8000_XXXX (DATA_ACQ_MODE, mode Read, data XXXX)
+# ** Note   : (879720000 ps) Waiting SPI command return end for 36000 ps
+#             (879720000 ps) 
+#             (879720000 ps) ==============================================================================================
+#             (879720000 ps)   Check DATA_ACQ_MODE no change
+#             (879720000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (879738000 ps) Check command return: PASS
+# ** Note   : (879738000 ps)  * Read 8000_0002, expected value 8000_0002 (DATA_ACQ_MODE, mode Read, data 0002)
+# ** Note   : (881970000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (881970000 ps) Send SPI command value 8001_XXX5 (DATA_ACQ_MODE, mode Write, data XXX5)
+# ** Note   : (882042000 ps) Waiting SPI command return end for 36000 ps
+#             (882042000 ps) 
+#             (882042000 ps) ==============================================================================================
+#             (882042000 ps)   Check error position SPI data out of range detected
+#             (882042000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (882060000 ps) Check command return: PASS
+# ** Note   : (882060000 ps)  * Read C000_EFFF, expected value C000_EFFF (Status, mode Read, data EFFF)
+# ** Note   : (884292000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (884292000 ps) Send SPI command value 8000_XXXX (DATA_ACQ_MODE, mode Read, data XXXX)
+# ** Note   : (884364000 ps) Waiting SPI command return end for 36000 ps
+#             (884364000 ps) 
+#             (884364000 ps) ==============================================================================================
+#             (884364000 ps)   Check DATA_ACQ_MODE no change
+#             (884364000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (884382000 ps) Check command return: PASS
+# ** Note   : (884382000 ps)  * Read 8000_0002, expected value 8000_0002 (DATA_ACQ_MODE, mode Read, data 0002)
+# ** Note   : (886614000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (886614000 ps) Send SPI command value 8001_XXX6 (DATA_ACQ_MODE, mode Write, data XXX6)
+# ** Note   : (886686000 ps) Waiting SPI command return end for 36000 ps
+#             (886686000 ps) 
+#             (886686000 ps) ==============================================================================================
+#             (886686000 ps)   Check error position SPI data out of range detected
+#             (886686000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (886704000 ps) Check command return: PASS
+# ** Note   : (886704000 ps)  * Read C000_EFFF, expected value C000_EFFF (Status, mode Read, data EFFF)
+# ** Note   : (888936000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (888936000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (889008000 ps) Waiting SPI command return end for 36000 ps
+#             (889008000 ps) 
+#             (889008000 ps) ==============================================================================================
+#             (889008000 ps)   Check DATA_ACQ_MODE no change
+#             (889008000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (889026000 ps) Check command return: PASS
+# ** Note   : (889026000 ps)  * Read 8000_0002, expected value 8000_0002 (DATA_ACQ_MODE, mode Read, data 0002)
+# ** Note   : (891258000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (891258000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (891330000 ps) Waiting SPI command return end for 36000 ps
+#             (891330000 ps) 
+#             (891330000 ps) ==============================================================================================
+#             (891330000 ps)   Check error position SPI data out of range detected
+#             (891330000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (891348000 ps) Check command return: PASS
+# ** Note   : (891348000 ps)  * Read C000_EFFF, expected value C000_EFFF (Status, mode Read, data EFFF)
 # ----------------------------------------------------------------------------------------------------
 # Parameters check, clock c0_clk_sqm_adc   
 # ----------------------------------------------------------------------------------------------------
@@ -659,6 +670,6 @@
 # Error check science packets   : '0'
 # Error check pulse shaping     : '0'
 # ------------------------------------------------------------------------------------------------------------------------------------------------------
-# Simulation time               : 890000000 ps
+# Simulation time               : 900000000 ps
 # Simulation status             : PASS
 # ------------------------------------------------------------------------------------------------------------------------------------------------------

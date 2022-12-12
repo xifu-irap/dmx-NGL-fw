@@ -19,6 +19,13 @@ COMM ---------------------------------------------------------------------------
 WUDI rst 0
 COMM
 COMM ==============================================================================================
+COMM   TEST_PATTERN: writing maximum first index for allowing test pattern generation
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-TEST_PATTERN(2)-0003 W
+WCMD W-TEST_PATTERN(14)-0003 W
+WCMD W-TEST_PATTERN_ENABLE-003X W
+COMM
+COMM ==============================================================================================
 COMM   C0_MUX_SQ_FB_MODE: writing a new table in ping-pong memory
 COMM    and check reading of the memory part currently applicable is kept to its initial value
 COMM ----------------------------------------------------------------------------------------------

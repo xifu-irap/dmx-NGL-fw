@@ -48,6 +48,7 @@ architecture RTL of sts_err_out_mgt is
 signal   cond_aqmde           : std_logic                                                                   ; --! Error data out of range condition: DATA_ACQ_MODE
 signal   cond_smfmd           : std_logic                                                                   ; --! Error data out of range condition: SQ_MUX_FB_ON_OFF
 signal   cond_saofm           : std_logic                                                                   ; --! Error data out of range condition: SQ_AMP_OFFSET_MODE
+signal   cond_tsten           : std_logic                                                                   ; --! Error data out of range condition: TEST_PATTERN_ENABLE
 signal   cond_smfbm           : std_logic                                                                   ; --! Error data out of range condition: CY_MUX_SQ_FB_MODE
 signal   cond_saoff           : std_logic                                                                   ; --! Error data out of range condition: CY_AMP_SQ_OFFSET_FINE
 signal   cond_saofl           : std_logic                                                                   ; --! Error data out of range condition: CY_AMP_SQ_OFFSET_LSB
@@ -77,6 +78,10 @@ begin
 
    cond_saofm     <= i_ep_cmd_rx_wd_data(15) or i_ep_cmd_rx_wd_data(14) or i_ep_cmd_rx_wd_data(11) or i_ep_cmd_rx_wd_data(10) or
                      i_ep_cmd_rx_wd_data(7)  or i_ep_cmd_rx_wd_data(6)  or i_ep_cmd_rx_wd_data(3)  or i_ep_cmd_rx_wd_data(2);
+
+   cond_tsten     <= i_ep_cmd_rx_wd_data(15) or i_ep_cmd_rx_wd_data(14) or i_ep_cmd_rx_wd_data(13) or i_ep_cmd_rx_wd_data(12) or
+                     i_ep_cmd_rx_wd_data(11) or i_ep_cmd_rx_wd_data(10) or i_ep_cmd_rx_wd_data(9)  or i_ep_cmd_rx_wd_data(8)  or
+                     i_ep_cmd_rx_wd_data(7)  or i_ep_cmd_rx_wd_data(6);
 
    cond_smfbm     <= i_ep_cmd_rx_wd_data(15) or i_ep_cmd_rx_wd_data(14) or i_ep_cmd_rx_wd_data(13) or i_ep_cmd_rx_wd_data(12) or
                      i_ep_cmd_rx_wd_data(11) or i_ep_cmd_rx_wd_data(10) or i_ep_cmd_rx_wd_data(9)  or i_ep_cmd_rx_wd_data(8)  or
@@ -138,6 +143,9 @@ begin
 
                elsif i_ep_cmd_rx_add_norw = c_EP_CMD_ADD_SAOFM  then
                   o_ep_cmd_sts_err_out <= cond_saofm xor c_EP_CMD_ERR_CLR;
+
+               elsif i_ep_cmd_rx_add_norw = c_EP_CMD_ADD_TSTEN  then
+                  o_ep_cmd_sts_err_out <= cond_tsten xor c_EP_CMD_ERR_CLR;
 
                elsif i_ep_cmd_rx_add_norw(i_ep_cmd_rx_add_norw'high downto c_EP_CMD_ADD_COLPOSH+1) = c_EP_CMD_ADD_SMFBM(0)(i_ep_cmd_rx_add_norw'high downto c_EP_CMD_ADD_COLPOSH+1) and
                      i_ep_cmd_rx_add_norw(c_EP_CMD_ADD_COLPOSL-1    downto c_MEM_SMFBM_ADD_S)      = c_EP_CMD_ADD_SMFBM(0)(c_EP_CMD_ADD_COLPOSL-1    downto c_MEM_SMFBM_ADD_S)      and

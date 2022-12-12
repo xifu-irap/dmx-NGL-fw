@@ -149,6 +149,9 @@ constant c_PIX_POS_SW_ADC_OFF : integer   := c_MUX_FACT - 1                     
 
 constant c_MUX_FACT_S         : integer   := log2_ceil(c_MUX_FACT)                                          ; --! DEMUX: multiplexing factor bus size
 
+constant c_TST_PAT_COEF_NB    : integer   := 3                                                              ; --! Test pattern: coefficient by region number
+constant c_TST_PAT_RGN_NB     : integer   := 5                                                              ; --! Test pattern: region number
+
    -- ------------------------------------------------------------------------------------------------------
    --    SQUID MUX ADC parameters
    --    @Req : DRE-DMX-FW-REQ-0130
