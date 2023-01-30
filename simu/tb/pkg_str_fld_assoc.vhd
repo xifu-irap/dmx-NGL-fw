@@ -430,6 +430,9 @@ constant c_PAD                : character := ' '                                
          when "BOXCAR_LENGTH                 "  =>
             o_fld_add_val:= c_EP_CMD_ADD_BXLGT;
 
+         when "DELOCK_FLAG                   "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_DLFLG;
+
          when "Status                        "  =>
             o_fld_add_val:= c_EP_CMD_ADD_STATUS;
 
@@ -484,6 +487,15 @@ constant c_PAD                : character := ' '                                
          when "C0_FB1_PULSE_SHAPING_SELECTION"  =>
             o_fld_add_val:= c_EP_CMD_ADD_PLSSS(0);
 
+         when "C0_RELOCK_DELAY               "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_RLDEL(0);
+
+         when "C0_RELOCK_THRESHOLD           "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_RLTHR(0);
+
+         when "C0_DELOCK_COUNTERS            "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_DLCNT(0);
+
          when "C1_A                          "  =>
             o_fld_add_val:= c_EP_CMD_ADD_PARMA(1);
 
@@ -528,6 +540,15 @@ constant c_PAD                : character := ' '                                
 
          when "C1_FB1_PULSE_SHAPING_SELECTION"  =>
             o_fld_add_val:= c_EP_CMD_ADD_PLSSS(1);
+
+         when "C1_RELOCK_DELAY               "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_RLDEL(1);
+
+         when "C1_RELOCK_THRESHOLD           "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_RLTHR(1);
+
+         when "C1_DELOCK_COUNTERS            "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_DLCNT(1);
 
          when "C2_A                          "  =>
             o_fld_add_val:= c_EP_CMD_ADD_PARMA(2);
@@ -574,6 +595,15 @@ constant c_PAD                : character := ' '                                
          when "C2_FB1_PULSE_SHAPING_SELECTION"  =>
             o_fld_add_val:= c_EP_CMD_ADD_PLSSS(2);
 
+         when "C2_RELOCK_DELAY               "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_RLDEL(2);
+
+         when "C2_RELOCK_THRESHOLD           "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_RLTHR(2);
+
+         when "C2_DELOCK_COUNTERS            "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_DLCNT(2);
+
          when "C3_A                          "  =>
             o_fld_add_val:= c_EP_CMD_ADD_PARMA(3);
 
@@ -618,6 +648,15 @@ constant c_PAD                : character := ' '                                
 
          when "C3_FB1_PULSE_SHAPING_SELECTION"  =>
             o_fld_add_val:= c_EP_CMD_ADD_PLSSS(3);
+
+         when "C3_RELOCK_DELAY               "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_RLDEL(3);
+
+         when "C3_RELOCK_THRESHOLD           "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_RLTHR(3);
+
+         when "C3_DELOCK_COUNTERS            "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_DLCNT(3);
 
          when others                            =>
             o_fld_add_val:= c_RET_UKWN;

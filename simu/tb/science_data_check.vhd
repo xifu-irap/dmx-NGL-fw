@@ -421,11 +421,11 @@ begin
                               '1' when (i_sw_adc_vin = c_SW_ADC_VIN_ST_SQA and (sm_mode_sel = dump) and
                                         i_science_data(k) /= adc_dump_dta2cmp_lst(k)) else
                               '1' when (i_sw_adc_vin = c_SW_ADC_VIN_ST_SQM) and (pls_cnt = pls_cnt_pos_del(k)) and (sm_mode_sel = dump) and (
-                                        abs(signed(i_science_data(k)) - signed(adc_dump_dta2cmp_lst(k))) > to_signed(1, i_science_data(k)'length)) else
+                                        signed(i_science_data(k)) /= signed(adc_dump_dta2cmp_lst(k))) else
                               '1' when (sm_mode_sel = error_sig) and (
-                                        abs(signed(science_data_r(k)(c_SC_DATA_R_PIP_NB-1)) - signed(science_dta2cmp(k))) > to_signed(1, i_science_data(k)'length)) else
+                                        signed(science_data_r(k)(c_SC_DATA_R_PIP_NB-1)) /= signed(science_dta2cmp(k))) else
                               '1' when (i_sw_adc_vin = c_SW_ADC_VIN_ST_SQM) and (sm_mode_sel = science) and (i_sqm_fbm_cls_lp_n(k) = '1') and (
-                                        abs(signed(science_data_r(k)(c_SC_DATA_R_PIP_NB-1)) - signed(science_dta2cmp(k))) > to_signed(1, i_science_data(k)'length)) else
+                                        signed(science_data_r(k)(c_SC_DATA_R_PIP_NB-1)) /= signed(science_dta2cmp(k))) else
                               '1' when (sm_mode_sel = test_pattern) and (
                                         signed(science_data_r(k)(c_SC_DATA_R_PIP_NB-1)) /= signed(science_dta2cmp(k))) else
                               '0';

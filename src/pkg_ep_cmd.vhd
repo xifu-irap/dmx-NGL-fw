@@ -72,7 +72,8 @@ constant c_EP_CMD_POS_SAOFM   : integer   := c_EP_CMD_POS_SMFMD   + 1           
 constant c_EP_CMD_POS_TSTPT   : integer   := c_EP_CMD_POS_SAOFM   + 1                                       ; --! EP command: Position, TEST_PATTERN
 constant c_EP_CMD_POS_TSTEN   : integer   := c_EP_CMD_POS_TSTPT   + 1                                       ; --! EP command: Position, TEST_PATTERN_ENABLE
 constant c_EP_CMD_POS_BXLGT   : integer   := c_EP_CMD_POS_TSTEN   + 1                                       ; --! EP command: Position, BOXCAR_LENGTH
-constant c_EP_CMD_POS_STATUS  : integer   := c_EP_CMD_POS_BXLGT   + 1                                       ; --! EP command: Position, Status
+constant c_EP_CMD_POS_DLFLG   : integer   := c_EP_CMD_POS_BXLGT   + 1                                       ; --! EP command: Position, DELOCK_FLAG
+constant c_EP_CMD_POS_STATUS  : integer   := c_EP_CMD_POS_DLFLG   + 1                                       ; --! EP command: Position, Status
 constant c_EP_CMD_POS_FW_VER  : integer   := c_EP_CMD_POS_STATUS  + 1                                       ; --! EP command: Position, Firmware Version
 constant c_EP_CMD_POS_HW_VER  : integer   := c_EP_CMD_POS_FW_VER  + 1                                       ; --! EP command: Position, Hardware Version
 constant c_EP_CMD_POS_PARMA   : integer   := c_EP_CMD_POS_HW_VER  + 1                                       ; --! EP command: Position, CY_A
@@ -90,8 +91,11 @@ constant c_EP_CMD_POS_SAOMD   : integer   := c_EP_CMD_POS_SAODD   + 1           
 constant c_EP_CMD_POS_SMPDL   : integer   := c_EP_CMD_POS_SAOMD   + 1                                       ; --! EP command: Position, CY_SAMPLING_DELAY
 constant c_EP_CMD_POS_PLSSH   : integer   := c_EP_CMD_POS_SMPDL   + 1                                       ; --! EP command: Position, CY_FB1_PULSE_SHAPING
 constant c_EP_CMD_POS_PLSSS   : integer   := c_EP_CMD_POS_PLSSH   + 1                                       ; --! EP command: Position, CY_FB1_PULSE_SHAPING_SELECTION
+constant c_EP_CMD_POS_RLDEL   : integer   := c_EP_CMD_POS_PLSSS   + 1                                       ; --! EP command: Position, CY_RELOCK_DELAY
+constant c_EP_CMD_POS_RLTHR   : integer   := c_EP_CMD_POS_RLDEL   + 1                                       ; --! EP command: Position, CY_RELOCK_THRESHOLD
+constant c_EP_CMD_POS_DLCNT   : integer   := c_EP_CMD_POS_RLTHR   + 1                                       ; --! EP command: Position, CY_DELOCK_COUNTERS
 
-constant c_EP_CMD_POS_LAST    : integer   := c_EP_CMD_POS_PLSSS   + 1                                       ; --! EP command: last position
+constant c_EP_CMD_POS_LAST    : integer   := c_EP_CMD_POS_DLCNT   + 1                                       ; --! EP command: last position
 constant c_EP_CMD_REG_MX_STNB : integer   := 3                                                              ; --! EP command: Register multiplexer stage number
 constant c_EP_CMD_REG_MX_STIN : t_int_arr(0 to c_EP_CMD_REG_MX_STNB)   := (32, 40, 42, 43)                  ; --! EP command: Register inputs by multiplexer stage (accumulated)
 constant c_EP_CMD_REG_MX_INNB : t_int_arr(0 to c_EP_CMD_REG_MX_STNB-1) := ( 4,  4,  2)                      ; --! EP command: Register inputs by multiplexer
@@ -109,6 +113,7 @@ constant c_EP_CMD_ADD_TSTPT   : std_logic_vector(c_EP_SPI_WD_S-1 downto 0):= x"4
 constant c_EP_CMD_ADD_TSTEN   : std_logic_vector(c_EP_SPI_WD_S-1 downto 0):= x"4150"                        ; --! EP command: Address, TEST_PATTERN_ENABLE
 constant c_EP_CMD_ADD_BXLGT   : std_logic_vector(c_EP_SPI_WD_S-1 downto 0):= x"4200"                        ; --! EP command: Address, BOXCAR_LENGTH
 
+constant c_EP_CMD_ADD_DLFLG   : std_logic_vector(c_EP_SPI_WD_S-1 downto 0):= x"4610"                        ; --! EP command: Address, DELOCK_FLAG
 constant c_EP_CMD_ADD_STATUS  : std_logic_vector(c_EP_SPI_WD_S-1 downto 0):= x"6000"                        ; --! EP command: Address, Status
 constant c_EP_CMD_ADD_FW_VER  : std_logic_vector(c_EP_SPI_WD_S-1 downto 0):= x"6001"                        ; --! EP command: Address, Firmware Version
 constant c_EP_CMD_ADD_HW_VER  : std_logic_vector(c_EP_SPI_WD_S-1 downto 0):= x"6002"                        ; --! EP command: Address, Hardware Version
@@ -143,6 +148,12 @@ constant c_EP_CMD_ADD_PLSSH   : t_slv_arr(0 to c_NB_COL-1)(c_EP_SPI_WD_S-1 downt
                                  (x"0800", x"1800", x"2800", x"3800")                                       ; --! EP command: Address basis, CY_FB1_PULSE_SHAPING
 constant c_EP_CMD_ADD_PLSSS   : t_slv_arr(0 to c_NB_COL-1)(c_EP_SPI_WD_S-1 downto 0) :=
                                  (x"0880", x"1880", x"2880", x"3880")                                       ; --! EP command: Address basis, CY_FB1_PULSE_SHAPING_SELECTION
+constant c_EP_CMD_ADD_RLDEL   : t_slv_arr(0 to c_NB_COL-1)(c_EP_SPI_WD_S-1 downto 0) :=
+                                 (x"0900", x"1900", x"2900", x"3900")                                       ; --! EP command: Address basis, CY_RELOCK_DELAY
+constant c_EP_CMD_ADD_RLTHR   : t_slv_arr(0 to c_NB_COL-1)(c_EP_SPI_WD_S-1 downto 0) :=
+                                 (x"0901", x"1901", x"2901", x"3901")                                       ; --! EP command: Address basis, CY_RELOCK_THRESHOLD
+constant c_EP_CMD_ADD_DLCNT   : t_slv_arr(0 to c_NB_COL-1)(c_EP_SPI_WD_S-1 downto 0) :=
+                                 (x"0A00", x"1A00", x"2A00", x"3A00")                                       ; --! EP command: Address basis, CY_DELOCK_COUNTERS
 
    -- ------------------------------------------------------------------------------------------------------
    --    EP command: Table and Memory Address size
@@ -176,6 +187,9 @@ constant c_TAB_PLSSH_S        : integer   := log2_ceil(c_TAB_PLSSH_NW)          
 constant c_MEM_PLSSH_ADD_S    : integer   := log2_ceil(c_DAC_PLS_SHP_SET_NB) + c_TAB_PLSSH_S                ; --! Address size memory without ping-pong buffer bit, CY_FB1_PULSE_SHAPING
 constant c_MEM_PLSSH_ADD_END  : integer   := (c_DAC_PLS_SHP_SET_NB-1) * 2**c_TAB_PLSSH_S + c_TAB_PLSSH_NW-1 ; --! Address end, CY_FB1_PULSE_SHAPING
 
+constant c_TAB_DLCNT_NW       : integer   := c_MUX_FACT                                                     ; --! Table number word, CY_DELOCK_COUNTERS
+constant c_MEM_DLCNT_ADD_S    : integer   := log2_ceil(c_TAB_DLCNT_NW)                                      ; --! Address size memory without ping-pong buffer bit, CY_DELOCK_COUNTERS
+
    -- ------------------------------------------------------------------------------------------------------
    --    EP command: Write register authorization
    -- ------------------------------------------------------------------------------------------------------
@@ -186,6 +200,7 @@ constant c_EP_CMD_AUTH_TSTPT  : std_logic := c_EP_CMD_ERR_CLR                   
 constant c_EP_CMD_AUTH_TSTEN  : std_logic := c_EP_CMD_ERR_CLR                                               ; --! EP command: Authorization, TEST_PATTERN_ENABLE
 constant c_EP_CMD_AUTH_BXLGT  : std_logic := c_EP_CMD_ERR_CLR                                               ; --! EP command: Authorization, BOXCAR_LENGTH
 
+constant c_EP_CMD_AUTH_DLFLG  : std_logic := c_EP_CMD_ERR_SET                                               ; --! EP command: Authorization, DELOCK_FLAG
 constant c_EP_CMD_AUTH_STATUS : std_logic := c_EP_CMD_ERR_SET                                               ; --! EP command: Authorization, Status
 constant c_EP_CMD_AUTH_FW_VER : std_logic := c_EP_CMD_ERR_SET                                               ; --! EP command: Authorization, Firmware Version
 constant c_EP_CMD_AUTH_HW_VER : std_logic := c_EP_CMD_ERR_SET                                               ; --! EP command: Authorization, Hardware Version
@@ -205,6 +220,9 @@ constant c_EP_CMD_AUTH_SAOMD  : std_logic := c_EP_CMD_ERR_CLR                   
 constant c_EP_CMD_AUTH_SMPDL  : std_logic := c_EP_CMD_ERR_CLR                                               ; --! EP command: Authorization, CY_SAMPLING_DELAY
 constant c_EP_CMD_AUTH_PLSSH  : std_logic := c_EP_CMD_ERR_CLR                                               ; --! EP command: Authorization, CY_FB1_PULSE_SHAPING
 constant c_EP_CMD_AUTH_PLSSS  : std_logic := c_EP_CMD_ERR_CLR                                               ; --! EP command: Authorization, CY_FB1_PULSE_SHAPING_SELECTION
+constant c_EP_CMD_AUTH_RLDEL  : std_logic := c_EP_CMD_ERR_CLR                                               ; --! EP command: Authorization, CY_RELOCK_DELAY
+constant c_EP_CMD_AUTH_RLTHR  : std_logic := c_EP_CMD_ERR_CLR                                               ; --! EP command: Authorization, CY_RELOCK_THRESHOLD
+constant c_EP_CMD_AUTH_DLCNT  : std_logic := c_EP_CMD_ERR_CLR                                               ; --! EP command: Authorization, CY_DELOCK_COUNTERS
 
    -- ------------------------------------------------------------------------------------------------------
    --    EP command: Data field bus size
@@ -218,6 +236,7 @@ constant c_DFLD_TSTEN_INF_S   : integer   :=  1                                 
 constant c_DFLD_TSTEN_ENA_S   : integer   :=  1                                                             ; --! EP command: Data field, TEST_PATTERN_ENABLE, field Enable bus size
 constant c_DFLD_TSTEN_S       : integer   :=  c_DFLD_TSTEN_LOP_S + c_DFLD_TSTEN_INF_S + c_DFLD_TSTEN_ENA_S  ; --! EP command: Data field, TEST_PATTERN_ENABLE bus size
 constant c_DFLD_BXLGT_COL_S   : integer   :=  c_ADC_SMP_AVE_ADD_S                                           ; --! EP command: Data field, BOXCAR_LENGTH bus size
+constant c_DFLD_DLFLG_COL_S   : integer   :=  1                                                             ; --! EP command: Data field, DELOCK_FLAG bus size
 constant c_DFLD_PARMA_PIX_S   : integer   :=  c_EP_SPI_WD_S                                                 ; --! EP command: Data field, CY_A bus size
 constant c_DFLD_KIKNM_PIX_S   : integer   :=  c_EP_SPI_WD_S                                                 ; --! EP command: Data field, CY_KI_KNORM bus size
 constant c_DFLD_KNORM_PIX_S   : integer   :=  c_EP_SPI_WD_S                                                 ; --! EP command: Data field, CY_KNORM bus size
@@ -233,6 +252,9 @@ constant c_DFLD_SAOMD_COL_S   : integer   :=  5                                 
 constant c_DFLD_SMPDL_COL_S   : integer   :=  5                                                             ; --! EP command: Data field, CY_SAMPLING_DELAY bus size
 constant c_DFLD_PLSSH_PLS_S   : integer   :=  c_EP_SPI_WD_S                                                 ; --! EP command: Data field, CY_FB1_PULSE_SHAPING bus size
 constant c_DFLD_PLSSS_PLS_S   : integer   :=  log2_ceil(c_DAC_PLS_SHP_SET_NB)                               ; --! EP command: Data field, CY_FB1_PULSE_SHAPING_SELECTION bus size
+constant c_DFLD_RLDEL_COL_S   : integer   :=  c_EP_SPI_WD_S                                                 ; --! EP command: Data field, CY_RELOCK_DELAY bus size
+constant c_DFLD_RLTHR_COL_S   : integer   :=  c_EP_SPI_WD_S                                                 ; --! EP command: Data field, CY_RELOCK_THRESHOLD bus size
+constant c_DFLD_DLCNT_PIX_S   : integer   :=  c_EP_SPI_WD_S                                                 ; --! EP command: Data field, CY_DELOCK_COUNTERS bus size
 
    -- ------------------------------------------------------------------------------------------------------
    --    EP command: Data field LSB position
@@ -276,7 +298,7 @@ constant c_DST_SQADAC_PDZ     : std_logic_vector(c_SQA_DAC_MODE_S-1 downto 0):= 
    --!   Calculus chain parameters
    -- ------------------------------------------------------------------------------------------------------
 constant c_A_P_FRC_S          : integer := c_DFLD_PARMA_PIX_S                                               ; --! a(p) fractional part bus size
-constant c_ELP_P_FRC_S        : integer := c_DFLD_SMLKV_PIX_S - c_SQM_ADC_DATA_S                            ; --! Elp(p) fractional part bus size
+constant c_ELP_P_FRC_S        : integer := c_DFLD_SMLKV_PIX_S - c_SQM_ADC_DATA_S + 1                        ; --! Elp(p) fractional part bus size
 constant c_KI_KNORM_P_FRC_S   : integer := c_DFLD_KIKNM_PIX_S                                               ; --! ki(p)*knorm(p) fractional part bus size
 constant c_KNORM_P_FRC_S      : integer := 18                                                               ; --! knorm(p) fractional part bus size
 
@@ -337,6 +359,8 @@ constant c_EP_CMD_DEF_TSTEN   : std_logic_vector(c_DFLD_TSTEN_S-1 downto 0)     
                                 std_logic_vector(to_unsigned(0, c_DFLD_TSTEN_S))                            ; --! EP command: Default value, TEST_PATTERN_ENABLE
 constant c_EP_CMD_DEF_BXLGT   : std_logic_vector(c_DFLD_BXLGT_COL_S-1 downto 0)  :=
                                 std_logic_vector(to_unsigned(0, c_DFLD_BXLGT_COL_S))                        ; --! EP command: Default value, BOXCAR_LENGTH
+constant c_EP_CMD_DEF_DLFLG   : std_logic_vector(c_DFLD_DLFLG_COL_S-1 downto 0)  :=
+                                std_logic_vector(to_unsigned(0, c_DFLD_DLFLG_COL_S))                        ; --! EP command: Default value, DELOCK_FLAG
 
 constant c_DEF_PARMA_RL       : real := 0.2                                                                 ; --! Default value in real, CY_A
 constant c_DEF_KI_RL          : real := 2.2                                                                 ; --! Default value in real, KI parameter
@@ -362,7 +386,7 @@ constant c_EP_CMD_DEF_SMFBM   : t_int_arr(0 to 2*c_TAB_SMFBM_NW-1) :=
 
 constant c_EP_CMD_DEF_SAOFF   : t_int_arr(0 to 2*c_TAB_SAOFF_NW-1) := (others => 0)                         ; --! EP command: Default value, CY_AMP_SQ_OFFSET_FINE memory with ping-pong buffer bit
 constant c_EP_CMD_DEF_SAOFC   : std_logic_vector(c_DFLD_SAOFC_COL_S-1 downto 0):=
-                                std_logic_vector(to_unsigned(c_SQA_DAC_MDL_POINT ,c_DFLD_SAOFC_COL_S))      ; --! EP command: Default value, CY_AMP_SQ_OFFSET_COARSE
+                                std_logic_vector(to_unsigned(0 ,c_DFLD_SAOFC_COL_S))                        ; --! EP command: Default value, CY_AMP_SQ_OFFSET_COARSE
 constant c_EP_CMD_DEF_SAOFL   : std_logic_vector(c_DFLD_SAOFL_COL_S-1 downto 0):=
                                 std_logic_vector(to_unsigned(0, c_DFLD_SAOFL_COL_S))                        ; --! EP command: Default value, CY_AMP_SQ_OFFSET_LSB
 
@@ -420,5 +444,9 @@ constant c_EP_CMD_DEF_PLSSH   : t_int_arr(0 to 2**(c_MEM_PLSSH_ADD_S+1)-1) :=
                                      0,     0,     0,     0,     0,     0,     0,     0)                    ; --! EP command: Default value, CY_FB1_PULSE_SHAPING mem. (fc=No filter/20/25/30 MHz)
 
 constant c_EP_CMD_DEF_PLSSS   : std_logic_vector(c_DFLD_PLSSS_PLS_S-1 downto 0):= c_DST_PLSSS_PLS_1         ; --! EP command: Default value, CY_FB1_PULSE_SHAPING_SELECTION
+constant c_EP_CMD_DEF_RLDEL   : std_logic_vector(c_DFLD_RLDEL_COL_S-1 downto 0):= (others => '1')           ; --! EP command: Default value, CY_RELOCK_DELAY
+constant c_EP_CMD_DEF_RLTHR   : std_logic_vector(c_DFLD_RLTHR_COL_S-1 downto 0):= (others => '1')           ; --! EP command: Default value, CY_RELOCK_THRESHOLD
+constant c_EP_CMD_DEF_DLCNT   : t_int_arr(0 to 2*c_TAB_DLCNT_NW-1) := (others => 0)                         ; --! EP command: Default value, CY_DELOCK_COUNTERS
+
 
 end pkg_ep_cmd;

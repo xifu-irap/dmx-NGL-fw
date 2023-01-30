@@ -66,6 +66,69 @@ configuration DRE_DMX_UT_0230_cfg of top_dmx_tb is
          );
       end for;
 
+      -- ------------------------------------------------------------------------------------------------------
+      --!   Squid model configuration
+      -- ------------------------------------------------------------------------------------------------------
+      for G_column_mgt(0)
+         for I_squid_model: squid_model
+            use entity work.squid_model generic map
+            (
+            g_SQM_ADC_VREF       => c_SQM_ADC_VREF_DEF   , -- real      := c_SQM_ADC_VREF_DEF               ; --! SQUID MUX ADC: Voltage reference (Volt)
+            g_SQM_DAC_VREF       => c_SQM_DAC_VREF_DEF   , -- real      := c_SQM_DAC_VREF_DEF               ; --! SQUID MUX DAC: Voltage reference (Volt)
+            g_SQA_DAC_VREF       => 6.4                  , -- real      := c_SQA_DAC_VREF_DEF               ; --! SQUID AMP DAC: Voltage reference (Volt)
+            g_SQA_DAC_TS         => c_SQA_DAC_TS_DEF     , -- time      := c_SQA_DAC_TS_DEF                 ; --! SQUID AMP DAC: Output Voltage Settling time
+            g_SQA_MUX_TPLH       => c_SQA_MUX_TPLH_DEF   , -- time      := c_SQA_MUX_TPLH_DEF               ; --! SQUID AMP MUX: Propagation delay switch in to out
+            g_CLK_ADC_PER        => c_CLK_ADC_PER_DEF    , -- time      := c_CLK_ADC_PER_DEF                ; --! SQUID MUX ADC: Clock period
+            g_TIM_ADC_TPD        => c_TIM_ADC_TPD_DEF      -- time      := c_TIM_ADC_TPD_DEF                  --! SQUID MUX ADC: Time, Data Propagation Delay
+            );
+         end for;
+      end for;
+
+      for G_column_mgt(1)
+         for I_squid_model: squid_model
+            use entity work.squid_model generic map
+            (
+            g_SQM_ADC_VREF       => c_SQM_ADC_VREF_DEF   , -- real      := c_SQM_ADC_VREF_DEF               ; --! SQUID MUX ADC: Voltage reference (Volt)
+            g_SQM_DAC_VREF       => c_SQM_DAC_VREF_DEF   , -- real      := c_SQM_DAC_VREF_DEF               ; --! SQUID MUX DAC: Voltage reference (Volt)
+            g_SQA_DAC_VREF       => 6.4                  , -- real      := c_SQA_DAC_VREF_DEF               ; --! SQUID AMP DAC: Voltage reference (Volt)
+            g_SQA_DAC_TS         => c_SQA_DAC_TS_DEF     , -- time      := c_SQA_DAC_TS_DEF                 ; --! SQUID AMP DAC: Output Voltage Settling time
+            g_SQA_MUX_TPLH       => c_SQA_MUX_TPLH_DEF   , -- time      := c_SQA_MUX_TPLH_DEF               ; --! SQUID AMP MUX: Propagation delay switch in to out
+            g_CLK_ADC_PER        => c_CLK_ADC_PER_DEF    , -- time      := c_CLK_ADC_PER_DEF                ; --! SQUID MUX ADC: Clock period
+            g_TIM_ADC_TPD        => c_TIM_ADC_TPD_DEF      -- time      := c_TIM_ADC_TPD_DEF                  --! SQUID MUX ADC: Time, Data Propagation Delay
+            );
+         end for;
+      end for;
+
+      for G_column_mgt(2)
+         for I_squid_model: squid_model
+            use entity work.squid_model generic map
+            (
+            g_SQM_ADC_VREF       => c_SQM_ADC_VREF_DEF   , -- real      := c_SQM_ADC_VREF_DEF               ; --! SQUID MUX ADC: Voltage reference (Volt)
+            g_SQM_DAC_VREF       => c_SQM_DAC_VREF_DEF   , -- real      := c_SQM_DAC_VREF_DEF               ; --! SQUID MUX DAC: Voltage reference (Volt)
+            g_SQA_DAC_VREF       => 6.4                  , -- real      := c_SQA_DAC_VREF_DEF               ; --! SQUID AMP DAC: Voltage reference (Volt)
+            g_SQA_DAC_TS         => c_SQA_DAC_TS_DEF     , -- time      := c_SQA_DAC_TS_DEF                 ; --! SQUID AMP DAC: Output Voltage Settling time
+            g_SQA_MUX_TPLH       => c_SQA_MUX_TPLH_DEF   , -- time      := c_SQA_MUX_TPLH_DEF               ; --! SQUID AMP MUX: Propagation delay switch in to out
+            g_CLK_ADC_PER        => c_CLK_ADC_PER_DEF    , -- time      := c_CLK_ADC_PER_DEF                ; --! SQUID MUX ADC: Clock period
+            g_TIM_ADC_TPD        => c_TIM_ADC_TPD_DEF      -- time      := c_TIM_ADC_TPD_DEF                  --! SQUID MUX ADC: Time, Data Propagation Delay
+            );
+         end for;
+      end for;
+
+      for G_column_mgt(3)
+         for I_squid_model: squid_model
+            use entity work.squid_model generic map
+            (
+            g_SQM_ADC_VREF       => c_SQM_ADC_VREF_DEF   , -- real      := c_SQM_ADC_VREF_DEF               ; --! SQUID MUX ADC: Voltage reference (Volt)
+            g_SQM_DAC_VREF       => c_SQM_DAC_VREF_DEF   , -- real      := c_SQM_DAC_VREF_DEF               ; --! SQUID MUX DAC: Voltage reference (Volt)
+            g_SQA_DAC_VREF       => 6.4                  , -- real      := c_SQA_DAC_VREF_DEF               ; --! SQUID AMP DAC: Voltage reference (Volt)
+            g_SQA_DAC_TS         => c_SQA_DAC_TS_DEF     , -- time      := c_SQA_DAC_TS_DEF                 ; --! SQUID AMP DAC: Output Voltage Settling time
+            g_SQA_MUX_TPLH       => c_SQA_MUX_TPLH_DEF   , -- time      := c_SQA_MUX_TPLH_DEF               ; --! SQUID AMP MUX: Propagation delay switch in to out
+            g_CLK_ADC_PER        => c_CLK_ADC_PER_DEF    , -- time      := c_CLK_ADC_PER_DEF                ; --! SQUID MUX ADC: Clock period
+            g_TIM_ADC_TPD        => c_TIM_ADC_TPD_DEF      -- time      := c_TIM_ADC_TPD_DEF                  --! SQUID MUX ADC: Time, Data Propagation Delay
+            );
+         end for;
+      end for;
+
    end for;
 
 end configuration DRE_DMX_UT_0230_cfg;

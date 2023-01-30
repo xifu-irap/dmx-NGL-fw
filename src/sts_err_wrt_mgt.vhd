@@ -78,6 +78,9 @@ begin
             elsif i_ep_cmd_rx_add_norw = c_EP_CMD_ADD_BXLGT  then
                o_ep_cmd_sts_err_wrt <= c_EP_CMD_AUTH_BXLGT;
 
+            elsif i_ep_cmd_rx_add_norw = c_EP_CMD_ADD_DLFLG  then
+               o_ep_cmd_sts_err_wrt <= c_EP_CMD_AUTH_DLFLG;
+
             elsif i_ep_cmd_rx_add_norw = c_EP_CMD_ADD_STATUS   then
                o_ep_cmd_sts_err_wrt <= c_EP_CMD_AUTH_STATUS;
 
@@ -156,6 +159,19 @@ begin
             elsif i_ep_cmd_rx_add_norw(i_ep_cmd_rx_add_norw'high downto c_EP_CMD_ADD_COLPOSH+1) = c_EP_CMD_ADD_PLSSS(0)(i_ep_cmd_rx_add_norw'high downto c_EP_CMD_ADD_COLPOSH+1) and
                   i_ep_cmd_rx_add_norw(c_EP_CMD_ADD_COLPOSL-1    downto 0)                      = c_EP_CMD_ADD_PLSSS(0)(c_EP_CMD_ADD_COLPOSL-1    downto 0)                      then
                o_ep_cmd_sts_err_wrt <= c_EP_CMD_AUTH_PLSSS;
+
+            elsif i_ep_cmd_rx_add_norw(i_ep_cmd_rx_add_norw'high downto c_EP_CMD_ADD_COLPOSH+1) = c_EP_CMD_ADD_RLDEL(0)(i_ep_cmd_rx_add_norw'high downto c_EP_CMD_ADD_COLPOSH+1) and
+                  i_ep_cmd_rx_add_norw(c_EP_CMD_ADD_COLPOSL-1    downto 0)                      = c_EP_CMD_ADD_RLDEL(0)(c_EP_CMD_ADD_COLPOSL-1    downto 0)                      then
+               o_ep_cmd_sts_err_wrt <= c_EP_CMD_AUTH_RLDEL;
+
+            elsif i_ep_cmd_rx_add_norw(i_ep_cmd_rx_add_norw'high downto c_EP_CMD_ADD_COLPOSH+1) = c_EP_CMD_ADD_RLTHR(0)(i_ep_cmd_rx_add_norw'high downto c_EP_CMD_ADD_COLPOSH+1) and
+                  i_ep_cmd_rx_add_norw(c_EP_CMD_ADD_COLPOSL-1    downto 0)                      = c_EP_CMD_ADD_RLTHR(0)(c_EP_CMD_ADD_COLPOSL-1    downto 0)                      then
+               o_ep_cmd_sts_err_wrt <= c_EP_CMD_AUTH_RLTHR;
+
+            elsif i_ep_cmd_rx_add_norw(i_ep_cmd_rx_add_norw'high downto c_EP_CMD_ADD_COLPOSH+1) = c_EP_CMD_ADD_DLCNT(0)(i_ep_cmd_rx_add_norw'high downto c_EP_CMD_ADD_COLPOSH+1) and
+                  i_ep_cmd_rx_add_norw(c_EP_CMD_ADD_COLPOSL-1    downto c_MEM_DLCNT_ADD_S)      = c_EP_CMD_ADD_DLCNT(0)(c_EP_CMD_ADD_COLPOSL-1    downto c_MEM_DLCNT_ADD_S)      and
+                  i_ep_cmd_rx_add_norw(   c_MEM_DLCNT_ADD_S-1    downto 0)                      < std_logic_vector(to_unsigned(c_TAB_DLCNT_NW, c_MEM_DLCNT_ADD_S))               then
+               o_ep_cmd_sts_err_wrt <= c_EP_CMD_AUTH_DLCNT;
 
             else
                o_ep_cmd_sts_err_wrt <= c_EP_CMD_ERR_CLR;

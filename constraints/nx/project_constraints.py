@@ -81,6 +81,8 @@ def synthesis_constraints(p,variant,option):
         EP_CMD          = Region('EP_CMD'       , 38, 12,  1,  1)
         REGISTER_MGT    = Region('REGISTER_MGT' , 23, 12,  6,  4)
 
+        SCIENCE_MGT    = Region('SCIENCE_MGT'   , 36, 18,  2,  2)
+
         # ------------------------------------------------------------------------------------------------------
         #   SQUID MUX ADC clocks constraints
         # ------------------------------------------------------------------------------------------------------
@@ -153,8 +155,9 @@ def synthesis_constraints(p,variant,option):
         p.constrainModule('|-> ep_cmd [ I_ep_cmd ]', 'ep_cmd', 'Soft', REGISTER_MGT.c, REGISTER_MGT.r, REGISTER_MGT.w, REGISTER_MGT.h, REGISTER_MGT.n, False)
 
         # ------------------------------------------------------------------------------------------------------
-        #   Science transmit constraints
+        #   Science constraints
         # ------------------------------------------------------------------------------------------------------
+        p.constrainModule('|-> science_data_mgt [ I_science_data_mgt ]', 'science_data_mgt', 'Soft', SCIENCE_MGT.c, SCIENCE_MGT.r, SCIENCE_MGT.w, SCIENCE_MGT.h, SCIENCE_MGT.n, False)
 
         # ------------------------------------------------------------------------------------------------------
         #   Internal constraints

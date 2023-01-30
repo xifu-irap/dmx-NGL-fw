@@ -213,7 +213,7 @@ constant c_CLK_ADC_PER_DEF    : time    := c_CLK_REF_PER_DEF / c_CLK_ADC_DAC_MUL
 constant c_TIM_ADC_TPD_DEF    : time    :=  3900 ps                                                         ; --! SQUID MUX ADC: Time, Data Propagation Delay default value
 constant c_SQM_ADC_VREF_DEF   : real    := 1.0                                                              ; --! SQUID MUX ADC: Voltage reference (Volt) default value
 constant c_SQM_DAC_VREF_DEF   : real    := 1.0                                                              ; --! SQUID MUX DAC: Voltage reference (Volt) default value
-constant c_SQA_DAC_VREF_DEF   : real    := 1.0                                                              ; --! SQUID AMP DAC: Voltage reference (Volt) default value
+constant c_SQA_DAC_VREF_DEF   : real    := 3.3                                                              ; --! SQUID AMP DAC: Voltage reference (Volt) default value
 constant c_SQA_DAC_TS_DEF     : time    := 12 us                                                            ; --! SQUID AMP DAC: Output Voltage Settling time default value
 constant c_SQA_MUX_TPLH_DEF   : time    :=  4 ns                                                            ; --! SQUID AMP MUX: Propagation delay switch in to out default value
 
@@ -248,6 +248,8 @@ constant c_CLK_CX_DAC_ST_DIS  : std_logic := '0'                                
 constant c_CLK_SC_ST_DIS      : std_logic := '0'                                                            ; --! Science Data Clock state value when the enable signal goes to inactive
 
 constant c_SYNC_HIGH          : time    :=  10 * c_CLK_REF_PER_DEF                                          ; --! Pixel sequence synchronization high level time
+
+constant c_SQA_DAC_COEF_DIV   : real    := 6.0                                                              ; --! SQUID AMP DAC: Divisor coefficient for voltage output
 
 constant c_SW_ADC_VIN_S       : integer :=  2                                                               ; --! Switch ADC voltage input bus size
 constant c_SW_ADC_VIN_ST_SQM  : std_logic_vector(c_SW_ADC_VIN_S-1 downto 0) := "00"                         ; --! Switch ADC voltage input: SQUID MUX voltage state

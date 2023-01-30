@@ -417,7 +417,7 @@ begin
                   get_param_cldc(v_cmd_file_line, v_head_mess_stdout.all, v_fld_dis_ind(0), v_fld_real);
 
                   -- Check result
-                  if sqm_dac_ana(v_fld_dis_ind(0)) = v_fld_real then
+                  if abs(sqm_dac_ana(v_fld_dis_ind(0)) - v_fld_real) <= 10.0**(-7) then
                      fprintf(note , "Check DAC level: PASS", res_file);
 
                   else

@@ -63,7 +63,9 @@ entity sqm_fbk_mgt is port
          o_sqm_data_fbk       : out    std_logic_vector( c_SQM_DATA_FBK_S-1 downto 0)                       ; --! SQUID MUX Data feedback (signed)
 
          o_init_fbk_pixel_pos : out    std_logic_vector(c_MUX_FACT_S-1      downto 0)                       ; --! Initialization feedback chain accumulators Pixel position
-         o_init_fbk_acc       : out    std_logic                                                              --! Initialization feedback chain accumulators ('0' = Inactive, '1' = Active)
+         o_init_fbk_acc       : out    std_logic                                                            ; --! Initialization feedback chain accumulators ('0' = Inactive, '1' = Active)
+         o_sqm_fbk_smfb0      : out    std_logic_vector(c_DFLD_SMFB0_PIX_S-1 downto 0)                        --! SQUID MUX feedback value in open loop (signed)
+
    );
 end entity sqm_fbk_mgt;
 
@@ -436,6 +438,7 @@ begin
       if i_rst = '1' then
          pixel_pos_inc_r   <= (others => std_logic_vector(to_unsigned(0, c_PIXEL_POS_S-1)));
          o_init_fbk_acc    <= '1';
+         o_sqm_fbk_smfb0   <= std_logic_vector(to_unsigned(c_EP_CMD_DEF_SMFB0(0), o_sqm_fbk_smfb0'length));
 
       elsif rising_edge(i_clk) then
          pixel_pos_inc_r   <= pixel_pos_inc & pixel_pos_inc_r(0 to pixel_pos_inc_r'high-1);
@@ -447,6 +450,8 @@ begin
             o_init_fbk_acc <= '1';
 
          end if;
+
+         o_sqm_fbk_smfb0  <= smfb0;
 
       end if;
 

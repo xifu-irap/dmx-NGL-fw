@@ -17,34 +17,28 @@
 --                            along with this program.  If not, see <https://www.gnu.org/licenses/>.
 -- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --    email                   slaurent@nanoxplore.com
---!   @file                   sqm_spi_mgt.vhd
+--!   @file                   DRE_DMX_UT_0410_cfg.vhd
 -- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --    Automatic Generation    No
 --    Code Rules Reference    SOC of design and VHDL handbook for VLSI development, CNES Edition (v2.1)
 -- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
---!   @details                SQUID MUX SPI management
+--!   @details                DRE DEMUX Unitary Test configuration file
 -- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-library ieee;
-use     ieee.std_logic_1164.all;
-use     ieee.numeric_std.all;
+configuration DRE_DMX_UT_0410_cfg of top_dmx_tb is
 
-entity sqm_spi_mgt is port
-   (     o_sqm_adc_spi_mosi   : out    std_logic                                                            ; --! SQUID MUX ADC: SPI Serial Data In Out
-         o_sqm_adc_spi_sclk   : out    std_logic                                                            ; --! SQUID MUX ADC: SPI Serial Clock (CPOL = '0', CPHA = '0')
-         o_sqm_adc_spi_cs_n   : out    std_logic                                                              --! SQUID MUX ADC: SPI Chip Select ('0' = Active, '1' = Inactive)
+   for Simulation
 
-   );
-end entity sqm_spi_mgt;
+      -- ------------------------------------------------------------------------------------------------------
+      --!   Parser configuration
+      -- ------------------------------------------------------------------------------------------------------
+      for I_parser : parser
+         use entity work.parser generic map
+         (
+            g_SIM_TIME           => 280000 ns            , -- time    := c_SIM_TIME_DEF                     ; --! Simulation time
+            g_TST_NUM            => "0410"                 -- string  := c_TST_NUM_DEF                        --! Test number
+         );
+      end for;
 
-architecture RTL of sqm_spi_mgt is
-begin
+   end for;
 
-   -- ------------------------------------------------------------------------------------------------------
-   --!   SQUID MUX ADC, static configuration without SPI
-   --    @Req : DRE-DMX-FW-REQ-0100
-   -- ------------------------------------------------------------------------------------------------------
-   o_sqm_adc_spi_mosi   <= '1';     -- Duty Cycle Stabilizer ('0' = Disable, '1' = Enable)
-   o_sqm_adc_spi_sclk   <= '1';     -- Data format ('0' = Binary, '1' = Twos complement)
-   o_sqm_adc_spi_cs_n   <= '1';     -- Static configuration ('0' = No, '1' = Yes)
-
-end architecture RTL;
+end configuration DRE_DMX_UT_0410_cfg;

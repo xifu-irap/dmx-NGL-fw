@@ -80,7 +80,7 @@ package body pkg_func_math is
    variable v_result          : std_logic_vector(NEW_SIZE-1 downto 0)                                       ; --  Result
    begin
       for k in 0 to v_result'high loop
-         if k <= ARG'length then
+         if k <= ARG'high then
             v_result(v_result'high - k) := ARG(ARG'high - k);
 
          else

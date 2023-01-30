@@ -75,7 +75,7 @@ configuration DRE_DMX_UT_0380_cfg of top_dmx_tb is
             (
             g_SQM_ADC_VREF       => c_SQM_ADC_VREF_DEF   , -- real      := c_SQM_ADC_VREF_DEF               ; --! SQUID MUX ADC: Voltage reference (Volt)
             g_SQM_DAC_VREF       => c_SQM_DAC_VREF_DEF   , -- real      := c_SQM_DAC_VREF_DEF               ; --! SQUID MUX DAC: Voltage reference (Volt)
-            g_SQA_DAC_VREF       => c_SQA_DAC_VREF_DEF   , -- real      := c_SQA_DAC_VREF_DEF               ; --! SQUID AMP DAC: Voltage reference (Volt)
+            g_SQA_DAC_VREF       => 6.0                  , -- real      := c_SQA_DAC_VREF_DEF               ; --! SQUID AMP DAC: Voltage reference (Volt)
             g_SQA_DAC_TS         => 0 ns                 , -- time      := c_SQA_DAC_TS_DEF                 ; --! SQUID AMP DAC: Output Voltage Settling time
             g_SQA_MUX_TPLH       => c_SQA_MUX_TPLH_DEF   , -- time      := c_SQA_MUX_TPLH_DEF               ; --! SQUID AMP MUX: Propagation delay switch in to out
             g_CLK_ADC_PER        => c_CLK_ADC_PER_DEF    , -- time      := c_CLK_ADC_PER_DEF                ; --! SQUID MUX ADC: Clock period
@@ -90,7 +90,7 @@ configuration DRE_DMX_UT_0380_cfg of top_dmx_tb is
             (
             g_SQM_ADC_VREF       => c_SQM_ADC_VREF_DEF   , -- real      := c_SQM_ADC_VREF_DEF               ; --! SQUID MUX ADC: Voltage reference (Volt)
             g_SQM_DAC_VREF       => c_SQM_DAC_VREF_DEF   , -- real      := c_SQM_DAC_VREF_DEF               ; --! SQUID MUX DAC: Voltage reference (Volt)
-            g_SQA_DAC_VREF       => c_SQA_DAC_VREF_DEF   , -- real      := c_SQA_DAC_VREF_DEF               ; --! SQUID AMP DAC: Voltage reference (Volt)
+            g_SQA_DAC_VREF       => 6.0                  , -- real      := c_SQA_DAC_VREF_DEF               ; --! SQUID AMP DAC: Voltage reference (Volt)
             g_SQA_DAC_TS         => 0 ns                 , -- time      := c_SQA_DAC_TS_DEF                 ; --! SQUID AMP DAC: Output Voltage Settling time
             g_SQA_MUX_TPLH       => c_SQA_MUX_TPLH_DEF   , -- time      := c_SQA_MUX_TPLH_DEF               ; --! SQUID AMP MUX: Propagation delay switch in to out
             g_CLK_ADC_PER        => c_CLK_ADC_PER_DEF    , -- time      := c_CLK_ADC_PER_DEF                ; --! SQUID MUX ADC: Clock period
@@ -105,7 +105,7 @@ configuration DRE_DMX_UT_0380_cfg of top_dmx_tb is
             (
             g_SQM_ADC_VREF       => c_SQM_ADC_VREF_DEF   , -- real      := c_SQM_ADC_VREF_DEF               ; --! SQUID MUX ADC: Voltage reference (Volt)
             g_SQM_DAC_VREF       => c_SQM_DAC_VREF_DEF   , -- real      := c_SQM_DAC_VREF_DEF               ; --! SQUID MUX DAC: Voltage reference (Volt)
-            g_SQA_DAC_VREF       => c_SQA_DAC_VREF_DEF   , -- real      := c_SQA_DAC_VREF_DEF               ; --! SQUID AMP DAC: Voltage reference (Volt)
+            g_SQA_DAC_VREF       => 6.0                  , -- real      := c_SQA_DAC_VREF_DEF               ; --! SQUID AMP DAC: Voltage reference (Volt)
             g_SQA_DAC_TS         => 0 ns                 , -- time      := c_SQA_DAC_TS_DEF                 ; --! SQUID AMP DAC: Output Voltage Settling time
             g_SQA_MUX_TPLH       => c_SQA_MUX_TPLH_DEF   , -- time      := c_SQA_MUX_TPLH_DEF               ; --! SQUID AMP MUX: Propagation delay switch in to out
             g_CLK_ADC_PER        => c_CLK_ADC_PER_DEF    , -- time      := c_CLK_ADC_PER_DEF                ; --! SQUID MUX ADC: Clock period
@@ -120,7 +120,7 @@ configuration DRE_DMX_UT_0380_cfg of top_dmx_tb is
             (
             g_SQM_ADC_VREF       => c_SQM_ADC_VREF_DEF   , -- real      := c_SQM_ADC_VREF_DEF               ; --! SQUID MUX ADC: Voltage reference (Volt)
             g_SQM_DAC_VREF       => c_SQM_DAC_VREF_DEF   , -- real      := c_SQM_DAC_VREF_DEF               ; --! SQUID MUX DAC: Voltage reference (Volt)
-            g_SQA_DAC_VREF       => c_SQA_DAC_VREF_DEF   , -- real      := c_SQA_DAC_VREF_DEF               ; --! SQUID AMP DAC: Voltage reference (Volt)
+            g_SQA_DAC_VREF       => 6.0                  , -- real      := c_SQA_DAC_VREF_DEF               ; --! SQUID AMP DAC: Voltage reference (Volt)
             g_SQA_DAC_TS         => 0 ns                 , -- time      := c_SQA_DAC_TS_DEF                 ; --! SQUID AMP DAC: Output Voltage Settling time
             g_SQA_MUX_TPLH       => c_SQA_MUX_TPLH_DEF   , -- time      := c_SQA_MUX_TPLH_DEF               ; --! SQUID AMP MUX: Propagation delay switch in to out
             g_CLK_ADC_PER        => c_CLK_ADC_PER_DEF    , -- time      := c_CLK_ADC_PER_DEF                ; --! SQUID MUX ADC: Clock period

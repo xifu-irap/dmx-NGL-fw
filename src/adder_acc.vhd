@@ -44,6 +44,9 @@ entity adder_acc is generic
          i_mem_acc_add        : in     std_logic_vector(log2_ceil(g_MEM_ACC_NW)-1 downto 0)                 ; --! Memory accumulator address
          i_mem_acc_init_ena   : in     std_logic                                                            ; --! Memory accumulator initialization enable ('0' = No, '1' = Yes)
 
+         i_mem_acc_rl_val     : in     std_logic_vector(g_DATA_ELN_S-1 downto 0)                            ; --! Memory accumulator relock value (signed)
+         i_rl_ena             : in     std_logic                                                            ; --! Relock enable ('0' = No, '1' = Yes)
+
          i_data_acc           : in     std_logic_vector(g_DATA_ACC_S-1 downto 0)                            ; --! Data to accumulate (signed)
          i_data_acc_rdy       : in     std_logic                                                            ; --! Data to accumulate ready ('0' = Not ready, '1' = Ready)
          i_data_eln_rdy       : in     std_logic                                                            ; --! Data element n ready     ('0' = Not ready, '1' = Ready)
@@ -111,8 +114,13 @@ begin
 
       elsif rising_edge(i_clk) then
          if data_acc_rdy_r = '1' then
+            if i_rl_ena = '1' then
+               o_data_elnp1 <= i_mem_acc_rl_val;
+
+            else
                o_data_elnp1 <= data_add_acc_sat;
 
+            end if;
          end if;
 
       end if;
@@ -127,7 +135,13 @@ begin
 
       if rising_edge(i_clk) then
          if data_acc_rdy_r = '1' then
-            mem_acc(to_integer(unsigned(i_mem_acc_add))) <= data_add_acc_sat;
+            if i_rl_ena = '1' then
+               mem_acc(to_integer(unsigned(i_mem_acc_add))) <= i_mem_acc_rl_val;
+
+            else
+               mem_acc(to_integer(unsigned(i_mem_acc_add))) <= data_add_acc_sat;
+
+            end if;
 
          end if;
 

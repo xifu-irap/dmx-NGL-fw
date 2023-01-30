@@ -105,6 +105,7 @@ proc run_utest {args} {
       ${SRC_DIR}/sqa_dac_mgt.vhd          \
       ${SRC_DIR}/sqm_spi_mgt.vhd          \
       ${SRC_DIR}/test_pattern_gen.vhd     \
+      ${SRC_DIR}/relock.vhd               \
       ${SRC_DIR}/top_dmx.vhd              \
       ${TB_DIR}/pkg_model.vhd             \
       ${TB_DIR}/pkg_mess.vhd              \
@@ -250,7 +251,7 @@ proc run_utest {args} {
                                                    -group "0 - SQUID MUX ADC"                   sim/:top_dmx_tb:sqm_adc_ana(0)
          add wave -format Logic                    -group "0 - SQUID MUX ADC"                   sim/:top_dmx_tb:I_top_dmx:o_sqm_adc_pwdn(0)
          add wave -format Logic                    -group "0 - SQUID MUX ADC"                   sim/:top_dmx_tb:I_top_dmx:o_clk_sqm_adc(0)
-         add wave -format Logic -Radix unsigned    -group "0 - SQUID MUX ADC"                   sim/:top_dmx_tb:I_top_dmx:i_sqm_adc_data(0)
+         add wave -format Logic -Radix decimal     -group "0 - SQUID MUX ADC"                   sim/:top_dmx_tb:I_top_dmx:i_sqm_adc_data(0)
          add wave -format Logic                    -group "0 - SQUID MUX ADC"                   sim/:top_dmx_tb:I_top_dmx:i_sqm_adc_oor(0)
 
          add wave -format Logic                    -group "0 - SQUID MUX ADC" -group "SPI"      sim/:top_dmx_tb:I_top_dmx:b_sqm_adc_spi_sdio(0)
@@ -277,7 +278,7 @@ proc run_utest {args} {
                                                    -group "1 - SQUID MUX ADC"                   sim/:top_dmx_tb:sqm_adc_ana(1)
          add wave -format Logic                    -group "1 - SQUID MUX ADC"                   sim/:top_dmx_tb:I_top_dmx:o_sqm_adc_pwdn(1)
          add wave -format Logic                    -group "1 - SQUID MUX ADC"                   sim/:top_dmx_tb:I_top_dmx:o_clk_sqm_adc(1)
-         add wave -format Logic -Radix unsigned    -group "1 - SQUID MUX ADC"                   sim/:top_dmx_tb:I_top_dmx:i_sqm_adc_data(1)
+         add wave -format Logic -Radix decimal     -group "1 - SQUID MUX ADC"                   sim/:top_dmx_tb:I_top_dmx:i_sqm_adc_data(1)
          add wave -format Logic                    -group "1 - SQUID MUX ADC"                   sim/:top_dmx_tb:I_top_dmx:i_sqm_adc_oor(1)
 
          add wave -format Logic                    -group "1 - SQUID MUX ADC" -group "SPI"      sim/:top_dmx_tb:I_top_dmx:b_sqm_adc_spi_sdio(1)
@@ -304,7 +305,7 @@ proc run_utest {args} {
                                                    -group "2 - SQUID MUX ADC"                   sim/:top_dmx_tb:sqm_adc_ana(2)
          add wave -format Logic                    -group "2 - SQUID MUX ADC"                   sim/:top_dmx_tb:I_top_dmx:o_sqm_adc_pwdn(2)
          add wave -format Logic                    -group "2 - SQUID MUX ADC"                   sim/:top_dmx_tb:I_top_dmx:o_clk_sqm_adc(2)
-         add wave -format Logic -Radix unsigned    -group "2 - SQUID MUX ADC"                   sim/:top_dmx_tb:I_top_dmx:i_sqm_adc_data(2)
+         add wave -format Logic -Radix decimal     -group "2 - SQUID MUX ADC"                   sim/:top_dmx_tb:I_top_dmx:i_sqm_adc_data(2)
          add wave -format Logic                    -group "2 - SQUID MUX ADC"                   sim/:top_dmx_tb:I_top_dmx:i_sqm_adc_oor(2)
 
          add wave -format Logic                    -group "2 - SQUID MUX ADC" -group "SPI"      sim/:top_dmx_tb:I_top_dmx:b_sqm_adc_spi_sdio(2)
@@ -331,7 +332,7 @@ proc run_utest {args} {
                                                    -group "3 - SQUID MUX ADC"                   sim/:top_dmx_tb:sqm_adc_ana(3)
          add wave -format Logic                    -group "3 - SQUID MUX ADC"                   sim/:top_dmx_tb:I_top_dmx:o_sqm_adc_pwdn(3)
          add wave -format Logic                    -group "3 - SQUID MUX ADC"                   sim/:top_dmx_tb:I_top_dmx:o_clk_sqm_adc(3)
-         add wave -format Logic -Radix unsigned    -group "3 - SQUID MUX ADC"                   sim/:top_dmx_tb:I_top_dmx:i_sqm_adc_data(3)
+         add wave -format Logic -Radix decimal     -group "3 - SQUID MUX ADC"                   sim/:top_dmx_tb:I_top_dmx:i_sqm_adc_data(3)
          add wave -format Logic                    -group "3 - SQUID MUX ADC"                   sim/:top_dmx_tb:I_top_dmx:i_sqm_adc_oor(3)
 
          add wave -format Logic                    -group "3 - SQUID MUX ADC" -group "SPI"      sim/:top_dmx_tb:I_top_dmx:b_sqm_adc_spi_sdio(3)

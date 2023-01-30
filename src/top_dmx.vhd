@@ -169,6 +169,7 @@ signal   tsten_ena            : std_logic                                       
 signal   smfmd                : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SMFMD_COL_S-1 downto 0)                   ; --! SQUID MUX feedback mode
 signal   saofm                : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SAOFM_COL_S-1 downto 0)                   ; --! SQUID AMP offset mode
 signal   bxlgt                : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_BXLGT_COL_S-1 downto 0)                   ; --! ADC sample number for averaging
+signal   dlflg                : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_DLFLG_COL_S-1 downto 0)                   ; --! Delock flag ('0' = No delock on pixels, '1' = Delock on at least one pixel)
 signal   saofc                : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SAOFC_COL_S-1 downto 0)                   ; --! SQUID AMP lockpoint coarse offset
 signal   saofl                : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SAOFC_COL_S-1 downto 0)                   ; --! SQUID AMP offset DAC LSB
 signal   smfbd                : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SMFBD_COL_S-1 downto 0)                   ; --! SQUID MUX feedback delay
@@ -176,6 +177,8 @@ signal   saodd                : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SAODD_COL_S-1 
 signal   saomd                : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SAOMD_COL_S-1 downto 0)                   ; --! SQUID AMP offset MUX delay
 signal   smpdl                : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SMPDL_COL_S-1 downto 0)                   ; --! ADC sample delay
 signal   plsss                : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_PLSSS_PLS_S-1 downto 0)                   ; --! SQUID MUX feedback pulse shaping set
+signal   rldel                : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_RLDEL_COL_S-1 downto 0)                   ; --! Relock delay
+signal   rlthr                : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_RLTHR_COL_S-1 downto 0)                   ; --! Relock threshold
 
 signal   mem_tstpt            : t_mem_arr(0 to c_NB_COL-1)(
                                 add(c_MEM_TSTPT_ADD_S-1 downto 0),
@@ -222,8 +225,18 @@ signal   mem_plssh            : t_mem_arr(0 to c_NB_COL-1)(
                                 data_w(c_DFLD_PLSSH_PLS_S-1 downto 0))                                      ; --! SQUID MUX feedback pulse shaping coefficient: memory inputs
 signal   plssh_data           : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_PLSSH_PLS_S-1 downto 0)                   ; --! SQUID MUX feedback pulse shaping coefficient: data read
 
+signal   mem_dlcnt            : t_mem_arr(0 to c_NB_COL-1)(
+                                add(      c_MEM_DLCNT_ADD_S-1 downto 0),
+                                data_w(c_DFLD_DLCNT_PIX_S-1 downto 0))                                      ; --! Delock counter: memory inputs
+signal   dlcnt_data           : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_DLCNT_PIX_S-1 downto 0)                   ; --! Delock counter: data read
+
 signal   init_fbk_pixel_pos   : t_slv_arr(0 to c_NB_COL-1)(c_MUX_FACT_S-1 downto 0)                         ; --! Initialization feedback chain accumulators Pixel position
 signal   init_fbk_acc         : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! Initialization feedback chain accumulators ('0' = Inactive, '1' = Active)
+signal   sqm_fbk_smfb0        : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SMFB0_PIX_S-1 downto 0)                   ; --! SQUID MUX feedback value in open loop (signed)
+signal   smfbm_close_rl       : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! SQUID MUX feedback close mode for relock ('0' = No close , '1' = Close)
+signal   smfb0_rl             : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SMFB0_PIX_S-1 downto 0)                   ; --! SQUID MUX feedback value in open loop for relock (signed)
+signal   rl_ena               : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! Relock enable ('0' = No, '1' = Yes)
+signal   mem_rl_rd_add        : t_slv_arr(0 to c_NB_COL-1)(c_MUX_FACT_S-1 downto 0)                         ; --! Relock memories read address
 
 begin
 
@@ -323,6 +336,7 @@ begin
 
          i_brd_ref_rs         => brd_ref_rs           , -- in     std_logic_vector(  c_BRD_REF_S-1 downto 0); --! Board reference, synchronized on System Clock
          i_brd_model_rs       => brd_model_rs         , -- in     std_logic_vector(c_BRD_MODEL_S-1 downto 0); --! Board model, synchronized on System Clock
+         i_dlflg              => dlflg                , -- in     t_slv_arr c_NB_COL c_DFLD_DLFLG_COL_S     ; --! Delock flag ('0' = No delock on pixels, '1' = Delock on at least one pixel)
 
          o_ep_cmd_sts_err_add => ep_cmd_sts_err_add   , -- out    std_logic                                 ; --! EP command: Status, error invalid address
          o_ep_cmd_sts_err_nin => ep_cmd_sts_err_nin   , -- out    std_logic                                 ; --! EP command: Status, error parameter to read not initialized yet
@@ -357,6 +371,8 @@ begin
          o_saomd              => saomd                , -- out    t_slv_arr c_NB_COL c_DFLD_SAOMD_COL_S     ; --! SQUID AMP offset MUX delay
          o_smpdl              => smpdl                , -- out    t_slv_arr c_NB_COL c_DFLD_SMPDL_COL_S     ; --! ADC sample delay
          o_plsss              => plsss                , -- out    t_slv_arr c_NB_COL c_DFLD_PLSSS_PLS_S     ; --! SQUID MUX feedback pulse shaping set
+         o_rldel              => rldel                , -- out    t_slv_arr c_NB_COL c_DFLD_RLDEL_COL_S     ; --! Relock delay
+         o_rlthr              => rlthr                , -- out    t_slv_arr c_NB_COL c_DFLD_RLTHR_COL_S     ; --! Relock threshold
 
          o_mem_tstpt          => mem_tstpt            , -- out    t_mem_arr(0 to c_NB_COL-1)                ; --! Test pattern: memory inputs
          i_tstpt_data         => tstpt_data           , -- in     slv(c_DFLD_TSTPT_S-1 downto 0)            ; --! Test pattern: data read
@@ -383,7 +399,10 @@ begin
          i_saoff_data         => saoff_data           , -- in     t_slv_arr c_NB_COL c_DFLD_SAOFF_PIX_S     ; --! SQUID AMP lockpoint fine offset: data read
 
          o_mem_plssh          => mem_plssh            , -- out    t_mem_arr(0 to c_NB_COL-1)                ; --! SQUID MUX feedback pulse shaping coefficient: memory inputs
-         i_plssh_data         => plssh_data             -- in     t_slv_arr c_NB_COL c_DFLD_PLSSH_PLS_S       --! SQUID MUX feedback pulse shaping coefficient: data read
+         i_plssh_data         => plssh_data           , -- in     t_slv_arr c_NB_COL c_DFLD_PLSSH_PLS_S     ; --! SQUID MUX feedback pulse shaping coefficient: data read
+
+         o_mem_dlcnt          => mem_dlcnt            , -- out    t_mem_arr(0 to c_NB_COL-1)                ; --! Delock counter: memory inputs
+         i_dlcnt_data         => dlcnt_data             -- in     t_slv_arr c_NB_COL c_DFLD_DLCNT_PIX_S       --! Delock counter: data read
       );
 
    -- ------------------------------------------------------------------------------------------------------
@@ -525,6 +544,11 @@ begin
 
          i_init_fbk_pixel_pos => init_fbk_pixel_pos(k), -- in     slv(c_MUX_FACT_S-1 downto 0)              ; --! Initialization feedback chain accumulators Pixel position
          i_init_fbk_acc       => init_fbk_acc(k)      , -- in     std_logic                                 ; --! Initialization feedback chain accumulators ('0' = Inactive, '1' = Active)
+         i_rl_ena             => rl_ena(k)            , -- in     std_logic                                 ; --! Relock enable ('0' = No, '1' = Yes)
+         i_sqm_fbk_smfb0      => sqm_fbk_smfb0(k)     , -- in     slv(c_DFLD_SMFB0_PIX_S-1 downto 0)        ; --! SQUID MUX feedback value in open loop (signed)
+         o_smfbm_close_rl     => smfbm_close_rl(k)    , -- out    std_logic                                 ; --! SQUID MUX feedback close mode for relock ('0' = No close , '1' = Close)
+         o_smfb0_rl           => smfb0_rl(k)          , -- out    slv(c_DFLD_SMFB0_PIX_S-1 downto 0)        ; --! SQUID MUX feedback value in open loop for relock (signed)
+         o_mem_rl_rd_add      => mem_rl_rd_add(k)     , -- out    slv(c_MUX_FACT_S-1 downto 0)              ; --! Relock memories read address
 
          i_sqm_data_err       => sqm_data_err(k)      , -- in     slv(c_SQM_DATA_ERR_S-1 downto 0)          ; --! SQUID MUX Data error
          i_sqm_data_err_frst  => sqm_data_err_frst(k) , -- in     std_logic                                 ; --! SQUID MUX Data error first pixel ('0' = No, '1' = Yes)
@@ -539,7 +563,28 @@ begin
 
          o_sqm_dta_pixel_pos  => sqm_dta_pixel_pos(k) , -- out    slv(    c_MUX_FACT_S-1 downto 0)          ; --! SQUID MUX Data error corrected pixel position
          o_sqm_dta_err_cor    => sqm_dta_err_cor(k)   , -- out    slv(c_SQM_DATA_FBK_S-1 downto 0)          ; --! SQUID MUX Data error corrected (signed)
-         o_sqm_dta_err_cor_cs => sqm_dta_err_cor_cs(k)   -- out    std_logic                                   --! SQUID MUX Data error corrected chip select ('0' = Inactive, '1' = Active)
+         o_sqm_dta_err_cor_cs => sqm_dta_err_cor_cs(k)  -- out    std_logic                                   --! SQUID MUX Data error corrected chip select ('0' = Inactive, '1' = Active)
+      );
+
+      I_relock: entity work.relock port map
+      (  i_rst                => rst                  , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+         i_clk                => clk                  , -- in     std_logic                                 ; --! System Clock
+
+         i_sqm_dta_pixel_pos  => sqm_dta_pixel_pos(k) , -- in     slv(    c_MUX_FACT_S-1 downto 0)          ; --! SQUID MUX Data error corrected pixel position
+         i_sqm_dta_err_cor    => sqm_dta_err_cor(k)   , -- in     slv(c_SQM_DATA_FBK_S-1 downto 0)          ; --! SQUID MUX Data error corrected (signed)
+         i_sqm_dta_err_cor_cs => sqm_dta_err_cor_cs(k), -- in     std_logic                                 ; --! SQUID MUX Data error corrected chip select ('0' = Inactive, '1' = Active)
+
+         i_mem_rl_rd_add      => mem_rl_rd_add(k)     , -- in     slv(c_MUX_FACT_S-1 downto 0)              ; --! Relock memories read address
+         i_smfbm_close_rl     => smfbm_close_rl(k)    , -- in     std_logic                                 ; --! SQUID MUX feedback close mode for relock ('0' = No close , '1' = Close)
+         i_smfb0_rl           => smfb0_rl(k)          , -- in     slv(c_DFLD_SMFB0_PIX_S-1 downto 0)        ; --! SQUID MUX feedback value in open loop for relock (signed)
+         i_rldel              => rldel(k)             , -- in     slv(c_DFLD_RLDEL_COL_S-1 downto 0)        ; --! Relock delay
+         i_rlthr              => rlthr(k)             , -- in     slv(c_DFLD_RLTHR_COL_S-1 downto 0)        ; --! Relock threshold
+
+         i_mem_dlcnt          => mem_dlcnt(k)         , -- in     t_mem                                     ; --! Delock counter: memory inputs
+         o_dlcnt_data         => dlcnt_data(k)        , -- out    slv(c_DFLD_DLCNT_PIX_S-1 downto 0)        ; --! Delock counter: data read
+         o_dlflg              => dlflg(k)             , -- out    slv(c_DFLD_DLFLG_COL_S-1 downto 0)        ; --! Delock flag ('0' = No delock on pixels, '1' = Delock on at least one pixel)
+
+         o_rl_ena             => rl_ena(k)              -- out    std_logic                                   --! Relock enable ('0' = No, '1' = Yes)
       );
 
       I_sqm_fbk_mgt: entity work.sqm_fbk_mgt port map
@@ -566,7 +611,8 @@ begin
          o_sqm_data_fbk       => sqm_data_fbk(k)      , -- out    slv( c_SQM_DATA_FBK_S-1 downto 0)         ; --! SQUID MUX Data feedback (signed)
 
          o_init_fbk_pixel_pos => init_fbk_pixel_pos(k), -- out    slv(c_MUX_FACT_S-1 downto 0)              ; --! Initialization feedback chain accumulators Pixel position
-         o_init_fbk_acc       => init_fbk_acc(k)        -- out    std_logic                                   --! Initialization feedback chain accumulators ('0' = Inactive, '1' = Active)
+         o_init_fbk_acc       => init_fbk_acc(k)      , -- out    std_logic                                 ; --! Initialization feedback chain accumulators ('0' = Inactive, '1' = Active)
+         o_sqm_fbk_smfb0      => sqm_fbk_smfb0(k)       -- out    slv(c_DFLD_SMFB0_PIX_S-1 downto 0)          --! SQUID MUX feedback value in open loop (signed)
       );
 
       I_sqm_dac_mgt: entity work.sqm_dac_mgt port map

@@ -45,7 +45,8 @@ entity sqa_dac_model is generic
          i_sqa_dac_mux        : in     std_logic_vector(c_SQA_DAC_MUX_S-1 downto 0)                         ; --! SQUID AMP DAC: Multiplexer
          i_sqa_dac_mx_en_n    : in     std_logic                                                            ; --! SQUID AMP DAC: Multiplexer Enable ('0' = Active, '1' = Inactive)
 
-         o_sqa_vout           : out    real                                                                   --! Analog voltage (-g_SQA_DAC_VREF <= o_sqa_vout < g_SQA_DAC_VREF)
+         o_sqa_vout           : out    real                                                                   --! Analog voltage (0.0 <= o_sqa_vout < c_SQA_COEF * g_SQA_DAC_VREF,
+                                                                                                              --!  with c_SQA_COEF = (2^(c_SQA_DAC_MUX_S+1)-1)/(c_SQA_DAC_COEF_DIV*2^c_SQA_DAC_MUX_S))
    );
 end entity sqa_dac_model;
 
@@ -87,7 +88,7 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   SQUID AMP voltage output
    -- ------------------------------------------------------------------------------------------------------
-   sqa_mux_volt <= transport (real(to_integer(unsigned(i_sqa_dac_mux))) * sqa_dac_lsb_volt) after g_SQA_MUX_TPLH when now> g_SQA_MUX_TPLH else 0.0;
-   o_sqa_vout   <= (2.0 * (sqa_dac_off_volt + sqa_mux_volt) - g_SQA_DAC_VREF ) when now > 0 ps else -g_SQA_DAC_VREF;
+   sqa_mux_volt <= transport (real(to_integer(unsigned(i_sqa_dac_mux))) * sqa_dac_lsb_volt / real(2**c_SQA_DAC_MUX_S)) after g_SQA_MUX_TPLH when now> g_SQA_MUX_TPLH else 0.0;
+   o_sqa_vout   <= ((sqa_dac_off_volt + sqa_mux_volt)/c_SQA_DAC_COEF_DIV) when now > 0 ps else 0.0;
 
 end architecture Behavioral;

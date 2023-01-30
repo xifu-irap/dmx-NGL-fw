@@ -311,7 +311,7 @@ begin
                o_sqa_fbk_off <= std_logic_vector(signed(i_test_pattern) + to_signed(c_SQA_DAC_MDL_POINT, o_sqa_fbk_off'length));
 
             elsif i_saofm = c_DST_SAOFM_OFF then
-               o_sqa_fbk_off <= std_logic_vector(to_unsigned(c_SQA_DAC_MDL_POINT, o_sqa_fbk_off'length));
+               o_sqa_fbk_off <= std_logic_vector(to_unsigned(0, o_sqa_fbk_off'length));
 
             end if;
 

@@ -121,7 +121,7 @@ constant c_I_SPI_DATA_DEF     : std_logic := '0'                                
 constant c_I_SPI_SCLK_DEF     : std_logic := c_EP_SPI_CPOL                                                  ; --! SPI Serial Clock input default value at reset
 constant c_I_SPI_CS_N_DEF     : std_logic := '1'                                                            ; --! SPI Chip Select input default value at reset
 constant c_I_SQM_ADC_DATA_DEF : std_logic_vector(c_SQM_ADC_DATA_S-1 downto 0):=
-                                std_logic_vector(to_unsigned(2**(c_SQM_ADC_DATA_S-1), c_SQM_ADC_DATA_S))    ; --! SQUID MUX ADC data input default value at reset
+                                std_logic_vector(to_unsigned(0, c_SQM_ADC_DATA_S))                          ; --! SQUID MUX ADC data input default value at reset
 constant c_I_SQM_ADC_OOR_DEF  : std_logic := '0'                                                            ; --! SQUID MUX ADC out of range input default value at reset
 constant c_I_SYNC_DEF         : std_logic := '1'                                                            ; --! Pixel sequence synchronization default value at reset
 
@@ -152,6 +152,10 @@ constant c_MUX_FACT_S         : integer   := log2_ceil(c_MUX_FACT)              
 constant c_TST_PAT_COEF_NB    : integer   := 3                                                              ; --! Test pattern: coefficient by region number
 constant c_TST_PAT_RGN_NB     : integer   := 5                                                              ; --! Test pattern: region number
 
+constant c_DLFLG_MX_STNB      : integer   := 3                                                              ; --! Delock flag: Multiplexer stage number
+constant c_DLFLG_MX_STIN      : t_int_arr(0 to c_DLFLG_MX_STNB)   := (36, 45, 48, 49)                       ; --! Delock flag: Inputs by multiplexer stage (accumulated)
+constant c_DLFLG_MX_INNB      : t_int_arr(0 to c_DLFLG_MX_STNB-1) := ( 4,  3,  3)                           ; --! Delock flag: Inputs by multiplexer
+
    -- ------------------------------------------------------------------------------------------------------
    --    SQUID MUX ADC parameters
    --    @Req : DRE-DMX-FW-REQ-0130
@@ -166,7 +170,7 @@ constant c_ADC_DATA_RDY_NPER  : integer := c_ADC_DATA_NPER + c_FF_RSYNC_NB - 1  
 constant c_MEM_DUMP_ADD_S     : integer := c_RAM_ECC_ADD_S                                                  ; --! Memory Dump: address bus size (<= c_RAM_ECC_ADD_S)
 
 constant c_ADC_SMP_AVE_ADD_S  : integer := c_SQM_ADC_SMP_AVE_S                                              ; --! ADC sample number for averaging table address bus size
-constant c_ASP_CF_S           : integer := c_MULT_ALU_PORTA_S                                               ; --! ADC sample number for averaging coefficient bus size (<= c_MULT_ALU_PORTA_S)
+constant c_ASP_CF_S           : integer := c_MULT_ALU_PORTA_S - 1                                           ; --! ADC sample number for averaging coefficient bus size (<= c_MULT_ALU_PORTA_S)
 constant c_ADC_SMP_AVE_TAB    : t_slv_arr(0 to 2**c_ADC_SMP_AVE_ADD_S-1)(c_ASP_CF_S-1 downto 0) :=
                                 (std_logic_vector(to_unsigned(div_round(2**(c_ASP_CF_S-1),  1),c_ASP_CF_S)),
                                  std_logic_vector(to_unsigned(div_round(2**(c_ASP_CF_S-1),  2),c_ASP_CF_S)),

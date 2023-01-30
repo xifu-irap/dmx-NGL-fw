@@ -42,6 +42,7 @@ entity ep_cmd_tx_wd is port
 
          i_brd_ref_rs         : in     std_logic_vector(  c_BRD_REF_S-1 downto 0)                           ; --! Board reference, synchronized on System Clock
          i_brd_model_rs       : in     std_logic_vector(c_BRD_MODEL_S-1 downto 0)                           ; --! Board model, synchronized on System Clock
+         i_dlflg              : in     t_slv_arr(0 to c_NB_COL-1)(c_DFLD_DLFLG_COL_S-1 downto 0)            ; --! Delock flag
 
          i_rg_aqmde           : in     std_logic_vector(c_DFLD_AQMDE_S-1 downto 0)                          ; --! EP register: DATA_ACQ_MODE
 
@@ -99,6 +100,15 @@ entity ep_cmd_tx_wd is port
          i_plsss_data         : in     t_slv_arr(0 to c_NB_COL-1)(c_DFLD_PLSSS_PLS_S-1 downto 0)            ; --! Data read: CY_FB1_PULSE_SHAPING_SELECTION
          i_plsss_cs           : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! Chip select data read ('0' = Inactive,'1'=Active): CY_FB1_PULSE_SHAPING_SELECTION
 
+         i_rldel_data         : in     t_slv_arr(0 to c_NB_COL-1)(c_DFLD_RLDEL_COL_S-1 downto 0)            ; --! Data read: CY_RELOCK_DELAY
+         i_rldel_cs           : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! Chip select data read ('0' = Inactive,'1'=Active): CY_RELOCK_DELAY
+
+         i_rlthr_data         : in     t_slv_arr(0 to c_NB_COL-1)(c_DFLD_RLTHR_COL_S-1 downto 0)            ; --! Data read: CY_RELOCK_THRESHOLD
+         i_rlthr_cs           : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! Chip select data read ('0' = Inactive,'1'=Active): CY_RELOCK_THRESHOLD
+
+         i_dlcnt_data         : in     t_slv_arr(0 to c_NB_COL-1)(c_DFLD_DLCNT_PIX_S-1 downto 0)            ; --! Data read: CY_DELOCK_COUNTERS
+         i_dlcnt_cs           : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! Chip select data read ('0' = Inactive,'1'=Active): CY_DELOCK_COUNTERS
+
          o_ep_cmd_sts_err_add : out    std_logic                                                            ; --! EP command: Status, error invalid address
          o_ep_cmd_tx_wd_rd_rg : out    std_logic_vector(c_EP_SPI_WD_S-1 downto 0)                             --! EP command to transmit: read register word
 
@@ -138,6 +148,9 @@ signal   saomd_data_mux       : std_logic_vector(c_DFLD_SAOMD_COL_S-1 downto 0) 
 signal   smpdl_data_mux       : std_logic_vector(c_DFLD_SMPDL_COL_S-1 downto 0)                             ; --! Data read multiplexer: CY_MUX_SQ_FB_DELAY
 signal   plssh_data_mux       : std_logic_vector(c_DFLD_PLSSH_PLS_S-1 downto 0)                             ; --! Data read multiplexer: CY_FB1_PULSE_SHAPING
 signal   plsss_data_mux       : std_logic_vector(c_DFLD_PLSSS_PLS_S-1 downto 0)                             ; --! Data read multiplexer: CY_FB1_PULSE_SHAPING_SELECTION
+signal   rldel_data_mux       : std_logic_vector(c_DFLD_RLDEL_COL_S-1 downto 0)                             ; --! Data read multiplexer: CY_RELOCK_DELAY
+signal   rlthr_data_mux       : std_logic_vector(c_DFLD_RLTHR_COL_S-1 downto 0)                             ; --! Data read multiplexer: CY_RELOCK_THRESHOLD
+signal   dlcnt_data_mux       : std_logic_vector(c_DFLD_DLCNT_PIX_S-1 downto 0)                             ; --! Data read multiplexer: CY_DELOCK_COUNTERS
 
 signal   data_rg_rd           : t_slv_arr(0 to c_EP_CMD_REG_MX_STIN(c_EP_CMD_REG_MX_STIN'high)-1)
                                          (c_EP_SPI_WD_S-1 downto 0)                                         ; --! Data register read
@@ -292,7 +305,7 @@ begin
          o_data_mux           => saodd_data_mux         -- out    std_logic_vector(g_DATA_S-1 downto 0)       --! Multiplexed data
    );
 
-   I_saomd_data_mux : entity work.mem_data_rd_mux generic map
+   I_saomd_mux : entity work.mem_data_rd_mux generic map
    (     g_MEM_RD_DATA_NPER   => c_MEM_RD_DATA_NPER   , -- integer                                          ; --! Clock period number for accessing memory data output
          g_DATA_S             => c_DFLD_SAOMD_COL_S   , -- integer                                          ; --! Data bus size
          g_NB                 => c_NB_COL               -- integer                                            --! Data bus number
@@ -304,7 +317,7 @@ begin
          o_data_mux           => saomd_data_mux         -- out    std_logic_vector(g_DATA_S-1 downto 0)       --! Multiplexed data
    );
 
-   I_smpld_data_mux : entity work.mem_data_rd_mux generic map
+   I_smpld_mux : entity work.mem_data_rd_mux generic map
    (     g_MEM_RD_DATA_NPER   => c_MEM_RD_DATA_NPER   , -- integer                                          ; --! Clock period number for accessing memory data output
          g_DATA_S             => c_DFLD_SMPDL_COL_S   , -- integer                                          ; --! Data bus size
          g_NB                 => c_NB_COL               -- integer                                            --! Data bus number
@@ -328,7 +341,7 @@ begin
          o_data_mux           => plssh_data_mux         -- out    std_logic_vector(g_DATA_S-1 downto 0)       --! Multiplexed data
    );
 
-   I_shp_set_data_mux : entity work.mem_data_rd_mux generic map
+   I_plsss_mux : entity work.mem_data_rd_mux generic map
    (     g_MEM_RD_DATA_NPER   => c_MEM_RD_DATA_NPER   , -- integer                                          ; --! Clock period number for accessing memory data output
          g_DATA_S             => c_DFLD_PLSSS_PLS_S   , -- integer                                          ; --! Data bus size
          g_NB                 => c_NB_COL               -- integer                                            --! Data bus number
@@ -338,6 +351,42 @@ begin
          i_data               => i_plsss_data         , -- in     t_slv_arr g_NB g_DATA_S                   ; --! Data buses
          i_cs                 => i_plsss_cs           , -- in     std_logic_vector(g_NB-1 downto 0)         ; --! Chip selects ('0' = Inactive, '1' = Active)
          o_data_mux           => plsss_data_mux         -- out    std_logic_vector(g_DATA_S-1 downto 0)       --! Multiplexed data
+   );
+
+   I_rldel_mux : entity work.mem_data_rd_mux generic map
+   (     g_MEM_RD_DATA_NPER   => c_MEM_RD_DATA_NPER   , -- integer                                          ; --! Clock period number for accessing memory data output
+         g_DATA_S             => c_DFLD_RLDEL_COL_S   , -- integer                                          ; --! Data bus size
+         g_NB                 => c_NB_COL               -- integer                                            --! Data bus number
+   ) port map
+   (     i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+         i_clk                => i_clk                , -- in     std_logic                                 ; --! System Clock
+         i_data               => i_rldel_data         , -- in     t_slv_arr g_NB g_DATA_S                   ; --! Data buses
+         i_cs                 => i_rldel_cs           , -- in     std_logic_vector(g_NB-1 downto 0)         ; --! Chip selects ('0' = Inactive, '1' = Active)
+         o_data_mux           => rldel_data_mux         -- out    std_logic_vector(g_DATA_S-1 downto 0)       --! Multiplexed data
+   );
+
+   I_rlthr_mux : entity work.mem_data_rd_mux generic map
+   (     g_MEM_RD_DATA_NPER   => c_MEM_RD_DATA_NPER   , -- integer                                          ; --! Clock period number for accessing memory data output
+         g_DATA_S             => c_DFLD_RLTHR_COL_S   , -- integer                                          ; --! Data bus size
+         g_NB                 => c_NB_COL               -- integer                                            --! Data bus number
+   ) port map
+   (     i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+         i_clk                => i_clk                , -- in     std_logic                                 ; --! System Clock
+         i_data               => i_rlthr_data         , -- in     t_slv_arr g_NB g_DATA_S                   ; --! Data buses
+         i_cs                 => i_rlthr_cs           , -- in     std_logic_vector(g_NB-1 downto 0)         ; --! Chip selects ('0' = Inactive, '1' = Active)
+         o_data_mux           => rlthr_data_mux         -- out    std_logic_vector(g_DATA_S-1 downto 0)       --! Multiplexed data
+   );
+
+   I_dlcnt_mux : entity work.mem_data_rd_mux generic map
+   (     g_MEM_RD_DATA_NPER   => c_MEM_RD_DATA_NPER   , -- integer                                          ; --! Clock period number for accessing memory data output
+         g_DATA_S             => c_DFLD_DLCNT_PIX_S   , -- integer                                          ; --! Data bus size
+         g_NB                 => c_NB_COL               -- integer                                            --! Data bus number
+   ) port map
+   (     i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+         i_clk                => i_clk                , -- in     std_logic                                 ; --! System Clock
+         i_data               => i_dlcnt_data         , -- in     t_slv_arr g_NB g_DATA_S                   ; --! Data buses
+         i_cs                 => i_dlcnt_cs           , -- in     std_logic_vector(g_NB-1 downto 0)         ; --! Chip selects ('0' = Inactive, '1' = Active)
+         o_data_mux           => dlcnt_data_mux         -- out    std_logic_vector(g_DATA_S-1 downto 0)       --! Multiplexed data
    );
 
    -- ------------------------------------------------------------------------------------------------------
@@ -365,6 +414,11 @@ begin
    -- @Req : DRE-DMX-FW-REQ-0145
    data_rg_rd(c_EP_CMD_POS_BXLGT) <= std_logic_vector(resize(unsigned(i_rg_bxlgt(3)), c_EP_SPI_WD_S/4) & resize(unsigned(i_rg_bxlgt(2)), c_EP_SPI_WD_S/4) &
                                                       resize(unsigned(i_rg_bxlgt(1)), c_EP_SPI_WD_S/4) & resize(unsigned(i_rg_bxlgt(0)), c_EP_SPI_WD_S/4));
+   -- @Req : REG_DELOCK_FLAG
+   -- @Req : DRE-DMX-FW-REQ-0430
+   data_rg_rd(c_EP_CMD_POS_DLFLG) <= std_logic_vector(resize(unsigned(i_dlflg(3)) & unsigned(i_dlflg(2)) &
+                                                             unsigned(i_dlflg(1)) & unsigned(i_dlflg(0)), c_EP_SPI_WD_S));
+
    -- @Req : REG_Status
    data_rg_rd(c_EP_CMD_POS_STATUS)<= i_ep_cmd_sts_rg_r;
 
@@ -433,6 +487,18 @@ begin
 
    -- @Req : REG_CY_FB1_PULSE_SHAPING_SEL
    data_rg_rd(c_EP_CMD_POS_PLSSS) <= std_logic_vector(resize(unsigned(plsss_data_mux), c_EP_SPI_WD_S));
+
+   -- @Req : REG_CY_RELOCK_DELAY
+   -- @Req : DRE-DMX-FW-REQ-0410
+   data_rg_rd(c_EP_CMD_POS_RLDEL) <= std_logic_vector(resize(unsigned(rldel_data_mux),  c_EP_SPI_WD_S));
+
+   -- @Req : REG_CY_RELOCK_THRESHOLD
+   -- @Req : DRE-DMX-FW-REQ-0420
+   data_rg_rd(c_EP_CMD_POS_RLTHR) <= std_logic_vector(resize(unsigned(rlthr_data_mux),  c_EP_SPI_WD_S));
+
+   -- @Req : REG_CY_DELOCK_COUNTERS
+   -- @Req : DRE-DMX-FW-REQ-0435
+   data_rg_rd(c_EP_CMD_POS_DLCNT) <= std_logic_vector(resize(unsigned(dlcnt_data_mux),  c_EP_SPI_WD_S));
 
    data_rg_rd(c_EP_CMD_POS_LAST to c_EP_CMD_REG_MX_STIN(0)-1) <= (others => (others => '0'));
 

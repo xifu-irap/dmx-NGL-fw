@@ -83,8 +83,8 @@ begin
       wait until rising_edge(i_clk);
       wait for c_TIME_TA;
 
-      adc_data_acq  <=  std_logic_vector(to_unsigned(integer(round((delta_vin_sat + g_VREF)/c_ADC_RES)), adc_data_acq'length)) when i_sclk_dfs = '0' else
-                        std_logic_vector(to_unsigned(integer(round(delta_vin_sat/c_ADC_RES)), adc_data_acq'length));
+      adc_data_acq  <=  std_logic_vector(to_signed(integer(round((delta_vin_sat + g_VREF)/c_ADC_RES)), adc_data_acq'length)) when i_sclk_dfs = '0' else
+                        std_logic_vector(to_signed(integer(round(delta_vin_sat/c_ADC_RES)), adc_data_acq'length));
 
       out_range_acq <= '1' when ((i_delta_vin < -g_VREF) or (i_delta_vin > c_VIN_MAX)) else '0';
 

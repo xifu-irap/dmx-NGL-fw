@@ -40,6 +40,7 @@ entity register_mgt is port
 
          i_brd_ref_rs         : in     std_logic_vector(  c_BRD_REF_S-1 downto 0)                           ; --! Board reference, synchronized on System Clock
          i_brd_model_rs       : in     std_logic_vector(c_BRD_MODEL_S-1 downto 0)                           ; --! Board model, synchronized on System Clock
+         i_dlflg              : in     t_slv_arr(0 to c_NB_COL-1)(c_DFLD_DLFLG_COL_S-1 downto 0)            ; --! Delock flag ('0' = No delock on pixels, '1' = Delock on at least one pixel)
 
          o_ep_cmd_sts_err_add : out    std_logic                                                            ; --! EP command: Status, error invalid address
          o_ep_cmd_sts_err_nin : out    std_logic                                                            ; --! EP command: Status, error parameter to read not initialized yet
@@ -74,6 +75,8 @@ entity register_mgt is port
          o_saomd              : out    t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SAOMD_COL_S-1 downto 0)            ; --! SQUID AMP offset MUX delay
          o_smpdl              : out    t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SMPDL_COL_S-1 downto 0)            ; --! ADC sample delay
          o_plsss              : out    t_slv_arr(0 to c_NB_COL-1)(c_DFLD_PLSSS_PLS_S-1 downto 0)            ; --! SQUID MUX feedback pulse shaping set
+         o_rldel              : out    t_slv_arr(0 to c_NB_COL-1)(c_DFLD_RLDEL_COL_S-1 downto 0)            ; --! Relock delay
+         o_rlthr              : out    t_slv_arr(0 to c_NB_COL-1)(c_DFLD_RLTHR_COL_S-1 downto 0)            ; --! Relock threshold
 
          o_mem_tstpt          : out    t_mem_arr(0 to c_NB_COL-1)(
                                        add(c_MEM_TSTPT_ADD_S-1 downto 0),
@@ -118,7 +121,13 @@ entity register_mgt is port
          o_mem_plssh          : out    t_mem_arr(0 to c_NB_COL-1)(
                                        add(      c_MEM_PLSSH_ADD_S-1 downto 0),
                                        data_w(c_DFLD_PLSSH_PLS_S-1 downto 0))                               ; --! SQUID MUX feedback pulse shaping coefficient: memory inputs
-         i_plssh_data         : in     t_slv_arr(0 to c_NB_COL-1)(c_DFLD_PLSSH_PLS_S-1 downto 0)              --! SQUID MUX feedback pulse shaping coefficient: data read
+         i_plssh_data         : in     t_slv_arr(0 to c_NB_COL-1)(c_DFLD_PLSSH_PLS_S-1 downto 0)            ; --! SQUID MUX feedback pulse shaping coefficient: data read
+
+         o_mem_dlcnt          : out    t_mem_arr(0 to c_NB_COL-1)(
+                                       add(      c_MEM_DLCNT_ADD_S-1 downto 0),
+                                       data_w(c_DFLD_DLCNT_PIX_S-1 downto 0))                               ; --! Delock counter: memory inputs
+         i_dlcnt_data         : in     t_slv_arr(0 to c_NB_COL-1)(c_DFLD_DLCNT_PIX_S-1 downto 0)              --! Delock counter: data read
+
    );
 end entity register_mgt;
 
@@ -149,6 +158,8 @@ signal   rg_saodd             : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SAODD_COL_S-1 
 signal   rg_saomd             : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SAOMD_COL_S-1 downto 0)                   ; --! EP register: CY_AMP_SQ_OFFSET_MUX_DELAY
 signal   rg_smpdl             : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SMPDL_COL_S-1 downto 0)                   ; --! EP register: CY_SAMPLING_DELAY
 signal   rg_plsss             : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_PLSSS_PLS_S-1 downto 0)                   ; --! EP register: CY_FB1_PULSE_SHAPING_SELECTION
+signal   rg_rldel             : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_RLDEL_COL_S-1 downto 0)                   ; --! EP register: CY_RELOCK_DELAY
+signal   rg_rlthr             : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_RLTHR_COL_S-1 downto 0)                   ; --! EP register: CY_RELOCK_THRESHOLD
 
 signal   kiknm_add            : std_logic_vector(c_MEM_KIKNM_ADD_S-1 downto 0)                              ; --! Address memory: CY_KI_KNORM
 signal   smlkv_add            : std_logic_vector(c_MEM_SMLKV_ADD_S-1 downto 0)                              ; --! Address memory: CY_MUX_SQ_LOCKPOINT_V
@@ -169,9 +180,16 @@ signal   saomd_cs             : std_logic_vector(c_NB_COL-1 downto 0)           
 signal   smpdl_cs             : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! Chip select data read ('0'=Inactive, '1'=Active): CY_SAMPLING_DELAY
 signal   plssh_cs             : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! Chip select data read ('0'=Inactive, '1'=Active): CY_FB1_PULSE_SHAPING
 signal   plsss_cs             : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! Chip select data read ('0'=Inactive, '1'=Active): CY_FB1_PULSE_SHAPING_SELECTION
+signal   rldel_cs             : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! Chip select data read ('0'=Inactive, '1'=Active): CY_RELOCK_DELAY
+signal   rlthr_cs             : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! Chip select data read ('0'=Inactive, '1'=Active): CY_RELOCK_THRESHOLD
+signal   dlcnt_cs             : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! Chip select data read ('0'=Inactive, '1'=Active): CY_DELOCK_COUNTERS
 
 signal   cs_rg                : std_logic_vector(c_EP_CMD_POS_LAST-1 downto 0)                              ; --! Chip selects register ('0' = Inactive, '1' = Active)
 signal   cs_rg_r              : std_logic_vector(c_EP_CMD_REG_MX_STIN(0)-1 downto 0)                        ; --! Chip selects register registered
+
+signal   mem_dlcnt_int        : t_mem_arr(0 to c_NB_COL-1)(
+                                add(    c_MEM_DLCNT_ADD_S-1 downto 0),
+                                data_w(c_DFLD_DLCNT_PIX_S-1 downto 0))                                      ; --! Delock counter: memory inputs internal
 
 attribute syn_preserve        : boolean                                                                     ;
 attribute syn_preserve          of o_aqmde_dmp_cmp   : signal is true                                       ;
@@ -212,6 +230,7 @@ begin
    cs_rg(c_EP_CMD_POS_SAOFM)  <= '1' when  ep_cmd_rx_wd_add_r = c_EP_CMD_ADD_SAOFM  else '0';
    cs_rg(c_EP_CMD_POS_TSTEN)  <= '1' when  ep_cmd_rx_wd_add_r = c_EP_CMD_ADD_TSTEN  else '0';
    cs_rg(c_EP_CMD_POS_BXLGT)  <= '1' when  ep_cmd_rx_wd_add_r = c_EP_CMD_ADD_BXLGT  else '0';
+   cs_rg(c_EP_CMD_POS_DLFLG)  <= '1' when  ep_cmd_rx_wd_add_r = c_EP_CMD_ADD_DLFLG  else '0';
    cs_rg(c_EP_CMD_POS_STATUS) <= '1' when  ep_cmd_rx_wd_add_r = c_EP_CMD_ADD_STATUS else '0';
    cs_rg(c_EP_CMD_POS_FW_VER) <= '1' when  ep_cmd_rx_wd_add_r = c_EP_CMD_ADD_FW_VER else '0';
    cs_rg(c_EP_CMD_POS_HW_VER) <= '1' when  ep_cmd_rx_wd_add_r = c_EP_CMD_ADD_HW_VER else '0';
@@ -287,6 +306,19 @@ begin
    cs_rg(c_EP_CMD_POS_PLSSS)  <= '1' when
       (ep_cmd_rx_wd_add_r(ep_cmd_rx_wd_add_r'high downto c_EP_CMD_ADD_COLPOSH+1) = c_EP_CMD_ADD_PLSSS(0)(ep_cmd_rx_wd_add_r'high downto c_EP_CMD_ADD_COLPOSH+1) and
        ep_cmd_rx_wd_add_r(c_EP_CMD_ADD_COLPOSL-1  downto 0)                      = c_EP_CMD_ADD_PLSSS(0)(c_EP_CMD_ADD_COLPOSL-1  downto 0))                     else '0';
+
+   cs_rg(c_EP_CMD_POS_RLDEL)  <= '1' when
+      (ep_cmd_rx_wd_add_r(ep_cmd_rx_wd_add_r'high downto c_EP_CMD_ADD_COLPOSH+1) = c_EP_CMD_ADD_RLDEL(0)(ep_cmd_rx_wd_add_r'high downto c_EP_CMD_ADD_COLPOSH+1) and
+       ep_cmd_rx_wd_add_r(c_EP_CMD_ADD_COLPOSL-1  downto 0)                      = c_EP_CMD_ADD_RLDEL(0)(c_EP_CMD_ADD_COLPOSL-1  downto 0))                     else '0';
+
+   cs_rg(c_EP_CMD_POS_RLTHR)  <= '1' when
+      (ep_cmd_rx_wd_add_r(ep_cmd_rx_wd_add_r'high downto c_EP_CMD_ADD_COLPOSH+1) = c_EP_CMD_ADD_RLTHR(0)(ep_cmd_rx_wd_add_r'high downto c_EP_CMD_ADD_COLPOSH+1) and
+       ep_cmd_rx_wd_add_r(c_EP_CMD_ADD_COLPOSL-1  downto 0)                      = c_EP_CMD_ADD_RLTHR(0)(c_EP_CMD_ADD_COLPOSL-1  downto 0))                     else '0';
+
+   cs_rg(c_EP_CMD_POS_DLCNT)  <= '1' when
+      (ep_cmd_rx_wd_add_r(ep_cmd_rx_wd_add_r'high downto c_EP_CMD_ADD_COLPOSH+1) = c_EP_CMD_ADD_DLCNT(0)(ep_cmd_rx_wd_add_r'high downto c_EP_CMD_ADD_COLPOSH+1) and
+       ep_cmd_rx_wd_add_r(c_EP_CMD_ADD_COLPOSL-1  downto c_MEM_DLCNT_ADD_S)      = c_EP_CMD_ADD_DLCNT(0)(c_EP_CMD_ADD_COLPOSL-1  downto c_MEM_DLCNT_ADD_S)      and
+       ep_cmd_rx_wd_add_r(   c_MEM_DLCNT_ADD_S-1  downto 0)                      < std_logic_vector(to_unsigned(c_TAB_DLCNT_NW, c_MEM_DLCNT_ADD_S)))            else '0';
 
    P_cs_rg_r : process (i_rst, i_clk)
    begin
@@ -403,6 +435,8 @@ begin
             rg_saomd(k) <= c_EP_CMD_DEF_SAOMD;
             rg_smpdl(k) <= c_EP_CMD_DEF_SMPDL;
             rg_plsss(k) <= c_EP_CMD_DEF_PLSSS;
+            rg_rldel(k) <= c_EP_CMD_DEF_RLDEL;
+            rg_rlthr(k) <= c_EP_CMD_DEF_RLTHR;
 
          elsif rising_edge(i_clk) then
 
@@ -480,6 +514,20 @@ begin
 
                   end if;
 
+                  -- @Req : REG_CY_RELOCK_DELAY
+                  -- @Req : DRE-DMX-FW-REQ-0410
+                  if cs_rg_r(c_EP_CMD_POS_RLDEL) = '1' then
+                     rg_rldel(k)  <= ep_cmd_rx_wd_data_r(c_DFLD_RLDEL_COL_S-1 downto 0);
+
+                  end if;
+
+                  -- @Req : REG_CY_RELOCK_THRESHOLD
+                  -- @Req : DRE-DMX-FW-REQ-0420
+                  if cs_rg_r(c_EP_CMD_POS_RLTHR) = '1' then
+                     rg_rlthr(k)  <= ep_cmd_rx_wd_data_r(c_DFLD_RLTHR_COL_S-1 downto 0);
+
+                  end if;
+
                end if;
 
             end if;
@@ -495,6 +543,8 @@ begin
       saomd_cs(k) <= ep_cmd_rx_nerr_rdy_r and (ep_cmd_rx_rw_r xor c_EP_CMD_ADD_RW_W) when ep_cmd_rx_wd_add_r = c_EP_CMD_ADD_SAOMD(k) else '0';
       smpdl_cs(k) <= ep_cmd_rx_nerr_rdy_r and (ep_cmd_rx_rw_r xor c_EP_CMD_ADD_RW_W) when ep_cmd_rx_wd_add_r = c_EP_CMD_ADD_SMPDL(k) else '0';
       plsss_cs(k) <= ep_cmd_rx_nerr_rdy_r and (ep_cmd_rx_rw_r xor c_EP_CMD_ADD_RW_W) when ep_cmd_rx_wd_add_r = c_EP_CMD_ADD_PLSSS(k) else '0';
+      rldel_cs(k) <= ep_cmd_rx_nerr_rdy_r and (ep_cmd_rx_rw_r xor c_EP_CMD_ADD_RW_W) when ep_cmd_rx_wd_add_r = c_EP_CMD_ADD_RLDEL(k) else '0';
+      rlthr_cs(k) <= ep_cmd_rx_nerr_rdy_r and (ep_cmd_rx_rw_r xor c_EP_CMD_ADD_RW_W) when ep_cmd_rx_wd_add_r = c_EP_CMD_ADD_RLTHR(k) else '0';
 
    end generate G_column_mgt;
 
@@ -713,6 +763,39 @@ begin
          o_cs_data_rd         => plssh_cs               -- out    std_logic_vector(c_NB_COL-1 downto 0)       --! Chip select data read ('0' = Inactive, '1' = Active)
    );
 
+   -- @Req : REG_CY_DELOCK_COUNTERS
+   -- @Req : DRE-DMX-FW-REQ-0435
+   I_mem_dlcnt: entity work.mem_in_gen generic map
+   (     g_MEM_ADD_S          => c_MEM_DLCNT_ADD_S    , -- integer                                          ; --! Memory address size
+         g_MEM_DATA_S         => c_DFLD_DLCNT_PIX_S   , -- integer                                          ; --! Memory data size
+         g_MEM_ADD_END        => c_TAB_DLCNT_NW-1       -- integer                                            --! Memory address end
+   ) port map
+   (     i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+         i_clk                => i_clk                , -- in     std_logic                                 ; --! System Clock
+
+         i_col_nb             => col_nb               , -- in     slv(log2_ceil(c_NB_COL)-1 downto 0)       ; --! Column number
+         i_ep_cmd_rx_wd_add_r => ep_cmd_rx_wd_add_r(c_MEM_DLCNT_ADD_S-1 downto 0), -- in slv g_MEM_ADD_S    ; --! EP command receipted: address word, read/write bit cleared, registered
+         i_ep_cmd_rx_wd_dta_r => (others => '0')      , -- in     slv g_MEM_DATA_S                          ; --! EP command receipted: data word, registered
+         i_ep_cmd_rx_rw_r     => ep_cmd_rx_rw_r       , -- in     std_logic                                 ; --! EP command receipted: read/write bit, registered
+         i_ep_cmd_rx_ner_ry_r => ep_cmd_rx_nerr_rdy_r , -- in     std_logic                                 ; --! EP command receipted with no error ready, registered ('0'= Not ready, '1'= Ready)
+
+         i_cs_rg              => cs_rg_r(c_EP_CMD_POS_DLCNT), --  std_logic                                 ; --! Chip select register ('0' = Inactive, '1' = Active)
+
+         o_mem_in             => mem_dlcnt_int        , -- out    t_mem_arr(0 to c_NB_COL-1)                ; --! Memory inputs
+         o_cs_data_rd         => dlcnt_cs               -- out    std_logic_vector(c_NB_COL-1 downto 0)       --! Chip select data read ('0' = Inactive, '1' = Active)
+   );
+
+   G_mem_dlcnt : for k in 0 to c_NB_COL-1 generate
+   begin
+
+      o_mem_dlcnt(k).add     <= mem_dlcnt_int(k).add;
+      o_mem_dlcnt(k).we      <= mem_dlcnt_int(k).we;
+      o_mem_dlcnt(k).cs      <= mem_dlcnt_int(k).cs;
+      o_mem_dlcnt(k).data_w  <= (others => '0');
+      o_mem_dlcnt(k).pp      <= c_MEM_STR_ADD_PP_DEF;
+
+   end generate G_mem_dlcnt;
+
    -- ------------------------------------------------------------------------------------------------------
    --!   EP command: Register to transmit management
    --    @Req : DRE-DMX-FW-REQ-0510
@@ -725,6 +808,7 @@ begin
 
          i_brd_ref_rs         => i_brd_ref_rs         , -- in     slv(  c_BRD_REF_S-1 downto 0)             ; --! Board reference, synchronized on System Clock
          i_brd_model_rs       => i_brd_model_rs       , -- in     slv(c_BRD_MODEL_S-1 downto 0)             ; --! Board model, synchronized on System Clock
+         i_dlflg              => i_dlflg              , -- in     t_slv_arr c_NB_COL c_DFLD_DLFLG_COL_S     ; --! Delock flag
 
          i_rg_aqmde           => o_aqmde              , -- in     slv(c_DFLD_AQMDE_S-1 downto 0)            ; --! EP register: DATA_ACQ_MODE
 
@@ -782,6 +866,15 @@ begin
          i_plsss_data         => rg_plsss             , -- in     t_slv_arr c_NB_COL c_DFLD_PLSSS_PLS_S     ; --! Data read: CY_FB1_PULSE_SHAPING_SELECTION
          i_plsss_cs           => plsss_cs             , -- in     std_logic_vector(c_NB_COL-1 downto 0)     ; --! Chip select data read ('0' = Inactive,'1'=Active): CY_FB1_PULSE_SHAPING_SELECTION
 
+         i_rldel_data         => rg_rldel             , -- in     t_slv_arr c_NB_COL c_DFLD_RLDEL_COL_S     ; --! Data read: CY_RELOCK_DELAY
+         i_rldel_cs           => rldel_cs             , -- in     std_logic_vector(c_NB_COL-1 downto 0)     ; --! Chip select data read ('0' = Inactive,'1'=Active): CY_RELOCK_DELAY
+
+         i_rlthr_data         => rg_rlthr             , -- in     t_slv_arr c_NB_COL c_DFLD_RLTHR_COL_S     ; --! Data read: CY_RELOCK_THRESHOLD
+         i_rlthr_cs           => rlthr_cs             , -- in     std_logic_vector(c_NB_COL-1 downto 0)     ; --! Chip select data read ('0' = Inactive,'1'=Active): CY_RELOCK_THRESHOLD
+
+         i_dlcnt_data         => i_dlcnt_data         , -- in     t_slv_arr c_NB_COL c_DFLD_DLCNT_PIX_S     ; --! Data read: CY_DELOCK_COUNTERS
+         i_dlcnt_cs           => dlcnt_cs             , -- in     std_logic_vector(c_NB_COL-1 downto 0)     ; --! Chip select data read ('0' = Inactive,'1'=Active): CY_DELOCK_COUNTERS
+
          o_ep_cmd_sts_err_add => o_ep_cmd_sts_err_add , -- out    std_logic                                 ; --! EP command: Status, error invalid address
          o_ep_cmd_tx_wd_rd_rg => o_ep_cmd_tx_wd_rd_rg   -- out    std_logic_vector(c_EP_SPI_WD_S-1 downto 0)  --! EP command to transmit: read register word
    );
@@ -823,6 +916,8 @@ begin
          o_saomd <= (others => c_EP_CMD_DEF_SAOMD);
          o_smpdl <= (others => c_EP_CMD_DEF_SMPDL);
          o_plsss <= (others => c_EP_CMD_DEF_PLSSS);
+         o_rldel <= (others => c_EP_CMD_DEF_RLDEL);
+         o_rlthr <= (others => c_EP_CMD_DEF_RLTHR);
 
       elsif rising_edge(i_clk) then
          o_aqmde_dmp_cmp <= (others => rg_aqmde_dmp_cmp);
@@ -840,6 +935,8 @@ begin
          o_saomd <= rg_saomd;
          o_smpdl <= rg_smpdl;
          o_plsss <= rg_plsss;
+         o_rldel <= rg_rldel;
+         o_rlthr <= rg_rlthr;
 
       end if;
 

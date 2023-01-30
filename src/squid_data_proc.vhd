@@ -68,6 +68,12 @@ entity squid_data_proc is port
          i_init_fbk_pixel_pos : in     std_logic_vector(c_MUX_FACT_S-1 downto 0)                            ; --! Initialization feedback chain accumulators Pixel position
          i_init_fbk_acc       : in     std_logic                                                            ; --! Initialization feedback chain accumulators ('0' = Inactive, '1' = Active)
 
+         i_rl_ena             : in     std_logic                                                            ; --! Relock enable ('0' = No, '1' = Yes)
+         i_sqm_fbk_smfb0      : in     std_logic_vector(c_DFLD_SMFB0_PIX_S-1 downto 0)                      ; --! SQUID MUX feedback value in open loop (signed)
+         o_smfbm_close_rl     : out    std_logic                                                            ; --! SQUID MUX feedback close mode for relock ('0' = No close , '1' = Close)
+         o_smfb0_rl           : out    std_logic_vector(c_DFLD_SMFB0_PIX_S-1 downto 0)                      ; --! SQUID MUX feedback value in open loop for relock (signed)
+         o_mem_rl_rd_add      : out    std_logic_vector(      c_MUX_FACT_S-1 downto 0)                      ; --! Relock memories read address
+
          i_sqm_data_err       : in     std_logic_vector(c_SQM_DATA_ERR_S-1 downto 0)                        ; --! SQUID MUX Data error
          i_sqm_data_err_frst  : in     std_logic                                                            ; --! SQUID MUX Data error first pixel ('0' = No, '1' = Yes)
          i_sqm_data_err_last  : in     std_logic                                                            ; --! SQUID MUX Data error last pixel ('0' = No, '1' = Yes)
@@ -116,6 +122,9 @@ constant c_SC_PN_RDY_POS      : integer := c_SC_PN_NPER - 1                     
 constant c_PIXEL_POS_MAX_VAL  : integer := c_MUX_FACT - 1                                                   ; --! Pixel position: maximal value
 constant c_PIXEL_POS_S        : integer := log2_ceil(c_PIXEL_POS_MAX_VAL+1)                                 ; --! Pixel position: size bus
 
+constant c_DFB_PN_INIT_VAL_V  : std_logic_vector(c_DFB_PN_S-1 downto 0):=
+                                std_logic_vector(to_signed(c_DFB_PN_INIT_VAL, c_DFB_PN_S))                  ; --! dFB(p,n): initialization value vetor
+
 signal   sqm_data_err_frst_r  : std_logic_vector(c_TOT_NPER-1 downto 0)                                     ; --! SQUID MUX Data science first pixel register
 signal   sqm_data_err_last_r  : std_logic_vector(c_TOT_NPER-1 downto 0)                                     ; --! SQUID MUX Data science last pixel register
 signal   sqm_data_err_rdy_r   : std_logic_vector(c_TOT_NPER-1 downto 0)                                     ; --! SQUID MUX Data science ready register
@@ -155,9 +164,12 @@ signal   elp_p_aln            : std_logic_vector(c_ADC_SMP_AVE_S-1    downto 0) 
 
 signal   mem_init_fbk_acc_dfb : t_slv_arr(0 to 2**c_MUX_FACT_S-1)(0 downto 0)                               ; --! Memory initialization feedback chain accumulators dFB(p,n)
 signal   mem_init_fbk_acc_fb  : t_slv_arr(0 to 2**c_MUX_FACT_S-1)(0 downto 0)                               ; --! Memory initialization feedback chain accumulators FB(p,n)
+signal   mem_smfb0_rl         : t_slv_arr(0 to 2**c_MUX_FACT_S-1)(c_DFLD_SMFB0_PIX_S-1 downto 0)            ; --! Memory SQUID MUX feedback value in open loop for relock (signed)
 
 signal   init_fbk_acc_dfb     : std_logic                                                                   ; --! Initialization feedback chain accumulators dFB(p,n)
 signal   init_fbk_acc_fb      : std_logic                                                                   ; --! Initialization feedback chain accumulators FB(p,n)
+signal   smfb0                : std_logic_vector(c_DFLD_SMFB0_PIX_S-1 downto 0)                             ; --! SQUID MUX feedback value in open loop (signed)
+signal   smfb0_rl_rs          : std_logic_vector(c_FB_PN_S-1 downto 0)                                      ; --! SQUID MUX feedback value in open loop for relock resize
 
 signal   sqm_adc_ena          : std_logic                                                                   ; --! ADC enable ('0'= No, '1'= Yes)
 signal   aqmde_sync           : std_logic_vector(c_DFLD_AQMDE_S-1 downto 0)                                 ; --! Telemetry mode, sync. on first pixel
@@ -165,7 +177,7 @@ signal   bxlgt_sync           : std_logic_vector(c_DFLD_BXLGT_COL_S-1 downto 0) 
 
 signal   sqm_data_err         : std_logic_vector(c_SQM_DATA_ERR_S-1 downto 0)                               ; --! SQUID MUX Data error
 
-signal   adc_smp_ave_coef     : std_logic_vector(c_ASP_CF_S-1 downto 0)                                     ; --! ADC sample number for averaging coefficient (unsigned)
+signal   adc_smp_ave_coef     : std_logic_vector(c_ASP_CF_S   downto 0)                                     ; --! ADC sample number for averaging coefficient (unsigned)
 signal   adc_smp_ave          : std_logic_vector(c_ADC_SMP_AVE_C_S-1 downto 0)                              ; --! ADC sample average (unsigned)
 signal   adc_smp_ave_sc       : std_logic_vector(c_SC_DATA_SER_NB*c_SC_DATA_SER_W_S+1 downto 0)             ; --! ADC sample average for data science (unsigned)
 signal   err_sig              : std_logic_vector(c_SC_DATA_SER_NB*c_SC_DATA_SER_W_S   downto 0)             ; --! Error signal (unsigned)
@@ -454,8 +466,9 @@ begin
          o_b_flg_err          => open                   -- out    std_logic                                   --! Memory port B: flag error uncorrectable detected ('0' = No, '1' = Yes)
    );
 
-   elp_p_aln(elp_p_aln'high                  downto elp_p_aln'length-elp_p'length) <= elp_p;
-   elp_p_aln(elp_p_aln'length-elp_p'length-1 downto                             0) <= (others => '0');
+   elp_p_aln(elp_p_aln'high)                                                         <= '0';
+   elp_p_aln(elp_p_aln'high-1                downto elp_p_aln'length-elp_p'length-1) <= elp_p;
+   elp_p_aln(elp_p_aln'length-elp_p'length-2 downto                               0) <= (others => '0');
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Dual port memory Elp(p): memory signals management
@@ -483,7 +496,8 @@ begin
    end process P_mem_smlkv_prm_pp;
 
    -- ------------------------------------------------------------------------------------------------------
-   --!   Dual port memory initialization feedback chain accumulators
+   --!   Dual port memory initialization feedback chain accumulators and
+   --!    SQUID MUX feedback value in open loop for relock
    -- ------------------------------------------------------------------------------------------------------
    P_init_fbk_acc_wr : process (i_clk)
    begin
@@ -491,6 +505,7 @@ begin
       if rising_edge(i_clk) then
          mem_init_fbk_acc_dfb(to_integer(unsigned(i_init_fbk_pixel_pos)))(0) <= i_init_fbk_acc;
          mem_init_fbk_acc_fb( to_integer(unsigned(i_init_fbk_pixel_pos)))(0) <= i_init_fbk_acc;
+         mem_smfb0_rl(to_integer(unsigned(i_init_fbk_pixel_pos)))            <= i_sqm_fbk_smfb0;
 
       end if;
 
@@ -500,16 +515,28 @@ begin
    begin
 
       if i_rst = '1' then
-         init_fbk_acc_dfb <= '0';
-         init_fbk_acc_fb  <= '0';
+         init_fbk_acc_dfb <= '1';
+         init_fbk_acc_fb  <= '1';
+         smfb0            <= std_logic_vector(to_unsigned(c_EP_CMD_DEF_SMFB0(0), smfb0'length));
+         o_smfb0_rl       <= std_logic_vector(to_unsigned(c_EP_CMD_DEF_SMFB0(0), o_smfb0_rl'length));
 
       elsif rising_edge(i_clk) then
          init_fbk_acc_dfb <= mem_init_fbk_acc_dfb(to_integer(unsigned(pixel_pos_r(c_INI_DFB_PN_RDY_POS))))(0);
          init_fbk_acc_fb  <= mem_init_fbk_acc_fb( to_integer(unsigned(pixel_pos_r(c_INI_FB_PN_RDY_POS ))))(0);
+         smfb0            <= mem_smfb0_rl(        to_integer(unsigned(pixel_pos_r(c_FB_PN_RDY_POS))));
+
+         if sqm_data_err_rdy_r(c_FB_PNP1_RDY_POS-1) = '1' then
+            o_smfb0_rl    <= smfb0;
+
+         end if;
 
       end if;
 
    end process P_init_fbk_acc_rd;
+
+   smfb0_rl_rs       <= resize_stall_msb(smfb0 , smfb0_rl_rs'length);
+   o_smfbm_close_rl  <= not(init_fbk_acc_fb);
+   o_mem_rl_rd_add   <= pixel_pos_r(c_FB_PN_RDY_POS-1);
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Registers sync. on first pixel
@@ -559,14 +586,14 @@ begin
    begin
 
       if i_rst = '1' then
-         sqm_data_err <= std_logic_vector(resize(unsigned(c_I_SQM_ADC_DATA_DEF), sqm_data_err'length));
+         sqm_data_err <= std_logic_vector(resize(signed(c_I_SQM_ADC_DATA_DEF), sqm_data_err'length));
 
       elsif rising_edge(i_clk) then
          if sqm_adc_ena = '1' then
-            sqm_data_err <= i_sqm_data_err;
+            sqm_data_err <= std_logic_vector(resize(signed(i_sqm_data_err), sqm_data_err'length));
 
          else
-            sqm_data_err <= std_logic_vector(resize(unsigned(c_I_SQM_ADC_DATA_DEF), sqm_data_err'length));
+            sqm_data_err <= std_logic_vector(resize(signed(c_I_SQM_ADC_DATA_DEF), sqm_data_err'length));
 
          end if;
 
@@ -582,10 +609,10 @@ begin
    begin
 
       if i_rst = '1' then
-         adc_smp_ave_coef <= c_ADC_SMP_AVE_TAB(to_integer(unsigned(c_EP_CMD_DEF_BXLGT)));
+         adc_smp_ave_coef <= std_logic_vector(resize(unsigned(c_ADC_SMP_AVE_TAB(to_integer(unsigned(c_EP_CMD_DEF_BXLGT)))), adc_smp_ave_coef'length));
 
       elsif rising_edge(i_clk) then
-         adc_smp_ave_coef <= c_ADC_SMP_AVE_TAB(to_integer(unsigned(bxlgt_sync)));
+         adc_smp_ave_coef <= std_logic_vector(resize(unsigned(c_ADC_SMP_AVE_TAB(to_integer(unsigned(bxlgt_sync)))), adc_smp_ave_coef'length));
 
       end if;
 
@@ -596,13 +623,13 @@ begin
    --    @Req : DRE-DMX-FW-REQ-0140
    -- ------------------------------------------------------------------------------------------------------
    I_adc_smp_ave: entity work.dsp generic map
-   (     g_PORTA_S            => c_ASP_CF_S           , -- integer                                          ; --! Port A bus size (<= c_MULT_ALU_PORTA_S)
+   (     g_PORTA_S            => c_ASP_CF_S+1         , -- integer                                          ; --! Port A bus size (<= c_MULT_ALU_PORTA_S)
          g_PORTB_S            => c_SQM_DATA_ERR_S     , -- integer                                          ; --! Port B bus size (<= c_MULT_ALU_PORTB_S)
          g_PORTC_S            => c_SQM_DATA_ERR_S     , -- integer                                          ; --! Port C bus size (<= c_MULT_ALU_PORTC_S)
          g_RESULT_S           => c_ADC_SMP_AVE_C_S    , -- integer                                          ; --! Result bus size (<= c_MULT_ALU_RESULT_S)
          g_RESULT_LSB_POS     => c_ADC_SMP_AVE_LSB    , -- integer                                          ; --! Result LSB position
 
-         g_DATA_TYPE          => c_MULT_ALU_UNSIGNED  , -- bit                                              ; --! Data type               ('0' = unsigned,           '1' = signed)
+         g_DATA_TYPE          => c_MULT_ALU_SIGNED    , -- bit                                              ; --! Data type               ('0' = unsigned,           '1' = signed)
          g_SAT_RANK           => c_ADC_SMP_AVE_SAT    , -- integer                                          ; --! Extrem values reached on result bus
                                                                                                               --!   unsigned: range from               0  to 2**(g_SAT_RANK+1) - 1
                                                                                                               --!     signed: range from -2**(g_SAT_RANK) to 2**(g_SAT_RANK)   - 1
@@ -634,7 +661,7 @@ begin
          e_pn_minus_elp_p <= (others => '0');
 
       elsif rising_edge(i_clk) then
-         e_pn_minus_elp_p <= std_logic_vector(signed(resize(unsigned(adc_smp_ave(adc_smp_ave'high downto 1)), e_pn_minus_elp_p'length)) +
+         e_pn_minus_elp_p <= std_logic_vector(       resize(  signed(adc_smp_ave(adc_smp_ave'high downto 1)), e_pn_minus_elp_p'length)  +
                                               signed(resize(unsigned(adc_smp_ave(0                downto 0)), e_pn_minus_elp_p'length)) -
                                               signed(resize(unsigned(elp_p_aln                             ), e_pn_minus_elp_p'length)));
       end if;
@@ -711,6 +738,8 @@ begin
          i_clk                => i_clk                , -- in     std_logic                                 ; --! Clock
          i_mem_acc_add        => dfb_mem_acc_add      , -- in     slv(log2_ceil(g_MEM_ACC_NW)-1 downto 0)   ; --! Memory accumulator address
          i_mem_acc_init_ena   => init_fbk_acc_dfb     , -- in     std_logic                                 ; --! Memory accumulator initialization enable ('0' = No, '1' = Yes)
+         i_mem_acc_rl_val     => c_DFB_PN_INIT_VAL_V  , -- in     std_logic_vector(g_DATA_ELN_S-1 downto 0) ; --! Memory accumulator relock value (signed)
+         i_rl_ena             => i_rl_ena             , -- in     std_logic                                 ; --! Relock enable ('0' = No, '1' = Yes)
          i_data_acc           => m_pn_rnd_sat_dfb_pn  , -- in     std_logic_vector(g_DATA_ACC_S-1 downto 0) ; --! Data to accumulate (signed)
          i_data_acc_rdy       => dfb_data_acc_rdy     , -- in     std_logic                                 ; --! Data to accumulate ready ('0' = Not ready, '1' = Ready)
          i_data_eln_rdy       => dfb_data_eln_rdy     , -- in     std_logic                                 ; --! Data element n ready     ('0' = Not ready, '1' = Ready)
@@ -762,6 +791,7 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   Adder with accumulator: FB(p,n+1) = FB(p,n) + M(p,n) + a(p) * dFB(p,n)
    --    @Req : DRE-DMX-FW-REQ-0160
+   --    @Req : DRE-DMX-FW-REQ-0400
    -- ------------------------------------------------------------------------------------------------------
    fb_mem_acc_add    <= pixel_pos_r(       c_FB_PN_RDY_POS);
    fb_data_eln_rdy   <= sqm_data_err_rdy_r(c_FB_PN_RDY_POS);
@@ -777,9 +807,11 @@ begin
          i_clk                => i_clk                , -- in     std_logic                                 ; --! Clock
          i_mem_acc_add        => fb_mem_acc_add       , -- in     slv(log2_ceil(g_MEM_ACC_NW)-1 downto 0)   ; --! Memory accumulator address
          i_mem_acc_init_ena   => init_fbk_acc_fb      , -- in     std_logic                                 ; --! Memory accumulator initialization enable ('0' = No, '1' = Yes)
+         i_mem_acc_rl_val     => smfb0_rl_rs          , -- in     std_logic_vector(g_DATA_ELN_S-1 downto 0) ; --! Memory accumulator relock value (signed)
+         i_rl_ena             => i_rl_ena             , -- in     std_logic                                 ; --! Relock enable ('0' = No, '1' = Yes)
          i_data_acc           => pc1_pn_rnd_sat_fb_pn , -- in     std_logic_vector(g_DATA_ACC_S-1 downto 0) ; --! Data to accumulate (signed)
          i_data_acc_rdy       => fb_data_acc_rdy      , -- in     std_logic                                 ; --! Data to accumulate ready ('0' = Not ready, '1' = Ready)
-         i_data_eln_rdy       => fb_data_eln_rdy      , -- in     std_logic                                                            ; --! Data element n ready     ('0' = Not ready, '1' = Ready)
+         i_data_eln_rdy       => fb_data_eln_rdy      , -- in     std_logic                                 ; --! Data element n ready     ('0' = Not ready, '1' = Ready)
          o_data_elnp1         => fb_pnp1              , -- out    std_logic_vector(g_DATA_ELN_S-1 downto 0) ; --! Data element n+1 (signed)
          o_data_eln           => fb_pn                  -- out    std_logic_vector(g_DATA_ELN_S-1 downto 0)   --! Data element n   (signed)
    );
@@ -870,7 +902,7 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   ADC sample average for science (rounded with saturation operation)
    -- ------------------------------------------------------------------------------------------------------
-   adc_smp_ave_sc <= '0' & adc_smp_ave(adc_smp_ave'high downto adc_smp_ave'length-c_SC_DATA_SER_NB*c_SC_DATA_SER_W_S-1);
+   adc_smp_ave_sc <= adc_smp_ave(adc_smp_ave'high) & adc_smp_ave(adc_smp_ave'high downto adc_smp_ave'length-c_SC_DATA_SER_NB*c_SC_DATA_SER_W_S-1);
 
    I_adc_smp_ave_sc: entity work.round_sat generic map
    (     g_DATA_CARRY_S       => c_SC_DATA_SER_NB*c_SC_DATA_SER_W_S+2 -- integer                              --! Data with carry bus size

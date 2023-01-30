@@ -384,7 +384,7 @@ begin
             sum_adc_data <= (others => '0');
 
          elsif sample_cnt(sample_cnt'high) = '0' then
-            sum_adc_data <= std_logic_vector(unsigned(sum_adc_data) + resize(unsigned(sqm_adc_data_r(sqm_adc_data_r'high)), sum_adc_data'length));
+            sum_adc_data <= std_logic_vector(signed(sum_adc_data) + resize(signed(sqm_adc_data_r(sqm_adc_data_r'high)), sum_adc_data'length));
 
          end if;
 

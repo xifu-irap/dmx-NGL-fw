@@ -117,7 +117,8 @@ begin
          i_sqa_dac_mux        => i_sqa_dac_mux        , -- in     slv(c_SQA_DAC_MUX_S-1 downto 0)           ; --! SQUID AMP DAC: Multiplexer
          i_sqa_dac_mx_en_n    => i_sqa_dac_mx_en_n    , -- in     std_logic                                 ; --! SQUID AMP DAC: Multiplexer Enable ('0' = Active, '1' = Inactive)
 
-         o_sqa_vout           => sqa_vout               -- out    real                                        --! Analog voltage (-g_SQA_DAC_VREF <= o_sqa_vout < g_SQA_DAC_VREF)
+         o_sqa_vout           => sqa_vout               -- out    real                                        --! Analog voltage (0.0 <= o_sqa_vout < c_SQA_COEF * g_SQA_DAC_VREF,
+                                                                                                              --!  with c_SQA_COEF = (2^(c_SQA_DAC_MUX_S+1)-1)/(c_SQA_DAC_COEF_DIV*2^c_SQA_DAC_MUX_S))
    );
 
    -- ------------------------------------------------------------------------------------------------------
