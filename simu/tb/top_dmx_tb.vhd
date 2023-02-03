@@ -143,6 +143,7 @@ begin
          i_brd_ref            => brd_ref              , -- in     std_logic_vector(  c_BRD_REF_S-1 downto 0); --! Board reference
          i_brd_model          => brd_model            , -- in     std_logic_vector(c_BRD_MODEL_S-1 downto 0); --! Board model
          i_sync               => sync                 , -- in     std_logic                                 ; --! Pixel sequence synchronization (R.E. detected = position sequence to the first pixel)
+         i_ras_data_valid     => '0'                  , -- in     std_logic                                 ; --! RAS Data valid ('0' = No, '1' = Yes)
 
          i_sqm_adc_data       => sqm_adc_data         , -- in     t_slv_arr c_NB_COL c_SQM_ADC_DATA_S       ; --! SQUID MUX ADC: Data
          i_sqm_adc_oor        => sqm_adc_oor          , -- in     std_logic_vector(c_NB_COL-1 downto 0)     ; --! SQUID MUX ADC: Out of range ('0' = No, '1' = under/over range)

@@ -6,7 +6,7 @@
 "DRE-DMX-FW-REQ-0050";"sqm_dac_mgt.vhd";"113"
 "DRE-DMX-FW-REQ-0050";"squid_adc_mgt.vhd";"139"
 "DRE-DMX-FW-REQ-0070";"pkg_project.vhd";"135"
-"DRE-DMX-FW-REQ-0070";"top_dmx.vhd";"493"
+"DRE-DMX-FW-REQ-0070";"top_dmx.vhd";"496"
 "DRE-DMX-FW-REQ-0080";"dmx_cmd.vhd";"77"
 "DRE-DMX-FW-REQ-0080";"pkg_project.vhd";"136"
 "DRE-DMX-FW-REQ-0080";"sqa_dac_mgt.vhd";"408"

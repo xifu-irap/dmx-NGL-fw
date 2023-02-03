@@ -46,6 +46,7 @@ entity top_dmx is port
          i_brd_ref            : in     std_logic_vector(  c_BRD_REF_S-1 downto 0)                           ; --! Board reference
          i_brd_model          : in     std_logic_vector(c_BRD_MODEL_S-1 downto 0)                           ; --! Board model
          i_sync               : in     std_logic                                                            ; --! Pixel sequence synchronization (R.E. detected = position sequence to the first pixel)
+         i_ras_data_valid     : in     std_logic                                                            ; --! RAS Data valid ('0' = No, '1' = Yes)
 
          i_sqm_adc_data       : in     t_slv_arr(0 to c_NB_COL-1)(c_SQM_ADC_DATA_S-1 downto 0)              ; --! SQUID MUX ADC: Data
          i_sqm_adc_oor        : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! SQUID MUX ADC: Out of range ('0' = No, '1' = under/over range)
@@ -79,7 +80,9 @@ entity top_dmx is port
          o_sqa_dac_snc_l_n    : out    std_logic_vector(c_NB_COL-1 downto 0)                                ; --! SQUID AMP DAC: Frame Synchronization DAC LSB ('0' = Active, '1' = Inactive)
          o_sqa_dac_snc_o_n    : out    std_logic_vector(c_NB_COL-1 downto 0)                                ; --! SQUID AMP DAC: Frame Synchronization DAC Offset ('0' = Active, '1' = Inactive)
          o_sqa_dac_mux        : out    t_slv_arr(0 to c_NB_COL-1)(c_SQA_DAC_MUX_S downto 1)                 ; --! SQUID AMP DAC: Multiplexer
-         o_sqa_dac_mx_en_n    : out    std_logic_vector(c_NB_COL-1 downto 0)                                  --! SQUID AMP DAC: Multiplexer Enable ('0' = Active, '1' = Inactive)
+         o_sqa_dac_mx_en_n    : out    std_logic_vector(c_NB_COL-1 downto 0)                                ; --! SQUID AMP DAC: Multiplexer Enable ('0' = Active, '1' = Inactive)
+
+         o_spare              : out    std_logic                                                              --! Spare
     );
 end entity top_dmx;
 
@@ -701,5 +704,6 @@ begin
    o_science_ctrl_23    <= science_data_ser(4*c_SC_DATA_SER_NB);
 
    o_science_data(o_science_data'high) <= (others => '0');
+   o_spare                             <= '0';
 
 end architecture rtl;

@@ -56,6 +56,11 @@ def synthesis_constraints(p,variant,option):
         SQM_ADC_2       = Region('SQM_ADC_2'    , 13,  6,  2,  3)
         SQM_ADC_3       = Region('SQM_ADC_3'    , 13, 16,  2,  3)
 
+        SQM_ADC_PWDN_0  = Region('SQM_ADC_PWD_0', 24,  2,  1,  1)
+        SQM_ADC_PWDN_1  = Region('SQM_ADC_PWD_1', 24,  2,  1,  1)
+        SQM_ADC_PWDN_2  = Region('SQM_ADC_PWD_2', 24,  2,  1,  1)
+        SQM_ADC_PWDN_3  = Region('SQM_ADC_PWD_3', 24,  2,  1,  1)
+
         CLK_SQM_DAC_0   = Region('CLK_SQM_DAC_0', 22, 22,  1,  1)
         CLK_SQM_DAC_1   = Region('CLK_SQM_DAC_1', 35,  2,  1,  1)
         CLK_SQM_DAC_2   = Region('CLK_SQM_DAC_2', 19,  2,  1,  1)
@@ -66,7 +71,10 @@ def synthesis_constraints(p,variant,option):
         SQM_DAC_2       = Region('SQM_DAC_2'    , 15,  4,  1,  3)
         SQM_DAC_3       = Region('SQM_DAC_3'    , 17, 18,  1,  3)
 
-        SQM_DAC_SLEEP   = Region('SQM_DAC_SLEEP',  1,  2,  1,  1)
+        SQM_DAC_SLEEP_0 = Region('SQM_DAC_SLP_0', 48,  6,  1,  1)
+        SQM_DAC_SLEEP_1 = Region('SQM_DAC_SLP_1', 48,  2,  1,  1)
+        SQM_DAC_SLEEP_2 = Region('SQM_DAC_SLP_2',  1,  2,  1,  1)
+        SQM_DAC_SLEEP_3 = Region('SQM_DAC_SLP_3',  1,  2,  1,  1)
 
         SQA_DAC_0       = Region('SQA_DAC_0'    , 47,  6,  2,  1)
         SQA_DAC_1       = Region('SQA_DAC_1'    , 47,  2,  2,  1)
@@ -99,10 +107,10 @@ def synthesis_constraints(p,variant,option):
         # ------------------------------------------------------------------------------------------------------
         #   SQUID MUX ADC management constraints
         # ------------------------------------------------------------------------------------------------------
-        p.constrainPath(['I_rst_clk_mgt|G_column_mgt[0].I_cmd_ck_adc|cmd_ck_sleep_reg'],['I_rst_clk_mgt|G_column_mgt[0].I_cmd_ck_adc|o_cmd_ck_sleep_reg'], 'adc_pwdn_0', 'Soft', CLK_SQM_ADC_0.c, CLK_SQM_ADC_0.r, CLK_SQM_ADC_0.w, CLK_SQM_ADC_0.h, CLK_SQM_ADC_0.n, False)
-        p.constrainPath(['I_rst_clk_mgt|G_column_mgt[1].I_cmd_ck_adc|cmd_ck_sleep_reg'],['I_rst_clk_mgt|G_column_mgt[1].I_cmd_ck_adc|o_cmd_ck_sleep_reg'], 'adc_pwdn_1', 'Soft', CLK_SQM_ADC_1.c, CLK_SQM_ADC_1.r, CLK_SQM_ADC_1.w, CLK_SQM_ADC_1.h, CLK_SQM_ADC_1.n, False)
-        p.constrainPath(['I_rst_clk_mgt|G_column_mgt[2].I_cmd_ck_adc|cmd_ck_sleep_reg'],['I_rst_clk_mgt|G_column_mgt[2].I_cmd_ck_adc|o_cmd_ck_sleep_reg'], 'adc_pwdn_2', 'Soft', CLK_SQM_ADC_2.c, CLK_SQM_ADC_2.r, CLK_SQM_ADC_2.w, CLK_SQM_ADC_2.h, CLK_SQM_ADC_2.n, False)
-        p.constrainPath(['I_rst_clk_mgt|G_column_mgt[3].I_cmd_ck_adc|cmd_ck_sleep_reg'],['I_rst_clk_mgt|G_column_mgt[3].I_cmd_ck_adc|o_cmd_ck_sleep_reg'], 'adc_pwdn_3', 'Soft', CLK_SQM_ADC_3.c, CLK_SQM_ADC_3.r, CLK_SQM_ADC_3.w, CLK_SQM_ADC_3.h, CLK_SQM_ADC_3.n, False)
+        p.constrainPath(['I_rst_clk_mgt|G_column_mgt[0].I_cmd_ck_adc|cmd_ck_sleep_reg'],['I_rst_clk_mgt|G_column_mgt[0].I_cmd_ck_adc|o_cmd_ck_sleep_reg'], 'adc_pwdn_0', 'Soft', SQM_ADC_PWDN_0.c, SQM_ADC_PWDN_0.r, SQM_ADC_PWDN_0.w, SQM_ADC_PWDN_0.h, SQM_ADC_PWDN_0.n, False)
+        p.constrainPath(['I_rst_clk_mgt|G_column_mgt[1].I_cmd_ck_adc|cmd_ck_sleep_reg'],['I_rst_clk_mgt|G_column_mgt[1].I_cmd_ck_adc|o_cmd_ck_sleep_reg'], 'adc_pwdn_1', 'Soft', SQM_ADC_PWDN_1.c, SQM_ADC_PWDN_1.r, SQM_ADC_PWDN_1.w, SQM_ADC_PWDN_1.h, SQM_ADC_PWDN_1.n, False)
+        p.constrainPath(['I_rst_clk_mgt|G_column_mgt[2].I_cmd_ck_adc|cmd_ck_sleep_reg'],['I_rst_clk_mgt|G_column_mgt[2].I_cmd_ck_adc|o_cmd_ck_sleep_reg'], 'adc_pwdn_2', 'Soft', SQM_ADC_PWDN_2.c, SQM_ADC_PWDN_2.r, SQM_ADC_PWDN_2.w, SQM_ADC_PWDN_2.h, SQM_ADC_PWDN_2.n, False)
+        p.constrainPath(['I_rst_clk_mgt|G_column_mgt[3].I_cmd_ck_adc|cmd_ck_sleep_reg'],['I_rst_clk_mgt|G_column_mgt[3].I_cmd_ck_adc|o_cmd_ck_sleep_reg'], 'adc_pwdn_3', 'Soft', SQM_ADC_PWDN_3.c, SQM_ADC_PWDN_3.r, SQM_ADC_PWDN_3.w, SQM_ADC_PWDN_3.h, SQM_ADC_PWDN_3.n, False)
 
         p.constrainModule('|-> squid_adc_mgt [ G_column_mgt[0].I_squid_adc_mgt ]', 'squid_adc_mgt_0', 'Soft', SQM_ADC_0.c, SQM_ADC_0.r, SQM_ADC_0.w, SQM_ADC_0.h, SQM_ADC_0.n, False)
         p.constrainModule('|-> squid_adc_mgt [ G_column_mgt[1].I_squid_adc_mgt ]', 'squid_adc_mgt_1', 'Soft', SQM_ADC_1.c, SQM_ADC_1.r, SQM_ADC_1.w, SQM_ADC_1.h, SQM_ADC_1.n, False)
@@ -125,10 +133,10 @@ def synthesis_constraints(p,variant,option):
         # ------------------------------------------------------------------------------------------------------
         #   SQUID MUX DAC management constraints
         # ------------------------------------------------------------------------------------------------------
-        p.constrainPath(['I_rst_clk_mgt|G_column_mgt[0].I_cmd_ck_sqm_dac|cmd_ck_sleep_reg'],['I_rst_clk_mgt|G_column_mgt[0].I_cmd_ck_sqm_dac|o_cmd_ck_sleep_reg'], 'dac_sleep_0', 'Soft', SQM_DAC_SLEEP.c, SQM_DAC_SLEEP.r, SQM_DAC_SLEEP.w, SQM_DAC_SLEEP.h, SQM_DAC_SLEEP.n, False)
-        p.constrainPath(['I_rst_clk_mgt|G_column_mgt[1].I_cmd_ck_sqm_dac|cmd_ck_sleep_reg'],['I_rst_clk_mgt|G_column_mgt[1].I_cmd_ck_sqm_dac|o_cmd_ck_sleep_reg'], 'dac_sleep_1', 'Soft', SQM_DAC_SLEEP.c, SQM_DAC_SLEEP.r, SQM_DAC_SLEEP.w, SQM_DAC_SLEEP.h, SQM_DAC_SLEEP.n, False)
-        p.constrainPath(['I_rst_clk_mgt|G_column_mgt[2].I_cmd_ck_sqm_dac|cmd_ck_sleep_reg'],['I_rst_clk_mgt|G_column_mgt[2].I_cmd_ck_sqm_dac|o_cmd_ck_sleep_reg'], 'dac_sleep_2', 'Soft', SQM_DAC_SLEEP.c, SQM_DAC_SLEEP.r, SQM_DAC_SLEEP.w, SQM_DAC_SLEEP.h, SQM_DAC_SLEEP.n, False)
-        p.constrainPath(['I_rst_clk_mgt|G_column_mgt[3].I_cmd_ck_sqm_dac|cmd_ck_sleep_reg'],['I_rst_clk_mgt|G_column_mgt[3].I_cmd_ck_sqm_dac|o_cmd_ck_sleep_reg'], 'dac_sleep_3', 'Soft', SQM_DAC_SLEEP.c, SQM_DAC_SLEEP.r, SQM_DAC_SLEEP.w, SQM_DAC_SLEEP.h, SQM_DAC_SLEEP.n, False)
+        p.constrainPath(['I_rst_clk_mgt|G_column_mgt[0].I_cmd_ck_sqm_dac|cmd_ck_sleep_reg'],['I_rst_clk_mgt|G_column_mgt[0].I_cmd_ck_sqm_dac|o_cmd_ck_sleep_reg'], 'dac_sleep_0', 'Soft', SQM_DAC_SLEEP_0.c, SQM_DAC_SLEEP_0.r, SQM_DAC_SLEEP_0.w, SQM_DAC_SLEEP_0.h, SQM_DAC_SLEEP_0.n, False)
+        p.constrainPath(['I_rst_clk_mgt|G_column_mgt[1].I_cmd_ck_sqm_dac|cmd_ck_sleep_reg'],['I_rst_clk_mgt|G_column_mgt[1].I_cmd_ck_sqm_dac|o_cmd_ck_sleep_reg'], 'dac_sleep_1', 'Soft', SQM_DAC_SLEEP_1.c, SQM_DAC_SLEEP_1.r, SQM_DAC_SLEEP_1.w, SQM_DAC_SLEEP_1.h, SQM_DAC_SLEEP_1.n, False)
+        p.constrainPath(['I_rst_clk_mgt|G_column_mgt[2].I_cmd_ck_sqm_dac|cmd_ck_sleep_reg'],['I_rst_clk_mgt|G_column_mgt[2].I_cmd_ck_sqm_dac|o_cmd_ck_sleep_reg'], 'dac_sleep_2', 'Soft', SQM_DAC_SLEEP_2.c, SQM_DAC_SLEEP_2.r, SQM_DAC_SLEEP_2.w, SQM_DAC_SLEEP_2.h, SQM_DAC_SLEEP_2.n, False)
+        p.constrainPath(['I_rst_clk_mgt|G_column_mgt[3].I_cmd_ck_sqm_dac|cmd_ck_sleep_reg'],['I_rst_clk_mgt|G_column_mgt[3].I_cmd_ck_sqm_dac|o_cmd_ck_sleep_reg'], 'dac_sleep_3', 'Soft', SQM_DAC_SLEEP_3.c, SQM_DAC_SLEEP_3.r, SQM_DAC_SLEEP_3.w, SQM_DAC_SLEEP_3.h, SQM_DAC_SLEEP_3.n, False)
 
         p.constrainModule('|-> sqm_dac_mgt [ G_column_mgt[0].I_sqm_dac_mgt ]', 'sqm_dac_mgt_0', 'Soft', SQM_DAC_0.c, SQM_DAC_0.r, SQM_DAC_0.w, SQM_DAC_0.h, SQM_DAC_0.n, False)
         p.constrainModule('|-> sqm_dac_mgt [ G_column_mgt[1].I_sqm_dac_mgt ]', 'sqm_dac_mgt_1', 'Soft', SQM_DAC_1.c, SQM_DAC_1.r, SQM_DAC_1.w, SQM_DAC_1.h, SQM_DAC_1.n, False)
