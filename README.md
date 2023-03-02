@@ -6,6 +6,8 @@ DRE-DEMUX TDM firmware.
    - Firmware specification:
       + IRAP/XIFU-DRE/FM/SP/0065 - DRE TDM firmware requirements, ed. 0.15
       + IRAP/XIFU-DRE/FM/SP/0069 - DRE Inter-Modules Telemetry And Commands Definition, ed. 0.8
+      + IRAP/XIFU-DRE/FM/SP/0136 - FPAsim command dictionnary, rev. 4
+   - FPASIM simulation coupling: https://github.com/xifu-irap/fpasim-fw (commit 8d6bbdc)
 
 ## 1. Directories and files description
 
@@ -47,7 +49,7 @@ DRE-DEMUX TDM firmware.
       1. Position to the path directory for result simulation storage (choosen by user)
       2. Run Modelsim: vsim
       3. Run command: do ../../simu/script/no_regression.do
-      4. Run function (XXXX: unitary test number on 4 characters): run_utest DRE_DMX_UT_XXXX_cfg
+      4. Run function (XXXX: unitary test number on 4 characters): run_utest XXXX
       5. The unitary test result is stored in directory /simu/result
 
 
@@ -62,8 +64,8 @@ DRE-DEMUX TDM firmware.
 ## 3. New unitary test creation
 
    For a new unitary test, it is necessary to create the following files, XXXX corresponding to unitary test number on 4 characters:
-   - A script file named DRE_DMX_UT_XXXX, located in directory /simu/utest
-   - A configuration VHDL file named DRE_DMX_UT_XXXX_cfg.vhd, located in directory /simu/conf.
+   - A script file named DRE_DMX_UT_XXXX, located in directory /simu/utest, which describes the test scenario in the form of sequential commands
+   - A configuration VHDL file named DRE_DMX_UT_XXXX_cfg.vhd, located in directory /simu/conf, which describes the static parameters of the test.
 
    The configuration VHDL file can include the non nominal parameter generics of model components used by the unitary test, the generics of parser must be absolutely defined:
    - g_SIM_TIME (time)  : Simulation time
@@ -87,7 +89,8 @@ DRE-DEMUX TDM firmware.
    - Position 24+x: **sqm_dac_sleep(x)**, SQUID MUX DAC column 'x' (0->3) – DAC Sleep ('0' = Inactive, '1' = Active)
    - Position 28+x: **clk_sqm_adc(x)**, SQUID MUX ADC column 'x' (0->3) - Clock
    - Position 32+x: **clk_sqm_dac(x)**, SQUID MUX DAC column 'x' (0->3) - Clock
-   - Position 63-36: Not Used
+   - Position 36+x: **fpa_conf_busy(x)**, FPASIM column 'x' (0->3) - configuration ('0' = conf. over, '1' = conf. in progress)
+   - Position 63-40: Not Used
 
 
 ## 5. Discrete outputs description (seen from simulation pilot side)
@@ -95,7 +98,7 @@ DRE-DEMUX TDM firmware.
    Discrete outputs are grouped together in a 64 bits field (bit position 63 is the MSB, bit position 0 is the LSB):
   - Position 0: **arst_n**, DRE-DEMUX input, Asynchronous reset ('0' = Active, '1' = Inactive)
   - Position 3-1: **brd_model(y)**, DRE-DEMUX input, Board model bit 'y' (0->2)
-  - Position 5-4: **sw_adc_vin(1)/sw_adc_vin(0)**, SQUID model input, Switch ADC Voltage input ("00": SQUID MUX DAC voltage, "01": SQUID AMP DAC voltage)
+  - Position 5-4: **sw_adc_vin(1)/sw_adc_vin(0)**, SQUID model input, Switch ADC Voltage input ("00": SQUID MUX DAC voltage, "01": SQUID AMP DAC voltage, "10": FPASIM Error voltage)
   - Position 6: **frm_cnt_sc_rst**, Science Data model input, Frame counter science reset ('0' = Active, '1' = Inactive)
 
 
@@ -123,10 +126,8 @@ DRE-DEMUX TDM firmware.
    Select the science packet type
    - **science_data**
    - **test_pattern**
-   - **adc_dump(0)**
-   - **adc_dump(1)**
-   - **adc_dump(2)**
-   - **adc_dump(3)**
+   - **adc_dump**
+   - **error_signal**
 
 
 ## 8. Unitary test script commands description
@@ -215,6 +216,11 @@ DRE-DEMUX TDM firmware.
    - Command WDIS **discrete_w** **value**: write discrete output
       + Parameter **discrete_w** : discrete output select (see 5 on discrete outputs description)
       + Parameter **value** : (1 bit U/X/0/1/Z/W/L/H/-) discrete output value
+
+
+   - Command WFMP **channel** **data**: write FPASIM "Make pulse" command
+      + Parameter **channel** : decimal range 0 to c_NB_COL-1, channel number
+      + Parameter **data** : 32 bits hexa (underscore can be inserted), FPASIM "Make pulse" data as defined by IRAP/XIFU-DRE/FM/SP/0136
 
 
    - Command WMDC **channel** **frame** **index** **data**: Write in ADC dump/science memories for data compare

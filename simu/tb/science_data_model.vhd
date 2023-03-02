@@ -74,7 +74,7 @@ entity science_data_model is generic
    );
 end entity science_data_model;
 
-architecture RTL of science_data_model is
+architecture Behavioral of science_data_model is
 constant c_DMP_CNT_NB_VAL     : integer:= c_DMP_SEQ_ACQ_NB * c_MUX_FACT * c_PIXEL_ADC_NB_CYC                ; --! Memory Dump, ADC acquisition counter: number of value
 constant c_DMP_CNT_MAX_VAL    : integer:= c_DMP_CNT_NB_VAL-1                                                ; --! Memory Dump, ADC acquisition counter: maximal value
 constant c_DMP_CNT_S          : integer:= log2_ceil(c_DMP_CNT_MAX_VAL + 1) + 1                              ; --! Memory Dump, ADC acquisition counter: size bus (signed)
@@ -491,4 +491,4 @@ begin
 
    end process P_sc_packet_chk;
 
-end architecture rtl;
+end architecture Behavioral;

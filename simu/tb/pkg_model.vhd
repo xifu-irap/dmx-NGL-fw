@@ -132,8 +132,12 @@ constant c_DR_CLK_SQM_DAC_0   : integer :=  32                                  
 constant c_DR_CLK_SQM_DAC_1   : integer :=  33                                                              ; --! Discrete input index, signal: i_c1_clk_sqm_dac
 constant c_DR_CLK_SQM_DAC_2   : integer :=  34                                                              ; --! Discrete input index, signal: i_c2_clk_sqm_dac
 constant c_DR_CLK_SQM_DAC_3   : integer :=  35                                                              ; --! Discrete input index, signal: i_c3_clk_sqm_dac
+constant c_DR_FPA_CONF_BUSY_0 : integer :=  36                                                              ; --! Discrete input index, signal: i_c0_fpa_conf_busy
+constant c_DR_FPA_CONF_BUSY_1 : integer :=  37                                                              ; --! Discrete input index, signal: i_c1_fpa_conf_busy
+constant c_DR_FPA_CONF_BUSY_2 : integer :=  38                                                              ; --! Discrete input index, signal: i_c2_fpa_conf_busy
+constant c_DR_FPA_CONF_BUSY_3 : integer :=  39                                                              ; --! Discrete input index, signal: i_c3_fpa_conf_busy
 
-constant c_DR_S               : integer :=  36                                                              ; --! Discrete input size
+constant c_DR_S               : integer :=  40                                                              ; --! Discrete input size
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Parser discrete output index
@@ -203,6 +207,9 @@ constant c_SYNC_PER_DEF       : time    := c_MUX_FACT * c_PIXEL_ADC_NB_CYC *
                                              c_CLK_REF_MULT / c_CLK_ADC_DAC_MULT * c_CLK_REF_PER_DEF        ; --! Pixel sequence synchronization period default value
 constant c_SYNC_SHIFT_DEF     : time    :=  1 * c_CLK_REF_PER_DEF                                           ; --! Pixel sequence synchronization shift default value
 
+constant c_CLK_FPA_MULT       : integer := 4                                                                ; --! FPASIM Clock multiplier frequency factor
+constant c_CLK_FPA_PER_DEF    : time    := c_CLK_REF_PER_DEF / c_CLK_FPA_MULT                               ; --! FPASIM Clock period default value
+
 constant c_EP_CLK_PER_DEF     : time    := 18000 ps                                                         ; --! EP: System clock period default value
 constant c_EP_CLK_PER_SHFT_DEF: time    := 3 ns                                                             ; --! EP: Clock period shift default value
 constant c_EP_SCLK_L_DEF      : integer := 12                                                               ; --! EP: Number of clock period for elaborating SPI Serial Clock low  level default value
@@ -216,9 +223,24 @@ constant c_SQM_DAC_VREF_DEF   : real    := 1.0                                  
 constant c_SQA_DAC_VREF_DEF   : real    := 3.3                                                              ; --! SQUID AMP DAC: Voltage reference (Volt) default value
 constant c_SQA_DAC_TS_DEF     : time    := 12 us                                                            ; --! SQUID AMP DAC: Output Voltage Settling time default value
 constant c_SQA_MUX_TPLH_DEF   : time    :=  4 ns                                                            ; --! SQUID AMP MUX: Propagation delay switch in to out default value
+constant c_SQM_VOLT_DEL_DEF   : time    :=  0 ns                                                            ; --! SQUID MUX voltage delay
+constant c_SQA_VOLT_DEL_DEF   : time    :=  0 ns                                                            ; --! SQUID AMP voltage delay
+constant c_SQERR_VOLT_DEL_DEF : time    :=  0 ns                                                            ; --! SQUID Error voltage delay
 
 constant c_PLS_SP_CHK_ENA_DEF : std_logic := '0'                                                            ; --! Pulse shaping check enable default value ('0' = Disable, '1' = Enable)
 constant c_PLS_CUT_FREQ_DEF   : integer   := 20000000                                                       ; --! Pulse shaping cut frequency default value (Hz)
+
+constant c_FPA_CMD_S          : integer := 32                                                               ; --! FPASIM: Command bus size
+constant c_FPA_ADC_VPP_DEF    : natural := 2 * integer(c_SQM_DAC_VREF_DEF)                                  ; --! FPASIM: ADC differential input voltage default value (Volt)
+constant c_FPA_ADC_DEL_DEF    : natural := 0                                                                ; --! FPASIM: ADC conversion delay default value (clock cycle number)
+constant c_FPA_DAC_VPP_DEF    : natural := 2 * integer(c_SQM_ADC_VREF_DEF)                                  ; --! FPASIM: DAC differential output voltage default value (Volt)
+constant c_FPA_DAC_DEL_DEF    : natural := 0                                                                ; --! FPASIM: DAC conversion delay default value (clock cycle number)
+constant c_FPA_ERR_GAIN_DEF   : natural := 3                                                                ; --! FPASIM cmd: Error gain default value (0:0.25, 1:0.5, 3:1, 4:1.5, 5:2, 6:3, 7:4)
+constant c_FPA_MUX_SQ_DEL_DEF : natural := 3                                                                ; --! FPASIM cmd: Squid MUX delay (clock cycle number) default value (<= 63)
+constant c_FPA_AMP_SQ_DEL_DEF : natural := 3                                                                ; --! FPASIM cmd: Squid AMP delay (clock cycle number) default value (<= 63)
+constant c_FPA_ERR_DEL_DEF    : natural := 3                                                                ; --! FPASIM cmd: Error delay (clock cycle number) default value (<= 63)
+constant c_FPA_SYNC_DEL_DEF   : natural := 4                                                                ; --! FPASIM cmd: Pixel sequence sync. delay (clock cycle number) default value (<= 63)
+constant c_FPA_PXL_NB_CYC_DEF : integer := c_PIXEL_ADC_NB_CYC * c_CLK_FPA_MULT / c_CLK_ADC_DAC_MULT         ; --! FPASIM: clock period number allocated to one pixel acquisition
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Model constants
@@ -254,6 +276,7 @@ constant c_SQA_DAC_COEF_DIV   : real    := 6.0                                  
 constant c_SW_ADC_VIN_S       : integer :=  2                                                               ; --! Switch ADC voltage input bus size
 constant c_SW_ADC_VIN_ST_SQM  : std_logic_vector(c_SW_ADC_VIN_S-1 downto 0) := "00"                         ; --! Switch ADC voltage input: SQUID MUX voltage state
 constant c_SW_ADC_VIN_ST_SQA  : std_logic_vector(c_SW_ADC_VIN_S-1 downto 0) := "01"                         ; --! Switch ADC voltage input: SQUID AMP voltage state
+constant c_SW_ADC_VIN_ST_FPA  : std_logic_vector(c_SW_ADC_VIN_S-1 downto 0) := "10"                         ; --! Switch ADC voltage input: FPASIM error voltage state
 
 constant c_MEM_SC_FRM_NB      : integer := 32                                                               ; --! Memory science data frame number
 constant c_MEM_SC_FRM_NB_S    : integer := log2_ceil(c_MEM_SC_FRM_NB+1)                                     ; --! Memory science data frame number bus size
@@ -339,7 +362,10 @@ constant c_SCHK               : t_spi_chk_prm_arr(0 to c_CHK_ENA_SPI_NB-1) :=
          g_SQA_DAC_TS         : time      := c_SQA_DAC_TS_DEF                                               ; --! SQUID AMP DAC: Output Voltage Settling time
          g_SQA_MUX_TPLH       : time      := c_SQA_MUX_TPLH_DEF                                             ; --! SQUID AMP MUX: Propagation delay switch in to out
          g_CLK_ADC_PER        : time      := c_CLK_ADC_PER_DEF                                              ; --! SQUID MUX ADC: Clock period
-         g_TIM_ADC_TPD        : time      := c_TIM_ADC_TPD_DEF                                                --! SQUID MUX ADC: Time, Data Propagation Delay
+         g_TIM_ADC_TPD        : time      := c_TIM_ADC_TPD_DEF                                              ; --! SQUID MUX ADC: Time, Data Propagation Delay
+         g_SQM_VOLT_DEL       : time      := c_SQM_VOLT_DEL_DEF                                             ; --! SQUID MUX voltage delay
+         g_SQA_VOLT_DEL       : time      := c_SQA_VOLT_DEL_DEF                                             ; --! SQUID AMP voltage delay
+         g_SQERR_VOLT_DEL     : time      := c_SQERR_VOLT_DEL_DEF                                             --! SQUID Error voltage delay
    ); port
    (     i_arst               : in     std_logic                                                            ; --! Asynchronous reset ('0' = Inactive, '1' = Active)
          i_sync               : in     std_logic                                                            ; --! Pixel sequence synchronization (R.E. detected = position sequence to the first pixel)
@@ -367,7 +393,11 @@ constant c_SCHK               : t_spi_chk_prm_arr(0 to c_CHK_ENA_SPI_NB-1) :=
          i_sqa_dac_snc_l_n    : in     std_logic                                                            ; --! SQUID AMP DAC: Frame Synchronization DAC LSB ('0' = Active, '1' = Inactive)
          i_sqa_dac_snc_o_n    : in     std_logic                                                            ; --! SQUID AMP DAC: Frame Synchronization DAC Offset ('0' = Active, '1' = Inactive)
          i_sqa_dac_mux        : in     std_logic_vector( c_SQA_DAC_MUX_S-1 downto 0)                        ; --! SQUID AMP DAC: Multiplexer
-         i_sqa_dac_mx_en_n    : in     std_logic                                                              --! SQUID AMP DAC: Multiplexer Enable ('0' = Active, '1' = Inactive)
+         i_sqa_dac_mx_en_n    : in     std_logic                                                            ; --! SQUID AMP DAC: Multiplexer Enable ('0' = Active, '1' = Inactive)
+
+         i_squid_err_volt     : in     real                                                                 ; --! SQUID Error voltage (Volt)
+         o_sqm_dac_delta_volt : out    real                                                                 ; --! SQUID MUX voltage (Vin+ - Vin-) (Volt)
+         o_sqa_volt           : out    real                                                                   --! SQUID AMP voltage (Volt)
    );
    end component;
 
@@ -437,7 +467,15 @@ constant c_SCHK               : t_spi_chk_prm_arr(0 to c_CHK_ENA_SPI_NB-1) :=
          o_adc_dmp_mem_add    : out    std_logic_vector(  c_MEM_SC_ADD_S-1 downto 0)                        ; --! ADC Dump memory for data compare: address
          o_adc_dmp_mem_data   : out    std_logic_vector(c_SQM_ADC_DATA_S+1 downto 0)                        ; --! ADC Dump memory for data compare: data
          o_science_mem_data   : out    std_logic_vector(c_SC_DATA_SER_NB*c_SC_DATA_SER_W_S-1 downto 0)      ; --! Science  memory for data compare: data
-         o_adc_dmp_mem_cs     : out    std_logic_vector(        c_NB_COL-1 downto 0)                          --! ADC Dump memory for data compare: chip select ('0' = Inactive, '1' = Active)
+         o_adc_dmp_mem_cs     : out    std_logic_vector(        c_NB_COL-1 downto 0)                        ; --! ADC Dump memory for data compare: chip select ('0' = Inactive, '1' = Active)
+
+         i_c0_fpa_conf_busy   : in     std_logic                                                            ; --! FPASIM, col. 0: configuration ('0' = conf. over, '1' = conf. in progress)
+         i_c1_fpa_conf_busy   : in     std_logic                                                            ; --! FPASIM, col. 1: configuration ('0' = conf. over, '1' = conf. in progress)
+         i_c2_fpa_conf_busy   : in     std_logic                                                            ; --! FPASIM, col. 2: configuration ('0' = conf. over, '1' = conf. in progress)
+         i_c3_fpa_conf_busy   : in     std_logic                                                            ; --! FPASIM, col. 3: configuration ('0' = conf. over, '1' = conf. in progress)
+         i_fpa_cmd_rdy        : in     std_logic_vector(        c_NB_COL-1 downto 0)                        ; --! FPASIM command ready ('0' = No, '1' = Yes)
+         o_fpa_cmd            : out    t_slv_arr(0 to c_NB_COL-1)(c_FPA_CMD_S-1 downto 0)                   ; --! FPASIM command
+         o_fpa_cmd_valid      : out    std_logic_vector(        c_NB_COL-1 downto 0)                          --! FPASIM command valid ('0' = No, '1' = Yes)
    );
    end component;
 
@@ -473,6 +511,37 @@ constant c_SCHK               : t_spi_chk_prm_arr(0 to c_CHK_ENA_SPI_NB-1) :=
 
          o_sc_pkt_type        : out    std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0)                       ; --! Science packet type
          o_sc_pkt_err         : out    std_logic                                                              --! Science packet error ('0' = No error, '1' = Error)
+   );
+   end component;
+
+   component fpga_system_fpasim_top is generic
+   (     g_ADC_VPP            : natural := c_FPA_ADC_VPP_DEF                                                ; --! ADC differential input voltage (Volt)
+         g_ADC_DELAY          : natural := c_FPA_ADC_DEL_DEF                                                ; --! ADC conversion delay (clock cycle number)
+         g_DAC_VPP            : natural := c_FPA_DAC_VPP_DEF                                                ; --! DAC differential output voltage (Volt)
+         g_DAC_DELAY          : natural := c_FPA_DAC_DEL_DEF                                                ; --! DAC conversion delay (clock cycle number)
+         g_FPASIM_GAIN        : natural := c_FPA_ERR_GAIN_DEF                                               ; --! FPASIM cmd: Error gain (0:0.25, 1:0.5, 3:1, 4:1.5, 5:2, 6:3, 7:4)
+         g_MUX_SQ_FB_DELAY    : natural := c_FPA_MUX_SQ_DEL_DEF                                             ; --! FPASIM cmd: Squid MUX delay (clock cycle number) (<= 63)
+         g_AMP_SQ_OF_DELAY    : natural := c_FPA_AMP_SQ_DEL_DEF                                             ; --! FPASIM cmd: Squid AMP delay (clock cycle number) (<= 63)
+         g_ERROR_DELAY        : natural := c_FPA_ERR_DEL_DEF                                                ; --! FPASIM cmd: Error delay (clock cycle number) (<= 63)
+         g_RA_DELAY           : natural := c_FPA_SYNC_DEL_DEF                                               ; --! FPASIM cmd: Pixel sequence sync. delay (clock cycle number) (<= 63)
+         g_NB_PIXEL_BY_FRAME  : natural := c_MUX_FACT                                                       ; --! DEMUX multiplexing factor
+         g_NB_SAMPLE_BY_PIXEL : natural := c_FPA_PXL_NB_CYC_DEF                                               --! Clock cycles number by pixel
+   ); port
+   (     i_make_pulse_valid   : in     std_logic                                                            ; --! FPASIM command valid ('0' = No, '1' = Yes)
+         i_make_pulse         : in     std_logic_vector(c_FPA_CMD_S-1 downto 0)                             ; --! FPASIM command
+         o_auto_conf_busy     : out    std_logic                                                            ; --! FPASIM configuration ('0' = conf. over, '1' = conf. in progress)
+         o_ready              : out    std_logic                                                            ; --! FPASIM command ready ('0' = No, '1' = Yes)
+
+         i_adc_clk_phase      : in     std_logic                                                            ; --! FPASIM ADC 90 degrees shifted clock
+         i_adc_clk            : in     std_logic                                                            ; --! FPASIM ADC clock
+         i_adc0_real          : in     real                                                                 ; --! FPASIM ADC Analog Squid MUX
+         i_adc1_real          : in     real                                                                 ; --! FPASIM ADC Analog Squid AMP
+
+         o_ref_clk            : out    std_logic                                                            ; --! Reference Clock
+         o_sync               : out    std_logic                                                            ; --! Pixel sequence synchronization (R.E. detected = position sequence to the first pixel)
+
+         o_dac_real_valid     : out    std_logic                                                            ; --! FPASIM DAC Error valid ('0' = No, '1' = Yes)
+         o_dac_real           : out    real                                                                   --! FPASIM DAC Analog Error
    );
    end component;
 

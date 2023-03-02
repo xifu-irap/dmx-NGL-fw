@@ -65,7 +65,10 @@ configuration DRE_DMX_UT_0110_cfg of top_dmx_tb is
             g_SQA_DAC_TS         => c_SQA_DAC_TS_DEF     , -- time      := c_SQA_DAC_TS_DEF                 ; --! SQUID AMP DAC: Output Voltage Settling time
             g_SQA_MUX_TPLH       => c_SQA_MUX_TPLH_DEF   , -- time      := c_SQA_MUX_TPLH_DEF               ; --! SQUID AMP MUX: Propagation delay switch in to out
             g_CLK_ADC_PER        => c_CLK_ADC_PER_DEF    , -- time      := c_CLK_ADC_PER_DEF                ; --! SQUID MUX ADC: Clock period
-            g_TIM_ADC_TPD        => c_TIM_ADC_TPD_DEF      -- time      := c_TIM_ADC_TPD_DEF                  --! SQUID MUX ADC: Time, Data Propagation Delay
+            g_TIM_ADC_TPD        => c_CLK_ADC_PER_DEF    , -- time      := c_TIM_ADC_TPD_DEF                ; --! SQUID MUX ADC: Time, Data Propagation Delay
+            g_SQM_VOLT_DEL       => c_SQM_VOLT_DEL_DEF   , -- time      := c_SQM_VOLT_DEL_DEF               ; --! SQUID MUX voltage delay
+            g_SQA_VOLT_DEL       => c_SQA_VOLT_DEL_DEF   , -- time      := c_SQA_VOLT_DEL_DEF               ; --! SQUID AMP voltage delay
+            g_SQERR_VOLT_DEL     => c_SQERR_VOLT_DEL_DEF   -- time      := c_SQERR_VOLT_DEL_DEF               --! SQUID Error voltage delay
             );
          end for;
       end for;
@@ -80,7 +83,10 @@ configuration DRE_DMX_UT_0110_cfg of top_dmx_tb is
             g_SQA_DAC_TS         => c_SQA_DAC_TS_DEF     , -- time      := c_SQA_DAC_TS_DEF                 ; --! SQUID AMP DAC: Output Voltage Settling time
             g_SQA_MUX_TPLH       => c_SQA_MUX_TPLH_DEF   , -- time      := c_SQA_MUX_TPLH_DEF               ; --! SQUID AMP MUX: Propagation delay switch in to out
             g_CLK_ADC_PER        => c_CLK_ADC_PER_DEF    , -- time      := c_CLK_ADC_PER_DEF                ; --! SQUID MUX ADC: Clock period
-            g_TIM_ADC_TPD        => c_TIM_ADC_TPD_DEF      -- time      := c_TIM_ADC_TPD_DEF                  --! SQUID MUX ADC: Time, Data Propagation Delay
+            g_TIM_ADC_TPD        => c_CLK_ADC_PER_DEF    , -- time      := c_TIM_ADC_TPD_DEF                ; --! SQUID MUX ADC: Time, Data Propagation Delay
+            g_SQM_VOLT_DEL       => c_SQM_VOLT_DEL_DEF   , -- time      := c_SQM_VOLT_DEL_DEF               ; --! SQUID MUX voltage delay
+            g_SQA_VOLT_DEL       => c_SQA_VOLT_DEL_DEF   , -- time      := c_SQA_VOLT_DEL_DEF               ; --! SQUID AMP voltage delay
+            g_SQERR_VOLT_DEL     => c_SQERR_VOLT_DEL_DEF   -- time      := c_SQERR_VOLT_DEL_DEF               --! SQUID Error voltage delay
             );
          end for;
       end for;
@@ -95,7 +101,10 @@ configuration DRE_DMX_UT_0110_cfg of top_dmx_tb is
             g_SQA_DAC_TS         => c_SQA_DAC_TS_DEF     , -- time      := c_SQA_DAC_TS_DEF                 ; --! SQUID AMP DAC: Output Voltage Settling time
             g_SQA_MUX_TPLH       => c_SQA_MUX_TPLH_DEF   , -- time      := c_SQA_MUX_TPLH_DEF               ; --! SQUID AMP MUX: Propagation delay switch in to out
             g_CLK_ADC_PER        => c_CLK_ADC_PER_DEF    , -- time      := c_CLK_ADC_PER_DEF                ; --! SQUID MUX ADC: Clock period
-            g_TIM_ADC_TPD        => c_TIM_ADC_TPD_DEF      -- time      := c_TIM_ADC_TPD_DEF                  --! SQUID MUX ADC: Time, Data Propagation Delay
+            g_TIM_ADC_TPD        => c_CLK_ADC_PER_DEF    , -- time      := c_TIM_ADC_TPD_DEF                ; --! SQUID MUX ADC: Time, Data Propagation Delay
+            g_SQM_VOLT_DEL       => c_SQM_VOLT_DEL_DEF   , -- time      := c_SQM_VOLT_DEL_DEF               ; --! SQUID MUX voltage delay
+            g_SQA_VOLT_DEL       => c_SQA_VOLT_DEL_DEF   , -- time      := c_SQA_VOLT_DEL_DEF               ; --! SQUID AMP voltage delay
+            g_SQERR_VOLT_DEL     => c_SQERR_VOLT_DEL_DEF   -- time      := c_SQERR_VOLT_DEL_DEF               --! SQUID Error voltage delay
             );
          end for;
       end for;
@@ -110,7 +119,10 @@ configuration DRE_DMX_UT_0110_cfg of top_dmx_tb is
             g_SQA_DAC_TS         => c_SQA_DAC_TS_DEF     , -- time      := c_SQA_DAC_TS_DEF                 ; --! SQUID AMP DAC: Output Voltage Settling time
             g_SQA_MUX_TPLH       => c_SQA_MUX_TPLH_DEF   , -- time      := c_SQA_MUX_TPLH_DEF               ; --! SQUID AMP MUX: Propagation delay switch in to out
             g_CLK_ADC_PER        => c_CLK_ADC_PER_DEF    , -- time      := c_CLK_ADC_PER_DEF                ; --! SQUID MUX ADC: Clock period
-            g_TIM_ADC_TPD        => c_TIM_ADC_TPD_DEF      -- time      := c_TIM_ADC_TPD_DEF                  --! SQUID MUX ADC: Time, Data Propagation Delay
+            g_TIM_ADC_TPD        => c_CLK_ADC_PER_DEF    , -- time      := c_TIM_ADC_TPD_DEF                ; --! SQUID MUX ADC: Time, Data Propagation Delay
+            g_SQM_VOLT_DEL       => c_SQM_VOLT_DEL_DEF   , -- time      := c_SQM_VOLT_DEL_DEF               ; --! SQUID MUX voltage delay
+            g_SQA_VOLT_DEL       => c_SQA_VOLT_DEL_DEF   , -- time      := c_SQA_VOLT_DEL_DEF               ; --! SQUID AMP voltage delay
+            g_SQERR_VOLT_DEL     => c_SQERR_VOLT_DEL_DEF   -- time      := c_SQERR_VOLT_DEL_DEF               --! SQUID Error voltage delay
             );
          end for;
       end for;

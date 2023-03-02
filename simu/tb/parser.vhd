@@ -106,7 +106,15 @@ entity parser is generic
          o_adc_dmp_mem_add    : out    std_logic_vector(  c_MEM_SC_ADD_S-1 downto 0)                        ; --! ADC Dump memory for data compare: address
          o_adc_dmp_mem_data   : out    std_logic_vector(c_SQM_ADC_DATA_S+1 downto 0)                        ; --! ADC Dump memory for data compare: data
          o_science_mem_data   : out    std_logic_vector(c_SC_DATA_SER_NB*c_SC_DATA_SER_W_S-1 downto 0)      ; --! Science  memory for data compare: data
-         o_adc_dmp_mem_cs     : out    std_logic_vector(        c_NB_COL-1 downto 0)                          --! ADC Dump memory for data compare: chip select ('0' = Inactive, '1' = Active)
+         o_adc_dmp_mem_cs     : out    std_logic_vector(        c_NB_COL-1 downto 0)                        ; --! ADC Dump memory for data compare: chip select ('0' = Inactive, '1' = Active)
+
+         i_c0_fpa_conf_busy   : in     std_logic                                                            ; --! FPASIM, col. 0: configuration ('0' = conf. over, '1' = conf. in progress)
+         i_c1_fpa_conf_busy   : in     std_logic                                                            ; --! FPASIM, col. 1: configuration ('0' = conf. over, '1' = conf. in progress)
+         i_c2_fpa_conf_busy   : in     std_logic                                                            ; --! FPASIM, col. 2: configuration ('0' = conf. over, '1' = conf. in progress)
+         i_c3_fpa_conf_busy   : in     std_logic                                                            ; --! FPASIM, col. 3: configuration ('0' = conf. over, '1' = conf. in progress)
+         i_fpa_cmd_rdy        : in     std_logic_vector(        c_NB_COL-1 downto 0)                        ; --! FPASIM command ready ('0' = No, '1' = Yes)
+         o_fpa_cmd            : out    t_slv_arr(0 to c_NB_COL-1)(c_FPA_CMD_S-1 downto 0)                   ; --! FPASIM command
+         o_fpa_cmd_valid      : out    std_logic_vector(        c_NB_COL-1 downto 0)                          --! FPASIM command valid ('0' = No, '1' = Yes)
    );
 end entity parser;
 
@@ -166,6 +174,10 @@ file     res_file             : text                                            
          when  c_DR_CLK_SQM_DAC_1      => return i_c1_clk_sqm_dac'last_event;
          when  c_DR_CLK_SQM_DAC_2      => return i_c2_clk_sqm_dac'last_event;
          when  c_DR_CLK_SQM_DAC_3      => return i_c3_clk_sqm_dac'last_event;
+         when  c_DR_FPA_CONF_BUSY_0    => return i_c0_fpa_conf_busy'last_event;
+         when  c_DR_FPA_CONF_BUSY_1    => return i_c1_fpa_conf_busy'last_event;
+         when  c_DR_FPA_CONF_BUSY_2    => return i_c2_fpa_conf_busy'last_event;
+         when  c_DR_FPA_CONF_BUSY_3    => return i_c3_fpa_conf_busy'last_event;
          when others                   => return time'low;
 
       end case;
@@ -243,6 +255,10 @@ begin
    discrete_r(c_DR_CLK_SQM_DAC_1)   <= i_c1_clk_sqm_dac;
    discrete_r(c_DR_CLK_SQM_DAC_2)   <= i_c2_clk_sqm_dac;
    discrete_r(c_DR_CLK_SQM_DAC_3)   <= i_c3_clk_sqm_dac;
+   discrete_r(c_DR_FPA_CONF_BUSY_0) <= i_c0_fpa_conf_busy;
+   discrete_r(c_DR_FPA_CONF_BUSY_1) <= i_c1_fpa_conf_busy;
+   discrete_r(c_DR_FPA_CONF_BUSY_2) <= i_c2_fpa_conf_busy;
+   discrete_r(c_DR_FPA_CONF_BUSY_3) <= i_c3_fpa_conf_busy;
 
    discrete_r(discrete_r'high downto c_DR_S) <= (others => '0');
 
@@ -307,6 +323,8 @@ begin
       o_ep_cmd          <= (others => '0');
       o_ep_cmd_start    <= '0';
       o_adc_dmp_mem_cs  <= (others => '0');
+      o_fpa_cmd         <= (others => (others => '0'));
+      o_fpa_cmd_valid   <= (others => '0');
       v_error_cat       := (others => '0');
       v_chk_rpt_prm_ena := (others => '0');
       v_line_cnt        := 1;
@@ -591,6 +609,28 @@ begin
 
                   -- Display command
                   fprintf(note , "Write discrete: " & v_fld_dis.all & " = " & std_logic'image(v_fld_value), res_file);
+
+               -- ------------------------------------------------------------------------------------------------------
+               -- Command WFMP [channel] [data]: write FPASIM "Make pulse" command
+               -- ------------------------------------------------------------------------------------------------------
+               when "WFMP" =>
+
+                  -- Get parameters
+                  get_param_wfmp(v_cmd_file_line, v_head_mess_stdout.all, v_fld_dis_ind(0), v_fld_spi_cmd);
+
+                  -- Display command
+                  fprintf(note , "Send FPASIM Make pulse command, data: " & hfield_format(v_fld_spi_cmd).all, res_file);
+
+                  -- Send command
+                  if i_fpa_cmd_rdy(v_fld_dis_ind(0)) /= '1' then
+                     wait until i_fpa_cmd_rdy(v_fld_dis_ind(0)) = '1' for g_SIM_TIME-now;
+
+                  end if;
+
+                  o_fpa_cmd(v_fld_dis_ind(0))       <= v_fld_spi_cmd;
+                  o_fpa_cmd_valid(v_fld_dis_ind(0)) <= '1';
+                  wait for 2 * c_CLK_FPA_PER_DEF;
+                  o_fpa_cmd_valid(v_fld_dis_ind(0)) <= '0';
 
                -- ------------------------------------------------------------------------------------------------------
                -- Command WMDC [channel] [index] [data]:

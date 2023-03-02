@@ -45,7 +45,7 @@ entity science_data_rx is port
    );
 end entity science_data_rx;
 
-architecture RTL of science_data_rx is
+architecture Behavioral of science_data_rx is
 constant c_SER_BIT_CNT_NB_VAL : integer:= c_SC_DATA_SER_W_S-3                                               ; --! Serial bit counter: number of value
 constant c_SER_BIT_CNT_MAX_VAL: integer:= c_SER_BIT_CNT_NB_VAL-1                                            ; --! Serial bit counter: maximal value
 constant c_SER_BIT_CNT_S      : integer:= log2_ceil(c_SER_BIT_CNT_MAX_VAL+1)+1                              ; --! Serial bit counter: size bus (signed)
@@ -145,4 +145,4 @@ begin
 
    end generate G_science_data;
 
-end architecture rtl;
+end architecture Behavioral;

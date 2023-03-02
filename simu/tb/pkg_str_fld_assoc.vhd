@@ -278,16 +278,28 @@ constant c_PAD                : character := ' '                                
             o_fld_dr_ind := c_DR_CLK_SQM_ADC_3;
 
          when "clk_sqm_dac(0)      "   =>
-            o_fld_dr_ind := c_DR_CLK_SQM_dac_0;
+            o_fld_dr_ind := c_DR_CLK_SQM_DAC_0;
 
          when "clk_sqm_dac(1)      "   =>
-            o_fld_dr_ind := c_DR_CLK_SQM_dac_1;
+            o_fld_dr_ind := c_DR_CLK_SQM_DAC_1;
 
          when "clk_sqm_dac(2)      "   =>
-            o_fld_dr_ind := c_DR_CLK_SQM_dac_2;
+            o_fld_dr_ind := c_DR_CLK_SQM_DAC_2;
 
          when "clk_sqm_dac(3)      "   =>
-            o_fld_dr_ind := c_DR_CLK_SQM_dac_3;
+            o_fld_dr_ind := c_DR_CLK_SQM_DAC_3;
+
+         when "fpa_conf_busy(0)    "   =>
+            o_fld_dr_ind := c_DR_FPA_CONF_BUSY_0;
+
+         when "fpa_conf_busy(1)    "   =>
+            o_fld_dr_ind := c_DR_FPA_CONF_BUSY_1;
+
+         when "fpa_conf_busy(2)    "   =>
+            o_fld_dr_ind := c_DR_FPA_CONF_BUSY_2;
+
+         when "fpa_conf_busy(3)    "   =>
+            o_fld_dr_ind := c_DR_FPA_CONF_BUSY_3;
 
          when others                   =>
             o_fld_dr_ind := c_DR_S;
@@ -723,6 +735,9 @@ constant c_PAD                : character := ' '                                
 
          when "adc_dump                      "  =>
             o_fld_sc_pkt_val:= c_SC_CTRL_ADC_DMP;
+
+         when "error_signal                  "  =>
+            o_fld_sc_pkt_val:= c_SC_CTRL_ERRS;
 
          when others                            =>
             o_fld_sc_pkt_val:= c_RET_UKWN(o_fld_sc_pkt_val'range);

@@ -194,6 +194,16 @@ type     t_wait_cmd_end         is (none, wait_cmd_end_tx, wait_rcmd_end_rx)    
    );
 
    -- ------------------------------------------------------------------------------------------------------
+   --! Get parameters command WFMP [channel] [data]: write FPASIM "Make pulse" command
+   -- ------------------------------------------------------------------------------------------------------
+   procedure get_param_wfmp
+   (     b_cmd_file_line      : inout  line                                                                 ; --  Command file line
+         i_mess_header        : in     string                                                               ; --  Message header
+         o_fld_channel        : out    integer range 0 to c_NB_COL-1                                        ; --  Field channel number
+         o_fld_data           : out    std_logic_vector                                                       --  Field data
+   );
+
+   -- ------------------------------------------------------------------------------------------------------
    --! Get parameters command WMDC [channel] [frame] [index] [data]:
    --!  Write in ADC dump/science memories for data compare
    -- ------------------------------------------------------------------------------------------------------
@@ -639,6 +649,30 @@ package body pkg_func_cmd_script is
       brfield(b_cmd_file_line, i_mess_header & "[value]", o_fld_value);
 
    end get_param_wdis;
+
+   -- ------------------------------------------------------------------------------------------------------
+   --! Get parameters command WFMP [channel] [data]: write FPASIM "Make pulse" command
+   -- ------------------------------------------------------------------------------------------------------
+   procedure get_param_wfmp
+   (     b_cmd_file_line      : inout  line                                                                 ; --  Command file line
+         i_mess_header        : in     string                                                               ; --  Message header
+         o_fld_channel        : out    integer range 0 to c_NB_COL-1                                        ; --  Field channel number
+         o_fld_data           : out    std_logic_vector                                                       --  Field data
+   ) is
+   begin
+
+      -- Drop underscore included in the fields
+      drop_line_char(b_cmd_file_line, '_', b_cmd_file_line);
+
+      -- Get [channel]
+      rfield(b_cmd_file_line, i_mess_header & "[channel]", o_fld_channel);
+      assert o_fld_channel < c_NB_COL report i_mess_header & "[channel]" & c_MESS_ERR_SIZE severity failure;
+
+      -- Get [data], hex format
+      drop_line_char(b_cmd_file_line, ' ', b_cmd_file_line);
+      hrfield(b_cmd_file_line, i_mess_header & "[data]", o_fld_data);
+
+   end get_param_wfmp;
 
    -- ------------------------------------------------------------------------------------------------------
    --! Get parameters command WMDC [channel] [index] [data]:

@@ -28,6 +28,8 @@
 quietly set VARIANT "NG-LARGE"
 quietly set NXMAP3_MODEL_PATH "../modelsim"
 quietly set PR_DIR "../project/dmx-NGL-fw"
+quietly set FPASIM_DIR "../project/fpasim-fw"
+quietly set XLX_LIB_DIR "../xilinx_lib"
 quietly set NR_FILE "no_regression.csv"
 quietly set PREF_UTEST "DRE_DMX_UT_"
 quietly set SUFF_UTEST "_cfg"
@@ -38,6 +40,9 @@ quietly set SRC_DIR "${PR_DIR}/src"
 quietly set TB_DIR "${PR_DIR}/simu/tb"
 quietly set CFG_DIR "${PR_DIR}/simu/conf"
 quietly set RES_DIR "${PR_DIR}/simu/result"
+quietly set SC_DIR "${PR_DIR}/simu/script"
+quietly set VIVADO_DIR "${XLX_LIB_DIR}/vivado"
+quietly set OPKELLY_DIR "${XLX_LIB_DIR}/opal_kelly"
 
 # Compile library linked to the FPGA technology
 vlib nx
@@ -49,6 +54,11 @@ if {${VARIANT} == "NG-MEDIUM" || ${VARIANT} == "NG-MEDIUM-EMBEDDED"} {
    vcom -work nx -2008 "${NXMAP3_MODEL_PATH}/nxLibrary-Ultra.vhdp"
 } else {
    puts "Unrecognized Variant"}
+
+   # Check the FPASIM directory existence and compile the directory
+   if { [file isdirectory ${FPASIM_DIR}] == 1} {
+      do ${SC_DIR}/fpasim.do $FPASIM_DIR $XLX_LIB_DIR $VIVADO_DIR $OPKELLY_DIR
+   }
 
 #### Run unitary test(s)
 proc run_utest {args} {
@@ -127,6 +137,7 @@ proc run_utest {args} {
       ${TB_DIR}/science_data_check.vhd    \
       ${TB_DIR}/science_data_model.vhd    \
       ${TB_DIR}/parser.vhd                \
+      ${TB_DIR}/fpga_system_fpasim_top.vhd\
       ${TB_DIR}/top_dmx_tb.vhd
 
    # Test the argument number
@@ -141,6 +152,18 @@ proc run_utest {args} {
 
       foreach file [lsort -dictionary [glob -directory ${CFG_DIR} *.vhd]] {
 
+         # Check if FPASIM is requested for the test
+         set fpasim_req 0
+         set file_sel [open $file]
+         while {[gets $file_sel line] != -1} {
+            if {[regexp {fpasim.fpga_system_fpasim_top} $line l fpasim_req]} {
+               set fpasim_req 1
+               break
+            }
+         }
+
+         close $file_sel
+
          # Extract the simulation time from the selected configuration file
          set file_sel [open $file]
          while {[gets $file_sel line] != -1} {
@@ -152,7 +175,19 @@ proc run_utest {args} {
          close $file_sel
 
          # Run simulation
-         vsim -t ps -lib work work.[file rootname [file tail $file]]
+         if {${fpasim_req} == 0} {
+            vsim -t ps -lib work work.[file rootname [file tail $file]]
+
+         } else {
+
+            # Copy FPASIM memory content in simulation directory
+            foreach mem_file [glob -directory "${CFG_DIR}/[file rootname [file tail $file]]" -nocomplain *] {
+               file copy -force $mem_file .
+            }
+
+            vsim -t ps fpasim.glbl -L fpasim -L xpm -L unisims_ver -L secureip -lib work work.[file rootname [file tail $file]]
+
+         }
          run $sim_time
          quit -sim
 
@@ -206,6 +241,18 @@ proc run_utest {args} {
 
          vcom -work work -2008 "${CFG_DIR}/${cfg_file}.vhd"
 
+         # Check if FPASIM is requested for the test
+         set fpasim_req 0
+         set file_sel [open "${CFG_DIR}/${cfg_file}.vhd"]
+         while {[gets $file_sel line] != -1} {
+            if {[regexp {fpasim.fpga_system_fpasim_top} $line l fpasim_req]} {
+               set fpasim_req 1
+               break
+            }
+         }
+
+         close $file_sel
+
          # Extract the simulation time from the selected configuration file
          set file_sel [open "${CFG_DIR}/${cfg_file}.vhd"]
          while {[gets $file_sel line] != -1} {
@@ -216,7 +263,20 @@ proc run_utest {args} {
 
          close $file_sel
 
-         vsim -t ps -lib work work.${cfg_file}
+         # Run simulation
+         if {${fpasim_req} == 0} {
+            vsim -t ps -lib work work.${cfg_file}
+
+         } else {
+
+            # Copy FPASIM memory content in simulation directory
+            foreach mem_file [glob -directory "${CFG_DIR}/${cfg_file}" -nocomplain *] {
+               file copy -force $mem_file .
+            }
+
+            vsim -t ps fpasim.glbl -L fpasim -L xpm -L unisims_ver -L secureip -lib work work.${cfg_file}
+
+         }
 
          # Display signals
          add wave -noupdate -divider "Reset & general clocks"
@@ -245,6 +305,8 @@ proc run_utest {args} {
          add wave -format Logic                                                                 sim/:top_dmx_tb:I_top_dmx:clk_sqm_adc_dac
          add wave -format Logic                                                                 sim/:top_dmx_tb:I_top_dmx:clk_90
          add wave -format Logic                                                                 sim/:top_dmx_tb:I_top_dmx:clk_sqm_adc_dac_90
+         add wave -format Logic                                                                 sim/:top_dmx_tb:clk_fpasim
+         add wave -format Logic                                                                 sim/:top_dmx_tb:clk_fpasim_shift
 
          add wave -noupdate -divider "Channel 0"
          add wave -format Analog-step -min -1.0 -max 1.0 \
@@ -262,7 +324,7 @@ proc run_utest {args} {
          add wave -format Logic                    -group "0 - SQUID MUX DAC"                   sim/:top_dmx_tb:I_top_dmx:o_clk_sqm_dac(0)
          add wave -format Logic -Radix unsigned    -group "0 - SQUID MUX DAC"                   sim/:top_dmx_tb:I_top_dmx:o_sqm_dac_data(0)
          add wave -format Analog-step -min -1.0 -max 1.0 \
-                                                   -group "0 - SQUID MUX DAC"                   sim/:top_dmx_tb:G_column_mgt(0):I_squid_model:sqm_dac_delta_vout
+                                                   -group "0 - SQUID MUX DAC"                   sim/:top_dmx_tb:sqm_dac_delta_volt(0)
 
          add wave -format Logic -Radix unsigned    -group "0 - SQUID AMP DAC"                   sim/:top_dmx_tb:I_top_dmx:o_sqa_dac_mux(0)
          add wave -format Logic                    -group "0 - SQUID AMP DAC"                   sim/:top_dmx_tb:I_top_dmx:o_sqa_dac_mx_en_n(0)
@@ -271,7 +333,18 @@ proc run_utest {args} {
          add wave -format Logic                    -group "0 - SQUID AMP DAC" -group "SPI"      sim/:top_dmx_tb:I_top_dmx:o_sqa_dac_snc_l_n(0)
          add wave -format Logic                    -group "0 - SQUID AMP DAC" -group "SPI"      sim/:top_dmx_tb:I_top_dmx:o_sqa_dac_snc_o_n(0)
          add wave -format Analog-step -min -0.0 -max 1.0 \
-                                                   -group "0 - SQUID AMP DAC"                   sim/:top_dmx_tb:G_column_mgt(0):I_squid_model:sqa_vout
+                                                   -group "0 - SQUID AMP DAC"                   sim/:top_dmx_tb:sqa_volt(0)
+
+         add wave -format Analog-step -min -1.0 -max 1.0 \
+                                                   -group "0 - FPASIM"                          sim/:top_dmx_tb:sqm_dac_delta_volt(0)
+         add wave -format Analog-step -min -0.0 -max 1.0 \
+                                                   -group "0 - FPASIM"                          sim/:top_dmx_tb:sqa_volt(0)
+         add wave -format Analog-step -min -1.0 -max 1.0 \
+                                                   -group "0 - FPASIM"                          sim/:top_dmx_tb:squid_err_volt(0)
+         add wave -format Logic                    -group "0 - FPASIM"                          sim/:top_dmx_tb:fpa_conf_busy(0)
+         add wave -format Logic                    -group "0 - FPASIM"                          sim/:top_dmx_tb:fpa_cmd_rdy(0)
+         add wave -format Logic -Radix hexadecimal -group "0 - FPASIM"                          sim/:top_dmx_tb:fpa_cmd(0)
+         add wave -format Logic                    -group "0 - FPASIM"                          sim/:top_dmx_tb:fpa_cmd_valid(0)
 
          add wave -noupdate -divider "Channel 1"
          add wave -format Analog-step -min -1.0 -max 1.0 \
@@ -289,7 +362,7 @@ proc run_utest {args} {
          add wave -format Logic                    -group "1 - SQUID MUX DAC"                   sim/:top_dmx_tb:I_top_dmx:o_clk_sqm_dac(1)
          add wave -format Logic -Radix unsigned    -group "1 - SQUID MUX DAC"                   sim/:top_dmx_tb:I_top_dmx:o_sqm_dac_data(1)
          add wave -format Analog-step -min -1.0 -max 1.0 \
-                                                   -group "1 - SQUID MUX DAC"                   sim/:top_dmx_tb:G_column_mgt(1):I_squid_model:sqm_dac_delta_vout
+                                                   -group "1 - SQUID MUX DAC"                   sim/:top_dmx_tb:sqm_dac_delta_volt(1)
 
          add wave -format Logic -Radix unsigned    -group "1 - SQUID AMP DAC"                   sim/:top_dmx_tb:I_top_dmx:o_sqa_dac_mux(1)
          add wave -format Logic                    -group "1 - SQUID AMP DAC"                   sim/:top_dmx_tb:I_top_dmx:o_sqa_dac_mx_en_n(1)
@@ -298,7 +371,18 @@ proc run_utest {args} {
          add wave -format Logic                    -group "1 - SQUID AMP DAC" -group "SPI"      sim/:top_dmx_tb:I_top_dmx:o_sqa_dac_snc_l_n(1)
          add wave -format Logic                    -group "1 - SQUID AMP DAC" -group "SPI"      sim/:top_dmx_tb:I_top_dmx:o_sqa_dac_snc_o_n(1)
          add wave -format Analog-step -min -0.0 -max 1.0 \
-                                                   -group "1 - SQUID AMP DAC"                   sim/:top_dmx_tb:G_column_mgt(1):I_squid_model:sqa_vout
+                                                   -group "1 - SQUID AMP DAC"                   sim/:top_dmx_tb:sqa_volt(1)
+
+         add wave -format Analog-step -min -1.0 -max 1.0 \
+                                                   -group "1 - FPASIM"                          sim/:top_dmx_tb:sqm_dac_delta_volt(1)
+         add wave -format Analog-step -min -0.0 -max 1.0 \
+                                                   -group "1 - FPASIM"                          sim/:top_dmx_tb:sqa_volt(1)
+         add wave -format Analog-step -min -1.0 -max 1.0 \
+                                                   -group "1 - FPASIM"                          sim/:top_dmx_tb:squid_err_volt(1)
+         add wave -format Logic                    -group "1 - FPASIM"                          sim/:top_dmx_tb:fpa_conf_busy(1)
+         add wave -format Logic                    -group "1 - FPASIM"                          sim/:top_dmx_tb:fpa_cmd_rdy(1)
+         add wave -format Logic -Radix hexadecimal -group "1 - FPASIM"                          sim/:top_dmx_tb:fpa_cmd(1)
+         add wave -format Logic                    -group "1 - FPASIM"                          sim/:top_dmx_tb:fpa_cmd_valid(1)
 
          add wave -noupdate -divider "Channel 2"
          add wave -format Analog-step -min -1.0 -max 1.0 \
@@ -316,7 +400,7 @@ proc run_utest {args} {
          add wave -format Logic                    -group "2 - SQUID MUX DAC"                   sim/:top_dmx_tb:I_top_dmx:o_clk_sqm_dac(2)
          add wave -format Logic -Radix unsigned    -group "2 - SQUID MUX DAC"                   sim/:top_dmx_tb:I_top_dmx:o_sqm_dac_data(2)
          add wave -format Analog-step -min -1.0 -max 1.0 \
-                                                   -group "2 - SQUID MUX DAC"                   sim/:top_dmx_tb:G_column_mgt(2):I_squid_model:sqm_dac_delta_vout
+                                                   -group "2 - SQUID MUX DAC"                   sim/:top_dmx_tb:sqm_dac_delta_volt(2)
 
          add wave -format Logic -Radix unsigned    -group "2 - SQUID AMP DAC"                   sim/:top_dmx_tb:I_top_dmx:o_sqa_dac_mux(2)
          add wave -format Logic                    -group "2 - SQUID AMP DAC"                   sim/:top_dmx_tb:I_top_dmx:o_sqa_dac_mx_en_n(2)
@@ -325,7 +409,18 @@ proc run_utest {args} {
          add wave -format Logic                    -group "2 - SQUID AMP DAC" -group "SPI"      sim/:top_dmx_tb:I_top_dmx:o_sqa_dac_snc_l_n(2)
          add wave -format Logic                    -group "2 - SQUID AMP DAC" -group "SPI"      sim/:top_dmx_tb:I_top_dmx:o_sqa_dac_snc_o_n(2)
          add wave -format Analog-step -min -0.0 -max 1.0 \
-                                                   -group "2 - SQUID AMP DAC"                   sim/:top_dmx_tb:G_column_mgt(2):I_squid_model:sqa_vout
+                                                   -group "2 - SQUID AMP DAC"                   sim/:top_dmx_tb:sqa_volt(2)
+
+         add wave -format Analog-step -min -1.0 -max 1.0 \
+                                                   -group "2 - FPASIM"                          sim/:top_dmx_tb:sqm_dac_delta_volt(2)
+         add wave -format Analog-step -min -0.0 -max 1.0 \
+                                                   -group "2 - FPASIM"                          sim/:top_dmx_tb:sqa_volt(2)
+         add wave -format Analog-step -min -1.0 -max 1.0 \
+                                                   -group "2 - FPASIM"                          sim/:top_dmx_tb:squid_err_volt(2)
+         add wave -format Logic                    -group "2 - FPASIM"                          sim/:top_dmx_tb:fpa_conf_busy(2)
+         add wave -format Logic                    -group "2 - FPASIM"                          sim/:top_dmx_tb:fpa_cmd_rdy(2)
+         add wave -format Logic -Radix hexadecimal -group "2 - FPASIM"                          sim/:top_dmx_tb:fpa_cmd(2)
+         add wave -format Logic                    -group "2 - FPASIM"                          sim/:top_dmx_tb:fpa_cmd_valid(2)
 
          add wave -noupdate -divider "Channel 3"
          add wave -format Analog-step -min -1.0 -max 1.0 \
@@ -343,7 +438,7 @@ proc run_utest {args} {
          add wave -format Logic                    -group "3 - SQUID MUX DAC"                   sim/:top_dmx_tb:I_top_dmx:o_clk_sqm_dac(3)
          add wave -format Logic -Radix unsigned    -group "3 - SQUID MUX DAC"                   sim/:top_dmx_tb:I_top_dmx:o_sqm_dac_data(3)
          add wave -format Analog-step -min -1.0 -max 1.0 \
-                                                   -group "3 - SQUID MUX DAC"                   sim/:top_dmx_tb:G_column_mgt(3):I_squid_model:sqm_dac_delta_vout
+                                                   -group "3 - SQUID MUX DAC"                   sim/:top_dmx_tb:sqm_dac_delta_volt(3)
 
          add wave -format Logic -Radix unsigned    -group "3 - SQUID AMP DAC"                   sim/:top_dmx_tb:I_top_dmx:o_sqa_dac_mux(3)
          add wave -format Logic                    -group "3 - SQUID AMP DAC"                   sim/:top_dmx_tb:I_top_dmx:o_sqa_dac_mx_en_n(3)
@@ -352,7 +447,18 @@ proc run_utest {args} {
          add wave -format Logic                    -group "3 - SQUID AMP DAC" -group "SPI"      sim/:top_dmx_tb:I_top_dmx:o_sqa_dac_snc_l_n(3)
          add wave -format Logic                    -group "3 - SQUID AMP DAC" -group "SPI"      sim/:top_dmx_tb:I_top_dmx:o_sqa_dac_snc_o_n(3)
          add wave -format Analog-step -min -0.0 -max 1.0 \
-                                                   -group "3 - SQUID AMP DAC"                   sim/:top_dmx_tb:G_column_mgt(3):I_squid_model:sqa_vout
+                                                   -group "3 - SQUID AMP DAC"                   sim/:top_dmx_tb:sqa_volt(3)
+
+         add wave -format Analog-step -min -1.0 -max 1.0 \
+                                                   -group "3 - FPASIM"                          sim/:top_dmx_tb:sqm_dac_delta_volt(3)
+         add wave -format Analog-step -min -0.0 -max 1.0 \
+                                                   -group "3 - FPASIM"                          sim/:top_dmx_tb:sqa_volt(3)
+         add wave -format Analog-step -min -1.0 -max 1.0 \
+                                                   -group "3 - FPASIM"                          sim/:top_dmx_tb:squid_err_volt(3)
+         add wave -format Logic                    -group "3 - FPASIM"                          sim/:top_dmx_tb:fpa_conf_busy(3)
+         add wave -format Logic                    -group "3 - FPASIM"                          sim/:top_dmx_tb:fpa_cmd_rdy(3)
+         add wave -format Logic -Radix hexadecimal -group "3 - FPASIM"                          sim/:top_dmx_tb:fpa_cmd(3)
+         add wave -format Logic                    -group "3 - FPASIM"                          sim/:top_dmx_tb:fpa_cmd_valid(3)
 
          add wave -noupdate -divider
          add wave -format Logic                    -group "Science" -group "TX"                 sim/:top_dmx_tb:I_top_dmx:o_clk_science_01

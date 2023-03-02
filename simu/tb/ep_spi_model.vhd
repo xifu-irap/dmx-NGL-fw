@@ -57,7 +57,7 @@ entity ep_spi_model is generic
    );
 end entity ep_spi_model;
 
-architecture RTL of ep_spi_model is
+architecture Behavioral of ep_spi_model is
 constant c_N_CLK_PER_MISO_DEL : integer   := 2                                                              ; --! Number of clock period for miso signal delay from spi pin input to spi master input
 
 constant c_SER_WD_MAX_S       : integer   := 2*c_EP_CMD_S                                                   ; --! Serial word maximal size
@@ -223,4 +223,4 @@ begin
          o_cs_n               => ep_spi_cs_n_bf_buf     -- out    std_logic                                   --! SPI Chip Select ('0' = Active, '1' = Inactive)
    );
 
-end architecture rtl;
+end architecture Behavioral;

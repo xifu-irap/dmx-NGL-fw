@@ -41,7 +41,9 @@ end entity top_dmx_tb;
 architecture Simulation of top_dmx_tb is
 signal   arst_n               : std_logic                                                                   ; --! Asynchronous reset ('0' = Active, '1' = Inactive)
 signal   arst                 : std_logic                                                                   ; --! Asynchronous reset ('0' = Inactive, '1' = Active)
-signal   clk_ref              : std_logic                                                                   ; --! Reference Clock
+signal   clk_ref              : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! Reference Clock
+signal   clk_fpasim           : std_logic                                                                   ; --! FPASIM Clock
+signal   clk_fpasim_shift     : std_logic                                                                   ; --! FPASIM Clock, 90 degrees shifted
 
 signal   clk_sqm_adc          : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! SQUID MUX ADC: Clocks
 signal   clk_sqm_dac          : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! SQUID MUX DAC: Clocks
@@ -54,7 +56,7 @@ signal   err_num_pls_shp      : t_int_arr(0 to c_NB_COL-1)                      
 
 signal   brd_ref              : std_logic_vector(     c_BRD_REF_S-1 downto 0)                               ; --! Board reference
 signal   brd_model            : std_logic_vector(   c_BRD_MODEL_S-1 downto 0)                               ; --! Board model
-signal   sync                 : std_logic                                                                   ; --! Pixel sequence synchronization (R.E. detected = position sequence to the first pixel)
+signal   sync                 : std_logic_vector(        c_NB_COL-1 downto 0)                               ; --! Pixel sequence synchronization (R.E. detected = position sequence to the first pixel)
 
 signal   sqm_adc_ana          : t_real_arr(0 to c_NB_COL-1)                                                 ; --! SQUID MUX ADC: Analog
 signal   sqm_adc_data         : t_slv_arr( 0 to c_NB_COL-1)(c_SQM_ADC_DATA_S-1 downto 0)                    ; --! SQUID MUX ADC: Data buses
@@ -126,6 +128,15 @@ signal   adc_dmp_mem_data     : std_logic_vector(c_SQM_ADC_DATA_S+1 downto 0)   
 signal   science_mem_data     : std_logic_vector(c_SC_DATA_SER_NB*c_SC_DATA_SER_W_S-1 downto 0)             ; --! Science  memory for data compare: data
 signal   adc_dmp_mem_cs       : std_logic_vector(        c_NB_COL-1 downto 0)                               ; --! ADC Dump memory for data compare: chip select ('0' = Inactive, '1' = Active)
 
+signal   squid_err_volt       : t_real_arr(0 to c_NB_COL-1)                                                 ; --! SQUID Error voltage (Volt)
+signal   sqm_dac_delta_volt   : t_real_arr(0 to c_NB_COL-1)                                                 ; --! SQUID MUX voltage (Vin+ - Vin-) (Volt)
+signal   sqa_volt             : t_real_arr(0 to c_NB_COL-1)                                                 ; --! SQUID AMP voltage (Volt)
+
+signal   fpa_conf_busy        : std_logic_vector(        c_NB_COL-1 downto 0)                               ; --! FPASIM configuration ('0' = conf. over, '1' = conf. in progress)
+signal   fpa_cmd_rdy          : std_logic_vector(        c_NB_COL-1 downto 0)                               ; --! FPASIM command ready ('0' = No, '1' = Yes)
+signal   fpa_cmd              : t_slv_arr(0 to c_NB_COL-1)(c_FPA_CMD_S-1 downto 0)                          ; --! FPASIM command
+signal   fpa_cmd_valid        : std_logic_vector(        c_NB_COL-1 downto 0)                               ; --! FPASIM command valid ('0' = No, '1' = Yes)
+
 begin
 
    -- ------------------------------------------------------------------------------------------------------
@@ -133,7 +144,7 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    I_top_dmx: entity work.top_dmx port map
    (     i_arst_n             => arst_n               , -- in     std_logic                                 ; --! Asynchronous reset ('0' = Active, '1' = Inactive)
-         i_clk_ref            => clk_ref              , -- in     std_logic                                 ; --! Reference Clock
+         i_clk_ref            => clk_ref(0)           , -- in     std_logic                                 ; --! Reference Clock
 
          o_clk_sqm_adc        => clk_sqm_adc          , -- out    std_logic_vector(c_NB_COL-1 downto 0)     ; --! SQUID MUX ADC: Clock
          o_clk_sqm_dac        => clk_sqm_dac          , -- out    std_logic_vector(c_NB_COL-1 downto 0)     ; --! SQUID MUX DAC: Clock
@@ -142,7 +153,7 @@ begin
 
          i_brd_ref            => brd_ref              , -- in     std_logic_vector(  c_BRD_REF_S-1 downto 0); --! Board reference
          i_brd_model          => brd_model            , -- in     std_logic_vector(c_BRD_MODEL_S-1 downto 0); --! Board model
-         i_sync               => sync                 , -- in     std_logic                                 ; --! Pixel sequence synchronization (R.E. detected = position sequence to the first pixel)
+         i_sync               => sync(0)              , -- in     std_logic                                 ; --! Pixel sequence synchronization (R.E. detected = position sequence to the first pixel)
          i_ras_data_valid     => '0'                  , -- in     std_logic                                 ; --! RAS Data valid ('0' = No, '1' = Yes)
 
          i_sqm_adc_data       => sqm_adc_data         , -- in     t_slv_arr c_NB_COL c_SQM_ADC_DATA_S       ; --! SQUID MUX ADC: Data
@@ -327,12 +338,18 @@ begin
    arst <= not(arst_n);
 
    -- ------------------------------------------------------------------------------------------------------
-   --!   Clock reference generation
+   --!   FPASIM clock reference generation
    -- ------------------------------------------------------------------------------------------------------
-   I_clock_model: clock_model port map
-   (     o_clk_ref            => clk_ref              , -- in     std_logic                                 ; --! Reference Clock
-         o_sync               => sync                   -- in     std_logic                                   --! Pixel sequence synchronization (R.E. detected = position sequence to the first pixel)
+   I_clock_model: entity work.clock_model generic map
+   (     g_CLK_REF_PER        => c_CLK_FPA_PER_DEF    , -- time    := c_CLK_REF_PER_DEF                     ; --! Reference Clock period
+         g_SYNC_PER           => c_SYNC_PER_DEF       , -- time    := c_SYNC_PER_DEF                        ; --! Pixel sequence synchronization period
+         g_SYNC_SHIFT         => c_SYNC_SHIFT_DEF       -- time    := c_SYNC_SHIFT_DEF                        --! Pixel sequence synchronization shift
+   ) port map
+   (     o_clk_ref            => clk_fpasim           , -- out    std_logic                                 ; --! Reference Clock
+         o_sync               => open                   -- out    std_logic                                   --! Pixel sequence synchronization (R.E. detected = position sequence to the first pixel)
    );
+
+   clk_fpasim_shift <= transport not(clk_fpasim) after (c_CLK_FPA_PER_DEF/4) when now > (c_CLK_FPA_PER_DEF/4) else '0';
 
    -- ------------------------------------------------------------------------------------------------------
    --!   EP SPI model
@@ -360,7 +377,7 @@ begin
 
       I_squid_model: squid_model port map
       (  i_arst               => arst                 , -- in     std_logic                                 ; --! Asynchronous reset ('0' = Inactive, '1' = Active)
-         i_sync               => sync                 , -- in     std_logic                                 ; --! Pixel sequence synchronization (R.E. detected = position sequence to the first pixel)
+         i_sync               => sync(0)              , -- in     std_logic                                 ; --! Pixel sequence synchronization (R.E. detected = position sequence to the first pixel)
          i_clk_sqm_adc        => clk_sqm_adc(k)       , -- in     std_logic                                 ; --! SQUID MUX ADC: Clock
          i_sqm_adc_pwdn       => sqm_adc_pwdn(k)      , -- in     std_logic                                 ; --! SQUID MUX ADC: Power Down ('0' = Inactive, '1' = Active)
          b_sqm_adc_spi_sdio   => sqm_adc_spi_sdio(k)  , -- inout  std_logic                                 ; --! SQUID MUX ADC: SPI Serial Data In Out
@@ -384,7 +401,32 @@ begin
          i_sqa_dac_snc_l_n    => sqa_dac_snc_l_n(k)   , -- in     std_logic                                 ; --! SQUID AMP DAC: Frame Synchronization DAC LSB ('0' = Active, '1' = Inactive)
          i_sqa_dac_snc_o_n    => sqa_dac_snc_o_n(k)   , -- in     std_logic                                 ; --! SQUID AMP DAC: Frame Synchronization DAC Offset ('0' = Active, '1' = Inactive)
          i_sqa_dac_mux        => sqa_dac_mux(k)       , -- in     slv( c_SQA_DAC_MUX_S-1 downto 0)          ; --! SQUID AMP DAC: Multiplexer
-         i_sqa_dac_mx_en_n    => sqa_dac_mx_en_n(k)     -- in     std_logic                                   --! SQUID AMP DAC: Multiplexer Enable ('0' = Active, '1' = Inactive)
+         i_sqa_dac_mx_en_n    => sqa_dac_mx_en_n(k)   , -- in     std_logic                                 ; --! SQUID AMP DAC: Multiplexer Enable ('0' = Active, '1' = Inactive)
+
+         i_squid_err_volt     => squid_err_volt(k)    , -- in     real                                      ; --! SQUID Error voltage (Volt)
+         o_sqm_dac_delta_volt => sqm_dac_delta_volt(k), -- out    real                                      ; --! SQUID MUX voltage (Vin+ - Vin-) (Volt)
+         o_sqa_volt           => sqa_volt(k)            -- out    real                                        --! SQUID AMP voltage (Volt)
+      );
+
+   -- ------------------------------------------------------------------------------------------------------
+   --!   FPASIM model management
+   -- ------------------------------------------------------------------------------------------------------
+      I_fpasim_model: fpga_system_fpasim_top port map
+      (  i_make_pulse_valid   => fpa_cmd_valid(k)     , -- in     std_logic                                 ; --! FPASIM command valid ('0' = No, '1' = Yes)
+         i_make_pulse         => fpa_cmd(k)           , -- in     std_logic_vector(c_FPA_CMD_S-1 downto 0)  ; --! FPASIM command
+         o_auto_conf_busy     => fpa_conf_busy(k)     , -- out    std_logic                                 ; --! FPASIM configuration ('0' = conf. over, '1' = conf. in progress)
+         o_ready              => fpa_cmd_rdy(k)       , -- out    std_logic                                 ; --! FPASIM command ready ('0' = No, '1' = Yes)
+
+         i_adc_clk_phase      => clk_fpasim_shift     , -- in     std_logic                                 ; --! FPASIM ADC 90 degrees shifted clock
+         i_adc_clk            => clk_fpasim           , -- in     std_logic                                 ; --! FPASIM ADC clock
+         i_adc0_real          => sqm_dac_delta_volt(k), -- in     real                                      ; --! FPASIM ADC Analog Squid MUX
+         i_adc1_real          => sqa_volt(k)          , -- in     real                                      ; --! FPASIM ADC Analog Squid AMP
+
+         o_ref_clk            => clk_ref(k)           , -- out    std_logic                                 ; --! Reference Clock
+         o_sync               => sync(k)              , -- out    std_logic                                 ; --! Pixel sequence synchronization (R.E. detected = position sequence to the first pixel)
+
+         o_dac_real_valid     => open                 , -- out    std_logic                                 ; --! FPASIM DAC Error valid ('0' = No, '1' = Yes)
+         o_dac_real           => squid_err_volt(k)      -- out    real                                        --! FPASIM DAC Analog Error
       );
 
    end generate G_column_mgt;
@@ -401,7 +443,7 @@ begin
          i_science_ctrl_23    => science_ctrl_23      , -- in     std_logic                                 ; --! Science Data: Control channel 2/3
          i_science_data       => science_data         , -- in     t_slv_arr c_NB_COL+1 c_SC_DATA_SER_NB     ; --! Science Data: Serial Data
 
-         i_sync               => sync                 , -- in     std_logic                                 ; --! Pixel sequence synchronization (R.E. detected = position sequence to the first pixel)
+         i_sync               => sync(0)              , -- in     std_logic                                 ; --! Pixel sequence synchronization (R.E. detected = position sequence to the first pixel)
          i_aqmde              => d_aqmde              , -- in     t_slv_arr c_NB_COL c_DFLD_AQMDE_S         ; --! Telemetry mode
          i_smfbd              => d_smfbd              , -- in     t_slv_arr c_NB_COL c_DFLD_SMFBD_COL_S     ; --! SQUID MUX feedback delay
          i_saomd              => d_saomd              , -- in     t_slv_arr c_NB_COL c_DFLD_SAOMD_COL_S     ; --! SQUID AMP offset MUX delay
@@ -426,8 +468,8 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    I_parser: parser port map
    (     o_arst_n             => arst_n               , -- out    std_logic                                 ; --! Asynchronous reset ('0' = Active, '1' = Inactive)
-         i_clk_ref            => clk_ref              , -- in     std_logic                                 ; --! Reference Clock
-         i_sync               => sync                 , -- in     std_logic                                 ; --! Pixel sequence synchronization (R.E. detected = position sequence to the first pixel)
+         i_clk_ref            => clk_ref(0)           , -- in     std_logic                                 ; --! Reference Clock
+         i_sync               => sync(0)              , -- in     std_logic                                 ; --! Pixel sequence synchronization (R.E. detected = position sequence to the first pixel)
 
          i_err_chk_rpt        => err_chk_rpt          , -- in     t_int_arr_tab c_CHK_ENA_CLK_NB            ; --! Clock check error reports
          i_err_n_spi_chk      => err_n_spi_chk        , -- in     t_int_arr_tab(0 to c_CHK_ENA_SPI_NB-1)    ; --! SPI check error number:
@@ -487,7 +529,15 @@ begin
          o_adc_dmp_mem_cs     => adc_dmp_mem_cs       , -- out    std_logic                                 ; --! ADC Dump memory for data compare: chip select ('0' = Inactive, '1' = Active)
 
          o_pls_shp_fc         => pls_shp_fc           , -- out    t_int_arr(0 to c_NB_COL-1)                ; --! Pulse shaping cut frequency (Hz)
-         o_sw_adc_vin         => sw_adc_vin             -- out    slv(c_SW_ADC_VIN_S-1 downto 0)              --! Switch ADC Voltage input
+         o_sw_adc_vin         => sw_adc_vin           , -- out    slv(c_SW_ADC_VIN_S-1 downto 0)            ; --! Switch ADC Voltage input
+
+         i_c0_fpa_conf_busy   => fpa_conf_busy(0)     , -- in     std_logic                                 ; --! FPASIM, col. 0: configuration ('0' = conf. over, '1' = conf. in progress)
+         i_c1_fpa_conf_busy   => fpa_conf_busy(1)     , -- in     std_logic                                 ; --! FPASIM, col. 1: configuration ('0' = conf. over, '1' = conf. in progress)
+         i_c2_fpa_conf_busy   => fpa_conf_busy(2)     , -- in     std_logic                                 ; --! FPASIM, col. 2: configuration ('0' = conf. over, '1' = conf. in progress)
+         i_c3_fpa_conf_busy   => fpa_conf_busy(3)     , -- in     std_logic                                 ; --! FPASIM, col. 3: configuration ('0' = conf. over, '1' = conf. in progress)
+         i_fpa_cmd_rdy        => fpa_cmd_rdy          , -- in     std_logic_vector(c_NB_COL-1 downto 0)     ; --! FPASIM command ready ('0' = No, '1' = Yes)
+         o_fpa_cmd            => fpa_cmd              , -- out    t_slv_arr(0 to c_NB_COL-1)                ; --! FPASIM command
+         o_fpa_cmd_valid      => fpa_cmd_valid          -- out    std_logic_vector(c_NB_COL-1 downto 0)       --! FPASIM command valid ('0' = No, '1' = Yes)
    );
 
 end simulation;

@@ -39,7 +39,10 @@ entity squid_model is generic
          g_SQA_DAC_TS         : time      := c_SQA_DAC_TS_DEF                                               ; --! SQUID AMP DAC: Output Voltage Settling time
          g_SQA_MUX_TPLH       : time      := c_SQA_MUX_TPLH_DEF                                             ; --! SQUID AMP MUX: Propagation delay switch in to out
          g_CLK_ADC_PER        : time      := c_CLK_ADC_PER_DEF                                              ; --! SQUID MUX ADC: Clock period
-         g_TIM_ADC_TPD        : time      := c_TIM_ADC_TPD_DEF                                                --! SQUID MUX ADC: Time, Data Propagation Delay
+         g_TIM_ADC_TPD        : time      := c_TIM_ADC_TPD_DEF                                              ; --! SQUID MUX ADC: Time, Data Propagation Delay
+         g_SQM_VOLT_DEL       : time      := c_SQM_VOLT_DEL_DEF                                             ; --! SQUID MUX voltage delay
+         g_SQA_VOLT_DEL       : time      := c_SQA_VOLT_DEL_DEF                                             ; --! SQUID AMP voltage delay
+         g_SQERR_VOLT_DEL     : time      := c_SQERR_VOLT_DEL_DEF                                             --! SQUID Error voltage delay
    ); port
    (     i_arst               : in     std_logic                                                            ; --! Asynchronous reset ('0' = Inactive, '1' = Active)
          i_sync               : in     std_logic                                                            ; --! Pixel sequence synchronization (R.E. detected = position sequence to the first pixel)
@@ -67,13 +70,18 @@ entity squid_model is generic
          i_sqa_dac_snc_l_n    : in     std_logic                                                            ; --! SQUID AMP DAC: Frame Synchronization DAC LSB ('0' = Active, '1' = Inactive)
          i_sqa_dac_snc_o_n    : in     std_logic                                                            ; --! SQUID AMP DAC: Frame Synchronization DAC Offset ('0' = Active, '1' = Inactive)
          i_sqa_dac_mux        : in     std_logic_vector( c_SQA_DAC_MUX_S-1 downto 0)                        ; --! SQUID AMP DAC: Multiplexer
-         i_sqa_dac_mx_en_n    : in     std_logic                                                              --! SQUID AMP DAC: Multiplexer Enable ('0' = Active, '1' = Inactive)
+         i_sqa_dac_mx_en_n    : in     std_logic                                                            ; --! SQUID AMP DAC: Multiplexer Enable ('0' = Active, '1' = Inactive)
+
+         i_squid_err_volt     : in     real                                                                 ; --! SQUID Error voltage (Volt)
+         o_sqm_dac_delta_volt : out    real                                                                 ; --! SQUID MUX voltage (Vin+ - Vin-) (Volt)
+         o_sqa_volt           : out    real                                                                   --! SQUID AMP voltage (Volt)
    );
 end entity squid_model;
 
 architecture Behavioral of squid_model is
-signal   sqm_dac_delta_vout   : real                                                                        ; --! SQUID MUX DAC output (Vin+ - Vin-)
-signal   sqa_vout             : real                                                                        ; --! SQUID AMP voltage (Volt)
+signal   squid_err_volt       : real                                                                        ; --! SQUID Error voltage (Volt)
+signal   sqm_dac_delta_volt   : real                                                                        ; --! SQUID MUX voltage (Vin+ - Vin-) (Volt)
+signal   sqa_volt             : real                                                                        ; --! SQUID AMP voltage (Volt)
 
 begin
 
@@ -86,8 +94,10 @@ begin
    (     i_clk                => i_clk_sqm_dac        , -- in     std_logic                                 ; --! Clock
          i_sleep              => i_sqm_dac_sleep      , -- in     std_logic                                 ; --! Sleep ('0' = Inactive, '1' = Active)
          i_d                  => i_sqm_dac_data       , -- in     std_logic_vector(13 downto 0)             ; --! Data
-         o_delta_vout         => sqm_dac_delta_vout     -- out    real                                        --! Analog voltage (-g_VREF <= Vout1 - Vout2 < g_VREF)
+         o_delta_vout         => sqm_dac_delta_volt     -- out    real                                        --! Analog voltage (-g_VREF <= Vout1 - Vout2 < g_VREF)
    );
+
+   o_sqm_dac_delta_volt <= transport sqm_dac_delta_volt after g_SQM_VOLT_DEL when now > g_SQM_VOLT_DEL else 0.0;
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Pulse shaping check
@@ -96,7 +106,7 @@ begin
    (     i_arst               => i_arst               , -- in     std_logic                                 ; --! Asynchronous reset ('0' = Inactive, '1' = Active)
          i_clk_sqm_dac        => i_clk_sqm_dac        , -- in     std_logic                                 ; --! SQUID MUX DAC: Clock
          i_sync               => i_sync               , -- in     std_logic                                 ; --! Pixel sequence synchronization (R.E. detected = position sequence to the first pixel)
-         i_sqm_dac_ana        => sqm_dac_delta_vout   , -- in     real                                      ; --! SQUID MUX DAC: Analog
+         i_sqm_dac_ana        => sqm_dac_delta_volt   , -- in     real                                      ; --! SQUID MUX DAC: Analog
          i_pls_shp_fc         => i_pls_shp_fc         , -- in     integer                                   ; --! Pulse shaping cut frequency (Hz)
 
          o_err_num_pls_shp    => o_err_num_pls_shp      -- out    integer                                     --! Pulse shaping error number
@@ -117,14 +127,20 @@ begin
          i_sqa_dac_mux        => i_sqa_dac_mux        , -- in     slv(c_SQA_DAC_MUX_S-1 downto 0)           ; --! SQUID AMP DAC: Multiplexer
          i_sqa_dac_mx_en_n    => i_sqa_dac_mx_en_n    , -- in     std_logic                                 ; --! SQUID AMP DAC: Multiplexer Enable ('0' = Active, '1' = Inactive)
 
-         o_sqa_vout           => sqa_vout               -- out    real                                        --! Analog voltage (0.0 <= o_sqa_vout < c_SQA_COEF * g_SQA_DAC_VREF,
+         o_sqa_vout           => sqa_volt               -- out    real                                        --! Analog voltage (0.0 <= o_sqa_vout < c_SQA_COEF * g_SQA_DAC_VREF,
                                                                                                               --!  with c_SQA_COEF = (2^(c_SQA_DAC_MUX_S+1)-1)/(c_SQA_DAC_COEF_DIV*2^c_SQA_DAC_MUX_S))
    );
+
+   o_sqa_volt <= transport sqa_volt after g_SQA_VOLT_DEL when now > g_SQA_VOLT_DEL else 0.0;
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Switch ADC Voltage input
    -- ------------------------------------------------------------------------------------------------------
-   o_sqm_adc_ana <= sqa_vout when i_sw_adc_vin = c_SW_ADC_VIN_ST_SQA else sqm_dac_delta_vout;
+   squid_err_volt <= transport i_squid_err_volt after g_SQERR_VOLT_DEL when now > g_SQERR_VOLT_DEL else 0.0;
+
+   o_sqm_adc_ana <= sqa_volt            when i_sw_adc_vin = c_SW_ADC_VIN_ST_SQA else
+                    sqm_dac_delta_volt  when i_sw_adc_vin = c_SW_ADC_VIN_ST_SQM else
+                    squid_err_volt;
 
    -- ------------------------------------------------------------------------------------------------------
    --!   ADC model management
