@@ -48,7 +48,7 @@ entity sqa_dac_mgt is port
          i_sqa_fbk_mux        : in     std_logic_vector(c_DFLD_SAOFF_PIX_S-1 downto 0)                      ; --! SQUID AMP Feedback Multiplexer
          i_sqa_fbk_off        : in     std_logic_vector(c_DFLD_SAOFC_COL_S-1 downto 0)                      ; --! SQUID AMP coarse offset
          i_saodd              : in     std_logic_vector(c_DFLD_SAODD_COL_S-1 downto 0)                      ; --! SQUID AMP offset DAC delay
-         i_saomd              : in     std_logic_vector(c_DFLD_SAOMD_COL_S-1 downto 0)                      ; --! SQUID AMP offset MUX delay
+         i_sqa_pls_cnt_init   : in     std_logic_vector(   c_SQA_PLS_CNT_S-1 downto 0)                      ; --! SQUID AMP Pulse counter initialization
 
          o_sqa_dac_mux        : out    std_logic_vector(c_SQA_DAC_MUX_S -1 downto 0)                        ; --! SQUID AMP DAC: Multiplexer
          o_sqa_dac_data       : out    std_logic                                                            ; --! SQUID AMP DAC: Serial Data
@@ -65,15 +65,6 @@ constant c_PLS_RW_CNT_MAX_VAL : integer:= c_PLS_RW_CNT_NB_VAL - 2               
 constant c_PLS_RW_CNT_INIT    : integer:= c_PLS_RW_CNT_MAX_VAL - c_SAD_SYNC_DATA_NPER                       ; --! Pulse by row counter: initialization value
 constant c_PLS_RW_CNT_S       : integer:= log2_ceil(c_PLS_RW_CNT_MAX_VAL + 1) + 1                           ; --! Pulse by row counter: size bus (signed)
 
-constant c_PLS_CNT_NB_VAL     : integer:= c_PIXEL_DAC_NB_CYC                                                ; --! Pulse counter: number of value
-constant c_PLS_CNT_MAX_VAL    : integer:= c_PLS_CNT_NB_VAL - 2                                              ; --! Pulse counter: maximal value
-constant c_PLS_CNT_INIT       : integer:= c_PLS_CNT_MAX_VAL - c_SAM_SYNC_DATA_NPER                          ; --! Pulse counter: initialization value
-constant c_PLS_CNT_S          : integer:= log2_ceil(c_PLS_CNT_MAX_VAL + 1) + 1                              ; --! Pulse counter: size bus (signed)
-
-constant c_PIXEL_POS_MAX_VAL  : integer:= c_MUX_FACT - 2                                                    ; --! Pixel position: maximal value
-constant c_PIXEL_POS_INIT     : integer:= -1                                                                ; --! Pixel position: initialization value
-constant c_PIXEL_POS_S        : integer:= log2_ceil(c_PIXEL_POS_MAX_VAL+1) + 1                              ; --! Pixel position: size bus (signed)
-
 constant c_SPI_SER_WD_S_V_S   : integer := log2_ceil(c_SQA_SPI_SER_WD_S+1)                                  ; --! SQUID AMP DAC SPI: Serial word size vector bus size
 constant c_SQA_SPI_SER_WD_S_V : std_logic_vector(c_SPI_SER_WD_S_V_S-1 downto 0) :=
                                 std_logic_vector(to_unsigned(c_SQA_SPI_SER_WD_S, c_SPI_SER_WD_S_V_S))       ; --! SQUID AMP DAC SPI: Serial word size vector
@@ -83,7 +74,6 @@ signal   rst_sqm_adc_dac_pad  : std_logic                                       
 signal   sync_rs_sys          : std_logic                                                                   ; --! Pixel sequence synchronization, synchronized on System Clock register (System clock)
 signal   saofl_sys            : std_logic_vector(c_DFLD_SAOFL_COL_S-1 downto 0)                             ; --! SQUID AMP offset DAC LSB register (System clock)
 signal   saodd_sys            : std_logic_vector(c_DFLD_SAODD_COL_S-1 downto 0)                             ; --! SQUID AMP offset DAC delay register (System clock)
-signal   saomd_sys            : std_logic_vector(c_DFLD_SAOMD_COL_S-1 downto 0)                             ; --! SQUID AMP offset MUX delay register (System clock)
 
 signal   sync_r               : std_logic_vector(c_FF_RSYNC_NB-1 downto 0)                                  ; --! Pixel sequence sync. register (R.E. detected = position sequence to the first pixel)
 signal   sync_re              : std_logic                                                                   ; --! Pixel sequence sync. rising edge
@@ -91,7 +81,7 @@ signal   saofl_r              : t_slv_arr(0 to c_FF_RSYNC_NB  )(c_DFLD_SAOFC_COL
 signal   sqa_fbk_mux_r        : t_slv_arr(0 to c_FF_RSYNC_NB-1)(c_DFLD_SAOFF_PIX_S-1 downto 0)              ; --! SQUID AMP Feedback Multiplexer register
 signal   sqa_fbk_off_r        : t_slv_arr(0 to c_FF_RSYNC_NB-1)(c_DFLD_SAOFC_COL_S-1 downto 0)              ; --! SQUID AMP coarse offset register
 signal   saodd_r              : t_slv_arr(0 to c_FF_RSYNC_NB-1)(c_DFLD_SAODD_COL_S-1 downto 0)              ; --! SQUID AMP offset DAC delay register
-signal   saomd_r              : t_slv_arr(0 to c_FF_RSYNC_NB-1)(c_DFLD_SAOMD_COL_S-1 downto 0)              ; --! SQUID AMP offset MUX delay register
+signal   sqa_pls_cnt_init_r   : t_slv_arr(0 to c_FF_RSYNC_NB-1)(   c_SQA_PLS_CNT_S-1 downto 0)              ; --! Pulse counter initialization register
 
 signal   sqa_fbk_off_sync     : std_logic_vector(c_DFLD_SAOFC_COL_S-1 downto 0)                             ; --! SQUID AMP coarse offset synchronized on pulse by row counter start
 signal   sqa_fbk_off_final    : std_logic_vector(c_DFLD_SAOFC_COL_S-1 downto 0)                             ; --! SQUID AMP coarse offset final
@@ -103,10 +93,7 @@ signal   saodd_lim            : std_logic_vector(2 downto 0)                    
 signal   pls_rw_cnt           : std_logic_vector(c_PLS_RW_CNT_S-1 downto 0)                                 ; --! Pulse by row counter
 signal   pls_rw_cnt_init_oft  : std_logic_vector(c_PLS_RW_CNT_S-1 downto 0)                                 ; --! Pulse by row counter initialization offset
 signal   pls_rw_cnt_init      : std_logic_vector(c_PLS_RW_CNT_S-1 downto 0)                                 ; --! Pulse by row counter initialization
-signal   pls_cnt              : std_logic_vector(   c_PLS_CNT_S-1 downto 0)                                 ; --! Pulse counter
-signal   pls_cnt_init         : std_logic_vector(   c_PLS_CNT_S-1 downto 0)                                 ; --! Pulse shaping counter initialization
-signal   pixel_pos            : std_logic_vector( c_PIXEL_POS_S-1 downto 0)                                 ; --! Pixel position
-signal   pixel_pos_init       : std_logic_vector( c_PIXEL_POS_S-1 downto 0)                                 ; --! Pixel position initialization
+signal   pls_cnt              : std_logic_vector(c_SQA_PLS_CNT_S-1 downto 0)                                ; --! Pulse counter
 
 signal   saofl_tx_flg         : std_logic                                                                   ; --! SQUID AMP offset DAC LSB transmit flag ('0'= no data to transmit,'1'= data to transmit)
 signal   sqa_fbk_off_tx_flg   : std_logic                                                                   ; --! SQUID AMP coarse offset transmit flag ('0'= no data to transmit,'1'= data to transmit)
@@ -166,12 +153,10 @@ begin
       if i_rst = '1' then
          saofl_sys         <= c_EP_CMD_DEF_SAOFL;
          saodd_sys         <= c_EP_CMD_DEF_SAODD;
-         saomd_sys         <= c_EP_CMD_DEF_SAOMD;
 
       elsif rising_edge(i_clk) then
          saofl_sys         <= i_saofl;
          saodd_sys         <= i_saodd;
-         saomd_sys         <= i_saomd;
 
       end if;
 
@@ -184,20 +169,20 @@ begin
    begin
 
       if i_rst_sqm_adc_dac = '1' then
-         sync_r            <= (others => c_I_SYNC_DEF);
-         saofl_r           <= (others => c_EP_CMD_DEF_SAOFL);
-         sqa_fbk_mux_r     <= (others => (others => '0'));
-         sqa_fbk_off_r     <= (others => c_EP_CMD_DEF_SAOFC);
-         saodd_r           <= (others => c_EP_CMD_DEF_SAODD);
-         saomd_r           <= (others => c_EP_CMD_DEF_SAOMD);
+         sync_r               <= (others => c_I_SYNC_DEF);
+         saofl_r              <= (others => c_EP_CMD_DEF_SAOFL);
+         sqa_fbk_mux_r        <= (others => (others => '0'));
+         sqa_fbk_off_r        <= (others => c_EP_CMD_DEF_SAOFC);
+         saodd_r              <= (others => c_EP_CMD_DEF_SAODD);
+         sqa_pls_cnt_init_r   <= (others => std_logic_vector(to_signed(c_SQA_PLS_CNT_INIT, c_SQA_PLS_CNT_S)));
 
       elsif rising_edge(i_clk_sqm_adc_dac) then
-         sync_r            <= sync_r(sync_r'high-1 downto 0) & sync_rs_sys;
-         saofl_r           <= saofl_sys     & saofl_r(      0 to saofl_r'high-1);
-         sqa_fbk_mux_r     <= i_sqa_fbk_mux & sqa_fbk_mux_r(0 to sqa_fbk_mux_r'high-1);
-         sqa_fbk_off_r     <= i_sqa_fbk_off & sqa_fbk_off_r(0 to sqa_fbk_off_r'high-1);
-         saodd_r           <= saodd_sys     & saodd_r(      0 to saodd_r'high-1);
-         saomd_r           <= saomd_sys     & saomd_r(      0 to saomd_r'high-1);
+         sync_r               <= sync_r(sync_r'high-1 downto 0) & sync_rs_sys;
+         saofl_r              <= saofl_sys     & saofl_r(      0 to saofl_r'high-1);
+         sqa_fbk_mux_r        <= i_sqa_fbk_mux & sqa_fbk_mux_r(0 to sqa_fbk_mux_r'high-1);
+         sqa_fbk_off_r        <= i_sqa_fbk_off & sqa_fbk_off_r(0 to sqa_fbk_off_r'high-1);
+         saodd_r              <= saodd_sys     & saodd_r(      0 to saodd_r'high-1);
+         sqa_pls_cnt_init_r   <= i_sqa_pls_cnt_init   & sqa_pls_cnt_init_r(   0 to sqa_pls_cnt_init_r'high-1);
 
       end if;
 
@@ -352,32 +337,6 @@ begin
    end process P_pls_rw_cnt;
 
    -- ------------------------------------------------------------------------------------------------------
-   --!   Pulse counter/Pixel position initialization
-   --    @Req : DRE-DMX-FW-REQ-0380
-   -- ------------------------------------------------------------------------------------------------------
-   P_pls_cnt_del : process (i_rst_sqm_adc_dac, i_clk_sqm_adc_dac)
-   begin
-
-      if i_rst_sqm_adc_dac = '1' then
-         pls_cnt_init   <= std_logic_vector(unsigned(to_signed(c_PLS_CNT_INIT, pls_cnt_init'length)));
-         pixel_pos_init <= std_logic_vector(to_signed(c_PIXEL_POS_INIT , pixel_pos'length));
-
-      elsif rising_edge(i_clk_sqm_adc_dac) then
-         if    unsigned(saomd_r(saomd_r'high)) <= to_unsigned(c_SAM_SYNC_DATA_NPER, c_DFLD_SAOMD_COL_S) then
-            pls_cnt_init   <= std_logic_vector(unsigned(to_signed(c_PLS_CNT_INIT, pls_cnt_init'length)) + unsigned(saomd_r(saomd_r'high)));
-            pixel_pos_init <= std_logic_vector(to_signed(c_PIXEL_POS_INIT , pixel_pos'length));
-
-         else
-            pls_cnt_init   <= std_logic_vector(unsigned(to_signed(c_PLS_CNT_INIT - c_PIXEL_DAC_NB_CYC, pls_cnt_init'length)) + unsigned(saomd_r(saomd_r'high)));
-            pixel_pos_init <= std_logic_vector(to_signed(c_PIXEL_POS_INIT + 1 , pixel_pos'length));
-
-         end if;
-
-      end if;
-
-   end process P_pls_cnt_del;
-
-   -- ------------------------------------------------------------------------------------------------------
    --!   Pulse counter
    --    @Req : DRE-DMX-FW-REQ-0375
    -- ------------------------------------------------------------------------------------------------------
@@ -385,14 +344,14 @@ begin
    begin
 
       if i_rst_sqm_adc_dac = '1' then
-         pls_cnt    <= std_logic_vector(to_unsigned(c_PLS_CNT_MAX_VAL, pls_cnt'length));
+         pls_cnt    <= std_logic_vector(to_unsigned(c_SQA_PLS_CNT_MX_VAL, pls_cnt'length));
 
       elsif rising_edge(i_clk_sqm_adc_dac) then
          if sync_re = '1' then
-            pls_cnt <= pls_cnt_init;
+            pls_cnt <= sqa_pls_cnt_init_r(sqa_pls_cnt_init_r'high);
 
          elsif pls_cnt(pls_cnt'high) = '1' then
-            pls_cnt <= std_logic_vector(to_unsigned(c_PLS_CNT_MAX_VAL, pls_cnt'length));
+            pls_cnt <= std_logic_vector(to_unsigned(c_SQA_PLS_CNT_MX_VAL, pls_cnt'length));
 
          else
             pls_cnt <= std_logic_vector(signed(pls_cnt) - 1);
@@ -402,34 +361,6 @@ begin
       end if;
 
    end process P_pls_cnt;
-
-   -- ------------------------------------------------------------------------------------------------------
-   --!   Pixel position
-   --    @Req : DRE-DMX-FW-REQ-0080
-   --    @Req : DRE-DMX-FW-REQ-0090
-   --    @Req : DRE-DMX-FW-REQ-0385
-   -- ------------------------------------------------------------------------------------------------------
-   P_pixel_pos : process (i_rst_sqm_adc_dac, i_clk_sqm_adc_dac)
-   begin
-
-      if i_rst_sqm_adc_dac = '1' then
-         pixel_pos   <= (others => '1');
-
-      elsif rising_edge(i_clk_sqm_adc_dac) then
-         if sync_re = '1' then
-            pixel_pos <= pixel_pos_init;
-
-         elsif (pixel_pos(pixel_pos'high) and pls_cnt(pls_cnt'high)) = '1' then
-            pixel_pos <= std_logic_vector(to_signed(c_PIXEL_POS_MAX_VAL , pixel_pos'length));
-
-         elsif (not(pixel_pos(pixel_pos'high)) and pls_cnt(pls_cnt'high)) = '1' then
-            pixel_pos <= std_logic_vector(signed(pixel_pos) - 1);
-
-         end if;
-
-      end if;
-
-   end process P_pixel_pos;
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Transmit flags management

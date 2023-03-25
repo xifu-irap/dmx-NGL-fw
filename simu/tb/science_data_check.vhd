@@ -60,6 +60,8 @@ entity science_data_check is port
 end entity science_data_check;
 
 architecture RTL of science_data_check is
+constant c_FRAME_NB_CYC       : integer := c_MUX_FACT * c_PIXEL_DAC_NB_CYC                                  ; --! Frame period number
+constant c_FRAME_NB_CYC_S     : integer := log2_ceil(c_FRAME_NB_CYC)                                        ; --! Frame period number bus size
 constant c_SC_DATA_R_PIP_NB   : integer:= 2                                                                 ; --! Science Data register: pipeline number
 
 constant c_PLS_CNT_NB_VAL     : integer:= c_PIXEL_ADC_NB_CYC                                                ; --! Pulse counter (Dump case): number of value
@@ -82,11 +84,14 @@ constant c_FRM_CNT_SC_S       : integer:= log2_ceil(c_FRM_CNT_SC_MAX_VAL + 1)   
 
 type     t_tm_mode_sel          is  (idle, science, error_sig, dump, test_pattern)                          ; --! Mode selection type
 
-signal   squid_del            : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SMFBD_COL_S-1 downto 0)                   ; --! SQUID Feedback delay
+signal   squid_amp_mux_del    : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SMFBD_COL_S-1 downto 0)                   ; --! SQUID MUX/AMP Feedback delay
+signal   squid_del            : t_slv_arr(0 to c_NB_COL-1)(c_FRAME_NB_CYC-1 downto 0)                       ; --! SQUID Feedback delay
 
 signal   pls_cnt              : std_logic_vector(            c_PLS_CNT_S-1 downto 0)                        ; --! Pulse counter (Dump case)
+signal   pls_cnt_pos_init     : t_slv_arr(0 to c_NB_COL-1)(c_FRAME_NB_CYC-1 downto 0)                       ; --! Pulse counter (Dump case) position initialization
 signal   pls_cnt_pos_del      : t_slv_arr(0 to c_NB_COL-1)(  c_PLS_CNT_S-1 downto 0)                        ; --! Pulse counter (Dump case) position with delay
 signal   pixel_pos            : std_logic_vector(          c_PIXEL_POS_S-1 downto 0)                        ; --! Pixel position (Dump case)
+signal   pixel_pos_init       : t_slv_arr(0 to c_NB_COL-1)(c_PIXEL_POS_S-1 downto 0)                        ; --! Pixel position (Dump case) initialization
 signal   pixel_pos_del        : t_slv_arr(0 to c_NB_COL-1)(c_PIXEL_POS_S-1 downto 0)                        ; --! Pixel position (Dump case) with delay
 signal   seq_cnt              : std_logic_vector(            c_SEQ_CNT_S-1 downto 0)                        ; --! Sequence counter (Dump case)
 
@@ -359,7 +364,12 @@ begin
       -- ------------------------------------------------------------------------------------------------------
       --!   Squid delay
       -- ------------------------------------------------------------------------------------------------------
-      squid_del(k) <= i_smfbd(k) when (i_sw_adc_vin = c_SW_ADC_VIN_ST_SQM) else i_saomd(k);
+      squid_amp_mux_del(k) <= i_smfbd(k) when (i_sw_adc_vin = c_SW_ADC_VIN_ST_SQM) else i_saomd(k);
+      squid_del(k) <= std_logic_vector(resize(signed(squid_amp_mux_del(k)), squid_del(k)'length)) when squid_amp_mux_del(k)(c_DFLD_SMFBD_COL_S-1) = '0' else
+                      std_logic_vector(resize(signed(squid_amp_mux_del(k)), squid_del(k)'length) + to_signed(c_FRAME_NB_CYC, squid_del(k)'length));
+
+      pixel_pos_init(k)    <= std_logic_vector(to_unsigned(div_floor(to_integer(unsigned(squid_del(k))), c_PIXEL_DAC_NB_CYC), pixel_pos_init(k)'length));
+      pls_cnt_pos_init(k)  <= std_logic_vector(signed(unsigned(squid_del(k))) - to_signed(to_integer(unsigned(pixel_pos_init(k))) * c_PIXEL_DAC_NB_CYC, pls_cnt_pos_init(k)'length));
 
       -- ------------------------------------------------------------------------------------------------------
       --!   Pulse counter position with delay
@@ -371,13 +381,7 @@ begin
             pls_cnt_pos_del(k) <= std_logic_vector(to_unsigned(c_PLS_CNT_MAX_VAL, pls_cnt_pos_del(k)'length));
 
          elsif rising_edge(i_clk_science) then
-            if unsigned(squid_del(k)) < to_unsigned(c_PLS_CNT_NB_VAL, squid_del(k)'length) then
-               pls_cnt_pos_del(k) <= std_logic_vector(to_unsigned(c_PLS_CNT_MAX_VAL, pls_cnt_pos_del(k)'length) - resize(unsigned(squid_del(k)), pls_cnt_pos_del(k)'length));
-
-            else
-               pls_cnt_pos_del(k) <= std_logic_vector(to_unsigned(c_PLS_CNT_MAX_VAL+c_PLS_CNT_NB_VAL, pls_cnt_pos_del(k)'length) - resize(unsigned(squid_del(k)), pls_cnt_pos_del(k)'length));
-
-            end if;
+            pls_cnt_pos_del(k) <= std_logic_vector(to_unsigned(c_PLS_CNT_MAX_VAL, pls_cnt_pos_del(k)'length) - resize(unsigned(pls_cnt_pos_init(k)), pls_cnt_pos_del(k)'length));
 
          end if;
 
@@ -395,14 +399,11 @@ begin
          elsif rising_edge(i_clk_science) then
             if pls_cnt = pls_cnt_pos_del(k) or (pls_cnt(pls_cnt'high) = '1' and pixel_pos = std_logic_vector(to_unsigned(c_PIXEL_POS_MAX_VAL , pixel_pos'length))) then
 
-               if unsigned(squid_del(k)) < to_unsigned(c_PLS_CNT_NB_VAL, squid_del(k)'length) then
-                  pixel_pos_del(k) <= pixel_pos;
-
-               elsif pixel_pos = std_logic_vector(to_unsigned(0, pixel_pos'length)) then
-                  pixel_pos_del(k) <= std_logic_vector(to_unsigned(c_PIXEL_POS_MAX_VAL, pixel_pos_del(k)'length));
+               if unsigned(pixel_pos) < unsigned(pixel_pos_init(k)) then
+                  pixel_pos_del(k) <= std_logic_vector(to_unsigned(c_PIXEL_POS_MAX_VAL+1, pixel_pos_del(k)'length) + unsigned(pixel_pos) - unsigned(pixel_pos_init(k)));
 
                else
-                  pixel_pos_del(k) <= std_logic_vector(unsigned(pixel_pos) - 1);
+                  pixel_pos_del(k) <= std_logic_vector(unsigned(pixel_pos) - unsigned(pixel_pos_init(k)));
 
                end if;
 

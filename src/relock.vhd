@@ -85,6 +85,7 @@ signal   mem_cnt_thr_exceed   : t_slv_arr(0 to 2**c_MUX_FACT_S-1)(c_DFLD_RLDEL_C
                                  := (others => std_logic_vector(to_unsigned(1, c_DFLD_RLDEL_COL_S+1)))      ; --! Memory counter threshold exceed
 signal   cnt_thr_exceed_rd    : std_logic_vector(c_DFLD_RLDEL_COL_S downto 0)                               ; --! Counter threshold exceed read
 signal   cnt_thr_exceed_rd_r  : std_logic_vector(c_DFLD_RLDEL_COL_S downto 0)                               ; --! Counter threshold exceed read register
+signal   cnt_thr_exd_rd_cmp   : std_logic                                                                   ; --! Counter threshold exceed read compare
 signal   cnt_thr_exceed_wr    : std_logic_vector(c_DFLD_RLDEL_COL_S downto 0)                               ; --! Counter threshold exceed write
 
 signal   mem_dlcnt_pp         : std_logic                                                                   ; --! Delock counter, TH/HK side: ping-pong buffer bit
@@ -144,12 +145,21 @@ begin
    begin
 
       if i_rst = '1' then
-         cnt_thr_exceed_rd      <= std_logic_vector(to_unsigned(1, cnt_thr_exceed_rd_r'length));
+         cnt_thr_exceed_rd      <= std_logic_vector(to_unsigned(1, cnt_thr_exceed_rd'length));
          cnt_thr_exceed_rd_r    <= std_logic_vector(to_unsigned(1, cnt_thr_exceed_rd_r'length));
+         cnt_thr_exd_rd_cmp     <= '0';
 
       elsif rising_edge(i_clk) then
          cnt_thr_exceed_rd      <= mem_cnt_thr_exceed(to_integer(unsigned(i_mem_rl_rd_add)));
          cnt_thr_exceed_rd_r    <= cnt_thr_exceed_rd;
+
+         if (unsigned(cnt_thr_exceed_rd) >= resize(unsigned(i_rldel), cnt_thr_exceed_rd'length)) then
+            cnt_thr_exd_rd_cmp  <= '1';
+
+         else
+            cnt_thr_exd_rd_cmp  <= '0';
+
+         end if;
 
       end if;
 
@@ -166,7 +176,7 @@ begin
             if i_smfbm_close_rl = '0' then
                cnt_thr_exceed_wr <= std_logic_vector(to_unsigned(1, cnt_thr_exceed_wr'length));
 
-            elsif (unsigned(cnt_thr_exceed_rd_r) >= resize(unsigned(i_rldel), cnt_thr_exceed_rd_r'length)) then
+            elsif cnt_thr_exd_rd_cmp = '1' then
                cnt_thr_exceed_wr <= std_logic_vector(to_unsigned(1, cnt_thr_exceed_wr'length));
 
             elsif (signed(diff_sqm_dta_smfb0) > signed(resize(unsigned(i_rlthr), diff_sqm_dta_smfb0'length))) or
@@ -275,7 +285,7 @@ begin
             if dlcnt_wr_ena = '0' then
                dlcnt_wr <= (others => '0');
 
-            elsif (unsigned(cnt_thr_exceed_rd_r) >= resize(unsigned(i_rldel), cnt_thr_exceed_rd_r'length)) and
+            elsif cnt_thr_exd_rd_cmp = '1' and
                   (dlcnt_rd /= std_logic_vector(to_unsigned(2**dlcnt_rd'length - 1, dlcnt_rd'length))) then
                dlcnt_wr <= std_logic_vector(unsigned(dlcnt_rd) + 1);
 
@@ -359,13 +369,7 @@ begin
          o_rl_ena <= '0';
 
       elsif rising_edge(i_clk) then
-         if (unsigned(cnt_thr_exceed_rd_r) >= resize(unsigned(i_rldel), cnt_thr_exceed_rd_r'length)) then
-            o_rl_ena <= '1';
-
-         else
-            o_rl_ena <= '0';
-
-         end if;
+         o_rl_ena <= cnt_thr_exd_rd_cmp;
 
       end if;
 

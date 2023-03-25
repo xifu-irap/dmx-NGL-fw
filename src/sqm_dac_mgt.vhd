@@ -47,9 +47,10 @@ entity sqm_dac_mgt is port
 
          i_sync_rs            : in     std_logic                                                            ; --! Pixel sequence synchronization, synchronized on System Clock
          i_sqm_data_fbk       : in     std_logic_vector(c_SQM_DATA_FBK_S-1 downto 0)                        ; --! SQUID MUX Data feedback (signed)
-         i_plsss              : in     std_logic_vector(c_DFLD_PLSSS_PLS_S-1 downto 0)                      ; --! SQUID MUX feedback pulse shaping set
-         i_smfbd              : in     std_logic_vector(c_DFLD_SMFBD_COL_S-1 downto 0)                      ; --! SQUID MUX feedback delay
+         i_sqm_pixel_pos_init : in     std_logic_vector( c_SQM_PXL_POS_S-1 downto 0)                        ; --! SQUID MUX Pixel position initialization
+         i_sqm_pls_cnt_init   : in     std_logic_vector( c_SQM_PLS_CNT_S-1 downto 0)                        ; --! SQUID MUX Pulse shaping counter initialization
 
+         i_plsss              : in     std_logic_vector(c_DFLD_PLSSS_PLS_S-1 downto 0)                      ; --! SQUID MUX feedback pulse shaping set
          i_mem_plssh          : in     t_mem(
                                        add(              c_MEM_PLSSH_ADD_S-1 downto 0),
                                        data_w(          c_DFLD_PLSSH_PLS_S-1 downto 0))                     ; --! SQUID MUX feedback pulse shaping coefficient: memory inputs
@@ -60,37 +61,26 @@ entity sqm_dac_mgt is port
 end entity sqm_dac_mgt;
 
 architecture RTL of sqm_dac_mgt is
-constant c_PLS_CNT_NB_VAL     : integer:= c_PIXEL_DAC_NB_CYC                                                ; --! Pulse shaping counter: number of value
-constant c_PLS_CNT_MAX_VAL    : integer:= c_PLS_CNT_NB_VAL - 2                                              ; --! Pulse shaping counter: maximal value
-constant c_PLS_CNT_INIT       : integer:= c_PLS_CNT_MAX_VAL - c_DAC_SYNC_DATA_NPER                          ; --! Pulse shaping counter: initialization value
-constant c_PLS_CNT_S          : integer:= log2_ceil(c_PLS_CNT_MAX_VAL + 1) + 1                              ; --! Pulse shaping counter: size bus (signed)
-
-constant c_PLS_VAL_SYNC_PRM   : integer:= c_PLS_CNT_MAX_VAL - (c_DAC_MEM_PRM_NPER-1)                        ; --! Pulse shaping counter value for synchronized data inputs with A[k] filter parameter
-
-constant c_PIXEL_POS_MAX_VAL  : integer:= c_MUX_FACT - 2                                                    ; --! Pixel position: maximal value
-constant c_PIXEL_POS_INIT     : integer:= -1                                                                ; --! Pixel position: initialization value
-constant c_PIXEL_POS_S        : integer:= log2_ceil(c_PIXEL_POS_MAX_VAL+1)+1                                ; --! Pixel position: size bus (signed)
+constant c_PLS_VAL_SYNC_PRM   : integer:= c_SQM_PLS_CNT_MX_VAL - (c_DAC_MEM_PRM_NPER-1)                     ; --! Pulse shaping counter value for synchronized data inputs with A[k] filter parameter
 
 signal   rst_sqm_adc_dac_pad  : std_logic                                                                   ; --! Reset for SQUID ADC/DAC pads, de-assertion on system clock
 
 signal   sync_rs_sys          : std_logic                                                                   ; --! Pixel sequence synchronization, synchronized on System Clock register (System clock)
 signal   plsss_sys            : std_logic_vector(c_DFLD_PLSSS_PLS_S-1 downto 0)                             ; --! SQUID MUX feedback pulse shaping set register (System clock)
-signal   smfbd_sys            : std_logic_vector(c_DFLD_SMFBD_COL_S-1 downto 0)                             ; --! SQUID MUX feedback delay register (System clock)
 
 signal   sync_r               : std_logic_vector(       c_FF_RSYNC_NB   downto 0)                           ; --! Pixel sequence sync. register (R.E. detected = position sequence to the first pixel)
 signal   sync_re              : std_logic                                                                   ; --! Pixel sequence sync. rising edge
 signal   sqm_data_fbk_r       : t_slv_arr(0 to c_FF_RSYNC_NB-1)(c_SQM_DATA_FBK_S-1 downto 0)                ; --! SQUID MUX Data feedback register
+signal   sqm_pixel_pos_init_r : t_slv_arr(0 to c_FF_RSYNC_NB-1)(   c_SQM_PXL_POS_S-1 downto 0)              ; --! Pixel position initialization register
+signal   sqm_pls_cnt_init_r   : t_slv_arr(0 to c_FF_RSYNC_NB-1)(   c_SQM_PLS_CNT_S-1 downto 0)              ; --! Pulse shaping counter initialization register
 signal   plsss_r              : t_slv_arr(0 to c_FF_RSYNC_NB-1)(c_DFLD_PLSSS_PLS_S-1 downto 0)              ; --! SQUID MUX feedback pulse shaping set register
-signal   smfbd_r              : t_slv_arr(0 to c_FF_RSYNC_NB-1)(c_DFLD_SMFBD_COL_S-1 downto 0)              ; --! SQUID MUX feedback delay register
 signal   mem_plssh_pp_r       : std_logic_vector(       c_FF_RSYNC_NB-1 downto 0)                           ; --! Memory pulse shaping coefficient: ping-pong buffer bit for address management register
 
-signal   pls_cnt              : std_logic_vector(         c_PLS_CNT_S-1 downto 0)                           ; --! Pulse shaping counter
-signal   pls_cnt_init         : std_logic_vector(         c_PLS_CNT_S-1 downto 0)                           ; --! Pulse shaping counter initialization
+signal   pls_cnt              : std_logic_vector(     c_SQM_PLS_CNT_S-1 downto 0)                           ; --! Pulse shaping counter
 signal   pls_cnt_msb_r        : std_logic                                                                   ; --! Pulse shaping counter MSB register
-signal   pixel_pos            : std_logic_vector(       c_PIXEL_POS_S-1 downto 0)                           ; --! Pixel position
-signal   pixel_pos_init       : std_logic_vector(       c_PIXEL_POS_S-1 downto 0)                           ; --! Pixel position initialization
+signal   pixel_pos            : std_logic_vector(     c_SQM_PXL_POS_S-1 downto 0)                           ; --! Pixel position
 
-signal   mem_plssh_add_lsb    : std_logic_vector(         c_PLS_CNT_S-1 downto 0)                           ; --! Memory pulse shaping coefficient, DAC side: address lsb
+signal   mem_plssh_add_lsb    : std_logic_vector(     c_SQM_PLS_CNT_S-1 downto 0)                           ; --! Memory pulse shaping coefficient, DAC side: address lsb
 signal   mem_plssh_pp         : std_logic                                                                   ; --! SQUID MUX feedback pulse shaping coefficient, TH/HK side: ping-pong buffer bit
 signal   mem_plssh_prm        : t_mem(
                                 add(                c_MEM_PLSSH_ADD_S-1 downto 0),
@@ -144,11 +134,9 @@ begin
 
       if i_rst = '1' then
          plsss_sys         <= c_EP_CMD_DEF_PLSSS;
-         smfbd_sys         <= c_EP_CMD_DEF_SMFBD;
 
       elsif rising_edge(i_clk) then
          plsss_sys         <= i_plsss;
-         smfbd_sys         <= i_smfbd;
 
       end if;
 
@@ -163,15 +151,17 @@ begin
       if i_rst_sqm_adc_dac = '1' then
          sync_r               <= (others => c_I_SYNC_DEF);
          sqm_data_fbk_r       <= (others => std_logic_vector(to_unsigned(c_DAC_MDL_POINT, c_SQM_DATA_FBK_S)));
+         sqm_pixel_pos_init_r <= (others => std_logic_vector(to_signed(c_SQM_PXL_POS_INIT, c_SQM_PXL_POS_S)));
+         sqm_pls_cnt_init_r   <= (others => std_logic_vector(to_signed(c_SQM_PLS_CNT_INIT, c_SQM_PLS_CNT_S)));
          plsss_r              <= (others => c_EP_CMD_DEF_PLSSS);
-         smfbd_r              <= (others => c_EP_CMD_DEF_SMFBD);
          mem_plssh_pp_r       <= (others => c_MEM_STR_ADD_PP_DEF);
 
       elsif rising_edge(i_clk_sqm_adc_dac) then
          sync_r               <= sync_r(sync_r'high-1 downto 0) & sync_rs_sys;
-         sqm_data_fbk_r       <= i_sqm_data_fbk & sqm_data_fbk_r( 0 to sqm_data_fbk_r'high-1);
-         plsss_r              <= plsss_sys      & plsss_r(        0 to plsss_r'high-1);
-         smfbd_r              <= smfbd_sys      & smfbd_r(        0 to smfbd_r'high-1);
+         sqm_data_fbk_r       <= i_sqm_data_fbk       & sqm_data_fbk_r(       0 to sqm_data_fbk_r'high-1);
+         sqm_pixel_pos_init_r <= i_sqm_pixel_pos_init & sqm_pixel_pos_init_r( 0 to sqm_pixel_pos_init_r'high-1);
+         sqm_pls_cnt_init_r   <= i_sqm_pls_cnt_init   & sqm_pls_cnt_init_r(   0 to sqm_pls_cnt_init_r'high-1);
+         plsss_r              <= plsss_sys            & plsss_r(              0 to plsss_r'high-1);
          mem_plssh_pp_r       <= mem_plssh_pp_r(mem_plssh_pp_r'high-1 downto 0) & mem_plssh_pp;
 
       end if;
@@ -195,32 +185,6 @@ begin
    end process P_sig;
 
    -- ------------------------------------------------------------------------------------------------------
-   --!   Pulse shaping counter/Pixel position initialization
-   --    @Req : DRE-DMX-FW-REQ-0280
-   -- ------------------------------------------------------------------------------------------------------
-   P_pls_cnt_del : process (i_rst_sqm_adc_dac, i_clk_sqm_adc_dac)
-   begin
-
-      if i_rst_sqm_adc_dac = '1' then
-         pls_cnt_init   <= std_logic_vector(unsigned(to_signed(c_PLS_CNT_INIT, pls_cnt_init'length)));
-         pixel_pos_init <= std_logic_vector(to_signed(c_PIXEL_POS_INIT , pixel_pos'length));
-
-      elsif rising_edge(i_clk_sqm_adc_dac) then
-         if    unsigned(smfbd_r(smfbd_r'high)) <= to_unsigned(c_DAC_SYNC_DATA_NPER, c_DFLD_SMFBD_COL_S) then
-            pls_cnt_init   <= std_logic_vector(unsigned(to_signed(c_PLS_CNT_INIT, pls_cnt_init'length)) + unsigned(smfbd_r(smfbd_r'high)));
-            pixel_pos_init <= std_logic_vector(to_signed(c_PIXEL_POS_INIT , pixel_pos'length));
-
-         else
-            pls_cnt_init   <= std_logic_vector(unsigned(to_signed(c_PLS_CNT_INIT - c_PIXEL_DAC_NB_CYC, pls_cnt_init'length)) + unsigned(smfbd_r(smfbd_r'high)));
-            pixel_pos_init <= std_logic_vector(to_signed(c_PIXEL_POS_INIT + 1 , pixel_pos'length));
-
-         end if;
-
-      end if;
-
-   end process P_pls_cnt_del;
-
-   -- ------------------------------------------------------------------------------------------------------
    --!   Pulse shaping counter
    --    @Req : DRE-DMX-FW-REQ-0275
    -- ------------------------------------------------------------------------------------------------------
@@ -228,15 +192,15 @@ begin
    begin
 
       if i_rst_sqm_adc_dac = '1' then
-         pls_cnt        <= std_logic_vector(to_unsigned(c_PLS_CNT_MAX_VAL, pls_cnt'length));
+         pls_cnt        <= std_logic_vector(to_unsigned(c_SQM_PLS_CNT_MX_VAL, pls_cnt'length));
          pls_cnt_msb_r  <= '0';
 
       elsif rising_edge(i_clk_sqm_adc_dac) then
          if sync_re = '1' then
-            pls_cnt <= pls_cnt_init(pls_cnt'high downto 0);
+            pls_cnt <= sqm_pls_cnt_init_r(sqm_pls_cnt_init_r'high);
 
          elsif pls_cnt(pls_cnt'high) = '1' then
-            pls_cnt <= std_logic_vector(to_unsigned(c_PLS_CNT_MAX_VAL, pls_cnt'length));
+            pls_cnt <= std_logic_vector(to_unsigned(c_SQM_PLS_CNT_MX_VAL, pls_cnt'length));
 
          else
             pls_cnt <= std_logic_vector(signed(pls_cnt) - 1);
@@ -263,10 +227,10 @@ begin
 
       elsif rising_edge(i_clk_sqm_adc_dac) then
          if sync_re = '1' then
-            pixel_pos <= pixel_pos_init;
+            pixel_pos <= sqm_pixel_pos_init_r(sqm_pixel_pos_init_r'high);
 
          elsif (pixel_pos(pixel_pos'high) and pls_cnt(pls_cnt'high)) = '1' then
-            pixel_pos <= std_logic_vector(to_signed(c_PIXEL_POS_MAX_VAL , pixel_pos'length));
+            pixel_pos <= std_logic_vector(to_signed(c_SQM_PXL_POS_MX_VAL , pixel_pos'length));
 
          elsif (not(pixel_pos(pixel_pos'high)) and pls_cnt(pls_cnt'high)) = '1' then
             pixel_pos <= std_logic_vector(signed(pixel_pos) - 1);
@@ -322,7 +286,7 @@ begin
          mem_plssh_prm.pp <= c_MEM_STR_ADD_PP_DEF;
 
       elsif rising_edge(i_clk_sqm_adc_dac) then
-         mem_plssh_add_lsb <= std_logic_vector(to_signed(c_PLS_CNT_MAX_VAL, mem_plssh_add_lsb'length) - signed(pls_cnt));
+         mem_plssh_add_lsb <= std_logic_vector(to_signed(c_SQM_PLS_CNT_MX_VAL, mem_plssh_add_lsb'length) - signed(pls_cnt));
 
          if (pixel_pos(pixel_pos'high) and pls_cnt_msb_r) = '1' then
             mem_plssh_prm.add(mem_plssh_prm.add'high downto mem_plssh_add_lsb'high) <= plsss_r(plsss_r'high);

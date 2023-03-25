@@ -653,6 +653,314 @@
 # ** Note   : (1720075608 ps) Send SPI command value 8001_0004 (DATA_ACQ_MODE, mode Write, data 0004)
 # ** Note   : (1722390000 ps) Waiting SPI command end for 2278392 ps
 # ** Note   : (1904390000 ps) Waiting time for 182000000 ps
+#             (1904390000 ps) 
+#             (1904390000 ps) ==============================================================================================
+#             (1904390000 ps)   Send a SQUID MUX DAC delay on each channels
+#             (1904390000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (1904390000 ps) Send SPI command value 0A05_03FF (C0_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 03FF)
+# ** Note   : (1906710000 ps) Waiting SPI command end for 2284000 ps
+# ** Note   : (1906710000 ps) Send SPI command value 2A05_03FE (C1_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 03FE)
+# ** Note   : (1909032000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (1909032000 ps) Send SPI command value 4A05_03FD (C2_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 03FD)
+# ** Note   : (1911354000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (1911354000 ps) Send SPI command value 6A05_03FC (C3_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 03FC)
+# ** Note   : (1913676000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (1913676360 ps) Waiting event sync = '0' for 360 ps
+# ** Note   : (1915853448 ps) Waiting event sync = '1' for 2177088 ps
+# ** Note   : (1916013528 ps) Waiting event sync = '0' for 160080 ps
+#             (1916013528 ps) 
+#             (1916013528 ps) ==============================================================================================
+#             (1916013528 ps)   Send command DATA_ACQ_MODE, Dump mode
+#             (1916013528 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (1916013528 ps) Send SPI command value 8001_0004 (DATA_ACQ_MODE, mode Write, data 0004)
+# ** Note   : (1918320000 ps) Waiting SPI command end for 2270472 ps
+# ** Note   : (2100320000 ps) Waiting time for 182000000 ps
+#             (2100320000 ps) 
+#             (2100320000 ps) ==============================================================================================
+#             (2100320000 ps)   Send a SQUID MUX DAC delay on each channels
+#             (2100320000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (2100320000 ps) Send SPI command value 0A05_03FB (C0_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 03FB)
+# ** Note   : (2102640000 ps) Waiting SPI command end for 2284000 ps
+# ** Note   : (2102640000 ps) Send SPI command value 2A05_03FA (C1_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 03FA)
+# ** Note   : (2104962000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (2104962000 ps) Send SPI command value 4A05_03F9 (C2_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 03F9)
+# ** Note   : (2107284000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (2107284000 ps) Send SPI command value 6A05_03F8 (C3_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 03F8)
+# ** Note   : (2109606000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (2109606276 ps) Waiting event sync = '0' for 276 ps
+# ** Note   : (2111791368 ps) Waiting event sync = '1' for 2185092 ps
+# ** Note   : (2111951448 ps) Waiting event sync = '0' for 160080 ps
+#             (2111951448 ps) 
+#             (2111951448 ps) ==============================================================================================
+#             (2111951448 ps)   Send command DATA_ACQ_MODE, Dump mode
+#             (2111951448 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (2111951448 ps) Send SPI command value 8001_0004 (DATA_ACQ_MODE, mode Write, data 0004)
+# ** Note   : (2114268000 ps) Waiting SPI command end for 2280552 ps
+# ** Note   : (2296268000 ps) Waiting time for 182000000 ps
+#             (2296268000 ps) 
+#             (2296268000 ps) ==============================================================================================
+#             (2296268000 ps)   Send a SQUID MUX DAC delay on each channels
+#             (2296268000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (2296268000 ps) Send SPI command value 0A05_03F7 (C0_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 03F7)
+# ** Note   : (2298588000 ps) Waiting SPI command end for 2284000 ps
+# ** Note   : (2298588000 ps) Send SPI command value 2A05_03F6 (C1_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 03F6)
+# ** Note   : (2300910000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (2300910000 ps) Send SPI command value 4A05_03F5 (C2_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 03F5)
+# ** Note   : (2303232000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (2303232000 ps) Send SPI command value 6A05_03F4 (C3_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 03F4)
+# ** Note   : (2305554000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (2305556202 ps) Waiting event sync = '0' for 2202 ps
+# ** Note   : (2307729288 ps) Waiting event sync = '1' for 2173086 ps
+# ** Note   : (2307889368 ps) Waiting event sync = '0' for 160080 ps
+#             (2307889368 ps) 
+#             (2307889368 ps) ==============================================================================================
+#             (2307889368 ps)   Send command DATA_ACQ_MODE, Dump mode
+#             (2307889368 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (2307889368 ps) Send SPI command value 8001_0004 (DATA_ACQ_MODE, mode Write, data 0004)
+# ** Note   : (2310198000 ps) Waiting SPI command end for 2272632 ps
+# ** Note   : (2492198000 ps) Waiting time for 182000000 ps
+#             (2492198000 ps) 
+#             (2492198000 ps) ==============================================================================================
+#             (2492198000 ps)   Send a SQUID MUX DAC delay on each channels
+#             (2492198000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (2492198000 ps) Send SPI command value 0A05_03F3 (C0_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 03F3)
+# ** Note   : (2494518000 ps) Waiting SPI command end for 2284000 ps
+# ** Note   : (2494518000 ps) Send SPI command value 2A05_03F2 (C1_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 03F2)
+# ** Note   : (2496840000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (2496840000 ps) Send SPI command value 4A05_03F1 (C2_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 03F1)
+# ** Note   : (2499162000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (2499162000 ps) Send SPI command value 6A05_03F0 (C3_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 03F0)
+# ** Note   : (2501484000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (2501486118 ps) Waiting event sync = '0' for 2118 ps
+# ** Note   : (2503667208 ps) Waiting event sync = '1' for 2181090 ps
+# ** Note   : (2503827288 ps) Waiting event sync = '0' for 160080 ps
+#             (2503827288 ps) 
+#             (2503827288 ps) ==============================================================================================
+#             (2503827288 ps)   Send command DATA_ACQ_MODE, Dump mode
+#             (2503827288 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (2503827288 ps) Send SPI command value 8001_0004 (DATA_ACQ_MODE, mode Write, data 0004)
+# ** Note   : (2506146000 ps) Waiting SPI command end for 2282712 ps
+# ** Note   : (2688146000 ps) Waiting time for 182000000 ps
+#             (2688146000 ps) 
+#             (2688146000 ps) ==============================================================================================
+#             (2688146000 ps)   Send a SQUID MUX DAC delay on each channels
+#             (2688146000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (2688146000 ps) Send SPI command value 0A05_03EF (C0_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 03EF)
+# ** Note   : (2690466000 ps) Waiting SPI command end for 2284000 ps
+# ** Note   : (2690466000 ps) Send SPI command value 2A05_03EE (C1_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 03EE)
+# ** Note   : (2692788000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (2692788000 ps) Send SPI command value 4A05_03ED (C2_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 03ED)
+# ** Note   : (2695110000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (2695110000 ps) Send SPI command value 6A05_03EC (C3_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 03EC)
+# ** Note   : (2697432000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (2697432042 ps) Waiting event sync = '0' for 42 ps
+# ** Note   : (2699605128 ps) Waiting event sync = '1' for 2173086 ps
+# ** Note   : (2699765208 ps) Waiting event sync = '0' for 160080 ps
+#             (2699765208 ps) 
+#             (2699765208 ps) ==============================================================================================
+#             (2699765208 ps)   Send command DATA_ACQ_MODE, Dump mode
+#             (2699765208 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (2699765208 ps) Send SPI command value 8001_0004 (DATA_ACQ_MODE, mode Write, data 0004)
+# ** Note   : (2702076000 ps) Waiting SPI command end for 2274792 ps
+# ** Note   : (2884076000 ps) Waiting time for 182000000 ps
+#             (2884076000 ps) 
+#             (2884076000 ps) ==============================================================================================
+#             (2884076000 ps)   Send a SQUID MUX DAC delay on each channels
+#             (2884076000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (2884076000 ps) Send SPI command value 0A05_03EB (C0_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 03EB)
+# ** Note   : (2886396000 ps) Waiting SPI command end for 2284000 ps
+# ** Note   : (2886396000 ps) Send SPI command value 2A05_03EA (C1_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 03EA)
+# ** Note   : (2888718000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (2888718000 ps) Send SPI command value 4A05_03E9 (C2_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 03E9)
+# ** Note   : (2891040000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (2891040000 ps) Send SPI command value 6A05_03E8 (C3_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 03E8)
+# ** Note   : (2893362000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (2893365960 ps) Waiting event sync = '0' for 3960 ps
+# ** Note   : (2895543048 ps) Waiting event sync = '1' for 2177088 ps
+# ** Note   : (2895703128 ps) Waiting event sync = '0' for 160080 ps
+#             (2895703128 ps) 
+#             (2895703128 ps) ==============================================================================================
+#             (2895703128 ps)   Send command DATA_ACQ_MODE, Dump mode
+#             (2895703128 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (2895703128 ps) Send SPI command value 8001_0004 (DATA_ACQ_MODE, mode Write, data 0004)
+# ** Note   : (2898024000 ps) Waiting SPI command end for 2284872 ps
+# ** Note   : (3080024000 ps) Waiting time for 182000000 ps
+#             (3080024000 ps) 
+#             (3080024000 ps) ==============================================================================================
+#             (3080024000 ps)   Send a SQUID MUX DAC delay on each channels
+#             (3080024000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (3080024000 ps) Send SPI command value 0A05_03E7 (C0_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 03E7)
+# ** Note   : (3082344000 ps) Waiting SPI command end for 2284000 ps
+# ** Note   : (3082344000 ps) Send SPI command value 2A05_03E6 (C1_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 03E6)
+# ** Note   : (3084666000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (3084666000 ps) Send SPI command value 4A05_03E5 (C2_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 03E5)
+# ** Note   : (3086988000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (3086988000 ps) Send SPI command value 6A05_03E4 (C3_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 03E4)
+# ** Note   : (3089310000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (3089311884 ps) Waiting event sync = '0' for 1884 ps
+# ** Note   : (3091480968 ps) Waiting event sync = '1' for 2169084 ps
+# ** Note   : (3091641048 ps) Waiting event sync = '0' for 160080 ps
+#             (3091641048 ps) 
+#             (3091641048 ps) ==============================================================================================
+#             (3091641048 ps)   Send command DATA_ACQ_MODE, Dump mode
+#             (3091641048 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (3091641048 ps) Send SPI command value 8001_0004 (DATA_ACQ_MODE, mode Write, data 0004)
+# ** Note   : (3093954000 ps) Waiting SPI command end for 2276952 ps
+# ** Note   : (3275954000 ps) Waiting time for 182000000 ps
+#             (3275954000 ps) 
+#             (3275954000 ps) ==============================================================================================
+#             (3275954000 ps)   Send a SQUID MUX DAC delay on each channels
+#             (3275954000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (3275954000 ps) Send SPI command value 0A05_03E3 (C0_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 03E3)
+# ** Note   : (3278274000 ps) Waiting SPI command end for 2284000 ps
+# ** Note   : (3278274000 ps) Send SPI command value 2A05_03E2 (C1_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 03E2)
+# ** Note   : (3280596000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (3280596000 ps) Send SPI command value 4A05_03E1 (C2_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 03E1)
+# ** Note   : (3282918000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (3282918000 ps) Send SPI command value 6A05_03E0 (C3_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 03E0)
+# ** Note   : (3285240000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (3285241800 ps) Waiting event sync = '0' for 1800 ps
+# ** Note   : (3287418888 ps) Waiting event sync = '1' for 2177088 ps
+# ** Note   : (3287578968 ps) Waiting event sync = '0' for 160080 ps
+#             (3287578968 ps) 
+#             (3287578968 ps) ==============================================================================================
+#             (3287578968 ps)   Send command DATA_ACQ_MODE, Dump mode
+#             (3287578968 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (3287578968 ps) Send SPI command value 8001_0004 (DATA_ACQ_MODE, mode Write, data 0004)
+# ** Note   : (3289884000 ps) Waiting SPI command end for 2269032 ps
+# ** Note   : (3471884000 ps) Waiting time for 182000000 ps
+#             (3471884000 ps) 
+#             (3471884000 ps) ==============================================================================================
+#             (3471884000 ps)   Send a SQUID MUX DAC delay on each channels
+#             (3471884000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (3471884000 ps) Send SPI command value 0A05_03CB (C0_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 03CB)
+# ** Note   : (3474204000 ps) Waiting SPI command end for 2284000 ps
+# ** Note   : (3474204000 ps) Send SPI command value 2A05_03B6 (C1_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 03B6)
+# ** Note   : (3476526000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (3476526000 ps) Send SPI command value 4A05_03A1 (C2_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 03A1)
+# ** Note   : (3478848000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (3478848000 ps) Send SPI command value 6A05_038C (C3_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 038C)
+# ** Note   : (3481170000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (3481171716 ps) Waiting event sync = '0' for 1716 ps
+# ** Note   : (3483356808 ps) Waiting event sync = '1' for 2185092 ps
+# ** Note   : (3483516888 ps) Waiting event sync = '0' for 160080 ps
+#             (3483516888 ps) 
+#             (3483516888 ps) ==============================================================================================
+#             (3483516888 ps)   Send command DATA_ACQ_MODE, Dump mode
+#             (3483516888 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (3483516888 ps) Send SPI command value 8001_0004 (DATA_ACQ_MODE, mode Write, data 0004)
+# ** Note   : (3485832000 ps) Waiting SPI command end for 2279112 ps
+# ** Note   : (3667832000 ps) Waiting time for 182000000 ps
+#             (3667832000 ps) 
+#             (3667832000 ps) ==============================================================================================
+#             (3667832000 ps)   Send a SQUID MUX DAC delay on each channels
+#             (3667832000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (3667832000 ps) Send SPI command value 0A05_0377 (C0_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 0377)
+# ** Note   : (3670152000 ps) Waiting SPI command end for 2284000 ps
+# ** Note   : (3670152000 ps) Send SPI command value 2A05_0362 (C1_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 0362)
+# ** Note   : (3672474000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (3672474000 ps) Send SPI command value 4A05_034D (C2_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 034D)
+# ** Note   : (3674796000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (3674796000 ps) Send SPI command value 6A05_0338 (C3_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 0338)
+# ** Note   : (3677118000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (3677121642 ps) Waiting event sync = '0' for 3642 ps
+# ** Note   : (3679294728 ps) Waiting event sync = '1' for 2173086 ps
+# ** Note   : (3679454808 ps) Waiting event sync = '0' for 160080 ps
+#             (3679454808 ps) 
+#             (3679454808 ps) ==============================================================================================
+#             (3679454808 ps)   Send command DATA_ACQ_MODE, Dump mode
+#             (3679454808 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (3679454808 ps) Send SPI command value 8001_0004 (DATA_ACQ_MODE, mode Write, data 0004)
+# ** Note   : (3681762000 ps) Waiting SPI command end for 2271192 ps
+# ** Note   : (3863762000 ps) Waiting time for 182000000 ps
+#             (3863762000 ps) 
+#             (3863762000 ps) ==============================================================================================
+#             (3863762000 ps)   Send a SQUID MUX DAC delay on each channels
+#             (3863762000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (3863762000 ps) Send SPI command value 0A05_0323 (C0_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 0323)
+# ** Note   : (3866082000 ps) Waiting SPI command end for 2284000 ps
+# ** Note   : (3866082000 ps) Send SPI command value 2A05_030E (C1_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 030E)
+# ** Note   : (3868404000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (3868404000 ps) Send SPI command value 4A05_02F9 (C2_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 02F9)
+# ** Note   : (3870726000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (3870726000 ps) Send SPI command value 6A05_02E4 (C3_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 02E4)
+# ** Note   : (3873048000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (3873051558 ps) Waiting event sync = '0' for 3558 ps
+# ** Note   : (3875232648 ps) Waiting event sync = '1' for 2181090 ps
+# ** Note   : (3875392728 ps) Waiting event sync = '0' for 160080 ps
+#             (3875392728 ps) 
+#             (3875392728 ps) ==============================================================================================
+#             (3875392728 ps)   Send command DATA_ACQ_MODE, Dump mode
+#             (3875392728 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (3875392728 ps) Send SPI command value 8001_0004 (DATA_ACQ_MODE, mode Write, data 0004)
+# ** Note   : (3877710000 ps) Waiting SPI command end for 2281272 ps
+# ** Note   : (4059710000 ps) Waiting time for 182000000 ps
+#             (4059710000 ps) 
+#             (4059710000 ps) ==============================================================================================
+#             (4059710000 ps)   Send a SQUID MUX DAC delay on each channels
+#             (4059710000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (4059710000 ps) Send SPI command value 0A05_02CF (C0_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 02CF)
+# ** Note   : (4062030000 ps) Waiting SPI command end for 2284000 ps
+# ** Note   : (4062030000 ps) Send SPI command value 2A05_02BA (C1_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 02BA)
+# ** Note   : (4064352000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (4064352000 ps) Send SPI command value 4A05_02A5 (C2_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 02A5)
+# ** Note   : (4066674000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (4066674000 ps) Send SPI command value 6A05_0290 (C3_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 0290)
+# ** Note   : (4068996000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (4068997482 ps) Waiting event sync = '0' for 1482 ps
+# ** Note   : (4071170568 ps) Waiting event sync = '1' for 2173086 ps
+# ** Note   : (4071330648 ps) Waiting event sync = '0' for 160080 ps
+#             (4071330648 ps) 
+#             (4071330648 ps) ==============================================================================================
+#             (4071330648 ps)   Send command DATA_ACQ_MODE, Dump mode
+#             (4071330648 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (4071330648 ps) Send SPI command value 8001_0004 (DATA_ACQ_MODE, mode Write, data 0004)
+# ** Note   : (4073640000 ps) Waiting SPI command end for 2273352 ps
+# ** Note   : (4255640000 ps) Waiting time for 182000000 ps
+#             (4255640000 ps) 
+#             (4255640000 ps) ==============================================================================================
+#             (4255640000 ps)   Send a SQUID MUX DAC delay on each channels
+#             (4255640000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (4255640000 ps) Send SPI command value 0A05_027B (C0_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 027B)
+# ** Note   : (4257960000 ps) Waiting SPI command end for 2284000 ps
+# ** Note   : (4257960000 ps) Send SPI command value 2A05_0266 (C1_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 0266)
+# ** Note   : (4260282000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (4260282000 ps) Send SPI command value 4A05_0251 (C2_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 0251)
+# ** Note   : (4262604000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (4262604000 ps) Send SPI command value 6A05_023C (C3_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 023C)
+# ** Note   : (4264926000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (4264927398 ps) Waiting event sync = '0' for 1398 ps
+# ** Note   : (4267108488 ps) Waiting event sync = '1' for 2181090 ps
+# ** Note   : (4267268568 ps) Waiting event sync = '0' for 160080 ps
+#             (4267268568 ps) 
+#             (4267268568 ps) ==============================================================================================
+#             (4267268568 ps)   Send command DATA_ACQ_MODE, Dump mode
+#             (4267268568 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (4267268568 ps) Send SPI command value 8001_0004 (DATA_ACQ_MODE, mode Write, data 0004)
+# ** Note   : (4269588000 ps) Waiting SPI command end for 2283432 ps
+# ** Note   : (4451588000 ps) Waiting time for 182000000 ps
+#             (4451588000 ps) 
+#             (4451588000 ps) ==============================================================================================
+#             (4451588000 ps)   Send a SQUID MUX DAC delay on each channels
+#             (4451588000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (4451588000 ps) Send SPI command value 0A05_0227 (C0_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 0227)
+# ** Note   : (4453908000 ps) Waiting SPI command end for 2284000 ps
+# ** Note   : (4453908000 ps) Send SPI command value 2A05_0212 (C1_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 0212)
+# ** Note   : (4456230000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (4456230000 ps) Send SPI command value 4A05_0200 (C2_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 0200)
+# ** Note   : (4458552000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (4458552000 ps) Send SPI command value 6A05_0028 (C3_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 0028)
+# ** Note   : (4460874000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (4460877324 ps) Waiting event sync = '0' for 3324 ps
+# ** Note   : (4463046408 ps) Waiting event sync = '1' for 2169084 ps
+# ** Note   : (4463206488 ps) Waiting event sync = '0' for 160080 ps
+#             (4463206488 ps) 
+#             (4463206488 ps) ==============================================================================================
+#             (4463206488 ps)   Send command DATA_ACQ_MODE, Dump mode
+#             (4463206488 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (4463206488 ps) Send SPI command value 8001_0004 (DATA_ACQ_MODE, mode Write, data 0004)
+# ** Note   : (4465518000 ps) Waiting SPI command end for 2275512 ps
+# ** Note   : (4647518000 ps) Waiting time for 182000000 ps
 # ------------------------------------------------------------------------------------------------------------------------------------------------------
 # Error simulation time         : '0'
 # Error check discrete level    : '0'
@@ -663,6 +971,6 @@
 # Error check science packets   : '0'
 # Error check pulse shaping     : '0'
 # ------------------------------------------------------------------------------------------------------------------------------------------------------
-# Simulation time               : 1920000000 ps
+# Simulation time               : 4700000000 ps
 # Simulation status             : PASS
 # ------------------------------------------------------------------------------------------------------------------------------------------------------

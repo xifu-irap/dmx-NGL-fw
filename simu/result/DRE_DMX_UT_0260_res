@@ -127,7 +127,7 @@
 # ** Note   : (34944000 ps) Check command return: PASS
 # ** Note   : (34944000 ps)  * Read 0A04_0000, expected value 0A04_0000 (C0_AMP_SQ_OFFSET_MUX_DELAY, mode Read, data 0000)
 # ** Note   : (37176000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (37176000 ps) Send SPI command value 0A05_X2XX (C0_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data X2XX)
+# ** Note   : (37176000 ps) Send SPI command value 0A05_X029 (C0_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data X029)
 # ** Note   : (37248000 ps) Waiting SPI command return end for 36000 ps
 #             (37248000 ps) 
 #             (37248000 ps) ==============================================================================================
@@ -163,7 +163,7 @@
 # ** Note   : (44232000 ps) Check command return: PASS
 # ** Note   : (44232000 ps)  * Read 0A04_0000, expected value 0A04_0000 (C0_AMP_SQ_OFFSET_MUX_DELAY, mode Read, data 0000)
 # ** Note   : (46464000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (46464000 ps) Send SPI command value 0A05_XX8X (C0_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data XX8X)
+# ** Note   : (46464000 ps) Send SPI command value 0A05_X08X (C0_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data X08X)
 # ** Note   : (46536000 ps) Waiting SPI command return end for 36000 ps
 #             (46536000 ps) 
 #             (46536000 ps) ==============================================================================================
@@ -181,7 +181,7 @@
 # ** Note   : (48876000 ps) Check command return: PASS
 # ** Note   : (48876000 ps)  * Read 0A04_0000, expected value 0A04_0000 (C0_AMP_SQ_OFFSET_MUX_DELAY, mode Read, data 0000)
 # ** Note   : (51108000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (51108000 ps) Send SPI command value 0A05_XX4X (C0_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data XX4X)
+# ** Note   : (51108000 ps) Send SPI command value 0A05_X04X (C0_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data X04X)
 # ** Note   : (51180000 ps) Waiting SPI command return end for 36000 ps
 #             (51180000 ps) 
 #             (51180000 ps) ==============================================================================================
@@ -199,7 +199,7 @@
 # ** Note   : (53520000 ps) Check command return: PASS
 # ** Note   : (53520000 ps)  * Read 0A04_0000, expected value 0A04_0000 (C0_AMP_SQ_OFFSET_MUX_DELAY, mode Read, data 0000)
 # ** Note   : (55752000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (55752000 ps) Send SPI command value 0A05_XX2X (C0_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data XX2X)
+# ** Note   : (55752000 ps) Send SPI command value 0A05_X03X (C0_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data X03X)
 # ** Note   : (55824000 ps) Waiting SPI command return end for 36000 ps
 #             (55824000 ps) 
 #             (55824000 ps) ==============================================================================================
@@ -217,7 +217,7 @@
 # ** Note   : (58164000 ps) Check command return: PASS
 # ** Note   : (58164000 ps)  * Read 0A04_0000, expected value 0A04_0000 (C0_AMP_SQ_OFFSET_MUX_DELAY, mode Read, data 0000)
 # ** Note   : (60396000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (60396000 ps) Send SPI command value 0A05_001F (C0_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 001F)
+# ** Note   : (60396000 ps) Send SPI command value 0A05_0028 (C0_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 0028)
 # ** Note   : (60468000 ps) Waiting SPI command return end for 36000 ps
 #             (60468000 ps) 
 #             (60468000 ps) ==============================================================================================
@@ -251,7 +251,7 @@
 #             (67434000 ps)   Check C0_AMP_SQ_OFFSET_MUX_DELAY content
 #             (67434000 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (67452000 ps) Check command return: PASS
-# ** Note   : (67452000 ps)  * Read 0A04_001F, expected value 0A04_001F (C0_AMP_SQ_OFFSET_MUX_DELAY, mode Read, data 001F)
+# ** Note   : (67452000 ps)  * Read 0A04_0028, expected value 0A04_0028 (C0_AMP_SQ_OFFSET_MUX_DELAY, mode Read, data 0028)
 # ** Note   : (69684000 ps) Waiting SPI command end for 2232000 ps
 # ** Note   : (69684000 ps) Send SPI command value 0A05_000A (C0_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 000A)
 # ** Note   : (69756000 ps) Waiting SPI command return end for 36000 ps
@@ -271,7 +271,7 @@
 # ** Note   : (72096000 ps) Check command return: PASS
 # ** Note   : (72096000 ps)  * Read 0A04_0015, expected value 0A04_0015 (C0_AMP_SQ_OFFSET_MUX_DELAY, mode Read, data 0015)
 # ** Note   : (74328000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (74328000 ps) Send SPI command value 0A05_0000 (C0_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 0000)
+# ** Note   : (74328000 ps) Send SPI command value 0A05_02FF (C0_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 02FF)
 # ** Note   : (74400000 ps) Waiting SPI command return end for 36000 ps
 #             (74400000 ps) 
 #             (74400000 ps) ==============================================================================================
@@ -289,7 +289,7 @@
 # ** Note   : (76740000 ps) Check command return: PASS
 # ** Note   : (76740000 ps)  * Read 0A04_000A, expected value 0A04_000A (C0_AMP_SQ_OFFSET_MUX_DELAY, mode Read, data 000A)
 # ** Note   : (78972000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (78972000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (78972000 ps) Send SPI command value 0A05_0000 (C0_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 0000)
 # ** Note   : (79044000 ps) Waiting SPI command return end for 36000 ps
 #             (79044000 ps) 
 #             (79044000 ps) ==============================================================================================
@@ -298,51 +298,51 @@
 # ** Note   : (79062000 ps) Check command return: PASS
 # ** Note   : (79062000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
 # ** Note   : (81294000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (81294000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (81294000 ps) Send SPI command value 0A04_XXXX (C0_AMP_SQ_OFFSET_MUX_DELAY, mode Read, data XXXX)
 # ** Note   : (81366000 ps) Waiting SPI command return end for 36000 ps
 #             (81366000 ps) 
 #             (81366000 ps) ==============================================================================================
 #             (81366000 ps)   Check C0_AMP_SQ_OFFSET_MUX_DELAY content
 #             (81366000 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (81384000 ps) Check command return: PASS
-# ** Note   : (81384000 ps)  * Read 0A04_0000, expected value 0A04_0000 (C0_AMP_SQ_OFFSET_MUX_DELAY, mode Read, data 0000)
+# ** Note   : (81384000 ps)  * Read 0A04_02FF, expected value 0A04_02FF (C0_AMP_SQ_OFFSET_MUX_DELAY, mode Read, data 02FF)
 # ** Note   : (83616000 ps) Waiting SPI command end for 2232000 ps
-#             (83616000 ps) 
-#             (83616000 ps) ==============================================================================================
-#             (83616000 ps)   Start CY_AMP_SQ_OFFSET_MUX_DELAY register test
-#             (83616000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (83616000 ps) Send SPI command value 2A04_XXXX (C1_AMP_SQ_OFFSET_MUX_DELAY, mode Read, data XXXX)
-# ** Note   : (85938000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (85938000 ps) Send SPI command value 2A05_8XXX (C1_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 8XXX)
-# ** Note   : (88260000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (83616000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (83688000 ps) Waiting SPI command return end for 36000 ps
+#             (83688000 ps) 
+#             (83688000 ps) ==============================================================================================
+#             (83688000 ps)   Check no error
+#             (83688000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (83706000 ps) Check command return: PASS
+# ** Note   : (83706000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
+# ** Note   : (85938000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (85938000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (86010000 ps) Waiting SPI command return end for 36000 ps
+#             (86010000 ps) 
+#             (86010000 ps) ==============================================================================================
+#             (86010000 ps)   Check C0_AMP_SQ_OFFSET_MUX_DELAY content
+#             (86010000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (86028000 ps) Check command return: PASS
+# ** Note   : (86028000 ps)  * Read 0A04_0000, expected value 0A04_0000 (C0_AMP_SQ_OFFSET_MUX_DELAY, mode Read, data 0000)
+# ** Note   : (88260000 ps) Waiting SPI command end for 2232000 ps
+#             (88260000 ps) 
+#             (88260000 ps) ==============================================================================================
+#             (88260000 ps)   Start CY_AMP_SQ_OFFSET_MUX_DELAY register test
+#             (88260000 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (88260000 ps) Send SPI command value 2A04_XXXX (C1_AMP_SQ_OFFSET_MUX_DELAY, mode Read, data XXXX)
-# ** Note   : (88332000 ps) Waiting SPI command return end for 36000 ps
-#             (88332000 ps) 
-#             (88332000 ps) ==============================================================================================
-#             (88332000 ps)   Check C1_AMP_SQ_OFFSET_MUX_DELAY content at start
-#             (88332000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (88350000 ps) Check command return: PASS
-# ** Note   : (88350000 ps)  * Read 2A04_0000, expected value 2A04_0000 (C1_AMP_SQ_OFFSET_MUX_DELAY, mode Read, data 0000)
-# ** Note   : (90582000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (90582000 ps) Send SPI command value 2A05_4XXX (C1_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 4XXX)
-# ** Note   : (90654000 ps) Waiting SPI command return end for 36000 ps
-#             (90654000 ps) 
-#             (90654000 ps) ==============================================================================================
-#             (90654000 ps)   Check error position SPI data out of range detected
-#             (90654000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (90672000 ps) Check command return: PASS
-# ** Note   : (90672000 ps)  * Read C000_EFFF, expected value C000_EFFF (Status, mode Read, data EFFF)
-# ** Note   : (92904000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (90582000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (90582000 ps) Send SPI command value 2A05_8XXX (C1_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 8XXX)
+# ** Note   : (92904000 ps) Waiting SPI command end for 2286000 ps
 # ** Note   : (92904000 ps) Send SPI command value 2A04_XXXX (C1_AMP_SQ_OFFSET_MUX_DELAY, mode Read, data XXXX)
 # ** Note   : (92976000 ps) Waiting SPI command return end for 36000 ps
 #             (92976000 ps) 
 #             (92976000 ps) ==============================================================================================
-#             (92976000 ps)   Check C1_AMP_SQ_OFFSET_MUX_DELAY no change
+#             (92976000 ps)   Check C1_AMP_SQ_OFFSET_MUX_DELAY content at start
 #             (92976000 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (92994000 ps) Check command return: PASS
 # ** Note   : (92994000 ps)  * Read 2A04_0000, expected value 2A04_0000 (C1_AMP_SQ_OFFSET_MUX_DELAY, mode Read, data 0000)
 # ** Note   : (95226000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (95226000 ps) Send SPI command value 2A05_2XXX (C1_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 2XXX)
+# ** Note   : (95226000 ps) Send SPI command value 2A05_4XXX (C1_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 4XXX)
 # ** Note   : (95298000 ps) Waiting SPI command return end for 36000 ps
 #             (95298000 ps) 
 #             (95298000 ps) ==============================================================================================
@@ -360,7 +360,7 @@
 # ** Note   : (97638000 ps) Check command return: PASS
 # ** Note   : (97638000 ps)  * Read 2A04_0000, expected value 2A04_0000 (C1_AMP_SQ_OFFSET_MUX_DELAY, mode Read, data 0000)
 # ** Note   : (99870000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (99870000 ps) Send SPI command value 2A05_1XXX (C1_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 1XXX)
+# ** Note   : (99870000 ps) Send SPI command value 2A05_2XXX (C1_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 2XXX)
 # ** Note   : (99942000 ps) Waiting SPI command return end for 36000 ps
 #             (99942000 ps) 
 #             (99942000 ps) ==============================================================================================
@@ -378,7 +378,7 @@
 # ** Note   : (102282000 ps) Check command return: PASS
 # ** Note   : (102282000 ps)  * Read 2A04_0000, expected value 2A04_0000 (C1_AMP_SQ_OFFSET_MUX_DELAY, mode Read, data 0000)
 # ** Note   : (104514000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (104514000 ps) Send SPI command value 2A05_X8XX (C1_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data X8XX)
+# ** Note   : (104514000 ps) Send SPI command value 2A05_1XXX (C1_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 1XXX)
 # ** Note   : (104586000 ps) Waiting SPI command return end for 36000 ps
 #             (104586000 ps) 
 #             (104586000 ps) ==============================================================================================
@@ -396,7 +396,7 @@
 # ** Note   : (106926000 ps) Check command return: PASS
 # ** Note   : (106926000 ps)  * Read 2A04_0000, expected value 2A04_0000 (C1_AMP_SQ_OFFSET_MUX_DELAY, mode Read, data 0000)
 # ** Note   : (109158000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (109158000 ps) Send SPI command value 2A05_X4XX (C1_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data X4XX)
+# ** Note   : (109158000 ps) Send SPI command value 2A05_X8XX (C1_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data X8XX)
 # ** Note   : (109230000 ps) Waiting SPI command return end for 36000 ps
 #             (109230000 ps) 
 #             (109230000 ps) ==============================================================================================
@@ -414,7 +414,7 @@
 # ** Note   : (111570000 ps) Check command return: PASS
 # ** Note   : (111570000 ps)  * Read 2A04_0000, expected value 2A04_0000 (C1_AMP_SQ_OFFSET_MUX_DELAY, mode Read, data 0000)
 # ** Note   : (113802000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (113802000 ps) Send SPI command value 2A05_X2XX (C1_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data X2XX)
+# ** Note   : (113802000 ps) Send SPI command value 2A05_X4XX (C1_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data X4XX)
 # ** Note   : (113874000 ps) Waiting SPI command return end for 36000 ps
 #             (113874000 ps) 
 #             (113874000 ps) ==============================================================================================
@@ -432,7 +432,7 @@
 # ** Note   : (116214000 ps) Check command return: PASS
 # ** Note   : (116214000 ps)  * Read 2A04_0000, expected value 2A04_0000 (C1_AMP_SQ_OFFSET_MUX_DELAY, mode Read, data 0000)
 # ** Note   : (118446000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (118446000 ps) Send SPI command value 2A05_X1XX (C1_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data X1XX)
+# ** Note   : (118446000 ps) Send SPI command value 2A05_X029 (C1_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data X029)
 # ** Note   : (118518000 ps) Waiting SPI command return end for 36000 ps
 #             (118518000 ps) 
 #             (118518000 ps) ==============================================================================================
@@ -450,7 +450,7 @@
 # ** Note   : (120858000 ps) Check command return: PASS
 # ** Note   : (120858000 ps)  * Read 2A04_0000, expected value 2A04_0000 (C1_AMP_SQ_OFFSET_MUX_DELAY, mode Read, data 0000)
 # ** Note   : (123090000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (123090000 ps) Send SPI command value 2A05_XX8X (C1_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data XX8X)
+# ** Note   : (123090000 ps) Send SPI command value 2A05_X1XX (C1_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data X1XX)
 # ** Note   : (123162000 ps) Waiting SPI command return end for 36000 ps
 #             (123162000 ps) 
 #             (123162000 ps) ==============================================================================================
@@ -468,7 +468,7 @@
 # ** Note   : (125502000 ps) Check command return: PASS
 # ** Note   : (125502000 ps)  * Read 2A04_0000, expected value 2A04_0000 (C1_AMP_SQ_OFFSET_MUX_DELAY, mode Read, data 0000)
 # ** Note   : (127734000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (127734000 ps) Send SPI command value 2A05_XX4X (C1_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data XX4X)
+# ** Note   : (127734000 ps) Send SPI command value 2A05_X08X (C1_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data X08X)
 # ** Note   : (127806000 ps) Waiting SPI command return end for 36000 ps
 #             (127806000 ps) 
 #             (127806000 ps) ==============================================================================================
@@ -486,7 +486,7 @@
 # ** Note   : (130146000 ps) Check command return: PASS
 # ** Note   : (130146000 ps)  * Read 2A04_0000, expected value 2A04_0000 (C1_AMP_SQ_OFFSET_MUX_DELAY, mode Read, data 0000)
 # ** Note   : (132378000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (132378000 ps) Send SPI command value 2A05_XX2X (C1_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data XX2X)
+# ** Note   : (132378000 ps) Send SPI command value 2A05_X04X (C1_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data X04X)
 # ** Note   : (132450000 ps) Waiting SPI command return end for 36000 ps
 #             (132450000 ps) 
 #             (132450000 ps) ==============================================================================================
@@ -504,7 +504,7 @@
 # ** Note   : (134790000 ps) Check command return: PASS
 # ** Note   : (134790000 ps)  * Read 2A04_0000, expected value 2A04_0000 (C1_AMP_SQ_OFFSET_MUX_DELAY, mode Read, data 0000)
 # ** Note   : (137022000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (137022000 ps) Send SPI command value 2A05_001F (C1_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 001F)
+# ** Note   : (137022000 ps) Send SPI command value 2A05_X03X (C1_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data X03X)
 # ** Note   : (137094000 ps) Waiting SPI command return end for 36000 ps
 #             (137094000 ps) 
 #             (137094000 ps) ==============================================================================================
@@ -522,25 +522,25 @@
 # ** Note   : (139434000 ps) Check command return: PASS
 # ** Note   : (139434000 ps)  * Read 2A04_0000, expected value 2A04_0000 (C1_AMP_SQ_OFFSET_MUX_DELAY, mode Read, data 0000)
 # ** Note   : (141666000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (141666000 ps) Send SPI command value 2A05_0015 (C1_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 0015)
+# ** Note   : (141666000 ps) Send SPI command value 2A05_0028 (C1_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 0028)
 # ** Note   : (141738000 ps) Waiting SPI command return end for 36000 ps
 #             (141738000 ps) 
 #             (141738000 ps) ==============================================================================================
-#             (141738000 ps)   Check no error
+#             (141738000 ps)   Check error position SPI data out of range detected
 #             (141738000 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (141756000 ps) Check command return: PASS
-# ** Note   : (141756000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
+# ** Note   : (141756000 ps)  * Read C000_EFFF, expected value C000_EFFF (Status, mode Read, data EFFF)
 # ** Note   : (143988000 ps) Waiting SPI command end for 2232000 ps
 # ** Note   : (143988000 ps) Send SPI command value 2A04_XXXX (C1_AMP_SQ_OFFSET_MUX_DELAY, mode Read, data XXXX)
 # ** Note   : (144060000 ps) Waiting SPI command return end for 36000 ps
 #             (144060000 ps) 
 #             (144060000 ps) ==============================================================================================
-#             (144060000 ps)   Check C1_AMP_SQ_OFFSET_MUX_DELAY content
+#             (144060000 ps)   Check C1_AMP_SQ_OFFSET_MUX_DELAY no change
 #             (144060000 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (144078000 ps) Check command return: PASS
-# ** Note   : (144078000 ps)  * Read 2A04_001F, expected value 2A04_001F (C1_AMP_SQ_OFFSET_MUX_DELAY, mode Read, data 001F)
+# ** Note   : (144078000 ps)  * Read 2A04_0000, expected value 2A04_0000 (C1_AMP_SQ_OFFSET_MUX_DELAY, mode Read, data 0000)
 # ** Note   : (146310000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (146310000 ps) Send SPI command value 2A05_000A (C1_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 000A)
+# ** Note   : (146310000 ps) Send SPI command value 2A05_0015 (C1_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 0015)
 # ** Note   : (146382000 ps) Waiting SPI command return end for 36000 ps
 #             (146382000 ps) 
 #             (146382000 ps) ==============================================================================================
@@ -556,9 +556,9 @@
 #             (148704000 ps)   Check C1_AMP_SQ_OFFSET_MUX_DELAY content
 #             (148704000 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (148722000 ps) Check command return: PASS
-# ** Note   : (148722000 ps)  * Read 2A04_0015, expected value 2A04_0015 (C1_AMP_SQ_OFFSET_MUX_DELAY, mode Read, data 0015)
+# ** Note   : (148722000 ps)  * Read 2A04_0028, expected value 2A04_0028 (C1_AMP_SQ_OFFSET_MUX_DELAY, mode Read, data 0028)
 # ** Note   : (150954000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (150954000 ps) Send SPI command value 2A05_0000 (C1_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 0000)
+# ** Note   : (150954000 ps) Send SPI command value 2A05_000A (C1_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 000A)
 # ** Note   : (151026000 ps) Waiting SPI command return end for 36000 ps
 #             (151026000 ps) 
 #             (151026000 ps) ==============================================================================================
@@ -574,9 +574,9 @@
 #             (153348000 ps)   Check C1_AMP_SQ_OFFSET_MUX_DELAY content
 #             (153348000 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (153366000 ps) Check command return: PASS
-# ** Note   : (153366000 ps)  * Read 2A04_000A, expected value 2A04_000A (C1_AMP_SQ_OFFSET_MUX_DELAY, mode Read, data 000A)
+# ** Note   : (153366000 ps)  * Read 2A04_0015, expected value 2A04_0015 (C1_AMP_SQ_OFFSET_MUX_DELAY, mode Read, data 0015)
 # ** Note   : (155598000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (155598000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (155598000 ps) Send SPI command value 2A05_02FF (C1_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 02FF)
 # ** Note   : (155670000 ps) Waiting SPI command return end for 36000 ps
 #             (155670000 ps) 
 #             (155670000 ps) ==============================================================================================
@@ -585,69 +585,69 @@
 # ** Note   : (155688000 ps) Check command return: PASS
 # ** Note   : (155688000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
 # ** Note   : (157920000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (157920000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (157920000 ps) Send SPI command value 2A04_XXXX (C1_AMP_SQ_OFFSET_MUX_DELAY, mode Read, data XXXX)
 # ** Note   : (157992000 ps) Waiting SPI command return end for 36000 ps
 #             (157992000 ps) 
 #             (157992000 ps) ==============================================================================================
 #             (157992000 ps)   Check C1_AMP_SQ_OFFSET_MUX_DELAY content
 #             (157992000 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (158010000 ps) Check command return: PASS
-# ** Note   : (158010000 ps)  * Read 2A04_0000, expected value 2A04_0000 (C1_AMP_SQ_OFFSET_MUX_DELAY, mode Read, data 0000)
+# ** Note   : (158010000 ps)  * Read 2A04_000A, expected value 2A04_000A (C1_AMP_SQ_OFFSET_MUX_DELAY, mode Read, data 000A)
 # ** Note   : (160242000 ps) Waiting SPI command end for 2232000 ps
-#             (160242000 ps) 
-#             (160242000 ps) ==============================================================================================
-#             (160242000 ps)   Start CY_AMP_SQ_OFFSET_MUX_DELAY register test
-#             (160242000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (160242000 ps) Send SPI command value 4A04_XXXX (C2_AMP_SQ_OFFSET_MUX_DELAY, mode Read, data XXXX)
-# ** Note   : (162564000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (162564000 ps) Send SPI command value 4A05_8XXX (C2_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 8XXX)
-# ** Note   : (164886000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (164886000 ps) Send SPI command value 4A04_XXXX (C2_AMP_SQ_OFFSET_MUX_DELAY, mode Read, data XXXX)
+# ** Note   : (160242000 ps) Send SPI command value 2A05_0000 (C1_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 0000)
+# ** Note   : (160314000 ps) Waiting SPI command return end for 36000 ps
+#             (160314000 ps) 
+#             (160314000 ps) ==============================================================================================
+#             (160314000 ps)   Check no error
+#             (160314000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (160332000 ps) Check command return: PASS
+# ** Note   : (160332000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
+# ** Note   : (162564000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (162564000 ps) Send SPI command value 2A04_XXXX (C1_AMP_SQ_OFFSET_MUX_DELAY, mode Read, data XXXX)
+# ** Note   : (162636000 ps) Waiting SPI command return end for 36000 ps
+#             (162636000 ps) 
+#             (162636000 ps) ==============================================================================================
+#             (162636000 ps)   Check C1_AMP_SQ_OFFSET_MUX_DELAY content
+#             (162636000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (162654000 ps) Check command return: PASS
+# ** Note   : (162654000 ps)  * Read 2A04_02FF, expected value 2A04_02FF (C1_AMP_SQ_OFFSET_MUX_DELAY, mode Read, data 02FF)
+# ** Note   : (164886000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (164886000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
 # ** Note   : (164958000 ps) Waiting SPI command return end for 36000 ps
 #             (164958000 ps) 
 #             (164958000 ps) ==============================================================================================
-#             (164958000 ps)   Check C2_AMP_SQ_OFFSET_MUX_DELAY content at start
+#             (164958000 ps)   Check no error
 #             (164958000 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (164976000 ps) Check command return: PASS
-# ** Note   : (164976000 ps)  * Read 4A04_0000, expected value 4A04_0000 (C2_AMP_SQ_OFFSET_MUX_DELAY, mode Read, data 0000)
+# ** Note   : (164976000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
 # ** Note   : (167208000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (167208000 ps) Send SPI command value 4A05_4XXX (C2_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 4XXX)
+# ** Note   : (167208000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
 # ** Note   : (167280000 ps) Waiting SPI command return end for 36000 ps
 #             (167280000 ps) 
 #             (167280000 ps) ==============================================================================================
-#             (167280000 ps)   Check error position SPI data out of range detected
+#             (167280000 ps)   Check C1_AMP_SQ_OFFSET_MUX_DELAY content
 #             (167280000 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (167298000 ps) Check command return: PASS
-# ** Note   : (167298000 ps)  * Read C000_EFFF, expected value C000_EFFF (Status, mode Read, data EFFF)
+# ** Note   : (167298000 ps)  * Read 2A04_0000, expected value 2A04_0000 (C1_AMP_SQ_OFFSET_MUX_DELAY, mode Read, data 0000)
 # ** Note   : (169530000 ps) Waiting SPI command end for 2232000 ps
+#             (169530000 ps) 
+#             (169530000 ps) ==============================================================================================
+#             (169530000 ps)   Start CY_AMP_SQ_OFFSET_MUX_DELAY register test
+#             (169530000 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (169530000 ps) Send SPI command value 4A04_XXXX (C2_AMP_SQ_OFFSET_MUX_DELAY, mode Read, data XXXX)
-# ** Note   : (169602000 ps) Waiting SPI command return end for 36000 ps
-#             (169602000 ps) 
-#             (169602000 ps) ==============================================================================================
-#             (169602000 ps)   Check C2_AMP_SQ_OFFSET_MUX_DELAY no change
-#             (169602000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (169620000 ps) Check command return: PASS
-# ** Note   : (169620000 ps)  * Read 4A04_0000, expected value 4A04_0000 (C2_AMP_SQ_OFFSET_MUX_DELAY, mode Read, data 0000)
-# ** Note   : (171852000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (171852000 ps) Send SPI command value 4A05_2XXX (C2_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 2XXX)
-# ** Note   : (171924000 ps) Waiting SPI command return end for 36000 ps
-#             (171924000 ps) 
-#             (171924000 ps) ==============================================================================================
-#             (171924000 ps)   Check error position SPI data out of range detected
-#             (171924000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (171942000 ps) Check command return: PASS
-# ** Note   : (171942000 ps)  * Read C000_EFFF, expected value C000_EFFF (Status, mode Read, data EFFF)
-# ** Note   : (174174000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (171852000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (171852000 ps) Send SPI command value 4A05_8XXX (C2_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 8XXX)
+# ** Note   : (174174000 ps) Waiting SPI command end for 2286000 ps
 # ** Note   : (174174000 ps) Send SPI command value 4A04_XXXX (C2_AMP_SQ_OFFSET_MUX_DELAY, mode Read, data XXXX)
 # ** Note   : (174246000 ps) Waiting SPI command return end for 36000 ps
 #             (174246000 ps) 
 #             (174246000 ps) ==============================================================================================
-#             (174246000 ps)   Check C2_AMP_SQ_OFFSET_MUX_DELAY no change
+#             (174246000 ps)   Check C2_AMP_SQ_OFFSET_MUX_DELAY content at start
 #             (174246000 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (174264000 ps) Check command return: PASS
 # ** Note   : (174264000 ps)  * Read 4A04_0000, expected value 4A04_0000 (C2_AMP_SQ_OFFSET_MUX_DELAY, mode Read, data 0000)
 # ** Note   : (176496000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (176496000 ps) Send SPI command value 4A05_1XXX (C2_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 1XXX)
+# ** Note   : (176496000 ps) Send SPI command value 4A05_4XXX (C2_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 4XXX)
 # ** Note   : (176568000 ps) Waiting SPI command return end for 36000 ps
 #             (176568000 ps) 
 #             (176568000 ps) ==============================================================================================
@@ -665,7 +665,7 @@
 # ** Note   : (178908000 ps) Check command return: PASS
 # ** Note   : (178908000 ps)  * Read 4A04_0000, expected value 4A04_0000 (C2_AMP_SQ_OFFSET_MUX_DELAY, mode Read, data 0000)
 # ** Note   : (181140000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (181140000 ps) Send SPI command value 4A05_X8XX (C2_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data X8XX)
+# ** Note   : (181140000 ps) Send SPI command value 4A05_2XXX (C2_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 2XXX)
 # ** Note   : (181212000 ps) Waiting SPI command return end for 36000 ps
 #             (181212000 ps) 
 #             (181212000 ps) ==============================================================================================
@@ -683,7 +683,7 @@
 # ** Note   : (183552000 ps) Check command return: PASS
 # ** Note   : (183552000 ps)  * Read 4A04_0000, expected value 4A04_0000 (C2_AMP_SQ_OFFSET_MUX_DELAY, mode Read, data 0000)
 # ** Note   : (185784000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (185784000 ps) Send SPI command value 4A05_X4XX (C2_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data X4XX)
+# ** Note   : (185784000 ps) Send SPI command value 4A05_1XXX (C2_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 1XXX)
 # ** Note   : (185856000 ps) Waiting SPI command return end for 36000 ps
 #             (185856000 ps) 
 #             (185856000 ps) ==============================================================================================
@@ -701,7 +701,7 @@
 # ** Note   : (188196000 ps) Check command return: PASS
 # ** Note   : (188196000 ps)  * Read 4A04_0000, expected value 4A04_0000 (C2_AMP_SQ_OFFSET_MUX_DELAY, mode Read, data 0000)
 # ** Note   : (190428000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (190428000 ps) Send SPI command value 4A05_X2XX (C2_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data X2XX)
+# ** Note   : (190428000 ps) Send SPI command value 4A05_X8XX (C2_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data X8XX)
 # ** Note   : (190500000 ps) Waiting SPI command return end for 36000 ps
 #             (190500000 ps) 
 #             (190500000 ps) ==============================================================================================
@@ -719,7 +719,7 @@
 # ** Note   : (192840000 ps) Check command return: PASS
 # ** Note   : (192840000 ps)  * Read 4A04_0000, expected value 4A04_0000 (C2_AMP_SQ_OFFSET_MUX_DELAY, mode Read, data 0000)
 # ** Note   : (195072000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (195072000 ps) Send SPI command value 4A05_X1XX (C2_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data X1XX)
+# ** Note   : (195072000 ps) Send SPI command value 4A05_X4XX (C2_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data X4XX)
 # ** Note   : (195144000 ps) Waiting SPI command return end for 36000 ps
 #             (195144000 ps) 
 #             (195144000 ps) ==============================================================================================
@@ -737,7 +737,7 @@
 # ** Note   : (197484000 ps) Check command return: PASS
 # ** Note   : (197484000 ps)  * Read 4A04_0000, expected value 4A04_0000 (C2_AMP_SQ_OFFSET_MUX_DELAY, mode Read, data 0000)
 # ** Note   : (199716000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (199716000 ps) Send SPI command value 4A05_XX8X (C2_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data XX8X)
+# ** Note   : (199716000 ps) Send SPI command value 4A05_X029 (C2_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data X029)
 # ** Note   : (199788000 ps) Waiting SPI command return end for 36000 ps
 #             (199788000 ps) 
 #             (199788000 ps) ==============================================================================================
@@ -755,7 +755,7 @@
 # ** Note   : (202128000 ps) Check command return: PASS
 # ** Note   : (202128000 ps)  * Read 4A04_0000, expected value 4A04_0000 (C2_AMP_SQ_OFFSET_MUX_DELAY, mode Read, data 0000)
 # ** Note   : (204360000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (204360000 ps) Send SPI command value 4A05_XX4X (C2_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data XX4X)
+# ** Note   : (204360000 ps) Send SPI command value 4A05_X1XX (C2_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data X1XX)
 # ** Note   : (204432000 ps) Waiting SPI command return end for 36000 ps
 #             (204432000 ps) 
 #             (204432000 ps) ==============================================================================================
@@ -773,7 +773,7 @@
 # ** Note   : (206772000 ps) Check command return: PASS
 # ** Note   : (206772000 ps)  * Read 4A04_0000, expected value 4A04_0000 (C2_AMP_SQ_OFFSET_MUX_DELAY, mode Read, data 0000)
 # ** Note   : (209004000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (209004000 ps) Send SPI command value 4A05_XX2X (C2_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data XX2X)
+# ** Note   : (209004000 ps) Send SPI command value 4A05_X08X (C2_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data X08X)
 # ** Note   : (209076000 ps) Waiting SPI command return end for 36000 ps
 #             (209076000 ps) 
 #             (209076000 ps) ==============================================================================================
@@ -791,7 +791,7 @@
 # ** Note   : (211416000 ps) Check command return: PASS
 # ** Note   : (211416000 ps)  * Read 4A04_0000, expected value 4A04_0000 (C2_AMP_SQ_OFFSET_MUX_DELAY, mode Read, data 0000)
 # ** Note   : (213648000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (213648000 ps) Send SPI command value 4A05_001F (C2_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 001F)
+# ** Note   : (213648000 ps) Send SPI command value 4A05_X04X (C2_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data X04X)
 # ** Note   : (213720000 ps) Waiting SPI command return end for 36000 ps
 #             (213720000 ps) 
 #             (213720000 ps) ==============================================================================================
@@ -809,43 +809,43 @@
 # ** Note   : (216060000 ps) Check command return: PASS
 # ** Note   : (216060000 ps)  * Read 4A04_0000, expected value 4A04_0000 (C2_AMP_SQ_OFFSET_MUX_DELAY, mode Read, data 0000)
 # ** Note   : (218292000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (218292000 ps) Send SPI command value 4A05_0015 (C2_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 0015)
+# ** Note   : (218292000 ps) Send SPI command value 4A05_X03X (C2_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data X03X)
 # ** Note   : (218364000 ps) Waiting SPI command return end for 36000 ps
 #             (218364000 ps) 
 #             (218364000 ps) ==============================================================================================
-#             (218364000 ps)   Check no error
+#             (218364000 ps)   Check error position SPI data out of range detected
 #             (218364000 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (218382000 ps) Check command return: PASS
-# ** Note   : (218382000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
+# ** Note   : (218382000 ps)  * Read C000_EFFF, expected value C000_EFFF (Status, mode Read, data EFFF)
 # ** Note   : (220614000 ps) Waiting SPI command end for 2232000 ps
 # ** Note   : (220614000 ps) Send SPI command value 4A04_XXXX (C2_AMP_SQ_OFFSET_MUX_DELAY, mode Read, data XXXX)
 # ** Note   : (220686000 ps) Waiting SPI command return end for 36000 ps
 #             (220686000 ps) 
 #             (220686000 ps) ==============================================================================================
-#             (220686000 ps)   Check C2_AMP_SQ_OFFSET_MUX_DELAY content
+#             (220686000 ps)   Check C2_AMP_SQ_OFFSET_MUX_DELAY no change
 #             (220686000 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (220704000 ps) Check command return: PASS
-# ** Note   : (220704000 ps)  * Read 4A04_001F, expected value 4A04_001F (C2_AMP_SQ_OFFSET_MUX_DELAY, mode Read, data 001F)
+# ** Note   : (220704000 ps)  * Read 4A04_0000, expected value 4A04_0000 (C2_AMP_SQ_OFFSET_MUX_DELAY, mode Read, data 0000)
 # ** Note   : (222936000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (222936000 ps) Send SPI command value 4A05_000A (C2_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 000A)
+# ** Note   : (222936000 ps) Send SPI command value 4A05_0028 (C2_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 0028)
 # ** Note   : (223008000 ps) Waiting SPI command return end for 36000 ps
 #             (223008000 ps) 
 #             (223008000 ps) ==============================================================================================
-#             (223008000 ps)   Check no error
+#             (223008000 ps)   Check error position SPI data out of range detected
 #             (223008000 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (223026000 ps) Check command return: PASS
-# ** Note   : (223026000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
+# ** Note   : (223026000 ps)  * Read C000_EFFF, expected value C000_EFFF (Status, mode Read, data EFFF)
 # ** Note   : (225258000 ps) Waiting SPI command end for 2232000 ps
 # ** Note   : (225258000 ps) Send SPI command value 4A04_XXXX (C2_AMP_SQ_OFFSET_MUX_DELAY, mode Read, data XXXX)
 # ** Note   : (225330000 ps) Waiting SPI command return end for 36000 ps
 #             (225330000 ps) 
 #             (225330000 ps) ==============================================================================================
-#             (225330000 ps)   Check C2_AMP_SQ_OFFSET_MUX_DELAY content
+#             (225330000 ps)   Check C2_AMP_SQ_OFFSET_MUX_DELAY no change
 #             (225330000 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (225348000 ps) Check command return: PASS
-# ** Note   : (225348000 ps)  * Read 4A04_0015, expected value 4A04_0015 (C2_AMP_SQ_OFFSET_MUX_DELAY, mode Read, data 0015)
+# ** Note   : (225348000 ps)  * Read 4A04_0000, expected value 4A04_0000 (C2_AMP_SQ_OFFSET_MUX_DELAY, mode Read, data 0000)
 # ** Note   : (227580000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (227580000 ps) Send SPI command value 4A05_0000 (C2_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 0000)
+# ** Note   : (227580000 ps) Send SPI command value 4A05_0015 (C2_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 0015)
 # ** Note   : (227652000 ps) Waiting SPI command return end for 36000 ps
 #             (227652000 ps) 
 #             (227652000 ps) ==============================================================================================
@@ -861,9 +861,9 @@
 #             (229974000 ps)   Check C2_AMP_SQ_OFFSET_MUX_DELAY content
 #             (229974000 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (229992000 ps) Check command return: PASS
-# ** Note   : (229992000 ps)  * Read 4A04_000A, expected value 4A04_000A (C2_AMP_SQ_OFFSET_MUX_DELAY, mode Read, data 000A)
+# ** Note   : (229992000 ps)  * Read 4A04_0028, expected value 4A04_0028 (C2_AMP_SQ_OFFSET_MUX_DELAY, mode Read, data 0028)
 # ** Note   : (232224000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (232224000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (232224000 ps) Send SPI command value 4A05_000A (C2_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 000A)
 # ** Note   : (232296000 ps) Waiting SPI command return end for 36000 ps
 #             (232296000 ps) 
 #             (232296000 ps) ==============================================================================================
@@ -872,87 +872,87 @@
 # ** Note   : (232314000 ps) Check command return: PASS
 # ** Note   : (232314000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
 # ** Note   : (234546000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (234546000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (234546000 ps) Send SPI command value 4A04_XXXX (C2_AMP_SQ_OFFSET_MUX_DELAY, mode Read, data XXXX)
 # ** Note   : (234618000 ps) Waiting SPI command return end for 36000 ps
 #             (234618000 ps) 
 #             (234618000 ps) ==============================================================================================
 #             (234618000 ps)   Check C2_AMP_SQ_OFFSET_MUX_DELAY content
 #             (234618000 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (234636000 ps) Check command return: PASS
-# ** Note   : (234636000 ps)  * Read 4A04_0000, expected value 4A04_0000 (C2_AMP_SQ_OFFSET_MUX_DELAY, mode Read, data 0000)
+# ** Note   : (234636000 ps)  * Read 4A04_0015, expected value 4A04_0015 (C2_AMP_SQ_OFFSET_MUX_DELAY, mode Read, data 0015)
 # ** Note   : (236868000 ps) Waiting SPI command end for 2232000 ps
-#             (236868000 ps) 
-#             (236868000 ps) ==============================================================================================
-#             (236868000 ps)   Start CY_AMP_SQ_OFFSET_MUX_DELAY register test
-#             (236868000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (236868000 ps) Send SPI command value 6A04_XXXX (C3_AMP_SQ_OFFSET_MUX_DELAY, mode Read, data XXXX)
-# ** Note   : (239190000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (239190000 ps) Send SPI command value 6A05_8XXX (C3_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 8XXX)
-# ** Note   : (241512000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (241512000 ps) Send SPI command value 6A04_XXXX (C3_AMP_SQ_OFFSET_MUX_DELAY, mode Read, data XXXX)
+# ** Note   : (236868000 ps) Send SPI command value 4A05_02FF (C2_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 02FF)
+# ** Note   : (236940000 ps) Waiting SPI command return end for 36000 ps
+#             (236940000 ps) 
+#             (236940000 ps) ==============================================================================================
+#             (236940000 ps)   Check no error
+#             (236940000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (236958000 ps) Check command return: PASS
+# ** Note   : (236958000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
+# ** Note   : (239190000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (239190000 ps) Send SPI command value 4A04_XXXX (C2_AMP_SQ_OFFSET_MUX_DELAY, mode Read, data XXXX)
+# ** Note   : (239262000 ps) Waiting SPI command return end for 36000 ps
+#             (239262000 ps) 
+#             (239262000 ps) ==============================================================================================
+#             (239262000 ps)   Check C2_AMP_SQ_OFFSET_MUX_DELAY content
+#             (239262000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (239280000 ps) Check command return: PASS
+# ** Note   : (239280000 ps)  * Read 4A04_000A, expected value 4A04_000A (C2_AMP_SQ_OFFSET_MUX_DELAY, mode Read, data 000A)
+# ** Note   : (241512000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (241512000 ps) Send SPI command value 4A05_0000 (C2_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 0000)
 # ** Note   : (241584000 ps) Waiting SPI command return end for 36000 ps
 #             (241584000 ps) 
 #             (241584000 ps) ==============================================================================================
-#             (241584000 ps)   Check C3_AMP_SQ_OFFSET_MUX_DELAY content at start
+#             (241584000 ps)   Check no error
 #             (241584000 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (241602000 ps) Check command return: PASS
-# ** Note   : (241602000 ps)  * Read 6A04_0000, expected value 6A04_0000 (C3_AMP_SQ_OFFSET_MUX_DELAY, mode Read, data 0000)
+# ** Note   : (241602000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
 # ** Note   : (243834000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (243834000 ps) Send SPI command value 6A05_4XXX (C3_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 4XXX)
+# ** Note   : (243834000 ps) Send SPI command value 4A04_XXXX (C2_AMP_SQ_OFFSET_MUX_DELAY, mode Read, data XXXX)
 # ** Note   : (243906000 ps) Waiting SPI command return end for 36000 ps
 #             (243906000 ps) 
 #             (243906000 ps) ==============================================================================================
-#             (243906000 ps)   Check error position SPI data out of range detected
+#             (243906000 ps)   Check C2_AMP_SQ_OFFSET_MUX_DELAY content
 #             (243906000 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (243924000 ps) Check command return: PASS
-# ** Note   : (243924000 ps)  * Read C000_EFFF, expected value C000_EFFF (Status, mode Read, data EFFF)
+# ** Note   : (243924000 ps)  * Read 4A04_02FF, expected value 4A04_02FF (C2_AMP_SQ_OFFSET_MUX_DELAY, mode Read, data 02FF)
 # ** Note   : (246156000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (246156000 ps) Send SPI command value 6A04_XXXX (C3_AMP_SQ_OFFSET_MUX_DELAY, mode Read, data XXXX)
+# ** Note   : (246156000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
 # ** Note   : (246228000 ps) Waiting SPI command return end for 36000 ps
 #             (246228000 ps) 
 #             (246228000 ps) ==============================================================================================
-#             (246228000 ps)   Check C3_AMP_SQ_OFFSET_MUX_DELAY no change
+#             (246228000 ps)   Check no error
 #             (246228000 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (246246000 ps) Check command return: PASS
-# ** Note   : (246246000 ps)  * Read 6A04_0000, expected value 6A04_0000 (C3_AMP_SQ_OFFSET_MUX_DELAY, mode Read, data 0000)
+# ** Note   : (246246000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
 # ** Note   : (248478000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (248478000 ps) Send SPI command value 6A05_2XXX (C3_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 2XXX)
+# ** Note   : (248478000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
 # ** Note   : (248550000 ps) Waiting SPI command return end for 36000 ps
 #             (248550000 ps) 
 #             (248550000 ps) ==============================================================================================
-#             (248550000 ps)   Check error position SPI data out of range detected
+#             (248550000 ps)   Check C2_AMP_SQ_OFFSET_MUX_DELAY content
 #             (248550000 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (248568000 ps) Check command return: PASS
-# ** Note   : (248568000 ps)  * Read C000_EFFF, expected value C000_EFFF (Status, mode Read, data EFFF)
+# ** Note   : (248568000 ps)  * Read 4A04_0000, expected value 4A04_0000 (C2_AMP_SQ_OFFSET_MUX_DELAY, mode Read, data 0000)
 # ** Note   : (250800000 ps) Waiting SPI command end for 2232000 ps
+#             (250800000 ps) 
+#             (250800000 ps) ==============================================================================================
+#             (250800000 ps)   Start CY_AMP_SQ_OFFSET_MUX_DELAY register test
+#             (250800000 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (250800000 ps) Send SPI command value 6A04_XXXX (C3_AMP_SQ_OFFSET_MUX_DELAY, mode Read, data XXXX)
-# ** Note   : (250872000 ps) Waiting SPI command return end for 36000 ps
-#             (250872000 ps) 
-#             (250872000 ps) ==============================================================================================
-#             (250872000 ps)   Check C3_AMP_SQ_OFFSET_MUX_DELAY no change
-#             (250872000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (250890000 ps) Check command return: PASS
-# ** Note   : (250890000 ps)  * Read 6A04_0000, expected value 6A04_0000 (C3_AMP_SQ_OFFSET_MUX_DELAY, mode Read, data 0000)
-# ** Note   : (253122000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (253122000 ps) Send SPI command value 6A05_1XXX (C3_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 1XXX)
-# ** Note   : (253194000 ps) Waiting SPI command return end for 36000 ps
-#             (253194000 ps) 
-#             (253194000 ps) ==============================================================================================
-#             (253194000 ps)   Check error position SPI data out of range detected
-#             (253194000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (253212000 ps) Check command return: PASS
-# ** Note   : (253212000 ps)  * Read C000_EFFF, expected value C000_EFFF (Status, mode Read, data EFFF)
-# ** Note   : (255444000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (253122000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (253122000 ps) Send SPI command value 6A05_8XXX (C3_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 8XXX)
+# ** Note   : (255444000 ps) Waiting SPI command end for 2286000 ps
 # ** Note   : (255444000 ps) Send SPI command value 6A04_XXXX (C3_AMP_SQ_OFFSET_MUX_DELAY, mode Read, data XXXX)
 # ** Note   : (255516000 ps) Waiting SPI command return end for 36000 ps
 #             (255516000 ps) 
 #             (255516000 ps) ==============================================================================================
-#             (255516000 ps)   Check C3_AMP_SQ_OFFSET_MUX_DELAY no change
+#             (255516000 ps)   Check C3_AMP_SQ_OFFSET_MUX_DELAY content at start
 #             (255516000 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (255534000 ps) Check command return: PASS
 # ** Note   : (255534000 ps)  * Read 6A04_0000, expected value 6A04_0000 (C3_AMP_SQ_OFFSET_MUX_DELAY, mode Read, data 0000)
 # ** Note   : (257766000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (257766000 ps) Send SPI command value 6A05_X8XX (C3_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data X8XX)
+# ** Note   : (257766000 ps) Send SPI command value 6A05_4XXX (C3_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 4XXX)
 # ** Note   : (257838000 ps) Waiting SPI command return end for 36000 ps
 #             (257838000 ps) 
 #             (257838000 ps) ==============================================================================================
@@ -970,7 +970,7 @@
 # ** Note   : (260178000 ps) Check command return: PASS
 # ** Note   : (260178000 ps)  * Read 6A04_0000, expected value 6A04_0000 (C3_AMP_SQ_OFFSET_MUX_DELAY, mode Read, data 0000)
 # ** Note   : (262410000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (262410000 ps) Send SPI command value 6A05_X4XX (C3_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data X4XX)
+# ** Note   : (262410000 ps) Send SPI command value 6A05_2XXX (C3_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 2XXX)
 # ** Note   : (262482000 ps) Waiting SPI command return end for 36000 ps
 #             (262482000 ps) 
 #             (262482000 ps) ==============================================================================================
@@ -988,7 +988,7 @@
 # ** Note   : (264822000 ps) Check command return: PASS
 # ** Note   : (264822000 ps)  * Read 6A04_0000, expected value 6A04_0000 (C3_AMP_SQ_OFFSET_MUX_DELAY, mode Read, data 0000)
 # ** Note   : (267054000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (267054000 ps) Send SPI command value 6A05_X2XX (C3_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data X2XX)
+# ** Note   : (267054000 ps) Send SPI command value 6A05_1XXX (C3_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 1XXX)
 # ** Note   : (267126000 ps) Waiting SPI command return end for 36000 ps
 #             (267126000 ps) 
 #             (267126000 ps) ==============================================================================================
@@ -1006,7 +1006,7 @@
 # ** Note   : (269466000 ps) Check command return: PASS
 # ** Note   : (269466000 ps)  * Read 6A04_0000, expected value 6A04_0000 (C3_AMP_SQ_OFFSET_MUX_DELAY, mode Read, data 0000)
 # ** Note   : (271698000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (271698000 ps) Send SPI command value 6A05_X1XX (C3_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data X1XX)
+# ** Note   : (271698000 ps) Send SPI command value 6A05_X8XX (C3_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data X8XX)
 # ** Note   : (271770000 ps) Waiting SPI command return end for 36000 ps
 #             (271770000 ps) 
 #             (271770000 ps) ==============================================================================================
@@ -1024,7 +1024,7 @@
 # ** Note   : (274110000 ps) Check command return: PASS
 # ** Note   : (274110000 ps)  * Read 6A04_0000, expected value 6A04_0000 (C3_AMP_SQ_OFFSET_MUX_DELAY, mode Read, data 0000)
 # ** Note   : (276342000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (276342000 ps) Send SPI command value 6A05_XX8X (C3_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data XX8X)
+# ** Note   : (276342000 ps) Send SPI command value 6A05_X4XX (C3_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data X4XX)
 # ** Note   : (276414000 ps) Waiting SPI command return end for 36000 ps
 #             (276414000 ps) 
 #             (276414000 ps) ==============================================================================================
@@ -1042,7 +1042,7 @@
 # ** Note   : (278754000 ps) Check command return: PASS
 # ** Note   : (278754000 ps)  * Read 6A04_0000, expected value 6A04_0000 (C3_AMP_SQ_OFFSET_MUX_DELAY, mode Read, data 0000)
 # ** Note   : (280986000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (280986000 ps) Send SPI command value 6A05_XX4X (C3_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data XX4X)
+# ** Note   : (280986000 ps) Send SPI command value 6A05_X029 (C3_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data X029)
 # ** Note   : (281058000 ps) Waiting SPI command return end for 36000 ps
 #             (281058000 ps) 
 #             (281058000 ps) ==============================================================================================
@@ -1060,7 +1060,7 @@
 # ** Note   : (283398000 ps) Check command return: PASS
 # ** Note   : (283398000 ps)  * Read 6A04_0000, expected value 6A04_0000 (C3_AMP_SQ_OFFSET_MUX_DELAY, mode Read, data 0000)
 # ** Note   : (285630000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (285630000 ps) Send SPI command value 6A05_XX2X (C3_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data XX2X)
+# ** Note   : (285630000 ps) Send SPI command value 6A05_X1XX (C3_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data X1XX)
 # ** Note   : (285702000 ps) Waiting SPI command return end for 36000 ps
 #             (285702000 ps) 
 #             (285702000 ps) ==============================================================================================
@@ -1078,7 +1078,7 @@
 # ** Note   : (288042000 ps) Check command return: PASS
 # ** Note   : (288042000 ps)  * Read 6A04_0000, expected value 6A04_0000 (C3_AMP_SQ_OFFSET_MUX_DELAY, mode Read, data 0000)
 # ** Note   : (290274000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (290274000 ps) Send SPI command value 6A05_001F (C3_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 001F)
+# ** Note   : (290274000 ps) Send SPI command value 6A05_X08X (C3_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data X08X)
 # ** Note   : (290346000 ps) Waiting SPI command return end for 36000 ps
 #             (290346000 ps) 
 #             (290346000 ps) ==============================================================================================
@@ -1096,61 +1096,61 @@
 # ** Note   : (292686000 ps) Check command return: PASS
 # ** Note   : (292686000 ps)  * Read 6A04_0000, expected value 6A04_0000 (C3_AMP_SQ_OFFSET_MUX_DELAY, mode Read, data 0000)
 # ** Note   : (294918000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (294918000 ps) Send SPI command value 6A05_0015 (C3_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 0015)
+# ** Note   : (294918000 ps) Send SPI command value 6A05_X04X (C3_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data X04X)
 # ** Note   : (294990000 ps) Waiting SPI command return end for 36000 ps
 #             (294990000 ps) 
 #             (294990000 ps) ==============================================================================================
-#             (294990000 ps)   Check no error
+#             (294990000 ps)   Check error position SPI data out of range detected
 #             (294990000 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (295008000 ps) Check command return: PASS
-# ** Note   : (295008000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
+# ** Note   : (295008000 ps)  * Read C000_EFFF, expected value C000_EFFF (Status, mode Read, data EFFF)
 # ** Note   : (297240000 ps) Waiting SPI command end for 2232000 ps
 # ** Note   : (297240000 ps) Send SPI command value 6A04_XXXX (C3_AMP_SQ_OFFSET_MUX_DELAY, mode Read, data XXXX)
 # ** Note   : (297312000 ps) Waiting SPI command return end for 36000 ps
 #             (297312000 ps) 
 #             (297312000 ps) ==============================================================================================
-#             (297312000 ps)   Check C3_AMP_SQ_OFFSET_MUX_DELAY content
+#             (297312000 ps)   Check C3_AMP_SQ_OFFSET_MUX_DELAY no change
 #             (297312000 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (297330000 ps) Check command return: PASS
-# ** Note   : (297330000 ps)  * Read 6A04_001F, expected value 6A04_001F (C3_AMP_SQ_OFFSET_MUX_DELAY, mode Read, data 001F)
+# ** Note   : (297330000 ps)  * Read 6A04_0000, expected value 6A04_0000 (C3_AMP_SQ_OFFSET_MUX_DELAY, mode Read, data 0000)
 # ** Note   : (299562000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (299562000 ps) Send SPI command value 6A05_000A (C3_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 000A)
+# ** Note   : (299562000 ps) Send SPI command value 6A05_X03X (C3_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data X03X)
 # ** Note   : (299634000 ps) Waiting SPI command return end for 36000 ps
 #             (299634000 ps) 
 #             (299634000 ps) ==============================================================================================
-#             (299634000 ps)   Check no error
+#             (299634000 ps)   Check error position SPI data out of range detected
 #             (299634000 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (299652000 ps) Check command return: PASS
-# ** Note   : (299652000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
+# ** Note   : (299652000 ps)  * Read C000_EFFF, expected value C000_EFFF (Status, mode Read, data EFFF)
 # ** Note   : (301884000 ps) Waiting SPI command end for 2232000 ps
 # ** Note   : (301884000 ps) Send SPI command value 6A04_XXXX (C3_AMP_SQ_OFFSET_MUX_DELAY, mode Read, data XXXX)
 # ** Note   : (301956000 ps) Waiting SPI command return end for 36000 ps
 #             (301956000 ps) 
 #             (301956000 ps) ==============================================================================================
-#             (301956000 ps)   Check C3_AMP_SQ_OFFSET_MUX_DELAY content
+#             (301956000 ps)   Check C3_AMP_SQ_OFFSET_MUX_DELAY no change
 #             (301956000 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (301974000 ps) Check command return: PASS
-# ** Note   : (301974000 ps)  * Read 6A04_0015, expected value 6A04_0015 (C3_AMP_SQ_OFFSET_MUX_DELAY, mode Read, data 0015)
+# ** Note   : (301974000 ps)  * Read 6A04_0000, expected value 6A04_0000 (C3_AMP_SQ_OFFSET_MUX_DELAY, mode Read, data 0000)
 # ** Note   : (304206000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (304206000 ps) Send SPI command value 6A05_0000 (C3_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 0000)
+# ** Note   : (304206000 ps) Send SPI command value 6A05_0028 (C3_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 0028)
 # ** Note   : (304278000 ps) Waiting SPI command return end for 36000 ps
 #             (304278000 ps) 
 #             (304278000 ps) ==============================================================================================
-#             (304278000 ps)   Check no error
+#             (304278000 ps)   Check error position SPI data out of range detected
 #             (304278000 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (304296000 ps) Check command return: PASS
-# ** Note   : (304296000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
+# ** Note   : (304296000 ps)  * Read C000_EFFF, expected value C000_EFFF (Status, mode Read, data EFFF)
 # ** Note   : (306528000 ps) Waiting SPI command end for 2232000 ps
 # ** Note   : (306528000 ps) Send SPI command value 6A04_XXXX (C3_AMP_SQ_OFFSET_MUX_DELAY, mode Read, data XXXX)
 # ** Note   : (306600000 ps) Waiting SPI command return end for 36000 ps
 #             (306600000 ps) 
 #             (306600000 ps) ==============================================================================================
-#             (306600000 ps)   Check C3_AMP_SQ_OFFSET_MUX_DELAY content
+#             (306600000 ps)   Check C3_AMP_SQ_OFFSET_MUX_DELAY no change
 #             (306600000 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (306618000 ps) Check command return: PASS
-# ** Note   : (306618000 ps)  * Read 6A04_000A, expected value 6A04_000A (C3_AMP_SQ_OFFSET_MUX_DELAY, mode Read, data 000A)
+# ** Note   : (306618000 ps)  * Read 6A04_0000, expected value 6A04_0000 (C3_AMP_SQ_OFFSET_MUX_DELAY, mode Read, data 0000)
 # ** Note   : (308850000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (308850000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (308850000 ps) Send SPI command value 6A05_0015 (C3_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 0015)
 # ** Note   : (308922000 ps) Waiting SPI command return end for 36000 ps
 #             (308922000 ps) 
 #             (308922000 ps) ==============================================================================================
@@ -1159,15 +1159,87 @@
 # ** Note   : (308940000 ps) Check command return: PASS
 # ** Note   : (308940000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
 # ** Note   : (311172000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (311172000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (311172000 ps) Send SPI command value 6A04_XXXX (C3_AMP_SQ_OFFSET_MUX_DELAY, mode Read, data XXXX)
 # ** Note   : (311244000 ps) Waiting SPI command return end for 36000 ps
 #             (311244000 ps) 
 #             (311244000 ps) ==============================================================================================
 #             (311244000 ps)   Check C3_AMP_SQ_OFFSET_MUX_DELAY content
 #             (311244000 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (311262000 ps) Check command return: PASS
-# ** Note   : (311262000 ps)  * Read 6A04_0000, expected value 6A04_0000 (C3_AMP_SQ_OFFSET_MUX_DELAY, mode Read, data 0000)
+# ** Note   : (311262000 ps)  * Read 6A04_0028, expected value 6A04_0028 (C3_AMP_SQ_OFFSET_MUX_DELAY, mode Read, data 0028)
 # ** Note   : (313494000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (313494000 ps) Send SPI command value 6A05_000A (C3_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 000A)
+# ** Note   : (313566000 ps) Waiting SPI command return end for 36000 ps
+#             (313566000 ps) 
+#             (313566000 ps) ==============================================================================================
+#             (313566000 ps)   Check no error
+#             (313566000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (313584000 ps) Check command return: PASS
+# ** Note   : (313584000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
+# ** Note   : (315816000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (315816000 ps) Send SPI command value 6A04_XXXX (C3_AMP_SQ_OFFSET_MUX_DELAY, mode Read, data XXXX)
+# ** Note   : (315888000 ps) Waiting SPI command return end for 36000 ps
+#             (315888000 ps) 
+#             (315888000 ps) ==============================================================================================
+#             (315888000 ps)   Check C3_AMP_SQ_OFFSET_MUX_DELAY content
+#             (315888000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (315906000 ps) Check command return: PASS
+# ** Note   : (315906000 ps)  * Read 6A04_0015, expected value 6A04_0015 (C3_AMP_SQ_OFFSET_MUX_DELAY, mode Read, data 0015)
+# ** Note   : (318138000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (318138000 ps) Send SPI command value 6A05_02FF (C3_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 02FF)
+# ** Note   : (318210000 ps) Waiting SPI command return end for 36000 ps
+#             (318210000 ps) 
+#             (318210000 ps) ==============================================================================================
+#             (318210000 ps)   Check no error
+#             (318210000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (318228000 ps) Check command return: PASS
+# ** Note   : (318228000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
+# ** Note   : (320460000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (320460000 ps) Send SPI command value 6A04_XXXX (C3_AMP_SQ_OFFSET_MUX_DELAY, mode Read, data XXXX)
+# ** Note   : (320532000 ps) Waiting SPI command return end for 36000 ps
+#             (320532000 ps) 
+#             (320532000 ps) ==============================================================================================
+#             (320532000 ps)   Check C3_AMP_SQ_OFFSET_MUX_DELAY content
+#             (320532000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (320550000 ps) Check command return: PASS
+# ** Note   : (320550000 ps)  * Read 6A04_000A, expected value 6A04_000A (C3_AMP_SQ_OFFSET_MUX_DELAY, mode Read, data 000A)
+# ** Note   : (322782000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (322782000 ps) Send SPI command value 6A05_0000 (C3_AMP_SQ_OFFSET_MUX_DELAY, mode Write, data 0000)
+# ** Note   : (322854000 ps) Waiting SPI command return end for 36000 ps
+#             (322854000 ps) 
+#             (322854000 ps) ==============================================================================================
+#             (322854000 ps)   Check no error
+#             (322854000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (322872000 ps) Check command return: PASS
+# ** Note   : (322872000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
+# ** Note   : (325104000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (325104000 ps) Send SPI command value 6A04_XXXX (C3_AMP_SQ_OFFSET_MUX_DELAY, mode Read, data XXXX)
+# ** Note   : (325176000 ps) Waiting SPI command return end for 36000 ps
+#             (325176000 ps) 
+#             (325176000 ps) ==============================================================================================
+#             (325176000 ps)   Check C3_AMP_SQ_OFFSET_MUX_DELAY content
+#             (325176000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (325194000 ps) Check command return: PASS
+# ** Note   : (325194000 ps)  * Read 6A04_02FF, expected value 6A04_02FF (C3_AMP_SQ_OFFSET_MUX_DELAY, mode Read, data 02FF)
+# ** Note   : (327426000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (327426000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (327498000 ps) Waiting SPI command return end for 36000 ps
+#             (327498000 ps) 
+#             (327498000 ps) ==============================================================================================
+#             (327498000 ps)   Check no error
+#             (327498000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (327516000 ps) Check command return: PASS
+# ** Note   : (327516000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
+# ** Note   : (329748000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (329748000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (329820000 ps) Waiting SPI command return end for 36000 ps
+#             (329820000 ps) 
+#             (329820000 ps) ==============================================================================================
+#             (329820000 ps)   Check C3_AMP_SQ_OFFSET_MUX_DELAY content
+#             (329820000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (329838000 ps) Check command return: PASS
+# ** Note   : (329838000 ps)  * Read 6A04_0000, expected value 6A04_0000 (C3_AMP_SQ_OFFSET_MUX_DELAY, mode Read, data 0000)
+# ** Note   : (332070000 ps) Waiting SPI command end for 2232000 ps
 # ------------------------------------------------------------------------------------------------------------------------------------------------------
 # Error simulation time         : '0'
 # Error check discrete level    : '0'
@@ -1178,6 +1250,6 @@
 # Error check science packets   : '0'
 # Error check pulse shaping     : '0'
 # ------------------------------------------------------------------------------------------------------------------------------------------------------
-# Simulation time               : 315000000 ps
+# Simulation time               : 335000000 ps
 # Simulation status             : PASS
 # ------------------------------------------------------------------------------------------------------------------------------------------------------

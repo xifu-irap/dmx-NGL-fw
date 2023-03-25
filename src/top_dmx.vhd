@@ -133,8 +133,11 @@ signal   sqm_data_sc_last     : std_logic_vector(c_NB_COL-1 downto 0)           
 signal   sqm_data_sc_rdy      : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! SQUID MUX Data science ready ('0' = Not ready, '1' = Ready)
 
 signal   sqm_data_fbk         : t_slv_arr(0 to c_NB_COL-1)(c_SQM_DATA_FBK_S-1 downto 0)                     ; --! SQUID MUX Data feedback (signed)
+signal   sqm_pixel_pos_init   : t_slv_arr(0 to c_NB_COL-1)( c_SQM_PXL_POS_S-1 downto 0)                     ; --! SQUID MUX Pixel position initialization
+signal   sqm_pls_cnt_init     : t_slv_arr(0 to c_NB_COL-1)( c_SQM_PLS_CNT_S-1 downto 0)                     ; --! SQUID MUX Pulse shaping counter initialization
 signal   sqa_fbk_mux          : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SAOFF_PIX_S-1 downto 0)                   ; --! SQUID AMP Feedback Multiplexer
 signal   sqa_fbk_off          : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SAOFC_COL_S-1 downto 0)                   ; --! SQUID AMP coarse offset
+signal   sqa_pls_cnt_init     : t_slv_arr(0 to c_NB_COL-1)(   c_SQA_PLS_CNT_S-1 downto 0)                   ; --! SQUID AMP Pulse counter initialization
 
 signal   test_pattern         : std_logic_vector(  c_DFLD_TSTPT_S-1 downto 0)                               ; --! Test pattern
 signal   test_pattern_sqm     : std_logic_vector(c_SQM_DATA_FBK_S-1 downto 0)                               ; --! Test pattern: MUX SQUID
@@ -612,6 +615,8 @@ begin
          o_smfbm_data         => smfbm_data(k)        , -- out    slv(c_DFLD_SMFBM_PIX_S-1 downto 0)        ; --! SQUID MUX feedback mode: data read
 
          o_sqm_data_fbk       => sqm_data_fbk(k)      , -- out    slv( c_SQM_DATA_FBK_S-1 downto 0)         ; --! SQUID MUX Data feedback (signed)
+         o_sqm_pixel_pos_init => sqm_pixel_pos_init(k), -- out    slv( c_SQM_PXL_POS_S-1 downto 0)          ; --! SQUID MUX Pixel position initialization
+         o_sqm_pls_cnt_init   => sqm_pls_cnt_init(k)  , -- out    slv( c_SQM_PLS_CNT_S-1 downto 0)          ; --! SQUID MUX Pulse shaping counter initialization
 
          o_init_fbk_pixel_pos => init_fbk_pixel_pos(k), -- out    slv(c_MUX_FACT_S-1 downto 0)              ; --! Initialization feedback chain accumulators Pixel position
          o_init_fbk_acc       => init_fbk_acc(k)      , -- out    std_logic                                 ; --! Initialization feedback chain accumulators ('0' = Inactive, '1' = Active)
@@ -630,8 +635,9 @@ begin
 
          i_sync_rs            => sync_rs(c_FPGA_POS_SQM_DAC(k)), -- in     std_logic                        ; --! Pixel sequence synchronization, synchronized on System Clock
          i_sqm_data_fbk       => sqm_data_fbk(k)      , -- in     slv(c_SQM_DATA_FBK_S-1 downto 0)          ; --! SQUID MUX Data feedback
+         i_sqm_pixel_pos_init => sqm_pixel_pos_init(k), -- in     slv( c_SQM_PXL_POS_S-1 downto 0)          ; --! SQUID MUX Pixel position initialization
+         i_sqm_pls_cnt_init   => sqm_pls_cnt_init(k)  , -- in     slv( c_SQM_PLS_CNT_S-1 downto 0)          ; --! SQUID MUX Pulse shaping counter initialization
          i_plsss              => plsss(k)             , -- in     slv(c_DFLD_PLSSS_PLS_S  -1 downto 0)      ; --! SQUID MUX feedback pulse shaping set
-         i_smfbd              => smfbd(k)             , -- in     slv(c_DFLD_SMFBD_COL_S  -1 downto 0)      ; --! SQUID MUX feedback delay
 
          i_mem_plssh          => mem_plssh(k)         , -- in     t_mem                                     ; --! SQUID MUX feedback pulse shaping coefficient: memory inputs
          o_plssh_data         => plssh_data(k)        , -- out    slv(c_DFLD_PLSSH_PLS_S-1 downto 0)        ; --! SQUID MUX feedback pulse shaping coefficient: data read
@@ -657,7 +663,8 @@ begin
          o_saoff_data         => saoff_data(k)        , -- out    slv(c_DFLD_SAOFF_PIX_S  -1 downto 0)      ; --! SQUID AMP lockpoint fine offset: data read
 
          o_sqa_fbk_mux        => sqa_fbk_mux(k)       , -- out    slv(c_DFLD_SAOFF_PIX_S-1 downto 0)        ; --! SQUID AMP Feedback Multiplexer
-         o_sqa_fbk_off        => sqa_fbk_off(k)         -- out    slv(  c_SQA_DAC_DATA_S-1 downto 0)          --! SQUID AMP coarse offset
+         o_sqa_fbk_off        => sqa_fbk_off(k)       , -- out    slv(  c_SQA_DAC_DATA_S-1 downto 0)        ; --! SQUID AMP coarse offset
+         o_sqa_pls_cnt_init   => sqa_pls_cnt_init(k)    -- out    slv(   c_SQA_PLS_CNT_S-1 downto 0)          --! SQUID AMP Pulse counter initialization
       );
 
       I_sqa_dac_mgt: entity work.sqa_dac_mgt port map
@@ -673,7 +680,7 @@ begin
          i_sqa_fbk_mux        => sqa_fbk_mux(k)       , -- in     slv(c_DFLD_SAOFF_PIX_S-1 downto 0)        ; --! SQUID AMP Feedback Multiplexer
          i_sqa_fbk_off        => sqa_fbk_off(k)       , -- in     slv(c_DFLD_SAOFC_COL_S-1 downto 0)        ; --! SQUID AMP coarse offset
          i_saodd              => saodd(k)             , -- in     slv(c_DFLD_SAODD_COL_S-1 downto 0)        ; --! SQUID AMP offset DAC delay
-         i_saomd              => saomd(k)             , -- in     slv(c_DFLD_SAOMD_COL_S-1 downto 0)        ; --! SQUID AMP offset MUX delay
+         i_sqa_pls_cnt_init   => sqa_pls_cnt_init(k)  , -- in     slv(   c_SQA_PLS_CNT_S-1 downto 0)        ; --! SQUID AMP Pulse counter initialization
 
          o_sqa_dac_mux        => o_sqa_dac_mux(k)     , -- out    slv(c_SQA_DAC_MUX_S -1 downto 0)          ; --! SQUID AMP DAC: Multiplexer
          o_sqa_dac_data       => o_sqa_dac_data(k)    , -- out    std_logic                                 ; --! SQUID AMP DAC: Serial Data

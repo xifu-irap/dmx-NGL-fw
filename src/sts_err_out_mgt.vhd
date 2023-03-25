@@ -98,16 +98,18 @@ begin
 
    cond_saofc     <= i_ep_cmd_rx_wd_data(15) or i_ep_cmd_rx_wd_data(14) or i_ep_cmd_rx_wd_data(13) or i_ep_cmd_rx_wd_data(12);
 
-   cond_smfbd     <= i_ep_cmd_rx_wd_data(15) or i_ep_cmd_rx_wd_data(14) or i_ep_cmd_rx_wd_data(13) or i_ep_cmd_rx_wd_data(12) or
-                     i_ep_cmd_rx_wd_data(11) or i_ep_cmd_rx_wd_data(10) or i_ep_cmd_rx_wd_data(9)  or i_ep_cmd_rx_wd_data(8)  or
-                     i_ep_cmd_rx_wd_data(7)  or i_ep_cmd_rx_wd_data(6)  or i_ep_cmd_rx_wd_data(5);
+   cond_smfbd     <= '1' when (i_ep_cmd_rx_wd_data(c_DFLD_SMFBD_COL_S-1) = '0' and
+                     i_ep_cmd_rx_wd_data(c_DFLD_SMFBD_COL_S-2 downto 0) > std_logic_vector(to_unsigned(2*c_PIXEL_DAC_NB_CYC, c_DFLD_SMFBD_COL_S-1))) else
+                     i_ep_cmd_rx_wd_data(15) or i_ep_cmd_rx_wd_data(14) or i_ep_cmd_rx_wd_data(13) or i_ep_cmd_rx_wd_data(12) or
+                     i_ep_cmd_rx_wd_data(11) or i_ep_cmd_rx_wd_data(10);
 
    cond_saodd     <= i_ep_cmd_rx_wd_data(15) or i_ep_cmd_rx_wd_data(14) or i_ep_cmd_rx_wd_data(13) or i_ep_cmd_rx_wd_data(12) or
                      i_ep_cmd_rx_wd_data(11) or i_ep_cmd_rx_wd_data(10);
 
-   cond_saomd     <= i_ep_cmd_rx_wd_data(15) or i_ep_cmd_rx_wd_data(14) or i_ep_cmd_rx_wd_data(13) or i_ep_cmd_rx_wd_data(12) or
-                     i_ep_cmd_rx_wd_data(11) or i_ep_cmd_rx_wd_data(10) or i_ep_cmd_rx_wd_data(9)  or i_ep_cmd_rx_wd_data(8)  or
-                     i_ep_cmd_rx_wd_data(7)  or i_ep_cmd_rx_wd_data(6)  or i_ep_cmd_rx_wd_data(5);
+   cond_saomd     <= '1' when (i_ep_cmd_rx_wd_data(c_DFLD_SAOMD_COL_S-1) = '0' and
+                     i_ep_cmd_rx_wd_data(c_DFLD_SAOMD_COL_S-2 downto 0) > std_logic_vector(to_unsigned(2*c_PIXEL_DAC_NB_CYC, c_DFLD_SAOMD_COL_S-1))) else
+                     i_ep_cmd_rx_wd_data(15) or i_ep_cmd_rx_wd_data(14) or i_ep_cmd_rx_wd_data(13) or i_ep_cmd_rx_wd_data(12) or
+                     i_ep_cmd_rx_wd_data(11) or i_ep_cmd_rx_wd_data(10);
 
    cond_smpdl     <= '1' when i_ep_cmd_rx_wd_data(c_DFLD_SMPDL_COL_S-1 downto 0) >= std_logic_vector(to_unsigned(c_PIXEL_ADC_NB_CYC , c_DFLD_SMPDL_COL_S)) else
                      i_ep_cmd_rx_wd_data(15) or i_ep_cmd_rx_wd_data(14) or i_ep_cmd_rx_wd_data(13) or i_ep_cmd_rx_wd_data(12) or

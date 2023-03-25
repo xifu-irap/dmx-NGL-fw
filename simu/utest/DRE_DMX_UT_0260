@@ -89,7 +89,7 @@ COMM ===========================================================================
 COMM   Check C0_AMP_SQ_OFFSET_MUX_DELAY no change
 COMM ----------------------------------------------------------------------------------------------
 CCMD R-C0_AMP_SQ_OFFSET_MUX_DELAY-0000 W       # Return Command C0-10
-WCMD W-C0_AMP_SQ_OFFSET_MUX_DELAY-X2XX R       # Command C0-13
+WCMD W-C0_AMP_SQ_OFFSET_MUX_DELAY-X029 R       # Command C0-13
 COMM
 COMM ==============================================================================================
 COMM   Check error position SPI data out of range detected
@@ -113,7 +113,7 @@ COMM ===========================================================================
 COMM   Check C0_AMP_SQ_OFFSET_MUX_DELAY no change
 COMM ----------------------------------------------------------------------------------------------
 CCMD R-C0_AMP_SQ_OFFSET_MUX_DELAY-0000 W       # Return Command C0-14
-WCMD W-C0_AMP_SQ_OFFSET_MUX_DELAY-XX8X R       # Command C0-17
+WCMD W-C0_AMP_SQ_OFFSET_MUX_DELAY-X08X R       # Command C0-17
 COMM
 COMM ==============================================================================================
 COMM   Check error position SPI data out of range detected
@@ -125,7 +125,7 @@ COMM ===========================================================================
 COMM   Check C0_AMP_SQ_OFFSET_MUX_DELAY no change
 COMM ----------------------------------------------------------------------------------------------
 CCMD R-C0_AMP_SQ_OFFSET_MUX_DELAY-0000 W       # Return Command C0-16
-WCMD W-C0_AMP_SQ_OFFSET_MUX_DELAY-XX4X R       # Command C0-19
+WCMD W-C0_AMP_SQ_OFFSET_MUX_DELAY-X04X R       # Command C0-19
 COMM
 COMM ==============================================================================================
 COMM   Check error position SPI data out of range detected
@@ -137,7 +137,7 @@ COMM ===========================================================================
 COMM   Check C0_AMP_SQ_OFFSET_MUX_DELAY no change
 COMM ----------------------------------------------------------------------------------------------
 CCMD R-C0_AMP_SQ_OFFSET_MUX_DELAY-0000 W       # Return Command C0-18
-WCMD W-C0_AMP_SQ_OFFSET_MUX_DELAY-XX2X R       # Command C0-21
+WCMD W-C0_AMP_SQ_OFFSET_MUX_DELAY-X03X R       # Command C0-21
 COMM
 COMM ==============================================================================================
 COMM   Check error position SPI data out of range detected
@@ -149,7 +149,7 @@ COMM ===========================================================================
 COMM   Check C0_AMP_SQ_OFFSET_MUX_DELAY no change
 COMM ----------------------------------------------------------------------------------------------
 CCMD R-C0_AMP_SQ_OFFSET_MUX_DELAY-0000 W       # Return Command C0-20
-WCMD W-C0_AMP_SQ_OFFSET_MUX_DELAY-001F R       # Command C0-23
+WCMD W-C0_AMP_SQ_OFFSET_MUX_DELAY-0028 R       # Command C0-23
 COMM
 COMM ==============================================================================================
 COMM   Check error position SPI data out of range detected
@@ -172,7 +172,7 @@ COMM
 COMM ==============================================================================================
 COMM   Check C0_AMP_SQ_OFFSET_MUX_DELAY content
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-C0_AMP_SQ_OFFSET_MUX_DELAY-001F W       # Return Command C0-24
+CCMD R-C0_AMP_SQ_OFFSET_MUX_DELAY-0028 W       # Return Command C0-24
 WCMD W-C0_AMP_SQ_OFFSET_MUX_DELAY-000A R       # Command C0-27
 COMM
 COMM ==============================================================================================
@@ -185,7 +185,7 @@ COMM ===========================================================================
 COMM   Check C0_AMP_SQ_OFFSET_MUX_DELAY content
 COMM ----------------------------------------------------------------------------------------------
 CCMD R-C0_AMP_SQ_OFFSET_MUX_DELAY-0015 W       # Return Command C0-26
-WCMD W-C0_AMP_SQ_OFFSET_MUX_DELAY-0000 R       # Command C0-29
+WCMD W-C0_AMP_SQ_OFFSET_MUX_DELAY-02FF R       # Command C0-29
 COMM
 COMM ==============================================================================================
 COMM   Check no error
@@ -197,18 +197,30 @@ COMM ===========================================================================
 COMM   Check C0_AMP_SQ_OFFSET_MUX_DELAY content
 COMM ----------------------------------------------------------------------------------------------
 CCMD R-C0_AMP_SQ_OFFSET_MUX_DELAY-000A W       # Return Command C0-28
-WCMD R-Status-XXXX R
+WCMD W-C0_AMP_SQ_OFFSET_MUX_DELAY-0000 R       # Command C0-31
 COMM
 COMM ==============================================================================================
 COMM   Check no error
 COMM ----------------------------------------------------------------------------------------------
 CCMD R-Status-FFFF W                           # Return Command C0-29
+WCMD R-C0_AMP_SQ_OFFSET_MUX_DELAY-XXXX R       # Command C0-32
+COMM
+COMM ==============================================================================================
+COMM   Check C0_AMP_SQ_OFFSET_MUX_DELAY content
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-C0_AMP_SQ_OFFSET_MUX_DELAY-02FF W       # Return Command C0-30
+WCMD R-Status-XXXX R
+COMM
+COMM ==============================================================================================
+COMM   Check no error
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-Status-FFFF W                           # Return Command C0-31
 WCMD R-Status-XXXX R
 COMM
 COMM ==============================================================================================
 COMM   Check C0_AMP_SQ_OFFSET_MUX_DELAY content
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-C0_AMP_SQ_OFFSET_MUX_DELAY-0000 W       # Return Command C0-30
+CCMD R-C0_AMP_SQ_OFFSET_MUX_DELAY-0000 W       # Return Command C0-32
 COMM
 COMM ==============================================================================================
 COMM   Start CY_AMP_SQ_OFFSET_MUX_DELAY register test
@@ -281,7 +293,7 @@ COMM ===========================================================================
 COMM   Check C1_AMP_SQ_OFFSET_MUX_DELAY no change
 COMM ----------------------------------------------------------------------------------------------
 CCMD R-C1_AMP_SQ_OFFSET_MUX_DELAY-0000 W       # Return Command C1-10
-WCMD W-C1_AMP_SQ_OFFSET_MUX_DELAY-X2XX R       # Command C1-13
+WCMD W-C1_AMP_SQ_OFFSET_MUX_DELAY-X029 R       # Command C1-13
 COMM
 COMM ==============================================================================================
 COMM   Check error position SPI data out of range detected
@@ -305,7 +317,7 @@ COMM ===========================================================================
 COMM   Check C1_AMP_SQ_OFFSET_MUX_DELAY no change
 COMM ----------------------------------------------------------------------------------------------
 CCMD R-C1_AMP_SQ_OFFSET_MUX_DELAY-0000 W       # Return Command C1-14
-WCMD W-C1_AMP_SQ_OFFSET_MUX_DELAY-XX8X R       # Command C1-17
+WCMD W-C1_AMP_SQ_OFFSET_MUX_DELAY-X08X R       # Command C1-17
 COMM
 COMM ==============================================================================================
 COMM   Check error position SPI data out of range detected
@@ -317,7 +329,7 @@ COMM ===========================================================================
 COMM   Check C1_AMP_SQ_OFFSET_MUX_DELAY no change
 COMM ----------------------------------------------------------------------------------------------
 CCMD R-C1_AMP_SQ_OFFSET_MUX_DELAY-0000 W       # Return Command C1-16
-WCMD W-C1_AMP_SQ_OFFSET_MUX_DELAY-XX4X R       # Command C1-19
+WCMD W-C1_AMP_SQ_OFFSET_MUX_DELAY-X04X R       # Command C1-19
 COMM
 COMM ==============================================================================================
 COMM   Check error position SPI data out of range detected
@@ -329,7 +341,7 @@ COMM ===========================================================================
 COMM   Check C1_AMP_SQ_OFFSET_MUX_DELAY no change
 COMM ----------------------------------------------------------------------------------------------
 CCMD R-C1_AMP_SQ_OFFSET_MUX_DELAY-0000 W       # Return Command C1-18
-WCMD W-C1_AMP_SQ_OFFSET_MUX_DELAY-XX2X R       # Command C1-21
+WCMD W-C1_AMP_SQ_OFFSET_MUX_DELAY-X03X R       # Command C1-21
 COMM
 COMM ==============================================================================================
 COMM   Check error position SPI data out of range detected
@@ -341,7 +353,7 @@ COMM ===========================================================================
 COMM   Check C1_AMP_SQ_OFFSET_MUX_DELAY no change
 COMM ----------------------------------------------------------------------------------------------
 CCMD R-C1_AMP_SQ_OFFSET_MUX_DELAY-0000 W       # Return Command C1-20
-WCMD W-C1_AMP_SQ_OFFSET_MUX_DELAY-001F R       # Command C1-23
+WCMD W-C1_AMP_SQ_OFFSET_MUX_DELAY-0028 R       # Command C1-23
 COMM
 COMM ==============================================================================================
 COMM   Check error position SPI data out of range detected
@@ -364,7 +376,7 @@ COMM
 COMM ==============================================================================================
 COMM   Check C1_AMP_SQ_OFFSET_MUX_DELAY content
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-C1_AMP_SQ_OFFSET_MUX_DELAY-001F W       # Return Command C1-24
+CCMD R-C1_AMP_SQ_OFFSET_MUX_DELAY-0028 W       # Return Command C1-24
 WCMD W-C1_AMP_SQ_OFFSET_MUX_DELAY-000A R       # Command C1-27
 COMM
 COMM ==============================================================================================
@@ -377,7 +389,7 @@ COMM ===========================================================================
 COMM   Check C1_AMP_SQ_OFFSET_MUX_DELAY content
 COMM ----------------------------------------------------------------------------------------------
 CCMD R-C1_AMP_SQ_OFFSET_MUX_DELAY-0015 W       # Return Command C1-26
-WCMD W-C1_AMP_SQ_OFFSET_MUX_DELAY-0000 R       # Command C1-29
+WCMD W-C1_AMP_SQ_OFFSET_MUX_DELAY-02FF R       # Command C1-29
 COMM
 COMM ==============================================================================================
 COMM   Check no error
@@ -389,18 +401,30 @@ COMM ===========================================================================
 COMM   Check C1_AMP_SQ_OFFSET_MUX_DELAY content
 COMM ----------------------------------------------------------------------------------------------
 CCMD R-C1_AMP_SQ_OFFSET_MUX_DELAY-000A W       # Return Command C1-28
-WCMD R-Status-XXXX R
+WCMD W-C1_AMP_SQ_OFFSET_MUX_DELAY-0000 R       # Command C1-31
 COMM
 COMM ==============================================================================================
 COMM   Check no error
 COMM ----------------------------------------------------------------------------------------------
 CCMD R-Status-FFFF W                           # Return Command C1-29
+WCMD R-C1_AMP_SQ_OFFSET_MUX_DELAY-XXXX R       # Command C1-32
+COMM
+COMM ==============================================================================================
+COMM   Check C1_AMP_SQ_OFFSET_MUX_DELAY content
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-C1_AMP_SQ_OFFSET_MUX_DELAY-02FF W       # Return Command C1-30
+WCMD R-Status-XXXX R
+COMM
+COMM ==============================================================================================
+COMM   Check no error
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-Status-FFFF W                           # Return Command C1-31
 WCMD R-Status-XXXX R
 COMM
 COMM ==============================================================================================
 COMM   Check C1_AMP_SQ_OFFSET_MUX_DELAY content
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-C1_AMP_SQ_OFFSET_MUX_DELAY-0000 W       # Return Command C1-30
+CCMD R-C1_AMP_SQ_OFFSET_MUX_DELAY-0000 W       # Return Command C1-32
 COMM
 COMM ==============================================================================================
 COMM   Start CY_AMP_SQ_OFFSET_MUX_DELAY register test
@@ -473,7 +497,7 @@ COMM ===========================================================================
 COMM   Check C2_AMP_SQ_OFFSET_MUX_DELAY no change
 COMM ----------------------------------------------------------------------------------------------
 CCMD R-C2_AMP_SQ_OFFSET_MUX_DELAY-0000 W       # Return Command C2-10
-WCMD W-C2_AMP_SQ_OFFSET_MUX_DELAY-X2XX R       # Command C2-13
+WCMD W-C2_AMP_SQ_OFFSET_MUX_DELAY-X029 R       # Command C2-13
 COMM
 COMM ==============================================================================================
 COMM   Check error position SPI data out of range detected
@@ -497,7 +521,7 @@ COMM ===========================================================================
 COMM   Check C2_AMP_SQ_OFFSET_MUX_DELAY no change
 COMM ----------------------------------------------------------------------------------------------
 CCMD R-C2_AMP_SQ_OFFSET_MUX_DELAY-0000 W       # Return Command C2-14
-WCMD W-C2_AMP_SQ_OFFSET_MUX_DELAY-XX8X R       # Command C2-17
+WCMD W-C2_AMP_SQ_OFFSET_MUX_DELAY-X08X R       # Command C2-17
 COMM
 COMM ==============================================================================================
 COMM   Check error position SPI data out of range detected
@@ -509,7 +533,7 @@ COMM ===========================================================================
 COMM   Check C2_AMP_SQ_OFFSET_MUX_DELAY no change
 COMM ----------------------------------------------------------------------------------------------
 CCMD R-C2_AMP_SQ_OFFSET_MUX_DELAY-0000 W       # Return Command C2-16
-WCMD W-C2_AMP_SQ_OFFSET_MUX_DELAY-XX4X R       # Command C2-19
+WCMD W-C2_AMP_SQ_OFFSET_MUX_DELAY-X04X R       # Command C2-19
 COMM
 COMM ==============================================================================================
 COMM   Check error position SPI data out of range detected
@@ -521,7 +545,7 @@ COMM ===========================================================================
 COMM   Check C2_AMP_SQ_OFFSET_MUX_DELAY no change
 COMM ----------------------------------------------------------------------------------------------
 CCMD R-C2_AMP_SQ_OFFSET_MUX_DELAY-0000 W       # Return Command C2-18
-WCMD W-C2_AMP_SQ_OFFSET_MUX_DELAY-XX2X R       # Command C2-21
+WCMD W-C2_AMP_SQ_OFFSET_MUX_DELAY-X03X R       # Command C2-21
 COMM
 COMM ==============================================================================================
 COMM   Check error position SPI data out of range detected
@@ -533,7 +557,7 @@ COMM ===========================================================================
 COMM   Check C2_AMP_SQ_OFFSET_MUX_DELAY no change
 COMM ----------------------------------------------------------------------------------------------
 CCMD R-C2_AMP_SQ_OFFSET_MUX_DELAY-0000 W       # Return Command C2-20
-WCMD W-C2_AMP_SQ_OFFSET_MUX_DELAY-001F R       # Command C2-23
+WCMD W-C2_AMP_SQ_OFFSET_MUX_DELAY-0028 R       # Command C2-23
 COMM
 COMM ==============================================================================================
 COMM   Check error position SPI data out of range detected
@@ -556,7 +580,7 @@ COMM
 COMM ==============================================================================================
 COMM   Check C2_AMP_SQ_OFFSET_MUX_DELAY content
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-C2_AMP_SQ_OFFSET_MUX_DELAY-001F W       # Return Command C2-24
+CCMD R-C2_AMP_SQ_OFFSET_MUX_DELAY-0028 W       # Return Command C2-24
 WCMD W-C2_AMP_SQ_OFFSET_MUX_DELAY-000A R       # Command C2-27
 COMM
 COMM ==============================================================================================
@@ -569,7 +593,7 @@ COMM ===========================================================================
 COMM   Check C2_AMP_SQ_OFFSET_MUX_DELAY content
 COMM ----------------------------------------------------------------------------------------------
 CCMD R-C2_AMP_SQ_OFFSET_MUX_DELAY-0015 W       # Return Command C2-26
-WCMD W-C2_AMP_SQ_OFFSET_MUX_DELAY-0000 R       # Command C2-29
+WCMD W-C2_AMP_SQ_OFFSET_MUX_DELAY-02FF R       # Command C2-29
 COMM
 COMM ==============================================================================================
 COMM   Check no error
@@ -581,18 +605,30 @@ COMM ===========================================================================
 COMM   Check C2_AMP_SQ_OFFSET_MUX_DELAY content
 COMM ----------------------------------------------------------------------------------------------
 CCMD R-C2_AMP_SQ_OFFSET_MUX_DELAY-000A W       # Return Command C2-28
-WCMD R-Status-XXXX R
+WCMD W-C2_AMP_SQ_OFFSET_MUX_DELAY-0000 R       # Command C2-31
 COMM
 COMM ==============================================================================================
 COMM   Check no error
 COMM ----------------------------------------------------------------------------------------------
 CCMD R-Status-FFFF W                           # Return Command C2-29
+WCMD R-C2_AMP_SQ_OFFSET_MUX_DELAY-XXXX R       # Command C2-32
+COMM
+COMM ==============================================================================================
+COMM   Check C2_AMP_SQ_OFFSET_MUX_DELAY content
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-C2_AMP_SQ_OFFSET_MUX_DELAY-02FF W       # Return Command C2-30
+WCMD R-Status-XXXX R
+COMM
+COMM ==============================================================================================
+COMM   Check no error
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-Status-FFFF W                           # Return Command C2-31
 WCMD R-Status-XXXX R
 COMM
 COMM ==============================================================================================
 COMM   Check C2_AMP_SQ_OFFSET_MUX_DELAY content
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-C2_AMP_SQ_OFFSET_MUX_DELAY-0000 W       # Return Command C2-30
+CCMD R-C2_AMP_SQ_OFFSET_MUX_DELAY-0000 W       # Return Command C2-32
 COMM
 COMM ==============================================================================================
 COMM   Start CY_AMP_SQ_OFFSET_MUX_DELAY register test
@@ -665,7 +701,7 @@ COMM ===========================================================================
 COMM   Check C3_AMP_SQ_OFFSET_MUX_DELAY no change
 COMM ----------------------------------------------------------------------------------------------
 CCMD R-C3_AMP_SQ_OFFSET_MUX_DELAY-0000 W       # Return Command C3-10
-WCMD W-C3_AMP_SQ_OFFSET_MUX_DELAY-X2XX R       # Command C3-13
+WCMD W-C3_AMP_SQ_OFFSET_MUX_DELAY-X029 R       # Command C3-13
 COMM
 COMM ==============================================================================================
 COMM   Check error position SPI data out of range detected
@@ -689,7 +725,7 @@ COMM ===========================================================================
 COMM   Check C3_AMP_SQ_OFFSET_MUX_DELAY no change
 COMM ----------------------------------------------------------------------------------------------
 CCMD R-C3_AMP_SQ_OFFSET_MUX_DELAY-0000 W       # Return Command C3-14
-WCMD W-C3_AMP_SQ_OFFSET_MUX_DELAY-XX8X R       # Command C3-17
+WCMD W-C3_AMP_SQ_OFFSET_MUX_DELAY-X08X R       # Command C3-17
 COMM
 COMM ==============================================================================================
 COMM   Check error position SPI data out of range detected
@@ -701,7 +737,7 @@ COMM ===========================================================================
 COMM   Check C3_AMP_SQ_OFFSET_MUX_DELAY no change
 COMM ----------------------------------------------------------------------------------------------
 CCMD R-C3_AMP_SQ_OFFSET_MUX_DELAY-0000 W       # Return Command C3-16
-WCMD W-C3_AMP_SQ_OFFSET_MUX_DELAY-XX4X R       # Command C3-19
+WCMD W-C3_AMP_SQ_OFFSET_MUX_DELAY-X04X R       # Command C3-19
 COMM
 COMM ==============================================================================================
 COMM   Check error position SPI data out of range detected
@@ -713,7 +749,7 @@ COMM ===========================================================================
 COMM   Check C3_AMP_SQ_OFFSET_MUX_DELAY no change
 COMM ----------------------------------------------------------------------------------------------
 CCMD R-C3_AMP_SQ_OFFSET_MUX_DELAY-0000 W       # Return Command C3-18
-WCMD W-C3_AMP_SQ_OFFSET_MUX_DELAY-XX2X R       # Command C3-21
+WCMD W-C3_AMP_SQ_OFFSET_MUX_DELAY-X03X R       # Command C3-21
 COMM
 COMM ==============================================================================================
 COMM   Check error position SPI data out of range detected
@@ -725,7 +761,7 @@ COMM ===========================================================================
 COMM   Check C3_AMP_SQ_OFFSET_MUX_DELAY no change
 COMM ----------------------------------------------------------------------------------------------
 CCMD R-C3_AMP_SQ_OFFSET_MUX_DELAY-0000 W       # Return Command C3-20
-WCMD W-C3_AMP_SQ_OFFSET_MUX_DELAY-001F R       # Command C3-23
+WCMD W-C3_AMP_SQ_OFFSET_MUX_DELAY-0028 R       # Command C3-23
 COMM
 COMM ==============================================================================================
 COMM   Check error position SPI data out of range detected
@@ -748,7 +784,7 @@ COMM
 COMM ==============================================================================================
 COMM   Check C3_AMP_SQ_OFFSET_MUX_DELAY content
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-C3_AMP_SQ_OFFSET_MUX_DELAY-001F W       # Return Command C3-24
+CCMD R-C3_AMP_SQ_OFFSET_MUX_DELAY-0028 W       # Return Command C3-24
 WCMD W-C3_AMP_SQ_OFFSET_MUX_DELAY-000A R       # Command C3-27
 COMM
 COMM ==============================================================================================
@@ -761,7 +797,7 @@ COMM ===========================================================================
 COMM   Check C3_AMP_SQ_OFFSET_MUX_DELAY content
 COMM ----------------------------------------------------------------------------------------------
 CCMD R-C3_AMP_SQ_OFFSET_MUX_DELAY-0015 W       # Return Command C3-26
-WCMD W-C3_AMP_SQ_OFFSET_MUX_DELAY-0000 R       # Command C3-29
+WCMD W-C3_AMP_SQ_OFFSET_MUX_DELAY-02FF R       # Command C3-29
 COMM
 COMM ==============================================================================================
 COMM   Check no error
@@ -773,15 +809,27 @@ COMM ===========================================================================
 COMM   Check C3_AMP_SQ_OFFSET_MUX_DELAY content
 COMM ----------------------------------------------------------------------------------------------
 CCMD R-C3_AMP_SQ_OFFSET_MUX_DELAY-000A W       # Return Command C3-28
-WCMD R-Status-XXXX R
+WCMD W-C3_AMP_SQ_OFFSET_MUX_DELAY-0000 R       # Command C3-31
 COMM
 COMM ==============================================================================================
 COMM   Check no error
 COMM ----------------------------------------------------------------------------------------------
 CCMD R-Status-FFFF W                           # Return Command C3-29
+WCMD R-C3_AMP_SQ_OFFSET_MUX_DELAY-XXXX R       # Command C3-32
+COMM
+COMM ==============================================================================================
+COMM   Check C3_AMP_SQ_OFFSET_MUX_DELAY content
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-C3_AMP_SQ_OFFSET_MUX_DELAY-02FF W       # Return Command C3-30
+WCMD R-Status-XXXX R
+COMM
+COMM ==============================================================================================
+COMM   Check no error
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-Status-FFFF W                           # Return Command C3-31
 WCMD R-Status-XXXX R
 COMM
 COMM ==============================================================================================
 COMM   Check C3_AMP_SQ_OFFSET_MUX_DELAY content
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-C3_AMP_SQ_OFFSET_MUX_DELAY-0000 W       # Return Command C3-30
+CCMD R-C3_AMP_SQ_OFFSET_MUX_DELAY-0000 W       # Return Command C3-32

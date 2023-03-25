@@ -61,6 +61,8 @@ entity sqm_fbk_mgt is port
          o_smfbm_data         : out    std_logic_vector(c_DFLD_SMFBM_PIX_S-1 downto 0)                      ; --! SQUID MUX feedback mode: data read
 
          o_sqm_data_fbk       : out    std_logic_vector( c_SQM_DATA_FBK_S-1 downto 0)                       ; --! SQUID MUX Data feedback (signed)
+         o_sqm_pixel_pos_init : out    std_logic_vector(  c_SQM_PXL_POS_S-1 downto 0)                       ; --! SQUID MUX Pixel position initialization
+         o_sqm_pls_cnt_init   : out    std_logic_vector(  c_SQM_PLS_CNT_S-1 downto 0)                       ; --! SQUID MUX Pulse shaping counter initialization
 
          o_init_fbk_pixel_pos : out    std_logic_vector(c_MUX_FACT_S-1      downto 0)                       ; --! Initialization feedback chain accumulators Pixel position
          o_init_fbk_acc       : out    std_logic                                                            ; --! Initialization feedback chain accumulators ('0' = Inactive, '1' = Active)
@@ -70,14 +72,27 @@ entity sqm_fbk_mgt is port
 end entity sqm_fbk_mgt;
 
 architecture RTL of sqm_fbk_mgt is
-constant c_PLS_CNT_NB_VAL     : integer:= c_PIXEL_DAC_NB_CYC/2                                              ; --! Pulse counter: number of value
-constant c_PLS_CNT_MAX_VAL    : integer:= c_PLS_CNT_NB_VAL - 2                                              ; --! Pulse counter: maximal value
-constant c_PLS_CNT_INIT       : integer:= c_PLS_CNT_MAX_VAL - c_DAC_SYNC_DATA_NPER/2                        ; --! Pulse counter: initialization value
-constant c_PLS_CNT_S          : integer:= log2_ceil(c_PLS_CNT_MAX_VAL + 1) + 1                              ; --! Pulse counter: size bus (signed)
+constant c_FRAME_NB_CYC       : integer := c_MUX_FACT * c_PIXEL_DAC_NB_CYC                                  ; --! Frame period number
+constant c_FRAME_NB_CYC_S     : integer := log2_ceil(c_FRAME_NB_CYC)                                        ; --! Frame period number bus size
+constant c_SMFBD_POSITIVE_S   : integer := c_FRAME_NB_CYC_S + 1                                             ; --! SQUID MUX feedback delay in positive bus size
+constant c_SMFBD_CMP_R_S      : integer := 2 * c_DSP_NPER + 2                                               ; --! SQUID MUX feedback delay compare register bus size
 
-constant c_PIXEL_POS_MAX_VAL  : integer:= c_MUX_FACT - 2                                                    ; --! Pixel position: maximal value
-constant c_PIXEL_POS_INIT     : integer:= c_PIXEL_POS_MAX_VAL - 1                                           ; --! Pixel position: initialization value
-constant c_PIXEL_POS_S        : integer:= log2_ceil(c_PIXEL_POS_MAX_VAL+1)+1                                ; --! Pixel position: size bus (signed)
+constant c_PLS_CNT_INIT_SAT   : integer := c_SQM_PXL_POS_S + log2_ceil(c_PIXEL_DAC_NB_CYC+1)+1              ; --! Pulse counter initialization saturation
+constant c_PLS_CNT_INIT_SHT   : integer := 2                                                                ; --! Pulse counter initialization number cycle shift
+constant c_PLS_CNT_INIT_SHT_V : std_logic_vector(c_SMFBD_POSITIVE_S-1 downto 0) :=
+                                std_logic_vector(to_unsigned(c_PLS_CNT_INIT_SHT , c_SMFBD_POSITIVE_S))      ; --! Pulse counter initialization number cycle shift vector
+
+constant c_FBK_PLS_CNT_NB_VAL : integer:= c_PIXEL_DAC_NB_CYC/2                                              ; --! Feedback Pulse counter: number of value
+constant c_FBK_PLS_CNT_MX_VAL : integer:= c_FBK_PLS_CNT_NB_VAL - 2                                          ; --! Feedback Pulse counter: maximal value
+
+constant c_PXL_POS_INIT_SAT   : integer := c_MULT_ALU_PORTA_S + c_SMFBD_POSITIVE_S                          ; --! Pixel position initialization saturation
+constant c_PXL_DAC_NCYC_INV   : integer := div_round(2**(c_MULT_ALU_PORTA_S), c_PIXEL_DAC_NB_CYC)           ; --! DAC clock period number allocated to one pixel acquisition inverted
+constant c_PXL_DAC_NCYC_INV_V : std_logic_vector(c_MULT_ALU_PORTA_S-1 downto 0) :=
+                                std_logic_vector(to_unsigned(c_PXL_DAC_NCYC_INV , c_MULT_ALU_PORTA_S))      ; --! DAC clock period number allocated to one pixel acquisition inverted vector
+constant c_PXL_DAC_NCYC_NEG_V : std_logic_vector(c_MULT_ALU_PORTA_S-1 downto 0) :=
+                                std_logic_vector(to_signed(-c_PIXEL_DAC_NB_CYC , c_MULT_ALU_PORTA_S))       ; --! DAC clock period number allocated to one pixel acquisition negative vector
+
+constant c_FBK_PXL_POS_INIT   : integer:= c_SQM_PXL_POS_MX_VAL - 1                                          ; --! Feedback Pixel position: initialization value
 
 signal   tst_pat_end_r        : std_logic                                                                   ; --! Test pattern end of all patterns register
 signal   tst_pat_end_dtc      : std_logic                                                                   ; --! Test pattern end of all patterns dectect
@@ -87,12 +102,21 @@ signal   test_pattern_sync    : std_logic_vector(  c_SQM_DATA_FBK_S-1 downto 0) 
 signal   mem_sqm_dta_err_cor  : t_slv_arr(0 to 2**c_MUX_FACT_S-1)(c_SQM_DATA_FBK_S-1 downto 0)              ; --! Memory data storage SQUID MUX Data error corrected
 signal   sqm_dta_err_cor_rd   : std_logic_vector( c_SQM_DATA_FBK_S-1 downto 0)                              ; --! SQUID MUX Data error corrected (signed) read from memory
 
-signal   pls_cnt              : std_logic_vector(       c_PLS_CNT_S-1 downto 0)                             ; --! Pulse counter
-signal   pls_cnt_init         : std_logic_vector(       c_PLS_CNT_S-1 downto 0)                             ; --! Pulse counter initialization
-signal   pixel_pos            : std_logic_vector(     c_PIXEL_POS_S-1 downto 0)                             ; --! Pixel position
-signal   pixel_pos_init       : std_logic_vector(     c_PIXEL_POS_S-1 downto 0)                             ; --! Pixel position initialization
-signal   pixel_pos_inc        : std_logic_vector(     c_PIXEL_POS_S-2 downto 0)                             ; --! Pixel position increasing
-signal   pixel_pos_inc_r      : t_slv_arr(0 to c_MEM_RD_DATA_NPER)(c_PIXEL_POS_S-2 downto 0)                ; --! Pixel position increasing register
+signal   smfbd_r              : std_logic_vector(c_DFLD_SMFBD_COL_S-1 downto 0)                             ; --! SQUID MUX feedback delay register
+signal   smfbd_cmp            : std_logic                                                                   ; --! SQUID MUX feedback delay compare
+signal   smfbd_cmp_r          : std_logic_vector(   c_SMFBD_CMP_R_S-1 downto 0)                             ; --! SQUID MUX feedback delay compare register
+signal   smfbd_positive       : std_logic_vector(c_SMFBD_POSITIVE_S-1 downto 0)                             ; --! SQUID MUX feedback delay in positive
+
+signal   pixel_pos_div        : std_logic_vector(   c_SQM_PXL_POS_S-1 downto 0)                             ; --! Pixel position division result
+signal   sqm_pixel_pos_init   : std_logic_vector(   c_SQM_PXL_POS_S-1 downto 0)                             ; --! SQUID MUX Pixel position initialization
+signal   fbk_pixel_pos_init   : std_logic_vector(   c_SQM_PXL_POS_S-1 downto 0)                             ; --! Feedback Pixel position initialization
+signal   pixel_pos_init       : std_logic_vector(   c_SQM_PXL_POS_S-1 downto 0)                             ; --! Feedback Pixel position initialization
+signal   pixel_pos            : std_logic_vector(   c_SQM_PXL_POS_S-1 downto 0)                             ; --! Feedback Pixel position
+signal   pixel_pos_inc        : std_logic_vector(   c_SQM_PXL_POS_S-2 downto 0)                             ; --! Feedback Pixel position increasing
+signal   pixel_pos_inc_r      : t_slv_arr(0 to c_MEM_RD_DATA_NPER)(c_SQM_PXL_POS_S-2 downto 0)              ; --! Feedback Pixel position increasing register
+signal   sqm_pls_cnt_init     : std_logic_vector(   c_SQM_PLS_CNT_S-1 downto 0)                             ; --! SQUID MUX Pulse shaping counter initialization
+signal   pls_cnt_div_rem      : std_logic_vector(   c_SQM_PLS_CNT_S-1 downto 0)                             ; --! Pulse counter division remainder
+signal   pls_cnt              : std_logic_vector(   c_SQM_PLS_CNT_S-2 downto 0)                             ; --! Feedback Pulse counter
 
 signal   mem_smfb0_pp         : std_logic                                                                   ; --! SQUID MUX feedback value in open loop, TH/HK side: ping-pong buffer bit
 signal   mem_smfb0_prm        : t_mem(
@@ -144,31 +168,217 @@ begin
    end process P_tst_pat_end;
 
    -- ------------------------------------------------------------------------------------------------------
-   --!   Pulse shaping counter/Pixel position initialization
-   --    @Req : DRE-DMX-FW-REQ-0280
+   --!   SQUID MUX feedback delay compare
    -- ------------------------------------------------------------------------------------------------------
-   P_pls_cnt_del : process (i_rst, i_clk)
+   P_smfbd_cmp : process (i_rst, i_clk)
    begin
 
       if i_rst = '1' then
-         pls_cnt_init   <= std_logic_vector(unsigned(to_signed(c_PLS_CNT_INIT, pls_cnt_init'length)));
-         pixel_pos_init <= std_logic_vector(to_signed(c_PIXEL_POS_INIT , pixel_pos'length));
+         smfbd_r     <= c_EP_CMD_DEF_SMFBD;
+         smfbd_cmp   <= '0';
+         smfbd_cmp_r <= (others => '0');
 
       elsif rising_edge(i_clk) then
-         if    unsigned(i_smfbd) <= to_unsigned(c_DAC_SYNC_DATA_NPER, c_DFLD_SMFBD_COL_S) then
-            pls_cnt_init   <= std_logic_vector(unsigned(to_signed(c_PLS_CNT_INIT, pls_cnt_init'length)) + resize(unsigned(i_smfbd(i_smfbd'high downto 1)), pls_cnt_init'length));
-            pixel_pos_init <= std_logic_vector(to_signed(c_PIXEL_POS_INIT , pixel_pos'length));
+         smfbd_r  <= i_smfbd;
+
+         if smfbd_r /= i_smfbd then
+            smfbd_cmp <= '1';
 
          else
-            pls_cnt_init   <= std_logic_vector(unsigned(to_signed(c_PLS_CNT_INIT - c_PIXEL_DAC_NB_CYC/2, pls_cnt_init'length)) +
-                            resize(unsigned(i_smfbd(i_smfbd'high downto 1)), pls_cnt_init'length));
-            pixel_pos_init <= std_logic_vector(to_signed(c_PIXEL_POS_INIT + 1 , pixel_pos'length));
+            smfbd_cmp <= '0';
+
+         end if;
+         smfbd_cmp_r <= smfbd_cmp_r(smfbd_cmp_r'high-1 downto 0) & smfbd_cmp;
+
+      end if;
+
+   end process P_smfbd_cmp;
+
+   -- ------------------------------------------------------------------------------------------------------
+   --!   SQUID MUX feedback delay in positive
+   -- ------------------------------------------------------------------------------------------------------
+   P_smfbd_positive : process (i_rst, i_clk)
+   begin
+
+      if i_rst = '1' then
+         smfbd_positive  <= (others => '0');
+
+      elsif rising_edge(i_clk) then
+         if i_smfbd(i_smfbd'high) = '1' then
+            smfbd_positive <= std_logic_vector(signed(to_unsigned(c_FRAME_NB_CYC-c_DAC_SYNC_DATA_NPER-c_PLS_CNT_INIT_SHT, smfbd_positive'length))
+                                      + resize(signed(i_smfbd), smfbd_positive'length));
+
+         else
+            smfbd_positive <= std_logic_vector(resize(signed(i_smfbd), smfbd_positive'length) - signed(to_unsigned(c_DAC_SYNC_DATA_NPER + c_PLS_CNT_INIT_SHT, smfbd_positive'length)));
 
          end if;
 
       end if;
 
-   end process P_pls_cnt_del;
+   end process P_smfbd_positive;
+
+   -- ------------------------------------------------------------------------------------------------------
+   --!   Pixel position division result
+   -- ------------------------------------------------------------------------------------------------------
+   I_pixel_pos_div: entity work.dsp generic map
+   (     g_PORTA_S            => c_MULT_ALU_PORTA_S   , -- integer                                          ; --! Port A bus size (<= c_MULT_ALU_PORTA_S)
+         g_PORTB_S            => c_SMFBD_POSITIVE_S   , -- integer                                          ; --! Port B bus size (<= c_MULT_ALU_PORTB_S)
+         g_PORTC_S            => c_MULT_ALU_PORTC_S   , -- integer                                          ; --! Port C bus size (<= c_MULT_ALU_PORTC_S)
+         g_RESULT_S           => c_SQM_PXL_POS_S      , -- integer                                          ; --! Result bus size (<= c_MULT_ALU_RESULT_S)
+         g_RESULT_LSB_POS     => c_MULT_ALU_PORTA_S   , -- integer                                          ; --! Result LSB position
+
+         g_DATA_TYPE          => c_MULT_ALU_SIGNED    , -- bit                                              ; --! Data type               ('0' = unsigned,           '1' = signed)
+         g_SAT_RANK           => c_PXL_POS_INIT_SAT   , -- integer                                          ; --! Extrem values reached on result bus
+                                                                                                              --!   unsigned: range from               0  to 2**(g_SAT_RANK+1) - 1
+                                                                                                              --!     signed: range from -2**(g_SAT_RANK) to 2**(g_SAT_RANK)   - 1
+         g_PRE_ADDER_OP       => '0'                  , -- bit                                              ; --! Pre-Adder operation     ('0' = add,    '1' = subtract)
+         g_MUX_C_CZ           => '0'                    -- bit                                                --! Multiplexer ALU operand ('0' = Port C, '1' = Cascaded Result Input)
+   ) port map
+   (     i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+         i_clk                => i_clk                , -- in     std_logic                                 ; --! Clock
+
+         i_carry              => '0'                  , -- in     std_logic                                 ; --! Carry In
+         i_a                  => c_PXL_DAC_NCYC_INV_V , -- in     std_logic_vector( g_PORTA_S-1 downto 0)   ; --! Port A
+         i_b                  => smfbd_positive       , -- in     std_logic_vector( g_PORTB_S-1 downto 0)   ; --! Port B
+         i_c                  => (others => '0')      , -- in     std_logic_vector( g_PORTC_S-1 downto 0)   ; --! Port C
+         i_d                  => c_PLS_CNT_INIT_SHT_V , -- in     std_logic_vector( g_PORTB_S-1 downto 0)   ; --! Port D
+         i_cz                 => (others => '0')      , -- in     slv(c_MULT_ALU_RESULT_S-1 downto 0)       ; --! Cascaded Result Input
+
+         o_z                  => pixel_pos_div        , -- out    std_logic_vector(g_RESULT_S-1 downto 0)   ; --! Result
+         o_cz                 => open                   -- out    slv(c_MULT_ALU_RESULT_S-1 downto 0)         --! Cascaded Result
+   );
+
+   -- ------------------------------------------------------------------------------------------------------
+   --!   Pulse counter division remainder
+   -- ------------------------------------------------------------------------------------------------------
+   I_pls_cnt_div_rem: entity work.dsp generic map
+   (     g_PORTA_S            => c_MULT_ALU_PORTA_S   , -- integer                                          ; --! Port A bus size (<= c_MULT_ALU_PORTA_S)
+         g_PORTB_S            => c_SQM_PXL_POS_S      , -- integer                                          ; --! Port B bus size (<= c_MULT_ALU_PORTB_S)
+         g_PORTC_S            => c_SMFBD_POSITIVE_S   , -- integer                                          ; --! Port C bus size (<= c_MULT_ALU_PORTC_S)
+         g_RESULT_S           => c_SQM_PLS_CNT_S      , -- integer                                          ; --! Result bus size (<= c_MULT_ALU_RESULT_S)
+         g_RESULT_LSB_POS     => 0                    , -- integer                                          ; --! Result LSB position
+
+         g_DATA_TYPE          => c_MULT_ALU_SIGNED    , -- bit                                              ; --! Data type               ('0' = unsigned,           '1' = signed)
+         g_SAT_RANK           => c_PLS_CNT_INIT_SAT   , -- integer                                          ; --! Extrem values reached on result bus
+                                                                                                              --!   unsigned: range from               0  to 2**(g_SAT_RANK+1) - 1
+                                                                                                              --!     signed: range from -2**(g_SAT_RANK) to 2**(g_SAT_RANK)   - 1
+         g_PRE_ADDER_OP       => '0'                  , -- bit                                              ; --! Pre-Adder operation     ('0' = add,    '1' = subtract)
+         g_MUX_C_CZ           => '0'                    -- bit                                                --! Multiplexer ALU operand ('0' = Port C, '1' = Cascaded Result Input)
+   ) port map
+   (     i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+         i_clk                => i_clk                , -- in     std_logic                                 ; --! Clock
+
+         i_carry              => '0'                  , -- in     std_logic                                 ; --! Carry In
+         i_a                  => c_PXL_DAC_NCYC_NEG_V , -- in     std_logic_vector( g_PORTA_S-1 downto 0)   ; --! Port A
+         i_b                  => pixel_pos_div        , -- in     std_logic_vector( g_PORTB_S-1 downto 0)   ; --! Port B
+         i_c                  => smfbd_positive       , -- in     std_logic_vector( g_PORTC_S-1 downto 0)   ; --! Port C
+         i_d                  => (others => '0')      , -- in     std_logic_vector( g_PORTB_S-1 downto 0)   ; --! Port D
+         i_cz                 => (others => '0')      , -- in     slv(c_MULT_ALU_RESULT_S-1 downto 0)       ; --! Cascaded Result Input
+
+         o_z                  => pls_cnt_div_rem      , -- out    std_logic_vector(g_RESULT_S-1 downto 0)   ; --! Result
+         o_cz                 => open                   -- out    slv(c_MULT_ALU_RESULT_S-1 downto 0)         --! Cascaded Result
+   );
+
+   -- ------------------------------------------------------------------------------------------------------
+   --!   SQUID MUX Pixel position initialization
+   --    @Req : DRE-DMX-FW-REQ-0280
+   -- ------------------------------------------------------------------------------------------------------
+   P_sqm_pixel_pos_init : process (i_rst, i_clk)
+   begin
+
+      if i_rst = '1' then
+         sqm_pixel_pos_init <= (others => '1');
+
+      elsif rising_edge(i_clk) then
+         if pls_cnt_div_rem = std_logic_vector(to_signed(-2, pls_cnt_div_rem'length)) then
+            if pixel_pos_div = std_logic_vector(to_signed(-1, pixel_pos_div'length)) then
+               sqm_pixel_pos_init <= std_logic_vector(to_unsigned(c_SQM_PXL_POS_MX_VAL, sqm_pixel_pos_init'length));
+
+            else
+               sqm_pixel_pos_init <= std_logic_vector(signed(pixel_pos_div) - 1);
+
+            end if;
+
+         else
+            sqm_pixel_pos_init <= pixel_pos_div;
+
+         end if;
+
+      end if;
+
+   end process P_sqm_pixel_pos_init;
+
+   -- ------------------------------------------------------------------------------------------------------
+   --!   Internal pixel position initialization
+   --    @Req : DRE-DMX-FW-REQ-0280
+   -- ------------------------------------------------------------------------------------------------------
+   P_fbk_pixel_pos_init : process (i_rst, i_clk)
+   begin
+
+      if i_rst = '1' then
+         fbk_pixel_pos_init <= std_logic_vector(to_unsigned(c_FBK_PXL_POS_INIT, fbk_pixel_pos_init'length));
+
+      elsif rising_edge(i_clk) then
+         if    sqm_pixel_pos_init = std_logic_vector(to_unsigned(0, sqm_pixel_pos_init'length)) then
+            fbk_pixel_pos_init <= std_logic_vector(to_unsigned(c_SQM_PXL_POS_MX_VAL, fbk_pixel_pos_init'length));
+
+         elsif sqm_pixel_pos_init = std_logic_vector(to_signed(-1, sqm_pixel_pos_init'length)) then
+            fbk_pixel_pos_init <= std_logic_vector(to_unsigned(c_SQM_PXL_POS_MX_VAL-1, fbk_pixel_pos_init'length));
+
+         else
+            fbk_pixel_pos_init <= std_logic_vector(signed(sqm_pixel_pos_init) - 2);
+
+         end if;
+
+      end if;
+
+   end process P_fbk_pixel_pos_init;
+
+   -- ------------------------------------------------------------------------------------------------------
+   --!   SQUID MUX Pulse counter initialization
+   --    @Req : DRE-DMX-FW-REQ-0280
+   -- ------------------------------------------------------------------------------------------------------
+   P_sqm_pls_cnt_init : process (i_rst, i_clk)
+   begin
+
+      if i_rst = '1' then
+         sqm_pls_cnt_init  <= (others => '1');
+
+      elsif rising_edge(i_clk) then
+         if pls_cnt_div_rem = std_logic_vector(to_signed(-2, pls_cnt_div_rem'length)) then
+            sqm_pls_cnt_init <= std_logic_vector(to_unsigned(c_SQM_PLS_CNT_MX_VAL, sqm_pls_cnt_init'length));
+
+         else
+            sqm_pls_cnt_init <= pls_cnt_div_rem;
+
+         end if;
+
+      end if;
+
+   end process P_sqm_pls_cnt_init;
+
+   -- ------------------------------------------------------------------------------------------------------
+   --!   SQUID MUX initialization outputs
+   -- ------------------------------------------------------------------------------------------------------
+   P_sqm_init : process (i_rst, i_clk)
+   begin
+
+      if i_rst = '1' then
+         o_sqm_pixel_pos_init <= std_logic_vector(to_signed(c_SQM_PXL_POS_INIT, o_sqm_pixel_pos_init'length));
+         pixel_pos_init       <= std_logic_vector(to_signed(c_FBK_PXL_POS_INIT, pixel_pos_init'length));
+         o_sqm_pls_cnt_init   <= std_logic_vector(to_signed(c_SQM_PLS_CNT_INIT, o_sqm_pls_cnt_init'length));
+
+      elsif rising_edge(i_clk) then
+         if smfbd_cmp_r(smfbd_cmp_r'high) = '1' then
+            o_sqm_pixel_pos_init <= sqm_pixel_pos_init;
+            pixel_pos_init       <= fbk_pixel_pos_init;
+            o_sqm_pls_cnt_init   <= sqm_pls_cnt_init;
+
+         end if;
+
+      end if;
+
+   end process P_sqm_init;
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Pulse counter
@@ -177,14 +387,14 @@ begin
    begin
 
       if i_rst = '1' then
-         pls_cnt  <= std_logic_vector(to_unsigned(c_PLS_CNT_MAX_VAL, pls_cnt'length));
+         pls_cnt  <= std_logic_vector(to_unsigned(c_FBK_PLS_CNT_MX_VAL, pls_cnt'length));
 
       elsif rising_edge(i_clk) then
          if i_sync_re = '1' then
-            pls_cnt <= pls_cnt_init;
+            pls_cnt <= o_sqm_pls_cnt_init(o_sqm_pls_cnt_init'high downto 1);
 
          elsif pls_cnt(pls_cnt'high) = '1' then
-            pls_cnt <= std_logic_vector(to_unsigned(c_PLS_CNT_MAX_VAL, pls_cnt'length));
+            pls_cnt <= std_logic_vector(to_unsigned(c_FBK_PLS_CNT_MX_VAL, pls_cnt'length));
 
          else
             pls_cnt <= std_logic_vector(signed(pls_cnt) - 1);
@@ -212,7 +422,7 @@ begin
             pixel_pos <= pixel_pos_init;
 
          elsif (pixel_pos(pixel_pos'high) and pls_cnt(pls_cnt'high)) = '1' then
-            pixel_pos <= std_logic_vector(to_signed(c_PIXEL_POS_MAX_VAL , pixel_pos'length));
+            pixel_pos <= std_logic_vector(to_unsigned(c_SQM_PXL_POS_MX_VAL , pixel_pos'length));
 
          elsif (not(pixel_pos(pixel_pos'high)) and pls_cnt(pls_cnt'high)) = '1' then
             pixel_pos <= std_logic_vector(signed(pixel_pos) - 1);
@@ -223,7 +433,7 @@ begin
 
    end process P_pixel_pos;
 
-   pixel_pos_inc <= std_logic_vector(resize(unsigned(to_signed(c_PIXEL_POS_MAX_VAL, pixel_pos'length) - signed(pixel_pos)), pixel_pos_inc'length));
+   pixel_pos_inc <= std_logic_vector(resize(unsigned(to_signed(c_SQM_PXL_POS_MX_VAL, pixel_pos'length) - signed(pixel_pos)), pixel_pos_inc'length));
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Signals synchronized on first Pixel sequence
@@ -436,7 +646,7 @@ begin
    begin
 
       if i_rst = '1' then
-         pixel_pos_inc_r   <= (others => std_logic_vector(to_unsigned(0, c_PIXEL_POS_S-1)));
+         pixel_pos_inc_r   <= (others => std_logic_vector(to_unsigned(0, c_SQM_PXL_POS_S-1)));
          o_init_fbk_acc    <= '1';
          o_sqm_fbk_smfb0   <= std_logic_vector(to_unsigned(c_EP_CMD_DEF_SMFB0(0), o_sqm_fbk_smfb0'length));
 

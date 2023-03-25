@@ -207,6 +207,14 @@ constant c_DAC_DATA_NPER      : integer := 3                                    
 constant c_DAC_SYNC_DATA_NPER : integer := c_DAC_SYNC_RDY_NPER + c_DAC_SYNC_RE_NPER + c_DAC_MEM_PRM_NPER +
                                            c_DAC_SHP_PRC_NPER  + c_DAC_DATA_NPER                            ; --! DAC clock period number for stalling analog output to pixel sequence synchronization
 
+constant c_SQM_PLS_CNT_MX_VAL : integer := c_PIXEL_DAC_NB_CYC - 2                                           ; --! SQUID MUX, Pulse shaping counter: maximal value
+constant c_SQM_PLS_CNT_INIT   : integer := c_SQM_PLS_CNT_MX_VAL - c_DAC_SYNC_DATA_NPER                      ; --! SQUID MUX, Pulse shaping counter: initialization value
+constant c_SQM_PLS_CNT_S      : integer := log2_ceil(c_SQM_PLS_CNT_MX_VAL + 1) + 1                          ; --! SQUID MUX, Pulse shaping counter: size bus (signed)
+
+constant c_SQM_PXL_POS_MX_VAL : integer := c_MUX_FACT - 2                                                   ; --! SQUID MUX, Pixel position: maximal value
+constant c_SQM_PXL_POS_INIT   : integer := -1                                                               ; --! SQUID MUX, Pixel position: initialization value
+constant c_SQM_PXL_POS_S      : integer := log2_ceil(c_SQM_PXL_POS_MX_VAL+1)+1                              ; --! SQUID MUX, Pixel position: size bus (signed)
+
    -- ------------------------------------------------------------------------------------------------------
    --    SQUID AMP parameters
    -- ------------------------------------------------------------------------------------------------------
@@ -215,6 +223,14 @@ constant c_SAM_SYNC_DATA_NPER : integer := c_DAC_SYNC_RDY_NPER + c_DAC_SYNC_RE_N
 
 constant c_SAD_PRC_NPER       : integer := (c_SQA_SPI_SCLK_L + c_SQA_SPI_SCLK_H) *  c_SQA_SPI_SER_WD_S + 3  ; --! DAC clock period number for sending data to DAC
 constant c_SAD_SYNC_DATA_NPER : integer := c_DAC_SYNC_RDY_NPER + c_DAC_SYNC_RE_NPER + c_SAD_PRC_NPER        ; --! DAC clock period number for stalling sending data end to pixel sequence synchronization
+
+constant c_SQA_PLS_CNT_MX_VAL : integer := c_PIXEL_DAC_NB_CYC - 2                                           ; --! SQUID AMP, Pulse counter: maximal value
+constant c_SQA_PLS_CNT_INIT   : integer := c_SQA_PLS_CNT_MX_VAL - c_SAM_SYNC_DATA_NPER                      ; --! SQUID AMP, Pulse counter: initialization value
+constant c_SQA_PLS_CNT_S      : integer := log2_ceil(c_SQA_PLS_CNT_MX_VAL + 1) + 1                          ; --! SQUID AMP, Pulse counter: size bus (signed)
+
+constant c_SQA_PXL_POS_MX_VAL : integer := c_MUX_FACT - 2                                                   ; --! SQUID AMP, Pixel position: maximal value
+constant c_SQA_PXL_POS_INIT   : integer := -1                                                               ; --! SQUID AMP, Pixel position: initialization value
+constant c_SQA_PXL_POS_S      : integer := log2_ceil(c_SQA_PXL_POS_MX_VAL+1)+1                              ; --! SQUID AMP, Pixel position: size bus (signed)
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Science Data Transmit parameters
