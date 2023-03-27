@@ -349,7 +349,7 @@ begin
          o_sync               => open                   -- out    std_logic                                   --! Pixel sequence synchronization (R.E. detected = position sequence to the first pixel)
    );
 
-   clk_fpasim_shift <= transport not(clk_fpasim) after (c_CLK_FPA_PER_DEF/4) when now > (c_CLK_FPA_PER_DEF/4) else '0';
+   clk_fpasim_shift <= transport clk_fpasim after (c_CLK_FPA_PER_DEF/4) when now > (c_CLK_FPA_PER_DEF/4) else '0';
 
    -- ------------------------------------------------------------------------------------------------------
    --!   EP SPI model

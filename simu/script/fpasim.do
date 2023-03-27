@@ -104,6 +104,7 @@ vcom -work fpasim  -93 \
 
 vcom -work fpasim  -2008 \
 "${PR_DIR}/src/hdl/utils/math/mult_sfixed.vhd" \
+"${PR_DIR}/src/hdl/utils/math/mult_add_sfixed.vhd" \
 
 vcom -work fpasim  -93 \
 "${PR_DIR}/src/hdl/utils/error/one_error_latch.vhd" \

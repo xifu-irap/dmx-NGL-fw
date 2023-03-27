@@ -92,7 +92,7 @@ configuration DRE_DMX_UT_5000_cfg of top_dmx_tb is
             use entity fpasim.fpga_system_fpasim_top generic map
             (
             g_ADC_VPP            => c_FPA_ADC_VPP_DEF    , -- natural := c_FPA_ADC_VPP_DEF                  ; --! ADC differential input voltage (Volt)
-            g_ADC_DELAY          => 0                    , -- natural := c_FPA_ADC_DEL_DEF                  ; --! ADC conversion delay (clock cycle number)
+            g_ADC_DELAY          => 1                    , -- natural := c_FPA_ADC_DEL_DEF                  ; --! ADC conversion delay (clock cycle number)
             g_DAC_VPP            => c_FPA_DAC_VPP_DEF    , -- natural := c_FPA_DAC_VPP_DEF                  ; --! DAC differential output voltage (Volt)
             g_DAC_DELAY          => 0                    , -- natural := c_FPA_DAC_DEL_DEF                  ; --! DAC conversion delay (clock cycle number)
             g_FPASIM_GAIN        => c_FPA_ERR_GAIN_DEF   , -- natural := c_FPA_ERR_GAIN_DEF                 ; --! FPASIM cmd: Error gain (0:0.25, 1:0.5, 3:1, 4:1.5, 5:2, 6:3, 7:4)

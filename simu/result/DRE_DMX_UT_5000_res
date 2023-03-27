@@ -24,13 +24,13 @@
 #             (1500000 ps) ==============================================================================================
 #             (1500000 ps)   Wait internal reset deactivated
 #             (1500000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (8423409 ps) Waiting event rst = '0' for 6923409 ps
-#             (8423409 ps) 
-#             (8423409 ps) ==============================================================================================
-#             (8423409 ps)   Writing a new value first pixel in feedback open loop column 0 memory
-#             (8423409 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (8423409 ps) Send SPI command value 0401_2000 (C0_MUX_SQ_FB0, mode Write, data 2000)
-# ** Note   : (10734000 ps) Waiting SPI command end for 2274591 ps
+# ** Note   : (8425410 ps) Waiting event rst = '0' for 6925410 ps
+#             (8425410 ps) 
+#             (8425410 ps) ==============================================================================================
+#             (8425410 ps)   Writing a new value first pixel in feedback open loop column 0 memory
+#             (8425410 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (8425410 ps) Send SPI command value 0401_2000 (C0_MUX_SQ_FB0, mode Write, data 2000)
+# ** Note   : (10734000 ps) Waiting SPI command end for 2272590 ps
 # ** Note   : (10734000 ps) Send SPI command value 0443_0000 (C0_MUX_SQ_FB0, mode Write, data 0000)
 # ** Note   : (13056000 ps) Waiting SPI command end for 2286000 ps
 #             (13056000 ps) 
@@ -55,15 +55,15 @@
 #             (20022000 ps) ==============================================================================================
 #             (20022000 ps)   Wait end FPASIM configuration
 #             (20022000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (20025207 ps) Waiting event fpa_conf_busy(0) = '0' for 3207 ps
-# ** Note   : (20029209 ps) Waiting event fpa_conf_busy(1) = '0' for 4002 ps
-# ** Note   : (20029209 ps) Waiting event fpa_conf_busy(2) = '0' for 0 ps
-# ** Note   : (20033211 ps) Waiting event fpa_conf_busy(3) = '0' for 4002 ps
-#             (20033211 ps) 
-#             (20033211 ps) ==============================================================================================
-#             (20033211 ps)   Send a pulse on FPASIM column 0
-#             (20033211 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (20033211 ps) Send FPASIM Make pulse command, data: 0000_0100
+# ** Note   : (20023206 ps) Waiting event fpa_conf_busy(0) = '0' for 1206 ps
+# ** Note   : (20023206 ps) Waiting event fpa_conf_busy(1) = '0' for 0 ps
+# ** Note   : (20027208 ps) Waiting event fpa_conf_busy(2) = '0' for 4002 ps
+# ** Note   : (20031210 ps) Waiting event fpa_conf_busy(3) = '0' for 4002 ps
+#             (20031210 ps) 
+#             (20031210 ps) ==============================================================================================
+#             (20031210 ps)   Send a pulse on FPASIM column 0
+#             (20031210 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (20031210 ps) Send FPASIM Make pulse command, data: 0000_0100
 # ------------------------------------------------------------------------------------------------------------------------------------------------------
 # Error simulation time         : '0'
 # Error check discrete level    : '0'
