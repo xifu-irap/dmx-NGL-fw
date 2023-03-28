@@ -81,10 +81,10 @@ def synthesis_constraints(p,variant,option):
         SQA_DAC_2       = Region('SQA_DAC_2'    ,  1,  2,  2,  1)
         SQA_DAC_3       = Region('SQA_DAC_3'    ,  1,  6,  2,  1)
 
-        SQA_FBK_0       = Region('SQA_FBK_0'    , 46,  6,  2,  3)
-        SQA_FBK_1       = Region('SQA_FBK_1'    , 46,  2,  2,  3)
-        SQA_FBK_2       = Region('SQA_FBK_2'    ,  2,  2,  2,  3)
-        SQA_FBK_3       = Region('SQA_FBK_3'    ,  2,  6,  2,  3)
+        SQA_FBK_0       = Region('SQA_FBK_0'    , 44,  6,  4,  3)
+        SQA_FBK_1       = Region('SQA_FBK_1'    , 44,  2,  4,  3)
+        SQA_FBK_2       = Region('SQA_FBK_2'    ,  2,  2,  4,  3)
+        SQA_FBK_3       = Region('SQA_FBK_3'    ,  2,  6,  4,  3)
 
         EP_CMD          = Region('EP_CMD'       , 38, 12,  1,  1)
         REGISTER_MGT    = Region('REGISTER_MGT' , 23, 12,  6,  4)

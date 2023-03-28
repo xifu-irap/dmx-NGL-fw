@@ -104,6 +104,7 @@ DRE-DEMUX TDM firmware: https://github.com/xifu-irap/dmx-NGL-fw
   - Position 3-1: **brd_model(y)**, DRE-DEMUX input, Board model bit 'y' (0->2)
   - Position 5-4: **sw_adc_vin(1)/sw_adc_vin(0)**, SQUID model input, Switch ADC Voltage input ("00": SQUID MUX DAC voltage, "01": SQUID AMP DAC voltage, "10": FPASIM Error voltage)
   - Position 6: **frm_cnt_sc_rst**, Science Data model input, Frame counter science reset ('0' = Active, '1' = Inactive)
+  - Position 7: **ras_data_valid**, RAS Data valid ('0' = No, '1' = Yes)
 
 
 ## 6. Check parameters enable (seen from simulation pilot side)
@@ -132,6 +133,7 @@ DRE-DEMUX TDM firmware: https://github.com/xifu-irap/dmx-NGL-fw
    - **test_pattern**
    - **adc_dump**
    - **error_signal**
+   - **ras_data_valid**
 
 
 ## 8. Unitary test script commands description

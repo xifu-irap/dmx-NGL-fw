@@ -98,6 +98,7 @@ entity parser is generic
 
          o_brd_ref            : out    std_logic_vector(  c_BRD_REF_S-1 downto 0)                           ; --! Board reference
          o_brd_model          : out    std_logic_vector(c_BRD_MODEL_S-1 downto 0)                           ; --! Board model
+         o_ras_data_valid     : out    std_logic                                                            ; --! RAS Data valid ('0' = No, '1' = Yes)
 
          o_pls_shp_fc         : out    t_int_arr(0 to c_NB_COL-1)                                           ; --! Pulse shaping cut frequency (Hz)
          o_sw_adc_vin         : out    std_logic_vector(c_SW_ADC_VIN_S-1 downto 0)                          ; --! Switch ADC Voltage input
@@ -215,6 +216,7 @@ begin
    o_sw_adc_vin(0)      <= discrete_w(c_DW_SW_ADC_VIN_0);
    o_sw_adc_vin(1)      <= discrete_w(c_DW_SW_ADC_VIN_1);
    o_frm_cnt_sc_rst     <= discrete_w(c_DW_FRM_CNT_SC_RST);
+   o_ras_data_valid     <= discrete_w(c_DW_RAS_DATA_VALID);
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Discrete read signals association

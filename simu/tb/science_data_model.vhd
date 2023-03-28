@@ -330,7 +330,7 @@ begin
                -- ------------------------------------------------------------------------------------------------------
                --    Case Start Science Data/Test pattern packet
                -- ------------------------------------------------------------------------------------------------------
-               when c_SC_CTRL_SC_DTA | c_SC_CTRL_TST_PAT | c_SC_CTRL_ADC_DMP | c_SC_CTRL_ERRS =>
+               when c_SC_CTRL_SC_DTA | c_SC_CTRL_TST_PAT | c_SC_CTRL_ADC_DMP | c_SC_CTRL_ERRS | c_SC_CTRL_RAS_VLD =>
                   v_ctrl_first_pkt  := '1';
                   v_packet_tx_time  := now - (2*c_SC_DATA_SER_W_S+1)*c_CLK_SC_HPER;
                   v_packet_size     := 1;

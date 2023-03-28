@@ -57,6 +57,7 @@ signal   err_num_pls_shp      : t_int_arr(0 to c_NB_COL-1)                      
 signal   brd_ref              : std_logic_vector(     c_BRD_REF_S-1 downto 0)                               ; --! Board reference
 signal   brd_model            : std_logic_vector(   c_BRD_MODEL_S-1 downto 0)                               ; --! Board model
 signal   sync                 : std_logic_vector(        c_NB_COL-1 downto 0)                               ; --! Pixel sequence synchronization (R.E. detected = position sequence to the first pixel)
+signal   ras_data_valid       : std_logic                                                                   ; --! RAS Data valid ('0' = No, '1' = Yes)
 
 signal   sqm_adc_ana          : t_real_arr(0 to c_NB_COL-1)                                                 ; --! SQUID MUX ADC: Analog
 signal   sqm_adc_data         : t_slv_arr( 0 to c_NB_COL-1)(c_SQM_ADC_DATA_S-1 downto 0)                    ; --! SQUID MUX ADC: Data buses
@@ -154,7 +155,7 @@ begin
          i_brd_ref            => brd_ref              , -- in     std_logic_vector(  c_BRD_REF_S-1 downto 0); --! Board reference
          i_brd_model          => brd_model            , -- in     std_logic_vector(c_BRD_MODEL_S-1 downto 0); --! Board model
          i_sync               => sync(0)              , -- in     std_logic                                 ; --! Pixel sequence synchronization (R.E. detected = position sequence to the first pixel)
-         i_ras_data_valid     => '0'                  , -- in     std_logic                                 ; --! RAS Data valid ('0' = No, '1' = Yes)
+         i_ras_data_valid     => ras_data_valid       , -- in     std_logic                                 ; --! RAS Data valid ('0' = No, '1' = Yes)
 
          i_sqm_adc_data       => sqm_adc_data         , -- in     t_slv_arr c_NB_COL c_SQM_ADC_DATA_S       ; --! SQUID MUX ADC: Data
          i_sqm_adc_oor        => sqm_adc_oor          , -- in     std_logic_vector(c_NB_COL-1 downto 0)     ; --! SQUID MUX ADC: Out of range ('0' = No, '1' = under/over range)
@@ -521,6 +522,7 @@ begin
 
          o_brd_ref            => brd_ref              , -- out    std_logic_vector(  c_BRD_REF_S-1 downto 0); --! Board reference
          o_brd_model          => brd_model            , -- out    std_logic_vector(c_BRD_MODEL_S-1 downto 0); --! Board model
+         o_ras_data_valid     => ras_data_valid       , -- out    std_logic                                 ; --! RAS Data valid ('0' = No, '1' = Yes)
 
          o_frm_cnt_sc_rst     => frm_cnt_sc_rst       , -- out    std_logic                                 ; --! Frame counter science reset ('0' = Inactive, '1' = Active)
          o_adc_dmp_mem_add    => adc_dmp_mem_add      , -- out    slv(  c_MEM_SC_ADD_S-1 downto 0)          ; --! ADC Dump memory for data compare: address

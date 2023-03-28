@@ -149,8 +149,9 @@ constant c_DW_BRD_MODEL_2     : integer :=  3                                   
 constant c_DW_SW_ADC_VIN_0    : integer :=  4                                                               ; --! Discrete output index, signal: o_sw_adc_vin(0)
 constant c_DW_SW_ADC_VIN_1    : integer :=  5                                                               ; --! Discrete output index, signal: o_sw_adc_vin(1)
 constant c_DW_FRM_CNT_SC_RST  : integer :=  6                                                               ; --! Discrete output index, signal: o_frm_cnt_sc_rst
+constant c_DW_RAS_DATA_VALID  : integer :=  7                                                               ; --! Discrete output index, signal: o_ras_data_valid
 
-constant c_DW_S               : integer :=  7                                                               ; --! Discrete output size
+constant c_DW_S               : integer :=  8                                                               ; --! Discrete output size
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Parser check clock parameters enable
@@ -459,6 +460,7 @@ constant c_SCHK               : t_spi_chk_prm_arr(0 to c_CHK_ENA_SPI_NB-1) :=
 
          o_brd_ref            : out    std_logic_vector(  c_BRD_REF_S-1 downto 0)                           ; --! Board reference
          o_brd_model          : out    std_logic_vector(c_BRD_MODEL_S-1 downto 0)                           ; --! Board model
+         o_ras_data_valid     : out    std_logic                                                            ; --! RAS Data valid ('0' = No, '1' = Yes)
 
          o_pls_shp_fc         : out    t_int_arr(0 to c_NB_COL-1)                                           ; --! Pulse shaping cut frequency (Hz)
          o_sw_adc_vin         : out    std_logic_vector(c_SW_ADC_VIN_S-1 downto 0)                          ; --! Switch ADC Voltage input

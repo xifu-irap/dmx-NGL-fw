@@ -39,6 +39,7 @@ entity in_rs_clk is port
          i_brd_ref            : in     std_logic_vector(     c_BRD_REF_S-1 downto 0)                        ; --! Board reference
          i_brd_model          : in     std_logic_vector(   c_BRD_MODEL_S-1 downto 0)                        ; --! Board model
          i_sync               : in     std_logic                                                            ; --! Pixel sequence synchronization (R.E. detected = position sequence to the first pixel)
+         i_ras_data_valid     : in     std_logic                                                            ; --! RAS Data valid ('0' = No, '1' = Yes)
 
          i_hk1_spi_miso       : in     std_logic                                                            ; --! HouseKeeping 1: SPI Master Input Slave Output
 
@@ -49,6 +50,7 @@ entity in_rs_clk is port
          o_brd_ref_rs         : out    std_logic_vector(     c_BRD_REF_S-1 downto 0)                        ; --! Board reference, synchronized on System Clock
          o_brd_model_rs       : out    std_logic_vector(   c_BRD_MODEL_S-1 downto 0)                        ; --! Board model, synchronized on System Clock
          o_sync_rs            : out    std_logic_vector(        c_NB_COL   downto 0)                        ; --! Pixel sequence synchronization, synchronized on System Clock
+         o_ras_data_valid_rs  : out    std_logic                                                            ; --! RAS Data valid, synchronized on System Clock ('0' = No, '1' = Yes)
 
          o_hk1_spi_miso_rs    : out    std_logic                                                            ; --! HouseKeeping 1: SPI Master Input Slave Output, synchronized on System Clock
 
@@ -64,6 +66,7 @@ signal   inhib_fst_per        : std_logic_vector(1 downto 0)                    
 signal   brd_ref_r            : t_slv_arr(0 to c_FF_RSYNC_NB-1)(  c_BRD_REF_S-1 downto 0)                   ; --! Board reference register
 signal   brd_model_r          : t_slv_arr(0 to c_FF_RSYNC_NB-1)(c_BRD_MODEL_S-1 downto 0)                   ; --! Board model register
 signal   sync_r               : std_logic_vector(c_FF_RSYNC_NB-1 downto 0)                                  ; --! Pixel sequence sync. register (R.E. detected = position sequence to the first pixel)
+signal   ras_data_valid_r     : std_logic_vector(c_FF_RSYNC_NB-1 downto 0)                                  ; --! RAS Data valid register ('0' = No, '1' = Yes)
 
 signal   hk1_spi_miso_r       : std_logic_vector(c_FF_RSYNC_NB-1 downto 0)                                  ; --! HouseKeeping 1: SPI Master Input Slave Output register
 
@@ -105,6 +108,7 @@ begin
          end if;
 
          o_sync_rs         <= (others => '0');
+         ras_data_valid_r  <= (others => '0');
 
       elsif rising_edge(i_clk) then
          inhib_fst_per     <= inhib_fst_per(inhib_fst_per'high-1 downto 0) & '1';
@@ -119,6 +123,7 @@ begin
          ep_spi_cs_n_r     <= ep_spi_cs_n_r(ep_spi_cs_n_r'high-1 downto 0) & i_ep_spi_cs_n;
 
          o_sync_rs         <= (others => ((inhib_fst_per(inhib_fst_per'high) and sync_r(sync_r'high)) or (not(inhib_fst_per(inhib_fst_per'high)) and c_I_SYNC_DEF)));
+         ras_data_valid_r  <= ras_data_valid_r(ras_data_valid_r'high-1 downto 0) & i_ras_data_valid;
 
       end if;
 
@@ -126,6 +131,7 @@ begin
 
    o_brd_ref_rs            <= brd_ref_r(brd_ref_r'high);
    o_brd_model_rs          <= brd_model_r(brd_model_r'high);
+   o_ras_data_valid_rs     <= ras_data_valid_r(ras_data_valid_r'high);
 
    G_pad_reg_set_auth_0: if c_PAD_REG_SET_AUTH = '0' generate
       o_hk1_spi_miso_rs    <= (inhib_fst_per(inhib_fst_per'high) and hk1_spi_miso_r(hk1_spi_miso_r'high)) or (not(inhib_fst_per(inhib_fst_per'high)) and c_I_SPI_DATA_DEF);

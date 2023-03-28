@@ -154,6 +154,9 @@ constant c_PAD                : character := ' '                                
          when "frm_cnt_sc_rst      "   =>
             o_fld_dw_ind := c_DW_FRM_CNT_SC_RST;
 
+         when "ras_data_valid      "   =>
+            o_fld_dw_ind := c_DW_RAS_DATA_VALID;
+
          when others                   =>
             o_fld_dw_ind := c_DW_S;
 
@@ -738,6 +741,9 @@ constant c_PAD                : character := ' '                                
 
          when "error_signal                  "  =>
             o_fld_sc_pkt_val:= c_SC_CTRL_ERRS;
+
+         when "ras_data_valid                "  =>
+            o_fld_sc_pkt_val:= c_SC_CTRL_RAS_VLD;
 
          when others                            =>
             o_fld_sc_pkt_val:= c_RET_UKWN(o_fld_sc_pkt_val'range);

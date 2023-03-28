@@ -286,6 +286,7 @@ proc run_utest {args} {
          add wave -format Logic                    -group "Inputs"                              sim/:top_dmx_tb:I_top_dmx:i_arst_n
          add wave -format Logic                    -group "Inputs"                              sim/:top_dmx_tb:I_top_dmx:i_clk_ref
          add wave -format Logic                    -group "Inputs"                              sim/:top_dmx_tb:I_top_dmx:i_sync
+         add wave -format Logic                    -group "Inputs"                              sim/:top_dmx_tb:I_top_dmx:i_ras_data_valid
 
          add wave -format Logic                    -group "Local Resets"                        sim/:top_dmx_tb:I_top_dmx:G_column_mgt(0):I_squid_adc_mgt:i_rst_sqm_adc_dac
          add wave -format Logic                    -group "Local Resets"                        sim/:top_dmx_tb:I_top_dmx:G_column_mgt(1):I_squid_adc_mgt:i_rst_sqm_adc_dac

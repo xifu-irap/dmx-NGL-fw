@@ -38,6 +38,7 @@ entity science_data_mgt is port
    (     i_rst                : in     std_logic                                                            ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                : in     std_logic                                                            ; --! System Clock
 
+         i_ras_data_valid_rs  : in     std_logic                                                            ; --! RAS Data valid, synchronized on System Clock ('0' = No, '1' = Yes)
          i_aqmde              : in     std_logic_vector(c_DFLD_AQMDE_S-1 downto 0)                          ; --! Telemetry mode
          i_tst_pat_end        : in     std_logic                                                            ; --! Test pattern end of all patterns ('0' = Inactive, '1' = Active)
 
@@ -65,6 +66,9 @@ constant c_DTA_SC_RDY_NPER    : integer:= 3                                     
 constant c_DMP_CNT_NB_VAL     : integer:= c_DMP_SEQ_ACQ_NB * c_MUX_FACT * c_PIXEL_ADC_NB_CYC                ; --! Dump counter: number of value
 constant c_DMP_CNT_MAX_VAL    : integer:= c_DMP_CNT_NB_VAL-1                                                ; --! Dump counter: maximal value
 constant c_DMP_CNT_S          : integer:= log2_ceil(c_DMP_CNT_NB_VAL + 1) + 1                               ; --! Dump counter: size bus (signed)
+
+signal   ras_data_valid_rs_r  : std_logic                                                                   ; --! RAS Data valid register ('0' = No, '1' = Yes)
+signal   ras_data_valid_ltc   : std_logic                                                                   ; --! RAS Data valid synchronous latch
 
 signal   sqm_data_sc_msb_pv   : t_slv_arr_tab(0 to c_NB_COL-1)(0 to c_DT_PV-1)(c_SC_DATA_SER_W_S-1 downto 0); --! SQUID MUX Data science MSB previous
 signal   sqm_data_sc_lsb_pv   : t_slv_arr_tab(0 to c_NB_COL-1)(0 to c_DT_PV-1)(c_SC_DATA_SER_W_S-1 downto 0); --! SQUID MUX Data science LSB previous
@@ -103,6 +107,31 @@ signal   science_data         : t_slv_arr(0 to c_NB_COL*c_SC_DATA_SER_NB)(c_SC_D
 signal   ser_bit_cnt          : std_logic_vector(log2_ceil(c_SC_DATA_SER_W_S-1) downto 0)                   ; --! Serial bit counter
 
 begin
+
+   -- ------------------------------------------------------------------------------------------------------
+   --!   RAS Data valid synchronous latch
+   -- ------------------------------------------------------------------------------------------------------
+   P_ras_data_valid_ltc : process (i_rst, i_clk)
+   begin
+
+      if i_rst = '1' then
+         ras_data_valid_rs_r  <= '0';
+         ras_data_valid_ltc   <= '0';
+
+      elsif rising_edge(i_clk) then
+         ras_data_valid_rs_r  <= i_ras_data_valid_rs;
+
+         if (i_ras_data_valid_rs and not(ras_data_valid_rs_r)) = '1' then
+            ras_data_valid_ltc   <= '1';
+
+         elsif (aqmde_sync = c_DST_AQMDE_SCIE) and (sqm_dta_sc_fst_all_r(0) and science_data_tx_ena) = '1' then
+            ras_data_valid_ltc   <= '0';
+
+         end if;
+
+      end if;
+
+   end process P_ras_data_valid_ltc;
 
    G_column_mgt: for k in 0 to c_NB_COL-1 generate
    begin
@@ -331,7 +360,8 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   Control packet value
    -- ------------------------------------------------------------------------------------------------------
-   ctrl_first_pkt <= c_SC_CTRL_SC_DTA  when aqmde_sync = c_DST_AQMDE_SCIE else
+   ctrl_first_pkt <= c_SC_CTRL_RAS_VLD when (aqmde_sync = c_DST_AQMDE_SCIE and ras_data_valid_ltc = '1') else
+                     c_SC_CTRL_SC_DTA  when aqmde_sync = c_DST_AQMDE_SCIE else
                      c_SC_CTRL_ERRS    when aqmde_sync = c_DST_AQMDE_ERRS else
                      c_SC_CTRL_ADC_DMP when aqmde_sync = c_DST_AQMDE_DUMP else
                      c_SC_CTRL_TST_PAT when aqmde_sync = c_DST_AQMDE_TEST else
