@@ -40,6 +40,7 @@ entity register_mgt is port
 
          i_brd_ref_rs         : in     std_logic_vector(  c_BRD_REF_S-1 downto 0)                           ; --! Board reference, synchronized on System Clock
          i_brd_model_rs       : in     std_logic_vector(c_BRD_MODEL_S-1 downto 0)                           ; --! Board model, synchronized on System Clock
+         i_hk_err_nin         : in     std_logic                                                            ; --! Housekeeping Error parameter to read not initialized yet
          i_dlflg              : in     t_slv_arr(0 to c_NB_COL-1)(c_DFLD_DLFLG_COL_S-1 downto 0)            ; --! Delock flag ('0' = No delock on pixels, '1' = Delock on at least one pixel)
 
          o_ep_cmd_sts_err_add : out    std_logic                                                            ; --! EP command: Status, error invalid address
@@ -82,6 +83,9 @@ entity register_mgt is port
                                        add(c_MEM_TSTPT_ADD_S-1 downto 0),
                                        data_w(c_DFLD_TSTPT_S-1 downto 0))                                   ; --! Test pattern: memory inputs
          i_tstpt_data         : in     std_logic_vector(c_DFLD_TSTPT_S-1 downto 0)                          ; --! Test pattern: data read
+
+         o_mem_hkeep_add      : out    std_logic_vector(c_MEM_HKEEP_ADD_S-1 downto 0)                       ; --! Housekeeping: memory address
+         i_hkeep_data         : in     std_logic_vector(c_DFLD_HKEEP_S-1 downto 0)                          ; --! Housekeeping: data read
 
          o_mem_parma          : out    t_mem_arr(0 to c_NB_COL-1)(
                                        add(    c_MEM_PARMA_ADD_S-1 downto 0),
@@ -238,6 +242,10 @@ begin
    cs_rg(c_EP_CMD_POS_TSTPT)  <= '1' when
       (ep_cmd_rx_wd_add_r(ep_cmd_rx_wd_add_r'high downto c_MEM_TSTPT_ADD_S)      = c_EP_CMD_ADD_TSTPT(ep_cmd_rx_wd_add_r'high downto c_MEM_TSTPT_ADD_S)         and
        ep_cmd_rx_wd_add_r(   c_MEM_TSTPT_ADD_S-1  downto 0)                      < std_logic_vector(to_unsigned(c_TAB_TSTPT_NW, c_MEM_TSTPT_ADD_S)))            else '0';
+
+   cs_rg(c_EP_CMD_POS_HKEEP)  <= '1' when
+      (ep_cmd_rx_wd_add_r(ep_cmd_rx_wd_add_r'high downto c_MEM_HKEEP_ADD_S)      = c_EP_CMD_ADD_HKEEP(ep_cmd_rx_wd_add_r'high downto c_MEM_HKEEP_ADD_S)         and
+       ep_cmd_rx_wd_add_r(   c_MEM_HKEEP_ADD_S-1  downto 0)                      < std_logic_vector(to_unsigned(c_TAB_HKEEP_NW, c_MEM_HKEEP_ADD_S)))            else '0';
 
    cs_rg(c_EP_CMD_POS_PARMA)  <= '1' when
       (ep_cmd_rx_wd_add_r(ep_cmd_rx_wd_add_r'high downto c_EP_CMD_ADD_COLPOSH+1) = c_EP_CMD_ADD_PARMA(0)(ep_cmd_rx_wd_add_r'high downto c_EP_CMD_ADD_COLPOSH+1) and
@@ -581,6 +589,9 @@ begin
 
    end generate G_col_mgt;
 
+   -- @Req : REG_HKEEP
+   o_mem_hkeep_add   <= ep_cmd_rx_wd_add_r(  c_MEM_HKEEP_ADD_S-1 downto 0);
+
    -- @Req : REG_CY_A
    -- @Req : DRE-DMX-FW-REQ-0180
    I_mem_parma: entity work.mem_in_gen generic map
@@ -821,6 +832,8 @@ begin
          i_tstpt_data         => tstpt_data_arr       , -- in     t_slv_arr c_NB_COL c_DFLD_TSTPT_S         ; --! Data read: TEST_PATTERN
          i_tstpt_cs           => tstpt_cs             , -- in     std_logic_vector(c_NB_COL-1 downto 0)     ; --! Chip select data read ('0' = Inactive,'1'=Active): TEST_PATTERN
 
+         i_hkeep_data         => i_hkeep_data         , -- in     slv(c_DFLD_HKEEP_S-1 downto 0)            ; --! Data read: Housekeeping
+
          i_parma_data         => i_parma_data         , -- in     t_slv_arr c_NB_COL c_DFLD_PARMA_PIX_S     ; --! Data read: CY_A
          i_parma_cs           => parma_cs             , -- in     std_logic_vector(c_NB_COL-1 downto 0)     ; --! Chip select data read ('0' = Inactive,'1'=Active): CY_A
 
@@ -893,6 +906,29 @@ begin
    );
 
    -- ------------------------------------------------------------------------------------------------------
+   --!  EP command: Status, error parameter to read not initialized yet
+   --    @Req : REG_EP_CMD_ERR_IN
+   -- ------------------------------------------------------------------------------------------------------
+   P_ep_cmd_sts_err_nin : process (i_rst, i_clk)
+   begin
+
+      if i_rst = '1' then
+         o_ep_cmd_sts_err_nin <= c_EP_CMD_ERR_CLR;
+
+      elsif rising_edge(i_clk) then
+         if cs_rg(c_EP_CMD_POS_HKEEP) = '1' and i_hk_err_nin = c_EP_CMD_ERR_SET then
+            o_ep_cmd_sts_err_nin <= c_EP_CMD_ERR_SET;
+
+         else
+            o_ep_cmd_sts_err_nin <= c_EP_CMD_ERR_CLR;
+
+         end if;
+
+      end if;
+
+   end process P_ep_cmd_sts_err_nin;
+
+   -- ------------------------------------------------------------------------------------------------------
    --!   Outputs association
    --    @Req : DRE-DMX-FW-REQ-0210
    --    @Req : DRE-DMX-FW-REQ-0330
@@ -941,8 +977,5 @@ begin
       end if;
 
    end process P_out;
-
-   -- TODO
-   o_ep_cmd_sts_err_nin   <= c_EP_CMD_ERR_CLR;
 
 end architecture RTL;

@@ -55,6 +55,8 @@ entity ep_cmd_tx_wd is port
          i_tstpt_data         : in     t_slv_arr(0 to c_NB_COL-1)(c_DFLD_TSTPT_S-1 downto 0)                ; --! Data read: TEST_PATTERN
          i_tstpt_cs           : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! Chip select data read ('0' = Inactive,'1'=Active): TEST_PATTERN
 
+         i_hkeep_data         : in     std_logic_vector(c_DFLD_HKEEP_S-1 downto 0)                          ; --! Data read: Housekeeping
+
          i_parma_data         : in     t_slv_arr(0 to c_NB_COL-1)(c_DFLD_PARMA_PIX_S-1 downto 0)            ; --! Data read: CY_A
          i_parma_cs           : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! Chip select data read ('0' = Inactive,'1'=Active): CY_A
 
@@ -414,11 +416,14 @@ begin
    -- @Req : DRE-DMX-FW-REQ-0145
    data_rg_rd(c_EP_CMD_POS_BXLGT) <= std_logic_vector(resize(unsigned(i_rg_bxlgt(3)), c_EP_SPI_WD_S/4) & resize(unsigned(i_rg_bxlgt(2)), c_EP_SPI_WD_S/4) &
                                                       resize(unsigned(i_rg_bxlgt(1)), c_EP_SPI_WD_S/4) & resize(unsigned(i_rg_bxlgt(0)), c_EP_SPI_WD_S/4));
+   -- @Req : REG_HKEEP
+   -- @Req : DRE-DMX-FW-REQ-0540
+   data_rg_rd(c_EP_CMD_POS_HKEEP) <= std_logic_vector(resize(unsigned(i_hkeep_data), c_EP_SPI_WD_S));
+
    -- @Req : REG_DELOCK_FLAG
    -- @Req : DRE-DMX-FW-REQ-0430
    data_rg_rd(c_EP_CMD_POS_DLFLG) <= std_logic_vector(resize(unsigned(i_dlflg(3)) & unsigned(i_dlflg(2)) &
                                                              unsigned(i_dlflg(1)) & unsigned(i_dlflg(0)), c_EP_SPI_WD_S));
-
    -- @Req : REG_Status
    data_rg_rd(c_EP_CMD_POS_STATUS)<= i_ep_cmd_sts_rg_r;
 

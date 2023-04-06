@@ -69,12 +69,12 @@ signal   science_ctrl_01      : std_logic                                       
 signal   science_ctrl_23      : std_logic                                                                   ; --! Science Data: Control channel 2/3
 signal   science_data         : t_slv_arr(0 to c_NB_COL  )(c_SC_DATA_SER_NB-1 downto 0)                     ; --! Science Data: Serial Data
 
-signal   hk1_spi_miso         : std_logic                                                                   ; --! HouseKeeping 1: SPI Master Input Slave Output
-signal   hk1_spi_mosi         : std_logic                                                                   ; --! HouseKeeping 1: SPI Master Output Slave Input
-signal   hk1_spi_sclk         : std_logic                                                                   ; --! HouseKeeping 1: SPI Serial Clock (CPOL = '0', CPHA = '0')
-signal   hk1_spi_cs_n         : std_logic                                                                   ; --! HouseKeeping 1: SPI Chip Select ('0' = Active, '1' = Inactive)
-signal   hk1_mux              : std_logic_vector(      c_HK_MUX_S-1 downto 0)                               ; --! HouseKeeping 1: Multiplexer
-signal   hk1_mux_ena_n        : std_logic                                                                   ; --! HouseKeeping 1: Multiplexer Enable ('0' = Active, '1' = Inactive)
+signal   hk1_spi_miso         : std_logic                                                                   ; --! HouseKeeping: SPI Master Input Slave Output
+signal   hk1_spi_mosi         : std_logic                                                                   ; --! HouseKeeping: SPI Master Output Slave Input
+signal   hk1_spi_sclk         : std_logic                                                                   ; --! HouseKeeping: SPI Serial Clock (CPOL = '0', CPHA = '0')
+signal   hk1_spi_cs_n         : std_logic                                                                   ; --! HouseKeeping: SPI Chip Select ('1' = Active, '1' = Inactive)
+signal   hk1_mux              : std_logic_vector(      c_HK_MUX_S-1 downto 0)                               ; --! HouseKeeping: Multiplexer
+signal   hk1_mux_ena_n        : std_logic                                                                   ; --! HouseKeeping: Multiplexer Enable ('0' = Active, '1' = Inactive)
 
 signal   ep_spi_mosi          : std_logic                                                                   ; --! EP: SPI Master Input Slave Output (MSB first)
 signal   ep_spi_miso          : std_logic                                                                   ; --! EP: SPI Master Output Slave Input (MSB first)
@@ -165,12 +165,12 @@ begin
          o_science_ctrl_23    => science_ctrl_23      , -- out    std_logic                                 ; --! Science Data: Control channel 2/3
          o_science_data       => science_data         , -- out    t_slv_arr c_NB_COL c_SC_DATA_SER_NB       ; --! Science Data: Serial Data
 
-         i_hk1_spi_miso       => hk1_spi_miso         , -- in     std_logic                                 ; --! HouseKeeping 1: SPI Master Input Slave Output
-         o_hk1_spi_mosi       => hk1_spi_mosi         , -- out    std_logic                                 ; --! HouseKeeping 1: SPI Master Output Slave Input
-         o_hk1_spi_sclk       => hk1_spi_sclk         , -- out    std_logic                                 ; --! HouseKeeping 1: SPI Serial Clock (CPOL = '0', CPHA = '0')
-         o_hk1_spi_cs_n       => hk1_spi_cs_n         , -- out    std_logic                                 ; --! HouseKeeping 1: SPI Chip Select ('0' = Active, '1' = Inactive)
-         o_hk1_mux            => hk1_mux              , -- out    std_logic_vector(c_HK1_MUX_S-1 downto 0)  ; --! HouseKeeping 1: Multiplexer
-         o_hk1_mux_ena_n      => hk1_mux_ena_n        , -- out    std_logic                                 ; --! HouseKeeping 1: Multiplexer Enable ('0' = Active, '1' = Inactive)
+         i_hk1_spi_miso       => hk1_spi_miso         , -- in     std_logic                                 ; --! HouseKeeping: SPI Master Input Slave Output
+         o_hk1_spi_mosi       => hk1_spi_mosi         , -- out    std_logic                                 ; --! HouseKeeping: SPI Master Output Slave Input
+         o_hk1_spi_sclk       => hk1_spi_sclk         , -- out    std_logic                                 ; --! HouseKeeping: SPI Serial Clock (CPOL = '0', CPHA = '0')
+         o_hk1_spi_cs_n       => hk1_spi_cs_n         , -- out    std_logic                                 ; --! HouseKeeping: SPI Chip Select ('1' = Active, '1' = Inactive)
+         o_hk1_mux            => hk1_mux              , -- out    std_logic_vector(c_HK1_MUX_S-1 downto 0)  ; --! HouseKeeping: Multiplexer
+         o_hk1_mux_ena_n      => hk1_mux_ena_n        , -- out    std_logic                                 ; --! HouseKeeping: Multiplexer Enable ('0' = Active, '1' = Inactive)
 
          i_ep_spi_mosi        => ep_spi_mosi          , -- in     std_logic                                 ; --! EP: SPI Master Input Slave Output (MSB first)
          o_ep_spi_miso        => ep_spi_miso          , -- out    std_logic                                 ; --! EP: SPI Master Output Slave Input (MSB first)
@@ -323,9 +323,10 @@ begin
    --!   Check SPI bus
    -- ------------------------------------------------------------------------------------------------------
    I_spi_check_model: entity work.spi_check_model port map
-   (     i_hk1_spi_mosi       => hk1_spi_mosi         , -- in     std_logic                                 ; --! HouseKeeping 1: SPI Master Output Slave Input
-         i_hk1_spi_sclk       => hk1_spi_sclk         , -- in     std_logic                                 ; --! HouseKeeping 1: SPI Serial Clock (CPOL = '0', CPHA = '0')
-         i_hk1_spi_cs_n       => hk1_spi_cs_n         , -- in     std_logic                                 ; --! HouseKeeping 1: SPI Chip Select ('0' = Active, '1' = Inactive)
+   (     i_rst                => d_rst                , -- in     std_logic                                 ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
+         i_hk1_spi_mosi       => hk1_spi_mosi         , -- in     std_logic                                 ; --! HouseKeeping: SPI Master Output Slave Input
+         i_hk1_spi_sclk       => hk1_spi_sclk         , -- in     std_logic                                 ; --! HouseKeeping: SPI Serial Clock (CPOL = '0', CPHA = '0')
+         i_hk1_spi_cs_n       => hk1_spi_cs_n         , -- in     std_logic                                 ; --! HouseKeeping: SPI Chip Select ('0' = Active, '1' = Inactive)
          i_sqa_dac_data       => sqa_dac_data         , -- in     std_logic_vector(c_NB_COL-1 downto 0)     ; --! SQUID AMP DAC: Serial Data
          i_sqa_dac_sclk       => sqa_dac_sclk         , -- in     std_logic_vector(c_NB_COL-1 downto 0)     ; --! SQUID AMP DAC: Serial Clock
          i_sqa_dac_snc_l_n    => sqa_dac_snc_l_n      , -- in     std_logic_vector(c_NB_COL-1 downto 0)     ; --! SQUID AMP DAC, col. 0: Frame Synchronization DAC LSB ('0' = Active, '1' = Inactive)
@@ -351,6 +352,19 @@ begin
    );
 
    clk_fpasim_shift <= transport clk_fpasim after (c_CLK_FPA_PER_DEF/4) when now > (c_CLK_FPA_PER_DEF/4) else '0';
+
+   -- ------------------------------------------------------------------------------------------------------
+   --!   Housekeeping model
+   -- ------------------------------------------------------------------------------------------------------
+   I_hk_model: hk_model port map
+   (     i_hk1_mux            => hk1_mux              , -- in     std_logic_vector(c_HK1_MUX_S-1 downto 0)  ; --! HouseKeeping: Multiplexer
+         i_hk1_mux_ena_n      => hk1_mux_ena_n        , -- in     std_logic                                 ; --! HouseKeeping: Multiplexer Enable ('0' = Active, '1' = Inactive)
+
+         i_hk1_spi_mosi       => hk1_spi_mosi         , -- in     std_logic                                 ; --! HouseKeeping: SPI Master Output Slave Input
+         i_hk1_spi_sclk       => hk1_spi_sclk         , -- in     std_logic                                 ; --! HouseKeeping: SPI Serial Clock (CPOL = '1', CPHA = '1')
+         i_hk1_spi_cs_n       => hk1_spi_cs_n         , -- in     std_logic                                 ; --! HouseKeeping: SPI Chip Select ('0' = Active, '1' = Inactive)
+         o_hk1_spi_miso       => hk1_spi_miso           -- out    std_logic                                   --! HouseKeeping: SPI Master Input Slave Output
+   );
 
    -- ------------------------------------------------------------------------------------------------------
    --!   EP SPI model

@@ -124,6 +124,8 @@ proc run_utest {args} {
       ${TB_DIR}/adc_ad9254_model.vhd      \
       ${TB_DIR}/dac_dac5675a_model.vhd    \
       ${TB_DIR}/dac121s101_model.vhd      \
+      ${TB_DIR}/adc128s102_model.vhd      \
+      ${TB_DIR}/cd74hc4051_model.vhd      \
       ${TB_DIR}/clock_check.vhd           \
       ${TB_DIR}/clock_check_model.vhd     \
       ${TB_DIR}/clock_model.vhd           \
@@ -136,6 +138,7 @@ proc run_utest {args} {
       ${TB_DIR}/science_data_rx.vhd       \
       ${TB_DIR}/science_data_check.vhd    \
       ${TB_DIR}/science_data_model.vhd    \
+      ${TB_DIR}/hk_model.vhd              \
       ${TB_DIR}/parser.vhd                \
       ${TB_DIR}/fpga_system_fpasim_top.vhd\
       ${TB_DIR}/top_dmx_tb.vhd

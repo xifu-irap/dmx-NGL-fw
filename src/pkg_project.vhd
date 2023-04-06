@@ -105,7 +105,12 @@ constant c_HK_SPI_CPHA        : std_logic := '1'                                
 constant c_HK_SPI_SER_WD_S    : integer   := 16                                                             ; --! HK SPI: Data bus size
 constant c_HK_SPI_SCLK_L      : integer   := 2                                                              ; --! HK SPI: Number of clock period for elaborating SPI Serial Clock low level
 constant c_HK_SPI_SCLK_H      : integer   := 2                                                              ; --! HK SPI: Number of clock period for elaborating SPI Serial Clock high level
+constant c_HK_SPI_ADD_S       : integer   := 3                                                              ; --! HK SPI: Address size
+constant c_HK_SPI_ADD_POS_LSB : integer   := 11                                                             ; --! HK SPI: Address position LSB
+constant c_HK_SPI_DATA_S      : integer   := 12                                                             ; --! HK SPI: Data size
+constant c_HK_SPI_SCLK_NB_ACQ : integer   := 3                                                              ; --! HK SPI: SCLK cycle number for analog signal acquisition
 constant c_HK_MUX_S           : integer   := 3                                                              ; --! HK Multiplexer size
+constant c_HK_NW              : integer   := 14                                                             ; --! HK Number words
 
 constant c_EP_CMD_S           : integer   := 32                                                             ; --! EP command bus size
 constant c_EP_SPI_CPOL        : std_logic := '0'                                                            ; --! EP SPI Clock polarity
@@ -113,6 +118,79 @@ constant c_EP_SPI_CPHA        : std_logic := '0'                                
 constant c_EP_SPI_WD_S        : integer   := c_EP_CMD_S/2                                                   ; --! EP SPI Data word size (receipt/transmit)
 constant c_EP_SPI_TX_WD_NB_S  : integer   := 1                                                              ; --! EP SPI Data word to transmit number size
 constant c_EP_SPI_RX_WD_NB_S  : integer   := 2                                                              ; --! EP SPI Receipted data word number size (more than expected, command length control)
+
+   -- ------------------------------------------------------------------------------------------------------
+   --    Housekeeping interface
+   -- ------------------------------------------------------------------------------------------------------
+constant c_HK_ADC_P1V8_ANA    : std_logic_vector(c_HK_SPI_ADD_S-1 downto 0):=
+                                std_logic_vector(to_unsigned( 0, c_HK_SPI_ADD_S))                           ; --! Housekeeping ADC position, HK_P1V8_ANA
+constant c_HK_ADC_P2V5_ANA    : std_logic_vector(c_HK_SPI_ADD_S-1 downto 0):=
+                                std_logic_vector(to_unsigned( 1, c_HK_SPI_ADD_S))                           ; --! Housekeeping ADC position, HK_P2V5_ANA
+constant c_HK_ADC_M2V5_ANA    : std_logic_vector(c_HK_SPI_ADD_S-1 downto 0):=
+                                std_logic_vector(to_unsigned( 2, c_HK_SPI_ADD_S))                           ; --! Housekeeping ADC position, HK_M2V5_ANA
+constant c_HK_ADC_P3V3_ANA    : std_logic_vector(c_HK_SPI_ADD_S-1 downto 0):=
+                                std_logic_vector(to_unsigned( 3, c_HK_SPI_ADD_S))                           ; --! Housekeeping ADC position, HK_P3V3_ANA
+constant c_HK_ADC_M5V0_ANA    : std_logic_vector(c_HK_SPI_ADD_S-1 downto 0):=
+                                std_logic_vector(to_unsigned( 4, c_HK_SPI_ADD_S))                           ; --! Housekeeping ADC position, HK_M5V0_ANA
+constant c_HK_ADC_P1V2_DIG    : std_logic_vector(c_HK_SPI_ADD_S-1 downto 0):=
+                                std_logic_vector(to_unsigned( 4, c_HK_SPI_ADD_S))                           ; --! Housekeeping ADC position, HK_P1V2_DIG
+constant c_HK_ADC_P2V5_DIG    : std_logic_vector(c_HK_SPI_ADD_S-1 downto 0):=
+                                std_logic_vector(to_unsigned( 4, c_HK_SPI_ADD_S))                           ; --! Housekeeping ADC position, HK_P2V5_DIG
+constant c_HK_ADC_P2V5_AUX    : std_logic_vector(c_HK_SPI_ADD_S-1 downto 0):=
+                                std_logic_vector(to_unsigned( 4, c_HK_SPI_ADD_S))                           ; --! Housekeeping ADC position, HK_P2V5_AUX
+constant c_HK_ADC_P3V3_DIG    : std_logic_vector(c_HK_SPI_ADD_S-1 downto 0):=
+                                std_logic_vector(to_unsigned( 4, c_HK_SPI_ADD_S))                           ; --! Housekeeping ADC position, HK_P3V3_DIG
+constant c_HK_ADC_VREF_TMP    : std_logic_vector(c_HK_SPI_ADD_S-1 downto 0):=
+                                std_logic_vector(to_unsigned( 4, c_HK_SPI_ADD_S))                           ; --! Housekeeping ADC position, HK_VREF_TMP
+constant c_HK_ADC_VREF_R2R    : std_logic_vector(c_HK_SPI_ADD_S-1 downto 0):=
+                                std_logic_vector(to_unsigned( 4, c_HK_SPI_ADD_S))                           ; --! Housekeeping ADC position, HK_VREF_R2R
+constant c_HK_ADC_P5V0_ANA    : std_logic_vector(c_HK_SPI_ADD_S-1 downto 0):=
+                                std_logic_vector(to_unsigned( 5, c_HK_SPI_ADD_S))                           ; --! Housekeeping ADC position, HK_P5V0_ANA
+constant c_HK_ADC_TEMP_AVE    : std_logic_vector(c_HK_SPI_ADD_S-1 downto 0):=
+                                std_logic_vector(to_unsigned( 6, c_HK_SPI_ADD_S))                           ; --! Housekeeping ADC position, HK_TEMP_AVE
+constant c_HK_ADC_TEMP_MAX    : std_logic_vector(c_HK_SPI_ADD_S-1 downto 0):=
+                                std_logic_vector(to_unsigned( 7, c_HK_SPI_ADD_S))                           ; --! Housekeeping ADC position, HK_TEMP_MAX
+
+constant c_HK_MUX_P1V8_ANA    : std_logic_vector(c_HK_MUX_S-1 downto 0):=
+                                std_logic_vector(to_unsigned( 0, c_HK_MUX_S))                               ; --! Housekeeping MUX position, HK_P1V8_ANA
+constant c_HK_MUX_P2V5_ANA    : std_logic_vector(c_HK_MUX_S-1 downto 0):=
+                                std_logic_vector(to_unsigned( 0, c_HK_MUX_S))                               ; --! Housekeeping MUX position, HK_P2V5_ANA
+constant c_HK_MUX_M2V5_ANA    : std_logic_vector(c_HK_MUX_S-1 downto 0):=
+                                std_logic_vector(to_unsigned( 0, c_HK_MUX_S))                               ; --! Housekeeping MUX position, HK_M2V5_ANA
+constant c_HK_MUX_P3V3_ANA    : std_logic_vector(c_HK_MUX_S-1 downto 0):=
+                                std_logic_vector(to_unsigned( 0, c_HK_MUX_S))                               ; --! Housekeeping MUX position, HK_P3V3_ANA
+constant c_HK_MUX_M5V0_ANA    : std_logic_vector(c_HK_MUX_S-1 downto 0):=
+                                std_logic_vector(to_unsigned( 0, c_HK_MUX_S))                               ; --! Housekeeping MUX position, HK_M5V0_ANA
+constant c_HK_MUX_P1V2_DIG    : std_logic_vector(c_HK_MUX_S-1 downto 0):=
+                                std_logic_vector(to_unsigned( 1, c_HK_MUX_S))                               ; --! Housekeeping MUX position, HK_P1V2_DIG
+constant c_HK_MUX_P2V5_DIG    : std_logic_vector(c_HK_MUX_S-1 downto 0):=
+                                std_logic_vector(to_unsigned( 2, c_HK_MUX_S))                               ; --! Housekeeping MUX position, HK_P2V5_DIG
+constant c_HK_MUX_P2V5_AUX    : std_logic_vector(c_HK_MUX_S-1 downto 0):=
+                                std_logic_vector(to_unsigned( 3, c_HK_MUX_S))                               ; --! Housekeeping MUX position, HK_P2V5_AUX
+constant c_HK_MUX_P3V3_DIG    : std_logic_vector(c_HK_MUX_S-1 downto 0):=
+                                std_logic_vector(to_unsigned( 4, c_HK_MUX_S))                               ; --! Housekeeping MUX position, HK_P3V3_DIG
+constant c_HK_MUX_VREF_TMP    : std_logic_vector(c_HK_MUX_S-1 downto 0):=
+                                std_logic_vector(to_unsigned( 5, c_HK_MUX_S))                               ; --! Housekeeping MUX position, HK_VREF_TMP
+constant c_HK_MUX_VREF_R2R    : std_logic_vector(c_HK_MUX_S-1 downto 0):=
+                                std_logic_vector(to_unsigned( 6, c_HK_MUX_S))                               ; --! Housekeeping MUX position, HK_VREF_R2R
+constant c_HK_MUX_P5V0_ANA    : std_logic_vector(c_HK_MUX_S-1 downto 0):=
+                                std_logic_vector(to_unsigned( 0, c_HK_MUX_S))                               ; --! Housekeeping MUX position, HK_P5V0_ANA
+constant c_HK_MUX_TEMP_AVE    : std_logic_vector(c_HK_MUX_S-1 downto 0):=
+                                std_logic_vector(to_unsigned( 0, c_HK_MUX_S))                               ; --! Housekeeping MUX position, HK_TEMP_AVE
+constant c_HK_MUX_TEMP_MAX    : std_logic_vector(c_HK_MUX_S-1 downto 0):=
+                                std_logic_vector(to_unsigned( 0, c_HK_MUX_S))                               ; --! Housekeeping MUX position, HK_TEMP_MAX
+
+constant c_HK_ADC_SEQ         : t_slv_arr(0 to c_HK_NW-1)(c_HK_SPI_ADD_S-1 downto 0) :=
+                                (c_HK_ADC_P2V5_ANA, c_HK_ADC_M2V5_ANA, c_HK_ADC_P3V3_ANA, c_HK_ADC_M5V0_ANA,
+                                 c_HK_ADC_P1V2_DIG, c_HK_ADC_P2V5_DIG, c_HK_ADC_P2V5_AUX, c_HK_ADC_P3V3_DIG,
+                                 c_HK_ADC_VREF_TMP, c_HK_ADC_VREF_R2R, c_HK_ADC_P5V0_ANA, c_HK_ADC_TEMP_AVE,
+                                 c_HK_ADC_TEMP_MAX, c_HK_ADC_P1V8_ANA)                                      ; --! Housekeeping ADC sequence
+
+constant c_HK_MUX_SEQ         : t_slv_arr(0 to c_HK_NW-1)(c_HK_MUX_S-1 downto 0) :=
+                                (c_HK_MUX_P1V8_ANA, c_HK_MUX_P2V5_ANA, c_HK_MUX_M2V5_ANA, c_HK_MUX_P3V3_ANA,
+                                 c_HK_MUX_M5V0_ANA, c_HK_MUX_P1V2_DIG, c_HK_MUX_P2V5_DIG, c_HK_MUX_P2V5_AUX,
+                                 c_HK_MUX_P3V3_DIG, c_HK_MUX_VREF_TMP, c_HK_MUX_VREF_R2R, c_HK_MUX_P5V0_ANA,
+                                 c_HK_MUX_TEMP_AVE, c_HK_MUX_TEMP_MAX)                                      ; --! Housekeeping MUX sequence
 
    -- ------------------------------------------------------------------------------------------------------
    --    Inputs default value at reset
@@ -151,6 +229,10 @@ constant c_MUX_FACT_S         : integer   := log2_ceil(c_MUX_FACT)              
 
 constant c_TST_PAT_COEF_NB    : integer   := 3                                                              ; --! Test pattern: coefficient by region number
 constant c_TST_PAT_RGN_NB     : integer   := 5                                                              ; --! Test pattern: region number
+
+constant c_ERR_NIN_MX_STNB    : integer   := 2                                                              ; --! Error parameter to read not initialized yet: Multiplexer stage number
+constant c_ERR_NIN_MX_STIN    : t_int_arr(0 to c_ERR_NIN_MX_STNB)   := (16, 20, 21)                         ; --! Error parameter to read not initialized yet: Inputs by multiplexer stage (accumulated)
+constant c_ERR_NIN_MX_INNB    : t_int_arr(0 to c_ERR_NIN_MX_STNB-1) := ( 4,  4)                             ; --! Error parameter to read not initialized yet: Inputs by multiplexer
 
 constant c_DLFLG_MX_STNB      : integer   := 3                                                              ; --! Delock flag: Multiplexer stage number
 constant c_DLFLG_MX_STIN      : t_int_arr(0 to c_DLFLG_MX_STNB)   := (36, 45, 48, 49)                       ; --! Delock flag: Inputs by multiplexer stage (accumulated)

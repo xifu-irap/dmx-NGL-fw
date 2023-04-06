@@ -78,6 +78,10 @@ begin
             elsif i_ep_cmd_rx_add_norw = c_EP_CMD_ADD_BXLGT  then
                o_ep_cmd_sts_err_wrt <= c_EP_CMD_AUTH_BXLGT;
 
+            elsif i_ep_cmd_rx_add_norw(i_ep_cmd_rx_add_norw'high downto c_MEM_HKEEP_ADD_S)      = c_EP_CMD_ADD_HKEEP(i_ep_cmd_rx_add_norw'high downto c_MEM_HKEEP_ADD_S)         and
+                  i_ep_cmd_rx_add_norw(  c_MEM_HKEEP_ADD_S-1     downto 0)                      < std_logic_vector(to_unsigned(c_TAB_HKEEP_NW, c_MEM_HKEEP_ADD_S))               then
+               o_ep_cmd_sts_err_wrt <= c_EP_CMD_AUTH_HKEEP;
+
             elsif i_ep_cmd_rx_add_norw = c_EP_CMD_ADD_DLFLG  then
                o_ep_cmd_sts_err_wrt <= c_EP_CMD_AUTH_DLFLG;
 

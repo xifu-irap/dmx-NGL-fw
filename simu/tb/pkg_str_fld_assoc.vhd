@@ -445,6 +445,48 @@ constant c_PAD                : character := ' '                                
          when "BOXCAR_LENGTH                 "  =>
             o_fld_add_val:= c_EP_CMD_ADD_BXLGT;
 
+         when "HK_P1V8_ANA                   "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_HKEEP(o_fld_add_val'high downto c_MEM_HKEEP_ADD_S) & c_HK_ADD_P1V8_ANA;
+
+         when "HK_P2V5_ANA                   "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_HKEEP(o_fld_add_val'high downto c_MEM_HKEEP_ADD_S) & c_HK_ADD_P2V5_ANA;
+
+         when "HK_M2V5_ANA                   "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_HKEEP(o_fld_add_val'high downto c_MEM_HKEEP_ADD_S) & c_HK_ADD_M2V5_ANA;
+
+         when "HK_P3V3_ANA                   "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_HKEEP(o_fld_add_val'high downto c_MEM_HKEEP_ADD_S) & c_HK_ADD_P3V3_ANA;
+
+         when "HK_M5V0_ANA                   "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_HKEEP(o_fld_add_val'high downto c_MEM_HKEEP_ADD_S) & c_HK_ADD_M5V0_ANA;
+
+         when "HK_P1V2_DIG                   "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_HKEEP(o_fld_add_val'high downto c_MEM_HKEEP_ADD_S) & c_HK_ADD_P1V2_DIG;
+
+         when "HK_P2V5_DIG                   "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_HKEEP(o_fld_add_val'high downto c_MEM_HKEEP_ADD_S) & c_HK_ADD_P2V5_DIG;
+
+         when "HK_P2V5_AUX                   "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_HKEEP(o_fld_add_val'high downto c_MEM_HKEEP_ADD_S) & c_HK_ADD_P2V5_AUX;
+
+         when "HK_P3V3_DIG                   "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_HKEEP(o_fld_add_val'high downto c_MEM_HKEEP_ADD_S) & c_HK_ADD_P3V3_DIG;
+
+         when "HK_VREF_TMP                   "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_HKEEP(o_fld_add_val'high downto c_MEM_HKEEP_ADD_S) & c_HK_ADD_VREF_TMP;
+
+         when "HK_VREF_R2R                   "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_HKEEP(o_fld_add_val'high downto c_MEM_HKEEP_ADD_S) & c_HK_ADD_VREF_R2R;
+
+         when "HK_P5V0_ANA                   "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_HKEEP(o_fld_add_val'high downto c_MEM_HKEEP_ADD_S) & c_HK_ADD_P5V0_ANA;
+
+         when "HK_TEMP_AVE                   "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_HKEEP(o_fld_add_val'high downto c_MEM_HKEEP_ADD_S) & c_HK_ADD_TEMP_AVE;
+
+         when "HK_TEMP_MAX                   "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_HKEEP(o_fld_add_val'high downto c_MEM_HKEEP_ADD_S) & c_HK_ADD_TEMP_MAX;
+
          when "DELOCK_FLAG                   "  =>
             o_fld_add_val:= c_EP_CMD_ADD_DLFLG;
 
@@ -702,6 +744,48 @@ constant c_PAD                : character := ' '                                
       case v_fld_data_pad(1 to c_CMD_NAME_STR_MAX_S) is
          when "FW_VERSION                    "  =>
             o_fld_data_val:= std_logic_vector(to_unsigned(c_FW_VERSION, o_fld_data_val'length));
+
+         when "HK_P1V8_ANA_VAL               "  =>
+            o_fld_data_val:= std_logic_vector(resize(unsigned(c_HK_P1V8_ANA_DEF), o_fld_data_val'length));
+
+         when "HK_P2V5_ANA_VAL               "  =>
+            o_fld_data_val:= std_logic_vector(resize(unsigned(c_HK_P2V5_ANA_DEF), o_fld_data_val'length));
+
+         when "HK_M2V5_ANA_VAL               "  =>
+            o_fld_data_val:= std_logic_vector(resize(unsigned(c_HK_M2V5_ANA_DEF), o_fld_data_val'length));
+
+         when "HK_P3V3_ANA_VAL               "  =>
+            o_fld_data_val:= std_logic_vector(resize(unsigned(c_HK_P3V3_ANA_DEF), o_fld_data_val'length));
+
+         when "HK_M5V0_ANA_VAL               "  =>
+            o_fld_data_val:= std_logic_vector(resize(unsigned(c_HK_M5V0_ANA_DEF), o_fld_data_val'length));
+
+         when "HK_P1V2_DIG_VAL               "  =>
+            o_fld_data_val:= std_logic_vector(resize(unsigned(c_HK_P1V2_DIG_DEF), o_fld_data_val'length));
+
+         when "HK_P2V5_DIG_VAL               "  =>
+            o_fld_data_val:= std_logic_vector(resize(unsigned(c_HK_P2V5_DIG_DEF), o_fld_data_val'length));
+
+         when "HK_P2V5_AUX_VAL               "  =>
+            o_fld_data_val:= std_logic_vector(resize(unsigned(c_HK_P2V5_AUX_DEF), o_fld_data_val'length));
+
+         when "HK_P3V3_DIG_VAL               "  =>
+            o_fld_data_val:= std_logic_vector(resize(unsigned(c_HK_P3V3_DIG_DEF), o_fld_data_val'length));
+
+         when "HK_VREF_TMP_VAL               "  =>
+            o_fld_data_val:= std_logic_vector(resize(unsigned(c_HK_VREF_TMP_DEF), o_fld_data_val'length));
+
+         when "HK_VREF_R2R_VAL               "  =>
+            o_fld_data_val:= std_logic_vector(resize(unsigned(c_HK_VREF_R2R_DEF), o_fld_data_val'length));
+
+         when "HK_P5V0_ANA_VAL               "  =>
+            o_fld_data_val:= std_logic_vector(resize(unsigned(c_HK_P5V0_ANA_DEF), o_fld_data_val'length));
+
+         when "HK_TEMP_AVE_VAL               "  =>
+            o_fld_data_val:= std_logic_vector(resize(unsigned(c_HK_TEMP_AVE_DEF), o_fld_data_val'length));
+
+         when "HK_TEMP_MAX_VAL               "  =>
+            o_fld_data_val:= std_logic_vector(resize(unsigned(c_HK_TEMP_MAX_DEF), o_fld_data_val'length));
 
          when others                            =>
             o_fld_data_val:= c_RET_UKWN;

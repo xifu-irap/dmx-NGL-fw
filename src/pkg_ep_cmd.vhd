@@ -72,7 +72,8 @@ constant c_EP_CMD_POS_SAOFM   : integer   := c_EP_CMD_POS_SMFMD   + 1           
 constant c_EP_CMD_POS_TSTPT   : integer   := c_EP_CMD_POS_SAOFM   + 1                                       ; --! EP command: Position, TEST_PATTERN
 constant c_EP_CMD_POS_TSTEN   : integer   := c_EP_CMD_POS_TSTPT   + 1                                       ; --! EP command: Position, TEST_PATTERN_ENABLE
 constant c_EP_CMD_POS_BXLGT   : integer   := c_EP_CMD_POS_TSTEN   + 1                                       ; --! EP command: Position, BOXCAR_LENGTH
-constant c_EP_CMD_POS_DLFLG   : integer   := c_EP_CMD_POS_BXLGT   + 1                                       ; --! EP command: Position, DELOCK_FLAG
+constant c_EP_CMD_POS_HKEEP   : integer   := c_EP_CMD_POS_BXLGT   + 1                                       ; --! EP command: Position, Housekeeping
+constant c_EP_CMD_POS_DLFLG   : integer   := c_EP_CMD_POS_HKEEP   + 1                                       ; --! EP command: Position, DELOCK_FLAG
 constant c_EP_CMD_POS_STATUS  : integer   := c_EP_CMD_POS_DLFLG   + 1                                       ; --! EP command: Position, Status
 constant c_EP_CMD_POS_FW_VER  : integer   := c_EP_CMD_POS_STATUS  + 1                                       ; --! EP command: Position, Firmware Version
 constant c_EP_CMD_POS_HW_VER  : integer   := c_EP_CMD_POS_FW_VER  + 1                                       ; --! EP command: Position, Hardware Version
@@ -113,6 +114,7 @@ constant c_EP_CMD_ADD_TSTPT   : std_logic_vector(c_EP_SPI_WD_S-1 downto 0):= x"4
 constant c_EP_CMD_ADD_TSTEN   : std_logic_vector(c_EP_SPI_WD_S-1 downto 0):= x"4150"                        ; --! EP command: Address, TEST_PATTERN_ENABLE
 constant c_EP_CMD_ADD_BXLGT   : std_logic_vector(c_EP_SPI_WD_S-1 downto 0):= x"4200"                        ; --! EP command: Address, BOXCAR_LENGTH
 
+constant c_EP_CMD_ADD_HKEEP   : std_logic_vector(c_EP_SPI_WD_S-1 downto 0):= x"4600"                        ; --! EP command: Address, Housekeeping
 constant c_EP_CMD_ADD_DLFLG   : std_logic_vector(c_EP_SPI_WD_S-1 downto 0):= x"4610"                        ; --! EP command: Address, DELOCK_FLAG
 constant c_EP_CMD_ADD_STATUS  : std_logic_vector(c_EP_SPI_WD_S-1 downto 0):= x"6000"                        ; --! EP command: Address, Status
 constant c_EP_CMD_ADD_FW_VER  : std_logic_vector(c_EP_SPI_WD_S-1 downto 0):= x"6001"                        ; --! EP command: Address, Firmware Version
@@ -161,6 +163,9 @@ constant c_EP_CMD_ADD_DLCNT   : t_slv_arr(0 to c_NB_COL-1)(c_EP_SPI_WD_S-1 downt
 constant c_TAB_TSTPT_NW       : integer   := c_TST_PAT_COEF_NB * c_TST_PAT_RGN_NB                           ; --! Table number word, TEST_PATTERN
 constant c_MEM_TSTPT_ADD_S    : integer   := log2_ceil(c_TAB_TSTPT_NW)                                      ; --! Address size memory without ping-pong buffer bit, TEST_PATTERN
 
+constant c_TAB_HKEEP_NW       : integer   := c_HK_NW                                                        ; --! Table number word, Housekeeping
+constant c_MEM_HKEEP_ADD_S    : integer   := log2_ceil(c_TAB_HKEEP_NW)                                      ; --! Address size memory, Housekeeping
+
 constant c_TAB_PARMA_NW       : integer   := c_MUX_FACT                                                     ; --! Table number word, CY_A
 constant c_MEM_PARMA_ADD_S    : integer   := log2_ceil(c_TAB_PARMA_NW)                                      ; --! Address size memory without ping-pong buffer bit, CY_A
 
@@ -191,6 +196,44 @@ constant c_TAB_DLCNT_NW       : integer   := c_MUX_FACT                         
 constant c_MEM_DLCNT_ADD_S    : integer   := log2_ceil(c_TAB_DLCNT_NW)                                      ; --! Address size memory without ping-pong buffer bit, CY_DELOCK_COUNTERS
 
    -- ------------------------------------------------------------------------------------------------------
+   --    EP command: Housekeeping address
+   -- ------------------------------------------------------------------------------------------------------
+constant c_HK_ADD_P1V8_ANA    : std_logic_vector(c_MEM_HKEEP_ADD_S-1 downto 0):=
+                                std_logic_vector(to_unsigned( 3, c_MEM_HKEEP_ADD_S))                        ; --! EP command: Housekeeping memory position, P1V8_ANA
+constant c_HK_ADD_P2V5_ANA    : std_logic_vector(c_MEM_HKEEP_ADD_S-1 downto 0):=
+                                std_logic_vector(to_unsigned( 2, c_MEM_HKEEP_ADD_S))                        ; --! EP command: Housekeeping memory position, P2V5_ANA
+constant c_HK_ADD_M2V5_ANA    : std_logic_vector(c_MEM_HKEEP_ADD_S-1 downto 0):=
+                                std_logic_vector(to_unsigned( 4, c_MEM_HKEEP_ADD_S))                        ; --! EP command: Housekeeping memory position, M2V5_ANA
+constant c_HK_ADD_P3V3_ANA    : std_logic_vector(c_MEM_HKEEP_ADD_S-1 downto 0):=
+                                std_logic_vector(to_unsigned( 1, c_MEM_HKEEP_ADD_S))                        ; --! EP command: Housekeeping memory position, P3V3_ANA
+constant c_HK_ADD_M5V0_ANA    : std_logic_vector(c_MEM_HKEEP_ADD_S-1 downto 0):=
+                                std_logic_vector(to_unsigned( 5, c_MEM_HKEEP_ADD_S))                        ; --! EP command: Housekeeping memory position, M5V0_ANA
+constant c_HK_ADD_P1V2_DIG    : std_logic_vector(c_MEM_HKEEP_ADD_S-1 downto 0):=
+                                std_logic_vector(to_unsigned( 8, c_MEM_HKEEP_ADD_S))                        ; --! EP command: Housekeeping memory position, P1V2_DIG
+constant c_HK_ADD_P2V5_DIG    : std_logic_vector(c_MEM_HKEEP_ADD_S-1 downto 0):=
+                                std_logic_vector(to_unsigned( 7, c_MEM_HKEEP_ADD_S))                        ; --! EP command: Housekeeping memory position, P2V5_DIG
+constant c_HK_ADD_P2V5_AUX    : std_logic_vector(c_MEM_HKEEP_ADD_S-1 downto 0):=
+                                std_logic_vector(to_unsigned(11, c_MEM_HKEEP_ADD_S))                        ; --! EP command: Housekeeping memory position, P2V5_AUX
+constant c_HK_ADD_P3V3_DIG    : std_logic_vector(c_MEM_HKEEP_ADD_S-1 downto 0):=
+                                std_logic_vector(to_unsigned( 6, c_MEM_HKEEP_ADD_S))                        ; --! EP command: Housekeeping memory position, P3V3_DIG
+constant c_HK_ADD_VREF_TMP    : std_logic_vector(c_MEM_HKEEP_ADD_S-1 downto 0):=
+                                std_logic_vector(to_unsigned(12, c_MEM_HKEEP_ADD_S))                        ; --! EP command: Housekeeping memory position, VREF_TMP
+constant c_HK_ADD_VREF_R2R    : std_logic_vector(c_MEM_HKEEP_ADD_S-1 downto 0):=
+                                std_logic_vector(to_unsigned(13, c_MEM_HKEEP_ADD_S))                        ; --! EP command: Housekeeping memory position, VREF_R2R
+constant c_HK_ADD_P5V0_ANA    : std_logic_vector(c_MEM_HKEEP_ADD_S-1 downto 0):=
+                                std_logic_vector(to_unsigned( 0, c_MEM_HKEEP_ADD_S))                        ; --! EP command: Housekeeping memory position, P5V0_ANA
+constant c_HK_ADD_TEMP_AVE    : std_logic_vector(c_MEM_HKEEP_ADD_S-1 downto 0):=
+                                std_logic_vector(to_unsigned( 9, c_MEM_HKEEP_ADD_S))                        ; --! EP command: Housekeeping memory position, TEMP_AVE
+constant c_HK_ADD_TEMP_MAX    : std_logic_vector(c_MEM_HKEEP_ADD_S-1 downto 0):=
+                                std_logic_vector(to_unsigned(10, c_MEM_HKEEP_ADD_S))                        ; --! EP command: Housekeeping memory position, TEMP_MAX
+
+constant c_HK_ADD_SEQ         : t_slv_arr(0 to c_HK_NW-1)(c_MEM_HKEEP_ADD_S-1 downto 0) :=
+                                (c_HK_ADD_TEMP_AVE, c_HK_ADD_TEMP_MAX, c_HK_ADD_P1V8_ANA, c_HK_ADD_P2V5_ANA,
+                                 c_HK_ADD_M2V5_ANA, c_HK_ADD_P3V3_ANA, c_HK_ADD_M5V0_ANA, c_HK_ADD_P1V2_DIG,
+                                 c_HK_ADD_P2V5_DIG, c_HK_ADD_P2V5_AUX, c_HK_ADD_P3V3_DIG, c_HK_ADD_VREF_TMP,
+                                 c_HK_ADD_VREF_R2R, c_HK_ADD_P5V0_ANA)                                      ; --! Housekeeping memory position sequence
+
+   -- ------------------------------------------------------------------------------------------------------
    --    EP command: Write register authorization
    -- ------------------------------------------------------------------------------------------------------
 constant c_EP_CMD_AUTH_AQMDE  : std_logic := c_EP_CMD_ERR_CLR                                               ; --! EP command: Authorization, DATA_ACQ_MODE
@@ -200,6 +243,7 @@ constant c_EP_CMD_AUTH_TSTPT  : std_logic := c_EP_CMD_ERR_CLR                   
 constant c_EP_CMD_AUTH_TSTEN  : std_logic := c_EP_CMD_ERR_CLR                                               ; --! EP command: Authorization, TEST_PATTERN_ENABLE
 constant c_EP_CMD_AUTH_BXLGT  : std_logic := c_EP_CMD_ERR_CLR                                               ; --! EP command: Authorization, BOXCAR_LENGTH
 
+constant c_EP_CMD_AUTH_HKEEP  : std_logic := c_EP_CMD_ERR_SET                                               ; --! EP command: Authorization, Housekeeping
 constant c_EP_CMD_AUTH_DLFLG  : std_logic := c_EP_CMD_ERR_SET                                               ; --! EP command: Authorization, DELOCK_FLAG
 constant c_EP_CMD_AUTH_STATUS : std_logic := c_EP_CMD_ERR_SET                                               ; --! EP command: Authorization, Status
 constant c_EP_CMD_AUTH_FW_VER : std_logic := c_EP_CMD_ERR_SET                                               ; --! EP command: Authorization, Firmware Version
@@ -236,6 +280,7 @@ constant c_DFLD_TSTEN_INF_S   : integer   :=  1                                 
 constant c_DFLD_TSTEN_ENA_S   : integer   :=  1                                                             ; --! EP command: Data field, TEST_PATTERN_ENABLE, field Enable bus size
 constant c_DFLD_TSTEN_S       : integer   :=  c_DFLD_TSTEN_LOP_S + c_DFLD_TSTEN_INF_S + c_DFLD_TSTEN_ENA_S  ; --! EP command: Data field, TEST_PATTERN_ENABLE bus size
 constant c_DFLD_BXLGT_COL_S   : integer   :=  c_ADC_SMP_AVE_ADD_S                                           ; --! EP command: Data field, BOXCAR_LENGTH bus size
+constant c_DFLD_HKEEP_S       : integer   :=  c_HK_SPI_DATA_S                                               ; --! EP command: Data field, Housekeeping bus size
 constant c_DFLD_DLFLG_COL_S   : integer   :=  1                                                             ; --! EP command: Data field, DELOCK_FLAG bus size
 constant c_DFLD_PARMA_PIX_S   : integer   :=  c_EP_SPI_WD_S                                                 ; --! EP command: Data field, CY_A bus size
 constant c_DFLD_KIKNM_PIX_S   : integer   :=  c_EP_SPI_WD_S                                                 ; --! EP command: Data field, CY_KI_KNORM bus size

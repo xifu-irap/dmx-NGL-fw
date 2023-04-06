@@ -26,6 +26,7 @@
 -- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 library ieee;
 use     ieee.std_logic_1164.all;
+use     ieee.numeric_std.all;
 
 library work;
 use     work.pkg_type.all;
@@ -243,6 +244,37 @@ constant c_FPA_ERR_DEL_DEF    : natural := 3                                    
 constant c_FPA_SYNC_DEL_DEF   : natural := 4                                                                ; --! FPASIM cmd: Pixel sequence sync. delay (clock cycle number) default value (<= 63)
 constant c_FPA_PXL_NB_CYC_DEF : integer := c_PIXEL_ADC_NB_CYC * c_CLK_FPA_MULT / c_CLK_ADC_DAC_MULT         ; --! FPASIM: clock period number allocated to one pixel acquisition
 
+constant c_HK_MUX_TPS_DEF     : time    :=  90 ns                                                           ; --! HouseKeeping, Multiplexer time Data Propagation switch in to out default value
+constant c_HK_ADC_VREF_DEF    : real    := 3.3                                                              ; --! Housekeeping, Voltage reference (Volt) default value
+constant c_HK_P1V8_ANA_DEF    : std_logic_vector(c_HK_SPI_DATA_S-1 downto 0):=
+                                std_logic_vector(to_unsigned( 1170, c_HK_SPI_DATA_S))                       ; --! Housekeeping, HK_P1V8_ANA default value
+constant c_HK_P2V5_ANA_DEF    : std_logic_vector(c_HK_SPI_DATA_S-1 downto 0):=
+                                std_logic_vector(to_unsigned(  878, c_HK_SPI_DATA_S))                       ; --! Housekeeping, HK_P2V5_ANA default value
+constant c_HK_M2V5_ANA_DEF    : std_logic_vector(c_HK_SPI_DATA_S-1 downto 0):=
+                                std_logic_vector(to_unsigned( 1463, c_HK_SPI_DATA_S))                       ; --! Housekeeping, HK_M2V5_ANA default value
+constant c_HK_P3V3_ANA_DEF    : std_logic_vector(c_HK_SPI_DATA_S-1 downto 0):=
+                                std_logic_vector(to_unsigned(  585, c_HK_SPI_DATA_S))                       ; --! Housekeeping, HK_P3V3_ANA default value
+constant c_HK_M5V0_ANA_DEF    : std_logic_vector(c_HK_SPI_DATA_S-1 downto 0):=
+                                std_logic_vector(to_unsigned( 1755, c_HK_SPI_DATA_S))                       ; --! Housekeeping, HK_M5V0_ANA default value
+constant c_HK_P1V2_DIG_DEF    : std_logic_vector(c_HK_SPI_DATA_S-1 downto 0):=
+                                std_logic_vector(to_unsigned( 2633, c_HK_SPI_DATA_S))                       ; --! Housekeeping, HK_P1V2_DIG default value
+constant c_HK_P2V5_DIG_DEF    : std_logic_vector(c_HK_SPI_DATA_S-1 downto 0):=
+                                std_logic_vector(to_unsigned( 2340, c_HK_SPI_DATA_S))                       ; --! Housekeeping, HK_P2V5_DIG default value
+constant c_HK_P2V5_AUX_DEF    : std_logic_vector(c_HK_SPI_DATA_S-1 downto 0):=
+                                std_logic_vector(to_unsigned( 3510, c_HK_SPI_DATA_S))                       ; --! Housekeeping, HK_P2V5_AUX default value
+constant c_HK_P3V3_DIG_DEF    : std_logic_vector(c_HK_SPI_DATA_S-1 downto 0):=
+                                std_logic_vector(to_unsigned( 2048, c_HK_SPI_DATA_S))                       ; --! Housekeeping, HK_P3V3_DIG default value
+constant c_HK_VREF_TMP_DEF    : std_logic_vector(c_HK_SPI_DATA_S-1 downto 0):=
+                                std_logic_vector(to_unsigned( 3803, c_HK_SPI_DATA_S))                       ; --! Housekeeping, HK_VREF_TMP default value
+constant c_HK_VREF_R2R_DEF    : std_logic_vector(c_HK_SPI_DATA_S-1 downto 0):=
+                                std_logic_vector(to_unsigned( 4000, c_HK_SPI_DATA_S))                       ; --! Housekeeping, HK_VREF_R2R default value
+constant c_HK_P5V0_ANA_DEF    : std_logic_vector(c_HK_SPI_DATA_S-1 downto 0):=
+                                std_logic_vector(to_unsigned(  293, c_HK_SPI_DATA_S))                       ; --! Housekeeping, HK_P5V0_ANA default value
+constant c_HK_TEMP_AVE_DEF    : std_logic_vector(c_HK_SPI_DATA_S-1 downto 0):=
+                                std_logic_vector(to_unsigned( 2925, c_HK_SPI_DATA_S))                       ; --! Housekeeping, HK_TEMP_AVE default value
+constant c_HK_TEMP_MAX_DEF    : std_logic_vector(c_HK_SPI_DATA_S-1 downto 0):=
+                                std_logic_vector(to_unsigned( 3218, c_HK_SPI_DATA_S))                       ; --! Housekeeping, HK_TEMP_MAX default value
+
    -- ------------------------------------------------------------------------------------------------------
    --!   Model constants
    -- ------------------------------------------------------------------------------------------------------
@@ -331,6 +363,19 @@ constant c_SCHK               : t_spi_chk_prm_arr(0 to c_CHK_ENA_SPI_NB-1) :=
    ); port
    (     o_clk_ref            : out    std_logic                                                            ; --! Reference Clock
          o_sync               : out    std_logic                                                              --! Pixel sequence synchronization (R.E. detected = position sequence to the first pixel)
+   );
+   end component;
+
+   component hk_model is generic
+   (     g_HK_MUX_TPS         : time   := c_HK_MUX_TPS_DEF                                                    --! HouseKeeping: Multiplexer, time Data Propagation switch in to out
+   ); port
+   (     i_hk1_mux            : in     std_logic_vector(c_HK_MUX_S-1 downto 0)                              ; --! HouseKeeping: Multiplexer
+         i_hk1_mux_ena_n      : in     std_logic                                                            ; --! HouseKeeping: Multiplexer Enable ('0' = Active, '1' = Inactive)
+
+         i_hk1_spi_mosi       : in     std_logic                                                            ; --! HouseKeeping: SPI Master Output Slave Input
+         i_hk1_spi_sclk       : in     std_logic                                                            ; --! HouseKeeping: SPI Serial Clock (CPOL = '1', CPHA = '1')
+         i_hk1_spi_cs_n       : in     std_logic                                                            ; --! HouseKeeping: SPI Chip Select ('0' = Active, '1' = Inactive)
+         o_hk1_spi_miso       : out    std_logic                                                              --! HouseKeeping: SPI Master Input Slave Output
    );
    end component;
 

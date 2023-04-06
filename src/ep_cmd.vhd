@@ -59,9 +59,8 @@ end entity ep_cmd;
 architecture RTL of ep_cmd is
 constant c_SPI_DATA_WD_LG_S   : integer := log2_ceil(c_EP_SPI_WD_S)                                         ; --! EP: SPI Receipted data word length minus 1 bus size
 constant c_ADD_ERR_RDY_S      : integer := 6                                                                ; --! EP command receipted: errors ready after address rx bus size
-constant c_OUT_ERR_RDY_FF_NB  : integer := 3                                                                ; --! Flip-Flop number for getting error out of range ready
 constant c_EP_CMD_TX_DT_FF_NB : integer := 15                                                               ; --! Flip-Flop number for getting EP command data word to transmit
-constant c_EP_SPI_WD_END_R_S  : integer := c_OUT_ERR_RDY_FF_NB + c_EP_CMD_TX_DT_FF_NB                       ; --! EP: SPI word end register bus size
+constant c_EP_SPI_WD_END_R_S  : integer := c_EP_CMD_REG_MX_STNB + c_EP_CMD_TX_DT_FF_NB                      ; --! EP: SPI word end register bus size
 
 signal   ep_spi_data_tx_wd    : std_logic_vector(c_EP_SPI_WD_S      -1 downto 0)                            ; --! EP: SPI Data word to transmit (stall on MSB)
 signal   ep_spi_data_tx_wd_nb : std_logic_vector(c_EP_SPI_TX_WD_NB_S-1 downto 0)                            ; --! EP: SPI Data word to transmit number
@@ -171,7 +170,7 @@ begin
          end if;
 
          ep_spi_wd_end_r      <= ep_spi_wd_end_r(ep_spi_wd_end_r'high-1 downto 0) & ep_spi_wd_end;
-         o_ep_cmd_rx_nerr_rdy <= ep_spi_wd_end_r(c_OUT_ERR_RDY_FF_NB) and not(ep_cmd_all_err xor c_EP_CMD_ERR_CLR);
+         o_ep_cmd_rx_nerr_rdy <= ep_spi_wd_end_r(c_EP_CMD_REG_MX_STNB) and not(ep_cmd_all_err xor c_EP_CMD_ERR_CLR);
 
       end if;
 

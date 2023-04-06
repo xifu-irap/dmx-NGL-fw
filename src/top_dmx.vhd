@@ -56,12 +56,12 @@ entity top_dmx is port
          o_science_ctrl_23    : out    std_logic                                                            ; --! Science Data: Control channel 2/3
          o_science_data       : out    t_slv_arr(0 to c_NB_COL)(c_SC_DATA_SER_NB-1 downto 0)                ; --! Science Data: Serial Data
 
-         i_hk1_spi_miso       : in     std_logic                                                            ; --! HouseKeeping 1: SPI Master Input Slave Output
-         o_hk1_spi_mosi       : out    std_logic                                                            ; --! HouseKeeping 1: SPI Master Output Slave Input
-         o_hk1_spi_sclk       : out    std_logic                                                            ; --! HouseKeeping 1: SPI Serial Clock (CPOL = '0', CPHA = '0')
-         o_hk1_spi_cs_n       : out    std_logic                                                            ; --! HouseKeeping 1: SPI Chip Select ('0' = Active, '1' = Inactive)
-         o_hk1_mux            : out    std_logic_vector(c_HK_MUX_S-1 downto 0)                              ; --! HouseKeeping 1: Multiplexer
-         o_hk1_mux_ena_n      : out    std_logic                                                            ; --! HouseKeeping 1: Multiplexer Enable ('0' = Active, '1' = Inactive)
+         i_hk1_spi_miso       : in     std_logic                                                            ; --! HouseKeeping: SPI Master Input Slave Output
+         o_hk1_spi_mosi       : out    std_logic                                                            ; --! HouseKeeping: SPI Master Output Slave Input
+         o_hk1_spi_sclk       : out    std_logic                                                            ; --! HouseKeeping: SPI Serial Clock (CPOL = '1', CPHA = '1')
+         o_hk1_spi_cs_n       : out    std_logic                                                            ; --! HouseKeeping: SPI Chip Select ('0' = Active, '1' = Inactive)
+         o_hk1_mux            : out    std_logic_vector(c_HK_MUX_S-1 downto 0)                              ; --! HouseKeeping: Multiplexer
+         o_hk1_mux_ena_n      : out    std_logic                                                            ; --! HouseKeeping: Multiplexer Enable ('0' = Active, '1' = Inactive)
 
          i_ep_spi_mosi        : in     std_logic                                                            ; --! EP: SPI Master Input Slave Output (MSB first)
          o_ep_spi_miso        : out    std_logic                                                            ; --! EP: SPI Master Output Slave Input (MSB first)
@@ -153,6 +153,7 @@ signal   ck_science           : std_logic                                       
 signal   science_ctrl         : std_logic                                                                   ; --! Science Data: Control channel
 signal   science_data_ser     : std_logic_vector(c_NB_COL*c_SC_DATA_SER_NB downto 0)                        ; --! Science Data: Serial Data
 
+signal   hk_err_nin           : std_logic                                                                   ; --! Housekeeping: Error parameter to read not initialized yet
 signal   ep_cmd_sts_err_add   : std_logic                                                                   ; --! EP command: Status, error invalid address
 signal   ep_cmd_sts_err_nin   : std_logic                                                                   ; --! EP command: Status, error parameter to read not initialized yet
 signal   ep_cmd_sts_err_dis   : std_logic                                                                   ; --! EP command: Status, error last SPI command discarded
@@ -191,6 +192,9 @@ signal   mem_tstpt            : t_mem_arr(0 to c_NB_COL-1)(
                                 add(c_MEM_TSTPT_ADD_S-1 downto 0),
                                 data_w(c_DFLD_TSTPT_S-1 downto 0))                                          ; --! Test pattern: memory inputs
 signal   tstpt_data           : std_logic_vector(c_DFLD_TSTPT_S-1 downto 0)                                 ; --! Test pattern: data read
+
+signal   mem_hkeep_add        : std_logic_vector(c_MEM_HKEEP_ADD_S-1 downto 0)                              ; --! Housekeeping: memory address
+signal   hkeep_data           : std_logic_vector(c_DFLD_HKEEP_S-1 downto 0)                                 ; --! Housekeeping: data read
 
 signal   mem_parma            : t_mem_arr(0 to c_NB_COL-1)(
                                 add(    c_MEM_PARMA_ADD_S-1 downto 0),
@@ -346,6 +350,7 @@ begin
 
          i_brd_ref_rs         => brd_ref_rs           , -- in     std_logic_vector(  c_BRD_REF_S-1 downto 0); --! Board reference, synchronized on System Clock
          i_brd_model_rs       => brd_model_rs         , -- in     std_logic_vector(c_BRD_MODEL_S-1 downto 0); --! Board model, synchronized on System Clock
+         i_hk_err_nin         => hk_err_nin           , -- in     std_logic                                 ; --! Housekeeping Error parameter to read not initialized yet
          i_dlflg              => dlflg                , -- in     t_slv_arr c_NB_COL c_DFLD_DLFLG_COL_S     ; --! Delock flag ('0' = No delock on pixels, '1' = Delock on at least one pixel)
 
          o_ep_cmd_sts_err_add => ep_cmd_sts_err_add   , -- out    std_logic                                 ; --! EP command: Status, error invalid address
@@ -386,6 +391,9 @@ begin
 
          o_mem_tstpt          => mem_tstpt            , -- out    t_mem_arr(0 to c_NB_COL-1)                ; --! Test pattern: memory inputs
          i_tstpt_data         => tstpt_data           , -- in     slv(c_DFLD_TSTPT_S-1 downto 0)            ; --! Test pattern: data read
+
+         o_mem_hkeep_add      => mem_hkeep_add        , -- out    slv(c_MEM_HKEEP_ADD_S-1 downto 0)         ; --! Housekeeping: memory address
+         i_hkeep_data         => hkeep_data           , -- in     slv(c_DFLD_HKEEP_S-1 downto 0)            ; --! Housekeeping: data read
 
          o_mem_parma          => mem_parma            , -- out    t_mem_arr(0 to c_NB_COL-1)                ; --! Parameter a(p): memory inputs
          i_parma_data         => parma_data           , -- in     t_slv_arr c_NB_COL c_DFLD_PARMA_PIX_S     ; --! Parameter a(p): data read
@@ -463,12 +471,16 @@ begin
    (     i_rst                => rst                  , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                => clk                  , -- in     std_logic                                 ; --! System Clock
 
-         i_hk1_spi_miso_rs    => hk1_spi_miso_rs      , -- in     std_logic                                 ; --! HouseKeeping 1: SPI Master Input Slave Output
-         o_hk1_spi_mosi       => o_hk1_spi_mosi       , -- out    std_logic                                 ; --! HouseKeeping 1: SPI Master Output Slave Input
-         o_hk1_spi_sclk       => o_hk1_spi_sclk       , -- out    std_logic                                 ; --! HouseKeeping 1: SPI Serial Clock (CPOL = '0', CPHA = '0')
-         o_hk1_spi_cs_n       => o_hk1_spi_cs_n       , -- out    std_logic                                 ; --! HouseKeeping 1: SPI Chip Select ('0' = Active, '1' = Inactive)
-         o_hk1_mux            => o_hk1_mux            , -- out    std_logic_vector( cc_HK_MUX_S-1 downto 0) ; --! HouseKeeping 1: Multiplexer
-         o_hk1_mux_ena_n      => o_hk1_mux_ena_n        -- out    std_logic                                   --! HouseKeeping 1: Multiplexer Enable ('0' = Active, '1' = Inactive)
+         i_mem_hkeep_add      => mem_hkeep_add        , -- in     slv(c_MEM_HKEEP_ADD_S-1 downto 0)         ; --! Housekeeping: memory address
+         o_hkeep_data         => hkeep_data           , -- out    slv(c_DFLD_HKEEP_S-1 downto 0)            ; --! Housekeeping: data read
+         o_hk_err_nin         => hk_err_nin           , -- out    std_logic                                 ; --! Housekeeping: Error parameter to read not initialized yet
+
+         i_hk1_spi_miso_rs    => hk1_spi_miso_rs      , -- in     std_logic                                 ; --! HouseKeeping: SPI Master Input Slave Output
+         o_hk1_spi_mosi       => o_hk1_spi_mosi       , -- out    std_logic                                 ; --! HouseKeeping: SPI Master Output Slave Input
+         o_hk1_spi_sclk       => o_hk1_spi_sclk       , -- out    std_logic                                 ; --! HouseKeeping: SPI Serial Clock (CPOL = '1', CPHA = '1')
+         o_hk1_spi_cs_n       => o_hk1_spi_cs_n       , -- out    std_logic                                 ; --! HouseKeeping: SPI Chip Select ('0' = Active, '1' = Inactive)
+         o_hk1_mux            => o_hk1_mux            , -- out    std_logic_vector( cc_HK_MUX_S-1 downto 0) ; --! HouseKeeping: Multiplexer
+         o_hk1_mux_ena_n      => o_hk1_mux_ena_n        -- out    std_logic                                   --! HouseKeeping: Multiplexer Enable ('0' = Active, '1' = Inactive)
    );
 
    -- ------------------------------------------------------------------------------------------------------

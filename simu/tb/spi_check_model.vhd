@@ -33,9 +33,11 @@ use     work.pkg_project.all;
 use     work.pkg_model.all;
 
 entity spi_check_model is port
-   (     i_hk1_spi_mosi       : in     std_logic                                                            ; --! HouseKeeping 1: SPI Master Output Slave Input
-         i_hk1_spi_sclk       : in     std_logic                                                            ; --! HouseKeeping 1: SPI Serial Clock (CPOL = '0', CPHA = '0')
-         i_hk1_spi_cs_n       : in     std_logic                                                            ; --! HouseKeeping 1: SPI Chip Select ('0' = Active, '1' = Inactive)
+   (     i_rst                : in     std_logic                                                            ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
+
+         i_hk1_spi_mosi       : in     std_logic                                                            ; --! HouseKeeping: SPI Master Output Slave Input
+         i_hk1_spi_sclk       : in     std_logic                                                            ; --! HouseKeeping: SPI Serial Clock (CPOL = '0', CPHA = '0')
+         i_hk1_spi_cs_n       : in     std_logic                                                            ; --! HouseKeeping: SPI Chip Select ('0' = Active, '1' = Inactive)
 
          i_sqa_dac_data       : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! SQUID AMP DAC: Serial Data
          i_sqa_dac_sclk       : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! SQUID AMP DAC: Serial Clock
@@ -81,7 +83,7 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   CS signals
    -- ------------------------------------------------------------------------------------------------------
-   spi_cs_n(c_SPIE_HK         - c_CHK_ENA_CLK_NB) <= i_hk1_spi_cs_n;
+   spi_cs_n(c_SPIE_HK         - c_CHK_ENA_CLK_NB) <= i_hk1_spi_cs_n or i_rst;
    spi_cs_n(c_SPIE_C0_SQA_LSB - c_CHK_ENA_CLK_NB) <= i_sqa_dac_snc_l_n(0);
    spi_cs_n(c_SPIE_C1_SQA_LSB - c_CHK_ENA_CLK_NB) <= i_sqa_dac_snc_l_n(1);
    spi_cs_n(c_SPIE_C2_SQA_LSB - c_CHK_ENA_CLK_NB) <= i_sqa_dac_snc_l_n(2);
