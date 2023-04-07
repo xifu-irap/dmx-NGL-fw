@@ -98,6 +98,7 @@ vcom -work fpasim  -2008 \
 "${PR_DIR}/src/hdl/utils/math/sub_sfixed.vhd" \
 
 vcom -work fpasim  -93 \
+"${PR_DIR}/ip/xilinx/xpm/ram/sdpram.vhd" \
 "${PR_DIR}/ip/xilinx/xpm/ram/tdpram.vhd" \
 "${PR_DIR}/src/hdl/utils/ram/ram_check.vhd" \
 "${PR_DIR}/src/hdl/fpasim/amp_squid/core/amp_squid_fpagain_table.vhd" \
