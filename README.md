@@ -1,2 +1,2 @@
-# dmx-NGL-fw
+# dmx-fw
 DRE-DEMUX TDM firmware
