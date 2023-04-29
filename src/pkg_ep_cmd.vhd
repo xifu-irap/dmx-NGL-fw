@@ -98,7 +98,7 @@ constant c_EP_CMD_POS_DLCNT   : integer   := c_EP_CMD_POS_RLTHR   + 1           
 
 constant c_EP_CMD_POS_LAST    : integer   := c_EP_CMD_POS_DLCNT   + 1                                       ; --! EP command: last position
 constant c_EP_CMD_REG_MX_STNB : integer   := 3                                                              ; --! EP command: Register multiplexer stage number
-constant c_EP_CMD_REG_MX_STIN : t_int_arr(0 to c_EP_CMD_REG_MX_STNB)   := (32, 40, 42, 43)                  ; --! EP command: Register inputs by multiplexer stage (accumulated)
+constant c_EP_CMD_REG_MX_STIN : t_int_arr(0 to c_EP_CMD_REG_MX_STNB+1) := ( 0, 32, 40, 42, 43)              ; --! EP command: Register inputs by multiplexer stage (accumulated)
 constant c_EP_CMD_REG_MX_INNB : t_int_arr(0 to c_EP_CMD_REG_MX_STNB-1) := ( 4,  4,  2)                      ; --! EP command: Register inputs by multiplexer
 
    -- ------------------------------------------------------------------------------------------------------
@@ -393,33 +393,68 @@ constant c_NRM_PN_FRC_S       : integer := c_FB_PN_FRC_S                        
 constant c_NRM_PN_LSB         : integer := c_SQM_ADC_DATA_S + c_NRM_PN_TOT_FRC_S - c_NRM_PN_C_S             ; --! NRM(p,n): DSP Result LSB position
 
    -- ------------------------------------------------------------------------------------------------------
-   --    EP command: Default value
+   --    EP command: Default value register
    -- ------------------------------------------------------------------------------------------------------
-constant c_EP_CMD_DEF_AQMDE   : std_logic_vector(c_DFLD_AQMDE_S-1 downto 0)      := c_DST_AQMDE_IDLE        ; --! EP command: Default value, DATA_ACQ_MODE
+constant c_EP_CMD_DEF_AQMDE_I : integer := to_integer(unsigned(c_DST_AQMDE_IDLE))                           ; --! EP command: Default value (integer), DATA_ACQ_MODE
+constant c_EP_CMD_DEF_SMFMD_I : integer := to_integer(unsigned(c_DST_SMFMD_OFF))                            ; --! EP command: Default value (integer), SQ_MUX_FB_ON_OFF
+constant c_EP_CMD_DEF_SAOFM_I : integer := to_integer(unsigned(c_DST_SAOFM_OFF))                            ; --! EP command: Default value (integer), SQ_AMP_OFFSET_MODE
+constant c_EP_CMD_DEF_TSTEN_I : integer := 0                                                                ; --! EP command: Default value (integer), TEST_PATTERN_ENABLE
+constant c_EP_CMD_DEF_BXLGT_I : integer := 0                                                                ; --! EP command: Default value (integer), BOXCAR_LENGTH
+constant c_EP_CMD_DEF_DLFLG_I : integer := 0                                                                ; --! EP command: Default value (integer), DELOCK_FLAG
+constant c_EP_CMD_DEF_SAOFC_I : integer := 0                                                                ; --! EP command: Default value (integer), CY_AMP_SQ_OFFSET_COARSE
+constant c_EP_CMD_DEF_SAOFL_I : integer := 0                                                                ; --! EP command: Default value (integer), CY_AMP_SQ_OFFSET_LSB
+constant c_EP_CMD_DEF_SMFBD_I : integer := 0                                                                ; --! EP command: Default value (integer), CY_MUX_SQ_FB_DELAY
+constant c_EP_CMD_DEF_SAODD_I : integer := 0                                                                ; --! EP command: Default value (integer), CY_AMP_SQ_OFFSET_DAC_DELAY
+constant c_EP_CMD_DEF_SAOMD_I : integer := 0                                                                ; --! EP command: Default value (integer), CY_AMP_SQ_OFFSET_MUX_DELAY
+constant c_EP_CMD_DEF_SMPDL_I : integer := 0                                                                ; --! EP command: Default value (integer), CY_SAMPLING_DELAY
+constant c_EP_CMD_DEF_PLSSS_I : integer := to_integer(unsigned(c_DST_PLSSS_PLS_1))                          ; --! EP command: Default value (integer), CY_FB1_PULSE_SHAPING_SELECTION
+constant c_EP_CMD_DEF_RLDEL_I : integer := 2**c_DFLD_RLDEL_COL_S - 1                                        ; --! EP command: Default value (integer), CY_RELOCK_DELAY
+constant c_EP_CMD_DEF_RLTHR_I : integer := 2**c_DFLD_RLTHR_COL_S - 1                                        ; --! EP command: Default value (integer), CY_RELOCK_THRESHOLD
 
-constant c_EP_CMD_DEF_SMFMD   : std_logic_vector(c_DFLD_SMFMD_COL_S-1 downto 0)  := c_DST_SMFMD_OFF         ; --! EP command: Default value, SQ_MUX_FB_ON_OFF
-constant c_EP_CMD_DEF_SAOFM   : std_logic_vector(c_DFLD_SAOFM_COL_S-1 downto 0)  := c_DST_SAOFM_OFF         ; --! EP command: Default value, SQ_AMP_OFFSET_MODE
-constant c_EP_CMD_DEF_TSTPT   : t_int_arr(0 to 2*c_TAB_TSTPT_NW-1)               := (others => 0)           ; --! EP command: Default value, TEST_PATTERN
-constant c_EP_CMD_DEF_TSTEN   : std_logic_vector(c_DFLD_TSTEN_S-1 downto 0)      :=
-                                std_logic_vector(to_unsigned(0, c_DFLD_TSTEN_S))                            ; --! EP command: Default value, TEST_PATTERN_ENABLE
-constant c_EP_CMD_DEF_BXLGT   : std_logic_vector(c_DFLD_BXLGT_COL_S-1 downto 0)  :=
-                                std_logic_vector(to_unsigned(0, c_DFLD_BXLGT_COL_S))                        ; --! EP command: Default value, BOXCAR_LENGTH
-constant c_EP_CMD_DEF_DLFLG   : std_logic_vector(c_DFLD_DLFLG_COL_S-1 downto 0)  :=
-                                std_logic_vector(to_unsigned(0, c_DFLD_DLFLG_COL_S))                        ; --! EP command: Default value, DELOCK_FLAG
+constant c_EP_CMD_DEF_AQMDE   : std_logic_vector(    c_DFLD_AQMDE_S-1 downto 0):=
+                                std_logic_vector(to_unsigned(c_EP_CMD_DEF_AQMDE_I, c_DFLD_AQMDE_S))         ; --! EP command: Default value, DATA_ACQ_MODE
+constant c_EP_CMD_DEF_SMFMD   : std_logic_vector(c_DFLD_SMFMD_COL_S-1 downto 0):=
+                                std_logic_vector(to_unsigned(c_EP_CMD_DEF_SMFMD_I, c_DFLD_SMFMD_COL_S))     ; --! EP command: Default value, SQ_MUX_FB_ON_OFF
+constant c_EP_CMD_DEF_SAOFM   : std_logic_vector(c_DFLD_SAOFM_COL_S-1 downto 0):=
+                                std_logic_vector(to_unsigned(c_EP_CMD_DEF_SAOFM_I, c_DFLD_SAOFM_COL_S))     ; --! EP command: Default value, SQ_AMP_OFFSET_MODE
+constant c_EP_CMD_DEF_TSTEN   : std_logic_vector(    c_DFLD_TSTEN_S-1 downto 0):=
+                                std_logic_vector(to_unsigned(c_EP_CMD_DEF_TSTEN_I, c_DFLD_TSTEN_S))         ; --! EP command: Default value, TEST_PATTERN_ENABLE
+constant c_EP_CMD_DEF_BXLGT   : std_logic_vector(c_DFLD_BXLGT_COL_S-1 downto 0):=
+                                std_logic_vector(to_unsigned(c_EP_CMD_DEF_BXLGT_I, c_DFLD_BXLGT_COL_S))     ; --! EP command: Default value, BOXCAR_LENGTH
+constant c_EP_CMD_DEF_DLFLG   : std_logic_vector(c_DFLD_DLFLG_COL_S-1 downto 0):=
+                                std_logic_vector(to_unsigned(c_EP_CMD_DEF_DLFLG_I, c_DFLD_DLFLG_COL_S))     ; --! EP command: Default value, DELOCK_FLAG
+constant c_EP_CMD_DEF_SAOFC   : std_logic_vector(c_DFLD_SAOFC_COL_S-1 downto 0):=
+                                std_logic_vector(to_unsigned(c_EP_CMD_DEF_SAOFC_I ,c_DFLD_SAOFC_COL_S))     ; --! EP command: Default value, CY_AMP_SQ_OFFSET_COARSE
+constant c_EP_CMD_DEF_SAOFL   : std_logic_vector(c_DFLD_SAOFL_COL_S-1 downto 0):=
+                                std_logic_vector(to_unsigned(c_EP_CMD_DEF_SAOFL_I, c_DFLD_SAOFL_COL_S))     ; --! EP command: Default value, CY_AMP_SQ_OFFSET_LSB
+constant c_EP_CMD_DEF_SMFBD   : std_logic_vector(c_DFLD_SMFBD_COL_S-1 downto 0):=
+                                std_logic_vector(to_unsigned(c_EP_CMD_DEF_SMFBD_I, c_DFLD_SMFBD_COL_S))     ; --! EP command: Default value, CY_MUX_SQ_FB_DELAY
+constant c_EP_CMD_DEF_SAODD   : std_logic_vector(c_DFLD_SAODD_COL_S-1 downto 0):=
+                                std_logic_vector(to_unsigned(c_EP_CMD_DEF_SAODD_I, c_DFLD_SAODD_COL_S))     ; --! EP command: Default value, CY_AMP_SQ_OFFSET_DAC_DELAY
+constant c_EP_CMD_DEF_SAOMD   : std_logic_vector(c_DFLD_SAOMD_COL_S-1 downto 0):=
+                                std_logic_vector(to_unsigned(c_EP_CMD_DEF_SAOMD_I, c_DFLD_SAOMD_COL_S))     ; --! EP command: Default value, CY_AMP_SQ_OFFSET_MUX_DELAY
+constant c_EP_CMD_DEF_SMPDL   : std_logic_vector(c_DFLD_SMPDL_COL_S-1 downto 0):=
+                                std_logic_vector(to_unsigned(c_EP_CMD_DEF_SMPDL_I, c_DFLD_SMPDL_COL_S))     ; --! EP command: Default value, CY_SAMPLING_DELAY
+constant c_EP_CMD_DEF_PLSSS   : std_logic_vector(c_DFLD_PLSSS_PLS_S-1 downto 0):=
+                                std_logic_vector(to_unsigned(c_EP_CMD_DEF_PLSSS_I, c_DFLD_PLSSS_PLS_S))     ; --! EP command: Default value, CY_FB1_PULSE_SHAPING_SELECTION
+constant c_EP_CMD_DEF_RLDEL   : std_logic_vector(c_DFLD_RLDEL_COL_S-1 downto 0):=
+                                std_logic_vector(to_unsigned(c_EP_CMD_DEF_RLDEL_I, c_DFLD_RLDEL_COL_S))     ; --! EP command: Default value, CY_RELOCK_DELAY
+constant c_EP_CMD_DEF_RLTHR   : std_logic_vector(c_DFLD_RLTHR_COL_S-1 downto 0):=
+                                std_logic_vector(to_unsigned(c_EP_CMD_DEF_RLTHR_I, c_DFLD_RLTHR_COL_S))     ; --! EP command: Default value, CY_RELOCK_THRESHOLD
 
-constant c_DEF_PARMA_RL       : real := 0.2                                                                 ; --! Default value in real, CY_A
-constant c_DEF_KI_RL          : real := 2.2                                                                 ; --! Default value in real, KI parameter
-constant c_DEF_KNORM_RL       : real := 0.1076438                                                           ; --! Default value in real, CY_KNORM
-constant c_DEF_KIKNM_RL       : real := c_DEF_KI_RL * c_DEF_KNORM_RL                                        ; --! Default value in real, CY_KI_KNORM
+   -- ------------------------------------------------------------------------------------------------------
+   --    EP command: Default value memory
+   -- ------------------------------------------------------------------------------------------------------
+constant c_EP_CMD_DEF_TSTPT   : t_int_arr(0 to 2*c_TAB_TSTPT_NW-1) := (others => 0)                         ; --! EP command: Default value, TEST_PATTERN
 
 constant c_EP_CMD_DEF_PARMA   : t_int_arr(0 to 2*c_TAB_PARMA_NW-1) :=
-                                (others => integer(round(c_DEF_PARMA_RL * real(2**c_A_P_FRC_S))))           ; --! EP command: Default value, CY_A memory with ping-pong buffer bit
+                                (others => integer(round(0.2 * real(2**c_A_P_FRC_S))))                      ; --! EP command: Default value, CY_A memory with ping-pong buffer bit
 
 constant c_EP_CMD_DEF_KIKNM   : t_int_arr(0 to 2*c_TAB_KIKNM_NW-1) :=
-                                (others => integer(round(c_DEF_KIKNM_RL * real(2**c_KI_KNORM_P_FRC_S))))    ; --! EP command: Default value, CY_KI_KNORM memory with ping-pong buffer bit
+                                (others => integer(round(0.23681636 * real(2**c_KI_KNORM_P_FRC_S))))        ; --! EP command: Default value, CY_KI_KNORM memory with ping-pong buffer bit
 
 constant c_EP_CMD_DEF_KNORM   : t_int_arr(0 to 2*c_TAB_KNORM_NW-1) :=
-                                (others => integer(round(c_DEF_KNORM_RL * real(2**c_KNORM_P_FRC_S))))       ; --! EP command: Default value, CY_KNORM memory with ping-pong buffer bit
+                                (others => integer(round(0.1076438 * real(2**c_KNORM_P_FRC_S))))            ; --! EP command: Default value, CY_KNORM memory with ping-pong buffer bit
 
 constant c_EP_CMD_DEF_SMFB0   : t_int_arr(0 to 2*c_TAB_SMFB0_NW-1) := (others => 0)                         ; --! EP command: Default value, CY_MUX_SQ_FB0 memory with ping-pong buffer bit
 
@@ -430,22 +465,6 @@ constant c_EP_CMD_DEF_SMFBM   : t_int_arr(0 to 2*c_TAB_SMFBM_NW-1) :=
                                 (others => to_integer(unsigned(c_DST_SMFBM_OPEN)))                          ; --! EP command: Default value, CY_MUX_SQ_FB_MODE memory with ping-pong buffer bit
 
 constant c_EP_CMD_DEF_SAOFF   : t_int_arr(0 to 2*c_TAB_SAOFF_NW-1) := (others => 0)                         ; --! EP command: Default value, CY_AMP_SQ_OFFSET_FINE memory with ping-pong buffer bit
-constant c_EP_CMD_DEF_SAOFC   : std_logic_vector(c_DFLD_SAOFC_COL_S-1 downto 0):=
-                                std_logic_vector(to_unsigned(0 ,c_DFLD_SAOFC_COL_S))                        ; --! EP command: Default value, CY_AMP_SQ_OFFSET_COARSE
-constant c_EP_CMD_DEF_SAOFL   : std_logic_vector(c_DFLD_SAOFL_COL_S-1 downto 0):=
-                                std_logic_vector(to_unsigned(0, c_DFLD_SAOFL_COL_S))                        ; --! EP command: Default value, CY_AMP_SQ_OFFSET_LSB
-
-constant c_EP_CMD_DEF_SMFBD   : std_logic_vector(c_DFLD_SMFBD_COL_S-1 downto 0):=
-                                std_logic_vector(to_unsigned(0, c_DFLD_SMFBD_COL_S))                        ; --! EP command: Default value, CY_MUX_SQ_FB_DELAY
-
-constant c_EP_CMD_DEF_SAODD   : std_logic_vector(c_DFLD_SAODD_COL_S-1 downto 0):=
-                                std_logic_vector(to_unsigned(0, c_DFLD_SAODD_COL_S))                        ; --! EP command: Default value, CY_AMP_SQ_OFFSET_DAC_DELAY
-
-constant c_EP_CMD_DEF_SAOMD   : std_logic_vector(c_DFLD_SAOMD_COL_S-1 downto 0):=
-                                std_logic_vector(to_unsigned(0, c_DFLD_SAOMD_COL_S))                        ; --! EP command: Default value, CY_AMP_SQ_OFFSET_MUX_DELAY
-
-constant c_EP_CMD_DEF_SMPDL   : std_logic_vector(c_DFLD_SMPDL_COL_S-1 downto 0):=
-                                std_logic_vector(to_unsigned(0, c_DFLD_SMPDL_COL_S))                        ; --! EP command: Default value, CY_SAMPLING_DELAY
 
 constant c_EP_CMD_DEF_PLSSH   : t_int_arr(0 to 2**(c_MEM_PLSSH_ADD_S+1)-1) :=
                                 (    0,     0,     0,     0,     0,     0,     0,     0,
@@ -488,10 +507,6 @@ constant c_EP_CMD_DEF_PLSSH   : t_int_arr(0 to 2**(c_MEM_PLSSH_ADD_S+1)-1) :=
                                      0,     0,     0,     0,     0,     0,     0,     0,
                                      0,     0,     0,     0,     0,     0,     0,     0)                    ; --! EP command: Default value, CY_FB1_PULSE_SHAPING mem. (fc=No filter/20/25/30 MHz)
 
-constant c_EP_CMD_DEF_PLSSS   : std_logic_vector(c_DFLD_PLSSS_PLS_S-1 downto 0):= c_DST_PLSSS_PLS_1         ; --! EP command: Default value, CY_FB1_PULSE_SHAPING_SELECTION
-constant c_EP_CMD_DEF_RLDEL   : std_logic_vector(c_DFLD_RLDEL_COL_S-1 downto 0):= (others => '1')           ; --! EP command: Default value, CY_RELOCK_DELAY
-constant c_EP_CMD_DEF_RLTHR   : std_logic_vector(c_DFLD_RLTHR_COL_S-1 downto 0):= (others => '1')           ; --! EP command: Default value, CY_RELOCK_THRESHOLD
 constant c_EP_CMD_DEF_DLCNT   : t_int_arr(0 to 2*c_TAB_DLCNT_NW-1) := (others => 0)                         ; --! EP command: Default value, CY_DELOCK_COUNTERS
-
 
 end pkg_ep_cmd;

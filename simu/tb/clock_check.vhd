@@ -31,13 +31,13 @@ library work;
 use     work.pkg_type.all;
 use     work.pkg_model.all;
 
-entity clock_check is generic
-   (     g_CLK_PER_L          : time                                                                        ; --! Low  level clock period expected time
+entity clock_check is generic (
+         g_CLK_PER_L          : time                                                                        ; --! Low  level clock period expected time
          g_CLK_PER_H          : time                                                                        ; --! High level clock period expected time
          g_CLK_ST_ENA         : std_logic                                                                   ; --! Clock state value when enable goes to active
          g_CLK_ST_DIS         : std_logic                                                                     --! Clock state value when enable goes to inactive
-   ); port
-   (     i_clk                : in     std_logic                                                            ; --! Clock
+   ); port (
+         i_clk                : in     std_logic                                                            ; --! Clock
          i_ena                : in     std_logic                                                            ; --! Enable ('0' = Inactive, '1' = Active)
          i_chk_osc_ena_l      : in     std_logic                                                            ; --! Check oscillation on clock when enable inactive ('0' = No, '1' = Yes)
 

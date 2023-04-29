@@ -29,15 +29,15 @@ use     ieee.std_logic_1164.all;
 use     ieee.numeric_std.all;
 use     ieee.math_real.all;
 
-entity spi_slave is generic
-   (     g_CPOL               : std_logic                                                                   ; --! Clock polarity
+entity spi_slave is generic (
+         g_CPOL               : std_logic                                                                   ; --! Clock polarity
          g_CPHA               : std_logic                                                                   ; --! Clock phase
          g_DTA_TX_WD_S        : integer                                                                     ; --! Data word to transmit bus size
          g_DTA_TX_WD_NB_S     : integer                                                                     ; --! Data word to transmit number size
          g_DTA_RX_WD_S        : integer                                                                     ; --! Receipted data word bus size
          g_DTA_RX_WD_NB_S     : integer                                                                       --! Receipted data word number size
-   ); port
-   (     i_rst                : in     std_logic                                                            ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+   ); port (
+         i_rst                : in     std_logic                                                            ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                : in     std_logic                                                            ; --! Clock
 
          i_data_tx_wd         : in     std_logic_vector(g_DTA_TX_WD_S   -1 downto 0)                        ; --! Data word to transmit (stall on MSB)
@@ -307,4 +307,4 @@ begin
 
    end process P_data_rx;
 
-end architecture rtl;
+end architecture RTL;

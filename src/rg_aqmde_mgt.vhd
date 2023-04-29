@@ -17,68 +17,84 @@
 --                            along with this program.  If not, see <https://www.gnu.org/licenses/>.
 -- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --    email                   slaurent@nanoxplore.com
---!   @file                   adder_sat.vhd
+--!   @file                   rg_aqmde_mgt.vhd
 -- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --    Automatic Generation    No
 --    Code Rules Reference    SOC of design and VHDL handbook for VLSI development, CNES Edition (v2.1)
 -- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
---!   @details                Adder and saturation on 1 clock cycle
+--!   @details                Register AQMDE Telemetry mode management
 -- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 library ieee;
 use     ieee.std_logic_1164.all;
-use     ieee.numeric_std.all;
 
-entity adder_sat is generic (
-         g_DATA_S             : integer                                                                       --! Data bus size
-   ); port (
+library work;
+use     work.pkg_type.all;
+use     work.pkg_func_math.all;
+use     work.pkg_project.all;
+use     work.pkg_ep_cmd.all;
+
+entity rg_aqmde_mgt is port (
          i_rst                : in     std_logic                                                            ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                : in     std_logic                                                            ; --! System Clock
 
-         i_data_fst           : in     std_logic_vector(g_DATA_S-1 downto 0)                                ; --! Data first (signed)
-         i_data_sec           : in     std_logic_vector(g_DATA_S-1 downto 0)                                ; --! Data second (signed)
+         i_ep_cmd_rx_wd_dta_r : in     std_logic_vector(c_EP_SPI_WD_S-1 downto 0)                           ; --! EP command receipted: data word, registered
+         i_ep_cmd_rx_rw_r     : in     std_logic                                                            ; --! EP command receipted: read/write bit, registered
+         i_ep_cmd_rx_ner_ry_r : in     std_logic                                                            ; --! EP command receipted with no error ready, registered ('0'= Not ready, '1'= Ready)
+         i_cs_rg_aqdme        : in     std_logic                                                            ; --! Chip selects register AQMDE
 
-         o_data_add_sat       : out    std_logic_vector(g_DATA_S-1 downto 0)                                  --! Data added with saturation (signed)
+         i_tst_pat_end_re     : in     std_logic                                                            ; --! Test pattern end of all patterns rising edge ('0' = Inactive, '1' = Active)
+         i_aqmde_dmp_tx_end   : in     std_logic                                                            ; --! Telemetry mode, dump transmit end ('0' = Inactive, '1' = Active)
+
+         o_aqmde              : out    std_logic_vector(c_DFLD_AQMDE_S-1 downto 0)                          ; --! Telemetry mode
+         o_rg_aqmde_dmp_cmp   : out    std_logic                                                              --! EP register: DATA_ACQ_MODE, status "Dump" compared ('0' = Inactive, '1' = Active)
    );
-end entity adder_sat;
+end entity rg_aqmde_mgt;
 
-architecture RTL of adder_sat is
-signal   data_add             : std_logic_vector(g_DATA_S-1 downto 0)                                       ; --! Data added
+architecture RTL of rg_aqmde_mgt is
+signal   rg_aqmde_sav         : std_logic_vector(c_DFLD_AQMDE_S-1 downto 0)                                 ; --! EP register: DATA_ACQ_MODE save previous mode
 
 begin
 
    -- ------------------------------------------------------------------------------------------------------
-   --!   Data added
+   --!   EP command: Register writing management
    -- ------------------------------------------------------------------------------------------------------
-   data_add <= std_logic_vector(signed(i_data_fst) + signed(i_data_sec));
-
-   -- ------------------------------------------------------------------------------------------------------
-   --!   Data added with saturation
-   -- ------------------------------------------------------------------------------------------------------
-   P_data_add_sat : process (i_rst, i_clk)
+   P_aqmde : process (i_rst, i_clk)
    begin
 
       if i_rst = '1' then
-         o_data_add_sat <= (others => '0');
+         o_aqmde      <= c_DST_AQMDE_IDLE;
+         rg_aqmde_sav <= c_DST_AQMDE_IDLE;
 
       elsif rising_edge(i_clk) then
 
-         -- Saturation on minimum value
-         if    (    i_data_fst(i_data_fst'high)  and     i_data_sec(i_data_sec'high)  and not(data_add(data_add'high))) = '1' then
-            o_data_add_sat(o_data_add_sat'high)            <= '1';
-            o_data_add_sat(o_data_add_sat'high-1 downto 0) <= (others => '0');
+         if i_ep_cmd_rx_ner_ry_r = '1' and i_ep_cmd_rx_rw_r = c_EP_CMD_ADD_RW_W and i_cs_rg_aqdme = '1' then
+            o_aqmde <= i_ep_cmd_rx_wd_dta_r(o_aqmde'high downto 0);
 
-         -- Saturation on maximum value
-         elsif (not(i_data_fst(i_data_fst'high)) and not(i_data_sec(i_data_sec'high)) and     data_add(data_add'high))  = '1' then
-            o_data_add_sat(o_data_add_sat'high)            <= '0';
-            o_data_add_sat(o_data_add_sat'high-1 downto 0) <= (others => '1');
+         elsif (o_aqmde = c_DST_AQMDE_TEST and i_tst_pat_end_re = '1') or (o_aqmde = c_DST_AQMDE_DUMP and i_aqmde_dmp_tx_end = '1') then
+            o_aqmde <= rg_aqmde_sav;
 
-         else
-            o_data_add_sat <= data_add;
+         end if;
+
+         if i_ep_cmd_rx_ner_ry_r = '1' and i_ep_cmd_rx_rw_r = c_EP_CMD_ADD_RW_W then
+
+            if i_cs_rg_aqdme = '1' then
+               if i_ep_cmd_rx_wd_dta_r(c_DFLD_AQMDE_S-1 downto 0) = c_DST_AQMDE_TEST or
+                 (i_ep_cmd_rx_wd_dta_r(c_DFLD_AQMDE_S-1 downto 0) = c_DST_AQMDE_DUMP and o_aqmde = c_DST_AQMDE_TEST) then
+                  rg_aqmde_sav <= c_DST_AQMDE_IDLE;
+
+               else
+                  rg_aqmde_sav <= o_aqmde;
+
+               end if;
+
+            end if;
 
          end if;
 
       end if;
 
-   end process P_data_add_sat;
+   end process P_aqmde;
+
+   o_rg_aqmde_dmp_cmp <= '1' when o_aqmde = c_DST_AQMDE_DUMP else '0';
 
 end architecture RTL;

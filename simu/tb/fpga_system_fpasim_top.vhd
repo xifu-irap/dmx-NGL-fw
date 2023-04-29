@@ -32,8 +32,8 @@ library work;
 use     work.pkg_project.all;
 use     work.pkg_model.all;
 
-entity fpga_system_fpasim_top is generic
-   (     g_ADC_VPP            : natural := c_FPA_ADC_VPP_DEF                                                ; --! ADC differential input voltage (Volt)
+entity fpga_system_fpasim_top is generic (
+         g_ADC_VPP            : natural := c_FPA_ADC_VPP_DEF                                                ; --! ADC differential input voltage (Volt)
          g_ADC_DELAY          : natural := c_FPA_ADC_DEL_DEF                                                ; --! ADC conversion delay (clock cycle number)
          g_DAC_VPP            : natural := c_FPA_DAC_VPP_DEF                                                ; --! DAC differential output voltage (Volt)
          g_DAC_DELAY          : natural := c_FPA_DAC_DEL_DEF                                                ; --! DAC conversion delay (clock cycle number)
@@ -44,8 +44,8 @@ entity fpga_system_fpasim_top is generic
          g_RA_DELAY           : natural := c_FPA_SYNC_DEL_DEF                                               ; --! FPASIM cmd: Pixel sequence sync. delay (clock cycle number) (<= 63)
          g_NB_PIXEL_BY_FRAME  : natural := c_MUX_FACT                                                       ; --! DEMUX multiplexing factor
          g_NB_SAMPLE_BY_PIXEL : natural := c_FPA_PXL_NB_CYC_DEF                                               --! Clock cycles number by pixel
-   ); port
-   (     i_make_pulse_valid   : in     std_logic                                                            ; --! FPASIM command valid ('0' = No, '1' = Yes)
+   ); port (
+         i_make_pulse_valid   : in     std_logic                                                            ; --! FPASIM command valid ('0' = No, '1' = Yes)
          i_make_pulse         : in     std_logic_vector(c_FPA_CMD_S-1 downto 0)                             ; --! FPASIM command
          o_auto_conf_busy     : out    std_logic                                                            ; --! FPASIM configuration ('0' = conf. over, '1' = conf. in progress)
          o_ready              : out    std_logic                                                            ; --! FPASIM command ready ('0' = No, '1' = Yes)
@@ -76,8 +76,8 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   Clock reference generation
    -- ------------------------------------------------------------------------------------------------------
-   I_clock_model: clock_model port map
-   (     o_clk_ref            => o_ref_clk            , -- out    std_logic                                 ; --! Reference Clock
+   I_clock_model: clock_model port map (
+         o_clk_ref            => o_ref_clk            , -- out    std_logic                                 ; --! Reference Clock
          o_sync               => o_sync                 -- out    std_logic                                   --! Pixel sequence synchronization (R.E. detected = position sequence to the first pixel)
    );
 

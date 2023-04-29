@@ -32,8 +32,8 @@ library work;
 use     work.pkg_project.all;
 use     work.pkg_ep_cmd.all;
 
-entity sts_err_wrt_mgt is port
-   (     i_rst                : in     std_logic                                                            ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+entity sts_err_wrt_mgt is port (
+         i_rst                : in     std_logic                                                            ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                : in     std_logic                                                            ; --! Clock
 
          i_ep_cmd_rx_add_norw : in     std_logic_vector(c_EP_SPI_WD_S-1 downto 0)                           ; --! EP command receipted: address word, read/write bit cleared

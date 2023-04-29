@@ -36,13 +36,13 @@ use     work.pkg_project.all;
 library nx;
 use     nx.nxpackage.all;
 
-entity dmem_ecc is generic
-   (     g_RAM_TYPE           : integer                                                                     ; --! Memory type ( 0  = Data transfer,  1  = Parameters storage)
+entity dmem_ecc is generic (
+         g_RAM_TYPE           : integer                                                                     ; --! Memory type ( 0  = Data transfer,  1  = Parameters storage)
          g_RAM_ADD_S          : integer                                                                     ; --! Memory address bus size (<= c_RAM_ECC_ADD_S)
          g_RAM_DATA_S         : integer                                                                     ; --! Memory data bus size (<= c_RAM_DATA_S)
          g_RAM_INIT           : t_int_arr                                                                     --! Memory content at initialization
-   ); port
-   (     i_a_rst              : in     std_logic                                                            ; --! Memory port A: registers reset ('0' = Inactive, '1' = Active)
+   ); port (
+         i_a_rst              : in     std_logic                                                            ; --! Memory port A: registers reset ('0' = Inactive, '1' = Active)
          i_a_clk              : in     std_logic                                                            ; --! Memory port A: main clock
          i_a_clk_shift        : in     std_logic                                                            ; --! Memory port A: 90 degrees shifted clock (used for memory content correction)
 
@@ -84,11 +84,11 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    G_mem_prm_store: if g_RAM_TYPE = c_RAM_TYPE_PRM_STORE generate
 
-      I_mem_scrubbing: entity work.mem_scrubbing generic map
-      (  c_MEM_ADD_S          => g_RAM_ADD_S          , -- integer                                          ; --! Memory address size (no ping-pong buffer bit)
-         c_MEM_DATA_S         => g_RAM_DATA_S           -- integer                                            --! Memory Data to write in memory size
-      ) port map
-      (  i_rst                => i_a_rst              , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+      I_mem_scrubbing: entity work.mem_scrubbing generic map (
+         g_MEM_ADD_S          => g_RAM_ADD_S          , -- integer                                          ; --! Memory address size (no ping-pong buffer bit)
+         g_MEM_DATA_S         => g_RAM_DATA_S           -- integer                                            --! Memory Data to write in memory size
+      ) port map (
+         i_rst                => i_a_rst              , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                => i_a_clk              , -- in     std_logic                                 ; --! System Clock
          i_mem_no_scrub       => i_a_mem              , -- in     t_mem( add(c_MEM_ADD_S-1 downto 0), ... ) ; --! Memory signals no scrubbing
          o_mem_with_scrub     => a_mem                  -- out    t_mem( add(c_MEM_ADD_S   downto 0), ... )   --! Memory signals with scrubbing and ping-pong buffer bit for address management
@@ -119,8 +119,8 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   NX_RAM_WRAP IpCore instantiation
    -- ------------------------------------------------------------------------------------------------------
-   I_RAM: entity nx.nx_ram_wrap generic map
-   (     STD_MODE             => c_RAM_TYPE           , -- string                                           ; --! RAM predefined operating mode
+   I_ram: entity nx.nx_ram_wrap generic map (
+         STD_MODE             => c_RAM_TYPE           , -- string                                           ; --! RAM predefined operating mode
          MCKA_EDGE            => c_RAM_CLK_RE         , -- bit                                              ; --! Memory port A: clock front polarity ('0' = rising edge, '1' = falling edge)
          MCKB_EDGE            => c_RAM_CLK_RE         , -- bit                                              ; --! Memory port B: clock front polarity ('0' = rising edge, '1' = falling edge)
          PCKA_EDGE            => c_RAM_CLK_RE         , -- bit                                              ; --! Memory port A: register clock front polarity ('0' = rising edge, '1' = falling edge)
@@ -134,8 +134,8 @@ begin
          RAW_L_ENABLE         => c_RAM_NG_LARGE       , -- bit                                              ; --! FPGA target('0' = NG-MEDIUM, '1' = NG-LARGE)
          RAW_L_EXTEND         => (others => '0')      , -- bit_vector( 3 downto 0)                          ; --! Not used
          MEM_CTXT             => c_RAM_INIT             -- string                                             --! Memory content at initialization
-   )     port map
-   (     ar                   => i_a_rst              , -- in     std_logic                                 ; --! Memory port A: registers reset ('0' = Inactive, '1' = Active)
+   )     port map (
+         ar                   => i_a_rst              , -- in     std_logic                                 ; --! Memory port A: registers reset ('0' = Inactive, '1' = Active)
          ackr                 => i_a_clk              , -- in     std_logic                                 ; --! Memory port A: registers clock
          ack                  => i_a_clk              , -- in     std_logic                                 ; --! Memory port A: main clock
          ackd                 => i_a_clk_shift        , -- in     std_logic                                 ; --! Memory port A: 90 degrees shifted clock (used for memory content correction)
@@ -167,4 +167,4 @@ begin
    o_a_data_out <= std_logic_vector(resize(unsigned(a_data_out_mem), o_a_data_out'length));
    o_b_data_out <= std_logic_vector(resize(unsigned(b_data_out_mem), o_b_data_out'length));
 
-end architecture rtl;
+end architecture RTL;

@@ -143,8 +143,8 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   DEMUX: Top level
    -- ------------------------------------------------------------------------------------------------------
-   I_top_dmx: entity work.top_dmx port map
-   (     i_arst_n             => arst_n               , -- in     std_logic                                 ; --! Asynchronous reset ('0' = Active, '1' = Inactive)
+   I_top_dmx: entity work.top_dmx port map (
+         i_arst_n             => arst_n               , -- in     std_logic                                 ; --! Asynchronous reset ('0' = Active, '1' = Inactive)
          i_clk_ref            => clk_ref(0)           , -- in     std_logic                                 ; --! Reference Clock
 
          o_clk_sqm_adc        => clk_sqm_adc          , -- out    std_logic_vector(c_NB_COL-1 downto 0)     ; --! SQUID MUX ADC: Clock
@@ -177,7 +177,7 @@ begin
          i_ep_spi_sclk        => ep_spi_sclk          , -- in     std_logic                                 ; --! EP: SPI Serial Clock (CPOL = '0', CPHA = '0')
          i_ep_spi_cs_n        => ep_spi_cs_n          , -- in     std_logic                                 ; --! EP: SPI Chip Select ('0' = Active, '1' = Inactive)
 
-         b_sqm_adc_spi_sdio   => sqm_adc_spi_sdio     , -- out    std_logic_vector(c_NB_COL-1 downto 0)     ; --! SQUID MUX ADC: SPI Serial Data In Out
+         o_sqm_adc_spi_sdio   => sqm_adc_spi_sdio     , -- out    std_logic_vector(c_NB_COL-1 downto 0)     ; --! SQUID MUX ADC: SPI Serial Data In Out
          o_sqm_adc_spi_sclk   => sqm_adc_spi_sclk     , -- out    std_logic_vector(c_NB_COL-1 downto 0)     ; --! SQUID MUX ADC: SPI Serial Clock (CPOL = '0', CPHA = '0')
          o_sqm_adc_spi_cs_n   => sqm_adc_spi_cs_n     , -- out    std_logic_vector(c_NB_COL-1 downto 0)     ; --! SQUID MUX ADC: SPI Chip Select ('0' = Active, '1' = Inactive)
 
@@ -240,13 +240,32 @@ begin
    alias td_aqmde             : std_logic_vector(c_DFLD_AQMDE_S-1 downto 0) is
                                  <<signal .top_dmx_tb.I_top_dmx.aqmde:
                                    std_logic_vector(c_DFLD_AQMDE_S-1 downto 0)>>                            ; --! Internal design: Telemetry mode
-   alias td_smfbd             : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SMFBD_COL_S-1 downto 0) is
-                                 <<signal .top_dmx_tb.I_top_dmx.smfbd:
-                                   t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SMFBD_COL_S-1 downto 0)>>              ; --! Internal design: SQUID MUX feedback delay
 
-   alias td_saomd             : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SAOMD_COL_S-1 downto 0) is
-                                 <<signal .top_dmx_tb.I_top_dmx.saomd:
-                                   t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SAOMD_COL_S-1 downto 0)>>              ; --! Internal design: SQUID AMP offset MUX delay
+   alias td_smfbd_0           : std_logic_vector(c_DFLD_SMFBD_COL_S-1 downto 0) is
+                                 <<signal .top_dmx_tb.I_top_dmx.G_column_mgt(0).I_sqm_fbk_mgt.i_smfbd:
+                                   std_logic_vector(c_DFLD_SMFBD_COL_S-1 downto 0)>>                        ; --! Internal design: SQUID MUX feedback delay
+   alias td_smfbd_1           : std_logic_vector(c_DFLD_SMFBD_COL_S-1 downto 0) is
+                                 <<signal .top_dmx_tb.I_top_dmx.G_column_mgt(1).I_sqm_fbk_mgt.i_smfbd:
+                                   std_logic_vector(c_DFLD_SMFBD_COL_S-1 downto 0)>>                        ; --! Internal design: SQUID MUX feedback delay
+   alias td_smfbd_2           : std_logic_vector(c_DFLD_SMFBD_COL_S-1 downto 0) is
+                                 <<signal .top_dmx_tb.I_top_dmx.G_column_mgt(2).I_sqm_fbk_mgt.i_smfbd:
+                                   std_logic_vector(c_DFLD_SMFBD_COL_S-1 downto 0)>>                        ; --! Internal design: SQUID MUX feedback delay
+   alias td_smfbd_3           : std_logic_vector(c_DFLD_SMFBD_COL_S-1 downto 0) is
+                                 <<signal .top_dmx_tb.I_top_dmx.G_column_mgt(3).I_sqm_fbk_mgt.i_smfbd:
+                                   std_logic_vector(c_DFLD_SMFBD_COL_S-1 downto 0)>>                        ; --! Internal design: SQUID MUX feedback delay
+
+   alias td_saomd_0           : std_logic_vector(c_DFLD_SAOMD_COL_S-1 downto 0) is
+                                 <<signal .top_dmx_tb.I_top_dmx.G_column_mgt(0).I_sqa_fbk_mgt.i_saomd:
+                                   std_logic_vector(c_DFLD_SAOMD_COL_S-1 downto 0)>>                        ; --! Internal design: SQUID AMP offset MUX delay
+   alias td_saomd_1           : std_logic_vector(c_DFLD_SAOMD_COL_S-1 downto 0) is
+                                 <<signal .top_dmx_tb.I_top_dmx.G_column_mgt(1).I_sqa_fbk_mgt.i_saomd:
+                                   std_logic_vector(c_DFLD_SAOMD_COL_S-1 downto 0)>>                        ; --! Internal design: SQUID AMP offset MUX delay
+   alias td_saomd_2           : std_logic_vector(c_DFLD_SAOMD_COL_S-1 downto 0) is
+                                 <<signal .top_dmx_tb.I_top_dmx.G_column_mgt(2).I_sqa_fbk_mgt.i_saomd:
+                                   std_logic_vector(c_DFLD_SAOMD_COL_S-1 downto 0)>>                        ; --! Internal design: SQUID AMP offset MUX delay
+   alias td_saomd_3           : std_logic_vector(c_DFLD_SAOMD_COL_S-1 downto 0) is
+                                 <<signal .top_dmx_tb.I_top_dmx.G_column_mgt(3).I_sqa_fbk_mgt.i_saomd:
+                                   std_logic_vector(c_DFLD_SAOMD_COL_S-1 downto 0)>>                        ; --! Internal design: SQUID AMP offset MUX delay
 
    alias td_sqm_fbm_clslp_n_0 : std_logic is <<signal
                                 .top_dmx_tb.I_top_dmx.G_column_mgt(0).I_squid_data_proc.init_fbk_acc_fb
@@ -279,8 +298,14 @@ begin
       d_clk_sqm_adc_acq    <= td_clk_sqm_adc_acq;
       d_clk_sqm_pls_shape  <= td_clk_sqm_pls_shape;
       d_aqmde              <= td_aqmde;
-      d_smfbd              <= td_smfbd;
-      d_saomd              <= td_saomd;
+      d_smfbd(0)           <= td_smfbd_0;
+      d_smfbd(1)           <= td_smfbd_1;
+      d_smfbd(2)           <= td_smfbd_2;
+      d_smfbd(3)           <= td_smfbd_3;
+      d_saomd(0)           <= td_saomd_0;
+      d_saomd(1)           <= td_saomd_1;
+      d_saomd(2)           <= td_saomd_2;
+      d_saomd(3)           <= td_saomd_3;
       d_sqm_fbm_cls_lp_n(0)<= td_sqm_fbm_clslp_n_0;
       d_sqm_fbm_cls_lp_n(1)<= td_sqm_fbm_clslp_n_1;
       d_sqm_fbm_cls_lp_n(2)<= td_sqm_fbm_clslp_n_2;
@@ -291,8 +316,8 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   Check all clocks
    -- ------------------------------------------------------------------------------------------------------
-   I_clock_check_model: entity work.clock_check_model port map
-   (     i_clk                => d_clk                , -- in     std_logic                                 ; --! Internal design: System Clock
+   I_clock_check_model: entity work.clock_check_model port map (
+         i_clk                => d_clk                , -- in     std_logic                                 ; --! Internal design: System Clock
          i_clk_sqm_adc_acq    => d_clk_sqm_adc_acq    , -- in     std_logic                                 ; --! Internal design: SQUID MUX ADC acquisition Clock
          i_clk_sqm_pls_shape  => d_clk_sqm_pls_shape  , -- in     std_logic                                 ; --! Internal design: SQUID MUX pulse shaping Clock
          i_c0_clk_sqm_adc     => clk_sqm_adc(0)       , -- in     std_logic                                 ; --! SQUID MUX ADC, col. 0: Clock
@@ -322,8 +347,8 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   Check SPI bus
    -- ------------------------------------------------------------------------------------------------------
-   I_spi_check_model: entity work.spi_check_model port map
-   (     i_rst                => d_rst                , -- in     std_logic                                 ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
+   I_spi_check_model: entity work.spi_check_model port map (
+         i_rst                => d_rst                , -- in     std_logic                                 ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
          i_hk1_spi_mosi       => hk1_spi_mosi         , -- in     std_logic                                 ; --! HouseKeeping: SPI Master Output Slave Input
          i_hk1_spi_sclk       => hk1_spi_sclk         , -- in     std_logic                                 ; --! HouseKeeping: SPI Serial Clock (CPOL = '0', CPHA = '0')
          i_hk1_spi_cs_n       => hk1_spi_cs_n         , -- in     std_logic                                 ; --! HouseKeeping: SPI Chip Select ('0' = Active, '1' = Inactive)
@@ -342,12 +367,12 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   FPASIM clock reference generation
    -- ------------------------------------------------------------------------------------------------------
-   I_clock_model: entity work.clock_model generic map
-   (     g_CLK_REF_PER        => c_CLK_FPA_PER_DEF    , -- time    := c_CLK_REF_PER_DEF                     ; --! Reference Clock period
+   I_clock_model: entity work.clock_model generic map (
+         g_CLK_REF_PER        => c_CLK_FPA_PER_DEF    , -- time    := c_CLK_REF_PER_DEF                     ; --! Reference Clock period
          g_SYNC_PER           => c_SYNC_PER_DEF       , -- time    := c_SYNC_PER_DEF                        ; --! Pixel sequence synchronization period
          g_SYNC_SHIFT         => c_SYNC_SHIFT_DEF       -- time    := c_SYNC_SHIFT_DEF                        --! Pixel sequence synchronization shift
-   ) port map
-   (     o_clk_ref            => clk_fpasim           , -- out    std_logic                                 ; --! Reference Clock
+   ) port map (
+         o_clk_ref            => clk_fpasim           , -- out    std_logic                                 ; --! Reference Clock
          o_sync               => open                   -- out    std_logic                                   --! Pixel sequence synchronization (R.E. detected = position sequence to the first pixel)
    );
 
@@ -356,8 +381,8 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   Housekeeping model
    -- ------------------------------------------------------------------------------------------------------
-   I_hk_model: hk_model port map
-   (     i_hk1_mux            => hk1_mux              , -- in     std_logic_vector(c_HK1_MUX_S-1 downto 0)  ; --! HouseKeeping: Multiplexer
+   I_hk_model: hk_model port map (
+         i_hk1_mux            => hk1_mux              , -- in     std_logic_vector(c_HK1_MUX_S-1 downto 0)  ; --! HouseKeeping: Multiplexer
          i_hk1_mux_ena_n      => hk1_mux_ena_n        , -- in     std_logic                                 ; --! HouseKeeping: Multiplexer Enable ('0' = Active, '1' = Inactive)
 
          i_hk1_spi_mosi       => hk1_spi_mosi         , -- in     std_logic                                 ; --! HouseKeeping: SPI Master Output Slave Input
@@ -369,8 +394,8 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   EP SPI model
    -- ------------------------------------------------------------------------------------------------------
-   I_ep_spi_model: ep_spi_model port map
-   (     i_ep_cmd_ser_wd_s    => ep_cmd_ser_wd_s      , -- in     slv(log2_ceil(2*c_EP_CMD_S+1)-1 downto 0) ; --! EP: Serial word size
+   I_ep_spi_model: ep_spi_model port map (
+         i_ep_cmd_ser_wd_s    => ep_cmd_ser_wd_s      , -- in     slv(log2_ceil(2*c_EP_CMD_S+1)-1 downto 0) ; --! EP: Serial word size
          i_ep_cmd_start       => ep_cmd_start         , -- in     std_logic                                 ; --! EP: Start command transmit ('0' = Inactive, '1' = Active)
          i_ep_cmd             => ep_cmd               , -- in     std_logic_vector(c_EP_CMD_S-1 downto 0)   ; --! EP: Command to send
          o_ep_cmd_busy_n      => ep_cmd_busy_n        , -- out    std_logic                                 ; --! EP: Command transmit busy ('0' = Busy, '1' = Not Busy)
@@ -390,14 +415,13 @@ begin
    G_column_mgt: for k in 0 to c_NB_COL-1 generate
    begin
 
-      I_squid_model: squid_model port map
-      (  i_arst               => arst                 , -- in     std_logic                                 ; --! Asynchronous reset ('0' = Inactive, '1' = Active)
+      I_squid_model: squid_model port map (
+         i_arst               => arst                 , -- in     std_logic                                 ; --! Asynchronous reset ('0' = Inactive, '1' = Active)
          i_sync               => sync(0)              , -- in     std_logic                                 ; --! Pixel sequence synchronization (R.E. detected = position sequence to the first pixel)
          i_clk_sqm_adc        => clk_sqm_adc(k)       , -- in     std_logic                                 ; --! SQUID MUX ADC: Clock
          i_sqm_adc_pwdn       => sqm_adc_pwdn(k)      , -- in     std_logic                                 ; --! SQUID MUX ADC: Power Down ('0' = Inactive, '1' = Active)
-         b_sqm_adc_spi_sdio   => sqm_adc_spi_sdio(k)  , -- inout  std_logic                                 ; --! SQUID MUX ADC: SPI Serial Data In Out
+         o_sqm_adc_spi_sdio   => sqm_adc_spi_sdio(k)  , -- out    std_logic                                 ; --! SQUID MUX ADC: SPI Serial Data In Out
          i_sqm_adc_spi_sclk   => sqm_adc_spi_sclk(k)  , -- in     std_logic                                 ; --! SQUID MUX ADC: SPI Serial Clock (CPOL = '0', CPHA = '0')
-         i_sqm_adc_spi_cs_n   => sqm_adc_spi_cs_n(k)  , -- in     std_logic                                 ; --! SQUID MUX ADC: SPI Chip Select ('0' = Active, '1' = Inactive)
 
          i_sw_adc_vin         => sw_adc_vin           , -- in     slv(c_SW_ADC_VIN_S-1 downto 0)            ; --! Switch ADC Voltage input
          o_sqm_adc_ana        => sqm_adc_ana(k)       , -- out    real                                      ; --! SQUID MUX ADC: Analog
@@ -426,8 +450,8 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   FPASIM model management
    -- ------------------------------------------------------------------------------------------------------
-      I_fpasim_model: fpga_system_fpasim_top port map
-      (  i_make_pulse_valid   => fpa_cmd_valid(k)     , -- in     std_logic                                 ; --! FPASIM command valid ('0' = No, '1' = Yes)
+      I_fpasim_model: fpga_system_fpasim_top port map (
+         i_make_pulse_valid   => fpa_cmd_valid(k)     , -- in     std_logic                                 ; --! FPASIM command valid ('0' = No, '1' = Yes)
          i_make_pulse         => fpa_cmd(k)           , -- in     std_logic_vector(c_FPA_CMD_S-1 downto 0)  ; --! FPASIM command
          o_auto_conf_busy     => fpa_conf_busy(k)     , -- out    std_logic                                 ; --! FPASIM configuration ('0' = conf. over, '1' = conf. in progress)
          o_ready              => fpa_cmd_rdy(k)       , -- out    std_logic                                 ; --! FPASIM command ready ('0' = No, '1' = Yes)
@@ -449,8 +473,8 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   Science Data Model
    -- ------------------------------------------------------------------------------------------------------
-   I_science_data_model: science_data_model port map
-   (     i_arst               => arst                 , -- in     std_logic                                 ; --! Asynchronous reset ('0' = Inactive, '1' = Active)
+   I_science_data_model: science_data_model port map (
+         i_arst               => arst                 , -- in     std_logic                                 ; --! Asynchronous reset ('0' = Inactive, '1' = Active)
          i_clk_sqm_adc_acq    => d_clk_sqm_adc_acq    , -- in     std_logic                                 ; --! SQUID MUX ADC acquisition Clock
          i_clk_science        => clk_science_01       , -- in     std_logic                                 ; --! Science Clock
 
@@ -481,8 +505,8 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   Parser
    -- ------------------------------------------------------------------------------------------------------
-   I_parser: parser port map
-   (     o_arst_n             => arst_n               , -- out    std_logic                                 ; --! Asynchronous reset ('0' = Active, '1' = Inactive)
+   I_parser: parser port map (
+         o_arst_n             => arst_n               , -- out    std_logic                                 ; --! Asynchronous reset ('0' = Active, '1' = Inactive)
          i_clk_ref            => clk_ref(0)           , -- in     std_logic                                 ; --! Reference Clock
          i_sync               => sync(0)              , -- in     std_logic                                 ; --! Pixel sequence synchronization (R.E. detected = position sequence to the first pixel)
 
@@ -490,20 +514,9 @@ begin
          i_err_n_spi_chk      => err_n_spi_chk        , -- in     t_int_arr_tab(0 to c_CHK_ENA_SPI_NB-1)    ; --! SPI check error number:
          i_err_num_pls_shp    => err_num_pls_shp      , -- in     t_int_arr(0 to c_NB_COL-1)                ; --! Pulse shaping error number
 
-         i_c0_sqm_adc_pwdn    => sqm_adc_pwdn(0)      , -- in     std_logic                                 ; --! SQUID MUX ADC, col. 0: Power Down ('0' = Inactive, '1' = Active)
-         i_c1_sqm_adc_pwdn    => sqm_adc_pwdn(1)      , -- in     std_logic                                 ; --! SQUID MUX ADC, col. 1: Power Down ('0' = Inactive, '1' = Active)
-         i_c2_sqm_adc_pwdn    => sqm_adc_pwdn(2)      , -- in     std_logic                                 ; --! SQUID MUX ADC, col. 2: Power Down ('0' = Inactive, '1' = Active)
-         i_c3_sqm_adc_pwdn    => sqm_adc_pwdn(3)      , -- in     std_logic                                 ; --! SQUID MUX ADC, col. 3: Power Down ('0' = Inactive, '1' = Active)
-
-         i_c0_sqm_adc_ana     => sqm_adc_ana(0)       , -- in     real                                      ; --! SQUID MUX ADC, col. 0: Analog
-         i_c1_sqm_adc_ana     => sqm_adc_ana(1)       , -- in     real                                      ; --! SQUID MUX ADC, col. 1: Analog
-         i_c2_sqm_adc_ana     => sqm_adc_ana(2)       , -- in     real                                      ; --! SQUID MUX ADC, col. 2: Analog
-         i_c3_sqm_adc_ana     => sqm_adc_ana(3)       , -- in     real                                      ; --! SQUID MUX ADC, col. 3: Analog
-
-         i_c0_sqm_dac_sleep   => sqm_dac_sleep(0)     , -- in     std_logic                                 ; --! SQUID MUX DAC, col. 0: Sleep ('0' = Inactive, '1' = Active)
-         i_c1_sqm_dac_sleep   => sqm_dac_sleep(1)     , -- in     std_logic                                 ; --! SQUID MUX DAC, col. 1: Sleep ('0' = Inactive, '1' = Active)
-         i_c2_sqm_dac_sleep   => sqm_dac_sleep(2)     , -- in     std_logic                                 ; --! SQUID MUX DAC, col. 2: Sleep ('0' = Inactive, '1' = Active)
-         i_c3_sqm_dac_sleep   => sqm_dac_sleep(3)     , -- in     std_logic                                 ; --! SQUID MUX DAC, col. 3: Sleep ('0' = Inactive, '1' = Active)
+         i_sqm_adc_pwdn       => sqm_adc_pwdn         , -- in     std_logic_vector(c_NB_COL-1 downto 0)     ; --! SQUID MUX ADC: Power Down ('0' = Inactive, '1' = Active)
+         i_sqm_adc_ana        => sqm_adc_ana          , -- in     t_real_arr( 0 to c_NB_COL-1)              ; --! SQUID MUX ADC: Analog
+         i_sqm_dac_sleep      => sqm_dac_sleep        , -- in     std_logic_vector(c_NB_COL-1 downto 0)     ; --! SQUID MUX DAC: Sleep ('0' = Inactive, '1' = Active)
 
          i_d_rst              => d_rst                , -- in     std_logic                                 ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
          i_d_rst_sqm_adc      => d_rst_sqm_adc        , -- in     std_logic_vector(c_NB_COL-1 downto 0)     ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
@@ -514,15 +527,8 @@ begin
          i_d_clk_sqm_adc_acq  => d_clk_sqm_adc_acq    , -- in     std_logic                                 ; --! Internal design: SQUID MUX ADC acquisition Clock
          i_d_clk_sqm_pls_shap => d_clk_sqm_pls_shape  , -- in     std_logic                                 ; --! Internal design: SQUID MUX pulse shaping Clock
 
-         i_c0_clk_sqm_adc     => clk_sqm_adc(0)       , -- in     std_logic                                 ; --! SQUID MUX ADC, col. 0: Clock
-         i_c1_clk_sqm_adc     => clk_sqm_adc(1)       , -- in     std_logic                                 ; --! SQUID MUX ADC, col. 1: Clock
-         i_c2_clk_sqm_adc     => clk_sqm_adc(2)       , -- in     std_logic                                 ; --! SQUID MUX ADC, col. 2: Clock
-         i_c3_clk_sqm_adc     => clk_sqm_adc(3)       , -- in     std_logic                                 ; --! SQUID MUX ADC, col. 3: Clock
-
-         i_c0_clk_sqm_dac     => clk_sqm_dac(0)       , -- in     std_logic                                 ; --! SQUID MUX DAC, col. 0: Clock
-         i_c1_clk_sqm_dac     => clk_sqm_dac(1)       , -- in     std_logic                                 ; --! SQUID MUX DAC, col. 1: Clock
-         i_c2_clk_sqm_dac     => clk_sqm_dac(2)       , -- in     std_logic                                 ; --! SQUID MUX DAC, col. 2: Clock
-         i_c3_clk_sqm_dac     => clk_sqm_dac(3)       , -- in     std_logic                                 ; --! SQUID MUX DAC, col. 3: Clock
+         i_clk_sqm_adc        => clk_sqm_adc          , -- in     std_logic_vector(c_NB_COL-1 downto 0)     ; --! SQUID MUX ADC: Clock
+         i_clk_sqm_dac        => clk_sqm_dac          , -- in     std_logic_vector(c_NB_COL-1 downto 0)     ; --! SQUID MUX DAC: Clock
 
          i_sc_pkt_type        => sc_pkt_type          , -- in     slv(c_SC_DATA_SER_W_S-1 downto 0)         ; --! Science packet type
          i_sc_pkt_err         => sc_pkt_err           , -- out    std_logic                                 ; --! Science packet error ('0' = No error, '1' = Error)
@@ -547,13 +553,10 @@ begin
          o_pls_shp_fc         => pls_shp_fc           , -- out    t_int_arr(0 to c_NB_COL-1)                ; --! Pulse shaping cut frequency (Hz)
          o_sw_adc_vin         => sw_adc_vin           , -- out    slv(c_SW_ADC_VIN_S-1 downto 0)            ; --! Switch ADC Voltage input
 
-         i_c0_fpa_conf_busy   => fpa_conf_busy(0)     , -- in     std_logic                                 ; --! FPASIM, col. 0: configuration ('0' = conf. over, '1' = conf. in progress)
-         i_c1_fpa_conf_busy   => fpa_conf_busy(1)     , -- in     std_logic                                 ; --! FPASIM, col. 1: configuration ('0' = conf. over, '1' = conf. in progress)
-         i_c2_fpa_conf_busy   => fpa_conf_busy(2)     , -- in     std_logic                                 ; --! FPASIM, col. 2: configuration ('0' = conf. over, '1' = conf. in progress)
-         i_c3_fpa_conf_busy   => fpa_conf_busy(3)     , -- in     std_logic                                 ; --! FPASIM, col. 3: configuration ('0' = conf. over, '1' = conf. in progress)
+         i_fpa_conf_busy      => fpa_conf_busy        , -- in     std_logic_vector(c_NB_COL-1 downto 0)     ; --! FPASIM configuration ('0' = conf. over, '1' = conf. in progress)
          i_fpa_cmd_rdy        => fpa_cmd_rdy          , -- in     std_logic_vector(c_NB_COL-1 downto 0)     ; --! FPASIM command ready ('0' = No, '1' = Yes)
          o_fpa_cmd            => fpa_cmd              , -- out    t_slv_arr(0 to c_NB_COL-1)                ; --! FPASIM command
          o_fpa_cmd_valid      => fpa_cmd_valid          -- out    std_logic_vector(c_NB_COL-1 downto 0)       --! FPASIM command valid ('0' = No, '1' = Yes)
    );
 
-end simulation;
+end Simulation;

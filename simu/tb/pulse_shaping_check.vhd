@@ -35,8 +35,8 @@ use     work.pkg_project.all;
 use     work.pkg_ep_cmd.all;
 use     work.pkg_model.all;
 
-entity pulse_shaping_check is port
-   (     i_arst               : in     std_logic                                                            ; --! Asynchronous reset ('0' = Inactive, '1' = Active)
+entity pulse_shaping_check is port (
+         i_arst               : in     std_logic                                                            ; --! Asynchronous reset ('0' = Inactive, '1' = Active)
          i_clk_sqm_dac        : in     std_logic                                                            ; --! SQUID MUX DAC: Clock
          i_sync               : in     std_logic                                                            ; --! Pixel sequence synchronization (R.E. detected = position sequence to the first pixel)
          i_sqm_dac_ana        : in     real                                                                 ; --! SQUID MUX DAC: Analog
@@ -178,7 +178,7 @@ begin
          o_err_num_pls_shp   <= 0;
 
       elsif rising_edge(i_clk_sqm_dac) then
-         if abs(sqm_dac_ana_r(sqm_dac_ana_r'high) - lp_filter) > 2.0**(-c_SQM_DAC_DATA_S+2) then
+         if ((sqm_dac_ana_r(sqm_dac_ana_r'high) - lp_filter) > c_PLS_SHP_ERR_VAL) or ((sqm_dac_ana_r(sqm_dac_ana_r'high) - lp_filter) < -c_PLS_SHP_ERR_VAL) then
             o_err_num_pls_shp <= o_err_num_pls_shp + 1;
 
          end if;

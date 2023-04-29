@@ -46,14 +46,14 @@
 # ** Note   : (11061528 ps) Waiting event sync = '0' for 160080 ps
 # ** Note   : (16344168 ps) Waiting event sync = '1' for 5282640 ps
 # ** Note   : (16360168 ps) Waiting time for 16000 ps
-# ** Note   : (16360168 ps) Check DAC level: PASS
-# ** Note   : (16360168 ps)  * Read DAC channel 0, value 0.000000e+00, expected 0.000000e+00
-# ** Note   : (16360168 ps) Check DAC level: PASS
-# ** Note   : (16360168 ps)  * Read DAC channel 1, value 0.000000e+00, expected 0.000000e+00
-# ** Note   : (16360168 ps) Check DAC level: PASS
-# ** Note   : (16360168 ps)  * Read DAC channel 2, value 0.000000e+00, expected 0.000000e+00
-# ** Note   : (16360168 ps) Check DAC level: PASS
-# ** Note   : (16360168 ps)  * Read DAC channel 3, value 0.000000e+00, expected 0.000000e+00
+# ** Note   : (16360168 ps) Check ADC level: PASS
+# ** Note   : (16360168 ps)  * Read ADC channel 0, value 0.000000e+00, expected 0.000000e+00
+# ** Note   : (16360168 ps) Check ADC level: PASS
+# ** Note   : (16360168 ps)  * Read ADC channel 1, value 0.000000e+00, expected 0.000000e+00
+# ** Note   : (16360168 ps) Check ADC level: PASS
+# ** Note   : (16360168 ps)  * Read ADC channel 2, value 0.000000e+00, expected 0.000000e+00
+# ** Note   : (16360168 ps) Check ADC level: PASS
+# ** Note   : (16360168 ps)  * Read ADC channel 3, value 0.000000e+00, expected 0.000000e+00
 #             (16360168 ps) 
 #             (16360168 ps) ==============================================================================================
 #             (16360168 ps)   Configure AMP SQUID DAC LSB column 0
@@ -80,10 +80,10 @@
 # ** Note   : (23319654 ps) Waiting event sync = '0' for 3654 ps
 # ** Note   : (27229608 ps) Waiting event sync = '1' for 3909954 ps
 # ** Note   : (27245608 ps) Waiting time for 16000 ps
-# ** Note   : (27245608 ps) Check time, DAC channel 0 last event: PASS
-# ** Note   : (27245608 ps)  * DAC channel 0 last event 16000 ps equal to expected value 16000 ps
-# ** Note   : (27245608 ps) Check DAC level: PASS
-# ** Note   : (27245608 ps)  * Read DAC channel 0, value 2.998698e-01, expected 2.998698e-01
+# ** Note   : (27245608 ps) Check time, ADC channel 0 last event: PASS
+# ** Note   : (27245608 ps)  * ADC channel 0 last event 16000 ps equal to expected value 16000 ps
+# ** Note   : (27245608 ps) Check ADC level: PASS
+# ** Note   : (27245608 ps)  * Read ADC channel 0, value 2.998698e-01, expected 2.998698e-01
 #             (27245608 ps) 
 #             (27245608 ps) ==============================================================================================
 #             (27245608 ps)   Writing a new table in AMP SQUID lockpoint value column 0 memory
@@ -338,14 +338,14 @@
 # ** Note   : (292633760 ps) Waiting event sync = '0' for 1760 ps
 # ** Note   : (293922888 ps) Waiting event sync = '1' for 1289128 ps
 # ** Note   : (293938888 ps) Waiting time for 16000 ps
-# ** Note   : (293938888 ps) Check time, DAC channel 0 last event: PASS
-# ** Note   : (293938888 ps)  * DAC channel 0 last event 12000 ps equal to expected value 12000 ps
-# ** Note   : (293938888 ps) Check DAC level: PASS
-# ** Note   : (293938888 ps)  * Read DAC channel 0, value 0.000000e+00, expected 0.000000e+00
-# ** Note   : (293938888 ps) Check time, DAC channel 1 last event: PASS
-# ** Note   : (293938888 ps)  * DAC channel 1 last event 16000 ps equal to expected value 16000 ps
-# ** Note   : (293938888 ps) Check DAC level: PASS
-# ** Note   : (293938888 ps)  * Read DAC channel 1, value 2.998698e-01, expected 2.998698e-01
+# ** Note   : (293938888 ps) Check time, ADC channel 0 last event: PASS
+# ** Note   : (293938888 ps)  * ADC channel 0 last event 12000 ps equal to expected value 12000 ps
+# ** Note   : (293938888 ps) Check ADC level: PASS
+# ** Note   : (293938888 ps)  * Read ADC channel 0, value 0.000000e+00, expected 0.000000e+00
+# ** Note   : (293938888 ps) Check time, ADC channel 1 last event: PASS
+# ** Note   : (293938888 ps)  * ADC channel 1 last event 16000 ps equal to expected value 16000 ps
+# ** Note   : (293938888 ps) Check ADC level: PASS
+# ** Note   : (293938888 ps)  * Read ADC channel 1, value 2.998698e-01, expected 2.998698e-01
 #             (293938888 ps) 
 #             (293938888 ps) ==============================================================================================
 #             (293938888 ps)   Writing a new table in AMP SQUID lockpoint value column 1 memory
@@ -530,14 +530,14 @@
 # ** Note   : (558242498 ps) Waiting event sync = '0' for 2498 ps
 # ** Note   : (560616168 ps) Waiting event sync = '1' for 2373670 ps
 # ** Note   : (560632168 ps) Waiting time for 16000 ps
-# ** Note   : (560632168 ps) Check time, DAC channel 1 last event: PASS
-# ** Note   : (560632168 ps)  * DAC channel 1 last event 12000 ps equal to expected value 12000 ps
-# ** Note   : (560632168 ps) Check DAC level: PASS
-# ** Note   : (560632168 ps)  * Read DAC channel 1, value 0.000000e+00, expected 0.000000e+00
-# ** Note   : (560632168 ps) Check time, DAC channel 2 last event: PASS
-# ** Note   : (560632168 ps)  * DAC channel 2 last event 16000 ps equal to expected value 16000 ps
-# ** Note   : (560632168 ps) Check DAC level: PASS
-# ** Note   : (560632168 ps)  * Read DAC channel 2, value 2.998698e-01, expected 2.998698e-01
+# ** Note   : (560632168 ps) Check time, ADC channel 1 last event: PASS
+# ** Note   : (560632168 ps)  * ADC channel 1 last event 12000 ps equal to expected value 12000 ps
+# ** Note   : (560632168 ps) Check ADC level: PASS
+# ** Note   : (560632168 ps)  * Read ADC channel 1, value 0.000000e+00, expected 0.000000e+00
+# ** Note   : (560632168 ps) Check time, ADC channel 2 last event: PASS
+# ** Note   : (560632168 ps)  * ADC channel 2 last event 16000 ps equal to expected value 16000 ps
+# ** Note   : (560632168 ps) Check ADC level: PASS
+# ** Note   : (560632168 ps)  * Read ADC channel 2, value 2.998698e-01, expected 2.998698e-01
 #             (560632168 ps) 
 #             (560632168 ps) ==============================================================================================
 #             (560632168 ps)   Writing a new table in AMP SQUID lockpoint value column 2 memory
@@ -722,14 +722,14 @@
 # ** Note   : (824928258 ps) Waiting event sync = '0' for 258 ps
 # ** Note   : (827309448 ps) Waiting event sync = '1' for 2381190 ps
 # ** Note   : (827325448 ps) Waiting time for 16000 ps
-# ** Note   : (827325448 ps) Check time, DAC channel 2 last event: PASS
-# ** Note   : (827325448 ps)  * DAC channel 2 last event 12000 ps equal to expected value 12000 ps
-# ** Note   : (827325448 ps) Check DAC level: PASS
-# ** Note   : (827325448 ps)  * Read DAC channel 2, value 0.000000e+00, expected 0.000000e+00
-# ** Note   : (827325448 ps) Check time, DAC channel 3 last event: PASS
-# ** Note   : (827325448 ps)  * DAC channel 3 last event 16000 ps equal to expected value 16000 ps
-# ** Note   : (827325448 ps) Check DAC level: PASS
-# ** Note   : (827325448 ps)  * Read DAC channel 3, value 2.998698e-01, expected 2.998698e-01
+# ** Note   : (827325448 ps) Check time, ADC channel 2 last event: PASS
+# ** Note   : (827325448 ps)  * ADC channel 2 last event 12000 ps equal to expected value 12000 ps
+# ** Note   : (827325448 ps) Check ADC level: PASS
+# ** Note   : (827325448 ps)  * Read ADC channel 2, value 0.000000e+00, expected 0.000000e+00
+# ** Note   : (827325448 ps) Check time, ADC channel 3 last event: PASS
+# ** Note   : (827325448 ps)  * ADC channel 3 last event 16000 ps equal to expected value 16000 ps
+# ** Note   : (827325448 ps) Check ADC level: PASS
+# ** Note   : (827325448 ps)  * Read ADC channel 3, value 2.998698e-01, expected 2.998698e-01
 #             (827325448 ps) 
 #             (827325448 ps) ==============================================================================================
 #             (827325448 ps)   Writing a new table in AMP SQUID lockpoint value column 3 memory
@@ -902,10 +902,10 @@
 # ** Note   : (1086990740 ps) Waiting event sync = '0' for 740 ps
 # ** Note   : (1088560008 ps) Waiting event sync = '1' for 1569268 ps
 # ** Note   : (1088576008 ps) Waiting time for 16000 ps
-# ** Note   : (1088576008 ps) Check time, DAC channel 3 last event: PASS
-# ** Note   : (1088576008 ps)  * DAC channel 3 last event 12000 ps equal to expected value 12000 ps
-# ** Note   : (1088576008 ps) Check DAC level: PASS
-# ** Note   : (1088576008 ps)  * Read DAC channel 3, value 0.000000e+00, expected 0.000000e+00
+# ** Note   : (1088576008 ps) Check time, ADC channel 3 last event: PASS
+# ** Note   : (1088576008 ps)  * ADC channel 3 last event 12000 ps equal to expected value 12000 ps
+# ** Note   : (1088576008 ps) Check ADC level: PASS
+# ** Note   : (1088576008 ps)  * Read ADC channel 3, value 0.000000e+00, expected 0.000000e+00
 # ----------------------------------------------------------------------------------------------------
 # Parameters check, SPI spi_sqa_lsb(0)   
 # ----------------------------------------------------------------------------------------------------

@@ -29,15 +29,15 @@ use     ieee.std_logic_1164.all;
 use     ieee.numeric_std.all;
 use     ieee.math_real.all;
 
-entity spi_master is generic
-   (     g_CPOL               : std_logic                                                                   ; --! Clock polarity
+entity spi_master is generic (
+         g_CPOL               : std_logic                                                                   ; --! Clock polarity
          g_CPHA               : std_logic                                                                   ; --! Clock phase
          g_N_CLK_PER_SCLK_L   : integer                                                                     ; --! Number of clock period for elaborating SPI Serial Clock low  level
          g_N_CLK_PER_SCLK_H   : integer                                                                     ; --! Number of clock period for elaborating SPI Serial Clock high level
          g_N_CLK_PER_MISO_DEL : integer                                                                     ; --! Number of clock period for miso signal delay from spi pin input to spi master input
          g_DATA_S             : integer                                                                       --! Data bus size
-   ); port
-   (     i_rst                : in     std_logic                                                            ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+   ); port (
+         i_rst                : in     std_logic                                                            ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                : in     std_logic                                                            ; --! Clock
 
          i_start              : in     std_logic                                                            ; --! Start transmit ('0' = Inactive, '1' = Active)
@@ -56,22 +56,9 @@ entity spi_master is generic
 end entity spi_master;
 
 architecture RTL of spi_master is
-
-   -- ------------------------------------------------------------------------------------------------------
-   --! @details   Maximum function
-   -- ------------------------------------------------------------------------------------------------------
-   function max (a, b : integer) return integer is
-   begin
-      if a > b then
-         return a;
-      else
-         return b;
-      end if;
-   end function;
-
 constant c_PULSE_GEN_L_MAX_VAL: integer:= g_N_CLK_PER_SCLK_L-2                                              ; --! Pulse generator: maximal value for elaborating SPI Serial Clock low  level
 constant c_PULSE_GEN_H_MAX_VAL: integer:= g_N_CLK_PER_SCLK_H-2                                              ; --! Pulse generator: maximal value for elaborating SPI Serial Clock high level
-constant c_PULSE_GEN_MAX_VAL  : integer:= max(1, max(c_PULSE_GEN_H_MAX_VAL, c_PULSE_GEN_L_MAX_VAL))         ; --! Pulse generator: maximal value
+constant c_PULSE_GEN_MAX_VAL  : integer:= maximum(1, maximum(c_PULSE_GEN_H_MAX_VAL, c_PULSE_GEN_L_MAX_VAL)) ; --! Pulse generator: maximal value
 constant c_PULSE_GEN_S        : integer:= integer(ceil(log2(real(c_PULSE_GEN_MAX_VAL+1))))+1                ; --! Pulse generator: size bus (signed)
 
 constant c_PLS_STE_CNT_NB_VAL : integer:= 2 * g_DATA_S                                                      ; --! Pulse state counter: number of value

@@ -29,10 +29,10 @@ use     ieee.std_logic_1164.all;
 use     ieee.numeric_std.all;
 use     ieee.math_real.all;
 
-entity adc128s102_model is generic
-   (     g_VA                 : real                                                                          --! Voltage reference (V)
-   ); port
-   (     i_in0                : in     real                                                                 ; --! Analog input channel 0 ( 0.0 <= i_in0 < g_VA)
+entity adc128s102_model is generic (
+         g_VA                 : real                                                                          --! Voltage reference (V)
+   ); port (
+         i_in0                : in     real                                                                 ; --! Analog input channel 0 ( 0.0 <= i_in0 < g_VA)
          i_in1                : in     real                                                                 ; --! Analog input channel 1 ( 0.0 <= i_in1 < g_VA)
          i_in2                : in     real                                                                 ; --! Analog input channel 2 ( 0.0 <= i_in2 < g_VA)
          i_in3                : in     real                                                                 ; --! Analog input channel 3 ( 0.0 <= i_in3 < g_VA)
@@ -124,15 +124,15 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   SPI slave
    -- ------------------------------------------------------------------------------------------------------
-   I_spi_slave: entity work.spi_slave generic map
-   (     g_CPOL               => c_SPI_CPOL           , -- std_logic                                        ; --! Clock polarity
+   I_spi_slave: entity work.spi_slave generic map (
+         g_CPOL               => c_SPI_CPOL           , -- std_logic                                        ; --! Clock polarity
          g_CPHA               => c_SPI_CPHA           , -- std_logic                                        ; --! Clock phase
          g_DTA_TX_WD_S        => c_SPI_DTA_WD_S       , -- integer                                          ; --! Data word to transmit bus size
          g_DTA_TX_WD_NB_S     => c_SPI_DTA_WD_NB_S    , -- integer                                          ; --! Data word to transmit number size
          g_DTA_RX_WD_S        => c_SPI_DTA_WD_S       , -- integer                                          ; --! Receipted data word bus size
          g_DTA_RX_WD_NB_S     => c_SPI_DTA_WD_NB_S      -- integer                                            --! Receipted data word number size
-   ) port map
-   (     i_rst                => rst                  , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+   ) port map (
+         i_rst                => rst                  , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                => clk                  , -- in     std_logic                                 ; --! Clock
 
          i_data_tx_wd         => spi_data_tx_wd       , -- in     slv(g_DTA_TX_WD_S   -1 downto 0)          ; --! Data word to transmit (stall on MSB)

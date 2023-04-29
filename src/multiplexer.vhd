@@ -30,11 +30,11 @@ use     ieee.std_logic_1164.all;
 library work;
 use     work.pkg_type.all;
 
-entity multiplexer is generic
-   (     g_DATA_S             : integer                                                                     ; --! Data bus size
+entity multiplexer is generic (
+         g_DATA_S             : integer                                                                     ; --! Data bus size
          g_NB                 : integer                                                                       --! Data bus number
-   ); port
-   (     i_rst                : in     std_logic                                                            ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+   ); port (
+         i_rst                : in     std_logic                                                            ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                : in     std_logic                                                            ; --! System Clock
 
          i_data               : in     t_slv_arr(0 to g_NB-1)(g_DATA_S-1 downto 0)                          ; --! Data buses

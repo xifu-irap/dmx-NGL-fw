@@ -32,13 +32,13 @@ library work;
 use     work.pkg_type.all;
 use     work.pkg_func_math.all;
 
-entity adder_acc is generic
-   (     g_DATA_ACC_S         : integer                                                                     ; --! Data to accumulate bus size
+entity adder_acc is generic (
+         g_DATA_ACC_S         : integer                                                                     ; --! Data to accumulate bus size
          g_DATA_ELN_S         : integer                                                                     ; --! Data element n bus size (>= g_DATA_ACC_S)
          g_MEM_ACC_NW         : integer                                                                     ; --! Memory accumulator number word
          g_MEM_ACC_INIT_VAL   : integer                                                                       --! Memory accumulator initialization value
-   ); port
-   (     i_rst                : in     std_logic                                                            ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+   ); port (
+         i_rst                : in     std_logic                                                            ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                : in     std_logic                                                            ; --! System Clock
 
          i_mem_acc_add        : in     std_logic_vector(log2_ceil(g_MEM_ACC_NW)-1 downto 0)                 ; --! Memory accumulator address
@@ -57,8 +57,7 @@ entity adder_acc is generic
 end entity adder_acc;
 
 architecture RTL of adder_acc is
-signal   mem_acc              : t_slv_arr(0 to g_MEM_ACC_NW-1)(g_DATA_ELN_S-1 downto 0) :=
-                                (others => std_logic_vector(to_signed(g_MEM_ACC_INIT_VAL, g_DATA_ELN_S)))   ; --! Memory accumulator
+signal   mem_acc              : t_slv_arr(0 to g_MEM_ACC_NW-1)(g_DATA_ELN_S-1 downto 0)                     ; --! Memory accumulator
 
 signal   data_acc_rdy_r       : std_logic                                                                   ; --! Data to accumulate ready register ('0' = Not ready, '1' = Ready)
 signal   data_eln_rdy_r       : std_logic                                                                   ; --! Data element n ready register     ('0' = Not ready, '1' = Ready)
@@ -91,10 +90,10 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    data_acc_rs <= std_logic_vector(resize(signed(i_data_acc), data_acc_rs'length));
 
-   I_adder_sat: entity work.adder_sat generic map
-   (     g_DATA_S             => g_DATA_ELN_S           -- integer                                            --! Data bus size
-   ) port map
-   (     i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+   I_adder_sat: entity work.adder_sat generic map (
+         g_DATA_S             => g_DATA_ELN_S           -- integer                                            --! Data bus size
+   ) port map (
+         i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                => i_clk                , -- in     std_logic                                 ; --! System Clock
 
          i_data_fst           => data_acc_rs          , -- in     std_logic_vector(g_DATA_S-1 downto 0)     ; --! Data first (signed)

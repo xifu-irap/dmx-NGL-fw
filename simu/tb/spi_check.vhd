@@ -31,11 +31,11 @@ library work;
 use     work.pkg_type.all;
 use     work.pkg_model.all;
 
-entity spi_check is generic
-   (     g_SPI_TIME_CHK       : t_time_arr(0 to c_SPI_ERR_CHK_NB-3)                                         ; --! SPI timings to check
+entity spi_check is generic (
+         g_SPI_TIME_CHK       : t_time_arr(0 to c_SPI_ERR_CHK_NB-3)                                         ; --! SPI timings to check
          g_CPOL               : std_logic                                                                     --! Clock polarity
-   ); port
-   (     i_spi_mosi           : in     std_logic                                                            ; --! SPI: Master Output Slave Input data
+   ); port (
+         i_spi_mosi           : in     std_logic                                                            ; --! SPI: Master Output Slave Input data
          i_spi_sclk           : in     std_logic                                                            ; --! SPI: Serial Clock
          i_spi_cs_n           : in     std_logic                                                            ; --! SPI: Chip Select
 
@@ -74,8 +74,8 @@ begin
    --!   Number of low/high level serial clock timing error
    -- ------------------------------------------------------------------------------------------------------
    P_err_n_sclk_per : process
-   variable v_record_time1    : time                                                                        ; --! Record time 1
-   variable v_record_time2    : time                                                                        ; --! Record time 2
+   variable v_sclk_per_rcd1   : time                                                                        ; --! Record time 1
+   variable v_sclk_per_rcd2   : time                                                                        ; --! Record time 2
    begin
 
       if now = 0 ps then
@@ -83,26 +83,26 @@ begin
          o_err_n_spi_chk(c_SPI_ERR_POS_TH)      <= 0;
          o_err_n_spi_chk(c_SPI_ERR_POS_TSCMIN)  <= 0;
 
-         v_record_time1 := now;
+         v_sclk_per_rcd1 := now;
 
       end if;
 
-      v_record_time2 := v_record_time1;
-      v_record_time1 := now;
+      v_sclk_per_rcd2 := v_sclk_per_rcd1;
+      v_sclk_per_rcd1 := now;
 
       wait until i_spi_sclk'event;
 
       if i_spi_cs_n = '0' then
 
-         if i_spi_sclk = '1' and (now-v_record_time1) < g_SPI_TIME_CHK(c_SPI_ERR_POS_TL) then
+         if i_spi_sclk = '1' and (now-v_sclk_per_rcd1) < g_SPI_TIME_CHK(c_SPI_ERR_POS_TL) then
             o_err_n_spi_chk(c_SPI_ERR_POS_TL) <= o_err_n_spi_chk(c_SPI_ERR_POS_TL) + 1;
 
-         elsif i_spi_sclk = '0' and (now-v_record_time1) < g_SPI_TIME_CHK(c_SPI_ERR_POS_TH) then
+         elsif i_spi_sclk = '0' and (now-v_sclk_per_rcd1) < g_SPI_TIME_CHK(c_SPI_ERR_POS_TH) then
             o_err_n_spi_chk(c_SPI_ERR_POS_TH) <= o_err_n_spi_chk(c_SPI_ERR_POS_TH) + 1;
 
          end if;
 
-         if (now-v_record_time2) < g_SPI_TIME_CHK(c_SPI_ERR_POS_TSCMIN) then
+         if (now-v_sclk_per_rcd2) < g_SPI_TIME_CHK(c_SPI_ERR_POS_TSCMIN) then
             o_err_n_spi_chk(c_SPI_ERR_POS_TSCMIN) <= o_err_n_spi_chk(c_SPI_ERR_POS_TSCMIN) + 1;
 
          end if;
@@ -112,25 +112,25 @@ begin
    end process P_err_n_sclk_per;
 
    P_err_n_sclk_per_max : process
-   variable v_record_time1    : time                                                                        ; --! Record time 1
-   variable v_record_time2    : time                                                                        ; --! Record time 2
+   variable v_sclk_pr_mx_rcd1 : time                                                                        ; --! Record time 1
+   variable v_sclk_pr_mx_rcd2 : time                                                                        ; --! Record time 2
    begin
 
       if now = 0 ps then
          o_err_n_spi_chk(c_SPI_ERR_POS_TSCMAX)  <= 0;
 
-         v_record_time1 := now;
+         v_sclk_pr_mx_rcd1 := now;
 
       end if;
 
-      v_record_time2 := v_record_time1;
-      v_record_time1 := now;
+      v_sclk_pr_mx_rcd2 := v_sclk_pr_mx_rcd1;
+      v_sclk_pr_mx_rcd1 := now;
 
       wait until i_spi_sclk'event for g_SPI_TIME_CHK(c_SPI_ERR_POS_TSCMAX);
 
       if i_spi_cs_n = '0' and i_spi_cs_n'last_event > g_SPI_TIME_CHK(c_SPI_ERR_POS_TSCMAX) then
 
-         if (now-v_record_time2) > g_SPI_TIME_CHK(c_SPI_ERR_POS_TSCMAX) then
+         if (now-v_sclk_pr_mx_rcd2) > g_SPI_TIME_CHK(c_SPI_ERR_POS_TSCMAX) then
             o_err_n_spi_chk(c_SPI_ERR_POS_TSCMAX) <= o_err_n_spi_chk(c_SPI_ERR_POS_TSCMAX) + 1;
 
          end if;
@@ -143,7 +143,7 @@ begin
    --!   Number of high level chip select timing error
    -- ------------------------------------------------------------------------------------------------------
    P_err_n_cs_high : process
-   variable v_record_time     : time                                                                        ; --! Record time
+   variable v_cs_high_rcd     : time                                                                        ; --! Record time
    begin
 
       if now = 0 ps then
@@ -151,10 +151,10 @@ begin
 
       end if;
 
-      v_record_time := now;
+      v_cs_high_rcd := now;
       wait until falling_edge(i_spi_cs_n);
 
-      if (now - v_record_time) < g_SPI_TIME_CHK(c_SPI_ERR_POS_TCSH) then
+      if (now - v_cs_high_rcd) < g_SPI_TIME_CHK(c_SPI_ERR_POS_TCSH) then
          o_err_n_spi_chk(c_SPI_ERR_POS_TCSH) <= o_err_n_spi_chk(c_SPI_ERR_POS_TCSH) + 1;
 
       end if;
@@ -187,7 +187,7 @@ begin
    --!   Number of Data Event to not(SCLK) time error
    -- ------------------------------------------------------------------------------------------------------
    P_err_n_mosi_sclk : process
-   variable v_record_time     : time                                                                        ; --! Record time
+   variable v_mosi_sclk_rcd   : time                                                                        ; --! Record time
    begin
 
       if now = 0 ps then
@@ -196,11 +196,11 @@ begin
       end if;
 
       wait until i_spi_mosi'event;
-      v_record_time := now;
+      v_mosi_sclk_rcd := now;
 
       wait until i_spi_sclk'event and i_spi_sclk = g_CPOL;
 
-      if (now - v_record_time) < g_SPI_TIME_CHK(c_SPI_ERR_POS_TD2S) then
+      if (now - v_mosi_sclk_rcd) < g_SPI_TIME_CHK(c_SPI_ERR_POS_TD2S) then
          o_err_n_spi_chk(c_SPI_ERR_POS_TD2S) <= o_err_n_spi_chk(c_SPI_ERR_POS_TD2S) + 1;
 
       end if;
@@ -211,7 +211,7 @@ begin
    --!   Number of not(SCLK) to Data Event time error
    -- ------------------------------------------------------------------------------------------------------
    P_err_n_sclk_mosi : process
-   variable v_record_time     : time                                                                        ; --! Record time
+   variable v_sclk_mosi_rcd   : time                                                                        ; --! Record time
    begin
 
       if now = 0 ps then
@@ -220,11 +220,11 @@ begin
       end if;
 
       wait until i_spi_sclk'event and i_spi_sclk = g_CPOL;
-      v_record_time := now;
+      v_sclk_mosi_rcd := now;
 
       wait until i_spi_mosi'event;
 
-      if (now - v_record_time) < g_SPI_TIME_CHK(c_SPI_ERR_POS_TS2D) then
+      if (now - v_sclk_mosi_rcd) < g_SPI_TIME_CHK(c_SPI_ERR_POS_TS2D) then
          o_err_n_spi_chk(c_SPI_ERR_POS_TS2D) <= o_err_n_spi_chk(c_SPI_ERR_POS_TS2D) + 1;
 
       end if;

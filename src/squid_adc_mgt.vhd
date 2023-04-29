@@ -35,8 +35,8 @@ use     work.pkg_func_math.all;
 use     work.pkg_project.all;
 use     work.pkg_ep_cmd.all;
 
-entity squid_adc_mgt is port
-   (     i_rst_sqm_adc_dac_pd : in     std_logic                                                            ; --! Reset for SQUID ADC/DAC pads, de-assertion on system clock
+entity squid_adc_mgt is port (
+         i_rst_sqm_adc_dac_pd : in     std_logic                                                            ; --! Reset for SQUID ADC/DAC pads, de-assertion on system clock
          i_rst_sqm_adc_dac    : in     std_logic                                                            ; --! Reset for SQUID ADC/DAC, de-assertion on system clock ('0' = Inactive, '1' = Active)
          i_clk_sqm_adc_dac    : in     std_logic                                                            ; --! SQUID ADC/DAC internal Clock
 
@@ -125,12 +125,12 @@ signal   mem_dump_adc         : t_mem(add(c_MEM_DUMP_ADD_S-1 downto 0),data_w(c_
 
 signal   mem_dump_sc          : t_mem(add(c_MEM_DUMP_ADD_S-1 downto 0),data_w(c_MEM_DUMP_DATA_S-1 downto 0)); --! Memory Dump, Science Acquisition side inputs
 signal   mem_dump_data_out    : std_logic_vector(c_MEM_DUMP_DATA_S-1 downto 0)                              ; --! Memory Dump, Science Acquisition side: data out
-signal   mem_dump_flg_err     : std_logic                                                                   ; --! Memory Dump, Science Acquisition side: flag error uncorrectable detected ('0' = No, '1' = Yes)
+signal   mem_dump_flg_err     : std_logic                                                                   ; --! Memory Dump, Science Acquisition side: flag error uncor. detected ('0'=No,'1'= Yes)
 
-attribute syn_preserve        : boolean                                                                     ;
-attribute syn_preserve          of rst_sqm_adc_dac_pad   : signal is true                                   ;
-attribute syn_preserve          of sync_r                : signal is true                                   ;
-attribute syn_preserve          of sync_re               : signal is true                                   ;
+attribute syn_preserve        : boolean                                                                     ; --! Disabling signal optimization
+attribute syn_preserve          of rst_sqm_adc_dac_pad   : signal is true                                   ; --! Disabling signal optimization: rst_sqm_adc_dac_pad
+attribute syn_preserve          of sync_r                : signal is true                                   ; --! Disabling signal optimization: sync_r
+attribute syn_preserve          of sync_re               : signal is true                                   ; --! Disabling signal optimization: sync_re
 
 begin
 
@@ -181,11 +181,11 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   Inputs registered on system clock before resynchronization
    -- ------------------------------------------------------------------------------------------------------
-   I_sync_rs_sys: entity work.signal_reg generic map
-   (  g_SIG_FF_NB          => 1                    , -- integer                                          ; --! Signal registered flip-flop number
+   I_sync_rs_sys: entity work.signal_reg generic map (
+      g_SIG_FF_NB          => 1                    , -- integer                                          ; --! Signal registered flip-flop number
       g_SIG_DEF            => c_I_SYNC_DEF           -- std_logic                                          --! Signal registered default value at reset
-   )  port map
-   (  i_reset              => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+   )  port map (
+      i_reset              => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
       i_clock              => i_clk                , -- in     std_logic                                 ; --! Clock
 
       i_sig                => i_sync_rs            , -- in     std_logic                                 ; --! Signal
@@ -443,13 +443,13 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   Dual port memory for data transfer in Dump mode
    -- ------------------------------------------------------------------------------------------------------
-   I_mem_dump: entity work.dmem_ecc generic map
-   (     g_RAM_TYPE           => c_RAM_TYPE_DATA_TX   , -- integer                                          ; --! Memory type ( 0  = Data transfer,  1  = Parameters storage)
+   I_mem_dump: entity work.dmem_ecc generic map (
+         g_RAM_TYPE           => c_RAM_TYPE_DATA_TX   , -- integer                                          ; --! Memory type ( 0  = Data transfer,  1  = Parameters storage)
          g_RAM_ADD_S          => c_MEM_DUMP_ADD_S     , -- integer                                          ; --! Memory address bus size (<= c_RAM_ECC_ADD_S)
          g_RAM_DATA_S         => c_MEM_DUMP_DATA_S    , -- integer                                          ; --! Memory data bus size (<= c_RAM_DATA_S)
          g_RAM_INIT           => c_RAM_INIT_EMPTY       -- t_int_arr                                          --! Memory content at initialization
-   ) port map
-   (     i_a_rst              => '0'                  , -- in     std_logic                                 ; --! Memory port A: registers reset ('0' = Inactive, '1' = Active)
+   ) port map (
+         i_a_rst              => '0'                  , -- in     std_logic                                 ; --! Memory port A: registers reset ('0' = Inactive, '1' = Active)
          i_a_clk              => i_clk_sqm_adc_dac    , -- in     std_logic                                 ; --! Memory port A: main clock
          i_a_clk_shift        => '0'                  , -- in     std_logic                                 ; --! Memory port A: 90 degrees shifted clock (used for memory content correction)
 

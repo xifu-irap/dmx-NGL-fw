@@ -30,12 +30,12 @@ use     ieee.std_logic_1164.all;
 library work;
 use     work.pkg_type.all;
 
-entity mem_data_rd_mux is generic
-   (     g_MEM_RD_DATA_NPER   : integer                                                                     ; --! Clock period number for accessing memory data output
+entity mem_data_rd_mux is generic (
+         g_MEM_RD_DATA_NPER   : integer                                                                     ; --! Clock period number for accessing memory data output
          g_DATA_S             : integer                                                                     ; --! Data bus size
          g_NB                 : integer                                                                       --! Data bus number
-   ); port
-   (     i_rst                : in     std_logic                                                            ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+   ); port (
+         i_rst                : in     std_logic                                                            ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                : in     std_logic                                                            ; --! System Clock
 
          i_data               : in     t_slv_arr(0 to g_NB-1)(g_DATA_S-1 downto 0)                          ; --! Data buses
@@ -72,11 +72,11 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   Multiplexer
    -- ------------------------------------------------------------------------------------------------------
-   I_data_mux : entity work.multiplexer generic map
-   (     g_DATA_S             => g_DATA_S             , -- integer                                          ; --! Data bus size
+   I_data_mux : entity work.multiplexer generic map (
+         g_DATA_S             => g_DATA_S             , -- integer                                          ; --! Data bus size
          g_NB                 => g_NB                   -- integer                                            --! Data bus number
-   ) port map
-   (     i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+   ) port map (
+         i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                => i_clk                , -- in     std_logic                                 ; --! System Clock
          i_data               => i_data               , -- in     t_slv_arr g_NB g_DATA_S                   ; --! Data buses
          i_cs                 => cs_r(cs_r'high)      , -- in     std_logic_vector(g_NB-1 downto 0)         ; --! Chip selects ('0' = Inactive, '1' = Active)

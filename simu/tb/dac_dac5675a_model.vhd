@@ -32,10 +32,10 @@ use     ieee.math_real.all;
 library work;
 use     work.pkg_type.all;
 
-entity dac_dac5675a_model is generic
-   (     g_VREF               : real                                                                          --! Voltage reference (Volt)
-   ); port
-   (     i_clk                : in     std_logic                                                            ; --! Clock
+entity dac_dac5675a_model is generic (
+         g_VREF               : real                                                                          --! Voltage reference (Volt)
+   ); port (
+         i_clk                : in     std_logic                                                            ; --! Clock
          i_sleep              : in     std_logic                                                            ; --! Sleep ('0' = Inactive, '1' = Active)
          i_d                  : in     std_logic_vector(13 downto 0)                                        ; --! Data
 
@@ -49,19 +49,35 @@ constant c_DAC_RES            : real      := 2.0 * g_VREF / real(2**(i_d'length)
 constant c_TIME_TPD           : time      := 1 ns                                                           ; --! Time: Data Propagation Delay
 constant c_PIPE_DEL           : integer   := 3                                                              ; --! Pipe stage delay number (Digital delay time)
 
-signal   dac_data_r           : t_slv_arr(0 to c_PIPE_DEL-1)(i_d'length-1  downto 0) :=
-                                 (others => (i_d'high => '1',others =>'0'))                                 ; --! DAC data register
+signal   rst                  : std_logic                                                                   ; --! Reset ('0' = Inactive, '1' = Active)
+
+signal   dac_data_r           : t_slv_arr(0 to c_PIPE_DEL-1)(i_d'length-1  downto 0)                        ; --! DAC data register
 signal   delta_vout           : real                                                                        ; --! Analog voltage (no delays)
 
 begin
 
    -- ------------------------------------------------------------------------------------------------------
+   --!   Reset generation
+   -- ------------------------------------------------------------------------------------------------------
+   P_rst: process
+   begin
+      rst   <= '1';
+      wait for c_TIME_TPD;
+      rst   <= '0';
+      wait;
+
+   end process P_rst;
+
+   -- ------------------------------------------------------------------------------------------------------
    --!   DAC data register
    -- ------------------------------------------------------------------------------------------------------
-   P_dac_data_r : process (i_clk)
+   P_dac_data_r : process (rst, i_clk)
    begin
 
-      if rising_edge(i_clk) then
+      if rst = '1' then
+         dac_data_r  <= (others => (i_d'high => '1',others =>'0'));
+
+      elsif rising_edge(i_clk) then
          dac_data_r  <= i_d & dac_data_r(0 to dac_data_r'high-1);
 
       end if;

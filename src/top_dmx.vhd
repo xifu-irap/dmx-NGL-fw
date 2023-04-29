@@ -33,9 +33,10 @@ use     work.pkg_fpga_tech.all;
 use     work.pkg_func_math.all;
 use     work.pkg_project.all;
 use     work.pkg_ep_cmd.all;
+use     work.pkg_ep_cmd_type.all;
 
-entity top_dmx is port
-   (     i_arst_n             : in     std_logic                                                            ; --! Asynchronous reset ('0' = Active, '1' = Inactive)
+entity top_dmx is port (
+         i_arst_n             : in     std_logic                                                            ; --! Asynchronous reset ('0' = Active, '1' = Inactive)
          i_clk_ref            : in     std_logic                                                            ; --! Reference Clock
 
          o_clk_sqm_adc        : out    std_logic_vector(c_NB_COL-1 downto 0)                                ; --! SQUID MUX ADC: Clock
@@ -68,7 +69,7 @@ entity top_dmx is port
          i_ep_spi_sclk        : in     std_logic                                                            ; --! EP: SPI Serial Clock (CPOL = '0', CPHA = '0')
          i_ep_spi_cs_n        : in     std_logic                                                            ; --! EP: SPI Chip Select ('0' = Active, '1' = Inactive)
 
-         b_sqm_adc_spi_sdio   : out    std_logic_vector(c_NB_COL-1 downto 0)                                ; --! SQUID MUX ADC: SPI Serial Data In Out
+         o_sqm_adc_spi_sdio   : out    std_logic_vector(c_NB_COL-1 downto 0)                                ; --! SQUID MUX ADC: SPI Serial Data In Out
          o_sqm_adc_spi_sclk   : out    std_logic_vector(c_NB_COL-1 downto 0)                                ; --! SQUID MUX ADC: SPI Serial Clock (CPOL = '0', CPHA = '0')
          o_sqm_adc_spi_cs_n   : out    std_logic_vector(c_NB_COL-1 downto 0)                                ; --! SQUID MUX ADC: SPI Chip Select ('0' = Active, '1' = Inactive)
 
@@ -140,7 +141,6 @@ signal   sqa_fbk_mux          : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SAOFF_PIX_S-1 
 signal   sqa_fbk_off          : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SAOFC_COL_S-1 downto 0)                   ; --! SQUID AMP coarse offset
 signal   sqa_pls_cnt_init     : t_slv_arr(0 to c_NB_COL-1)(   c_SQA_PLS_CNT_S-1 downto 0)                   ; --! SQUID AMP Pulse counter initialization
 
-signal   test_pattern         : std_logic_vector(  c_DFLD_TSTPT_S-1 downto 0)                               ; --! Test pattern
 signal   test_pattern_sqm     : std_logic_vector(c_SQM_DATA_FBK_S-1 downto 0)                               ; --! Test pattern: MUX SQUID
 signal   test_pattern_sqa     : std_logic_vector(c_SQA_DAC_DATA_S-1 downto 0)                               ; --! Test pattern: AMP SQUID
 signal   test_pattern_sc      : std_logic_vector(c_SC_DATA_SER_W_S*c_SC_DATA_SER_NB-1 downto 0)             ; --! Test pattern: Science Telemetry
@@ -150,7 +150,6 @@ signal   tst_pat_end_re       : std_logic                                       
 signal   tst_pat_empty        : std_logic                                                                   ; --! Test pattern empty ('0' = No, '1' = Yes)
 
 signal   ck_science           : std_logic                                                                   ; --! Science Data: Image Clock channel
-signal   science_ctrl         : std_logic                                                                   ; --! Science Data: Control channel
 signal   science_data_ser     : std_logic_vector(c_NB_COL*c_SC_DATA_SER_NB downto 0)                        ; --! Science Data: Serial Data
 
 signal   hk_err_nin           : std_logic                                                                   ; --! Housekeeping: Error parameter to read not initialized yet
@@ -178,68 +177,16 @@ signal   smfmd                : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SMFMD_COL_S-1 
 signal   saofm                : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SAOFM_COL_S-1 downto 0)                   ; --! SQUID AMP offset mode
 signal   bxlgt                : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_BXLGT_COL_S-1 downto 0)                   ; --! ADC sample number for averaging
 signal   dlflg                : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_DLFLG_COL_S-1 downto 0)                   ; --! Delock flag ('0' = No delock on pixels, '1' = Delock on at least one pixel)
-signal   saofc                : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SAOFC_COL_S-1 downto 0)                   ; --! SQUID AMP lockpoint coarse offset
-signal   saofl                : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SAOFC_COL_S-1 downto 0)                   ; --! SQUID AMP offset DAC LSB
-signal   smfbd                : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SMFBD_COL_S-1 downto 0)                   ; --! SQUID MUX feedback delay
-signal   saodd                : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SAODD_COL_S-1 downto 0)                   ; --! SQUID AMP offset DAC delay
-signal   saomd                : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SAOMD_COL_S-1 downto 0)                   ; --! SQUID AMP offset MUX delay
-signal   smpdl                : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SMPDL_COL_S-1 downto 0)                   ; --! ADC sample delay
-signal   plsss                : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_PLSSS_PLS_S-1 downto 0)                   ; --! SQUID MUX feedback pulse shaping set
-signal   rldel                : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_RLDEL_COL_S-1 downto 0)                   ; --! Relock delay
-signal   rlthr                : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_RLTHR_COL_S-1 downto 0)                   ; --! Relock threshold
+signal   rg_col               : t_rgc_arr(0 to c_NB_COL-1)                                                  ; --! EP register by column
 
-signal   mem_tstpt            : t_mem_arr(0 to c_NB_COL-1)(
-                                add(c_MEM_TSTPT_ADD_S-1 downto 0),
-                                data_w(c_DFLD_TSTPT_S-1 downto 0))                                          ; --! Test pattern: memory inputs
-signal   tstpt_data           : std_logic_vector(c_DFLD_TSTPT_S-1 downto 0)                                 ; --! Test pattern: data read
+signal   mem_prc              : t_mem_prc_arr(0 to c_NB_COL-1)                                              ; --! Memory for data squid proc.: memory interface
+signal   mem_data_prc         : t_mem_prc_dta_arr(0 to c_NB_COL-1)                                          ; --! Memory for data squid proc.: data read
+
+signal   ep_mem               : t_ep_mem_arr(0 to c_NB_COL-1)                                               ; --! Memory: memory interface
+signal   ep_mem_data          : t_ep_mem_dta_arr(0 to c_NB_COL-1)                                           ; --! Memory: data read
 
 signal   mem_hkeep_add        : std_logic_vector(c_MEM_HKEEP_ADD_S-1 downto 0)                              ; --! Housekeeping: memory address
 signal   hkeep_data           : std_logic_vector(c_DFLD_HKEEP_S-1 downto 0)                                 ; --! Housekeeping: data read
-
-signal   mem_parma            : t_mem_arr(0 to c_NB_COL-1)(
-                                add(    c_MEM_PARMA_ADD_S-1 downto 0),
-                                data_w(c_DFLD_PARMA_PIX_S-1 downto 0))                                      ; --! Parameter a(p): memory inputs
-signal   parma_data           : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_PARMA_PIX_S-1 downto 0)                   ; --! Parameter a(p): data read
-
-signal   mem_kiknm            : t_mem_arr(0 to c_NB_COL-1)(
-                                add(    c_MEM_KIKNM_ADD_S-1 downto 0),
-                                data_w(c_DFLD_KIKNM_PIX_S-1 downto 0))                                      ; --! Parameter ki(p)*knorm(p): memory inputs
-signal   kiknm_data           : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_KIKNM_PIX_S-1 downto 0)                   ; --! Parameter ki(p)*knorm(p): data read
-
-signal   mem_knorm            : t_mem_arr(0 to c_NB_COL-1)(
-                                add(    c_MEM_KNORM_ADD_S-1 downto 0),
-                                data_w(c_DFLD_KNORM_PIX_S-1 downto 0))                                      ; --! Parameter knorm(p): memory inputs
-signal   knorm_data           : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_KNORM_PIX_S-1 downto 0)                   ; --! Parameter knorm(p): data read
-
-signal   mem_smfb0            : t_mem_arr(0 to c_NB_COL-1)(
-                                add(    c_MEM_SMFB0_ADD_S-1 downto 0),
-                                data_w(c_DFLD_SMFB0_PIX_S-1 downto 0))                                      ; --! SQUID MUX feedback value in open loop: memory inputs
-signal   smfb0_data           : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SMFB0_PIX_S-1 downto 0)                   ; --! SQUID MUX feedback value in open loop: data read
-
-signal   mem_smlkv            : t_mem_arr(0 to c_NB_COL-1)(
-                                add(    c_MEM_SMLKV_ADD_S-1 downto 0),
-                                data_w(c_DFLD_SMLKV_PIX_S-1 downto 0))                                      ; --! Parameter elp(p): memory inputs
-signal   smlkv_data           : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SMLKV_PIX_S-1 downto 0)                   ; --! Parameter elp(p): data read
-
-signal   mem_smfbm            : t_mem_arr(0 to c_NB_COL-1)(
-                                add(    c_MEM_SMFBM_ADD_S-1 downto 0),
-                                data_w(c_DFLD_SMFBM_PIX_S-1 downto 0))                                      ; --! SQUID MUX feedback mode: memory inputs
-signal   smfbm_data           : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SMFBM_PIX_S-1 downto 0)                   ; --! SQUID MUX feedback mode: data read
-
-signal   mem_saoff            : t_mem_arr(0 to c_NB_COL-1)(
-                                add(    c_MEM_SAOFF_ADD_S-1 downto 0),
-                                data_w(c_DFLD_SAOFF_PIX_S-1 downto 0))                                      ; --! SQUID AMP lockpoint fine offset: memory inputs
-signal   saoff_data           : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SAOFF_PIX_S-1 downto 0)                   ; --! SQUID AMP lockpoint fine offset: data read
-
-signal   mem_plssh            : t_mem_arr(0 to c_NB_COL-1)(
-                                add(    c_MEM_PLSSH_ADD_S-1 downto 0),
-                                data_w(c_DFLD_PLSSH_PLS_S-1 downto 0))                                      ; --! SQUID MUX feedback pulse shaping coefficient: memory inputs
-signal   plssh_data           : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_PLSSH_PLS_S-1 downto 0)                   ; --! SQUID MUX feedback pulse shaping coefficient: data read
-
-signal   mem_dlcnt            : t_mem_arr(0 to c_NB_COL-1)(
-                                add(      c_MEM_DLCNT_ADD_S-1 downto 0),
-                                data_w(c_DFLD_DLCNT_PIX_S-1 downto 0))                                      ; --! Delock counter: memory inputs
-signal   dlcnt_data           : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_DLCNT_PIX_S-1 downto 0)                   ; --! Delock counter: data read
 
 signal   init_fbk_pixel_pos   : t_slv_arr(0 to c_NB_COL-1)(c_MUX_FACT_S-1 downto 0)                         ; --! Initialization feedback chain accumulators Pixel position
 signal   init_fbk_acc         : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! Initialization feedback chain accumulators ('0' = Inactive, '1' = Active)
@@ -256,8 +203,8 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    arst <= not(i_arst_n);
 
-   I_rst_clk_mgt: entity work.rst_clk_mgt port map
-   (     i_arst               => arst                 , -- in     std_logic                                 ; --! Asynchronous reset ('0' = Inactive, '1' = Active)
+   I_rst_clk_mgt: entity work.rst_clk_mgt port map (
+         i_arst               => arst                 , -- in     std_logic                                 ; --! Asynchronous reset ('0' = Inactive, '1' = Active)
          i_clk_ref            => i_clk_ref            , -- in     std_logic                                 ; --! Reference Clock
 
          i_cmd_ck_adc_ena     => cmd_ck_adc_ena       , -- in     std_logic_vector(c_NB_COL-1 downto 0)     ; --! SQUID MUX ADC Clocks switch commands enable  ('0' = Inactive, '1' = Active)
@@ -287,8 +234,8 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   Data resynchronization on System Clock
    -- ------------------------------------------------------------------------------------------------------
-   I_in_rs_clk: entity work.in_rs_clk port map
-   (     i_rst                => rst                  , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+   I_in_rs_clk: entity work.in_rs_clk port map (
+         i_rst                => rst                  , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                => clk                  , -- in     std_logic                                 ; --! System Clock
 
          i_brd_ref            => i_brd_ref            , -- in     std_logic_vector(  c_BRD_REF_S-1 downto 0); --! Board reference
@@ -317,8 +264,8 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   Science Data Management
    -- ------------------------------------------------------------------------------------------------------
-   I_science_data_mgt: entity work.science_data_mgt port map
-   (     i_rst                => rst                  , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+   I_science_data_mgt: entity work.science_data_mgt port map (
+         i_rst                => rst                  , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                => clk                  , -- in     std_logic                                 ; --! System Clock
 
          i_ras_data_valid_rs  => ras_data_valid_rs    , -- in     std_logic                                 ; --! RAS Data valid, synchronized on System Clock ('0' = No, '1' = Yes)
@@ -344,8 +291,8 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   Registers management
    -- ------------------------------------------------------------------------------------------------------
-   I_register_mgt: entity work.register_mgt port map
-   (     i_rst                => rst                  , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+   I_register_mgt: entity work.register_mgt port map (
+         i_rst                => rst                  , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                => clk                  , -- in     std_logic                                 ; --! System Clock
 
          i_brd_ref_rs         => brd_ref_rs           , -- in     std_logic_vector(  c_BRD_REF_S-1 downto 0); --! Board reference, synchronized on System Clock
@@ -379,55 +326,23 @@ begin
          o_smfmd              => smfmd                , -- out    t_slv_arr c_NB_COL c_DFLD_SMFMD_COL_S     ; --! SQUID MUX feedback mode
          o_saofm              => saofm                , -- out    t_slv_arr c_NB_COL c_DFLD_SAOFM_COL_S     ; --! SQUID AMP offset mode
          o_bxlgt              => bxlgt                , -- out    t_slv_arr c_NB_COL c_DFLD_BXLGT_COL_S     ; --! ADC sample number for averaging
-         o_saofc              => saofc                , -- out    t_slv_arr c_NB_COL c_DFLD_SAOFC_COL_S     ; --! SQUID AMP lockpoint coarse offset
-         o_saofl              => saofl                , -- out    t_slv_arr c_NB_COL c_DFLD_SAOFC_COL_S     ; --! SQUID AMP offset DAC LSB
-         o_smfbd              => smfbd                , -- out    t_slv_arr c_NB_COL c_DFLD_SMFBD_COL_S     ; --! SQUID MUX feedback delay
-         o_saodd              => saodd                , -- out    t_slv_arr c_NB_COL c_DFLD_SAODD_COL_S     ; --! SQUID AMP offset DAC delay
-         o_saomd              => saomd                , -- out    t_slv_arr c_NB_COL c_DFLD_SAOMD_COL_S     ; --! SQUID AMP offset MUX delay
-         o_smpdl              => smpdl                , -- out    t_slv_arr c_NB_COL c_DFLD_SMPDL_COL_S     ; --! ADC sample delay
-         o_plsss              => plsss                , -- out    t_slv_arr c_NB_COL c_DFLD_PLSSS_PLS_S     ; --! SQUID MUX feedback pulse shaping set
-         o_rldel              => rldel                , -- out    t_slv_arr c_NB_COL c_DFLD_RLDEL_COL_S     ; --! Relock delay
-         o_rlthr              => rlthr                , -- out    t_slv_arr c_NB_COL c_DFLD_RLTHR_COL_S     ; --! Relock threshold
+         o_rg_col             => rg_col               , -- out    t_rgc                                     ; --! EP register by column
 
-         o_mem_tstpt          => mem_tstpt            , -- out    t_mem_arr(0 to c_NB_COL-1)                ; --! Test pattern: memory inputs
-         i_tstpt_data         => tstpt_data           , -- in     slv(c_DFLD_TSTPT_S-1 downto 0)            ; --! Test pattern: data read
+         o_mem_prc            => mem_prc              , -- out    t_mem_prc_arr(0 to c_NB_COL-1)            ; --! Memory for data squid proc.: memory interface
+         i_mem_prc_data       => mem_data_prc         , -- in     t_mem_prc_dta_arr(0 to c_NB_COL-1)        ; --! Memory for data squid proc.: data read
+
+         o_ep_mem             => ep_mem               , -- out    t_ep_mem_arr(0 to c_NB_COL-1)             ; --! Memory: memory interface
+         i_ep_mem_data        => ep_mem_data          , -- in     t_ep_mem_dta_arr(0 to c_NB_COL-1)         ; --! Memory: data read
 
          o_mem_hkeep_add      => mem_hkeep_add        , -- out    slv(c_MEM_HKEEP_ADD_S-1 downto 0)         ; --! Housekeeping: memory address
-         i_hkeep_data         => hkeep_data           , -- in     slv(c_DFLD_HKEEP_S-1 downto 0)            ; --! Housekeeping: data read
-
-         o_mem_parma          => mem_parma            , -- out    t_mem_arr(0 to c_NB_COL-1)                ; --! Parameter a(p): memory inputs
-         i_parma_data         => parma_data           , -- in     t_slv_arr c_NB_COL c_DFLD_PARMA_PIX_S     ; --! Parameter a(p): data read
-
-         o_mem_kiknm          => mem_kiknm            , -- out    t_mem_arr(0 to c_NB_COL-1)                ; --! Parameter ki(p)*knorm(p): memory inputs
-         i_kiknm_data         => kiknm_data           , -- in     t_slv_arr c_NB_COL c_DFLD_KIKNM_PIX_S     ; --! Parameter ki(p)*knorm(p): data read
-
-         o_mem_knorm          => mem_knorm            , -- out    t_mem_arr(0 to c_NB_COL-1)                ; --! Parameter knorm(p): memory inputs
-         i_knorm_data         => knorm_data           , -- in     t_slv_arr c_NB_COL c_DFLD_KNORM_PIX_S     ; --! Parameter knorm(p): data read
-
-         o_mem_smfb0          => mem_smfb0            , -- out    t_mem_arr(0 to c_NB_COL-1)                ; --! SQUID MUX feedback value in open loop: memory inputs
-         i_smfb0_data         => smfb0_data           , -- in     t_slv_arr c_NB_COL c_DFLD_SMFB0_PIX_S     ; --! SQUID MUX feedback value in open loop: data read
-
-         o_mem_smlkv          => mem_smlkv            , -- out    t_mem_arr(0 to c_NB_COL-1)                ; --! Parameter elp(p): memory inputs
-         i_smlkv_data         => smlkv_data           , -- in     t_slv_arr c_NB_COL c_DFLD_SMLKV_PIX_S     ; --! Parameter elp(p): data read
-
-         o_mem_smfbm          => mem_smfbm            , -- out    t_mem_arr(0 to c_NB_COL-1)                ; --! SQUID MUX feedback mode: memory inputs
-         i_smfbm_data         => smfbm_data           , -- in     t_slv_arr c_NB_COL c_DFLD_SMFBM_PIX_S     ; --! SQUID MUX feedback mode: data read
-
-         o_mem_saoff          => mem_saoff            , -- out    t_mem_arr(0 to c_NB_COL-1)                ; --! SQUID AMP lockpoint fine offset: memory inputs
-         i_saoff_data         => saoff_data           , -- in     t_slv_arr c_NB_COL c_DFLD_SAOFF_PIX_S     ; --! SQUID AMP lockpoint fine offset: data read
-
-         o_mem_plssh          => mem_plssh            , -- out    t_mem_arr(0 to c_NB_COL-1)                ; --! SQUID MUX feedback pulse shaping coefficient: memory inputs
-         i_plssh_data         => plssh_data           , -- in     t_slv_arr c_NB_COL c_DFLD_PLSSH_PLS_S     ; --! SQUID MUX feedback pulse shaping coefficient: data read
-
-         o_mem_dlcnt          => mem_dlcnt            , -- out    t_mem_arr(0 to c_NB_COL-1)                ; --! Delock counter: memory inputs
-         i_dlcnt_data         => dlcnt_data             -- in     t_slv_arr c_NB_COL c_DFLD_DLCNT_PIX_S       --! Delock counter: data read
+         i_hkeep_data         => hkeep_data             -- in     slv(c_DFLD_HKEEP_S-1 downto 0)              --! Housekeeping: data read
       );
 
    -- ------------------------------------------------------------------------------------------------------
    --!   EP command
    -- ------------------------------------------------------------------------------------------------------
-   I_ep_cmd: entity work.ep_cmd port map
-   (     i_rst                => rst                  , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+   I_ep_cmd: entity work.ep_cmd port map (
+         i_rst                => rst                  , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                => clk                  , -- in     std_logic                                 ; --! System Clock
 
          i_ep_cmd_sts_err_add => ep_cmd_sts_err_add   , -- in     std_logic                                 ; --! EP command: Status, error invalid address
@@ -451,8 +366,8 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   DEMUX commands
    -- ------------------------------------------------------------------------------------------------------
-   I_dmx_cmd: entity work.dmx_cmd port map
-   (     i_rst                => rst                  , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+   I_dmx_cmd: entity work.dmx_cmd port map (
+         i_rst                => rst                  , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                => clk                  , -- in     std_logic                                 ; --! System Clock
          i_sync_rs            => sync_rs(sync_rs'high), -- in     std_logic                                 ; --! Pixel sequence synchronization, synchronized on System Clock
          i_aqmde              => aqmde                , -- in     slv(c_DFLD_AQMDE_S-1 downto 0)            ; --! Telemetry mode
@@ -467,8 +382,8 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   Housekeeping management
    -- ------------------------------------------------------------------------------------------------------
-   I_hk_mgt: entity work.hk_mgt port map
-   (     i_rst                => rst                  , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+   I_hk_mgt: entity work.hk_mgt port map (
+         i_rst                => rst                  , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                => clk                  , -- in     std_logic                                 ; --! System Clock
 
          i_mem_hkeep_add      => mem_hkeep_add        , -- in     slv(c_MEM_HKEEP_ADD_S-1 downto 0)         ; --! Housekeeping: memory address
@@ -486,8 +401,8 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   Test pattern generation
    -- ------------------------------------------------------------------------------------------------------
-   I_test_pattern_gen: entity work.test_pattern_gen port map
-      (  i_rst                => rst                  , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+   I_test_pattern_gen: entity work.test_pattern_gen port map (
+         i_rst                => rst                  , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                => clk                  , -- in     std_logic                                 ; --! System Clock
          i_clk_90             => clk_90               , -- in     std_logic                                 ; --! System Clock 90 degrees shift
 
@@ -496,19 +411,23 @@ begin
          i_tsten_inf          => tsten_inf            , -- in     std_logic                                 ; --! Test pattern enable, field Infinity loop ('0' = Inactive, '1' = Active)
          i_tsten_ena          => tsten_ena            , -- in     std_logic                                 ; --! Test pattern enable, field Enable ('0' = Inactive, '1' = Active)
 
-         i_mem_tstpt          => mem_tstpt(0)         , -- in     t_mem                                     ; --! Test pattern: memory inputs
-         o_tstpt_data         => tstpt_data           , -- out    slv(c_DFLD_TSTPT_S-1 downto 0)            ; --! Test pattern: data read
+         i_mem_tstpt          => ep_mem(0).tstpt      , -- in     t_mem                                     ; --! Test pattern: memory inputs
+         o_tstpt_data         => ep_mem_data(0).tstpt , -- out    slv(c_DFLD_TSTPT_S-1 downto 0)            ; --! Test pattern: data read
 
-         o_test_pattern       => test_pattern         , -- out    slv(c_DFLD_TSTPT_S-1 downto 0)            ; --! Test pattern
+         o_test_pattern_sqm   => test_pattern_sqm     , -- out    slv(c_SQM_DATA_FBK_S-1 downto 0)          ; --! Test pattern: MUX SQUID
+         o_test_pattern_sqa   => test_pattern_sqa     , -- out    slv(c_SQA_DAC_DATA_S-1 downto 0)          ; --! Test pattern: AMP SQUID
+         o_test_pattern_sc    => test_pattern_sc      , -- out    slv c_SC_DATA_SER_W_S*c_SC_DATA_SER_NB    ; --! Test pattern: Science Telemetry
          o_tst_pat_end_pat    => tst_pat_end_pat      , -- out    std_logic                                 ; --! Test pattern end of one pattern  ('0' = Inactive, '1' = Active)
          o_tst_pat_end        => tst_pat_end          , -- out    std_logic                                 ; --! Test pattern end of all patterns ('0' = Inactive, '1' = Active)
          o_tst_pat_end_re     => tst_pat_end_re       , -- out    std_logic                                 ; --! Test pattern end of all patterns rising edge ('0' = Inactive, '1' = Active)
          o_tst_pat_empty      => tst_pat_empty          -- out    std_logic                                   --! Test pattern empty ('0' = No, '1' = Yes)
    );
 
-   test_pattern_sqm <= resize_stall_msb(test_pattern, test_pattern_sqm'length);
-   test_pattern_sqa <= resize_stall_msb(test_pattern, test_pattern_sqa'length);
-   test_pattern_sc  <= resize_stall_msb(test_pattern, test_pattern_sc'length);
+   G_tstpt_col_mgt: for k in 1 to c_NB_COL-1 generate
+   begin
+      ep_mem_data(k).tstpt <= (others => '0');
+
+   end generate G_tstpt_col_mgt;
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Columns management
@@ -517,8 +436,8 @@ begin
    G_column_mgt: for k in 0 to c_NB_COL-1 generate
    begin
 
-      I_squid_adc_mgt: entity work.squid_adc_mgt port map
-      (  i_rst_sqm_adc_dac_pd => rst_sqm_adc_dac_pd   , -- in     std_logic                                 ; --! Reset for SQUID ADC/DAC pads, de-assertion on system clock
+      I_squid_adc_mgt: entity work.squid_adc_mgt port map (
+         i_rst_sqm_adc_dac_pd => rst_sqm_adc_dac_pd   , -- in     std_logic                                 ; --! Reset for SQUID ADC/DAC pads, de-assertion on system clock
          i_rst_sqm_adc_dac    => rst_sqm_adc_dac      , -- in     std_logic                                 ; --! Reset for SQUID ADC/DAC, de-assertion on system clock ('0' = Inactive, '1' = Active)
          i_clk_sqm_adc_dac    => clk_sqm_adc_dac      , -- in     std_logic                                 ; --! SQUID ADC/DAC internal Clock
 
@@ -528,7 +447,7 @@ begin
          i_sync_rs            => sync_rs(c_FPGA_POS_ADC(k)), --in std_logic                                 ; --! Pixel sequence synchronization, synchronized on System Clock
          i_aqmde_dmp_cmp      => aqmde_dmp_cmp(k)     , -- in     std_logic                                 ; --! Telemetry mode, status "Dump" compared ('0' = Inactive, '1' = Active)
          i_bxlgt              => bxlgt(k)             , -- in     slv(c_DFLD_BXLGT_COL_S-1 downto 0)        ; --! ADC sample number for averaging
-         i_smpdl              => smpdl(k)             , -- in     slv(c_DFLD_SMPDL_COL_S-1 downto 0)        ; --! ADC sample delay
+         i_smpdl              => rg_col(k).smpdl      , -- in     slv(c_DFLD_SMPDL_COL_S-1 downto 0)        ; --! ADC sample delay
          i_sqm_adc_data       => i_sqm_adc_data(k)    , -- in     slv(c_SQM_ADC_DATA_S-1 downto 0)          ; --! SQUID MUX ADC: Data, no rsync
          i_sqm_adc_oor        => i_sqm_adc_oor(k)     , -- in     std_logic                                 ; --! SQUID MUX ADC: Out of range, no rsync ('0'= No, '1'= under/over range)
 
@@ -542,8 +461,8 @@ begin
          o_sqm_data_err_rdy   => sqm_data_err_rdy(k)    -- out    std_logic                                   --! SQUID MUX Data error ready ('0' = Not ready, '1' = Ready)
       );
 
-      I_squid_data_proc: entity work.squid_data_proc port map
-      (  i_rst                => rst                  , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+      I_squid_data_proc: entity work.squid_data_proc port map (
+         i_rst                => rst                  , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                => clk                  , -- in     std_logic                                 ; --! System Clock
          i_clk_90             => clk_90               , -- in     std_logic                                 ; --! System Clock 90 degrees shift
 
@@ -552,17 +471,8 @@ begin
          i_bxlgt              => bxlgt(k)             , -- in     slv(c_DFLD_BXLGT_COL_S-1 downto 0)        ; --! ADC sample number for averaging
          i_sqm_adc_pwdn       => o_sqm_adc_pwdn(k)    , -- in     std_logic                                 ; --! SQUID MUX ADC: Power Down ('0' = Inactive, '1' = Active)
 
-         i_mem_parma          => mem_parma(k)         , -- in     t_mem                                     ; --! Parameter a(p): memory inputs
-         o_parma_data         => parma_data(k)        , -- out    slv(c_DFLD_PARMA_PIX_S-1 downto 0)        ; --! Parameter a(p): data read
-
-         i_mem_kiknm          => mem_kiknm(k)         , -- in     t_mem                                     ; --! Parameter ki(p)*knorm(p): memory inputs
-         o_kiknm_data         => kiknm_data(k)        , -- out    slv(c_DFLD_KIKNM_PIX_S-1 downto 0)        ; --! Parameter ki(p)*knorm(p): data read
-
-         i_mem_knorm          => mem_knorm(k)         , -- in     t_mem                                     ; --! Parameter knorm(p): memory inputs
-         o_knorm_data         => knorm_data(k)        , -- out    slv(c_DFLD_KNORM_PIX_S-1 downto 0)        ; --! Parameter knorm(p): data read
-
-         i_mem_smlkv          => mem_smlkv(k)         , -- in     t_mem                                     ; --! Parameter elp(p): memory inputs
-         o_smlkv_data         => smlkv_data(k)        , -- out    slv(c_DFLD_SMLKV_PIX_S-1 downto 0)        ; --! Parameter elp(p): data read
+         i_mem_prc            => mem_prc(k)           , -- in     t_mem_prc                                 ; --! Memory for data squid proc.: memory interface
+         o_mem_prc_data       => mem_data_prc(k)      , -- out    t_mem_prc_dta                             ; --! Memory for data squid proc.: data read
 
          i_init_fbk_pixel_pos => init_fbk_pixel_pos(k), -- in     slv(c_MUX_FACT_S-1 downto 0)              ; --! Initialization feedback chain accumulators Pixel position
          i_init_fbk_acc       => init_fbk_acc(k)      , -- in     std_logic                                 ; --! Initialization feedback chain accumulators ('0' = Inactive, '1' = Active)
@@ -588,8 +498,8 @@ begin
          o_sqm_dta_err_cor_cs => sqm_dta_err_cor_cs(k)  -- out    std_logic                                   --! SQUID MUX Data error corrected chip select ('0' = Inactive, '1' = Active)
       );
 
-      I_relock: entity work.relock port map
-      (  i_rst                => rst                  , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+      I_relock: entity work.relock port map (
+         i_rst                => rst                  , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                => clk                  , -- in     std_logic                                 ; --! System Clock
 
          i_sqm_dta_pixel_pos  => sqm_dta_pixel_pos(k) , -- in     slv(    c_MUX_FACT_S-1 downto 0)          ; --! SQUID MUX Data error corrected pixel position
@@ -599,18 +509,18 @@ begin
          i_mem_rl_rd_add      => mem_rl_rd_add(k)     , -- in     slv(c_MUX_FACT_S-1 downto 0)              ; --! Relock memories read address
          i_smfbm_close_rl     => smfbm_close_rl(k)    , -- in     std_logic                                 ; --! SQUID MUX feedback close mode for relock ('0' = No close , '1' = Close)
          i_smfb0_rl           => smfb0_rl(k)          , -- in     slv(c_DFLD_SMFB0_PIX_S-1 downto 0)        ; --! SQUID MUX feedback value in open loop for relock (signed)
-         i_rldel              => rldel(k)             , -- in     slv(c_DFLD_RLDEL_COL_S-1 downto 0)        ; --! Relock delay
-         i_rlthr              => rlthr(k)             , -- in     slv(c_DFLD_RLTHR_COL_S-1 downto 0)        ; --! Relock threshold
+         i_rldel              => rg_col(k).rldel      , -- in     slv(c_DFLD_RLDEL_COL_S-1 downto 0)        ; --! Relock delay
+         i_rlthr              => rg_col(k).rlthr      , -- in     slv(c_DFLD_RLTHR_COL_S-1 downto 0)        ; --! Relock threshold
 
-         i_mem_dlcnt          => mem_dlcnt(k)         , -- in     t_mem                                     ; --! Delock counter: memory inputs
-         o_dlcnt_data         => dlcnt_data(k)        , -- out    slv(c_DFLD_DLCNT_PIX_S-1 downto 0)        ; --! Delock counter: data read
+         i_mem_dlcnt          => ep_mem(k).dlcnt      , -- in     t_mem                                     ; --! Delock counter: memory inputs
+         o_dlcnt_data         => ep_mem_data(k).dlcnt , -- out    slv(c_DFLD_DLCNT_PIX_S-1 downto 0)        ; --! Delock counter: data read
          o_dlflg              => dlflg(k)             , -- out    slv(c_DFLD_DLFLG_COL_S-1 downto 0)        ; --! Delock flag ('0' = No delock on pixels, '1' = Delock on at least one pixel)
 
          o_rl_ena             => rl_ena(k)              -- out    std_logic                                   --! Relock enable ('0' = No, '1' = Yes)
       );
 
-      I_sqm_fbk_mgt: entity work.sqm_fbk_mgt port map
-      (  i_rst                => rst                  , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+      I_sqm_fbk_mgt: entity work.sqm_fbk_mgt port map (
+         i_rst                => rst                  , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                => clk                  , -- in     std_logic                                 ; --! System Clock
          i_clk_90             => clk_90               , -- in     std_logic                                 ; --! System Clock 90 degrees shift
 
@@ -622,13 +532,13 @@ begin
          i_sqm_dta_err_cor    => sqm_dta_err_cor(k)   , -- in     slv(c_SQM_DATA_FBK_S-1 downto 0)          ; --! SQUID MUX Data error corrected (signed)
          i_sqm_dta_err_cor_cs => sqm_dta_err_cor_cs(k), -- in     std_logic                                 ; --! SQUID MUX Data error corrected chip select ('0' = Inactive, '1' = Active)
 
-         i_mem_smfb0          => mem_smfb0(k)         , -- in     t_mem                                     ; --! SQUID MUX feedback value in open loop: memory inputs
-         o_smfb0_data         => smfb0_data(k)        , -- out    slv(c_DFLD_SMFB0_PIX_S-1 downto 0)        ; --! SQUID MUX feedback value in open loop: data read
+         i_mem_smfb0          => ep_mem(k).smfb0      , -- in     t_mem                                     ; --! SQUID MUX feedback value in open loop: memory inputs
+         o_smfb0_data         => ep_mem_data(k).smfb0 , -- out    slv(c_DFLD_SMFB0_PIX_S-1 downto 0)        ; --! SQUID MUX feedback value in open loop: data read
 
          i_smfmd              => smfmd(k)             , -- in     slv(c_DFLD_SMFMD_COL_S-1 downto 0)        ; --! SQUID MUX feedback mode
-         i_smfbd              => smfbd(k)             , -- in     slv(c_DFLD_SMFBD_COL_S-1 downto 0)        ; --! SQUID MUX feedback delay
-         i_mem_smfbm          => mem_smfbm(k)         , -- in     t_mem                                     ; --! SQUID MUX feedback mode: memory inputs
-         o_smfbm_data         => smfbm_data(k)        , -- out    slv(c_DFLD_SMFBM_PIX_S-1 downto 0)        ; --! SQUID MUX feedback mode: data read
+         i_smfbd              => rg_col(k).smfbd      , -- in     slv(c_DFLD_SMFBD_COL_S-1 downto 0)        ; --! SQUID MUX feedback delay
+         i_mem_smfbm          => ep_mem(k).smfbm      , -- in     t_mem                                     ; --! SQUID MUX feedback mode: memory inputs
+         o_smfbm_data         => ep_mem_data(k).smfbm , -- out    slv(c_DFLD_SMFBM_PIX_S-1 downto 0)        ; --! SQUID MUX feedback mode: data read
 
          o_sqm_data_fbk       => sqm_data_fbk(k)      , -- out    slv( c_SQM_DATA_FBK_S-1 downto 0)         ; --! SQUID MUX Data feedback (signed)
          o_sqm_pixel_pos_init => sqm_pixel_pos_init(k), -- out    slv( c_SQM_PXL_POS_S-1 downto 0)          ; --! SQUID MUX Pixel position initialization
@@ -639,8 +549,8 @@ begin
          o_sqm_fbk_smfb0      => sqm_fbk_smfb0(k)       -- out    slv(c_DFLD_SMFB0_PIX_S-1 downto 0)          --! SQUID MUX feedback value in open loop (signed)
       );
 
-      I_sqm_dac_mgt: entity work.sqm_dac_mgt port map
-      (  i_rst_sqm_adc_dac_pd => rst_sqm_adc_dac_pd   , -- in     std_logic                                 ; --! Reset for SQUID ADC/DAC pads, de-assertion on system clock
+      I_sqm_dac_mgt: entity work.sqm_dac_mgt port map (
+         i_rst_sqm_adc_dac_pd => rst_sqm_adc_dac_pd   , -- in     std_logic                                 ; --! Reset for SQUID ADC/DAC pads, de-assertion on system clock
          i_rst_sqm_adc_dac    => rst_sqm_adc_dac      , -- in     std_logic                                 ; --! Reset for SQUID MUX DAC, de-assertion on system clock ('0' = Inactive, '1' = Active)
          i_clk_sqm_adc_dac    => clk_sqm_adc_dac      , -- in     std_logic                                 ; --! SQUID ADC/DAC internal Clock
          i_clk_sqm_adc_dac_90 => clk_sqm_adc_dac_90   , -- in     std_logic                                 ; --! SQUID ADC/DAC internal 90 degrees shift
@@ -653,16 +563,16 @@ begin
          i_sqm_data_fbk       => sqm_data_fbk(k)      , -- in     slv(c_SQM_DATA_FBK_S-1 downto 0)          ; --! SQUID MUX Data feedback
          i_sqm_pixel_pos_init => sqm_pixel_pos_init(k), -- in     slv( c_SQM_PXL_POS_S-1 downto 0)          ; --! SQUID MUX Pixel position initialization
          i_sqm_pls_cnt_init   => sqm_pls_cnt_init(k)  , -- in     slv( c_SQM_PLS_CNT_S-1 downto 0)          ; --! SQUID MUX Pulse shaping counter initialization
-         i_plsss              => plsss(k)             , -- in     slv(c_DFLD_PLSSS_PLS_S  -1 downto 0)      ; --! SQUID MUX feedback pulse shaping set
+         i_plsss              => rg_col(k).plsss      , -- in     slv(c_DFLD_PLSSS_PLS_S  -1 downto 0)      ; --! SQUID MUX feedback pulse shaping set
 
-         i_mem_plssh          => mem_plssh(k)         , -- in     t_mem                                     ; --! SQUID MUX feedback pulse shaping coefficient: memory inputs
-         o_plssh_data         => plssh_data(k)        , -- out    slv(c_DFLD_PLSSH_PLS_S-1 downto 0)        ; --! SQUID MUX feedback pulse shaping coefficient: data read
+         i_mem_plssh          => ep_mem(k).plssh      , -- in     t_mem                                     ; --! SQUID MUX feedback pulse shaping coefficient: memory inputs
+         o_plssh_data         => ep_mem_data(k).plssh , -- out    slv(c_DFLD_PLSSH_PLS_S-1 downto 0)        ; --! SQUID MUX feedback pulse shaping coefficient: data read
 
          o_sqm_dac_data       => o_sqm_dac_data(k)      -- out    slv(c_SQM_DAC_DATA_S-1 downto 0)            --! SQUID MUX DAC: Data
       );
 
-      I_sqa_fbk_mgt: entity work.sqa_fbk_mgt port map
-      (  i_rst                => rst                  , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+      I_sqa_fbk_mgt: entity work.sqa_fbk_mgt port map (
+         i_rst                => rst                  , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                => clk                  , -- in     std_logic                                 ; --! System Clock
          i_clk_90             => clk_90               , -- in     std_logic                                 ; --! System Clock 90 degrees shift
 
@@ -670,21 +580,21 @@ begin
          i_tst_pat_end        => tst_pat_end          , -- in     std_logic                                 ; --! Test pattern end of all patterns ('0' = Inactive, '1' = Active)
 
          i_saofm              => saofm(k)             , -- in     slv(c_DFLD_SAOFM_COL_S-1 downto 0)        ; --! SQUID AMP offset mode
-         i_saofc              => saofc(k)             , -- in     slv(  c_SQA_DAC_DATA_S-1 downto 0)        ; --! SQUID AMP lockpoint coarse offset
-         i_saomd              => saomd(k)             , -- in     slv(c_DFLD_SAOMD_COL_S-1 downto 0)        ; --! SQUID AMP offset MUX delay
+         i_saofc              => rg_col(k).saofc      , -- in     slv(  c_SQA_DAC_DATA_S-1 downto 0)        ; --! SQUID AMP lockpoint coarse offset
+         i_saomd              => rg_col(k).saomd      , -- in     slv(c_DFLD_SAOMD_COL_S-1 downto 0)        ; --! SQUID AMP offset MUX delay
          i_test_pattern       => test_pattern_sqa     , -- in     slv(  c_SQA_DAC_DATA_S-1 downto 0)        ; --! Test pattern
          i_sqm_dta_err_cor    => sqm_dta_err_cor(k)   , -- in     slv(c_SQM_DATA_FBK_S-1 downto 0)          ; --! SQUID MUX Data error corrected (signed)
 
-         i_mem_saoff          => mem_saoff(k)         , -- in     t_mem                                     ; --! SQUID AMP lockpoint fine offset: memory inputs
-         o_saoff_data         => saoff_data(k)        , -- out    slv(c_DFLD_SAOFF_PIX_S  -1 downto 0)      ; --! SQUID AMP lockpoint fine offset: data read
+         i_mem_saoff          => ep_mem(k).saoff      , -- in     t_mem                                     ; --! SQUID AMP lockpoint fine offset: memory inputs
+         o_saoff_data         => ep_mem_data(k).saoff , -- out    slv(c_DFLD_SAOFF_PIX_S  -1 downto 0)      ; --! SQUID AMP lockpoint fine offset: data read
 
          o_sqa_fbk_mux        => sqa_fbk_mux(k)       , -- out    slv(c_DFLD_SAOFF_PIX_S-1 downto 0)        ; --! SQUID AMP Feedback Multiplexer
          o_sqa_fbk_off        => sqa_fbk_off(k)       , -- out    slv(  c_SQA_DAC_DATA_S-1 downto 0)        ; --! SQUID AMP coarse offset
          o_sqa_pls_cnt_init   => sqa_pls_cnt_init(k)    -- out    slv(   c_SQA_PLS_CNT_S-1 downto 0)          --! SQUID AMP Pulse counter initialization
       );
 
-      I_sqa_dac_mgt: entity work.sqa_dac_mgt port map
-      (  i_rst_sqm_adc_dac_pd => rst_sqm_adc_dac_pd   , -- in     std_logic                                 ; --! Reset for SQUID ADC/DAC pads, de-assertion on system clock
+      I_sqa_dac_mgt: entity work.sqa_dac_mgt port map (
+         i_rst_sqm_adc_dac_pd => rst_sqm_adc_dac_pd   , -- in     std_logic                                 ; --! Reset for SQUID ADC/DAC pads, de-assertion on system clock
          i_rst_sqm_adc_dac    => rst_sqm_adc_dac      , -- in     std_logic                                 ; --! Reset for SQUID AMP DAC, de-assertion on system clock ('0' = Inactive, '1' = Active)
          i_clk_sqm_adc_dac    => clk_sqm_adc_dac      , -- in     std_logic                                 ; --! SQUID ADC/DAC internal Clock
 
@@ -692,10 +602,10 @@ begin
          i_clk                => clk                  , -- in     std_logic                                 ; --! System Clock
 
          i_sync_rs            => sync_rs(c_FPGA_POS_SQM_DAC(k)), -- in     std_logic                        ; --! Pixel sequence synchronization, synchronized on System Clock
-         i_saofl              => saofl(k)             , -- in     slv(c_DFLD_SAOFC_COL_S-1 downto 0)        ; --! SQUID AMP offset DAC LSB
+         i_saofl              => rg_col(k).saofl      , -- in     slv(c_DFLD_SAOFC_COL_S-1 downto 0)        ; --! SQUID AMP offset DAC LSB
          i_sqa_fbk_mux        => sqa_fbk_mux(k)       , -- in     slv(c_DFLD_SAOFF_PIX_S-1 downto 0)        ; --! SQUID AMP Feedback Multiplexer
          i_sqa_fbk_off        => sqa_fbk_off(k)       , -- in     slv(c_DFLD_SAOFC_COL_S-1 downto 0)        ; --! SQUID AMP coarse offset
-         i_saodd              => saodd(k)             , -- in     slv(c_DFLD_SAODD_COL_S-1 downto 0)        ; --! SQUID AMP offset DAC delay
+         i_saodd              => rg_col(k).saodd      , -- in     slv(c_DFLD_SAODD_COL_S-1 downto 0)        ; --! SQUID AMP offset DAC delay
          i_sqa_pls_cnt_init   => sqa_pls_cnt_init(k)  , -- in     slv(   c_SQA_PLS_CNT_S-1 downto 0)        ; --! SQUID AMP Pulse counter initialization
 
          o_sqa_dac_mux        => o_sqa_dac_mux(k)     , -- out    slv(c_SQA_DAC_MUX_S -1 downto 0)          ; --! SQUID AMP DAC: Multiplexer
@@ -705,8 +615,8 @@ begin
          o_sqa_dac_snc_o_n    => o_sqa_dac_snc_o_n(k)   -- out    std_logic                                   --! SQUID AMP DAC: Frame Synchronization DAC Offset ('0' = Active, '1' = Inactive)
       );
 
-      I_sqm_spi_mgt: entity work.sqm_spi_mgt port map
-      (  o_sqm_adc_spi_mosi   => b_sqm_adc_spi_sdio(k), -- out    std_logic                                 ; --! SQUID MUX ADC: SPI Serial Data In Out
+      I_sqm_spi_mgt: entity work.sqm_spi_mgt port map (
+         o_sqm_adc_spi_mosi   => o_sqm_adc_spi_sdio(k), -- out    std_logic                                 ; --! SQUID MUX ADC: SPI Serial Data In Out
          o_sqm_adc_spi_sclk   => o_sqm_adc_spi_sclk(k), -- out    std_logic                                 ; --! SQUID MUX ADC: SPI Serial Clock (CPOL = '0', CPHA = '0')
          o_sqm_adc_spi_cs_n   => o_sqm_adc_spi_cs_n(k)  -- out    std_logic                                   --! SQUID MUX ADC: SPI Chip Select ('0' = Active, '1' = Inactive)
       );
@@ -729,4 +639,4 @@ begin
    o_science_data(o_science_data'high) <= (others => '0');
    o_spare                             <= '0';
 
-end architecture rtl;
+end architecture RTL;

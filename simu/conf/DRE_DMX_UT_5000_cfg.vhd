@@ -34,8 +34,7 @@ configuration DRE_DMX_UT_5000_cfg of top_dmx_tb is
       --!   Parser configuration
       -- ------------------------------------------------------------------------------------------------------
       for I_parser : parser
-         use entity work.parser generic map
-         (
+         use entity work.parser generic map (
             g_SIM_TIME           => 100 us               , -- time    := c_SIM_TIME_DEF                     ; --! Simulation time
             g_TST_NUM            => "5000"                 -- string  := c_TST_NUM_DEF                        --! Test number
          );
@@ -45,8 +44,7 @@ configuration DRE_DMX_UT_5000_cfg of top_dmx_tb is
       --!   Science data model configuration
       -- ------------------------------------------------------------------------------------------------------
       for I_science_data_model: science_data_model
-         use entity work.science_data_model generic map
-         (
+         use entity work.science_data_model generic map (
             g_SIM_TIME           => 100 us              , -- time      := c_SIM_TIME_DEF                   ; --! Simulation time
             g_ERR_SC_DTA_ENA     => '0'                  , -- std_logic := c_ERR_SC_DTA_ENA_DEF             ; --! Error science data enable ('0' = No, '1' = Yes)
             g_FRM_CNT_SC_ENA     => '0'                  , -- std_logic := c_FRM_CNT_SC_ENA_DEF             ; --! Frame counter science enable ('0' = No, '1' = Yes)
@@ -58,8 +56,7 @@ configuration DRE_DMX_UT_5000_cfg of top_dmx_tb is
       --!   EP SPI Model configuration
       -- ------------------------------------------------------------------------------------------------------
       for I_ep_spi_model : ep_spi_model
-         use entity work.ep_spi_model generic map
-         (
+         use entity work.ep_spi_model generic map (
             g_EP_CLK_PER         => c_EP_CLK_PER_DEF     , -- time    := c_EP_CLK_PER_DEF                   ; --! EP: System clock period (ps)
             g_EP_CLK_PER_SHIFT   => c_EP_CLK_PER_SHFT_DEF, -- time    := c_EP_CLK_PER_SHFT_DEF              ; --! EP: Clock period shift
             g_EP_N_CLK_PER_SCLK_L=> 3                    , -- integer := c_EP_SCLK_L_DEF                    ; --! EP: Number of clock period for elaborating SPI Serial Clock low  level
@@ -73,8 +70,7 @@ configuration DRE_DMX_UT_5000_cfg of top_dmx_tb is
       -- ------------------------------------------------------------------------------------------------------
       for G_column_mgt(0)
          for I_squid_model: squid_model
-            use entity work.squid_model generic map
-            (
+            use entity work.squid_model generic map (
             g_SQM_ADC_VREF       => c_SQM_ADC_VREF_DEF   , -- real      := c_SQM_ADC_VREF_DEF               ; --! SQUID MUX ADC: Voltage reference (Volt)
             g_SQM_DAC_VREF       => c_SQM_DAC_VREF_DEF   , -- real      := c_SQM_DAC_VREF_DEF               ; --! SQUID MUX DAC: Voltage reference (Volt)
             g_SQA_DAC_VREF       => c_SQA_DAC_VREF_DEF   , -- real      := c_SQA_DAC_VREF_DEF               ; --! SQUID AMP DAC: Voltage reference (Volt)
@@ -89,8 +85,7 @@ configuration DRE_DMX_UT_5000_cfg of top_dmx_tb is
          end for;
 
          for I_fpasim_model: fpga_system_fpasim_top
-            use entity fpasim.fpga_system_fpasim_top generic map
-            (
+            use entity fpasim.fpga_system_fpasim_top generic map (
             g_ADC_VPP            => c_FPA_ADC_VPP_DEF    , -- natural := c_FPA_ADC_VPP_DEF                  ; --! ADC differential input voltage (Volt)
             g_ADC_DELAY          => 1                    , -- natural := c_FPA_ADC_DEL_DEF                  ; --! ADC conversion delay (clock cycle number)
             g_DAC_VPP            => c_FPA_DAC_VPP_DEF    , -- natural := c_FPA_DAC_VPP_DEF                  ; --! DAC differential output voltage (Volt)
@@ -108,8 +103,7 @@ configuration DRE_DMX_UT_5000_cfg of top_dmx_tb is
 
       for G_column_mgt(1)
          for I_squid_model: squid_model
-            use entity work.squid_model generic map
-            (
+            use entity work.squid_model generic map (
             g_SQM_ADC_VREF       => c_SQM_ADC_VREF_DEF   , -- real      := c_SQM_ADC_VREF_DEF               ; --! SQUID MUX ADC: Voltage reference (Volt)
             g_SQM_DAC_VREF       => c_SQM_DAC_VREF_DEF   , -- real      := c_SQM_DAC_VREF_DEF               ; --! SQUID MUX DAC: Voltage reference (Volt)
             g_SQA_DAC_VREF       => c_SQA_DAC_VREF_DEF   , -- real      := c_SQA_DAC_VREF_DEF               ; --! SQUID AMP DAC: Voltage reference (Volt)
@@ -124,8 +118,7 @@ configuration DRE_DMX_UT_5000_cfg of top_dmx_tb is
          end for;
 
          for I_fpasim_model: fpga_system_fpasim_top
-            use entity work.fpga_system_fpasim_top generic map
-            (
+            use entity work.fpga_system_fpasim_top generic map (
             g_ADC_VPP            => c_FPA_ADC_VPP_DEF    , -- natural := c_FPA_ADC_VPP_DEF                  ; --! ADC differential input voltage (Volt)
             g_ADC_DELAY          => c_FPA_ADC_DEL_DEF    , -- natural := c_FPA_ADC_DEL_DEF                  ; --! ADC conversion delay (clock cycle number)
             g_DAC_VPP            => c_FPA_DAC_VPP_DEF    , -- natural := c_FPA_DAC_VPP_DEF                  ; --! DAC differential output voltage (Volt)
@@ -143,8 +136,7 @@ configuration DRE_DMX_UT_5000_cfg of top_dmx_tb is
 
       for G_column_mgt(2)
          for I_squid_model: squid_model
-            use entity work.squid_model generic map
-            (
+            use entity work.squid_model generic map (
             g_SQM_ADC_VREF       => c_SQM_ADC_VREF_DEF   , -- real      := c_SQM_ADC_VREF_DEF               ; --! SQUID MUX ADC: Voltage reference (Volt)
             g_SQM_DAC_VREF       => c_SQM_DAC_VREF_DEF   , -- real      := c_SQM_DAC_VREF_DEF               ; --! SQUID MUX DAC: Voltage reference (Volt)
             g_SQA_DAC_VREF       => c_SQA_DAC_VREF_DEF   , -- real      := c_SQA_DAC_VREF_DEF               ; --! SQUID AMP DAC: Voltage reference (Volt)
@@ -159,8 +151,7 @@ configuration DRE_DMX_UT_5000_cfg of top_dmx_tb is
          end for;
 
          for I_fpasim_model: fpga_system_fpasim_top
-            use entity work.fpga_system_fpasim_top generic map
-            (
+            use entity work.fpga_system_fpasim_top generic map (
             g_ADC_VPP            => c_FPA_ADC_VPP_DEF    , -- natural := c_FPA_ADC_VPP_DEF                  ; --! ADC differential input voltage (Volt)
             g_ADC_DELAY          => c_FPA_ADC_DEL_DEF    , -- natural := c_FPA_ADC_DEL_DEF                  ; --! ADC conversion delay (clock cycle number)
             g_DAC_VPP            => c_FPA_DAC_VPP_DEF    , -- natural := c_FPA_DAC_VPP_DEF                  ; --! DAC differential output voltage (Volt)
@@ -178,8 +169,7 @@ configuration DRE_DMX_UT_5000_cfg of top_dmx_tb is
 
       for G_column_mgt(3)
          for I_squid_model: squid_model
-            use entity work.squid_model generic map
-            (
+            use entity work.squid_model generic map (
             g_SQM_ADC_VREF       => c_SQM_ADC_VREF_DEF   , -- real      := c_SQM_ADC_VREF_DEF               ; --! SQUID MUX ADC: Voltage reference (Volt)
             g_SQM_DAC_VREF       => c_SQM_DAC_VREF_DEF   , -- real      := c_SQM_DAC_VREF_DEF               ; --! SQUID MUX DAC: Voltage reference (Volt)
             g_SQA_DAC_VREF       => c_SQA_DAC_VREF_DEF   , -- real      := c_SQA_DAC_VREF_DEF               ; --! SQUID AMP DAC: Voltage reference (Volt)
@@ -194,8 +184,7 @@ configuration DRE_DMX_UT_5000_cfg of top_dmx_tb is
          end for;
 
          for I_fpasim_model: fpga_system_fpasim_top
-            use entity work.fpga_system_fpasim_top generic map
-            (
+            use entity work.fpga_system_fpasim_top generic map (
             g_ADC_VPP            => c_FPA_ADC_VPP_DEF    , -- natural := c_FPA_ADC_VPP_DEF                  ; --! ADC differential input voltage (Volt)
             g_ADC_DELAY          => c_FPA_ADC_DEL_DEF    , -- natural := c_FPA_ADC_DEL_DEF                  ; --! ADC conversion delay (clock cycle number)
             g_DAC_VPP            => c_FPA_DAC_VPP_DEF    , -- natural := c_FPA_DAC_VPP_DEF                  ; --! DAC differential output voltage (Volt)

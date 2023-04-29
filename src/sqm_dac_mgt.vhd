@@ -35,8 +35,8 @@ use     work.pkg_func_math.all;
 use     work.pkg_project.all;
 use     work.pkg_ep_cmd.all;
 
-entity sqm_dac_mgt is port
-   (     i_rst_sqm_adc_dac_pd : in     std_logic                                                            ; --! Reset for SQUID ADC/DAC for pad, de-assertion on system clock
+entity sqm_dac_mgt is port (
+         i_rst_sqm_adc_dac_pd : in     std_logic                                                            ; --! Reset for SQUID ADC/DAC for pad, de-assertion on system clock
          i_rst_sqm_adc_dac    : in     std_logic                                                            ; --! Reset for SQUID ADC/DAC, de-assertion on system clock ('0' = Inactive, '1' = Active)
          i_clk_sqm_adc_dac    : in     std_logic                                                            ; --! SQUID ADC/DAC internal Clock
          i_clk_sqm_adc_dac_90 : in     std_logic                                                            ; --! SQUID ADC/DAC internal 90 degrees shift
@@ -91,10 +91,10 @@ signal   x_final              : std_logic_vector(    c_SQM_DATA_FBK_S-1 downto 0
 signal   a_mant_k             : std_logic_vector(  c_DFLD_PLSSH_PLS_S-1 downto 0)                           ; --! Pulse shaping: A[k] filter mantissa parameter (unsigned)
 signal   a_mant_k_rs          : std_logic_vector( c_SQM_PLS_SHP_A_EXP-1 downto 0)                           ; --! Pulse shaping: A[k] filter mantissa parameter (unsigned) resized
 
-attribute syn_preserve        : boolean                                                                     ;
-attribute syn_preserve          of rst_sqm_adc_dac_pad   : signal is true                                   ;
-attribute syn_preserve          of sync_r                : signal is true                                   ;
-attribute syn_preserve          of sync_re               : signal is true                                   ;
+attribute syn_preserve        : boolean                                                                     ; --! Disabling signal optimization
+attribute syn_preserve          of rst_sqm_adc_dac_pad   : signal is true                                   ; --! Disabling signal optimization: rst_sqm_adc_dac_pad
+attribute syn_preserve          of sync_r                : signal is true                                   ; --! Disabling signal optimization: sync_r
+attribute syn_preserve          of sync_re               : signal is true                                   ; --! Disabling signal optimization: sync_re
 
 begin
 
@@ -118,11 +118,11 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   Inputs registered on system clock before resynchronization
    -- ------------------------------------------------------------------------------------------------------
-   I_sync_rs_sys: entity work.signal_reg generic map
-   (  g_SIG_FF_NB          => 1                    , -- integer                                          ; --! Signal registered flip-flop number
+   I_sync_rs_sys: entity work.signal_reg generic map (
+      g_SIG_FF_NB          => 1                    , -- integer                                          ; --! Signal registered flip-flop number
       g_SIG_DEF            => c_I_SYNC_DEF           -- std_logic                                          --! Signal registered default value at reset
-   )  port map
-   (  i_reset              => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+   )  port map (
+      i_reset              => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
       i_clock              => i_clk                , -- in     std_logic                                 ; --! Clock
 
       i_sig                => i_sync_rs            , -- in     std_logic                                 ; --! Signal
@@ -246,13 +246,13 @@ begin
    --    @Req : REG_CY_FB1_PULSE_SHAPING
    --    @Req : DRE-DMX-FW-REQ-0230
    -- ------------------------------------------------------------------------------------------------------
-   I_mem_pls_shape: entity work.dmem_ecc generic map
-   (     g_RAM_TYPE           => c_RAM_TYPE_PRM_STORE , -- integer                                          ; --! Memory type ( 0  = Data transfer,  1  = Parameters storage)
+   I_mem_pls_shape: entity work.dmem_ecc generic map (
+         g_RAM_TYPE           => c_RAM_TYPE_PRM_STORE , -- integer                                          ; --! Memory type ( 0  = Data transfer,  1  = Parameters storage)
          g_RAM_ADD_S          => c_MEM_PLSSH_ADD_S    , -- integer                                          ; --! Memory address bus size (<= c_RAM_ECC_ADD_S)
          g_RAM_DATA_S         => c_DFLD_PLSSH_PLS_S   , -- integer                                          ; --! Memory data bus size (<= c_RAM_DATA_S)
          g_RAM_INIT           => c_EP_CMD_DEF_PLSSH     -- t_int_arr                                          --! Memory content at initialization
-   ) port map
-   (     i_a_rst              => i_rst                , -- in     std_logic                                 ; --! Memory port A: registers reset ('0' = Inactive, '1' = Active)
+   ) port map (
+         i_a_rst              => i_rst                , -- in     std_logic                                 ; --! Memory port A: registers reset ('0' = Inactive, '1' = Active)
          i_a_clk              => i_clk                , -- in     std_logic                                 ; --! Memory port A: main clock
          i_a_clk_shift        => i_clk_90             , -- in     std_logic                                 ; --! Memory port A: 90 degrees shifted clock (used for memory content correction)
 
@@ -333,12 +333,12 @@ begin
    --    @Req : DRE-DMX-FW-REQ-0220
    --    @Req : DRE-DMX-FW-REQ-0240
    -- ------------------------------------------------------------------------------------------------------
-   I_pulse_shaping: entity work.pulse_shaping generic map
-   (     g_X_K_S              => c_SQM_DATA_FBK_S     , -- integer                                          ; --! Data in bus size (<= c_MULT_ALU_PORTB_S-1)
+   I_pulse_shaping: entity work.pulse_shaping generic map (
+         g_X_K_S              => c_SQM_DATA_FBK_S     , -- integer                                          ; --! Data in bus size (<= c_MULT_ALU_PORTB_S-1)
          g_A_EXP              => c_SQM_PLS_SHP_A_EXP  , -- integer                                          ; --! A[k]: filter exponent parameter (<= c_MULT_ALU_PORTC_S-g_X_K_S-1)
          g_Y_K_S              => c_SQM_DAC_DATA_S       -- integer                                            --! y[k]: filtered data out bus size
-   ) port map
-      (  i_rst_sqm_adc_dac_pd => rst_sqm_adc_dac_pad  , -- in     std_logic                                 ; --! Reset for SQUID ADC/DAC pads, de-assertion on system clock
+   ) port map (
+         i_rst_sqm_adc_dac_pd => rst_sqm_adc_dac_pad  , -- in     std_logic                                 ; --! Reset for SQUID ADC/DAC pads, de-assertion on system clock
          i_rst_sqm_adc_dac    => i_rst_sqm_adc_dac    , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk_sqm_adc_dac    => i_clk_sqm_adc_dac    , -- in     std_logic                                 ; --! SQUID MUX pulse shaping Clock
          i_x_init             => x_init               , -- in     std_logic_vector(g_X_K_S-1 downto 0)      ; --! Last value reached by y[k] at the end of last slice (unsigned)

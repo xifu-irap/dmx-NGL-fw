@@ -35,16 +35,16 @@ use     work.pkg_project.all;
 use     work.pkg_ep_cmd.all;
 use     work.pkg_mess.all;
 use     work.pkg_model.all;
-use     work.pkg_func_cmd_script.all;
+use     work.pkg_func_parser.all;
 
 library std;
 use std.textio.all;
 
-entity parser is generic
-   (     g_SIM_TIME           : time    := c_SIM_TIME_DEF                                                   ; --! Simulation time
+entity parser is generic (
+         g_SIM_TIME           : time    := c_SIM_TIME_DEF                                                   ; --! Simulation time
          g_TST_NUM            : string  := c_TST_NUM_DEF                                                      --! Test number
-   ); port
-   (     o_arst_n             : out    std_logic                                                            ; --! Asynchronous reset ('0' = Active, '1' = Inactive)
+   ); port (
+         o_arst_n             : out    std_logic                                                            ; --! Asynchronous reset ('0' = Active, '1' = Inactive)
          i_clk_ref            : in     std_logic                                                            ; --! Reference Clock
          i_sync               : in     std_logic                                                            ; --! Pixel sequence synchronization (R.E. detected = position sequence to the first pixel)
 
@@ -52,20 +52,9 @@ entity parser is generic
          i_err_n_spi_chk      : in     t_int_arr_tab(0 to c_CHK_ENA_SPI_NB-1)(0 to c_SPI_ERR_CHK_NB-1)      ; --! SPI check error number:
          i_err_num_pls_shp    : in     t_int_arr(0 to c_NB_COL-1)                                           ; --! Pulse shaping error number
 
-         i_c0_sqm_adc_pwdn    : in     std_logic                                                            ; --! SQUID MUX ADC, col. 0: Power Down ('0' = Inactive, '1' = Active)
-         i_c1_sqm_adc_pwdn    : in     std_logic                                                            ; --! SQUID MUX ADC, col. 1: Power Down ('0' = Inactive, '1' = Active)
-         i_c2_sqm_adc_pwdn    : in     std_logic                                                            ; --! SQUID MUX ADC, col. 2: Power Down ('0' = Inactive, '1' = Active)
-         i_c3_sqm_adc_pwdn    : in     std_logic                                                            ; --! SQUID MUX ADC, col. 3: Power Down ('0' = Inactive, '1' = Active)
-
-         i_c0_sqm_adc_ana     : in     real                                                                 ; --! SQUID MUX ADC, col. 0: Analog
-         i_c1_sqm_adc_ana     : in     real                                                                 ; --! SQUID MUX ADC, col. 1: Analog
-         i_c2_sqm_adc_ana     : in     real                                                                 ; --! SQUID MUX ADC, col. 2: Analog
-         i_c3_sqm_adc_ana     : in     real                                                                 ; --! SQUID MUX ADC, col. 3: Analog
-
-         i_c0_sqm_dac_sleep   : in     std_logic                                                            ; --! SQUID MUX DAC, col. 0: Sleep ('0' = Inactive, '1' = Active)
-         i_c1_sqm_dac_sleep   : in     std_logic                                                            ; --! SQUID MUX DAC, col. 1: Sleep ('0' = Inactive, '1' = Active)
-         i_c2_sqm_dac_sleep   : in     std_logic                                                            ; --! SQUID MUX DAC, col. 2: Sleep ('0' = Inactive, '1' = Active)
-         i_c3_sqm_dac_sleep   : in     std_logic                                                            ; --! SQUID MUX DAC, col. 3: Sleep ('0' = Inactive, '1' = Active)
+         i_sqm_adc_pwdn       : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! SQUID MUX ADC: Power Down ('0' = Inactive, '1' = Active)
+         i_sqm_adc_ana        : in     t_real_arr( 0 to c_NB_COL-1)                                         ; --! SQUID MUX ADC: Analog
+         i_sqm_dac_sleep      : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! SQUID MUX DAC: Sleep ('0' = Inactive, '1' = Active)
 
          i_d_rst              : in     std_logic                                                            ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
          i_d_rst_sqm_adc      : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
@@ -76,15 +65,8 @@ entity parser is generic
          i_d_clk_sqm_adc_acq  : in     std_logic                                                            ; --! Internal design: SQUID MUX ADC acquisition Clock
          i_d_clk_sqm_pls_shap : in     std_logic                                                            ; --! Internal design: SQUID MUX pulse shaping Clock
 
-         i_c0_clk_sqm_adc     : in     std_logic                                                            ; --! SQUID MUX ADC, col. 0: Clock
-         i_c1_clk_sqm_adc     : in     std_logic                                                            ; --! SQUID MUX ADC, col. 1: Clock
-         i_c2_clk_sqm_adc     : in     std_logic                                                            ; --! SQUID MUX ADC, col. 2: Clock
-         i_c3_clk_sqm_adc     : in     std_logic                                                            ; --! SQUID MUX ADC, col. 3: Clock
-
-         i_c0_clk_sqm_dac     : in     std_logic                                                            ; --! SQUID MUX DAC, col. 0: Clock
-         i_c1_clk_sqm_dac     : in     std_logic                                                            ; --! SQUID MUX DAC, col. 1: Clock
-         i_c2_clk_sqm_dac     : in     std_logic                                                            ; --! SQUID MUX DAC, col. 2: Clock
-         i_c3_clk_sqm_dac     : in     std_logic                                                            ; --! SQUID MUX DAC, col. 3: Clock
+         i_clk_sqm_adc        : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! SQUID MUX ADC: Clock
+         i_clk_sqm_dac        : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! SQUID MUX DAC: Clock
 
          i_sc_pkt_type        : in     std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0)                       ; --! Science packet type
          i_sc_pkt_err         : in     std_logic                                                            ; --! Science packet error ('0' = No error, '1' = Error)
@@ -109,10 +91,7 @@ entity parser is generic
          o_science_mem_data   : out    std_logic_vector(c_SC_DATA_SER_NB*c_SC_DATA_SER_W_S-1 downto 0)      ; --! Science  memory for data compare: data
          o_adc_dmp_mem_cs     : out    std_logic_vector(        c_NB_COL-1 downto 0)                        ; --! ADC Dump memory for data compare: chip select ('0' = Inactive, '1' = Active)
 
-         i_c0_fpa_conf_busy   : in     std_logic                                                            ; --! FPASIM, col. 0: configuration ('0' = conf. over, '1' = conf. in progress)
-         i_c1_fpa_conf_busy   : in     std_logic                                                            ; --! FPASIM, col. 1: configuration ('0' = conf. over, '1' = conf. in progress)
-         i_c2_fpa_conf_busy   : in     std_logic                                                            ; --! FPASIM, col. 2: configuration ('0' = conf. over, '1' = conf. in progress)
-         i_c3_fpa_conf_busy   : in     std_logic                                                            ; --! FPASIM, col. 3: configuration ('0' = conf. over, '1' = conf. in progress)
+         i_fpa_conf_busy      : in     std_logic_vector(        c_NB_COL-1 downto 0)                        ; --! FPASIM configuration ('0' = conf. over, '1' = conf. in progress)
          i_fpa_cmd_rdy        : in     std_logic_vector(        c_NB_COL-1 downto 0)                        ; --! FPASIM command ready ('0' = No, '1' = Yes)
          o_fpa_cmd            : out    t_slv_arr(0 to c_NB_COL-1)(c_FPA_CMD_S-1 downto 0)                   ; --! FPASIM command
          o_fpa_cmd_valid      : out    std_logic_vector(        c_NB_COL-1 downto 0)                          --! FPASIM command valid ('0' = No, '1' = Yes)
@@ -124,85 +103,12 @@ constant c_SIM_NAME           : string    := c_CMD_FILE_ROOT & g_TST_NUM        
 
 signal   discrete_w           : std_logic_vector(c_CMD_FILE_FLD_DATA_S-1 downto 0)                          ; --! Discrete write
 signal   discrete_r           : std_logic_vector(c_CMD_FILE_FLD_DATA_S-1 downto 0)                          ; --! Discrete read
+signal   discrete_r_lst_ev    : t_time_arr(0 to c_CMD_FILE_FLD_DATA_S-1)                                    ; --! Discrete read last event time
 
-signal   sqm_dac_ana          : t_real_arr(0 to c_NB_COL-1)                                                 ; --! SQUID MUX DAC: Analog
+signal   sqm_adc_ana_lst_ev   : t_time_arr(0 to c_NB_COL-1)                                                 ; --! SQUID MUX ADC: Analog last event time
 
 file     cmd_file             : text                                                                        ; --! Command file
 file     res_file             : text                                                                        ; --! Result file
-
-   -- ------------------------------------------------------------------------------------------------------
-   --! Return the last event time of the signal indexed in discrete read bus
-   -- ------------------------------------------------------------------------------------------------------
-   function dis_read_last_event (
-         discrete_r_index     : integer                                                                       -- Discrete read index
-   ) return time is
-   begin
-
-      case discrete_r_index is
-         when  c_DR_D_RST              => return i_d_rst'last_event;
-         when  c_DR_CLK_REF            => return i_clk_ref'last_event;
-         when  c_DR_D_CLK              => return i_d_clk'last_event;
-         when  c_DR_D_CLK_SQM_ADC      => return i_d_clk_sqm_adc_acq'last_event;
-         when  c_DR_D_CLK_SQM_PLS_SH   => return i_d_clk_sqm_pls_shap'last_event;
-         when  c_DR_EP_CMD_BUSY_N      => return i_ep_cmd_busy_n'last_event;
-         when  c_DR_EP_DATA_RX_RDY     => return i_ep_data_rx_rdy'last_event;
-         when  c_DR_D_RST_SQM_ADC_0    => return i_d_rst_sqm_adc'last_event;
-         when  c_DR_D_RST_SQM_ADC_1    => return i_d_rst_sqm_adc'last_event;
-         when  c_DR_D_RST_SQM_ADC_2    => return i_d_rst_sqm_adc'last_event;
-         when  c_DR_D_RST_SQM_ADC_3    => return i_d_rst_sqm_adc'last_event;
-         when  c_DR_D_RST_SQM_DAC_0    => return i_d_rst_sqm_dac'last_event;
-         when  c_DR_D_RST_SQM_DAC_1    => return i_d_rst_sqm_dac'last_event;
-         when  c_DR_D_RST_SQM_DAC_2    => return i_d_rst_sqm_dac'last_event;
-         when  c_DR_D_RST_SQM_DAC_3    => return i_d_rst_sqm_dac'last_event;
-         when  c_DR_D_RST_SQA_MUX_0    => return i_d_rst_sqa_mux'last_event;
-         when  c_DR_D_RST_SQA_MUX_1    => return i_d_rst_sqa_mux'last_event;
-         when  c_DR_D_RST_SQA_MUX_2    => return i_d_rst_sqa_mux'last_event;
-         when  c_DR_D_RST_SQA_MUX_3    => return i_d_rst_sqa_mux'last_event;
-         when  c_DR_SYNC               => return i_sync'last_event;
-         when  c_DR_SQM_ADC_PWDN_0     => return i_c0_sqm_adc_pwdn'last_event;
-         when  c_DR_SQM_ADC_PWDN_1     => return i_c1_sqm_adc_pwdn'last_event;
-         when  c_DR_SQM_ADC_PWDN_2     => return i_c2_sqm_adc_pwdn'last_event;
-         when  c_DR_SQM_ADC_PWDN_3     => return i_c3_sqm_adc_pwdn'last_event;
-         when  c_DR_SQM_DAC_SLEEP_0    => return i_c0_sqm_dac_sleep'last_event;
-         when  c_DR_SQM_DAC_SLEEP_1    => return i_c1_sqm_dac_sleep'last_event;
-         when  c_DR_SQM_DAC_SLEEP_2    => return i_c2_sqm_dac_sleep'last_event;
-         when  c_DR_SQM_DAC_SLEEP_3    => return i_c3_sqm_dac_sleep'last_event;
-         when  c_DR_CLK_SQM_ADC_0      => return i_c0_clk_sqm_adc'last_event;
-         when  c_DR_CLK_SQM_ADC_1      => return i_c1_clk_sqm_adc'last_event;
-         when  c_DR_CLK_SQM_ADC_2      => return i_c2_clk_sqm_adc'last_event;
-         when  c_DR_CLK_SQM_ADC_3      => return i_c3_clk_sqm_adc'last_event;
-         when  c_DR_CLK_SQM_DAC_0      => return i_c0_clk_sqm_dac'last_event;
-         when  c_DR_CLK_SQM_DAC_1      => return i_c1_clk_sqm_dac'last_event;
-         when  c_DR_CLK_SQM_DAC_2      => return i_c2_clk_sqm_dac'last_event;
-         when  c_DR_CLK_SQM_DAC_3      => return i_c3_clk_sqm_dac'last_event;
-         when  c_DR_FPA_CONF_BUSY_0    => return i_c0_fpa_conf_busy'last_event;
-         when  c_DR_FPA_CONF_BUSY_1    => return i_c1_fpa_conf_busy'last_event;
-         when  c_DR_FPA_CONF_BUSY_2    => return i_c2_fpa_conf_busy'last_event;
-         when  c_DR_FPA_CONF_BUSY_3    => return i_c3_fpa_conf_busy'last_event;
-         when others                   => return time'low;
-
-      end case;
-
-   end function;
-
-   -- ------------------------------------------------------------------------------------------------------
-   --! Return the last event time of the SQUID MUX DAC Analog
-   -- ------------------------------------------------------------------------------------------------------
-   function sqm_dac_last_event (
-         channel  : integer                                                                                   -- Channel
-   ) return time is
-   begin
-
-      case channel is
-         when  0     => return i_c0_sqm_adc_ana'last_event;
-         when  1     => return i_c1_sqm_adc_ana'last_event;
-         when  2     => return i_c2_sqm_adc_ana'last_event;
-         when  3     => return i_c3_sqm_adc_ana'last_event;
-         when others => return time'low;
-
-      end case;
-
-   end function;
 
 begin
 
@@ -241,36 +147,68 @@ begin
    discrete_r(c_DR_D_RST_SQA_MUX_2) <= i_d_rst_sqa_mux(2);
    discrete_r(c_DR_D_RST_SQA_MUX_3) <= i_d_rst_sqa_mux(3);
    discrete_r(c_DR_SYNC)            <= i_sync;
-   discrete_r(c_DR_SQM_ADC_PWDN_0)  <= i_c0_sqm_adc_pwdn;
-   discrete_r(c_DR_SQM_ADC_PWDN_1)  <= i_c1_sqm_adc_pwdn;
-   discrete_r(c_DR_SQM_ADC_PWDN_2)  <= i_c2_sqm_adc_pwdn;
-   discrete_r(c_DR_SQM_ADC_PWDN_3)  <= i_c3_sqm_adc_pwdn;
-   discrete_r(c_DR_SQM_DAC_SLEEP_0) <= i_c0_sqm_dac_sleep;
-   discrete_r(c_DR_SQM_DAC_SLEEP_1) <= i_c1_sqm_dac_sleep;
-   discrete_r(c_DR_SQM_DAC_SLEEP_2) <= i_c2_sqm_dac_sleep;
-   discrete_r(c_DR_SQM_DAC_SLEEP_3) <= i_c3_sqm_dac_sleep;
-   discrete_r(c_DR_CLK_SQM_ADC_0)   <= i_c0_clk_sqm_adc;
-   discrete_r(c_DR_CLK_SQM_ADC_1)   <= i_c1_clk_sqm_adc;
-   discrete_r(c_DR_CLK_SQM_ADC_2)   <= i_c2_clk_sqm_adc;
-   discrete_r(c_DR_CLK_SQM_ADC_3)   <= i_c3_clk_sqm_adc;
-   discrete_r(c_DR_CLK_SQM_DAC_0)   <= i_c0_clk_sqm_dac;
-   discrete_r(c_DR_CLK_SQM_DAC_1)   <= i_c1_clk_sqm_dac;
-   discrete_r(c_DR_CLK_SQM_DAC_2)   <= i_c2_clk_sqm_dac;
-   discrete_r(c_DR_CLK_SQM_DAC_3)   <= i_c3_clk_sqm_dac;
-   discrete_r(c_DR_FPA_CONF_BUSY_0) <= i_c0_fpa_conf_busy;
-   discrete_r(c_DR_FPA_CONF_BUSY_1) <= i_c1_fpa_conf_busy;
-   discrete_r(c_DR_FPA_CONF_BUSY_2) <= i_c2_fpa_conf_busy;
-   discrete_r(c_DR_FPA_CONF_BUSY_3) <= i_c3_fpa_conf_busy;
+   discrete_r(c_DR_SQM_ADC_PWDN_0)  <= i_sqm_adc_pwdn(0);
+   discrete_r(c_DR_SQM_ADC_PWDN_1)  <= i_sqm_adc_pwdn(1);
+   discrete_r(c_DR_SQM_ADC_PWDN_2)  <= i_sqm_adc_pwdn(2);
+   discrete_r(c_DR_SQM_ADC_PWDN_3)  <= i_sqm_adc_pwdn(3);
+   discrete_r(c_DR_SQM_DAC_SLEEP_0) <= i_sqm_dac_sleep(0);
+   discrete_r(c_DR_SQM_DAC_SLEEP_1) <= i_sqm_dac_sleep(1);
+   discrete_r(c_DR_SQM_DAC_SLEEP_2) <= i_sqm_dac_sleep(2);
+   discrete_r(c_DR_SQM_DAC_SLEEP_3) <= i_sqm_dac_sleep(3);
+   discrete_r(c_DR_CLK_SQM_ADC_0)   <= i_clk_sqm_adc(0);
+   discrete_r(c_DR_CLK_SQM_ADC_1)   <= i_clk_sqm_adc(1);
+   discrete_r(c_DR_CLK_SQM_ADC_2)   <= i_clk_sqm_adc(2);
+   discrete_r(c_DR_CLK_SQM_ADC_3)   <= i_clk_sqm_adc(3);
+   discrete_r(c_DR_CLK_SQM_DAC_0)   <= i_clk_sqm_dac(0);
+   discrete_r(c_DR_CLK_SQM_DAC_1)   <= i_clk_sqm_dac(1);
+   discrete_r(c_DR_CLK_SQM_DAC_2)   <= i_clk_sqm_dac(2);
+   discrete_r(c_DR_CLK_SQM_DAC_3)   <= i_clk_sqm_dac(3);
+   discrete_r(c_DR_FPA_CONF_BUSY_0) <= i_fpa_conf_busy(0);
+   discrete_r(c_DR_FPA_CONF_BUSY_1) <= i_fpa_conf_busy(1);
+   discrete_r(c_DR_FPA_CONF_BUSY_2) <= i_fpa_conf_busy(2);
+   discrete_r(c_DR_FPA_CONF_BUSY_3) <= i_fpa_conf_busy(3);
 
    discrete_r(discrete_r'high downto c_DR_S) <= (others => '0');
 
    -- ------------------------------------------------------------------------------------------------------
-   --!   Discrete write signals association
+   --!   SQUID MUX ADC: Analog last event time
    -- ------------------------------------------------------------------------------------------------------
-   sqm_dac_ana(0) <= i_c0_sqm_adc_ana;
-   sqm_dac_ana(1) <= i_c1_sqm_adc_ana;
-   sqm_dac_ana(2) <= i_c2_sqm_adc_ana;
-   sqm_dac_ana(3) <= i_c3_sqm_adc_ana;
+   G_sqm_adc_ana_lst_ev: for k in 0 to c_NB_COL-1 generate
+   begin
+
+      P_sqm_adc_ana_lst_ev: process
+      begin
+            sqm_adc_ana_lst_ev(k) <= 0 ns;
+
+         loop
+            wait until i_sqm_adc_ana(k)'event;
+               sqm_adc_ana_lst_ev(k) <= now;
+
+         end loop;
+
+      end process;
+
+   end generate G_sqm_adc_ana_lst_ev;
+
+   -- ------------------------------------------------------------------------------------------------------
+   --!   Discrete read last event time
+   -- ------------------------------------------------------------------------------------------------------
+   G_discrete_r_lst_ev: for k in 0 to c_DR_S-1 generate
+   begin
+
+      P_discrete_r_lst_ev: process
+      begin
+            discrete_r_lst_ev(k) <= 0 ns;
+
+         loop
+            wait until discrete_r(k)'event;
+               discrete_r_lst_ev(k) <= now;
+
+         end loop;
+
+      end process;
+
+   end generate G_discrete_r_lst_ev;
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Parser sequence: read command file and write result file
@@ -292,21 +230,7 @@ begin
    variable v_head_mess_stdout: line                                                                        ; --! Header message output stream stdout
    variable v_cmd_file_line   : line                                                                        ; --! Command file line
    variable v_fld_cmd         : line                                                                        ; --! Field script command
-   variable v_mess_spi_cmd    : line                                                                        ; --! Message SPI command
-   variable v_fld_spi_cmd     : std_logic_vector(c_EP_CMD_S-1 downto 0)                                     ; --! Field SPI command
-   variable v_wait_end        : t_wait_cmd_end                                                              ; --! Wait end
-   variable v_fld_dis         : line                                                                        ; --! Field discrete
-   variable v_fld_dis_ind     : t_int_arr(0 to 2)                                                           ; --! Field discrete index
-   variable v_fld_value       : std_logic                                                                   ; --! Field value
-   variable v_fld_ope         : line                                                                        ; --! Field operation
-   variable v_fld_data        : std_logic_vector(c_CMD_FILE_FLD_DATA_S-1 downto 0)                          ; --! Field data
-   variable v_fld_mask        : std_logic_vector(c_CMD_FILE_FLD_DATA_S-1 downto 0)                          ; --! Field mask
    variable v_record_time     : time                                                                        ; --! Record time
-   variable v_fld_time        : time                                                                        ; --! Field time
-   variable v_fld_real        : real                                                                        ; --! Field real
-   variable v_fld_sc_pkt      : line                                                                        ; --! Field science packet type
-   variable v_fld_sc_pkt_val  : std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0)                              ; --! Field science packet type value
-   variable v_fld_pls_shp_fc  : integer                                                                     ; --! Field pulse shaping cut frequency (Hz)
    begin
 
       -- Open Command and Result files
@@ -358,155 +282,50 @@ begin
                -- Command CCMD [cmd] [end]: check the EP command return
                -- ------------------------------------------------------------------------------------------------------
                when "CCMD" =>
-
-                  -- Get parameters
-                  get_param_ccmd(v_cmd_file_line, v_head_mess_stdout.all, v_mess_spi_cmd, v_fld_spi_cmd, v_wait_end);
-
-                  wait for c_EP_CLK_PER_DEF;
-
-                  -- Check command return
-                  if i_ep_data_rx = v_fld_spi_cmd then
-                     fprintf(note , "Check command return: PASS", res_file);
-
-                  else
-                     fprintf(error, "Check command return: FAIL", res_file);
-
-                     -- Activate error flag
-                     v_err_chk_cmd_r  := '1';
-
-                  end if;
-
-                  -- Display result
-                  fprintf(note , " * Read " & hfield_format(i_ep_data_rx).all & ", expected " & v_mess_spi_cmd.all , res_file);
-
-                  if v_wait_end = wait_cmd_end_tx then
-                     v_fld_time := now;
-                     wait until i_ep_cmd_busy_n = '1' for g_SIM_TIME-now;
-
-                     -- Check the simulation end
-                     chk_sim_end(g_SIM_TIME, now-v_fld_time, "SPI command end", v_err_sim_time, res_file);
-
-                  else
-                     null;
-
-                  end if;
+                  parser_cmd_ccmd(v_cmd_file_line, v_head_mess_stdout.all, res_file, i_ep_cmd_busy_n, i_ep_data_rx, g_SIM_TIME, v_err_chk_cmd_r, v_err_sim_time);
 
                -- ------------------------------------------------------------------------------------------------------
                -- Command CCPE [report]: Enable the display in result file of the report about the check parameters
                -- ------------------------------------------------------------------------------------------------------
                when "CCPE" =>
-
-                  -- Get parameters
-                  get_param_ccpe(v_cmd_file_line, v_head_mess_stdout.all, v_fld_dis, v_fld_dis_ind(0));
-
-                  -- Update discrete write signal
-                  v_chk_rpt_prm_ena(v_fld_dis_ind(0)) := '1';
-
-                  -- Display command
-                  fprintf(note , "Report display activated: " & v_fld_dis.all , res_file);
+                  parser_cmd_ccpe(v_cmd_file_line, v_head_mess_stdout.all, res_file, v_chk_rpt_prm_ena);
 
                -- ------------------------------------------------------------------------------------------------------
                -- Command CDIS [discrete_r] [value]: check discrete input
                -- ------------------------------------------------------------------------------------------------------
                when "CDIS" =>
-
-                  -- Get parameters
-                  get_param_cdis(v_cmd_file_line, v_head_mess_stdout.all, v_fld_dis, v_fld_dis_ind(0), v_fld_value);
-
-                  -- Check result
-                  if discrete_r(v_fld_dis_ind(0)) = v_fld_value then
-                     fprintf(note , "Check discrete level: PASS", res_file);
-
-                  else
-                     fprintf(error, "Check discrete level: FAIL", res_file);
-
-                     -- Activate error flag
-                     v_err_chk_dis_r := '1';
-
-                  end if;
-
-                  -- Display result
-                  fprintf(note , " * Read discrete: " & v_fld_dis.all & ", value " & std_logic'image(discrete_r(v_fld_dis_ind(0))) & ", expected " & std_logic'image(v_fld_value), res_file);
+                  parser_cmd_cdis(v_cmd_file_line, v_head_mess_stdout.all, res_file, discrete_r, v_err_chk_dis_r);
 
                -- ------------------------------------------------------------------------------------------------------
                -- Command CLDC [channel] [value]: check level SQUID MUX ADC input
                -- ------------------------------------------------------------------------------------------------------
                when "CLDC" =>
-
-                  -- Get parameters
-                  get_param_cldc(v_cmd_file_line, v_head_mess_stdout.all, v_fld_dis_ind(0), v_fld_real);
-
-                  -- Check result
-                  if abs(sqm_dac_ana(v_fld_dis_ind(0)) - v_fld_real) <= 10.0**(-7) then
-                     fprintf(note , "Check DAC level: PASS", res_file);
-
-                  else
-                     fprintf(error, "Check DAC level: FAIL", res_file);
-
-                     -- Activate error flag
-                     v_err_chk_dis_r := '1';
-
-                  end if;
-
-                  -- Display result
-                  fprintf(note , " * Read DAC channel " & integer'image(v_fld_dis_ind(0)) & ", value " & real'image(sqm_dac_ana(v_fld_dis_ind(0))) & ", expected " & real'image(v_fld_real), res_file);
+                  parser_cmd_cldc(v_cmd_file_line, v_head_mess_stdout.all, res_file, i_sqm_adc_ana, v_err_chk_dis_r);
 
                -- ------------------------------------------------------------------------------------------------------
                -- Command CSCP [science_packet] : check the science packet type
                -- ------------------------------------------------------------------------------------------------------
                when "CSCP" =>
-
-                  -- Get parameters
-                  get_param_cscp(v_cmd_file_line, v_head_mess_stdout.all, v_fld_sc_pkt, v_fld_sc_pkt_val);
-
-                  -- Check result
-                  if v_fld_sc_pkt_val = i_sc_pkt_type then
-                     fprintf(note , "Check science packet type: PASS", res_file);
-
-                  else
-                     fprintf(error, "Check science packet type: FAIL", res_file);
-
-                     -- Activate error flag
-                     v_err_chk_sc_pkt := '1';
-
-                  end if;
-
-                  -- Display result
-                  fprintf(note , " * Science packet type: " & v_fld_sc_pkt.all & ", value " & to_string(i_sc_pkt_type) & ", expected " & to_string(v_fld_sc_pkt_val), res_file);
+                  parser_cmd_cscp(v_cmd_file_line, v_head_mess_stdout.all, res_file, i_sc_pkt_type, v_err_chk_sc_pkt);
 
                -- ------------------------------------------------------------------------------------------------------
                -- Command CTDC [channel] [ope] [time]: check time between the current time
                --   and last event SQUID MUX ADC input
                -- ------------------------------------------------------------------------------------------------------
                when "CTDC" =>
-
-                  -- Get parameters
-                  get_param_ctdc(v_cmd_file_line, v_head_mess_stdout.all, v_fld_dis_ind(0), v_fld_ope, v_fld_time);
-
-                  -- Compare time between the current time and SQUID MUX DAC output last event
-                  cmp_time(v_fld_ope(1 to 2), sqm_dac_last_event(v_fld_dis_ind(0)), v_fld_time, "DAC channel " & integer'image(v_fld_dis_ind(0)) & " last event" , v_head_mess_stdout.all & "[ope]", v_err_chk_time, res_file);
+                  parser_cmd_ctdc(v_cmd_file_line, v_head_mess_stdout.all, res_file, sqm_adc_ana_lst_ev, v_err_chk_time);
 
                -- ------------------------------------------------------------------------------------------------------
                -- Command CTLE [mask] [ope] [time]: check time between the current time and discrete input(s) last event
                -- ------------------------------------------------------------------------------------------------------
                when "CTLE" =>
-
-                  -- Get parameters
-                  get_param_ctle(v_cmd_file_line, v_head_mess_stdout.all, v_fld_dis, v_fld_dis_ind(0), v_fld_ope, v_fld_time);
-
-                  -- Compare time between the current time and discrete input(s) last event
-                  cmp_time(v_fld_ope(1 to 2), dis_read_last_event(v_fld_dis_ind(0)), v_fld_time, v_fld_dis.all & " last event" , v_head_mess_stdout.all & "[ope]", v_err_chk_time, res_file);
+                  parser_cmd_ctle(v_cmd_file_line, v_head_mess_stdout.all, res_file, discrete_r_lst_ev, v_err_chk_time);
 
                -- ------------------------------------------------------------------------------------------------------
                -- Command CTLR [ope] [time]: check time from the last record time
                -- ------------------------------------------------------------------------------------------------------
                when "CTLR" =>
-
-                  -- Get parameters
-                  get_param_ctlr(v_cmd_file_line, v_head_mess_stdout.all, v_fld_ope, v_fld_time);
-
-                  -- Compare time between the current and record time with expected time
-                  cmp_time(v_fld_ope(1 to 2), now - v_record_time, v_fld_time, "record time", v_head_mess_stdout.all & "[ope]", v_err_chk_time, res_file);
+                  parser_cmd_ctlr(v_cmd_file_line, v_head_mess_stdout.all, res_file, v_record_time, v_err_chk_time);
 
                -- ------------------------------------------------------------------------------------------------------
                -- Command COMM: add comment in result file
@@ -525,188 +344,56 @@ begin
                -- Command WAIT [time]: wait for time
                -- ------------------------------------------------------------------------------------------------------
                when "WAIT" =>
-
-                  -- Get parameters
-                  get_param_wait(v_cmd_file_line, v_head_mess_stdout.all, v_fld_time);
-
-                  -- Check the simulation end
-                  if v_fld_time > (g_SIM_TIME - now) then
-                     wait for (g_SIM_TIME - now);
-
-                  else
-                     wait for v_fld_time;
-
-                  end if;
-
-                  -- Check the simulation end
-                  chk_sim_end(g_SIM_TIME, v_fld_time, "time", v_err_sim_time, res_file);
+                  parser_cmd_wait(v_cmd_file_line, v_head_mess_stdout.all, res_file, g_SIM_TIME, v_err_sim_time);
 
                -- ------------------------------------------------------------------------------------------------------
                -- Command WCMD [cmd] [end]: transmit EP command
                -- ------------------------------------------------------------------------------------------------------
                when "WCMD" =>
-
-                  -- Get parameters
-                  get_param_wcmd(v_cmd_file_line, v_head_mess_stdout.all, v_mess_spi_cmd, v_fld_spi_cmd, v_wait_end);
-
-                  -- Display command
-                  fprintf(note , "Send SPI command " & v_mess_spi_cmd.all, res_file);
-
-                  -- Send command
-                  o_ep_cmd       <= v_fld_spi_cmd;
-                  o_ep_cmd_start <= '1';
-                  wait for 2 * c_EP_CLK_PER_DEF;
-                  o_ep_cmd_start <= '0';
-
-                  -- [end] analysis
-                  case v_wait_end is
-
-                     -- Wait the return command end receipt
-                     when wait_rcmd_end_rx   =>
-
-                        v_fld_time := now;
-                        wait until i_ep_data_rx_rdy = '1' for g_SIM_TIME-now;
-
-                        -- Check the simulation end
-                        chk_sim_end(g_SIM_TIME, now-v_fld_time, "SPI command return end", v_err_sim_time, res_file);
-
-                     -- Wait the command end transmit
-                     when wait_cmd_end_tx    =>
-
-                        v_fld_time := now;
-                        wait until i_ep_cmd_busy_n = '1' for g_SIM_TIME-now;
-
-                        -- Check the simulation end
-                        chk_sim_end(g_SIM_TIME, now-v_fld_time, "SPI command end", v_err_sim_time, res_file);
-
-                     when others =>
-                        null;
-
-                  end case;
+                  parser_cmd_wcmd(v_cmd_file_line, v_head_mess_stdout.all, res_file, g_SIM_TIME, i_ep_data_rx_rdy, o_ep_cmd, o_ep_cmd_start, i_ep_cmd_busy_n, v_err_sim_time);
 
                -- ------------------------------------------------------------------------------------------------------
                -- Command WCMS [size]: write EP command word size
                -- ------------------------------------------------------------------------------------------------------
                when "WCMS" =>
-
-                  -- Get parameters
-                  get_param_wcms_wnbd(v_cmd_file_line, v_head_mess_stdout.all, v_fld_dis_ind(0));
-
-                  -- Update EP command serial word size
-                  o_ep_cmd_ser_wd_s <= std_logic_vector(to_unsigned(v_fld_dis_ind(0), o_ep_cmd_ser_wd_s'length));
-
-                  -- Display command
-                  fprintf(note, "Configure SPI command to " & integer'image(v_fld_dis_ind(0)) & " bits size", res_file);
+                  parser_cmd_wcms(v_cmd_file_line, v_head_mess_stdout.all, res_file, o_ep_cmd_ser_wd_s);
 
                -- ------------------------------------------------------------------------------------------------------
                -- Command WDIS [discrete_w] [value]: write discrete output
                -- ------------------------------------------------------------------------------------------------------
                when "WDIS" =>
-
-                  -- Get parameters
-                  get_param_wdis(v_cmd_file_line, v_head_mess_stdout.all, v_fld_dis, v_fld_dis_ind(0), v_fld_value);
-
-                  -- Update discrete write signal
-                  discrete_w(v_fld_dis_ind(0)) <= v_fld_value;
-
-                  -- Display command
-                  fprintf(note , "Write discrete: " & v_fld_dis.all & " = " & std_logic'image(v_fld_value), res_file);
+                  parser_cmd_wdis(v_cmd_file_line, v_head_mess_stdout.all, res_file, discrete_w);
 
                -- ------------------------------------------------------------------------------------------------------
                -- Command WFMP [channel] [data]: write FPASIM "Make pulse" command
                -- ------------------------------------------------------------------------------------------------------
                when "WFMP" =>
-
-                  -- Get parameters
-                  get_param_wfmp(v_cmd_file_line, v_head_mess_stdout.all, v_fld_dis_ind(0), v_fld_spi_cmd);
-
-                  -- Display command
-                  fprintf(note , "Send FPASIM Make pulse command, data: " & hfield_format(v_fld_spi_cmd).all, res_file);
-
-                  -- Send command
-                  if i_fpa_cmd_rdy(v_fld_dis_ind(0)) /= '1' then
-                     wait until i_fpa_cmd_rdy(v_fld_dis_ind(0)) = '1' for g_SIM_TIME-now;
-
-                  end if;
-
-                  o_fpa_cmd(v_fld_dis_ind(0))       <= v_fld_spi_cmd;
-                  o_fpa_cmd_valid(v_fld_dis_ind(0)) <= '1';
-                  wait for 2 * c_CLK_FPA_PER_DEF;
-                  o_fpa_cmd_valid(v_fld_dis_ind(0)) <= '0';
+                  parser_cmd_wfmp(v_cmd_file_line, v_head_mess_stdout.all, res_file, g_SIM_TIME, i_fpa_cmd_rdy, o_fpa_cmd, o_fpa_cmd_valid);
 
                -- ------------------------------------------------------------------------------------------------------
                -- Command WMDC [channel] [index] [data]:
                --  Write in ADC dump/science memories for data compare
                -- ------------------------------------------------------------------------------------------------------
                when "WMDC" =>
-
-                  -- Get parameters
-                  get_param_wmdc(v_cmd_file_line, v_head_mess_stdout.all, v_fld_dis_ind(0), v_fld_dis_ind(1), v_fld_dis_ind(2), v_fld_spi_cmd);
-
-                  -- Display command
-                  fprintf(note , "Write in ADC dump and science memories column " & integer'image(v_fld_dis_ind(0)) & ", frame number " & integer'image(v_fld_dis_ind(1)) &
-                                 ", adress index " & integer'image(v_fld_dis_ind(2)) & ", ADC dump & Science value " & hfield_format(v_fld_spi_cmd).all, res_file);
-
-                  -- Write in ADC dump/science memories
-                  o_adc_dmp_mem_add    <= std_logic_vector(to_unsigned(c_MUX_FACT * v_fld_dis_ind(1) + v_fld_dis_ind(2), o_adc_dmp_mem_add'length));
-                  o_adc_dmp_mem_data   <= std_logic_vector(resize(unsigned(v_fld_spi_cmd(2*c_EP_SPI_WD_S-1 downto c_EP_SPI_WD_S)), o_adc_dmp_mem_data'length));
-                  o_science_mem_data   <= std_logic_vector(resize(unsigned(v_fld_spi_cmd(  c_EP_SPI_WD_S-1 downto 0)), o_science_mem_data'length));
-                  o_adc_dmp_mem_cs(v_fld_dis_ind(0))  <= '1';
-                  wait for c_CLK_REF_PER_DEF;
-                  o_adc_dmp_mem_cs(v_fld_dis_ind(0))  <= '0';
+                  parser_cmd_wmdc(v_cmd_file_line, v_head_mess_stdout.all, res_file, o_adc_dmp_mem_add, o_adc_dmp_mem_data, o_science_mem_data, o_adc_dmp_mem_cs);
 
                -- ------------------------------------------------------------------------------------------------------
                -- Command WNBD [number]: write board reference number
                -- ------------------------------------------------------------------------------------------------------
                when "WNBD" =>
-
-                  -- Get parameters
-                  get_param_wcms_wnbd(v_cmd_file_line, v_head_mess_stdout.all, v_fld_dis_ind(0));
-
-                  -- Update EP command serial word size
-                  o_brd_ref <= std_logic_vector(to_unsigned(v_fld_dis_ind(0), o_brd_ref'length));
-
-                  -- Display command
-                  fprintf(note, "Configure board reference number to " & integer'image(v_fld_dis_ind(0)), res_file);
+                  parser_cmd_wnbd(v_cmd_file_line, v_head_mess_stdout.all, res_file, o_brd_ref);
 
                -- ------------------------------------------------------------------------------------------------------
                -- Command WPFC [channel] [frequency]: write pulse shaping cut frequency for verification
                -- ------------------------------------------------------------------------------------------------------
                when "WPFC" =>
-
-                  -- Get parameters
-                  get_param_wpfc(v_cmd_file_line, v_head_mess_stdout.all, v_fld_dis_ind(0), v_fld_pls_shp_fc);
-
-                  -- Update pulse shaping cut frequency
-                  o_pls_shp_fc(v_fld_dis_ind(0)) <= v_fld_pls_shp_fc;
-
-                  -- Display command
-                  fprintf(note, "Configure pulse shaping cut frequency channel " & integer'image(v_fld_dis_ind(0)) & " to " & integer'image(v_fld_pls_shp_fc) & "Hz" ,res_file);
+                  parser_cmd_wpfc(v_cmd_file_line, v_head_mess_stdout.all, res_file, o_pls_shp_fc);
 
                -- ------------------------------------------------------------------------------------------------------
                -- Command WUDI [discrete_r] [value] or WUDI [mask] [data]: wait until event on discrete(s)
                -- ------------------------------------------------------------------------------------------------------
                when "WUDI" =>
-
-                  -- Get parameters
-                  get_param_wudi(v_cmd_file_line, v_head_mess_stdout.all, v_fld_dis, v_fld_dis_ind(0), v_fld_value, v_fld_data, v_fld_mask);
-
-                  v_fld_time := now;
-
-                  -- Check if the last field is a discrete
-                  if v_fld_dis_ind(0) /= c_DR_S then
-                     wait until discrete_r(v_fld_dis_ind(0)) = v_fld_value for g_SIM_TIME-now;
-
-                     -- Check the simulation end
-                     chk_sim_end(g_SIM_TIME, now-v_fld_time, "event " & v_fld_dis.all & " = " & std_logic'image(v_fld_value), v_err_sim_time, res_file);
-
-                  else
-                     wait until (discrete_r and v_fld_mask) = (v_fld_data and v_fld_mask) for g_SIM_TIME-now;
-
-                     -- Check the simulation end
-                     chk_sim_end(g_SIM_TIME, now-v_fld_time, "event, mask " & hfield_format(v_fld_mask).all & ", data " & hfield_format(v_fld_data).all, v_err_sim_time, res_file);
-
-                  end if;
+                  parser_cmd_wudi(v_cmd_file_line, v_head_mess_stdout.all, res_file, g_SIM_TIME, discrete_r, v_err_sim_time);
 
                -- ------------------------------------------------------------------------------------------------------
                -- Command unknown

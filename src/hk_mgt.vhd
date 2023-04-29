@@ -35,8 +35,8 @@ use     work.pkg_func_math.all;
 use     work.pkg_project.all;
 use     work.pkg_ep_cmd.all;
 
-entity hk_mgt is port
-   (     i_rst                : in     std_logic                                                            ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+entity hk_mgt is port (
+         i_rst                : in     std_logic                                                            ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                : in     std_logic                                                            ; --! System Clock
 
          i_mem_hkeep_add      : in     std_logic_vector(c_MEM_HKEEP_ADD_S-1 downto 0)                       ; --! Housekeeping: memory address
@@ -54,22 +54,6 @@ entity hk_mgt is port
 end entity hk_mgt;
 
 architecture RTL of hk_mgt is
-
-   function mux_stage_offset (
-         k : integer                                                                                          -- Index
-   ) return integer is
-   begin
-
-      if k = 0 then
-         return 0;
-
-      else
-         return c_ERR_NIN_MX_STIN(k-1);
-
-      end if;
-
-   end function;
-
 constant c_HK_SPI_SER_WD_S_V_S: integer := log2_ceil(c_HK_SPI_SER_WD_S+1)                                   ; --! HK SPI: Serial word size vector bus size
 constant c_HK_SPI_SER_WD_S_V  : std_logic_vector(c_HK_SPI_SER_WD_S_V_S-1 downto 0) :=
                                 std_logic_vector(to_unsigned(c_HK_SPI_SER_WD_S, c_HK_SPI_SER_WD_S_V_S))     ; --! HK SPI: Serial word size vector
@@ -155,15 +139,15 @@ begin
    hk_spi_data_tx(hk_spi_data_tx'high    downto c_HK_SPI_ADD_POS_LSB) <= std_logic_vector(resize(unsigned(c_HK_ADC_SEQ(to_integer(unsigned(hk_pos)))), hk_spi_data_tx'length - c_HK_SPI_ADD_POS_LSB));
    hk_spi_data_tx(c_HK_SPI_ADD_POS_LSB-1 downto 0)                    <= (others => '0');
 
-   I_hk_spi_master : entity work.spi_master generic map
-   (     g_CPOL               => c_HK_SPI_CPOL        , -- std_logic                                        ; --! Clock polarity
+   I_hk_spi_master : entity work.spi_master generic map (
+         g_CPOL               => c_HK_SPI_CPOL        , -- std_logic                                        ; --! Clock polarity
          g_CPHA               => c_HK_SPI_CPHA        , -- std_logic                                        ; --! Clock phase
          g_N_CLK_PER_SCLK_L   => c_HK_SPI_SCLK_L      , -- integer                                          ; --! Number of clock period for elaborating SPI Serial Clock low  level
          g_N_CLK_PER_SCLK_H   => c_HK_SPI_SCLK_H      , -- integer                                          ; --! Number of clock period for elaborating SPI Serial Clock high level
          g_N_CLK_PER_MISO_DEL => c_FF_RSYNC_NB        , -- integer                                          ; --! Number of clock period for miso signal delay from spi pin input to spi master input
          g_DATA_S             => c_HK_SPI_SER_WD_S      -- integer                                            --! Data bus size
-   ) port map
-   (     i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+   ) port map (
+         i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                => i_clk                , -- in     std_logic                                 ; --! Clock
 
          i_start              => '1'                  , -- in     std_logic                                 ; --! Start transmit ('0' = Inactive, '1' = Active)
@@ -297,27 +281,29 @@ begin
 
    end generate G_err_nin;
 
-   err_nin_flg(c_HK_NW to c_ERR_NIN_MX_STIN(0)-1)     <= (others => (others => c_EP_CMD_ERR_CLR));
-   err_nin_cs( c_ERR_NIN_MX_STIN(0)-1 downto c_HK_NW) <= (others => '0');
+   err_nin_flg(c_HK_NW to c_ERR_NIN_MX_STIN(1)-1)     <= (others => (others => c_EP_CMD_ERR_CLR));
+   err_nin_cs( c_ERR_NIN_MX_STIN(1)-1 downto c_HK_NW) <= (others => '0');
 
    G_mux_stage: for k in 0 to c_ERR_NIN_MX_STNB-1 generate
    begin
 
-      G_mux_nb: for l in 0 to c_ERR_NIN_MX_STIN(k+1) - c_ERR_NIN_MX_STIN(k) - 1 generate
+      G_mux_nb: for l in 0 to c_ERR_NIN_MX_STIN(k+2) - c_ERR_NIN_MX_STIN(k+1) - 1 generate
       begin
 
-         I_multiplexer: entity work.multiplexer generic map
-         (  g_DATA_S          => 1                    , -- integer                                          ; --! Data bus size
+         I_multiplexer: entity work.multiplexer generic map (
+            g_DATA_S          => 1                    , -- integer                                          ; --! Data bus size
             g_NB              => c_ERR_NIN_MX_INNB(k)   -- integer                                            --! Data bus number
-         ) port map
-         (  i_rst             => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+         ) port map (
+            i_rst             => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
             i_clk             => i_clk                , -- in     std_logic                                 ; --! System Clock
-            i_data            => err_nin_flg(l   * c_ERR_NIN_MX_INNB(k) + mux_stage_offset(k)
-                                         to (l+1)* c_ERR_NIN_MX_INNB(k) + mux_stage_offset(k)-1)            , --! Data buses
-            i_cs              => err_nin_cs((l+1)* c_ERR_NIN_MX_INNB(k) + mux_stage_offset(k)-1
-                                     downto  l   * c_ERR_NIN_MX_INNB(k) + mux_stage_offset(k))              , --! Chip selects ('0' = Inactive, '1' = Active)
-            o_data_mux        => err_nin_flg(c_ERR_NIN_MX_STIN(k)+l), -- out    slv(g_DATA_S-1 downto 0)    ; --! Multiplexed data
-            o_cs_or           => err_nin_cs( c_ERR_NIN_MX_STIN(k)+l)  -- out    std_logic                     --! Chip selects "or-ed"
+            i_data            => err_nin_flg(
+                                 l   *c_ERR_NIN_MX_INNB(k) + c_ERR_NIN_MX_STIN(k) to
+                                (l+1)*c_ERR_NIN_MX_INNB(k) + c_ERR_NIN_MX_STIN(k)-1)                        , --! Data buses
+            i_cs              => err_nin_cs(
+                                (l+1)*c_ERR_NIN_MX_INNB(k) + c_ERR_NIN_MX_STIN(k)-1 downto
+                                 l   *c_ERR_NIN_MX_INNB(k) + c_ERR_NIN_MX_STIN(k))                          , --! Chip selects ('0' = Inactive, '1' = Active)
+            o_data_mux        => err_nin_flg(c_ERR_NIN_MX_STIN(k+1)+l), -- out    slv(g_DATA_S-1 downto 0)  ; --! Multiplexed data
+            o_cs_or           => err_nin_cs( c_ERR_NIN_MX_STIN(k+1)+l)  -- out    std_logic                   --! Chip selects "or-ed"
          );
 
       end generate G_mux_nb;

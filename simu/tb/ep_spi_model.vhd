@@ -35,14 +35,14 @@ use     work.pkg_model.all;
 use     work.pkg_project.all;
 use     work.pkg_ep_cmd.all;
 
-entity ep_spi_model is generic
-   (     g_EP_CLK_PER         : time    := c_EP_CLK_PER_DEF                                                 ; --! EP: System clock period (ps)
+entity ep_spi_model is generic (
+         g_EP_CLK_PER         : time    := c_EP_CLK_PER_DEF                                                 ; --! EP: System clock period (ps)
          g_EP_CLK_PER_SHIFT   : time    := c_EP_CLK_PER_SHFT_DEF                                            ; --! EP: Clock period shift
          g_EP_N_CLK_PER_SCLK_L: integer := c_EP_SCLK_L_DEF                                                  ; --! EP: Number of clock period for elaborating SPI Serial Clock low  level
          g_EP_N_CLK_PER_SCLK_H: integer := c_EP_SCLK_H_DEF                                                  ; --! EP: Number of clock period for elaborating SPI Serial Clock high level
          g_EP_BUF_DEL         : time    := c_EP_BUF_DEL_DEF                                                   --! EP: Delay introduced by buffer
-   ); port
-   (     i_ep_cmd_ser_wd_s    : in     std_logic_vector(log2_ceil(2*c_EP_CMD_S+1)-1 downto 0)               ; --! EP: Serial word size
+   ); port (
+         i_ep_cmd_ser_wd_s    : in     std_logic_vector(log2_ceil(2*c_EP_CMD_S+1)-1 downto 0)               ; --! EP: Serial word size
          i_ep_cmd_start       : in     std_logic                                                            ; --! EP: Start command transmit ('0' = Inactive, '1' = Active)
          i_ep_cmd             : in     std_logic_vector(c_EP_CMD_S-1 downto 0)                              ; --! EP: Command to send
          o_ep_cmd_busy_n      : out    std_logic                                                            ; --! EP: Command transmit busy ('0' = Busy, '1' = Not Busy)
@@ -198,15 +198,15 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   SPI master
    -- ------------------------------------------------------------------------------------------------------
-   I_spi_master : entity work.spi_master generic map
-   (     g_CPOL               => c_EP_SPI_CPOL        , -- std_logic                                        ; --! Clock polarity
+   I_spi_master : entity work.spi_master generic map (
+         g_CPOL               => c_EP_SPI_CPOL        , -- std_logic                                        ; --! Clock polarity
          g_CPHA               => c_EP_SPI_CPHA        , -- std_logic                                        ; --! Clock phase
          g_N_CLK_PER_SCLK_L   => g_EP_N_CLK_PER_SCLK_L, -- integer                                          ; --! Number of clock period for elaborating SPI Serial Clock low  level
          g_N_CLK_PER_SCLK_H   => g_EP_N_CLK_PER_SCLK_H, -- integer                                          ; --! Number of clock period for elaborating SPI Serial Clock high level
          g_N_CLK_PER_MISO_DEL => c_N_CLK_PER_MISO_DEL , -- integer                                          ; --! Number of clock period for miso signal delay from spi pin input to spi master input
          g_DATA_S             => c_SER_WD_MAX_S         -- integer                                            --! Data bus size
-   ) port map
-   (     i_rst                => rst                  , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+   ) port map (
+         i_rst                => rst                  , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                => clk                  , -- in     std_logic                                 ; --! Clock
 
          i_start              => i_ep_cmd_start       , -- in     std_logic                                 ; --! Start transmit ('0' = Inactive, '1' = Active)

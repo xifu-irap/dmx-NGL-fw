@@ -48,8 +48,20 @@ constant c_FPGA_POS_SQM_DAC   : t_int_arr(0 to 3) := ( 2, 3, 0, 1)              
 constant c_FPGA_POS_SQA_DAC   : t_int_arr(0 to 3) := ( 3, 3, 0, 0)                                          ; --! FPGA position AMP DAC (0:Left Up, 1:Left Down, 2:Right Down, 3:Right up)
 
    -- ------------------------------------------------------------------------------------------------------
-   --!   Wave Form Generator parameters
+   --!   Pll/Wave Form Generator parameters
    -- ------------------------------------------------------------------------------------------------------
+constant c_PLL_WFG_DEL_OFF    : bit     := '0'                                                              ; --! Pll/WFG Delay off
+constant c_PLL_WFG_DEL_ON     : bit     := '1'                                                              ; --! Pll/WFG Delay on
+
+constant c_PLL_SEL_REF        : bit     := '0'                                                              ; --! Pll select reference clock input: ref input
+constant c_PLL_SEL_OSC        : bit     := '1'                                                              ; --! Pll select reference clock input: osc input
+
+constant c_PLL_FBK_INT        : bit     := '0'                                                              ; --! Pll feedback select: Internal feedback
+constant c_PLL_FBK_EXT        : bit     := '1'                                                              ; --! Pll feedback select: External feedback
+
+constant c_WFG_EDGE_INV_N     : bit     := '0'                                                              ; --! WFG Input clock not inverted
+constant c_WFG_PATTERN_ON     : bit     := '1'                                                              ; --! WFG pattern used
+
 constant c_WFG_PAT_S          : integer   := 16                                                             ; --! WFG pattern bus size
 type     t_wfg_pat              is array (0 to c_WFG_PAT_S-1) of bit_vector(0 to c_WFG_PAT_S-1)             ; --! WFG sampling pattern type
 
@@ -162,8 +174,8 @@ constant c_RFB_DATA_S         : integer   := 16                                 
    -- ------------------------------------------------------------------------------------------------------
    --!   Convert RAM initialization table to string
    -- ------------------------------------------------------------------------------------------------------
-   function conv_ram_init
-   (     i_ram_init           : in     t_int_arr                                                            ; --  RAM initialization table
+   function conv_ram_init (
+         i_ram_init           : in     t_int_arr                                                            ; --  RAM initialization table
          i_ram_add_s          : in     integer                                                              ; --  RAM address bus size
          i_ram_data_s         : in     integer                                                                --  RAM data bus size
    ) return string;
@@ -175,12 +187,13 @@ package body pkg_fpga_tech is
    -- ------------------------------------------------------------------------------------------------------
    --!   Convert RAM initialization table to string
    -- ------------------------------------------------------------------------------------------------------
-   function conv_ram_init
-   (     i_ram_init           : in     t_int_arr                                                            ; --  RAM initialization table
+   function conv_ram_init (
+         i_ram_init           : in     t_int_arr                                                            ; --  RAM initialization table
          i_ram_add_s          : in     integer                                                              ; --  RAM address bus size
          i_ram_data_s         : in     integer                                                                --  RAM data bus size
    ) return string is
-   constant c_SEPARATOR       : string := ","                                                               ; --! Separator
+   constant c_SEPARATOR       : string  := ","                                                              ; --! Separator
+   constant c_RAM_S           : integer := (2**i_ram_add_s)-1                                               ; --! RAM size
 
    variable v_ram_init        : line                                                                        ; --! RAM initialization line
    begin
@@ -191,7 +204,7 @@ package body pkg_fpga_tech is
 
       else
 
-         for k in 0 to (2**i_ram_add_s)-1 loop
+         for k in 0 to c_RAM_S loop
 
             -- Import RAM init word value
             if i_ram_init'length > k then
@@ -204,7 +217,7 @@ package body pkg_fpga_tech is
             end if;
 
             -- Write separator
-            if k /= (2**i_ram_add_s)-1 then
+            if k /= c_RAM_S then
                write(v_ram_init, c_SEPARATOR);
 
             end if;
@@ -218,4 +231,4 @@ package body pkg_fpga_tech is
 
    end conv_ram_init;
 
-end package body;
+end package body pkg_fpga_tech;

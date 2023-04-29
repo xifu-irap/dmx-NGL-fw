@@ -33,10 +33,10 @@ use     work.pkg_type.all;
 use     work.pkg_project.all;
 use     work.pkg_model.all;
 
-entity hk_model is generic
-   (     g_HK_MUX_TPS         : time   := c_HK_MUX_TPS_DEF                                                    --! HouseKeeping: Multiplexer, time Data Propagation switch in to out
-   ); port
-   (     i_hk1_mux            : in     std_logic_vector(c_HK_MUX_S-1 downto 0)                              ; --! HouseKeeping: Multiplexer
+entity hk_model is generic (
+         g_HK_MUX_TPS         : time   := c_HK_MUX_TPS_DEF                                                    --! HouseKeeping: Multiplexer, time Data Propagation switch in to out
+   ); port (
+         i_hk1_mux            : in     std_logic_vector(c_HK_MUX_S-1 downto 0)                              ; --! HouseKeeping: Multiplexer
          i_hk1_mux_ena_n      : in     std_logic                                                            ; --! HouseKeeping: Multiplexer Enable ('0' = Active, '1' = Inactive)
 
          i_hk1_spi_mosi       : in     std_logic                                                            ; --! HouseKeeping: SPI Master Output Slave Input
@@ -70,10 +70,10 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   HK Multiplexer
    -- ------------------------------------------------------------------------------------------------------
-   I_hk_mux_model: entity work.cd74hc4051_model generic map
-   (     g_TIME_TPS           => g_HK_MUX_TPS           -- time                                               --! Time: Data Propagation switch in to out
-   ) port map
-   (     i_s                  => i_hk1_mux            , -- in     std_logic_vector(2 downto 0)              ; --! Address select
+   I_hk_mux_model: entity work.cd74hc4051_model generic map (
+         g_TIME_TPS           => g_HK_MUX_TPS           -- time                                               --! Time: Data Propagation switch in to out
+   ) port map (
+         i_s                  => i_hk1_mux            , -- in     std_logic_vector(2 downto 0)              ; --! Address select
          i_e_n                => i_hk1_mux_ena_n      , -- in     std_logic                                 ; --! Enable ('0' = Active, '1' = Inactive)
 
          i_a0                 => c_HK_M5V0_ANA_DEF_R  , -- in     real                                      ; --! Analog input channel 0
@@ -91,10 +91,10 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   HK ADC
    -- ------------------------------------------------------------------------------------------------------
-   I_hk_adc_model: entity work.adc128s102_model generic map
-   (     g_VA                 => c_HK_ADC_VREF_DEF      -- real                                               --! Voltage reference (V)
-   ) port map
-   (     i_in0                => c_HK_P1V8_ANA_DEF_R  , -- in     real                                      ; --! Analog input channel 0 ( 0.0 <= i_in0 < g_VA)
+   I_hk_adc_model: entity work.adc128s102_model generic map (
+         g_VA                 => c_HK_ADC_VREF_DEF      -- real                                               --! Voltage reference (V)
+   ) port map (
+         i_in0                => c_HK_P1V8_ANA_DEF_R  , -- in     real                                      ; --! Analog input channel 0 ( 0.0 <= i_in0 < g_VA)
          i_in1                => c_HK_P2V5_ANA_DEF_R  , -- in     real                                      ; --! Analog input channel 1 ( 0.0 <= i_in1 < g_VA)
          i_in2                => c_HK_M2V5_ANA_DEF_R  , -- in     real                                      ; --! Analog input channel 2 ( 0.0 <= i_in2 < g_VA)
          i_in3                => c_HK_P3V3_ANA_DEF_R  , -- in     real                                      ; --! Analog input channel 3 ( 0.0 <= i_in3 < g_VA)

@@ -64,14 +64,14 @@
 #             (38115048 ps)   Check AMP SQUID offset delays
 #             (38115048 ps)   Formula: (c_PIXEL_DAC_NB_CYC * c_MUX_FACT - CX_AMP_SQ_OFFSET_DAC_DELAY) * c_CLK_ADC_PER_DEF
 #             (38115048 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (38115048 ps) Check time, DAC channel 0 last event: PASS
-# ** Note   : (38115048 ps)  * DAC channel 0 last event 5442720 ps equal to expected value 5442720 ps
-# ** Note   : (38115048 ps) Check time, DAC channel 1 last event: PASS
-# ** Note   : (38115048 ps)  * DAC channel 1 last event 4930464 ps equal to expected value 4930464 ps
-# ** Note   : (38115048 ps) Check time, DAC channel 2 last event: PASS
-# ** Note   : (38115048 ps)  * DAC channel 2 last event 4418208 ps equal to expected value 4418208 ps
-# ** Note   : (38115048 ps) Check time, DAC channel 3 last event: PASS
-# ** Note   : (38115048 ps)  * DAC channel 3 last event 3905952 ps equal to expected value 3905952 ps
+# ** Note   : (38115048 ps) Check time, ADC channel 0 last event: PASS
+# ** Note   : (38115048 ps)  * ADC channel 0 last event 5442720 ps equal to expected value 5442720 ps
+# ** Note   : (38115048 ps) Check time, ADC channel 1 last event: PASS
+# ** Note   : (38115048 ps)  * ADC channel 1 last event 4930464 ps equal to expected value 4930464 ps
+# ** Note   : (38115048 ps) Check time, ADC channel 2 last event: PASS
+# ** Note   : (38115048 ps)  * ADC channel 2 last event 4418208 ps equal to expected value 4418208 ps
+# ** Note   : (38115048 ps) Check time, ADC channel 3 last event: PASS
+# ** Note   : (38115048 ps)  * ADC channel 3 last event 3905952 ps equal to expected value 3905952 ps
 #             (38115048 ps) 
 #             (38115048 ps) ==============================================================================================
 #             (38115048 ps)   Send command SQ_AMP_OFFSET_MODE to off
@@ -87,14 +87,14 @@
 #             (49000488 ps)   Check AMP SQUID offset delays
 #             (49000488 ps)   Formula: (c_PIXEL_DAC_NB_CYC * c_MUX_FACT - CX_AMP_SQ_OFFSET_DAC_DELAY) * c_CLK_ADC_PER_DEF
 #             (49000488 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (49000488 ps) Check time, DAC channel 0 last event: PASS
-# ** Note   : (49000488 ps)  * DAC channel 0 last event 5442720 ps equal to expected value 5442720 ps
-# ** Note   : (49000488 ps) Check time, DAC channel 1 last event: PASS
-# ** Note   : (49000488 ps)  * DAC channel 1 last event 4930464 ps equal to expected value 4930464 ps
-# ** Note   : (49000488 ps) Check time, DAC channel 2 last event: PASS
-# ** Note   : (49000488 ps)  * DAC channel 2 last event 4418208 ps equal to expected value 4418208 ps
-# ** Note   : (49000488 ps) Check time, DAC channel 3 last event: PASS
-# ** Note   : (49000488 ps)  * DAC channel 3 last event 3905952 ps equal to expected value 3905952 ps
+# ** Note   : (49000488 ps) Check time, ADC channel 0 last event: PASS
+# ** Note   : (49000488 ps)  * ADC channel 0 last event 5442720 ps equal to expected value 5442720 ps
+# ** Note   : (49000488 ps) Check time, ADC channel 1 last event: PASS
+# ** Note   : (49000488 ps)  * ADC channel 1 last event 4930464 ps equal to expected value 4930464 ps
+# ** Note   : (49000488 ps) Check time, ADC channel 2 last event: PASS
+# ** Note   : (49000488 ps)  * ADC channel 2 last event 4418208 ps equal to expected value 4418208 ps
+# ** Note   : (49000488 ps) Check time, ADC channel 3 last event: PASS
+# ** Note   : (49000488 ps)  * ADC channel 3 last event 3905952 ps equal to expected value 3905952 ps
 #             (49000488 ps) 
 #             (49000488 ps) ==============================================================================================
 #             (49000488 ps)   Send a AMP SQUID delay on each channels
@@ -122,14 +122,14 @@
 #             (70771368 ps)   Check AMP SQUID offset delays
 #             (70771368 ps)   Formula: (c_PIXEL_DAC_NB_CYC * c_MUX_FACT - CX_AMP_SQ_OFFSET_DAC_DELAY) * c_CLK_ADC_PER_DEF
 #             (70771368 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (70771368 ps) Check time, DAC channel 0 last event: PASS
-# ** Note   : (70771368 ps)  * DAC channel 0 last event 3393696 ps equal to expected value 3393696 ps
-# ** Note   : (70771368 ps) Check time, DAC channel 1 last event: PASS
-# ** Note   : (70771368 ps)  * DAC channel 1 last event 2881440 ps equal to expected value 2881440 ps
-# ** Note   : (70771368 ps) Check time, DAC channel 2 last event: PASS
-# ** Note   : (70771368 ps)  * DAC channel 2 last event 2369184 ps equal to expected value 2369184 ps
-# ** Note   : (70771368 ps) Check time, DAC channel 3 last event: PASS
-# ** Note   : (70771368 ps)  * DAC channel 3 last event 1856928 ps equal to expected value 1856928 ps
+# ** Note   : (70771368 ps) Check time, ADC channel 0 last event: PASS
+# ** Note   : (70771368 ps)  * ADC channel 0 last event 3393696 ps equal to expected value 3393696 ps
+# ** Note   : (70771368 ps) Check time, ADC channel 1 last event: PASS
+# ** Note   : (70771368 ps)  * ADC channel 1 last event 2881440 ps equal to expected value 2881440 ps
+# ** Note   : (70771368 ps) Check time, ADC channel 2 last event: PASS
+# ** Note   : (70771368 ps)  * ADC channel 2 last event 2369184 ps equal to expected value 2369184 ps
+# ** Note   : (70771368 ps) Check time, ADC channel 3 last event: PASS
+# ** Note   : (70771368 ps)  * ADC channel 3 last event 1856928 ps equal to expected value 1856928 ps
 #             (70771368 ps) 
 #             (70771368 ps) ==============================================================================================
 #             (70771368 ps)   Send command SQ_AMP_OFFSET_MODE to off
@@ -145,14 +145,14 @@
 #             (81656808 ps)   Check AMP SQUID offset delays
 #             (81656808 ps)   Formula: (c_PIXEL_DAC_NB_CYC * c_MUX_FACT - CX_AMP_SQ_OFFSET_DAC_DELAY) * c_CLK_ADC_PER_DEF
 #             (81656808 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (81656808 ps) Check time, DAC channel 0 last event: PASS
-# ** Note   : (81656808 ps)  * DAC channel 0 last event 3393696 ps equal to expected value 3393696 ps
-# ** Note   : (81656808 ps) Check time, DAC channel 1 last event: PASS
-# ** Note   : (81656808 ps)  * DAC channel 1 last event 2881440 ps equal to expected value 2881440 ps
-# ** Note   : (81656808 ps) Check time, DAC channel 2 last event: PASS
-# ** Note   : (81656808 ps)  * DAC channel 2 last event 2369184 ps equal to expected value 2369184 ps
-# ** Note   : (81656808 ps) Check time, DAC channel 3 last event: PASS
-# ** Note   : (81656808 ps)  * DAC channel 3 last event 1856928 ps equal to expected value 1856928 ps
+# ** Note   : (81656808 ps) Check time, ADC channel 0 last event: PASS
+# ** Note   : (81656808 ps)  * ADC channel 0 last event 3393696 ps equal to expected value 3393696 ps
+# ** Note   : (81656808 ps) Check time, ADC channel 1 last event: PASS
+# ** Note   : (81656808 ps)  * ADC channel 1 last event 2881440 ps equal to expected value 2881440 ps
+# ** Note   : (81656808 ps) Check time, ADC channel 2 last event: PASS
+# ** Note   : (81656808 ps)  * ADC channel 2 last event 2369184 ps equal to expected value 2369184 ps
+# ** Note   : (81656808 ps) Check time, ADC channel 3 last event: PASS
+# ** Note   : (81656808 ps)  * ADC channel 3 last event 1856928 ps equal to expected value 1856928 ps
 #             (81656808 ps) 
 #             (81656808 ps) ==============================================================================================
 #             (81656808 ps)   Send a AMP SQUID delay on each channels
@@ -180,16 +180,16 @@
 #             (103427688 ps)   Check AMP SQUID offset delays
 #             (103427688 ps)   Formula: (c_PIXEL_DAC_NB_CYC * c_MUX_FACT - CX_AMP_SQ_OFFSET_DAC_DELAY) * c_CLK_ADC_PER_DEF
 #             (103427688 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (103427688 ps) Check time, DAC channel 0 last event: PASS
-# ** Note   : (103427688 ps)  * DAC channel 0 last event 1344672 ps equal to expected value 1344672 ps
-# ** Note   : (103427688 ps) Check time, DAC channel 1 last event: PASS
-# ** Note   : (103427688 ps)  * DAC channel 1 last event 832416 ps equal to expected value 832416 ps
-# ** Note   : (103427688 ps) Check time, DAC channel 2 last event: PASS
-# ** Note   : (103427688 ps)  * DAC channel 2 last event 320160 ps equal to expected value 320160 ps
+# ** Note   : (103427688 ps) Check time, ADC channel 0 last event: PASS
+# ** Note   : (103427688 ps)  * ADC channel 0 last event 1344672 ps equal to expected value 1344672 ps
+# ** Note   : (103427688 ps) Check time, ADC channel 1 last event: PASS
+# ** Note   : (103427688 ps)  * ADC channel 1 last event 832416 ps equal to expected value 832416 ps
+# ** Note   : (103427688 ps) Check time, ADC channel 2 last event: PASS
+# ** Note   : (103427688 ps)  * ADC channel 2 last event 320160 ps equal to expected value 320160 ps
 # ** Note   : (103587768 ps) Waiting event sync = '0' for 160080 ps
 # ** Note   : (108870408 ps) Waiting event sync = '1' for 5282640 ps
-# ** Note   : (108870408 ps) Check time, DAC channel 3 last event: PASS
-# ** Note   : (108870408 ps)  * DAC channel 3 last event 5250624 ps equal to expected value 5250624 ps
+# ** Note   : (108870408 ps) Check time, ADC channel 3 last event: PASS
+# ** Note   : (108870408 ps)  * ADC channel 3 last event 5250624 ps equal to expected value 5250624 ps
 #             (108870408 ps) 
 #             (108870408 ps) ==============================================================================================
 #             (108870408 ps)   Send command SQ_AMP_OFFSET_MODE to off
@@ -205,16 +205,16 @@
 #             (119755848 ps)   Check AMP SQUID offset delays
 #             (119755848 ps)   Formula: (c_PIXEL_DAC_NB_CYC * c_MUX_FACT - CX_AMP_SQ_OFFSET_DAC_DELAY) * c_CLK_ADC_PER_DEF
 #             (119755848 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (119755848 ps) Check time, DAC channel 0 last event: PASS
-# ** Note   : (119755848 ps)  * DAC channel 0 last event 1344672 ps equal to expected value 1344672 ps
-# ** Note   : (119755848 ps) Check time, DAC channel 1 last event: PASS
-# ** Note   : (119755848 ps)  * DAC channel 1 last event 832416 ps equal to expected value 832416 ps
-# ** Note   : (119755848 ps) Check time, DAC channel 2 last event: PASS
-# ** Note   : (119755848 ps)  * DAC channel 2 last event 320160 ps equal to expected value 320160 ps
+# ** Note   : (119755848 ps) Check time, ADC channel 0 last event: PASS
+# ** Note   : (119755848 ps)  * ADC channel 0 last event 1344672 ps equal to expected value 1344672 ps
+# ** Note   : (119755848 ps) Check time, ADC channel 1 last event: PASS
+# ** Note   : (119755848 ps)  * ADC channel 1 last event 832416 ps equal to expected value 832416 ps
+# ** Note   : (119755848 ps) Check time, ADC channel 2 last event: PASS
+# ** Note   : (119755848 ps)  * ADC channel 2 last event 320160 ps equal to expected value 320160 ps
 # ** Note   : (119915928 ps) Waiting event sync = '0' for 160080 ps
 # ** Note   : (125198568 ps) Waiting event sync = '1' for 5282640 ps
-# ** Note   : (125198568 ps) Check time, DAC channel 3 last event: PASS
-# ** Note   : (125198568 ps)  * DAC channel 3 last event 5250624 ps equal to expected value 5250624 ps
+# ** Note   : (125198568 ps) Check time, ADC channel 3 last event: PASS
+# ** Note   : (125198568 ps)  * ADC channel 3 last event 5250624 ps equal to expected value 5250624 ps
 #             (125198568 ps) 
 #             (125198568 ps) ==============================================================================================
 #             (125198568 ps)   Send a AMP SQUID delay on each channels
@@ -244,14 +244,14 @@
 #             (152412168 ps)   Check AMP SQUID offset delays
 #             (152412168 ps)   Formula: (c_PIXEL_DAC_NB_CYC * c_MUX_FACT - CX_AMP_SQ_OFFSET_DAC_DELAY) * c_CLK_ADC_PER_DEF
 #             (152412168 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (152412168 ps) Check time, DAC channel 0 last event: PASS
-# ** Note   : (152412168 ps)  * DAC channel 0 last event 4738368 ps equal to expected value 4738368 ps
-# ** Note   : (152412168 ps) Check time, DAC channel 1 last event: PASS
-# ** Note   : (152412168 ps)  * DAC channel 1 last event 4226112 ps equal to expected value 4226112 ps
-# ** Note   : (152412168 ps) Check time, DAC channel 2 last event: PASS
-# ** Note   : (152412168 ps)  * DAC channel 2 last event 3713856 ps equal to expected value 3713856 ps
-# ** Note   : (152412168 ps) Check time, DAC channel 3 last event: PASS
-# ** Note   : (152412168 ps)  * DAC channel 3 last event 2697348 ps equal to expected value 2697348 ps
+# ** Note   : (152412168 ps) Check time, ADC channel 0 last event: PASS
+# ** Note   : (152412168 ps)  * ADC channel 0 last event 4738368 ps equal to expected value 4738368 ps
+# ** Note   : (152412168 ps) Check time, ADC channel 1 last event: PASS
+# ** Note   : (152412168 ps)  * ADC channel 1 last event 4226112 ps equal to expected value 4226112 ps
+# ** Note   : (152412168 ps) Check time, ADC channel 2 last event: PASS
+# ** Note   : (152412168 ps)  * ADC channel 2 last event 3713856 ps equal to expected value 3713856 ps
+# ** Note   : (152412168 ps) Check time, ADC channel 3 last event: PASS
+# ** Note   : (152412168 ps)  * ADC channel 3 last event 2697348 ps equal to expected value 2697348 ps
 #             (152412168 ps) 
 #             (152412168 ps) ==============================================================================================
 #             (152412168 ps)   Send command SQ_AMP_OFFSET_MODE to off
@@ -269,14 +269,14 @@
 #             (168740328 ps)   Check AMP SQUID offset delays
 #             (168740328 ps)   Formula: (c_PIXEL_DAC_NB_CYC * c_MUX_FACT - CX_AMP_SQ_OFFSET_DAC_DELAY) * c_CLK_ADC_PER_DEF
 #             (168740328 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (168740328 ps) Check time, DAC channel 0 last event: PASS
-# ** Note   : (168740328 ps)  * DAC channel 0 last event 4738368 ps equal to expected value 4738368 ps
-# ** Note   : (168740328 ps) Check time, DAC channel 1 last event: PASS
-# ** Note   : (168740328 ps)  * DAC channel 1 last event 4226112 ps equal to expected value 4226112 ps
-# ** Note   : (168740328 ps) Check time, DAC channel 2 last event: PASS
-# ** Note   : (168740328 ps)  * DAC channel 2 last event 3713856 ps equal to expected value 3713856 ps
-# ** Note   : (168740328 ps) Check time, DAC channel 3 last event: PASS
-# ** Note   : (168740328 ps)  * DAC channel 3 last event 2697348 ps equal to expected value 2697348 ps
+# ** Note   : (168740328 ps) Check time, ADC channel 0 last event: PASS
+# ** Note   : (168740328 ps)  * ADC channel 0 last event 4738368 ps equal to expected value 4738368 ps
+# ** Note   : (168740328 ps) Check time, ADC channel 1 last event: PASS
+# ** Note   : (168740328 ps)  * ADC channel 1 last event 4226112 ps equal to expected value 4226112 ps
+# ** Note   : (168740328 ps) Check time, ADC channel 2 last event: PASS
+# ** Note   : (168740328 ps)  * ADC channel 2 last event 3713856 ps equal to expected value 3713856 ps
+# ** Note   : (168740328 ps) Check time, ADC channel 3 last event: PASS
+# ** Note   : (168740328 ps)  * ADC channel 3 last event 2697348 ps equal to expected value 2697348 ps
 # ------------------------------------------------------------------------------------------------------------------------------------------------------
 # Error simulation time         : '0'
 # Error check discrete level    : '0'

@@ -35,8 +35,8 @@ use     work.pkg_project.all;
 use     work.pkg_model.all;
 use     work.pkg_ep_cmd.all;
 
-entity science_data_check is port
-   (     i_rst                : in     std_logic                                                            ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+entity science_data_check is port (
+         i_rst                : in     std_logic                                                            ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk_science        : in     std_logic                                                            ; --! Science Clock
 
          i_smfbd              : in     t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SMFBD_COL_S-1 downto 0)            ; --! SQUID MUX feedback delay
@@ -59,9 +59,8 @@ entity science_data_check is port
    );
 end entity science_data_check;
 
-architecture RTL of science_data_check is
+architecture Behavioral of science_data_check is
 constant c_FRAME_NB_CYC       : integer := c_MUX_FACT * c_PIXEL_DAC_NB_CYC                                  ; --! Frame period number
-constant c_FRAME_NB_CYC_S     : integer := log2_ceil(c_FRAME_NB_CYC)                                        ; --! Frame period number bus size
 constant c_SC_DATA_R_PIP_NB   : integer:= 2                                                                 ; --! Science Data register: pipeline number
 
 constant c_PLS_CNT_NB_VAL     : integer:= c_PIXEL_ADC_NB_CYC                                                ; --! Pulse counter (Dump case): number of value
@@ -333,9 +332,13 @@ begin
          end if;
       end process P_mem_adc_dmp_dta_w;
 
-      P_mem_adc_dmp_dta_r : process(i_clk_science)
+      P_mem_adc_dmp_dta_r : process(i_rst, i_clk_science)
       begin
-         if rising_edge(i_clk_science) then
+         if i_rst = '1' then
+            adc_dump_dta2cmp(k) <= (others => '0');
+            science_dta2cmp(k)  <= (others => '0');
+
+         elsif rising_edge(i_clk_science) then
             adc_dump_dta2cmp(k) <= mem_adc_dump_dta2cmp(k)(to_integer(unsigned(pixel_pos_del(k))));
             science_dta2cmp(k)  <= mem_science_dta2cmp(k)(c_MUX_FACT * to_integer(unsigned(frm_cnt_sc)) + to_integer(unsigned(pls_cnt_sc)));
 
@@ -452,4 +455,4 @@ begin
 
    end process P_science_data_err;
 
-end architecture rtl;
+end architecture Behavioral;

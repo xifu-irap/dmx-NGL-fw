@@ -34,8 +34,8 @@ use     work.pkg_func_math.all;
 use     work.pkg_project.all;
 use     work.pkg_ep_cmd.all;
 
-entity science_data_mgt is port
-   (     i_rst                : in     std_logic                                                            ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+entity science_data_mgt is port (
+         i_rst                : in     std_logic                                                            ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                : in     std_logic                                                            ; --! System Clock
 
          i_ras_data_valid_rs  : in     std_logic                                                            ; --! RAS Data valid, synchronized on System Clock ('0' = No, '1' = Yes)
@@ -99,8 +99,6 @@ signal   dmp_cnt              : std_logic_vector(c_DMP_CNT_S-1 downto 0)        
 signal   dmp_cnt_msb_r        : std_logic_vector(c_MEM_RD_DATA_NPER downto 0)                               ; --! Dump counter msb register
 
 signal   ctrl_first_pkt       : std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0)                              ; --! Control first packet value
-
-signal   acq_test_pat_data    : std_logic_vector(c_SC_DATA_SER_W_S*c_SC_DATA_SER_NB-1 downto 0)             ; --! Data acquisition test pattern data
 
 signal   science_data_tx_ena  : std_logic                                                                   ; --! Science Data transmit enable
 signal   science_data         : t_slv_arr(0 to c_NB_COL*c_SC_DATA_SER_NB)(c_SC_DATA_SER_W_S-1 downto 0)     ; --! Science Data word
@@ -465,8 +463,8 @@ begin
    --!   Science Data Transmit
    --    @Req : DRE-DMX-FW-REQ-0590
    -- ------------------------------------------------------------------------------------------------------
-   I_science_data_tx: entity work.science_data_tx port map
-   (     i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+   I_science_data_tx: entity work.science_data_tx port map (
+         i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                => i_clk                , -- in     std_logic                                 ; --! System Clock
 
          i_science_data_tx_ena=> science_data_tx_ena  , -- in     std_logic                                 ; --! Science Data transmit enable
@@ -475,4 +473,4 @@ begin
          o_science_data_ser   => o_science_data_ser     -- out    slv       c_NB_COL*c_SC_DATA_SER_NB         --! Science Data: Serial Data
    );
 
-end architecture rtl;
+end architecture RTL;

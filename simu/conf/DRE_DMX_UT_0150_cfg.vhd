@@ -32,8 +32,7 @@ configuration DRE_DMX_UT_0150_cfg of top_dmx_tb is
       --!   Parser configuration
       -- ------------------------------------------------------------------------------------------------------
       for I_parser : parser
-         use entity work.parser generic map
-         (
+         use entity work.parser generic map (
             g_SIM_TIME           => 4600 us              , -- time    := c_SIM_TIME_DEF                     ; --! Simulation time
             g_TST_NUM            => "0150"                 -- string  := c_TST_NUM_DEF                        --! Test number
          );
@@ -43,8 +42,7 @@ configuration DRE_DMX_UT_0150_cfg of top_dmx_tb is
       --!   EP SPI Model configuration
       -- ------------------------------------------------------------------------------------------------------
       for I_ep_spi_model : ep_spi_model
-         use entity work.ep_spi_model generic map
-         (
+         use entity work.ep_spi_model generic map (
             g_EP_CLK_PER         => c_EP_CLK_PER_DEF     , -- time    := c_EP_CLK_PER_DEF                   ; --! EP: System clock period (ps)
             g_EP_CLK_PER_SHIFT   => c_EP_CLK_PER_SHFT_DEF, -- time    := c_EP_CLK_PER_SHFT_DEF              ; --! EP: Clock period shift
             g_EP_N_CLK_PER_SCLK_L=> 3                    , -- integer := c_EP_SCLK_L_DEF                    ; --! EP: Number of clock period for elaborating SPI Serial Clock low  level
@@ -57,8 +55,7 @@ configuration DRE_DMX_UT_0150_cfg of top_dmx_tb is
       --!   Science data model configuration
       -- ------------------------------------------------------------------------------------------------------
       for I_science_data_model: science_data_model
-         use entity work.science_data_model generic map
-         (
+         use entity work.science_data_model generic map (
             g_SIM_TIME           => 4600 us              , -- time      := c_SIM_TIME_DEF                   ; --! Simulation time
             g_ERR_SC_DTA_ENA     => c_ERR_SC_DTA_ENA_DEF , -- std_logic := c_ERR_SC_DTA_ENA_DEF             ; --! Error science data enable ('0' = No, '1' = Yes)
             g_FRM_CNT_SC_ENA     => c_FRM_CNT_SC_ENA_DEF , -- std_logic := c_FRM_CNT_SC_ENA_DEF             ; --! Frame counter science enable ('0' = No, '1' = Yes)

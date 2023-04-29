@@ -17,59 +17,39 @@
 --                            along with this program.  If not, see <https://www.gnu.org/licenses/>.
 -- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --    email                   slaurent@nanoxplore.com
---!   @file                   pkg_func_math.vhd
+--!   @file                   resize_stall_msb.vhd
 -- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --    Automatic Generation    No
 --    Code Rules Reference    SOC of design and VHDL handbook for VLSI development, CNES Edition (v2.1)
 -- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
---!   @details                Mathematical function package
+--!   @details                return resized data stalled on Mean Significant Bit
 -- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 library ieee;
 use     ieee.std_logic_1164.all;
-use     ieee.numeric_std.all;
-use     ieee.math_real.all;
 
-package pkg_func_math is
+entity resize_stall_msb is generic (
+         g_DATA_S             : integer                                                                     ; --! Data input bus size
+         g_DATA_STALL_MSB_S   : integer                                                                       --! Data stalled on Mean Significant Bit bus size
+   ); port (
+         i_data               : in     std_logic_vector(          g_DATA_S-1 downto 0)                      ; --! Data
+         o_data_stall_msb     : out    std_logic_vector(g_DATA_STALL_MSB_S-1 downto 0)                        --! Data stalled on Mean Significant Bit
+   );
+end entity resize_stall_msb;
 
-function log2_ceil              (X: in integer) return integer                                              ; --! return logarithm base 2 of X  (ceil integer)
-function div_ceil               (X: in integer; Y : in integer) return integer                              ; --! return X/Y (ceil integer)
-function div_floor              (X: in integer; Y : in integer) return integer                              ; --! return X/Y (floor integer)
-function div_round              (X: in integer; Y : in integer) return integer                              ; --! return X/Y (round integer)
+architecture RTL of resize_stall_msb is
+begin
 
-end pkg_func_math;
-
-package body pkg_func_math is
-
-   -- ------------------------------------------------------------------------------------------------------
-   --! return logarithm base 2 of X  (ceil integer)
-   -- ------------------------------------------------------------------------------------------------------
-   function log2_ceil           (X: in integer) return integer is
+   G_dta_stall_msb_s : for k in 0 to o_data_stall_msb'high generate
    begin
-      return integer(ceil(log2(real(X))));
-   end function;
 
-   -- ------------------------------------------------------------------------------------------------------
-   --! return X/Y (ceil integer)
-   -- ------------------------------------------------------------------------------------------------------
-   function div_ceil            (X: in integer; Y : in integer) return integer is
-   begin
-      return integer(ceil(real(X)/real(Y)));
-   end function;
+      G_data_stall_msb_lss : if k <= g_DATA_S-1 generate
+         o_data_stall_msb(o_data_stall_msb'high - k) <= i_data(i_data'high - k);
 
-   -- ------------------------------------------------------------------------------------------------------
-   --! return X/Y (floor integer)
-   -- ------------------------------------------------------------------------------------------------------
-   function div_floor           (X: in integer; Y : in integer) return integer is
-   begin
-      return integer(floor(real(X)/real(Y)));
-   end function;
+      else generate
+         o_data_stall_msb(o_data_stall_msb'high - k) <= '0';
 
-   -- ------------------------------------------------------------------------------------------------------
-   --! return X/Y (round integer)
-   -- ------------------------------------------------------------------------------------------------------
-   function div_round           (X: in integer; Y : in integer) return integer is
-   begin
-      return integer(round(real(X)/real(Y)));
-   end function;
+      end generate;
 
-end pkg_func_math;
+   end generate G_dta_stall_msb_s;
+
+end architecture RTL;

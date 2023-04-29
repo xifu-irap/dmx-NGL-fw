@@ -32,6 +32,7 @@ use     work.pkg_project.all;
 use     work.pkg_model.all;
 use     work.pkg_mess.all;
 use     work.pkg_str_fld_assoc.all;
+use     work.pkg_func_cmd_spi.all;
 
 library std;
 use std.textio.all;
@@ -43,8 +44,8 @@ type     t_wait_cmd_end         is (none, wait_cmd_end_tx, wait_rcmd_end_rx)    
    -- ------------------------------------------------------------------------------------------------------
    --! Compare time and write result in file output
    -- ------------------------------------------------------------------------------------------------------
-   procedure cmp_time
-   (     i_ope                : in     string(1 to 2)                                                       ; --  Operator
+   procedure cmp_time (
+         i_ope                : in     string(1 to 2)                                                       ; --  Operator
          i_time_left          : in     time                                                                 ; --  Time left  operator
          i_time_right         : in     time                                                                 ; --  Time right operator
          i_mess_header        : in     string                                                               ; --  Message header
@@ -56,8 +57,8 @@ type     t_wait_cmd_end         is (none, wait_cmd_end_tx, wait_rcmd_end_rx)    
    -- ------------------------------------------------------------------------------------------------------
    --! Check simulation end reached
    -- ------------------------------------------------------------------------------------------------------
-   procedure chk_sim_end
-   (     i_sim_time           : in     time                                                                 ; --  Simulation time
+   procedure chk_sim_end (
+         i_sim_time           : in     time                                                                 ; --  Simulation time
          i_wait_time          : in     time                                                                 ; --  Waiting time
          i_mess_event         : in     string                                                               ; --  Message Event
          o_err_sim_time       : out    std_logic                                                            ; --  Error simulation time
@@ -67,8 +68,8 @@ type     t_wait_cmd_end         is (none, wait_cmd_end_tx, wait_rcmd_end_rx)    
    -- ------------------------------------------------------------------------------------------------------
    --! Get parameters command CCMD [cmd] [end]: check the EP command return
    -- ------------------------------------------------------------------------------------------------------
-   procedure get_param_ccmd
-   (     b_cmd_file_line      : inout  line                                                                 ; --  Command file line
+   procedure get_param_ccmd (
+         b_cmd_file_line      : inout  line                                                                 ; --  Command file line
          i_mess_header        : in     string                                                               ; --  Message header
          o_mess_spi_cmd       : out    line                                                                 ; --  Message SPI command
          o_fld_spi_cmd        : out    std_logic_vector                                                     ; --  Field SPI command
@@ -79,8 +80,8 @@ type     t_wait_cmd_end         is (none, wait_cmd_end_tx, wait_rcmd_end_rx)    
    --! Get parameters command CCPE [report]: enable the display in result file of the report
    --!  about the check parameters
    -- ------------------------------------------------------------------------------------------------------
-   procedure get_param_ccpe
-   (     b_cmd_file_line      : inout  line                                                                 ; --  Command file line
+   procedure get_param_ccpe (
+         b_cmd_file_line      : inout  line                                                                 ; --  Command file line
          i_mess_header        : in     string                                                               ; --  Message header
          o_fld_ce             : out    line                                                                 ; --  Field check clock parameters enable
          o_fld_ce_ind         : out    integer range 0 to c_CE_S-1                                            --  Field check clock parameters enable index (equal to c_CE_S if field not recognized)
@@ -89,8 +90,8 @@ type     t_wait_cmd_end         is (none, wait_cmd_end_tx, wait_rcmd_end_rx)    
    -- ------------------------------------------------------------------------------------------------------
    --! Get parameters command CDIS [discrete_r] [value]: check discrete input
    -- ------------------------------------------------------------------------------------------------------
-   procedure get_param_cdis
-   (     b_cmd_file_line      : inout  line                                                                 ; --  Command file line
+   procedure get_param_cdis (
+         b_cmd_file_line      : inout  line                                                                 ; --  Command file line
          i_mess_header        : in     string                                                               ; --  Message header
          o_fld_dr             : out    line                                                                 ; --  Field discrete input
          o_fld_dr_ind         : out    integer range 0 to c_DR_S                                            ; --  Field discrete input index (equal to c_DR_S if field not recognized)
@@ -100,8 +101,8 @@ type     t_wait_cmd_end         is (none, wait_cmd_end_tx, wait_rcmd_end_rx)    
    -- ------------------------------------------------------------------------------------------------------
    --! Get parameters command CLDC [channel] [value]: check level SQUID MUX ADC input
    -- ------------------------------------------------------------------------------------------------------
-   procedure get_param_cldc
-   (     b_cmd_file_line      : inout  line                                                                 ; --  Command file line
+   procedure get_param_cldc (
+         b_cmd_file_line      : inout  line                                                                 ; --  Command file line
          i_mess_header        : in     string                                                               ; --  Message header
          o_fld_channel        : out    integer range 0 to c_NB_COL-1                                        ; --  Field channel number
          o_fld_value          : out    real                                                                   --  Field value
@@ -110,8 +111,8 @@ type     t_wait_cmd_end         is (none, wait_cmd_end_tx, wait_rcmd_end_rx)    
    -- ------------------------------------------------------------------------------------------------------
    --! Get parameters command CSCP [science_packet] : check the science packet type
    -- ------------------------------------------------------------------------------------------------------
-   procedure get_param_cscp
-   (     b_cmd_file_line      : inout  line                                                                 ; --  Command file line
+   procedure get_param_cscp (
+         b_cmd_file_line      : inout  line                                                                 ; --  Command file line
          i_mess_header        : in     string                                                               ; --  Message header
          o_fld_sc_pkt         : out    line                                                                 ; --  Field science packet type
          o_fld_sc_pkt_val     : out    std_logic_vector                                                       --  Field science packet type value
@@ -121,8 +122,8 @@ type     t_wait_cmd_end         is (none, wait_cmd_end_tx, wait_rcmd_end_rx)    
    --! Get parameters command CTDC [channel] [ope] [time]: check time between the current time
    --!  and last event SQUID MUX ADC input
    -- ------------------------------------------------------------------------------------------------------
-   procedure get_param_ctdc
-   (     b_cmd_file_line      : inout  line                                                                 ; --  Command file line
+   procedure get_param_ctdc (
+         b_cmd_file_line      : inout  line                                                                 ; --  Command file line
          i_mess_header        : in     string                                                               ; --  Message header
          o_fld_channel        : out    integer range 0 to c_NB_COL-1                                        ; --  Field channel number
          o_fld_ope            : out    line                                                                 ; --  Field operation
@@ -133,8 +134,8 @@ type     t_wait_cmd_end         is (none, wait_cmd_end_tx, wait_rcmd_end_rx)    
    --! Get parameters command CTLE [discrete_r] [ope] [time]: check time between the current time
    --!  and discrete input last event
    -- ------------------------------------------------------------------------------------------------------
-   procedure get_param_ctle
-   (     b_cmd_file_line      : inout  line                                                                 ; --  Command file line
+   procedure get_param_ctle (
+         b_cmd_file_line      : inout  line                                                                 ; --  Command file line
          i_mess_header        : in     string                                                               ; --  Message header
          o_fld_dr             : out    line                                                                 ; --  Field discrete input
          o_fld_dr_ind         : out    integer range 0 to c_DR_S                                            ; --  Field discrete input index (equal to c_DR_S if field not recognized)
@@ -145,8 +146,8 @@ type     t_wait_cmd_end         is (none, wait_cmd_end_tx, wait_rcmd_end_rx)    
    -- ------------------------------------------------------------------------------------------------------
    --! Get parameters command CTLR [ope] [time]: check time from the last record time
    -- ------------------------------------------------------------------------------------------------------
-   procedure get_param_ctlr
-   (     b_cmd_file_line      : inout  line                                                                 ; --  Command file line
+   procedure get_param_ctlr (
+         b_cmd_file_line      : inout  line                                                                 ; --  Command file line
          i_mess_header        : in     string                                                               ; --  Message header
          o_fld_ope            : out    line                                                                 ; --  Field operation
          o_fld_time           : out    time                                                                   --  Field time
@@ -155,8 +156,8 @@ type     t_wait_cmd_end         is (none, wait_cmd_end_tx, wait_rcmd_end_rx)    
    -- ------------------------------------------------------------------------------------------------------
    --! Get parameters command WAIT [time]: wait for time
    -- ------------------------------------------------------------------------------------------------------
-   procedure get_param_wait
-   (     b_cmd_file_line      : inout  line                                                                 ; --  Command file line
+   procedure get_param_wait (
+         b_cmd_file_line      : inout  line                                                                 ; --  Command file line
          i_mess_header        : in     string                                                               ; --  Message header
          o_fld_time           : out    time                                                                   --  Field time
    );
@@ -164,8 +165,8 @@ type     t_wait_cmd_end         is (none, wait_cmd_end_tx, wait_rcmd_end_rx)    
    -- ------------------------------------------------------------------------------------------------------
    --! Get parameters command WCMD [cmd] [end]: transmit EP command
    -- ------------------------------------------------------------------------------------------------------
-   procedure get_param_wcmd
-   (     b_cmd_file_line      : inout  line                                                                 ; --  Command file line
+   procedure get_param_wcmd (
+         b_cmd_file_line      : inout  line                                                                 ; --  Command file line
          i_mess_header        : in     string                                                               ; --  Message header
          o_mess_spi_cmd       : out    line                                                                 ; --  Message SPI command
          o_fld_spi_cmd        : out    std_logic_vector                                                     ; --  Field SPI command
@@ -176,8 +177,8 @@ type     t_wait_cmd_end         is (none, wait_cmd_end_tx, wait_rcmd_end_rx)    
    --! Get parameters command WCMS [size]: write EP command word size or
    --! Get parameters command WNBD [number]: write board reference number
    -- ------------------------------------------------------------------------------------------------------
-   procedure get_param_wcms_wnbd
-   (     b_cmd_file_line      : inout  line                                                                 ; --  Command file line
+   procedure get_param_wcms_wnbd (
+         b_cmd_file_line      : inout  line                                                                 ; --  Command file line
          i_mess_header        : in     string                                                               ; --  Message header
          o_fld_integer        : out    integer                                                                --  Field integer
    );
@@ -185,8 +186,8 @@ type     t_wait_cmd_end         is (none, wait_cmd_end_tx, wait_rcmd_end_rx)    
    -- ------------------------------------------------------------------------------------------------------
    --! Get parameters command WDIS [discrete_w] [value]: write discrete output
    -- ------------------------------------------------------------------------------------------------------
-   procedure get_param_wdis
-   (     b_cmd_file_line      : inout  line                                                                 ; --  Command file line
+   procedure get_param_wdis (
+         b_cmd_file_line      : inout  line                                                                 ; --  Command file line
          i_mess_header        : in     string                                                               ; --  Message header
          o_fld_dw             : out    line                                                                 ; --  Field discrete output
          o_fld_dw_ind         : out    integer range 0 to c_DW_S                                            ; --  Field discrete output index (equal to c_DW_S if field not recognized)
@@ -196,8 +197,8 @@ type     t_wait_cmd_end         is (none, wait_cmd_end_tx, wait_rcmd_end_rx)    
    -- ------------------------------------------------------------------------------------------------------
    --! Get parameters command WFMP [channel] [data]: write FPASIM "Make pulse" command
    -- ------------------------------------------------------------------------------------------------------
-   procedure get_param_wfmp
-   (     b_cmd_file_line      : inout  line                                                                 ; --  Command file line
+   procedure get_param_wfmp (
+         b_cmd_file_line      : inout  line                                                                 ; --  Command file line
          i_mess_header        : in     string                                                               ; --  Message header
          o_fld_channel        : out    integer range 0 to c_NB_COL-1                                        ; --  Field channel number
          o_fld_data           : out    std_logic_vector                                                       --  Field data
@@ -207,8 +208,8 @@ type     t_wait_cmd_end         is (none, wait_cmd_end_tx, wait_rcmd_end_rx)    
    --! Get parameters command WMDC [channel] [frame] [index] [data]:
    --!  Write in ADC dump/science memories for data compare
    -- ------------------------------------------------------------------------------------------------------
-   procedure get_param_wmdc
-   (     b_cmd_file_line      : inout  line                                                                 ; --  Command file line
+   procedure get_param_wmdc (
+         b_cmd_file_line      : inout  line                                                                 ; --  Command file line
          i_mess_header        : in     string                                                               ; --  Message header
          o_fld_channel        : out    integer range 0 to c_NB_COL-1                                        ; --  Field channel number
          o_fld_frame          : out    integer range 0 to c_MEM_SC_FRM_NB-1                                 ; --  Field frame number
@@ -219,8 +220,8 @@ type     t_wait_cmd_end         is (none, wait_cmd_end_tx, wait_rcmd_end_rx)    
    -- ------------------------------------------------------------------------------------------------------
    --! Get parameters command WPFC [channel] [frequency]: write pulse shaping cut frequency for verification
    -- ------------------------------------------------------------------------------------------------------
-   procedure get_param_wpfc
-   (     b_cmd_file_line      : inout  line                                                                 ; --  Command file line
+   procedure get_param_wpfc (
+         b_cmd_file_line      : inout  line                                                                 ; --  Command file line
          i_mess_header        : in     string                                                               ; --  Message header
          o_fld_channel        : out    integer range 0 to c_NB_COL-1                                        ; --  Field channel number
          o_fld_frequency      : out    integer                                                                --  Field frequency cut (Hz)
@@ -229,8 +230,8 @@ type     t_wait_cmd_end         is (none, wait_cmd_end_tx, wait_rcmd_end_rx)    
    -- ------------------------------------------------------------------------------------------------------
    --! Get parameters command WUDI [discrete_r] [value] or WUDI [mask] [data]: wait until event on discrete(s)
    -- ------------------------------------------------------------------------------------------------------
-   procedure get_param_wudi
-   (     b_cmd_file_line      : inout  line                                                                 ; --  Command file line
+   procedure get_param_wudi (
+         b_cmd_file_line      : inout  line                                                                 ; --  Command file line
          i_mess_header        : in     string                                                               ; --  Message header
          o_fld_dr             : inout  line                                                                 ; --  Field discrete input
          o_fld_dr_ind         : out    integer range 0 to c_DR_S                                            ; --  Field discrete input index (equal to c_DR_S if field not recognized)
@@ -246,8 +247,8 @@ package body pkg_func_cmd_script is
    -- ------------------------------------------------------------------------------------------------------
    --! Compare time and write result in file output
    -- ------------------------------------------------------------------------------------------------------
-   procedure cmp_time
-   (     i_ope                : in     string(1 to 2)                                                       ; --  Operator
+   procedure cmp_time (
+         i_ope                : in     string(1 to 2)                                                       ; --  Operator
          i_time_left          : in     time                                                                 ; --  Time left  operator
          i_time_right         : in     time                                                                 ; --  Time right operator
          i_mess_header        : in     string                                                               ; --  Message header
@@ -353,8 +354,8 @@ package body pkg_func_cmd_script is
    -- ------------------------------------------------------------------------------------------------------
    --! Check simulation end reached
    -- ------------------------------------------------------------------------------------------------------
-   procedure chk_sim_end
-   (     i_sim_time           : in     time                                                                 ; --  Simulation time
+   procedure chk_sim_end (
+         i_sim_time           : in     time                                                                 ; --  Simulation time
          i_wait_time          : in     time                                                                 ; --  Waiting time
          i_mess_event         : in     string                                                               ; --  Message Event
          o_err_sim_time       : out    std_logic                                                            ; --  Error simulation time
@@ -377,8 +378,8 @@ package body pkg_func_cmd_script is
    -- ------------------------------------------------------------------------------------------------------
    --! Get parameters command CCMD [cmd] [end]: check the EP command return
    -- ------------------------------------------------------------------------------------------------------
-   procedure get_param_ccmd
-   (     b_cmd_file_line      : inout  line                                                                 ; --  Command file line
+   procedure get_param_ccmd (
+         b_cmd_file_line      : inout  line                                                                 ; --  Command file line
          i_mess_header        : in     string                                                               ; --  Message header
          o_mess_spi_cmd       : out    line                                                                 ; --  Message SPI command
          o_fld_spi_cmd        : out    std_logic_vector                                                     ; --  Field SPI command
@@ -416,8 +417,8 @@ package body pkg_func_cmd_script is
    --! Get parameters command CCPE [report]: enable the display in result file of the report
    --!  about the check parameters
    -- ------------------------------------------------------------------------------------------------------
-   procedure get_param_ccpe
-   (     b_cmd_file_line      : inout  line                                                                 ; --  Command file line
+   procedure get_param_ccpe (
+         b_cmd_file_line      : inout  line                                                                 ; --  Command file line
          i_mess_header        : in     string                                                               ; --  Message header
          o_fld_ce             : out    line                                                                 ; --  Field check clock parameters enable
          o_fld_ce_ind         : out    integer range 0 to c_CE_S-1                                            --  Field check clock parameters enable index (equal to c_CE_S if field not recognized)
@@ -433,8 +434,8 @@ package body pkg_func_cmd_script is
    -- ------------------------------------------------------------------------------------------------------
    --! Get parameters command CDIS [discrete_r] [value]: check discrete input
    -- ------------------------------------------------------------------------------------------------------
-   procedure get_param_cdis
-   (     b_cmd_file_line      : inout  line                                                                 ; --  Command file line
+   procedure get_param_cdis (
+         b_cmd_file_line      : inout  line                                                                 ; --  Command file line
          i_mess_header        : in     string                                                               ; --  Message header
          o_fld_dr             : out    line                                                                 ; --  Field discrete input
          o_fld_dr_ind         : out    integer range 0 to c_DR_S                                            ; --  Field discrete input index (equal to c_DR_S if field not recognized)
@@ -454,8 +455,8 @@ package body pkg_func_cmd_script is
    -- ------------------------------------------------------------------------------------------------------
    --! Get parameters command CLDC [channel] [value]: check level SQUID MUX ADC input
    -- ------------------------------------------------------------------------------------------------------
-   procedure get_param_cldc
-   (     b_cmd_file_line      : inout  line                                                                 ; --  Command file line
+   procedure get_param_cldc (
+         b_cmd_file_line      : inout  line                                                                 ; --  Command file line
          i_mess_header        : in     string                                                               ; --  Message header
          o_fld_channel        : out    integer range 0 to c_NB_COL-1                                        ; --  Field channel number
          o_fld_value          : out    real                                                                   --  Field value
@@ -474,8 +475,8 @@ package body pkg_func_cmd_script is
    -- ------------------------------------------------------------------------------------------------------
    --! Get parameters command CSCP [science_packet] : check the science packet type
    -- ------------------------------------------------------------------------------------------------------
-   procedure get_param_cscp
-   (     b_cmd_file_line      : inout  line                                                                 ; --  Command file line
+   procedure get_param_cscp (
+         b_cmd_file_line      : inout  line                                                                 ; --  Command file line
          i_mess_header        : in     string                                                               ; --  Message header
          o_fld_sc_pkt         : out    line                                                                 ; --  Field science packet type
          o_fld_sc_pkt_val     : out    std_logic_vector                                                       --  Field science packet type value
@@ -492,8 +493,8 @@ package body pkg_func_cmd_script is
    --! Get parameters command CTDC [channel] [ope] [time]: check time between the current time
    --!  and last event SQUID MUX ADC input
    -- ------------------------------------------------------------------------------------------------------
-   procedure get_param_ctdc
-   (     b_cmd_file_line      : inout  line                                                                 ; --  Command file line
+   procedure get_param_ctdc (
+         b_cmd_file_line      : inout  line                                                                 ; --  Command file line
          i_mess_header        : in     string                                                               ; --  Message header
          o_fld_channel        : out    integer range 0 to c_NB_COL-1                                        ; --  Field channel number
          o_fld_ope            : out    line                                                                 ; --  Field operation
@@ -515,8 +516,8 @@ package body pkg_func_cmd_script is
    --! Get parameters command CTLE [discrete_r] [ope] [time]: check time between the current time
    --!  and discrete input last event
    -- ------------------------------------------------------------------------------------------------------
-   procedure get_param_ctle
-   (     b_cmd_file_line      : inout  line                                                                 ; --  Command file line
+   procedure get_param_ctle (
+         b_cmd_file_line      : inout  line                                                                 ; --  Command file line
          i_mess_header        : in     string                                                               ; --  Message header
          o_fld_dr             : out    line                                                                 ; --  Field discrete input
          o_fld_dr_ind         : out    integer range 0 to c_DR_S                                            ; --  Field discrete input index (equal to c_DR_S if field not recognized)
@@ -538,8 +539,8 @@ package body pkg_func_cmd_script is
    -- ------------------------------------------------------------------------------------------------------
    --! Get parameters command CTLR [ope] [time]: check time from the last record time
    -- ------------------------------------------------------------------------------------------------------
-   procedure get_param_ctlr
-   (     b_cmd_file_line      : inout  line                                                                 ; --  Command file line
+   procedure get_param_ctlr (
+         b_cmd_file_line      : inout  line                                                                 ; --  Command file line
          i_mess_header        : in     string                                                               ; --  Message header
          o_fld_ope            : out    line                                                                 ; --  Field operation
          o_fld_time           : out    time                                                                   --  Field time
@@ -555,8 +556,8 @@ package body pkg_func_cmd_script is
    -- ------------------------------------------------------------------------------------------------------
    --! Get parameters command WAIT [time]: wait for time
    -- ------------------------------------------------------------------------------------------------------
-   procedure get_param_wait
-   (     b_cmd_file_line      : inout  line                                                                 ; --  Command file line
+   procedure get_param_wait (
+         b_cmd_file_line      : inout  line                                                                 ; --  Command file line
          i_mess_header        : in     string                                                               ; --  Message header
          o_fld_time           : out    time                                                                   --  Field time
    ) is
@@ -570,8 +571,8 @@ package body pkg_func_cmd_script is
    -- ------------------------------------------------------------------------------------------------------
    --! Get parameters command WCMD [cmd] [end]: transmit EP command
    -- ------------------------------------------------------------------------------------------------------
-   procedure get_param_wcmd
-   (     b_cmd_file_line      : inout  line                                                                 ; --  Command file line
+   procedure get_param_wcmd (
+         b_cmd_file_line      : inout  line                                                                 ; --  Command file line
          i_mess_header        : in     string                                                               ; --  Message header
          o_mess_spi_cmd       : out    line                                                                 ; --  Message SPI command
          o_fld_spi_cmd        : out    std_logic_vector                                                     ; --  Field SPI command
@@ -614,8 +615,8 @@ package body pkg_func_cmd_script is
    --! Get parameters command WCMS [size]: write EP command word size or
    --! Get parameters command WNBD [number]: write board reference number
    -- ------------------------------------------------------------------------------------------------------
-   procedure get_param_wcms_wnbd
-   (     b_cmd_file_line      : inout  line                                                                 ; --  Command file line
+   procedure get_param_wcms_wnbd (
+         b_cmd_file_line      : inout  line                                                                 ; --  Command file line
          i_mess_header        : in     string                                                               ; --  Message header
          o_fld_integer        : out    integer                                                                --  Field integer
    ) is
@@ -632,8 +633,8 @@ package body pkg_func_cmd_script is
    -- ------------------------------------------------------------------------------------------------------
    --! Get parameters command WDIS [discrete_w] [value]: write discrete output
    -- ------------------------------------------------------------------------------------------------------
-   procedure get_param_wdis
-   (     b_cmd_file_line      : inout  line                                                                 ; --  Command file line
+   procedure get_param_wdis (
+         b_cmd_file_line      : inout  line                                                                 ; --  Command file line
          i_mess_header        : in     string                                                               ; --  Message header
          o_fld_dw             : out    line                                                                 ; --  Field discrete output
          o_fld_dw_ind         : out    integer range 0 to c_DW_S                                            ; --  Field discrete output index (equal to c_DW_S if field not recognized)
@@ -653,8 +654,8 @@ package body pkg_func_cmd_script is
    -- ------------------------------------------------------------------------------------------------------
    --! Get parameters command WFMP [channel] [data]: write FPASIM "Make pulse" command
    -- ------------------------------------------------------------------------------------------------------
-   procedure get_param_wfmp
-   (     b_cmd_file_line      : inout  line                                                                 ; --  Command file line
+   procedure get_param_wfmp (
+         b_cmd_file_line      : inout  line                                                                 ; --  Command file line
          i_mess_header        : in     string                                                               ; --  Message header
          o_fld_channel        : out    integer range 0 to c_NB_COL-1                                        ; --  Field channel number
          o_fld_data           : out    std_logic_vector                                                       --  Field data
@@ -678,8 +679,8 @@ package body pkg_func_cmd_script is
    --! Get parameters command WMDC [channel] [index] [data]:
    --!  Write in ADC dump/science memories for data compare
    -- ------------------------------------------------------------------------------------------------------
-   procedure get_param_wmdc
-   (     b_cmd_file_line      : inout  line                                                                 ; --  Command file line
+   procedure get_param_wmdc (
+         b_cmd_file_line      : inout  line                                                                 ; --  Command file line
          i_mess_header        : in     string                                                               ; --  Message header
          o_fld_channel        : out    integer range 0 to c_NB_COL-1                                        ; --  Field channel number
          o_fld_frame          : out    integer range 0 to c_MEM_SC_FRM_NB-1                                 ; --  Field frame number
@@ -712,8 +713,8 @@ package body pkg_func_cmd_script is
    -- ------------------------------------------------------------------------------------------------------
    --! Get parameters command WPFC [channel] [frequency]: write pulse shaping cut frequency for verification
    -- ------------------------------------------------------------------------------------------------------
-   procedure get_param_wpfc
-   (     b_cmd_file_line      : inout  line                                                                 ; --  Command file line
+   procedure get_param_wpfc (
+         b_cmd_file_line      : inout  line                                                                 ; --  Command file line
          i_mess_header        : in     string                                                               ; --  Message header
          o_fld_channel        : out    integer range 0 to c_NB_COL-1                                        ; --  Field channel number
          o_fld_frequency      : out    integer                                                                --  Field frequency cut (Hz)
@@ -732,8 +733,8 @@ package body pkg_func_cmd_script is
    -- ------------------------------------------------------------------------------------------------------
    --! Get parameters command WUDI [discrete_r] [value] or WUDI [mask] [data]: wait until event on discrete(s)
    -- ------------------------------------------------------------------------------------------------------
-   procedure get_param_wudi
-   (     b_cmd_file_line      : inout  line                                                                 ; --  Command file line
+   procedure get_param_wudi (
+         b_cmd_file_line      : inout  line                                                                 ; --  Command file line
          i_mess_header        : in     string                                                               ; --  Message header
          o_fld_dr             : inout  line                                                                 ; --  Field discrete input
          o_fld_dr_ind         : out    integer range 0 to c_DR_S                                            ; --  Field discrete input index (equal to c_DR_S if field not recognized)
@@ -765,4 +766,4 @@ package body pkg_func_cmd_script is
 
    end get_param_wudi;
 
-end package body;
+end package body pkg_func_cmd_script;

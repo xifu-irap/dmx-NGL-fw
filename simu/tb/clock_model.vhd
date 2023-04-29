@@ -30,12 +30,12 @@ use     ieee.std_logic_1164.all;
 library work;
 use     work.pkg_model.all;
 
-entity clock_model is generic
-   (     g_CLK_REF_PER        : time    := c_CLK_REF_PER_DEF                                                ; --! Reference Clock period
+entity clock_model is generic (
+         g_CLK_REF_PER        : time    := c_CLK_REF_PER_DEF                                                ; --! Reference Clock period
          g_SYNC_PER           : time    := c_SYNC_PER_DEF                                                   ; --! Pixel sequence synchronization period
          g_SYNC_SHIFT         : time    := c_SYNC_SHIFT_DEF                                                   --! Pixel sequence synchronization shift
-   ); port
-   (     o_clk_ref            : out    std_logic                                                            ; --! Reference Clock
+   ); port (
+         o_clk_ref            : out    std_logic                                                            ; --! Reference Clock
          o_sync               : out    std_logic                                                              --! Pixel sequence synchronization (R.E. detected = position sequence to the first pixel)
    );
 end entity clock_model;

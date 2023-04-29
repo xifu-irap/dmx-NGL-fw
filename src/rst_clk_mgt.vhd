@@ -33,8 +33,8 @@ use     work.pkg_func_math.all;
 use     work.pkg_fpga_tech.all;
 use     work.pkg_project.all;
 
-entity rst_clk_mgt is port
-   (     i_arst               : in     std_logic                                                            ; --! Asynchronous reset ('0' = Inactive, '1' = Active)
+entity rst_clk_mgt is port (
+         i_arst               : in     std_logic                                                            ; --! Asynchronous reset ('0' = Inactive, '1' = Active)
          i_clk_ref            : in     std_logic                                                            ; --! Reference Clock
 
          i_cmd_ck_adc_ena     : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! SQUID MUX ADC Clocks switch commands enable  ('0' = Inactive, '1' = Active)
@@ -71,9 +71,6 @@ constant c_CNT_RST_ADC_S      : integer:= log2_ceil(c_CNT_RST_ADC_MX_VAL + 1) + 
 
 signal   rst_sqm_adc_dac_pad  : std_logic                                                                   ; --! Reset for SQUID ADC/DAC pads, de-assertion on system clock
 
-signal   rst_adc_ck           : std_logic                                                                   ; --! Reset for SQUID ADC clock outputs, de-assertion on system clock
-signal   rst_dac_ck           : std_logic                                                                   ; --! Reset for SQUID DAC clock outputs, de-assertion on system clock
-
 signal   cnt_rst              : std_logic_vector(c_CNT_RST_S-1 downto 0)                                    ; --! Counter for reset generation
 signal   cnt_rst_msb_r_n      : std_logic                                                                   ; --! Counter for reset generation MSB inverted register
 
@@ -88,7 +85,6 @@ signal   clk_sqm_dac_out      : std_logic                                       
 signal   cmd_ck_adc           : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! SQUID MUX ADC Clocks switch commands ('0' = Inactive, '1' = Active)
 signal   cmd_ck_sqm_dac       : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! SQUID MUX DAC Clocks switch commands ('0' = Inactive, '1' = Active)
 
-signal   rst_ck_science       : std_logic                                                                   ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
 signal   ck_science           : std_logic                                                                   ; --! Science Data Image Clock
 
 begin
@@ -96,8 +92,8 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   Clocks generation
    -- ------------------------------------------------------------------------------------------------------
-   I_pll: entity work.pll port map
-   (     i_arst               => i_arst               , -- in     std_logic                                 ; --! Asynchronous reset ('0' = Inactive, '1' = Active)
+   I_pll: entity work.pll port map (
+         i_arst               => i_arst               , -- in     std_logic                                 ; --! Asynchronous reset ('0' = Inactive, '1' = Active)
          i_clk_ref            => i_clk_ref            , -- in     std_logic                                 ; --! Reference Clock
          o_clk                => clk                  , -- out    std_logic                                 ; --! System Clock
          o_clk_sqm_adc_dac    => clk_sqm_adc_dac      , -- out    std_logic                                 ; --! SQUID MUX ADC/DAC internal Clock
@@ -118,10 +114,10 @@ begin
       --    @Req : DRE-DMX-FW-REQ-0100
       --    @Req : DRE-DMX-FW-REQ-0115
       -- ------------------------------------------------------------------------------------------------------
-      I_cmd_ck_adc: entity work.cmd_im_ck generic map
-      (  g_CK_CMD_DEF         => c_CMD_CK_SQM_ADC_DEF   -- std_logic                                          --! Clock switch command default value at reset
-      ) port map
-      (  i_rst                => o_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+      I_cmd_ck_adc: entity work.cmd_im_ck generic map (
+         g_CK_CMD_DEF         => c_CMD_CK_SQM_ADC_DEF   -- std_logic                                          --! Clock switch command default value at reset
+      ) port map (
+         i_rst                => o_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                => clk                  , -- in     std_logic                                 ; --! System Clock
          i_cmd_ck_ena         => i_cmd_ck_adc_ena(k)  , -- in     std_logic                                 ; --! Clock switch command enable  ('0' = Inactive, '1' = Active)
          i_cmd_ck_dis         => i_cmd_ck_adc_dis(k)  , -- in     std_logic                                 ; --! Clock switch command disable ('0' = Inactive, '1' = Active)
@@ -135,11 +131,11 @@ begin
       --    @Req : DRE-DMX-FW-REQ-0110
       --    @Req : DRE-DMX-FW-REQ-0120
       -- ------------------------------------------------------------------------------------------------------
-      I_sqm_adc: entity work.im_ck generic map
-      (  g_FF_RSYNC_NB        => c_FF_RSYNC_NB + 1    , -- integer                                          ; --! Flip-Flop number used for resynchronization
+      I_sqm_adc: entity work.im_ck generic map (
+         g_FF_RSYNC_NB        => c_FF_RSYNC_NB + 1    , -- integer                                          ; --! Flip-Flop number used for resynchronization
          g_FF_CK_REF_NB       => c_FF_RSYNC_NB + 1      -- integer                                            --! Flip-Flop number used for delaying image clock reference
-      ) port map
-      (  i_reset              => '0'                  , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+      ) port map (
+         i_reset              => '0'                  , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clock              => clk_sqm_adc          , -- in     std_logic                                 ; --! Clock
          i_cmd_ck             => cmd_ck_adc(k)        , -- in     std_logic                                 ; --! Clock switch command ('0' = Inactive, '1' = Active)
          o_im_ck              => o_ck_sqm_adc(k)        -- out    std_logic                                   --! Image clock, frequency divided by 2
@@ -150,10 +146,10 @@ begin
       --    @Req : DRE-DMX-FW-REQ-0240
       --    @Req : DRE-DMX-FW-REQ-0260
       -- ------------------------------------------------------------------------------------------------------
-      I_cmd_ck_sqm_dac: entity work.cmd_im_ck generic map
-      (  g_CK_CMD_DEF         => c_CMD_CK_SQM_DAC_DEF   -- std_logic                                          --! Clock switch command default value at reset
-      ) port map
-      (  i_rst                => o_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+      I_cmd_ck_sqm_dac: entity work.cmd_im_ck generic map (
+         g_CK_CMD_DEF         => c_CMD_CK_SQM_DAC_DEF   -- std_logic                                          --! Clock switch command default value at reset
+      ) port map (
+         i_rst                => o_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                => clk                  , -- in     std_logic                                 ; --! System Clock
          i_cmd_ck_ena         => i_cmd_ck_sqm_dac_ena(k),--in     std_logic                                 ; --! Clock switch command enable  ('0' = Inactive, '1' = Active)
          i_cmd_ck_dis         => i_cmd_ck_sqm_dac_dis(k),--in     std_logic                                 ; --! Clock switch command disable ('0' = Inactive, '1' = Active)
@@ -167,11 +163,11 @@ begin
       --    @Req : DRE-DMX-FW-REQ-0250
       --    @Req : DRE-DMX-FW-REQ-0270
       -- ------------------------------------------------------------------------------------------------------
-      I_sqm_dac_out: entity work.im_ck generic map
-      (  g_FF_RSYNC_NB        => c_FF_RSYNC_NB        , -- integer                                          ; --! Flip-Flop number used for resynchronization
+      I_sqm_dac_out: entity work.im_ck generic map (
+         g_FF_RSYNC_NB        => c_FF_RSYNC_NB        , -- integer                                          ; --! Flip-Flop number used for resynchronization
          g_FF_CK_REF_NB       => c_FF_RSYNC_NB + 1      -- integer                                            --! Flip-Flop number used for delaying image clock reference
-      ) port map
-      (  i_reset              => '0'                  , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+      ) port map (
+         i_reset              => '0'                  , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clock              => clk_sqm_dac_out      , -- in     std_logic                                 ; --! Clock
          i_cmd_ck             => cmd_ck_sqm_dac(k)    , -- in     std_logic                                 ; --! Clock switch command ('0' = Inactive, '1' = Active)
          o_im_ck              => o_ck_sqm_dac(k)        -- out    std_logic                                   --! Image clock, frequency divided by 2
@@ -234,8 +230,8 @@ begin
 
    end process P_cnt_rst;
 
-   I_rst: entity work.lowskew port map
-   (     i_sig                => cnt_rst_msb_r_n      , -- in     std_logic                                 ; --! Signal
+   I_rst: entity work.lowskew port map (
+         i_sig                => cnt_rst_msb_r_n      , -- in     std_logic                                 ; --! Signal
          o_sig_lowskew        => o_rst                  -- out    std_logic                                   --! Signal connected to lowskew network
    );
 
@@ -258,14 +254,14 @@ begin
 
    end process P_cnt_rst_adc;
 
-   I_rst_sqm_adc_dac: entity work.lowskew port map
-   (     i_sig                => cnt_rst_adc_msb_r_n  , -- in     std_logic                                 ; --! Signal
+   I_rst_sqm_adc_dac: entity work.lowskew port map (
+         i_sig                => cnt_rst_adc_msb_r_n  , -- in     std_logic                                 ; --! Signal
          o_sig_lowskew        => o_rst_sqm_adc_dac      -- out    std_logic                                   --! Signal connected to lowskew network
    );
 
-   I_rst_sqm_adc_dac_pd: entity work.lowskew port map
-   (     i_sig                => not(cnt_rst_adc(cnt_rst_adc'high)), -- in     std_logic                    ; --! Signal
+   I_rst_sqm_adc_dac_pd: entity work.lowskew port map (
+         i_sig                => not(cnt_rst_adc(cnt_rst_adc'high)), -- in     std_logic                    ; --! Signal
          o_sig_lowskew        => o_rst_sqm_adc_dac_pd   -- out    std_logic                                   --! Signal connected to lowskew network
    );
 
-end architecture rtl;
+end architecture RTL;

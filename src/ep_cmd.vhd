@@ -33,8 +33,8 @@ use     work.pkg_func_math.all;
 use     work.pkg_project.all;
 use     work.pkg_ep_cmd.all;
 
-entity ep_cmd is port
-   (     i_rst                : in     std_logic                                                            ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+entity ep_cmd is port (
+         i_rst                : in     std_logic                                                            ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                : in     std_logic                                                            ; --! System Clock
 
          i_ep_cmd_sts_err_add : in     std_logic                                                            ; --! EP command: Status, error invalid address
@@ -92,7 +92,6 @@ signal   ep_cmd_sts_err_out   : std_logic                                       
 
 signal   ep_cmd_all_err_add   : std_logic                                                                   ; --! EP command: all errors detected at address word end grouped together
 signal   ep_cmd_all_err_data  : std_logic                                                                   ; --! EP command: all errors detected at data word end grouped together
-signal   ep_cmd_all_err_lg_grt: std_logic                                                                   ; --! EP command: all errors detected at data word end+spi length greater grouped together
 signal   ep_cmd_all_err       : std_logic                                                                   ; --! EP command: all errors grouped together
 signal   ep_cmd_err_add_wd_end: std_logic                                                                   ; --! EP command: Error(s) detected at address word end
 signal   ep_cmd_err_spi_wd_end: std_logic                                                                   ; --! EP command: Error(s) detected at SPI word end
@@ -102,15 +101,15 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   EP SPI slave
    -- ------------------------------------------------------------------------------------------------------
-   I_spi_slave: entity work.spi_slave generic map
-   (     g_CPOL               => c_EP_SPI_CPOL        , -- std_logic                                        ; --! Clock polarity
+   I_spi_slave: entity work.spi_slave generic map (
+         g_CPOL               => c_EP_SPI_CPOL        , -- std_logic                                        ; --! Clock polarity
          g_CPHA               => c_EP_SPI_CPHA        , -- std_logic                                        ; --! Clock phase
          g_DTA_TX_WD_S        => c_EP_SPI_WD_S        , -- integer                                          ; --! Data word to transmit bus size
          g_DTA_TX_WD_NB_S     => c_EP_SPI_TX_WD_NB_S  , -- integer                                          ; --! Data word to transmit number size
          g_DTA_RX_WD_S        => c_EP_SPI_WD_S        , -- integer                                          ; --! Receipted data word bus size
          g_DTA_RX_WD_NB_S     => c_EP_SPI_RX_WD_NB_S    -- integer                                            --! Receipted data word number size
-   ) port map
-   (     i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+   ) port map (
+         i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                => i_clk                , -- in     std_logic                                 ; --! Clock
 
          i_data_tx_wd         => ep_spi_data_tx_wd    , -- in     slv(g_DTA_TX_WD_S   -1 downto 0)          ; --! Data word to transmit (stall on MSB)
@@ -282,8 +281,8 @@ begin
    --!   EP command: Status, error try to write in a read only register
    --    @Req : REG_EP_CMD_ERR_WRT
    -- ------------------------------------------------------------------------------------------------------
-   I_sts_err_wrt_mgt: entity work.sts_err_wrt_mgt port map
-   (     i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+   I_sts_err_wrt_mgt: entity work.sts_err_wrt_mgt port map (
+         i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                => i_clk                , -- in     std_logic                                 ; --! System Clock
 
          i_ep_cmd_rx_add_norw => ep_cmd_rx_wd_add_norw, -- in     std_logic_vector(c_EP_SPI_WD_S-1 downto 0); --! EP command receipted: address word, read/write bit cleared
@@ -295,8 +294,8 @@ begin
    --!   EP command: Status, error data out of range
    --    @Req : REG_EP_CMD_ERR_OUT
    -- ------------------------------------------------------------------------------------------------------
-   I_sts_err_out_mgt: entity work.sts_err_out_mgt port map
-   (     i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+   I_sts_err_out_mgt: entity work.sts_err_out_mgt port map (
+         i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                => i_clk                , -- in     std_logic                                 ; --! System Clock
 
          i_ep_cmd_rx_add_norw => ep_cmd_rx_wd_add_norw, -- in     std_logic_vector(c_EP_SPI_WD_S-1 downto 0); --! EP command receipted: address word, read/write bit cleared

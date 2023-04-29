@@ -32,8 +32,8 @@ use     work.pkg_type.all;
 use     work.pkg_fpga_tech.all;
 use     work.pkg_project.all;
 
-entity in_rs_clk is port
-   (     i_rst                : in     std_logic                                                            ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+entity in_rs_clk is port (
+         i_rst                : in     std_logic                                                            ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                : in     std_logic                                                            ; --! System Clock
 
          i_brd_ref            : in     std_logic_vector(     c_BRD_REF_S-1 downto 0)                        ; --! Board reference
@@ -74,8 +74,8 @@ signal   ep_spi_mosi_r        : std_logic_vector(c_FF_RSYNC_NB-1 downto 0)      
 signal   ep_spi_sclk_r        : std_logic_vector(c_FF_RSYNC_NB-1 downto 0)                                  ; --! EP: SPI Serial Clock register (CPOL = '0', CPHA = '0')
 signal   ep_spi_cs_n_r        : std_logic_vector(c_FF_RSYNC_NB-1 downto 0)                                  ; --! EP: SPI Chip Select register ('0' = Active, '1' = Inactive)
 
-attribute syn_preserve        : boolean                                                                     ;
-attribute syn_preserve          of o_sync_rs           : signal is true                                     ;
+attribute syn_preserve        : boolean                                                                     ; --! Disabling signal optimization
+attribute syn_preserve          of o_sync_rs           : signal is true                                     ; --! Disabling signal optimization: o_sync_rs
 
 begin
 
@@ -149,4 +149,4 @@ begin
 
    end generate;
 
-end architecture rtl;
+end architecture RTL;

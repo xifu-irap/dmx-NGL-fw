@@ -32,8 +32,7 @@ configuration DRE_DMX_UT_0130_cfg of top_dmx_tb is
       --!   Parser configuration
       -- ------------------------------------------------------------------------------------------------------
       for I_parser : parser
-         use entity work.parser generic map
-         (
+         use entity work.parser generic map (
             g_SIM_TIME           => 1315 us              , -- time    := c_SIM_TIME_DEF                     ; --! Simulation time
             g_TST_NUM            => "0130"                 -- string  := c_TST_NUM_DEF                        --! Test number
          );
@@ -43,8 +42,7 @@ configuration DRE_DMX_UT_0130_cfg of top_dmx_tb is
       --!   EP SPI Model configuration
       -- ------------------------------------------------------------------------------------------------------
       for I_ep_spi_model : ep_spi_model
-         use entity work.ep_spi_model generic map
-         (
+         use entity work.ep_spi_model generic map (
             g_EP_CLK_PER         => c_EP_CLK_PER_DEF     , -- time    := c_EP_CLK_PER_DEF                   ; --! EP: System clock period (ps)
             g_EP_CLK_PER_SHIFT   => c_EP_CLK_PER_SHFT_DEF, -- time    := c_EP_CLK_PER_SHFT_DEF              ; --! EP: Clock period shift
             g_EP_N_CLK_PER_SCLK_L=> 3                    , -- integer := c_EP_SCLK_L_DEF                    ; --! EP: Number of clock period for elaborating SPI Serial Clock low  level

@@ -29,11 +29,11 @@ use     ieee.std_logic_1164.all;
 use     ieee.numeric_std.all;
 use     ieee.math_real.all;
 
-entity dac121s101_model is generic
-   (     g_VA                 : real                                                                        ; --! Voltage reference (Volt)
+entity dac121s101_model is generic (
+         g_VA                 : real                                                                        ; --! Voltage reference (Volt)
          g_TIME_TS            : time                                                                          --! Time: Output Voltage Settling
-   ); port
-   (     i_din                : in     std_logic                                                            ; --! Serial Data
+   ); port (
+         i_din                : in     std_logic                                                            ; --! Serial Data
          i_sclk               : in     std_logic                                                            ; --! Serial Clock
          i_sync_n             : in     std_logic                                                            ; --! Frame synchronization ('0' = Active, '1' = Inactive)
 
@@ -50,6 +50,8 @@ constant c_SPI_DTA_WD_S       : integer    := 16                                
 constant c_SPI_DTA_WD_NB_S    : integer    :=  1                                                            ; --! SPI Data word number size
 constant c_DAC_DATA_S         : integer    := 12                                                            ; --! SPI DAC data size bus
 constant c_DAC_MODE_S         : integer    := 2                                                             ; --! SPI DAC mode size bus
+
+constant c_VOUT_FACT          : real       := 1.0 / real(2**c_DAC_DATA_S)                                   ; --! Analog voltage factor
 
 signal   rst                  : std_logic                                                                   ; --! Reset ('0' = Inactive, '1' = Active)
 signal   clk                  : std_logic                                                                   ; --! Clock
@@ -84,15 +86,15 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   SPI slave
    -- ------------------------------------------------------------------------------------------------------
-   I_spi_slave: entity work.spi_slave generic map
-   (     g_CPOL               => c_SPI_CPOL           , -- std_logic                                        ; --! Clock polarity
+   I_spi_slave: entity work.spi_slave generic map (
+         g_CPOL               => c_SPI_CPOL           , -- std_logic                                        ; --! Clock polarity
          g_CPHA               => c_SPI_CPHA           , -- std_logic                                        ; --! Clock phase
          g_DTA_TX_WD_S        => c_SPI_DTA_WD_S       , -- integer                                          ; --! Data word to transmit bus size
          g_DTA_TX_WD_NB_S     => c_SPI_DTA_WD_NB_S    , -- integer                                          ; --! Data word to transmit number size
          g_DTA_RX_WD_S        => c_SPI_DTA_WD_S       , -- integer                                          ; --! Receipted data word bus size
          g_DTA_RX_WD_NB_S     => c_SPI_DTA_WD_NB_S      -- integer                                            --! Receipted data word number size
-   ) port map
-   (     i_rst                => rst                  , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+   ) port map (
+         i_rst                => rst                  , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                => clk                  , -- in     std_logic                                 ; --! Clock
 
          i_data_tx_wd         => (others => '0')      , -- in     slv(g_DTA_TX_WD_S   -1 downto 0)          ; --! Data word to transmit (stall on MSB)
@@ -118,7 +120,7 @@ begin
    begin
 
       wait until rising_edge(i_sync_n);
-         vout_no_del <= g_VA * real(to_integer(unsigned(spi_data_rx_wd(c_DAC_DATA_S-1 downto 0))))/ 4096.0 when spi_data_rx_wd(c_DAC_MODE_S+c_DAC_DATA_S-1 downto c_DAC_DATA_S) = "00"  else 0.0;
+         vout_no_del <= g_VA * c_VOUT_FACT * real(to_integer(unsigned(spi_data_rx_wd(c_DAC_DATA_S-1 downto 0)))) when spi_data_rx_wd(c_DAC_MODE_S+c_DAC_DATA_S-1 downto c_DAC_DATA_S) = "00"  else 0.0;
 
    end process P_vout_no_del;
 

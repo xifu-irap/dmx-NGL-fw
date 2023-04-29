@@ -28,10 +28,10 @@ library ieee;
 use     ieee.std_logic_1164.all;
 use     ieee.numeric_std.all;
 
-entity round_sat is generic
-   (     g_DATA_CARRY_S       : integer                                                                       --! Data with carry bus size
-   ); port
-   (     i_rst                : in     std_logic                                                            ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+entity round_sat is generic (
+         g_DATA_CARRY_S       : integer                                                                       --! Data with carry bus size
+   ); port (
+         i_rst                : in     std_logic                                                            ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                : in     std_logic                                                            ; --! System Clock
 
          i_data_carry         : in     std_logic_vector(g_DATA_CARRY_S-1 downto 0)                          ; --! Data with carry on lsb (signed)

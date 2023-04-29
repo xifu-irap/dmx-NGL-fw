@@ -27,11 +27,11 @@
 library ieee;
 use     ieee.std_logic_1164.all;
 
-entity signal_reg is generic
-   (     g_SIG_FF_NB          : integer                                                                     ; --! Signal registered flip-flop number
+entity signal_reg is generic (
+         g_SIG_FF_NB          : integer                                                                     ; --! Signal registered flip-flop number
          g_SIG_DEF            : std_logic                                                                     --! Signal registered default value at reset
-   ); port
-   (     i_reset              : in     std_logic                                                            ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+   ); port (
+         i_reset              : in     std_logic                                                            ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clock              : in     std_logic                                                            ; --! Clock
 
          i_sig                : in     std_logic                                                            ; --! Signal
@@ -43,8 +43,8 @@ end entity signal_reg;
 architecture RTL of signal_reg is
 signal   sig_r                : std_logic_vector(g_SIG_FF_NB-1 downto 0)                                    ; --! Signal registered
 
-attribute syn_preserve        : boolean                                                                     ;
-attribute syn_preserve          of sig_r                 : signal is true                                   ;
+attribute syn_preserve        : boolean                                                                     ; --! Disabling signal optimization
+attribute syn_preserve          of sig_r                 : signal is true                                   ; --! Disabling signal optimization: sig_r
 
 begin
 
@@ -87,4 +87,4 @@ begin
 
    o_sig_r <= sig_r(sig_r'high);
 
-end architecture rtl;
+end architecture RTL;

@@ -35,8 +35,8 @@ use     work.pkg_func_math.all;
 use     work.pkg_project.all;
 use     work.pkg_ep_cmd.all;
 
-entity sqa_fbk_mgt is port
-   (     i_rst                : in     std_logic                                                            ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+entity sqa_fbk_mgt is port (
+         i_rst                : in     std_logic                                                            ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                : in     std_logic                                                            ; --! System Clock
          i_clk_90             : in     std_logic                                                            ; --! System Clock 90 degrees shift
 
@@ -197,8 +197,8 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   Pixel position division result
    -- ------------------------------------------------------------------------------------------------------
-   I_pixel_pos_div: entity work.dsp generic map
-   (     g_PORTA_S            => c_MULT_ALU_PORTA_S   , -- integer                                          ; --! Port A bus size (<= c_MULT_ALU_PORTA_S)
+   I_pixel_pos_div: entity work.dsp generic map (
+         g_PORTA_S            => c_MULT_ALU_PORTA_S   , -- integer                                          ; --! Port A bus size (<= c_MULT_ALU_PORTA_S)
          g_PORTB_S            => c_SAOMD_POSITIVE_S   , -- integer                                          ; --! Port B bus size (<= c_MULT_ALU_PORTB_S)
          g_PORTC_S            => c_MULT_ALU_PORTC_S   , -- integer                                          ; --! Port C bus size (<= c_MULT_ALU_PORTC_S)
          g_RESULT_S           => c_SQA_PXL_POS_S      , -- integer                                          ; --! Result bus size (<= c_MULT_ALU_RESULT_S)
@@ -210,8 +210,8 @@ begin
                                                                                                               --!     signed: range from -2**(g_SAT_RANK) to 2**(g_SAT_RANK)   - 1
          g_PRE_ADDER_OP       => '0'                  , -- bit                                              ; --! Pre-Adder operation     ('0' = add,    '1' = subtract)
          g_MUX_C_CZ           => '0'                    -- bit                                                --! Multiplexer ALU operand ('0' = Port C, '1' = Cascaded Result Input)
-   ) port map
-   (     i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+   ) port map (
+         i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                => i_clk                , -- in     std_logic                                 ; --! Clock
 
          i_carry              => '0'                  , -- in     std_logic                                 ; --! Carry In
@@ -228,8 +228,8 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   Pulse counter division remainder
    -- ------------------------------------------------------------------------------------------------------
-   I_pls_cnt_div_rem: entity work.dsp generic map
-   (     g_PORTA_S            => c_MULT_ALU_PORTA_S   , -- integer                                          ; --! Port A bus size (<= c_MULT_ALU_PORTA_S)
+   I_pls_cnt_div_rem: entity work.dsp generic map (
+         g_PORTA_S            => c_MULT_ALU_PORTA_S   , -- integer                                          ; --! Port A bus size (<= c_MULT_ALU_PORTA_S)
          g_PORTB_S            => c_SQA_PXL_POS_S      , -- integer                                          ; --! Port B bus size (<= c_MULT_ALU_PORTB_S)
          g_PORTC_S            => c_SAOMD_POSITIVE_S   , -- integer                                          ; --! Port C bus size (<= c_MULT_ALU_PORTC_S)
          g_RESULT_S           => c_SQA_PLS_CNT_S      , -- integer                                          ; --! Result bus size (<= c_MULT_ALU_RESULT_S)
@@ -241,8 +241,8 @@ begin
                                                                                                               --!     signed: range from -2**(g_SAT_RANK) to 2**(g_SAT_RANK)   - 1
          g_PRE_ADDER_OP       => '0'                  , -- bit                                              ; --! Pre-Adder operation     ('0' = add,    '1' = subtract)
          g_MUX_C_CZ           => '0'                    -- bit                                                --! Multiplexer ALU operand ('0' = Port C, '1' = Cascaded Result Input)
-   ) port map
-   (     i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+   ) port map (
+         i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                => i_clk                , -- in     std_logic                                 ; --! Clock
 
          i_carry              => '0'                  , -- in     std_logic                                 ; --! Carry In
@@ -437,13 +437,13 @@ begin
    --    @Req : REG_CY_AMP_SQ_OFFSET_FINE
    --    @Req : DRE-DMX-FW-REQ-0300
    -- ------------------------------------------------------------------------------------------------------
-   I_mem_sqa_pxl_lkp: entity work.dmem_ecc generic map
-   (     g_RAM_TYPE           => c_RAM_TYPE_PRM_STORE , -- integer                                          ; --! Memory type ( 0  = Data transfer,  1  = Parameters storage)
+   I_mem_sqa_pxl_lkp: entity work.dmem_ecc generic map (
+         g_RAM_TYPE           => c_RAM_TYPE_PRM_STORE , -- integer                                          ; --! Memory type ( 0  = Data transfer,  1  = Parameters storage)
          g_RAM_ADD_S          => c_MEM_SAOFF_ADD_S    , -- integer                                          ; --! Memory address bus size (<= c_RAM_ECC_ADD_S)
          g_RAM_DATA_S         => c_DFLD_SAOFF_PIX_S   , -- integer                                          ; --! Memory data bus size (<= c_RAM_DATA_S)
          g_RAM_INIT           => c_EP_CMD_DEF_SAOFF     -- t_int_arr                                          --! Memory content at initialization
-   ) port map
-   (     i_a_rst              => i_rst                , -- in     std_logic                                 ; --! Memory port A: registers reset ('0' = Inactive, '1' = Active)
+   ) port map (
+         i_a_rst              => i_rst                , -- in     std_logic                                 ; --! Memory port A: registers reset ('0' = Inactive, '1' = Active)
          i_a_clk              => i_clk                , -- in     std_logic                                 ; --! Memory port A: main clock
          i_a_clk_shift        => i_clk_90             , -- in     std_logic                                 ; --! Memory port A: 90 degrees shifted clock (used for memory content correction)
 
@@ -531,6 +531,10 @@ begin
 
    end process P_sqa_fbk_off;
 
+   -- ------------------------------------------------------------------------------------------------------
+   --!   SQUID AMP close loop mode
+   --    @Req : DRE-DMX-FW-REQ-0325
+   -- ------------------------------------------------------------------------------------------------------
    --TODO
    sqa_fb_close    <=  i_sqm_dta_err_cor(i_sqm_dta_err_cor'high downto i_sqm_dta_err_cor'length-sqa_fb_close'length);
 

@@ -30,17 +30,16 @@ use     ieee.std_logic_1164.all;
 use     ieee.numeric_std.all;
 use     ieee.math_real.all;
 
-entity adc_ad9254_model is generic
-   (     g_VREF               : real                                                                        ; --! Voltage reference (Volt)
+entity adc_ad9254_model is generic (
+         g_VREF               : real                                                                        ; --! Voltage reference (Volt)
          g_CLK_PER            : time                                                                        ; --! Clock period (>= 6700 ps)
          g_TIME_TPD           : time                                                                          --! Time: Data Propagation Delay
-   ); port
-   (     i_clk                : in     std_logic                                                            ; --! Clock
+   ); port (
+         i_clk                : in     std_logic                                                            ; --! Clock
          i_pwdn               : in     std_logic                                                            ; --! Power down ('0' = Inactive, '1' = Active)
          i_oeb_n              : in     std_logic                                                            ; --! Output enable ('0' = Active, '1' = Inactive)
-         b_sdio_dcs           : inout  std_logic                                                            ; --! SPI Data in/out, Duty Cycle stabilizer select ('0' = Disable, '1' = Enable)
+         o_sdio_dcs           : out    std_logic                                                            ; --! SPI Data in/out, Duty Cycle stabilizer select ('0' = Disable, '1' = Enable)
          i_sclk_dfs           : in     std_logic                                                            ; --! SPI Serial clock, Data Format select ('0' = Binary, '1' = Twos complement)
-         i_csb_n              : in     std_logic                                                            ; --! SPI Chip Select ('0' = Active, '1' = Inactive)
 
          i_delta_vin          : in     real                                                                 ; --! Analog voltage (-g_VREF <= Vin+ - Vin- < g_VREF)
          o_dco                : out    std_logic                                                            ; --! Data clock
@@ -108,6 +107,6 @@ begin
    o_or  <= 'Z' when (i_oeb_n or i_pwdn) = '1' else out_range_acq_r(out_range_acq_r'high);
 
    o_dco       <= transport i_clk after (c_TIME_TDCO - g_CLK_PER/2);
-   b_sdio_dcs  <= 'Z';
+   o_sdio_dcs  <= 'Z';
 
 end architecture Behavioral;

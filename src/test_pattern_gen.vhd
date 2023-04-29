@@ -35,8 +35,8 @@ use     work.pkg_func_math.all;
 use     work.pkg_project.all;
 use     work.pkg_ep_cmd.all;
 
-entity test_pattern_gen is port
-   (     i_rst                : in     std_logic                                                            ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+entity test_pattern_gen is port (
+         i_rst                : in     std_logic                                                            ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                : in     std_logic                                                            ; --! System Clock
          i_clk_90             : in     std_logic                                                            ; --! System Clock 90 degrees shift
 
@@ -50,7 +50,9 @@ entity test_pattern_gen is port
                                        data_w(c_DFLD_TSTPT_S-1 downto 0))                                   ; --! Test pattern: memory inputs
          o_tstpt_data         : out    std_logic_vector(c_DFLD_TSTPT_S-1 downto 0)                          ; --! Test pattern: data read
 
-         o_test_pattern       : out    std_logic_vector(c_DFLD_TSTPT_S-1 downto 0)                          ; --! Test pattern
+         o_test_pattern_sqm   : out    std_logic_vector(c_SQM_DATA_FBK_S-1 downto 0)                        ; --! Test pattern: MUX SQUID
+         o_test_pattern_sqa   : out    std_logic_vector(c_SQA_DAC_DATA_S-1 downto 0)                        ; --! Test pattern: AMP SQUID
+         o_test_pattern_sc    : out    std_logic_vector(c_SC_DATA_SER_W_S*c_SC_DATA_SER_NB-1 downto 0)      ; --! Test pattern: Science Telemetry
          o_tst_pat_end_pat    : out    std_logic                                                            ; --! Test pattern end of one pattern  ('0' = Inactive, '1' = Active)
          o_tst_pat_end        : out    std_logic                                                            ; --! Test pattern end of all patterns ('0' = Inactive, '1' = Active)
          o_tst_pat_end_re     : out    std_logic                                                            ; --! Test pattern end of all patterns rising edge ('0' = Inactive, '1' = Active)
@@ -94,6 +96,7 @@ signal   tst_index_max        : std_logic_vector(c_DFLD_TSTPT_S   downto 0)     
 signal   tst_index            : std_logic_vector(c_DFLD_TSTPT_S   downto 0)                                 ; --! Test pattern: Index
 signal   tst_index_minus1     : std_logic_vector(c_DFLD_TSTPT_S   downto 0)                                 ; --! Test pattern: Index minus 1
 signal   tst_res              : std_logic_vector(c_DFLD_TSTPT_S-1 downto 0)                                 ; --! Test pattern: Result
+signal   test_pattern         : std_logic_vector(c_DFLD_TSTPT_S-1 downto 0)                                 ; --! Test pattern
 
 begin
 
@@ -209,13 +212,13 @@ begin
    --    @Req : REG_TEST_PATTERN
    --    @Req : DRE-DMX-FW-REQ-0440
    -- ------------------------------------------------------------------------------------------------------
-   I_mem_tstpt_val: entity work.dmem_ecc generic map
-   (     g_RAM_TYPE           => c_RAM_TYPE_PRM_STORE , -- integer                                          ; --! Memory type ( 0  = Data transfer,  1  = Parameters storage)
+   I_mem_tstpt_val: entity work.dmem_ecc generic map (
+         g_RAM_TYPE           => c_RAM_TYPE_PRM_STORE , -- integer                                          ; --! Memory type ( 0  = Data transfer,  1  = Parameters storage)
          g_RAM_ADD_S          => c_MEM_TSTPT_ADD_S    , -- integer                                          ; --! Memory address bus size (<= c_RAM_ECC_ADD_S)
          g_RAM_DATA_S         => c_DFLD_TSTPT_S       , -- integer                                          ; --! Memory data bus size (<= c_RAM_DATA_S)
          g_RAM_INIT           => c_EP_CMD_DEF_TSTPT     -- t_int_arr                                          --! Memory content at initialization
-   ) port map
-   (     i_a_rst              => i_rst                , -- in     std_logic                                 ; --! Memory port A: registers reset ('0' = Inactive, '1' = Active)
+   ) port map (
+         i_a_rst              => i_rst                , -- in     std_logic                                 ; --! Memory port A: registers reset ('0' = Inactive, '1' = Active)
          i_a_clk              => i_clk                , -- in     std_logic                                 ; --! Memory port A: main clock
          i_a_clk_shift        => i_clk_90             , -- in     std_logic                                 ; --! Memory port A: 90 degrees shifted clock (used for memory content correction)
 
@@ -325,8 +328,8 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   Test pattern generation
    -- ------------------------------------------------------------------------------------------------------
-   I_tst_pat_gen: entity work.dsp generic map
-   (     g_PORTA_S            => c_DFLD_TSTPT_S + 1   , -- integer                                          ; --! Port A bus size (<= c_MULT_ALU_PORTA_S)
+   I_tst_pat_gen: entity work.dsp generic map (
+         g_PORTA_S            => c_DFLD_TSTPT_S + 1   , -- integer                                          ; --! Port A bus size (<= c_MULT_ALU_PORTA_S)
          g_PORTB_S            => c_DFLD_TSTPT_S       , -- integer                                          ; --! Port B bus size (<= c_MULT_ALU_PORTB_S)
          g_PORTC_S            => c_DFLD_TSTPT_S       , -- integer                                          ; --! Port C bus size (<= c_MULT_ALU_PORTC_S)
          g_RESULT_S           => c_DFLD_TSTPT_S       , -- integer                                          ; --! Result bus size (<= c_MULT_ALU_RESULT_S)
@@ -338,8 +341,8 @@ begin
                                                                                                               --!     signed: range from -2**(g_SAT_RANK) to 2**(g_SAT_RANK)   - 1
          g_PRE_ADDER_OP       => '0'                  , -- bit                                              ; --! Pre-Adder operation     ('0' = add,    '1' = subtract)
          g_MUX_C_CZ           => '0'                    -- bit                                                --! Multiplexer ALU operand ('0' = Port C, '1' = Cascaded Result Input)
-   ) port map
-   (     i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+   ) port map (
+         i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                => i_clk                , -- in     std_logic                                 ; --! Clock
 
          i_carry              => '0'                  , -- in     std_logic                                 ; --! Carry In
@@ -360,7 +363,7 @@ begin
    begin
 
       if i_rst = '1' then
-         o_test_pattern    <= (others => '0');
+         test_pattern      <= (others => '0');
          o_tst_pat_end_pat <= '0';
          o_tst_pat_end     <= '1';
          o_tst_pat_end_re  <= '0';
@@ -368,7 +371,7 @@ begin
 
       elsif rising_edge(i_clk) then
          if tst_coef_sel(c_TST_RES_POS) = '1' then
-            o_test_pattern <= tst_res;
+            test_pattern <= tst_res;
 
          end if;
 
@@ -394,5 +397,29 @@ begin
       end if;
 
    end process P_out;
+
+   I_test_pattern_sqm : entity work.resize_stall_msb generic map (
+         g_DATA_S             => c_DFLD_TSTPT_S       , -- integer                                          ; --! Data input bus size
+         g_DATA_STALL_MSB_S   => c_SQM_DATA_FBK_S       -- integer                                            --! Data stalled on Mean Significant Bit bus size
+   ) port map (
+         i_data               => test_pattern         , -- in     slv(          g_DATA_S-1 downto 0)        ; --! Data
+         o_data_stall_msb     => o_test_pattern_sqm     -- out    slv(g_DATA_STALL_MSB_S-1 downto 0)          --! Data stalled on Mean Significant Bit
+   );
+
+   I_test_pattern_sqa : entity work.resize_stall_msb generic map (
+         g_DATA_S             => c_DFLD_TSTPT_S       , -- integer                                          ; --! Data input bus size
+         g_DATA_STALL_MSB_S   => c_SQA_DAC_DATA_S       -- integer                                            --! Data stalled on Mean Significant Bit bus size
+   ) port map (
+         i_data               => test_pattern         , -- in     slv(          g_DATA_S-1 downto 0)        ; --! Data
+         o_data_stall_msb     => o_test_pattern_sqa     -- out    slv(g_DATA_STALL_MSB_S-1 downto 0)          --! Data stalled on Mean Significant Bit
+   );
+
+   I_test_pattern_sc  : entity work.resize_stall_msb generic map (
+         g_DATA_S             => c_DFLD_TSTPT_S       , -- integer                                          ; --! Data input bus size
+         g_DATA_STALL_MSB_S   => c_SC_DATA_SER_W_S*c_SC_DATA_SER_NB  -- integer                               --! Data stalled on Mean Significant Bit bus size
+   ) port map (
+         i_data               => test_pattern         , -- in     slv(          g_DATA_S-1 downto 0)        ; --! Data
+         o_data_stall_msb     => o_test_pattern_sc      -- out    slv(g_DATA_STALL_MSB_S-1 downto 0)          --! Data stalled on Mean Significant Bit
+   );
 
 end architecture RTL;

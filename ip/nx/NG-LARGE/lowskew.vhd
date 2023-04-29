@@ -30,8 +30,8 @@ use     ieee.std_logic_1164.all;
 library nx;
 use     nx.nxpackage.all;
 
-entity lowskew is port
-   (     i_sig                : in     std_logic                                                            ; --! Signal
+entity lowskew is port (
+         i_sig                : in     std_logic                                                            ; --! Signal
          o_sig_lowskew        : out    std_logic                                                              --! Signal connected to lowskew network
    );
 end entity lowskew;
@@ -42,10 +42,10 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   NX_BD IpCore instantiation
    -- ------------------------------------------------------------------------------------------------------
-   I_lowskew: entity nx.nx_bd generic map
-   (     mode                 => "global_lowskew"       -- string := "local_lowskew"                        ; --! Mode ("local_lowskew", "global_lowskew")
-   )     port map
-   (     i                    => i_sig                , -- in     std_logic                                 ; --! Signal
+   I_lowskew: entity nx.nx_bd generic map (
+         mode                 => "global_lowskew"       -- string := "local_lowskew"                        ; --! Mode ("local_lowskew", "global_lowskew")
+   )     port map (
+         i                    => i_sig                , -- in     std_logic                                 ; --! Signal
          o                    => o_sig_lowskew          -- out    std_logic                                   --! Signal connected to lowskew network
    );
 

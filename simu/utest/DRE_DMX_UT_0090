@@ -51,6 +51,7 @@ COMM   Check synchronization between o_c0_clk_sqm_dac rising edge
 COMM    and MUX SQUID pulse shaping clock falling edge
 COMM ----------------------------------------------------------------------------------------------
 WUDI clk_sqm_dac(0) 1
+WAIT 0 ps
 CTLE clk_sqm_pls_shape == 0 ps
 CDIS clk_sqm_pls_shape 0
 COMM
@@ -97,6 +98,7 @@ COMM   Check synchronization between o_c0_clk_sqm_dac rising edge
 COMM    and MUX SQUID pulse shaping clock falling edge
 COMM ----------------------------------------------------------------------------------------------
 WUDI clk_sqm_dac(0) 1
+WAIT 0 ps
 CTLE clk_sqm_pls_shape == 0 ps
 CDIS clk_sqm_pls_shape 0
 COMM
@@ -143,6 +145,7 @@ COMM   Check synchronization between o_c0_clk_sqm_dac rising edge
 COMM    and MUX SQUID pulse shaping clock falling edge
 COMM ----------------------------------------------------------------------------------------------
 WUDI clk_sqm_dac(0) 1
+WAIT 0 ps
 CTLE clk_sqm_pls_shape == 0 ps
 CDIS clk_sqm_pls_shape 0
 COMM
@@ -189,6 +192,7 @@ COMM   Check synchronization between o_c1_clk_sqm_dac rising edge
 COMM    and MUX SQUID pulse shaping clock falling edge
 COMM ----------------------------------------------------------------------------------------------
 WUDI clk_sqm_dac(1) 1
+WAIT 0 ps
 CTLE clk_sqm_pls_shape == 0 ps
 CDIS clk_sqm_pls_shape 0
 COMM
@@ -235,6 +239,7 @@ COMM   Check synchronization between o_c1_clk_sqm_dac rising edge
 COMM    and MUX SQUID pulse shaping clock falling edge
 COMM ----------------------------------------------------------------------------------------------
 WUDI clk_sqm_dac(1) 1
+WAIT 0 ps
 CTLE clk_sqm_pls_shape == 0 ps
 CDIS clk_sqm_pls_shape 0
 COMM
@@ -281,6 +286,7 @@ COMM   Check synchronization between o_c1_clk_sqm_dac rising edge
 COMM    and MUX SQUID pulse shaping clock falling edge
 COMM ----------------------------------------------------------------------------------------------
 WUDI clk_sqm_dac(1) 1
+WAIT 0 ps
 CTLE clk_sqm_pls_shape == 0 ps
 CDIS clk_sqm_pls_shape 0
 COMM
@@ -327,6 +333,7 @@ COMM   Check synchronization between o_c2_clk_sqm_dac rising edge
 COMM    and MUX SQUID pulse shaping clock falling edge
 COMM ----------------------------------------------------------------------------------------------
 WUDI clk_sqm_dac(2) 1
+WAIT 0 ps
 CTLE clk_sqm_pls_shape == 0 ps
 CDIS clk_sqm_pls_shape 0
 COMM
@@ -373,6 +380,7 @@ COMM   Check synchronization between o_c2_clk_sqm_dac rising edge
 COMM    and MUX SQUID pulse shaping clock falling edge
 COMM ----------------------------------------------------------------------------------------------
 WUDI clk_sqm_dac(2) 1
+WAIT 0 ps
 CTLE clk_sqm_pls_shape == 0 ps
 CDIS clk_sqm_pls_shape 0
 COMM
@@ -419,6 +427,7 @@ COMM   Check synchronization between o_c2_clk_sqm_dac rising edge
 COMM    and MUX SQUID pulse shaping clock falling edge
 COMM ----------------------------------------------------------------------------------------------
 WUDI clk_sqm_dac(2) 1
+WAIT 0 ps
 CTLE clk_sqm_pls_shape == 0 ps
 CDIS clk_sqm_pls_shape 0
 COMM
@@ -465,6 +474,7 @@ COMM   Check synchronization between o_c3_clk_sqm_dac rising edge
 COMM    and MUX SQUID pulse shaping clock falling edge
 COMM ----------------------------------------------------------------------------------------------
 WUDI clk_sqm_dac(3) 1
+WAIT 0 ps
 CTLE clk_sqm_pls_shape == 0 ps
 CDIS clk_sqm_pls_shape 0
 COMM
@@ -511,6 +521,7 @@ COMM   Check synchronization between o_c3_clk_sqm_dac rising edge
 COMM    and MUX SQUID pulse shaping clock falling edge
 COMM ----------------------------------------------------------------------------------------------
 WUDI clk_sqm_dac(3) 1
+WAIT 0 ps
 CTLE clk_sqm_pls_shape == 0 ps
 CDIS clk_sqm_pls_shape 0
 COMM
@@ -557,6 +568,7 @@ COMM   Check synchronization between o_c3_clk_sqm_dac rising edge
 COMM    and MUX SQUID pulse shaping clock falling edge
 COMM ----------------------------------------------------------------------------------------------
 WUDI clk_sqm_dac(3) 1
+WAIT 0 ps
 CTLE clk_sqm_pls_shape == 0 ps
 CDIS clk_sqm_pls_shape 0
 COMM

@@ -32,8 +32,7 @@ configuration DRE_DMX_UT_0190_cfg of top_dmx_tb is
       --!   Parser configuration
       -- ------------------------------------------------------------------------------------------------------
       for I_parser : parser
-         use entity work.parser generic map
-         (
+         use entity work.parser generic map (
             g_SIM_TIME           => 1120 us              , -- time    := c_SIM_TIME_DEF                     ; --! Simulation time
             g_TST_NUM            => "0190"                 -- string  := c_TST_NUM_DEF                        --! Test number
          );
@@ -43,8 +42,7 @@ configuration DRE_DMX_UT_0190_cfg of top_dmx_tb is
       --!   Science data model configuration
       -- ------------------------------------------------------------------------------------------------------
       for I_science_data_model: science_data_model
-         use entity work.science_data_model generic map
-         (
+         use entity work.science_data_model generic map (
             g_SIM_TIME           => 1120 us              , -- time      := c_SIM_TIME_DEF                   ; --! Simulation time
             g_ERR_SC_DTA_ENA     => c_ERR_SC_DTA_ENA_DEF , -- std_logic := c_ERR_SC_DTA_ENA_DEF             ; --! Error science data enable ('0' = No, '1' = Yes)
             g_FRM_CNT_SC_ENA     => c_FRM_CNT_SC_ENA_DEF , -- std_logic := c_FRM_CNT_SC_ENA_DEF             ; --! Frame counter science enable ('0' = No, '1' = Yes)
@@ -56,8 +54,7 @@ configuration DRE_DMX_UT_0190_cfg of top_dmx_tb is
       --!   EP SPI Model configuration
       -- ------------------------------------------------------------------------------------------------------
       for I_ep_spi_model : ep_spi_model
-         use entity work.ep_spi_model generic map
-         (
+         use entity work.ep_spi_model generic map (
             g_EP_CLK_PER         => c_EP_CLK_PER_DEF     , -- time    := c_EP_CLK_PER_DEF                   ; --! EP: System clock period (ps)
             g_EP_CLK_PER_SHIFT   => c_EP_CLK_PER_SHFT_DEF, -- time    := c_EP_CLK_PER_SHFT_DEF              ; --! EP: Clock period shift
             g_EP_N_CLK_PER_SCLK_L=> 3                    , -- integer := c_EP_SCLK_L_DEF                    ; --! EP: Number of clock period for elaborating SPI Serial Clock low  level
@@ -71,8 +68,7 @@ configuration DRE_DMX_UT_0190_cfg of top_dmx_tb is
       -- ------------------------------------------------------------------------------------------------------
       for G_column_mgt(0)
          for I_squid_model: squid_model
-            use entity work.squid_model generic map
-            (
+            use entity work.squid_model generic map (
             g_SQM_ADC_VREF       => c_SQM_ADC_VREF_DEF   , -- real      := c_SQM_ADC_VREF_DEF               ; --! SQUID MUX ADC: Voltage reference (Volt)
             g_SQM_DAC_VREF       => c_SQM_DAC_VREF_DEF   , -- real      := c_SQM_DAC_VREF_DEF               ; --! SQUID MUX DAC: Voltage reference (Volt)
             g_SQA_DAC_VREF       => 3.2                  , -- real      := c_SQA_DAC_VREF_DEF               ; --! SQUID AMP DAC: Voltage reference (Volt)
@@ -89,8 +85,7 @@ configuration DRE_DMX_UT_0190_cfg of top_dmx_tb is
 
       for G_column_mgt(1)
          for I_squid_model: squid_model
-            use entity work.squid_model generic map
-            (
+            use entity work.squid_model generic map (
             g_SQM_ADC_VREF       => c_SQM_ADC_VREF_DEF   , -- real      := c_SQM_ADC_VREF_DEF               ; --! SQUID MUX ADC: Voltage reference (Volt)
             g_SQM_DAC_VREF       => c_SQM_DAC_VREF_DEF   , -- real      := c_SQM_DAC_VREF_DEF               ; --! SQUID MUX DAC: Voltage reference (Volt)
             g_SQA_DAC_VREF       => 3.2                  , -- real      := c_SQA_DAC_VREF_DEF               ; --! SQUID AMP DAC: Voltage reference (Volt)
@@ -107,8 +102,7 @@ configuration DRE_DMX_UT_0190_cfg of top_dmx_tb is
 
       for G_column_mgt(2)
          for I_squid_model: squid_model
-            use entity work.squid_model generic map
-            (
+            use entity work.squid_model generic map (
             g_SQM_ADC_VREF       => c_SQM_ADC_VREF_DEF   , -- real      := c_SQM_ADC_VREF_DEF               ; --! SQUID MUX ADC: Voltage reference (Volt)
             g_SQM_DAC_VREF       => c_SQM_DAC_VREF_DEF   , -- real      := c_SQM_DAC_VREF_DEF               ; --! SQUID MUX DAC: Voltage reference (Volt)
             g_SQA_DAC_VREF       => 3.2                  , -- real      := c_SQA_DAC_VREF_DEF               ; --! SQUID AMP DAC: Voltage reference (Volt)
@@ -125,8 +119,7 @@ configuration DRE_DMX_UT_0190_cfg of top_dmx_tb is
 
       for G_column_mgt(3)
          for I_squid_model: squid_model
-            use entity work.squid_model generic map
-            (
+            use entity work.squid_model generic map (
             g_SQM_ADC_VREF       => c_SQM_ADC_VREF_DEF   , -- real      := c_SQM_ADC_VREF_DEF               ; --! SQUID MUX ADC: Voltage reference (Volt)
             g_SQM_DAC_VREF       => c_SQM_DAC_VREF_DEF   , -- real      := c_SQM_DAC_VREF_DEF               ; --! SQUID MUX DAC: Voltage reference (Volt)
             g_SQA_DAC_VREF       => 3.2                  , -- real      := c_SQA_DAC_VREF_DEF               ; --! SQUID AMP DAC: Voltage reference (Volt)

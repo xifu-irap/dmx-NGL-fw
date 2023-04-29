@@ -50,14 +50,14 @@ constant c_MESS_EXP           : string  := ", expected: "                       
    -- ------------------------------------------------------------------------------------------------------
    --! Writes the message to the output stream file
    -- ------------------------------------------------------------------------------------------------------
-   procedure fprintf
-   (     i_mess_level         : in     t_mess_level                                                         ; --  Message level
+   procedure fprintf (
+         i_mess_level         : in     t_mess_level                                                         ; --  Message level
          i_mess               : in     string                                                               ; --  Message
          file file_out        : text                                                                          --  File output
    );
 
-   procedure fprintf
-   (     i_mess_level         : in     t_mess_level                                                         ; --  Message level
+   procedure fprintf (
+         i_mess_level         : in     t_mess_level                                                         ; --  Message level
          b_mess               : inout  line                                                                 ; --  Message
          file file_out        : text                                                                          --  File output
    );
@@ -65,8 +65,8 @@ constant c_MESS_EXP           : string  := ", expected: "                       
    -- ------------------------------------------------------------------------------------------------------
    --! Drop a specific character included in line
    -- ------------------------------------------------------------------------------------------------------
-   procedure drop_line_char
-   (     b_line               : inout  line                                                                 ; --  Line input
+   procedure drop_line_char (
+         b_line               : inout  line                                                                 ; --  Line input
          i_char               : in     character                                                            ; --  Character to delete
          o_line               : out    line                                                                   --  Line output
    );
@@ -74,15 +74,15 @@ constant c_MESS_EXP           : string  := ", expected: "                       
    -- ------------------------------------------------------------------------------------------------------
    --! Format a field in hex characters grouped 4 by 4 and separate by underscore
    -- ------------------------------------------------------------------------------------------------------
-   function hfield_format
-   (     i_field              : in     std_logic_vector                                                       --  Field (multiple of 16)
+   function hfield_format (
+         i_field              : in     std_logic_vector                                                       --  Field (multiple of 16)
    ) return line;
 
    -- ------------------------------------------------------------------------------------------------------
    --! Get first field delimited by separator included in line
    -- ------------------------------------------------------------------------------------------------------
-   procedure get_field_line
-   (     b_line               : inout  line                                                                 ; --  Line to analysis
+   procedure get_field_line (
+         b_line               : inout  line                                                                 ; --  Line to analysis
          i_delimiter          : in     character                                                            ; --  Separator
          o_field              : out    line                                                                 ; --  First field
          o_field_s            : out    integer                                                                --  Field size
@@ -92,8 +92,8 @@ constant c_MESS_EXP           : string  := ", expected: "                       
    --! Read delimited by separator space included in line and complete it with padding character
    --!  to specified size
    -- ------------------------------------------------------------------------------------------------------
-   procedure rfield_pad
-   (     b_line               : inout  line                                                                 ; --  Line to analysis
+   procedure rfield_pad (
+         b_line               : inout  line                                                                 ; --  Line to analysis
          i_delimiter          : in     character                                                            ; --  Delimiter
          i_size               : in     integer                                                              ; --  Size to get
          o_field              : out    line                                                                   --  Field found
@@ -102,45 +102,45 @@ constant c_MESS_EXP           : string  := ", expected: "                       
    -- ------------------------------------------------------------------------------------------------------
    --! Read and check field delimited by delimiter space included in line
    -- ------------------------------------------------------------------------------------------------------
-   procedure rfield
-   (     b_line               : inout  line                                                                 ; --  Line to analysis
+   procedure rfield (
+         b_line               : inout  line                                                                 ; --  Line to analysis
          i_mess_header        : in     string                                                               ; --  Message header
          i_size_check         : in     integer                                                              ; --  Size to check
          o_field              : out    line                                                                   --  Field found
    );
 
-   procedure rfield
-   (     b_line               : inout  line                                                                 ; --  Line to analysis
+   procedure rfield (
+         b_line               : inout  line                                                                 ; --  Line to analysis
          i_mess_header        : in     string                                                               ; --  Message header
          o_field              : out    time                                                                   --  Field found
    );
 
-   procedure rfield
-   (     b_line               : inout  line                                                                 ; --  Line to analysis
+   procedure rfield (
+         b_line               : inout  line                                                                 ; --  Line to analysis
          i_mess_header        : in     string                                                               ; --  Message header
          o_field              : out    integer                                                                --  Field found
    );
 
-   procedure rfield
-   (     b_line               : inout  line                                                                 ; --  Line to analysis
+   procedure rfield (
+         b_line               : inout  line                                                                 ; --  Line to analysis
          i_mess_header        : in     string                                                               ; --  Message header
          o_field              : out    real                                                                   --  Field found
    );
 
-   procedure brfield
-   (     b_line               : inout  line                                                                 ; --  Line to analysis (binary characters)
+   procedure brfield (
+         b_line               : inout  line                                                                 ; --  Line to analysis (binary characters)
          i_mess_header        : in     string                                                               ; --  Message header
          o_field              : out    std_logic_vector                                                       --  Field found
    );
 
-   procedure brfield
-   (     b_line               : inout  line                                                                 ; --  Line to analysis (binary characters)
+   procedure brfield (
+         b_line               : inout  line                                                                 ; --  Line to analysis (binary characters)
          i_mess_header        : in     string                                                               ; --  Message header
          o_field              : out    std_logic                                                              --  Field found
    );
 
-   procedure hrfield
-   (     b_line               : inout  line                                                                 ; --  Line to analysis (hex characters)
+   procedure hrfield (
+         b_line               : inout  line                                                                 ; --  Line to analysis (hex characters)
          i_mess_header        : in     string                                                               ; --  Message header
          o_field              : out    std_logic_vector                                                       --  Field found
    );
@@ -152,8 +152,8 @@ package body pkg_mess is
    -- ------------------------------------------------------------------------------------------------------
    --! Convert message level to line type
    -- ------------------------------------------------------------------------------------------------------
-   procedure mess_level_line
-   (     i_mess_level         : in     t_mess_level                                                         ; --  Message level
+   procedure mess_level_line (
+         i_mess_level         : in     t_mess_level                                                         ; --  Message level
          o_header_line        : out    line                                                                   --  Header line
    ) is
    constant c_HEADER_START    : string := "# "                                                              ; --! Header start
@@ -186,8 +186,8 @@ package body pkg_mess is
    -- ------------------------------------------------------------------------------------------------------
    --! Writes the message to the output stream file
    -- ------------------------------------------------------------------------------------------------------
-   procedure fprintf
-   (     i_mess_level         : in     t_mess_level                                                         ; --  Message level
+   procedure fprintf (
+         i_mess_level         : in     t_mess_level                                                         ; --  Message level
          i_mess               : in     string                                                               ; --  Message
          file file_out        : text                                                                          --  File output
    ) is
@@ -200,8 +200,8 @@ package body pkg_mess is
 
    end fprintf;
 
-   procedure fprintf
-   (     i_mess_level         : in     t_mess_level                                                         ; --  Message level
+   procedure fprintf (
+         i_mess_level         : in     t_mess_level                                                         ; --  Message level
          b_mess               : inout  line                                                                 ; --  Message
          file file_out        : text                                                                          --  File output
    ) is
@@ -218,8 +218,8 @@ package body pkg_mess is
    -- ------------------------------------------------------------------------------------------------------
    --! Drop a specific character included in line
    -- ------------------------------------------------------------------------------------------------------
-   procedure drop_line_char
-   (     b_line               : inout  line                                                                 ; --  Line input
+   procedure drop_line_char (
+         b_line               : inout  line                                                                 ; --  Line input
          i_char               : in     character                                                            ; --  Character to delete
          o_line               : out    line                                                                   --  Line output
    ) is
@@ -242,8 +242,8 @@ package body pkg_mess is
    -- ------------------------------------------------------------------------------------------------------
    --! Format a field in hex characters grouped 4 by 4 and separate by underscore
    -- ------------------------------------------------------------------------------------------------------
-   function hfield_format
-   (     i_field              : in     std_logic_vector                                                       --  Field (multiple of 16)
+   function hfield_format (
+         i_field              : in     std_logic_vector                                                       --  Field (multiple of 16)
    ) return line is
    variable v_line_temp       : line                                                                        ; --! Temporary line
    variable v_line            : line                                                                        ; --! Line output
@@ -272,8 +272,8 @@ package body pkg_mess is
    -- ------------------------------------------------------------------------------------------------------
    --! Get first field delimited by delimiter included in line
    -- ------------------------------------------------------------------------------------------------------
-   procedure get_field_line
-   (     b_line               : inout  line                                                                 ; --  Line to analysis
+   procedure get_field_line (
+         b_line               : inout  line                                                                 ; --  Line to analysis
          i_delimiter          : in     character                                                            ; --  Delimiter
          o_field              : out    line                                                                 ; --  First field
          o_field_s            : out    integer                                                                --  Field size
@@ -307,8 +307,8 @@ package body pkg_mess is
    --! Read delimited by separator space included in line and complete it with padding character
    --!  to specified size
    -- ------------------------------------------------------------------------------------------------------
-   procedure rfield_pad
-   (     b_line               : inout  line                                                                 ; --  Line to analysis
+   procedure rfield_pad (
+         b_line               : inout  line                                                                 ; --  Line to analysis
          i_delimiter          : in     character                                                            ; --  Delimiter
          i_size               : in     integer                                                              ; --  Size to get
          o_field              : out    line                                                                   --  Field found
@@ -332,8 +332,8 @@ package body pkg_mess is
    -- ------------------------------------------------------------------------------------------------------
    --! Read and check field delimited by separator space included in line
    -- ------------------------------------------------------------------------------------------------------
-   procedure rfield
-   (     b_line               : inout  line                                                                 ; --  Line to analysis
+   procedure rfield (
+         b_line               : inout  line                                                                 ; --  Line to analysis
          i_mess_header        : in     string                                                               ; --  Message header
          i_size_check         : in     integer                                                              ; --  Size to check
          o_field              : out    line                                                                   --  Field found
@@ -353,8 +353,8 @@ package body pkg_mess is
 
    end rfield;
 
-   procedure rfield
-   (     b_line               : inout  line                                                                 ; --  Line to analysis
+   procedure rfield (
+         b_line               : inout  line                                                                 ; --  Line to analysis
          i_mess_header        : in     string                                                               ; --  Message header
          o_field              : out    time                                                                   --  Field found
    ) is
@@ -388,8 +388,8 @@ package body pkg_mess is
 
    end rfield;
 
-   procedure rfield
-   (     b_line               : inout  line                                                                 ; --  Line to analysis
+   procedure rfield (
+         b_line               : inout  line                                                                 ; --  Line to analysis
          i_mess_header        : in     string                                                               ; --  Message header
          o_field              : out    integer                                                                --  Field found
    ) is
@@ -404,8 +404,8 @@ package body pkg_mess is
 
    end rfield;
 
-   procedure rfield
-   (     b_line               : inout  line                                                                 ; --  Line to analysis
+   procedure rfield (
+         b_line               : inout  line                                                                 ; --  Line to analysis
          i_mess_header        : in     string                                                               ; --  Message header
          o_field              : out    real                                                                   --  Field found
    ) is
@@ -420,8 +420,8 @@ package body pkg_mess is
 
    end rfield;
 
-   procedure brfield
-   (     b_line               : inout  line                                                                 ; --  Line to analysis (binary characters)
+   procedure brfield (
+         b_line               : inout  line                                                                 ; --  Line to analysis (binary characters)
          i_mess_header        : in     string                                                               ; --  Message header
          o_field              : out    std_logic_vector                                                       --  Field found
    ) is
@@ -444,8 +444,8 @@ package body pkg_mess is
 
    end brfield;
 
-   procedure brfield
-   (     b_line               : inout  line                                                                 ; --  Line to analysis (binary characters)
+   procedure brfield (
+         b_line               : inout  line                                                                 ; --  Line to analysis (binary characters)
          i_mess_header        : in     string                                                               ; --  Message header
          o_field              : out    std_logic                                                              --  Field found
    ) is
@@ -468,8 +468,8 @@ package body pkg_mess is
 
    end brfield;
 
-   procedure hrfield
-   (     b_line               : inout  line                                                                 ; --  Line to analysis (hex characters)
+   procedure hrfield (
+         b_line               : inout  line                                                                 ; --  Line to analysis (hex characters)
          i_mess_header        : in     string                                                               ; --  Message header
          o_field              : out    std_logic_vector                                                       --  Field found
    ) is
@@ -492,4 +492,4 @@ package body pkg_mess is
 
    end hrfield;
 
-end package body;
+end package body pkg_mess;

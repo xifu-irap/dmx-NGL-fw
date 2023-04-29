@@ -35,8 +35,8 @@ use     work.pkg_func_math.all;
 use     work.pkg_project.all;
 use     work.pkg_ep_cmd.all;
 
-entity sqa_dac_mgt is port
-   (     i_rst_sqm_adc_dac_pd : in     std_logic                                                            ; --! Reset for SQUID ADC/DAC for pad, de-assertion on system clock
+entity sqa_dac_mgt is port (
+         i_rst_sqm_adc_dac_pd : in     std_logic                                                            ; --! Reset for SQUID ADC/DAC for pad, de-assertion on system clock
          i_rst_sqm_adc_dac    : in     std_logic                                                            ; --! Reset for SQUID ADC/DAC, de-assertion on system clock ('0' = Inactive, '1' = Active)
          i_clk_sqm_adc_dac    : in     std_logic                                                            ; --! SQUID ADC/DAC internal Clock
 
@@ -95,8 +95,8 @@ signal   pls_rw_cnt_init_oft  : std_logic_vector(c_PLS_RW_CNT_S-1 downto 0)     
 signal   pls_rw_cnt_init      : std_logic_vector(c_PLS_RW_CNT_S-1 downto 0)                                 ; --! Pulse by row counter initialization
 signal   pls_cnt              : std_logic_vector(c_SQA_PLS_CNT_S-1 downto 0)                                ; --! Pulse counter
 
-signal   saofl_tx_flg         : std_logic                                                                   ; --! SQUID AMP offset DAC LSB transmit flag ('0'= no data to transmit,'1'= data to transmit)
-signal   sqa_fbk_off_tx_flg   : std_logic                                                                   ; --! SQUID AMP coarse offset transmit flag ('0'= no data to transmit,'1'= data to transmit)
+signal   saofl_tx_flg         : std_logic                                                                   ; --! SQUID AMP offset DAC LSB transmit flag ('0'= no data to TX,'1'= data to TX)
+signal   sqa_fbk_off_tx_flg   : std_logic                                                                   ; --! SQUID AMP coarse offset transmit flag ('0'= no data to TX,'1'= data to TX)
 signal   sqa_fbk_off_tx_ena   : std_logic                                                                   ; --! SQUID AMP coarse offset transmit enable ('0' = Inactive, '1' = Active)
 
 signal   sqa_spi_start        : std_logic                                                                   ; --! SQUID AMP DAC SPI: Start transmit ('0' = Inactive, '1' = Active)
@@ -109,10 +109,10 @@ signal   sqa_dac_data         : std_logic                                       
 signal   sqa_dac_sclk         : std_logic                                                                   ; --! SQUID AMP DAC: Serial Clock
 signal   sqa_dac_sync_n       : std_logic                                                                   ; --! SQUID AMP DAC: Frame Synchronization ('0' = Active, '1' = Inactive)
 
-attribute syn_preserve        : boolean                                                                     ;
-attribute syn_preserve          of rst_sqm_adc_dac_pad   : signal is true                                   ;
-attribute syn_preserve          of sync_r                : signal is true                                   ;
-attribute syn_preserve          of sync_re               : signal is true                                   ;
+attribute syn_preserve        : boolean                                                                     ; --! Disabling signal optimization
+attribute syn_preserve          of rst_sqm_adc_dac_pad   : signal is true                                   ; --! Disabling signal optimization: rst_sqm_adc_dac_pad
+attribute syn_preserve          of sync_r                : signal is true                                   ; --! Disabling signal optimization: sync_r
+attribute syn_preserve          of sync_re               : signal is true                                   ; --! Disabling signal optimization: sync_re
 
 begin
 
@@ -136,11 +136,11 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   Inputs registered on system clock before resynchronization
    -- ------------------------------------------------------------------------------------------------------
-   I_sync_rs_sys: entity work.signal_reg generic map
-   (  g_SIG_FF_NB          => 1                    , -- integer                                          ; --! Signal registered flip-flop number
+   I_sync_rs_sys: entity work.signal_reg generic map (
+      g_SIG_FF_NB          => 1                    , -- integer                                          ; --! Signal registered flip-flop number
       g_SIG_DEF            => c_I_SYNC_DEF           -- std_logic                                          --! Signal registered default value at reset
-   )  port map
-   (  i_reset              => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+   )  port map (
+      i_reset              => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
       i_clock              => i_clk                , -- in     std_logic                                 ; --! Clock
 
       i_sig                => i_sync_rs            , -- in     std_logic                                 ; --! Signal
@@ -437,15 +437,15 @@ begin
    --    @Req : DRE-DMX-FW-REQ-0340
    --    @Req : DRE-DMX-FW-REQ-0350
    -- ------------------------------------------------------------------------------------------------------
-   I_sqa_spi_master : entity work.spi_master generic map
-   (     g_CPOL               => c_SQA_SPI_CPOL       , -- std_logic                                        ; --! Clock polarity
+   I_sqa_spi_master : entity work.spi_master generic map (
+         g_CPOL               => c_SQA_SPI_CPOL       , -- std_logic                                        ; --! Clock polarity
          g_CPHA               => c_SQA_SPI_CPHA       , -- std_logic                                        ; --! Clock phase
          g_N_CLK_PER_SCLK_L   => c_SQA_SPI_SCLK_L     , -- integer                                          ; --! Number of clock period for elaborating SPI Serial Clock low  level
          g_N_CLK_PER_SCLK_H   => c_SQA_SPI_SCLK_H     , -- integer                                          ; --! Number of clock period for elaborating SPI Serial Clock high level
          g_N_CLK_PER_MISO_DEL => 0                    , -- integer                                          ; --! Number of clock period for miso signal delay from spi pin input to spi master input
          g_DATA_S             => c_SQA_SPI_SER_WD_S     -- integer                                            --! Data bus size
-   ) port map
-   (     i_rst                => i_rst_sqm_adc_dac          , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+   ) port map (
+         i_rst                => i_rst_sqm_adc_dac    , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                => i_clk_sqm_adc_dac    , -- in     std_logic                                 ; --! Clock
 
          i_start              => sqa_spi_start        , -- in     std_logic                                 ; --! Start transmit ('0' = Inactive, '1' = Active)

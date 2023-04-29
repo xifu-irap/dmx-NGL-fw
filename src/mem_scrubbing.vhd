@@ -32,21 +32,21 @@ library work;
 use     work.pkg_type.all;
 use     work.pkg_project.all;
 
-entity mem_scrubbing is generic
-   (     c_MEM_ADD_S          : integer                                                                     ; --! Memory address size (no ping-pong buffer bit)
-         c_MEM_DATA_S         : integer                                                                       --! Memory Data to write in memory size
-   ); port
-   (     i_rst                : in     std_logic                                                            ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+entity mem_scrubbing is generic (
+         g_MEM_ADD_S          : integer                                                                     ; --! Memory address size (no ping-pong buffer bit)
+         g_MEM_DATA_S         : integer                                                                       --! Memory Data to write in memory size
+   ); port (
+         i_rst                : in     std_logic                                                            ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                : in     std_logic                                                            ; --! System Clock
 
-         i_mem_no_scrub       : in     t_mem( add(c_MEM_ADD_S-1 downto 0), data_w(c_MEM_DATA_S-1 downto 0)) ; --! Memory signals no scrubbing
-         o_mem_with_scrub     : out    t_mem( add(c_MEM_ADD_S   downto 0), data_w(c_MEM_DATA_S-1 downto 0))   --! Memory signals with scrubbing and ping-pong buffer bit for address management
+         i_mem_no_scrub       : in     t_mem( add(g_MEM_ADD_S-1 downto 0), data_w(g_MEM_DATA_S-1 downto 0)) ; --! Memory signals no scrubbing
+         o_mem_with_scrub     : out    t_mem( add(g_MEM_ADD_S   downto 0), data_w(g_MEM_DATA_S-1 downto 0))   --! Memory signals with scrubbing and ping-pong buffer bit for address management
    );
 end entity mem_scrubbing;
 
 architecture RTL of mem_scrubbing is
 signal   mem_add_pp           : std_logic                                                                   ; --! Memory : ping-pong buffer bit for address management
-signal   mem_add_scrub        : std_logic_vector(c_MEM_ADD_S   downto 0)                                    ; --! Memory : address with ping-pong buffer bit scrubbed
+signal   mem_add_scrub        : std_logic_vector(g_MEM_ADD_S   downto 0)                                    ; --! Memory : address with ping-pong buffer bit scrubbed
 
 begin
 

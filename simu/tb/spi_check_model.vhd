@@ -32,8 +32,8 @@ use     work.pkg_type.all;
 use     work.pkg_project.all;
 use     work.pkg_model.all;
 
-entity spi_check_model is port
-   (     i_rst                : in     std_logic                                                            ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
+entity spi_check_model is port (
+         i_rst                : in     std_logic                                                            ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
 
          i_hk1_spi_mosi       : in     std_logic                                                            ; --! HouseKeeping: SPI Master Output Slave Input
          i_hk1_spi_sclk       : in     std_logic                                                            ; --! HouseKeeping: SPI Serial Clock (CPOL = '0', CPHA = '0')
@@ -99,11 +99,11 @@ begin
    G_spi_check: for k in 0 to c_CHK_ENA_SPI_NB-1 generate
    begin
 
-      I_spi_check: entity work.spi_check generic map
-      (  g_SPI_TIME_CHK       => c_SCHK(k).spi_time   , -- t_time_arr(0 to c_SPI_ERR_CHK_NB-3)              ; --! SPI timings to check
+      I_spi_check: entity work.spi_check generic map (
+         g_SPI_TIME_CHK       => c_SCHK(k).spi_time   , -- t_time_arr(0 to c_SPI_ERR_CHK_NB-3)              ; --! SPI timings to check
          g_CPOL               => c_SCHK(k).spi_cpol     -- std_logic                                          --! Clock polarity
-      ) port map
-      (  i_spi_mosi           => spi_mosi(k)          , -- in     std_logic                                 ; --! SPI: Master Output Slave Input data
+      ) port map (
+         i_spi_mosi           => spi_mosi(k)          , -- in     std_logic                                 ; --! SPI: Master Output Slave Input data
          i_spi_sclk           => spi_sclk(k)          , -- in     std_logic                                 ; --! SPI: Serial Clock
          i_spi_cs_n           => spi_cs_n(k)          , -- in     std_logic                                 ; --! SPI: Chip Select
 

@@ -28,8 +28,8 @@ library ieee;
 use     ieee.std_logic_1164.all;
 use     ieee.numeric_std.all;
 
-entity sqm_spi_mgt is port
-   (     o_sqm_adc_spi_mosi   : out    std_logic                                                            ; --! SQUID MUX ADC: SPI Serial Data In Out
+entity sqm_spi_mgt is port (
+         o_sqm_adc_spi_mosi   : out    std_logic                                                            ; --! SQUID MUX ADC: SPI Serial Data In Out
          o_sqm_adc_spi_sclk   : out    std_logic                                                            ; --! SQUID MUX ADC: SPI Serial Clock (CPOL = '0', CPHA = '0')
          o_sqm_adc_spi_cs_n   : out    std_logic                                                              --! SQUID MUX ADC: SPI Chip Select ('0' = Active, '1' = Inactive)
 

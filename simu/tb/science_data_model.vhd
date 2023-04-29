@@ -35,17 +35,18 @@ use     work.pkg_project.all;
 use     work.pkg_model.all;
 use     work.pkg_ep_cmd.all;
 use     work.pkg_mess.all;
+use     work.pkg_science_data.all;
 
 library std;
 use std.textio.all;
 
-entity science_data_model is generic
-   (     g_SIM_TIME           : time      := c_SIM_TIME_DEF                                                 ; --! Simulation time
+entity science_data_model is generic (
+         g_SIM_TIME           : time      := c_SIM_TIME_DEF                                                 ; --! Simulation time
          g_ERR_SC_DTA_ENA     : std_logic := c_ERR_SC_DTA_ENA_DEF                                           ; --! Error science data enable ('0' = No, '1' = Yes)
          g_FRM_CNT_SC_ENA     : std_logic := c_FRM_CNT_SC_ENA_DEF                                           ; --! Frame counter science enable ('0' = No, '1' = Yes)
          g_TST_NUM            : string    := c_TST_NUM_DEF                                                    --! Test number
-   ); port
-   (     i_arst               : in     std_logic                                                            ; --! Asynchronous reset ('0' = Inactive, '1' = Active)
+   ); port (
+         i_arst               : in     std_logic                                                            ; --! Asynchronous reset ('0' = Inactive, '1' = Active)
          i_clk_sqm_adc_acq    : in     std_logic                                                            ; --! SQUID MUX ADC acquisition Clock
          i_clk_science        : in     std_logic                                                            ; --! Science Clock
 
@@ -169,9 +170,12 @@ begin
          end if;
       end process P_mem_dump_w;
 
-      P_mem_dump_r : process(i_clk_science)
+      P_mem_dump_r : process(i_arst, i_clk_science)
       begin
-         if rising_edge(i_clk_science) then
+         if i_arst = '1' then
+            mem_dump_sc_data_out(k)    <= (others => '0');
+
+         elsif rising_edge(i_clk_science) then
             if (science_data_rdy = '1') then
                mem_dump_sc_data_out(k) <= mem_dump(k)(to_integer(unsigned(mem_dump_sc_add)));
 
@@ -222,8 +226,8 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   Science data receipt
    -- ------------------------------------------------------------------------------------------------------
-   I_science_data_rx: entity work.science_data_rx port map
-   (     i_rst                => i_arst               , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+   I_science_data_rx: entity work.science_data_rx port map (
+         i_rst                => i_arst               , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk_science        => i_clk_science        , -- in     std_logic                                 ; --! Science Clock
 
          i_science_data_ser   => science_data_ser     , -- in     slv(c_NB_COL*c_SC_DATA_SER_NB+1 downto 0) ; --! Science Data: Serial Data
@@ -235,8 +239,8 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   Science data check
    -- ------------------------------------------------------------------------------------------------------
-   I_science_data_check: entity work.science_data_check port map
-   (     i_rst                => i_arst               , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+   I_science_data_check: entity work.science_data_check port map (
+         i_rst                => i_arst               , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk_science        => i_clk_science        , -- in     std_logic                                 ; --! Science Clock
 
          i_smfbd              => i_smfbd              , -- in     t_slv_arr c_NB_COL c_DFLD_SMFBD_COL_S     ; --! SQUID MUX feedback delay
@@ -412,58 +416,20 @@ begin
             end case;
 
             -- Check science data
-            if v_packet_dump = '1' then
-               for k in 0 to c_NB_COL-1 loop
-                  if science_data(k) /= std_logic_vector(resize(unsigned(mem_dump_sc_data_out(k)), c_SC_DATA_SER_NB*c_SC_DATA_SER_W_S)) then
-                     v_err_sc_data(k) := '1';
+            for k in 0 to c_NB_COL-1 loop
+               if (v_packet_dump = '1') and (science_data(k) /= std_logic_vector(resize(unsigned(mem_dump_sc_data_out(k)), c_SC_DATA_SER_NB*c_SC_DATA_SER_W_S))) then
+                  v_err_sc_data(k) := '1';
 
-                  end if;
-               end loop;
-            end if;
+               end if;
+            end loop;
 
             -- Update Control word last
             v_ctrl_last := science_data_ctrl(0);
 
-            -- Errors display
-            if v_err_sc_ctrl_dif = '1' then
-               o_sc_pkt_err <= '1';
-               fprintf(error, "Science Data Control different on the two lines", scd_file);
-            end if;
-
-            if v_err_sc_ctrl_ukn = '1' then
-               o_sc_pkt_err <= '1';
-               fprintf(error, "Science Data Control unknown", scd_file);
-            end if;
-
-            if v_err_sc_pkt_start = '1' then
-               o_sc_pkt_err <= '1';
-               fprintf(error, "Science Data packet header missing", scd_file);
-            end if;
-
-            if v_err_sc_pkt_eod = '1' then
-               o_sc_pkt_err <= '1';
-               fprintf(error, "Science Data packet end of data missing", scd_file);
-            end if;
-
-            if v_err_sc_pkt_size = '1' then
-               o_sc_pkt_err <= '1';
-               fprintf(error, "Science Data packet size not expected", scd_file);
-            end if;
-
-            G_science_data_err : for k in 0 to c_NB_COL-1 loop
-
-               if (v_err_sc_data(k) and g_ERR_SC_DTA_ENA) = '1' then
-                  o_sc_pkt_err <= '1';
-                  fprintf(error, "Science Data packet content, column " & integer'image(k) &
-                                 ", does not correspond to ADC input (Read: " & hfield_format(science_data(k)).all & ", Expected: " & hfield_format(mem_dump_sc_data_out(k)).all & ")", scd_file);
-               end if;
-
-               if (science_data_err(k) and g_ERR_SC_DTA_ENA) = '1' then
-                  o_sc_pkt_err <= '1';
-                  fprintf(error, "Science Data packet content, column " & integer'image(k) & ", not expected", scd_file);
-               end if;
-
-            end loop G_science_data_err;
+            -- Science data error display
+            sc_data_err_display( g_ERR_SC_DTA_ENA,      science_data,   science_data_err, mem_dump_sc_data_out,
+                                v_err_sc_ctrl_dif, v_err_sc_ctrl_ukn, v_err_sc_pkt_start, v_err_sc_pkt_eod,
+                                v_err_sc_pkt_size,     v_err_sc_data,       o_sc_pkt_err, scd_file);
 
             wait until falling_edge(science_data_rdy_r) for g_SIM_TIME-now;
 

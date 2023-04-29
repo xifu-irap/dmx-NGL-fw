@@ -43,6 +43,6 @@ type     t_mem                 is record
          data_w               : std_logic_vector                                                            ; --! Data to write in memory
 end record t_mem                                                                                            ; --! Memory signals interface
 
-type     t_mem_arr             is array (natural range <>) of t_mem                                         ; --! Memory signals interface array                                                                                           ; --! Memory signals type
+type     t_mem_arr             is array (natural range <>) of t_mem                                         ; --! Memory signals interface array
 
 end pkg_type;

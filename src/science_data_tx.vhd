@@ -33,8 +33,8 @@ use     work.pkg_type.all;
 use     work.pkg_func_math.all;
 use     work.pkg_project.all;
 
-entity science_data_tx is port
-   (     i_rst                : in     std_logic                                                            ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+entity science_data_tx is port (
+         i_rst                : in     std_logic                                                            ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                : in     std_logic                                                            ; --! System Clock
 
          i_science_data_tx_ena: in     std_logic                                                            ; --! Science Data transmit enable
@@ -109,4 +109,4 @@ begin
 
    end generate G_science_data_ser;
 
-end architecture rtl;
+end architecture RTL;

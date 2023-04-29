@@ -33,8 +33,8 @@ use     work.pkg_type.all;
 use     work.pkg_func_math.all;
 use     work.pkg_project.all;
 
-entity science_data_rx is port
-   (     i_rst                : in     std_logic                                                            ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+entity science_data_rx is port (
+         i_rst                : in     std_logic                                                            ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk_science        : in     std_logic                                                            ; --! Science Clock
 
          i_science_data_ser   : in     std_logic_vector(c_NB_COL*c_SC_DATA_SER_NB+1 downto 0)               ; --! Science Data: Serial Data

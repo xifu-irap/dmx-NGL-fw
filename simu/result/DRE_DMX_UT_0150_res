@@ -255,15 +255,15 @@
 #             (92742000 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (92742348 ps) Waiting event sync = '0' for 348 ps
 # ** Note   : (97984968 ps) Waiting event sync = '1' for 5242620 ps
-# ** Note   : (97984968 ps) Check time, DAC channel 0 last event: PASS
-# ** Note   : (97984968 ps)  * DAC channel 0 last event 97984968 ps equal to expected value 97984968 ps
-# ** Note   : (97984968 ps) Check DAC level: PASS
-# ** Note   : (97984968 ps)  * Read DAC channel 0, value 0.000000e+00, expected 0.000000e+00
+# ** Note   : (97984968 ps) Check time, ADC channel 0 last event: PASS
+# ** Note   : (97984968 ps)  * ADC channel 0 last event 97984968 ps equal to expected value 97984968 ps
+# ** Note   : (97984968 ps) Check ADC level: PASS
+# ** Note   : (97984968 ps)  * Read ADC channel 0, value 0.000000e+00, expected 0.000000e+00
 # ** Note   : (97984968 ps) Waiting event clk_sqm_dac(0) = '0' for 0 ps
 # ** Note   : (97988970 ps) Waiting event clk_sqm_dac(0) = '1' for 4002 ps
 # ** Note   : (97992972 ps) Waiting event clk_sqm_dac(0) = '0' for 4002 ps
-# ** Note   : (97992972 ps) Check time, DAC channel 0 last event: PASS
-# ** Note   : (97992972 ps)  * DAC channel 0 last event 3002 ps strictly less than expected value 4002 ps
+# ** Note   : (97992972 ps) Check time, ADC channel 0 last event: PASS
+# ** Note   : (97992972 ps)  * ADC channel 0 last event 3002 ps strictly less than expected value 4002 ps
 #             (97992972 ps) 
 #             (97992972 ps) ==============================================================================================
 #             (97992972 ps)   Record MUX SQUID pulse shaping column 0 by requesting a MUX SQUID ADC dump on science
@@ -562,15 +562,15 @@
 #             (1223016000 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (1223018720 ps) Waiting event sync = '0' for 2720 ps
 # ** Note   : (1224628008 ps) Waiting event sync = '1' for 1609288 ps
-# ** Note   : (1224628008 ps) Check time, DAC channel 1 last event: PASS
-# ** Note   : (1224628008 ps)  * DAC channel 1 last event 1224628008 ps equal to expected value 1224628008 ps
-# ** Note   : (1224628008 ps) Check DAC level: PASS
-# ** Note   : (1224628008 ps)  * Read DAC channel 1, value 0.000000e+00, expected 0.000000e+00
+# ** Note   : (1224628008 ps) Check time, ADC channel 1 last event: PASS
+# ** Note   : (1224628008 ps)  * ADC channel 1 last event 1224628008 ps equal to expected value 1224628008 ps
+# ** Note   : (1224628008 ps) Check ADC level: PASS
+# ** Note   : (1224628008 ps)  * Read ADC channel 1, value 0.000000e+00, expected 0.000000e+00
 # ** Note   : (1224628008 ps) Waiting event clk_sqm_dac(1) = '0' for 0 ps
 # ** Note   : (1224632010 ps) Waiting event clk_sqm_dac(1) = '1' for 4002 ps
 # ** Note   : (1224636012 ps) Waiting event clk_sqm_dac(1) = '0' for 4002 ps
-# ** Note   : (1224636012 ps) Check time, DAC channel 1 last event: PASS
-# ** Note   : (1224636012 ps)  * DAC channel 1 last event 3002 ps strictly less than expected value 4002 ps
+# ** Note   : (1224636012 ps) Check time, ADC channel 1 last event: PASS
+# ** Note   : (1224636012 ps)  * ADC channel 1 last event 3002 ps strictly less than expected value 4002 ps
 #             (1224636012 ps) 
 #             (1224636012 ps) ==============================================================================================
 #             (1224636012 ps)   Record MUX SQUID pulse shaping column 1 by requesting a MUX SQUID ADC dump on science
@@ -868,15 +868,15 @@
 #             (2349654000 ps)   Check MUX SQUID column 2 output stay to its middle point until the next sync rising edge
 #             (2349654000 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (2351271048 ps) Waiting event sync = '1' for 1617048 ps
-# ** Note   : (2351271048 ps) Check time, DAC channel 2 last event: PASS
-# ** Note   : (2351271048 ps)  * DAC channel 2 last event 2351271048 ps equal to expected value 2351271048 ps
-# ** Note   : (2351271048 ps) Check DAC level: PASS
-# ** Note   : (2351271048 ps)  * Read DAC channel 2, value 0.000000e+00, expected 0.000000e+00
+# ** Note   : (2351271048 ps) Check time, ADC channel 2 last event: PASS
+# ** Note   : (2351271048 ps)  * ADC channel 2 last event 2351271048 ps equal to expected value 2351271048 ps
+# ** Note   : (2351271048 ps) Check ADC level: PASS
+# ** Note   : (2351271048 ps)  * Read ADC channel 2, value 0.000000e+00, expected 0.000000e+00
 # ** Note   : (2351271048 ps) Waiting event clk_sqm_dac(2) = '0' for 0 ps
 # ** Note   : (2351275050 ps) Waiting event clk_sqm_dac(2) = '1' for 4002 ps
 # ** Note   : (2351279052 ps) Waiting event clk_sqm_dac(2) = '0' for 4002 ps
-# ** Note   : (2351279052 ps) Check time, DAC channel 2 last event: PASS
-# ** Note   : (2351279052 ps)  * DAC channel 2 last event 3002 ps strictly less than expected value 4002 ps
+# ** Note   : (2351279052 ps) Check time, ADC channel 2 last event: PASS
+# ** Note   : (2351279052 ps)  * ADC channel 2 last event 3002 ps strictly less than expected value 4002 ps
 #             (2351279052 ps) 
 #             (2351279052 ps) ==============================================================================================
 #             (2351279052 ps)   Record MUX SQUID pulse shaping column 2 by requesting a MUX SQUID ADC dump on science
@@ -1174,15 +1174,15 @@
 #             (3476292000 ps)   Check MUX SQUID column 3 output stay to its middle point until the next sync rising edge
 #             (3476292000 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (3477914088 ps) Waiting event sync = '1' for 1622088 ps
-# ** Note   : (3477914088 ps) Check time, DAC channel 3 last event: PASS
-# ** Note   : (3477914088 ps)  * DAC channel 3 last event 3477914088 ps equal to expected value 3477914088 ps
-# ** Note   : (3477914088 ps) Check DAC level: PASS
-# ** Note   : (3477914088 ps)  * Read DAC channel 3, value 0.000000e+00, expected 0.000000e+00
+# ** Note   : (3477914088 ps) Check time, ADC channel 3 last event: PASS
+# ** Note   : (3477914088 ps)  * ADC channel 3 last event 3477914088 ps equal to expected value 3477914088 ps
+# ** Note   : (3477914088 ps) Check ADC level: PASS
+# ** Note   : (3477914088 ps)  * Read ADC channel 3, value 0.000000e+00, expected 0.000000e+00
 # ** Note   : (3477914088 ps) Waiting event clk_sqm_dac(3) = '0' for 0 ps
 # ** Note   : (3477918090 ps) Waiting event clk_sqm_dac(3) = '1' for 4002 ps
 # ** Note   : (3477922092 ps) Waiting event clk_sqm_dac(3) = '0' for 4002 ps
-# ** Note   : (3477922092 ps) Check time, DAC channel 3 last event: PASS
-# ** Note   : (3477922092 ps)  * DAC channel 3 last event 3002 ps strictly less than expected value 4002 ps
+# ** Note   : (3477922092 ps) Check time, ADC channel 3 last event: PASS
+# ** Note   : (3477922092 ps)  * ADC channel 3 last event 3002 ps strictly less than expected value 4002 ps
 #             (3477922092 ps) 
 #             (3477922092 ps) ==============================================================================================
 #             (3477922092 ps)   Record MUX SQUID pulse shaping column 3 by requesting a MUX SQUID ADC dump on science

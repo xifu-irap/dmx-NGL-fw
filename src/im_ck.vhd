@@ -27,11 +27,11 @@
 library ieee;
 use     ieee.std_logic_1164.all;
 
-entity im_ck is generic
-   (     g_FF_RSYNC_NB        : integer                                                                     ; --! Flip-Flop number used for resynchronization
+entity im_ck is generic (
+         g_FF_RSYNC_NB        : integer                                                                     ; --! Flip-Flop number used for resynchronization
          g_FF_CK_REF_NB       : integer                                                                       --! Flip-Flop number used for delaying image clock reference
-   ); port
-   (     i_reset              : in     std_logic                                                            ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+   ); port (
+         i_reset              : in     std_logic                                                            ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clock              : in     std_logic                                                            ; --! Clock
          i_cmd_ck             : in     std_logic                                                            ; --! Clock switch command ('0' = Inactive, '1' = Active)
          o_im_ck              : out    std_logic                                                              --! Image clock, frequency divided by 2

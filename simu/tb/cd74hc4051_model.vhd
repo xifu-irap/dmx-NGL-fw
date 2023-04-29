@@ -29,10 +29,10 @@ use     ieee.std_logic_1164.all;
 use     ieee.numeric_std.all;
 use     ieee.math_real.all;
 
-entity cd74hc4051_model is generic
-   (     g_TIME_TPS           : time                                                                          --! Time: Data Propagation switch in to out
-   ); port
-   (     i_s                  : in     std_logic_vector(2 downto 0)                                         ; --! Address select
+entity cd74hc4051_model is generic (
+         g_TIME_TPS           : time                                                                          --! Time: Data Propagation switch in to out
+   ); port (
+         i_s                  : in     std_logic_vector(2 downto 0)                                         ; --! Address select
          i_e_n                : in     std_logic                                                            ; --! Enable ('0' = Active, '1' = Inactive)
 
          i_a0                 : in     real                                                                 ; --! Analog input channel 0

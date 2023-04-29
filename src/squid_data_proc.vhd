@@ -34,9 +34,10 @@ use     work.pkg_fpga_tech.all;
 use     work.pkg_func_math.all;
 use     work.pkg_project.all;
 use     work.pkg_ep_cmd.all;
+use     work.pkg_ep_cmd_type.all;
 
-entity squid_data_proc is port
-   (     i_rst                : in     std_logic                                                            ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+entity squid_data_proc is port (
+         i_rst                : in     std_logic                                                            ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                : in     std_logic                                                            ; --! Clock
          i_clk_90             : in     std_logic                                                            ; --! System Clock 90 degrees shift
 
@@ -45,25 +46,8 @@ entity squid_data_proc is port
          i_bxlgt              : in     std_logic_vector(c_DFLD_BXLGT_COL_S-1 downto 0)                      ; --! ADC sample number for averaging
          i_sqm_adc_pwdn       : in     std_logic                                                            ; --! SQUID MUX ADC: Power Down ('0' = Inactive, '1' = Active)
 
-         i_mem_parma          : in     t_mem(
-                                       add(    c_MEM_PARMA_ADD_S-1 downto 0),
-                                       data_w(c_DFLD_PARMA_PIX_S-1 downto 0))                               ; --! Parameter a(p): memory inputs
-         o_parma_data         : out    std_logic_vector(c_DFLD_PARMA_PIX_S-1 downto 0)                      ; --! Parameter a(p): data read
-
-         i_mem_kiknm          : in     t_mem(
-                                       add(    c_MEM_KIKNM_ADD_S-1 downto 0),
-                                       data_w(c_DFLD_KIKNM_PIX_S-1 downto 0))                               ; --! Parameter ki(p)*knorm(p): memory inputs
-         o_kiknm_data         : out    std_logic_vector(c_DFLD_KIKNM_PIX_S-1 downto 0)                      ; --! Parameter ki(p)*knorm(p): data read
-
-         i_mem_knorm          : in     t_mem(
-                                       add(    c_MEM_KNORM_ADD_S-1 downto 0),
-                                       data_w(c_DFLD_KNORM_PIX_S-1 downto 0))                               ; --! Parameter knorm(p): memory inputs
-         o_knorm_data         : out    std_logic_vector(c_DFLD_KNORM_PIX_S-1 downto 0)                      ; --! Parameter knorm(p): data read
-
-         i_mem_smlkv          : in     t_mem(
-                                       add(    c_MEM_SMLKV_ADD_S-1 downto 0),
-                                       data_w(c_DFLD_SMLKV_PIX_S-1 downto 0))                               ; --! Parameter elp(p): memory inputs
-         o_smlkv_data         : out    std_logic_vector(c_DFLD_SMLKV_PIX_S-1 downto 0)                      ; --! Parameter elp(p): data read
+         i_mem_prc            : in     t_mem_prc                                                            ; --! Memory for data squid proc.: memory interface
+         o_mem_prc_data       : out    t_mem_prc_dta                                                        ; --! Memory for data squid proc.: data read
 
          i_init_fbk_pixel_pos : in     std_logic_vector(c_MUX_FACT_S-1 downto 0)                            ; --! Initialization feedback chain accumulators Pixel position
          i_init_fbk_acc       : in     std_logic                                                            ; --! Initialization feedback chain accumulators ('0' = Inactive, '1' = Active)
@@ -266,18 +250,18 @@ begin
    --    @Req : DRE-DMX-FW-REQ-0180
    --    @Req : REG_CY_A
    -- ------------------------------------------------------------------------------------------------------
-   I_mem_parma_val: entity work.dmem_ecc generic map
-   (     g_RAM_TYPE           => c_RAM_TYPE_PRM_STORE , -- integer                                          ; --! Memory type ( 0  = Data transfer,  1  = Parameters storage)
+   I_mem_parma_val: entity work.dmem_ecc generic map (
+         g_RAM_TYPE           => c_RAM_TYPE_PRM_STORE , -- integer                                          ; --! Memory type ( 0  = Data transfer,  1  = Parameters storage)
          g_RAM_ADD_S          => c_MEM_PARMA_ADD_S    , -- integer                                          ; --! Memory address bus size (<= c_RAM_ECC_ADD_S)
          g_RAM_DATA_S         => c_DFLD_PARMA_PIX_S   , -- integer                                          ; --! Memory data bus size (<= c_RAM_DATA_S)
          g_RAM_INIT           => c_EP_CMD_DEF_PARMA     -- t_int_arr                                          --! Memory content at initialization
-   ) port map
-   (     i_a_rst              => i_rst                , -- in     std_logic                                 ; --! Memory port A: registers reset ('0' = Inactive, '1' = Active)
+   ) port map (
+         i_a_rst              => i_rst                , -- in     std_logic                                 ; --! Memory port A: registers reset ('0' = Inactive, '1' = Active)
          i_a_clk              => i_clk                , -- in     std_logic                                 ; --! Memory port A: main clock
          i_a_clk_shift        => i_clk_90             , -- in     std_logic                                 ; --! Memory port A: 90 degrees shifted clock (used for memory content correction)
 
-         i_a_mem              => i_mem_parma          , -- in     t_mem( add(g_RAM_ADD_S-1 downto 0), ...)  ; --! Memory port A inputs (scrubbing with ping-pong buffer bit for parameters storage)
-         o_a_data_out         => o_parma_data         , -- out    slv(g_RAM_DATA_S-1 downto 0)              ; --! Memory port A: data out
+         i_a_mem              => i_mem_prc.parma      , -- in     t_mem( add(g_RAM_ADD_S-1 downto 0), ...)  ; --! Memory port A inputs (scrubbing with ping-pong buffer bit for parameters storage)
+         o_a_data_out         => o_mem_prc_data.parma , -- out    slv(g_RAM_DATA_S-1 downto 0)              ; --! Memory port A: data out
          o_a_pp               => mem_parma_pp         , -- out    std_logic                                 ; --! Memory port A: ping-pong buffer bit for address management
 
          o_a_flg_err          => open                 , -- out    std_logic                                 ; --! Memory port A: flag error uncorrectable detected ('0' = No, '1' = Yes)
@@ -324,18 +308,18 @@ begin
    --    @Req : DRE-DMX-FW-REQ-0170
    --    @Req : REG_CY_KI_KNORM
    -- ------------------------------------------------------------------------------------------------------
-   I_mem_kiknm_val: entity work.dmem_ecc generic map
-   (     g_RAM_TYPE           => c_RAM_TYPE_PRM_STORE , -- integer                                          ; --! Memory type ( 0  = Data transfer,  1  = Parameters storage)
+   I_mem_kiknm_val: entity work.dmem_ecc generic map (
+         g_RAM_TYPE           => c_RAM_TYPE_PRM_STORE , -- integer                                          ; --! Memory type ( 0  = Data transfer,  1  = Parameters storage)
          g_RAM_ADD_S          => c_MEM_KIKNM_ADD_S    , -- integer                                          ; --! Memory address bus size (<= c_RAM_ECC_ADD_S)
          g_RAM_DATA_S         => c_DFLD_KIKNM_PIX_S   , -- integer                                          ; --! Memory data bus size (<= c_RAM_DATA_S)
          g_RAM_INIT           => c_EP_CMD_DEF_KIKNM     -- t_int_arr                                          --! Memory content at initialization
-   ) port map
-   (     i_a_rst              => i_rst                , -- in     std_logic                                 ; --! Memory port A: registers reset ('0' = Inactive, '1' = Active)
+   ) port map (
+         i_a_rst              => i_rst                , -- in     std_logic                                 ; --! Memory port A: registers reset ('0' = Inactive, '1' = Active)
          i_a_clk              => i_clk                , -- in     std_logic                                 ; --! Memory port A: main clock
          i_a_clk_shift        => i_clk_90             , -- in     std_logic                                 ; --! Memory port A: 90 degrees shifted clock (used for memory content correction)
 
-         i_a_mem              => i_mem_kiknm          , -- in     t_mem( add(g_RAM_ADD_S-1 downto 0), ...)  ; --! Memory port A inputs (scrubbing with ping-pong buffer bit for parameters storage)
-         o_a_data_out         => o_kiknm_data         , -- out    slv(g_RAM_DATA_S-1 downto 0)              ; --! Memory port A: data out
+         i_a_mem              => i_mem_prc.kiknm      , -- in     t_mem( add(g_RAM_ADD_S-1 downto 0), ...)  ; --! Memory port A inputs (scrubbing with ping-pong buffer bit for parameters storage)
+         o_a_data_out         => o_mem_prc_data.kiknm , -- out    slv(g_RAM_DATA_S-1 downto 0)              ; --! Memory port A: data out
          o_a_pp               => mem_kiknm_pp         , -- out    std_logic                                 ; --! Memory port A: ping-pong buffer bit for address management
 
          o_a_flg_err          => open                 , -- out    std_logic                                 ; --! Memory port A: flag error uncorrectable detected ('0' = No, '1' = Yes)
@@ -382,18 +366,18 @@ begin
    --    @Req : DRE-DMX-FW-REQ-0185
    --    @Req : REG_CY_KNORM
    -- ------------------------------------------------------------------------------------------------------
-   I_mem_knorm_val: entity work.dmem_ecc generic map
-   (     g_RAM_TYPE           => c_RAM_TYPE_PRM_STORE , -- integer                                          ; --! Memory type ( 0  = Data transfer,  1  = Parameters storage)
+   I_mem_knorm_val: entity work.dmem_ecc generic map (
+         g_RAM_TYPE           => c_RAM_TYPE_PRM_STORE , -- integer                                          ; --! Memory type ( 0  = Data transfer,  1  = Parameters storage)
          g_RAM_ADD_S          => c_MEM_KNORM_ADD_S    , -- integer                                          ; --! Memory address bus size (<= c_RAM_ECC_ADD_S)
          g_RAM_DATA_S         => c_DFLD_KNORM_PIX_S   , -- integer                                          ; --! Memory data bus size (<= c_RAM_DATA_S)
          g_RAM_INIT           => c_EP_CMD_DEF_KNORM     -- t_int_arr                                          --! Memory content at initialization
-   ) port map
-   (     i_a_rst              => i_rst                , -- in     std_logic                                 ; --! Memory port A: registers reset ('0' = Inactive, '1' = Active)
+   ) port map (
+         i_a_rst              => i_rst                , -- in     std_logic                                 ; --! Memory port A: registers reset ('0' = Inactive, '1' = Active)
          i_a_clk              => i_clk                , -- in     std_logic                                 ; --! Memory port A: main clock
          i_a_clk_shift        => i_clk_90             , -- in     std_logic                                 ; --! Memory port A: 90 degrees shifted clock (used for memory content correction)
 
-         i_a_mem              => i_mem_knorm          , -- in     t_mem( add(g_RAM_ADD_S-1 downto 0), ...)  ; --! Memory port A inputs (scrubbing with ping-pong buffer bit for parameters storage)
-         o_a_data_out         => o_knorm_data         , -- out    slv(g_RAM_DATA_S-1 downto 0)              ; --! Memory port A: data out
+         i_a_mem              => i_mem_prc.knorm      , -- in     t_mem( add(g_RAM_ADD_S-1 downto 0), ...)  ; --! Memory port A inputs (scrubbing with ping-pong buffer bit for parameters storage)
+         o_a_data_out         => o_mem_prc_data.knorm , -- out    slv(g_RAM_DATA_S-1 downto 0)              ; --! Memory port A: data out
          o_a_pp               => mem_knorm_pp         , -- out    std_logic                                 ; --! Memory port A: ping-pong buffer bit for address management
 
          o_a_flg_err          => open                 , -- out    std_logic                                 ; --! Memory port A: flag error uncorrectable detected ('0' = No, '1' = Yes)
@@ -440,18 +424,18 @@ begin
    --    @Req : DRE-DMX-FW-REQ-0190
    --    @Req : REG_CY_MUX_SQ_LOCKPOINT_V
    -- ------------------------------------------------------------------------------------------------------
-   I_mem_smlkv_val: entity work.dmem_ecc generic map
-   (     g_RAM_TYPE           => c_RAM_TYPE_PRM_STORE , -- integer                                          ; --! Memory type ( 0  = Data transfer,  1  = Parameters storage)
+   I_mem_smlkv_val: entity work.dmem_ecc generic map (
+         g_RAM_TYPE           => c_RAM_TYPE_PRM_STORE , -- integer                                          ; --! Memory type ( 0  = Data transfer,  1  = Parameters storage)
          g_RAM_ADD_S          => c_MEM_SMLKV_ADD_S    , -- integer                                          ; --! Memory address bus size (<= c_RAM_ECC_ADD_S)
          g_RAM_DATA_S         => c_DFLD_SMLKV_PIX_S   , -- integer                                          ; --! Memory data bus size (<= c_RAM_DATA_S)
          g_RAM_INIT           => c_EP_CMD_DEF_SMLKV     -- t_int_arr                                          --! Memory content at initialization
-   ) port map
-   (     i_a_rst              => i_rst                , -- in     std_logic                                 ; --! Memory port A: registers reset ('0' = Inactive, '1' = Active)
+   ) port map (
+         i_a_rst              => i_rst                , -- in     std_logic                                 ; --! Memory port A: registers reset ('0' = Inactive, '1' = Active)
          i_a_clk              => i_clk                , -- in     std_logic                                 ; --! Memory port A: main clock
          i_a_clk_shift        => i_clk_90             , -- in     std_logic                                 ; --! Memory port A: 90 degrees shifted clock (used for memory content correction)
 
-         i_a_mem              => i_mem_smlkv          , -- in     t_mem( add(g_RAM_ADD_S-1 downto 0), ...)  ; --! Memory port A inputs (scrubbing with ping-pong buffer bit for parameters storage)
-         o_a_data_out         => o_smlkv_data         , -- out    slv(g_RAM_DATA_S-1 downto 0)              ; --! Memory port A: data out
+         i_a_mem              => i_mem_prc.smlkv      , -- in     t_mem( add(g_RAM_ADD_S-1 downto 0), ...)  ; --! Memory port A inputs (scrubbing with ping-pong buffer bit for parameters storage)
+         o_a_data_out         => o_mem_prc_data.smlkv , -- out    slv(g_RAM_DATA_S-1 downto 0)              ; --! Memory port A: data out
          o_a_pp               => mem_smlkv_pp         , -- out    std_logic                                 ; --! Memory port A: ping-pong buffer bit for address management
 
          o_a_flg_err          => open                 , -- out    std_logic                                 ; --! Memory port A: flag error uncorrectable detected ('0' = No, '1' = Yes)
@@ -534,7 +518,14 @@ begin
 
    end process P_init_fbk_acc_rd;
 
-   smfb0_rl_rs       <= resize_stall_msb(smfb0 , smfb0_rl_rs'length);
+   I_smfb0_rl_rs : entity work.resize_stall_msb generic map (
+         g_DATA_S             => c_DFLD_SMFB0_PIX_S   , -- integer                                          ; --! Data input bus size
+         g_DATA_STALL_MSB_S   => c_FB_PN_S              -- integer                                            --! Data stalled on Mean Significant Bit bus size
+   ) port map (
+         i_data               => smfb0                , -- in     slv(          g_DATA_S-1 downto 0)        ; --! Data
+         o_data_stall_msb     => smfb0_rl_rs            -- out    slv(g_DATA_STALL_MSB_S-1 downto 0)          --! Data stalled on Mean Significant Bit
+   );
+
    o_smfbm_close_rl  <= not(init_fbk_acc_fb);
    o_mem_rl_rd_add   <= pixel_pos_r(c_FB_PN_RDY_POS-1);
 
@@ -622,8 +613,8 @@ begin
    --!   ADC sample average, E(p,n)
    --    @Req : DRE-DMX-FW-REQ-0140
    -- ------------------------------------------------------------------------------------------------------
-   I_adc_smp_ave: entity work.dsp generic map
-   (     g_PORTA_S            => c_ASP_CF_S+1         , -- integer                                          ; --! Port A bus size (<= c_MULT_ALU_PORTA_S)
+   I_adc_smp_ave: entity work.dsp generic map (
+         g_PORTA_S            => c_ASP_CF_S+1         , -- integer                                          ; --! Port A bus size (<= c_MULT_ALU_PORTA_S)
          g_PORTB_S            => c_SQM_DATA_ERR_S     , -- integer                                          ; --! Port B bus size (<= c_MULT_ALU_PORTB_S)
          g_PORTC_S            => c_SQM_DATA_ERR_S     , -- integer                                          ; --! Port C bus size (<= c_MULT_ALU_PORTC_S)
          g_RESULT_S           => c_ADC_SMP_AVE_C_S    , -- integer                                          ; --! Result bus size (<= c_MULT_ALU_RESULT_S)
@@ -635,8 +626,8 @@ begin
                                                                                                               --!     signed: range from -2**(g_SAT_RANK) to 2**(g_SAT_RANK)   - 1
          g_PRE_ADDER_OP       => '0'                  , -- bit                                              ; --! Pre-Adder operation     ('0' = add,    '1' = subtract)
          g_MUX_C_CZ           => '0'                    -- bit                                                --! Multiplexer ALU operand ('0' = Port C, '1' = Cascaded Result Input)
-   ) port map
-   (     i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+   ) port map (
+         i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                => i_clk                , -- in     std_logic                                 ; --! Clock
 
          i_carry              => '0'                  , -- in     std_logic                                 ; --! Carry In
@@ -672,8 +663,8 @@ begin
    --!   Result: M(p,n) = ki(p)*knorm(p)*(E(p,n) - Elp(p))
    --    @Req : DRE-DMX-FW-REQ-0160
    -- ------------------------------------------------------------------------------------------------------
-   I_m_pn: entity work.dsp generic map
-   (     g_PORTA_S            => c_ADC_SMP_AVE_S+1    , -- integer                                          ; --! Port A bus size (<= c_MULT_ALU_PORTA_S)
+   I_m_pn: entity work.dsp generic map (
+         g_PORTA_S            => c_ADC_SMP_AVE_S+1    , -- integer                                          ; --! Port A bus size (<= c_MULT_ALU_PORTA_S)
          g_PORTB_S            => c_DFLD_KIKNM_PIX_S+1 , -- integer                                          ; --! Port B bus size (<= c_MULT_ALU_PORTB_S)
          g_PORTC_S            => c_DFLD_KIKNM_PIX_S   , -- integer                                          ; --! Port C bus size (<= c_MULT_ALU_PORTC_S)
          g_RESULT_S           => c_M_PN_C_S           , -- integer                                          ; --! Result bus size (<= c_MULT_ALU_RESULT_S)
@@ -685,8 +676,8 @@ begin
                                                                                                               --!     signed: range from -2**(g_SAT_RANK) to 2**(g_SAT_RANK)   - 1
          g_PRE_ADDER_OP       => '0'                  , -- bit                                              ; --! Pre-Adder operation     ('0' = add,    '1' = subtract)
          g_MUX_C_CZ           => '0'                    -- bit                                                --! Multiplexer ALU operand ('0' = Port C, '1' = Cascaded Result Input)
-   ) port map
-   (     i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+   ) port map (
+         i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                => i_clk                , -- in     std_logic                                 ; --! Clock
 
          i_carry              => '0'                  , -- in     std_logic                                 ; --! Carry In
@@ -702,19 +693,19 @@ begin
 
    m_pn_car_dfb_pn <= m_pn(m_pn'high downto m_pn'length-m_pn_car_dfb_pn'length);
 
-   I_m_pn_rd_sat_dfb_pn: entity work.round_sat generic map
-   (     g_DATA_CARRY_S       => c_DFB_PN_DACC_S+1      -- integer                                            --! Data with carry bus size
-   )  port map
-   (     i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+   I_m_pn_rd_sat_dfb_pn: entity work.round_sat generic map (
+         g_DATA_CARRY_S       => c_DFB_PN_DACC_S+1      -- integer                                            --! Data with carry bus size
+   )  port map (
+         i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                => i_clk                , -- in     std_logic                                 ; --! Clock
          i_data_carry         => m_pn_car_dfb_pn      , -- in     slv(g_DATA_CARRY_S-1 downto 0)            ; --! Data with carry on lsb (signed)
          o_data_rnd_sat       => m_pn_rnd_sat_dfb_pn    -- out    slv(g_DATA_CARRY_S-2 downto 0)              --! Data rounded with saturation (signed)
    );
 
-   I_m_pn_rd_sat_pc1_pn: entity work.round_sat generic map
-   (     g_DATA_CARRY_S       => c_M_PN_C_S             -- integer                                            --! Data with carry bus size
-   )  port map
-   (     i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+   I_m_pn_rd_sat_pc1_pn: entity work.round_sat generic map (
+         g_DATA_CARRY_S       => c_M_PN_C_S             -- integer                                            --! Data with carry bus size
+   )  port map (
+         i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                => i_clk                , -- in     std_logic                                 ; --! Clock
          i_data_carry         => m_pn                 , -- in     slv(g_DATA_CARRY_S-1 downto 0)            ; --! Data with carry on lsb (signed)
          o_data_rnd_sat       => m_pn_rnd_sat_pc1_pn    -- out    slv(g_DATA_CARRY_S-2 downto 0)              --! Data rounded with saturation (signed)
@@ -728,13 +719,13 @@ begin
    dfb_data_eln_rdy  <= sqm_data_err_rdy_r(c_DFB_PN_RDY_POS);
    dfb_data_acc_rdy  <= sqm_data_err_rdy_r(c_M_PN_RDY_POS);
 
-   I_dfb_pn: entity work.adder_acc generic map
-   (     g_DATA_ACC_S         => c_DFB_PN_DACC_S      , -- integer                                          ; --! Data to accumulate bus size
+   I_dfb_pn: entity work.adder_acc generic map (
+         g_DATA_ACC_S         => c_DFB_PN_DACC_S      , -- integer                                          ; --! Data to accumulate bus size
          g_DATA_ELN_S         => c_DFB_PN_S           , -- integer                                          ; --! Data element n bus size (>= g_DATA_ACC_S)
          g_MEM_ACC_NW         => c_MUX_FACT           , -- integer                                          ; --! Memory accumulator number word
          g_MEM_ACC_INIT_VAL   => c_DFB_PN_INIT_VAL      -- integer                                            --! Memory accumulator initialization value
-   ) port map
-   (     i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+   ) port map (
+         i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                => i_clk                , -- in     std_logic                                 ; --! Clock
          i_mem_acc_add        => dfb_mem_acc_add      , -- in     slv(log2_ceil(g_MEM_ACC_NW)-1 downto 0)   ; --! Memory accumulator address
          i_mem_acc_init_ena   => init_fbk_acc_dfb     , -- in     std_logic                                 ; --! Memory accumulator initialization enable ('0' = No, '1' = Yes)
@@ -751,8 +742,8 @@ begin
    --!   Result: PC1(p,n) = M(p,n) + a(p) * dFB(p,n)
    --    @Req : DRE-DMX-FW-REQ-0160
    -- ------------------------------------------------------------------------------------------------------
-   I_pc1_pn: entity work.dsp generic map
-   (     g_PORTA_S            => c_DFB_PN_S           , -- integer                                          ; --! Port A bus size (<= c_MULT_ALU_PORTA_S)
+   I_pc1_pn: entity work.dsp generic map (
+         g_PORTA_S            => c_DFB_PN_S           , -- integer                                          ; --! Port A bus size (<= c_MULT_ALU_PORTA_S)
          g_PORTB_S            => c_DFLD_PARMA_PIX_S+1 , -- integer                                          ; --! Port B bus size (<= c_MULT_ALU_PORTB_S)
          g_PORTC_S            => c_M_PN_S             , -- integer                                          ; --! Port C bus size (<= c_MULT_ALU_PORTC_S)
          g_RESULT_S           => c_PC1_PN_C_S         , -- integer                                          ; --! Result bus size (<= c_MULT_ALU_RESULT_S)
@@ -764,8 +755,8 @@ begin
                                                                                                               --!     signed: range from -2**(g_SAT_RANK) to 2**(g_SAT_RANK)   - 1
          g_PRE_ADDER_OP       => '0'                  , -- bit                                              ; --! Pre-Adder operation     ('0' = add,    '1' = subtract)
          g_MUX_C_CZ           => '0'                    -- bit                                                --! Multiplexer ALU operand ('0' = Port C, '1' = Cascaded Result Input)
-   ) port map
-   (     i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+   ) port map (
+         i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                => i_clk                , -- in     std_logic                                 ; --! Clock
 
          i_carry              => '0'                  , -- in     std_logic                                 ; --! Carry In
@@ -779,10 +770,10 @@ begin
          o_cz                 => open                   -- out    slv(c_MULT_ALU_RESULT_S-1 downto 0)         --! Cascaded Result
    );
 
-   I_pc1_pn_rd_st_fb_pn: entity work.round_sat generic map
-   (     g_DATA_CARRY_S       => c_PC1_PN_C_S           -- integer                                            --! Data with carry bus size
-   )  port map
-   (     i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+   I_pc1_pn_rd_st_fb_pn: entity work.round_sat generic map (
+         g_DATA_CARRY_S       => c_PC1_PN_C_S           -- integer                                            --! Data with carry bus size
+   )  port map (
+         i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                => i_clk                , -- in     std_logic                                 ; --! Clock
          i_data_carry         => pc1_pn               , -- in     slv(g_DATA_CARRY_S-1 downto 0)            ; --! Data with carry on lsb (signed)
          o_data_rnd_sat       => pc1_pn_rnd_sat_fb_pn   -- out    slv(g_DATA_CARRY_S-2 downto 0)              --! Data rounded with saturation (signed)
@@ -797,13 +788,13 @@ begin
    fb_data_eln_rdy   <= sqm_data_err_rdy_r(c_FB_PN_RDY_POS);
    fb_data_acc_rdy   <= sqm_data_err_rdy_r(c_PC1_PN_RDY_POS);
 
-   I_fb_pn: entity work.adder_acc generic map
-   (     g_DATA_ACC_S         => c_FB_PN_S            , -- integer                                          ; --! Data to accumulate bus size
+   I_fb_pn: entity work.adder_acc generic map (
+         g_DATA_ACC_S         => c_FB_PN_S            , -- integer                                          ; --! Data to accumulate bus size
          g_DATA_ELN_S         => c_FB_PN_S            , -- integer                                          ; --! Data element n bus size (>= g_DATA_ACC_S)
          g_MEM_ACC_NW         => c_MUX_FACT           , -- integer                                          ; --! Memory accumulator number word
          g_MEM_ACC_INIT_VAL   => c_FB_PN_INIT_VAL       -- integer                                            --! Memory accumulator initialization value
-   ) port map
-   (     i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+   ) port map (
+         i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                => i_clk                , -- in     std_logic                                 ; --! Clock
          i_mem_acc_add        => fb_mem_acc_add       , -- in     slv(log2_ceil(g_MEM_ACC_NW)-1 downto 0)   ; --! Memory accumulator address
          i_mem_acc_init_ena   => init_fbk_acc_fb      , -- in     std_logic                                 ; --! Memory accumulator initialization enable ('0' = No, '1' = Yes)
@@ -818,10 +809,10 @@ begin
 
    fb_pnp1_car    <= fb_pnp1(fb_pnp1'high downto fb_pnp1'length-fb_pnp1_car'length);
 
-   I_sqm_dta_err_cor: entity work.round_sat generic map
-   (     g_DATA_CARRY_S       => c_SQM_DATA_FBK_S+1     -- integer                                            --! Data with carry bus size
-   )  port map
-   (     i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+   I_sqm_dta_err_cor: entity work.round_sat generic map (
+         g_DATA_CARRY_S       => c_SQM_DATA_FBK_S+1     -- integer                                            --! Data with carry bus size
+   )  port map (
+         i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                => i_clk                , -- in     std_logic                                 ; --! Clock
          i_data_carry         => fb_pnp1_car          , -- in     slv(g_DATA_CARRY_S-1 downto 0)            ; --! Data with carry on lsb (signed)
          o_data_rnd_sat       => o_sqm_dta_err_cor      -- out    slv(g_DATA_CARRY_S-2 downto 0)              --! Data rounded with saturation (signed)
@@ -834,8 +825,8 @@ begin
    --!   Result: NRM(p,n) = knorm(p)*(E(p,n) - Elp(p))
    --    @Req : DRE-DMX-FW-REQ-0390
    -- ------------------------------------------------------------------------------------------------------
-   I_nrm_pn: entity work.dsp generic map
-   (     g_PORTA_S            => c_ADC_SMP_AVE_S+1    , -- integer                                          ; --! Port A bus size (<= c_MULT_ALU_PORTA_S)
+   I_nrm_pn: entity work.dsp generic map (
+         g_PORTA_S            => c_ADC_SMP_AVE_S+1    , -- integer                                          ; --! Port A bus size (<= c_MULT_ALU_PORTA_S)
          g_PORTB_S            => c_DFLD_KNORM_PIX_S+1 , -- integer                                          ; --! Port B bus size (<= c_MULT_ALU_PORTB_S)
          g_PORTC_S            => c_DFLD_KNORM_PIX_S   , -- integer                                          ; --! Port C bus size (<= c_MULT_ALU_PORTC_S)
          g_RESULT_S           => c_NRM_PN_C_S         , -- integer                                          ; --! Result bus size (<= c_MULT_ALU_RESULT_S)
@@ -847,8 +838,8 @@ begin
                                                                                                               --!     signed: range from -2**(g_SAT_RANK) to 2**(g_SAT_RANK)   - 1
          g_PRE_ADDER_OP       => '0'                  , -- bit                                              ; --! Pre-Adder operation     ('0' = add,    '1' = subtract)
          g_MUX_C_CZ           => '0'                    -- bit                                                --! Multiplexer ALU operand ('0' = Port C, '1' = Cascaded Result Input)
-   ) port map
-   (     i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+   ) port map (
+         i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                => i_clk                , -- in     std_logic                                 ; --! Clock
 
          i_carry              => '0'                  , -- in     std_logic                                 ; --! Carry In
@@ -862,10 +853,10 @@ begin
          o_cz                 => open                   -- out    slv(c_MULT_ALU_RESULT_S-1 downto 0)         --! Cascaded Result
    );
 
-   I_nrm_pn_rnd_sat: entity work.round_sat generic map
-   (     g_DATA_CARRY_S       => c_NRM_PN_C_S           -- integer                                            --! Data with carry bus size
-   )  port map
-   (     i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+   I_nrm_pn_rnd_sat: entity work.round_sat generic map (
+         g_DATA_CARRY_S       => c_NRM_PN_C_S           -- integer                                            --! Data with carry bus size
+   )  port map (
+         i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                => i_clk                , -- in     std_logic                                 ; --! Clock
          i_data_carry         => nrm_pn               , -- in     slv(g_DATA_CARRY_S-1 downto 0)            ; --! Data with carry on lsb (signed)
          o_data_rnd_sat       => nrm_pn_rnd_sat         -- out    slv(g_DATA_CARRY_S-2 downto 0)              --! Data rounded with saturation (signed)
@@ -875,10 +866,10 @@ begin
    --!   Result: SC(p,n) = knorm(p)*(E(p,n) - Elp(p)) + FB(p,n)
    --    @Req : DRE-DMX-FW-REQ-0390
    -- ------------------------------------------------------------------------------------------------------
-   I_sc_pn: entity work.adder_sat generic map
-   (     g_DATA_S             => c_NRM_PN_S             -- integer                                            --! Data bus size
-   )  port map
-   (     i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+   I_sc_pn: entity work.adder_sat generic map (
+         g_DATA_S             => c_NRM_PN_S             -- integer                                            --! Data bus size
+   )  port map (
+         i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                => i_clk                , -- in     std_logic                                 ; --! Clock
          i_data_fst           => nrm_pn_rnd_sat       , -- in     std_logic_vector(g_DATA_S-1 downto 0)     ; --! Data first (signed)
          i_data_sec           => fb_pn                , -- in     std_logic_vector(g_DATA_S-1 downto 0)     ; --! Data second (signed)
@@ -890,10 +881,10 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    sc_pn_car <= sc_pn(sc_pn'high downto sc_pn'length-sc_pn_car'length);
 
-   I_sqm_data_sc: entity work.round_sat generic map
-   (     g_DATA_CARRY_S       => c_SC_DATA_SER_NB*c_SC_DATA_SER_W_S+1 -- integer                              --! Data with carry bus size
-   )  port map
-   (     i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+   I_sqm_data_sc: entity work.round_sat generic map (
+         g_DATA_CARRY_S       => c_SC_DATA_SER_NB*c_SC_DATA_SER_W_S+1 -- integer                              --! Data with carry bus size
+   )  port map (
+         i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                => i_clk                , -- in     std_logic                                 ; --! Clock
          i_data_carry         => sc_pn_car            , -- in     slv(g_DATA_CARRY_S-1 downto 0)            ; --! Data with carry on lsb (signed)
          o_data_rnd_sat       => sqm_data_sc            -- out    slv(g_DATA_CARRY_S-2 downto 0)              --! Data rounded with saturation (signed)
@@ -904,10 +895,10 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    adc_smp_ave_sc <= adc_smp_ave(adc_smp_ave'high) & adc_smp_ave(adc_smp_ave'high downto adc_smp_ave'length-c_SC_DATA_SER_NB*c_SC_DATA_SER_W_S-1);
 
-   I_adc_smp_ave_sc: entity work.round_sat generic map
-   (     g_DATA_CARRY_S       => c_SC_DATA_SER_NB*c_SC_DATA_SER_W_S+2 -- integer                              --! Data with carry bus size
-   )  port map
-   (     i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+   I_adc_smp_ave_sc: entity work.round_sat generic map (
+         g_DATA_CARRY_S       => c_SC_DATA_SER_NB*c_SC_DATA_SER_W_S+2 -- integer                              --! Data with carry bus size
+   )  port map (
+         i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                => i_clk                , -- in     std_logic                                 ; --! Clock
          i_data_carry         => adc_smp_ave_sc       , -- in     slv(g_DATA_CARRY_S-1 downto 0)            ; --! Data with carry on lsb (signed)
          o_data_rnd_sat       => err_sig                -- out    slv(g_DATA_CARRY_S-2 downto 0)              --! Data rounded with saturation (signed)

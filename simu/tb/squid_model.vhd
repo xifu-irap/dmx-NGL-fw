@@ -32,8 +32,8 @@ library work;
 use     work.pkg_project.all;
 use     work.pkg_model.all;
 
-entity squid_model is generic
-   (     g_SQM_ADC_VREF       : real      := c_SQM_ADC_VREF_DEF                                             ; --! SQUID MUX ADC: Voltage reference (Volt)
+entity squid_model is generic (
+         g_SQM_ADC_VREF       : real      := c_SQM_ADC_VREF_DEF                                             ; --! SQUID MUX ADC: Voltage reference (Volt)
          g_SQM_DAC_VREF       : real      := c_SQM_DAC_VREF_DEF                                             ; --! SQUID MUX DAC: Voltage reference (Volt)
          g_SQA_DAC_VREF       : real      := c_SQA_DAC_VREF_DEF                                             ; --! SQUID AMP DAC: Voltage reference (Volt)
          g_SQA_DAC_TS         : time      := c_SQA_DAC_TS_DEF                                               ; --! SQUID AMP DAC: Output Voltage Settling time
@@ -43,15 +43,14 @@ entity squid_model is generic
          g_SQM_VOLT_DEL       : time      := c_SQM_VOLT_DEL_DEF                                             ; --! SQUID MUX voltage delay
          g_SQA_VOLT_DEL       : time      := c_SQA_VOLT_DEL_DEF                                             ; --! SQUID AMP voltage delay
          g_SQERR_VOLT_DEL     : time      := c_SQERR_VOLT_DEL_DEF                                             --! SQUID Error voltage delay
-   ); port
-   (     i_arst               : in     std_logic                                                            ; --! Asynchronous reset ('0' = Inactive, '1' = Active)
+   ); port (
+         i_arst               : in     std_logic                                                            ; --! Asynchronous reset ('0' = Inactive, '1' = Active)
          i_sync               : in     std_logic                                                            ; --! Pixel sequence synchronization (R.E. detected = position sequence to the first pixel)
 
          i_clk_sqm_adc        : in     std_logic                                                            ; --! SQUID MUX ADC: Clock
          i_sqm_adc_pwdn       : in     std_logic                                                            ; --! SQUID MUX ADC: Power Down ('0' = Inactive, '1' = Active)
-         b_sqm_adc_spi_sdio   : inout  std_logic                                                            ; --! SQUID MUX ADC: SPI Serial Data In Out
+         o_sqm_adc_spi_sdio   : out    std_logic                                                            ; --! SQUID MUX ADC: SPI Serial Data In Out
          i_sqm_adc_spi_sclk   : in     std_logic                                                            ; --! SQUID MUX ADC: SPI Serial Clock (CPOL = '0', CPHA = '0')
-         i_sqm_adc_spi_cs_n   : in     std_logic                                                            ; --! SQUID MUX ADC: SPI Chip Select ('0' = Active, '1' = Inactive)
 
          i_sw_adc_vin         : in     std_logic_vector(c_SW_ADC_VIN_S-1 downto 0)                          ; --! Switch ADC Voltage input
          o_sqm_adc_ana        : out    real                                                                 ; --! SQUID MUX ADC: Analog
@@ -88,10 +87,10 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   SQUID MUX DAC model management
    -- ------------------------------------------------------------------------------------------------------
-   I_sqm_dac_model: entity work.dac_dac5675a_model generic map
-   (     g_VREF               => g_SQM_DAC_VREF         -- real                                               --! Voltage reference (Volt)
-   ) port map
-   (     i_clk                => i_clk_sqm_dac        , -- in     std_logic                                 ; --! Clock
+   I_sqm_dac_model: entity work.dac_dac5675a_model generic map (
+         g_VREF               => g_SQM_DAC_VREF         -- real                                               --! Voltage reference (Volt)
+   ) port map (
+         i_clk                => i_clk_sqm_dac        , -- in     std_logic                                 ; --! Clock
          i_sleep              => i_sqm_dac_sleep      , -- in     std_logic                                 ; --! Sleep ('0' = Inactive, '1' = Active)
          i_d                  => i_sqm_dac_data       , -- in     std_logic_vector(13 downto 0)             ; --! Data
          o_delta_vout         => sqm_dac_delta_volt     -- out    real                                        --! Analog voltage (-g_VREF <= Vout1 - Vout2 < g_VREF)
@@ -102,8 +101,8 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   Pulse shaping check
    -- ------------------------------------------------------------------------------------------------------
-   I_pulse_shaping_check: entity work.pulse_shaping_check port map
-   (     i_arst               => i_arst               , -- in     std_logic                                 ; --! Asynchronous reset ('0' = Inactive, '1' = Active)
+   I_pulse_shaping_check: entity work.pulse_shaping_check port map (
+         i_arst               => i_arst               , -- in     std_logic                                 ; --! Asynchronous reset ('0' = Inactive, '1' = Active)
          i_clk_sqm_dac        => i_clk_sqm_dac        , -- in     std_logic                                 ; --! SQUID MUX DAC: Clock
          i_sync               => i_sync               , -- in     std_logic                                 ; --! Pixel sequence synchronization (R.E. detected = position sequence to the first pixel)
          i_sqm_dac_ana        => sqm_dac_delta_volt   , -- in     real                                      ; --! SQUID MUX DAC: Analog
@@ -115,12 +114,12 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   SQUID AMP DAC model management
    -- ------------------------------------------------------------------------------------------------------
-   I_sqa_dac_model: entity work.sqa_dac_model generic map
-   (     g_SQA_DAC_VREF       => g_SQA_DAC_VREF       , -- real                                             ; --! SQUID AMP DAC: Voltage reference (Volt)
+   I_sqa_dac_model: entity work.sqa_dac_model generic map (
+         g_SQA_DAC_VREF       => g_SQA_DAC_VREF       , -- real                                             ; --! SQUID AMP DAC: Voltage reference (Volt)
          g_SQA_DAC_TS         => g_SQA_DAC_TS         , -- time                                             ; --! SQUID AMP DAC: Output Voltage Settling time
          g_SQA_MUX_TPLH       => g_SQA_MUX_TPLH         -- time                                               --! SQUID AMP MUX: Propagation delay switch in to out
-   ) port map
-   (     i_sqa_dac_data       => i_sqa_dac_data       , -- in     std_logic                                 ; --! SQUID AMP DAC: Serial Data
+   ) port map (
+         i_sqa_dac_data       => i_sqa_dac_data       , -- in     std_logic                                 ; --! SQUID AMP DAC: Serial Data
          i_sqa_dac_sclk       => i_sqa_dac_sclk       , -- in     std_logic                                 ; --! SQUID AMP DAC: Serial Clock
          i_sqa_dac_snc_l_n    => i_sqa_dac_snc_l_n    , -- in     std_logic                                 ; --! SQUID AMP DAC: Frame Synchronization DAC LSB ('0' = Active, '1' = Inactive)
          i_sqa_dac_snc_o_n    => i_sqa_dac_snc_o_n    , -- in     std_logic                                 ; --! SQUID AMP DAC: Frame Synchronization DAC Offset ('0' = Active, '1' = Inactive)
@@ -145,17 +144,16 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   ADC model management
    -- ------------------------------------------------------------------------------------------------------
-   I_adc_model: entity work.adc_ad9254_model generic map
-   (     g_VREF               => g_SQM_ADC_VREF       , -- real                                             ; --! Voltage reference (Volt)
+   I_adc_model: entity work.adc_ad9254_model generic map (
+         g_VREF               => g_SQM_ADC_VREF       , -- real                                             ; --! Voltage reference (Volt)
          g_CLK_PER            => g_CLK_ADC_PER        , -- time                                             ; --! Clock period (>= 6700 ps)
          g_TIME_TPD           => g_TIM_ADC_TPD          -- time                                               --! Time: Data Propagation Delay
-   ) port map
-   (     i_clk                => i_clk_sqm_adc        , -- in     std_logic                                 ; --! Clock
+   ) port map (
+         i_clk                => i_clk_sqm_adc        , -- in     std_logic                                 ; --! Clock
          i_pwdn               => i_sqm_adc_pwdn       , -- in     std_logic                                 ; --! Power down ('0' = Inactive, '1' = Active)
          i_oeb_n              => '0'                  , -- in     std_logic                                 ; --! Output enable ('0' = Active, '1' = Inactive)
-         b_sdio_dcs           => b_sqm_adc_spi_sdio   , -- inout  std_logic                                 ; --! SPI Data in/out, Duty Cycle stabilizer select ('0' = Disable, '1' = Enable)
+         o_sdio_dcs           => o_sqm_adc_spi_sdio   , -- out    std_logic                                 ; --! SPI Data in/out, Duty Cycle stabilizer select ('0' = Disable, '1' = Enable)
          i_sclk_dfs           => i_sqm_adc_spi_sclk   , -- in     std_logic                                 ; --! SPI Serial clock, Data Format select ('0' = Binary, '1' = Twos complement)
-         i_csb_n              => i_sqm_adc_spi_cs_n   , -- in     std_logic                                 ; --! SPI Chip Select ('0' = Active, '1' = Inactive)
 
          i_delta_vin          => o_sqm_adc_ana        , -- in     real                                      ; --! Analog voltage (-g_VREF <= Vin+ - Vin- < g_VREF)
          o_dco                => open                 , -- out    std_logic                                 ; --! Data clock

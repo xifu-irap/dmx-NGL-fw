@@ -27,10 +27,10 @@
 library ieee;
 use     ieee.std_logic_1164.all;
 
-entity cmd_im_ck is generic
-   (     g_CK_CMD_DEF         : std_logic                                                                     --! Clock switch command default value at reset
-   ); port
-   (     i_rst                : in     std_logic                                                            ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+entity cmd_im_ck is generic (
+         g_CK_CMD_DEF         : std_logic                                                                     --! Clock switch command default value at reset
+   ); port (
+         i_rst                : in     std_logic                                                            ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                : in     std_logic                                                            ; --! System Clock
          i_cmd_ck_ena         : in     std_logic                                                            ; --! Clock switch command enable  ('0' = Inactive, '1' = Active)
          i_cmd_ck_dis         : in     std_logic                                                            ; --! Clock switch command disable ('0' = Inactive, '1' = Active)

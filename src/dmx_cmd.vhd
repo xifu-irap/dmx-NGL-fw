@@ -34,8 +34,8 @@ use     work.pkg_func_math.all;
 use     work.pkg_project.all;
 use     work.pkg_ep_cmd.all;
 
-entity dmx_cmd is port
-   (     i_rst                : in     std_logic                                                            ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+entity dmx_cmd is port (
+         i_rst                : in     std_logic                                                            ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                : in     std_logic                                                            ; --! Clock
 
          i_sync_rs            : in     std_logic                                                            ; --! Pixel sequence synchronization, synchronized on System Clock
@@ -63,12 +63,12 @@ signal   sync_rs_r            : std_logic                                       
 signal   ck_pls_cnt           : std_logic_vector(c_CK_PLS_CNT_S-1 downto 0)                                 ; --! System clock pulse counter
 signal   pixel_pos            : std_logic_vector( c_PIXEL_POS_S-1 downto 0)                                 ; --! Pixel position
 
-signal   cmd_ck_adc_ena       : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! SQUID MUX ADC Clocks switch commands enable (for each column: '0'=Inactive, '1'=Active)
-signal   cmd_ck_sqm_dac_ena   : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! SQUID MUX DAC Clocks switch commands enable (for each column: '0'=Inactive, '1'=Active)
+signal   cmd_ck_adc_ena       : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! SQUID MUX ADC Clocks switch commands enable (for each column: '0'=Inactive,'1'=Active)
+signal   cmd_ck_sqm_dac_ena   : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! SQUID MUX DAC Clocks switch commands enable (for each column: '0'=Inactive,'1'=Active)
 
-attribute syn_preserve        : boolean                                                                     ;
-attribute syn_preserve          of sync_rs_r             : signal is true                                   ;
-attribute syn_preserve          of o_sync_re             : signal is true                                   ;
+attribute syn_preserve        : boolean                                                                     ; --! Disabling signal optimization
+attribute syn_preserve          of sync_rs_r             : signal is true                                   ; --! Disabling signal optimization: sync_rs_r
+attribute syn_preserve          of o_sync_re             : signal is true                                   ; --! Disabling signal optimization: o_sync_re
 
 begin
 

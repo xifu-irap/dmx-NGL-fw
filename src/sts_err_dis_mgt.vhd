@@ -32,8 +32,8 @@ library work;
 use     work.pkg_project.all;
 use     work.pkg_ep_cmd.all;
 
-entity sts_err_dis_mgt is port
-   (     i_rst                : in     std_logic                                                            ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+entity sts_err_dis_mgt is port (
+         i_rst                : in     std_logic                                                            ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                : in     std_logic                                                            ; --! Clock
 
          i_aqmde_dmp_cmp      : in     std_logic                                                            ; --! Telemetry mode, status "Dump" compared ('0' = Inactive, '1' = Active)

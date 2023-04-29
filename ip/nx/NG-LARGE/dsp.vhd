@@ -35,8 +35,8 @@ use     work.pkg_fpga_tech.all;
 library nx;
 use     nx.nxpackage.all;
 
-entity dsp is generic
-   (     g_PORTA_S            : integer                                                                     ; --! Port A bus size (<= c_MULT_ALU_PORTA_S)
+entity dsp is generic (
+         g_PORTA_S            : integer                                                                     ; --! Port A bus size (<= c_MULT_ALU_PORTA_S)
          g_PORTB_S            : integer                                                                     ; --! Port B bus size (<= c_MULT_ALU_PORTB_S)
          g_PORTC_S            : integer                                                                     ; --! Port C bus size (<= c_MULT_ALU_PORTC_S)
          g_RESULT_S           : integer                                                                     ; --! Result bus size (<= c_MULT_ALU_RESULT_S)
@@ -48,8 +48,8 @@ entity dsp is generic
                                                                                                               --!     signed: range from -2**(g_SAT_RANK) to 2**(g_SAT_RANK)   - 1
          g_PRE_ADDER_OP       : bit                                                                         ; --! Pre-Adder operation     ('0' = add,    '1' = subtract)
          g_MUX_C_CZ           : bit                                                                           --! Multiplexer ALU operand ('0' = Port C, '1' = Cascaded Result Input)
-   ); port
-   (     i_rst                : in     std_logic                                                            ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+   ); port (
+         i_rst                : in     std_logic                                                            ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                : in     std_logic                                                            ; --! Clock
 
          i_carry              : in     std_logic                                                            ; --! Carry In
@@ -98,8 +98,8 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   NX_DSP_L_SPLIT IpCore instantiation
    -- ------------------------------------------------------------------------------------------------------
-   I_dsp: entity nx.nx_dsp_l_split generic map
-   (     SIGNED_MODE          => g_DATA_TYPE          , -- bit                                              ; --! Data type                     ('0' = unsigned,           '1' = signed)
+   I_dsp: entity nx.nx_dsp_l_split generic map (
+         SIGNED_MODE          => g_DATA_TYPE          , -- bit                                              ; --! Data type                     ('0' = unsigned,           '1' = signed)
          PRE_ADDER_OP         => g_PRE_ADDER_OP       , -- bit                                              ; --! Pre-Adder operation           ('0' = add,                '1' = subtract)
          ALU_DYNAMIC_OP       => c_MULT_ALU_PRM_DIS   , -- bit                                              ; --! ALU Dynamic operation enable  ('0' = ALU_STAT_OP used,   '1' = Port D LSB used)
          ALU_OP               => c_MULT_ALU_OP_ADDC   , -- bit_vector(MULT_ALU_OP_S-1 downto 0)             ; --! ALU Static operation
@@ -151,8 +151,8 @@ begin
          ENABLE_PR_OV_RST     => c_MULT_ALU_PRM_ENA   , -- bit                                              ; --! Overflow                   register reset ('0' = Disable, '1' = Enable)
          ENABLE_PR_Z_RST      => c_MULT_ALU_PRM_ENA     -- bit                                                --! Multiplexer ALU            register reset ('0' = Disable, '1' = Enable)
 
-   )     port map
-   (     ck                   => i_clk                , -- in     std_logic                                 ; --! Clock
+   )     port map (
+         ck                   => i_clk                , -- in     std_logic                                 ; --! Clock
          r                    => i_rst                , -- in     std_logic                                 ; --! Reset pipeline registers ('0' = Inactive, '1' = Active)
          rz                   => i_rst                , -- in     std_logic                                 ; --! Reset Z output register  ('0' = Inactive, '1' = Active)
          we                   => '1'                  , -- in     std_logic                                 ; --! Write Enable ('0' = Internal registers frozen, '1' = Normal operation)
@@ -182,4 +182,4 @@ begin
 
    o_z <= result(g_RESULT_S+g_RESULT_LSB_POS-1 downto g_RESULT_LSB_POS);
 
-end architecture rtl;
+end architecture RTL;

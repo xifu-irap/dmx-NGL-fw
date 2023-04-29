@@ -34,23 +34,26 @@ use     work.pkg_func_math.all;
 use     work.pkg_project.all;
 use     work.pkg_ep_cmd.all;
 
-entity mem_in_gen is generic
-   (     g_MEM_ADD_S          : integer                                                                     ; --! Memory address size
-         g_MEM_DATA_S         : integer                                                                     ; --! Memory data size
+entity mem_in_gen is generic (
+         g_MEM_ADD_S          : integer                                                                     ; --! Memory address size
+         g_MEM_ADD_OFF        : std_logic_vector(c_EP_SPI_WD_S-1 downto 0)                                  ; --! Memory address offset
          g_MEM_ADD_END        : integer                                                                       --! Memory address end
-   ); port
-   (     i_rst                : in     std_logic                                                            ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+   ); port (
+         i_rst                : in     std_logic                                                            ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                : in     std_logic                                                            ; --! System Clock
 
          i_col_nb             : in     std_logic_vector(log2_ceil(c_NB_COL)-1 downto 0)                     ; --! Column number
          i_ep_cmd_rx_wd_add_r : in     std_logic_vector( g_MEM_ADD_S-1 downto 0)                            ; --! EP command receipted: address word, read/write bit cleared, registered
-         i_ep_cmd_rx_wd_dta_r : in     std_logic_vector(g_MEM_DATA_S-1 downto 0)                            ; --! EP command receipted: data word, registered
          i_ep_cmd_rx_rw_r     : in     std_logic                                                            ; --! EP command receipted: read/write bit, registered
          i_ep_cmd_rx_ner_ry_r : in     std_logic                                                            ; --! EP command receipted with no error ready, registered ('0'= Not ready, '1'= Ready)
 
          i_cs_rg              : in     std_logic                                                            ; --! Chip select register ('0' = Inactive, '1' = Active)
 
-         o_mem_in             : out    t_mem_arr(0 to c_NB_COL-1)                                           ; --! Memory inputs
+         o_mem_in_add         : out    std_logic_vector(g_MEM_ADD_S-1 downto 0)                             ; --! Memory inputs: Address
+         o_mem_in_we          : out    std_logic                                                            ; --! Memory inputs: Write enable ('0' = Inactive, '1' = Active)
+         o_mem_in_cs          : out    std_logic_vector(c_NB_COL-1 downto 0)                                ; --! Memory inputs: Chip select  ('0' = Inactive, '1' = Active)
+         o_mem_in_pp          : out    std_logic_vector(c_NB_COL-1 downto 0)                                ; --! Memory inputs: Ping-pong buffer bit
+
          o_cs_data_rd         : out    std_logic_vector(c_NB_COL-1 downto 0)                                  --! Chip select data read ('0' = Inactive, '1' = Active)
    );
 end entity mem_in_gen;
@@ -58,24 +61,27 @@ end entity mem_in_gen;
 architecture RTL of mem_in_gen is
 begin
 
-   G_column_mgt : for k in 0 to o_mem_in'high generate
+   o_mem_in_add <= std_logic_vector(signed(i_ep_cmd_rx_wd_add_r) - signed(g_MEM_ADD_OFF(o_mem_in_add'high downto 0)));
+   o_mem_in_we  <= not(i_ep_cmd_rx_rw_r xor c_EP_CMD_ADD_RW_W);
+
+   G_column_mgt : for k in 0 to c_NB_COL-1 generate
    begin
 
       P_mem_in : process (i_rst, i_clk)
       begin
 
          if i_rst = '1' then
-            o_mem_in(k).cs <= '0';
-            o_mem_in(k).pp <= '0';
+            o_mem_in_cs(k) <= '0';
+            o_mem_in_pp(k) <= '0';
 
          elsif rising_edge(i_clk) then
-            if i_col_nb = std_logic_vector(to_unsigned(k, log2_ceil(o_mem_in'length))) then
+            if i_col_nb = std_logic_vector(to_unsigned(k, log2_ceil(c_NB_COL))) then
 
                if i_cs_rg = '1' then
-                  o_mem_in(k).cs <= i_ep_cmd_rx_ner_ry_r;
+                  o_mem_in_cs(k) <= i_ep_cmd_rx_ner_ry_r;
 
-                  if i_ep_cmd_rx_wd_add_r = std_logic_vector(to_unsigned(g_MEM_ADD_END, g_MEM_ADD_S)) then
-                     o_mem_in(k).pp <= i_ep_cmd_rx_ner_ry_r and not(i_ep_cmd_rx_rw_r xor c_EP_CMD_ADD_RW_W);
+                  if o_mem_in_add = std_logic_vector(to_unsigned(g_MEM_ADD_END, g_MEM_ADD_S)) then
+                     o_mem_in_pp(k) <= i_ep_cmd_rx_ner_ry_r and not(i_ep_cmd_rx_rw_r xor c_EP_CMD_ADD_RW_W);
 
                   end if;
 
@@ -87,10 +93,7 @@ begin
 
       end process P_mem_in;
 
-      o_mem_in(k).add    <= i_ep_cmd_rx_wd_add_r;
-      o_mem_in(k).we     <= not(i_ep_cmd_rx_rw_r xor c_EP_CMD_ADD_RW_W);
-      o_mem_in(k).data_w <= i_ep_cmd_rx_wd_dta_r;
-      o_cs_data_rd(k)    <= o_mem_in(k).cs and not(o_mem_in(k).we);
+      o_cs_data_rd(k) <= o_mem_in_cs(k) and not(o_mem_in_we);
 
    end generate G_column_mgt;
 

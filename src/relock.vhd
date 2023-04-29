@@ -35,8 +35,8 @@ use     work.pkg_func_math.all;
 use     work.pkg_project.all;
 use     work.pkg_ep_cmd.all;
 
-entity relock is port
-   (     i_rst                : in     std_logic                                                            ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+entity relock is port (
+         i_rst                : in     std_logic                                                            ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                : in     std_logic                                                            ; --! Clock
 
          i_sqm_dta_pixel_pos  : in     std_logic_vector(    c_MUX_FACT_S-1 downto 0)                        ; --! SQUID MUX Data error corrected pixel position
@@ -60,23 +60,10 @@ entity relock is port
 end entity relock;
 
 architecture RTL of relock is
-
-   function mux_stage_offset (
-         k : integer                                                                                          -- Index
-   ) return integer is
-   begin
-
-      if k = 0 then
-         return 0;
-
-      else
-         return c_DLFLG_MX_STIN(k-1);
-
-      end if;
-
-   end function;
-
 constant c_FF_ERR_COR_CS_NB   : integer := 4                                                                ; --! Flip-Flop number used for SQUID MUX Data error corrected chip select register
+constant c_DLCNT_SAT          : integer := 2**c_DFLD_DLCNT_PIX_S - 1                                        ; --! Delock counter saturation value
+
+signal   smfb0_rl_rs          : std_logic_vector(c_SQM_DATA_FBK_S-1 downto 0)                               ; --! SQUID MUX feedback value in open loop for relock resized data stalled on MSB
 
 signal   sqm_dta_err_cor_cs_r : std_logic_vector(c_FF_ERR_COR_CS_NB-1 downto 0)                             ; --! SQUID MUX Data error corrected chip select register
 signal   diff_sqm_dta_smfb0   : std_logic_vector(c_SQM_DATA_FBK_S     downto 0)                             ; --! SQUID MUX Data error corrected minus SQUID MUX feedback value in open loop
@@ -118,6 +105,17 @@ begin
    end process P_sig_r;
 
    -- ------------------------------------------------------------------------------------------------------
+   --!   SQUID MUX feedback value in open loop for relock resized data stalled on MSB
+   -- ------------------------------------------------------------------------------------------------------
+   I_smfb0_rl_rs : entity work.resize_stall_msb generic map (
+         g_DATA_S             => c_DFLD_SMFB0_PIX_S   , -- integer                                          ; --! Data input bus size
+         g_DATA_STALL_MSB_S   => c_SQM_DATA_FBK_S       -- integer                                            --! Data stalled on Mean Significant Bit bus size
+   ) port map (
+         i_data               => i_smfb0_rl           , -- in     slv(          g_DATA_S-1 downto 0)        ; --! Data
+         o_data_stall_msb     => smfb0_rl_rs            -- out    slv(g_DATA_STALL_MSB_S-1 downto 0)          --! Data stalled on Mean Significant Bit
+   );
+
+   -- ------------------------------------------------------------------------------------------------------
    --!   Difference between SQUID MUX Data error corrected and SQUID MUX feedback value in open loop
    --    @Req : DRE-DMX-FW-REQ-0400
    -- ------------------------------------------------------------------------------------------------------
@@ -130,7 +128,7 @@ begin
       elsif rising_edge(i_clk) then
          if i_sqm_dta_err_cor_cs = '1' then
             diff_sqm_dta_smfb0  <= std_logic_vector(resize(signed(i_sqm_dta_err_cor), diff_sqm_dta_smfb0'length) -
-                                                    resize(signed(resize_stall_msb(i_smfb0_rl, c_SQM_DATA_FBK_S)), diff_sqm_dta_smfb0'length));
+                                                    resize(signed(smfb0_rl_rs), diff_sqm_dta_smfb0'length));
          end if;
 
       end if;
@@ -209,13 +207,13 @@ begin
    -- @Req : DRE-DMX-FW-REQ-0435
    -- @Req : REG_CY_DELOCK_COUNTERS
    -- ------------------------------------------------------------------------------------------------------
-   I_mem_dlcnt_val: entity work.dmem_ecc generic map
-   (     g_RAM_TYPE           => c_RAM_TYPE_DATA_TX   , -- integer                                          ; --! Memory type ( 0  = Data transfer,  1  = Parameters storage)
+   I_mem_dlcnt_val: entity work.dmem_ecc generic map (
+         g_RAM_TYPE           => c_RAM_TYPE_DATA_TX   , -- integer                                          ; --! Memory type ( 0  = Data transfer,  1  = Parameters storage)
          g_RAM_ADD_S          => c_MEM_DLCNT_ADD_S    , -- integer                                          ; --! Memory address bus size (<= c_RAM_ECC_ADD_S)
          g_RAM_DATA_S         => c_DFLD_DLCNT_PIX_S   , -- integer                                          ; --! Memory data bus size (<= c_RAM_DATA_S)
          g_RAM_INIT           => c_EP_CMD_DEF_DLCNT     -- t_int_arr                                          --! Memory content at initialization
-   ) port map
-   (     i_a_rst              => i_rst                , -- in     std_logic                                 ; --! Memory port A: registers reset ('0' = Inactive, '1' = Active)
+   ) port map (
+         i_a_rst              => i_rst                , -- in     std_logic                                 ; --! Memory port A: registers reset ('0' = Inactive, '1' = Active)
          i_a_clk              => i_clk                , -- in     std_logic                                 ; --! Memory port A: main clock
          i_a_clk_shift        => '0'                  , -- in     std_logic                                 ; --! Memory port A: 90 degrees shifted clock (used for memory content correction)
 
@@ -286,7 +284,7 @@ begin
                dlcnt_wr <= (others => '0');
 
             elsif cnt_thr_exd_rd_cmp = '1' and
-                  (dlcnt_rd /= std_logic_vector(to_unsigned(2**dlcnt_rd'length - 1, dlcnt_rd'length))) then
+                  (dlcnt_rd /= std_logic_vector(to_unsigned(c_DLCNT_SAT, dlcnt_rd'length))) then
                dlcnt_wr <= std_logic_vector(unsigned(dlcnt_rd) + 1);
 
             else
@@ -331,24 +329,25 @@ begin
 
    end generate G_dlflag;
 
-   dlflag(c_MUX_FACT to c_DLFLG_MX_STIN(0)-1) <= (others => (others => '0'));
+   dlflag(c_MUX_FACT to c_DLFLG_MX_STIN(1)-1) <= (others => (others => '0'));
 
    G_mux_stage: for k in 0 to c_DLFLG_MX_STNB-1 generate
    begin
 
-      G_mux_nb: for l in 0 to c_DLFLG_MX_STIN(k+1) - c_DLFLG_MX_STIN(k) - 1 generate
+      G_mux_nb: for l in 0 to c_DLFLG_MX_STIN(k+2) - c_DLFLG_MX_STIN(k+1) - 1 generate
       begin
 
-         I_multiplexer: entity work.multiplexer generic map
-         (  g_DATA_S          => 1                    , -- integer                                          ; --! Data bus size
+         I_multiplexer: entity work.multiplexer generic map (
+            g_DATA_S          => 1                    , -- integer                                          ; --! Data bus size
             g_NB              => c_DLFLG_MX_INNB(k)     -- integer                                            --! Data bus number
-         ) port map
-         (  i_rst             => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+         ) port map (
+            i_rst             => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
             i_clk             => i_clk                , -- in     std_logic                                 ; --! System Clock
-            i_data            => dlflag(l   * c_DLFLG_MX_INNB(k) + mux_stage_offset(k)
-                                    to (l+1)* c_DLFLG_MX_INNB(k) + mux_stage_offset(k)-1)                   , --! Data buses
+            i_data            => dlflag(
+                                 l   *c_DLFLG_MX_INNB(k) + c_DLFLG_MX_STIN(k) to
+                                (l+1)*c_DLFLG_MX_INNB(k) + c_DLFLG_MX_STIN(k)-1)                            , --! Data buses
             i_cs              => (others => '1')      , -- in     std_logic_vector(g_NB-1 downto 0)         ; --! Chip selects ('0' = Inactive, '1' = Active)
-            o_data_mux        => dlflag(c_DLFLG_MX_STIN(k)+l), -- out  slv(g_DATA_S-1 downto 0)             ; --! Multiplexed data
+            o_data_mux        => dlflag(c_DLFLG_MX_STIN(k+1)+l), -- out  slv(g_DATA_S-1 downto 0)           ; --! Multiplexed data
             o_cs_or           => open                   -- out    std_logic                                   --! Chip selects "or-ed"
          );
 

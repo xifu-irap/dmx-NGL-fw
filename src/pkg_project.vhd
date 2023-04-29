@@ -231,11 +231,11 @@ constant c_TST_PAT_COEF_NB    : integer   := 3                                  
 constant c_TST_PAT_RGN_NB     : integer   := 5                                                              ; --! Test pattern: region number
 
 constant c_ERR_NIN_MX_STNB    : integer   := 2                                                              ; --! Error parameter to read not initialized yet: Multiplexer stage number
-constant c_ERR_NIN_MX_STIN    : t_int_arr(0 to c_ERR_NIN_MX_STNB)   := (16, 20, 21)                         ; --! Error parameter to read not initialized yet: Inputs by multiplexer stage (accumulated)
+constant c_ERR_NIN_MX_STIN    : t_int_arr(0 to c_ERR_NIN_MX_STNB+1) := ( 0, 16, 20, 21)                     ; --! Error parameter to read not initialized yet: Inputs by multiplexer stage (accumulated)
 constant c_ERR_NIN_MX_INNB    : t_int_arr(0 to c_ERR_NIN_MX_STNB-1) := ( 4,  4)                             ; --! Error parameter to read not initialized yet: Inputs by multiplexer
 
 constant c_DLFLG_MX_STNB      : integer   := 3                                                              ; --! Delock flag: Multiplexer stage number
-constant c_DLFLG_MX_STIN      : t_int_arr(0 to c_DLFLG_MX_STNB)   := (36, 45, 48, 49)                       ; --! Delock flag: Inputs by multiplexer stage (accumulated)
+constant c_DLFLG_MX_STIN      : t_int_arr(0 to c_DLFLG_MX_STNB+1) := ( 0, 36, 45, 48, 49)                   ; --! Delock flag: Inputs by multiplexer stage (accumulated)
 constant c_DLFLG_MX_INNB      : t_int_arr(0 to c_DLFLG_MX_STNB-1) := ( 4,  3,  3)                           ; --! Delock flag: Inputs by multiplexer
 
    -- ------------------------------------------------------------------------------------------------------
@@ -253,23 +253,24 @@ constant c_MEM_DUMP_ADD_S     : integer := c_RAM_ECC_ADD_S                      
 
 constant c_ADC_SMP_AVE_ADD_S  : integer := c_SQM_ADC_SMP_AVE_S                                              ; --! ADC sample number for averaging table address bus size
 constant c_ASP_CF_S           : integer := c_MULT_ALU_PORTA_S - 1                                           ; --! ADC sample number for averaging coefficient bus size (<= c_MULT_ALU_PORTA_S)
+constant c_ASP_CF_FACT        : integer := 2**(c_ASP_CF_S-1)                                                ; --! ADC sample number for averaging factor
 constant c_ADC_SMP_AVE_TAB    : t_slv_arr(0 to 2**c_ADC_SMP_AVE_ADD_S-1)(c_ASP_CF_S-1 downto 0) :=
-                                (std_logic_vector(to_unsigned(div_round(2**(c_ASP_CF_S-1),  1),c_ASP_CF_S)),
-                                 std_logic_vector(to_unsigned(div_round(2**(c_ASP_CF_S-1),  2),c_ASP_CF_S)),
-                                 std_logic_vector(to_unsigned(div_round(2**(c_ASP_CF_S-1),  3),c_ASP_CF_S)),
-                                 std_logic_vector(to_unsigned(div_round(2**(c_ASP_CF_S-1),  4),c_ASP_CF_S)),
-                                 std_logic_vector(to_unsigned(div_round(2**(c_ASP_CF_S-1),  5),c_ASP_CF_S)),
-                                 std_logic_vector(to_unsigned(div_round(2**(c_ASP_CF_S-1),  6),c_ASP_CF_S)),
-                                 std_logic_vector(to_unsigned(div_round(2**(c_ASP_CF_S-1),  7),c_ASP_CF_S)),
-                                 std_logic_vector(to_unsigned(div_round(2**(c_ASP_CF_S-1),  8),c_ASP_CF_S)),
-                                 std_logic_vector(to_unsigned(div_round(2**(c_ASP_CF_S-1),  9),c_ASP_CF_S)),
-                                 std_logic_vector(to_unsigned(div_round(2**(c_ASP_CF_S-1), 10),c_ASP_CF_S)),
-                                 std_logic_vector(to_unsigned(div_round(2**(c_ASP_CF_S-1), 11),c_ASP_CF_S)),
-                                 std_logic_vector(to_unsigned(div_round(2**(c_ASP_CF_S-1), 12),c_ASP_CF_S)),
-                                 std_logic_vector(to_unsigned(div_round(2**(c_ASP_CF_S-1), 13),c_ASP_CF_S)),
-                                 std_logic_vector(to_unsigned(div_round(2**(c_ASP_CF_S-1), 14),c_ASP_CF_S)),
-                                 std_logic_vector(to_unsigned(div_round(2**(c_ASP_CF_S-1), 15),c_ASP_CF_S)),
-                                 std_logic_vector(to_unsigned(div_round(2**(c_ASP_CF_S-1), 16),c_ASP_CF_S))); --! ADC sample number for averaging table
+                                (std_logic_vector(to_unsigned(div_round(c_ASP_CF_FACT,  1), c_ASP_CF_S)),
+                                 std_logic_vector(to_unsigned(div_round(c_ASP_CF_FACT,  2), c_ASP_CF_S)),
+                                 std_logic_vector(to_unsigned(div_round(c_ASP_CF_FACT,  3), c_ASP_CF_S)),
+                                 std_logic_vector(to_unsigned(div_round(c_ASP_CF_FACT,  4), c_ASP_CF_S)),
+                                 std_logic_vector(to_unsigned(div_round(c_ASP_CF_FACT,  5), c_ASP_CF_S)),
+                                 std_logic_vector(to_unsigned(div_round(c_ASP_CF_FACT,  6), c_ASP_CF_S)),
+                                 std_logic_vector(to_unsigned(div_round(c_ASP_CF_FACT,  7), c_ASP_CF_S)),
+                                 std_logic_vector(to_unsigned(div_round(c_ASP_CF_FACT,  8), c_ASP_CF_S)),
+                                 std_logic_vector(to_unsigned(div_round(c_ASP_CF_FACT,  9), c_ASP_CF_S)),
+                                 std_logic_vector(to_unsigned(div_round(c_ASP_CF_FACT, 10), c_ASP_CF_S)),
+                                 std_logic_vector(to_unsigned(div_round(c_ASP_CF_FACT, 11), c_ASP_CF_S)),
+                                 std_logic_vector(to_unsigned(div_round(c_ASP_CF_FACT, 12), c_ASP_CF_S)),
+                                 std_logic_vector(to_unsigned(div_round(c_ASP_CF_FACT, 13), c_ASP_CF_S)),
+                                 std_logic_vector(to_unsigned(div_round(c_ASP_CF_FACT, 14), c_ASP_CF_S)),
+                                 std_logic_vector(to_unsigned(div_round(c_ASP_CF_FACT, 15), c_ASP_CF_S)),
+                                 std_logic_vector(to_unsigned(div_round(c_ASP_CF_FACT, 16), c_ASP_CF_S)))   ; --! ADC sample number for averaging table
 
    -- ------------------------------------------------------------------------------------------------------
    --    SQUID MUX DAC parameters
@@ -304,7 +305,7 @@ constant c_SQA_DAC_MDL_POINT  : integer := 2**(c_SQA_DAC_DATA_S-1)              
 constant c_SAM_SYNC_DATA_NPER : integer := c_DAC_SYNC_RDY_NPER + c_DAC_SYNC_RE_NPER                         ; --! MUX clock period number for stalling analog output to pixel sequence synchronization
 
 constant c_SAD_PRC_NPER       : integer := (c_SQA_SPI_SCLK_L + c_SQA_SPI_SCLK_H) *  c_SQA_SPI_SER_WD_S + 3  ; --! DAC clock period number for sending data to DAC
-constant c_SAD_SYNC_DATA_NPER : integer := c_DAC_SYNC_RDY_NPER + c_DAC_SYNC_RE_NPER + c_SAD_PRC_NPER        ; --! DAC clock period number for stalling sending data end to pixel sequence synchronization
+constant c_SAD_SYNC_DATA_NPER : integer := c_DAC_SYNC_RDY_NPER + c_DAC_SYNC_RE_NPER + c_SAD_PRC_NPER        ; --! DAC clock period number for stalling sending data end to pixel sequence sync.
 
 constant c_SQA_PLS_CNT_MX_VAL : integer := c_PIXEL_DAC_NB_CYC - 2                                           ; --! SQUID AMP, Pulse counter: maximal value
 constant c_SQA_PLS_CNT_INIT   : integer := c_SQA_PLS_CNT_MX_VAL - c_SAM_SYNC_DATA_NPER                      ; --! SQUID AMP, Pulse counter: initialization value
