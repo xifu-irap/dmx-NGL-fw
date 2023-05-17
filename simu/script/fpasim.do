@@ -77,16 +77,16 @@ vlog -work fpasim ${VIVADO_DIR}/glbl.v
 
 ###################### Source files ######################
 
-vcom -work csv_lib -2008 ${PR_DIR}/lib/csv/csv/vhdl/src/pkg_csv_file.vhd
+vcom -work csv_lib -2008 ${PR_DIR}/simu/lib/csv/csv/vhdl/src/pkg_csv_file.vhd
 
 vcom -work fpasim  -93 \
 "${PR_DIR}/ip/xilinx/coregen/fpasim_regdecode_top_ila_0/sim/fpasim_regdecode_top_ila_0.vhd" \
 
 vcom -work fpasim  -93 \
 "${PR_DIR}/src/hdl/utils/others/pipeliner.vhd" \
-"${PR_DIR}/src/hdl/sim/ads62p49/core/ads62p49_convert.vhd" \
-"${PR_DIR}/src/hdl/sim/ads62p49/core/ads62p49_io.vhd" \
-"${PR_DIR}/src/hdl/sim/ads62p49/ads62p49_top.vhd" \
+"${PR_DIR}/simu/cosim/ads62p49/core/ads62p49_convert.vhd" \
+"${PR_DIR}/simu/cosim/ads62p49/core/ads62p49_io.vhd" \
+"${PR_DIR}/simu/cosim/ads62p49/ads62p49_top.vhd" \
 
 vcom -work fpasim  -2008 \
 "${PR_DIR}/src/hdl/utils/pkg_utils.vhd" \
@@ -96,6 +96,7 @@ vcom -work fpasim  -93 \
 
 vcom -work fpasim  -2008 \
 "${PR_DIR}/src/hdl/utils/math/sub_sfixed.vhd" \
+"${PR_DIR}/src/hdl/utils/math/mult_add_sfixed.vhd" \
 
 vcom -work fpasim  -93 \
 "${PR_DIR}/ip/xilinx/xpm/ram/sdpram.vhd" \
@@ -105,17 +106,16 @@ vcom -work fpasim  -93 \
 
 vcom -work fpasim  -2008 \
 "${PR_DIR}/src/hdl/utils/math/mult_sfixed.vhd" \
-"${PR_DIR}/src/hdl/utils/math/mult_add_sfixed.vhd" \
 
 vcom -work fpasim  -93 \
 "${PR_DIR}/src/hdl/utils/error/one_error_latch.vhd" \
 "${PR_DIR}/src/hdl/fpasim/amp_squid/core/amp_squid.vhd" \
 "${PR_DIR}/src/hdl/fpasim/amp_squid/amp_squid_top.vhd" \
 "${PR_DIR}/src/hdl/clocking/clocking_top.vhd" \
-"${PR_DIR}/src/hdl/sim/dac3283/core/dac3283_convert.vhd" \
-"${PR_DIR}/src/hdl/sim/dac3283/core/dac3283_demux.vhd" \
-"${PR_DIR}/src/hdl/sim/dac3283/core/dac3283_io.vhd" \
-"${PR_DIR}/src/hdl/sim/dac3283/dac3283_top.vhd" \
+"${PR_DIR}/simu/cosim/dac3283/core/dac3283_convert.vhd" \
+"${PR_DIR}/simu/cosim/dac3283/core/dac3283_demux.vhd" \
+"${PR_DIR}/simu/cosim/dac3283/core/dac3283_io.vhd" \
+"${PR_DIR}/simu/cosim/dac3283/dac3283_top.vhd" \
 
 vcom -work fpasim  -2008 \
 "${PR_DIR}/ip/xilinx/xpm/cdc/single_bit_synchronizer.vhd" \
@@ -226,14 +226,14 @@ vcom -work fpasim  -93 \
 "${PR_DIR}/src/hdl/spi/core/spi_device_select.vhd" \
 "${PR_DIR}/src/hdl/spi/spi_top.vhd" \
 "${PR_DIR}/src/hdl/system_fpasim_top.vhd" \
-"${PR_DIR}/src/hdl/sim/fpga_system_fpasim.vhd" \
+"${PR_DIR}/simu/cosim/fpga_system_fpasim.vhd" \
 "${OPAL_DIR}/simu/parameters.vhd" \
 
 vcom -work opal_kelly_lib  -2008 \
-"${PR_DIR}/lib/opal_kelly/opal_kelly/vhdl/src/pkg_front_panel.vhd" \
+"${PR_DIR}/simu/lib/opal_kelly/opal_kelly/vhdl/src/pkg_front_panel.vhd" \
 
 vcom -work common_lib  -93 \
-"${PR_DIR}/lib/common/common/vhdl/src/pkg_common.vhd" \
+"${PR_DIR}/simu/lib/common/common/vhdl/src/pkg_common.vhd" \
 
 vcom -work fpasim  -93 \
 "${OPAL_DIR}/simu/mappings.vhd" \
@@ -245,4 +245,4 @@ vcom -work fpasim  -93 \
 "${OPAL_DIR}/simu/okWireIn.vhd" \
 "${OPAL_DIR}/simu/okWireOR.vhd" \
 "${OPAL_DIR}/simu/okWireOut.vhd" \
-"${PR_DIR}/src/hdl/sim/fpga_system_fpasim_top.vhd"
+"${PR_DIR}/simu/cosim/fpga_system_fpasim_top.vhd"

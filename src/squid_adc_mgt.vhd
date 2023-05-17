@@ -88,7 +88,7 @@ signal   aqmde_dmp_cmp_sys    : std_logic                                       
 signal   bxlgt_sys            : std_logic_vector(c_DFLD_BXLGT_COL_S-1 downto 0)                             ; --! ADC sample number for averaging register (System clock)
 signal   smpdl_sys            : std_logic_vector(c_DFLD_SMPDL_COL_S-1 downto 0)                             ; --! ADC sample delay register (System clock)
 
-signal   sync_r               : std_logic_vector(c_ADC_DATA_SYNC_NPER+c_FF_RSYNC_NB-1 downto 0)             ; --! Pixel sequence sync. register (R.E. detected = position sequence to the first pixel)
+signal   sync_r               : std_logic_vector(c_ADC_DATA_SYNC_NPER+c_FF_RSYNC_NB downto 0)               ; --! Pixel sequence sync. register (R.E. detected = position sequence to the first pixel)
 signal   aqmde_dmp_cmp_r      : std_logic_vector(c_FF_RSYNC_NB-1 downto 0)                                  ; --! Telemetry mode, status "Dump" compared register ('0' = Inactive, '1' = Active)
 signal   bxlgt_r              : t_slv_arr(0 to c_FF_RSYNC_NB-1)(c_DFLD_BXLGT_COL_S-1 downto 0)              ; --! ADC sample number for averaging register
 signal   smpdl_r              : t_slv_arr(0 to c_FF_RSYNC_NB-1)(c_DFLD_SMPDL_COL_S-1 downto 0)              ; --! ADC sample delay register
@@ -129,6 +129,7 @@ signal   mem_dump_flg_err     : std_logic                                       
 
 attribute syn_preserve        : boolean                                                                     ; --! Disabling signal optimization
 attribute syn_preserve          of rst_sqm_adc_dac_pad   : signal is true                                   ; --! Disabling signal optimization: rst_sqm_adc_dac_pad
+attribute syn_preserve          of sync_rs_sys           : signal is true                                   ; --! Disabling signal optimization: sync_rs_sys
 attribute syn_preserve          of sync_r                : signal is true                                   ; --! Disabling signal optimization: sync_r
 attribute syn_preserve          of sync_re               : signal is true                                   ; --! Disabling signal optimization: sync_re
 
@@ -159,16 +160,8 @@ begin
    begin
 
       if rst_sqm_adc_dac_pad = '1' then
-
-         if c_PAD_REG_SET_AUTH = '0' then
-            sqm_adc_data_r    <= (others => (others => '0'));
-            sqm_adc_oor_r     <= (others => '0');
-
-         else
-            sqm_adc_data_r    <= (others => c_I_SQM_ADC_DATA_DEF);
-            sqm_adc_oor_r     <= (others => c_I_SQM_ADC_OOR_DEF);
-
-         end if;
+         sqm_adc_data_r    <= (others => (others => '0'));
+         sqm_adc_oor_r     <= (others => '0');
 
       elsif rising_edge(i_clk_sqm_adc_dac) then
          sqm_adc_data_r    <= i_sqm_adc_data & sqm_adc_data_r(0 to sqm_adc_data_r'high-1);
@@ -181,26 +174,17 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   Inputs registered on system clock before resynchronization
    -- ------------------------------------------------------------------------------------------------------
-   I_sync_rs_sys: entity work.signal_reg generic map (
-      g_SIG_FF_NB          => 1                    , -- integer                                          ; --! Signal registered flip-flop number
-      g_SIG_DEF            => c_I_SYNC_DEF           -- std_logic                                          --! Signal registered default value at reset
-   )  port map (
-      i_reset              => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
-      i_clock              => i_clk                , -- in     std_logic                                 ; --! Clock
-
-      i_sig                => i_sync_rs            , -- in     std_logic                                 ; --! Signal
-      o_sig_r              => sync_rs_sys            -- out    std_logic                                   --! Signal registered
-   );
-
    P_reg_sys: process (i_rst, i_clk)
    begin
 
       if i_rst = '1' then
+         sync_rs_sys       <= c_I_SYNC_DEF;
          aqmde_dmp_cmp_sys <= '0';
          bxlgt_sys         <= c_EP_CMD_DEF_BXLGT;
          smpdl_sys         <= c_EP_CMD_DEF_SMPDL;
 
       elsif rising_edge(i_clk) then
+         sync_rs_sys       <= i_sync_rs;
          aqmde_dmp_cmp_sys <= i_aqmde_dmp_cmp;
          bxlgt_sys         <= i_bxlgt;
          smpdl_sys         <= i_smpdl;
@@ -244,7 +228,7 @@ begin
          bxlgt_sync           <= c_EP_CMD_DEF_BXLGT;
 
       elsif rising_edge(i_clk_sqm_adc_dac) then
-         sync_re              <= not(sync_r(c_FF_RSYNC_NB)) and sync_r(c_FF_RSYNC_NB-1);
+         sync_re              <= not(sync_r(c_FF_RSYNC_NB+1)) and sync_r(c_FF_RSYNC_NB);
          sync_re_adc_data     <= not(sync_r(sync_r'high))   and sync_r(sync_r'high-1);
 
          if sync_re_adc_data = '1' then

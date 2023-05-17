@@ -75,7 +75,7 @@ signal   sync_rs_sys          : std_logic                                       
 signal   saofl_sys            : std_logic_vector(c_DFLD_SAOFL_COL_S-1 downto 0)                             ; --! SQUID AMP offset DAC LSB register (System clock)
 signal   saodd_sys            : std_logic_vector(c_DFLD_SAODD_COL_S-1 downto 0)                             ; --! SQUID AMP offset DAC delay register (System clock)
 
-signal   sync_r               : std_logic_vector(c_FF_RSYNC_NB-1 downto 0)                                  ; --! Pixel sequence sync. register (R.E. detected = position sequence to the first pixel)
+signal   sync_r               : std_logic_vector(c_FF_RSYNC_NB downto 0)                                    ; --! Pixel sequence sync. register (R.E. detected = position sequence to the first pixel)
 signal   sync_re              : std_logic                                                                   ; --! Pixel sequence sync. rising edge
 signal   saofl_r              : t_slv_arr(0 to c_FF_RSYNC_NB  )(c_DFLD_SAOFC_COL_S-1 downto 0)              ; --! SQUID AMP offset DAC LSB register
 signal   sqa_fbk_mux_r        : t_slv_arr(0 to c_FF_RSYNC_NB-1)(c_DFLD_SAOFF_PIX_S-1 downto 0)              ; --! SQUID AMP Feedback Multiplexer register
@@ -111,6 +111,7 @@ signal   sqa_dac_sync_n       : std_logic                                       
 
 attribute syn_preserve        : boolean                                                                     ; --! Disabling signal optimization
 attribute syn_preserve          of rst_sqm_adc_dac_pad   : signal is true                                   ; --! Disabling signal optimization: rst_sqm_adc_dac_pad
+attribute syn_preserve          of sync_rs_sys           : signal is true                                   ; --! Disabling signal optimization: sync_rs_sys
 attribute syn_preserve          of sync_r                : signal is true                                   ; --! Disabling signal optimization: sync_r
 attribute syn_preserve          of sync_re               : signal is true                                   ; --! Disabling signal optimization: sync_re
 
@@ -136,25 +137,16 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   Inputs registered on system clock before resynchronization
    -- ------------------------------------------------------------------------------------------------------
-   I_sync_rs_sys: entity work.signal_reg generic map (
-      g_SIG_FF_NB          => 1                    , -- integer                                          ; --! Signal registered flip-flop number
-      g_SIG_DEF            => c_I_SYNC_DEF           -- std_logic                                          --! Signal registered default value at reset
-   )  port map (
-      i_reset              => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
-      i_clock              => i_clk                , -- in     std_logic                                 ; --! Clock
-
-      i_sig                => i_sync_rs            , -- in     std_logic                                 ; --! Signal
-      o_sig_r              => sync_rs_sys            -- out    std_logic                                   --! Signal registered
-   );
-
    P_reg_sys: process (i_rst, i_clk)
    begin
 
       if i_rst = '1' then
+         sync_rs_sys       <= c_I_SYNC_DEF;
          saofl_sys         <= c_EP_CMD_DEF_SAOFL;
          saodd_sys         <= c_EP_CMD_DEF_SAODD;
 
       elsif rising_edge(i_clk) then
+         sync_rs_sys       <= i_sync_rs;
          saofl_sys         <= i_saofl;
          saodd_sys         <= i_saodd;
 
@@ -471,7 +463,7 @@ begin
 
       if rst_sqm_adc_dac_pad = '1' then
          o_sqa_dac_data    <= '0';
-         o_sqa_dac_sclk    <= c_SQA_SPI_CPOL;
+         o_sqa_dac_sclk    <= c_SQA_SPI_CPOL and c_PAD_REG_SET_AUTH;
          o_sqa_dac_snc_l_n <= c_PAD_REG_SET_AUTH;
          o_sqa_dac_snc_o_n <= c_PAD_REG_SET_AUTH;
 

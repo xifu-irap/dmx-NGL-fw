@@ -82,7 +82,6 @@ proc run_utest {args} {
       ${SRC_DIR}/multiplexer.vhd          \
       ${SRC_DIR}/resize_stall_msb.vhd     \
       ${SRC_DIR}/cmd_im_ck.vhd            \
-      ${SRC_DIR}/signal_reg.vhd           \
       ${SRC_DIR}/mem_scrubbing.vhd        \
       ${IP_DIR}/lowskew.vhd               \
       ${IP_DIR}/dsp.vhd                   \
@@ -103,6 +102,7 @@ proc run_utest {args} {
       ${SRC_DIR}/mem_in_gen.vhd           \
       ${SRC_DIR}/register_cs_mgt.vhd      \
       ${SRC_DIR}/rg_aqmde_mgt.vhd         \
+      ${SRC_DIR}/rg_tsten_mgt.vhd         \
       ${SRC_DIR}/register_mgt.vhd         \
       ${SRC_DIR}/dmx_cmd.vhd              \
       ${SRC_DIR}/spi_master.vhd           \

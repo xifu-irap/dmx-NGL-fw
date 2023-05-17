@@ -17,15 +17,16 @@
 --                            along with this program.  If not, see <https://www.gnu.org/licenses/>.
 -- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --    email                   slaurent@nanoxplore.com
---!   @file                   rg_aqmde_mgt.vhd
+--!   @file                   rg_tsten_mgt.vhd
 -- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --    Automatic Generation    No
 --    Code Rules Reference    SOC of design and VHDL handbook for VLSI development, CNES Edition (v2.1)
 -- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
---!   @details                Register AQMDE Telemetry mode management
+--!   @details                Register TSTEN Test pattern enable
 -- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 library ieee;
 use     ieee.std_logic_1164.all;
+use     ieee.numeric_std.all;
 
 library work;
 use     work.pkg_type.all;
@@ -33,68 +34,79 @@ use     work.pkg_func_math.all;
 use     work.pkg_project.all;
 use     work.pkg_ep_cmd.all;
 
-entity rg_aqmde_mgt is port (
+entity rg_tsten_mgt is port (
          i_rst                : in     std_logic                                                            ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                : in     std_logic                                                            ; --! System Clock
 
-         i_ep_cmd_rx_wd_dta_r : in     std_logic_vector(c_DFLD_AQMDE_S-1 downto 0)                          ; --! EP command receipted: data word, registered
+         i_ep_cmd_rx_wd_dta_r : in     std_logic_vector(    c_DFLD_TSTEN_S-1 downto 0)                      ; --! EP command receipted: data word, registered
          i_ep_cmd_rx_rw_r     : in     std_logic                                                            ; --! EP command receipted: read/write bit, registered
          i_ep_cmd_rx_ner_ry_r : in     std_logic                                                            ; --! EP command receipted with no error ready, registered ('0'= Not ready, '1'= Ready)
-         i_cs_rg_aqdme        : in     std_logic                                                            ; --! Chip selects register AQMDE
+         i_cs_rg_tsten        : in     std_logic                                                            ; --! Chip selects register TSTEN
 
-         i_tst_pat_end_re     : in     std_logic                                                            ; --! Test pattern end of all patterns rising edge ('0' = Inactive, '1' = Active)
-         i_aqmde_dmp_tx_end   : in     std_logic                                                            ; --! Telemetry mode, dump transmit end ('0' = Inactive, '1' = Active)
+         i_tst_pat_end_pat    : in     std_logic                                                            ; --! Test pattern end of one pattern  ('0' = Inactive, '1' = Active)
+         i_tst_pat_empty      : in     std_logic                                                            ; --! Test pattern empty ('0' = No, '1' = Yes)
 
-         o_aqmde              : out    std_logic_vector(c_DFLD_AQMDE_S-1 downto 0)                          ; --! Telemetry mode
-         o_rg_aqmde_dmp_cmp   : out    std_logic                                                              --! EP register: DATA_ACQ_MODE, status "Dump" compared ('0' = Inactive, '1' = Active)
+         o_rg_tsten           : out    std_logic_vector(    c_DFLD_TSTEN_S-1 downto 0)                        --! Test pattern enable
    );
-end entity rg_aqmde_mgt;
+end entity rg_tsten_mgt;
 
-architecture RTL of rg_aqmde_mgt is
-signal   rg_aqmde_sav         : std_logic_vector(c_DFLD_AQMDE_S-1 downto 0)                                 ; --! EP register: DATA_ACQ_MODE save previous mode
+architecture RTL of rg_tsten_mgt is
+signal   rg_tsten_lop         : std_logic_vector(c_DFLD_TSTEN_LOP_S-1 downto 0)                             ; --! Test pattern enable, field Loop number
+signal   rg_tsten_inf         : std_logic                                                                   ; --! Test pattern enable, field Infinity loop ('0' = Inactive, '1' = Active)
+signal   rg_tsten_ena         : std_logic                                                                   ; --! Test pattern enable, field Enable ('0' = Inactive, '1' = Active)
 
 begin
 
    -- ------------------------------------------------------------------------------------------------------
-   --!   Telemetry mode
+   --!   Test pattern enable
    -- ------------------------------------------------------------------------------------------------------
-   P_aqmde : process (i_rst, i_clk)
+   P_rg_tsten : process (i_rst, i_clk)
    begin
 
       if i_rst = '1' then
-         o_aqmde      <= c_DST_AQMDE_IDLE;
-         rg_aqmde_sav <= c_DST_AQMDE_IDLE;
+         rg_tsten_lop <= c_EP_CMD_DEF_TSTEN(c_DFLD_TSTEN_LOP_S + c_DFLD_TSTEN_LOP_POS-1 downto c_DFLD_TSTEN_LOP_POS);
+         rg_tsten_inf <= c_EP_CMD_DEF_TSTEN(c_DFLD_TSTEN_INF_POS);
+         rg_tsten_ena <= c_EP_CMD_DEF_TSTEN(c_DFLD_TSTEN_ENA_POS);
 
       elsif rising_edge(i_clk) then
 
-         if i_ep_cmd_rx_ner_ry_r = '1' and i_ep_cmd_rx_rw_r = c_EP_CMD_ADD_RW_W and i_cs_rg_aqdme = '1' then
-            o_aqmde <= i_ep_cmd_rx_wd_dta_r;
+         if i_ep_cmd_rx_ner_ry_r = '1' and i_ep_cmd_rx_rw_r = c_EP_CMD_ADD_RW_W and i_cs_rg_tsten = '1' then
+            if i_ep_cmd_rx_wd_dta_r(c_DFLD_TSTEN_INF_POS) = '1' then
+               rg_tsten_lop <= std_logic_vector(to_unsigned(0, rg_tsten_lop'length));
 
-         elsif (o_aqmde = c_DST_AQMDE_TEST and i_tst_pat_end_re = '1') or (o_aqmde = c_DST_AQMDE_DUMP and i_aqmde_dmp_tx_end = '1') then
-            o_aqmde <= rg_aqmde_sav;
+            else
+               rg_tsten_lop <= i_ep_cmd_rx_wd_dta_r(c_DFLD_TSTEN_LOP_S + c_DFLD_TSTEN_LOP_POS-1 downto c_DFLD_TSTEN_LOP_POS);
+
+            end if;
+
+         elsif i_tst_pat_empty = '1' then
+            rg_tsten_lop <= std_logic_vector(to_unsigned(0, rg_tsten_lop'length));
+
+         elsif rg_tsten_lop /= std_logic_vector(to_unsigned(0, rg_tsten_lop'length)) and i_tst_pat_end_pat = '1' then
+            rg_tsten_lop <= std_logic_vector(signed(rg_tsten_lop) - 1);
 
          end if;
 
-         if i_ep_cmd_rx_ner_ry_r = '1' and i_ep_cmd_rx_rw_r = c_EP_CMD_ADD_RW_W then
+         if i_ep_cmd_rx_ner_ry_r = '1' and i_ep_cmd_rx_rw_r = c_EP_CMD_ADD_RW_W and i_cs_rg_tsten = '1' then
+            rg_tsten_inf <= i_ep_cmd_rx_wd_dta_r(c_DFLD_TSTEN_INF_POS);
 
-            if i_cs_rg_aqdme = '1' then
-               if i_ep_cmd_rx_wd_dta_r = c_DST_AQMDE_TEST or
-                 (i_ep_cmd_rx_wd_dta_r = c_DST_AQMDE_DUMP and o_aqmde = c_DST_AQMDE_TEST) then
-                  rg_aqmde_sav <= c_DST_AQMDE_IDLE;
+         elsif i_tst_pat_empty = '1' then
+            rg_tsten_inf <= '0';
 
-               else
-                  rg_aqmde_sav <= o_aqmde;
+         end if;
 
-               end if;
+         if i_ep_cmd_rx_ner_ry_r = '1' and i_ep_cmd_rx_rw_r = c_EP_CMD_ADD_RW_W and i_cs_rg_tsten = '1' then
+            rg_tsten_ena <= i_ep_cmd_rx_wd_dta_r(c_DFLD_TSTEN_ENA_POS);
 
-            end if;
+         elsif (rg_tsten_lop = std_logic_vector(to_unsigned(0, rg_tsten_lop'length)) and rg_tsten_inf = '0') or i_tst_pat_empty = '1' then
+            rg_tsten_ena <= '0';
 
          end if;
 
       end if;
 
-   end process P_aqmde;
+   end process P_rg_tsten;
 
-   o_rg_aqmde_dmp_cmp <= '1' when o_aqmde = c_DST_AQMDE_DUMP else '0';
+   o_rg_tsten  <= rg_tsten_ena & rg_tsten_inf & rg_tsten_lop;
 
 end architecture RTL;

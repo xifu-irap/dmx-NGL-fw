@@ -90,23 +90,21 @@ begin
 
          brd_ref_r            <= (others => (others => '0'));
          brd_model_r          <= (others => (others => '0'));
+         hk1_spi_miso_r       <= (others => '0');
 
          if c_PAD_REG_SET_AUTH = '0' then
             sync_r         <= (0 => '0', others => c_I_SYNC_DEF);
-            hk1_spi_miso_r <= (0 => '0', others => c_I_SPI_DATA_DEF);
-            ep_spi_mosi_r  <= (0 => '0', others => c_I_SPI_DATA_DEF);
             ep_spi_sclk_r  <= (0 => '0', others => c_I_SPI_SCLK_DEF);
             ep_spi_cs_n_r  <= (0 => '0', others => c_I_SPI_CS_N_DEF);
 
          else
             sync_r         <= (others => c_I_SYNC_DEF);
-            hk1_spi_miso_r <= (others => c_I_SPI_DATA_DEF);
-            ep_spi_mosi_r  <= (others => c_I_SPI_DATA_DEF);
             ep_spi_sclk_r  <= (others => c_I_SPI_SCLK_DEF);
             ep_spi_cs_n_r  <= (others => c_I_SPI_CS_N_DEF);
 
          end if;
 
+         ep_spi_mosi_r     <= (others => '0');
          o_sync_rs         <= (others => '0');
          ras_data_valid_r  <= (others => '0');
 
@@ -115,12 +113,12 @@ begin
 
          brd_ref_r         <= i_brd_ref   & brd_ref_r(  0 to brd_ref_r'high-1);
          brd_model_r       <= i_brd_model & brd_model_r(0 to brd_model_r'high-1);
-         sync_r            <= sync_r(                sync_r'high-1 downto 0) & i_sync;
          hk1_spi_miso_r    <= hk1_spi_miso_r(hk1_spi_miso_r'high-1 downto 0) & i_hk1_spi_miso;
 
-         ep_spi_mosi_r     <= ep_spi_mosi_r(ep_spi_mosi_r'high-1 downto 0) & i_ep_spi_mosi;
+         sync_r            <= sync_r(                sync_r'high-1 downto 0) & i_sync;
          ep_spi_sclk_r     <= ep_spi_sclk_r(ep_spi_sclk_r'high-1 downto 0) & i_ep_spi_sclk;
          ep_spi_cs_n_r     <= ep_spi_cs_n_r(ep_spi_cs_n_r'high-1 downto 0) & i_ep_spi_cs_n;
+         ep_spi_mosi_r     <= ep_spi_mosi_r(ep_spi_mosi_r'high-1 downto 0) & i_ep_spi_mosi;
 
          o_sync_rs         <= (others => ((inhib_fst_per(inhib_fst_per'high) and sync_r(sync_r'high)) or (not(inhib_fst_per(inhib_fst_per'high)) and c_I_SYNC_DEF)));
          ras_data_valid_r  <= ras_data_valid_r(ras_data_valid_r'high-1 downto 0) & i_ras_data_valid;
@@ -131,19 +129,17 @@ begin
 
    o_brd_ref_rs            <= brd_ref_r(brd_ref_r'high);
    o_brd_model_rs          <= brd_model_r(brd_model_r'high);
+   o_hk1_spi_miso_rs       <= hk1_spi_miso_r(hk1_spi_miso_r'high);
    o_ras_data_valid_rs     <= ras_data_valid_r(ras_data_valid_r'high);
+   o_ep_spi_mosi_rs        <= ep_spi_mosi_r(ep_spi_mosi_r'high);
 
    G_pad_reg_set_auth_0: if c_PAD_REG_SET_AUTH = '0' generate
-      o_hk1_spi_miso_rs    <= (inhib_fst_per(inhib_fst_per'high) and hk1_spi_miso_r(hk1_spi_miso_r'high)) or (not(inhib_fst_per(inhib_fst_per'high)) and c_I_SPI_DATA_DEF);
-      o_ep_spi_mosi_rs     <= (inhib_fst_per(inhib_fst_per'high) and ep_spi_mosi_r(ep_spi_mosi_r'high))   or (not(inhib_fst_per(inhib_fst_per'high)) and c_I_SPI_DATA_DEF);
       o_ep_spi_sclk_rs     <= (inhib_fst_per(inhib_fst_per'high) and ep_spi_sclk_r(ep_spi_sclk_r'high))   or (not(inhib_fst_per(inhib_fst_per'high)) and c_I_SPI_SCLK_DEF);
       o_ep_spi_cs_n_rs     <= (inhib_fst_per(inhib_fst_per'high) and ep_spi_cs_n_r(ep_spi_cs_n_r'high))   or (not(inhib_fst_per(inhib_fst_per'high)) and c_I_SPI_CS_N_DEF);
 
    end generate;
 
    G_pad_reg_set_auth_1: if c_PAD_REG_SET_AUTH = '1' generate
-      o_hk1_spi_miso_rs    <= hk1_spi_miso_r(hk1_spi_miso_r'high);
-      o_ep_spi_mosi_rs     <= ep_spi_mosi_r(ep_spi_mosi_r'high);
       o_ep_spi_sclk_rs     <= ep_spi_sclk_r(ep_spi_sclk_r'high);
       o_ep_spi_cs_n_rs     <= ep_spi_cs_n_r(ep_spi_cs_n_r'high);
 

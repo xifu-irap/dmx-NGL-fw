@@ -507,6 +507,7 @@ begin
          i_sqm_dta_err_cor_cs => sqm_dta_err_cor_cs(k), -- in     std_logic                                 ; --! SQUID MUX Data error corrected chip select ('0' = Inactive, '1' = Active)
 
          i_mem_rl_rd_add      => mem_rl_rd_add(k)     , -- in     slv(c_MUX_FACT_S-1 downto 0)              ; --! Relock memories read address
+         i_smfmd              => smfmd(k)             , -- in     slv(c_DFLD_SMFMD_COL_S-1 downto 0)        ; --! SQUID MUX feedback mode
          i_smfbm_close_rl     => smfbm_close_rl(k)    , -- in     std_logic                                 ; --! SQUID MUX feedback close mode for relock ('0' = No close , '1' = Close)
          i_smfb0_rl           => smfb0_rl(k)          , -- in     slv(c_DFLD_SMFB0_PIX_S-1 downto 0)        ; --! SQUID MUX feedback value in open loop for relock (signed)
          i_rldel              => rg_col(k).rldel      , -- in     slv(c_DFLD_RLDEL_COL_S-1 downto 0)        ; --! Relock delay

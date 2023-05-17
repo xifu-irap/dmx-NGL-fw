@@ -68,7 +68,7 @@ signal   rst_sqm_adc_dac_pad  : std_logic                                       
 signal   sync_rs_sys          : std_logic                                                                   ; --! Pixel sequence synchronization, synchronized on System Clock register (System clock)
 signal   plsss_sys            : std_logic_vector(c_DFLD_PLSSS_PLS_S-1 downto 0)                             ; --! SQUID MUX feedback pulse shaping set register (System clock)
 
-signal   sync_r               : std_logic_vector(       c_FF_RSYNC_NB   downto 0)                           ; --! Pixel sequence sync. register (R.E. detected = position sequence to the first pixel)
+signal   sync_r               : std_logic_vector(     c_FF_RSYNC_NB+1 downto 0)                             ; --! Pixel sequence sync. register (R.E. detected = position sequence to the first pixel)
 signal   sync_re              : std_logic                                                                   ; --! Pixel sequence sync. rising edge
 signal   sqm_data_fbk_r       : t_slv_arr(0 to c_FF_RSYNC_NB-1)(c_SQM_DATA_FBK_S-1 downto 0)                ; --! SQUID MUX Data feedback register
 signal   sqm_pixel_pos_init_r : t_slv_arr(0 to c_FF_RSYNC_NB-1)(   c_SQM_PXL_POS_S-1 downto 0)              ; --! Pixel position initialization register
@@ -93,6 +93,7 @@ signal   a_mant_k_rs          : std_logic_vector( c_SQM_PLS_SHP_A_EXP-1 downto 0
 
 attribute syn_preserve        : boolean                                                                     ; --! Disabling signal optimization
 attribute syn_preserve          of rst_sqm_adc_dac_pad   : signal is true                                   ; --! Disabling signal optimization: rst_sqm_adc_dac_pad
+attribute syn_preserve          of sync_rs_sys           : signal is true                                   ; --! Disabling signal optimization: sync_rs_sys
 attribute syn_preserve          of sync_r                : signal is true                                   ; --! Disabling signal optimization: sync_r
 attribute syn_preserve          of sync_re               : signal is true                                   ; --! Disabling signal optimization: sync_re
 
@@ -118,24 +119,15 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   Inputs registered on system clock before resynchronization
    -- ------------------------------------------------------------------------------------------------------
-   I_sync_rs_sys: entity work.signal_reg generic map (
-      g_SIG_FF_NB          => 1                    , -- integer                                          ; --! Signal registered flip-flop number
-      g_SIG_DEF            => c_I_SYNC_DEF           -- std_logic                                          --! Signal registered default value at reset
-   )  port map (
-      i_reset              => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
-      i_clock              => i_clk                , -- in     std_logic                                 ; --! Clock
-
-      i_sig                => i_sync_rs            , -- in     std_logic                                 ; --! Signal
-      o_sig_r              => sync_rs_sys            -- out    std_logic                                   --! Signal registered
-   );
-
    P_reg_sys: process (i_rst, i_clk)
    begin
 
       if i_rst = '1' then
+         sync_rs_sys       <= c_I_SYNC_DEF;
          plsss_sys         <= c_EP_CMD_DEF_PLSSS;
 
       elsif rising_edge(i_clk) then
+         sync_rs_sys       <= i_sync_rs;
          plsss_sys         <= i_plsss;
 
       end if;

@@ -43,7 +43,8 @@ entity relock is port (
          i_sqm_dta_err_cor    : in     std_logic_vector(c_SQM_DATA_FBK_S-1 downto 0)                        ; --! SQUID MUX Data error corrected (signed)
          i_sqm_dta_err_cor_cs : in     std_logic                                                            ; --! SQUID MUX Data error corrected chip select ('0' = Inactive, '1' = Active)
 
-         i_mem_rl_rd_add      : in     std_logic_vector(    c_MUX_FACT_S-1 downto 0)                        ; --! Relock memories read address
+         i_mem_rl_rd_add      : in     std_logic_vector(      c_MUX_FACT_S-1 downto 0)                      ; --! Relock memories read address
+         i_smfmd              : in     std_logic_vector(c_DFLD_SMFMD_COL_S-1 downto 0)                      ; --! SQUID MUX feedback mode
          i_smfbm_close_rl     : in     std_logic                                                            ; --! SQUID MUX feedback close mode for relock ('0' = No close , '1' = Close)
          i_smfb0_rl           : in     std_logic_vector(c_DFLD_SMFB0_PIX_S-1 downto 0)                      ; --! SQUID MUX feedback value in open loop for relock (signed)
          i_rldel              : in     std_logic_vector(c_DFLD_RLDEL_COL_S-1 downto 0)                      ; --! Relock delay
@@ -68,14 +69,12 @@ signal   smfb0_rl_rs          : std_logic_vector(c_SQM_DATA_FBK_S-1 downto 0)   
 signal   sqm_dta_err_cor_cs_r : std_logic_vector(c_FF_ERR_COR_CS_NB-1 downto 0)                             ; --! SQUID MUX Data error corrected chip select register
 signal   diff_sqm_dta_smfb0   : std_logic_vector(c_SQM_DATA_FBK_S     downto 0)                             ; --! SQUID MUX Data error corrected minus SQUID MUX feedback value in open loop
 
-signal   mem_cnt_thr_exceed   : t_slv_arr(0 to 2**c_MUX_FACT_S-1)(c_DFLD_RLDEL_COL_S downto 0)
-                                 := (others => std_logic_vector(to_unsigned(1, c_DFLD_RLDEL_COL_S+1)))      ; --! Memory counter threshold exceed
+signal   mem_cnt_thr_exceed   : t_slv_arr(0 to 2**c_MUX_FACT_S-1)(c_DFLD_RLDEL_COL_S downto 0)              ; --! Memory counter threshold exceed
 signal   cnt_thr_exceed_rd    : std_logic_vector(c_DFLD_RLDEL_COL_S downto 0)                               ; --! Counter threshold exceed read
 signal   cnt_thr_exceed_rd_r  : std_logic_vector(c_DFLD_RLDEL_COL_S downto 0)                               ; --! Counter threshold exceed read register
 signal   cnt_thr_exd_rd_cmp   : std_logic                                                                   ; --! Counter threshold exceed read compare
 signal   cnt_thr_exceed_wr    : std_logic_vector(c_DFLD_RLDEL_COL_S downto 0)                               ; --! Counter threshold exceed write
 
-signal   mem_dlcnt_pp         : std_logic                                                                   ; --! Delock counter, TH/HK side: ping-pong buffer bit
 signal   mem_dlcnt_prm        : t_mem(
                                 add(              c_MEM_DLCNT_ADD_S-1 downto 0),
                                 data_w(          c_DFLD_DLCNT_PIX_S-1 downto 0))                            ; --! Delock counter, getting parameter side: memory inputs
@@ -151,7 +150,7 @@ begin
          cnt_thr_exceed_rd      <= mem_cnt_thr_exceed(to_integer(unsigned(i_mem_rl_rd_add)));
          cnt_thr_exceed_rd_r    <= cnt_thr_exceed_rd;
 
-         if (unsigned(cnt_thr_exceed_rd) >= resize(unsigned(i_rldel), cnt_thr_exceed_rd'length)) then
+         if i_smfbm_close_rl = '1' and (unsigned(cnt_thr_exceed_rd) >= resize(unsigned(i_rldel), cnt_thr_exceed_rd'length)) then
             cnt_thr_exd_rd_cmp  <= '1';
 
          else
@@ -211,7 +210,7 @@ begin
          g_RAM_TYPE           => c_RAM_TYPE_DATA_TX   , -- integer                                          ; --! Memory type ( 0  = Data transfer,  1  = Parameters storage)
          g_RAM_ADD_S          => c_MEM_DLCNT_ADD_S    , -- integer                                          ; --! Memory address bus size (<= c_RAM_ECC_ADD_S)
          g_RAM_DATA_S         => c_DFLD_DLCNT_PIX_S   , -- integer                                          ; --! Memory data bus size (<= c_RAM_DATA_S)
-         g_RAM_INIT           => c_EP_CMD_DEF_DLCNT     -- t_int_arr                                          --! Memory content at initialization
+         g_RAM_INIT           => c_RAM_INIT_EMPTY       -- t_int_arr                                          --! Memory content at initialization
    ) port map (
          i_a_rst              => i_rst                , -- in     std_logic                                 ; --! Memory port A: registers reset ('0' = Inactive, '1' = Active)
          i_a_clk              => i_clk                , -- in     std_logic                                 ; --! Memory port A: main clock
@@ -219,7 +218,7 @@ begin
 
          i_a_mem              => i_mem_dlcnt          , -- in     t_mem( add(g_RAM_ADD_S-1 downto 0), ...)  ; --! Memory port A inputs (scrubbing with ping-pong buffer bit for parameters storage)
          o_a_data_out         => o_dlcnt_data         , -- out    slv(g_RAM_DATA_S-1 downto 0)              ; --! Memory port A: data out
-         o_a_pp               => mem_dlcnt_pp         , -- out    std_logic                                 ; --! Memory port A: ping-pong buffer bit for address management
+         o_a_pp               => open                 , -- out    std_logic                                 ; --! Memory port A: ping-pong buffer bit for address management
 
          o_a_flg_err          => open                 , -- out    std_logic                                 ; --! Memory port A: flag error uncorrectable detected ('0' = No, '1' = Yes)
 
@@ -280,7 +279,10 @@ begin
 
       elsif rising_edge(i_clk) then
          if sqm_dta_err_cor_cs_r(2) = '1' then
-            if dlcnt_wr_ena = '0' then
+            if i_smfmd = c_DST_SMFMD_OFF then
+               dlcnt_wr <= (others => '0');
+
+            elsif dlcnt_wr_ena = '0' then
                dlcnt_wr <= (others => '0');
 
             elsif cnt_thr_exd_rd_cmp = '1' and

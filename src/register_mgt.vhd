@@ -92,10 +92,6 @@ signal   ep_cmd_rx_nerr_rdy_r : std_logic                                       
 signal   ep_cmd_sts_rg_r      : std_logic_vector(c_EP_SPI_WD_S-1 downto 0)                                  ; --! EP command: Status register, registered
 
 signal   rg_aqmde_dmp_cmp     : std_logic                                                                   ; --! EP register: DATA_ACQ_MODE, status "Dump" compared ('0' = Inactive, '1' = Active)
-
-signal   rg_tsten_lop         : std_logic_vector(c_DFLD_TSTEN_LOP_S-1 downto 0)                             ; --! Test pattern enable, field Loop number
-signal   rg_tsten_inf         : std_logic                                                                   ; --! Test pattern enable, field Infinity loop ('0' = Inactive, '1' = Active)
-signal   rg_tsten_ena         : std_logic                                                                   ; --! Test pattern enable, field Enable ('0' = Inactive, '1' = Active)
 signal   rg_tsten             : std_logic_vector(    c_DFLD_TSTEN_S-1 downto 0)                             ; --! Test pattern enable
 
 signal   rg_smfmd             : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SMFMD_COL_S-1 downto 0)                   ; --! EP register: SQ_MUX_FB_ON_OFF
@@ -165,10 +161,10 @@ begin
          i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                => i_clk                , -- in     std_logic                                 ; --! System Clock
 
-         i_ep_cmd_rx_wd_dta_r => ep_cmd_rx_wd_data_r  , -- in     std_logic_vector(c_EP_SPI_WD_S-1 downto 0); --! EP command receipted: data word, registered
+         i_ep_cmd_rx_wd_dta_r => ep_cmd_rx_wd_data_r(c_DFLD_AQMDE_S-1 downto 0), -- in slv c_DFLD_AQMDE_S   ; --! EP command receipted: data word, registered
          i_ep_cmd_rx_rw_r     => ep_cmd_rx_rw_r       , -- in     std_logic                                 ; --! EP command receipted: read/write bit, registered
          i_ep_cmd_rx_ner_ry_r => ep_cmd_rx_nerr_rdy_r , -- in     std_logic                                 ; --! EP command receipted with no error ready, registered ('0'= Not ready, '1'= Ready)
-         i_cs_rg_aqdme        => cs_rg_r(c_EP_CMD_POS_AQMDE),-- in std_logic                                ; --! Chip selects register AQMDE
+         i_cs_rg_aqdme        => cs_rg_r(c_EP_CMD_POS_AQMDE),                    -- in std_logic            ; --! Chip selects register AQMDE
 
          i_tst_pat_end_re     => i_tst_pat_end_re     , -- in     std_logic                                 ; --! Test pattern end of all patterns rising edge ('0' = Inactive, '1' = Active)
          i_aqmde_dmp_tx_end   => i_aqmde_dmp_tx_end   , -- in     std_logic                                 ; --! Telemetry mode, dump transmit end ('0' = Inactive, '1' = Active)
@@ -177,55 +173,21 @@ begin
          o_rg_aqmde_dmp_cmp   => rg_aqmde_dmp_cmp       -- out    std_logic                                   --! EP register: DATA_ACQ_MODE, status "Dump" compared ('0' = Inactive, '1' = Active)
    );
 
-   P_ep_cmd_wr_rg : process (i_rst, i_clk)
-   begin
+   -- @Req : REG_TEST_PATTERN_ENABLE
+   I_rg_tsten_mgt : entity work.rg_tsten_mgt port map (
+         i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+         i_clk                => i_clk                , -- in     std_logic                                 ; --! System Clock
 
-      if i_rst = '1' then
-         rg_tsten_lop <= c_EP_CMD_DEF_TSTEN(c_DFLD_TSTEN_LOP_S + c_DFLD_TSTEN_LOP_POS-1 downto c_DFLD_TSTEN_LOP_POS);
-         rg_tsten_inf <= c_EP_CMD_DEF_TSTEN(c_DFLD_TSTEN_INF_POS);
-         rg_tsten_ena <= c_EP_CMD_DEF_TSTEN(c_DFLD_TSTEN_ENA_POS);
+         i_ep_cmd_rx_wd_dta_r => ep_cmd_rx_wd_data_r(c_DFLD_TSTEN_S-1 downto 0), -- in slv c_DFLD_TSTEN_S   ; --! EP command receipted: data word, registered
+         i_ep_cmd_rx_rw_r     => ep_cmd_rx_rw_r       , -- in     std_logic                                 ; --! EP command receipted: read/write bit, registered
+         i_ep_cmd_rx_ner_ry_r => ep_cmd_rx_nerr_rdy_r , -- in     std_logic                                 ; --! EP command receipted with no error ready, registered ('0'= Not ready, '1'= Ready)
+         i_cs_rg_tsten        => cs_rg_r(c_EP_CMD_POS_TSTEN),                    -- in std_logic            ; --! Chip selects register TSTEN
 
-      elsif rising_edge(i_clk) then
+         i_tst_pat_end_pat    => i_tst_pat_end_pat    , -- in     std_logic                                 ; --! Test pattern end of one pattern  ('0' = Inactive, '1' = Active)
+         i_tst_pat_empty      => i_tst_pat_empty      , -- in     std_logic                                 ; --! Test pattern empty ('0' = No, '1' = Yes)
 
-         -- @Req : REG_TEST_PATTERN_ENABLE
-         if ep_cmd_rx_nerr_rdy_r = '1' and ep_cmd_rx_rw_r = c_EP_CMD_ADD_RW_W and cs_rg_r(c_EP_CMD_POS_TSTEN) = '1' then
-            if ep_cmd_rx_wd_data_r(c_DFLD_TSTEN_INF_POS) = '1' then
-               rg_tsten_lop <= std_logic_vector(to_unsigned(0, rg_tsten_lop'length));
-
-            else
-               rg_tsten_lop <= ep_cmd_rx_wd_data_r(c_DFLD_TSTEN_LOP_S + c_DFLD_TSTEN_LOP_POS-1 downto c_DFLD_TSTEN_LOP_POS);
-
-            end if;
-
-         elsif i_tst_pat_empty = '1' then
-            rg_tsten_lop <= std_logic_vector(to_unsigned(0, rg_tsten_lop'length));
-
-         elsif rg_tsten_lop /= std_logic_vector(to_unsigned(0, rg_tsten_lop'length)) and i_tst_pat_end_pat = '1' then
-            rg_tsten_lop <= std_logic_vector(signed(rg_tsten_lop) - 1);
-
-         end if;
-
-         if ep_cmd_rx_nerr_rdy_r = '1' and ep_cmd_rx_rw_r = c_EP_CMD_ADD_RW_W and cs_rg_r(c_EP_CMD_POS_TSTEN) = '1' then
-            rg_tsten_inf <= ep_cmd_rx_wd_data_r(c_DFLD_TSTEN_INF_POS);
-
-         elsif i_tst_pat_empty = '1' then
-            rg_tsten_inf <= '0';
-
-         end if;
-
-         if ep_cmd_rx_nerr_rdy_r = '1' and ep_cmd_rx_rw_r = c_EP_CMD_ADD_RW_W and cs_rg_r(c_EP_CMD_POS_TSTEN) = '1' then
-            rg_tsten_ena <= ep_cmd_rx_wd_data_r(c_DFLD_TSTEN_ENA_POS);
-
-         elsif (rg_tsten_lop = std_logic_vector(to_unsigned(0, rg_tsten_lop'length)) and rg_tsten_inf = '0') or i_tst_pat_empty = '1' then
-            rg_tsten_ena <= '0';
-
-         end if;
-
-      end if;
-
-   end process P_ep_cmd_wr_rg;
-
-   rg_tsten         <= rg_tsten_ena & rg_tsten_inf & rg_tsten_lop;
+         o_rg_tsten           => rg_tsten               -- out    slv(    c_DFLD_TSTEN_S-1 downto 0)          --! Test pattern enable
+   );
 
    G_column_mgt : for k in 0 to c_NB_COL-1 generate
    begin
@@ -543,9 +505,9 @@ begin
 
       elsif rising_edge(i_clk) then
          o_aqmde_dmp_cmp <= (others => rg_aqmde_dmp_cmp);
-         o_tsten_lop     <= rg_tsten_lop;
-         o_tsten_inf     <= rg_tsten_inf;
-         o_tsten_ena     <= rg_tsten_ena;
+         o_tsten_lop     <= rg_tsten(c_DFLD_TSTEN_LOP_S + c_DFLD_TSTEN_LOP_POS-1 downto c_DFLD_TSTEN_LOP_POS);
+         o_tsten_inf     <= rg_tsten(c_DFLD_TSTEN_INF_POS);
+         o_tsten_ena     <= rg_tsten(c_DFLD_TSTEN_ENA_POS);
 
          o_smfmd         <= rg_smfmd;
          o_saofm         <= rg_saofm;
