@@ -41,8 +41,9 @@ library std;
 use std.textio.all;
 
 entity parser is generic (
-         g_SIM_TIME           : time    := c_SIM_TIME_DEF                                                   ; --! Simulation time
-         g_TST_NUM            : string  := c_TST_NUM_DEF                                                      --! Test number
+         g_SIM_TIME           : time      := c_SIM_TIME_DEF                                                 ; --! Simulation time
+         g_SIM_TYPE           : std_logic := c_SIM_TYPE_DEF                                                 ; --! Simulation type ('0': No regression, '1': Coupled simulation)
+         g_TST_NUM            : string    := c_TST_NUM_DEF                                                    --! Test number
    ); port (
          o_arst_n             : out    std_logic                                                            ; --! Asynchronous reset ('0' = Active, '1' = Inactive)
          i_clk_ref            : in     std_logic                                                            ; --! Reference Clock
@@ -234,8 +235,15 @@ begin
    begin
 
       -- Open Command and Result files
-      file_open(cmd_file, c_DIR_CMD_FILE & c_SIM_NAME & c_CMD_FILE_SFX, READ_MODE );
-      file_open(res_file, c_DIR_RES_FILE & c_SIM_NAME & c_RES_FILE_SFX, WRITE_MODE);
+      if g_SIM_TYPE = '0' then
+         file_open(cmd_file, c_DIR_ROOT_SIMU & c_DIR_CMD_FILE & c_SIM_NAME & c_CMD_FILE_SFX, READ_MODE );
+         file_open(res_file, c_DIR_ROOT_SIMU & c_DIR_RES_FILE & c_SIM_NAME & c_RES_FILE_SFX, WRITE_MODE);
+
+      else
+         file_open(cmd_file, c_DIR_ROOT_COSIM & c_DIR_CMD_FILE & c_SIM_NAME & c_CMD_FILE_SFX, READ_MODE );
+         file_open(res_file, c_DIR_ROOT_COSIM & c_DIR_RES_FILE & c_SIM_NAME & c_RES_FILE_SFX, WRITE_MODE);
+
+      end if;
 
       -- Result file header
       fprintf(none, c_RES_FILE_DIV_BAR & c_RES_FILE_DIV_BAR & c_RES_FILE_DIV_BAR, res_file);

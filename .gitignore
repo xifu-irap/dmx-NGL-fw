@@ -1,7 +1,5 @@
 __pycache__/
-top_*/
+cosim/
 *.log
 .scannerwork/
-build_dir/
-build.sh
 dmx-fw_sonar.bat

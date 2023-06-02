@@ -42,6 +42,7 @@ use std.textio.all;
 
 entity science_data_model is generic (
          g_SIM_TIME           : time      := c_SIM_TIME_DEF                                                 ; --! Simulation time
+         g_SIM_TYPE           : std_logic := c_SIM_TYPE_DEF                                                 ; --! Simulation type ('0': No regression, '1': Coupled simulation)
          g_ERR_SC_DTA_ENA     : std_logic := c_ERR_SC_DTA_ENA_DEF                                           ; --! Error science data enable ('0' = No, '1' = Yes)
          g_FRM_CNT_SC_ENA     : std_logic := c_FRM_CNT_SC_ENA_DEF                                           ; --! Frame counter science enable ('0' = No, '1' = Yes)
          g_TST_NUM            : string    := c_TST_NUM_DEF                                                    --! Test number
@@ -293,7 +294,13 @@ begin
       if g_TST_NUM /= c_TST_NUM_DEF then
 
          -- Open Science Data Result file
-         file_open(scd_file, c_DIR_RES_FILE & c_SIM_NAME & c_SCD_FILE_SFX, WRITE_MODE);
+         if g_SIM_TYPE = '0' then
+            file_open(scd_file, c_DIR_ROOT_SIMU & c_DIR_RES_FILE & c_SIM_NAME & c_SCD_FILE_SFX, WRITE_MODE);
+
+         else
+            file_open(scd_file, c_DIR_ROOT_COSIM & c_DIR_RES_FILE & c_SIM_NAME & c_SCD_FILE_SFX, WRITE_MODE);
+
+         end if;
 
          -- Check simulation time end
          while(now <= g_SIM_TIME) loop

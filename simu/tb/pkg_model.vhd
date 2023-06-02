@@ -81,8 +81,10 @@ constant c_SPI_ERR_POS_STSCI  : integer := 9                                    
    --!   Parser constants
    -- ------------------------------------------------------------------------------------------------------
 constant c_DIR_ROOT           : string  := "../project/dmx-NGL-fw/"                                         ; --! Directory root
-constant c_DIR_CMD_FILE       : string  := c_DIR_ROOT & "simu/utest/"                                       ; --! Directory unitary test file
-constant c_DIR_RES_FILE       : string  := c_DIR_ROOT & "simu/result/"                                      ; --! Directory result file
+constant c_DIR_ROOT_SIMU      : string  := c_DIR_ROOT & "simu/"                                             ; --! Directory root simulation directory
+constant c_DIR_ROOT_COSIM     : string  := c_DIR_ROOT_SIMU & "cosim/"                                       ; --! Directory root co-simulation directory
+constant c_DIR_CMD_FILE       : string  := "utest/"                                                         ; --! Directory unitary test file
+constant c_DIR_RES_FILE       : string  := "result/"                                                        ; --! Directory result file
 constant c_CMD_FILE_ROOT      : string  := "DRE_DMX_UT_"                                                    ; --! Command file root
 constant c_CMD_FILE_SFX       : string  := ""                                                               ; --! Command file suffix
 constant c_RES_FILE_SFX       : string  := "_res"                                                           ; --! Result file suffix
@@ -196,6 +198,7 @@ constant c_CE_S               : integer :=  23                                  
    --!   Model generic default values
    -- ------------------------------------------------------------------------------------------------------
 constant c_SIM_TIME_DEF       : time      := 0 us                                                           ; --! Simulation time
+constant c_SIM_TYPE_DEF       : std_logic := '0'                                                            ; --! Simulation type ('0': No regression, '1': Coupled simulation)
 constant c_TST_NUM_DEF        : string    := "XXXX"                                                         ; --! Test number
 constant c_ERR_SC_DTA_ENA_DEF : std_logic := '1'                                                            ; --! Error science data enable ('0' = No, '1' = Yes)
 constant c_FRM_CNT_SC_ENA_DEF : std_logic := '0'                                                            ; --! Frame counter science enable ('0' = No, '1' = Yes)
@@ -450,8 +453,9 @@ constant c_SCHK               : t_spi_chk_prm_arr(0 to c_CHK_ENA_SPI_NB-1) :=
    end component squid_model;
 
    component parser is generic (
-         g_SIM_TIME           : time    := c_SIM_TIME_DEF                                                   ; --! Simulation time
-         g_TST_NUM            : string  := c_TST_NUM_DEF                                                      --! Test number
+         g_SIM_TIME           : time      := c_SIM_TIME_DEF                                                 ; --! Simulation time
+         g_SIM_TYPE           : std_logic := c_SIM_TYPE_DEF                                                 ; --! Simulation type ('0': No regression, '1': Coupled simulation)
+         g_TST_NUM            : string    := c_TST_NUM_DEF                                                    --! Test number
    ); port (
          o_arst_n             : out    std_logic                                                            ; --! Asynchronous reset ('0' = Active, '1' = Inactive)
          i_clk_ref            : in     std_logic                                                            ; --! Reference Clock
@@ -509,6 +513,7 @@ constant c_SCHK               : t_spi_chk_prm_arr(0 to c_CHK_ENA_SPI_NB-1) :=
 
    component science_data_model is generic (
          g_SIM_TIME           : time      := c_SIM_TIME_DEF                                                 ; --! Simulation time
+         g_SIM_TYPE           : std_logic := c_SIM_TYPE_DEF                                                 ; --! Simulation type ('0': No regression, '1': Coupled simulation)
          g_ERR_SC_DTA_ENA     : std_logic := c_ERR_SC_DTA_ENA_DEF                                           ; --! Error science data enable ('0' = No, '1' = Yes)
          g_FRM_CNT_SC_ENA     : std_logic := c_FRM_CNT_SC_ENA_DEF                                           ; --! Frame counter science enable ('0' = No, '1' = Yes)
          g_TST_NUM            : string    := c_TST_NUM_DEF                                                    --! Test number
