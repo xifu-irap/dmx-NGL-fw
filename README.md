@@ -1,5 +1,5 @@
-# dmx-NGL-fw
-DRE-DEMUX TDM firmware: https://github.com/xifu-irap/dmx-NGL-fw
+# dmx-fw
+DRE-DEMUX TDM firmware: https://github.com/xifu-irap/dmx-fw
 
    - FPGA target: NG-LARGE (NanoXplore)
    - Synthesis tool: Nxmap v22.2.0.4
