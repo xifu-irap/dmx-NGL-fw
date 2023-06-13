@@ -3,7 +3,7 @@
 -- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --                            This file is part of the ATHENA X-IFU DRE Time Domain Multiplexing Firmware.
 --
---                            dmx-ngl-fw is free software: you can redistribute it and/or modify
+--                            dmx-fw is free software: you can redistribute it and/or modify
 --                            it under the terms of the GNU General Public License as published by
 --                            the Free Software Foundation, either version 3 of the License, or
 --                            (at your option) any later version.
@@ -80,7 +80,7 @@ constant c_SPI_ERR_POS_STSCI  : integer := 9                                    
    -- ------------------------------------------------------------------------------------------------------
    --!   Parser constants
    -- ------------------------------------------------------------------------------------------------------
-constant c_DIR_ROOT           : string  := "../project/dmx-NGL-fw/"                                         ; --! Directory root
+constant c_DIR_ROOT           : string  := "../project/dmx-fw/"                                             ; --! Directory root
 constant c_DIR_ROOT_SIMU      : string  := c_DIR_ROOT & "simu/"                                             ; --! Directory root simulation directory
 constant c_DIR_ROOT_COSIM     : string  := c_DIR_ROOT_SIMU & "cosim/"                                       ; --! Directory root co-simulation directory
 constant c_DIR_CMD_FILE       : string  := "utest/"                                                         ; --! Directory unitary test file
