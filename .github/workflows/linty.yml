@@ -16,6 +16,17 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Git Checkout Third-Party Libraries
+        uses: actions/checkout@v3
+        with:
+          repository: xifu-irap/third-party-libraries-for-linty
+          fetch-depth: 0
+          token: ${{ secrets.THIRD_PARTY_LIBRARIES_TOKEN }}
+          path: ./third-party-libraries
+
+      - name: Get Libraries
+        run: mv ./third-party-libraries/dxm-fw/* 
+
       - name: Cache
         uses: actions/cache@v3.3.0
         with:
