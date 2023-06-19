@@ -25,7 +25,7 @@ jobs:
           path: ./third-party-libraries
 
       - name: Get Libraries
-        run: mv ./third-party-libraries/dxm-fw/* 
+        run: mv ./third-party-libraries/dmx-fw/* .
 
       - name: Cache
         uses: actions/cache@v3.3.0
