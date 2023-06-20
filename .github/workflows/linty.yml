@@ -9,7 +9,7 @@ jobs:
     timeout-minutes: 10
     runs-on: ubuntu-latest
     env:
-      SONAR_HOST_URL: https://cloud.linty-services.com/projects
+      SONAR_HOST_URL: https://cloud.linty-services.com
     steps:
       - name: Git Checkout
         uses: actions/checkout@v3
