@@ -30,6 +30,7 @@ quietly set NXMAP3_MODEL_PATH "../modelsim"
 quietly set PR_DIR "../project/dmx-fw"
 quietly set FPASIM_DIR "../project/fpasim-fw"
 quietly set XLX_LIB_DIR "../xilinx_lib"
+quietly set COVER_DIR "coverage"
 quietly set NR_FILE "no_regression.csv"
 quietly set PREF_UTEST "DRE_DMX_UT_"
 quietly set SUFF_UTEST "_cfg"
@@ -68,6 +69,7 @@ proc run_utest {args} {
    global CFG_DIR
    global RES_DIR
    global SC_DIR
+   global COVER_DIR
    global NR_FILE
    global PREF_UTEST
    global SUFF_UTEST
@@ -76,6 +78,10 @@ proc run_utest {args} {
 
    # Test the argument number
    if {[llength $args] == 0} {
+
+      # Create a new coverage directory
+      file delete -force -- ${COVER_DIR}/
+      file mkdir ${COVER_DIR}
 
       # In the case of no argument, compile all configuration files
       vcom -work work -2008 "${CFG_DIR}/*.vhd"
@@ -110,7 +116,7 @@ proc run_utest {args} {
 
          # Run simulation
          if {${fpasim_req} == 0} {
-            vsim -t ps -lib work work.[file rootname [file tail $file]]
+            vsim -t ps -coverage -lib work work.[file rootname [file tail $file]]
 
          } else {
 
@@ -119,10 +125,11 @@ proc run_utest {args} {
                file copy -force $mem_file .
             }
 
-            vsim -t ps fpasim.glbl -L fpasim -L xpm -L unisims_ver -L secureip -lib work work.[file rootname [file tail $file]]
+            vsim -t ps -coverage fpasim.glbl -L fpasim -L xpm -L unisims_ver -L secureip -lib work work.[file rootname [file tail $file]]
 
          }
          run $sim_time
+         coverage save ${COVER_DIR}/[file rootname [file tail $file]].ucdb
          quit -sim
 
          # Get the root file name
@@ -165,6 +172,8 @@ proc run_utest {args} {
       }
 
       close $file_nr
+      vcover merge ${COVER_DIR}/${COVER_DIR}.ucdb ${COVER_DIR}/*.ucdb
+      vcover report -output ${RES_DIR}/${COVER_DIR}.xml -srcfile=* -details -all -dump -option -code {s b c} -xml ${COVER_DIR}/${COVER_DIR}.ucdb
 
    } else {
 

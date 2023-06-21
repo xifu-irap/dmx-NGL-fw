@@ -32,7 +32,7 @@ quietly set TB_DIR $3
 
 ###################### Files compilation ###################
    vlib work
-   vcom -work work -2008                  \
+   vcom +cover=bcs -work work -2008       \
       ${SRC_DIR}/pkg_type.vhd             \
       ${SRC_DIR}/pkg_func_math.vhd        \
       ${IP_DIR}/pkg_fpga_tech.vhd         \
@@ -80,7 +80,9 @@ quietly set TB_DIR $3
       ${SRC_DIR}/sqm_spi_mgt.vhd          \
       ${SRC_DIR}/test_pattern_gen.vhd     \
       ${SRC_DIR}/relock.vhd               \
-      ${SRC_DIR}/top_dmx.vhd              \
+      ${SRC_DIR}/top_dmx.vhd              
+
+   vcom -work work -2008                  \
       ${TB_DIR}/pkg_model.vhd             \
       ${TB_DIR}/pkg_mess.vhd              \
       ${TB_DIR}/pkg_str_fld_assoc.vhd     \
