@@ -54,10 +54,12 @@ jobs:
             -e GITHUB_TOKEN="${{ secrets.GITHUB_TOKEN }}" \
             -e GITHUB_REPOSITORY_OWNER="$GITHUB_REPOSITORY_OWNER" \
             -e GITHUB_REPOSITORY="$GITHUB_REPOSITORY" \
-            -e TABBY_CAD_LICENSE="${{ secrets.TABBY_CAD_LICENSE }}" \
+            -e TABBY_CAD_LICENSE="$TABBY_CAD_LICENSE" \
             -v "$PWD:/usr/src" \
             lintyservices/linty-scanner:${{ env.LINTY_SCANNER }} \
             -Dsonar.qualitygate.wait=true ${{ steps.linty_analysis_parameters.outputs.value }}
+        env:
+          TABBY_CAD_LICENSE: ${{ secrets.TABBY_CAD_LICENSE }}
 
       - name: Debug
         if: always()
