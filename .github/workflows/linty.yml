@@ -10,7 +10,8 @@ jobs:
     timeout-minutes: 100
     runs-on: ubuntu-latest
     env:
-      EXT_LIB_PATH: xifu-irap/third-party-libraries-for-linty/dmx-fw
+      EXT_LIB_PATH: xifu-irap/third-party-libraries-for-linty
+      PROJECT_NAME: dmx-fw
       LINTY_SCANNER: beta
     steps:
       - name: Git Checkout
@@ -24,8 +25,10 @@ jobs:
           repository: ${{ env.EXT_LIB_PATH }}
           fetch-depth: 0
           token: ${{ secrets.THIRD_PARTY_LIBRARIES_TOKEN }}
-          path: .
+          path: ./${{ env.EXT_LIB_PATH }}
 
+      - name: Get Libraries
+        run: mv ./${{ env.EXT_LIB_PATH }}/${{ env.PROJECT_NAME }}/* .
       - name: Cache
         uses: actions/cache@v3.3.0
         with:
