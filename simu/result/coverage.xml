@@ -3,7 +3,7 @@
 <code_coverage_report
 lines="1"
 byFile="1">
-<fileData path="../project/dmx-fw/ip/nx/NG-LARGE/dmem_ecc.vhd">
+<fileData path="./ip/nx/NG-LARGE/dmem_ecc.vhd">
 <statements active="12" hits="12" percent="100.00"/>
 <stmt ln="100" st="1" hits="720"/>
 <stmt ln="101" st="1" hits="459440"/>
@@ -18,7 +18,7 @@ byFile="1">
 <stmt ln="167" st="1" hits="9363348"/>
 <stmt ln="168" st="1" hits="18267169"/>
 </fileData>
-<fileData path="../project/dmx-fw/ip/nx/NG-LARGE/dsp.vhd">
+<fileData path="./ip/nx/NG-LARGE/dsp.vhd">
 <statements active="5" hits="5" percent="100.00"/>
 <stmt ln="85" st="1" hits="18267250"/>
 <stmt ln="86" st="1" hits="1074534"/>
@@ -26,7 +26,7 @@ byFile="1">
 <stmt ln="88" st="1" hits="422983"/>
 <stmt ln="183" st="1" hits="4164582"/>
 </fileData>
-<fileData path="../project/dmx-fw/ip/nx/NG-LARGE/pkg_fpga_tech.vhd">
+<fileData path="./ip/nx/NG-LARGE/pkg_fpga_tech.vhd">
 <branches active="6" hits="6" percent="100.00"/>
 <if hasElse="1" active="2" hits="2" percent="100.00">
 <ielem ln="202" st="1" true="360" false="1485"/>
@@ -50,11 +50,11 @@ byFile="1">
 <stmt ln="225" st="1" hits="3041280"/>
 <stmt ln="228" st="1" hits="1485"/>
 </fileData>
-<fileData path="../project/dmx-fw/ip/nx/NG-LARGE/pll.vhd">
+<fileData path="./ip/nx/NG-LARGE/pll.vhd">
 <statements active="1" hits="1" percent="100.00"/>
 <stmt ln="175" st="1" hits="13875846"/>
 </fileData>
-<fileData path="../project/dmx-fw/src/adder_acc.vhd">
+<fileData path="./src/adder_acc.vhd">
 <branches active="19" hits="19" percent="100.00"/>
 <if hasElse="1" active="2" hits="2" percent="100.00">
 <ielem ln="76" st="1" true="2160" false="27749880"/>
@@ -110,7 +110,7 @@ byFile="1">
 <stmt ln="160" st="1" hits="2763060"/>
 <stmt ln="163" st="1" hits="11696"/>
 </fileData>
-<fileData path="../project/dmx-fw/src/adder_sat.vhd">
+<fileData path="./src/adder_sat.vhd">
 <branches active="5" hits="5" percent="100.00"/>
 <if hasElse="0" active="2" hits="2" percent="100.00">
 <ielem ln="60" st="1" true="3240" false="41624820"/>
@@ -130,7 +130,7 @@ byFile="1">
 <stmt ln="73" st="1" hits="16182"/>
 <stmt ln="76" st="1" hits="41539270"/>
 </fileData>
-<fileData path="../project/dmx-fw/src/cmd_im_ck.vhd">
+<fileData path="./src/cmd_im_ck.vhd">
 <branches active="8" hits="8" percent="100.00"/>
 <if hasElse="0" active="2" hits="2" percent="100.00">
 <ielem ln="55" st="1" true="720" false="211219"/>
@@ -158,7 +158,7 @@ byFile="1">
 <stmt ln="76" st="1" hits="46991"/>
 <stmt ln="80" st="1" hits="211219"/>
 </fileData>
-<fileData path="../project/dmx-fw/src/dmx_cmd.vhd">
+<fileData path="./src/dmx_cmd.vhd">
 <branches active="23" hits="23" percent="100.00"/>
 <if hasElse="0" active="2" hits="2" percent="100.00">
 <ielem ln="84" st="1" true="90" false="3468735"/>
@@ -226,7 +226,7 @@ byFile="1">
 <stmt ln="158" st="1" hits="13468820"/>
 <stmt ln="162" st="1" hits="13874940"/>
 </fileData>
-<fileData path="../project/dmx-fw/src/ep_cmd.vhd">
+<fileData path="./src/ep_cmd.vhd">
 <branches active="32" hits="32" percent="100.00"/>
 <if hasElse="0" active="2" hits="2" percent="100.00">
 <ielem ln="137" st="1" true="90" false="374964"/>
@@ -349,7 +349,7 @@ byFile="1">
 <stmt ln="357" st="1" hits="135816"/>
 <stmt ln="363" st="1" hits="891"/>
 </fileData>
-<fileData path="../project/dmx-fw/src/ep_cmd_tx_wd.vhd">
+<fileData path="./src/ep_cmd_tx_wd.vhd">
 <statements active="54" hits="54" percent="100.00"/>
 <stmt ln="88" st="1" hits="380"/>
 <stmt ln="89" st="1" hits="376"/>
@@ -406,7 +406,7 @@ byFile="1">
 <stmt ln="310" st="1" hits="4877"/>
 <stmt ln="316" st="1" hits="201"/>
 </fileData>
-<fileData path="../project/dmx-fw/src/hk_mgt.vhd">
+<fileData path="./src/hk_mgt.vhd">
 <branches active="29" hits="29" percent="100.00"/>
 <if hasElse="0" active="2" hits="2" percent="100.00">
 <ielem ln="93" st="1" true="90" false="106780"/>
@@ -508,7 +508,7 @@ byFile="1">
 <stmt ln="285" st="1" hits="45"/>
 <stmt ln="313" st="1" hits="1034"/>
 </fileData>
-<fileData path="../project/dmx-fw/src/im_ck.vhd">
+<fileData path="./src/im_ck.vhd">
 <branches active="6" hits="5" percent="83.33"/>
 <if hasElse="0" active="1" hits="1" percent="100.00">
 <ielem ln="54" st="1" true="3973" false="0"/>
@@ -532,7 +532,7 @@ byFile="1">
 <stmt ln="86" st="1" hits="0"/>
 <stmt ln="89" st="1" hits="111006052"/>
 </fileData>
-<fileData path="../project/dmx-fw/src/in_rs_clk.vhd">
+<fileData path="./src/in_rs_clk.vhd">
 <branches active="3" hits="3" percent="100.00"/>
 <if hasElse="0" active="2" hits="2" percent="100.00">
 <ielem ln="88" st="1" true="90" false="2439845"/>
@@ -570,7 +570,7 @@ byFile="1">
 <stmt ln="137" st="1" hits="853901"/>
 <stmt ln="138" st="1" hits="26838"/>
 </fileData>
-<fileData path="../project/dmx-fw/src/mem_data_rd_mux.vhd">
+<fileData path="./src/mem_data_rd_mux.vhd">
 <branches active="6" hits="6" percent="100.00"/>
 <if hasElse="0" active="2" hits="2" percent="100.00">
 <ielem ln="62" st="1" true="1710" false="15699"/>
@@ -590,7 +590,7 @@ byFile="1">
 <stmt ln="94" st="1" hits="1710"/>
 <stmt ln="98" st="1" hits="3711"/>
 </fileData>
-<fileData path="../project/dmx-fw/src/mem_in_gen.vhd">
+<fileData path="./src/mem_in_gen.vhd">
 <branches active="8" hits="8" percent="100.00"/>
 <if hasElse="0" active="2" hits="2" percent="100.00">
 <ielem ln="73" st="1" true="3600" false="1548028"/>
@@ -617,7 +617,7 @@ byFile="1">
 <stmt ln="84" st="1" hits="1667"/>
 <stmt ln="96" st="1" hits="308838"/>
 </fileData>
-<fileData path="../project/dmx-fw/src/mem_scrubbing.vhd">
+<fileData path="./src/mem_scrubbing.vhd">
 <branches active="6" hits="6" percent="100.00"/>
 <if hasElse="0" active="2" hits="2" percent="100.00">
 <ielem ln="59" st="1" true="2970" false="114468255"/>
@@ -646,7 +646,7 @@ byFile="1">
 <stmt ln="87" st="1" hits="1485"/>
 <stmt ln="88" st="1" hits="320702"/>
 </fileData>
-<fileData path="../project/dmx-fw/src/multiplexer.vhd">
+<fileData path="./src/multiplexer.vhd">
 <branches active="4" hits="4" percent="100.00"/>
 <if hasElse="1" active="2" hits="2" percent="100.00">
 <ielem ln="68" st="1" true="50239" false="9406093"/>
@@ -667,14 +667,14 @@ byFile="1">
 <stmt ln="90" st="1" hits="40778"/>
 <stmt ln="91" st="1" hits="40778"/>
 </fileData>
-<fileData path="../project/dmx-fw/src/pkg_func_math.vhd">
+<fileData path="./src/pkg_func_math.vhd">
 <statements active="4" hits="4" percent="100.00"/>
 <stmt ln="48" st="1" hits="1822438"/>
 <stmt ln="56" st="1" hits="90"/>
 <stmt ln="64" st="1" hits="859"/>
 <stmt ln="72" st="1" hits="1080"/>
 </fileData>
-<fileData path="../project/dmx-fw/src/pulse_shaping.vhd">
+<fileData path="./src/pulse_shaping.vhd">
 <branches active="3" hits="3" percent="100.00"/>
 <if hasElse="0" active="2" hits="2" percent="100.00">
 <ielem ln="113" st="1" true="360" false="1712541"/>
@@ -692,7 +692,7 @@ byFile="1">
 <stmt ln="116" st="1" hits="360"/>
 <stmt ln="124" st="1" hits="1712541"/>
 </fileData>
-<fileData path="../project/dmx-fw/src/register_cs_mgt.vhd">
+<fileData path="./src/register_cs_mgt.vhd">
 <branches active="60" hits="60" percent="100.00"/>
 <if hasElse="1" active="2" hits="2" percent="100.00">
 <ielem ln="53" st="1" true="388" false="8793"/>
@@ -978,7 +978,7 @@ byFile="1">
 <stmt ln="159" st="1" hits="3150"/>
 <stmt ln="165" st="1" hits="45"/>
 </fileData>
-<fileData path="../project/dmx-fw/src/register_mgt.vhd">
+<fileData path="./src/register_mgt.vhd">
 <branches active="27" hits="27" percent="100.00"/>
 <if hasElse="0" active="2" hits="2" percent="100.00">
 <ielem ln="124" st="1" true="90" false="49106"/>
@@ -1168,7 +1168,7 @@ byFile="1">
 <stmt ln="514" st="1" hits="883"/>
 <stmt ln="515" st="1" hits="883"/>
 </fileData>
-<fileData path="../project/dmx-fw/src/relock.vhd">
+<fileData path="./src/relock.vhd">
 <branches active="41" hits="41" percent="100.00"/>
 <if hasElse="0" active="2" hits="2" percent="100.00">
 <ielem ln="96" st="1" true="360" false="8323016"/>
@@ -1313,11 +1313,11 @@ byFile="1">
 <stmt ln="370" st="1" hits="1080"/>
 <stmt ln="373" st="1" hits="13874940"/>
 </fileData>
-<fileData path="../project/dmx-fw/src/resize_stall_msb.vhd">
+<fileData path="./src/resize_stall_msb.vhd">
 <statements active="1" hits="1" percent="100.00"/>
 <stmt ln="46" st="1" hits="14581649"/>
 </fileData>
-<fileData path="../project/dmx-fw/src/rg_aqmde_mgt.vhd">
+<fileData path="./src/rg_aqmde_mgt.vhd">
 <branches active="13" hits="13" percent="100.00"/>
 <if hasElse="0" active="2" hits="2" percent="100.00">
 <ielem ln="64" st="1" true="90" false="42819"/>
@@ -1382,7 +1382,7 @@ byFile="1">
 <stmt ln="86" st="1" hits="387"/>
 <stmt ln="98" st="1" hits="587"/>
 </fileData>
-<fileData path="../project/dmx-fw/src/rg_tsten_mgt.vhd">
+<fileData path="./src/rg_tsten_mgt.vhd">
 <branches active="14" hits="14" percent="100.00"/>
 <if hasElse="0" active="2" hits="2" percent="100.00">
 <ielem ln="66" st="1" true="270" false="3468735"/>
@@ -1457,7 +1457,7 @@ byFile="1">
 <stmt ln="102" st="1" hits="3320160"/>
 <stmt ln="110" st="1" hits="150"/>
 </fileData>
-<fileData path="../project/dmx-fw/src/round_sat.vhd">
+<fileData path="./src/round_sat.vhd">
 <branches active="5" hits="5" percent="100.00"/>
 <if hasElse="0" active="2" hits="2" percent="100.00">
 <ielem ln="60" st="1" true="3420" false="4373944"/>
@@ -1477,7 +1477,7 @@ byFile="1">
 <stmt ln="73" st="1" hits="1988"/>
 <stmt ln="76" st="1" hits="4370792"/>
 </fileData>
-<fileData path="../project/dmx-fw/src/rst_clk_mgt.vhd">
+<fileData path="./src/rst_clk_mgt.vhd">
 <branches active="12" hits="12" percent="100.00"/>
 <if hasElse="0" active="2" hits="2" percent="100.00">
 <ielem ln="185" st="1" true="45" false="45"/>
@@ -1522,7 +1522,7 @@ byFile="1">
 <stmt ln="251" st="1" hits="405"/>
 <stmt ln="265" st="1" hits="135"/>
 </fileData>
-<fileData path="../project/dmx-fw/src/science_data_mgt.vhd">
+<fileData path="./src/science_data_mgt.vhd">
 <branches active="69" hits="69" percent="100.00"/>
 <if hasElse="0" active="2" hits="2" percent="100.00">
 <ielem ln="115" st="1" true="90" false="157953"/>
@@ -1798,7 +1798,7 @@ byFile="1">
 <stmt ln="451" st="1" hits="232832"/>
 <stmt ln="454" st="1" hits="804331"/>
 </fileData>
-<fileData path="../project/dmx-fw/src/science_data_tx.vhd">
+<fileData path="./src/science_data_tx.vhd">
 <branches active="9" hits="9" percent="100.00"/>
 <if hasElse="0" active="2" hits="2" percent="100.00">
 <ielem ln="64" st="1" true="90" false="1372609"/>
@@ -1828,7 +1828,7 @@ byFile="1">
 <stmt ln="100" st="1" hits="29740023"/>
 <stmt ln="104" st="1" hits="31218615"/>
 </fileData>
-<fileData path="../project/dmx-fw/src/spi_master.vhd">
+<fileData path="./src/spi_master.vhd">
 <branches active="29" hits="29" percent="100.00"/>
 <if hasElse="0" active="2" hits="2" percent="100.00">
 <ielem ln="85" st="1" true="540" false="5418997"/>
@@ -1944,7 +1944,7 @@ byFile="1">
 <stmt ln="213" st="1" hits="2646055"/>
 <stmt ln="214" st="1" hits="2646055"/>
 </fileData>
-<fileData path="../project/dmx-fw/src/spi_slave.vhd">
+<fileData path="./src/spi_slave.vhd">
 <branches active="42" hits="42" percent="100.00"/>
 <if hasElse="1" active="2" hits="2" percent="100.00">
 <ielem ln="94" st="1" true="1080" false="66292830"/>
@@ -2069,7 +2069,7 @@ byFile="1">
 <stmt ln="303" st="1" hits="2689211"/>
 <stmt ln="304" st="1" hits="2689211"/>
 </fileData>
-<fileData path="../project/dmx-fw/src/sqa_dac_mgt.vhd">
+<fileData path="./src/sqa_dac_mgt.vhd">
 <branches active="59" hits="59" percent="100.00"/>
 <if hasElse="0" active="2" hits="2" percent="100.00">
 <ielem ln="127" st="1" true="360" false="180"/>
@@ -2271,7 +2271,7 @@ byFile="1">
 <stmt ln="488" st="1" hits="360"/>
 <stmt ln="492" st="1" hits="1387341"/>
 </fileData>
-<fileData path="../project/dmx-fw/src/sqa_fbk_mgt.vhd">
+<fileData path="./src/sqa_fbk_mgt.vhd">
 <branches active="60" hits="58" percent="96.66"/>
 <if hasElse="0" active="2" hits="2" percent="100.00">
 <ielem ln="128" st="1" true="360" false="13874940"/>
@@ -2456,7 +2456,7 @@ byFile="1">
 <stmt ln="524" st="1" hits="36666"/>
 <stmt ln="539" st="1" hits="640959"/>
 </fileData>
-<fileData path="../project/dmx-fw/src/sqm_dac_mgt.vhd">
+<fileData path="./src/sqm_dac_mgt.vhd">
 <branches active="27" hits="27" percent="100.00"/>
 <if hasElse="0" active="2" hits="2" percent="100.00">
 <ielem ln="109" st="1" true="360" false="180"/>
@@ -2556,7 +2556,7 @@ byFile="1">
 <stmt ln="314" st="1" hits="1387749"/>
 <stmt ln="315" st="1" hits="1387749"/>
 </fileData>
-<fileData path="../project/dmx-fw/src/sqm_fbk_mgt.vhd">
+<fileData path="./src/sqm_fbk_mgt.vhd">
 <branches active="75" hits="73" percent="97.33"/>
 <if hasElse="0" active="2" hits="2" percent="100.00">
 <ielem ln="146" st="1" true="360" false="82356"/>
@@ -2797,13 +2797,13 @@ byFile="1">
 <stmt ln="673" st="1" hits="5551234"/>
 <stmt ln="679" st="1" hits="1388498"/>
 </fileData>
-<fileData path="../project/dmx-fw/src/sqm_spi_mgt.vhd">
+<fileData path="./src/sqm_spi_mgt.vhd">
 <statements active="3" hits="3" percent="100.00"/>
 <stmt ln="46" st="1" hits="180"/>
 <stmt ln="47" st="1" hits="180"/>
 <stmt ln="48" st="1" hits="180"/>
 </fileData>
-<fileData path="../project/dmx-fw/src/squid_adc_mgt.vhd">
+<fileData path="./src/squid_adc_mgt.vhd">
 <branches active="50" hits="50" percent="100.00"/>
 <if hasElse="0" active="2" hits="2" percent="100.00">
 <ielem ln="145" st="1" true="360" false="180"/>
@@ -3000,7 +3000,7 @@ byFile="1">
 <stmt ln="500" st="1" hits="81552"/>
 <stmt ln="501" st="1" hits="2775388"/>
 </fileData>
-<fileData path="../project/dmx-fw/src/squid_data_proc.vhd">
+<fileData path="./src/squid_data_proc.vhd">
 <branches active="53" hits="53" percent="100.00"/>
 <if hasElse="0" active="2" hits="2" percent="100.00">
 <ielem ln="205" st="1" true="360" false="13873680"/>
@@ -3214,7 +3214,7 @@ byFile="1">
 <stmt ln="932" st="1" hits="13873496"/>
 <stmt ln="933" st="1" hits="13873496"/>
 </fileData>
-<fileData path="../project/dmx-fw/src/sts_err_dis_mgt.vhd">
+<fileData path="./src/sts_err_dis_mgt.vhd">
 <branches active="6" hits="6" percent="100.00"/>
 <if hasElse="0" active="2" hits="2" percent="100.00">
 <ielem ln="56" st="1" true="90" false="13009"/>
@@ -3234,7 +3234,7 @@ byFile="1">
 <stmt ln="66" st="1" hits="544"/>
 <stmt ln="69" st="1" hits="7207"/>
 </fileData>
-<fileData path="../project/dmx-fw/src/sts_err_out_mgt.vhd">
+<fileData path="./src/sts_err_out_mgt.vhd">
 <branches active="26" hits="26" percent="100.00"/>
 <if hasElse="1" active="2" hits="2" percent="100.00">
 <ielem ln="101" st="1" true="1585" false="8344"/>
@@ -3376,7 +3376,7 @@ byFile="1">
 <stmt ln="188" st="1" hits="113"/>
 <stmt ln="191" st="1" hits="4789"/>
 </fileData>
-<fileData path="../project/dmx-fw/src/sts_err_wrt_mgt.vhd">
+<fileData path="./src/sts_err_wrt_mgt.vhd">
 <branches active="34" hits="33" percent="97.05"/>
 <if hasElse="0" active="2" hits="2" percent="100.00">
 <ielem ln="54" st="1" true="90" false="12808"/>
@@ -3582,7 +3582,7 @@ byFile="1">
 <stmt ln="178" st="1" hits="140"/>
 <stmt ln="181" st="1" hits="1144"/>
 </fileData>
-<fileData path="../project/dmx-fw/src/test_pattern_gen.vhd">
+<fileData path="./src/test_pattern_gen.vhd">
 <branches active="48" hits="48" percent="100.00"/>
 <if hasElse="1" active="2" hits="2" percent="100.00">
 <ielem ln="109" st="1" true="270" false="3468735"/>
@@ -3754,7 +3754,7 @@ byFile="1">
 <stmt ln="390" st="1" hits="355"/>
 <stmt ln="393" st="1" hits="5717"/>
 </fileData>
-<fileData path="../project/dmx-fw/src/top_dmx.vhd">
+<fileData path="./src/top_dmx.vhd">
 <statements active="10" hits="10" percent="100.00"/>
 <stmt ln="204" st="1" hits="135"/>
 <stmt ln="428" st="1" hits="135"/>
