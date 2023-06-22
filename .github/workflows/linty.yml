@@ -6,7 +6,7 @@ on:
 jobs:
   linty:
     name: Linty
-    timeout-minutes: 10
+    timeout-minutes: 100
     runs-on: ubuntu-latest
     env:
       SONAR_HOST_URL: https://cloud.linty-services.com
