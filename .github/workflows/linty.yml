@@ -53,7 +53,7 @@ jobs:
             -e GITHUB_REPOSITORY="$GITHUB_REPOSITORY" \
             -e TABBY_CAD_LICENSE="$TABBY_CAD_LICENSE" \
             -v "$PWD:/usr/src" \
-            lintyservices/linty-scanner:latest \
+            lintyservices/linty-scanner:beta \
             -Dsonar.qualitygate.wait=true ${{ steps.linty_analysis_parameters.outputs.value }}
         env:
           TABBY_CAD_LICENSE: ${{ secrets.TABBY_CAD_LICENSE }}
