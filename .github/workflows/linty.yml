@@ -2,6 +2,7 @@ name: Linty
 on:
   push:
   pull_request:
+  workflow_dispatch:
 
 jobs:
   linty:
@@ -9,7 +10,8 @@ jobs:
     timeout-minutes: 100
     runs-on: ubuntu-latest
     env:
-      SONAR_HOST_URL: https://cloud.linty-services.com
+      EXT_LIB_PATH: xifu-irap/third-party-libraries-for-linty/dmx-fw
+      LINTY_SCANNER: beta
     steps:
       - name: Git Checkout
         uses: actions/checkout@v3
@@ -19,13 +21,10 @@ jobs:
       - name: Git Checkout Third-Party Libraries
         uses: actions/checkout@v3
         with:
-          repository: xifu-irap/third-party-libraries-for-linty
+          repository: ${{ env.EXT_LIB_PATH }}
           fetch-depth: 0
           token: ${{ secrets.THIRD_PARTY_LIBRARIES_TOKEN }}
-          path: ./third-party-libraries
-
-      - name: Get Libraries
-        run: mv ./third-party-libraries/dmx-fw/* .
+          path: .
 
       - name: Cache
         uses: actions/cache@v3.3.0
@@ -46,17 +45,15 @@ jobs:
         run: |
           docker run \
             --rm \
-            -e SONAR_HOST_URL=${{ env.SONAR_HOST_URL }} \
+            -e SONAR_HOST_URL=${{ vars.LINTY_CLOUD_URL }} \
             -e SONAR_TOKEN="${{ secrets.LINTY_SCANNER_TOKEN }}" \
             -e GITHUB_TOKEN="${{ secrets.GITHUB_TOKEN }}" \
             -e GITHUB_REPOSITORY_OWNER="$GITHUB_REPOSITORY_OWNER" \
             -e GITHUB_REPOSITORY="$GITHUB_REPOSITORY" \
-            -e TABBY_CAD_LICENSE="$TABBY_CAD_LICENSE" \
+            -e TABBY_CAD_LICENSE="${{ secrets.TABBY_CAD_LICENSE }}" \
             -v "$PWD:/usr/src" \
-            lintyservices/linty-scanner:beta \
+            lintyservices/linty-scanner:${{ env.LINTY_SCANNER }} \
             -Dsonar.qualitygate.wait=true ${{ steps.linty_analysis_parameters.outputs.value }}
-        env:
-          TABBY_CAD_LICENSE: ${{ secrets.TABBY_CAD_LICENSE }}
 
       - name: Debug
         if: always()
