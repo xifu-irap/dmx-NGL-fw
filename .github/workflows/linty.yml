@@ -47,7 +47,7 @@ jobs:
           docker run \
             --rm \
             -e SONAR_HOST_URL=${{ env.SONAR_HOST_URL }} \
-            -e SONAR_TOKEN="${{ secrets.LINTY }}" \
+            -e SONAR_TOKEN="${{ secrets.LINTY_SCANNER_TOKEN }}" \
             -e GITHUB_TOKEN="${{ secrets.GITHUB_TOKEN }}" \
             -e GITHUB_REPOSITORY_OWNER="$GITHUB_REPOSITORY_OWNER" \
             -e GITHUB_REPOSITORY="$GITHUB_REPOSITORY" \
