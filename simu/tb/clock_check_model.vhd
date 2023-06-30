@@ -133,7 +133,7 @@ begin
          i_clk                => clock(k)             , -- in     std_logic                                 ; --! Clock
          i_ena                => enable(k)            , -- in     std_logic                                 ; --! Enable ('0' = Inactive, '1' = Active)
          i_chk_osc_ena_l      => chk_osc_ena_l(k)     , -- in     std_logic                                 ; --! Check oscillation on clock when enable inactive ('0' = No, '1' = Yes)
-         o_err_n_clk_chk      => o_err_chk_rpt(k)       -- out    t_int_arr(0 to c_ERR_N_CLK_CHK_S-1)         --! Clock check error number
+         o_err_n_clk_chk      => o_err_chk_rpt(k)       -- out    integer_vector(0 to c_ERR_N_CLK_CHK_S-1)    --! Clock check error number
       );
 
    end generate G_clock_check;

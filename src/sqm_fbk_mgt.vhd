@@ -118,12 +118,12 @@ signal   sqm_pls_cnt_init     : std_logic_vector(   c_SQM_PLS_CNT_S-1 downto 0) 
 signal   pls_cnt_div_rem      : std_logic_vector(   c_SQM_PLS_CNT_S-1 downto 0)                             ; --! Pulse counter division remainder
 signal   pls_cnt              : std_logic_vector(   c_SQM_PLS_CNT_S-2 downto 0)                             ; --! Feedback Pulse counter
 
-signal   mem_smfb0_pp         : std_logic                                                                   ; --! SQUID MUX feedback value in open loop, TH/HK side: ping-pong buffer bit
+signal   mem_smfb0_pp         : std_logic                                                                   ; --! SQUID MUX feedback value in open loop, TC/HK side: ping-pong buffer bit
 signal   mem_smfb0_prm        : t_mem(
                                 add(              c_MEM_SMFB0_ADD_S-1 downto 0),
                                 data_w(          c_DFLD_SMFB0_PIX_S-1 downto 0))                            ; --! SQUID MUX feedback value in open loop, getting parameter side: memory inputs
 
-signal   mem_smfbm_pp         : std_logic                                                                   ; --! SQUID MUX feedback mode, TH/HK side: ping-pong buffer bit
+signal   mem_smfbm_pp         : std_logic                                                                   ; --! SQUID MUX feedback mode, TC/HK side: ping-pong buffer bit
 signal   mem_smfbm_prm        : t_mem(
                                 add(              c_MEM_SMFBM_ADD_S-1 downto 0),
                                 data_w(          c_DFLD_SMFBM_PIX_S-1 downto 0))                            ; --! SQUID MUX feedback mode, getting parameter side: memory inputs
@@ -143,7 +143,7 @@ begin
    P_tst_pat_end : process (i_rst, i_clk)
    begin
 
-      if i_rst = '1' then
+      if i_rst = c_RST_LEV_ACT then
          tst_pat_end_r     <= '1';
          tst_pat_end_dtc   <= '0';
          tst_pat_end_sync  <= '0';
@@ -174,7 +174,7 @@ begin
    P_smfbd_cmp : process (i_rst, i_clk)
    begin
 
-      if i_rst = '1' then
+      if i_rst = c_RST_LEV_ACT then
          smfbd_r     <= c_EP_CMD_DEF_SMFBD;
          smfbd_cmp   <= '0';
          smfbd_cmp_r <= (others => '0');
@@ -201,7 +201,7 @@ begin
    P_smfbd_positive : process (i_rst, i_clk)
    begin
 
-      if i_rst = '1' then
+      if i_rst = c_RST_LEV_ACT then
          smfbd_positive  <= (others => '0');
 
       elsif rising_edge(i_clk) then
@@ -287,7 +287,7 @@ begin
    P_sqm_pixel_pos_init : process (i_rst, i_clk)
    begin
 
-      if i_rst = '1' then
+      if i_rst = c_RST_LEV_ACT then
          sqm_pixel_pos_init <= (others => '1');
 
       elsif rising_edge(i_clk) then
@@ -316,7 +316,7 @@ begin
    P_fbk_pixel_pos_init : process (i_rst, i_clk)
    begin
 
-      if i_rst = '1' then
+      if i_rst = c_RST_LEV_ACT then
          fbk_pixel_pos_init <= std_logic_vector(to_unsigned(c_FBK_PXL_POS_INIT, fbk_pixel_pos_init'length));
 
       elsif rising_edge(i_clk) then
@@ -342,7 +342,7 @@ begin
    P_sqm_pls_cnt_init : process (i_rst, i_clk)
    begin
 
-      if i_rst = '1' then
+      if i_rst = c_RST_LEV_ACT then
          sqm_pls_cnt_init  <= (others => '1');
 
       elsif rising_edge(i_clk) then
@@ -364,7 +364,7 @@ begin
    P_sqm_init : process (i_rst, i_clk)
    begin
 
-      if i_rst = '1' then
+      if i_rst = c_RST_LEV_ACT then
          o_sqm_pixel_pos_init <= std_logic_vector(to_signed(c_SQM_PXL_POS_INIT, o_sqm_pixel_pos_init'length));
          pixel_pos_init       <= std_logic_vector(to_signed(c_FBK_PXL_POS_INIT, pixel_pos_init'length));
          o_sqm_pls_cnt_init   <= std_logic_vector(to_signed(c_SQM_PLS_CNT_INIT, o_sqm_pls_cnt_init'length));
@@ -387,7 +387,7 @@ begin
    P_pls_cnt : process (i_rst, i_clk)
    begin
 
-      if i_rst = '1' then
+      if i_rst = c_RST_LEV_ACT then
          pls_cnt  <= std_logic_vector(to_unsigned(c_FBK_PLS_CNT_MX_VAL, pls_cnt'length));
 
       elsif rising_edge(i_clk) then
@@ -415,7 +415,7 @@ begin
    P_pixel_pos : process (i_rst, i_clk)
    begin
 
-      if i_rst = '1' then
+      if i_rst = c_RST_LEV_ACT then
          pixel_pos   <= (others => '1');
 
       elsif rising_edge(i_clk) then
@@ -442,7 +442,7 @@ begin
    P_sig_sync : process (i_rst, i_clk)
    begin
 
-      if i_rst = '1' then
+      if i_rst = c_RST_LEV_ACT then
          smfmd_sync_r          <= (others => c_DST_SMFMD_OFF);
          smfmd_sync            <= c_DST_SMFMD_OFF;
          mem_smfb0_prm.pp      <= c_MEM_STR_ADD_PP_DEF;
@@ -471,7 +471,7 @@ begin
          g_RAM_TYPE           => c_RAM_TYPE_PRM_STORE , -- integer                                          ; --! Memory type ( 0  = Data transfer,  1  = Parameters storage)
          g_RAM_ADD_S          => c_MEM_SMFB0_ADD_S    , -- integer                                          ; --! Memory address bus size (<= c_RAM_ECC_ADD_S)
          g_RAM_DATA_S         => c_DFLD_SMFB0_PIX_S   , -- integer                                          ; --! Memory data bus size (<= c_RAM_DATA_S)
-         g_RAM_INIT           => c_EP_CMD_DEF_SMFB0     -- t_int_arr                                          --! Memory content at initialization
+         g_RAM_INIT           => c_EP_CMD_DEF_SMFB0     -- integer_vector                                     --! Memory content at initialization
    ) port map (
          i_a_rst              => i_rst                , -- in     std_logic                                 ; --! Memory port A: registers reset ('0' = Inactive, '1' = Active)
          i_a_clk              => i_clk                , -- in     std_logic                                 ; --! Memory port A: main clock
@@ -511,7 +511,7 @@ begin
          g_RAM_TYPE           => c_RAM_TYPE_PRM_STORE , -- integer                                          ; --! Memory type ( 0  = Data transfer,  1  = Parameters storage)
          g_RAM_ADD_S          => c_MEM_SMFBM_ADD_S    , -- integer                                          ; --! Memory address bus size (<= c_RAM_ECC_ADD_S)
          g_RAM_DATA_S         => c_DFLD_SMFBM_PIX_S   , -- integer                                          ; --! Memory data bus size (<= c_RAM_DATA_S)
-         g_RAM_INIT           => c_EP_CMD_DEF_SMFBM     -- t_int_arr                                          --! Memory content at initialization
+         g_RAM_INIT           => c_EP_CMD_DEF_SMFBM     -- integer_vector                                     --! Memory content at initialization
    ) port map (
          i_a_rst              => i_rst                , -- in     std_logic                                 ; --! Memory port A: registers reset ('0' = Inactive, '1' = Active)
          i_a_clk              => i_clk                , -- in     std_logic                                 ; --! Memory port A: main clock
@@ -544,7 +544,7 @@ begin
    P_mem_smfbm_prm_we : process (i_rst, i_clk)
    begin
 
-      if i_rst = '1' then
+      if i_rst = c_RST_LEV_ACT then
          mem_smfbm_prm.we  <= '0';
 
       elsif rising_edge(i_clk) then
@@ -577,7 +577,7 @@ begin
    P_sqm_dta_err_cor_rd : process (i_rst, i_clk)
    begin
 
-      if i_rst = '1' then
+      if i_rst = c_RST_LEV_ACT then
          sqm_dta_err_cor_rd <= (others => '0');
 
       elsif rising_edge(i_clk) then
@@ -600,7 +600,7 @@ begin
    P_test_pattern_sync : process (i_rst, i_clk)
    begin
 
-      if i_rst = '1' then
+      if i_rst = c_RST_LEV_ACT then
          test_pattern_sync <= (others => '0');
 
       elsif rising_edge(i_clk) then
@@ -627,7 +627,7 @@ begin
    P_sqm_data_fbk : process (i_rst, i_clk)
    begin
 
-      if i_rst = '1' then
+      if i_rst = c_RST_LEV_ACT then
          o_sqm_data_fbk <= (others => '0');
 
       elsif rising_edge(i_clk) then
@@ -654,7 +654,7 @@ begin
    P_init_fbk_acc : process (i_rst, i_clk)
    begin
 
-      if i_rst = '1' then
+      if i_rst = c_RST_LEV_ACT then
          pixel_pos_inc_r   <= (others => std_logic_vector(to_unsigned(0, c_SQM_PXL_POS_S-1)));
          o_init_fbk_acc    <= '1';
          o_sqm_fbk_smfb0   <= std_logic_vector(to_unsigned(c_EP_CMD_DEF_SMFB0(0), o_sqm_fbk_smfb0'length));

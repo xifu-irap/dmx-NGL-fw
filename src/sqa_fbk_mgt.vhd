@@ -108,7 +108,7 @@ signal   sqa_pls_cnt_init     : std_logic_vector(c_SQA_PLS_CNT_S-1 downto 0)    
 signal   pls_cnt_div_rem      : std_logic_vector(c_SQA_PLS_CNT_S-1 downto 0)                                ; --! Pulse counter division remainder
 signal   pls_cnt              : std_logic_vector(c_SQA_PLS_CNT_S-2 downto 0)                                ; --! Feedback Pulse counter
 
-signal   mem_saoff_pp         : std_logic                                                                   ; --! SQUID AMP lockpoint fine offset, TH/HK side: ping-pong buffer bit
+signal   mem_saoff_pp         : std_logic                                                                   ; --! SQUID AMP lockpoint fine offset, TC/HK side: ping-pong buffer bit
 signal   mem_saoff_prm        : t_mem(
                                 add(           c_MEM_SAOFF_ADD_S-1 downto 0),
                                 data_w(       c_DFLD_SAOFF_PIX_S-1 downto 0))                               ; --! SQUID AMP lockpoint fine offset, getting parameter side: memory inputs
@@ -125,7 +125,7 @@ begin
    P_pls_rw_cnt : process (i_rst, i_clk)
    begin
 
-      if i_rst = '1' then
+      if i_rst = c_RST_LEV_ACT then
          pls_rw_cnt <= std_logic_vector(to_unsigned(c_PLS_RW_CNT_MAX_VAL, pls_rw_cnt'length));
 
       elsif rising_edge(i_clk) then
@@ -150,7 +150,7 @@ begin
    P_saomd_cmp : process (i_rst, i_clk)
    begin
 
-      if i_rst = '1' then
+      if i_rst = c_RST_LEV_ACT then
          saomd_r     <= c_EP_CMD_DEF_SAOMD;
          saomd_cmp   <= '0';
          saomd_cmp_r <= (others => '0');
@@ -177,7 +177,7 @@ begin
    P_saomd_positive : process (i_rst, i_clk)
    begin
 
-      if i_rst = '1' then
+      if i_rst = c_RST_LEV_ACT then
          saomd_positive  <= (others => '0');
 
       elsif rising_edge(i_clk) then
@@ -263,7 +263,7 @@ begin
    P_sqa_pixel_pos_init : process (i_rst, i_clk)
    begin
 
-      if i_rst = '1' then
+      if i_rst = c_RST_LEV_ACT then
          sqa_pixel_pos_init <= (others => '1');
 
       elsif rising_edge(i_clk) then
@@ -292,7 +292,7 @@ begin
    P_fbk_pixel_pos_init : process (i_rst, i_clk)
    begin
 
-      if i_rst = '1' then
+      if i_rst = c_RST_LEV_ACT then
          fbk_pixel_pos_init <= std_logic_vector(to_unsigned(c_FBK_PXL_POS_INIT, fbk_pixel_pos_init'length));
 
       elsif rising_edge(i_clk) then
@@ -318,7 +318,7 @@ begin
    P_sqa_pls_cnt_init : process (i_rst, i_clk)
    begin
 
-      if i_rst = '1' then
+      if i_rst = c_RST_LEV_ACT then
          sqa_pls_cnt_init  <= (others => '1');
 
       elsif rising_edge(i_clk) then
@@ -340,7 +340,7 @@ begin
    P_sqa_init : process (i_rst, i_clk)
    begin
 
-      if i_rst = '1' then
+      if i_rst = c_RST_LEV_ACT then
          pixel_pos_init       <= std_logic_vector(to_signed(c_FBK_PXL_POS_INIT, pixel_pos_init'length));
          o_sqa_pls_cnt_init   <= std_logic_vector(to_signed(c_SQA_PLS_CNT_INIT, o_sqa_pls_cnt_init'length));
 
@@ -362,7 +362,7 @@ begin
    P_pls_cnt : process (i_rst, i_clk)
    begin
 
-      if i_rst = '1' then
+      if i_rst = c_RST_LEV_ACT then
          pls_cnt  <= std_logic_vector(to_unsigned(c_FBK_PLS_CNT_MX_VAL, pls_cnt'length));
 
       elsif rising_edge(i_clk) then
@@ -390,7 +390,7 @@ begin
    P_pixel_pos : process (i_rst, i_clk)
    begin
 
-      if i_rst = '1' then
+      if i_rst = c_RST_LEV_ACT then
          pixel_pos   <= (others => '1');
 
       elsif rising_edge(i_clk) then
@@ -417,7 +417,7 @@ begin
    P_sig_sync : process (i_rst, i_clk)
    begin
 
-      if i_rst = '1' then
+      if i_rst = c_RST_LEV_ACT then
          saofm_sync           <= c_DST_SAOFM_OFF;
          mem_saoff_prm.pp     <= c_MEM_STR_ADD_PP_DEF;
 
@@ -441,7 +441,7 @@ begin
          g_RAM_TYPE           => c_RAM_TYPE_PRM_STORE , -- integer                                          ; --! Memory type ( 0  = Data transfer,  1  = Parameters storage)
          g_RAM_ADD_S          => c_MEM_SAOFF_ADD_S    , -- integer                                          ; --! Memory address bus size (<= c_RAM_ECC_ADD_S)
          g_RAM_DATA_S         => c_DFLD_SAOFF_PIX_S   , -- integer                                          ; --! Memory data bus size (<= c_RAM_DATA_S)
-         g_RAM_INIT           => c_EP_CMD_DEF_SAOFF     -- t_int_arr                                          --! Memory content at initialization
+         g_RAM_INIT           => c_EP_CMD_DEF_SAOFF     -- integer_vector                                     --! Memory content at initialization
    ) port map (
          i_a_rst              => i_rst                , -- in     std_logic                                 ; --! Memory port A: registers reset ('0' = Inactive, '1' = Active)
          i_a_clk              => i_clk                , -- in     std_logic                                 ; --! Memory port A: main clock
@@ -480,7 +480,7 @@ begin
    P_sqa_fbk_mux : process (i_rst, i_clk)
    begin
 
-      if i_rst = '1' then
+      if i_rst = c_RST_LEV_ACT then
          o_sqa_fbk_mux <= (others => '0');
 
       elsif rising_edge(i_clk) then
@@ -505,7 +505,7 @@ begin
    P_sqa_fbk_off : process (i_rst, i_clk)
    begin
 
-      if i_rst = '1' then
+      if i_rst = c_RST_LEV_ACT then
          o_sqa_fbk_off <= c_EP_CMD_DEF_SAOFC;
 
       elsif rising_edge(i_clk) then

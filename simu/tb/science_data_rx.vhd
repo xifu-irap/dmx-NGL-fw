@@ -64,7 +64,7 @@ begin
    P_ser_bit_cnt : process (i_rst, i_clk_science)
    begin
 
-      if i_rst = '1' then
+      if i_rst = c_RST_LEV_ACT then
          ser_bit_cnt <= (others => '1');
 
       elsif rising_edge(i_clk_science) then
@@ -86,7 +86,7 @@ begin
    P_ser_bit_cnt_msb_re : process (i_rst, i_clk_science)
    begin
 
-      if i_rst = '1' then
+      if i_rst = c_RST_LEV_ACT then
          ser_bit_cnt_msb_r  <= '1';
          ser_bit_cnt_msb_re <= '0';
          o_science_data_rdy <= '0';
@@ -109,7 +109,7 @@ begin
       P_science_data_ser : process (i_rst, i_clk_science)
       begin
 
-         if i_rst = '1' then
+         if i_rst = c_RST_LEV_ACT then
             science_data_ser(k) <= (others => '0');
             science_data(k)     <= (others => '0');
 

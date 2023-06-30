@@ -30,6 +30,7 @@ use     ieee.numeric_std.all;
 use     ieee.math_real.all;
 
 entity dac121s101_model is generic (
+         g_RST_LEV_ACT        : std_logic                                                                   ; --! Reset level activation value
          g_VA                 : real                                                                        ; --! Voltage reference (Volt)
          g_TIME_TS            : time                                                                          --! Time: Output Voltage Settling
    ); port (
@@ -66,9 +67,9 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    P_rst: process
    begin
-      rst   <= '1';
+      rst   <= g_RST_LEV_ACT;
       wait for 3*c_CLK_PER/2;
-      rst   <= '0';
+      rst   <= not(g_RST_LEV_ACT);
       wait;
 
    end process P_rst;
@@ -87,6 +88,7 @@ begin
    --!   SPI slave
    -- ------------------------------------------------------------------------------------------------------
    I_spi_slave: entity work.spi_slave generic map (
+         g_RST_LEV_ACT        => g_RST_LEV_ACT        , -- std_logic                                        ; --! Reset level activation value
          g_CPOL               => c_SPI_CPOL           , -- std_logic                                        ; --! Clock polarity
          g_CPHA               => c_SPI_CPHA           , -- std_logic                                        ; --! Clock phase
          g_DTA_TX_WD_S        => c_SPI_DTA_WD_S       , -- integer                                          ; --! Data word to transmit bus size

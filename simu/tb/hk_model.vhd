@@ -36,13 +36,13 @@ use     work.pkg_model.all;
 entity hk_model is generic (
          g_HK_MUX_TPS         : time   := c_HK_MUX_TPS_DEF                                                    --! HouseKeeping: Multiplexer, time Data Propagation switch in to out
    ); port (
-         i_hk1_mux            : in     std_logic_vector(c_HK_MUX_S-1 downto 0)                              ; --! HouseKeeping: Multiplexer
-         i_hk1_mux_ena_n      : in     std_logic                                                            ; --! HouseKeeping: Multiplexer Enable ('0' = Active, '1' = Inactive)
+         i_hk_mux             : in     std_logic_vector(c_HK_MUX_S-1 downto 0)                              ; --! HouseKeeping: Multiplexer
+         i_hk_mux_ena_n       : in     std_logic                                                            ; --! HouseKeeping: Multiplexer Enable ('0' = Active, '1' = Inactive)
 
-         i_hk1_spi_mosi       : in     std_logic                                                            ; --! HouseKeeping: SPI Master Output Slave Input
-         i_hk1_spi_sclk       : in     std_logic                                                            ; --! HouseKeeping: SPI Serial Clock (CPOL = '1', CPHA = '1')
-         i_hk1_spi_cs_n       : in     std_logic                                                            ; --! HouseKeeping: SPI Chip Select ('0' = Active, '1' = Inactive)
-         o_hk1_spi_miso       : out    std_logic                                                              --! HouseKeeping: SPI Master Input Slave Output
+         i_hk_spi_mosi        : in     std_logic                                                            ; --! HouseKeeping: SPI Master Output Slave Input
+         i_hk_spi_sclk        : in     std_logic                                                            ; --! HouseKeeping: SPI Serial Clock (CPOL = '1', CPHA = '1')
+         i_hk_spi_cs_n        : in     std_logic                                                            ; --! HouseKeeping: SPI Chip Select ('0' = Active, '1' = Inactive)
+         o_hk_spi_miso        : out    std_logic                                                              --! HouseKeeping: SPI Master Input Slave Output
 
    );
 end entity hk_model;
@@ -73,8 +73,8 @@ begin
    I_hk_mux_model: entity work.cd74hc4051_model generic map (
          g_TIME_TPS           => g_HK_MUX_TPS           -- time                                               --! Time: Data Propagation switch in to out
    ) port map (
-         i_s                  => i_hk1_mux            , -- in     std_logic_vector(2 downto 0)              ; --! Address select
-         i_e_n                => i_hk1_mux_ena_n      , -- in     std_logic                                 ; --! Enable ('0' = Active, '1' = Inactive)
+         i_s                  => i_hk_mux             , -- in     std_logic_vector(2 downto 0)              ; --! Address select
+         i_e_n                => i_hk_mux_ena_n       , -- in     std_logic                                 ; --! Enable ('0' = Active, '1' = Inactive)
 
          i_a0                 => c_HK_M5V0_ANA_DEF_R  , -- in     real                                      ; --! Analog input channel 0
          i_a1                 => c_HK_P1V2_DIG_DEF_R  , -- in     real                                      ; --! Analog input channel 1
@@ -92,6 +92,7 @@ begin
    --!   HK ADC
    -- ------------------------------------------------------------------------------------------------------
    I_hk_adc_model: entity work.adc128s102_model generic map (
+         g_RST_LEV_ACT        => c_RST_LEV_ACT        , -- std_logic                                        ; --! Reset level activation value
          g_VA                 => c_HK_ADC_VREF_DEF      -- real                                               --! Voltage reference (V)
    ) port map (
          i_in0                => c_HK_P1V8_ANA_DEF_R  , -- in     real                                      ; --! Analog input channel 0 ( 0.0 <= i_in0 < g_VA)
@@ -103,10 +104,10 @@ begin
          i_in6                => c_HK_TEMP_AVE_DEF_R  , -- in     real                                      ; --! Analog input channel 6 ( 0.0 <= i_in6 < g_VA)
          i_in7                => c_HK_TEMP_MAX_DEF_R  , -- in     real                                      ; --! Analog input channel 7 ( 0.0 <= i_in7 < g_VA)
 
-         i_din                => i_hk1_spi_mosi       , -- in     std_logic                                 ; --! Serial Data in
-         i_sclk               => i_hk1_spi_sclk       , -- in     std_logic                                 ; --! Serial Clock
-         i_cs_n               => i_hk1_spi_cs_n       , -- in     std_logic                                 ; --! Chip Select ('0' = Active, '1' = Inactive)
-         o_dout               => o_hk1_spi_miso         -- out    std_logic                                   --! Serial Data out
+         i_din                => i_hk_spi_mosi        , -- in     std_logic                                 ; --! Serial Data in
+         i_sclk               => i_hk_spi_sclk        , -- in     std_logic                                 ; --! Serial Clock
+         i_cs_n               => i_hk_spi_cs_n        , -- in     std_logic                                 ; --! Chip Select ('0' = Active, '1' = Inactive)
+         o_dout               => o_hk_spi_miso          -- out    std_logic                                   --! Serial Data out
    );
 
 end architecture Behavioral;

@@ -43,12 +43,12 @@ entity hk_mgt is port (
          o_hkeep_data         : out    std_logic_vector(c_DFLD_HKEEP_S-1 downto 0)                          ; --! Housekeeping: data read
          o_hk_err_nin         : out    std_logic                                                            ; --! Housekeeping: Error parameter to read not initialized yet
 
-         i_hk1_spi_miso_rs    : in     std_logic                                                            ; --! HouseKeeping: SPI Master Input Slave Output
-         o_hk1_spi_mosi       : out    std_logic                                                            ; --! HouseKeeping: SPI Master Output Slave Input
-         o_hk1_spi_sclk       : out    std_logic                                                            ; --! HouseKeeping: SPI Serial Clock (CPOL = '1', CPHA = '1')
-         o_hk1_spi_cs_n       : out    std_logic                                                            ; --! HouseKeeping: SPI Chip Select ('0' = Active, '1' = Inactive)
-         o_hk1_mux            : out    std_logic_vector(      c_HK_MUX_S-1 downto 0)                        ; --! HouseKeeping: Multiplexer
-         o_hk1_mux_ena_n      : out    std_logic                                                              --! HouseKeeping: Multiplexer Enable ('0' = Active, '1' = Inactive)
+         i_hk_spi_miso_rs     : in     std_logic                                                            ; --! HouseKeeping: SPI Master Input Slave Output
+         o_hk_spi_mosi        : out    std_logic                                                            ; --! HouseKeeping: SPI Master Output Slave Input
+         o_hk_spi_sclk        : out    std_logic                                                            ; --! HouseKeeping: SPI Serial Clock (CPOL = '1', CPHA = '1')
+         o_hk_spi_cs_n        : out    std_logic                                                            ; --! HouseKeeping: SPI Chip Select ('0' = Active, '1' = Inactive)
+         o_hk_mux             : out    std_logic_vector(      c_HK_MUX_S-1 downto 0)                        ; --! HouseKeeping: Multiplexer
+         o_hk_mux_ena_n       : out    std_logic                                                              --! HouseKeeping: Multiplexer Enable ('0' = Active, '1' = Inactive)
 
    );
 end entity hk_mgt;
@@ -72,9 +72,9 @@ signal   hk_spi_tx_bsy_n_fe_r : std_logic_vector(c_HK_MUX_NPER_DEL-1 downto 0)  
 signal   hk_spi_data_rx       : std_logic_vector(c_HK_SPI_SER_WD_S-1 downto 0)                              ; --! HK SPI: Receipted data (stall on LSB)
 signal   hk_spi_data_rx_rdy   : std_logic                                                                   ; --! HK SPI: Receipted data ready ('0' = Not ready, '1' = Ready)
 
-signal   hk1_spi_mosi         : std_logic                                                                   ; --! HouseKeeping: SPI Master Output Slave Input
-signal   hk1_spi_sclk         : std_logic                                                                   ; --! HouseKeeping: SPI Serial Clock (CPOL = '0', CPHA = '0')
-signal   hk1_spi_cs_n         : std_logic                                                                   ; --! HouseKeeping: SPI Chip Select ('0' = Active, '1' = Inactive)
+signal   hk_spi_mosi          : std_logic                                                                   ; --! HouseKeeping: SPI Master Output Slave Input
+signal   hk_spi_sclk          : std_logic                                                                   ; --! HouseKeeping: SPI Serial Clock (CPOL = '1', CPHA = '1')
+signal   hk_spi_cs_n          : std_logic                                                                   ; --! HouseKeeping: SPI Chip Select ('0' = Active, '1' = Inactive)
 
 signal   err_nin_rmv_ena      : std_logic_vector(1 downto 0)                                                ; --! Error parameter to read not initialized yet, Remove Enable ('0'=Inactive, '1'=Active)
 signal   err_nin_flg          : t_slv_arr(0 to c_ERR_NIN_MX_STIN(c_ERR_NIN_MX_STIN'high)-1)(0 downto 0)     ; --! Error parameter to read not initialized yet, Flags
@@ -90,7 +90,7 @@ begin
    P_hk_pos : process (i_rst, i_clk)
    begin
 
-      if i_rst = '1' then
+      if i_rst = c_RST_LEV_ACT then
          hk_pos  <= (others => '0');
 
       elsif rising_edge(i_clk) then
@@ -116,7 +116,7 @@ begin
    P_hk_spi_tx_bsy_n_fe : process (i_rst, i_clk)
    begin
 
-      if i_rst = '1' then
+      if i_rst = c_RST_LEV_ACT then
          hk_spi_tx_busy_n_r   <= '1';
          hk_spi_tx_busy_n_fe  <= '0';
          hk_spi_tx_bsy_n_fe_r <= (others => '0');
@@ -140,6 +140,7 @@ begin
    hk_spi_data_tx(c_HK_SPI_ADD_POS_LSB-1 downto 0)                    <= (others => '0');
 
    I_hk_spi_master : entity work.spi_master generic map (
+         g_RST_LEV_ACT        => c_RST_LEV_ACT        , -- std_logic                                        ; --! Reset level activation value
          g_CPOL               => c_HK_SPI_CPOL        , -- std_logic                                        ; --! Clock polarity
          g_CPHA               => c_HK_SPI_CPHA        , -- std_logic                                        ; --! Clock phase
          g_N_CLK_PER_SCLK_L   => c_HK_SPI_SCLK_L      , -- integer                                          ; --! Number of clock period for elaborating SPI Serial Clock low  level
@@ -158,24 +159,24 @@ begin
          o_data_rx            => hk_spi_data_rx       , -- out    std_logic_vector(g_DATA_S-1 downto 0)     ; --! Receipted data (stall on LSB)
          o_data_rx_rdy        => hk_spi_data_rx_rdy   , -- out    std_logic                                 ; --! Receipted data ready ('0' = Not ready, '1' = Ready)
 
-         i_miso               => i_hk1_spi_miso_rs    , -- in     std_logic                                 ; --! SPI Master Input Slave Output
-         o_mosi               => hk1_spi_mosi         , -- out    std_logic                                 ; --! SPI Master Output Slave Input
-         o_sclk               => hk1_spi_sclk         , -- out    std_logic                                 ; --! SPI Serial Clock
-         o_cs_n               => hk1_spi_cs_n           -- out    std_logic                                   --! SPI Chip Select ('0' = Active, '1' = Inactive)
+         i_miso               => i_hk_spi_miso_rs     , -- in     std_logic                                 ; --! SPI Master Input Slave Output
+         o_mosi               => hk_spi_mosi          , -- out    std_logic                                 ; --! SPI Master Output Slave Input
+         o_sclk               => hk_spi_sclk          , -- out    std_logic                                 ; --! SPI Serial Clock
+         o_cs_n               => hk_spi_cs_n            -- out    std_logic                                   --! SPI Chip Select ('0' = Active, '1' = Inactive)
    );
 
    P_hk_spi_master : process (i_rst, i_clk)
    begin
 
-      if i_rst = '1' then
-         o_hk1_spi_mosi <= '0';
-         o_hk1_spi_sclk <= c_PAD_REG_SET_AUTH and c_HK_SPI_CPOL;
-         o_hk1_spi_cs_n <= c_PAD_REG_SET_AUTH;
+      if i_rst = c_RST_LEV_ACT then
+         o_hk_spi_mosi <= '0';
+         o_hk_spi_sclk <= c_PAD_REG_SET_AUTH and c_HK_SPI_CPOL;
+         o_hk_spi_cs_n <= c_PAD_REG_SET_AUTH;
 
       elsif rising_edge(i_clk) then
-         o_hk1_spi_mosi <= hk1_spi_mosi;
-         o_hk1_spi_sclk <= hk1_spi_sclk;
-         o_hk1_spi_cs_n <= hk1_spi_cs_n;
+         o_hk_spi_mosi <= hk_spi_mosi;
+         o_hk_spi_sclk <= hk_spi_sclk;
+         o_hk_spi_cs_n <= hk_spi_cs_n;
 
       end if;
 
@@ -188,12 +189,12 @@ begin
    P_hk_mux : process (i_rst, i_clk)
    begin
 
-      if i_rst = '1' then
-         o_hk1_mux  <= (others => '0');
+      if i_rst = c_RST_LEV_ACT then
+         o_hk_mux  <= (others => '0');
 
       elsif rising_edge(i_clk) then
          if hk_spi_tx_bsy_n_fe_r(hk_spi_tx_bsy_n_fe_r'high) = '1' then
-            o_hk1_mux            <= c_HK_MUX_SEQ(to_integer(unsigned(hk_pos)));
+            o_hk_mux            <= c_HK_MUX_SEQ(to_integer(unsigned(hk_pos)));
 
          end if;
 
@@ -201,7 +202,7 @@ begin
 
    end process P_hk_mux;
 
-   o_hk1_mux_ena_n      <= '0';
+   o_hk_mux_ena_n      <= '0';
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Dual port memory data storage Housekeeping
@@ -225,7 +226,7 @@ begin
    P_mem_hkeep_rd : process (i_rst, i_clk)
    begin
 
-      if i_rst = '1' then
+      if i_rst = c_RST_LEV_ACT then
          o_hkeep_data <= (others => '0');
 
       elsif rising_edge(i_clk) then
@@ -241,7 +242,7 @@ begin
    P_err_nin_rmv_ena : process (i_rst, i_clk)
    begin
 
-      if i_rst = '1' then
+      if i_rst = c_RST_LEV_ACT then
          err_nin_rmv_ena <= (others => '0');
 
       elsif rising_edge(i_clk) then
@@ -264,7 +265,7 @@ begin
       P_err_nin_flg : process (i_rst, i_clk)
       begin
 
-         if i_rst = '1' then
+         if i_rst = c_RST_LEV_ACT then
             err_nin_flg(k)(0) <= c_EP_CMD_ERR_SET;
 
          elsif rising_edge(i_clk) then

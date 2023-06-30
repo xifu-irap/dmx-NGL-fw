@@ -89,7 +89,7 @@ file     res_file             :        text                                     
          i_mess_header        : in     string                                                               ; --  Message header
 file     res_file             :        text                                                                 ; --  Result file
 
-         i_sqm_adc_ana        : in     t_real_arr(0 to c_NB_COL-1)                                          ; --  SQUID MUX ADC: Analog
+         i_sqm_adc_ana        : in     real_vector(0 to c_NB_COL-1)                                         ; --  SQUID MUX ADC: Analog
          b_err_chk_dis_r      : inout  std_logic                                                              --  Error check discrete read  ('0' = No error, '1' = Error)
    );
 
@@ -114,7 +114,7 @@ file     res_file             :        text                                     
          i_mess_header        : in     string                                                               ; --  Message header
 file     res_file             :        text                                                                 ; --  Result file
 
-signal   i_sqm_adc_ana_lst_ev : in     t_time_arr(0 to c_NB_COL-1)                                          ; --  SQUID MUX ADC: Analog last event time
+signal   i_sqm_adc_ana_lst_ev : in     time_vector(0 to c_NB_COL-1)                                         ; --  SQUID MUX ADC: Analog last event time
          b_err_chk_time       : inout  std_logic                                                              --  Error check time           ('0' = No error, '1' = Error)
    );
 
@@ -127,7 +127,7 @@ signal   i_sqm_adc_ana_lst_ev : in     t_time_arr(0 to c_NB_COL-1)              
          i_mess_header        : in     string                                                               ; --  Message header
 file     res_file             :        text                                                                 ; --  Result file
 
-signal   i_discrete_r_lst_ev  : t_time_arr(0 to c_CMD_FILE_FLD_DATA_S-1)                                    ; --  Discrete read last event time
+signal   i_discrete_r_lst_ev  : time_vector(0 to c_CMD_FILE_FLD_DATA_S-1)                                   ; --  Discrete read last event time
          b_err_chk_time       : inout  std_logic                                                              --  Error check time           ('0' = No error, '1' = Error)
    );
 
@@ -241,7 +241,7 @@ signal   o_brd_ref            : out    std_logic_vector(  c_BRD_REF_S-1 downto 0
          i_mess_header        : in     string                                                               ; --  Message header
 file     res_file             :        text                                                                 ; --  Result file
 
-signal   o_pls_shp_fc         : out    t_int_arr(0 to c_NB_COL-1)                                             --  Pulse shaping cut frequency (Hz)
+signal   o_pls_shp_fc         : out    integer_vector(0 to c_NB_COL-1)                                        --  Pulse shaping cut frequency (Hz)
    );
 
    -- ------------------------------------------------------------------------------------------------------
@@ -385,7 +385,7 @@ file     res_file             :        text                                     
          i_mess_header        : in     string                                                               ; --  Message header
 file     res_file             :        text                                                                 ; --  Result file
 
-         i_sqm_adc_ana        : in     t_real_arr(0 to c_NB_COL-1)                                          ; --  SQUID MUX ADC: Analog
+         i_sqm_adc_ana        : in     real_vector(0 to c_NB_COL-1)                                         ; --  SQUID MUX ADC: Analog
          b_err_chk_dis_r      : inout  std_logic                                                              --  Error check discrete read  ('0' = No error, '1' = Error)
    ) is
    variable v_fld_channel     : integer range 0 to c_NB_COL-1                                               ; --! Field channel number
@@ -456,7 +456,7 @@ file     res_file             :        text                                     
          i_mess_header        : in     string                                                               ; --  Message header
 file     res_file             :        text                                                                 ; --  Result file
 
-signal   i_sqm_adc_ana_lst_ev : in     t_time_arr(0 to c_NB_COL-1)                                          ; --  SQUID MUX ADC: Analog last event time
+signal   i_sqm_adc_ana_lst_ev : in     time_vector(0 to c_NB_COL-1)                                         ; --  SQUID MUX ADC: Analog last event time
          b_err_chk_time       : inout  std_logic                                                              --  Error check time           ('0' = No error, '1' = Error)
    ) is
    variable v_fld_channel     : integer range 0 to c_NB_COL-1                                               ; --! Field channel number
@@ -482,7 +482,7 @@ signal   i_sqm_adc_ana_lst_ev : in     t_time_arr(0 to c_NB_COL-1)              
          i_mess_header        : in     string                                                               ; --  Message header
 file     res_file             :        text                                                                 ; --  Result file
 
-signal   i_discrete_r_lst_ev  : t_time_arr(0 to c_CMD_FILE_FLD_DATA_S-1)                                    ; --  Discrete read last event time
+signal   i_discrete_r_lst_ev  : time_vector(0 to c_CMD_FILE_FLD_DATA_S-1)                                   ; --  Discrete read last event time
          b_err_chk_time       : inout  std_logic                                                              --  Error check time           ('0' = No error, '1' = Error)
    ) is
    variable v_fld_dr          : line                                                                        ; --! Field discrete input
@@ -769,7 +769,7 @@ signal   o_brd_ref            : out    std_logic_vector(  c_BRD_REF_S-1 downto 0
          i_mess_header        : in     string                                                               ; --  Message header
 file     res_file             :        text                                                                 ; --  Result file
 
-signal   o_pls_shp_fc         : out    t_int_arr(0 to c_NB_COL-1)                                             --  Pulse shaping cut frequency (Hz)
+signal   o_pls_shp_fc         : out    integer_vector(0 to c_NB_COL-1)                                        --  Pulse shaping cut frequency (Hz)
    ) is
    variable v_fld_channel     : integer range 0 to c_NB_COL-1                                               ; --! Field channel number
    variable v_fld_frequency   : integer                                                                     ; --! Field frequency cut (Hz)

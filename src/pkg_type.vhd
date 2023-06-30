@@ -31,8 +31,7 @@ package pkg_type is
 
 type     t_slv_arr             is array (natural range <>) of std_logic_vector                              ; --! std_logic_vector array type
 type     t_slv_arr_tab         is array (natural range <>) of t_slv_arr                                     ; --! std_logic_vector array table type
-type     t_int_arr             is array (natural range <>) of integer                                       ; --! Integer array type
-type     t_int_arr_tab         is array (natural range <>) of t_int_arr                                     ; --! Integer array table type
+type     t_int_arr_tab         is array (natural range <>) of integer_vector                                ; --! Integer array table type
 type     t_str_arr             is array (natural range <>) of string                                        ; --! String array type
 
 type     t_mem                 is record

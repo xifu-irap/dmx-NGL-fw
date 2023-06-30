@@ -42,9 +42,7 @@ package pkg_model is
    -- ------------------------------------------------------------------------------------------------------
    --    Model types
    -- ------------------------------------------------------------------------------------------------------
-type     t_real_arr             is array (natural range <>) of real                                         ; --! Real array type
-type     t_time_arr             is array (natural range <>) of time                                         ; --! Time array type
-type     t_time_arr_tab         is array (natural range <>) of t_time_arr                                   ; --! Time array table type
+type     t_time_arr_tab         is array (natural range <>) of time_vector                                  ; --! Time array table type
 type     t_line_arr             is array (natural range <>) of line                                         ; --! Line array type
 
 type     t_clk_chk_prm is record
@@ -61,7 +59,7 @@ type     t_clk_chk_prm_arr      is array (natural range <>) of t_clk_chk_prm    
 type     t_spi_chk_prm is record
          spi_name             : string                                                                      ; --! SPI bus name
          spi_cpol             : std_logic                                                                   ; --! SPI CPOL
-         spi_time             : t_time_arr                                                                  ; --! SPI time parameter
+         spi_time             : time_vector                                                                 ; --! SPI time parameter
 end record t_spi_chk_prm                                                                                    ; --! SPI check parameters type
 
 type     t_spi_chk_prm_arr      is array (natural range <>) of t_spi_chk_prm                                ; --! SPI check parameters array type
@@ -342,10 +340,10 @@ constant c_CCHK               : t_clk_chk_prm_arr(0 to c_CHK_ENA_CLK_NB-1) :=
    -- ------------------------------------------------------------------------------------------------------
    --    SPI parameters to check
    -- ------------------------------------------------------------------------------------------------------
-constant c_SPI_TIME_CHK_HK    : t_time_arr(0 to c_SPI_ERR_CHK_NB-3) :=
+constant c_SPI_TIME_CHK_HK    : time_vector(0 to c_SPI_ERR_CHK_NB-3) :=
                                 (25600 ps, 25600 ps, 62500 ps, 125000 ps, 0 ps,    0 ps, 10000 ps, 10000 ps); --! SPI timings to check: ADC HK ADC128S102
 
-constant c_SPI_TIME_CHK_SQA   : t_time_arr(0 to c_SPI_ERR_CHK_NB-3) :=
+constant c_SPI_TIME_CHK_SQA   : time_vector(0 to c_SPI_ERR_CHK_NB-3) :=
                                 (13000 ps, 13000 ps, 33000 ps, 999999 ms, 20000 ps, 1000 ps,5000 ps,4500 ps); --! SPI timings to check: DAC SQUID AMP DAC121S101
 
 constant c_SCHK               : t_spi_chk_prm_arr(0 to c_CHK_ENA_SPI_NB-1) :=
@@ -375,13 +373,13 @@ constant c_SCHK               : t_spi_chk_prm_arr(0 to c_CHK_ENA_SPI_NB-1) :=
    component hk_model is generic (
          g_HK_MUX_TPS         : time   := c_HK_MUX_TPS_DEF                                                    --! HouseKeeping: Multiplexer, time Data Propagation switch in to out
    ); port (
-         i_hk1_mux            : in     std_logic_vector(c_HK_MUX_S-1 downto 0)                              ; --! HouseKeeping: Multiplexer
-         i_hk1_mux_ena_n      : in     std_logic                                                            ; --! HouseKeeping: Multiplexer Enable ('0' = Active, '1' = Inactive)
+         i_hk_mux             : in     std_logic_vector(c_HK_MUX_S-1 downto 0)                              ; --! HouseKeeping: Multiplexer
+         i_hk_mux_ena_n       : in     std_logic                                                            ; --! HouseKeeping: Multiplexer Enable ('0' = Active, '1' = Inactive)
 
-         i_hk1_spi_mosi       : in     std_logic                                                            ; --! HouseKeeping: SPI Master Output Slave Input
-         i_hk1_spi_sclk       : in     std_logic                                                            ; --! HouseKeeping: SPI Serial Clock (CPOL = '1', CPHA = '1')
-         i_hk1_spi_cs_n       : in     std_logic                                                            ; --! HouseKeeping: SPI Chip Select ('0' = Active, '1' = Inactive)
-         o_hk1_spi_miso       : out    std_logic                                                              --! HouseKeeping: SPI Master Input Slave Output
+         i_hk_spi_mosi        : in     std_logic                                                            ; --! HouseKeeping: SPI Master Output Slave Input
+         i_hk_spi_sclk        : in     std_logic                                                            ; --! HouseKeeping: SPI Serial Clock (CPOL = '1', CPHA = '1')
+         i_hk_spi_cs_n        : in     std_logic                                                            ; --! HouseKeeping: SPI Chip Select ('0' = Active, '1' = Inactive)
+         o_hk_spi_miso        : out    std_logic                                                              --! HouseKeeping: SPI Master Input Slave Output
    );
    end component hk_model;
 
@@ -463,10 +461,10 @@ constant c_SCHK               : t_spi_chk_prm_arr(0 to c_CHK_ENA_SPI_NB-1) :=
 
          i_err_chk_rpt        : in     t_int_arr_tab(0 to c_CHK_ENA_CLK_NB-1)(0 to c_ERR_N_CLK_CHK_S-1)     ; --! Clock check error reports
          i_err_n_spi_chk      : in     t_int_arr_tab(0 to c_CHK_ENA_SPI_NB-1)(0 to c_SPI_ERR_CHK_NB-1)      ; --! SPI check error number:
-         i_err_num_pls_shp    : in     t_int_arr(0 to c_NB_COL-1)                                           ; --! Pulse shaping error number
+         i_err_num_pls_shp    : in     integer_vector(0 to c_NB_COL-1)                                      ; --! Pulse shaping error number
 
          i_sqm_adc_pwdn       : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! SQUID MUX ADC: Power Down ('0' = Inactive, '1' = Active)
-         i_sqm_adc_ana        : in     t_real_arr( 0 to c_NB_COL-1)                                         ; --! SQUID MUX ADC: Analog
+         i_sqm_adc_ana        : in     real_vector(0 to c_NB_COL-1)                                         ; --! SQUID MUX ADC: Analog
          i_sqm_dac_sleep      : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! SQUID MUX DAC: Sleep ('0' = Inactive, '1' = Active)
 
          i_d_rst              : in     std_logic                                                            ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
@@ -495,7 +493,7 @@ constant c_SCHK               : t_spi_chk_prm_arr(0 to c_CHK_ENA_SPI_NB-1) :=
          o_brd_model          : out    std_logic_vector(c_BRD_MODEL_S-1 downto 0)                           ; --! Board model
          o_ras_data_valid     : out    std_logic                                                            ; --! RAS Data valid ('0' = No, '1' = Yes)
 
-         o_pls_shp_fc         : out    t_int_arr(0 to c_NB_COL-1)                                           ; --! Pulse shaping cut frequency (Hz)
+         o_pls_shp_fc         : out    integer_vector(0 to c_NB_COL-1)                                      ; --! Pulse shaping cut frequency (Hz)
          o_sw_adc_vin         : out    std_logic_vector(c_SW_ADC_VIN_S-1 downto 0)                          ; --! Switch ADC Voltage input
 
          o_frm_cnt_sc_rst     : out    std_logic                                                            ; --! Frame counter science reset ('0' = Inactive, '1' = Active)

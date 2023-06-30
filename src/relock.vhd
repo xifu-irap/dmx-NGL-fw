@@ -75,6 +75,7 @@ signal   cnt_thr_exceed_rd_r  : std_logic_vector(c_DFLD_RLDEL_COL_S downto 0)   
 signal   cnt_thr_exd_rd_cmp   : std_logic                                                                   ; --! Counter threshold exceed read compare
 signal   cnt_thr_exceed_wr    : std_logic_vector(c_DFLD_RLDEL_COL_S downto 0)                               ; --! Counter threshold exceed write
 
+signal   mem_dlcnt_pp         : std_logic                                                                   ; --! Delock counter, TC/HK side: ping-pong buffer bit
 signal   mem_dlcnt_prm        : t_mem(
                                 add(              c_MEM_DLCNT_ADD_S-1 downto 0),
                                 data_w(          c_DFLD_DLCNT_PIX_S-1 downto 0))                            ; --! Delock counter, getting parameter side: memory inputs
@@ -93,7 +94,7 @@ begin
    P_sig_r : process (i_rst, i_clk)
    begin
 
-      if i_rst = '1' then
+      if i_rst = c_RST_LEV_ACT then
          sqm_dta_err_cor_cs_r <= (others => '0');
 
       elsif rising_edge(i_clk) then
@@ -121,7 +122,7 @@ begin
    P_diff_sqm_dta_smfb0 : process (i_rst, i_clk)
    begin
 
-      if i_rst = '1' then
+      if i_rst = c_RST_LEV_ACT then
          diff_sqm_dta_smfb0   <= (others => '0');
 
       elsif rising_edge(i_clk) then
@@ -141,7 +142,7 @@ begin
    P_cnt_thr_exceed_rd_r : process (i_rst, i_clk)
    begin
 
-      if i_rst = '1' then
+      if i_rst = c_RST_LEV_ACT then
          cnt_thr_exceed_rd      <= std_logic_vector(to_unsigned(1, cnt_thr_exceed_rd'length));
          cnt_thr_exceed_rd_r    <= std_logic_vector(to_unsigned(1, cnt_thr_exceed_rd_r'length));
          cnt_thr_exd_rd_cmp     <= '0';
@@ -165,7 +166,7 @@ begin
    P_cnt_thr_exceed_wr : process (i_rst, i_clk)
    begin
 
-      if i_rst = '1' then
+      if i_rst = c_RST_LEV_ACT then
          cnt_thr_exceed_wr <= std_logic_vector(to_unsigned(1, cnt_thr_exceed_wr'length));
 
       elsif rising_edge(i_clk) then
@@ -210,7 +211,7 @@ begin
          g_RAM_TYPE           => c_RAM_TYPE_DATA_TX   , -- integer                                          ; --! Memory type ( 0  = Data transfer,  1  = Parameters storage)
          g_RAM_ADD_S          => c_MEM_DLCNT_ADD_S    , -- integer                                          ; --! Memory address bus size (<= c_RAM_ECC_ADD_S)
          g_RAM_DATA_S         => c_DFLD_DLCNT_PIX_S   , -- integer                                          ; --! Memory data bus size (<= c_RAM_DATA_S)
-         g_RAM_INIT           => c_RAM_INIT_EMPTY       -- t_int_arr                                          --! Memory content at initialization
+         g_RAM_INIT           => c_RAM_INIT_EMPTY       -- integer_vector                                     --! Memory content at initialization
    ) port map (
          i_a_rst              => i_rst                , -- in     std_logic                                 ; --! Memory port A: registers reset ('0' = Inactive, '1' = Active)
          i_a_clk              => i_clk                , -- in     std_logic                                 ; --! Memory port A: main clock
@@ -218,7 +219,7 @@ begin
 
          i_a_mem              => i_mem_dlcnt          , -- in     t_mem( add(g_RAM_ADD_S-1 downto 0), ...)  ; --! Memory port A inputs (scrubbing with ping-pong buffer bit for parameters storage)
          o_a_data_out         => o_dlcnt_data         , -- out    slv(g_RAM_DATA_S-1 downto 0)              ; --! Memory port A: data out
-         o_a_pp               => open                 , -- out    std_logic                                 ; --! Memory port A: ping-pong buffer bit for address management
+         o_a_pp               => mem_dlcnt_pp         , -- out    std_logic                                 ; --! Memory port A: ping-pong buffer bit for address management
 
          o_a_flg_err          => open                 , -- out    std_logic                                 ; --! Memory port A: flag error uncorrectable detected ('0' = No, '1' = Yes)
 
@@ -240,7 +241,7 @@ begin
    mem_dlcnt_prm.we      <= sqm_dta_err_cor_cs_r(sqm_dta_err_cor_cs_r'high) and dlcnt_wr_ena;
    mem_dlcnt_prm.cs      <= '1';
    mem_dlcnt_prm.data_w  <= dlcnt_wr;
-   mem_dlcnt_prm.pp      <= c_MEM_STR_ADD_PP_DEF;
+   mem_dlcnt_prm.pp      <= mem_dlcnt_pp;
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Delock counter write enable
@@ -248,7 +249,7 @@ begin
    P_dlcnt_wr_ena : process (i_rst, i_clk)
    begin
 
-      if i_rst = '1' then
+      if i_rst = c_RST_LEV_ACT then
          dlcnt_wr_ena <= '1';
 
       elsif rising_edge(i_clk) then
@@ -274,7 +275,7 @@ begin
    P_dlcnt_wr : process (i_rst, i_clk)
    begin
 
-      if i_rst = '1' then
+      if i_rst = c_RST_LEV_ACT then
          dlcnt_wr <= (others => '0');
 
       elsif rising_edge(i_clk) then
@@ -310,7 +311,7 @@ begin
       P_dlflag : process (i_rst, i_clk)
       begin
 
-         if i_rst = '1' then
+         if i_rst = c_RST_LEV_ACT then
             dlflag(k)(0) <= '0';
 
          elsif rising_edge(i_clk) then
@@ -366,7 +367,7 @@ begin
    P_rl_ena : process (i_rst, i_clk)
    begin
 
-      if i_rst = '1' then
+      if i_rst = c_RST_LEV_ACT then
          o_rl_ena <= '0';
 
       elsif rising_edge(i_clk) then

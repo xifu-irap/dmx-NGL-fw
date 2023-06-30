@@ -31,6 +31,7 @@ use     ieee.math_real.all;
 
 library work;
 use     work.pkg_type.all;
+use     work.pkg_project.all;
 
 entity dac_dac5675a_model is generic (
          g_VREF               : real                                                                          --! Voltage reference (Volt)
@@ -61,9 +62,9 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    P_rst: process
    begin
-      rst   <= '1';
+      rst   <= c_RST_LEV_ACT;
       wait for c_TIME_TPD;
-      rst   <= '0';
+      rst   <= not(c_RST_LEV_ACT);
       wait;
 
    end process P_rst;
@@ -74,7 +75,7 @@ begin
    P_dac_data_r : process (rst, i_clk)
    begin
 
-      if rst = '1' then
+      if rst = c_RST_LEV_ACT then
          dac_data_r  <= (others => (i_d'high => '1',others =>'0'));
 
       elsif rising_edge(i_clk) then

@@ -51,10 +51,10 @@ entity parser is generic (
 
          i_err_chk_rpt        : in     t_int_arr_tab(0 to c_CHK_ENA_CLK_NB-1)(0 to c_ERR_N_CLK_CHK_S-1)     ; --! Clock check error reports
          i_err_n_spi_chk      : in     t_int_arr_tab(0 to c_CHK_ENA_SPI_NB-1)(0 to c_SPI_ERR_CHK_NB-1)      ; --! SPI check error number:
-         i_err_num_pls_shp    : in     t_int_arr(0 to c_NB_COL-1)                                           ; --! Pulse shaping error number
+         i_err_num_pls_shp    : in     integer_vector(0 to c_NB_COL-1)                                      ; --! Pulse shaping error number
 
          i_sqm_adc_pwdn       : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! SQUID MUX ADC: Power Down ('0' = Inactive, '1' = Active)
-         i_sqm_adc_ana        : in     t_real_arr( 0 to c_NB_COL-1)                                         ; --! SQUID MUX ADC: Analog
+         i_sqm_adc_ana        : in     real_vector(0 to c_NB_COL-1)                                         ; --! SQUID MUX ADC: Analog
          i_sqm_dac_sleep      : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! SQUID MUX DAC: Sleep ('0' = Inactive, '1' = Active)
 
          i_d_rst              : in     std_logic                                                            ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
@@ -83,7 +83,7 @@ entity parser is generic (
          o_brd_model          : out    std_logic_vector(c_BRD_MODEL_S-1 downto 0)                           ; --! Board model
          o_ras_data_valid     : out    std_logic                                                            ; --! RAS Data valid ('0' = No, '1' = Yes)
 
-         o_pls_shp_fc         : out    t_int_arr(0 to c_NB_COL-1)                                           ; --! Pulse shaping cut frequency (Hz)
+         o_pls_shp_fc         : out    integer_vector(0 to c_NB_COL-1)                                      ; --! Pulse shaping cut frequency (Hz)
          o_sw_adc_vin         : out    std_logic_vector(c_SW_ADC_VIN_S-1 downto 0)                          ; --! Switch ADC Voltage input
 
          o_frm_cnt_sc_rst     : out    std_logic                                                            ; --! Frame counter science reset ('0' = Inactive, '1' = Active)
@@ -104,9 +104,9 @@ constant c_SIM_NAME           : string    := c_CMD_FILE_ROOT & g_TST_NUM        
 
 signal   discrete_w           : std_logic_vector(c_CMD_FILE_FLD_DATA_S-1 downto 0)                          ; --! Discrete write
 signal   discrete_r           : std_logic_vector(c_CMD_FILE_FLD_DATA_S-1 downto 0)                          ; --! Discrete read
-signal   discrete_r_lst_ev    : t_time_arr(0 to c_CMD_FILE_FLD_DATA_S-1)                                    ; --! Discrete read last event time
+signal   discrete_r_lst_ev    : time_vector(0 to c_CMD_FILE_FLD_DATA_S-1)                                   ; --! Discrete read last event time
 
-signal   sqm_adc_ana_lst_ev   : t_time_arr(0 to c_NB_COL-1)                                                 ; --! SQUID MUX ADC: Analog last event time
+signal   sqm_adc_ana_lst_ev   : time_vector(0 to c_NB_COL-1)                                                ; --! SQUID MUX ADC: Analog last event time
 
 file     cmd_file             : text                                                                        ; --! Command file
 file     res_file             : text                                                                        ; --! Result file
@@ -187,7 +187,7 @@ begin
 
          end loop;
 
-      end process;
+      end process P_sqm_adc_ana_lst_ev;
 
    end generate G_sqm_adc_ana_lst_ev;
 
@@ -207,7 +207,7 @@ begin
 
          end loop;
 
-      end process;
+      end process P_discrete_r_lst_ev;
 
    end generate G_discrete_r_lst_ev;
 
@@ -570,6 +570,6 @@ begin
 
       wait;
 
-   end process;
+   end process P_parser_seq;
 
 end architecture Simulation;

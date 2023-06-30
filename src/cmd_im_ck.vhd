@@ -27,6 +27,9 @@
 library ieee;
 use     ieee.std_logic_1164.all;
 
+library work;
+use     work.pkg_project.all;
+
 entity cmd_im_ck is generic (
          g_CK_CMD_DEF         : std_logic                                                                     --! Clock switch command default value at reset
    ); port (
@@ -52,7 +55,7 @@ begin
    P_cmd_ck : process (i_rst, i_clk)
    begin
 
-      if i_rst = '1' then
+      if i_rst = c_RST_LEV_ACT then
          cmd_ck_dis_r   <= '0';
          o_cmd_ck       <= g_CK_CMD_DEF;
          cmd_ck_sleep   <= not(g_CK_CMD_DEF);

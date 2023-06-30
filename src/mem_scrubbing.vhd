@@ -56,7 +56,7 @@ begin
    P_mem_sig : process (i_rst, i_clk)
    begin
 
-      if i_rst = '1' then
+      if i_rst = c_RST_LEV_ACT then
          mem_add_pp           <= c_MEM_STR_ADD_PP_DEF;
          mem_add_scrub        <= (others => '0');
          o_mem_with_scrub.add <= (others => '0');

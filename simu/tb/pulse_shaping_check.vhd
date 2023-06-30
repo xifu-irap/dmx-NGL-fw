@@ -53,7 +53,7 @@ constant c_PLS_CNT_S          : integer:= log2_ceil(c_PLS_CNT_MAX_VAL+1)+1      
 constant c_PIXEL_POS_MAX_VAL  : integer:= c_MUX_FACT - 1                                                    ; --! Pixel position: maximal value
 constant c_PIXEL_POS_S        : integer:= log2_ceil(c_PIXEL_POS_MAX_VAL+1)+1                                ; --! Pixel position: size bus (signed)
 
-signal   sqm_dac_ana_r        : t_real_arr(0 to c_PIXEL_DAC_NB_CYC)                                         ; --! SQUID MUX DAC: Analog register
+signal   sqm_dac_ana_r        : real_vector(0 to c_PIXEL_DAC_NB_CYC)                                        ; --! SQUID MUX DAC: Analog register
 signal   sync_r               : std_logic                                                                   ; --! Pixel sequence synchronization register
 signal   sync_re              : std_logic                                                                   ; --! Pixel sequence synchronization rising edge
 
@@ -74,7 +74,7 @@ begin
    P_sig_reg : process (i_arst, i_clk_sqm_dac)
    begin
 
-      if i_arst = '1' then
+      if i_arst = c_RST_LEV_ACT then
          sqm_dac_ana_r     <= (others => 0.0);
          sync_r            <= c_I_SYNC_DEF;
          sync_re           <= '0';
@@ -94,7 +94,7 @@ begin
    P_pls_cnt: process (i_arst, i_clk_sqm_dac)
    begin
 
-      if i_arst = '1' then
+      if i_arst = c_RST_LEV_ACT then
          pls_cnt     <= std_logic_vector(to_signed(c_PLS_CNT_MAX_VAL, pls_cnt'length));
          pixel_pos   <= (others => '1');
 
@@ -126,7 +126,7 @@ begin
    P_get_lp_filt_in: process (i_arst, i_clk_sqm_dac)
    begin
 
-      if i_arst = '1' then
+      if i_arst = c_RST_LEV_ACT then
          cmd_exp  <= 0.0;
          pls_shp_fc_rsync  <= c_PLS_CUT_FREQ_DEF;
 
@@ -158,7 +158,7 @@ begin
    P_lp_filter: process (i_arst, i_clk_sqm_dac)
    begin
 
-      if i_arst = '1' then
+      if i_arst = c_RST_LEV_ACT then
          lp_filter   <= 0.0;
 
       elsif rising_edge(i_clk_sqm_dac) then
@@ -174,7 +174,7 @@ begin
    P_err_num_pls_shp: process (i_arst, i_clk_sqm_dac)
    begin
 
-      if i_arst = '1' then
+      if i_arst = c_RST_LEV_ACT then
          o_err_num_pls_shp   <= 0;
 
       elsif rising_edge(i_clk_sqm_dac) then

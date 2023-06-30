@@ -35,9 +35,9 @@ use     work.pkg_model.all;
 entity spi_check_model is port (
          i_rst                : in     std_logic                                                            ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
 
-         i_hk1_spi_mosi       : in     std_logic                                                            ; --! HouseKeeping: SPI Master Output Slave Input
-         i_hk1_spi_sclk       : in     std_logic                                                            ; --! HouseKeeping: SPI Serial Clock (CPOL = '0', CPHA = '0')
-         i_hk1_spi_cs_n       : in     std_logic                                                            ; --! HouseKeeping: SPI Chip Select ('0' = Active, '1' = Inactive)
+         i_hk_spi_mosi        : in     std_logic                                                            ; --! HouseKeeping: SPI Master Output Slave Input
+         i_hk_spi_sclk        : in     std_logic                                                            ; --! HouseKeeping: SPI Serial Clock (CPOL = '1', CPHA = '1')
+         i_hk_spi_cs_n        : in     std_logic                                                            ; --! HouseKeeping: SPI Chip Select ('0' = Active, '1' = Inactive)
 
          i_sqa_dac_data       : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! SQUID AMP DAC: Serial Data
          i_sqa_dac_sclk       : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! SQUID AMP DAC: Serial Clock
@@ -57,7 +57,7 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   MOSI signals
    -- ------------------------------------------------------------------------------------------------------
-   spi_mosi(c_SPIE_HK         - c_CHK_ENA_CLK_NB) <= i_hk1_spi_mosi;
+   spi_mosi(c_SPIE_HK         - c_CHK_ENA_CLK_NB) <= i_hk_spi_mosi;
    spi_mosi(c_SPIE_C0_SQA_LSB - c_CHK_ENA_CLK_NB) <= i_sqa_dac_data(0);
    spi_mosi(c_SPIE_C1_SQA_LSB - c_CHK_ENA_CLK_NB) <= i_sqa_dac_data(1);
    spi_mosi(c_SPIE_C2_SQA_LSB - c_CHK_ENA_CLK_NB) <= i_sqa_dac_data(2);
@@ -70,7 +70,7 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   SCLK signals
    -- ------------------------------------------------------------------------------------------------------
-   spi_sclk(c_SPIE_HK         - c_CHK_ENA_CLK_NB) <= i_hk1_spi_sclk;
+   spi_sclk(c_SPIE_HK         - c_CHK_ENA_CLK_NB) <= i_hk_spi_sclk;
    spi_sclk(c_SPIE_C0_SQA_LSB - c_CHK_ENA_CLK_NB) <= i_sqa_dac_sclk(0);
    spi_sclk(c_SPIE_C1_SQA_LSB - c_CHK_ENA_CLK_NB) <= i_sqa_dac_sclk(1);
    spi_sclk(c_SPIE_C2_SQA_LSB - c_CHK_ENA_CLK_NB) <= i_sqa_dac_sclk(2);
@@ -83,7 +83,7 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   CS signals
    -- ------------------------------------------------------------------------------------------------------
-   spi_cs_n(c_SPIE_HK         - c_CHK_ENA_CLK_NB) <= i_hk1_spi_cs_n or i_rst;
+   spi_cs_n(c_SPIE_HK         - c_CHK_ENA_CLK_NB) <= i_hk_spi_cs_n or i_rst;
    spi_cs_n(c_SPIE_C0_SQA_LSB - c_CHK_ENA_CLK_NB) <= i_sqa_dac_snc_l_n(0);
    spi_cs_n(c_SPIE_C1_SQA_LSB - c_CHK_ENA_CLK_NB) <= i_sqa_dac_snc_l_n(1);
    spi_cs_n(c_SPIE_C2_SQA_LSB - c_CHK_ENA_CLK_NB) <= i_sqa_dac_snc_l_n(2);
@@ -100,14 +100,14 @@ begin
    begin
 
       I_spi_check: entity work.spi_check generic map (
-         g_SPI_TIME_CHK       => c_SCHK(k).spi_time   , -- t_time_arr(0 to c_SPI_ERR_CHK_NB-3)              ; --! SPI timings to check
+         g_SPI_TIME_CHK       => c_SCHK(k).spi_time   , -- time_vector(0 to c_SPI_ERR_CHK_NB-3)             ; --! SPI timings to check
          g_CPOL               => c_SCHK(k).spi_cpol     -- std_logic                                          --! Clock polarity
       ) port map (
          i_spi_mosi           => spi_mosi(k)          , -- in     std_logic                                 ; --! SPI: Master Output Slave Input data
          i_spi_sclk           => spi_sclk(k)          , -- in     std_logic                                 ; --! SPI: Serial Clock
          i_spi_cs_n           => spi_cs_n(k)          , -- in     std_logic                                 ; --! SPI: Chip Select
 
-         o_err_n_spi_chk      => o_err_n_spi_chk(k)     -- out    t_int_arr(0 to c_SPI_ERR_CHK_NB-1)          --! SPI check error number:
+         o_err_n_spi_chk      => o_err_n_spi_chk(k)     -- out    integer_vector(0 to c_SPI_ERR_CHK_NB-1)     --! SPI check error number:
       );
 
    end generate G_spi_check;

@@ -64,6 +64,7 @@ begin
    --!   SQUID AMP offset DAC LSB
    -- ------------------------------------------------------------------------------------------------------
    I_sqa_dac_lsb: entity work.dac121s101_model generic map (
+         g_RST_LEV_ACT        => c_RST_LEV_ACT        , -- std_logic                                        ; --! Reset level activation value
          g_VA                 => g_SQA_DAC_VREF       , -- real                                             ; --! Voltage reference (Volt)
          g_TIME_TS            => g_SQA_DAC_TS           -- time                                               --! Time: Output Voltage Settling
    ) port map (
@@ -78,6 +79,7 @@ begin
    --!   SQUID AMP DAC Offset
    -- ------------------------------------------------------------------------------------------------------
    I_sqa_dac_off: entity work.dac121s101_model generic map (
+         g_RST_LEV_ACT        => c_RST_LEV_ACT        , -- std_logic                                        ; --! Reset level activation value
          g_VA                 => g_SQA_DAC_VREF       , -- real                                             ; --! Voltage reference (Volt)
          g_TIME_TS            => g_SQA_DAC_TS           -- time                                               --! Time: Output Voltage Settling
    ) port map (

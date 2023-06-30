@@ -63,7 +63,7 @@ begin
    P_rg_tsten : process (i_rst, i_clk)
    begin
 
-      if i_rst = '1' then
+      if i_rst = c_RST_LEV_ACT then
          rg_tsten_lop <= c_EP_CMD_DEF_TSTEN(c_DFLD_TSTEN_LOP_S + c_DFLD_TSTEN_LOP_POS-1 downto c_DFLD_TSTEN_LOP_POS);
          rg_tsten_inf <= c_EP_CMD_DEF_TSTEN(c_DFLD_TSTEN_INF_POS);
          rg_tsten_ena <= c_EP_CMD_DEF_TSTEN(c_DFLD_TSTEN_ENA_POS);

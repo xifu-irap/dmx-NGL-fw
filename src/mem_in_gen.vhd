@@ -70,7 +70,7 @@ begin
       P_mem_in : process (i_rst, i_clk)
       begin
 
-         if i_rst = '1' then
+         if i_rst = c_RST_LEV_ACT then
             o_mem_in_cs(k) <= '0';
             o_mem_in_pp(k) <= '0';
 

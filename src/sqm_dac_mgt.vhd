@@ -81,7 +81,7 @@ signal   pls_cnt_msb_r        : std_logic                                       
 signal   pixel_pos            : std_logic_vector(     c_SQM_PXL_POS_S-1 downto 0)                           ; --! Pixel position
 
 signal   mem_plssh_add_lsb    : std_logic_vector(     c_SQM_PLS_CNT_S-1 downto 0)                           ; --! Memory pulse shaping coefficient, DAC side: address lsb
-signal   mem_plssh_pp         : std_logic                                                                   ; --! SQUID MUX feedback pulse shaping coefficient, TH/HK side: ping-pong buffer bit
+signal   mem_plssh_pp         : std_logic                                                                   ; --! SQUID MUX feedback pulse shaping coefficient, TC/HK side: ping-pong buffer bit
 signal   mem_plssh_prm        : t_mem(
                                 add(                c_MEM_PLSSH_ADD_S-1 downto 0),
                                 data_w(            c_DFLD_PLSSH_PLS_S-1 downto 0))                          ; --! SQUID MUX feedback pulse shaping coefficient, DAC side: memory inputs
@@ -106,11 +106,11 @@ begin
    P_rst_sqm_adc_dac_pd: process (i_rst_sqm_adc_dac_pd, i_clk_sqm_adc_dac)
    begin
 
-      if i_rst_sqm_adc_dac_pd = '1' then
-         rst_sqm_adc_dac_pad <= '1';
+      if i_rst_sqm_adc_dac_pd = c_RST_LEV_ACT then
+         rst_sqm_adc_dac_pad <= c_RST_LEV_ACT;
 
       elsif rising_edge(i_clk_sqm_adc_dac) then
-         rst_sqm_adc_dac_pad <= '0';
+         rst_sqm_adc_dac_pad <= not(c_RST_LEV_ACT);
 
       end if;
 
@@ -122,7 +122,7 @@ begin
    P_reg_sys: process (i_rst, i_clk)
    begin
 
-      if i_rst = '1' then
+      if i_rst = c_RST_LEV_ACT then
          sync_rs_sys       <= c_I_SYNC_DEF;
          plsss_sys         <= c_EP_CMD_DEF_PLSSS;
 
@@ -140,7 +140,7 @@ begin
    P_rsync : process (i_rst_sqm_adc_dac, i_clk_sqm_adc_dac)
    begin
 
-      if i_rst_sqm_adc_dac = '1' then
+      if i_rst_sqm_adc_dac = c_RST_LEV_ACT then
          sync_r               <= (others => c_I_SYNC_DEF);
          sqm_data_fbk_r       <= (others => std_logic_vector(to_unsigned(c_DAC_MDL_POINT, c_SQM_DATA_FBK_S)));
          sqm_pixel_pos_init_r <= (others => std_logic_vector(to_signed(c_SQM_PXL_POS_INIT, c_SQM_PXL_POS_S)));
@@ -166,7 +166,7 @@ begin
    P_sig : process (i_rst_sqm_adc_dac, i_clk_sqm_adc_dac)
    begin
 
-      if i_rst_sqm_adc_dac = '1' then
+      if i_rst_sqm_adc_dac = c_RST_LEV_ACT then
          sync_re            <= '0';
 
       elsif rising_edge(i_clk_sqm_adc_dac) then
@@ -183,7 +183,7 @@ begin
    P_pls_cnt : process (i_rst_sqm_adc_dac, i_clk_sqm_adc_dac)
    begin
 
-      if i_rst_sqm_adc_dac = '1' then
+      if i_rst_sqm_adc_dac = c_RST_LEV_ACT then
          pls_cnt        <= std_logic_vector(to_unsigned(c_SQM_PLS_CNT_MX_VAL, pls_cnt'length));
          pls_cnt_msb_r  <= '0';
 
@@ -214,7 +214,7 @@ begin
    P_pixel_pos : process (i_rst_sqm_adc_dac, i_clk_sqm_adc_dac)
    begin
 
-      if i_rst_sqm_adc_dac = '1' then
+      if i_rst_sqm_adc_dac = c_RST_LEV_ACT then
          pixel_pos   <= (others => '1');
 
       elsif rising_edge(i_clk_sqm_adc_dac) then
@@ -242,7 +242,7 @@ begin
          g_RAM_TYPE           => c_RAM_TYPE_PRM_STORE , -- integer                                          ; --! Memory type ( 0  = Data transfer,  1  = Parameters storage)
          g_RAM_ADD_S          => c_MEM_PLSSH_ADD_S    , -- integer                                          ; --! Memory address bus size (<= c_RAM_ECC_ADD_S)
          g_RAM_DATA_S         => c_DFLD_PLSSH_PLS_S   , -- integer                                          ; --! Memory data bus size (<= c_RAM_DATA_S)
-         g_RAM_INIT           => c_EP_CMD_DEF_PLSSH     -- t_int_arr                                          --! Memory content at initialization
+         g_RAM_INIT           => c_EP_CMD_DEF_PLSSH     -- integer_vector                                     --! Memory content at initialization
    ) port map (
          i_a_rst              => i_rst                , -- in     std_logic                                 ; --! Memory port A: registers reset ('0' = Inactive, '1' = Active)
          i_a_clk              => i_clk                , -- in     std_logic                                 ; --! Memory port A: main clock
@@ -272,7 +272,7 @@ begin
    P_mem_plssh_dac : process (i_rst_sqm_adc_dac, i_clk_sqm_adc_dac)
    begin
 
-      if i_rst_sqm_adc_dac = '1' then
+      if i_rst_sqm_adc_dac = c_RST_LEV_ACT then
          mem_plssh_add_lsb <= std_logic_vector(to_unsigned(0, mem_plssh_add_lsb'length));
          mem_plssh_prm.add(mem_plssh_prm.add'high downto mem_plssh_add_lsb'high) <= c_EP_CMD_DEF_PLSSS;
          mem_plssh_prm.pp <= c_MEM_STR_ADD_PP_DEF;
@@ -305,7 +305,7 @@ begin
    P_pulse_shaping_in : process (i_rst_sqm_adc_dac, i_clk_sqm_adc_dac)
    begin
 
-      if i_rst_sqm_adc_dac = '1' then
+      if i_rst_sqm_adc_dac = c_RST_LEV_ACT then
          x_init   <= std_logic_vector(to_unsigned(c_DAC_MDL_POINT, x_init'length));
          x_final  <= std_logic_vector(to_unsigned(c_DAC_MDL_POINT, x_final'length));
 

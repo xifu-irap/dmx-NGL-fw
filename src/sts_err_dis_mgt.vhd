@@ -53,7 +53,7 @@ begin
    P_ep_cmd_sts_err_dis : process (i_rst, i_clk)
    begin
 
-      if i_rst = '1' then
+      if i_rst = c_RST_LEV_ACT then
          o_ep_cmd_sts_err_dis <= c_EP_CMD_ERR_CLR;
 
       elsif rising_edge(i_clk) then

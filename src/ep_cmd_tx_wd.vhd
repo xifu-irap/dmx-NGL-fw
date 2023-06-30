@@ -154,7 +154,7 @@ begin
          i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                => i_clk                , -- in     std_logic                                 ; --! System Clock
          i_data               => data                 , -- in     t_slv_arr g_NB g_DATA_S                   ; --! Data buses
-         i_cs                 => i_ep_mem_data_cs(l) , -- in     std_logic_vector(g_NB-1 downto 0)         ; --! Chip selects ('0' = Inactive, '1' = Active)
+         i_cs                 => i_ep_mem_data_cs(l)  , -- in     std_logic_vector(g_NB-1 downto 0)         ; --! Chip selects ('0' = Inactive, '1' = Active)
          o_data_mux           => ep_mem_data_mux(c_EP_MEM_ACC(l+1)-1 downto c_EP_MEM_ACC(l))                 --! Multiplexed data
       );
 

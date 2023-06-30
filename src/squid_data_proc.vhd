@@ -116,22 +116,22 @@ signal   sqm_data_err_rdy_r   : std_logic_vector(c_TOT_NPER-1 downto 0)         
 signal   pixel_pos            : std_logic_vector(            c_PIXEL_POS_S-1 downto 0)                      ; --! Pixel position
 signal   pixel_pos_r          : t_slv_arr(0 to c_TOT_NPER-1)(c_PIXEL_POS_S-1 downto 0)                      ; --! Pixel position register
 
-signal   mem_parma_pp         : std_logic                                                                   ; --! Parameter a(p), TH/HK side: ping-pong buffer bit
+signal   mem_parma_pp         : std_logic                                                                   ; --! Parameter a(p), TC/HK side: ping-pong buffer bit
 signal   mem_parma_prm        : t_mem(
                                 add(              c_MEM_PARMA_ADD_S-1 downto 0),
                                 data_w(          c_DFLD_PARMA_PIX_S-1 downto 0))                            ; --! Parameter a(p), getting parameter side: memory inputs
 
-signal   mem_kiknm_pp         : std_logic                                                                   ; --! Parameter ki(p)*knorm(p), TH/HK side: ping-pong buffer bit
+signal   mem_kiknm_pp         : std_logic                                                                   ; --! Parameter ki(p)*knorm(p), TC/HK side: ping-pong buffer bit
 signal   mem_kiknm_prm        : t_mem(
                                 add(              c_MEM_KIKNM_ADD_S-1 downto 0),
                                 data_w(          c_DFLD_KIKNM_PIX_S-1 downto 0))                            ; --! Parameter ki(p)*knorm(p), getting parameter side: memory inputs
 
-signal   mem_knorm_pp         : std_logic                                                                   ; --! Parameter knorm(p), TH/HK side: ping-pong buffer bit
+signal   mem_knorm_pp         : std_logic                                                                   ; --! Parameter knorm(p), TC/HK side: ping-pong buffer bit
 signal   mem_knorm_prm        : t_mem(
                                 add(              c_MEM_KNORM_ADD_S-1 downto 0),
                                 data_w(          c_DFLD_KNORM_PIX_S-1 downto 0))                            ; --! Parameter knorm(p), getting parameter side: memory inputs
 
-signal   mem_smlkv_pp         : std_logic                                                                   ; --! Parameter elp(p), TH/HK side: ping-pong buffer bit
+signal   mem_smlkv_pp         : std_logic                                                                   ; --! Parameter elp(p), TC/HK side: ping-pong buffer bit
 signal   mem_smlkv_prm        : t_mem(
                                 add(              c_MEM_SMLKV_ADD_S-1 downto 0),
                                 data_w(          c_DFLD_SMLKV_PIX_S-1 downto 0))                            ; --! Parameter elp(p), getting parameter side: memory inputs
@@ -202,7 +202,7 @@ begin
    P_sig_r : process (i_rst, i_clk)
    begin
 
-      if i_rst = '1' then
+      if i_rst = c_RST_LEV_ACT then
          sqm_data_err_frst_r  <= (others => '0');
          sqm_data_err_last_r  <= (others => '0');
          sqm_data_err_rdy_r   <= (others => '0');
@@ -226,7 +226,7 @@ begin
    P_pixel_pos : process (i_rst, i_clk)
    begin
 
-      if i_rst = '1' then
+      if i_rst = c_RST_LEV_ACT then
          pixel_pos   <= (others => '0');
 
       elsif rising_edge(i_clk) then
@@ -254,7 +254,7 @@ begin
          g_RAM_TYPE           => c_RAM_TYPE_PRM_STORE , -- integer                                          ; --! Memory type ( 0  = Data transfer,  1  = Parameters storage)
          g_RAM_ADD_S          => c_MEM_PARMA_ADD_S    , -- integer                                          ; --! Memory address bus size (<= c_RAM_ECC_ADD_S)
          g_RAM_DATA_S         => c_DFLD_PARMA_PIX_S   , -- integer                                          ; --! Memory data bus size (<= c_RAM_DATA_S)
-         g_RAM_INIT           => c_EP_CMD_DEF_PARMA     -- t_int_arr                                          --! Memory content at initialization
+         g_RAM_INIT           => c_EP_CMD_DEF_PARMA     -- integer_vector                                     --! Memory content at initialization
    ) port map (
          i_a_rst              => i_rst                , -- in     std_logic                                 ; --! Memory port A: registers reset ('0' = Inactive, '1' = Active)
          i_a_clk              => i_clk                , -- in     std_logic                                 ; --! Memory port A: main clock
@@ -290,7 +290,7 @@ begin
    P_mem_parma_pp : process (i_rst, i_clk)
    begin
 
-      if i_rst = '1' then
+      if i_rst = c_RST_LEV_ACT then
          mem_parma_prm.pp      <= c_MEM_STR_ADD_PP_DEF;
 
       elsif rising_edge(i_clk) then
@@ -312,7 +312,7 @@ begin
          g_RAM_TYPE           => c_RAM_TYPE_PRM_STORE , -- integer                                          ; --! Memory type ( 0  = Data transfer,  1  = Parameters storage)
          g_RAM_ADD_S          => c_MEM_KIKNM_ADD_S    , -- integer                                          ; --! Memory address bus size (<= c_RAM_ECC_ADD_S)
          g_RAM_DATA_S         => c_DFLD_KIKNM_PIX_S   , -- integer                                          ; --! Memory data bus size (<= c_RAM_DATA_S)
-         g_RAM_INIT           => c_EP_CMD_DEF_KIKNM     -- t_int_arr                                          --! Memory content at initialization
+         g_RAM_INIT           => c_EP_CMD_DEF_KIKNM     -- integer_vector                                     --! Memory content at initialization
    ) port map (
          i_a_rst              => i_rst                , -- in     std_logic                                 ; --! Memory port A: registers reset ('0' = Inactive, '1' = Active)
          i_a_clk              => i_clk                , -- in     std_logic                                 ; --! Memory port A: main clock
@@ -348,7 +348,7 @@ begin
    P_mem_kiknm_prm_pp : process (i_rst, i_clk)
    begin
 
-      if i_rst = '1' then
+      if i_rst = c_RST_LEV_ACT then
          mem_kiknm_prm.pp      <= c_MEM_STR_ADD_PP_DEF;
 
       elsif rising_edge(i_clk) then
@@ -370,7 +370,7 @@ begin
          g_RAM_TYPE           => c_RAM_TYPE_PRM_STORE , -- integer                                          ; --! Memory type ( 0  = Data transfer,  1  = Parameters storage)
          g_RAM_ADD_S          => c_MEM_KNORM_ADD_S    , -- integer                                          ; --! Memory address bus size (<= c_RAM_ECC_ADD_S)
          g_RAM_DATA_S         => c_DFLD_KNORM_PIX_S   , -- integer                                          ; --! Memory data bus size (<= c_RAM_DATA_S)
-         g_RAM_INIT           => c_EP_CMD_DEF_KNORM     -- t_int_arr                                          --! Memory content at initialization
+         g_RAM_INIT           => c_EP_CMD_DEF_KNORM     -- integer_vector                                     --! Memory content at initialization
    ) port map (
          i_a_rst              => i_rst                , -- in     std_logic                                 ; --! Memory port A: registers reset ('0' = Inactive, '1' = Active)
          i_a_clk              => i_clk                , -- in     std_logic                                 ; --! Memory port A: main clock
@@ -406,7 +406,7 @@ begin
    P_mem_knorm_prm_pp : process (i_rst, i_clk)
    begin
 
-      if i_rst = '1' then
+      if i_rst = c_RST_LEV_ACT then
          mem_knorm_prm.pp      <= c_MEM_STR_ADD_PP_DEF;
 
       elsif rising_edge(i_clk) then
@@ -428,7 +428,7 @@ begin
          g_RAM_TYPE           => c_RAM_TYPE_PRM_STORE , -- integer                                          ; --! Memory type ( 0  = Data transfer,  1  = Parameters storage)
          g_RAM_ADD_S          => c_MEM_SMLKV_ADD_S    , -- integer                                          ; --! Memory address bus size (<= c_RAM_ECC_ADD_S)
          g_RAM_DATA_S         => c_DFLD_SMLKV_PIX_S   , -- integer                                          ; --! Memory data bus size (<= c_RAM_DATA_S)
-         g_RAM_INIT           => c_EP_CMD_DEF_SMLKV     -- t_int_arr                                          --! Memory content at initialization
+         g_RAM_INIT           => c_EP_CMD_DEF_SMLKV     -- integer_vector                                     --! Memory content at initialization
    ) port map (
          i_a_rst              => i_rst                , -- in     std_logic                                 ; --! Memory port A: registers reset ('0' = Inactive, '1' = Active)
          i_a_clk              => i_clk                , -- in     std_logic                                 ; --! Memory port A: main clock
@@ -466,7 +466,7 @@ begin
    P_mem_smlkv_prm_pp : process (i_rst, i_clk)
    begin
 
-      if i_rst = '1' then
+      if i_rst = c_RST_LEV_ACT then
          mem_smlkv_prm.pp      <= c_MEM_STR_ADD_PP_DEF;
 
       elsif rising_edge(i_clk) then
@@ -498,7 +498,7 @@ begin
    P_init_fbk_acc_rd : process (i_rst, i_clk)
    begin
 
-      if i_rst = '1' then
+      if i_rst = c_RST_LEV_ACT then
          init_fbk_acc_dfb <= '1';
          init_fbk_acc_fb  <= '1';
          smfb0            <= std_logic_vector(to_unsigned(c_EP_CMD_DEF_SMFB0(0), smfb0'length));
@@ -535,7 +535,7 @@ begin
    P_reg_sync : process (i_rst, i_clk)
    begin
 
-      if i_rst = '1' then
+      if i_rst = c_RST_LEV_ACT then
          sqm_adc_ena <= '0';
          aqmde_sync  <= c_EP_CMD_DEF_AQMDE;
          bxlgt_sync  <= c_EP_CMD_DEF_BXLGT;
@@ -576,7 +576,7 @@ begin
    P_sqm_data_err : process (i_rst, i_clk)
    begin
 
-      if i_rst = '1' then
+      if i_rst = c_RST_LEV_ACT then
          sqm_data_err <= std_logic_vector(resize(signed(c_I_SQM_ADC_DATA_DEF), sqm_data_err'length));
 
       elsif rising_edge(i_clk) then
@@ -599,7 +599,7 @@ begin
    P_adc_smp_ave_coef : process (i_rst, i_clk)
    begin
 
-      if i_rst = '1' then
+      if i_rst = c_RST_LEV_ACT then
          adc_smp_ave_coef <= std_logic_vector(resize(unsigned(c_ADC_SMP_AVE_TAB(to_integer(unsigned(c_EP_CMD_DEF_BXLGT)))), adc_smp_ave_coef'length));
 
       elsif rising_edge(i_clk) then
@@ -648,7 +648,7 @@ begin
    P_e_pn_minus_elp_p : process (i_rst, i_clk)
    begin
 
-      if i_rst = '1' then
+      if i_rst = c_RST_LEV_ACT then
          e_pn_minus_elp_p <= (others => '0');
 
       elsif rising_edge(i_clk) then
@@ -694,6 +694,7 @@ begin
    m_pn_car_dfb_pn <= m_pn(m_pn'high downto m_pn'length-m_pn_car_dfb_pn'length);
 
    I_m_pn_rd_sat_dfb_pn: entity work.round_sat generic map (
+         g_RST_LEV_ACT        => c_RST_LEV_ACT        , -- std_logic                                        ; --! Reset level activation value
          g_DATA_CARRY_S       => c_DFB_PN_DACC_S+1      -- integer                                            --! Data with carry bus size
    )  port map (
          i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
@@ -703,6 +704,7 @@ begin
    );
 
    I_m_pn_rd_sat_pc1_pn: entity work.round_sat generic map (
+         g_RST_LEV_ACT        => c_RST_LEV_ACT        , -- std_logic                                        ; --! Reset level activation value
          g_DATA_CARRY_S       => c_M_PN_C_S             -- integer                                            --! Data with carry bus size
    )  port map (
          i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
@@ -771,6 +773,7 @@ begin
    );
 
    I_pc1_pn_rd_st_fb_pn: entity work.round_sat generic map (
+         g_RST_LEV_ACT        => c_RST_LEV_ACT        , -- std_logic                                        ; --! Reset level activation value
          g_DATA_CARRY_S       => c_PC1_PN_C_S           -- integer                                            --! Data with carry bus size
    )  port map (
          i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
@@ -810,6 +813,7 @@ begin
    fb_pnp1_car    <= fb_pnp1(fb_pnp1'high downto fb_pnp1'length-fb_pnp1_car'length);
 
    I_sqm_dta_err_cor: entity work.round_sat generic map (
+         g_RST_LEV_ACT        => c_RST_LEV_ACT        , -- std_logic                                        ; --! Reset level activation value
          g_DATA_CARRY_S       => c_SQM_DATA_FBK_S+1     -- integer                                            --! Data with carry bus size
    )  port map (
          i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
@@ -854,6 +858,7 @@ begin
    );
 
    I_nrm_pn_rnd_sat: entity work.round_sat generic map (
+         g_RST_LEV_ACT        => c_RST_LEV_ACT        , -- std_logic                                        ; --! Reset level activation value
          g_DATA_CARRY_S       => c_NRM_PN_C_S           -- integer                                            --! Data with carry bus size
    )  port map (
          i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
@@ -867,6 +872,7 @@ begin
    --    @Req : DRE-DMX-FW-REQ-0390
    -- ------------------------------------------------------------------------------------------------------
    I_sc_pn: entity work.adder_sat generic map (
+         g_RST_LEV_ACT        => c_RST_LEV_ACT        , -- std_logic                                        ; --! Reset level activation value
          g_DATA_S             => c_NRM_PN_S             -- integer                                            --! Data bus size
    )  port map (
          i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
@@ -882,6 +888,7 @@ begin
    sc_pn_car <= sc_pn(sc_pn'high downto sc_pn'length-sc_pn_car'length);
 
    I_sqm_data_sc: entity work.round_sat generic map (
+         g_RST_LEV_ACT        => c_RST_LEV_ACT        , -- std_logic                                        ; --! Reset level activation value
          g_DATA_CARRY_S       => c_SC_DATA_SER_NB*c_SC_DATA_SER_W_S+1 -- integer                              --! Data with carry bus size
    )  port map (
          i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
@@ -896,6 +903,7 @@ begin
    adc_smp_ave_sc <= adc_smp_ave(adc_smp_ave'high) & adc_smp_ave(adc_smp_ave'high downto adc_smp_ave'length-c_SC_DATA_SER_NB*c_SC_DATA_SER_W_S-1);
 
    I_adc_smp_ave_sc: entity work.round_sat generic map (
+         g_RST_LEV_ACT        => c_RST_LEV_ACT        , -- std_logic                                        ; --! Reset level activation value
          g_DATA_CARRY_S       => c_SC_DATA_SER_NB*c_SC_DATA_SER_W_S+2 -- integer                              --! Data with carry bus size
    )  port map (
          i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
@@ -910,7 +918,7 @@ begin
    P_sqm_data_sc : process (i_rst, i_clk)
    begin
 
-      if i_rst = '1' then
+      if i_rst = c_RST_LEV_ACT then
          o_sqm_data_sc_msb    <= (others => '0');
          o_sqm_data_sc_lsb    <= (others => '0');
          o_sqm_data_sc_first  <= '0';

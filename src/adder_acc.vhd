@@ -31,6 +31,7 @@ use     ieee.numeric_std.all;
 library work;
 use     work.pkg_type.all;
 use     work.pkg_func_math.all;
+use     work.pkg_project.all;
 
 entity adder_acc is generic (
          g_DATA_ACC_S         : integer                                                                     ; --! Data to accumulate bus size
@@ -73,7 +74,7 @@ begin
    P_sig_r : process (i_rst, i_clk)
    begin
 
-      if i_rst = '1' then
+      if i_rst = c_RST_LEV_ACT then
          data_acc_rdy_r  <= '0';
          data_eln_rdy_r  <= '0';
 
@@ -91,6 +92,7 @@ begin
    data_acc_rs <= std_logic_vector(resize(signed(i_data_acc), data_acc_rs'length));
 
    I_adder_sat: entity work.adder_sat generic map (
+         g_RST_LEV_ACT        => c_RST_LEV_ACT        , -- std_logic                                        ; --! Reset level activation value
          g_DATA_S             => g_DATA_ELN_S           -- integer                                            --! Data bus size
    ) port map (
          i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
@@ -108,7 +110,7 @@ begin
    P_data_elnp1 : process (i_rst, i_clk)
    begin
 
-      if i_rst = '1' then
+      if i_rst = c_RST_LEV_ACT then
          o_data_elnp1 <= std_logic_vector(to_signed(g_MEM_ACC_INIT_VAL, o_data_elnp1'length));
 
       elsif rising_edge(i_clk) then
@@ -151,7 +153,7 @@ begin
    P_mem_acc_rd : process (i_rst, i_clk)
    begin
 
-      if i_rst = '1' then
+      if i_rst = c_RST_LEV_ACT then
          o_data_eln <= std_logic_vector(to_signed(g_MEM_ACC_INIT_VAL, o_data_eln'length));
 
       elsif rising_edge(i_clk) then

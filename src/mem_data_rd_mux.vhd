@@ -29,6 +29,7 @@ use     ieee.std_logic_1164.all;
 
 library work;
 use     work.pkg_type.all;
+use     work.pkg_project.all;
 
 entity mem_data_rd_mux is generic (
          g_MEM_RD_DATA_NPER   : integer                                                                     ; --! Clock period number for accessing memory data output
@@ -59,7 +60,7 @@ begin
    P_cs_r : process (i_rst, i_clk)
    begin
 
-      if i_rst = '1' then
+      if i_rst = c_RST_LEV_ACT then
          cs_r  <= (others => (others => '0'));
 
       elsif rising_edge(i_clk) then
@@ -90,7 +91,7 @@ begin
    P_data_mx : process (i_rst, i_clk)
    begin
 
-      if i_rst = '1' then
+      if i_rst = c_RST_LEV_ACT then
          o_data_mux  <= (others => '0');
 
       elsif rising_edge(i_clk) then

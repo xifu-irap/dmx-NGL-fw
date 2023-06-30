@@ -81,7 +81,7 @@ begin
    P_pixel_seq : process (i_rst, i_clk)
    begin
 
-      if i_rst = '1' then
+      if i_rst = c_RST_LEV_ACT then
          sync_rs_r   <= c_I_SYNC_DEF;
          o_sync_re   <= '0';
          ck_pls_cnt  <= std_logic_vector(to_signed(c_CK_PLS_CNT_MAX_VAL, ck_pls_cnt'length));
@@ -127,7 +127,7 @@ begin
       P_cmd_ck_sqm : process (i_rst, i_clk)
       begin
 
-         if i_rst = '1' then
+         if i_rst = c_RST_LEV_ACT then
             o_cmd_ck_adc_ena(k)     <= '0';
             o_cmd_ck_adc_dis(k)     <= '0';
 

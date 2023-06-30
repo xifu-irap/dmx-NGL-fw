@@ -72,8 +72,8 @@ signal   ep_data_rx           : std_logic_vector(c_SER_WD_MAX_S-1 downto 0)     
 signal   ep_spi_miso_r        : std_logic_vector(c_N_CLK_PER_MISO_DEL-1 downto 0)                           ; --! EP: SPI Master Output Slave Input register
 signal   ep_spi_miso_r_msb    : std_logic                                                                   ; --! EP: SPI Master Output Slave Input register MSB
 
-signal   ep_cmd_ser_wd_s_strt : std_logic_vector(log2_ceil(2*c_EP_CMD_S+1)-1 downto 0)                      ; --! EP: Serial word size recorded on start rising edge
-signal   ep_cmd_ser_wd_s_strt2: std_logic_vector(log2_ceil(2*c_EP_CMD_S+1)-1 downto 0)                      ; --! EP: Serial word size recorded on start rising edge (second record)
+signal   ep_cmd_ser_wd_s_srt  : std_logic_vector(log2_ceil(2*c_EP_CMD_S+1)-1 downto 0)                      ; --! EP: Serial word size recorded on start rising edge
+signal   ep_cmd_ser_wd_s_srt2 : std_logic_vector(log2_ceil(2*c_EP_CMD_S+1)-1 downto 0)                      ; --! EP: Serial word size recorded on start rising edge (second record)
 
 signal   ep_data_rx_mux       : t_slv_arr(0 to c_SER_WD_MAX_S-1)(c_EP_CMD_S-1 downto 0)                     ; --! EP: Receipted data multiplexer
 signal   ep_data_rx_mux_or    : t_slv_arr(0 to c_SER_WD_MAX_S  )(c_EP_CMD_S-1 downto 0)                     ; --! EP: Receipted data multiplexer or
@@ -89,9 +89,9 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    P_rst: process
    begin
-      rst   <= '1';
+      rst   <= c_RST_LEV_ACT;
       wait for 3*g_EP_CLK_PER/2;
-      rst   <= '0';
+      rst   <= not(c_RST_LEV_ACT);
       wait;
    end process P_rst;
 
@@ -119,7 +119,7 @@ begin
    P_ep_spi_miso_del : process (rst, clk)
    begin
 
-      if rst = '1' then
+      if rst = c_RST_LEV_ACT then
          ep_spi_miso_r <= (others => '0');
 
       elsif rising_edge(clk) then
@@ -137,17 +137,17 @@ begin
    P_ep_cmd_ser_wd_s : process (rst, clk)
    begin
 
-      if rst = '1' then
+      if rst = c_RST_LEV_ACT then
          ep_cmd_start_r       <= '0';
-         ep_cmd_ser_wd_s_strt <= std_logic_vector(to_unsigned(c_EP_CMD_S, ep_cmd_ser_wd_s_strt'length));
-         ep_cmd_ser_wd_s_strt2<= std_logic_vector(to_unsigned(c_EP_CMD_S, ep_cmd_ser_wd_s_strt2'length));
+         ep_cmd_ser_wd_s_srt  <= std_logic_vector(to_unsigned(c_EP_CMD_S, ep_cmd_ser_wd_s_srt'length));
+         ep_cmd_ser_wd_s_srt2 <= std_logic_vector(to_unsigned(c_EP_CMD_S, ep_cmd_ser_wd_s_srt2'length));
 
       elsif rising_edge(clk) then
          ep_cmd_start_r          <= i_ep_cmd_start;
 
          if (not(ep_cmd_start_r) and i_ep_cmd_start) = '1' then
-            ep_cmd_ser_wd_s_strt <= i_ep_cmd_ser_wd_s;
-            ep_cmd_ser_wd_s_strt2<= ep_cmd_ser_wd_s_strt;
+            ep_cmd_ser_wd_s_srt  <= i_ep_cmd_ser_wd_s;
+            ep_cmd_ser_wd_s_srt2 <= ep_cmd_ser_wd_s_srt;
 
          end if;
 
@@ -171,19 +171,19 @@ begin
          G_wd_s_less: if i < c_EP_CMD_S generate
 
             G_bit_less: if j < c_EP_CMD_S-i generate
-               ep_data_rx_mux(i)(j) <= c_EP_CMD_ERR_CLR when ep_cmd_ser_wd_s_strt2 = std_logic_vector(to_unsigned(i,ep_cmd_ser_wd_s_strt2'length)) else
+               ep_data_rx_mux(i)(j) <= c_EP_CMD_ERR_CLR when ep_cmd_ser_wd_s_srt2 = std_logic_vector(to_unsigned(i,ep_cmd_ser_wd_s_srt2'length)) else
                                        '0';
             end generate G_bit_less;
 
             G_bit_greater: if j >= c_EP_CMD_S-i generate
-               ep_data_rx_mux(i)(j) <= ep_data_rx(i-c_EP_CMD_S+j) when ep_cmd_ser_wd_s_strt2 = std_logic_vector(to_unsigned(i,ep_cmd_ser_wd_s_strt2'length)) else
+               ep_data_rx_mux(i)(j) <= ep_data_rx(i-c_EP_CMD_S+j) when ep_cmd_ser_wd_s_srt2 = std_logic_vector(to_unsigned(i,ep_cmd_ser_wd_s_srt2'length)) else
                                        '0';
             end generate G_bit_greater;
 
          end generate G_wd_s_less;
 
          G_wd_s_greater: if i >= c_EP_CMD_S generate
-            ep_data_rx_mux(i)(j) <= ep_data_rx(i-c_EP_CMD_S+j) when ep_cmd_ser_wd_s_strt2 = std_logic_vector(to_unsigned(i,ep_cmd_ser_wd_s_strt2'length)) else
+            ep_data_rx_mux(i)(j) <= ep_data_rx(i-c_EP_CMD_S+j) when ep_cmd_ser_wd_s_srt2 = std_logic_vector(to_unsigned(i,ep_cmd_ser_wd_s_srt2'length)) else
                                     '0';
          end generate G_wd_s_greater;
 
@@ -199,6 +199,7 @@ begin
    --!   SPI master
    -- ------------------------------------------------------------------------------------------------------
    I_spi_master : entity work.spi_master generic map (
+         g_RST_LEV_ACT        => c_RST_LEV_ACT        , -- std_logic                                        ; --! Reset level activation value
          g_CPOL               => c_EP_SPI_CPOL        , -- std_logic                                        ; --! Clock polarity
          g_CPHA               => c_EP_SPI_CPHA        , -- std_logic                                        ; --! Clock phase
          g_N_CLK_PER_SCLK_L   => g_EP_N_CLK_PER_SCLK_L, -- integer                                          ; --! Number of clock period for elaborating SPI Serial Clock low  level

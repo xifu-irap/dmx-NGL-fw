@@ -75,7 +75,7 @@ constant c_TST_ITCPT_COEF_POS : integer   := c_TST_INDMAX2_POS    + 1           
 constant c_TST_SLOPE_COEF_POS : integer   := c_TST_ITCPT_COEF_POS + 1                                       ; --! Test pattern: Slope coefficient position
 constant c_TST_RES_POS        : integer   := c_TST_SLOPE_COEF_POS + c_DSP_NPER                              ; --! Test pattern: Result position
 
-signal   mem_tstpt_pp         : std_logic                                                                   ; --! Test pattern, TH/HK side: ping-pong buffer bit
+signal   mem_tstpt_pp         : std_logic                                                                   ; --! Test pattern, TC/HK side: ping-pong buffer bit
 signal   mem_tstpt_prm        : t_mem(
                                 add(          c_MEM_TSTPT_ADD_S-1 downto 0),
                                 data_w(          c_DFLD_TSTPT_S-1 downto 0))                                ; --! Test pattern, getting parameter side: memory inputs
@@ -106,7 +106,7 @@ begin
    P_sync_re_r : process (i_rst, i_clk)
    begin
 
-      if i_rst = '1' then
+      if i_rst = c_RST_LEV_ACT then
          sync_re_r   <= '0';
 
       elsif rising_edge(i_clk) then
@@ -122,7 +122,7 @@ begin
    P_loop_nb_minus1 : process (i_rst, i_clk)
    begin
 
-      if i_rst = '1' then
+      if i_rst = c_RST_LEV_ACT then
          loop_nb_minus1 <= (others => '1');
 
       elsif rising_edge(i_clk) then
@@ -138,7 +138,7 @@ begin
    P_tst_region_pos : process (i_rst, i_clk)
    begin
 
-      if i_rst = '1' then
+      if i_rst = c_RST_LEV_ACT then
          tst_region_pos       <= std_logic_vector(to_signed(-c_TST_PAT_COEF_NB, tst_region_pos'length));
          tst_region_pos_msb_r <= '1';
 
@@ -169,7 +169,7 @@ begin
    P_tst_coef_pos : process (i_rst, i_clk)
    begin
 
-      if i_rst = '1' then
+      if i_rst = c_RST_LEV_ACT then
          tst_coef_pos <= (others => '1');
 
       elsif rising_edge(i_clk) then
@@ -194,7 +194,7 @@ begin
    P_tst_coef_sel : process (i_rst, i_clk)
    begin
 
-      if i_rst = '1' then
+      if i_rst = c_RST_LEV_ACT then
          tst_coef_sel <= (others => '0');
 
       elsif rising_edge(i_clk) then
@@ -216,7 +216,7 @@ begin
          g_RAM_TYPE           => c_RAM_TYPE_PRM_STORE , -- integer                                          ; --! Memory type ( 0  = Data transfer,  1  = Parameters storage)
          g_RAM_ADD_S          => c_MEM_TSTPT_ADD_S    , -- integer                                          ; --! Memory address bus size (<= c_RAM_ECC_ADD_S)
          g_RAM_DATA_S         => c_DFLD_TSTPT_S       , -- integer                                          ; --! Memory data bus size (<= c_RAM_DATA_S)
-         g_RAM_INIT           => c_EP_CMD_DEF_TSTPT     -- t_int_arr                                          --! Memory content at initialization
+         g_RAM_INIT           => c_EP_CMD_DEF_TSTPT     -- integer_vector                                     --! Memory content at initialization
    ) port map (
          i_a_rst              => i_rst                , -- in     std_logic                                 ; --! Memory port A: registers reset ('0' = Inactive, '1' = Active)
          i_a_clk              => i_clk                , -- in     std_logic                                 ; --! Memory port A: main clock
@@ -254,7 +254,7 @@ begin
    P_mem_tstpt_pp : process (i_rst, i_clk)
    begin
 
-      if i_rst = '1' then
+      if i_rst = c_RST_LEV_ACT then
          mem_tstpt_prm.pp      <= c_MEM_STR_ADD_PP_DEF;
 
       elsif rising_edge(i_clk) then
@@ -273,7 +273,7 @@ begin
    P_tst_prm_dispatch : process (i_rst, i_clk)
    begin
 
-      if i_rst = '1' then
+      if i_rst = c_RST_LEV_ACT then
          tst_slope_coef <= (others => '0');
          tst_itcpt_coef <= (others => '0');
          tst_index_max  <= (others => '0');
@@ -304,7 +304,7 @@ begin
    P_tst_index : process (i_rst, i_clk)
    begin
 
-      if i_rst = '1' then
+      if i_rst = c_RST_LEV_ACT then
          tst_index <= (others => '0');
 
       elsif rising_edge(i_clk) then
@@ -362,7 +362,7 @@ begin
    P_out : process (i_rst, i_clk)
    begin
 
-      if i_rst = '1' then
+      if i_rst = c_RST_LEV_ACT then
          test_pattern      <= (others => '0');
          o_tst_pat_end_pat <= '0';
          o_tst_pat_end     <= '1';

@@ -30,6 +30,7 @@ use     ieee.numeric_std.all;
 use     ieee.math_real.all;
 
 entity spi_slave is generic (
+         g_RST_LEV_ACT        : std_logic                                                                   ; --! Reset level activation value
          g_CPOL               : std_logic                                                                   ; --! Clock polarity
          g_CPHA               : std_logic                                                                   ; --! Clock phase
          g_DTA_TX_WD_S        : integer                                                                     ; --! Data word to transmit bus size
@@ -91,7 +92,7 @@ begin
    P_spi_r : process (i_rst, i_clk)
    begin
 
-      if i_rst = '1' then
+      if i_rst = g_RST_LEV_ACT then
          sclk_r      <= '0';
          cs_n_r      <= '1';
          pls_mosi_r  <= '0';
@@ -126,7 +127,7 @@ begin
    P_data_tx_bit_cnt : process (i_rst, i_clk)
    begin
 
-      if i_rst = '1' then
+      if i_rst = g_RST_LEV_ACT then
          data_tx_bit_cnt <= (others => '1');
 
       elsif rising_edge(i_clk) then
@@ -151,7 +152,7 @@ begin
    P_data_tx_wd_ser : process (i_rst, i_clk)
    begin
 
-      if i_rst = '1' then
+      if i_rst = g_RST_LEV_ACT then
          data_tx_wd_ser    <= (others => '0');
 
       elsif rising_edge(i_clk) then
@@ -175,7 +176,7 @@ begin
    P_data_tx_wd_nb : process (i_rst, i_clk)
    begin
 
-      if i_rst = '1' then
+      if i_rst = g_RST_LEV_ACT then
          data_tx_wd_nb     <= (others => '0');
 
       elsif rising_edge(i_clk) then
@@ -199,7 +200,7 @@ begin
    P_data_rx_bit_cnt : process (i_rst, i_clk)
    begin
 
-      if i_rst = '1' then
+      if i_rst = g_RST_LEV_ACT then
          data_rx_bit_cnt <= (others => '1');
 
       elsif rising_edge(i_clk) then
@@ -224,7 +225,7 @@ begin
    P_data_rx_wd_ser : process (i_rst, i_clk)
    begin
 
-      if i_rst = '1' then
+      if i_rst = g_RST_LEV_ACT then
          data_rx_wd_ser <= (others => '0');
 
       elsif rising_edge(i_clk) then
@@ -247,7 +248,7 @@ begin
    P_data_rx_wd_nb : process (i_rst, i_clk)
    begin
 
-      if i_rst = '1' then
+      if i_rst = g_RST_LEV_ACT then
          data_rx_wd_nb     <= (others => '0');
 
       elsif rising_edge(i_clk) then
@@ -269,7 +270,7 @@ begin
    P_o_data_rx_wd_nb : process (i_rst, i_clk)
    begin
 
-      if i_rst = '1' then
+      if i_rst = g_RST_LEV_ACT then
          o_data_rx_wd_nb   <= (others => '0');
 
       elsif rising_edge(i_clk) then
@@ -288,7 +289,7 @@ begin
    P_data_rx : process (i_rst, i_clk)
    begin
 
-      if i_rst = '1' then
+      if i_rst = g_RST_LEV_ACT then
          o_data_rx_wd      <= (others => '0');
          o_data_rx_wd_lg   <= std_logic_vector(to_unsigned(c_RX_BIT_CNT_MAX_VAL+1, o_data_rx_wd_lg'length));
          o_data_rx_wd_rdy  <= '0';

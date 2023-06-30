@@ -41,7 +41,7 @@ entity in_rs_clk is port (
          i_sync               : in     std_logic                                                            ; --! Pixel sequence synchronization (R.E. detected = position sequence to the first pixel)
          i_ras_data_valid     : in     std_logic                                                            ; --! RAS Data valid ('0' = No, '1' = Yes)
 
-         i_hk1_spi_miso       : in     std_logic                                                            ; --! HouseKeeping 1: SPI Master Input Slave Output
+         i_hk_spi_miso        : in     std_logic                                                            ; --! HouseKeeping: SPI Master Input Slave Output
 
          i_ep_spi_mosi        : in     std_logic                                                            ; --! EP: SPI Master Input Slave Output (MSB first)
          i_ep_spi_sclk        : in     std_logic                                                            ; --! EP: SPI Serial Clock (CPOL = '0', CPHA = '0')
@@ -52,7 +52,7 @@ entity in_rs_clk is port (
          o_sync_rs            : out    std_logic_vector(        c_NB_COL   downto 0)                        ; --! Pixel sequence synchronization, synchronized on System Clock
          o_ras_data_valid_rs  : out    std_logic                                                            ; --! RAS Data valid, synchronized on System Clock ('0' = No, '1' = Yes)
 
-         o_hk1_spi_miso_rs    : out    std_logic                                                            ; --! HouseKeeping 1: SPI Master Input Slave Output, synchronized on System Clock
+         o_hk_spi_miso_rs     : out    std_logic                                                            ; --! HouseKeeping: SPI Master Input Slave Output, synchronized on System Clock
 
          o_ep_spi_mosi_rs     : out    std_logic                                                            ; --! EP: SPI Master Input Slave Output (MSB first), synchronized on System Clock
          o_ep_spi_sclk_rs     : out    std_logic                                                            ; --! EP: SPI Serial Clock (CPOL = '0', CPHA = '0'), synchronized on System Clock
@@ -68,7 +68,7 @@ signal   brd_model_r          : t_slv_arr(0 to c_FF_RSYNC_NB-1)(c_BRD_MODEL_S-1 
 signal   sync_r               : std_logic_vector(c_FF_RSYNC_NB-1 downto 0)                                  ; --! Pixel sequence sync. register (R.E. detected = position sequence to the first pixel)
 signal   ras_data_valid_r     : std_logic_vector(c_FF_RSYNC_NB-1 downto 0)                                  ; --! RAS Data valid register ('0' = No, '1' = Yes)
 
-signal   hk1_spi_miso_r       : std_logic_vector(c_FF_RSYNC_NB-1 downto 0)                                  ; --! HouseKeeping 1: SPI Master Input Slave Output register
+signal   hk_spi_miso_r        : std_logic_vector(c_FF_RSYNC_NB-1 downto 0)                                  ; --! HouseKeeping: SPI Master Input Slave Output register
 
 signal   ep_spi_mosi_r        : std_logic_vector(c_FF_RSYNC_NB-1 downto 0)                                  ; --! EP: SPI Master Input Slave Output register (MSB first)
 signal   ep_spi_sclk_r        : std_logic_vector(c_FF_RSYNC_NB-1 downto 0)                                  ; --! EP: SPI Serial Clock register (CPOL = '0', CPHA = '0')
@@ -85,12 +85,12 @@ begin
    P_rsync : process (i_rst, i_clk)
    begin
 
-      if i_rst = '1' then
+      if i_rst = c_RST_LEV_ACT then
          inhib_fst_per        <= (others => '0');
 
          brd_ref_r            <= (others => (others => '0'));
          brd_model_r          <= (others => (others => '0'));
-         hk1_spi_miso_r       <= (others => '0');
+         hk_spi_miso_r        <= (others => '0');
 
          if c_PAD_REG_SET_AUTH = '0' then
             sync_r         <= (0 => '0', others => c_I_SYNC_DEF);
@@ -113,7 +113,7 @@ begin
 
          brd_ref_r         <= i_brd_ref   & brd_ref_r(  0 to brd_ref_r'high-1);
          brd_model_r       <= i_brd_model & brd_model_r(0 to brd_model_r'high-1);
-         hk1_spi_miso_r    <= hk1_spi_miso_r(hk1_spi_miso_r'high-1 downto 0) & i_hk1_spi_miso;
+         hk_spi_miso_r     <= hk_spi_miso_r(hk_spi_miso_r'high-1 downto 0) & i_hk_spi_miso;
 
          sync_r            <= sync_r(                sync_r'high-1 downto 0) & i_sync;
          ep_spi_sclk_r     <= ep_spi_sclk_r(ep_spi_sclk_r'high-1 downto 0) & i_ep_spi_sclk;
@@ -129,7 +129,7 @@ begin
 
    o_brd_ref_rs            <= brd_ref_r(brd_ref_r'high);
    o_brd_model_rs          <= brd_model_r(brd_model_r'high);
-   o_hk1_spi_miso_rs       <= hk1_spi_miso_r(hk1_spi_miso_r'high);
+   o_hk_spi_miso_rs        <= hk_spi_miso_r(hk_spi_miso_r'high);
    o_ras_data_valid_rs     <= ras_data_valid_r(ras_data_valid_r'high);
    o_ep_spi_mosi_rs        <= ep_spi_mosi_r(ep_spi_mosi_r'high);
 
@@ -137,12 +137,12 @@ begin
       o_ep_spi_sclk_rs     <= (inhib_fst_per(inhib_fst_per'high) and ep_spi_sclk_r(ep_spi_sclk_r'high))   or (not(inhib_fst_per(inhib_fst_per'high)) and c_I_SPI_SCLK_DEF);
       o_ep_spi_cs_n_rs     <= (inhib_fst_per(inhib_fst_per'high) and ep_spi_cs_n_r(ep_spi_cs_n_r'high))   or (not(inhib_fst_per(inhib_fst_per'high)) and c_I_SPI_CS_N_DEF);
 
-   end generate;
+   end generate G_pad_reg_set_auth_0;
 
    G_pad_reg_set_auth_1: if c_PAD_REG_SET_AUTH = '1' generate
       o_ep_spi_sclk_rs     <= ep_spi_sclk_r(ep_spi_sclk_r'high);
       o_ep_spi_cs_n_rs     <= ep_spi_cs_n_r(ep_spi_cs_n_r'high);
 
-   end generate;
+   end generate G_pad_reg_set_auth_1;
 
 end architecture RTL;

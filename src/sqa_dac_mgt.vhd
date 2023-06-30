@@ -124,11 +124,11 @@ begin
    P_rst_sqm_adc_dac_pd: process (i_rst_sqm_adc_dac_pd, i_clk_sqm_adc_dac)
    begin
 
-      if i_rst_sqm_adc_dac_pd = '1' then
-         rst_sqm_adc_dac_pad <= '1';
+      if i_rst_sqm_adc_dac_pd = c_RST_LEV_ACT then
+         rst_sqm_adc_dac_pad <= c_RST_LEV_ACT;
 
       elsif rising_edge(i_clk_sqm_adc_dac) then
-         rst_sqm_adc_dac_pad <= '0';
+         rst_sqm_adc_dac_pad <= not(c_RST_LEV_ACT);
 
       end if;
 
@@ -140,7 +140,7 @@ begin
    P_reg_sys: process (i_rst, i_clk)
    begin
 
-      if i_rst = '1' then
+      if i_rst = c_RST_LEV_ACT then
          sync_rs_sys       <= c_I_SYNC_DEF;
          saofl_sys         <= c_EP_CMD_DEF_SAOFL;
          saodd_sys         <= c_EP_CMD_DEF_SAODD;
@@ -160,7 +160,7 @@ begin
    P_rsync : process (i_rst_sqm_adc_dac, i_clk_sqm_adc_dac)
    begin
 
-      if i_rst_sqm_adc_dac = '1' then
+      if i_rst_sqm_adc_dac = c_RST_LEV_ACT then
          sync_r               <= (others => c_I_SYNC_DEF);
          saofl_r              <= (others => c_EP_CMD_DEF_SAOFL);
          sqa_fbk_mux_r        <= (others => (others => '0'));
@@ -186,7 +186,7 @@ begin
    P_sig : process (i_rst_sqm_adc_dac, i_clk_sqm_adc_dac)
    begin
 
-      if i_rst_sqm_adc_dac = '1' then
+      if i_rst_sqm_adc_dac = c_RST_LEV_ACT then
          sync_re              <= '0';
          sqa_spi_tx_busy_n_r  <= '1';
          sqa_spi_tx_busy_n_fe <= '0';
@@ -259,7 +259,7 @@ begin
    P_pls_rw_cnt_init : process (i_rst_sqm_adc_dac, i_clk_sqm_adc_dac)
    begin
 
-      if i_rst_sqm_adc_dac = '1' then
+      if i_rst_sqm_adc_dac = c_RST_LEV_ACT then
          pls_rw_cnt_init_oft  <= std_logic_vector(unsigned(to_signed(c_PLS_RW_CNT_INIT, pls_rw_cnt_init_oft'length)));
          pls_rw_cnt_init      <= std_logic_vector(unsigned(to_signed(c_PLS_RW_CNT_INIT, pls_rw_cnt_init'length)));
 
@@ -287,7 +287,7 @@ begin
    P_sqa_fbk_off_final : process (i_rst_sqm_adc_dac, i_clk_sqm_adc_dac)
    begin
 
-      if i_rst_sqm_adc_dac = '1' then
+      if i_rst_sqm_adc_dac = c_RST_LEV_ACT then
          sqa_fbk_off_final <= c_EP_CMD_DEF_SAOFC;
 
       elsif rising_edge(i_clk_sqm_adc_dac) then
@@ -309,7 +309,7 @@ begin
    P_pls_rw_cnt : process (i_rst_sqm_adc_dac, i_clk_sqm_adc_dac)
    begin
 
-      if i_rst_sqm_adc_dac = '1' then
+      if i_rst_sqm_adc_dac = c_RST_LEV_ACT then
          pls_rw_cnt <= std_logic_vector(to_unsigned(c_PLS_RW_CNT_MAX_VAL, pls_rw_cnt'length));
 
       elsif rising_edge(i_clk_sqm_adc_dac) then
@@ -335,7 +335,7 @@ begin
    P_pls_cnt : process (i_rst_sqm_adc_dac, i_clk_sqm_adc_dac)
    begin
 
-      if i_rst_sqm_adc_dac = '1' then
+      if i_rst_sqm_adc_dac = c_RST_LEV_ACT then
          pls_cnt    <= std_logic_vector(to_unsigned(c_SQA_PLS_CNT_MX_VAL, pls_cnt'length));
 
       elsif rising_edge(i_clk_sqm_adc_dac) then
@@ -361,7 +361,7 @@ begin
    P_tx_flg : process (i_rst_sqm_adc_dac, i_clk_sqm_adc_dac)
    begin
 
-      if i_rst_sqm_adc_dac = '1' then
+      if i_rst_sqm_adc_dac = c_RST_LEV_ACT then
          saofl_tx_flg       <= '1';
          sqa_fbk_off_tx_flg <= '1';
          sqa_fbk_off_tx_ena <= '0';
@@ -402,7 +402,7 @@ begin
    P_sqa_spi_in : process (i_rst_sqm_adc_dac, i_clk_sqm_adc_dac)
    begin
 
-      if i_rst_sqm_adc_dac = '1' then
+      if i_rst_sqm_adc_dac = c_RST_LEV_ACT then
          sqa_spi_start                                <= '0';
          sqa_spi_data_tx(c_SQA_DAC_DATA_S-1 downto 0) <= c_EP_CMD_DEF_SAOFC;
 
@@ -430,6 +430,7 @@ begin
    --    @Req : DRE-DMX-FW-REQ-0350
    -- ------------------------------------------------------------------------------------------------------
    I_sqa_spi_master : entity work.spi_master generic map (
+         g_RST_LEV_ACT        => c_RST_LEV_ACT        , -- std_logic                                        ; --! Reset level activation value
          g_CPOL               => c_SQA_SPI_CPOL       , -- std_logic                                        ; --! Clock polarity
          g_CPHA               => c_SQA_SPI_CPHA       , -- std_logic                                        ; --! Clock phase
          g_N_CLK_PER_SCLK_L   => c_SQA_SPI_SCLK_L     , -- integer                                          ; --! Number of clock period for elaborating SPI Serial Clock low  level
@@ -461,7 +462,7 @@ begin
    P_sqa_spi_out : process (rst_sqm_adc_dac_pad, i_clk_sqm_adc_dac)
    begin
 
-      if rst_sqm_adc_dac_pad = '1' then
+      if rst_sqm_adc_dac_pad = c_RST_LEV_ACT then
          o_sqa_dac_data    <= '0';
          o_sqa_dac_sclk    <= c_SQA_SPI_CPOL and c_PAD_REG_SET_AUTH;
          o_sqa_dac_snc_l_n <= c_PAD_REG_SET_AUTH;
@@ -484,7 +485,7 @@ begin
    P_sqa_dac_mux : process (rst_sqm_adc_dac_pad, i_clk_sqm_adc_dac)
    begin
 
-      if rst_sqm_adc_dac_pad = '1' then
+      if rst_sqm_adc_dac_pad = c_RST_LEV_ACT then
          o_sqa_dac_mux <= (others => '0');
 
       elsif rising_edge(i_clk_sqm_adc_dac) then

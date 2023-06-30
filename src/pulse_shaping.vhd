@@ -110,7 +110,7 @@ begin
    P_yk : process (i_rst_sqm_adc_dac_pd, i_clk_sqm_adc_dac)
    begin
 
-      if i_rst_sqm_adc_dac_pd = '1' then
+      if i_rst_sqm_adc_dac_pd = c_RST_LEV_ACT then
 
          if c_PAD_REG_SET_AUTH = '0' then
             o_y_k <= (others => '0');

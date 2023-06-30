@@ -152,7 +152,7 @@ begin
    P_cs_rg : process (i_rst, i_clk)
    begin
 
-      if i_rst = '1' then
+      if i_rst = c_RST_LEV_ACT then
          o_cs_rg(c_EP_CMD_POS_LAST-1 downto 0) <= (others => '0');
 
       elsif rising_edge(i_clk) then

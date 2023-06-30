@@ -125,7 +125,7 @@ begin
    P_pls_cnt : process (i_rst, i_clk_science)
    begin
 
-      if i_rst = '1' then
+      if i_rst = c_RST_LEV_ACT then
          pls_cnt  <= (others => '1');
 
       elsif rising_edge(i_clk_science) then
@@ -157,7 +157,7 @@ begin
    P_pixel_pos : process (i_rst, i_clk_science)
    begin
 
-      if i_rst = '1' then
+      if i_rst = c_RST_LEV_ACT then
          pixel_pos   <= std_logic_vector(to_unsigned(c_PIXEL_POS_MAX_VAL, pixel_pos'length));
 
       elsif rising_edge(i_clk_science) then
@@ -188,7 +188,7 @@ begin
    P_seq_cnt : process (i_rst, i_clk_science)
    begin
 
-      if i_rst = '1' then
+      if i_rst = c_RST_LEV_ACT then
          seq_cnt   <= std_logic_vector(to_unsigned(0 , seq_cnt'length));
 
       elsif rising_edge(i_clk_science) then
@@ -214,7 +214,7 @@ begin
    P_pls_cnt_sc : process (i_rst, i_clk_science)
    begin
 
-      if i_rst = '1' then
+      if i_rst = c_RST_LEV_ACT then
          pls_cnt_sc  <= (others => '0');
 
       elsif rising_edge(i_clk_science) then
@@ -240,7 +240,7 @@ begin
    P_frm_cnt_sc : process (i_rst, i_clk_science)
    begin
 
-      if i_rst = '1' then
+      if i_rst = c_RST_LEV_ACT then
          frm_cnt_sc  <= (others => '0');
 
       elsif rising_edge(i_clk_science) then
@@ -262,7 +262,7 @@ begin
    P_mode_sel : process (i_rst, i_clk_science)
    begin
 
-      if i_rst = '1' then
+      if i_rst = c_RST_LEV_ACT then
          sm_mode_sel <= idle;
 
       elsif rising_edge(i_clk_science) then
@@ -289,7 +289,7 @@ begin
    P_science_data_rdy : process (i_rst, i_clk_science)
    begin
 
-      if i_rst = '1' then
+      if i_rst = c_RST_LEV_ACT then
          science_data_rdy_r   <= (others => '0');
 
       elsif rising_edge(i_clk_science) then
@@ -308,7 +308,7 @@ begin
       P_science_data_r : process (i_rst, i_clk_science)
       begin
 
-         if i_rst = '1' then
+         if i_rst = c_RST_LEV_ACT then
             science_data_r(k) <= (others => (others => '0'));
 
          elsif rising_edge(i_clk_science) then
@@ -334,7 +334,7 @@ begin
 
       P_mem_adc_dmp_dta_r : process(i_rst, i_clk_science)
       begin
-         if i_rst = '1' then
+         if i_rst = c_RST_LEV_ACT then
             adc_dump_dta2cmp(k) <= (others => '0');
             science_dta2cmp(k)  <= (others => '0');
 
@@ -351,7 +351,7 @@ begin
       P_dump_dta2cmp_lst : process (i_rst, i_clk_science)
       begin
 
-         if i_rst = '1' then
+         if i_rst = c_RST_LEV_ACT then
             adc_dump_dta2cmp_lst(k) <= (others => '0');
 
          elsif rising_edge(i_clk_science) then
@@ -380,7 +380,7 @@ begin
       P_pls_cnt_pos_del : process (i_rst, i_clk_science)
       begin
 
-         if i_rst = '1' then
+         if i_rst = c_RST_LEV_ACT then
             pls_cnt_pos_del(k) <= std_logic_vector(to_unsigned(c_PLS_CNT_MAX_VAL, pls_cnt_pos_del(k)'length));
 
          elsif rising_edge(i_clk_science) then
@@ -396,7 +396,7 @@ begin
       P_pixel_pos_del : process (i_rst, i_clk_science)
       begin
 
-         if i_rst = '1' then
+         if i_rst = c_RST_LEV_ACT then
             pixel_pos_del(k)   <= std_logic_vector(to_unsigned(c_PIXEL_POS_MAX_VAL , pixel_pos_del(k)'length));
 
          elsif rising_edge(i_clk_science) then
@@ -442,7 +442,7 @@ begin
    P_science_data_err : process (i_rst, i_clk_science)
    begin
 
-      if i_rst = '1' then
+      if i_rst = c_RST_LEV_ACT then
          o_science_data_err <= (others => '0');
 
       elsif rising_edge(i_clk_science) then

@@ -77,7 +77,6 @@ signal   cnt_rst_msb_r_n      : std_logic                                       
 signal   cnt_rst_adc          : std_logic_vector(c_CNT_RST_ADC_S-1 downto 0)                                ; --! Counter for reset SQUID ADC/DAC generation
 signal   cnt_rst_adc_msb_r_n  : std_logic                                                                   ; --! Counter for reset SQUID ADC/DAC generation MSB inverted register
 
-signal   clk                  : std_logic                                                                   ; --! System Clock (internal)
 signal   clk_sqm_adc_dac      : std_logic                                                                   ; --! SQUID MUX ADC/DAC internal Clock
 signal   clk_sqm_adc          : std_logic                                                                   ; --! SQUID MUX ADC Clocks
 signal   clk_sqm_dac_out      : std_logic                                                                   ; --! SQUID MUX DAC output Clock
@@ -95,16 +94,13 @@ begin
    I_pll: entity work.pll port map (
          i_arst               => i_arst               , -- in     std_logic                                 ; --! Asynchronous reset ('0' = Inactive, '1' = Active)
          i_clk_ref            => i_clk_ref            , -- in     std_logic                                 ; --! Reference Clock
-         o_clk                => clk                  , -- out    std_logic                                 ; --! System Clock
-         o_clk_sqm_adc_dac    => clk_sqm_adc_dac      , -- out    std_logic                                 ; --! SQUID MUX ADC/DAC internal Clock
+         o_clk                => o_clk                , -- out    std_logic                                 ; --! System Clock
+         o_clk_sqm_adc_dac    => o_clk_sqm_adc_dac    , -- out    std_logic                                 ; --! SQUID MUX ADC/DAC internal Clock
          o_clk_sqm_adc        => clk_sqm_adc          , -- out    std_logic                                 ; --! Clock for SQUID MUX ADC Image Clock
          o_clk_sqm_dac_out    => clk_sqm_dac_out      , -- out    std_logic                                 ; --! Clock for SQUID MUX DAC output Image Clock
          o_clk_90             => o_clk_90             , -- out    std_logic                                 ; --! System Clock 90 degrees shift
          o_clk_sqm_adc_dac_90 => o_clk_sqm_adc_dac_90   -- out    std_logic                                   --! SQUID MUX ADC/DAC internal 90 degrees shift
    );
-
-   o_clk             <= clk;
-   o_clk_sqm_adc_dac <= clk_sqm_adc_dac;
 
    G_column_mgt: for k in 0 to c_NB_COL-1 generate
    begin
@@ -118,7 +114,7 @@ begin
          g_CK_CMD_DEF         => c_CMD_CK_SQM_ADC_DEF   -- std_logic                                          --! Clock switch command default value at reset
       ) port map (
          i_rst                => o_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
-         i_clk                => clk                  , -- in     std_logic                                 ; --! System Clock
+         i_clk                => o_clk                , -- in     std_logic                                 ; --! System Clock
          i_cmd_ck_ena         => i_cmd_ck_adc_ena(k)  , -- in     std_logic                                 ; --! Clock switch command enable  ('0' = Inactive, '1' = Active)
          i_cmd_ck_dis         => i_cmd_ck_adc_dis(k)  , -- in     std_logic                                 ; --! Clock switch command disable ('0' = Inactive, '1' = Active)
          o_cmd_ck             => cmd_ck_adc(k)        , -- out    std_logic                                 ; --! Clock switch command
@@ -150,7 +146,7 @@ begin
          g_CK_CMD_DEF         => c_CMD_CK_SQM_DAC_DEF   -- std_logic                                          --! Clock switch command default value at reset
       ) port map (
          i_rst                => o_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
-         i_clk                => clk                  , -- in     std_logic                                 ; --! System Clock
+         i_clk                => o_clk                , -- in     std_logic                                 ; --! System Clock
          i_cmd_ck_ena         => i_cmd_ck_sqm_dac_ena(k),--in     std_logic                                 ; --! Clock switch command enable  ('0' = Inactive, '1' = Active)
          i_cmd_ck_dis         => i_cmd_ck_sqm_dac_dis(k),--in     std_logic                                 ; --! Clock switch command disable ('0' = Inactive, '1' = Active)
          o_cmd_ck             => cmd_ck_sqm_dac(k)    , -- out    std_logic                                 ; --! Clock switch command
@@ -179,27 +175,27 @@ begin
    --!  Science Data Image Clock generation
    --    @Req : DRE-DMX-FW-REQ-0050
    -- ------------------------------------------------------------------------------------------------------
-   P_rst_sqm_adc_dac_pd: process (o_rst_sqm_adc_dac_pd, clk_sqm_adc_dac)
+   P_rst_sqm_adc_dac_pd: process (o_rst_sqm_adc_dac_pd, o_clk_sqm_adc_dac)
    begin
 
-      if o_rst_sqm_adc_dac_pd = '1' then
-         rst_sqm_adc_dac_pad <= '1';
+      if o_rst_sqm_adc_dac_pd = c_RST_LEV_ACT then
+         rst_sqm_adc_dac_pad <= c_RST_LEV_ACT;
 
-      elsif rising_edge(clk_sqm_adc_dac) then
-         rst_sqm_adc_dac_pad <= '0';
+      elsif rising_edge(o_clk_sqm_adc_dac) then
+         rst_sqm_adc_dac_pad <= not(c_RST_LEV_ACT);
 
       end if;
 
    end process P_rst_sqm_adc_dac_pd;
 
-   P_ck_science : process (rst_sqm_adc_dac_pad, clk_sqm_adc_dac)
+   P_ck_science : process (rst_sqm_adc_dac_pad, o_clk_sqm_adc_dac)
    begin
 
-      if rst_sqm_adc_dac_pad = '1' then
+      if rst_sqm_adc_dac_pad = c_RST_LEV_ACT then
          ck_science    <= '0';
          o_ck_science  <= '0';
 
-      elsif rising_edge(clk_sqm_adc_dac) then
+      elsif rising_edge(o_clk_sqm_adc_dac) then
          ck_science    <= not(ck_science);
          o_ck_science  <= ck_science;
 
@@ -211,14 +207,14 @@ begin
    --!   Reset on system clock generation
    --    @Req : DRE-DMX-FW-REQ-0050
    -- ------------------------------------------------------------------------------------------------------
-   P_cnt_rst : process (i_arst, clk)
+   P_cnt_rst : process (i_arst, o_clk)
    begin
 
-      if i_arst = '1' then
+      if i_arst = c_RST_LEV_ACT then
          cnt_rst           <= std_logic_vector(to_unsigned(c_CNT_RST_MX_VAL, cnt_rst'length));
          cnt_rst_msb_r_n   <= '1';
 
-      elsif rising_edge(clk) then
+      elsif rising_edge(o_clk) then
          if cnt_rst(cnt_rst'high) = '0' then
             cnt_rst  <= std_logic_vector(signed(cnt_rst) - 1);
 
@@ -235,14 +231,14 @@ begin
          o_sig_lowskew        => o_rst                  -- out    std_logic                                   --! Signal connected to lowskew network
    );
 
-   P_cnt_rst_adc : process (i_arst, clk_sqm_adc_dac)
+   P_cnt_rst_adc : process (i_arst, o_clk_sqm_adc_dac)
    begin
 
-      if i_arst = '1' then
+      if i_arst = c_RST_LEV_ACT then
          cnt_rst_adc          <= std_logic_vector(to_unsigned(c_CNT_RST_ADC_MX_VAL, cnt_rst_adc'length));
          cnt_rst_adc_msb_r_n  <= '1';
 
-      elsif rising_edge(clk_sqm_adc_dac) then
+      elsif rising_edge(o_clk_sqm_adc_dac) then
          if cnt_rst_adc(cnt_rst_adc'high) = '0' then
             cnt_rst_adc       <= std_logic_vector(signed(cnt_rst_adc) - 1);
 

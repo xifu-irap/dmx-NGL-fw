@@ -129,6 +129,8 @@ proc run_utest {args} {
 
          }
          run $sim_time
+
+         # Save code coverage of the current simulation
          coverage save ${COVER_DIR}/[file rootname [file tail $file]].ucdb
          quit -sim
 
@@ -172,8 +174,19 @@ proc run_utest {args} {
       }
 
       close $file_nr
+
+      # Merge the code coverage of all simulation and generate report
       vcover merge ${COVER_DIR}/${COVER_DIR}.ucdb ${COVER_DIR}/*.ucdb
       vcover report -output ${RES_DIR}/${COVER_DIR}.xml -srcfile=* -details -all -dump -option -code {s b c} -xml ${COVER_DIR}/${COVER_DIR}.ucdb
+
+      # Modify path root inside coverage report 
+      set CoverReport [open ${RES_DIR}/${COVER_DIR}.xml RDONLY]
+      set CoverReportContent [read $CoverReport]
+      close $CoverReport
+
+      set CoverReport [open ${RES_DIR}/${COVER_DIR}.xml {WRONLY CREAT TRUNC}]
+      puts $CoverReport [string map { "../project/dmx-fw" . } $CoverReportContent]
+      close $CoverReport 
 
    } else {
 
@@ -444,15 +457,15 @@ proc run_utest {args} {
          add wave -format Logic -Radix hexadecimal -group "Command"                             sim/:top_dmx_tb:I_top_dmx:I_ep_cmd:ep_cmd_tx_wd_add
          add wave -format Logic -Radix hexadecimal -group "Command"                             sim/:top_dmx_tb:I_top_dmx:ep_cmd_tx_wd_rd_rg
          add wave -format Logic -Radix hexadecimal -group "Command"                             sim/:top_dmx_tb:I_top_dmx:I_ep_cmd:ep_spi_data_tx_wd
-         add wave -format Logic                    -group "Command"                             sim/:top_dmx_tb:I_top_dmx:I_ep_cmd:ep_cmd_rx_add_err_rdy
+         add wave -format Logic                    -group "Command"                             sim/:top_dmx_tb:I_top_dmx:I_ep_cmd:ep_cmd_rx_add_err_ry
          add wave -format Logic                    -group "Command"                             sim/:top_dmx_tb:I_top_dmx:I_ep_cmd:ep_spi_wd_end
 
-         add wave -format Logic                    -group "HouseKeeping"                        sim/:top_dmx_tb:I_top_dmx:i_hk1_spi_miso
-         add wave -format Logic                    -group "HouseKeeping"                        sim/:top_dmx_tb:I_top_dmx:o_hk1_spi_mosi
-         add wave -format Logic                    -group "HouseKeeping"                        sim/:top_dmx_tb:I_top_dmx:o_hk1_spi_sclk
-         add wave -format Logic                    -group "HouseKeeping"                        sim/:top_dmx_tb:I_top_dmx:o_hk1_spi_cs_n
-         add wave -format Logic -Radix hexadecimal -group "HouseKeeping"                        sim/:top_dmx_tb:I_top_dmx:o_hk1_mux
-         add wave -format Logic                    -group "HouseKeeping"                        sim/:top_dmx_tb:I_top_dmx:o_hk1_mux_ena_n
+         add wave -format Logic                    -group "HouseKeeping"                        sim/:top_dmx_tb:I_top_dmx:i_hk_spi_miso
+         add wave -format Logic                    -group "HouseKeeping"                        sim/:top_dmx_tb:I_top_dmx:o_hk_spi_mosi
+         add wave -format Logic                    -group "HouseKeeping"                        sim/:top_dmx_tb:I_top_dmx:o_hk_spi_sclk
+         add wave -format Logic                    -group "HouseKeeping"                        sim/:top_dmx_tb:I_top_dmx:o_hk_spi_cs_n
+         add wave -format Logic -Radix hexadecimal -group "HouseKeeping"                        sim/:top_dmx_tb:I_top_dmx:o_hk_mux
+         add wave -format Logic                    -group "HouseKeeping"                        sim/:top_dmx_tb:I_top_dmx:o_hk_mux_ena_n
 
 
          # Display adjustment

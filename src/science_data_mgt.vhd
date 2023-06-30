@@ -112,7 +112,7 @@ begin
    P_ras_data_valid_ltc : process (i_rst, i_clk)
    begin
 
-      if i_rst = '1' then
+      if i_rst = c_RST_LEV_ACT then
          ras_data_valid_rs_r  <= '0';
          ras_data_valid_ltc   <= '0';
 
@@ -140,7 +140,7 @@ begin
       P_sqm_data_sc_pv : process (i_rst, i_clk)
       begin
 
-         if i_rst = '1' then
+         if i_rst = c_RST_LEV_ACT then
             sqm_data_sc_msb_pv(k)   <= (others => (others => '0'));
             sqm_data_sc_lsb_pv(k)   <= (others => (others => '0'));
 
@@ -161,7 +161,7 @@ begin
       P_sqm_data_sc_rdy : process (i_rst, i_clk)
       begin
 
-         if i_rst = '1' then
+         if i_rst = c_RST_LEV_ACT then
             sqm_data_sc_rdy_ena(k)  <= '0';
 
          elsif rising_edge(i_clk) then
@@ -183,7 +183,7 @@ begin
       P_sqm_data_sc_fst : process (i_rst, i_clk)
       begin
 
-         if i_rst = '1' then
+         if i_rst = c_RST_LEV_ACT then
             sqm_data_sc_fst_ena(k)  <= '0';
             sqm_data_sc_sel(k)      <= '1';
 
@@ -207,7 +207,7 @@ begin
       P_sqm_data_sc_lst : process (i_rst, i_clk)
       begin
 
-         if i_rst = '1' then
+         if i_rst = c_RST_LEV_ACT then
             sqm_data_sc_lst_ena(k)  <= '0';
 
          elsif rising_edge(i_clk) then
@@ -229,7 +229,7 @@ begin
       P_sqm_data_sc_mux : process (i_rst, i_clk)
       begin
 
-         if i_rst = '1' then
+         if i_rst = c_RST_LEV_ACT then
             sqm_data_sc_msb_mux(k) <= (others => '0');
             sqm_data_sc_lsb_mux(k) <= (others => '0');
 
@@ -261,7 +261,7 @@ begin
          sqm_data_sc_fst_and(k)  <= sqm_data_sc_fst_ena(k) and sqm_data_sc_fst_and(k-1);
          sqm_data_sc_lst_and(k)  <= sqm_data_sc_lst_ena(k) and sqm_data_sc_lst_and(k-1);
 
-      end generate;
+      end generate G_k;
 
    end generate G_column_mgt;
 
@@ -271,7 +271,7 @@ begin
    P_sqm_dta_sc_all : process (i_rst, i_clk)
    begin
 
-      if i_rst = '1' then
+      if i_rst = c_RST_LEV_ACT then
          sqm_data_sc_fst_all  <= '0';
          sqm_data_sc_lst_all  <= '0';
          sqm_dta_sc_rdy_all_r <= (others => '0');
@@ -299,7 +299,7 @@ begin
    P_aqmde_sync : process (i_rst, i_clk)
    begin
 
-      if i_rst = '1' then
+      if i_rst = c_RST_LEV_ACT then
          aqmde_r           <= c_EP_CMD_DEF_AQMDE;
          tst_pat_end_r     <= '1';
 
@@ -326,7 +326,7 @@ begin
    P_dmp_cnt : process (i_rst, i_clk)
    begin
 
-      if i_rst = '1' then
+      if i_rst = c_RST_LEV_ACT then
          dmp_cnt_msb_r        <= (others => '1');
          dmp_cnt              <= (others => '1');
 
@@ -368,7 +368,7 @@ begin
    P_ctrl_pkt : process (i_rst, i_clk)
    begin
 
-      if i_rst = '1' then
+      if i_rst = c_RST_LEV_ACT then
          science_data(science_data'high) <= c_SC_CTRL_IDLE;
 
       elsif rising_edge(i_clk) then
@@ -405,7 +405,7 @@ begin
       P_science_data : process (i_rst, i_clk)
       begin
 
-         if i_rst = '1' then
+         if i_rst = c_RST_LEV_ACT then
             science_data(2*k+1)  <= (others => '0');
             science_data(2*k)    <= (others => '0');
 
@@ -440,7 +440,7 @@ begin
    P_sc_data_tx_ena : process (i_rst, i_clk)
    begin
 
-      if i_rst = '1' then
+      if i_rst = c_RST_LEV_ACT then
          science_data_tx_ena <= '0';
 
       elsif rising_edge(i_clk) then

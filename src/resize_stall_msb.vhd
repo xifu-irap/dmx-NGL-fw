@@ -48,7 +48,7 @@ begin
       else generate
          o_data_stall_msb(o_data_stall_msb'high - k) <= '0';
 
-      end generate;
+      end generate G_data_stall_msb_lss;
 
    end generate G_dta_stall_msb_s;
 

@@ -9,10 +9,10 @@ byFile="1">
 <stmt ln="101" st="1" hits="459440"/>
 <stmt ln="102" st="1" hits="29172"/>
 <stmt ln="103" st="1" hits="2920"/>
-<stmt ln="104" st="1" hits="1788167"/>
+<stmt ln="104" st="1" hits="1788171"/>
 <stmt ln="108" st="1" hits="4145"/>
 <stmt ln="113" st="1" hits="114929394"/>
-<stmt ln="114" st="1" hits="2108869"/>
+<stmt ln="114" st="1" hits="2108873"/>
 <stmt ln="116" st="1" hits="39283904"/>
 <stmt ln="117" st="1" hits="6182"/>
 <stmt ln="167" st="1" hits="9363348"/>
@@ -56,107 +56,107 @@ byFile="1">
 </fileData>
 <fileData path="./src/adder_acc.vhd">
 <branches active="19" hits="19" percent="100.00"/>
-<if hasElse="1" active="2" hits="2" percent="100.00">
-<ielem ln="76" st="1" true="2160" false="27749880"/>
-<ielem ln="80" st="1" true="27749880" false="0"/>
+<if hasElse="0" active="2" hits="2" percent="100.00">
+<ielem ln="77" st="1" true="720" false="11098885"/>
+<ielem ln="81" st="1" true="11098885" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="111" st="1" true="720" false="6069336"/>
-<ielem ln="114" st="1" true="6069336" false="0"/>
+<ielem ln="113" st="1" true="720" false="6069336"/>
+<ielem ln="116" st="1" true="6069336" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="115" st="1" true="2774584" false="3294752"/>
-<ielem ln="115" st="1" true="3294752" false="0"/>
+<ielem ln="117" st="1" true="2774584" false="3294752"/>
+<ielem ln="117" st="1" true="3294752" false="0"/>
 </if>
 <if hasElse="1" active="2" hits="2" percent="100.00">
-<ielem ln="116" st="1" true="368" false="2774216"/>
-<ielem ln="119" st="1" true="2774216" false="0"/>
+<ielem ln="118" st="1" true="368" false="2774216"/>
+<ielem ln="121" st="1" true="2774216" false="0"/>
 </if>
 <if hasElse="0" active="1" hits="1" percent="100.00">
-<ielem ln="135" st="1" true="8843702" false="0"/>
+<ielem ln="137" st="1" true="8843702" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="136" st="1" true="2774584" false="6069118"/>
-<ielem ln="136" st="1" true="6069118" false="0"/>
+<ielem ln="138" st="1" true="2774584" false="6069118"/>
+<ielem ln="138" st="1" true="6069118" false="0"/>
 </if>
 <if hasElse="1" active="2" hits="2" percent="100.00">
-<ielem ln="137" st="1" true="368" false="2774216"/>
-<ielem ln="140" st="1" true="2774216" false="0"/>
+<ielem ln="139" st="1" true="368" false="2774216"/>
+<ielem ln="142" st="1" true="2774216" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="154" st="1" true="720" false="5611608"/>
-<ielem ln="157" st="1" true="5611608" false="0"/>
+<ielem ln="156" st="1" true="720" false="5611560"/>
+<ielem ln="159" st="1" true="5611560" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="158" st="1" true="2774756" false="2836852"/>
-<ielem ln="158" st="1" true="2836852" false="0"/>
+<ielem ln="160" st="1" true="2774756" false="2836804"/>
+<ielem ln="160" st="1" true="2836804" false="0"/>
 </if>
 <if hasElse="1" active="2" hits="2" percent="100.00">
-<ielem ln="159" st="1" true="2763060" false="11696"/>
-<ielem ln="162" st="1" true="11696" false="0"/>
+<ielem ln="161" st="1" true="2763060" false="11696"/>
+<ielem ln="164" st="1" true="11696" false="0"/>
 </if>
 <statements active="13" hits="13" percent="100.00"/>
-<stmt ln="77" st="1" hits="2160"/>
-<stmt ln="78" st="1" hits="2160"/>
-<stmt ln="81" st="1" hits="27749880"/>
-<stmt ln="82" st="1" hits="27749880"/>
-<stmt ln="91" st="1" hits="1285884"/>
-<stmt ln="112" st="1" hits="720"/>
-<stmt ln="117" st="1" hits="368"/>
-<stmt ln="120" st="1" hits="2774216"/>
-<stmt ln="138" st="1" hits="368"/>
-<stmt ln="141" st="1" hits="2774216"/>
-<stmt ln="155" st="1" hits="720"/>
-<stmt ln="160" st="1" hits="2763060"/>
-<stmt ln="163" st="1" hits="11696"/>
+<stmt ln="78" st="1" hits="720"/>
+<stmt ln="79" st="1" hits="720"/>
+<stmt ln="82" st="1" hits="11098885"/>
+<stmt ln="83" st="1" hits="11098885"/>
+<stmt ln="92" st="1" hits="1285884"/>
+<stmt ln="114" st="1" hits="720"/>
+<stmt ln="119" st="1" hits="368"/>
+<stmt ln="122" st="1" hits="2774216"/>
+<stmt ln="140" st="1" hits="368"/>
+<stmt ln="143" st="1" hits="2774216"/>
+<stmt ln="157" st="1" hits="720"/>
+<stmt ln="162" st="1" hits="2763060"/>
+<stmt ln="165" st="1" hits="11696"/>
 </fileData>
 <fileData path="./src/adder_sat.vhd">
 <branches active="5" hits="5" percent="100.00"/>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="60" st="1" true="3240" false="41624820"/>
-<ielem ln="63" st="1" true="41624820" false="0"/>
+<ielem ln="61" st="1" true="3240" false="41624820"/>
+<ielem ln="64" st="1" true="41624820" false="0"/>
 </if>
 <if hasElse="1" active="3" hits="3" percent="100.00">
-<ielem ln="66" st="1" true="69368" false="41555452"/>
-<ielem ln="71" st="1" true="16182" false="41539270"/>
-<ielem ln="75" st="1" true="41539270" false="0"/>
+<ielem ln="67" st="1" true="69368" false="41555452"/>
+<ielem ln="72" st="1" true="16182" false="41539270"/>
+<ielem ln="76" st="1" true="41539270" false="0"/>
 </if>
 <statements active="7" hits="7" percent="100.00"/>
-<stmt ln="52" st="1" hits="1941700"/>
-<stmt ln="61" st="1" hits="3240"/>
-<stmt ln="67" st="1" hits="69368"/>
+<stmt ln="53" st="1" hits="1941700"/>
+<stmt ln="62" st="1" hits="3240"/>
 <stmt ln="68" st="1" hits="69368"/>
-<stmt ln="72" st="1" hits="16182"/>
+<stmt ln="69" st="1" hits="69368"/>
 <stmt ln="73" st="1" hits="16182"/>
-<stmt ln="76" st="1" hits="41539270"/>
+<stmt ln="74" st="1" hits="16182"/>
+<stmt ln="77" st="1" hits="41539270"/>
 </fileData>
 <fileData path="./src/cmd_im_ck.vhd">
 <branches active="8" hits="8" percent="100.00"/>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="55" st="1" true="720" false="211219"/>
-<ielem ln="61" st="1" true="211219" false="0"/>
+<ielem ln="58" st="1" true="720" false="211219"/>
+<ielem ln="64" st="1" true="211219" false="0"/>
 </if>
 <if hasElse="0" active="3" hits="3" percent="100.00">
-<ielem ln="64" st="1" true="34945" false="176274"/>
-<ielem ln="67" st="1" true="46991" false="129283"/>
-<ielem ln="64" st="1" true="129283" false="0"/>
+<ielem ln="67" st="1" true="34945" false="176274"/>
+<ielem ln="70" st="1" true="46991" false="129283"/>
+<ielem ln="67" st="1" true="129283" false="0"/>
 </if>
 <if hasElse="0" active="3" hits="3" percent="100.00">
-<ielem ln="72" st="1" true="34945" false="176274"/>
-<ielem ln="75" st="1" true="46991" false="129283"/>
-<ielem ln="72" st="1" true="129283" false="0"/>
+<ielem ln="75" st="1" true="34945" false="176274"/>
+<ielem ln="78" st="1" true="46991" false="129283"/>
+<ielem ln="75" st="1" true="129283" false="0"/>
 </if>
 <statements active="10" hits="10" percent="100.00"/>
-<stmt ln="56" st="1" hits="720"/>
-<stmt ln="57" st="1" hits="720"/>
-<stmt ln="58" st="1" hits="720"/>
 <stmt ln="59" st="1" hits="720"/>
-<stmt ln="62" st="1" hits="211219"/>
-<stmt ln="65" st="1" hits="34945"/>
-<stmt ln="68" st="1" hits="46991"/>
-<stmt ln="73" st="1" hits="34945"/>
-<stmt ln="76" st="1" hits="46991"/>
-<stmt ln="80" st="1" hits="211219"/>
+<stmt ln="60" st="1" hits="720"/>
+<stmt ln="61" st="1" hits="720"/>
+<stmt ln="62" st="1" hits="720"/>
+<stmt ln="65" st="1" hits="211219"/>
+<stmt ln="68" st="1" hits="34945"/>
+<stmt ln="71" st="1" hits="46991"/>
+<stmt ln="76" st="1" hits="34945"/>
+<stmt ln="79" st="1" hits="46991"/>
+<stmt ln="83" st="1" hits="211219"/>
 </fileData>
 <fileData path="./src/dmx_cmd.vhd">
 <branches active="23" hits="23" percent="100.00"/>
@@ -229,125 +229,125 @@ byFile="1">
 <fileData path="./src/ep_cmd.vhd">
 <branches active="32" hits="32" percent="100.00"/>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="137" st="1" true="90" false="374964"/>
-<ielem ln="153" st="1" true="374964" false="0"/>
+<ielem ln="138" st="1" true="90" false="374964"/>
+<ielem ln="154" st="1" true="374964" false="0"/>
 </if>
 <if hasElse="1" active="1" hits="1" percent="100.00">
-<ielem ln="139" st="1" true="90" false="0"/>
+<ielem ln="140" st="1" true="90" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="154" st="1" true="13327" false="361637"/>
-<ielem ln="154" st="1" true="361637" false="0"/>
+<ielem ln="155" st="1" true="13327" false="361637"/>
+<ielem ln="155" st="1" true="361637" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="159" st="1" true="119988" false="254976"/>
-<ielem ln="159" st="1" true="254976" false="0"/>
+<ielem ln="160" st="1" true="119988" false="254976"/>
+<ielem ln="160" st="1" true="254976" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="166" st="1" true="13313" false="361651"/>
-<ielem ln="166" st="1" true="361651" false="0"/>
+<ielem ln="167" st="1" true="13313" false="361651"/>
+<ielem ln="167" st="1" true="361651" false="0"/>
 </if>
 <if hasElse="1" active="3" hits="3" percent="100.00">
-<ielem ln="201" st="1" true="22848" false="16448"/>
-<ielem ln="202" st="1" true="10815" false="5633"/>
-<ielem ln="202" st="2" true="5633" false="0"/>
+<ielem ln="202" st="1" true="22848" false="16448"/>
+<ielem ln="203" st="1" true="10815" false="5633"/>
+<ielem ln="203" st="2" true="5633" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="208" st="1" true="90" false="31648"/>
-<ielem ln="211" st="1" true="31648" false="0"/>
+<ielem ln="209" st="1" true="90" false="31648"/>
+<ielem ln="212" st="1" true="31648" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="212" st="1" true="13327" false="18321"/>
-<ielem ln="212" st="1" true="18321" false="0"/>
+<ielem ln="213" st="1" true="13327" false="18321"/>
+<ielem ln="213" st="1" true="18321" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="251" st="1" true="90" false="40581"/>
-<ielem ln="254" st="1" true="40581" false="0"/>
+<ielem ln="252" st="1" true="90" false="40581"/>
+<ielem ln="255" st="1" true="40581" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="255" st="1" true="13326" false="27255"/>
-<ielem ln="255" st="1" true="27255" false="0"/>
+<ielem ln="256" st="1" true="13326" false="27255"/>
+<ielem ln="256" st="1" true="27255" false="0"/>
 </if>
 <if hasElse="1" active="2" hits="2" percent="100.00">
-<ielem ln="256" st="1" true="8907" false="4419"/>
-<ielem ln="259" st="1" true="4419" false="0"/>
+<ielem ln="257" st="1" true="8907" false="4419"/>
+<ielem ln="260" st="1" true="4419" false="0"/>
 </if>
 <if hasElse="1" active="2" hits="2" percent="100.00">
-<ielem ln="270" st="1" true="21724" false="22203"/>
-<ielem ln="270" st="2" true="22203" false="0"/>
+<ielem ln="271" st="1" true="21724" false="22203"/>
+<ielem ln="271" st="2" true="22203" false="0"/>
 </if>
 <if hasElse="1" active="2" hits="2" percent="100.00">
-<ielem ln="277" st="1" true="13313" false="13433"/>
-<ielem ln="277" st="2" true="13433" false="0"/>
+<ielem ln="278" st="1" true="13313" false="13433"/>
+<ielem ln="278" st="2" true="13433" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="334" st="1" true="90" false="135816"/>
-<ielem ln="339" st="1" true="135816" false="0"/>
+<ielem ln="335" st="1" true="90" false="135816"/>
+<ielem ln="340" st="1" true="135816" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="340" st="1" true="13327" false="122489"/>
-<ielem ln="340" st="1" true="122489" false="0"/>
+<ielem ln="341" st="1" true="13327" false="122489"/>
+<ielem ln="341" st="1" true="122489" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="350" st="1" true="13327" false="122489"/>
-<ielem ln="350" st="1" true="122489" false="0"/>
+<ielem ln="351" st="1" true="13327" false="122489"/>
+<ielem ln="351" st="1" true="122489" false="0"/>
 </if>
 <fec_conditions active="4" hits="4" percent="100.00"/>
-<condition ln="154" st="1" active="2" hits="2" percent="100.00">
+<condition ln="155" st="1" active="2" hits="2" percent="100.00">
 <table rows="2" cols="0" unknown="0">
-<row j="1" hits_0="45" hits_1="44" body="(ep_spi_data_rx_wd_rdy = &apos;1&apos;)" input_patterns_0="-" input_patterns_1="(ep_spi_data_rx_wd_nb = (&lt;type&gt;)TO_UNSIGNED(c_EP_CMD_WD_ADD_POS, ep_spi_data_rx_wd_nb&apos;LENGTH))"/>
-<row j="2" hits_0="44" hits_1="44" body="(ep_spi_data_rx_wd_nb = (&lt;type&gt;)TO_UNSIGNED(c_EP_CMD_WD_ADD_POS, ep_spi_data_rx_wd_nb&apos;LENGTH))" input_patterns_0="(ep_spi_data_rx_wd_rdy = &apos;1&apos;)" input_patterns_1="(ep_spi_data_rx_wd_rdy = &apos;1&apos;)"/>
+<row j="1" hits_0="45" hits_1="44" body="(ep_spi_data_rx_wd_ry = &apos;1&apos;)" input_patterns_0="-" input_patterns_1="(ep_spi_data_rx_wd_nb = (&lt;type&gt;)TO_UNSIGNED(c_EP_CMD_WD_ADD_POS, ep_spi_data_rx_wd_nb&apos;LENGTH))"/>
+<row j="2" hits_0="44" hits_1="44" body="(ep_spi_data_rx_wd_nb = (&lt;type&gt;)TO_UNSIGNED(c_EP_CMD_WD_ADD_POS, ep_spi_data_rx_wd_nb&apos;LENGTH))" input_patterns_0="(ep_spi_data_rx_wd_ry = &apos;1&apos;)" input_patterns_1="(ep_spi_data_rx_wd_ry = &apos;1&apos;)"/>
 </table>
 </condition>
-<condition ln="166" st="1" active="2" hits="2" percent="100.00">
+<condition ln="167" st="1" active="2" hits="2" percent="100.00">
 <table rows="2" cols="0" unknown="0">
-<row j="1" hits_0="45" hits_1="44" body="(ep_spi_data_rx_wd_rdy = &apos;1&apos;)" input_patterns_0="-" input_patterns_1="(ep_spi_data_rx_wd_nb = (&lt;type&gt;)TO_UNSIGNED(c_EP_CMD_WD_DATA_POS, ep_spi_data_rx_wd_nb&apos;LENGTH))"/>
-<row j="2" hits_0="44" hits_1="44" body="(ep_spi_data_rx_wd_nb = (&lt;type&gt;)TO_UNSIGNED(c_EP_CMD_WD_DATA_POS, ep_spi_data_rx_wd_nb&apos;LENGTH))" input_patterns_0="(ep_spi_data_rx_wd_rdy = &apos;1&apos;)" input_patterns_1="(ep_spi_data_rx_wd_rdy = &apos;1&apos;)"/>
+<row j="1" hits_0="45" hits_1="44" body="(ep_spi_data_rx_wd_ry = &apos;1&apos;)" input_patterns_0="-" input_patterns_1="(ep_spi_data_rx_wd_nb = (&lt;type&gt;)TO_UNSIGNED(c_EP_CMD_WD_DATA_POS, ep_spi_data_rx_wd_nb&apos;LENGTH))"/>
+<row j="2" hits_0="44" hits_1="44" body="(ep_spi_data_rx_wd_nb = (&lt;type&gt;)TO_UNSIGNED(c_EP_CMD_WD_DATA_POS, ep_spi_data_rx_wd_nb&apos;LENGTH))" input_patterns_0="(ep_spi_data_rx_wd_ry = &apos;1&apos;)" input_patterns_1="(ep_spi_data_rx_wd_ry = &apos;1&apos;)"/>
 </table>
 </condition>
 <statements active="42" hits="42" percent="100.00"/>
-<stmt ln="140" st="1" hits="90"/>
-<stmt ln="147" st="1" hits="90"/>
+<stmt ln="141" st="1" hits="90"/>
 <stmt ln="148" st="1" hits="90"/>
 <stmt ln="149" st="1" hits="90"/>
 <stmt ln="150" st="1" hits="90"/>
 <stmt ln="151" st="1" hits="90"/>
-<stmt ln="155" st="1" hits="13327"/>
-<stmt ln="160" st="1" hits="119988"/>
-<stmt ln="164" st="1" hits="374964"/>
-<stmt ln="167" st="1" hits="13313"/>
-<stmt ln="171" st="1" hits="374964"/>
+<stmt ln="152" st="1" hits="90"/>
+<stmt ln="156" st="1" hits="13327"/>
+<stmt ln="161" st="1" hits="119988"/>
+<stmt ln="165" st="1" hits="374964"/>
+<stmt ln="168" st="1" hits="13313"/>
 <stmt ln="172" st="1" hits="374964"/>
-<stmt ln="180" st="1" hits="9136"/>
-<stmt ln="188" st="1" hits="7203"/>
-<stmt ln="190" st="1" hits="9181"/>
-<stmt ln="191" st="1" hits="9929"/>
-<stmt ln="192" st="1" hits="7203"/>
-<stmt ln="200" st="1" hits="45"/>
-<stmt ln="203" st="1" hits="39296"/>
-<stmt ln="209" st="1" hits="90"/>
-<stmt ln="213" st="1" hits="13327"/>
-<stmt ln="252" st="1" hits="90"/>
-<stmt ln="257" st="1" hits="8907"/>
-<stmt ln="260" st="1" hits="4419"/>
-<stmt ln="271" st="1" hits="43927"/>
-<stmt ln="278" st="1" hits="26746"/>
-<stmt ln="319" st="1" hits="422"/>
-<stmt ln="320" st="1" hits="26793"/>
-<stmt ln="321" st="1" hits="846"/>
-<stmt ln="329" st="1" hits="45"/>
-<stmt ln="335" st="1" hits="90"/>
+<stmt ln="173" st="1" hits="374964"/>
+<stmt ln="181" st="1" hits="9136"/>
+<stmt ln="189" st="1" hits="7203"/>
+<stmt ln="191" st="1" hits="9181"/>
+<stmt ln="192" st="1" hits="9929"/>
+<stmt ln="193" st="1" hits="7203"/>
+<stmt ln="201" st="1" hits="45"/>
+<stmt ln="204" st="1" hits="39296"/>
+<stmt ln="210" st="1" hits="90"/>
+<stmt ln="214" st="1" hits="13327"/>
+<stmt ln="253" st="1" hits="90"/>
+<stmt ln="258" st="1" hits="8907"/>
+<stmt ln="261" st="1" hits="4419"/>
+<stmt ln="272" st="1" hits="43927"/>
+<stmt ln="279" st="1" hits="26746"/>
+<stmt ln="320" st="1" hits="422"/>
+<stmt ln="321" st="1" hits="26793"/>
+<stmt ln="322" st="1" hits="846"/>
+<stmt ln="330" st="1" hits="45"/>
 <stmt ln="336" st="1" hits="90"/>
 <stmt ln="337" st="1" hits="90"/>
-<stmt ln="341" st="1" hits="13327"/>
-<stmt ln="343" st="1" hits="13327"/>
+<stmt ln="338" st="1" hits="90"/>
+<stmt ln="342" st="1" hits="13327"/>
 <stmt ln="344" st="1" hits="13327"/>
 <stmt ln="345" st="1" hits="13327"/>
 <stmt ln="346" st="1" hits="13327"/>
-<stmt ln="351" st="1" hits="13327"/>
-<stmt ln="353" st="1" hits="13327"/>
-<stmt ln="357" st="1" hits="135816"/>
-<stmt ln="363" st="1" hits="891"/>
+<stmt ln="347" st="1" hits="13327"/>
+<stmt ln="352" st="1" hits="13327"/>
+<stmt ln="354" st="1" hits="13327"/>
+<stmt ln="358" st="1" hits="135816"/>
+<stmt ln="364" st="1" hits="891"/>
 </fileData>
 <fileData path="./src/ep_cmd_tx_wd.vhd">
 <statements active="54" hits="54" percent="100.00"/>
@@ -425,50 +425,50 @@ byFile="1">
 <ielem ln="124" st="1" true="854170" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="170" st="1" true="90" false="1761051"/>
-<ielem ln="175" st="1" true="1761051" false="0"/>
+<ielem ln="171" st="1" true="90" false="1761051"/>
+<ielem ln="176" st="1" true="1761051" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="191" st="1" true="90" false="747435"/>
-<ielem ln="194" st="1" true="747435" false="0"/>
+<ielem ln="192" st="1" true="90" false="747435"/>
+<ielem ln="195" st="1" true="747435" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="195" st="1" true="53381" false="694054"/>
-<ielem ln="195" st="1" true="694054" false="0"/>
+<ielem ln="196" st="1" true="53381" false="694054"/>
+<ielem ln="196" st="1" true="694054" false="0"/>
 </if>
 <if hasElse="0" active="1" hits="1" percent="100.00">
-<ielem ln="216" st="1" true="160211" false="0"/>
+<ielem ln="217" st="1" true="160211" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="217" st="1" true="53388" false="106823"/>
-<ielem ln="217" st="1" true="106823" false="0"/>
+<ielem ln="218" st="1" true="53388" false="106823"/>
+<ielem ln="218" st="1" true="106823" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="228" st="1" true="90" false="8449"/>
-<ielem ln="231" st="1" true="8449" false="0"/>
+<ielem ln="229" st="1" true="90" false="8449"/>
+<ielem ln="232" st="1" true="8449" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="244" st="1" true="90" false="106821"/>
-<ielem ln="247" st="1" true="106821" false="0"/>
+<ielem ln="245" st="1" true="90" false="106821"/>
+<ielem ln="248" st="1" true="106821" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="248" st="1" true="53388" false="53433"/>
-<ielem ln="248" st="1" true="53433" false="0"/>
+<ielem ln="249" st="1" true="53388" false="53433"/>
+<ielem ln="249" st="1" true="53433" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="267" st="1" true="1260" false="749336"/>
-<ielem ln="270" st="1" true="749336" false="0"/>
+<ielem ln="268" st="1" true="1260" false="749336"/>
+<ielem ln="271" st="1" true="749336" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="271" st="1" true="53345" false="695991"/>
-<ielem ln="271" st="1" true="695991" false="0"/>
+<ielem ln="272" st="1" true="53345" false="695991"/>
+<ielem ln="272" st="1" true="695991" false="0"/>
 </if>
 <if hasElse="1" active="2" hits="2" percent="100.00">
-<ielem ln="280" st="1" true="7030" false="102632"/>
-<ielem ln="280" st="2" true="102632" false="0"/>
+<ielem ln="281" st="1" true="7030" false="102632"/>
+<ielem ln="281" st="2" true="102632" false="0"/>
 </if>
 <fec_conditions active="2" hits="2" percent="100.00"/>
-<condition ln="271" st="1" active="2" hits="2" percent="100.00">
+<condition ln="272" st="1" active="2" hits="2" percent="100.00">
 <table rows="2" cols="0" unknown="0">
 <row j="1" hits_0="630" hits_1="616" body="(err_nin_rmv_ena(1) = &apos;1&apos;)" input_patterns_0="-" input_patterns_1="(mem_hkeep_add_prm = (&lt;type&gt;)TO_UNSIGNED(k, mem_hkeep_add_prm&apos;LENGTH))"/>
 <row j="2" hits_0="616" hits_1="616" body="(mem_hkeep_add_prm = (&lt;type&gt;)TO_UNSIGNED(k, mem_hkeep_add_prm&apos;LENGTH))" input_patterns_0="(err_nin_rmv_ena(1) = &apos;1&apos;)" input_patterns_1="(err_nin_rmv_ena(1) = &apos;1&apos;)"/>
@@ -486,27 +486,27 @@ byFile="1">
 <stmt ln="127" st="1" hits="854170"/>
 <stmt ln="139" st="1" hits="53480"/>
 <stmt ln="140" st="1" hits="45"/>
-<stmt ln="171" st="1" hits="90"/>
 <stmt ln="172" st="1" hits="90"/>
 <stmt ln="173" st="1" hits="90"/>
-<stmt ln="176" st="1" hits="1761051"/>
+<stmt ln="174" st="1" hits="90"/>
 <stmt ln="177" st="1" hits="1761051"/>
 <stmt ln="178" st="1" hits="1761051"/>
-<stmt ln="192" st="1" hits="90"/>
-<stmt ln="196" st="1" hits="53381"/>
-<stmt ln="204" st="1" hits="45"/>
-<stmt ln="211" st="1" hits="53480"/>
-<stmt ln="218" st="1" hits="53388"/>
-<stmt ln="229" st="1" hits="90"/>
-<stmt ln="232" st="1" hits="8449"/>
-<stmt ln="245" st="1" hits="90"/>
-<stmt ln="249" st="1" hits="53388"/>
-<stmt ln="268" st="1" hits="1260"/>
-<stmt ln="272" st="1" hits="53345"/>
-<stmt ln="280" st="1" hits="109662"/>
-<stmt ln="284" st="1" hits="45"/>
+<stmt ln="179" st="1" hits="1761051"/>
+<stmt ln="193" st="1" hits="90"/>
+<stmt ln="197" st="1" hits="53381"/>
+<stmt ln="205" st="1" hits="45"/>
+<stmt ln="212" st="1" hits="53480"/>
+<stmt ln="219" st="1" hits="53388"/>
+<stmt ln="230" st="1" hits="90"/>
+<stmt ln="233" st="1" hits="8449"/>
+<stmt ln="246" st="1" hits="90"/>
+<stmt ln="250" st="1" hits="53388"/>
+<stmt ln="269" st="1" hits="1260"/>
+<stmt ln="273" st="1" hits="53345"/>
+<stmt ln="281" st="1" hits="109662"/>
 <stmt ln="285" st="1" hits="45"/>
-<stmt ln="313" st="1" hits="1034"/>
+<stmt ln="286" st="1" hits="45"/>
+<stmt ln="314" st="1" hits="1034"/>
 </fileData>
 <fileData path="./src/im_ck.vhd">
 <branches active="6" hits="5" percent="83.33"/>
@@ -573,22 +573,22 @@ byFile="1">
 <fileData path="./src/mem_data_rd_mux.vhd">
 <branches active="6" hits="6" percent="100.00"/>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="62" st="1" true="1710" false="15699"/>
-<ielem ln="65" st="1" true="15699" false="0"/>
+<ielem ln="63" st="1" true="1710" false="15699"/>
+<ielem ln="66" st="1" true="15699" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="93" st="1" true="1710" false="8277"/>
-<ielem ln="96" st="1" true="8277" false="0"/>
+<ielem ln="94" st="1" true="1710" false="8277"/>
+<ielem ln="97" st="1" true="8277" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="97" st="1" true="3711" false="4566"/>
-<ielem ln="97" st="1" true="4566" false="0"/>
+<ielem ln="98" st="1" true="3711" false="4566"/>
+<ielem ln="98" st="1" true="4566" false="0"/>
 </if>
 <statements active="4" hits="4" percent="100.00"/>
-<stmt ln="63" st="1" hits="1710"/>
-<stmt ln="66" st="1" hits="15699"/>
-<stmt ln="94" st="1" hits="1710"/>
-<stmt ln="98" st="1" hits="3711"/>
+<stmt ln="64" st="1" hits="1710"/>
+<stmt ln="67" st="1" hits="15699"/>
+<stmt ln="95" st="1" hits="1710"/>
+<stmt ln="99" st="1" hits="3711"/>
 </fileData>
 <fileData path="./src/mem_in_gen.vhd">
 <branches active="8" hits="8" percent="100.00"/>
@@ -649,23 +649,23 @@ byFile="1">
 <fileData path="./src/multiplexer.vhd">
 <branches active="4" hits="4" percent="100.00"/>
 <if hasElse="1" active="2" hits="2" percent="100.00">
-<ielem ln="68" st="1" true="50239" false="9406093"/>
-<ielem ln="68" st="2" true="9406093" false="0"/>
+<ielem ln="69" st="1" true="50239" false="9406093"/>
+<ielem ln="69" st="2" true="9406093" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="85" st="1" true="7830" false="40778"/>
-<ielem ln="89" st="1" true="40778" false="0"/>
+<ielem ln="86" st="1" true="7830" false="40778"/>
+<ielem ln="90" st="1" true="40778" false="0"/>
 </if>
 <statements active="9" hits="9" percent="100.00"/>
-<stmt ln="59" st="1" hits="21985"/>
-<stmt ln="60" st="1" hits="25446"/>
-<stmt ln="68" st="1" hits="9456332"/>
-<stmt ln="72" st="1" hits="109028"/>
-<stmt ln="73" st="1" hits="114362"/>
-<stmt ln="86" st="1" hits="7830"/>
+<stmt ln="60" st="1" hits="21985"/>
+<stmt ln="61" st="1" hits="25446"/>
+<stmt ln="69" st="1" hits="9456332"/>
+<stmt ln="73" st="1" hits="109028"/>
+<stmt ln="74" st="1" hits="114362"/>
 <stmt ln="87" st="1" hits="7830"/>
-<stmt ln="90" st="1" hits="40778"/>
+<stmt ln="88" st="1" hits="7830"/>
 <stmt ln="91" st="1" hits="40778"/>
+<stmt ln="92" st="1" hits="40778"/>
 </fileData>
 <fileData path="./src/pkg_func_math.vhd">
 <statements active="4" hits="4" percent="100.00"/>
@@ -1171,147 +1171,147 @@ byFile="1">
 <fileData path="./src/relock.vhd">
 <branches active="41" hits="41" percent="100.00"/>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="96" st="1" true="360" false="8323016"/>
-<ielem ln="99" st="1" true="8323016" false="0"/>
+<ielem ln="97" st="1" true="360" false="8323016"/>
+<ielem ln="100" st="1" true="8323016" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="124" st="1" true="360" false="2774600"/>
-<ielem ln="127" st="1" true="2774600" false="0"/>
+<ielem ln="125" st="1" true="360" false="2774600"/>
+<ielem ln="128" st="1" true="2774600" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="128" st="1" true="1387218" false="1387382"/>
-<ielem ln="128" st="1" true="1387382" false="0"/>
+<ielem ln="129" st="1" true="1387218" false="1387382"/>
+<ielem ln="129" st="1" true="1387382" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="144" st="1" true="540" false="1393630"/>
-<ielem ln="149" st="1" true="1393630" false="0"/>
+<ielem ln="145" st="1" true="540" false="1393630"/>
+<ielem ln="150" st="1" true="1393630" false="0"/>
 </if>
 <if hasElse="1" active="2" hits="2" percent="100.00">
-<ielem ln="153" st="1" true="368" false="1393262"/>
-<ielem ln="156" st="1" true="1393262" false="0"/>
+<ielem ln="154" st="1" true="368" false="1393262"/>
+<ielem ln="157" st="1" true="1393262" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="168" st="1" true="360" false="6936191"/>
-<ielem ln="171" st="1" true="6936191" false="0"/>
+<ielem ln="169" st="1" true="360" false="6936191"/>
+<ielem ln="172" st="1" true="6936191" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="172" st="1" true="1387202" false="5548989"/>
-<ielem ln="172" st="1" true="5548989" false="0"/>
+<ielem ln="173" st="1" true="1387202" false="5548989"/>
+<ielem ln="173" st="1" true="5548989" false="0"/>
 </if>
 <if hasElse="1" active="4" hits="4" percent="100.00">
-<ielem ln="173" st="1" true="1381358" false="5844"/>
-<ielem ln="176" st="1" true="184" false="5660"/>
-<ielem ln="179" st="1" true="954" false="4706"/>
-<ielem ln="183" st="1" true="4706" false="0"/>
+<ielem ln="174" st="1" true="1381358" false="5844"/>
+<ielem ln="177" st="1" true="184" false="5660"/>
+<ielem ln="180" st="1" true="954" false="4706"/>
+<ielem ln="184" st="1" true="4706" false="0"/>
 </if>
 <if hasElse="0" active="1" hits="1" percent="100.00">
-<ielem ln="197" st="1" true="1388902" false="0"/>
+<ielem ln="198" st="1" true="1388902" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="251" st="1" true="360" false="1433365"/>
-<ielem ln="254" st="1" true="1433365" false="0"/>
+<ielem ln="252" st="1" true="360" false="1433365"/>
+<ielem ln="255" st="1" true="1433365" false="0"/>
 </if>
 <if hasElse="1" active="2" hits="2" percent="100.00">
-<ielem ln="255" st="1" true="38901" false="1394464"/>
-<ielem ln="261" st="1" true="1394464" false="0"/>
+<ielem ln="256" st="1" true="38901" false="1394464"/>
+<ielem ln="262" st="1" true="1394464" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="256" st="1" true="8" false="38893"/>
-<ielem ln="256" st="1" true="38893" false="0"/>
+<ielem ln="257" st="1" true="8" false="38893"/>
+<ielem ln="257" st="1" true="38893" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="277" st="1" true="540" false="6942431"/>
-<ielem ln="280" st="1" true="6942431" false="0"/>
+<ielem ln="278" st="1" true="540" false="6942431"/>
+<ielem ln="281" st="1" true="6942431" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="281" st="1" true="1387162" false="5555269"/>
-<ielem ln="281" st="1" true="5555269" false="0"/>
+<ielem ln="282" st="1" true="1387162" false="5555269"/>
+<ielem ln="282" st="1" true="5555269" false="0"/>
 </if>
 <if hasElse="1" active="4" hits="4" percent="100.00">
-<ielem ln="282" st="1" true="911969" false="475193"/>
-<ielem ln="285" st="1" true="2" false="475191"/>
-<ielem ln="288" st="1" true="184" false="475007"/>
-<ielem ln="292" st="1" true="475007" false="0"/>
+<ielem ln="283" st="1" true="911969" false="475193"/>
+<ielem ln="286" st="1" true="2" false="475191"/>
+<ielem ln="289" st="1" true="184" false="475007"/>
+<ielem ln="293" st="1" true="475007" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="313" st="1" true="12240" false="235830630"/>
-<ielem ln="316" st="1" true="235830630" false="0"/>
+<ielem ln="314" st="1" true="12240" false="235830630"/>
+<ielem ln="317" st="1" true="235830630" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="317" st="1" true="1387146" false="234443484"/>
-<ielem ln="317" st="1" true="234443484" false="0"/>
+<ielem ln="318" st="1" true="1387146" false="234443484"/>
+<ielem ln="318" st="1" true="234443484" false="0"/>
 </if>
 <if hasElse="1" active="2" hits="2" percent="100.00">
-<ielem ln="318" st="1" true="1384240" false="2906"/>
-<ielem ln="321" st="1" true="2906" false="0"/>
+<ielem ln="319" st="1" true="1384240" false="2906"/>
+<ielem ln="322" st="1" true="2906" false="0"/>
 </if>
-<if hasElse="1" active="2" hits="2" percent="100.00">
-<ielem ln="369" st="1" true="1080" false="13874940"/>
-<ielem ln="372" st="1" true="13874940" false="0"/>
+<if hasElse="0" active="2" hits="2" percent="100.00">
+<ielem ln="370" st="1" true="360" false="548"/>
+<ielem ln="373" st="1" true="548" false="0"/>
 </if>
 <fec_conditions active="8" hits="7" percent="87.50"/>
-<condition ln="153" st="1" active="2" hits="2" percent="100.00">
+<condition ln="154" st="1" active="2" hits="2" percent="100.00">
 <table rows="2" cols="0" unknown="0">
 <row j="1" hits_0="180" hits_1="4" body="(i_smfbm_close_rl = &apos;1&apos;)" input_patterns_0="-" input_patterns_1="((&lt;type&gt;)cnt_thr_exceed_rd &gt;= RESIZE((&lt;type&gt;)i_rldel, cnt_thr_exceed_rd&apos;LENGTH))"/>
 <row j="2" hits_0="8" hits_1="4" body="((&lt;type&gt;)cnt_thr_exceed_rd &gt;= RESIZE((&lt;type&gt;)i_rldel, cnt_thr_exceed_rd&apos;LENGTH))" input_patterns_0="(i_smfbm_close_rl = &apos;1&apos;)" input_patterns_1="(i_smfbm_close_rl = &apos;1&apos;)"/>
 </table>
 </condition>
-<condition ln="180" st="1" active="2" hits="2" percent="100.00">
+<condition ln="181" st="1" active="2" hits="2" percent="100.00">
 <table rows="2" cols="0" unknown="0">
 <row j="1" hits_0="8" hits_1="4" body="((&lt;type&gt;)diff_sqm_dta_smfb0 &gt; (&lt;type&gt;)RESIZE((&lt;type&gt;)i_rlthr, diff_sqm_dta_smfb0&apos;LENGTH))" input_patterns_0="not (((&lt;type&gt;)diff_sqm_dta_smfb0 + (&lt;type&gt;)RESIZE((&lt;type&gt;)i_rlthr, diff_sqm_dta_smfb0&apos;LENGTH)) &lt; 0)" input_patterns_1="-"/>
 <row j="2" hits_0="8" hits_1="8" body="(((&lt;type&gt;)diff_sqm_dta_smfb0 + (&lt;type&gt;)RESIZE((&lt;type&gt;)i_rlthr, diff_sqm_dta_smfb0&apos;LENGTH)) &lt; 0)" input_patterns_0="not ((&lt;type&gt;)diff_sqm_dta_smfb0 &gt; (&lt;type&gt;)RESIZE((&lt;type&gt;)i_rlthr, diff_sqm_dta_smfb0&apos;LENGTH))" input_patterns_1="not ((&lt;type&gt;)diff_sqm_dta_smfb0 &gt; (&lt;type&gt;)RESIZE((&lt;type&gt;)i_rlthr, diff_sqm_dta_smfb0&apos;LENGTH))"/>
 </table>
 </condition>
-<condition ln="289" st="1" active="2" hits="1" percent="50.00">
+<condition ln="290" st="1" active="2" hits="1" percent="50.00">
 <table rows="2" cols="0" unknown="0">
 <row j="1" hits_0="41" hits_1="4" body="(cnt_thr_exd_rd_cmp = &apos;1&apos;)" input_patterns_0="-" input_patterns_1="(dlcnt_rd /= (&lt;type&gt;)TO_UNSIGNED(c_DLCNT_SAT, dlcnt_rd&apos;LENGTH))"/>
 <row j="2" hits_0="0" hits_1="4" body="(dlcnt_rd /= (&lt;type&gt;)TO_UNSIGNED(c_DLCNT_SAT, dlcnt_rd&apos;LENGTH))" input_patterns_0="(cnt_thr_exd_rd_cmp = &apos;1&apos;)" input_patterns_1="(cnt_thr_exd_rd_cmp = &apos;1&apos;)"/>
 </table>
 </condition>
-<condition ln="317" st="1" active="2" hits="2" percent="100.00">
+<condition ln="318" st="1" active="2" hits="2" percent="100.00">
 <table rows="2" cols="0" unknown="0">
 <row j="1" hits_0="6120" hits_1="6000" body="(sqm_dta_err_cor_cs_r(3) = &apos;1&apos;)" input_patterns_0="-" input_patterns_1="(i_mem_rl_rd_add = (&lt;type&gt;)TO_UNSIGNED(k, i_mem_rl_rd_add&apos;LENGTH))"/>
 <row j="2" hits_0="6120" hits_1="6000" body="(i_mem_rl_rd_add = (&lt;type&gt;)TO_UNSIGNED(k, i_mem_rl_rd_add&apos;LENGTH))" input_patterns_0="(sqm_dta_err_cor_cs_r(3) = &apos;1&apos;)" input_patterns_1="(sqm_dta_err_cor_cs_r(3) = &apos;1&apos;)"/>
 </table>
 </condition>
 <statements active="37" hits="37" percent="100.00"/>
-<stmt ln="97" st="1" hits="360"/>
-<stmt ln="100" st="1" hits="8323016"/>
-<stmt ln="125" st="1" hits="360"/>
-<stmt ln="130" st="1" hits="1387218"/>
-<stmt ln="145" st="1" hits="540"/>
+<stmt ln="98" st="1" hits="360"/>
+<stmt ln="101" st="1" hits="8323016"/>
+<stmt ln="126" st="1" hits="360"/>
+<stmt ln="131" st="1" hits="1387218"/>
 <stmt ln="146" st="1" hits="540"/>
 <stmt ln="147" st="1" hits="540"/>
-<stmt ln="150" st="1" hits="1393630"/>
+<stmt ln="148" st="1" hits="540"/>
 <stmt ln="151" st="1" hits="1393630"/>
-<stmt ln="154" st="1" hits="368"/>
-<stmt ln="157" st="1" hits="1393262"/>
-<stmt ln="169" st="1" hits="360"/>
-<stmt ln="174" st="1" hits="1381358"/>
-<stmt ln="177" st="1" hits="184"/>
-<stmt ln="181" st="1" hits="954"/>
-<stmt ln="184" st="1" hits="4706"/>
-<stmt ln="198" st="1" hits="1388902"/>
-<stmt ln="239" st="1" hits="1387570"/>
-<stmt ln="240" st="1" hits="2774682"/>
-<stmt ln="241" st="1" hits="180"/>
-<stmt ln="242" st="1" hits="2852"/>
-<stmt ln="243" st="1" hits="180"/>
-<stmt ln="252" st="1" hits="360"/>
-<stmt ln="257" st="1" hits="8"/>
-<stmt ln="262" st="1" hits="1394464"/>
-<stmt ln="278" st="1" hits="540"/>
-<stmt ln="283" st="1" hits="911969"/>
-<stmt ln="286" st="1" hits="2"/>
-<stmt ln="290" st="1" hits="184"/>
-<stmt ln="293" st="1" hits="475007"/>
-<stmt ln="314" st="1" hits="12240"/>
-<stmt ln="319" st="1" hits="1384240"/>
-<stmt ln="322" st="1" hits="2906"/>
-<stmt ln="334" st="1" hits="180"/>
-<stmt ln="360" st="1" hits="634"/>
-<stmt ln="370" st="1" hits="1080"/>
-<stmt ln="373" st="1" hits="13874940"/>
+<stmt ln="152" st="1" hits="1393630"/>
+<stmt ln="155" st="1" hits="368"/>
+<stmt ln="158" st="1" hits="1393262"/>
+<stmt ln="170" st="1" hits="360"/>
+<stmt ln="175" st="1" hits="1381358"/>
+<stmt ln="178" st="1" hits="184"/>
+<stmt ln="182" st="1" hits="954"/>
+<stmt ln="185" st="1" hits="4706"/>
+<stmt ln="199" st="1" hits="1388902"/>
+<stmt ln="240" st="1" hits="1387570"/>
+<stmt ln="241" st="1" hits="2774682"/>
+<stmt ln="242" st="1" hits="180"/>
+<stmt ln="243" st="1" hits="2852"/>
+<stmt ln="244" st="1" hits="360"/>
+<stmt ln="253" st="1" hits="360"/>
+<stmt ln="258" st="1" hits="8"/>
+<stmt ln="263" st="1" hits="1394464"/>
+<stmt ln="279" st="1" hits="540"/>
+<stmt ln="284" st="1" hits="911969"/>
+<stmt ln="287" st="1" hits="2"/>
+<stmt ln="291" st="1" hits="184"/>
+<stmt ln="294" st="1" hits="475007"/>
+<stmt ln="315" st="1" hits="12240"/>
+<stmt ln="320" st="1" hits="1384240"/>
+<stmt ln="323" st="1" hits="2906"/>
+<stmt ln="335" st="1" hits="180"/>
+<stmt ln="361" st="1" hits="634"/>
+<stmt ln="371" st="1" hits="360"/>
+<stmt ln="374" st="1" hits="548"/>
 </fileData>
 <fileData path="./src/resize_stall_msb.vhd">
 <statements active="1" hits="1" percent="100.00"/>
@@ -1460,67 +1460,65 @@ byFile="1">
 <fileData path="./src/round_sat.vhd">
 <branches active="5" hits="5" percent="100.00"/>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="60" st="1" true="3420" false="4373944"/>
-<ielem ln="63" st="1" true="4373944" false="0"/>
+<ielem ln="61" st="1" true="3420" false="4373944"/>
+<ielem ln="64" st="1" true="4373944" false="0"/>
 </if>
 <if hasElse="1" active="3" hits="3" percent="100.00">
-<ielem ln="66" st="1" true="1164" false="4372780"/>
-<ielem ln="71" st="1" true="1988" false="4370792"/>
-<ielem ln="75" st="1" true="4370792" false="0"/>
+<ielem ln="67" st="1" true="1164" false="4372780"/>
+<ielem ln="72" st="1" true="1988" false="4370792"/>
+<ielem ln="76" st="1" true="4370792" false="0"/>
 </if>
 <statements active="7" hits="7" percent="100.00"/>
-<stmt ln="52" st="1" hits="4375216"/>
-<stmt ln="61" st="1" hits="3420"/>
-<stmt ln="67" st="1" hits="1164"/>
+<stmt ln="53" st="1" hits="4375216"/>
+<stmt ln="62" st="1" hits="3420"/>
 <stmt ln="68" st="1" hits="1164"/>
-<stmt ln="72" st="1" hits="1988"/>
+<stmt ln="69" st="1" hits="1164"/>
 <stmt ln="73" st="1" hits="1988"/>
-<stmt ln="76" st="1" hits="4370792"/>
+<stmt ln="74" st="1" hits="1988"/>
+<stmt ln="77" st="1" hits="4370792"/>
 </fileData>
 <fileData path="./src/rst_clk_mgt.vhd">
 <branches active="12" hits="12" percent="100.00"/>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="185" st="1" true="45" false="45"/>
-<ielem ln="188" st="1" true="45" false="0"/>
-</if>
-<if hasElse="1" active="2" hits="2" percent="100.00">
-<ielem ln="198" st="1" true="450" false="6937486"/>
-<ielem ln="202" st="1" true="6937486" false="0"/>
+<ielem ln="181" st="1" true="45" false="45"/>
+<ielem ln="184" st="1" true="45" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="217" st="1" true="45" false="225"/>
-<ielem ln="221" st="1" true="225" false="0"/>
+<ielem ln="194" st="1" true="90" false="6937486"/>
+<ielem ln="198" st="1" true="6937486" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="222" st="1" true="180" false="45"/>
-<ielem ln="222" st="1" true="45" false="0"/>
+<ielem ln="213" st="1" true="45" false="225"/>
+<ielem ln="217" st="1" true="225" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="241" st="1" true="45" false="405"/>
-<ielem ln="245" st="1" true="405" false="0"/>
+<ielem ln="218" st="1" true="180" false="45"/>
+<ielem ln="218" st="1" true="45" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="246" st="1" true="360" false="45"/>
-<ielem ln="246" st="1" true="45" false="0"/>
+<ielem ln="237" st="1" true="45" false="405"/>
+<ielem ln="241" st="1" true="405" false="0"/>
 </if>
-<statements active="17" hits="17" percent="100.00"/>
-<stmt ln="106" st="1" hits="6937981"/>
-<stmt ln="107" st="1" hits="13875846"/>
-<stmt ln="186" st="1" hits="45"/>
-<stmt ln="189" st="1" hits="45"/>
-<stmt ln="199" st="1" hits="450"/>
-<stmt ln="200" st="1" hits="450"/>
-<stmt ln="203" st="1" hits="6937486"/>
-<stmt ln="204" st="1" hits="6937486"/>
-<stmt ln="218" st="1" hits="45"/>
-<stmt ln="219" st="1" hits="45"/>
-<stmt ln="223" st="1" hits="180"/>
-<stmt ln="227" st="1" hits="225"/>
-<stmt ln="242" st="1" hits="45"/>
-<stmt ln="243" st="1" hits="45"/>
-<stmt ln="247" st="1" hits="360"/>
-<stmt ln="251" st="1" hits="405"/>
-<stmt ln="265" st="1" hits="135"/>
+<if hasElse="0" active="2" hits="2" percent="100.00">
+<ielem ln="242" st="1" true="360" false="45"/>
+<ielem ln="242" st="1" true="45" false="0"/>
+</if>
+<statements active="15" hits="15" percent="100.00"/>
+<stmt ln="182" st="1" hits="45"/>
+<stmt ln="185" st="1" hits="45"/>
+<stmt ln="195" st="1" hits="90"/>
+<stmt ln="196" st="1" hits="90"/>
+<stmt ln="199" st="1" hits="6937486"/>
+<stmt ln="200" st="1" hits="6937486"/>
+<stmt ln="214" st="1" hits="45"/>
+<stmt ln="215" st="1" hits="45"/>
+<stmt ln="219" st="1" hits="180"/>
+<stmt ln="223" st="1" hits="225"/>
+<stmt ln="238" st="1" hits="45"/>
+<stmt ln="239" st="1" hits="45"/>
+<stmt ln="243" st="1" hits="360"/>
+<stmt ln="247" st="1" hits="405"/>
+<stmt ln="261" st="1" hits="135"/>
 </fileData>
 <fileData path="./src/science_data_mgt.vhd">
 <branches active="69" hits="69" percent="100.00"/>
@@ -1831,80 +1829,80 @@ byFile="1">
 <fileData path="./src/spi_master.vhd">
 <branches active="29" hits="29" percent="100.00"/>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="85" st="1" true="540" false="5418997"/>
-<ielem ln="95" st="1" true="5418997" false="0"/>
+<ielem ln="86" st="1" true="540" false="5418997"/>
+<ielem ln="96" st="1" true="5418997" false="0"/>
 </if>
 <if hasElse="1" active="2" hits="2" percent="100.00">
-<ielem ln="87" st="1" true="180" false="360"/>
-<ielem ln="90" st="1" true="360" false="0"/>
+<ielem ln="88" st="1" true="180" false="360"/>
+<ielem ln="91" st="1" true="360" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="96" st="1" true="5351520" false="67477"/>
-<ielem ln="96" st="1" true="67477" false="0"/>
+<ielem ln="97" st="1" true="5351520" false="67477"/>
+<ielem ln="97" st="1" true="67477" false="0"/>
 </if>
 <if hasElse="1" active="2" hits="2" percent="100.00">
-<ielem ln="98" st="1" true="2578552" false="2772968"/>
-<ielem ln="107" st="1" true="2772968" false="0"/>
+<ielem ln="99" st="1" true="2578552" false="2772968"/>
+<ielem ln="108" st="1" true="2772968" false="0"/>
 </if>
 <if hasElse="1" active="2" hits="2" percent="100.00">
-<ielem ln="99" st="1" true="1289264" false="1289288"/>
-<ielem ln="102" st="1" true="1289288" false="0"/>
+<ielem ln="100" st="1" true="1289264" false="1289288"/>
+<ielem ln="103" st="1" true="1289288" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="122" st="1" true="540" false="5420550"/>
-<ielem ln="125" st="1" true="5420550" false="0"/>
+<ielem ln="123" st="1" true="540" false="5420550"/>
+<ielem ln="126" st="1" true="5420550" false="0"/>
 </if>
 <if hasElse="0" active="3" hits="3" percent="100.00">
-<ielem ln="126" st="1" true="67256" false="5353294"/>
-<ielem ln="129" st="1" true="2578552" false="2774742"/>
-<ielem ln="126" st="1" true="2774742" false="0"/>
+<ielem ln="127" st="1" true="67256" false="5353294"/>
+<ielem ln="130" st="1" true="2578552" false="2774742"/>
+<ielem ln="127" st="1" true="2774742" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="144" st="1" true="540" false="5420707"/>
-<ielem ln="147" st="1" true="5420707" false="0"/>
+<ielem ln="145" st="1" true="540" false="5420707"/>
+<ielem ln="148" st="1" true="5420707" false="0"/>
 </if>
 <if hasElse="0" active="3" hits="3" percent="100.00">
-<ielem ln="148" st="1" true="67256" false="5353451"/>
-<ielem ln="151" st="1" true="1289264" false="4064187"/>
-<ielem ln="148" st="1" true="4064187" false="0"/>
+<ielem ln="149" st="1" true="67256" false="5353451"/>
+<ielem ln="152" st="1" true="1289264" false="4064187"/>
+<ielem ln="149" st="1" true="4064187" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="168" st="1" true="540" false="5426210"/>
-<ielem ln="176" st="1" true="5426210" false="0"/>
+<ielem ln="169" st="1" true="540" false="5426210"/>
+<ielem ln="177" st="1" true="5426210" false="0"/>
 </if>
 <if hasElse="0" active="3" hits="3" percent="100.00">
-<ielem ln="181" st="1" true="67255" false="5358955"/>
-<ielem ln="184" st="1" true="1289230" false="4069725"/>
-<ielem ln="181" st="1" true="4069725" false="0"/>
+<ielem ln="182" st="1" true="67255" false="5358955"/>
+<ielem ln="185" st="1" true="1289230" false="4069725"/>
+<ielem ln="182" st="1" true="4069725" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="189" st="1" true="67476" false="5358734"/>
-<ielem ln="189" st="1" true="5358734" false="0"/>
+<ielem ln="190" st="1" true="67476" false="5358734"/>
+<ielem ln="190" st="1" true="5358734" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="206" st="1" true="540" false="2646055"/>
-<ielem ln="211" st="1" true="2646055" false="0"/>
+<ielem ln="207" st="1" true="540" false="2646055"/>
+<ielem ln="212" st="1" true="2646055" false="0"/>
 </if>
 <fec_conditions active="9" hits="7" percent="77.77"/>
-<condition ln="126" st="1" active="2" hits="2" percent="100.00">
+<condition ln="127" st="1" active="2" hits="2" percent="100.00">
 <table rows="2" cols="0" unknown="0">
 <row j="1" hits_0="225" hits_1="265" body="(i_start = &apos;1&apos;)" input_patterns_0="-" input_patterns_1="(pls_ste_cnt(pls_ste_cnt&apos;HIGH) = &apos;1&apos;)"/>
 <row j="2" hits_0="89" hits_1="265" body="(pls_ste_cnt(pls_ste_cnt&apos;HIGH) = &apos;1&apos;)" input_patterns_0="(i_start = &apos;1&apos;)" input_patterns_1="(i_start = &apos;1&apos;)"/>
 </table>
 </condition>
-<condition ln="129" st="1" active="2" hits="1" percent="50.00">
+<condition ln="130" st="1" active="2" hits="1" percent="50.00">
 <table rows="2" cols="0" unknown="0">
 <row j="1" hits_0="270" hits_1="265" body="(pulse_gen(pulse_gen&apos;HIGH) = &apos;1&apos;)" input_patterns_0="-" input_patterns_1="(pls_ste_cnt(pls_ste_cnt&apos;HIGH) = &apos;0&apos;)"/>
 <row j="2" hits_0="0" hits_1="265" body="(pls_ste_cnt(pls_ste_cnt&apos;HIGH) = &apos;0&apos;)" input_patterns_0="(pulse_gen(pulse_gen&apos;HIGH) = &apos;1&apos;)" input_patterns_1="(pulse_gen(pulse_gen&apos;HIGH) = &apos;1&apos;)"/>
 </table>
 </condition>
-<condition ln="148" st="1" active="2" hits="2" percent="100.00">
+<condition ln="149" st="1" active="2" hits="2" percent="100.00">
 <table rows="2" cols="0" unknown="0">
 <row j="1" hits_0="225" hits_1="265" body="(i_start = &apos;1&apos;)" input_patterns_0="-" input_patterns_1="(pls_ste_cnt(pls_ste_cnt&apos;HIGH) = &apos;1&apos;)"/>
 <row j="2" hits_0="89" hits_1="265" body="(pls_ste_cnt(pls_ste_cnt&apos;HIGH) = &apos;1&apos;)" input_patterns_0="(i_start = &apos;1&apos;)" input_patterns_1="(i_start = &apos;1&apos;)"/>
 </table>
 </condition>
-<condition ln="151" st="1" active="3" hits="2" percent="66.66">
+<condition ln="152" st="1" active="3" hits="2" percent="66.66">
 <table rows="3" cols="0" unknown="0">
 <row j="1" hits_0="270" hits_1="265" body="(pulse_gen(pulse_gen&apos;HIGH) = &apos;1&apos;)" input_patterns_0="-" input_patterns_1="(pls_ste_cnt(pls_ste_cnt&apos;HIGH) = &apos;0&apos;) &amp;&amp; (pls_ste_cnt(0) = &apos;0&apos;)"/>
 <row j="2" hits_0="265" hits_1="265" body="(pls_ste_cnt(0) = &apos;0&apos;)" input_patterns_0="(pulse_gen(pulse_gen&apos;HIGH) = &apos;1&apos;)" input_patterns_1="(pls_ste_cnt(pls_ste_cnt&apos;HIGH) = &apos;0&apos;) &amp;&amp; (pulse_gen(pulse_gen&apos;HIGH) = &apos;1&apos;)"/>
@@ -1912,162 +1910,162 @@ byFile="1">
 </table>
 </condition>
 <statements active="31" hits="31" percent="100.00"/>
-<stmt ln="88" st="1" hits="180"/>
-<stmt ln="91" st="1" hits="360"/>
-<stmt ln="100" st="1" hits="1289264"/>
-<stmt ln="103" st="1" hits="1289288"/>
-<stmt ln="108" st="1" hits="2772968"/>
-<stmt ln="123" st="1" hits="540"/>
-<stmt ln="127" st="1" hits="67256"/>
-<stmt ln="130" st="1" hits="2578552"/>
-<stmt ln="145" st="1" hits="540"/>
-<stmt ln="149" st="1" hits="67256"/>
-<stmt ln="152" st="1" hits="1289264"/>
-<stmt ln="160" st="1" hits="135004"/>
-<stmt ln="169" st="1" hits="540"/>
+<stmt ln="89" st="1" hits="180"/>
+<stmt ln="92" st="1" hits="360"/>
+<stmt ln="101" st="1" hits="1289264"/>
+<stmt ln="104" st="1" hits="1289288"/>
+<stmt ln="109" st="1" hits="2772968"/>
+<stmt ln="124" st="1" hits="540"/>
+<stmt ln="128" st="1" hits="67256"/>
+<stmt ln="131" st="1" hits="2578552"/>
+<stmt ln="146" st="1" hits="540"/>
+<stmt ln="150" st="1" hits="67256"/>
+<stmt ln="153" st="1" hits="1289264"/>
+<stmt ln="161" st="1" hits="135004"/>
 <stmt ln="170" st="1" hits="540"/>
 <stmt ln="171" st="1" hits="540"/>
 <stmt ln="172" st="1" hits="540"/>
 <stmt ln="173" st="1" hits="540"/>
 <stmt ln="174" st="1" hits="540"/>
-<stmt ln="177" st="1" hits="5426210"/>
+<stmt ln="175" st="1" hits="540"/>
 <stmt ln="178" st="1" hits="5426210"/>
 <stmt ln="179" st="1" hits="5426210"/>
-<stmt ln="182" st="1" hits="67255"/>
-<stmt ln="185" st="1" hits="1289230"/>
-<stmt ln="190" st="1" hits="67476"/>
-<stmt ln="194" st="1" hits="5426210"/>
-<stmt ln="207" st="1" hits="540"/>
+<stmt ln="180" st="1" hits="5426210"/>
+<stmt ln="183" st="1" hits="67255"/>
+<stmt ln="186" st="1" hits="1289230"/>
+<stmt ln="191" st="1" hits="67476"/>
+<stmt ln="195" st="1" hits="5426210"/>
 <stmt ln="208" st="1" hits="540"/>
 <stmt ln="209" st="1" hits="540"/>
-<stmt ln="212" st="1" hits="2646055"/>
+<stmt ln="210" st="1" hits="540"/>
 <stmt ln="213" st="1" hits="2646055"/>
 <stmt ln="214" st="1" hits="2646055"/>
+<stmt ln="215" st="1" hits="2646055"/>
 </fileData>
 <fileData path="./src/spi_slave.vhd">
 <branches active="42" hits="42" percent="100.00"/>
-<if hasElse="1" active="2" hits="2" percent="100.00">
-<ielem ln="94" st="1" true="1080" false="66292830"/>
-<ielem ln="99" st="1" true="66292830" false="0"/>
+<if hasElse="0" active="2" hits="2" percent="100.00">
+<ielem ln="95" st="1" true="900" false="3578759"/>
+<ielem ln="100" st="1" true="3578759" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="129" st="1" true="900" false="2703813"/>
-<ielem ln="132" st="1" true="2703813" false="0"/>
+<ielem ln="130" st="1" true="900" false="2703813"/>
+<ielem ln="133" st="1" true="2703813" false="0"/>
 </if>
 <if hasElse="0" active="4" hits="4" percent="100.00">
-<ielem ln="133" st="1" true="67612" false="2636201"/>
-<ielem ln="136" st="1" true="81034" false="2555167"/>
-<ielem ln="139" st="1" true="1208660" false="1346507"/>
-<ielem ln="133" st="1" true="1346507" false="0"/>
+<ielem ln="134" st="1" true="67612" false="2636201"/>
+<ielem ln="137" st="1" true="81034" false="2555167"/>
+<ielem ln="140" st="1" true="1208660" false="1346507"/>
+<ielem ln="134" st="1" true="1346507" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="154" st="1" true="900" false="2638416"/>
-<ielem ln="157" st="1" true="2638416" false="0"/>
+<ielem ln="155" st="1" true="900" false="2638416"/>
+<ielem ln="158" st="1" true="2638416" false="0"/>
 </if>
 <if hasElse="0" active="3" hits="3" percent="100.00">
-<ielem ln="158" st="1" true="81034" false="2557382"/>
-<ielem ln="161" st="1" true="1208660" false="1348722"/>
-<ielem ln="158" st="1" true="1348722" false="0"/>
+<ielem ln="159" st="1" true="81034" false="2557382"/>
+<ielem ln="162" st="1" true="1208660" false="1348722"/>
+<ielem ln="159" st="1" true="1348722" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="178" st="1" true="900" false="2703813"/>
-<ielem ln="181" st="1" true="2703813" false="0"/>
+<ielem ln="179" st="1" true="900" false="2703813"/>
+<ielem ln="182" st="1" true="2703813" false="0"/>
 </if>
 <if hasElse="0" active="3" hits="3" percent="100.00">
-<ielem ln="182" st="1" true="67612" false="2636201"/>
-<ielem ln="185" st="1" true="81034" false="2555167"/>
-<ielem ln="182" st="1" true="2555167" false="0"/>
+<ielem ln="183" st="1" true="67612" false="2636201"/>
+<ielem ln="186" st="1" true="81034" false="2555167"/>
+<ielem ln="183" st="1" true="2555167" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="202" st="1" true="900" false="2702547"/>
-<ielem ln="205" st="1" true="2702547" false="0"/>
+<ielem ln="203" st="1" true="900" false="2702547"/>
+<ielem ln="206" st="1" true="2702547" false="0"/>
 </if>
 <if hasElse="0" active="4" hits="4" percent="100.00">
-<ielem ln="206" st="1" true="67612" false="2634935"/>
-<ielem ln="209" st="1" true="80627" false="2554308"/>
-<ielem ln="212" st="1" true="1208635" false="1345673"/>
-<ielem ln="206" st="1" true="1345673" false="0"/>
+<ielem ln="207" st="1" true="67612" false="2634935"/>
+<ielem ln="210" st="1" true="80627" false="2554308"/>
+<ielem ln="213" st="1" true="1208635" false="1345673"/>
+<ielem ln="207" st="1" true="1345673" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="227" st="1" true="900" false="2704989"/>
-<ielem ln="230" st="1" true="2704989" false="0"/>
+<ielem ln="228" st="1" true="900" false="2704989"/>
+<ielem ln="231" st="1" true="2704989" false="0"/>
 </if>
 <if hasElse="0" active="3" hits="3" percent="100.00">
-<ielem ln="231" st="1" true="80627" false="2624362"/>
-<ielem ln="235" st="1" true="1208635" false="1415727"/>
-<ielem ln="231" st="1" true="1415727" false="0"/>
+<ielem ln="232" st="1" true="80627" false="2624362"/>
+<ielem ln="236" st="1" true="1208635" false="1415727"/>
+<ielem ln="232" st="1" true="1415727" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="250" st="1" true="900" false="2689211"/>
-<ielem ln="253" st="1" true="2689211" false="0"/>
+<ielem ln="251" st="1" true="900" false="2689211"/>
+<ielem ln="254" st="1" true="2689211" false="0"/>
 </if>
 <if hasElse="0" active="3" hits="3" percent="100.00">
-<ielem ln="254" st="1" true="67612" false="2621599"/>
-<ielem ln="257" st="1" true="68927" false="2552672"/>
-<ielem ln="254" st="1" true="2552672" false="0"/>
+<ielem ln="255" st="1" true="67612" false="2621599"/>
+<ielem ln="258" st="1" true="68927" false="2552672"/>
+<ielem ln="255" st="1" true="2552672" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="272" st="1" true="900" false="2689211"/>
-<ielem ln="275" st="1" true="2689211" false="0"/>
+<ielem ln="273" st="1" true="900" false="2689211"/>
+<ielem ln="276" st="1" true="2689211" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="276" st="1" true="80581" false="2608630"/>
-<ielem ln="276" st="1" true="2608630" false="0"/>
+<ielem ln="277" st="1" true="80581" false="2608630"/>
+<ielem ln="277" st="1" true="2608630" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="291" st="1" true="900" false="2689211"/>
-<ielem ln="297" st="1" true="2689211" false="0"/>
+<ielem ln="292" st="1" true="900" false="2689211"/>
+<ielem ln="298" st="1" true="2689211" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="298" st="1" true="136539" false="2552672"/>
-<ielem ln="298" st="1" true="2552672" false="0"/>
+<ielem ln="299" st="1" true="136539" false="2552672"/>
+<ielem ln="299" st="1" true="2552672" false="0"/>
 </if>
 <statements active="45" hits="45" percent="100.00"/>
-<stmt ln="95" st="1" hits="1080"/>
-<stmt ln="96" st="1" hits="1080"/>
-<stmt ln="97" st="1" hits="1080"/>
-<stmt ln="100" st="1" hits="66292830"/>
-<stmt ln="101" st="1" hits="66292830"/>
-<stmt ln="102" st="1" hits="66292830"/>
-<stmt ln="108" st="1" hits="271491"/>
+<stmt ln="96" st="1" hits="900"/>
+<stmt ln="97" st="1" hits="900"/>
+<stmt ln="98" st="1" hits="900"/>
+<stmt ln="101" st="1" hits="3578759"/>
+<stmt ln="102" st="1" hits="3578759"/>
+<stmt ln="103" st="1" hits="3578759"/>
 <stmt ln="109" st="1" hits="271491"/>
-<stmt ln="112" st="1" hits="5323467"/>
-<stmt ln="113" st="1" hits="5189890"/>
-<stmt ln="118" st="1" hits="72245"/>
-<stmt ln="119" st="1" hits="70455"/>
-<stmt ln="130" st="1" hits="900"/>
-<stmt ln="134" st="1" hits="67612"/>
-<stmt ln="137" st="1" hits="81034"/>
-<stmt ln="140" st="1" hits="1208660"/>
-<stmt ln="155" st="1" hits="900"/>
-<stmt ln="159" st="1" hits="81034"/>
-<stmt ln="162" st="1" hits="1208660"/>
-<stmt ln="170" st="1" hits="463051"/>
-<stmt ln="179" st="1" hits="900"/>
-<stmt ln="183" st="1" hits="67612"/>
-<stmt ln="186" st="1" hits="81034"/>
-<stmt ln="194" st="1" hits="136235"/>
-<stmt ln="203" st="1" hits="900"/>
-<stmt ln="207" st="1" hits="67612"/>
-<stmt ln="210" st="1" hits="80627"/>
-<stmt ln="213" st="1" hits="1208635"/>
-<stmt ln="228" st="1" hits="900"/>
-<stmt ln="232" st="1" hits="80627"/>
+<stmt ln="110" st="1" hits="271491"/>
+<stmt ln="113" st="1" hits="5323467"/>
+<stmt ln="114" st="1" hits="5189890"/>
+<stmt ln="119" st="1" hits="72245"/>
+<stmt ln="120" st="1" hits="70455"/>
+<stmt ln="131" st="1" hits="900"/>
+<stmt ln="135" st="1" hits="67612"/>
+<stmt ln="138" st="1" hits="81034"/>
+<stmt ln="141" st="1" hits="1208660"/>
+<stmt ln="156" st="1" hits="900"/>
+<stmt ln="160" st="1" hits="81034"/>
+<stmt ln="163" st="1" hits="1208660"/>
+<stmt ln="171" st="1" hits="463051"/>
+<stmt ln="180" st="1" hits="900"/>
+<stmt ln="184" st="1" hits="67612"/>
+<stmt ln="187" st="1" hits="81034"/>
+<stmt ln="195" st="1" hits="136235"/>
+<stmt ln="204" st="1" hits="900"/>
+<stmt ln="208" st="1" hits="67612"/>
+<stmt ln="211" st="1" hits="80627"/>
+<stmt ln="214" st="1" hits="1208635"/>
+<stmt ln="229" st="1" hits="900"/>
 <stmt ln="233" st="1" hits="80627"/>
-<stmt ln="236" st="1" hits="1208635"/>
-<stmt ln="251" st="1" hits="900"/>
-<stmt ln="255" st="1" hits="67612"/>
-<stmt ln="258" st="1" hits="68927"/>
-<stmt ln="273" st="1" hits="900"/>
-<stmt ln="277" st="1" hits="80581"/>
-<stmt ln="292" st="1" hits="900"/>
+<stmt ln="234" st="1" hits="80627"/>
+<stmt ln="237" st="1" hits="1208635"/>
+<stmt ln="252" st="1" hits="900"/>
+<stmt ln="256" st="1" hits="67612"/>
+<stmt ln="259" st="1" hits="68927"/>
+<stmt ln="274" st="1" hits="900"/>
+<stmt ln="278" st="1" hits="80581"/>
 <stmt ln="293" st="1" hits="900"/>
 <stmt ln="294" st="1" hits="900"/>
 <stmt ln="295" st="1" hits="900"/>
-<stmt ln="299" st="1" hits="136539"/>
+<stmt ln="296" st="1" hits="900"/>
 <stmt ln="300" st="1" hits="136539"/>
-<stmt ln="303" st="1" hits="2689211"/>
+<stmt ln="301" st="1" hits="136539"/>
 <stmt ln="304" st="1" hits="2689211"/>
+<stmt ln="305" st="1" hits="2689211"/>
 </fileData>
 <fileData path="./src/sqa_dac_mgt.vhd">
 <branches active="59" hits="59" percent="100.00"/>
@@ -2173,16 +2171,16 @@ byFile="1">
 <ielem ln="415" st="1" true="27543556" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="464" st="1" true="360" false="18315"/>
-<ielem ln="470" st="1" true="18315" false="0"/>
+<ielem ln="465" st="1" true="360" false="18315"/>
+<ielem ln="471" st="1" true="18315" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="487" st="1" true="360" false="27749939"/>
-<ielem ln="490" st="1" true="27749939" false="0"/>
+<ielem ln="488" st="1" true="360" false="27749939"/>
+<ielem ln="491" st="1" true="27749939" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="491" st="1" true="1387341" false="26362598"/>
-<ielem ln="491" st="1" true="26362598" false="0"/>
+<ielem ln="492" st="1" true="1387341" false="26362598"/>
+<ielem ln="492" st="1" true="26362598" false="0"/>
 </if>
 <statements active="85" hits="85" percent="100.00"/>
 <stmt ln="128" st="1" hits="360"/>
@@ -2260,16 +2258,16 @@ byFile="1">
 <stmt ln="416" st="1" hits="27543556"/>
 <stmt ln="424" st="1" hits="180"/>
 <stmt ln="425" st="1" hits="180"/>
-<stmt ln="465" st="1" hits="360"/>
 <stmt ln="466" st="1" hits="360"/>
 <stmt ln="467" st="1" hits="360"/>
 <stmt ln="468" st="1" hits="360"/>
-<stmt ln="471" st="1" hits="18315"/>
+<stmt ln="469" st="1" hits="360"/>
 <stmt ln="472" st="1" hits="18315"/>
 <stmt ln="473" st="1" hits="18315"/>
 <stmt ln="474" st="1" hits="18315"/>
-<stmt ln="488" st="1" hits="360"/>
-<stmt ln="492" st="1" hits="1387341"/>
+<stmt ln="475" st="1" hits="18315"/>
+<stmt ln="489" st="1" hits="360"/>
+<stmt ln="493" st="1" hits="1387341"/>
 </fileData>
 <fileData path="./src/sqa_fbk_mgt.vhd">
 <branches active="60" hits="58" percent="96.66"/>
@@ -2667,8 +2665,8 @@ byFile="1">
 <ielem ln="570" st="1" true="1387382" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="580" st="1" true="360" false="1416604"/>
-<ielem ln="583" st="1" true="1416604" false="0"/>
+<ielem ln="580" st="1" true="360" false="1416580"/>
+<ielem ln="583" st="1" true="1416580" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
 <ielem ln="603" st="1" true="540" false="13874937"/>
@@ -2779,7 +2777,7 @@ byFile="1">
 <stmt ln="555" st="1" hits="13874793"/>
 <stmt ln="571" st="1" hits="1387218"/>
 <stmt ln="581" st="1" hits="360"/>
-<stmt ln="584" st="1" hits="1416604"/>
+<stmt ln="584" st="1" hits="1416580"/>
 <stmt ln="604" st="1" hits="540"/>
 <stmt ln="609" st="1" hits="1792"/>
 <stmt ln="612" st="1" hits="38824"/>
@@ -2810,8 +2808,8 @@ byFile="1">
 <ielem ln="148" st="1" true="180" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="162" st="1" true="360" false="2913797"/>
-<ielem ln="166" st="1" true="2913797" false="0"/>
+<ielem ln="162" st="1" true="360" false="2913805"/>
+<ielem ln="166" st="1" true="2913805" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
 <ielem ln="180" st="1" true="360" false="82835"/>
@@ -2911,8 +2909,8 @@ byFile="1">
 <stmt ln="149" st="1" hits="180"/>
 <stmt ln="163" st="1" hits="360"/>
 <stmt ln="164" st="1" hits="360"/>
-<stmt ln="167" st="1" hits="2913797"/>
-<stmt ln="168" st="1" hits="2913797"/>
+<stmt ln="167" st="1" hits="2913805"/>
+<stmt ln="168" st="1" hits="2913805"/>
 <stmt ln="181" st="1" hits="360"/>
 <stmt ln="182" st="1" hits="360"/>
 <stmt ln="183" st="1" hits="360"/>
@@ -2975,7 +2973,7 @@ byFile="1">
 <stmt ln="420" st="1" hits="424992"/>
 <stmt ln="421" st="1" hits="180"/>
 <stmt ln="422" st="1" hits="984"/>
-<stmt ln="424" st="1" hits="1786492"/>
+<stmt ln="424" st="1" hits="1786496"/>
 <stmt ln="425" st="1" hits="11704"/>
 <stmt ln="460" st="1" hits="180"/>
 <stmt ln="461" st="1" hits="424992"/>
@@ -2995,7 +2993,7 @@ byFile="1">
 <stmt ln="490" st="1" hits="5550857"/>
 <stmt ln="491" st="1" hits="5550857"/>
 <stmt ln="497" st="1" hits="984"/>
-<stmt ln="498" st="1" hits="519433"/>
+<stmt ln="498" st="1" hits="519511"/>
 <stmt ln="499" st="1" hits="82276"/>
 <stmt ln="500" st="1" hits="81552"/>
 <stmt ln="501" st="1" hits="2775388"/>
@@ -3084,12 +3082,12 @@ byFile="1">
 <ielem ln="561" st="1" true="7099537" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="579" st="1" true="360" false="519811"/>
-<ielem ln="582" st="1" true="519811" false="0"/>
+<ielem ln="579" st="1" true="360" false="519889"/>
+<ielem ln="582" st="1" true="519889" false="0"/>
 </if>
 <if hasElse="1" active="2" hits="2" percent="100.00">
-<ielem ln="583" st="1" true="518484" false="1327"/>
-<ielem ln="586" st="1" true="1327" false="0"/>
+<ielem ln="583" st="1" true="518484" false="1405"/>
+<ielem ln="586" st="1" true="1405" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
 <ielem ln="602" st="1" true="360" false="217"/>
@@ -3100,12 +3098,12 @@ byFile="1">
 <ielem ln="654" st="1" true="643864" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="913" st="1" true="360" false="13873496"/>
-<ielem ln="920" st="1" true="13873496" false="0"/>
+<ielem ln="921" st="1" true="360" false="13873496"/>
+<ielem ln="928" st="1" true="13873496" false="0"/>
 </if>
 <if hasElse="1" active="2" hits="2" percent="100.00">
-<ielem ln="921" st="1" true="217528" false="13655968"/>
-<ielem ln="925" st="1" true="13655968" false="0"/>
+<ielem ln="929" st="1" true="217528" false="13655968"/>
+<ielem ln="933" st="1" true="13655968" false="0"/>
 </if>
 <fec_conditions active="5" hits="5" percent="100.00"/>
 <condition ln="551" st="1" active="5" hits="5" percent="100.00">
@@ -3184,35 +3182,35 @@ byFile="1">
 <stmt ln="565" st="1" hits="20927"/>
 <stmt ln="580" st="1" hits="360"/>
 <stmt ln="584" st="1" hits="518484"/>
-<stmt ln="587" st="1" hits="1327"/>
+<stmt ln="587" st="1" hits="1405"/>
 <stmt ln="603" st="1" hits="360"/>
 <stmt ln="606" st="1" hits="217"/>
 <stmt ln="652" st="1" hits="540"/>
 <stmt ln="657" st="1" hits="643864"/>
 <stmt ln="694" st="1" hits="644040"/>
-<stmt ln="718" st="1" hits="1387554"/>
-<stmt ln="719" st="1" hits="2775140"/>
-<stmt ln="720" st="1" hits="2775080"/>
-<stmt ln="787" st="1" hits="1387554"/>
-<stmt ln="788" st="1" hits="2775140"/>
-<stmt ln="789" st="1" hits="2774924"/>
-<stmt ln="810" st="1" hits="641196"/>
-<stmt ln="821" st="1" hits="1387406"/>
-<stmt ln="822" st="1" hits="2774812"/>
-<stmt ln="882" st="1" hits="641387"/>
-<stmt ln="896" st="1" hits="518661"/>
-<stmt ln="914" st="1" hits="360"/>
-<stmt ln="915" st="1" hits="360"/>
-<stmt ln="916" st="1" hits="360"/>
-<stmt ln="917" st="1" hits="360"/>
-<stmt ln="918" st="1" hits="360"/>
-<stmt ln="922" st="1" hits="217528"/>
-<stmt ln="923" st="1" hits="217528"/>
-<stmt ln="926" st="1" hits="13655968"/>
-<stmt ln="927" st="1" hits="13655968"/>
-<stmt ln="931" st="1" hits="13873496"/>
-<stmt ln="932" st="1" hits="13873496"/>
-<stmt ln="933" st="1" hits="13873496"/>
+<stmt ln="720" st="1" hits="1387554"/>
+<stmt ln="721" st="1" hits="2775140"/>
+<stmt ln="722" st="1" hits="2775080"/>
+<stmt ln="790" st="1" hits="1387554"/>
+<stmt ln="791" st="1" hits="2775140"/>
+<stmt ln="792" st="1" hits="2774924"/>
+<stmt ln="813" st="1" hits="641196"/>
+<stmt ln="825" st="1" hits="1387406"/>
+<stmt ln="826" st="1" hits="2774812"/>
+<stmt ln="888" st="1" hits="641387"/>
+<stmt ln="903" st="1" hits="518661"/>
+<stmt ln="922" st="1" hits="360"/>
+<stmt ln="923" st="1" hits="360"/>
+<stmt ln="924" st="1" hits="360"/>
+<stmt ln="925" st="1" hits="360"/>
+<stmt ln="926" st="1" hits="360"/>
+<stmt ln="930" st="1" hits="217528"/>
+<stmt ln="931" st="1" hits="217528"/>
+<stmt ln="934" st="1" hits="13655968"/>
+<stmt ln="935" st="1" hits="13655968"/>
+<stmt ln="939" st="1" hits="13873496"/>
+<stmt ln="940" st="1" hits="13873496"/>
+<stmt ln="941" st="1" hits="13873496"/>
 </fileData>
 <fileData path="./src/sts_err_dis_mgt.vhd">
 <branches active="6" hits="6" percent="100.00"/>
@@ -3584,9 +3582,9 @@ byFile="1">
 </fileData>
 <fileData path="./src/test_pattern_gen.vhd">
 <branches active="48" hits="48" percent="100.00"/>
-<if hasElse="1" active="2" hits="2" percent="100.00">
-<ielem ln="109" st="1" true="270" false="3468735"/>
-<ielem ln="112" st="1" true="3468735" false="0"/>
+<if hasElse="0" active="2" hits="2" percent="100.00">
+<ielem ln="109" st="1" true="90" false="20527"/>
+<ielem ln="112" st="1" true="20527" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
 <ielem ln="125" st="1" true="90" false="89"/>
@@ -3708,8 +3706,8 @@ byFile="1">
 </table>
 </condition>
 <statements active="45" hits="45" percent="100.00"/>
-<stmt ln="110" st="1" hits="270"/>
-<stmt ln="113" st="1" hits="3468735"/>
+<stmt ln="110" st="1" hits="90"/>
+<stmt ln="113" st="1" hits="20527"/>
 <stmt ln="126" st="1" hits="90"/>
 <stmt ln="129" st="1" hits="89"/>
 <stmt ln="142" st="1" hits="90"/>
@@ -3923,3 +3921,4 @@ byFile="1">
 </fileData>
 </code_coverage_report>
 </coverage_report>
+

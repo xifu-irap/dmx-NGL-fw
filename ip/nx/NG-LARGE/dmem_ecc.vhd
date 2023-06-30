@@ -40,7 +40,7 @@ entity dmem_ecc is generic (
          g_RAM_TYPE           : integer                                                                     ; --! Memory type ( 0  = Data transfer,  1  = Parameters storage)
          g_RAM_ADD_S          : integer                                                                     ; --! Memory address bus size (<= c_RAM_ECC_ADD_S)
          g_RAM_DATA_S         : integer                                                                     ; --! Memory data bus size (<= c_RAM_DATA_S)
-         g_RAM_INIT           : t_int_arr                                                                     --! Memory content at initialization
+         g_RAM_INIT           : integer_vector                                                                --! Memory content at initialization
    ); port (
          i_a_rst              : in     std_logic                                                            ; --! Memory port A: registers reset ('0' = Inactive, '1' = Active)
          i_a_clk              : in     std_logic                                                            ; --! Memory port A: main clock
@@ -94,7 +94,7 @@ begin
          o_mem_with_scrub     => a_mem                  -- out    t_mem( add(c_MEM_ADD_S   downto 0), ... )   --! Memory signals with scrubbing and ping-pong buffer bit for address management
       );
 
-   end generate;
+   end generate G_mem_prm_store;
 
    G_mem_not_prm_store: if g_RAM_TYPE /= c_RAM_TYPE_PRM_STORE generate
       a_mem.pp       <= i_a_mem.pp;
@@ -103,7 +103,7 @@ begin
       a_mem.cs       <= i_a_mem.cs;
       a_mem.data_w   <= i_a_mem.data_w;
 
-   end generate;
+   end generate G_mem_not_prm_store;
 
    o_a_pp <= a_mem.pp;
 

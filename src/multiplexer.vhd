@@ -29,6 +29,7 @@ use     ieee.std_logic_1164.all;
 
 library work;
 use     work.pkg_type.all;
+use     work.pkg_project.all;
 
 entity multiplexer is generic (
          g_DATA_S             : integer                                                                     ; --! Data bus size
@@ -72,7 +73,7 @@ begin
          cs_or(k)    <= i_cs(k)     or cs_or(k-1);
          data_or(k)  <= data_cmp(k) or data_or(k-1);
 
-      end generate;
+      end generate G_k_not0;
 
    end generate G_data_bus_nb;
 
@@ -82,7 +83,7 @@ begin
    P_output_mgt : process (i_rst, i_clk)
    begin
 
-      if i_rst = '1' then
+      if i_rst = c_RST_LEV_ACT then
          o_data_mux  <= (others => '0');
          o_cs_or     <= '0';
 

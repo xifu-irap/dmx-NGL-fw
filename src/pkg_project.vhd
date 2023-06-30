@@ -43,6 +43,11 @@ package pkg_project is
    -- ------------------------------------------------------------------------------------------------------
 constant c_FW_VERSION         : integer   :=  1                                                             ; --! Firmware version
 
+constant c_LOW_LEV            : std_logic := '0'                                                            ; --! Low  level value
+constant c_HGH_LEV            : std_logic := not(c_LOW_LEV)                                                 ; --! High level value
+
+constant c_RST_LEV_ACT        : std_logic := c_HGH_LEV                                                      ; --! Reset level activation value
+
 constant c_FF_RSYNC_NB        : integer   := 2                                                              ; --! Flip-Flop number used for FPGA input resynchronization
 constant c_FF_RST_NB          : integer   := 6                                                              ; --! Flip-Flop number used for internal reset: System Clock
 constant c_FF_RST_ADC_DAC_NB  : integer   := 10                                                             ; --! Flip-Flop number used for internal reset: ADC/DAC Clock
@@ -89,8 +94,8 @@ constant c_SQM_DAC_DATA_S     : integer   := 14                                 
 
 constant c_SQA_DAC_DATA_S     : integer   := 12                                                             ; --! SQUID AMP DAC data size bus
 constant c_SQA_DAC_MODE_S     : integer   := 2                                                              ; --! SQUID AMP DAC mode size bus
-constant c_SQA_SPI_CPOL       : std_logic := '0'                                                            ; --! SQUID AMP DAC SPI: Clock polarity
-constant c_SQA_SPI_CPHA       : std_logic := '1'                                                            ; --! SQUID AMP DAC SPI: Clock phase
+constant c_SQA_SPI_CPOL       : std_logic := c_LOW_LEV                                                      ; --! SQUID AMP DAC SPI: Clock polarity
+constant c_SQA_SPI_CPHA       : std_logic := c_HGH_LEV                                                      ; --! SQUID AMP DAC SPI: Clock phase
 constant c_SQA_SPI_SER_WD_S   : integer   := c_SQA_DAC_DATA_S + c_SQA_DAC_MODE_S + 2                        ; --! SQUID AMP DAC SPI: Data bus size
 constant c_SQA_SPI_SCLK_H     : integer   := div_ceil(c_CLK_ADC_FREQ * 13, 1000000000)                      ; --! SQUID AMP DAC SPI: Number of clock period for elaborating SPI Serial Clock high level
 constant c_SQA_SPI_SCLK_L     : integer   := maximum(c_SQA_SPI_SCLK_H,
@@ -100,8 +105,8 @@ constant c_SQA_DAC_MUX_S      : integer   := 3                                  
 constant c_SC_DATA_SER_W_S    : integer   := 8                                                              ; --! Science data serial word size
 constant c_SC_DATA_SER_NB     : integer   := 2                                                              ; --! Science data serial link number by DEMUX column
 
-constant c_HK_SPI_CPOL        : std_logic := '1'                                                            ; --! HK SPI: Clock polarity
-constant c_HK_SPI_CPHA        : std_logic := '1'                                                            ; --! HK SPI: Clock phase
+constant c_HK_SPI_CPOL        : std_logic := c_HGH_LEV                                                      ; --! HK SPI: Clock polarity
+constant c_HK_SPI_CPHA        : std_logic := c_HGH_LEV                                                      ; --! HK SPI: Clock phase
 constant c_HK_SPI_SER_WD_S    : integer   := 16                                                             ; --! HK SPI: Data bus size
 constant c_HK_SPI_SCLK_L      : integer   := 2                                                              ; --! HK SPI: Number of clock period for elaborating SPI Serial Clock low level
 constant c_HK_SPI_SCLK_H      : integer   := 2                                                              ; --! HK SPI: Number of clock period for elaborating SPI Serial Clock high level
@@ -113,8 +118,8 @@ constant c_HK_MUX_S           : integer   := 3                                  
 constant c_HK_NW              : integer   := 14                                                             ; --! HK Number words
 
 constant c_EP_CMD_S           : integer   := 32                                                             ; --! EP command bus size
-constant c_EP_SPI_CPOL        : std_logic := '0'                                                            ; --! EP SPI Clock polarity
-constant c_EP_SPI_CPHA        : std_logic := '0'                                                            ; --! EP SPI Clock phase
+constant c_EP_SPI_CPOL        : std_logic := c_LOW_LEV                                                      ; --! EP SPI Clock polarity
+constant c_EP_SPI_CPHA        : std_logic := c_LOW_LEV                                                      ; --! EP SPI Clock phase
 constant c_EP_SPI_WD_S        : integer   := c_EP_CMD_S/2                                                   ; --! EP SPI Data word size (receipt/transmit)
 constant c_EP_SPI_TX_WD_NB_S  : integer   := 1                                                              ; --! EP SPI Data word to transmit number size
 constant c_EP_SPI_RX_WD_NB_S  : integer   := 2                                                              ; --! EP SPI Receipted data word number size (more than expected, command length control)
@@ -195,18 +200,18 @@ constant c_HK_MUX_SEQ         : t_slv_arr(0 to c_HK_NW-1)(c_HK_MUX_S-1 downto 0)
    -- ------------------------------------------------------------------------------------------------------
    --    Inputs default value at reset
    -- ------------------------------------------------------------------------------------------------------
-constant c_I_SPI_DATA_DEF     : std_logic := '0'                                                            ; --! SPI data input default value at reset
+constant c_I_SPI_DATA_DEF     : std_logic := c_LOW_LEV                                                      ; --! SPI data input default value at reset
 constant c_I_SPI_SCLK_DEF     : std_logic := c_EP_SPI_CPOL                                                  ; --! SPI Serial Clock input default value at reset
-constant c_I_SPI_CS_N_DEF     : std_logic := '1'                                                            ; --! SPI Chip Select input default value at reset
+constant c_I_SPI_CS_N_DEF     : std_logic := c_HGH_LEV                                                      ; --! SPI Chip Select input default value at reset
 constant c_I_SQM_ADC_DATA_DEF : std_logic_vector(c_SQM_ADC_DATA_S-1 downto 0):=
                                 std_logic_vector(to_unsigned(0, c_SQM_ADC_DATA_S))                          ; --! SQUID MUX ADC data input default value at reset
-constant c_I_SQM_ADC_OOR_DEF  : std_logic := '0'                                                            ; --! SQUID MUX ADC out of range input default value at reset
-constant c_I_SYNC_DEF         : std_logic := '1'                                                            ; --! Pixel sequence synchronization default value at reset
+constant c_I_SQM_ADC_OOR_DEF  : std_logic := c_LOW_LEV                                                      ; --! SQUID MUX ADC out of range input default value at reset
+constant c_I_SYNC_DEF         : std_logic := c_HGH_LEV                                                      ; --! Pixel sequence synchronization default value at reset
 
-constant c_CMD_CK_SQM_ADC_DEF : std_logic := '0'                                                            ; --! SQUID MUX ADC clock switch command default value at reset
-constant c_CMD_CK_SQM_DAC_DEF : std_logic := '0'                                                            ; --! SQUID MUX DAC clock switch command default value at reset
+constant c_CMD_CK_SQM_ADC_DEF : std_logic := c_LOW_LEV                                                      ; --! SQUID MUX ADC clock switch command default value at reset
+constant c_CMD_CK_SQM_DAC_DEF : std_logic := c_LOW_LEV                                                      ; --! SQUID MUX DAC clock switch command default value at reset
 
-constant c_MEM_STR_ADD_PP_DEF : std_logic := '0'                                                            ; --! Memory storage parameters, ping-pong buffer bit for address default value at reset
+constant c_MEM_STR_ADD_PP_DEF : std_logic := c_LOW_LEV                                                      ; --! Memory storage parameters, ping-pong buffer bit for address default value at reset
 
    -- ------------------------------------------------------------------------------------------------------
    --    Project parameters
@@ -231,12 +236,12 @@ constant c_TST_PAT_COEF_NB    : integer   := 3                                  
 constant c_TST_PAT_RGN_NB     : integer   := 5                                                              ; --! Test pattern: region number
 
 constant c_ERR_NIN_MX_STNB    : integer   := 2                                                              ; --! Error parameter to read not initialized yet: Multiplexer stage number
-constant c_ERR_NIN_MX_STIN    : t_int_arr(0 to c_ERR_NIN_MX_STNB+1) := ( 0, 16, 20, 21)                     ; --! Error parameter to read not initialized yet: Inputs by multiplexer stage (accumulated)
-constant c_ERR_NIN_MX_INNB    : t_int_arr(0 to c_ERR_NIN_MX_STNB-1) := ( 4,  4)                             ; --! Error parameter to read not initialized yet: Inputs by multiplexer
+constant c_ERR_NIN_MX_STIN    : integer_vector(0 to c_ERR_NIN_MX_STNB+1) := ( 0, 16, 20, 21)                ; --! Error parameter to read not initialized yet: Inputs by multiplexer stage (accumulated)
+constant c_ERR_NIN_MX_INNB    : integer_vector(0 to c_ERR_NIN_MX_STNB-1) := ( 4,  4)                        ; --! Error parameter to read not initialized yet: Inputs by multiplexer
 
 constant c_DLFLG_MX_STNB      : integer   := 3                                                              ; --! Delock flag: Multiplexer stage number
-constant c_DLFLG_MX_STIN      : t_int_arr(0 to c_DLFLG_MX_STNB+1) := ( 0, 36, 45, 48, 49)                   ; --! Delock flag: Inputs by multiplexer stage (accumulated)
-constant c_DLFLG_MX_INNB      : t_int_arr(0 to c_DLFLG_MX_STNB-1) := ( 4,  3,  3)                           ; --! Delock flag: Inputs by multiplexer
+constant c_DLFLG_MX_STIN      : integer_vector(0 to c_DLFLG_MX_STNB+1) := ( 0, 36, 45, 48, 49)              ; --! Delock flag: Inputs by multiplexer stage (accumulated)
+constant c_DLFLG_MX_INNB      : integer_vector(0 to c_DLFLG_MX_STNB-1) := ( 4,  3,  3)                      ; --! Delock flag: Inputs by multiplexer
 
    -- ------------------------------------------------------------------------------------------------------
    --    SQUID MUX ADC parameters

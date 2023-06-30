@@ -30,6 +30,7 @@ use     ieee.numeric_std.all;
 use     ieee.math_real.all;
 
 entity spi_master is generic (
+         g_RST_LEV_ACT        : std_logic                                                                   ; --! Reset level activation value
          g_CPOL               : std_logic                                                                   ; --! Clock polarity
          g_CPHA               : std_logic                                                                   ; --! Clock phase
          g_N_CLK_PER_SCLK_L   : integer                                                                     ; --! Number of clock period for elaborating SPI Serial Clock low  level
@@ -82,7 +83,7 @@ begin
    P_pulse_gen : process (i_rst, i_clk)
    begin
 
-      if i_rst = '1' then
+      if i_rst = g_RST_LEV_ACT then
 
          if (g_CPOL xor g_CPHA) = '0' then
             pulse_gen <= std_logic_vector(to_signed(c_PULSE_GEN_L_MAX_VAL, pulse_gen'length));
@@ -119,7 +120,7 @@ begin
    P_pls_ste_cnt : process (i_rst, i_clk)
    begin
 
-      if i_rst = '1' then
+      if i_rst = g_RST_LEV_ACT then
          pls_ste_cnt       <= (others => '1');
 
       elsif rising_edge(i_clk) then
@@ -141,7 +142,7 @@ begin
    P_data_tx_ser : process (i_rst, i_clk)
    begin
 
-      if i_rst = '1' then
+      if i_rst = g_RST_LEV_ACT then
          data_tx_ser <= (others => '0');
 
       elsif rising_edge(i_clk) then
@@ -165,7 +166,7 @@ begin
    P_data_rx_ser : process (i_rst, i_clk)
    begin
 
-      if i_rst = '1' then
+      if i_rst = g_RST_LEV_ACT then
          pls_smp_data_rx_ser  <= (others => '0');
          data_rx_ser_init     <= (others => '0');
          data_rx_ser_end      <= (others => '0');
@@ -203,7 +204,7 @@ begin
    P_spi_mgt : process (i_rst, i_clk)
    begin
 
-      if i_rst = '1' then
+      if i_rst = g_RST_LEV_ACT then
          o_mosi   <= '0';
          o_sclk   <= g_CPOL;
          o_cs_n   <= '1';

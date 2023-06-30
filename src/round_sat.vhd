@@ -29,6 +29,7 @@ use     ieee.std_logic_1164.all;
 use     ieee.numeric_std.all;
 
 entity round_sat is generic (
+         g_RST_LEV_ACT        : std_logic                                                                   ; --! Reset level activation value
          g_DATA_CARRY_S       : integer                                                                       --! Data with carry bus size
    ); port (
          i_rst                : in     std_logic                                                            ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
@@ -57,7 +58,7 @@ begin
    P_data_rnd_sat : process (i_rst, i_clk)
    begin
 
-      if i_rst = '1' then
+      if i_rst = g_RST_LEV_ACT then
          o_data_rnd_sat <= (others => '0');
 
       elsif rising_edge(i_clk) then

@@ -121,7 +121,7 @@ begin
    P_ep_cmd_r : process (i_rst, i_clk)
    begin
 
-      if i_rst = '1' then
+      if i_rst = c_RST_LEV_ACT then
          ep_cmd_rx_wd_add_r   <= (others => '0');
          ep_cmd_rx_wd_data_r  <= (others => '0');
          ep_cmd_rx_rw_r       <= '0';
@@ -198,7 +198,7 @@ begin
       P_rg_com_for_all : process (i_rst, i_clk)
       begin
 
-         if i_rst = '1' then
+         if i_rst = c_RST_LEV_ACT then
             rg_saofm(k) <= c_EP_CMD_DEF_SAOFM;
             rg_smfmd(k) <= c_EP_CMD_DEF_SMFMD;
             rg_bxlgt(k) <= c_EP_CMD_DEF_BXLGT;
@@ -260,7 +260,7 @@ begin
          P_rg_col : process (i_rst, i_clk)
          begin
 
-            if i_rst = '1' then
+            if i_rst = c_RST_LEV_ACT then
                rg_col_data(k)(c_EP_RGC_ACC(l+1)-1 downto c_EP_RGC_ACC(l)) <= std_logic_vector(to_unsigned(c_EP_RGC_DEF(l), c_EP_RGC_ACC(l+1)-c_EP_RGC_ACC(l)));
 
             elsif rising_edge(i_clk) then
@@ -468,7 +468,7 @@ begin
    P_ep_cmd_sts_err_nin : process (i_rst, i_clk)
    begin
 
-      if i_rst = '1' then
+      if i_rst = c_RST_LEV_ACT then
          o_ep_cmd_sts_err_nin <= c_EP_CMD_ERR_CLR;
 
       elsif rising_edge(i_clk) then
@@ -492,7 +492,7 @@ begin
    P_out: process (i_rst, i_clk)
    begin
 
-      if i_rst = '1' then
+      if i_rst = c_RST_LEV_ACT then
          o_aqmde_dmp_cmp <= (others => '0');
          o_tsten_lop     <= c_EP_CMD_DEF_TSTEN(c_DFLD_TSTEN_LOP_S + c_DFLD_TSTEN_LOP_POS-1 downto c_DFLD_TSTEN_LOP_POS);
          o_tsten_inf     <= c_EP_CMD_DEF_TSTEN(c_DFLD_TSTEN_INF_POS);

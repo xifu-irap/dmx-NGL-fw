@@ -113,7 +113,7 @@ begin
    P_reg : process (i_arst, i_clk_sqm_adc_acq)
    begin
 
-      if i_arst = '1' then
+      if i_arst = c_RST_LEV_ACT then
          sync_r               <= (others => c_I_SYNC_DEF);
          sync_re_adc_data     <= '0';
          frm_cnt_sc_rst_r     <= '1';
@@ -133,7 +133,7 @@ begin
    P_mem_dump_adc_cnt_w : process (i_arst, i_clk_sqm_adc_acq)
    begin
 
-      if i_arst = '1' then
+      if i_arst = c_RST_LEV_ACT then
          mem_dump_adc_cnt_w   <= (others => '1');
 
       elsif rising_edge(i_clk_sqm_adc_acq) then
@@ -173,7 +173,7 @@ begin
 
       P_mem_dump_r : process(i_arst, i_clk_science)
       begin
-         if i_arst = '1' then
+         if i_arst = c_RST_LEV_ACT then
             mem_dump_sc_data_out(k)    <= (others => '0');
 
          elsif rising_edge(i_clk_science) then
@@ -192,7 +192,7 @@ begin
    P_mem_dump_sc_add : process (i_arst, i_clk_science)
    begin
 
-      if i_arst = '1' then
+      if i_arst = c_RST_LEV_ACT then
          science_data_rdy_r   <= '0';
          mem_dump_sc_add      <= (others => '0');
 

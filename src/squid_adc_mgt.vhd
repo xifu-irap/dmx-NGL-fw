@@ -142,11 +142,11 @@ begin
    P_rst_sqm_adc_dac_pd: process (i_rst_sqm_adc_dac_pd, i_clk_sqm_adc_dac)
    begin
 
-      if i_rst_sqm_adc_dac_pd = '1' then
-         rst_sqm_adc_dac_pad <= '1';
+      if i_rst_sqm_adc_dac_pd = c_RST_LEV_ACT then
+         rst_sqm_adc_dac_pad <= c_RST_LEV_ACT;
 
       elsif rising_edge(i_clk_sqm_adc_dac) then
-         rst_sqm_adc_dac_pad <= '0';
+         rst_sqm_adc_dac_pad <= not(c_RST_LEV_ACT);
 
       end if;
 
@@ -159,7 +159,7 @@ begin
    P_in_pad_rsync : process (rst_sqm_adc_dac_pad, i_clk_sqm_adc_dac)
    begin
 
-      if rst_sqm_adc_dac_pad = '1' then
+      if rst_sqm_adc_dac_pad = c_RST_LEV_ACT then
          sqm_adc_data_r    <= (others => (others => '0'));
          sqm_adc_oor_r     <= (others => '0');
 
@@ -177,7 +177,7 @@ begin
    P_reg_sys: process (i_rst, i_clk)
    begin
 
-      if i_rst = '1' then
+      if i_rst = c_RST_LEV_ACT then
          sync_rs_sys       <= c_I_SYNC_DEF;
          aqmde_dmp_cmp_sys <= '0';
          bxlgt_sys         <= c_EP_CMD_DEF_BXLGT;
@@ -199,7 +199,7 @@ begin
    P_in_rsync : process (i_rst_sqm_adc_dac, i_clk_sqm_adc_dac)
    begin
 
-      if i_rst_sqm_adc_dac = '1' then
+      if i_rst_sqm_adc_dac = c_RST_LEV_ACT then
          sync_r            <= (others => c_I_SYNC_DEF);
          aqmde_dmp_cmp_r   <= (others => '0');
          bxlgt_r           <= (others => c_EP_CMD_DEF_BXLGT);
@@ -221,7 +221,7 @@ begin
    P_reg : process (i_rst_sqm_adc_dac, i_clk_sqm_adc_dac)
    begin
 
-      if i_rst_sqm_adc_dac = '1' then
+      if i_rst_sqm_adc_dac = c_RST_LEV_ACT then
          sync_re              <= '0';
          sync_re_adc_data     <= '0';
          aqmde_dmp_cmp_sync   <= '0';
@@ -252,7 +252,7 @@ begin
    P_pls_cnt_del : process (i_rst_sqm_adc_dac, i_clk_sqm_adc_dac)
    begin
 
-      if i_rst_sqm_adc_dac = '1' then
+      if i_rst_sqm_adc_dac = c_RST_LEV_ACT then
          pls_cnt_init   <= std_logic_vector(unsigned(to_signed(c_PLS_CNT_INIT, pls_cnt_init'length)));
          pixel_pos_init <= std_logic_vector(to_signed(c_PIXEL_POS_INIT , pixel_pos'length));
 
@@ -277,7 +277,7 @@ begin
    P_pls_cnt : process (i_rst_sqm_adc_dac, i_clk_sqm_adc_dac)
    begin
 
-      if i_rst_sqm_adc_dac = '1' then
+      if i_rst_sqm_adc_dac = c_RST_LEV_ACT then
          pls_cnt    <= std_logic_vector(to_unsigned(c_PLS_CNT_MAX_VAL, pls_cnt'length));
 
       elsif rising_edge(i_clk_sqm_adc_dac) then
@@ -304,7 +304,7 @@ begin
    P_pixel_pos : process (i_rst_sqm_adc_dac, i_clk_sqm_adc_dac)
    begin
 
-      if i_rst_sqm_adc_dac = '1' then
+      if i_rst_sqm_adc_dac = c_RST_LEV_ACT then
          pixel_pos    <= std_logic_vector(to_signed(c_PIXEL_POS_INIT, pixel_pos'length));
 
       elsif rising_edge(i_clk_sqm_adc_dac) then
@@ -330,7 +330,7 @@ begin
    P_sample_cnt : process (i_rst_sqm_adc_dac, i_clk_sqm_adc_dac)
    begin
 
-      if i_rst_sqm_adc_dac = '1' then
+      if i_rst_sqm_adc_dac = c_RST_LEV_ACT then
          sample_cnt        <= (others => '1');
          sample_cnt_msb_r  <= (others => '1');
 
@@ -356,7 +356,7 @@ begin
    P_sqm_data_err : process (i_rst_sqm_adc_dac, i_clk_sqm_adc_dac)
    begin
 
-      if i_rst_sqm_adc_dac = '1' then
+      if i_rst_sqm_adc_dac = c_RST_LEV_ACT then
          sum_adc_data      <= (others => '0');
          sqm_data_err      <= (others => '0');
          sqm_data_err_rdy  <= '0';
@@ -401,7 +401,7 @@ begin
    P_mem_dump_adc_cnt_w : process (i_rst_sqm_adc_dac, i_clk_sqm_adc_dac)
    begin
 
-      if i_rst_sqm_adc_dac = '1' then
+      if i_rst_sqm_adc_dac = c_RST_LEV_ACT then
          mem_dump_adc_cnt_w   <= (others => '1');
 
       elsif rising_edge(i_clk_sqm_adc_dac) then
@@ -431,7 +431,7 @@ begin
          g_RAM_TYPE           => c_RAM_TYPE_DATA_TX   , -- integer                                          ; --! Memory type ( 0  = Data transfer,  1  = Parameters storage)
          g_RAM_ADD_S          => c_MEM_DUMP_ADD_S     , -- integer                                          ; --! Memory address bus size (<= c_RAM_ECC_ADD_S)
          g_RAM_DATA_S         => c_MEM_DUMP_DATA_S    , -- integer                                          ; --! Memory data bus size (<= c_RAM_DATA_S)
-         g_RAM_INIT           => c_RAM_INIT_EMPTY       -- t_int_arr                                          --! Memory content at initialization
+         g_RAM_INIT           => c_RAM_INIT_EMPTY       -- integer_vector                                     --! Memory content at initialization
    ) port map (
          i_a_rst              => '0'                  , -- in     std_logic                                 ; --! Memory port A: registers reset ('0' = Inactive, '1' = Active)
          i_a_clk              => i_clk_sqm_adc_dac    , -- in     std_logic                                 ; --! Memory port A: main clock
@@ -476,7 +476,7 @@ begin
    P_out_rsync : process (i_rst, i_clk)
    begin
 
-      if i_rst = '1' then
+      if i_rst = c_RST_LEV_ACT then
          mem_dump_adc_cs_rs   <= (others => '0');
          sqm_data_err_rs      <= (others => (others => '0'));
          sqm_data_err_frst_rs <= (others => '0');

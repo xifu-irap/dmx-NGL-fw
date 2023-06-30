@@ -77,7 +77,7 @@ constant c_EP_RGC_ACC_PLSSS   : integer   := c_DFLD_PLSSS_PLS_S + c_EP_RGC_ACC_S
 constant c_EP_RGC_ACC_RLDEL   : integer   := c_DFLD_RLDEL_COL_S + c_EP_RGC_ACC_PLSSS                        ; --! EP command: Register by column accumulated bus size, CY_RELOCK_DELAY
 constant c_EP_RGC_ACC_RLTHR   : integer   := c_DFLD_RLTHR_COL_S + c_EP_RGC_ACC_RLDEL                        ; --! EP command: Register by column accumulated bus size, CY_RELOCK_THRESHOLD
 
-constant c_EP_RGC_ACC         : t_int_arr(0 to c_EP_RGC_NUM_LAST) := (0,
+constant c_EP_RGC_ACC         : integer_vector(0 to c_EP_RGC_NUM_LAST) := (0,
                                  c_EP_RGC_ACC_SAOFC, c_EP_RGC_ACC_SAOFL, c_EP_RGC_ACC_SMFBD,
                                  c_EP_RGC_ACC_SAODD, c_EP_RGC_ACC_SAOMD, c_EP_RGC_ACC_SMPDL,
                                  c_EP_RGC_ACC_PLSSS, c_EP_RGC_ACC_RLDEL, c_EP_RGC_ACC_RLTHR)                ; --! EP command: Register by column accumulated bus size
@@ -94,12 +94,12 @@ constant c_EP_RGC_REC_DEF     : t_rgc := (
          rlthr                => c_EP_CMD_DEF_RLTHR     --        slv(c_DFLD_RLTHR_COL_S-1 downto 0)        ; --! EP command: Register linked to CY_RELOCK_THRESHOLD
       );                                                                                                      --! EP command: Register by column record default value
 
-constant c_EP_RGC_DEF         : t_int_arr(0 to c_EP_RGC_NUM_LAST-1) :=
+constant c_EP_RGC_DEF         : integer_vector(0 to c_EP_RGC_NUM_LAST-1) :=
                                 (c_EP_CMD_DEF_SAOFC_I, c_EP_CMD_DEF_SAOFL_I, c_EP_CMD_DEF_SMFBD_I,
                                  c_EP_CMD_DEF_SAODD_I, c_EP_CMD_DEF_SAOMD_I, c_EP_CMD_DEF_SMPDL_I,
                                  c_EP_CMD_DEF_PLSSS_I, c_EP_CMD_DEF_RLDEL_I, c_EP_CMD_DEF_RLTHR_I)          ; --! EP command: Register by column default value
 
-constant c_EP_RGC_POS         : t_int_arr(0 to c_EP_RGC_NUM_LAST-1) :=
+constant c_EP_RGC_POS         : integer_vector(0 to c_EP_RGC_NUM_LAST-1) :=
                                 (c_EP_CMD_POS_SAOFC, c_EP_CMD_POS_SAOFL, c_EP_CMD_POS_SMFBD,
                                  c_EP_CMD_POS_SAODD, c_EP_CMD_POS_SAOMD, c_EP_CMD_POS_SMPDL,
                                  c_EP_CMD_POS_PLSSS, c_EP_CMD_POS_RLDEL, c_EP_CMD_POS_RLTHR)                ; --! EP command: Register by column position
@@ -209,19 +209,19 @@ constant c_EP_MEM_ADDAC_SAOFF : integer   := c_MEM_SAOFF_ADD_S + c_EP_MEM_ADDAC_
 constant c_EP_MEM_ADDAC_PLSSH : integer   := c_MEM_PLSSH_ADD_S + c_EP_MEM_ADDAC_SAOFF                       ; --! EP command: Memory accumulated bus size, CY_FB1_PULSE_SHAPING
 constant c_EP_MEM_ADDAC_DLCNT : integer   := c_MEM_DLCNT_ADD_S + c_EP_MEM_ADDAC_PLSSH                       ; --! EP command: Memory accumulated bus size, CY_DELOCK_COUNTERS
 
-constant c_EP_MEM_ACC         : t_int_arr(0 to c_EP_MEM_NUM_LAST) := (0,
+constant c_EP_MEM_ACC         : integer_vector(0 to c_EP_MEM_NUM_LAST) := (0,
                                  c_EP_MEM_ACC_TSTPT, c_EP_MEM_ACC_PARMA, c_EP_MEM_ACC_KIKNM,
                                  c_EP_MEM_ACC_KNORM, c_EP_MEM_ACC_SMFB0, c_EP_MEM_ACC_SMLKV,
                                  c_EP_MEM_ACC_SMFBM, c_EP_MEM_ACC_SAOFF, c_EP_MEM_ACC_PLSSH,
                                  c_EP_MEM_ACC_DLCNT)                                                        ; --! EP command: Memory data accumulated bus size
 
-constant c_EP_MEM_POS         : t_int_arr(0 to c_EP_MEM_NUM_LAST-1) :=
+constant c_EP_MEM_POS         : integer_vector(0 to c_EP_MEM_NUM_LAST-1) :=
                                 (c_EP_CMD_POS_TSTPT, c_EP_CMD_POS_PARMA, c_EP_CMD_POS_KIKNM,
                                  c_EP_CMD_POS_KNORM, c_EP_CMD_POS_SMFB0, c_EP_CMD_POS_SMLKV,
                                  c_EP_CMD_POS_SMFBM, c_EP_CMD_POS_SAOFF, c_EP_CMD_POS_PLSSH,
                                  c_EP_CMD_POS_DLCNT)                                                        ; --! EP command: Memory position
 
-constant c_EP_MEM_ADDAC_S     : t_int_arr(0 to c_EP_MEM_NUM_LAST) := (0,
+constant c_EP_MEM_ADDAC_S     : integer_vector(0 to c_EP_MEM_NUM_LAST) := (0,
                                  c_EP_MEM_ADDAC_TSTPT, c_EP_MEM_ADDAC_PARMA, c_EP_MEM_ADDAC_KIKNM,
                                  c_EP_MEM_ADDAC_KNORM, c_EP_MEM_ADDAC_SMFB0, c_EP_MEM_ADDAC_SMLKV,
                                  c_EP_MEM_ADDAC_SMFBM, c_EP_MEM_ADDAC_SAOFF, c_EP_MEM_ADDAC_PLSSH,
@@ -233,7 +233,7 @@ constant c_EP_MEM_ADD_OFF     : t_slv_arr(0 to c_EP_MEM_NUM_LAST-1)(c_EP_SPI_WD_
                                  c_EP_CMD_ADD_SMFBM(0), c_EP_CMD_ADD_SAOFF(0), c_EP_CMD_ADD_PLSSH(0),
                                  c_EP_CMD_ADD_DLCNT(0))                                                     ; --! EP command: Memory adress offset
 
-constant c_EP_MEM_ADD_END     : t_int_arr(0 to c_EP_MEM_NUM_LAST-1) :=
+constant c_EP_MEM_ADD_END     : integer_vector(0 to c_EP_MEM_NUM_LAST-1) :=
                                 (c_TAB_TSTPT_NW-1, c_TAB_PARMA_NW-1, c_TAB_KIKNM_NW-1,
                                  c_TAB_KNORM_NW-1, c_TAB_SMFB0_NW-1, c_TAB_SMLKV_NW-1,
                                  c_TAB_SMFBM_NW-1, c_TAB_SAOFF_NW-1, c_MEM_PLSSH_ADD_END,

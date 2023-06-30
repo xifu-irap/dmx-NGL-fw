@@ -61,7 +61,7 @@ begin
    P_aqmde : process (i_rst, i_clk)
    begin
 
-      if i_rst = '1' then
+      if i_rst = c_RST_LEV_ACT then
          o_aqmde      <= c_DST_AQMDE_IDLE;
          rg_aqmde_sav <= c_DST_AQMDE_IDLE;
 

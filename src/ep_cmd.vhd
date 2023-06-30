@@ -68,15 +68,15 @@ signal   ep_spi_data_tx_wd_nb : std_logic_vector(c_EP_SPI_TX_WD_NB_S-1 downto 0)
 signal   ep_spi_data_rx_wd    : std_logic_vector(c_EP_SPI_WD_S      -1 downto 0)                            ; --! EP: SPI Receipted data word (stall on LSB)
 signal   ep_spi_data_rx_wd_nb : std_logic_vector(c_EP_SPI_RX_WD_NB_S-1 downto 0)                            ; --! EP: SPI Receipted data word number
 signal   ep_spi_data_rx_wd_lg : std_logic_vector(c_SPI_DATA_WD_LG_S -1 downto 0)                            ; --! EP: SPI Receipted data word length minus 1
-signal   ep_spi_data_rx_wd_rdy: std_logic                                                                   ; --! EP: SPI Receipted data word ready ('0' = Not ready, '1' = Ready)
+signal   ep_spi_data_rx_wd_ry : std_logic                                                                   ; --! EP: SPI Receipted data word ready ('0' = Not ready, '1' = Ready)
 
 signal   ep_spi_wd_end        : std_logic                                                                   ; --! EP: SPI word end ('0' = Not end, '1' = End)
 signal   ep_spi_wd_end_r      : std_logic_vector(c_EP_SPI_WD_END_R_S-1 downto 0)                            ; --! EP: SPI word end register ('0' = Not end, '1' = End)
 
 signal   ep_cmd_rx_wd_add     : std_logic_vector(c_EP_SPI_WD_S      -1 downto 0)                            ; --! EP command receipted: address word
-signal   ep_cmd_rx_wd_add_norw: std_logic_vector(c_EP_SPI_WD_S      -1 downto 0)                            ; --! EP command receipted: address word, read/write bit cleared
+signal   ep_cmd_rx_wd_add_nrw : std_logic_vector(c_EP_SPI_WD_S      -1 downto 0)                            ; --! EP command receipted: address word, read/write bit cleared
 signal   ep_cmd_rx_wd_add_rdy : std_logic                                                                   ; --! EP command receipted: address word ready ('0' = Not ready, '1' = Ready)
-signal   ep_cmd_rx_add_err_rdy: std_logic_vector(c_ADD_ERR_RDY_S    -1 downto 0)                            ; --! EP command receipted: errors ready after address rx ('0' = Not ready, '1' = Ready)
+signal   ep_cmd_rx_add_err_ry : std_logic_vector(c_ADD_ERR_RDY_S    -1 downto 0)                            ; --! EP command receipted: errors ready after address rx ('0' = Not ready, '1' = Ready)
 signal   ep_cmd_rx_wd_data    : std_logic_vector(c_EP_SPI_WD_S      -1 downto 0)                            ; --! EP command receipted: data word
 signal   ep_cmd_rx_rw         : std_logic                                                                   ; --! EP command receipted: read/write bit
 
@@ -93,8 +93,8 @@ signal   ep_cmd_sts_err_out   : std_logic                                       
 signal   ep_cmd_all_err_add   : std_logic                                                                   ; --! EP command: all errors detected at address word end grouped together
 signal   ep_cmd_all_err_data  : std_logic                                                                   ; --! EP command: all errors detected at data word end grouped together
 signal   ep_cmd_all_err       : std_logic                                                                   ; --! EP command: all errors grouped together
-signal   ep_cmd_err_add_wd_end: std_logic                                                                   ; --! EP command: Error(s) detected at address word end
-signal   ep_cmd_err_spi_wd_end: std_logic                                                                   ; --! EP command: Error(s) detected at SPI word end
+signal   ep_cmd_err_add_w_end : std_logic                                                                   ; --! EP command: Error(s) detected at address word end
+signal   ep_cmd_err_spi_w_end : std_logic                                                                   ; --! EP command: Error(s) detected at SPI word end
 
 begin
 
@@ -102,6 +102,7 @@ begin
    --!   EP SPI slave
    -- ------------------------------------------------------------------------------------------------------
    I_spi_slave: entity work.spi_slave generic map (
+         g_RST_LEV_ACT        => c_RST_LEV_ACT        , -- std_logic                                        ; --! Reset level activation value
          g_CPOL               => c_EP_SPI_CPOL        , -- std_logic                                        ; --! Clock polarity
          g_CPHA               => c_EP_SPI_CPHA        , -- std_logic                                        ; --! Clock phase
          g_DTA_TX_WD_S        => c_EP_SPI_WD_S        , -- integer                                          ; --! Data word to transmit bus size
@@ -118,7 +119,7 @@ begin
          o_data_rx_wd         => ep_spi_data_rx_wd    , -- out    slv(g_DTA_RX_WD_S   -1 downto 0)          ; --! Receipted data word (stall on LSB)
          o_data_rx_wd_nb      => ep_spi_data_rx_wd_nb , -- out    slv(g_DTA_RX_WD_NB_S-1 downto 0)          ; --! Receipted data word number
          o_data_rx_wd_lg      => ep_spi_data_rx_wd_lg , -- out    slv(log2_ceil(g_DTA_RX_WD_S)-1 downto 0)  ; --! Receipted data word length minus 1
-         o_data_rx_wd_rdy     => ep_spi_data_rx_wd_rdy, -- out    std_logic                                 ; --! Receipted data word ready ('0' = Not ready, '1' = Ready)
+         o_data_rx_wd_rdy     => ep_spi_data_rx_wd_ry , -- out    std_logic                                 ; --! Receipted data word ready ('0' = Not ready, '1' = Ready)
 
          o_spi_wd_end         => ep_spi_wd_end        , -- out    std_logic                                 ; --! SPI word end ('0' = Not end, '1' = End)
 
@@ -134,7 +135,7 @@ begin
    P_ep_cmd_rx_wd : process (i_rst, i_clk)
    begin
 
-      if i_rst = '1' then
+      if i_rst = c_RST_LEV_ACT then
 
          if c_EP_CMD_ADD_RW_POS = 0 then
             ep_cmd_rx_wd_add <= c_EP_CMD_ADD_STATUS(ep_cmd_rx_wd_add'high-1 downto 0) & '0';
@@ -145,25 +146,25 @@ begin
          end if;
 
          ep_cmd_rx_wd_add_rdy <= '0';
-         ep_cmd_rx_add_err_rdy<= (others => '0');
+         ep_cmd_rx_add_err_ry <= (others => '0');
          ep_cmd_rx_wd_data    <= (others => c_EP_CMD_ERR_CLR);
          ep_spi_wd_end_r      <= (others => '0');
          o_ep_cmd_rx_nerr_rdy <= '0';
 
       elsif rising_edge(i_clk) then
-         if ep_spi_data_rx_wd_rdy = '1' and ep_spi_data_rx_wd_nb = std_logic_vector(to_unsigned(c_EP_CMD_WD_ADD_POS, ep_spi_data_rx_wd_nb'length)) then
+         if ep_spi_data_rx_wd_ry = '1' and ep_spi_data_rx_wd_nb = std_logic_vector(to_unsigned(c_EP_CMD_WD_ADD_POS, ep_spi_data_rx_wd_nb'length)) then
             ep_cmd_rx_wd_add <= ep_spi_data_rx_wd;
 
          end if;
 
          if ep_spi_data_rx_wd_nb = std_logic_vector(to_unsigned(c_EP_CMD_WD_ADD_POS, ep_spi_data_rx_wd_nb'length)) then
-            ep_cmd_rx_wd_add_rdy <= ep_spi_data_rx_wd_rdy;
+            ep_cmd_rx_wd_add_rdy <= ep_spi_data_rx_wd_ry;
 
          end if;
 
-         ep_cmd_rx_add_err_rdy <= ep_cmd_rx_add_err_rdy(ep_cmd_rx_add_err_rdy'high-1 downto 0) & ep_cmd_rx_wd_add_rdy;
+         ep_cmd_rx_add_err_ry <= ep_cmd_rx_add_err_ry(ep_cmd_rx_add_err_ry'high-1 downto 0) & ep_cmd_rx_wd_add_rdy;
 
-         if ep_spi_data_rx_wd_rdy = '1' and ep_spi_data_rx_wd_nb = std_logic_vector(to_unsigned(c_EP_CMD_WD_DATA_POS, ep_spi_data_rx_wd_nb'length)) then
+         if ep_spi_data_rx_wd_ry = '1' and ep_spi_data_rx_wd_nb = std_logic_vector(to_unsigned(c_EP_CMD_WD_DATA_POS, ep_spi_data_rx_wd_nb'length)) then
             ep_cmd_rx_wd_data <= ep_spi_data_rx_wd;
 
          end if;
@@ -177,17 +178,17 @@ begin
 
    -- Address Receipt: Read/Write LSB bit position
    G_add_rw_pos_equ_nul: if c_EP_CMD_ADD_RW_POS = 0 generate
-      ep_cmd_rx_wd_add_norw <= '0' & ep_cmd_rx_wd_add(ep_cmd_rx_wd_add'high downto 1);
+      ep_cmd_rx_wd_add_nrw <= '0' & ep_cmd_rx_wd_add(ep_cmd_rx_wd_add'high downto 1);
    end generate G_add_rw_pos_equ_nul;
 
    -- Address Receipt: Read/Write others bit position
    G_add_rw_pos_neq_nul: if c_EP_CMD_ADD_RW_POS /= 0 generate
-      ep_cmd_rx_wd_add_norw <= '0' & ep_cmd_rx_wd_add(ep_cmd_rx_wd_add'high-1 downto 0);
+      ep_cmd_rx_wd_add_nrw <= '0' & ep_cmd_rx_wd_add(ep_cmd_rx_wd_add'high-1 downto 0);
    end generate G_add_rw_pos_neq_nul;
 
    ep_cmd_rx_rw <= ep_cmd_rx_wd_add(c_EP_CMD_ADD_RW_POS);
 
-   o_ep_cmd_rx_wd_add   <= ep_cmd_rx_wd_add_norw;
+   o_ep_cmd_rx_wd_add   <= ep_cmd_rx_wd_add_nrw;
    o_ep_cmd_rx_wd_data  <= ep_cmd_rx_wd_data;
    o_ep_cmd_rx_rw       <= ep_cmd_rx_rw;
 
@@ -205,7 +206,7 @@ begin
       P_ep_cmd_tx_wd_adend : process (i_rst, i_clk)
       begin
 
-         if i_rst = '1' then
+         if i_rst = c_RST_LEV_ACT then
             ep_cmd_tx_wd_add_end <= c_EP_CMD_ADD_STATUS(ep_cmd_tx_wd_add_end'high downto 0);
 
          elsif rising_edge(i_clk) then
@@ -230,7 +231,7 @@ begin
       P_ep_cmd_tx_wd_adend : process (i_rst, i_clk)
       begin
 
-         if i_rst = '1' then
+         if i_rst = c_RST_LEV_ACT then
             ep_cmd_tx_wd_add_end <= c_EP_CMD_ADD_STATUS(ep_cmd_tx_wd_add_end'high downto 0);
 
          elsif rising_edge(i_clk) then
@@ -248,7 +249,7 @@ begin
    P_ep_cmd_tx_wd : process (i_rst, i_clk)
    begin
 
-      if i_rst = '1' then
+      if i_rst = c_RST_LEV_ACT then
          ep_cmd_tx_wd_data <= (others => c_EP_CMD_ERR_CLR);
 
       elsif rising_edge(i_clk) then
@@ -285,7 +286,7 @@ begin
          i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                => i_clk                , -- in     std_logic                                 ; --! System Clock
 
-         i_ep_cmd_rx_add_norw => ep_cmd_rx_wd_add_norw, -- in     std_logic_vector(c_EP_SPI_WD_S-1 downto 0); --! EP command receipted: address word, read/write bit cleared
+         i_ep_cmd_rx_add_norw => ep_cmd_rx_wd_add_nrw , -- in     std_logic_vector(c_EP_SPI_WD_S-1 downto 0); --! EP command receipted: address word, read/write bit cleared
          i_ep_cmd_rx_rw       => ep_cmd_rx_rw         , -- in     std_logic                                 ; --! EP command receipted: read/write bit
          o_ep_cmd_sts_err_wrt => ep_cmd_sts_err_wrt     -- out    std_logic                                   --! EP command: Status, error try to write in a read only register
    );
@@ -298,7 +299,7 @@ begin
          i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                => i_clk                , -- in     std_logic                                 ; --! System Clock
 
-         i_ep_cmd_rx_add_norw => ep_cmd_rx_wd_add_norw, -- in     std_logic_vector(c_EP_SPI_WD_S-1 downto 0); --! EP command receipted: address word, read/write bit cleared
+         i_ep_cmd_rx_add_norw => ep_cmd_rx_wd_add_nrw , -- in     std_logic_vector(c_EP_SPI_WD_S-1 downto 0); --! EP command receipted: address word, read/write bit cleared
          i_ep_cmd_rx_wd_data  => ep_cmd_rx_wd_data    , -- in     std_logic_vector(c_EP_SPI_WD_S-1 downto 0); --! EP command receipted: data word
          i_ep_cmd_rx_rw       => ep_cmd_rx_rw         , -- in     std_logic                                 ; --! EP command receipted: read/write bit
          i_ep_cmd_rx_out_rdy  => ep_spi_wd_end_r(0)   , -- in     std_logic                                 ; --! EP command receipted: error data out of range ready ('0' = Not ready, '1' = Ready)
@@ -310,15 +311,15 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    G_ep_cmd_err_clr_nul: if c_EP_CMD_ERR_CLR = '0' generate
       ep_cmd_all_err_add   <= i_ep_cmd_sts_err_add or ep_cmd_sts_err_wrt or i_ep_cmd_sts_err_nin or i_ep_cmd_sts_err_dis;
-      ep_cmd_all_err_data  <= ep_cmd_sts_err_lgt   or ep_cmd_err_add_wd_end;
-      ep_cmd_all_err       <= ep_cmd_sts_err_out   or ep_cmd_err_spi_wd_end;
+      ep_cmd_all_err_data  <= ep_cmd_sts_err_lgt   or ep_cmd_err_add_w_end;
+      ep_cmd_all_err       <= ep_cmd_sts_err_out   or ep_cmd_err_spi_w_end;
 
    end generate G_ep_cmd_err_clr_nul;
 
    G_ep_cmd_err_clr_one: if c_EP_CMD_ERR_CLR /= '0' generate
       ep_cmd_all_err_add   <= i_ep_cmd_sts_err_add and ep_cmd_sts_err_wrt and i_ep_cmd_sts_err_nin and i_ep_cmd_sts_err_dis;
-      ep_cmd_all_err_data  <= ep_cmd_sts_err_lgt   and ep_cmd_err_add_wd_end;
-      ep_cmd_all_err       <= ep_cmd_sts_err_out   and ep_cmd_err_spi_wd_end;
+      ep_cmd_all_err_data  <= ep_cmd_sts_err_lgt   and ep_cmd_err_add_w_end;
+      ep_cmd_all_err       <= ep_cmd_sts_err_out   and ep_cmd_err_spi_w_end;
 
    end generate G_ep_cmd_err_clr_one;
 
@@ -331,14 +332,14 @@ begin
    P_ep_cmd_sts_rg : process (i_rst, i_clk)
    begin
 
-      if i_rst = '1' then
-         ep_cmd_err_add_wd_end   <= c_EP_CMD_ERR_CLR;
-         ep_cmd_err_spi_wd_end   <= c_EP_CMD_ERR_CLR;
+      if i_rst = c_RST_LEV_ACT then
+         ep_cmd_err_add_w_end    <= c_EP_CMD_ERR_CLR;
+         ep_cmd_err_spi_w_end    <= c_EP_CMD_ERR_CLR;
          ep_cmd_sts_rg(ep_cmd_sts_rg'high downto c_EP_CMD_ERR_FST_POS) <= (others => c_EP_CMD_ERR_CLR);
 
       elsif rising_edge(i_clk) then
-         if ep_cmd_rx_add_err_rdy(ep_cmd_rx_add_err_rdy'high) = '1' then
-            ep_cmd_err_add_wd_end   <= ep_cmd_all_err_add;
+         if ep_cmd_rx_add_err_ry(ep_cmd_rx_add_err_ry'high) = '1' then
+            ep_cmd_err_add_w_end   <= ep_cmd_all_err_add;
 
             ep_cmd_sts_rg(c_EP_CMD_ERR_ADD_POS) <= i_ep_cmd_sts_err_add;
             ep_cmd_sts_rg(c_EP_CMD_ERR_WRT_POS) <= ep_cmd_sts_err_wrt;
@@ -348,7 +349,7 @@ begin
          end if;
 
          if ep_spi_wd_end = '1' then
-            ep_cmd_err_spi_wd_end <= ep_cmd_all_err_data;
+            ep_cmd_err_spi_w_end <= ep_cmd_all_err_data;
 
             ep_cmd_sts_rg(c_EP_CMD_ERR_LGT_POS) <= ep_cmd_sts_err_lgt;
 
