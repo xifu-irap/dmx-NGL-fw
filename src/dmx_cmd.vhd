@@ -124,6 +124,7 @@ begin
                                  '1' when i_smfmd(k) = c_DST_SMFMD_ON    else '0';
       cmd_ck_sqm_dac_ena(k) <=   '1' when i_smfmd(k) = c_DST_SMFMD_ON    else '0';
 
+      --! Command switch clocks
       P_cmd_ck_sqm : process (i_rst, i_clk)
       begin
 

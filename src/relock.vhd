@@ -163,6 +163,7 @@ begin
 
    end process P_cnt_thr_exceed_rd_r;
 
+   --! Counter threshold exceed
    P_cnt_thr_exceed_wr : process (i_rst, i_clk)
    begin
 
@@ -192,6 +193,7 @@ begin
 
    end process P_cnt_thr_exceed_wr;
 
+   --! Counter threshold exceed: memory write
    P_mem_cnt_thr_exd_wr : process (i_clk)
    begin
 
@@ -308,6 +310,7 @@ begin
    G_dlflag: for k in 0 to c_MUX_FACT-1 generate
    begin
 
+      --! Delock flags
       P_dlflag : process (i_rst, i_clk)
       begin
 

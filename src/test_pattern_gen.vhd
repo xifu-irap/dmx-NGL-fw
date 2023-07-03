@@ -251,6 +251,7 @@ begin
    mem_tstpt_prm.cs      <= '1';
    mem_tstpt_prm.data_w  <= (others => '0');
 
+   --! Test pattern: ping-pong buffer bit
    P_mem_tstpt_pp : process (i_rst, i_clk)
    begin
 

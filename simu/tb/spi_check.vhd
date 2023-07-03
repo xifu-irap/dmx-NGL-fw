@@ -111,6 +111,7 @@ begin
 
    end process P_err_n_sclk_per;
 
+   --! SPI error number position: maximum SCLK period
    P_err_n_sclk_per_max : process
    variable v_sclk_pr_mx_rcd1 : time                                                                        ; --! Record time 1
    variable v_sclk_pr_mx_rcd2 : time                                                                        ; --! Record time 2

@@ -257,6 +257,7 @@ begin
       G_rg_col : for l in 0 to c_EP_RGC_NUM_LAST-1 generate
       begin
 
+         --! EP command: one register by column
          P_rg_col : process (i_rst, i_clk)
          begin
 

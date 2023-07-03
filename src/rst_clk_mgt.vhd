@@ -77,7 +77,6 @@ signal   cnt_rst_msb_r_n      : std_logic                                       
 signal   cnt_rst_adc          : std_logic_vector(c_CNT_RST_ADC_S-1 downto 0)                                ; --! Counter for reset SQUID ADC/DAC generation
 signal   cnt_rst_adc_msb_r_n  : std_logic                                                                   ; --! Counter for reset SQUID ADC/DAC generation MSB inverted register
 
-signal   clk_sqm_adc_dac      : std_logic                                                                   ; --! SQUID MUX ADC/DAC internal Clock
 signal   clk_sqm_adc          : std_logic                                                                   ; --! SQUID MUX ADC Clocks
 signal   clk_sqm_dac_out      : std_logic                                                                   ; --! SQUID MUX DAC output Clock
 
@@ -188,6 +187,7 @@ begin
 
    end process P_rst_sqm_adc_dac_pd;
 
+   --! Science Data Image Clock
    P_ck_science : process (rst_sqm_adc_dac_pad, o_clk_sqm_adc_dac)
    begin
 
@@ -231,6 +231,7 @@ begin
          o_sig_lowskew        => o_rst                  -- out    std_logic                                   --! Signal connected to lowskew network
    );
 
+   --! Counter for reset SQUID ADC/DAC generation
    P_cnt_rst_adc : process (i_arst, o_clk_sqm_adc_dac)
    begin
 

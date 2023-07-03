@@ -287,6 +287,7 @@ begin
    mem_parma_prm.cs      <= '1';
    mem_parma_prm.data_w  <= (others => '0');
 
+   --! Memory a(p), ping-pong buffer bit
    P_mem_parma_pp : process (i_rst, i_clk)
    begin
 
@@ -345,6 +346,7 @@ begin
    mem_kiknm_prm.cs      <= '1';
    mem_kiknm_prm.data_w  <= (others => '0');
 
+   --! Memory ki(p)*knorm(p), ping-pong buffer bit
    P_mem_kiknm_prm_pp : process (i_rst, i_clk)
    begin
 
@@ -403,6 +405,7 @@ begin
    mem_knorm_prm.cs      <= '1';
    mem_knorm_prm.data_w  <= (others => '0');
 
+   --! Memory knorm(p), ping-pong buffer bit
    P_mem_knorm_prm_pp : process (i_rst, i_clk)
    begin
 
@@ -463,6 +466,7 @@ begin
    mem_smlkv_prm.cs      <= '1';
    mem_smlkv_prm.data_w  <= (others => '0');
 
+   --! Memory Elp(p), ping-pong buffer bit
    P_mem_smlkv_prm_pp : process (i_rst, i_clk)
    begin
 
@@ -483,6 +487,7 @@ begin
    --!   Dual port memory initialization feedback chain accumulators and
    --!    SQUID MUX feedback value in open loop for relock
    -- ------------------------------------------------------------------------------------------------------
+   --! Memories write
    P_init_fbk_acc_wr : process (i_clk)
    begin
 
@@ -495,6 +500,7 @@ begin
 
    end process P_init_fbk_acc_wr;
 
+   --! Memories read
    P_init_fbk_acc_rd : process (i_rst, i_clk)
    begin
 

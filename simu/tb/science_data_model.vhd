@@ -161,6 +161,7 @@ begin
       mem_dump_adc_data_in(k)(c_SQM_ADC_DATA_S)            <= i_sqm_adc_oor(k);
       mem_dump_adc_data_in(k)(c_SQM_ADC_DATA_S+1)          <= '0';
 
+      --! Memory Dump write
       P_mem_dump_w : process(i_clk_sqm_adc_acq)
       begin
          if rising_edge(i_clk_sqm_adc_acq) then
@@ -171,6 +172,7 @@ begin
          end if;
       end process P_mem_dump_w;
 
+      --! Memory Dump read
       P_mem_dump_r : process(i_arst, i_clk_science)
       begin
          if i_arst = c_RST_LEV_ACT then

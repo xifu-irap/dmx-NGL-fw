@@ -165,6 +165,7 @@ begin
          o_cs_n               => hk_spi_cs_n            -- out    std_logic                                   --! SPI Chip Select ('0' = Active, '1' = Inactive)
    );
 
+   --! HouseKeeping: SPI master
    P_hk_spi_master : process (i_rst, i_clk)
    begin
 
@@ -211,6 +212,7 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    mem_hkeep_add_prm <= std_logic_vector(unsigned(c_HK_ADD_SEQ(to_integer(unsigned(hk_pos)))));
 
+   --! Memory housekeeping: data write
    P_mem_hkeep_wr : process (i_clk)
    begin
 
@@ -223,6 +225,7 @@ begin
 
    end process P_mem_hkeep_wr;
 
+   --! Memory housekeeping: data read
    P_mem_hkeep_rd : process (i_rst, i_clk)
    begin
 
@@ -262,6 +265,7 @@ begin
    G_err_nin: for k in 0 to c_HK_NW-1 generate
    begin
 
+      --! Error parameter to read not initialized yet, Flags
       P_err_nin_flg : process (i_rst, i_clk)
       begin
 

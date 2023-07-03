@@ -90,6 +90,7 @@ begin
 
    end process P_rst;
 
+   --! Clock generation
    P_clk : process
    begin
 

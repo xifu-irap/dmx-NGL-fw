@@ -541,6 +541,7 @@ begin
    mem_smfbm_prm.cs      <= '1';
    mem_smfbm_prm.data_w  <= c_DST_SMFBM_OPEN;
 
+   --! SQUID MUX feedback mode, memory write enable
    P_mem_smfbm_prm_we : process (i_rst, i_clk)
    begin
 
@@ -574,6 +575,7 @@ begin
 
    end process P_sqm_dta_err_cor_wr;
 
+   --! SQUID MUX Data error corrected: memory read
    P_sqm_dta_err_cor_rd : process (i_rst, i_clk)
    begin
 
@@ -597,6 +599,7 @@ begin
          o_data_stall_msb     => smfb0_rs               -- out    slv(g_DATA_STALL_MSB_S-1 downto 0)          --! Data stalled on Mean Significant Bit
    );
 
+   --! Test pattern, synchronized on first pixel sequence
    P_test_pattern_sync : process (i_rst, i_clk)
    begin
 

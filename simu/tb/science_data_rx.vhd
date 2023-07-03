@@ -106,6 +106,7 @@ begin
    G_science_data_ser: for k in 0 to i_science_data_ser'high generate
    begin
 
+      --! Science data serial
       P_science_data_ser : process (i_rst, i_clk_science)
       begin
 

@@ -67,6 +67,7 @@ begin
    G_column_mgt : for k in 0 to c_NB_COL-1 generate
    begin
 
+      --! Memory inputs: Chip select and Ping-pong buffer bit
       P_mem_in : process (i_rst, i_clk)
       begin
 

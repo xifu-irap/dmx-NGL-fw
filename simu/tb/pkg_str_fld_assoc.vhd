@@ -41,8 +41,7 @@ package pkg_str_fld_assoc is
 constant c_RET_UKWN           : std_logic_vector(c_EP_SPI_WD_S-1 downto 0) := (others => '1')               ; --! Return unknown value
 
    -- ------------------------------------------------------------------------------------------------------
-   --! Get the first field (discrete output name) included in line and
-   --!  get the associated discrete output index
+   --! Get the first field (discrete output name) included in line and the associated discrete output index
    -- ------------------------------------------------------------------------------------------------------
    procedure get_dw_index (
          b_line               : inout  line                                                                 ; --  Line to analysis
@@ -51,8 +50,7 @@ constant c_RET_UKWN           : std_logic_vector(c_EP_SPI_WD_S-1 downto 0) := (o
    );
 
    -- ------------------------------------------------------------------------------------------------------
-   --! Get the first field (discrete input name) included in line and
-   --!  get the associated discrete input index
+   --! Get the first field (discrete input name) included in line and the associated discrete input index
    -- ------------------------------------------------------------------------------------------------------
    procedure get_dr_index (
          b_line               : inout  line                                                                 ; --  Line to analysis
@@ -61,8 +59,7 @@ constant c_RET_UKWN           : std_logic_vector(c_EP_SPI_WD_S-1 downto 0) := (o
    );
 
    -- ------------------------------------------------------------------------------------------------------
-   --! Get the first field (check parameters enable name) included in line and
-   --!  get the associated check parameters enable index
+   --! Get the first field (check parameters enable name) included in line and the associated check parameters enable index
    -- ------------------------------------------------------------------------------------------------------
    procedure get_ce_index (
          b_line               : inout  line                                                                 ; --  Line to analysis
@@ -71,8 +68,7 @@ constant c_RET_UKWN           : std_logic_vector(c_EP_SPI_WD_S-1 downto 0) := (o
    );
 
    -- ------------------------------------------------------------------------------------------------------
-   --! Get the first field (command address) included in line and
-   --!  get the associated address value
+   --! Get the first field (command address) included in line and the associated address value
    -- ------------------------------------------------------------------------------------------------------
    procedure get_cmd_add (
          b_line               : inout  line                                                                 ; --  Line to analysis
@@ -81,8 +77,7 @@ constant c_RET_UKWN           : std_logic_vector(c_EP_SPI_WD_S-1 downto 0) := (o
    );
 
    -- ------------------------------------------------------------------------------------------------------
-   --! Get the first field (command data) included in line and
-   --!  get the associated data value
+   --! Get the first field (command data) included in line and the associated data value
    -- ------------------------------------------------------------------------------------------------------
    procedure get_cmd_data (
          b_line               : inout  line                                                                 ; --  Line to analysis
@@ -91,8 +86,7 @@ constant c_RET_UKWN           : std_logic_vector(c_EP_SPI_WD_S-1 downto 0) := (o
    );
 
    -- ------------------------------------------------------------------------------------------------------
-   --! Get the first field (science packet type) included in line and
-   --!  get the associated data value
+   --! Get the first field (science packet type) included in line and the associated data value
    -- ------------------------------------------------------------------------------------------------------
    procedure get_sc_pkt_type (
          b_line               : inout  line                                                                 ; --  Line to analysis
@@ -106,8 +100,7 @@ package body pkg_str_fld_assoc is
 constant c_PAD                : character := ' '                                                            ; --  Padding character
 
    -- ------------------------------------------------------------------------------------------------------
-   --! Get the first field (discrete output name) included in line and
-   --!  get the associated discrete output index
+   --! Get the first field (discrete output name) included in line and the associated discrete output index
    -- ------------------------------------------------------------------------------------------------------
    procedure get_dw_index (
          b_line               : inout  line                                                                 ; --  Line to analysis
@@ -157,8 +150,7 @@ constant c_PAD                : character := ' '                                
    end get_dw_index;
 
    -- ------------------------------------------------------------------------------------------------------
-   --! Get the first field (discrete input name) included in line and
-   --!  get the associated discrete input index
+   --! Get the first field (discrete input name) included in line and the associated discrete input index
    -- ------------------------------------------------------------------------------------------------------
    procedure get_dr_index (
          b_line               : inout  line                                                                 ; --  Line to analysis
@@ -304,8 +296,7 @@ constant c_PAD                : character := ' '                                
    end get_dr_index;
 
    -- ------------------------------------------------------------------------------------------------------
-   --! Get the first field (check parameters enable name) included in line and
-   --!  get the associated check parameters enable index
+   --! Get the first field (check parameters enable name) included in line and the associated check parameters enable index
    -- ------------------------------------------------------------------------------------------------------
    procedure get_ce_index (
          b_line               : inout  line                                                                 ; --  Line to analysis
@@ -400,8 +391,7 @@ constant c_PAD                : character := ' '                                
    end get_ce_index;
 
    -- ------------------------------------------------------------------------------------------------------
-   --! Get the first field (command address) included in line and
-   --!  get the associated address value
+   --! Get the first field (command address) included in line and the associated address value
    -- ------------------------------------------------------------------------------------------------------
    procedure get_cmd_add (
          b_line               : inout  line                                                                 ; --  Line to analysis
@@ -715,8 +705,7 @@ constant c_PAD                : character := ' '                                
    end get_cmd_add;
 
    -- ------------------------------------------------------------------------------------------------------
-   --! Get the first field (command data) included in line and
-   --!  get the associated data value
+   --! Get the first field (command data) included in line and the associated data value
    -- ------------------------------------------------------------------------------------------------------
    procedure get_cmd_data (
          b_line               : inout  line                                                                 ; --  Line to analysis
@@ -787,8 +776,7 @@ constant c_PAD                : character := ' '                                
    end get_cmd_data;
 
    -- ------------------------------------------------------------------------------------------------------
-   --! Get the first field (science packet type) included in line and
-   --!  get the associated data value
+   --! Get the first field (science packet type) included in line and the associated data value
    -- ------------------------------------------------------------------------------------------------------
    procedure get_sc_pkt_type (
          b_line               : inout  line                                                                 ; --  Line to analysis

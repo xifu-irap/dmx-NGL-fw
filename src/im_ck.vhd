@@ -79,6 +79,7 @@ begin
 
    end process P_ck_ref;
 
+   --! Image clock
    P_im_ck : process (i_reset, i_clock)
    begin
 

@@ -98,7 +98,7 @@ begin
 
    G_mem_not_prm_store: if g_RAM_TYPE /= c_RAM_TYPE_PRM_STORE generate
       a_mem.pp       <= i_a_mem.pp;
-      a_mem.add      <= '0' & i_a_mem.add;
+      a_mem.add      <= std_logic_vector(resize(unsigned(i_a_mem.add), a_mem.add'length));
       a_mem.we       <= i_a_mem.we;
       a_mem.cs       <= i_a_mem.cs;
       a_mem.data_w   <= i_a_mem.data_w;

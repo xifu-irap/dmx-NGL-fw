@@ -121,6 +121,7 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    clk_delay <= transport i_clk after 0 ps;
 
+   --! Number of clock oscillation error when enable is inactive
    P_err_n_clk_osc_ena : process
    begin
 

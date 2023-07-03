@@ -95,13 +95,14 @@ begin
       wait;
    end process P_rst;
 
+   --! Clock generation
    P_clk: process
    begin
-      clk   <= '0';
+      clk   <= c_LOW_LEV;
       wait for g_EP_CLK_PER/2 - g_EP_CLK_PER_SHIFT;
-      clk   <= '1';
+      clk   <= c_HGH_LEV;
       wait for g_EP_CLK_PER/2;
-      clk   <= '0';
+      clk   <= c_LOW_LEV;
       wait for g_EP_CLK_PER_SHIFT;
    end process P_clk;
 

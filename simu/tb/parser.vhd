@@ -177,6 +177,7 @@ begin
    G_sqm_adc_ana_lst_ev: for k in 0 to c_NB_COL-1 generate
    begin
 
+      --! SQUID MUX ADC: Analog last event time
       P_sqm_adc_ana_lst_ev: process
       begin
             sqm_adc_ana_lst_ev(k) <= 0 ns;
@@ -197,6 +198,7 @@ begin
    G_discrete_r_lst_ev: for k in 0 to c_DR_S-1 generate
    begin
 
+      --! Discrete read last event time
       P_discrete_r_lst_ev: process
       begin
             discrete_r_lst_ev(k) <= 0 ns;

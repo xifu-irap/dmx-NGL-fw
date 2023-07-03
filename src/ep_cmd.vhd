@@ -203,6 +203,7 @@ begin
                                                             c_EP_CMD_ADD_STATUS(ep_cmd_tx_wd_add'high-1 downto 0) when ep_cmd_all_err_data = c_EP_CMD_ERR_SET else
                                                             ep_cmd_rx_wd_add(   ep_cmd_tx_wd_add'high   downto 1);
 
+      --! EP command to transmit: address word at spi end
       P_ep_cmd_tx_wd_adend : process (i_rst, i_clk)
       begin
 
@@ -228,6 +229,7 @@ begin
                                                             c_EP_CMD_ADD_STATUS(ep_cmd_tx_wd_add'high-1 downto 0) when ep_cmd_all_err_data = c_EP_CMD_ERR_SET else
                                                             ep_cmd_rx_wd_add(   ep_cmd_tx_wd_add'high-1 downto 0);
 
+      --! EP command to transmit: address word at spi end
       P_ep_cmd_tx_wd_adend : process (i_rst, i_clk)
       begin
 
@@ -246,6 +248,7 @@ begin
 
    end generate G_add_tw_pos_neq_nul;
 
+   --! EP command to transmit: data word
    P_ep_cmd_tx_wd : process (i_rst, i_clk)
    begin
 
@@ -329,6 +332,7 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    ep_cmd_sts_rg(c_EP_CMD_ERR_FST_POS-1 downto 0) <= (others => c_EP_CMD_ERR_CLR);
 
+   --! Status register management
    P_ep_cmd_sts_rg : process (i_rst, i_clk)
    begin
 

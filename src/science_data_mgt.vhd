@@ -365,6 +365,7 @@ begin
                      c_SC_CTRL_TST_PAT when aqmde_sync = c_DST_AQMDE_TEST else
                      c_SC_CTRL_IDLE;
 
+   --! Control packet management
    P_ctrl_pkt : process (i_rst, i_clk)
    begin
 
@@ -402,6 +403,7 @@ begin
    G_science_data : for k in 0 to c_NB_COL-1 generate
    begin
 
+      --! Science data management
       P_science_data : process (i_rst, i_clk)
       begin
 

@@ -150,6 +150,7 @@ begin
 
    end process P_mem_acc_wr;
 
+   --! Accumulator: memory read
    P_mem_acc_rd : process (i_rst, i_clk)
    begin
 

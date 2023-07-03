@@ -149,6 +149,7 @@ begin
        i_ep_cmd_rx_wd_add_r(c_EP_CMD_ADD_COLPOSL-1  downto c_MEM_DLCNT_ADD_S)      = c_EP_CMD_ADD_DLCNT(0)(c_EP_CMD_ADD_COLPOSL-1  downto c_MEM_DLCNT_ADD_S)      and
        i_ep_cmd_rx_wd_add_r(   c_MEM_DLCNT_ADD_S-1  downto 0)                      < std_logic_vector(to_unsigned(c_TAB_DLCNT_NW, c_MEM_DLCNT_ADD_S)))            else '0';
 
+   --! Chip selects register
    P_cs_rg : process (i_rst, i_clk)
    begin
 

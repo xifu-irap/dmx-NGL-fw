@@ -305,6 +305,7 @@ begin
    G_mem_adc_dmp_dta : for k in 0 to c_NB_COL-1 generate
    begin
 
+      --! Science Data register
       P_science_data_r : process (i_rst, i_clk_science)
       begin
 
@@ -332,6 +333,7 @@ begin
          end if;
       end process P_mem_adc_dmp_dta_w;
 
+      --! Adc dump data compare: memory read
       P_mem_adc_dmp_dta_r : process(i_rst, i_clk_science)
       begin
          if i_rst = c_RST_LEV_ACT then
