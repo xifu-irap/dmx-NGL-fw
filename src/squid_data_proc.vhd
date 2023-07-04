@@ -625,8 +625,6 @@ begin
          g_PORTC_S            => c_SQM_DATA_ERR_S     , -- integer                                          ; --! Port C bus size (<= c_MULT_ALU_PORTC_S)
          g_RESULT_S           => c_ADC_SMP_AVE_C_S    , -- integer                                          ; --! Result bus size (<= c_MULT_ALU_RESULT_S)
          g_RESULT_LSB_POS     => c_ADC_SMP_AVE_LSB    , -- integer                                          ; --! Result LSB position
-
-         g_DATA_TYPE          => c_MULT_ALU_SIGNED    , -- bit                                              ; --! Data type               ('0' = unsigned,           '1' = signed)
          g_SAT_RANK           => c_ADC_SMP_AVE_SAT    , -- integer                                          ; --! Extrem values reached on result bus
                                                                                                               --!   unsigned: range from               0  to 2**(g_SAT_RANK+1) - 1
                                                                                                               --!     signed: range from -2**(g_SAT_RANK) to 2**(g_SAT_RANK)   - 1
@@ -675,8 +673,6 @@ begin
          g_PORTC_S            => c_DFLD_KIKNM_PIX_S   , -- integer                                          ; --! Port C bus size (<= c_MULT_ALU_PORTC_S)
          g_RESULT_S           => c_M_PN_C_S           , -- integer                                          ; --! Result bus size (<= c_MULT_ALU_RESULT_S)
          g_RESULT_LSB_POS     => c_M_PN_LSB           , -- integer                                          ; --! Result LSB position
-
-         g_DATA_TYPE          => c_MULT_ALU_SIGNED    , -- bit                                              ; --! Data type               ('0' = unsigned,           '1' = signed)
          g_SAT_RANK           => c_M_PN_SAT           , -- integer                                          ; --! Extrem values reached on result bus
                                                                                                               --!   unsigned: range from               0  to 2**(g_SAT_RANK+1) - 1
                                                                                                               --!     signed: range from -2**(g_SAT_RANK) to 2**(g_SAT_RANK)   - 1
@@ -756,8 +752,6 @@ begin
          g_PORTC_S            => c_M_PN_S             , -- integer                                          ; --! Port C bus size (<= c_MULT_ALU_PORTC_S)
          g_RESULT_S           => c_PC1_PN_C_S         , -- integer                                          ; --! Result bus size (<= c_MULT_ALU_RESULT_S)
          g_RESULT_LSB_POS     => c_PC1_PN_LSB         , -- integer                                          ; --! Result LSB position
-
-         g_DATA_TYPE          => c_MULT_ALU_SIGNED    , -- bit                                              ; --! Data type               ('0' = unsigned,           '1' = signed)
          g_SAT_RANK           => c_PC1_PN_SAT         , -- integer                                          ; --! Extrem values reached on result bus
                                                                                                               --!   unsigned: range from               0  to 2**(g_SAT_RANK+1) - 1
                                                                                                               --!     signed: range from -2**(g_SAT_RANK) to 2**(g_SAT_RANK)   - 1
@@ -841,8 +835,6 @@ begin
          g_PORTC_S            => c_DFLD_KNORM_PIX_S   , -- integer                                          ; --! Port C bus size (<= c_MULT_ALU_PORTC_S)
          g_RESULT_S           => c_NRM_PN_C_S         , -- integer                                          ; --! Result bus size (<= c_MULT_ALU_RESULT_S)
          g_RESULT_LSB_POS     => c_NRM_PN_LSB         , -- integer                                          ; --! Result LSB position
-
-         g_DATA_TYPE          => c_MULT_ALU_SIGNED    , -- bit                                              ; --! Data type               ('0' = unsigned,           '1' = signed)
          g_SAT_RANK           => c_NRM_PN_SAT         , -- integer                                          ; --! Extrem values reached on result bus
                                                                                                               --!   unsigned: range from               0  to 2**(g_SAT_RANK+1) - 1
                                                                                                               --!     signed: range from -2**(g_SAT_RANK) to 2**(g_SAT_RANK)   - 1

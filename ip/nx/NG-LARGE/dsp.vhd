@@ -41,8 +41,6 @@ entity dsp is generic (
          g_PORTC_S            : integer                                                                     ; --! Port C bus size (<= c_MULT_ALU_PORTC_S)
          g_RESULT_S           : integer                                                                     ; --! Result bus size (<= c_MULT_ALU_RESULT_S)
          g_RESULT_LSB_POS     : integer                                                                     ; --! Result LSB position
-
-         g_DATA_TYPE          : bit                                                                         ; --! Data type               ('0' = unsigned,           '1' = signed)
          g_SAT_RANK           : integer                                                                     ; --! Extrem values reached on result bus
                                                                                                               --!   unsigned: range from               0  to 2**(g_SAT_RANK+1) - 1
                                                                                                               --!     signed: range from -2**(g_SAT_RANK) to 2**(g_SAT_RANK)   - 1
@@ -81,25 +79,16 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   Alignment on Multiplier ALU inputs format
    -- ------------------------------------------------------------------------------------------------------
-   G_data_signed: if g_DATA_TYPE = c_MULT_ALU_SIGNED generate
-      port_a <= std_logic_vector(resize(signed(i_a), port_a'length));
-      port_b <= std_logic_vector(resize(signed(i_b), port_b'length));
-      port_c <= std_logic_vector(resize(signed(i_c), port_c'length));
-      port_d <= std_logic_vector(resize(signed(i_d), port_d'length));
-   end generate G_data_signed;
-
-   G_data_unsigned: if g_DATA_TYPE = c_MULT_ALU_UNSIGNED generate
-      port_a <= std_logic_vector(resize(unsigned(i_a), port_a'length));
-      port_b <= std_logic_vector(resize(unsigned(i_b), port_b'length));
-      port_c <= std_logic_vector(resize(unsigned(i_c), port_c'length));
-      port_d <= std_logic_vector(resize(unsigned(i_d), port_d'length));
-   end generate G_data_unsigned;
+   port_a <= std_logic_vector(resize(signed(i_a), port_a'length));
+   port_b <= std_logic_vector(resize(signed(i_b), port_b'length));
+   port_c <= std_logic_vector(resize(signed(i_c), port_c'length));
+   port_d <= std_logic_vector(resize(signed(i_d), port_d'length));
 
    -- ------------------------------------------------------------------------------------------------------
    --!   NX_DSP_L_SPLIT IpCore instantiation
    -- ------------------------------------------------------------------------------------------------------
    I_dsp: entity nx.nx_dsp_l_split generic map (
-         SIGNED_MODE          => g_DATA_TYPE          , -- bit                                              ; --! Data type                     ('0' = unsigned,           '1' = signed)
+         SIGNED_MODE          => c_MULT_ALU_SIGNED    , -- bit                                              ; --! Data type                     ('0' = unsigned,           '1' = signed)
          PRE_ADDER_OP         => g_PRE_ADDER_OP       , -- bit                                              ; --! Pre-Adder operation           ('0' = add,                '1' = subtract)
          ALU_DYNAMIC_OP       => c_MULT_ALU_PRM_DIS   , -- bit                                              ; --! ALU Dynamic operation enable  ('0' = ALU_STAT_OP used,   '1' = Port D LSB used)
          ALU_OP               => c_MULT_ALU_OP_ADDC   , -- bit_vector(MULT_ALU_OP_S-1 downto 0)             ; --! ALU Static operation
