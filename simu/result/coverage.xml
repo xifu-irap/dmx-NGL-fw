@@ -20,11 +20,11 @@ byFile="1">
 </fileData>
 <fileData path="./ip/nx/NG-LARGE/dsp.vhd">
 <statements active="5" hits="5" percent="100.00"/>
-<stmt ln="85" st="1" hits="18267250"/>
-<stmt ln="86" st="1" hits="1074534"/>
-<stmt ln="87" st="1" hits="1067929"/>
-<stmt ln="88" st="1" hits="422983"/>
-<stmt ln="183" st="1" hits="4164582"/>
+<stmt ln="82" st="1" hits="18267250"/>
+<stmt ln="83" st="1" hits="1074534"/>
+<stmt ln="84" st="1" hits="1067929"/>
+<stmt ln="85" st="1" hits="422983"/>
+<stmt ln="172" st="1" hits="4164582"/>
 </fileData>
 <fileData path="./ip/nx/NG-LARGE/pkg_fpga_tech.vhd">
 <branches active="6" hits="6" percent="100.00"/>
@@ -677,11 +677,11 @@ byFile="1">
 <fileData path="./src/pulse_shaping.vhd">
 <branches active="3" hits="3" percent="100.00"/>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="113" st="1" true="360" false="1712541"/>
-<ielem ln="123" st="1" true="1712541" false="0"/>
+<ielem ln="111" st="1" true="360" false="1712541"/>
+<ielem ln="121" st="1" true="1712541" false="0"/>
 </if>
 <if hasElse="1" active="1" hits="1" percent="100.00">
-<ielem ln="115" st="1" true="360" false="0"/>
+<ielem ln="113" st="1" true="360" false="0"/>
 </if>
 <statements active="7" hits="7" percent="100.00"/>
 <stmt ln="67" st="1" hits="421302"/>
@@ -689,8 +689,8 @@ byFile="1">
 <stmt ln="69" st="1" hits="16970119"/>
 <stmt ln="71" st="1" hits="421318"/>
 <stmt ln="72" st="1" hits="180"/>
-<stmt ln="116" st="1" hits="360"/>
-<stmt ln="124" st="1" hits="1712541"/>
+<stmt ln="114" st="1" hits="360"/>
+<stmt ln="122" st="1" hits="1712541"/>
 </fileData>
 <fileData path="./src/register_cs_mgt.vhd">
 <branches active="60" hits="60" percent="100.00"/>
@@ -2297,101 +2297,101 @@ byFile="1">
 <ielem ln="188" st="1" true="228" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="266" st="1" true="540" false="700"/>
-<ielem ln="269" st="1" true="700" false="0"/>
+<ielem ln="262" st="1" true="540" false="700"/>
+<ielem ln="265" st="1" true="700" false="0"/>
 </if>
 <if hasElse="1" active="2" hits="2" percent="100.00">
-<ielem ln="270" st="1" true="6" false="694"/>
-<ielem ln="279" st="1" true="694" false="0"/>
+<ielem ln="266" st="1" true="6" false="694"/>
+<ielem ln="275" st="1" true="694" false="0"/>
 </if>
 <if hasElse="1" active="2" hits="1" percent="50.00">
-<ielem ln="271" st="1" true="0" false="6"/>
-<ielem ln="274" st="1" true="6" false="0"/>
+<ielem ln="267" st="1" true="0" false="6"/>
+<ielem ln="270" st="1" true="6" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="295" st="1" true="360" false="602"/>
-<ielem ln="298" st="1" true="602" false="0"/>
+<ielem ln="291" st="1" true="360" false="602"/>
+<ielem ln="294" st="1" true="602" false="0"/>
 </if>
 <if hasElse="1" active="3" hits="3" percent="100.00">
-<ielem ln="299" st="1" true="190" false="412"/>
-<ielem ln="302" st="1" true="365" false="47"/>
-<ielem ln="305" st="1" true="47" false="0"/>
+<ielem ln="295" st="1" true="190" false="412"/>
+<ielem ln="298" st="1" true="365" false="47"/>
+<ielem ln="301" st="1" true="47" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="321" st="1" true="540" false="699"/>
-<ielem ln="324" st="1" true="699" false="0"/>
+<ielem ln="317" st="1" true="540" false="699"/>
+<ielem ln="320" st="1" true="699" false="0"/>
 </if>
 <if hasElse="1" active="2" hits="2" percent="100.00">
-<ielem ln="325" st="1" true="5" false="694"/>
-<ielem ln="328" st="1" true="694" false="0"/>
+<ielem ln="321" st="1" true="5" false="694"/>
+<ielem ln="324" st="1" true="694" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="343" st="1" true="360" false="2043"/>
-<ielem ln="347" st="1" true="2043" false="0"/>
+<ielem ln="339" st="1" true="360" false="2043"/>
+<ielem ln="343" st="1" true="2043" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="348" st="1" true="107" false="1936"/>
-<ielem ln="348" st="1" true="1936" false="0"/>
+<ielem ln="344" st="1" true="107" false="1936"/>
+<ielem ln="344" st="1" true="1936" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="365" st="1" true="1080" false="13874940"/>
-<ielem ln="368" st="1" true="13874940" false="0"/>
+<ielem ln="361" st="1" true="1080" false="13874940"/>
+<ielem ln="364" st="1" true="13874940" false="0"/>
 </if>
 <if hasElse="1" active="3" hits="3" percent="100.00">
-<ielem ln="369" st="1" true="40964" false="13833976"/>
-<ielem ln="372" st="1" true="1386750" false="12447226"/>
-<ielem ln="375" st="1" true="12447226" false="0"/>
+<ielem ln="365" st="1" true="40964" false="13833976"/>
+<ielem ln="368" st="1" true="1386750" false="12447226"/>
+<ielem ln="371" st="1" true="12447226" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="393" st="1" true="360" false="13874940"/>
-<ielem ln="396" st="1" true="13874940" false="0"/>
+<ielem ln="389" st="1" true="360" false="13874940"/>
+<ielem ln="392" st="1" true="13874940" false="0"/>
 </if>
 <if hasElse="0" active="4" hits="4" percent="100.00">
-<ielem ln="397" st="1" true="40964" false="13833976"/>
-<ielem ln="400" st="1" true="40508" false="13793468"/>
-<ielem ln="403" st="1" true="1346242" false="12447226"/>
-<ielem ln="397" st="1" true="12447226" false="0"/>
+<ielem ln="393" st="1" true="40964" false="13833976"/>
+<ielem ln="396" st="1" true="40508" false="13793468"/>
+<ielem ln="399" st="1" true="1346242" false="12447226"/>
+<ielem ln="393" st="1" true="12447226" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="420" st="1" true="360" false="13874938"/>
-<ielem ln="424" st="1" true="13874938" false="0"/>
+<ielem ln="416" st="1" true="360" false="13874938"/>
+<ielem ln="420" st="1" true="13874938" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="425" st="1" true="40580" false="13834358"/>
-<ielem ln="425" st="1" true="13834358" false="0"/>
+<ielem ln="421" st="1" true="40580" false="13834358"/>
+<ielem ln="421" st="1" true="13834358" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="483" st="1" true="540" false="135976"/>
-<ielem ln="486" st="1" true="135976" false="0"/>
+<ielem ln="479" st="1" true="540" false="135976"/>
+<ielem ln="482" st="1" true="135976" false="0"/>
 </if>
 <if hasElse="1" active="2" hits="2" percent="100.00">
-<ielem ln="487" st="1" true="109794" false="26182"/>
-<ielem ln="490" st="1" true="26182" false="0"/>
+<ielem ln="483" st="1" true="109794" false="26182"/>
+<ielem ln="486" st="1" true="26182" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="508" st="1" true="360" false="13874940"/>
-<ielem ln="511" st="1" true="13874940" false="0"/>
+<ielem ln="504" st="1" true="360" false="13874940"/>
+<ielem ln="507" st="1" true="13874940" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="512" st="1" true="40616" false="13834324"/>
-<ielem ln="512" st="1" true="13834324" false="0"/>
+<ielem ln="508" st="1" true="40616" false="13834324"/>
+<ielem ln="508" st="1" true="13834324" false="0"/>
 </if>
 <if hasElse="0" active="5" hits="4" percent="80.00">
-<ielem ln="514" st="1" true="3730" false="36886"/>
-<ielem ln="517" st="1" true="28" false="36858"/>
-<ielem ln="520" st="1" true="192" false="36666"/>
-<ielem ln="523" st="1" true="36666" false="0"/>
-<ielem ln="514" st="1" true="0" false="0"/>
+<ielem ln="510" st="1" true="3730" false="36886"/>
+<ielem ln="513" st="1" true="28" false="36858"/>
+<ielem ln="516" st="1" true="192" false="36666"/>
+<ielem ln="519" st="1" true="36666" false="0"/>
+<ielem ln="510" st="1" true="0" false="0"/>
 </if>
 <fec_conditions active="5" hits="4" percent="80.00"/>
-<condition ln="514" st="1" active="3" hits="3" percent="100.00">
+<condition ln="510" st="1" active="3" hits="3" percent="100.00">
 <table rows="3" cols="0" unknown="0">
 <row j="1" hits_0="176" hits_1="20" body="(i_saofm = c_DST_SAOFM_OFFSET)" input_patterns_0="not ((i_saofm = c_DST_SAOFM_TEST) and (i_tst_pat_end = &apos;1&apos;))" input_patterns_1="-"/>
 <row j="2" hits_0="176" hits_1="8" body="(i_saofm = c_DST_SAOFM_TEST)" input_patterns_0="not (i_saofm = c_DST_SAOFM_OFFSET)" input_patterns_1="not (i_saofm = c_DST_SAOFM_OFFSET) &amp;&amp; (i_tst_pat_end = &apos;1&apos;)"/>
 <row j="3" hits_0="4" hits_1="8" body="(i_tst_pat_end = &apos;1&apos;)" input_patterns_0="not (i_saofm = c_DST_SAOFM_OFFSET) &amp;&amp; (i_saofm = c_DST_SAOFM_TEST)" input_patterns_1="not (i_saofm = c_DST_SAOFM_OFFSET) &amp;&amp; (i_saofm = c_DST_SAOFM_TEST)"/>
 </table>
 </condition>
-<condition ln="520" st="1" active="2" hits="1" percent="50.00">
+<condition ln="516" st="1" active="2" hits="1" percent="50.00">
 <table rows="2" cols="0" unknown="0">
 <row j="1" hits_0="176" hits_1="4" body="(i_saofm = c_DST_SAOFM_TEST)" input_patterns_0="-" input_patterns_1="(i_tst_pat_end = &apos;0&apos;)"/>
 <row j="2" hits_0="0" hits_1="4" body="(i_tst_pat_end = &apos;0&apos;)" input_patterns_0="(i_saofm = c_DST_SAOFM_TEST)" input_patterns_1="(i_saofm = c_DST_SAOFM_TEST)"/>
@@ -2412,47 +2412,47 @@ byFile="1">
 <stmt ln="181" st="1" hits="360"/>
 <stmt ln="186" st="1" hits="59"/>
 <stmt ln="189" st="1" hits="228"/>
-<stmt ln="267" st="1" hits="540"/>
-<stmt ln="272" st="1" hits="0"/>
-<stmt ln="275" st="1" hits="6"/>
-<stmt ln="280" st="1" hits="694"/>
-<stmt ln="296" st="1" hits="360"/>
-<stmt ln="300" st="1" hits="190"/>
-<stmt ln="303" st="1" hits="365"/>
-<stmt ln="306" st="1" hits="47"/>
-<stmt ln="322" st="1" hits="540"/>
-<stmt ln="326" st="1" hits="5"/>
-<stmt ln="329" st="1" hits="694"/>
-<stmt ln="344" st="1" hits="360"/>
-<stmt ln="345" st="1" hits="360"/>
-<stmt ln="349" st="1" hits="107"/>
-<stmt ln="350" st="1" hits="107"/>
-<stmt ln="366" st="1" hits="1080"/>
-<stmt ln="370" st="1" hits="40964"/>
-<stmt ln="373" st="1" hits="1386750"/>
-<stmt ln="376" st="1" hits="12447226"/>
-<stmt ln="394" st="1" hits="360"/>
-<stmt ln="398" st="1" hits="40964"/>
-<stmt ln="401" st="1" hits="40508"/>
-<stmt ln="404" st="1" hits="1346242"/>
-<stmt ln="412" st="1" hits="1388096"/>
-<stmt ln="421" st="1" hits="360"/>
-<stmt ln="422" st="1" hits="360"/>
-<stmt ln="426" st="1" hits="40580"/>
-<stmt ln="427" st="1" hits="40580"/>
-<stmt ln="470" st="1" hits="1388276"/>
-<stmt ln="471" st="1" hits="180"/>
-<stmt ln="472" st="1" hits="180"/>
-<stmt ln="473" st="1" hits="180"/>
-<stmt ln="484" st="1" hits="540"/>
-<stmt ln="488" st="1" hits="109794"/>
-<stmt ln="491" st="1" hits="26182"/>
-<stmt ln="509" st="1" hits="360"/>
-<stmt ln="515" st="1" hits="3730"/>
-<stmt ln="518" st="1" hits="28"/>
-<stmt ln="521" st="1" hits="192"/>
-<stmt ln="524" st="1" hits="36666"/>
-<stmt ln="539" st="1" hits="640959"/>
+<stmt ln="263" st="1" hits="540"/>
+<stmt ln="268" st="1" hits="0"/>
+<stmt ln="271" st="1" hits="6"/>
+<stmt ln="276" st="1" hits="694"/>
+<stmt ln="292" st="1" hits="360"/>
+<stmt ln="296" st="1" hits="190"/>
+<stmt ln="299" st="1" hits="365"/>
+<stmt ln="302" st="1" hits="47"/>
+<stmt ln="318" st="1" hits="540"/>
+<stmt ln="322" st="1" hits="5"/>
+<stmt ln="325" st="1" hits="694"/>
+<stmt ln="340" st="1" hits="360"/>
+<stmt ln="341" st="1" hits="360"/>
+<stmt ln="345" st="1" hits="107"/>
+<stmt ln="346" st="1" hits="107"/>
+<stmt ln="362" st="1" hits="1080"/>
+<stmt ln="366" st="1" hits="40964"/>
+<stmt ln="369" st="1" hits="1386750"/>
+<stmt ln="372" st="1" hits="12447226"/>
+<stmt ln="390" st="1" hits="360"/>
+<stmt ln="394" st="1" hits="40964"/>
+<stmt ln="397" st="1" hits="40508"/>
+<stmt ln="400" st="1" hits="1346242"/>
+<stmt ln="408" st="1" hits="1388096"/>
+<stmt ln="417" st="1" hits="360"/>
+<stmt ln="418" st="1" hits="360"/>
+<stmt ln="422" st="1" hits="40580"/>
+<stmt ln="423" st="1" hits="40580"/>
+<stmt ln="466" st="1" hits="1388276"/>
+<stmt ln="467" st="1" hits="180"/>
+<stmt ln="468" st="1" hits="180"/>
+<stmt ln="469" st="1" hits="180"/>
+<stmt ln="480" st="1" hits="540"/>
+<stmt ln="484" st="1" hits="109794"/>
+<stmt ln="487" st="1" hits="26182"/>
+<stmt ln="505" st="1" hits="360"/>
+<stmt ln="511" st="1" hits="3730"/>
+<stmt ln="514" st="1" hits="28"/>
+<stmt ln="517" st="1" hits="192"/>
+<stmt ln="520" st="1" hits="36666"/>
+<stmt ln="535" st="1" hits="640959"/>
 </fileData>
 <fileData path="./src/sqm_dac_mgt.vhd">
 <branches active="27" hits="27" percent="100.00"/>
@@ -2586,128 +2586,128 @@ byFile="1">
 <ielem ln="212" st="1" true="263" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="290" st="1" true="540" false="748"/>
-<ielem ln="293" st="1" true="748" false="0"/>
+<ielem ln="286" st="1" true="540" false="748"/>
+<ielem ln="289" st="1" true="748" false="0"/>
 </if>
 <if hasElse="1" active="2" hits="2" percent="100.00">
-<ielem ln="294" st="1" true="10" false="738"/>
-<ielem ln="303" st="1" true="738" false="0"/>
+<ielem ln="290" st="1" true="10" false="738"/>
+<ielem ln="299" st="1" true="738" false="0"/>
 </if>
 <if hasElse="1" active="2" hits="1" percent="50.00">
-<ielem ln="295" st="1" true="0" false="10"/>
-<ielem ln="298" st="1" true="10" false="0"/>
+<ielem ln="291" st="1" true="0" false="10"/>
+<ielem ln="294" st="1" true="10" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="319" st="1" true="360" false="612"/>
-<ielem ln="322" st="1" true="612" false="0"/>
+<ielem ln="315" st="1" true="360" false="612"/>
+<ielem ln="318" st="1" true="612" false="0"/>
 </if>
 <if hasElse="1" active="3" hits="3" percent="100.00">
-<ielem ln="323" st="1" true="195" false="417"/>
-<ielem ln="326" st="1" true="375" false="42"/>
-<ielem ln="329" st="1" true="42" false="0"/>
+<ielem ln="319" st="1" true="195" false="417"/>
+<ielem ln="322" st="1" true="375" false="42"/>
+<ielem ln="325" st="1" true="42" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="345" st="1" true="540" false="747"/>
-<ielem ln="348" st="1" true="747" false="0"/>
+<ielem ln="341" st="1" true="540" false="747"/>
+<ielem ln="344" st="1" true="747" false="0"/>
 </if>
 <if hasElse="1" active="2" hits="2" percent="100.00">
-<ielem ln="349" st="1" true="10" false="737"/>
-<ielem ln="352" st="1" true="737" false="0"/>
+<ielem ln="345" st="1" true="10" false="737"/>
+<ielem ln="348" st="1" true="737" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="367" st="1" true="360" false="2358"/>
-<ielem ln="372" st="1" true="2358" false="0"/>
+<ielem ln="363" st="1" true="360" false="2358"/>
+<ielem ln="368" st="1" true="2358" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="373" st="1" true="142" false="2216"/>
-<ielem ln="373" st="1" true="2216" false="0"/>
+<ielem ln="369" st="1" true="142" false="2216"/>
+<ielem ln="369" st="1" true="2216" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="390" st="1" true="1080" false="13874940"/>
-<ielem ln="393" st="1" true="13874940" false="0"/>
+<ielem ln="386" st="1" true="1080" false="13874940"/>
+<ielem ln="389" st="1" true="13874940" false="0"/>
 </if>
 <if hasElse="1" active="3" hits="3" percent="100.00">
-<ielem ln="394" st="1" true="40964" false="13833976"/>
-<ielem ln="397" st="1" true="1387068" false="12446908"/>
-<ielem ln="400" st="1" true="12446908" false="0"/>
+<ielem ln="390" st="1" true="40964" false="13833976"/>
+<ielem ln="393" st="1" true="1387068" false="12446908"/>
+<ielem ln="396" st="1" true="12446908" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="418" st="1" true="360" false="13874940"/>
-<ielem ln="421" st="1" true="13874940" false="0"/>
+<ielem ln="414" st="1" true="360" false="13874940"/>
+<ielem ln="417" st="1" true="13874940" false="0"/>
 </if>
 <if hasElse="0" active="4" hits="4" percent="100.00">
-<ielem ln="422" st="1" true="40964" false="13833976"/>
-<ielem ln="425" st="1" true="40616" false="13793360"/>
-<ielem ln="428" st="1" true="1346452" false="12446908"/>
-<ielem ln="422" st="1" true="12446908" false="0"/>
+<ielem ln="418" st="1" true="40964" false="13833976"/>
+<ielem ln="421" st="1" true="40616" false="13793360"/>
+<ielem ln="424" st="1" true="1346452" false="12446908"/>
+<ielem ln="418" st="1" true="12446908" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="445" st="1" true="360" false="13874936"/>
-<ielem ln="451" st="1" true="13874936" false="0"/>
+<ielem ln="441" st="1" true="360" false="13874936"/>
+<ielem ln="447" st="1" true="13874936" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="454" st="1" true="40616" false="13834320"/>
-<ielem ln="454" st="1" true="13834320" false="0"/>
+<ielem ln="450" st="1" true="40616" false="13834320"/>
+<ielem ln="450" st="1" true="13834320" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="548" st="1" true="540" false="13874929"/>
-<ielem ln="551" st="1" true="13874929" false="0"/>
+<ielem ln="544" st="1" true="540" false="13874929"/>
+<ielem ln="547" st="1" true="13874929" false="0"/>
 </if>
 <if hasElse="1" active="2" hits="2" percent="100.00">
-<ielem ln="552" st="1" true="136" false="13874793"/>
-<ielem ln="555" st="1" true="13874793" false="0"/>
+<ielem ln="548" st="1" true="136" false="13874793"/>
+<ielem ln="551" st="1" true="13874793" false="0"/>
 </if>
 <if hasElse="0" active="1" hits="1" percent="100.00">
-<ielem ln="570" st="1" true="2774600" false="0"/>
+<ielem ln="566" st="1" true="2774600" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="571" st="1" true="1387218" false="1387382"/>
-<ielem ln="571" st="1" true="1387382" false="0"/>
+<ielem ln="567" st="1" true="1387218" false="1387382"/>
+<ielem ln="567" st="1" true="1387382" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="582" st="1" true="360" false="1416580"/>
-<ielem ln="585" st="1" true="1416580" false="0"/>
+<ielem ln="578" st="1" true="360" false="1416580"/>
+<ielem ln="581" st="1" true="1416580" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="606" st="1" true="540" false="13874937"/>
-<ielem ln="609" st="1" true="13874937" false="0"/>
+<ielem ln="602" st="1" true="540" false="13874937"/>
+<ielem ln="605" st="1" true="13874937" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="610" st="1" true="40616" false="13834321"/>
-<ielem ln="610" st="1" true="13834321" false="0"/>
+<ielem ln="606" st="1" true="40616" false="13834321"/>
+<ielem ln="606" st="1" true="13834321" false="0"/>
 </if>
 <if hasElse="1" active="2" hits="2" percent="100.00">
-<ielem ln="611" st="1" true="1792" false="38824"/>
-<ielem ln="614" st="1" true="38824" false="0"/>
+<ielem ln="607" st="1" true="1792" false="38824"/>
+<ielem ln="610" st="1" true="38824" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="633" st="1" true="540" false="1174197"/>
-<ielem ln="636" st="1" true="1174197" false="0"/>
+<ielem ln="629" st="1" true="540" false="1174197"/>
+<ielem ln="632" st="1" true="1174197" false="0"/>
 </if>
 <if hasElse="0" active="5" hits="4" percent="80.00">
-<ielem ln="637" st="1" true="294986" false="879211"/>
-<ielem ln="640" st="1" true="8945" false="870266"/>
-<ielem ln="643" st="1" true="388" false="869878"/>
-<ielem ln="646" st="1" true="869878" false="0"/>
-<ielem ln="637" st="1" true="0" false="0"/>
+<ielem ln="633" st="1" true="294986" false="879211"/>
+<ielem ln="636" st="1" true="8945" false="870266"/>
+<ielem ln="639" st="1" true="388" false="869878"/>
+<ielem ln="642" st="1" true="869878" false="0"/>
+<ielem ln="633" st="1" true="0" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="660" st="1" true="540" false="5551234"/>
-<ielem ln="665" st="1" true="5551234" false="0"/>
+<ielem ln="656" st="1" true="540" false="5551234"/>
+<ielem ln="661" st="1" true="5551234" false="0"/>
 </if>
 <if hasElse="1" active="2" hits="2" percent="100.00">
-<ielem ln="668" st="1" true="23436" false="5527798"/>
-<ielem ln="671" st="1" true="5527798" false="0"/>
+<ielem ln="664" st="1" true="23436" false="5527798"/>
+<ielem ln="667" st="1" true="5527798" false="0"/>
 </if>
 <fec_conditions active="5" hits="5" percent="100.00"/>
-<condition ln="552" st="1" active="3" hits="3" percent="100.00">
+<condition ln="548" st="1" active="3" hits="3" percent="100.00">
 <table rows="3" cols="0" unknown="0">
 <row j="1" hits_0="180" hits_1="4" body="(smfbm = c_DST_SMFBM_TEST)" input_patterns_0="-" input_patterns_1="(tst_pat_end_sync = &apos;1&apos;) &amp;&amp; (pls_cnt = (&lt;type&gt;)TO_UNSIGNED(c_MEM_RD_DATA_NPER, pls_cnt&apos;LENGTH))"/>
 <row j="2" hits_0="8" hits_1="4" body="(pls_cnt = (&lt;type&gt;)TO_UNSIGNED(c_MEM_RD_DATA_NPER, pls_cnt&apos;LENGTH))" input_patterns_0="(smfbm = c_DST_SMFBM_TEST)" input_patterns_1="(tst_pat_end_sync = &apos;1&apos;) &amp;&amp; (smfbm = c_DST_SMFBM_TEST)"/>
 <row j="3" hits_0="8" hits_1="4" body="(tst_pat_end_sync = &apos;1&apos;)" input_patterns_0="((smfbm = c_DST_SMFBM_TEST) and (pls_cnt = (&lt;type&gt;)TO_UNSIGNED(c_MEM_RD_DATA_NPER, pls_cnt&apos;LENGTH)))" input_patterns_1="((smfbm = c_DST_SMFBM_TEST) and (pls_cnt = (&lt;type&gt;)TO_UNSIGNED(c_MEM_RD_DATA_NPER, pls_cnt&apos;LENGTH)))"/>
 </table>
 </condition>
-<condition ln="668" st="1" active="2" hits="2" percent="100.00">
+<condition ln="664" st="1" active="2" hits="2" percent="100.00">
 <table rows="2" cols="0" unknown="0">
 <row j="1" hits_0="180" hits_1="8" body="(smfbm = c_DST_SMFBM_CLOSE)" input_patterns_0="-" input_patterns_1="(smfmd_sync_r(1) = c_DST_SMFMD_ON)"/>
 <row j="2" hits_0="4" hits_1="8" body="(smfmd_sync_r(1) = c_DST_SMFMD_ON)" input_patterns_0="(smfbm = c_DST_SMFBM_CLOSE)" input_patterns_1="(smfbm = c_DST_SMFBM_CLOSE)"/>
@@ -2731,69 +2731,69 @@ byFile="1">
 <stmt ln="205" st="1" hits="360"/>
 <stmt ln="210" st="1" hits="59"/>
 <stmt ln="213" st="1" hits="263"/>
-<stmt ln="291" st="1" hits="540"/>
-<stmt ln="296" st="1" hits="0"/>
-<stmt ln="299" st="1" hits="10"/>
-<stmt ln="304" st="1" hits="738"/>
-<stmt ln="320" st="1" hits="360"/>
-<stmt ln="324" st="1" hits="195"/>
-<stmt ln="327" st="1" hits="375"/>
-<stmt ln="330" st="1" hits="42"/>
-<stmt ln="346" st="1" hits="540"/>
-<stmt ln="350" st="1" hits="10"/>
-<stmt ln="353" st="1" hits="737"/>
-<stmt ln="368" st="1" hits="360"/>
-<stmt ln="369" st="1" hits="360"/>
-<stmt ln="370" st="1" hits="360"/>
-<stmt ln="374" st="1" hits="142"/>
-<stmt ln="375" st="1" hits="142"/>
-<stmt ln="376" st="1" hits="142"/>
-<stmt ln="391" st="1" hits="1080"/>
-<stmt ln="395" st="1" hits="40964"/>
-<stmt ln="398" st="1" hits="1387068"/>
-<stmt ln="401" st="1" hits="12446908"/>
-<stmt ln="419" st="1" hits="360"/>
-<stmt ln="423" st="1" hits="40964"/>
-<stmt ln="426" st="1" hits="40616"/>
-<stmt ln="429" st="1" hits="1346452"/>
-<stmt ln="437" st="1" hits="1388363"/>
-<stmt ln="446" st="1" hits="360"/>
-<stmt ln="447" st="1" hits="360"/>
-<stmt ln="448" st="1" hits="360"/>
-<stmt ln="449" st="1" hits="360"/>
-<stmt ln="452" st="1" hits="13874936"/>
-<stmt ln="455" st="1" hits="40616"/>
-<stmt ln="456" st="1" hits="40616"/>
-<stmt ln="457" st="1" hits="40616"/>
-<stmt ln="500" st="1" hits="1388543"/>
-<stmt ln="501" st="1" hits="180"/>
-<stmt ln="502" st="1" hits="180"/>
-<stmt ln="503" st="1" hits="180"/>
-<stmt ln="540" st="1" hits="1388543"/>
-<stmt ln="541" st="1" hits="180"/>
-<stmt ln="542" st="1" hits="180"/>
-<stmt ln="549" st="1" hits="540"/>
-<stmt ln="553" st="1" hits="136"/>
-<stmt ln="556" st="1" hits="13874793"/>
-<stmt ln="572" st="1" hits="1387218"/>
-<stmt ln="583" st="1" hits="360"/>
-<stmt ln="586" st="1" hits="1416580"/>
-<stmt ln="607" st="1" hits="540"/>
-<stmt ln="612" st="1" hits="1792"/>
-<stmt ln="615" st="1" hits="38824"/>
-<stmt ln="634" st="1" hits="540"/>
-<stmt ln="638" st="1" hits="294986"/>
-<stmt ln="641" st="1" hits="8945"/>
-<stmt ln="644" st="1" hits="388"/>
-<stmt ln="647" st="1" hits="869878"/>
-<stmt ln="661" st="1" hits="540"/>
-<stmt ln="662" st="1" hits="540"/>
-<stmt ln="663" st="1" hits="540"/>
-<stmt ln="666" st="1" hits="5551234"/>
-<stmt ln="669" st="1" hits="23436"/>
-<stmt ln="672" st="1" hits="5527798"/>
-<stmt ln="676" st="1" hits="5551234"/>
-<stmt ln="682" st="1" hits="1388498"/>
+<stmt ln="287" st="1" hits="540"/>
+<stmt ln="292" st="1" hits="0"/>
+<stmt ln="295" st="1" hits="10"/>
+<stmt ln="300" st="1" hits="738"/>
+<stmt ln="316" st="1" hits="360"/>
+<stmt ln="320" st="1" hits="195"/>
+<stmt ln="323" st="1" hits="375"/>
+<stmt ln="326" st="1" hits="42"/>
+<stmt ln="342" st="1" hits="540"/>
+<stmt ln="346" st="1" hits="10"/>
+<stmt ln="349" st="1" hits="737"/>
+<stmt ln="364" st="1" hits="360"/>
+<stmt ln="365" st="1" hits="360"/>
+<stmt ln="366" st="1" hits="360"/>
+<stmt ln="370" st="1" hits="142"/>
+<stmt ln="371" st="1" hits="142"/>
+<stmt ln="372" st="1" hits="142"/>
+<stmt ln="387" st="1" hits="1080"/>
+<stmt ln="391" st="1" hits="40964"/>
+<stmt ln="394" st="1" hits="1387068"/>
+<stmt ln="397" st="1" hits="12446908"/>
+<stmt ln="415" st="1" hits="360"/>
+<stmt ln="419" st="1" hits="40964"/>
+<stmt ln="422" st="1" hits="40616"/>
+<stmt ln="425" st="1" hits="1346452"/>
+<stmt ln="433" st="1" hits="1388363"/>
+<stmt ln="442" st="1" hits="360"/>
+<stmt ln="443" st="1" hits="360"/>
+<stmt ln="444" st="1" hits="360"/>
+<stmt ln="445" st="1" hits="360"/>
+<stmt ln="448" st="1" hits="13874936"/>
+<stmt ln="451" st="1" hits="40616"/>
+<stmt ln="452" st="1" hits="40616"/>
+<stmt ln="453" st="1" hits="40616"/>
+<stmt ln="496" st="1" hits="1388543"/>
+<stmt ln="497" st="1" hits="180"/>
+<stmt ln="498" st="1" hits="180"/>
+<stmt ln="499" st="1" hits="180"/>
+<stmt ln="536" st="1" hits="1388543"/>
+<stmt ln="537" st="1" hits="180"/>
+<stmt ln="538" st="1" hits="180"/>
+<stmt ln="545" st="1" hits="540"/>
+<stmt ln="549" st="1" hits="136"/>
+<stmt ln="552" st="1" hits="13874793"/>
+<stmt ln="568" st="1" hits="1387218"/>
+<stmt ln="579" st="1" hits="360"/>
+<stmt ln="582" st="1" hits="1416580"/>
+<stmt ln="603" st="1" hits="540"/>
+<stmt ln="608" st="1" hits="1792"/>
+<stmt ln="611" st="1" hits="38824"/>
+<stmt ln="630" st="1" hits="540"/>
+<stmt ln="634" st="1" hits="294986"/>
+<stmt ln="637" st="1" hits="8945"/>
+<stmt ln="640" st="1" hits="388"/>
+<stmt ln="643" st="1" hits="869878"/>
+<stmt ln="657" st="1" hits="540"/>
+<stmt ln="658" st="1" hits="540"/>
+<stmt ln="659" st="1" hits="540"/>
+<stmt ln="662" st="1" hits="5551234"/>
+<stmt ln="665" st="1" hits="23436"/>
+<stmt ln="668" st="1" hits="5527798"/>
+<stmt ln="672" st="1" hits="5551234"/>
+<stmt ln="678" st="1" hits="1388498"/>
 </fileData>
 <fileData path="./src/sqm_spi_mgt.vhd">
 <statements active="3" hits="3" percent="100.00"/>
@@ -2999,114 +2999,82 @@ byFile="1">
 <stmt ln="501" st="1" hits="2775388"/>
 </fileData>
 <fileData path="./src/squid_data_proc.vhd">
-<branches active="53" hits="53" percent="100.00"/>
+<branches active="37" hits="37" percent="100.00"/>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="205" st="1" true="360" false="13873680"/>
-<ielem ln="212" st="1" true="13873680" false="0"/>
+<ielem ln="190" st="1" true="360" false="13873680"/>
+<ielem ln="197" st="1" true="13873680" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="229" st="1" true="360" false="2775168"/>
-<ielem ln="232" st="1" true="2775168" false="0"/>
+<ielem ln="214" st="1" true="360" false="2775168"/>
+<ielem ln="217" st="1" true="2775168" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="233" st="1" true="1387506" false="1387662"/>
-<ielem ln="233" st="1" true="1387662" false="0"/>
+<ielem ln="218" st="1" true="1387506" false="1387662"/>
+<ielem ln="218" st="1" true="1387662" false="0"/>
 </if>
 <if hasElse="0" active="3" hits="3" percent="100.00">
-<ielem ln="234" st="1" true="40960" false="1346546"/>
-<ielem ln="237" st="1" true="1346538" false="8"/>
-<ielem ln="234" st="1" true="8" false="0"/>
-</if>
-<if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="294" st="1" true="360" false="13873496"/>
-<ielem ln="297" st="1" true="13873496" false="0"/>
-</if>
-<if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="298" st="1" true="40956" false="13832540"/>
-<ielem ln="298" st="1" true="13832540" false="0"/>
-</if>
-<if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="353" st="1" true="360" false="13873496"/>
-<ielem ln="356" st="1" true="13873496" false="0"/>
-</if>
-<if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="357" st="1" true="40960" false="13832536"/>
-<ielem ln="357" st="1" true="13832536" false="0"/>
-</if>
-<if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="412" st="1" true="360" false="13873496"/>
-<ielem ln="415" st="1" true="13873496" false="0"/>
-</if>
-<if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="416" st="1" true="40960" false="13832536"/>
-<ielem ln="416" st="1" true="13832536" false="0"/>
-</if>
-<if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="473" st="1" true="360" false="13873496"/>
-<ielem ln="476" st="1" true="13873496" false="0"/>
-</if>
-<if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="477" st="1" true="40960" false="13832536"/>
-<ielem ln="477" st="1" true="13832536" false="0"/>
+<ielem ln="219" st="1" true="40960" false="1346546"/>
+<ielem ln="222" st="1" true="1346538" false="8"/>
+<ielem ln="219" st="1" true="8" false="0"/>
 </if>
 <if hasElse="0" active="1" hits="1" percent="100.00">
-<ielem ln="494" st="1" true="1388289" false="0"/>
+<ielem ln="284" st="1" true="1388289" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="507" st="1" true="540" false="13874036"/>
-<ielem ln="513" st="1" true="13874036" false="0"/>
+<ielem ln="297" st="1" true="540" false="13874036"/>
+<ielem ln="303" st="1" true="13874036" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="518" st="1" true="1387234" false="12486802"/>
-<ielem ln="518" st="1" true="12486802" false="0"/>
+<ielem ln="308" st="1" true="1387234" false="12486802"/>
+<ielem ln="308" st="1" true="12486802" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="544" st="1" true="360" false="13873680"/>
-<ielem ln="549" st="1" true="13873680" false="0"/>
+<ielem ln="334" st="1" true="360" false="13873680"/>
+<ielem ln="339" st="1" true="13873680" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="550" st="1" true="40956" false="13832724"/>
-<ielem ln="550" st="1" true="13832724" false="0"/>
+<ielem ln="340" st="1" true="40956" false="13832724"/>
+<ielem ln="340" st="1" true="13832724" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="555" st="1" true="40960" false="13832720"/>
-<ielem ln="555" st="1" true="13832720" false="0"/>
+<ielem ln="345" st="1" true="40960" false="13832720"/>
+<ielem ln="345" st="1" true="13832720" false="0"/>
 </if>
 <if hasElse="1" active="2" hits="2" percent="100.00">
-<ielem ln="557" st="1" true="20963" false="19997"/>
-<ielem ln="560" st="1" true="19997" false="0"/>
+<ielem ln="347" st="1" true="20963" false="19997"/>
+<ielem ln="350" st="1" true="19997" false="0"/>
 </if>
 <if hasElse="0" active="3" hits="3" percent="100.00">
-<ielem ln="567" st="1" true="6753216" false="7120464"/>
-<ielem ln="570" st="1" true="20927" false="7099537"/>
-<ielem ln="567" st="1" true="7099537" false="0"/>
+<ielem ln="357" st="1" true="6753216" false="7120464"/>
+<ielem ln="360" st="1" true="20927" false="7099537"/>
+<ielem ln="357" st="1" true="7099537" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="585" st="1" true="360" false="519889"/>
-<ielem ln="588" st="1" true="519889" false="0"/>
+<ielem ln="375" st="1" true="360" false="519889"/>
+<ielem ln="378" st="1" true="519889" false="0"/>
 </if>
 <if hasElse="1" active="2" hits="2" percent="100.00">
-<ielem ln="589" st="1" true="518484" false="1405"/>
-<ielem ln="592" st="1" true="1405" false="0"/>
+<ielem ln="379" st="1" true="518484" false="1405"/>
+<ielem ln="382" st="1" true="1405" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="608" st="1" true="360" false="217"/>
-<ielem ln="611" st="1" true="217" false="0"/>
+<ielem ln="398" st="1" true="360" false="217"/>
+<ielem ln="401" st="1" true="217" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="657" st="1" true="540" false="643864"/>
-<ielem ln="660" st="1" true="643864" false="0"/>
+<ielem ln="445" st="1" true="540" false="643864"/>
+<ielem ln="448" st="1" true="643864" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="927" st="1" true="360" false="13873496"/>
-<ielem ln="934" st="1" true="13873496" false="0"/>
+<ielem ln="709" st="1" true="360" false="13873496"/>
+<ielem ln="716" st="1" true="13873496" false="0"/>
 </if>
 <if hasElse="1" active="2" hits="2" percent="100.00">
-<ielem ln="935" st="1" true="217528" false="13655968"/>
-<ielem ln="939" st="1" true="13655968" false="0"/>
+<ielem ln="717" st="1" true="217528" false="13655968"/>
+<ielem ln="721" st="1" true="13655968" false="0"/>
 </if>
 <fec_conditions active="5" hits="5" percent="100.00"/>
-<condition ln="557" st="1" active="5" hits="5" percent="100.00">
+<condition ln="347" st="1" active="5" hits="5" percent="100.00">
 <table rows="5" cols="0" unknown="0">
 <row j="1" hits_0="180" hits_1="32" body="(i_aqmde = c_DST_AQMDE_DUMP)" input_patterns_0="not (i_smfmd = c_DST_SMFMD_ON) &amp;&amp; not (i_aqmde = c_DST_AQMDE_ERRS) &amp;&amp; not (i_aqmde = c_DST_AQMDE_SCIE)" input_patterns_1="(i_sqm_adc_pwdn = &apos;0&apos;)"/>
 <row j="2" hits_0="180" hits_1="20" body="(i_aqmde = c_DST_AQMDE_SCIE)" input_patterns_0="not (i_smfmd = c_DST_SMFMD_ON) &amp;&amp; not (i_aqmde = c_DST_AQMDE_ERRS) &amp;&amp; not (i_aqmde = c_DST_AQMDE_DUMP)" input_patterns_1="(i_sqm_adc_pwdn = &apos;0&apos;) &amp;&amp; not (i_aqmde = c_DST_AQMDE_DUMP)"/>
@@ -3115,102 +3083,146 @@ byFile="1">
 <row j="5" hits_0="8" hits_1="64" body="(i_sqm_adc_pwdn = &apos;0&apos;)" input_patterns_0="((((i_aqmde = c_DST_AQMDE_DUMP) or (i_aqmde = c_DST_AQMDE_SCIE)) or (i_aqmde = c_DST_AQMDE_ERRS)) or (i_smfmd = c_DST_SMFMD_ON))" input_patterns_1="((((i_aqmde = c_DST_AQMDE_DUMP) or (i_aqmde = c_DST_AQMDE_SCIE)) or (i_aqmde = c_DST_AQMDE_ERRS)) or (i_smfmd = c_DST_SMFMD_ON))"/>
 </table>
 </condition>
-<statements active="95" hits="95" percent="100.00"/>
-<stmt ln="206" st="1" hits="360"/>
-<stmt ln="207" st="1" hits="360"/>
-<stmt ln="208" st="1" hits="360"/>
-<stmt ln="209" st="1" hits="360"/>
-<stmt ln="210" st="1" hits="360"/>
-<stmt ln="213" st="1" hits="13873680"/>
-<stmt ln="214" st="1" hits="13873680"/>
-<stmt ln="215" st="1" hits="13873680"/>
-<stmt ln="216" st="1" hits="13873680"/>
-<stmt ln="217" st="1" hits="13873680"/>
-<stmt ln="230" st="1" hits="360"/>
-<stmt ln="235" st="1" hits="40960"/>
-<stmt ln="238" st="1" hits="1346538"/>
-<stmt ln="279" st="1" hits="36168"/>
-<stmt ln="285" st="1" hits="1387570"/>
-<stmt ln="286" st="1" hits="180"/>
-<stmt ln="287" st="1" hits="180"/>
-<stmt ln="288" st="1" hits="180"/>
-<stmt ln="295" st="1" hits="360"/>
-<stmt ln="299" st="1" hits="40956"/>
-<stmt ln="338" st="1" hits="51640"/>
-<stmt ln="344" st="1" hits="1387642"/>
-<stmt ln="345" st="1" hits="180"/>
-<stmt ln="346" st="1" hits="180"/>
-<stmt ln="347" st="1" hits="180"/>
-<stmt ln="354" st="1" hits="360"/>
-<stmt ln="358" st="1" hits="40960"/>
-<stmt ln="397" st="1" hits="43360"/>
-<stmt ln="403" st="1" hits="1387642"/>
-<stmt ln="404" st="1" hits="180"/>
-<stmt ln="405" st="1" hits="180"/>
-<stmt ln="406" st="1" hits="180"/>
-<stmt ln="413" st="1" hits="360"/>
-<stmt ln="417" st="1" hits="40960"/>
-<stmt ln="456" st="1" hits="180"/>
-<stmt ln="457" st="1" hits="393124"/>
-<stmt ln="458" st="1" hits="180"/>
-<stmt ln="464" st="1" hits="1387654"/>
-<stmt ln="465" st="1" hits="180"/>
-<stmt ln="466" st="1" hits="180"/>
-<stmt ln="467" st="1" hits="180"/>
-<stmt ln="474" st="1" hits="360"/>
-<stmt ln="478" st="1" hits="40960"/>
-<stmt ln="495" st="1" hits="1388289"/>
-<stmt ln="496" st="1" hits="1388289"/>
-<stmt ln="497" st="1" hits="1388289"/>
-<stmt ln="508" st="1" hits="540"/>
-<stmt ln="509" st="1" hits="540"/>
-<stmt ln="510" st="1" hits="540"/>
-<stmt ln="511" st="1" hits="540"/>
-<stmt ln="514" st="1" hits="13874036"/>
-<stmt ln="515" st="1" hits="13874036"/>
-<stmt ln="516" st="1" hits="13874036"/>
-<stmt ln="519" st="1" hits="1387234"/>
-<stmt ln="535" st="1" hits="3108"/>
-<stmt ln="536" st="1" hits="1387570"/>
-<stmt ln="545" st="1" hits="360"/>
-<stmt ln="546" st="1" hits="360"/>
-<stmt ln="547" st="1" hits="360"/>
-<stmt ln="551" st="1" hits="40956"/>
-<stmt ln="558" st="1" hits="20963"/>
-<stmt ln="561" st="1" hits="19997"/>
-<stmt ln="568" st="1" hits="6753216"/>
-<stmt ln="571" st="1" hits="20927"/>
-<stmt ln="586" st="1" hits="360"/>
-<stmt ln="590" st="1" hits="518484"/>
-<stmt ln="593" st="1" hits="1405"/>
-<stmt ln="609" st="1" hits="360"/>
-<stmt ln="612" st="1" hits="217"/>
-<stmt ln="658" st="1" hits="540"/>
-<stmt ln="663" st="1" hits="643864"/>
-<stmt ln="700" st="1" hits="644040"/>
-<stmt ln="726" st="1" hits="1387554"/>
-<stmt ln="727" st="1" hits="2775140"/>
-<stmt ln="728" st="1" hits="2775080"/>
-<stmt ln="796" st="1" hits="1387554"/>
-<stmt ln="797" st="1" hits="2775140"/>
-<stmt ln="798" st="1" hits="2774924"/>
-<stmt ln="819" st="1" hits="641196"/>
-<stmt ln="831" st="1" hits="1387406"/>
-<stmt ln="832" st="1" hits="2774812"/>
-<stmt ln="894" st="1" hits="641387"/>
-<stmt ln="909" st="1" hits="518661"/>
-<stmt ln="928" st="1" hits="360"/>
-<stmt ln="929" st="1" hits="360"/>
-<stmt ln="930" st="1" hits="360"/>
-<stmt ln="931" st="1" hits="360"/>
-<stmt ln="932" st="1" hits="360"/>
-<stmt ln="936" st="1" hits="217528"/>
-<stmt ln="937" st="1" hits="217528"/>
-<stmt ln="940" st="1" hits="13655968"/>
-<stmt ln="941" st="1" hits="13655968"/>
-<stmt ln="945" st="1" hits="13873496"/>
-<stmt ln="946" st="1" hits="13873496"/>
-<stmt ln="947" st="1" hits="13873496"/>
+<statements active="73" hits="73" percent="100.00"/>
+<stmt ln="191" st="1" hits="360"/>
+<stmt ln="192" st="1" hits="360"/>
+<stmt ln="193" st="1" hits="360"/>
+<stmt ln="194" st="1" hits="360"/>
+<stmt ln="195" st="1" hits="360"/>
+<stmt ln="198" st="1" hits="13873680"/>
+<stmt ln="199" st="1" hits="13873680"/>
+<stmt ln="200" st="1" hits="13873680"/>
+<stmt ln="201" st="1" hits="13873680"/>
+<stmt ln="202" st="1" hits="13873680"/>
+<stmt ln="215" st="1" hits="360"/>
+<stmt ln="220" st="1" hits="40960"/>
+<stmt ln="223" st="1" hits="1346538"/>
+<stmt ln="236" st="1" hits="1387570"/>
+<stmt ln="237" st="1" hits="1387642"/>
+<stmt ln="238" st="1" hits="1387642"/>
+<stmt ln="239" st="1" hits="1387654"/>
+<stmt ln="244" st="1" hits="2775172"/>
+<stmt ln="245" st="1" hits="2775312"/>
+<stmt ln="246" st="1" hits="2775312"/>
+<stmt ln="247" st="1" hits="2775348"/>
+<stmt ln="285" st="1" hits="1388289"/>
+<stmt ln="286" st="1" hits="1388289"/>
+<stmt ln="287" st="1" hits="1388289"/>
+<stmt ln="298" st="1" hits="540"/>
+<stmt ln="299" st="1" hits="540"/>
+<stmt ln="300" st="1" hits="540"/>
+<stmt ln="301" st="1" hits="540"/>
+<stmt ln="304" st="1" hits="13874036"/>
+<stmt ln="305" st="1" hits="13874036"/>
+<stmt ln="306" st="1" hits="13874036"/>
+<stmt ln="309" st="1" hits="1387234"/>
+<stmt ln="325" st="1" hits="3108"/>
+<stmt ln="326" st="1" hits="1387570"/>
+<stmt ln="335" st="1" hits="360"/>
+<stmt ln="336" st="1" hits="360"/>
+<stmt ln="337" st="1" hits="360"/>
+<stmt ln="341" st="1" hits="40956"/>
+<stmt ln="348" st="1" hits="20963"/>
+<stmt ln="351" st="1" hits="19997"/>
+<stmt ln="358" st="1" hits="6753216"/>
+<stmt ln="361" st="1" hits="20927"/>
+<stmt ln="376" st="1" hits="360"/>
+<stmt ln="380" st="1" hits="518484"/>
+<stmt ln="383" st="1" hits="1405"/>
+<stmt ln="399" st="1" hits="360"/>
+<stmt ln="402" st="1" hits="217"/>
+<stmt ln="446" st="1" hits="540"/>
+<stmt ln="451" st="1" hits="643864"/>
+<stmt ln="486" st="1" hits="644040"/>
+<stmt ln="512" st="1" hits="1387554"/>
+<stmt ln="513" st="1" hits="2775140"/>
+<stmt ln="514" st="1" hits="2775080"/>
+<stmt ln="580" st="1" hits="1387554"/>
+<stmt ln="581" st="1" hits="2775140"/>
+<stmt ln="582" st="1" hits="2774924"/>
+<stmt ln="603" st="1" hits="641196"/>
+<stmt ln="615" st="1" hits="1387406"/>
+<stmt ln="616" st="1" hits="2774812"/>
+<stmt ln="676" st="1" hits="641387"/>
+<stmt ln="691" st="1" hits="518661"/>
+<stmt ln="710" st="1" hits="360"/>
+<stmt ln="711" st="1" hits="360"/>
+<stmt ln="712" st="1" hits="360"/>
+<stmt ln="713" st="1" hits="360"/>
+<stmt ln="714" st="1" hits="360"/>
+<stmt ln="718" st="1" hits="217528"/>
+<stmt ln="719" st="1" hits="217528"/>
+<stmt ln="722" st="1" hits="13655968"/>
+<stmt ln="723" st="1" hits="13655968"/>
+<stmt ln="727" st="1" hits="13873496"/>
+<stmt ln="728" st="1" hits="13873496"/>
+<stmt ln="729" st="1" hits="13873496"/>
+</fileData>
+<fileData path="./src/squid_data_proc_mem.vhd">
+<branches active="16" hits="16" percent="100.00"/>
+<if hasElse="0" active="2" hits="2" percent="100.00">
+<ielem ln="138" st="1" true="360" false="82108"/>
+<ielem ln="141" st="1" true="82108" false="0"/>
+</if>
+<if hasElse="0" active="2" hits="2" percent="100.00">
+<ielem ln="142" st="1" true="40956" false="41152"/>
+<ielem ln="142" st="1" true="41152" false="0"/>
+</if>
+<if hasElse="0" active="2" hits="2" percent="100.00">
+<ielem ln="197" st="1" true="360" false="82116"/>
+<ielem ln="200" st="1" true="82116" false="0"/>
+</if>
+<if hasElse="0" active="2" hits="2" percent="100.00">
+<ielem ln="201" st="1" true="40960" false="41156"/>
+<ielem ln="201" st="1" true="41156" false="0"/>
+</if>
+<if hasElse="0" active="2" hits="2" percent="100.00">
+<ielem ln="256" st="1" true="360" false="82116"/>
+<ielem ln="259" st="1" true="82116" false="0"/>
+</if>
+<if hasElse="0" active="2" hits="2" percent="100.00">
+<ielem ln="260" st="1" true="40960" false="41156"/>
+<ielem ln="260" st="1" true="41156" false="0"/>
+</if>
+<if hasElse="0" active="2" hits="2" percent="100.00">
+<ielem ln="317" st="1" true="360" false="82116"/>
+<ielem ln="320" st="1" true="82116" false="0"/>
+</if>
+<if hasElse="0" active="2" hits="2" percent="100.00">
+<ielem ln="321" st="1" true="40960" false="41156"/>
+<ielem ln="321" st="1" true="41156" false="0"/>
+</if>
+<statements active="30" hits="30" percent="100.00"/>
+<stmt ln="123" st="1" hits="36168"/>
+<stmt ln="129" st="1" hits="1387570"/>
+<stmt ln="130" st="1" hits="180"/>
+<stmt ln="131" st="1" hits="180"/>
+<stmt ln="132" st="1" hits="180"/>
+<stmt ln="139" st="1" hits="360"/>
+<stmt ln="143" st="1" hits="40956"/>
+<stmt ln="182" st="1" hits="51640"/>
+<stmt ln="188" st="1" hits="1387642"/>
+<stmt ln="189" st="1" hits="180"/>
+<stmt ln="190" st="1" hits="180"/>
+<stmt ln="191" st="1" hits="180"/>
+<stmt ln="198" st="1" hits="360"/>
+<stmt ln="202" st="1" hits="40960"/>
+<stmt ln="241" st="1" hits="43360"/>
+<stmt ln="247" st="1" hits="1387642"/>
+<stmt ln="248" st="1" hits="180"/>
+<stmt ln="249" st="1" hits="180"/>
+<stmt ln="250" st="1" hits="180"/>
+<stmt ln="257" st="1" hits="360"/>
+<stmt ln="261" st="1" hits="40960"/>
+<stmt ln="300" st="1" hits="180"/>
+<stmt ln="301" st="1" hits="393124"/>
+<stmt ln="302" st="1" hits="180"/>
+<stmt ln="308" st="1" hits="1387654"/>
+<stmt ln="309" st="1" hits="180"/>
+<stmt ln="310" st="1" hits="180"/>
+<stmt ln="311" st="1" hits="180"/>
+<stmt ln="318" st="1" hits="360"/>
+<stmt ln="322" st="1" hits="40960"/>
 </fileData>
 <fileData path="./src/sts_err_dis_mgt.vhd">
 <branches active="6" hits="6" percent="100.00"/>
@@ -3659,20 +3671,20 @@ byFile="1">
 <ielem ln="316" st="1" true="275" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="366" st="1" true="135" false="6072"/>
-<ielem ln="373" st="1" true="6072" false="0"/>
+<ielem ln="364" st="1" true="135" false="6072"/>
+<ielem ln="371" st="1" true="6072" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="374" st="1" true="443" false="5629"/>
-<ielem ln="374" st="1" true="5629" false="0"/>
+<ielem ln="372" st="1" true="443" false="5629"/>
+<ielem ln="372" st="1" true="5629" false="0"/>
 </if>
 <if hasElse="1" active="2" hits="2" percent="100.00">
-<ielem ln="379" st="1" true="105" false="5967"/>
-<ielem ln="382" st="1" true="5967" false="0"/>
+<ielem ln="377" st="1" true="105" false="5967"/>
+<ielem ln="380" st="1" true="5967" false="0"/>
 </if>
 <if hasElse="1" active="2" hits="2" percent="100.00">
-<ielem ln="390" st="1" true="355" false="5717"/>
-<ielem ln="393" st="1" true="5717" false="0"/>
+<ielem ln="388" st="1" true="355" false="5717"/>
+<ielem ln="391" st="1" true="5717" false="0"/>
 </if>
 <fec_conditions active="10" hits="10" percent="100.00"/>
 <condition ln="149" st="1" active="2" hits="2" percent="100.00">
@@ -3693,13 +3705,13 @@ byFile="1">
 <row j="2" hits_0="5" hits_1="5" body="((&lt;type&gt;)tst_index &gt;= (&lt;type&gt;)tst_index_max)" input_patterns_0="not (tst_region_pos(tst_region_pos&apos;HIGH) = &apos;1&apos;)" input_patterns_1="not (tst_region_pos(tst_region_pos&apos;HIGH) = &apos;1&apos;)"/>
 </table>
 </condition>
-<condition ln="379" st="1" active="2" hits="2" percent="100.00">
+<condition ln="377" st="1" active="2" hits="2" percent="100.00">
 <table rows="2" cols="0" unknown="0">
 <row j="1" hits_0="45" hits_1="4" body="((tst_coef_sel(3) and i_tsten_ena) = &apos;1&apos;)" input_patterns_0="-" input_patterns_1="(tst_index_max = (&lt;type&gt;)TO_UNSIGNED(0, tst_index_max&apos;LENGTH))"/>
 <row j="2" hits_0="5" hits_1="4" body="(tst_index_max = (&lt;type&gt;)TO_UNSIGNED(0, tst_index_max&apos;LENGTH))" input_patterns_0="((tst_coef_sel(3) and i_tsten_ena) = &apos;1&apos;)" input_patterns_1="((tst_coef_sel(3) and i_tsten_ena) = &apos;1&apos;)"/>
 </table>
 </condition>
-<condition ln="390" st="1" active="2" hits="2" percent="100.00">
+<condition ln="388" st="1" active="2" hits="2" percent="100.00">
 <table rows="2" cols="0" unknown="0">
 <row j="1" hits_0="45" hits_1="6" body="(tst_region_pos = (&lt;type&gt;)TO_UNSIGNED(c_TST_RG_POS_MAX_VAL, tst_region_pos&apos;LENGTH))" input_patterns_0="-" input_patterns_1="(tst_index_max = (&lt;type&gt;)TO_UNSIGNED(0, tst_index_max&apos;LENGTH))"/>
 <row j="2" hits_0="5" hits_1="6" body="(tst_index_max = (&lt;type&gt;)TO_UNSIGNED(0, tst_index_max&apos;LENGTH))" input_patterns_0="(tst_region_pos = (&lt;type&gt;)TO_UNSIGNED(c_TST_RG_POS_MAX_VAL, tst_region_pos&apos;LENGTH))" input_patterns_1="(tst_region_pos = (&lt;type&gt;)TO_UNSIGNED(c_TST_RG_POS_MAX_VAL, tst_region_pos&apos;LENGTH))"/>
@@ -3739,18 +3751,18 @@ byFile="1">
 <stmt ln="314" st="1" hits="9966"/>
 <stmt ln="317" st="1" hits="275"/>
 <stmt ln="327" st="1" hits="520"/>
+<stmt ln="365" st="1" hits="135"/>
+<stmt ln="366" st="1" hits="135"/>
 <stmt ln="367" st="1" hits="135"/>
 <stmt ln="368" st="1" hits="135"/>
 <stmt ln="369" st="1" hits="135"/>
-<stmt ln="370" st="1" hits="135"/>
-<stmt ln="371" st="1" hits="135"/>
-<stmt ln="375" st="1" hits="443"/>
-<stmt ln="380" st="1" hits="105"/>
-<stmt ln="383" st="1" hits="5967"/>
-<stmt ln="387" st="1" hits="6072"/>
-<stmt ln="388" st="1" hits="6072"/>
-<stmt ln="391" st="1" hits="355"/>
-<stmt ln="394" st="1" hits="5717"/>
+<stmt ln="373" st="1" hits="443"/>
+<stmt ln="378" st="1" hits="105"/>
+<stmt ln="381" st="1" hits="5967"/>
+<stmt ln="385" st="1" hits="6072"/>
+<stmt ln="386" st="1" hits="6072"/>
+<stmt ln="389" st="1" hits="355"/>
+<stmt ln="392" st="1" hits="5717"/>
 </fileData>
 <fileData path="./src/top_dmx.vhd">
 <statements active="10" hits="10" percent="100.00"/>

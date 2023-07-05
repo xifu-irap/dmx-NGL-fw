@@ -116,30 +116,15 @@ signal   sqm_data_err_rdy_r   : std_logic_vector(c_TOT_NPER-1 downto 0)         
 signal   pixel_pos            : std_logic_vector(            c_PIXEL_POS_S-1 downto 0)                      ; --! Pixel position
 signal   pixel_pos_r          : t_slv_arr(0 to c_TOT_NPER-1)(c_PIXEL_POS_S-1 downto 0)                      ; --! Pixel position register
 
-signal   mem_parma_pp         : std_logic                                                                   ; --! Parameter a(p), TC/HK side: ping-pong buffer bit
-signal   mem_parma_prm        : t_mem(
-                                add(              c_MEM_PARMA_ADD_S-1 downto 0),
-                                data_w(          c_DFLD_PARMA_PIX_S-1 downto 0))                            ; --! Parameter a(p), getting parameter side: memory inputs
+signal   mem_parma_prm_add    : std_logic_vector(c_MEM_PARMA_ADD_S-1  downto 0)                             ; --! Parameter a(p): memory parameter side address
+signal   mem_kiknm_prm_add    : std_logic_vector(c_MEM_KIKNM_ADD_S-1  downto 0)                             ; --! Parameter ki(p)*knorm(p): memory parameter side address
+signal   mem_knorm_prm_add    : std_logic_vector(c_MEM_KNORM_ADD_S-1  downto 0)                             ; --! Parameter knorm(p): memory parameter side address
+signal   mem_smlkv_prm_add    : std_logic_vector(c_MEM_SMLKV_ADD_S-1  downto 0)                             ; --! Parameter Elp(p): memory parameter side address
 
-signal   mem_kiknm_pp         : std_logic                                                                   ; --! Parameter ki(p)*knorm(p), TC/HK side: ping-pong buffer bit
-signal   mem_kiknm_prm        : t_mem(
-                                add(              c_MEM_KIKNM_ADD_S-1 downto 0),
-                                data_w(          c_DFLD_KIKNM_PIX_S-1 downto 0))                            ; --! Parameter ki(p)*knorm(p), getting parameter side: memory inputs
-
-signal   mem_knorm_pp         : std_logic                                                                   ; --! Parameter knorm(p), TC/HK side: ping-pong buffer bit
-signal   mem_knorm_prm        : t_mem(
-                                add(              c_MEM_KNORM_ADD_S-1 downto 0),
-                                data_w(          c_DFLD_KNORM_PIX_S-1 downto 0))                            ; --! Parameter knorm(p), getting parameter side: memory inputs
-
-signal   mem_smlkv_pp         : std_logic                                                                   ; --! Parameter elp(p), TC/HK side: ping-pong buffer bit
-signal   mem_smlkv_prm        : t_mem(
-                                add(              c_MEM_SMLKV_ADD_S-1 downto 0),
-                                data_w(          c_DFLD_SMLKV_PIX_S-1 downto 0))                            ; --! Parameter elp(p), getting parameter side: memory inputs
-
-signal   a_p                  : std_logic_vector(c_DFLD_PARMA_PIX_S-1 downto 0)                             ; --! Parameters a(p)
-signal   ki_knorm_p           : std_logic_vector(c_DFLD_KIKNM_PIX_S-1 downto 0)                             ; --! Parameters ki(p)*knorm(p)
-signal   knorm_p              : std_logic_vector(c_DFLD_KNORM_PIX_S-1 downto 0)                             ; --! Parameters knorm(p)
-signal   elp_p                : std_logic_vector(c_DFLD_SMLKV_PIX_S-1 downto 0)                             ; --! Parameters Elp(p)
+signal   mem_parma_pp_rdy     : std_logic                                                                   ; --! Parameter a(p): ping-pong buffer bit ready ('0' = Inactive, '1' = Active)
+signal   mem_kiknm_pp_rdy     : std_logic                                                                   ; --! Parameter ki(p)*knorm(p): ping-pong buffer bit ready ('0' = Inactive, '1' = Active)
+signal   mem_knorm_pp_rdy     : std_logic                                                                   ; --! Parameter knorm(p): ping-pong buffer bit ready ('0' = Inactive, '1' = Active)
+signal   mem_smlkv_pp_rdy     : std_logic                                                                   ; --! Parameter Elp(p): ping-pong buffer bit ready ('0' = Inactive, '1' = Active)
 
 signal   a_p_aln              : std_logic_vector(c_DFLD_PARMA_PIX_S   downto 0)                             ; --! Parameters a(p)
 signal   ki_knorm_p_aln       : std_logic_vector(c_DFLD_KIKNM_PIX_S   downto 0)                             ; --! Parameters ki(p)*knorm(p)
@@ -246,242 +231,47 @@ begin
    end process P_pixel_pos;
 
    -- ------------------------------------------------------------------------------------------------------
-   --!   Dual port memory for parameters a(p)
-   --    @Req : DRE-DMX-FW-REQ-0180
-   --    @Req : REG_CY_A
+   --!   Memories parameter side address
    -- ------------------------------------------------------------------------------------------------------
-   I_mem_parma_val: entity work.dmem_ecc generic map (
-         g_RAM_TYPE           => c_RAM_TYPE_PRM_STORE , -- integer                                          ; --! Memory type ( 0  = Data transfer,  1  = Parameters storage)
-         g_RAM_ADD_S          => c_MEM_PARMA_ADD_S    , -- integer                                          ; --! Memory address bus size (<= c_RAM_ECC_ADD_S)
-         g_RAM_DATA_S         => c_DFLD_PARMA_PIX_S   , -- integer                                          ; --! Memory data bus size (<= c_RAM_DATA_S)
-         g_RAM_INIT           => c_EP_CMD_DEF_PARMA     -- integer_vector                                     --! Memory content at initialization
-   ) port map (
-         i_a_rst              => i_rst                , -- in     std_logic                                 ; --! Memory port A: registers reset ('0' = Inactive, '1' = Active)
-         i_a_clk              => i_clk                , -- in     std_logic                                 ; --! Memory port A: main clock
-         i_a_clk_shift        => i_clk_90             , -- in     std_logic                                 ; --! Memory port A: 90 degrees shifted clock (used for memory content correction)
+   mem_parma_prm_add <= pixel_pos_r(c_A_P_RDY_POS);
+   mem_kiknm_prm_add <= pixel_pos_r(c_KIKNM_P_RDY_POS);
+   mem_knorm_prm_add <= pixel_pos_r(c_KNORM_P_RDY_POS);
+   mem_smlkv_prm_add <= pixel_pos_r(c_ELP_P_RDY_POS);
 
-         i_a_mem              => i_mem_prc.parma      , -- in     t_mem( add(g_RAM_ADD_S-1 downto 0), ...)  ; --! Memory port A inputs (scrubbing with ping-pong buffer bit for parameters storage)
-         o_a_data_out         => o_mem_prc_data.parma , -- out    slv(g_RAM_DATA_S-1 downto 0)              ; --! Memory port A: data out
-         o_a_pp               => mem_parma_pp         , -- out    std_logic                                 ; --! Memory port A: ping-pong buffer bit for address management
+   -- ------------------------------------------------------------------------------------------------------
+   --!   Ping-pong buffer bit ready
+   -- ------------------------------------------------------------------------------------------------------
+   mem_parma_pp_rdy  <= sqm_data_err_rdy_r(c_A_P_RDY_POS) and sqm_data_err_frst_r(c_A_P_RDY_POS);
+   mem_kiknm_pp_rdy  <= sqm_data_err_rdy_r(c_KIKNM_P_RDY_POS) and sqm_data_err_frst_r(c_KIKNM_P_RDY_POS);
+   mem_knorm_pp_rdy  <= sqm_data_err_rdy_r(c_KNORM_P_RDY_POS) and sqm_data_err_frst_r(c_KNORM_P_RDY_POS);
+   mem_smlkv_pp_rdy  <= sqm_data_err_rdy_r(c_ELP_P_RDY_POS) and sqm_data_err_frst_r(c_ELP_P_RDY_POS);
 
-         o_a_flg_err          => open                 , -- out    std_logic                                 ; --! Memory port A: flag error uncorrectable detected ('0' = No, '1' = Yes)
+   -- ------------------------------------------------------------------------------------------------------
+   --!   Squid Data process parameter memories
+   -- ------------------------------------------------------------------------------------------------------
+   I_squid_data_prc_mem: entity work.squid_data_proc_mem port map (
+         i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+         i_clk                => i_clk                , -- in     std_logic                                 ; --! System Clock
+         i_clk_90             => i_clk_90             , -- in     std_logic                                 ; --! System Clock 90 degrees shift
 
-         i_b_rst              => i_rst                , -- in     std_logic                                 ; --! Memory port B: registers reset ('0' = Inactive, '1' = Active)
-         i_b_clk              => i_clk                , -- in     std_logic                                 ; --! Memory port B: main clock
-         i_b_clk_shift        => i_clk_90             , -- in     std_logic                                 ; --! Memory port B: 90 degrees shifted clock (used for memory content correction)
+         i_mem_prc            => i_mem_prc            , -- in     t_mem_prc                                 ; --! Memory for data squid proc.: memory interface
+         o_mem_prc_data       => o_mem_prc_data       , -- out    t_mem_prc_dta                             ; --! Memory for data squid proc.: data read
 
-         i_b_mem              => mem_parma_prm        , -- in     t_mem( add(g_RAM_ADD_S-1 downto 0), ...)  ; --! Memory port B inputs
-         o_b_data_out         => a_p                  , -- out    slv(g_RAM_DATA_S-1 downto 0)              ; --! Memory port B: data out
+         i_mem_parma_prm_add  => mem_parma_prm_add    , -- in     slv(c_MEM_PARMA_ADD_S-1  downto 0)        ; --! Parameter a(p): memory parameter side address
+         i_mem_kiknm_prm_add  => mem_kiknm_prm_add    , -- in     slv(c_MEM_KIKNM_ADD_S-1  downto 0)        ; --! Parameter ki(p)*knorm(p): memory parameter side address
+         i_mem_knorm_prm_add  => mem_knorm_prm_add    , -- in     slv(c_MEM_KNORM_ADD_S-1  downto 0)        ; --! Parameter knorm(p): memory parameter side address
+         i_mem_smlkv_prm_add  => mem_smlkv_prm_add    , -- in     slv(c_MEM_SMLKV_ADD_S-1  downto 0)        ; --! Parameter Elp(p): memory parameter side address
 
-         o_b_flg_err          => open                   -- out    std_logic                                   --! Memory port B: flag error uncorrectable detected ('0' = No, '1' = Yes)
+         i_mem_parma_pp_rdy   => mem_parma_pp_rdy     , -- in     std_logic                                 ; --! Parameter a(p): ping-pong buffer bit ready ('0' = Inactive, '1' = Active)
+         i_mem_kiknm_pp_rdy   => mem_kiknm_pp_rdy     , -- in     std_logic                                 ; --! Parameter ki(p)*knorm(p): ping-pong buffer bit ready ('0' = Inactive, '1' = Active)
+         i_mem_knorm_pp_rdy   => mem_knorm_pp_rdy     , -- in     std_logic                                 ; --! Parameter knorm(p): ping-pong buffer bit ready ('0' = Inactive, '1' = Active)
+         i_mem_smlkv_pp_rdy   => mem_smlkv_pp_rdy     , -- in     std_logic                                 ; --! Parameter Elp(p): ping-pong buffer bit ready ('0' = Inactive, '1' = Active)
+
+         o_a_p_aln            => a_p_aln              , -- out    slv(c_DFLD_PARMA_PIX_S   downto 0)        ; --! Parameters a(p)
+         o_ki_knorm_p_aln     => ki_knorm_p_aln       , -- out    slv(c_DFLD_KIKNM_PIX_S   downto 0)        ; --! Parameters ki(p)*knorm(p)
+         o_knorm_p_aln        => knorm_p_aln          , -- out    slv(c_DFLD_KNORM_PIX_S   downto 0)        ; --! Parameters knorm(p)
+         o_elp_p_aln          => elp_p_aln              -- out    slv(c_ADC_SMP_AVE_S-1    downto 0)          --! Parameters Elp(p) aligned on E(p,n) bus size
    );
-
-   a_p_aln <= std_logic_vector(resize(unsigned(a_p), a_p_aln'length));
-
-   -- ------------------------------------------------------------------------------------------------------
-   --!   Dual port memory a(p): memory signals management
-   --!      (Getting parameter side)
-   -- ------------------------------------------------------------------------------------------------------
-   mem_parma_prm.add     <= pixel_pos_r(c_A_P_RDY_POS);
-   mem_parma_prm.we      <= '0';
-   mem_parma_prm.cs      <= '1';
-   mem_parma_prm.data_w  <= (others => '0');
-
-   --! Memory a(p), ping-pong buffer bit
-   P_mem_parma_pp : process (i_rst, i_clk)
-   begin
-
-      if i_rst = c_RST_LEV_ACT then
-         mem_parma_prm.pp      <= c_MEM_STR_ADD_PP_DEF;
-
-      elsif rising_edge(i_clk) then
-         if (sqm_data_err_rdy_r(c_A_P_RDY_POS) and sqm_data_err_frst_r(c_A_P_RDY_POS)) = '1' then
-            mem_parma_prm.pp   <= mem_parma_pp;
-
-         end if;
-
-      end if;
-
-   end process P_mem_parma_pp;
-
-   -- ------------------------------------------------------------------------------------------------------
-   --!   Dual port memory for parameters ki(p)*knorm(p)
-   --    @Req : DRE-DMX-FW-REQ-0170
-   --    @Req : REG_CY_KI_KNORM
-   -- ------------------------------------------------------------------------------------------------------
-   I_mem_kiknm_val: entity work.dmem_ecc generic map (
-         g_RAM_TYPE           => c_RAM_TYPE_PRM_STORE , -- integer                                          ; --! Memory type ( 0  = Data transfer,  1  = Parameters storage)
-         g_RAM_ADD_S          => c_MEM_KIKNM_ADD_S    , -- integer                                          ; --! Memory address bus size (<= c_RAM_ECC_ADD_S)
-         g_RAM_DATA_S         => c_DFLD_KIKNM_PIX_S   , -- integer                                          ; --! Memory data bus size (<= c_RAM_DATA_S)
-         g_RAM_INIT           => c_EP_CMD_DEF_KIKNM     -- integer_vector                                     --! Memory content at initialization
-   ) port map (
-         i_a_rst              => i_rst                , -- in     std_logic                                 ; --! Memory port A: registers reset ('0' = Inactive, '1' = Active)
-         i_a_clk              => i_clk                , -- in     std_logic                                 ; --! Memory port A: main clock
-         i_a_clk_shift        => i_clk_90             , -- in     std_logic                                 ; --! Memory port A: 90 degrees shifted clock (used for memory content correction)
-
-         i_a_mem              => i_mem_prc.kiknm      , -- in     t_mem( add(g_RAM_ADD_S-1 downto 0), ...)  ; --! Memory port A inputs (scrubbing with ping-pong buffer bit for parameters storage)
-         o_a_data_out         => o_mem_prc_data.kiknm , -- out    slv(g_RAM_DATA_S-1 downto 0)              ; --! Memory port A: data out
-         o_a_pp               => mem_kiknm_pp         , -- out    std_logic                                 ; --! Memory port A: ping-pong buffer bit for address management
-
-         o_a_flg_err          => open                 , -- out    std_logic                                 ; --! Memory port A: flag error uncorrectable detected ('0' = No, '1' = Yes)
-
-         i_b_rst              => i_rst                , -- in     std_logic                                 ; --! Memory port B: registers reset ('0' = Inactive, '1' = Active)
-         i_b_clk              => i_clk                , -- in     std_logic                                 ; --! Memory port B: main clock
-         i_b_clk_shift        => i_clk_90             , -- in     std_logic                                 ; --! Memory port B: 90 degrees shifted clock (used for memory content correction)
-
-         i_b_mem              => mem_kiknm_prm        , -- in     t_mem( add(g_RAM_ADD_S-1 downto 0), ...)  ; --! Memory port B inputs
-         o_b_data_out         => ki_knorm_p           , -- out    slv(g_RAM_DATA_S-1 downto 0)              ; --! Memory port B: data out
-
-         o_b_flg_err          => open                   -- out    std_logic                                   --! Memory port B: flag error uncorrectable detected ('0' = No, '1' = Yes)
-   );
-
-   ki_knorm_p_aln <= std_logic_vector(resize(unsigned(ki_knorm_p), ki_knorm_p_aln'length));
-
-   -- ------------------------------------------------------------------------------------------------------
-   --!   Dual port memory ki(p)*knorm(p): memory signals management
-   --!      (Getting parameter side)
-   -- ------------------------------------------------------------------------------------------------------
-   mem_kiknm_prm.add     <= pixel_pos_r(c_KIKNM_P_RDY_POS);
-   mem_kiknm_prm.we      <= '0';
-   mem_kiknm_prm.cs      <= '1';
-   mem_kiknm_prm.data_w  <= (others => '0');
-
-   --! Memory ki(p)*knorm(p), ping-pong buffer bit
-   P_mem_kiknm_prm_pp : process (i_rst, i_clk)
-   begin
-
-      if i_rst = c_RST_LEV_ACT then
-         mem_kiknm_prm.pp      <= c_MEM_STR_ADD_PP_DEF;
-
-      elsif rising_edge(i_clk) then
-         if (sqm_data_err_rdy_r(c_KIKNM_P_RDY_POS) and sqm_data_err_frst_r(c_KIKNM_P_RDY_POS)) = '1' then
-            mem_kiknm_prm.pp   <= mem_kiknm_pp;
-
-         end if;
-
-      end if;
-
-   end process P_mem_kiknm_prm_pp;
-
-   -- ------------------------------------------------------------------------------------------------------
-   --!   Dual port memory for parameters knorm(p)
-   --    @Req : DRE-DMX-FW-REQ-0185
-   --    @Req : REG_CY_KNORM
-   -- ------------------------------------------------------------------------------------------------------
-   I_mem_knorm_val: entity work.dmem_ecc generic map (
-         g_RAM_TYPE           => c_RAM_TYPE_PRM_STORE , -- integer                                          ; --! Memory type ( 0  = Data transfer,  1  = Parameters storage)
-         g_RAM_ADD_S          => c_MEM_KNORM_ADD_S    , -- integer                                          ; --! Memory address bus size (<= c_RAM_ECC_ADD_S)
-         g_RAM_DATA_S         => c_DFLD_KNORM_PIX_S   , -- integer                                          ; --! Memory data bus size (<= c_RAM_DATA_S)
-         g_RAM_INIT           => c_EP_CMD_DEF_KNORM     -- integer_vector                                     --! Memory content at initialization
-   ) port map (
-         i_a_rst              => i_rst                , -- in     std_logic                                 ; --! Memory port A: registers reset ('0' = Inactive, '1' = Active)
-         i_a_clk              => i_clk                , -- in     std_logic                                 ; --! Memory port A: main clock
-         i_a_clk_shift        => i_clk_90             , -- in     std_logic                                 ; --! Memory port A: 90 degrees shifted clock (used for memory content correction)
-
-         i_a_mem              => i_mem_prc.knorm      , -- in     t_mem( add(g_RAM_ADD_S-1 downto 0), ...)  ; --! Memory port A inputs (scrubbing with ping-pong buffer bit for parameters storage)
-         o_a_data_out         => o_mem_prc_data.knorm , -- out    slv(g_RAM_DATA_S-1 downto 0)              ; --! Memory port A: data out
-         o_a_pp               => mem_knorm_pp         , -- out    std_logic                                 ; --! Memory port A: ping-pong buffer bit for address management
-
-         o_a_flg_err          => open                 , -- out    std_logic                                 ; --! Memory port A: flag error uncorrectable detected ('0' = No, '1' = Yes)
-
-         i_b_rst              => i_rst                , -- in     std_logic                                 ; --! Memory port B: registers reset ('0' = Inactive, '1' = Active)
-         i_b_clk              => i_clk                , -- in     std_logic                                 ; --! Memory port B: main clock
-         i_b_clk_shift        => i_clk_90             , -- in     std_logic                                 ; --! Memory port B: 90 degrees shifted clock (used for memory content correction)
-
-         i_b_mem              => mem_knorm_prm        , -- in     t_mem( add(g_RAM_ADD_S-1 downto 0), ...)  ; --! Memory port B inputs
-         o_b_data_out         => knorm_p              , -- out    slv(g_RAM_DATA_S-1 downto 0)              ; --! Memory port B: data out
-
-         o_b_flg_err          => open                   -- out    std_logic                                   --! Memory port B: flag error uncorrectable detected ('0' = No, '1' = Yes)
-   );
-
-   knorm_p_aln <= std_logic_vector(resize(unsigned(knorm_p), knorm_p_aln'length));
-
-   -- ------------------------------------------------------------------------------------------------------
-   --!   Dual port memory knorm(p): memory signals management
-   --!      (Getting parameter side)
-   -- ------------------------------------------------------------------------------------------------------
-   mem_knorm_prm.add     <= pixel_pos_r(c_KNORM_P_RDY_POS);
-   mem_knorm_prm.we      <= '0';
-   mem_knorm_prm.cs      <= '1';
-   mem_knorm_prm.data_w  <= (others => '0');
-
-   --! Memory knorm(p), ping-pong buffer bit
-   P_mem_knorm_prm_pp : process (i_rst, i_clk)
-   begin
-
-      if i_rst = c_RST_LEV_ACT then
-         mem_knorm_prm.pp      <= c_MEM_STR_ADD_PP_DEF;
-
-      elsif rising_edge(i_clk) then
-         if (sqm_data_err_rdy_r(c_KNORM_P_RDY_POS) and sqm_data_err_frst_r(c_KNORM_P_RDY_POS)) = '1' then
-            mem_knorm_prm.pp   <= mem_knorm_pp;
-
-         end if;
-
-      end if;
-
-   end process P_mem_knorm_prm_pp;
-
-   -- ------------------------------------------------------------------------------------------------------
-   --!   Dual port memory for parameters Elp(p)
-   --    @Req : DRE-DMX-FW-REQ-0190
-   --    @Req : REG_CY_MUX_SQ_LOCKPOINT_V
-   -- ------------------------------------------------------------------------------------------------------
-   I_mem_smlkv_val: entity work.dmem_ecc generic map (
-         g_RAM_TYPE           => c_RAM_TYPE_PRM_STORE , -- integer                                          ; --! Memory type ( 0  = Data transfer,  1  = Parameters storage)
-         g_RAM_ADD_S          => c_MEM_SMLKV_ADD_S    , -- integer                                          ; --! Memory address bus size (<= c_RAM_ECC_ADD_S)
-         g_RAM_DATA_S         => c_DFLD_SMLKV_PIX_S   , -- integer                                          ; --! Memory data bus size (<= c_RAM_DATA_S)
-         g_RAM_INIT           => c_EP_CMD_DEF_SMLKV     -- integer_vector                                     --! Memory content at initialization
-   ) port map (
-         i_a_rst              => i_rst                , -- in     std_logic                                 ; --! Memory port A: registers reset ('0' = Inactive, '1' = Active)
-         i_a_clk              => i_clk                , -- in     std_logic                                 ; --! Memory port A: main clock
-         i_a_clk_shift        => i_clk_90             , -- in     std_logic                                 ; --! Memory port A: 90 degrees shifted clock (used for memory content correction)
-
-         i_a_mem              => i_mem_prc.smlkv      , -- in     t_mem( add(g_RAM_ADD_S-1 downto 0), ...)  ; --! Memory port A inputs (scrubbing with ping-pong buffer bit for parameters storage)
-         o_a_data_out         => o_mem_prc_data.smlkv , -- out    slv(g_RAM_DATA_S-1 downto 0)              ; --! Memory port A: data out
-         o_a_pp               => mem_smlkv_pp         , -- out    std_logic                                 ; --! Memory port A: ping-pong buffer bit for address management
-
-         o_a_flg_err          => open                 , -- out    std_logic                                 ; --! Memory port A: flag error uncorrectable detected ('0' = No, '1' = Yes)
-
-         i_b_rst              => i_rst                , -- in     std_logic                                 ; --! Memory port B: registers reset ('0' = Inactive, '1' = Active)
-         i_b_clk              => i_clk                , -- in     std_logic                                 ; --! Memory port B: main clock
-         i_b_clk_shift        => i_clk_90             , -- in     std_logic                                 ; --! Memory port B: 90 degrees shifted clock (used for memory content correction)
-
-         i_b_mem              => mem_smlkv_prm        , -- in     t_mem( add(g_RAM_ADD_S-1 downto 0), ...)  ; --! Memory port B inputs
-         o_b_data_out         => elp_p                , -- out    slv(g_RAM_DATA_S-1 downto 0)              ; --! Memory port B: data out
-
-         o_b_flg_err          => open                   -- out    std_logic                                   --! Memory port B: flag error uncorrectable detected ('0' = No, '1' = Yes)
-   );
-
-   elp_p_aln(elp_p_aln'high)                                                         <= '0';
-   elp_p_aln(elp_p_aln'high-1                downto elp_p_aln'length-elp_p'length-1) <= elp_p;
-   elp_p_aln(elp_p_aln'length-elp_p'length-2 downto                               0) <= (others => '0');
-
-   -- ------------------------------------------------------------------------------------------------------
-   --!   Dual port memory Elp(p): memory signals management
-   --!      (Getting parameter side)
-   -- ------------------------------------------------------------------------------------------------------
-   mem_smlkv_prm.add     <= pixel_pos_r(c_ELP_P_RDY_POS);
-   mem_smlkv_prm.we      <= '0';
-   mem_smlkv_prm.cs      <= '1';
-   mem_smlkv_prm.data_w  <= (others => '0');
-
-   --! Memory Elp(p), ping-pong buffer bit
-   P_mem_smlkv_prm_pp : process (i_rst, i_clk)
-   begin
-
-      if i_rst = c_RST_LEV_ACT then
-         mem_smlkv_prm.pp      <= c_MEM_STR_ADD_PP_DEF;
-
-      elsif rising_edge(i_clk) then
-         if (sqm_data_err_rdy_r(c_ELP_P_RDY_POS) and sqm_data_err_frst_r(c_ELP_P_RDY_POS)) = '1' then
-            mem_smlkv_prm.pp   <= mem_smlkv_pp;
-
-         end if;
-
-      end if;
-
-   end process P_mem_smlkv_prm_pp;
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Dual port memory initialization feedback chain accumulators and

@@ -71,6 +71,7 @@ quietly set TB_DIR $3
       ${SRC_DIR}/hk_mgt.vhd               \
       ${SRC_DIR}/adder_acc.vhd            \
       ${SRC_DIR}/squid_adc_mgt.vhd        \
+      ${SRC_DIR}/squid_data_proc_mem.vhd  \
       ${SRC_DIR}/squid_data_proc.vhd      \
       ${SRC_DIR}/sqm_fbk_mgt.vhd          \
       ${SRC_DIR}/pulse_shaping.vhd        \
@@ -86,6 +87,7 @@ quietly set TB_DIR $3
       ${TB_DIR}/pkg_model.vhd             \
       ${TB_DIR}/pkg_mess.vhd              \
       ${TB_DIR}/pkg_str_fld_assoc.vhd     \
+      ${TB_DIR}/pkg_str_add_assoc.vhd     \
       ${TB_DIR}/pkg_func_cmd_spi.vhd      \
       ${TB_DIR}/pkg_func_cmd_script.vhd   \
       ${TB_DIR}/pkg_func_parser.vhd       \

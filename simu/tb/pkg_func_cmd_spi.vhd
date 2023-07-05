@@ -34,6 +34,7 @@ use     work.pkg_ep_cmd.all;
 use     work.pkg_model.all;
 use     work.pkg_mess.all;
 use     work.pkg_str_fld_assoc.all;
+use     work.pkg_str_add_assoc.all;
 
 library std;
 use std.textio.all;

@@ -38,6 +38,7 @@ verific -vhdl ./src/science_data_mgt.vhd
 verific -vhdl ./src/hk_mgt.vhd
 verific -vhdl ./src/adder_acc.vhd
 verific -vhdl ./src/squid_adc_mgt.vhd
+verific -vhdl ./src/squid_data_proc_mem.vhd
 verific -vhdl ./src/squid_data_proc.vhd
 verific -vhdl ./src/sqm_fbk_mgt.vhd
 verific -vhdl ./src/pulse_shaping.vhd
