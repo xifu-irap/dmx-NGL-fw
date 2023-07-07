@@ -270,11 +270,11 @@ begin
       begin
 
          if i_rst = c_RST_LEV_ACT then
-            err_nin_flg(k)(0) <= c_EP_CMD_ERR_SET;
+            err_nin_flg(k)(err_nin_flg(err_nin_flg'low)'low) <= c_EP_CMD_ERR_SET;
 
          elsif rising_edge(i_clk) then
             if (err_nin_rmv_ena(err_nin_rmv_ena'high) = '1') and (mem_hkeep_add_prm = std_logic_vector(to_unsigned(k, mem_hkeep_add_prm'length))) then
-               err_nin_flg(k)(0) <=  c_EP_CMD_ERR_CLR;
+               err_nin_flg(k)(err_nin_flg(err_nin_flg'low)'low) <=  c_EP_CMD_ERR_CLR;
 
             end if;
 
@@ -315,6 +315,6 @@ begin
 
    end generate G_mux_stage;
 
-   o_hk_err_nin <= err_nin_flg(err_nin_flg'high)(0);
+   o_hk_err_nin <= err_nin_flg(err_nin_flg'high)(err_nin_flg(err_nin_flg'low)'low);
 
 end architecture RTL;

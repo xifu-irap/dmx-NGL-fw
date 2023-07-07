@@ -67,11 +67,11 @@ architecture Behavioral of fpga_system_fpasim_top is
 
 begin
 
-   o_auto_conf_busy  <= '0';
-   o_ready           <= '1';
+   o_auto_conf_busy  <= c_LOW_LEV;
+   o_ready           <= c_HGH_LEV;
 
-   o_dac_real_valid  <= '0';
-   o_dac_real        <= 0.0;
+   o_dac_real_valid  <= c_LOW_LEV;
+   o_dac_real        <= c_ZERO_REAL;
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Clock reference generation

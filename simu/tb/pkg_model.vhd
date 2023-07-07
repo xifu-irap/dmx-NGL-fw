@@ -193,9 +193,34 @@ constant c_E_PLS_SHP          : integer :=  22                                  
 constant c_CE_S               : integer :=  23                                                              ; --! Enable report size
 
    -- ------------------------------------------------------------------------------------------------------
+   --!   Clock check error
+   -- ------------------------------------------------------------------------------------------------------
+constant c_ERR_N_CLK_CHK_S    : integer   :=  5                                                             ; --! Clock check error number array size
+
+constant c_ERR_N_CLK_OSC_EN_L : integer   :=  0                                                             ; --! Clock check error index: Number of clock oscillation error when enable is inactive
+constant c_ERR_N_CLK_PER_H    : integer   :=  1                                                             ; --! Clock check error index: Number of low  level clock period timing error
+constant c_ERR_N_CLK_PER_L    : integer   :=  2                                                             ; --! Clock check error index: Number of high level clock period timing error
+constant c_ERR_N_CLK_ST_EN_L  : integer   :=  3                                                             ; --! Clock check error index: Number of clock state error when enable goes to inactive
+constant c_ERR_N_CLK_ST_EN_H  : integer   :=  4                                                             ; --! Clock check error index: Number of clock state error when enable goes to active
+
+   -- ------------------------------------------------------------------------------------------------------
+   --!   Error category
+   -- ------------------------------------------------------------------------------------------------------
+constant c_ERROR_CAT_NB       : integer   := 8                                                              ; --! Error category number
+
+constant c_ERR_SIM_TIME       : integer   := 0                                                              ; --! Error check index: simulation time
+constant c_ERR_CHK_DIS_R      : integer   := 1                                                              ; --! Error check index: discrete read
+constant c_ERR_CHK_CMD_R      : integer   := 2                                                              ; --! Error check index: command return
+constant c_ERR_CHK_TIME       : integer   := 3                                                              ; --! Error check index: time
+constant c_ERR_CHK_CLK_PRM    : integer   := 4                                                              ; --! Error check index: clocks parameters
+constant c_ERR_CHK_SPI_PRM    : integer   := 5                                                              ; --! Error check index: SPI parameters
+constant c_ERR_CHK_SC_PKT     : integer   := 6                                                              ; --! Error check index: science packet
+constant c_ERR_CHK_PLS_SHP    : integer   := 7                                                              ; --! Error check index: pulse shaping
+
+   -- ------------------------------------------------------------------------------------------------------
    --!   Model generic default values
    -- ------------------------------------------------------------------------------------------------------
-constant c_SIM_TIME_DEF       : time      := 0 us                                                           ; --! Simulation time
+constant c_SIM_TIME_DEF       : time      := 0 ps                                                           ; --! Simulation time
 constant c_SIM_TYPE_DEF       : std_logic := '0'                                                            ; --! Simulation type ('0': No regression, '1': Coupled simulation)
 constant c_TST_NUM_DEF        : string    := "XXXX"                                                         ; --! Test number
 constant c_ERR_SC_DTA_ENA_DEF : std_logic := '1'                                                            ; --! Error science data enable ('0' = No, '1' = Yes)
@@ -226,9 +251,9 @@ constant c_SQM_DAC_VREF_DEF   : real    := 1.0                                  
 constant c_SQA_DAC_VREF_DEF   : real    := 3.3                                                              ; --! SQUID AMP DAC: Voltage reference (Volt) default value
 constant c_SQA_DAC_TS_DEF     : time    := 12 us                                                            ; --! SQUID AMP DAC: Output Voltage Settling time default value
 constant c_SQA_MUX_TPLH_DEF   : time    :=  4 ns                                                            ; --! SQUID AMP MUX: Propagation delay switch in to out default value
-constant c_SQM_VOLT_DEL_DEF   : time    :=  0 ns                                                            ; --! SQUID MUX voltage delay
-constant c_SQA_VOLT_DEL_DEF   : time    :=  0 ns                                                            ; --! SQUID AMP voltage delay
-constant c_SQERR_VOLT_DEL_DEF : time    :=  0 ns                                                            ; --! SQUID Error voltage delay
+constant c_SQM_VOLT_DEL_DEF   : time    :=  0 ps                                                            ; --! SQUID MUX voltage delay
+constant c_SQA_VOLT_DEL_DEF   : time    :=  0 ps                                                            ; --! SQUID AMP voltage delay
+constant c_SQERR_VOLT_DEL_DEF : time    :=  0 ps                                                            ; --! SQUID Error voltage delay
 
 constant c_PLS_SP_CHK_ENA_DEF : std_logic := '0'                                                            ; --! Pulse shaping check enable default value ('0' = Disable, '1' = Enable)
 constant c_PLS_CUT_FREQ_DEF   : integer   := 20000000                                                       ; --! Pulse shaping cut frequency default value (Hz)
@@ -279,9 +304,11 @@ constant c_HK_TEMP_MAX_DEF    : std_logic_vector(c_HK_SPI_DATA_S-1 downto 0):=
    -- ------------------------------------------------------------------------------------------------------
    --!   Model constants
    -- ------------------------------------------------------------------------------------------------------
+constant c_ZERO_TIME          : time      := 0 ps                                                           ; --! Time zero value
+constant c_ZERO_REAL          : real      := 0.0                                                            ; --! Real zero value
+
 constant c_CHK_OSC_DIS        : std_logic :=  '0'                                                           ; --! Check oscillation on clock when enable inactive: disable value
 constant c_CHK_OSC_ENA        : std_logic :=  not(c_CHK_OSC_DIS)                                            ; --! Check oscillation on clock when enable inactive: enable  value
-constant c_ERR_N_CLK_CHK_S    : integer   :=  5                                                             ; --! Clock check error number array size
 constant c_SPI_ERR_CHK_NB     : integer   := 10                                                             ; --! SPI error check number
 
 constant c_CLK_HPER           : time    := c_CLK_REF_PER_DEF/(2 * c_CLK_MULT)                               ; --! System Clock half-period timing

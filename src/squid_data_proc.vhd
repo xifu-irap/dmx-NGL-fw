@@ -282,9 +282,9 @@ begin
    begin
 
       if rising_edge(i_clk) then
-         mem_init_fbk_acc_dfb(to_integer(unsigned(i_init_fbk_pixel_pos)))(0) <= i_init_fbk_acc;
-         mem_init_fbk_acc_fb( to_integer(unsigned(i_init_fbk_pixel_pos)))(0) <= i_init_fbk_acc;
-         mem_smfb0_rl(to_integer(unsigned(i_init_fbk_pixel_pos)))            <= i_sqm_fbk_smfb0;
+         mem_init_fbk_acc_dfb(to_integer(unsigned(i_init_fbk_pixel_pos)))(mem_init_fbk_acc_dfb(mem_init_fbk_acc_dfb'low)'low) <= i_init_fbk_acc;
+         mem_init_fbk_acc_fb( to_integer(unsigned(i_init_fbk_pixel_pos)))(mem_init_fbk_acc_fb( mem_init_fbk_acc_fb'low)'low)  <= i_init_fbk_acc;
+         mem_smfb0_rl(to_integer(unsigned(i_init_fbk_pixel_pos)))                                                             <= i_sqm_fbk_smfb0;
 
       end if;
 
@@ -297,12 +297,12 @@ begin
       if i_rst = c_RST_LEV_ACT then
          init_fbk_acc_dfb <= '1';
          init_fbk_acc_fb  <= '1';
-         smfb0            <= std_logic_vector(to_unsigned(c_EP_CMD_DEF_SMFB0(0), smfb0'length));
-         o_smfb0_rl       <= std_logic_vector(to_unsigned(c_EP_CMD_DEF_SMFB0(0), o_smfb0_rl'length));
+         smfb0            <= std_logic_vector(to_unsigned(c_EP_CMD_DEF_SMFB0(c_COL0), smfb0'length));
+         o_smfb0_rl       <= std_logic_vector(to_unsigned(c_EP_CMD_DEF_SMFB0(c_COL0), o_smfb0_rl'length));
 
       elsif rising_edge(i_clk) then
-         init_fbk_acc_dfb <= mem_init_fbk_acc_dfb(to_integer(unsigned(pixel_pos_r(c_INI_DFB_PN_RDY_POS))))(0);
-         init_fbk_acc_fb  <= mem_init_fbk_acc_fb( to_integer(unsigned(pixel_pos_r(c_INI_FB_PN_RDY_POS ))))(0);
+         init_fbk_acc_dfb <= mem_init_fbk_acc_dfb(to_integer(unsigned(pixel_pos_r(c_INI_DFB_PN_RDY_POS))))(mem_init_fbk_acc_dfb(mem_init_fbk_acc_dfb'low)'low);
+         init_fbk_acc_fb  <= mem_init_fbk_acc_fb( to_integer(unsigned(pixel_pos_r(c_INI_FB_PN_RDY_POS ))))(mem_init_fbk_acc_fb( mem_init_fbk_acc_fb'low)'low);
          smfb0            <= mem_smfb0_rl(        to_integer(unsigned(pixel_pos_r(c_FB_PN_RDY_POS))));
 
          if sqm_data_err_rdy_r(c_FB_PNP1_RDY_POS-1) = '1' then

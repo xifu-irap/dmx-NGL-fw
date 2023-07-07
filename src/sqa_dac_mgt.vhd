@@ -69,6 +69,10 @@ constant c_SPI_SER_WD_S_V_S   : integer := log2_ceil(c_SQA_SPI_SER_WD_S+1)      
 constant c_SQA_SPI_SER_WD_S_V : std_logic_vector(c_SPI_SER_WD_S_V_S-1 downto 0) :=
                                 std_logic_vector(to_unsigned(c_SQA_SPI_SER_WD_S, c_SPI_SER_WD_S_V_S))       ; --! SQUID AMP DAC SPI: Serial word size vector
 
+constant c_SAODD_LIM0         : integer:= 0                                                                 ; --! SQUID AMP offset DAC delay limits: bit 0
+constant c_SAODD_LIM1         : integer:= 1                                                                 ; --! SQUID AMP offset DAC delay limits: bit 1
+constant c_SAODD_LIM2         : integer:= 2                                                                 ; --! SQUID AMP offset DAC delay limits: bit 2
+
 signal   rst_sqm_adc_dac_pad  : std_logic                                                                   ; --! Reset for SQUID ADC/DAC pads, de-assertion on system clock
 
 signal   sync_rs_sys          : std_logic                                                                   ; --! Pixel sequence synchronization, synchronized on System Clock register (System clock)
@@ -224,26 +228,26 @@ begin
          end if;
 
          if unsigned(saodd_r(saodd_r'high)) >= to_unsigned(2*c_PLS_RW_CNT_NB_VAL-c_PLS_RW_CNT_INIT-1, c_DFLD_SAODD_COL_S) then
-            saodd_lim(0) <= '1';
+            saodd_lim(c_SAODD_LIM0) <= '1';
 
          else
-            saodd_lim(0) <= '0';
+            saodd_lim(c_SAODD_LIM0) <= '0';
 
          end if;
 
          if unsigned(saodd_r(saodd_r'high)) >= to_unsigned(c_PLS_RW_CNT_NB_VAL-c_PLS_RW_CNT_INIT-1, c_DFLD_SAODD_COL_S) then
-            saodd_lim(1) <= '1';
+            saodd_lim(c_SAODD_LIM1) <= '1';
 
          else
-            saodd_lim(1) <= '0';
+            saodd_lim(c_SAODD_LIM1) <= '0';
 
          end if;
 
          if unsigned(saodd_r(saodd_r'high)) > to_unsigned(c_PLS_RW_CNT_MAX_VAL, c_DFLD_SAODD_COL_S) then
-            saodd_lim(2) <= '1';
+            saodd_lim(c_SAODD_LIM2) <= '1';
 
          else
-            saodd_lim(2) <= '0';
+            saodd_lim(c_SAODD_LIM2) <= '0';
 
          end if;
 
@@ -264,10 +268,10 @@ begin
          pls_rw_cnt_init      <= std_logic_vector(unsigned(to_signed(c_PLS_RW_CNT_INIT, pls_rw_cnt_init'length)));
 
       elsif rising_edge(i_clk_sqm_adc_dac) then
-         if saodd_lim(0) = '1' then
+         if saodd_lim(c_SAODD_LIM0) = '1' then
             pls_rw_cnt_init_oft <=  std_logic_vector(to_signed(c_PLS_RW_CNT_INIT-2*c_PLS_RW_CNT_NB_VAL, pls_rw_cnt_init_oft'length));
 
-         elsif saodd_lim(1) = '1' then
+         elsif saodd_lim(c_SAODD_LIM1) = '1' then
             pls_rw_cnt_init_oft <=  std_logic_vector(to_signed(c_PLS_RW_CNT_INIT-  c_PLS_RW_CNT_NB_VAL, pls_rw_cnt_init_oft'length));
 
          else
@@ -291,7 +295,7 @@ begin
          sqa_fbk_off_final <= c_EP_CMD_DEF_SAOFC;
 
       elsif rising_edge(i_clk_sqm_adc_dac) then
-         if saodd_lim(2) = '1' then
+         if saodd_lim(c_SAODD_LIM2) = '1' then
             sqa_fbk_off_final <= sqa_fbk_off_sync;
 
          else

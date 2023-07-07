@@ -45,6 +45,8 @@ entity dac_dac5675a_model is generic (
 end entity dac_dac5675a_model;
 
 architecture Behavioral of dac_dac5675a_model is
+constant c_ZERO_REAL          : real      := 0.0                                                            ; --! Real zero value
+
 constant c_DAC_RES            : real      := 2.0 * g_VREF / real(2**(i_d'length))                           ; --! DAC resolution (V)
 
 constant c_TIME_TPD           : time      := 1 ns                                                           ; --! Time: Data Propagation Delay
@@ -76,7 +78,7 @@ begin
    begin
 
       if rst = c_RST_LEV_ACT then
-         dac_data_r  <= (others => (i_d'high => '1',others =>'0'));
+         dac_data_r  <= (others => (dac_data_r(dac_data_r'low)'high => '1',others =>'0'));
 
       elsif rising_edge(i_clk) then
          dac_data_r  <= i_d & dac_data_r(0 to dac_data_r'high-1);
@@ -88,9 +90,9 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   Analog voltage
    -- ------------------------------------------------------------------------------------------------------
-   delta_vout  <= 0.0   when i_sleep = '1' else
+   delta_vout  <= c_ZERO_REAL when i_sleep = '1' else
                   real(to_integer(unsigned(dac_data_r(dac_data_r'high)))) * c_DAC_RES - g_VREF;
 
-   o_delta_vout <= transport delta_vout after c_TIME_TPD when now > c_TIME_TPD else 0.0;
+   o_delta_vout <= transport delta_vout after c_TIME_TPD when now > c_TIME_TPD else c_ZERO_REAL;
 
 end architecture Behavioral;

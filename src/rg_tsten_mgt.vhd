@@ -72,7 +72,7 @@ begin
 
          if i_ep_cmd_rx_ner_ry_r = '1' and i_ep_cmd_rx_rw_r = c_EP_CMD_ADD_RW_W and i_cs_rg_tsten = '1' then
             if i_ep_cmd_rx_wd_dta_r(c_DFLD_TSTEN_INF_POS) = '1' then
-               rg_tsten_lop <= std_logic_vector(to_unsigned(0, rg_tsten_lop'length));
+               rg_tsten_lop <= c_ZERO(rg_tsten_lop'range);
 
             else
                rg_tsten_lop <= i_ep_cmd_rx_wd_dta_r(c_DFLD_TSTEN_LOP_S + c_DFLD_TSTEN_LOP_POS-1 downto c_DFLD_TSTEN_LOP_POS);
@@ -80,9 +80,9 @@ begin
             end if;
 
          elsif i_tst_pat_empty = '1' then
-            rg_tsten_lop <= std_logic_vector(to_unsigned(0, rg_tsten_lop'length));
+            rg_tsten_lop <= c_ZERO(rg_tsten_lop'range);
 
-         elsif rg_tsten_lop /= std_logic_vector(to_unsigned(0, rg_tsten_lop'length)) and i_tst_pat_end_pat = '1' then
+         elsif rg_tsten_lop /= c_ZERO(rg_tsten_lop'range) and i_tst_pat_end_pat = '1' then
             rg_tsten_lop <= std_logic_vector(signed(rg_tsten_lop) - 1);
 
          end if;
@@ -98,7 +98,7 @@ begin
          if i_ep_cmd_rx_ner_ry_r = '1' and i_ep_cmd_rx_rw_r = c_EP_CMD_ADD_RW_W and i_cs_rg_tsten = '1' then
             rg_tsten_ena <= i_ep_cmd_rx_wd_dta_r(c_DFLD_TSTEN_ENA_POS);
 
-         elsif (rg_tsten_lop = std_logic_vector(to_unsigned(0, rg_tsten_lop'length)) and rg_tsten_inf = '0') or i_tst_pat_empty = '1' then
+         elsif (rg_tsten_lop = c_ZERO(rg_tsten_lop'range) and rg_tsten_inf = '0') or i_tst_pat_empty = '1' then
             rg_tsten_ena <= '0';
 
          end if;

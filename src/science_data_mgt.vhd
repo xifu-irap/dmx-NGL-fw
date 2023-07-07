@@ -122,7 +122,7 @@ begin
          if (i_ras_data_valid_rs and not(ras_data_valid_rs_r)) = '1' then
             ras_data_valid_ltc   <= '1';
 
-         elsif (aqmde_sync = c_DST_AQMDE_SCIE) and (sqm_dta_sc_fst_all_r(0) and science_data_tx_ena) = '1' then
+         elsif (aqmde_sync = c_DST_AQMDE_SCIE) and (sqm_dta_sc_fst_all_r(sqm_dta_sc_fst_all_r'low) and science_data_tx_ena) = '1' then
             ras_data_valid_ltc   <= '0';
 
          end if;
@@ -234,7 +234,7 @@ begin
             sqm_data_sc_lsb_mux(k) <= (others => '0');
 
          elsif rising_edge(i_clk) then
-            if sqm_dta_sc_rdy_all_r(0) = '1' then
+            if sqm_dta_sc_rdy_all_r(sqm_dta_sc_rdy_all_r'low) = '1' then
                if sqm_data_sc_sel(k) = '0' then
                   sqm_data_sc_msb_mux(k) <= sqm_data_sc_msb_pv(k)(c_DT_PV-1);
                   sqm_data_sc_lsb_mux(k) <= sqm_data_sc_lsb_pv(k)(c_DT_PV-1);
@@ -378,10 +378,10 @@ begin
 
          elsif  ((aqmde_sync = c_DST_AQMDE_DUMP) and (dmp_cnt_msb_r(dmp_cnt_msb_r'high) and i_sqm_mem_dump_bsy) = '1') or
                (((aqmde_sync = c_DST_AQMDE_SCIE) or  (aqmde_sync = c_DST_AQMDE_ERRS) or
-                ((aqmde_sync = c_DST_AQMDE_TEST) and (tst_pat_end_sync = '0')))      and sqm_dta_sc_fst_all_r(0) = '1') then
+                ((aqmde_sync = c_DST_AQMDE_TEST) and (tst_pat_end_sync = '0')))      and sqm_dta_sc_fst_all_r(sqm_dta_sc_fst_all_r'low) = '1') then
             science_data(science_data'high) <= ctrl_first_pkt;
 
-         elsif  ((aqmde_sync = c_DST_AQMDE_DUMP) and dmp_cnt = std_logic_vector(to_unsigned(0, dmp_cnt'length))) or
+         elsif  ((aqmde_sync = c_DST_AQMDE_DUMP) and dmp_cnt = c_ZERO(dmp_cnt'range)) or
                (((aqmde_sync = c_DST_AQMDE_SCIE) or  (aqmde_sync = c_DST_AQMDE_ERRS) or
                 ((aqmde_sync = c_DST_AQMDE_TEST) and (tst_pat_end_sync = '0')))      and sqm_dta_sc_lst_all_r = '1') then
             science_data(science_data'high) <= c_SC_CTRL_EOD;
@@ -420,7 +420,7 @@ begin
                science_data(2*k+1)  <= sqm_data_sc_msb_mux(k);
                science_data(2*k)    <= sqm_data_sc_lsb_mux(k);
 
-            elsif aqmde_sync = c_DST_AQMDE_TEST and (not(tst_pat_end_sync) and sqm_dta_sc_fst_all_r(0)) = '1' then
+            elsif aqmde_sync = c_DST_AQMDE_TEST and (not(tst_pat_end_sync) and sqm_dta_sc_fst_all_r(sqm_dta_sc_fst_all_r'low)) = '1' then
                science_data(2*k+1)  <= i_test_pattern(2*c_SC_DATA_SER_W_S-1 downto c_SC_DATA_SER_W_S);
                science_data(2*k)    <= i_test_pattern(  c_SC_DATA_SER_W_S-1 downto                 0);
 

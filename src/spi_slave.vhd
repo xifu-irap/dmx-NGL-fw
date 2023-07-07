@@ -231,7 +231,7 @@ begin
       elsif rising_edge(i_clk) then
          if (pls_mosi and data_rx_bit_cnt(data_rx_bit_cnt'high)) = '1' then
             data_rx_wd_ser(data_rx_wd_ser'high downto 1) <= (others => '0');
-            data_rx_wd_ser(0)                            <= i_mosi;
+            data_rx_wd_ser(data_rx_wd_ser'low)           <= i_mosi;
 
          elsif pls_mosi = '1' then
             data_rx_wd_ser <= data_rx_wd_ser(data_rx_wd_ser'high-1 downto 0) & i_mosi;

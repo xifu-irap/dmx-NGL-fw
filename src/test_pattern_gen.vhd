@@ -146,7 +146,7 @@ begin
          if i_tsten_ena = '0' then
             tst_region_pos <= std_logic_vector(to_signed(-c_TST_PAT_COEF_NB, tst_region_pos'length));
 
-         elsif tst_coef_sel(c_TST_INDMAX_CHK_POS) = '1' and tst_index_max = std_logic_vector(to_unsigned(0, tst_index_max'length)) then
+         elsif tst_coef_sel(c_TST_INDMAX_CHK_POS) = '1' and tst_index_max = c_ZERO(tst_index_max'range) then
             tst_region_pos <= std_logic_vector(to_unsigned(c_TST_RG_POS_MAX_VAL, tst_region_pos'length));
 
          elsif ((i_sync_re or sync_re_r) and tst_region_pos(tst_region_pos'high)) = '1' then
@@ -374,7 +374,7 @@ begin
 
          end if;
 
-         if (tst_coef_sel(c_TST_INDMAX_CHK_POS) and i_tsten_ena) = '1' and tst_index_max = std_logic_vector(to_unsigned(0, tst_index_max'length)) then
+         if (tst_coef_sel(c_TST_INDMAX_CHK_POS) and i_tsten_ena) = '1' and tst_index_max = c_ZERO(tst_index_max'range) then
             o_tst_pat_end_pat <= '1';
 
          else
@@ -385,7 +385,7 @@ begin
          o_tst_pat_end        <= loop_nb_minus1(loop_nb_minus1'high) and not(i_tsten_inf);
          o_tst_pat_end_re     <= not(o_tst_pat_end) and loop_nb_minus1(loop_nb_minus1'high) and not(i_tsten_inf);
 
-         if tst_region_pos = std_logic_vector(to_unsigned(c_TST_RG_POS_MAX_VAL, tst_region_pos'length)) and tst_index_max = std_logic_vector(to_unsigned(0, tst_index_max'length)) then
+         if tst_region_pos = std_logic_vector(to_unsigned(c_TST_RG_POS_MAX_VAL, tst_region_pos'length)) and tst_index_max = c_ZERO(tst_index_max'range) then
             o_tst_pat_empty   <= tst_coef_sel(c_TST_INDMAX_CHK_POS);
 
          else

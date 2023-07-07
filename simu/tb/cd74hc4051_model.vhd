@@ -49,6 +49,23 @@ entity cd74hc4051_model is generic (
 end entity cd74hc4051_model;
 
 architecture Behavioral of cd74hc4051_model is
+constant c_ZERO_REAL          : real      := 0.0                                                            ; --! Real zero value
+
+constant c_ADD0               : std_logic_vector(i_s'length-1 downto 0) := 
+                                std_logic_vector(to_unsigned(0, i_s'length))                                ; --! Address 0
+constant c_ADD1               : std_logic_vector(i_s'length-1 downto 0) := 
+                                std_logic_vector(to_unsigned(1, i_s'length))                                ; --! Address 1
+constant c_ADD2               : std_logic_vector(i_s'length-1 downto 0) := 
+                                std_logic_vector(to_unsigned(2, i_s'length))                                ; --! Address 2
+constant c_ADD3               : std_logic_vector(i_s'length-1 downto 0) := 
+                                std_logic_vector(to_unsigned(3, i_s'length))                                ; --! Address 3
+constant c_ADD4               : std_logic_vector(i_s'length-1 downto 0) := 
+                                std_logic_vector(to_unsigned(4, i_s'length))                                ; --! Address 4
+constant c_ADD5               : std_logic_vector(i_s'length-1 downto 0) := 
+                                std_logic_vector(to_unsigned(5, i_s'length))                                ; --! Address 5
+constant c_ADD6               : std_logic_vector(i_s'length-1 downto 0) := 
+                                std_logic_vector(to_unsigned(6, i_s'length))                                ; --! Address 6
+
 signal   vout_no_del          : real                                                                        ; --! Analog voltage without delay
 
 begin
@@ -56,14 +73,14 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   Analog voltage
    -- ------------------------------------------------------------------------------------------------------
-   vout_no_del <= 0.0   when i_e_n = '1'                                        else
-                  i_a0  when i_s = std_logic_vector(to_unsigned(0, i_s'length)) else
-                  i_a1  when i_s = std_logic_vector(to_unsigned(1, i_s'length)) else
-                  i_a2  when i_s = std_logic_vector(to_unsigned(2, i_s'length)) else
-                  i_a3  when i_s = std_logic_vector(to_unsigned(3, i_s'length)) else
-                  i_a4  when i_s = std_logic_vector(to_unsigned(4, i_s'length)) else
-                  i_a5  when i_s = std_logic_vector(to_unsigned(5, i_s'length)) else
-                  i_a6  when i_s = std_logic_vector(to_unsigned(6, i_s'length)) else
+   vout_no_del <= c_ZERO_REAL when i_e_n = '1'  else
+                  i_a0  when i_s = c_ADD0 else
+                  i_a1  when i_s = c_ADD1 else
+                  i_a2  when i_s = c_ADD2 else
+                  i_a3  when i_s = c_ADD3 else
+                  i_a4  when i_s = c_ADD4 else
+                  i_a5  when i_s = c_ADD5 else
+                  i_a6  when i_s = c_ADD6 else
                   i_a7;
 
    o_com    <= transport vout_no_del after g_TIME_TPS;

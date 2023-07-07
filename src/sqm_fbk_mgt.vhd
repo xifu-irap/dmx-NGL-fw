@@ -288,7 +288,7 @@ begin
 
       elsif rising_edge(i_clk) then
          if pls_cnt_div_rem = std_logic_vector(to_signed(-2, pls_cnt_div_rem'length)) then
-            if pixel_pos_div = std_logic_vector(to_signed(-1, pixel_pos_div'length)) then
+            if pixel_pos_div = c_MINUSONE(pixel_pos_div'range) then
                sqm_pixel_pos_init <= std_logic_vector(to_unsigned(c_SQM_PXL_POS_MX_VAL, sqm_pixel_pos_init'length));
 
             else
@@ -316,10 +316,10 @@ begin
          fbk_pixel_pos_init <= std_logic_vector(to_unsigned(c_FBK_PXL_POS_INIT, fbk_pixel_pos_init'length));
 
       elsif rising_edge(i_clk) then
-         if    sqm_pixel_pos_init = std_logic_vector(to_unsigned(0, sqm_pixel_pos_init'length)) then
+         if    sqm_pixel_pos_init = c_ZERO(sqm_pixel_pos_init'range) then
             fbk_pixel_pos_init <= std_logic_vector(to_unsigned(c_SQM_PXL_POS_MX_VAL, fbk_pixel_pos_init'length));
 
-         elsif sqm_pixel_pos_init = std_logic_vector(to_signed(-1, sqm_pixel_pos_init'length)) then
+         elsif sqm_pixel_pos_init = c_MINUSONE(sqm_pixel_pos_init'range) then
             fbk_pixel_pos_init <= std_logic_vector(to_unsigned(c_SQM_PXL_POS_MX_VAL-1, fbk_pixel_pos_init'length));
 
          else
@@ -654,9 +654,9 @@ begin
    begin
 
       if i_rst = c_RST_LEV_ACT then
-         pixel_pos_inc_r   <= (others => std_logic_vector(to_unsigned(0, c_SQM_PXL_POS_S-1)));
+         pixel_pos_inc_r   <= (others => c_ZERO(pixel_pos_inc_r(pixel_pos_inc_r'low)'range));
          o_init_fbk_acc    <= '1';
-         o_sqm_fbk_smfb0   <= std_logic_vector(to_unsigned(c_EP_CMD_DEF_SMFB0(0), o_sqm_fbk_smfb0'length));
+         o_sqm_fbk_smfb0   <= std_logic_vector(to_unsigned(c_EP_CMD_DEF_SMFB0(c_COL0), o_sqm_fbk_smfb0'length));
 
       elsif rising_edge(i_clk) then
          pixel_pos_inc_r   <= pixel_pos_inc & pixel_pos_inc_r(0 to pixel_pos_inc_r'high-1);

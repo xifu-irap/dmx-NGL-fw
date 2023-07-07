@@ -126,7 +126,7 @@ begin
    begin
 
       if i_rst = c_RST_LEV_ACT then
-         pls_cnt  <= (others => '1');
+         pls_cnt  <= c_MINUSONE(pls_cnt'range);
 
       elsif rising_edge(i_clk_science) then
          if i_science_data_rdy = '1' then
@@ -164,12 +164,12 @@ begin
          if i_science_data_rdy = '1' then
 
             if    i_science_data_ctrl /= c_SC_CTRL_DTA_W and i_science_data_ctrl /= c_SC_CTRL_EOD then
-               pixel_pos <= std_logic_vector(to_unsigned(0 , pixel_pos'length));
+               pixel_pos <= c_ZERO(pixel_pos'range);
 
             elsif pls_cnt(pls_cnt'high) = '1' and
                   pixel_pos = std_logic_vector(to_unsigned(c_PIXEL_POS_MAX_VAL , pixel_pos'length)) and
                   seq_cnt   < std_logic_vector(to_unsigned(c_SEQ_CNT_MAX_VAL   , seq_cnt'length))   then
-               pixel_pos <= std_logic_vector(to_unsigned(0 , pixel_pos'length));
+               pixel_pos <= c_ZERO(pixel_pos'range);
 
             elsif pls_cnt(pls_cnt'high) = '1' and pixel_pos < std_logic_vector(to_unsigned(c_PIXEL_POS_MAX_VAL , pixel_pos'length)) then
                pixel_pos <= std_logic_vector(unsigned(pixel_pos) + 1);
@@ -189,13 +189,13 @@ begin
    begin
 
       if i_rst = c_RST_LEV_ACT then
-         seq_cnt   <= std_logic_vector(to_unsigned(0 , seq_cnt'length));
+         seq_cnt   <= c_ZERO(seq_cnt'range);
 
       elsif rising_edge(i_clk_science) then
          if i_science_data_rdy = '1' then
 
             if i_science_data_ctrl /= c_SC_CTRL_DTA_W and i_science_data_ctrl /= c_SC_CTRL_EOD then
-               seq_cnt <= std_logic_vector(to_unsigned(0 , seq_cnt'length));
+               seq_cnt <= c_ZERO(seq_cnt'range);
 
             elsif pls_cnt(pls_cnt'high) = '1' and pixel_pos = std_logic_vector(to_unsigned(c_PIXEL_POS_MAX_VAL , pixel_pos'length)) then
                seq_cnt <= std_logic_vector(unsigned(seq_cnt) + 1);
@@ -221,7 +221,7 @@ begin
          if i_science_data_rdy = '1' then
 
             if    i_science_data_ctrl = c_SC_CTRL_ERRS or i_science_data_ctrl = c_SC_CTRL_SC_DTA or i_science_data_ctrl = c_SC_CTRL_TST_PAT then
-               pls_cnt_sc <= std_logic_vector(to_unsigned(0, pls_cnt_sc'length));
+               pls_cnt_sc <= c_ZERO(pls_cnt_sc'range);
 
             elsif pls_cnt_sc < std_logic_vector(to_unsigned(c_PLS_CNT_SC_MAX_VAL, pls_cnt_sc'length)) then
                pls_cnt_sc <= std_logic_vector(unsigned(pls_cnt_sc) + 1);
@@ -422,8 +422,8 @@ begin
       --!   Science data error
       -- ------------------------------------------------------------------------------------------------------
       science_data_err(k) <=  '0' when (pls_cnt   = std_logic_vector(to_unsigned(c_PLS_CNT_MAX_VAL, pls_cnt'length)) and
-                                        pixel_pos = std_logic_vector(to_unsigned(0, pixel_pos'length)) and
-                                        seq_cnt   = std_logic_vector(to_unsigned(0, seq_cnt'length)))  else
+                                        pixel_pos = c_ZERO(pixel_pos'range) and
+                                        seq_cnt   = c_ZERO(seq_cnt'range))  else
                               '1' when (i_sw_adc_vin = c_SW_ADC_VIN_ST_SQA and (sm_mode_sel = dump) and
                                         i_science_data(k) /= adc_dump_dta2cmp_lst(k)) else
                               '1' when (i_sw_adc_vin = c_SW_ADC_VIN_ST_SQM) and (pls_cnt = pls_cnt_pos_del(k)) and (sm_mode_sel = dump) and (

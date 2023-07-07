@@ -97,7 +97,7 @@ begin
          if pls_ste_cnt(pls_ste_cnt'high) = '0' then
 
            if pulse_gen(pulse_gen'high) = '1' then
-               if (g_CPOL xor g_CPHA xor pls_ste_cnt(0)) = '0' then
+               if (g_CPOL xor g_CPHA xor pls_ste_cnt(pls_ste_cnt'low)) = '0' then
                   pulse_gen <= std_logic_vector(to_signed(c_PULSE_GEN_L_MAX_VAL, pulse_gen'length));
 
                else
@@ -149,7 +149,7 @@ begin
          if i_start = '1' and pls_ste_cnt(pls_ste_cnt'high) = '1' then
             data_tx_ser <= i_data_tx;
 
-         elsif pulse_gen(pulse_gen'high) = '1' and pls_ste_cnt(0) = '0' and pls_ste_cnt(pls_ste_cnt'high) = '0' then
+         elsif pulse_gen(pulse_gen'high) = '1' and pls_ste_cnt(pls_ste_cnt'low) = '0' and pls_ste_cnt(pls_ste_cnt'high) = '0' then
             data_tx_ser <= data_tx_ser(data_tx_ser'high-1 downto 0) & '0';
 
          end if;
@@ -175,7 +175,7 @@ begin
          o_data_rx_rdy        <= '0';
 
       elsif rising_edge(i_clk) then
-         pls_smp_data_rx_ser  <= pls_smp_data_rx_ser(pls_smp_data_rx_ser'high-1 downto 0) & (pulse_gen(pulse_gen'high) and not(pls_ste_cnt(0)) and not(pls_ste_cnt(pls_ste_cnt'high)));
+         pls_smp_data_rx_ser  <= pls_smp_data_rx_ser(pls_smp_data_rx_ser'high-1 downto 0) & (pulse_gen(pulse_gen'high) and not(pls_ste_cnt(pls_ste_cnt'low)) and not(pls_ste_cnt(pls_ste_cnt'high)));
          data_rx_ser_init     <= data_rx_ser_init(      data_rx_ser_init'high-1 downto 0) & (i_start and pls_ste_cnt(pls_ste_cnt'high));
          data_rx_ser_end      <= data_rx_ser_end(        data_rx_ser_end'high-1 downto 0) & pls_ste_cnt(pls_ste_cnt'high);
 
@@ -211,7 +211,7 @@ begin
 
       elsif rising_edge(i_clk) then
          o_mosi   <= data_tx_ser(data_tx_ser'high);
-         o_sclk   <= not(g_CPHA) xor g_CPOL xor (pls_ste_cnt(0) and not(g_CPHA and pls_ste_cnt(pls_ste_cnt'high)));
+         o_sclk   <= not(g_CPHA) xor g_CPOL xor (pls_ste_cnt(pls_ste_cnt'low) and not(g_CPHA and pls_ste_cnt(pls_ste_cnt'high)));
          o_cs_n   <= pls_ste_cnt(pls_ste_cnt'high);
 
       end if;

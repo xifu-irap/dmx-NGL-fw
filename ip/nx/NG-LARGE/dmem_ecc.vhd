@@ -129,10 +129,10 @@ begin
          PIPE_IB              => c_RAM_PRM_DIS        , -- bit                                              ; --! Memory port B: register at the port inputs  ('0' = Disable, '1' = Enable)
          PIPE_OA              => c_RAM_PRM_ENA        , -- bit                                              ; --! Memory port A: register at the port outputs ('0' = Disable, '1' = Enable)
          PIPE_OB              => c_RAM_PRM_ENA        , -- bit                                              ; --! Memory port B: register at the port outputs ('0' = Disable, '1' = Enable)
-         RAW_CONFIG0          => (others => '0')      , -- bit_vector( 3 downto 0)                          ; --! Optional registers declaration. Ignored if STD_MODE is not empty
-         RAW_CONFIG1          => (others => '0')      , -- bit_vector(15 downto 0)                          ; --! RAM configuration. Ignored if STD_MODE is not empty
+         RAW_CONFIG0          => (others => c_LOW_LEV_B), -- bit_vector( 3 downto 0)                        ; --! Optional registers declaration. Ignored if STD_MODE is not empty
+         RAW_CONFIG1          => (others => c_LOW_LEV_B), -- bit_vector(15 downto 0)                        ; --! RAM configuration. Ignored if STD_MODE is not empty
          RAW_L_ENABLE         => c_RAM_NG_LARGE       , -- bit                                              ; --! FPGA target('0' = NG-MEDIUM, '1' = NG-LARGE)
-         RAW_L_EXTEND         => (others => '0')      , -- bit_vector( 3 downto 0)                          ; --! Not used
+         RAW_L_EXTEND         => (others => c_LOW_LEV_B), -- bit_vector( 3 downto 0)                        ; --! Not used
          MEM_CTXT             => c_RAM_INIT             -- string                                             --! Memory content at initialization
    )     port map (
          ar                   => i_a_rst              , -- in     std_logic                                 ; --! Memory port A: registers reset ('0' = Inactive, '1' = Active)

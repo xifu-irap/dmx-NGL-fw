@@ -50,6 +50,8 @@ entity adc128s102_model is generic (
 end entity adc128s102_model;
 
 architecture Behavioral of adc128s102_model is
+constant c_ZERO_REAL          : real       := 0.0                                                           ; --! Real zero value
+
 constant c_CLK_PER            : time       := 8 ns                                                          ; --! Clock period
 
 constant c_SPI_CPOL           : std_logic  := '1'                                                           ; --! SPI Clock polarity
@@ -62,6 +64,21 @@ constant c_ADC_DATA_S         : integer    := 12                                
 
 constant c_ADC_RES            : real       := g_VA / real(2**(c_ADC_DATA_S))                                ; --! ADC resolution (V)
 constant c_VIN_MAX            : real       := (real(2**(c_ADC_DATA_S)) - 1.0) * c_ADC_RES                   ; --! Analog voltage maximum limit (V)
+
+constant c_ADD0               : std_logic_vector(c_ADD_S-1 downto 0) := 
+                                std_logic_vector(to_unsigned(0, c_ADD_S))                                   ; --! Address 0
+constant c_ADD1               : std_logic_vector(c_ADD_S-1 downto 0) := 
+                                std_logic_vector(to_unsigned(1, c_ADD_S))                                   ; --! Address 1
+constant c_ADD2               : std_logic_vector(c_ADD_S-1 downto 0) := 
+                                std_logic_vector(to_unsigned(2, c_ADD_S))                                   ; --! Address 2
+constant c_ADD3               : std_logic_vector(c_ADD_S-1 downto 0) := 
+                                std_logic_vector(to_unsigned(3, c_ADD_S))                                   ; --! Address 3
+constant c_ADD4               : std_logic_vector(c_ADD_S-1 downto 0) := 
+                                std_logic_vector(to_unsigned(4, c_ADD_S))                                   ; --! Address 4
+constant c_ADD5               : std_logic_vector(c_ADD_S-1 downto 0) := 
+                                std_logic_vector(to_unsigned(5, c_ADD_S))                                   ; --! Address 5
+constant c_ADD6               : std_logic_vector(c_ADD_S-1 downto 0) := 
+                                std_logic_vector(to_unsigned(6, c_ADD_S))                                   ; --! Address 6
 
 signal   rst                  : std_logic                                                                   ; --! Reset ('0' = Inactive, '1' = Active)
 signal   clk                  : std_logic                                                                   ; --! Clock
@@ -106,17 +123,17 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    add            <= spi_data_rx_wd(c_ADD_S+c_ADD_POS_LSB-1 downto c_ADD_POS_LSB);
 
-   vin_sel <=  i_in0 when add = std_logic_vector(to_unsigned(0, add'length)) else
-               i_in1 when add = std_logic_vector(to_unsigned(1, add'length)) else
-               i_in2 when add = std_logic_vector(to_unsigned(2, add'length)) else
-               i_in3 when add = std_logic_vector(to_unsigned(3, add'length)) else
-               i_in4 when add = std_logic_vector(to_unsigned(4, add'length)) else
-               i_in5 when add = std_logic_vector(to_unsigned(5, add'length)) else
-               i_in6 when add = std_logic_vector(to_unsigned(6, add'length)) else
+   vin_sel <=  i_in0 when add = c_ADD0 else
+               i_in1 when add = c_ADD1 else
+               i_in2 when add = c_ADD2 else
+               i_in3 when add = c_ADD3 else
+               i_in4 when add = c_ADD4 else
+               i_in5 when add = c_ADD5 else
+               i_in6 when add = c_ADD6 else
                i_in7;
 
-   vin_sel_sat    <= 0.0        when (vin_sel < 0.0  ) else
-                     c_VIN_MAX  when (vin_sel > c_VIN_MAX) else
+   vin_sel_sat    <= c_ZERO_REAL when (vin_sel < c_ZERO_REAL) else
+                     c_VIN_MAX   when (vin_sel > c_VIN_MAX)   else
                      vin_sel;
 
    adc_data       <= std_logic_vector(to_unsigned(integer(round(vin_sel_sat/c_ADC_RES)), adc_data'length));

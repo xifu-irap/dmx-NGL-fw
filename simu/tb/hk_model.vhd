@@ -83,7 +83,7 @@ begin
          i_a4                 => c_HK_P3V3_DIG_DEF_R  , -- in     real                                      ; --! Analog input channel 4
          i_a5                 => c_HK_VREF_TMP_DEF_R  , -- in     real                                      ; --! Analog input channel 5
          i_a6                 => c_HK_VREF_R2R_DEF_R  , -- in     real                                      ; --! Analog input channel 6
-         i_a7                 => 0.0                  , -- in     real                                      ; --! Analog input channel 7
+         i_a7                 => c_ZERO_REAL          , -- in     real                                      ; --! Analog input channel 7
 
          o_com                => hk_mux                 -- out    real                                        --! Analog output
    );

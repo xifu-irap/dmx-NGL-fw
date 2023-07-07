@@ -93,9 +93,9 @@ begin
          hk_spi_miso_r        <= (others => '0');
 
          if c_PAD_REG_SET_AUTH = '0' then
-            sync_r         <= (0 => '0', others => c_I_SYNC_DEF);
-            ep_spi_sclk_r  <= (0 => '0', others => c_I_SPI_SCLK_DEF);
-            ep_spi_cs_n_r  <= (0 => '0', others => c_I_SPI_CS_N_DEF);
+            sync_r         <= (sync_r'low        => c_LOW_LEV, others => c_I_SYNC_DEF);
+            ep_spi_sclk_r  <= (ep_spi_sclk_r'low => c_LOW_LEV, others => c_I_SPI_SCLK_DEF);
+            ep_spi_cs_n_r  <= (ep_spi_cs_n_r'low => c_LOW_LEV, others => c_I_SPI_CS_N_DEF);
 
          else
             sync_r         <= (others => c_I_SYNC_DEF);

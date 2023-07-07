@@ -196,9 +196,10 @@ begin
    --!   EP command transmit management
    --    @Req : DRE-DMX-FW-REQ-0510
    -- ------------------------------------------------------------------------------------------------------
+   ep_cmd_tx_wd_add(c_EP_CMD_ADD_RW_POS)  <= c_EP_CMD_ADD_RW_R;
+
    -- Address Transmit: Read/Write LSB bit position
    G_add_tw_pos_equ_nul: if c_EP_CMD_ADD_RW_POS = 0 generate
-      ep_cmd_tx_wd_add(0)                                <= c_EP_CMD_ADD_RW_R;
       ep_cmd_tx_wd_add(ep_cmd_tx_wd_add'high   downto 1) <= c_EP_CMD_ADD_STATUS(ep_cmd_tx_wd_add'high-1 downto 0) when ep_cmd_rx_wd_add(c_EP_CMD_ADD_RW_POS) = c_EP_CMD_ADD_RW_W else
                                                             c_EP_CMD_ADD_STATUS(ep_cmd_tx_wd_add'high-1 downto 0) when ep_cmd_all_err_data = c_EP_CMD_ERR_SET else
                                                             ep_cmd_rx_wd_add(   ep_cmd_tx_wd_add'high   downto 1);
@@ -224,7 +225,6 @@ begin
 
    -- Address Transmit: Read/Write others bit position
    G_add_tw_pos_neq_nul: if c_EP_CMD_ADD_RW_POS /= 0 generate
-      ep_cmd_tx_wd_add(ep_cmd_tx_wd_add'high)            <= c_EP_CMD_ADD_RW_R;
       ep_cmd_tx_wd_add(ep_cmd_tx_wd_add'high-1 downto 0) <= c_EP_CMD_ADD_STATUS(ep_cmd_tx_wd_add'high-1 downto 0) when ep_cmd_rx_wd_add(c_EP_CMD_ADD_RW_POS) = c_EP_CMD_ADD_RW_W else
                                                             c_EP_CMD_ADD_STATUS(ep_cmd_tx_wd_add'high-1 downto 0) when ep_cmd_all_err_data = c_EP_CMD_ERR_SET else
                                                             ep_cmd_rx_wd_add(   ep_cmd_tx_wd_add'high-1 downto 0);
@@ -305,7 +305,7 @@ begin
          i_ep_cmd_rx_add_norw => ep_cmd_rx_wd_add_nrw , -- in     std_logic_vector(c_EP_SPI_WD_S-1 downto 0); --! EP command receipted: address word, read/write bit cleared
          i_ep_cmd_rx_wd_data  => ep_cmd_rx_wd_data    , -- in     std_logic_vector(c_EP_SPI_WD_S-1 downto 0); --! EP command receipted: data word
          i_ep_cmd_rx_rw       => ep_cmd_rx_rw         , -- in     std_logic                                 ; --! EP command receipted: read/write bit
-         i_ep_cmd_rx_out_rdy  => ep_spi_wd_end_r(0)   , -- in     std_logic                                 ; --! EP command receipted: error data out of range ready ('0' = Not ready, '1' = Ready)
+         i_ep_cmd_rx_out_rdy  => ep_spi_wd_end_r(ep_spi_wd_end_r'low), -- in     std_logic                  ; --! EP command receipted: error data out of range ready ('0' = Not ready, '1' = Ready)
          o_ep_cmd_sts_err_out => ep_cmd_sts_err_out     -- out    std_logic                                   --! EP command: Status, error data out of range
    );
 

@@ -68,7 +68,7 @@ begin
          ser_bit_cnt <= (others => '1');
 
       elsif rising_edge(i_clk_science) then
-         if (science_data_ser(science_data_ser'high)(0) and i_science_data_ser(science_data_ser'high) and ser_bit_cnt(ser_bit_cnt'high)) = '1' then
+         if (science_data_ser(science_data_ser'high)(science_data_ser(science_data_ser'low)'low) and i_science_data_ser(science_data_ser'high) and ser_bit_cnt(ser_bit_cnt'high)) = '1' then
             ser_bit_cnt <= std_logic_vector(to_signed(c_SER_BIT_CNT_MAX_VAL, ser_bit_cnt'length));
 
          elsif ser_bit_cnt(ser_bit_cnt'high) = '0' then
@@ -131,8 +131,8 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   Science data
    -- ------------------------------------------------------------------------------------------------------
-   o_science_data_ctrl(1) <= science_data(science_data'high);
-   o_science_data_ctrl(0) <= science_data(science_data'high-1);
+   o_science_data_ctrl(o_science_data_ctrl'high) <= science_data(science_data'high);
+   o_science_data_ctrl(o_science_data_ctrl'low)  <= science_data(science_data'high-1);
 
    G_science_data: for k in 0 to c_NB_COL-1 generate
    begin

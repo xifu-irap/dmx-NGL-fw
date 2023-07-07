@@ -273,7 +273,7 @@ begin
    begin
 
       if i_rst_sqm_adc_dac = c_RST_LEV_ACT then
-         mem_plssh_add_lsb <= std_logic_vector(to_unsigned(0, mem_plssh_add_lsb'length));
+         mem_plssh_add_lsb <= c_ZERO(mem_plssh_add_lsb'range);
          mem_plssh_prm.add(mem_plssh_prm.add'high downto mem_plssh_add_lsb'high) <= c_EP_CMD_DEF_PLSSS;
          mem_plssh_prm.pp <= c_MEM_STR_ADD_PP_DEF;
 

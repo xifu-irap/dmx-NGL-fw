@@ -75,7 +75,7 @@ begin
    begin
 
       if i_arst = c_RST_LEV_ACT then
-         sqm_dac_ana_r     <= (others => 0.0);
+         sqm_dac_ana_r     <= (others => c_ZERO_REAL);
          sync_r            <= c_I_SYNC_DEF;
          sync_re           <= '0';
 
@@ -96,7 +96,7 @@ begin
 
       if i_arst = c_RST_LEV_ACT then
          pls_cnt     <= std_logic_vector(to_signed(c_PLS_CNT_MAX_VAL, pls_cnt'length));
-         pixel_pos   <= (others => '1');
+         pixel_pos   <= c_MINUSONE(pixel_pos'range);
 
       elsif rising_edge(i_clk_sqm_dac) then
 
@@ -127,17 +127,17 @@ begin
    begin
 
       if i_arst = c_RST_LEV_ACT then
-         cmd_exp  <= 0.0;
+         cmd_exp  <= c_ZERO_REAL;
          pls_shp_fc_rsync  <= c_PLS_CUT_FREQ_DEF;
 
       elsif rising_edge(i_clk_sqm_dac) then
 
-         if pls_cnt = std_logic_vector(to_signed(0, pls_cnt'length)) then
+         if pls_cnt = c_ZERO(pls_cnt'range) then
             cmd_exp <= i_sqm_dac_ana;
 
          end if;
 
-         if pixel_pos = std_logic_vector(to_signed(c_PIXEL_POS_MAX_VAL , pixel_pos'length)) and pls_cnt = std_logic_vector(to_signed(0, pls_cnt'length)) then
+         if pixel_pos = std_logic_vector(to_signed(c_PIXEL_POS_MAX_VAL , pixel_pos'length)) and pls_cnt = c_ZERO(pls_cnt'range) then
             pls_shp_fc_rsync <= i_pls_shp_fc;
 
          end if;
@@ -159,7 +159,7 @@ begin
    begin
 
       if i_arst = c_RST_LEV_ACT then
-         lp_filter   <= 0.0;
+         lp_filter   <= c_ZERO_REAL;
 
       elsif rising_edge(i_clk_sqm_dac) then
          lp_filter   <= coef_lp_filt * cmd_exp + (1.0 - coef_lp_filt) * lp_filter;

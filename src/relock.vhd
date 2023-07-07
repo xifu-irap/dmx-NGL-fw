@@ -171,7 +171,7 @@ begin
          cnt_thr_exceed_wr <= std_logic_vector(to_unsigned(1, cnt_thr_exceed_wr'length));
 
       elsif rising_edge(i_clk) then
-         if sqm_dta_err_cor_cs_r(0) = '1' then
+         if sqm_dta_err_cor_cs_r(sqm_dta_err_cor_cs_r'low) = '1' then
             if i_smfbm_close_rl = '0' then
                cnt_thr_exceed_wr <= std_logic_vector(to_unsigned(1, cnt_thr_exceed_wr'length));
 
@@ -315,15 +315,15 @@ begin
       begin
 
          if i_rst = c_RST_LEV_ACT then
-            dlflag(k)(0) <= '0';
+            dlflag(k)(dlflag(dlflag'low)'low) <= '0';
 
          elsif rising_edge(i_clk) then
             if (sqm_dta_err_cor_cs_r(3) = '1') and (i_mem_rl_rd_add = std_logic_vector(to_unsigned(k, i_mem_rl_rd_add'length))) then
-               if dlcnt_wr = std_logic_vector(to_unsigned(0, dlcnt_wr'length)) then
-                  dlflag(k)(0) <= '0';
+               if dlcnt_wr = c_ZERO(dlcnt_wr'range) then
+                  dlflag(k)(dlflag(dlflag'low)'low) <= '0';
 
                else
-                  dlflag(k)(0) <= '1';
+                  dlflag(k)(dlflag(dlflag'low)'low) <= '1';
 
                end if;
 

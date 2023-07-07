@@ -66,7 +66,7 @@ begin
    P_err_n_clk_st_ena : process
    begin
 
-      if now = 0 ps then
+      if now = c_ZERO_TIME then
          err_n_clk_st_ena_h <= 0;
          err_n_clk_st_ena_l <= 0;
 
@@ -92,7 +92,7 @@ begin
    variable v_record_time     : time                                                                        ; --! Record time
    begin
 
-      if now = 0 ps then
+      if now = c_ZERO_TIME then
          err_n_clk_per_h   <= 0;
          err_n_clk_per_l   <= 0;
 
@@ -119,13 +119,13 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   Number of clock oscillation error when enable is inactive
    -- ------------------------------------------------------------------------------------------------------
-   clk_delay <= transport i_clk after 0 ps;
+   clk_delay <= transport i_clk after c_ZERO_TIME;
 
    --! Number of clock oscillation error when enable is inactive
    P_err_n_clk_osc_ena : process
    begin
 
-      if now = 0 ps then
+      if now = c_ZERO_TIME then
          err_n_clk_osc_ena_l  <= 0;
 
       end if;
@@ -139,10 +139,10 @@ begin
 
    end process P_err_n_clk_osc_ena;
 
-   o_err_n_clk_chk(4) <= err_n_clk_st_ena_h;
-   o_err_n_clk_chk(3) <= err_n_clk_st_ena_l;
-   o_err_n_clk_chk(2) <= err_n_clk_per_l;
-   o_err_n_clk_chk(1) <= err_n_clk_per_h;
-   o_err_n_clk_chk(0) <= err_n_clk_osc_ena_l;
+   o_err_n_clk_chk(c_ERR_N_CLK_ST_EN_H)  <= err_n_clk_st_ena_h;
+   o_err_n_clk_chk(c_ERR_N_CLK_ST_EN_L)  <= err_n_clk_st_ena_l;
+   o_err_n_clk_chk(c_ERR_N_CLK_PER_L)    <= err_n_clk_per_l;
+   o_err_n_clk_chk(c_ERR_N_CLK_PER_H)    <= err_n_clk_per_h;
+   o_err_n_clk_chk(c_ERR_N_CLK_OSC_EN_L) <= err_n_clk_osc_ena_l;
 
 end architecture Behavioral;

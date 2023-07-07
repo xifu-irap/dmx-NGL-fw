@@ -129,7 +129,7 @@ begin
          r                    => i_arst               , -- in     std_logic                                 ; --! Reset ('0' = Inactive, '1' = Active)
          si                   => clk_sync_ref_end_seq , -- in     std_logic                                 ; --! Reset pattern sequence  ('0' = Inactive, '1' = Active)
          zi                   => pll_main_vco         , -- in     std_logic                                 ; --! Input clock (connected to PLL VCO or D1, D2 or D3 output)
-         rdy                  => '1'                  , -- in     std_logic                                 ; --! '1' for the WFG generating PLL clock on external feedback, pll_locked pin otherwise
+         rdy                  => c_HGH_LEV            , -- in     std_logic                                 ; --! '1' for the WFG generating PLL clock on external feedback, pll_locked pin otherwise
          so                   => clk_sync_ref_end_seq , -- out    std_logic                                 ; --! End pattern sequence ('0': No, '1': Yes)
          zo                   => clk_sync_ref           -- out    std_logic                                   --! Generated clock, connected to clock tree
    );

@@ -228,10 +228,10 @@ constant c_EP_MEM_ADDAC_S     : integer_vector(0 to c_EP_MEM_NUM_LAST) := (0,
                                  c_EP_MEM_ADDAC_DLCNT)                                                      ; --! EP command: Memory adress accumulated bus size
 
 constant c_EP_MEM_ADD_OFF     : t_slv_arr(0 to c_EP_MEM_NUM_LAST-1)(c_EP_SPI_WD_S-1 downto 0) :=
-                                (c_EP_CMD_ADD_TSTPT   , c_EP_CMD_ADD_PARMA(0), c_EP_CMD_ADD_KIKNM(0),
-                                 c_EP_CMD_ADD_KNORM(0), c_EP_CMD_ADD_SMFB0(0), c_EP_CMD_ADD_SMLKV(0),
-                                 c_EP_CMD_ADD_SMFBM(0), c_EP_CMD_ADD_SAOFF(0), c_EP_CMD_ADD_PLSSH(0),
-                                 c_EP_CMD_ADD_DLCNT(0))                                                     ; --! EP command: Memory adress offset
+                                (c_EP_CMD_ADD_TSTPT        , c_EP_CMD_ADD_PARMA(c_COL0), c_EP_CMD_ADD_KIKNM(c_COL0),
+                                 c_EP_CMD_ADD_KNORM(c_COL0), c_EP_CMD_ADD_SMFB0(c_COL0), c_EP_CMD_ADD_SMLKV(c_COL0),
+                                 c_EP_CMD_ADD_SMFBM(c_COL0), c_EP_CMD_ADD_SAOFF(c_COL0), c_EP_CMD_ADD_PLSSH(c_COL0),
+                                 c_EP_CMD_ADD_DLCNT(c_COL0))                                                ; --! EP command: Memory adress offset
 
 constant c_EP_MEM_ADD_END     : integer_vector(0 to c_EP_MEM_NUM_LAST-1) :=
                                 (c_TAB_TSTPT_NW-1, c_TAB_PARMA_NW-1, c_TAB_KIKNM_NW-1,

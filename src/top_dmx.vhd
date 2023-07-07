@@ -279,7 +279,7 @@ begin
          i_sqm_data_sc_last   => sqm_data_sc_last     , -- in     std_logic_vector(c_NB_COL-1 downto 0)     ; --! SQUID MUX Data science last pixel ('0' = No, '1' = Yes)
          i_sqm_data_sc_rdy    => sqm_data_sc_rdy      , -- in     std_logic_vector(c_NB_COL-1 downto 0)     ; --! SQUID MUX Data science ready ('0' = Not ready, '1' = Ready)
 
-         i_sqm_mem_dump_bsy   => sqm_mem_dump_bsy(0)  , -- in     std_logic                                 ; --! SQUID MUX Memory Dump: data busy ('0' = no data dump, '1' = data dump in progress)
+         i_sqm_mem_dump_bsy   => sqm_mem_dump_bsy(c_COL0), -- in  std_logic                                 ; --! SQUID MUX Memory Dump: data busy ('0' = no data dump, '1' = data dump in progress)
          o_sqm_mem_dump_add   => sqm_mem_dump_add     , -- out    slv(c_MEM_DUMP_ADD_S-1 downto 0)          ; --! SQUID MUX Memory Dump: address
          i_sqm_mem_dump_data  => sqm_mem_dump_data    , -- in     t_slv_arr c_NB_COL c_SQM_ADC_DATA_S+1     ; --! SQUID MUX Memory Dump: data
 
@@ -411,8 +411,8 @@ begin
          i_tsten_inf          => tsten_inf            , -- in     std_logic                                 ; --! Test pattern enable, field Infinity loop ('0' = Inactive, '1' = Active)
          i_tsten_ena          => tsten_ena            , -- in     std_logic                                 ; --! Test pattern enable, field Enable ('0' = Inactive, '1' = Active)
 
-         i_mem_tstpt          => ep_mem(0).tstpt      , -- in     t_mem                                     ; --! Test pattern: memory inputs
-         o_tstpt_data         => ep_mem_data(0).tstpt , -- out    slv(c_DFLD_TSTPT_S-1 downto 0)            ; --! Test pattern: data read
+         i_mem_tstpt          => ep_mem(c_COL0).tstpt , -- in     t_mem                                     ; --! Test pattern: memory inputs
+         o_tstpt_data         => ep_mem_data(c_COL0).tstpt , -- out    slv(c_DFLD_TSTPT_S-1 downto 0)       ; --! Test pattern: data read
 
          o_test_pattern_sqm   => test_pattern_sqm     , -- out    slv(c_SQM_DATA_FBK_S-1 downto 0)          ; --! Test pattern: MUX SQUID
          o_test_pattern_sqa   => test_pattern_sqa     , -- out    slv(c_SQA_DAC_DATA_S-1 downto 0)          ; --! Test pattern: AMP SQUID

@@ -201,7 +201,7 @@ begin
       elsif rising_edge(i_clk_science) then
          science_data_rdy_r   <= science_data_rdy;
 
-         if science_data_ctrl(0) = c_SC_CTRL_EOD then
+         if science_data_ctrl(science_data_ctrl'low) = c_SC_CTRL_EOD then
             mem_dump_sc_add <= (others => '0');
 
          elsif science_data_rdy = '1' then
@@ -257,7 +257,7 @@ begin
          i_science_mem_data   => i_science_mem_data   , -- in     slv c_SC_DATA_SER_NB*c_SC_DATA_SER_W_S    ; --! Science  memory for data compare: data
          i_adc_dmp_mem_cs     => i_adc_dmp_mem_cs     , -- in     std_logic_vector(c_NB_COL-1 downto 0)     ; --! ADC Dump memory for data compare: chip select ('0' = Inactive, '1' = Active)
 
-         i_science_data_ctrl  => science_data_ctrl(0) , -- in     slv(c_SC_DATA_SER_W_S-1 downto 0)         ; --! Science Data: Control word
+         i_science_data_ctrl  => science_data_ctrl(science_data_ctrl'low), -- in slv c_SC_DATA_SER_W_S      ; --! Science Data: Control word
          i_science_data       => science_data         , -- in     t_sc_data(0 to c_NB_COL-1)                ; --! Science Data: Data
          i_science_data_rdy   => science_data_rdy     , -- in     std_logic                                 ; --! Science Data Ready ('0' = Inactive, '1' = Active)
 
@@ -279,7 +279,7 @@ begin
 
    variable v_ctrl_last       : std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0) := c_SC_CTRL_EOD             ; --! Control word last
    variable v_ctrl_first_pkt  : std_logic := '0'                                                            ; --! Control word first packet detected ('0' = No, '1' = Yes)
-   variable v_packet_tx_time  : time := 0 ps                                                                ; --! Science packet first word transmit time
+   variable v_packet_tx_time  : time := c_ZERO_TIME                                                         ; --! Science packet first word transmit time
    variable v_packet_type     : line := null                                                                ; --! Science packet type
    variable v_packet_dump     : std_logic := '0'                                                            ; --! Science packet dump ('0' = No, '1' = Yes)
    variable v_packet_size     : integer := 0                                                                ; --! Science packet size
@@ -327,7 +327,7 @@ begin
             v_packet_size := v_packet_size + 1;
 
             -- Check the science data controls are similar
-            if science_data_ctrl(0) /= science_data_ctrl(1) then
+            if science_data_ctrl(science_data_ctrl'low) /= science_data_ctrl(science_data_ctrl'high) then
                v_err_sc_ctrl_dif := '1';
             end if;
 
@@ -338,7 +338,7 @@ begin
 
             end loop;
 
-            case science_data_ctrl(0) is
+            case science_data_ctrl(science_data_ctrl'low) is
 
                -- ------------------------------------------------------------------------------------------------------
                --    Case Start Science Data/Test pattern packet
@@ -348,7 +348,7 @@ begin
                   v_packet_tx_time  := now - (2*c_SC_DATA_SER_W_S+1)*c_CLK_SC_HPER;
                   v_packet_size     := 1;
 
-                  if science_data_ctrl(0) = c_SC_CTRL_ADC_DMP then
+                  if science_data_ctrl(science_data_ctrl'low) = c_SC_CTRL_ADC_DMP then
                      v_packet_dump     := '1';
                      v_packet_size_exp := c_DMP_SEQ_ACQ_NB * c_MUX_FACT * c_PIXEL_ADC_NB_CYC;
                   else
@@ -356,10 +356,10 @@ begin
                      v_packet_size_exp := c_MUX_FACT;
                   end if;
 
-                  o_sc_pkt_type     <= science_data_ctrl(0);
+                  o_sc_pkt_type     <= science_data_ctrl(science_data_ctrl'low);
 
                   v_packet_type     := null;
-                  hwrite(v_packet_type, science_data_ctrl(0));
+                  hwrite(v_packet_type, science_data_ctrl(science_data_ctrl'low));
 
                   -- Reinitialize and get packet content
                   v_packet_content := (others => null);
@@ -410,7 +410,7 @@ begin
 
                   -- Packet variables reinitialization
                   v_ctrl_first_pkt := '0';
-                  v_packet_tx_time :=  0 ps;
+                  v_packet_tx_time :=  c_ZERO_TIME;
                   write(v_packet_type, 0);
                   v_packet_dump    := '0';
                   v_packet_size    :=  0;
@@ -433,7 +433,7 @@ begin
             end loop;
 
             -- Update Control word last
-            v_ctrl_last := science_data_ctrl(0);
+            v_ctrl_last := science_data_ctrl(science_data_ctrl'low);
 
             -- Science data error display
             sc_data_err_display( g_ERR_SC_DTA_ENA,      science_data,   science_data_err, mem_dump_sc_data_out,

@@ -145,7 +145,7 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    I_top_dmx: entity work.top_dmx port map (
          i_arst_n             => arst_n               , -- in     std_logic                                 ; --! Asynchronous reset ('0' = Active, '1' = Inactive)
-         i_clk_ref            => clk_ref(0)           , -- in     std_logic                                 ; --! Reference Clock
+         i_clk_ref            => clk_ref(c_COL0)      , -- in     std_logic                                 ; --! Reference Clock
 
          o_clk_sqm_adc        => clk_sqm_adc          , -- out    std_logic_vector(c_NB_COL-1 downto 0)     ; --! SQUID MUX ADC: Clock
          o_clk_sqm_dac        => clk_sqm_dac          , -- out    std_logic_vector(c_NB_COL-1 downto 0)     ; --! SQUID MUX DAC: Clock
@@ -154,7 +154,7 @@ begin
 
          i_brd_ref            => brd_ref              , -- in     std_logic_vector(  c_BRD_REF_S-1 downto 0); --! Board reference
          i_brd_model          => brd_model            , -- in     std_logic_vector(c_BRD_MODEL_S-1 downto 0); --! Board model
-         i_sync               => sync(0)              , -- in     std_logic                                 ; --! Pixel sequence synchronization (R.E. detected = position sequence to the first pixel)
+         i_sync               => sync(c_COL0)         , -- in     std_logic                                 ; --! Pixel sequence synchronization (R.E. detected = position sequence to the first pixel)
          i_ras_data_valid     => ras_data_valid       , -- in     std_logic                                 ; --! RAS Data valid ('0' = No, '1' = Yes)
 
          i_sqm_adc_data       => sqm_adc_data         , -- in     t_slv_arr c_NB_COL c_SQM_ADC_DATA_S       ; --! SQUID MUX ADC: Data
@@ -199,40 +199,40 @@ begin
    G_get_top_level_sig: if true generate
    alias td_rst               : std_logic is <<signal .top_dmx_tb.I_top_dmx.rst              : std_logic>>  ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
    alias td_rst_sqm_adc_0     : std_logic is <<signal
-                                .top_dmx_tb.I_top_dmx.G_column_mgt(0).I_squid_adc_mgt.i_rst_sqm_adc_dac
+                                .top_dmx_tb.I_top_dmx.G_column_mgt(c_COL0).I_squid_adc_mgt.i_rst_sqm_adc_dac
                                                                                              : std_logic>>  ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
    alias td_rst_sqm_adc_1     : std_logic is <<signal
-                                .top_dmx_tb.I_top_dmx.G_column_mgt(1).I_squid_adc_mgt.i_rst_sqm_adc_dac
+                                .top_dmx_tb.I_top_dmx.G_column_mgt(c_COL1).I_squid_adc_mgt.i_rst_sqm_adc_dac
                                                                                              : std_logic>>  ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
    alias td_rst_sqm_adc_2     : std_logic is <<signal
-                                .top_dmx_tb.I_top_dmx.G_column_mgt(2).I_squid_adc_mgt.i_rst_sqm_adc_dac
+                                .top_dmx_tb.I_top_dmx.G_column_mgt(c_COL2).I_squid_adc_mgt.i_rst_sqm_adc_dac
                                                                                              : std_logic>>  ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
    alias td_rst_sqm_adc_3     : std_logic is <<signal
-                                .top_dmx_tb.I_top_dmx.G_column_mgt(3).I_squid_adc_mgt.i_rst_sqm_adc_dac
+                                .top_dmx_tb.I_top_dmx.G_column_mgt(c_COL3).I_squid_adc_mgt.i_rst_sqm_adc_dac
                                                                                              : std_logic>>  ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
    alias td_rst_sqm_dac_0     : std_logic is <<signal
-                                .top_dmx_tb.I_top_dmx.G_column_mgt(0).I_sqm_dac_mgt.i_rst_sqm_adc_dac
+                                .top_dmx_tb.I_top_dmx.G_column_mgt(c_COL0).I_sqm_dac_mgt.i_rst_sqm_adc_dac
                                                                                              : std_logic>>  ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
    alias td_rst_sqm_dac_1     : std_logic is <<signal
-                                .top_dmx_tb.I_top_dmx.G_column_mgt(1).I_sqm_dac_mgt.i_rst_sqm_adc_dac
+                                .top_dmx_tb.I_top_dmx.G_column_mgt(c_COL1).I_sqm_dac_mgt.i_rst_sqm_adc_dac
                                                                                              : std_logic>>  ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
    alias td_rst_sqm_dac_2     : std_logic is <<signal
-                                .top_dmx_tb.I_top_dmx.G_column_mgt(2).I_sqm_dac_mgt.i_rst_sqm_adc_dac
+                                .top_dmx_tb.I_top_dmx.G_column_mgt(c_COL2).I_sqm_dac_mgt.i_rst_sqm_adc_dac
                                                                                              : std_logic>>  ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
    alias td_rst_sqm_dac_3     : std_logic is <<signal
-                                .top_dmx_tb.I_top_dmx.G_column_mgt(3).I_sqm_dac_mgt.i_rst_sqm_adc_dac
+                                .top_dmx_tb.I_top_dmx.G_column_mgt(c_COL3).I_sqm_dac_mgt.i_rst_sqm_adc_dac
                                                                                              : std_logic>>  ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
    alias td_rst_sqa_mux_0     : std_logic is <<signal
-                                .top_dmx_tb.I_top_dmx.G_column_mgt(0).I_sqa_dac_mgt.i_rst_sqm_adc_dac
+                                .top_dmx_tb.I_top_dmx.G_column_mgt(c_COL0).I_sqa_dac_mgt.i_rst_sqm_adc_dac
                                                                                              : std_logic>>  ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
    alias td_rst_sqa_mux_1     : std_logic is <<signal
-                                .top_dmx_tb.I_top_dmx.G_column_mgt(1).I_sqa_dac_mgt.i_rst_sqm_adc_dac
+                                .top_dmx_tb.I_top_dmx.G_column_mgt(c_COL1).I_sqa_dac_mgt.i_rst_sqm_adc_dac
                                                                                              : std_logic>>  ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
    alias td_rst_sqa_mux_2     : std_logic is <<signal
-                                .top_dmx_tb.I_top_dmx.G_column_mgt(2).I_sqa_dac_mgt.i_rst_sqm_adc_dac
+                                .top_dmx_tb.I_top_dmx.G_column_mgt(c_COL2).I_sqa_dac_mgt.i_rst_sqm_adc_dac
                                                                                              : std_logic>>  ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
    alias td_rst_sqa_mux_3     : std_logic is <<signal
-                                .top_dmx_tb.I_top_dmx.G_column_mgt(3).I_sqa_dac_mgt.i_rst_sqm_adc_dac
+                                .top_dmx_tb.I_top_dmx.G_column_mgt(c_COL3).I_sqa_dac_mgt.i_rst_sqm_adc_dac
                                                                                              : std_logic>>  ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
    alias td_clk               : std_logic is <<signal .top_dmx_tb.I_top_dmx.clk              : std_logic>>  ; --! Internal design: System Clock
    alias td_clk_sqm_adc_acq   : std_logic is <<signal .top_dmx_tb.I_top_dmx.clk_sqm_adc_dac  : std_logic>>  ; --! Internal design: SQUID MUX ADC acquisition Clock
@@ -242,74 +242,74 @@ begin
                                    std_logic_vector(c_DFLD_AQMDE_S-1 downto 0)>>                            ; --! Internal design: Telemetry mode
 
    alias td_smfbd_0           : std_logic_vector(c_DFLD_SMFBD_COL_S-1 downto 0) is
-                                 <<signal .top_dmx_tb.I_top_dmx.G_column_mgt(0).I_sqm_fbk_mgt.i_smfbd:
+                                 <<signal .top_dmx_tb.I_top_dmx.G_column_mgt(c_COL0).I_sqm_fbk_mgt.i_smfbd:
                                    std_logic_vector(c_DFLD_SMFBD_COL_S-1 downto 0)>>                        ; --! Internal design: SQUID MUX feedback delay
    alias td_smfbd_1           : std_logic_vector(c_DFLD_SMFBD_COL_S-1 downto 0) is
-                                 <<signal .top_dmx_tb.I_top_dmx.G_column_mgt(1).I_sqm_fbk_mgt.i_smfbd:
+                                 <<signal .top_dmx_tb.I_top_dmx.G_column_mgt(c_COL1).I_sqm_fbk_mgt.i_smfbd:
                                    std_logic_vector(c_DFLD_SMFBD_COL_S-1 downto 0)>>                        ; --! Internal design: SQUID MUX feedback delay
    alias td_smfbd_2           : std_logic_vector(c_DFLD_SMFBD_COL_S-1 downto 0) is
-                                 <<signal .top_dmx_tb.I_top_dmx.G_column_mgt(2).I_sqm_fbk_mgt.i_smfbd:
+                                 <<signal .top_dmx_tb.I_top_dmx.G_column_mgt(c_COL2).I_sqm_fbk_mgt.i_smfbd:
                                    std_logic_vector(c_DFLD_SMFBD_COL_S-1 downto 0)>>                        ; --! Internal design: SQUID MUX feedback delay
    alias td_smfbd_3           : std_logic_vector(c_DFLD_SMFBD_COL_S-1 downto 0) is
-                                 <<signal .top_dmx_tb.I_top_dmx.G_column_mgt(3).I_sqm_fbk_mgt.i_smfbd:
+                                 <<signal .top_dmx_tb.I_top_dmx.G_column_mgt(c_COL3).I_sqm_fbk_mgt.i_smfbd:
                                    std_logic_vector(c_DFLD_SMFBD_COL_S-1 downto 0)>>                        ; --! Internal design: SQUID MUX feedback delay
 
    alias td_saomd_0           : std_logic_vector(c_DFLD_SAOMD_COL_S-1 downto 0) is
-                                 <<signal .top_dmx_tb.I_top_dmx.G_column_mgt(0).I_sqa_fbk_mgt.i_saomd:
+                                 <<signal .top_dmx_tb.I_top_dmx.G_column_mgt(c_COL0).I_sqa_fbk_mgt.i_saomd:
                                    std_logic_vector(c_DFLD_SAOMD_COL_S-1 downto 0)>>                        ; --! Internal design: SQUID AMP offset MUX delay
    alias td_saomd_1           : std_logic_vector(c_DFLD_SAOMD_COL_S-1 downto 0) is
-                                 <<signal .top_dmx_tb.I_top_dmx.G_column_mgt(1).I_sqa_fbk_mgt.i_saomd:
+                                 <<signal .top_dmx_tb.I_top_dmx.G_column_mgt(c_COL1).I_sqa_fbk_mgt.i_saomd:
                                    std_logic_vector(c_DFLD_SAOMD_COL_S-1 downto 0)>>                        ; --! Internal design: SQUID AMP offset MUX delay
    alias td_saomd_2           : std_logic_vector(c_DFLD_SAOMD_COL_S-1 downto 0) is
-                                 <<signal .top_dmx_tb.I_top_dmx.G_column_mgt(2).I_sqa_fbk_mgt.i_saomd:
+                                 <<signal .top_dmx_tb.I_top_dmx.G_column_mgt(c_COL2).I_sqa_fbk_mgt.i_saomd:
                                    std_logic_vector(c_DFLD_SAOMD_COL_S-1 downto 0)>>                        ; --! Internal design: SQUID AMP offset MUX delay
    alias td_saomd_3           : std_logic_vector(c_DFLD_SAOMD_COL_S-1 downto 0) is
-                                 <<signal .top_dmx_tb.I_top_dmx.G_column_mgt(3).I_sqa_fbk_mgt.i_saomd:
+                                 <<signal .top_dmx_tb.I_top_dmx.G_column_mgt(c_COL3).I_sqa_fbk_mgt.i_saomd:
                                    std_logic_vector(c_DFLD_SAOMD_COL_S-1 downto 0)>>                        ; --! Internal design: SQUID AMP offset MUX delay
 
    alias td_sqm_fbm_clslp_n_0 : std_logic is <<signal
-                                .top_dmx_tb.I_top_dmx.G_column_mgt(0).I_squid_data_proc.init_fbk_acc_fb
+                                .top_dmx_tb.I_top_dmx.G_column_mgt(c_COL0).I_squid_data_proc.init_fbk_acc_fb
                                                                                              : std_logic>>  ; --! Internal design: SQUID MUX feedback mode Closed loop
    alias td_sqm_fbm_clslp_n_1 : std_logic is <<signal
-                                .top_dmx_tb.I_top_dmx.G_column_mgt(1).I_squid_data_proc.init_fbk_acc_fb
+                                .top_dmx_tb.I_top_dmx.G_column_mgt(c_COL1).I_squid_data_proc.init_fbk_acc_fb
                                                                                              : std_logic>>  ; --! Internal design: SQUID MUX feedback mode Closed loop
    alias td_sqm_fbm_clslp_n_2 : std_logic is <<signal
-                                .top_dmx_tb.I_top_dmx.G_column_mgt(2).I_squid_data_proc.init_fbk_acc_fb
+                                .top_dmx_tb.I_top_dmx.G_column_mgt(c_COL2).I_squid_data_proc.init_fbk_acc_fb
                                                                                              : std_logic>>  ; --! Internal design: SQUID MUX feedback mode Closed loop
    alias td_sqm_fbm_clslp_n_3 : std_logic is <<signal
-                                .top_dmx_tb.I_top_dmx.G_column_mgt(3).I_squid_data_proc.init_fbk_acc_fb
+                                .top_dmx_tb.I_top_dmx.G_column_mgt(c_COL3).I_squid_data_proc.init_fbk_acc_fb
                                                                                              : std_logic>>  ; --! Internal design: SQUID MUX feedback mode Closed loop
    begin
 
-      d_rst                <= td_rst;
-      d_rst_sqm_adc(0)     <= td_rst_sqm_adc_0;
-      d_rst_sqm_adc(1)     <= td_rst_sqm_adc_1;
-      d_rst_sqm_adc(2)     <= td_rst_sqm_adc_2;
-      d_rst_sqm_adc(3)     <= td_rst_sqm_adc_3;
-      d_rst_sqm_dac(0)     <= td_rst_sqm_dac_0;
-      d_rst_sqm_dac(1)     <= td_rst_sqm_dac_1;
-      d_rst_sqm_dac(2)     <= td_rst_sqm_dac_2;
-      d_rst_sqm_dac(3)     <= td_rst_sqm_dac_3;
-      d_rst_sqa_mux(0)     <= td_rst_sqa_mux_0;
-      d_rst_sqa_mux(1)     <= td_rst_sqa_mux_1;
-      d_rst_sqa_mux(2)     <= td_rst_sqa_mux_2;
-      d_rst_sqa_mux(3)     <= td_rst_sqa_mux_3;
-      d_clk                <= td_clk;
-      d_clk_sqm_adc_acq    <= td_clk_sqm_adc_acq;
-      d_clk_sqm_pls_shape  <= td_clk_sqm_pls_shape;
-      d_aqmde              <= td_aqmde;
-      d_smfbd(0)           <= td_smfbd_0;
-      d_smfbd(1)           <= td_smfbd_1;
-      d_smfbd(2)           <= td_smfbd_2;
-      d_smfbd(3)           <= td_smfbd_3;
-      d_saomd(0)           <= td_saomd_0;
-      d_saomd(1)           <= td_saomd_1;
-      d_saomd(2)           <= td_saomd_2;
-      d_saomd(3)           <= td_saomd_3;
-      d_sqm_fbm_cls_lp_n(0)<= td_sqm_fbm_clslp_n_0;
-      d_sqm_fbm_cls_lp_n(1)<= td_sqm_fbm_clslp_n_1;
-      d_sqm_fbm_cls_lp_n(2)<= td_sqm_fbm_clslp_n_2;
-      d_sqm_fbm_cls_lp_n(3)<= td_sqm_fbm_clslp_n_3;
+      d_rst                      <= td_rst;
+      d_rst_sqm_adc(c_COL0)      <= td_rst_sqm_adc_0;
+      d_rst_sqm_adc(c_COL1)      <= td_rst_sqm_adc_1;
+      d_rst_sqm_adc(c_COL2)      <= td_rst_sqm_adc_2;
+      d_rst_sqm_adc(c_COL3)      <= td_rst_sqm_adc_3;
+      d_rst_sqm_dac(c_COL0)      <= td_rst_sqm_dac_0;
+      d_rst_sqm_dac(c_COL1)      <= td_rst_sqm_dac_1;
+      d_rst_sqm_dac(c_COL2)      <= td_rst_sqm_dac_2;
+      d_rst_sqm_dac(c_COL3)      <= td_rst_sqm_dac_3;
+      d_rst_sqa_mux(c_COL0)      <= td_rst_sqa_mux_0;
+      d_rst_sqa_mux(c_COL1)      <= td_rst_sqa_mux_1;
+      d_rst_sqa_mux(c_COL2)      <= td_rst_sqa_mux_2;
+      d_rst_sqa_mux(c_COL3)      <= td_rst_sqa_mux_3;
+      d_clk                      <= td_clk;
+      d_clk_sqm_adc_acq          <= td_clk_sqm_adc_acq;
+      d_clk_sqm_pls_shape        <= td_clk_sqm_pls_shape;
+      d_aqmde                    <= td_aqmde;
+      d_smfbd(c_COL0)            <= td_smfbd_0;
+      d_smfbd(c_COL1)            <= td_smfbd_1;
+      d_smfbd(c_COL2)            <= td_smfbd_2;
+      d_smfbd(c_COL3)            <= td_smfbd_3;
+      d_saomd(c_COL0)            <= td_saomd_0;
+      d_saomd(c_COL1)            <= td_saomd_1;
+      d_saomd(c_COL2)            <= td_saomd_2;
+      d_saomd(c_COL3)            <= td_saomd_3;
+      d_sqm_fbm_cls_lp_n(c_COL0) <= td_sqm_fbm_clslp_n_0;
+      d_sqm_fbm_cls_lp_n(c_COL1) <= td_sqm_fbm_clslp_n_1;
+      d_sqm_fbm_cls_lp_n(c_COL2) <= td_sqm_fbm_clslp_n_2;
+      d_sqm_fbm_cls_lp_n(c_COL3) <= td_sqm_fbm_clslp_n_3;
 
    end generate G_get_top_level_sig;
 
@@ -320,26 +320,26 @@ begin
          i_clk                => d_clk                , -- in     std_logic                                 ; --! Internal design: System Clock
          i_clk_sqm_adc_acq    => d_clk_sqm_adc_acq    , -- in     std_logic                                 ; --! Internal design: SQUID MUX ADC acquisition Clock
          i_clk_sqm_pls_shape  => d_clk_sqm_pls_shape  , -- in     std_logic                                 ; --! Internal design: SQUID MUX pulse shaping Clock
-         i_c0_clk_sqm_adc     => clk_sqm_adc(0)       , -- in     std_logic                                 ; --! SQUID MUX ADC, col. 0: Clock
-         i_c1_clk_sqm_adc     => clk_sqm_adc(1)       , -- in     std_logic                                 ; --! SQUID MUX ADC, col. 1: Clock
-         i_c2_clk_sqm_adc     => clk_sqm_adc(2)       , -- in     std_logic                                 ; --! SQUID MUX ADC, col. 2: Clock
-         i_c3_clk_sqm_adc     => clk_sqm_adc(3)       , -- in     std_logic                                 ; --! SQUID MUX ADC, col. 3: Clock
-         i_c0_clk_sqm_dac     => clk_sqm_dac(0)       , -- in     std_logic                                 ; --! SQUID MUX DAC, col. 0: Clock
-         i_c1_clk_sqm_dac     => clk_sqm_dac(1)       , -- in     std_logic                                 ; --! SQUID MUX DAC, col. 1: Clock
-         i_c2_clk_sqm_dac     => clk_sqm_dac(2)       , -- in     std_logic                                 ; --! SQUID MUX DAC, col. 2: Clock
-         i_c3_clk_sqm_dac     => clk_sqm_dac(3)       , -- in     std_logic                                 ; --! SQUID MUX DAC, col. 3: Clock
+         i_c0_clk_sqm_adc     => clk_sqm_adc(c_COL0)  , -- in     std_logic                                 ; --! SQUID MUX ADC, col. 0: Clock
+         i_c1_clk_sqm_adc     => clk_sqm_adc(c_COL1)  , -- in     std_logic                                 ; --! SQUID MUX ADC, col. 1: Clock
+         i_c2_clk_sqm_adc     => clk_sqm_adc(c_COL2)  , -- in     std_logic                                 ; --! SQUID MUX ADC, col. 2: Clock
+         i_c3_clk_sqm_adc     => clk_sqm_adc(c_COL3)  , -- in     std_logic                                 ; --! SQUID MUX ADC, col. 3: Clock
+         i_c0_clk_sqm_dac     => clk_sqm_dac(c_COL0)  , -- in     std_logic                                 ; --! SQUID MUX DAC, col. 0: Clock
+         i_c1_clk_sqm_dac     => clk_sqm_dac(c_COL1)  , -- in     std_logic                                 ; --! SQUID MUX DAC, col. 1: Clock
+         i_c2_clk_sqm_dac     => clk_sqm_dac(c_COL2)  , -- in     std_logic                                 ; --! SQUID MUX DAC, col. 2: Clock
+         i_c3_clk_sqm_dac     => clk_sqm_dac(c_COL3)  , -- in     std_logic                                 ; --! SQUID MUX DAC, col. 3: Clock
          i_clk_science_01     => clk_science_01       , -- in     std_logic                                 ; --! Science Data: Clock channel 0/1
          i_clk_science_23     => clk_science_23       , -- in     std_logic                                 ; --! Science Data: Clock channel 2/3
 
          i_rst                => d_rst                , -- in     std_logic                                 ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
-         i_c0_sqm_adc_pwdn    => sqm_adc_pwdn(0)      , -- in     std_logic                                 ; --! SQUID MUX ADC, col. 0: Power Down ('0' = Inactive, '1' = Active)
-         i_c1_sqm_adc_pwdn    => sqm_adc_pwdn(1)      , -- in     std_logic                                 ; --! SQUID MUX ADC, col. 1: Power Down ('0' = Inactive, '1' = Active)
-         i_c2_sqm_adc_pwdn    => sqm_adc_pwdn(2)      , -- in     std_logic                                 ; --! SQUID MUX ADC, col. 2: Power Down ('0' = Inactive, '1' = Active)
-         i_c3_sqm_adc_pwdn    => sqm_adc_pwdn(3)      , -- in     std_logic                                 ; --! SQUID MUX ADC, col. 3: Power Down ('0' = Inactive, '1' = Active)
-         i_c0_sqm_dac_sleep   => sqm_dac_sleep(0)     , -- in     std_logic                                 ; --! SQUID MUX DAC, col. 0: Sleep ('0' = Inactive, '1' = Active)
-         i_c1_sqm_dac_sleep   => sqm_dac_sleep(1)     , -- in     std_logic                                 ; --! SQUID MUX DAC, col. 1: Sleep ('0' = Inactive, '1' = Active)
-         i_c2_sqm_dac_sleep   => sqm_dac_sleep(2)     , -- in     std_logic                                 ; --! SQUID MUX DAC, col. 2: Sleep ('0' = Inactive, '1' = Active)
-         i_c3_sqm_dac_sleep   => sqm_dac_sleep(3)     , -- in     std_logic                                 ; --! SQUID MUX DAC, col. 3: Sleep ('0' = Inactive, '1' = Active)
+         i_c0_sqm_adc_pwdn    => sqm_adc_pwdn(c_COL0) , -- in     std_logic                                 ; --! SQUID MUX ADC, col. 0: Power Down ('0' = Inactive, '1' = Active)
+         i_c1_sqm_adc_pwdn    => sqm_adc_pwdn(c_COL1) , -- in     std_logic                                 ; --! SQUID MUX ADC, col. 1: Power Down ('0' = Inactive, '1' = Active)
+         i_c2_sqm_adc_pwdn    => sqm_adc_pwdn(c_COL2) , -- in     std_logic                                 ; --! SQUID MUX ADC, col. 2: Power Down ('0' = Inactive, '1' = Active)
+         i_c3_sqm_adc_pwdn    => sqm_adc_pwdn(c_COL3) , -- in     std_logic                                 ; --! SQUID MUX ADC, col. 3: Power Down ('0' = Inactive, '1' = Active)
+         i_c0_sqm_dac_sleep   => sqm_dac_sleep(c_COL0), -- in     std_logic                                 ; --! SQUID MUX DAC, col. 0: Sleep ('0' = Inactive, '1' = Active)
+         i_c1_sqm_dac_sleep   => sqm_dac_sleep(c_COL1), -- in     std_logic                                 ; --! SQUID MUX DAC, col. 1: Sleep ('0' = Inactive, '1' = Active)
+         i_c2_sqm_dac_sleep   => sqm_dac_sleep(c_COL2), -- in     std_logic                                 ; --! SQUID MUX DAC, col. 2: Sleep ('0' = Inactive, '1' = Active)
+         i_c3_sqm_dac_sleep   => sqm_dac_sleep(c_COL3), -- in     std_logic                                 ; --! SQUID MUX DAC, col. 3: Sleep ('0' = Inactive, '1' = Active)
 
          o_err_chk_rpt        => err_chk_rpt            -- out    t_int_arr_tab c_CHK_ENA_CLK_NB              --! Clock check error reports
    );
@@ -417,7 +417,7 @@ begin
 
       I_squid_model: squid_model port map (
          i_arst               => arst                 , -- in     std_logic                                 ; --! Asynchronous reset ('0' = Inactive, '1' = Active)
-         i_sync               => sync(0)              , -- in     std_logic                                 ; --! Pixel sequence synchronization (R.E. detected = position sequence to the first pixel)
+         i_sync               => sync(c_COL0)         , -- in     std_logic                                 ; --! Pixel sequence synchronization (R.E. detected = position sequence to the first pixel)
          i_clk_sqm_adc        => clk_sqm_adc(k)       , -- in     std_logic                                 ; --! SQUID MUX ADC: Clock
          i_sqm_adc_pwdn       => sqm_adc_pwdn(k)      , -- in     std_logic                                 ; --! SQUID MUX ADC: Power Down ('0' = Inactive, '1' = Active)
          o_sqm_adc_spi_sdio   => sqm_adc_spi_sdio(k)  , -- out    std_logic                                 ; --! SQUID MUX ADC: SPI Serial Data In Out
@@ -482,7 +482,7 @@ begin
          i_science_ctrl_23    => science_ctrl_23      , -- in     std_logic                                 ; --! Science Data: Control channel 2/3
          i_science_data       => science_data         , -- in     t_slv_arr c_NB_COL+1 c_SC_DATA_SER_NB     ; --! Science Data: Serial Data
 
-         i_sync               => sync(0)              , -- in     std_logic                                 ; --! Pixel sequence synchronization (R.E. detected = position sequence to the first pixel)
+         i_sync               => sync(c_COL0)         , -- in     std_logic                                 ; --! Pixel sequence synchronization (R.E. detected = position sequence to the first pixel)
          i_aqmde              => d_aqmde              , -- in     t_slv_arr c_NB_COL c_DFLD_AQMDE_S         ; --! Telemetry mode
          i_smfbd              => d_smfbd              , -- in     t_slv_arr c_NB_COL c_DFLD_SMFBD_COL_S     ; --! SQUID MUX feedback delay
          i_saomd              => d_saomd              , -- in     t_slv_arr c_NB_COL c_DFLD_SAOMD_COL_S     ; --! SQUID AMP offset MUX delay
@@ -507,8 +507,8 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    I_parser: parser port map (
          o_arst_n             => arst_n               , -- out    std_logic                                 ; --! Asynchronous reset ('0' = Active, '1' = Inactive)
-         i_clk_ref            => clk_ref(0)           , -- in     std_logic                                 ; --! Reference Clock
-         i_sync               => sync(0)              , -- in     std_logic                                 ; --! Pixel sequence synchronization (R.E. detected = position sequence to the first pixel)
+         i_clk_ref            => clk_ref(c_COL0)      , -- in     std_logic                                 ; --! Reference Clock
+         i_sync               => sync(c_COL0)         , -- in     std_logic                                 ; --! Pixel sequence synchronization (R.E. detected = position sequence to the first pixel)
 
          i_err_chk_rpt        => err_chk_rpt          , -- in     t_int_arr_tab c_CHK_ENA_CLK_NB            ; --! Clock check error reports
          i_err_n_spi_chk      => err_n_spi_chk        , -- in     t_int_arr_tab(0 to c_CHK_ENA_SPI_NB-1)    ; --! SPI check error number:

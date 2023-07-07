@@ -68,7 +68,7 @@ configuration DRE_DMX_UT_5000_cfg of top_dmx_tb is
       -- ------------------------------------------------------------------------------------------------------
       --!   Squid model configuration
       -- ------------------------------------------------------------------------------------------------------
-      for G_column_mgt(0)
+      for G_column_mgt(c_COL0)
          for I_squid_model: squid_model
             use entity work.squid_model generic map (
             g_SQM_ADC_VREF       => c_SQM_ADC_VREF_DEF   , -- real      := c_SQM_ADC_VREF_DEF               ; --! SQUID MUX ADC: Voltage reference (Volt)
@@ -101,7 +101,7 @@ configuration DRE_DMX_UT_5000_cfg of top_dmx_tb is
          end for;
       end for;
 
-      for G_column_mgt(1)
+      for G_column_mgt(c_COL1)
          for I_squid_model: squid_model
             use entity work.squid_model generic map (
             g_SQM_ADC_VREF       => c_SQM_ADC_VREF_DEF   , -- real      := c_SQM_ADC_VREF_DEF               ; --! SQUID MUX ADC: Voltage reference (Volt)
@@ -134,7 +134,7 @@ configuration DRE_DMX_UT_5000_cfg of top_dmx_tb is
          end for;
       end for;
 
-      for G_column_mgt(2)
+      for G_column_mgt(c_COL2)
          for I_squid_model: squid_model
             use entity work.squid_model generic map (
             g_SQM_ADC_VREF       => c_SQM_ADC_VREF_DEF   , -- real      := c_SQM_ADC_VREF_DEF               ; --! SQUID MUX ADC: Voltage reference (Volt)
@@ -167,7 +167,7 @@ configuration DRE_DMX_UT_5000_cfg of top_dmx_tb is
          end for;
       end for;
 
-      for G_column_mgt(3)
+      for G_column_mgt(c_COL3)
          for I_squid_model: squid_model
             use entity work.squid_model generic map (
             g_SQM_ADC_VREF       => c_SQM_ADC_VREF_DEF   , -- real      := c_SQM_ADC_VREF_DEF               ; --! SQUID MUX ADC: Voltage reference (Volt)

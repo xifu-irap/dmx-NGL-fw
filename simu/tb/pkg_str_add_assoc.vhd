@@ -143,220 +143,220 @@ constant c_PAD                : character := ' '                                
             o_fld_add_val:= c_EP_CMD_ADD_HW_VER;
 
          when "C0_A                          "  =>
-            o_fld_add_val:= c_EP_CMD_ADD_PARMA(0);
+            o_fld_add_val:= c_EP_CMD_ADD_PARMA(c_COL0);
 
          when "C0_KI_KNORM                   "  =>
-            o_fld_add_val:= c_EP_CMD_ADD_KIKNM(0);
+            o_fld_add_val:= c_EP_CMD_ADD_KIKNM(c_COL0);
 
          when "C0_KNORM                      "  =>
-            o_fld_add_val:= c_EP_CMD_ADD_KNORM(0);
+            o_fld_add_val:= c_EP_CMD_ADD_KNORM(c_COL0);
 
          when "C0_MUX_SQ_FB0                 "  =>
-            o_fld_add_val:= c_EP_CMD_ADD_SMFB0(0);
+            o_fld_add_val:= c_EP_CMD_ADD_SMFB0(c_COL0);
 
          when "C0_MUX_SQ_LOCKPOINT_V         "  =>
-            o_fld_add_val:= c_EP_CMD_ADD_SMLKV(0);
+            o_fld_add_val:= c_EP_CMD_ADD_SMLKV(c_COL0);
 
          when "C0_MUX_SQ_FB_MODE             "  =>
-            o_fld_add_val:= c_EP_CMD_ADD_SMFBM(0);
+            o_fld_add_val:= c_EP_CMD_ADD_SMFBM(c_COL0);
 
          when "C0_AMP_SQ_OFFSET_FINE         "  =>
-            o_fld_add_val:= c_EP_CMD_ADD_SAOFF(0);
+            o_fld_add_val:= c_EP_CMD_ADD_SAOFF(c_COL0);
 
          when "C0_AMP_SQ_OFFSET_COARSE       "  =>
-            o_fld_add_val:= c_EP_CMD_ADD_SAOFC(0);
+            o_fld_add_val:= c_EP_CMD_ADD_SAOFC(c_COL0);
 
          when "C0_AMP_SQ_OFFSET_LSB          "  =>
-            o_fld_add_val:= c_EP_CMD_ADD_SAOFL(0);
+            o_fld_add_val:= c_EP_CMD_ADD_SAOFL(c_COL0);
 
          when "C0_MUX_SQ_FB_DELAY            "  =>
-            o_fld_add_val:= c_EP_CMD_ADD_SMFBD(0);
+            o_fld_add_val:= c_EP_CMD_ADD_SMFBD(c_COL0);
 
          when "C0_AMP_SQ_OFFSET_DAC_DELAY    "  =>
-            o_fld_add_val:= c_EP_CMD_ADD_SAODD(0);
+            o_fld_add_val:= c_EP_CMD_ADD_SAODD(c_COL0);
 
          when "C0_AMP_SQ_OFFSET_MUX_DELAY    "  =>
-            o_fld_add_val:= c_EP_CMD_ADD_SAOMD(0);
+            o_fld_add_val:= c_EP_CMD_ADD_SAOMD(c_COL0);
 
          when "C0_SAMPLING_DELAY             "  =>
-            o_fld_add_val:= c_EP_CMD_ADD_SMPDL(0);
+            o_fld_add_val:= c_EP_CMD_ADD_SMPDL(c_COL0);
 
          when "C0_FB1_PULSE_SHAPING          "  =>
-            o_fld_add_val:= c_EP_CMD_ADD_PLSSH(0);
+            o_fld_add_val:= c_EP_CMD_ADD_PLSSH(c_COL0);
 
          when "C0_FB1_PULSE_SHAPING_SELECTION"  =>
-            o_fld_add_val:= c_EP_CMD_ADD_PLSSS(0);
+            o_fld_add_val:= c_EP_CMD_ADD_PLSSS(c_COL0);
 
          when "C0_RELOCK_DELAY               "  =>
-            o_fld_add_val:= c_EP_CMD_ADD_RLDEL(0);
+            o_fld_add_val:= c_EP_CMD_ADD_RLDEL(c_COL0);
 
          when "C0_RELOCK_THRESHOLD           "  =>
-            o_fld_add_val:= c_EP_CMD_ADD_RLTHR(0);
+            o_fld_add_val:= c_EP_CMD_ADD_RLTHR(c_COL0);
 
          when "C0_DELOCK_COUNTERS            "  =>
-            o_fld_add_val:= c_EP_CMD_ADD_DLCNT(0);
+            o_fld_add_val:= c_EP_CMD_ADD_DLCNT(c_COL0);
 
          when "C1_A                          "  =>
-            o_fld_add_val:= c_EP_CMD_ADD_PARMA(1);
+            o_fld_add_val:= c_EP_CMD_ADD_PARMA(c_COL1);
 
          when "C1_KI_KNORM                   "  =>
-            o_fld_add_val:= c_EP_CMD_ADD_KIKNM(1);
+            o_fld_add_val:= c_EP_CMD_ADD_KIKNM(c_COL1);
 
          when "C1_KNORM                      "  =>
-            o_fld_add_val:= c_EP_CMD_ADD_KNORM(1);
+            o_fld_add_val:= c_EP_CMD_ADD_KNORM(c_COL1);
 
          when "C1_MUX_SQ_FB0                 "  =>
-            o_fld_add_val:= c_EP_CMD_ADD_SMFB0(1);
+            o_fld_add_val:= c_EP_CMD_ADD_SMFB0(c_COL1);
 
          when "C1_MUX_SQ_LOCKPOINT_V         "  =>
-            o_fld_add_val:= c_EP_CMD_ADD_SMLKV(1);
+            o_fld_add_val:= c_EP_CMD_ADD_SMLKV(c_COL1);
 
          when "C1_MUX_SQ_FB_MODE             "  =>
-            o_fld_add_val:= c_EP_CMD_ADD_SMFBM(1);
+            o_fld_add_val:= c_EP_CMD_ADD_SMFBM(c_COL1);
 
          when "C1_AMP_SQ_OFFSET_FINE         "  =>
-            o_fld_add_val:= c_EP_CMD_ADD_SAOFF(1);
+            o_fld_add_val:= c_EP_CMD_ADD_SAOFF(c_COL1);
 
          when "C1_AMP_SQ_OFFSET_COARSE       "  =>
-            o_fld_add_val:= c_EP_CMD_ADD_SAOFC(1);
+            o_fld_add_val:= c_EP_CMD_ADD_SAOFC(c_COL1);
 
          when "C1_AMP_SQ_OFFSET_LSB          "  =>
-            o_fld_add_val:= c_EP_CMD_ADD_SAOFL(1);
+            o_fld_add_val:= c_EP_CMD_ADD_SAOFL(c_COL1);
 
          when "C1_MUX_SQ_FB_DELAY            "  =>
-            o_fld_add_val:= c_EP_CMD_ADD_SMFBD(1);
+            o_fld_add_val:= c_EP_CMD_ADD_SMFBD(c_COL1);
 
          when "C1_AMP_SQ_OFFSET_DAC_DELAY    "  =>
-            o_fld_add_val:= c_EP_CMD_ADD_SAODD(1);
+            o_fld_add_val:= c_EP_CMD_ADD_SAODD(c_COL1);
 
          when "C1_AMP_SQ_OFFSET_MUX_DELAY    "  =>
-            o_fld_add_val:= c_EP_CMD_ADD_SAOMD(1);
+            o_fld_add_val:= c_EP_CMD_ADD_SAOMD(c_COL1);
 
          when "C1_SAMPLING_DELAY             "  =>
-            o_fld_add_val:= c_EP_CMD_ADD_SMPDL(1);
+            o_fld_add_val:= c_EP_CMD_ADD_SMPDL(c_COL1);
 
          when "C1_FB1_PULSE_SHAPING          "  =>
-            o_fld_add_val:= c_EP_CMD_ADD_PLSSH(1);
+            o_fld_add_val:= c_EP_CMD_ADD_PLSSH(c_COL1);
 
          when "C1_FB1_PULSE_SHAPING_SELECTION"  =>
-            o_fld_add_val:= c_EP_CMD_ADD_PLSSS(1);
+            o_fld_add_val:= c_EP_CMD_ADD_PLSSS(c_COL1);
 
          when "C1_RELOCK_DELAY               "  =>
-            o_fld_add_val:= c_EP_CMD_ADD_RLDEL(1);
+            o_fld_add_val:= c_EP_CMD_ADD_RLDEL(c_COL1);
 
          when "C1_RELOCK_THRESHOLD           "  =>
-            o_fld_add_val:= c_EP_CMD_ADD_RLTHR(1);
+            o_fld_add_val:= c_EP_CMD_ADD_RLTHR(c_COL1);
 
          when "C1_DELOCK_COUNTERS            "  =>
-            o_fld_add_val:= c_EP_CMD_ADD_DLCNT(1);
+            o_fld_add_val:= c_EP_CMD_ADD_DLCNT(c_COL1);
 
          when "C2_A                          "  =>
-            o_fld_add_val:= c_EP_CMD_ADD_PARMA(2);
+            o_fld_add_val:= c_EP_CMD_ADD_PARMA(c_COL2);
 
          when "C2_KI_KNORM                   "  =>
-            o_fld_add_val:= c_EP_CMD_ADD_KIKNM(2);
+            o_fld_add_val:= c_EP_CMD_ADD_KIKNM(c_COL2);
 
          when "C2_KNORM                      "  =>
-            o_fld_add_val:= c_EP_CMD_ADD_KNORM(2);
+            o_fld_add_val:= c_EP_CMD_ADD_KNORM(c_COL2);
 
          when "C2_MUX_SQ_FB0                 "  =>
-            o_fld_add_val:= c_EP_CMD_ADD_SMFB0(2);
+            o_fld_add_val:= c_EP_CMD_ADD_SMFB0(c_COL2);
 
          when "C2_MUX_SQ_LOCKPOINT_V         "  =>
-            o_fld_add_val:= c_EP_CMD_ADD_SMLKV(2);
+            o_fld_add_val:= c_EP_CMD_ADD_SMLKV(c_COL2);
 
          when "C2_MUX_SQ_FB_MODE             "  =>
-            o_fld_add_val:= c_EP_CMD_ADD_SMFBM(2);
+            o_fld_add_val:= c_EP_CMD_ADD_SMFBM(c_COL2);
 
          when "C2_AMP_SQ_OFFSET_FINE         "  =>
-            o_fld_add_val:= c_EP_CMD_ADD_SAOFF(2);
+            o_fld_add_val:= c_EP_CMD_ADD_SAOFF(c_COL2);
 
          when "C2_AMP_SQ_OFFSET_COARSE       "  =>
-            o_fld_add_val:= c_EP_CMD_ADD_SAOFC(2);
+            o_fld_add_val:= c_EP_CMD_ADD_SAOFC(c_COL2);
 
          when "C2_AMP_SQ_OFFSET_LSB          "  =>
-            o_fld_add_val:= c_EP_CMD_ADD_SAOFL(2);
+            o_fld_add_val:= c_EP_CMD_ADD_SAOFL(c_COL2);
 
          when "C2_MUX_SQ_FB_DELAY            "  =>
-            o_fld_add_val:= c_EP_CMD_ADD_SMFBD(2);
+            o_fld_add_val:= c_EP_CMD_ADD_SMFBD(c_COL2);
 
          when "C2_AMP_SQ_OFFSET_DAC_DELAY    "  =>
-            o_fld_add_val:= c_EP_CMD_ADD_SAODD(2);
+            o_fld_add_val:= c_EP_CMD_ADD_SAODD(c_COL2);
 
          when "C2_AMP_SQ_OFFSET_MUX_DELAY    "  =>
-            o_fld_add_val:= c_EP_CMD_ADD_SAOMD(2);
+            o_fld_add_val:= c_EP_CMD_ADD_SAOMD(c_COL2);
 
          when "C2_SAMPLING_DELAY             "  =>
-            o_fld_add_val:= c_EP_CMD_ADD_SMPDL(2);
+            o_fld_add_val:= c_EP_CMD_ADD_SMPDL(c_COL2);
 
          when "C2_FB1_PULSE_SHAPING          "  =>
-            o_fld_add_val:= c_EP_CMD_ADD_PLSSH(2);
+            o_fld_add_val:= c_EP_CMD_ADD_PLSSH(c_COL2);
 
          when "C2_FB1_PULSE_SHAPING_SELECTION"  =>
-            o_fld_add_val:= c_EP_CMD_ADD_PLSSS(2);
+            o_fld_add_val:= c_EP_CMD_ADD_PLSSS(c_COL2);
 
          when "C2_RELOCK_DELAY               "  =>
-            o_fld_add_val:= c_EP_CMD_ADD_RLDEL(2);
+            o_fld_add_val:= c_EP_CMD_ADD_RLDEL(c_COL2);
 
          when "C2_RELOCK_THRESHOLD           "  =>
-            o_fld_add_val:= c_EP_CMD_ADD_RLTHR(2);
+            o_fld_add_val:= c_EP_CMD_ADD_RLTHR(c_COL2);
 
          when "C2_DELOCK_COUNTERS            "  =>
-            o_fld_add_val:= c_EP_CMD_ADD_DLCNT(2);
+            o_fld_add_val:= c_EP_CMD_ADD_DLCNT(c_COL2);
 
          when "C3_A                          "  =>
-            o_fld_add_val:= c_EP_CMD_ADD_PARMA(3);
+            o_fld_add_val:= c_EP_CMD_ADD_PARMA(c_COL3);
 
          when "C3_KI_KNORM                   "  =>
-            o_fld_add_val:= c_EP_CMD_ADD_KIKNM(3);
+            o_fld_add_val:= c_EP_CMD_ADD_KIKNM(c_COL3);
 
          when "C3_KNORM                      "  =>
-            o_fld_add_val:= c_EP_CMD_ADD_KNORM(3);
+            o_fld_add_val:= c_EP_CMD_ADD_KNORM(c_COL3);
 
          when "C3_MUX_SQ_FB0                 "  =>
-            o_fld_add_val:= c_EP_CMD_ADD_SMFB0(3);
+            o_fld_add_val:= c_EP_CMD_ADD_SMFB0(c_COL3);
 
          when "C3_MUX_SQ_LOCKPOINT_V         "  =>
-            o_fld_add_val:= c_EP_CMD_ADD_SMLKV(3);
+            o_fld_add_val:= c_EP_CMD_ADD_SMLKV(c_COL3);
 
          when "C3_MUX_SQ_FB_MODE             "  =>
-            o_fld_add_val:= c_EP_CMD_ADD_SMFBM(3);
+            o_fld_add_val:= c_EP_CMD_ADD_SMFBM(c_COL3);
 
          when "C3_AMP_SQ_OFFSET_FINE         "  =>
-            o_fld_add_val:= c_EP_CMD_ADD_SAOFF(3);
+            o_fld_add_val:= c_EP_CMD_ADD_SAOFF(c_COL3);
 
          when "C3_AMP_SQ_OFFSET_COARSE       "  =>
-            o_fld_add_val:= c_EP_CMD_ADD_SAOFC(3);
+            o_fld_add_val:= c_EP_CMD_ADD_SAOFC(c_COL3);
 
          when "C3_AMP_SQ_OFFSET_LSB          "  =>
-            o_fld_add_val:= c_EP_CMD_ADD_SAOFL(3);
+            o_fld_add_val:= c_EP_CMD_ADD_SAOFL(c_COL3);
 
          when "C3_MUX_SQ_FB_DELAY            "  =>
-            o_fld_add_val:= c_EP_CMD_ADD_SMFBD(3);
+            o_fld_add_val:= c_EP_CMD_ADD_SMFBD(c_COL3);
 
          when "C3_AMP_SQ_OFFSET_DAC_DELAY    "  =>
-            o_fld_add_val:= c_EP_CMD_ADD_SAODD(3);
+            o_fld_add_val:= c_EP_CMD_ADD_SAODD(c_COL3);
 
          when "C3_AMP_SQ_OFFSET_MUX_DELAY    "  =>
-            o_fld_add_val:= c_EP_CMD_ADD_SAOMD(3);
+            o_fld_add_val:= c_EP_CMD_ADD_SAOMD(c_COL3);
 
          when "C3_SAMPLING_DELAY             "  =>
-            o_fld_add_val:= c_EP_CMD_ADD_SMPDL(3);
+            o_fld_add_val:= c_EP_CMD_ADD_SMPDL(c_COL3);
 
          when "C3_FB1_PULSE_SHAPING          "  =>
-            o_fld_add_val:= c_EP_CMD_ADD_PLSSH(3);
+            o_fld_add_val:= c_EP_CMD_ADD_PLSSH(c_COL3);
 
          when "C3_FB1_PULSE_SHAPING_SELECTION"  =>
-            o_fld_add_val:= c_EP_CMD_ADD_PLSSS(3);
+            o_fld_add_val:= c_EP_CMD_ADD_PLSSS(c_COL3);
 
          when "C3_RELOCK_DELAY               "  =>
-            o_fld_add_val:= c_EP_CMD_ADD_RLDEL(3);
+            o_fld_add_val:= c_EP_CMD_ADD_RLDEL(c_COL3);
 
          when "C3_RELOCK_THRESHOLD           "  =>
-            o_fld_add_val:= c_EP_CMD_ADD_RLTHR(3);
+            o_fld_add_val:= c_EP_CMD_ADD_RLTHR(c_COL3);
 
          when "C3_DELOCK_COUNTERS            "  =>
-            o_fld_add_val:= c_EP_CMD_ADD_DLCNT(3);
+            o_fld_add_val:= c_EP_CMD_ADD_DLCNT(c_COL3);
 
          when others                            =>
             o_fld_add_val:= c_RET_UKWN;

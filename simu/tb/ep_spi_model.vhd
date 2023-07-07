@@ -121,7 +121,7 @@ begin
    begin
 
       if rst = c_RST_LEV_ACT then
-         ep_spi_miso_r <= (others => '0');
+         ep_spi_miso_r <= (others => c_LOW_LEV);
 
       elsif rising_edge(clk) then
          ep_spi_miso_r <= ep_spi_miso_r(ep_spi_miso_r'high-1 downto 0) & ep_spi_miso_bf_buf;
@@ -159,9 +159,9 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   SPI Data rx/tx adaptation according to serial word size requested
    -- ------------------------------------------------------------------------------------------------------
-   ep_cmd            <= i_ep_cmd & std_logic_vector(to_unsigned(0, c_SER_WD_MAX_S-c_EP_CMD_S));
+   ep_cmd            <= i_ep_cmd & c_ZERO(c_SER_WD_MAX_S-c_EP_CMD_S-1 downto 0);
 
-   ep_data_rx_mux_or(0) <= (others => '0');
+   ep_data_rx_mux_or(ep_data_rx_mux_or'low) <= (others => c_LOW_LEV);
 
    G_ep_cmd_ser_wd_s: for i in 0 to c_SER_WD_MAX_S-1 generate
    begin

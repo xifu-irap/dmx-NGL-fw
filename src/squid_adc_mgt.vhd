@@ -236,7 +236,7 @@ begin
 
          end if;
 
-         if pixel_pos(pixel_pos'high) = '1' and pls_cnt = std_logic_vector(to_unsigned(0, pls_cnt_init'length)) then
+         if pixel_pos(pixel_pos'high) = '1' and pls_cnt = c_ZERO(pls_cnt'range) then
             bxlgt_sync <= bxlgt_r(bxlgt_r'high);
 
          end if;
@@ -372,7 +372,7 @@ begin
 
          end if;
 
-         if (not(sample_cnt_msb_r(0)) and sample_cnt(sample_cnt'high)) = '1' then
+         if (not(sample_cnt_msb_r(sample_cnt_msb_r'low)) and sample_cnt(sample_cnt'high)) = '1' then
             sqm_data_err <= sum_adc_data;
 
             if pixel_pos = std_logic_vector(to_signed(c_PIXEL_POS_MAX_VAL , pixel_pos'length)) then
@@ -387,8 +387,8 @@ begin
 
          end if;
 
-         sqm_data_err_rdy <= (not(sample_cnt_msb_r(sample_cnt_msb_r'high  )) and sample_cnt_msb_r(sample_cnt_msb_r'high-1)) or
-                             (not(sample_cnt_msb_r(0)) and sample_cnt(sample_cnt'high));
+         sqm_data_err_rdy <= (not(sample_cnt_msb_r(sample_cnt_msb_r'high)) and sample_cnt_msb_r(sample_cnt_msb_r'high-1)) or
+                             (not(sample_cnt_msb_r(sample_cnt_msb_r'low )) and sample_cnt(sample_cnt'high));
 
       end if;
 

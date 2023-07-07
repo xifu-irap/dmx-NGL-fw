@@ -117,11 +117,8 @@ begin
    --!   Discrete write signals association
    -- ------------------------------------------------------------------------------------------------------
    o_arst_n             <= discrete_w(c_DW_ARST_N);
-   o_brd_model(0)       <= discrete_w(c_DW_BRD_MODEL_0);
-   o_brd_model(1)       <= discrete_w(c_DW_BRD_MODEL_1);
-   o_brd_model(2)       <= discrete_w(c_DW_BRD_MODEL_2);
-   o_sw_adc_vin(0)      <= discrete_w(c_DW_SW_ADC_VIN_0);
-   o_sw_adc_vin(1)      <= discrete_w(c_DW_SW_ADC_VIN_1);
+   o_brd_model          <= discrete_w(c_DW_BRD_MODEL_2  downto c_DW_BRD_MODEL_0);
+   o_sw_adc_vin         <= discrete_w(c_DW_SW_ADC_VIN_1 downto c_DW_SW_ADC_VIN_0);
    o_frm_cnt_sc_rst     <= discrete_w(c_DW_FRM_CNT_SC_RST);
    o_ras_data_valid     <= discrete_w(c_DW_RAS_DATA_VALID);
 
@@ -135,41 +132,41 @@ begin
    discrete_r(c_DR_D_CLK_SQM_PLS_SH)<= i_d_clk_sqm_pls_shap;
    discrete_r(c_DR_EP_CMD_BUSY_N)   <= i_ep_cmd_busy_n;
    discrete_r(c_DR_EP_DATA_RX_RDY)  <= i_ep_data_rx_rdy;
-   discrete_r(c_DR_D_RST_SQM_ADC_0) <= i_d_rst_sqm_adc(0);
-   discrete_r(c_DR_D_RST_SQM_ADC_1) <= i_d_rst_sqm_adc(1);
-   discrete_r(c_DR_D_RST_SQM_ADC_2) <= i_d_rst_sqm_adc(2);
-   discrete_r(c_DR_D_RST_SQM_ADC_3) <= i_d_rst_sqm_adc(3);
-   discrete_r(c_DR_D_RST_SQM_DAC_0) <= i_d_rst_sqm_dac(0);
-   discrete_r(c_DR_D_RST_SQM_DAC_1) <= i_d_rst_sqm_dac(1);
-   discrete_r(c_DR_D_RST_SQM_DAC_2) <= i_d_rst_sqm_dac(2);
-   discrete_r(c_DR_D_RST_SQM_DAC_3) <= i_d_rst_sqm_dac(3);
-   discrete_r(c_DR_D_RST_SQA_MUX_0) <= i_d_rst_sqa_mux(0);
-   discrete_r(c_DR_D_RST_SQA_MUX_1) <= i_d_rst_sqa_mux(1);
-   discrete_r(c_DR_D_RST_SQA_MUX_2) <= i_d_rst_sqa_mux(2);
-   discrete_r(c_DR_D_RST_SQA_MUX_3) <= i_d_rst_sqa_mux(3);
+   discrete_r(c_DR_D_RST_SQM_ADC_0) <= i_d_rst_sqm_adc(c_COL0);
+   discrete_r(c_DR_D_RST_SQM_ADC_1) <= i_d_rst_sqm_adc(c_COL1);
+   discrete_r(c_DR_D_RST_SQM_ADC_2) <= i_d_rst_sqm_adc(c_COL2);
+   discrete_r(c_DR_D_RST_SQM_ADC_3) <= i_d_rst_sqm_adc(c_COL3);
+   discrete_r(c_DR_D_RST_SQM_DAC_0) <= i_d_rst_sqm_dac(c_COL0);
+   discrete_r(c_DR_D_RST_SQM_DAC_1) <= i_d_rst_sqm_dac(c_COL1);
+   discrete_r(c_DR_D_RST_SQM_DAC_2) <= i_d_rst_sqm_dac(c_COL2);
+   discrete_r(c_DR_D_RST_SQM_DAC_3) <= i_d_rst_sqm_dac(c_COL3);
+   discrete_r(c_DR_D_RST_SQA_MUX_0) <= i_d_rst_sqa_mux(c_COL0);
+   discrete_r(c_DR_D_RST_SQA_MUX_1) <= i_d_rst_sqa_mux(c_COL1);
+   discrete_r(c_DR_D_RST_SQA_MUX_2) <= i_d_rst_sqa_mux(c_COL2);
+   discrete_r(c_DR_D_RST_SQA_MUX_3) <= i_d_rst_sqa_mux(c_COL3);
    discrete_r(c_DR_SYNC)            <= i_sync;
-   discrete_r(c_DR_SQM_ADC_PWDN_0)  <= i_sqm_adc_pwdn(0);
-   discrete_r(c_DR_SQM_ADC_PWDN_1)  <= i_sqm_adc_pwdn(1);
-   discrete_r(c_DR_SQM_ADC_PWDN_2)  <= i_sqm_adc_pwdn(2);
-   discrete_r(c_DR_SQM_ADC_PWDN_3)  <= i_sqm_adc_pwdn(3);
-   discrete_r(c_DR_SQM_DAC_SLEEP_0) <= i_sqm_dac_sleep(0);
-   discrete_r(c_DR_SQM_DAC_SLEEP_1) <= i_sqm_dac_sleep(1);
-   discrete_r(c_DR_SQM_DAC_SLEEP_2) <= i_sqm_dac_sleep(2);
-   discrete_r(c_DR_SQM_DAC_SLEEP_3) <= i_sqm_dac_sleep(3);
-   discrete_r(c_DR_CLK_SQM_ADC_0)   <= i_clk_sqm_adc(0);
-   discrete_r(c_DR_CLK_SQM_ADC_1)   <= i_clk_sqm_adc(1);
-   discrete_r(c_DR_CLK_SQM_ADC_2)   <= i_clk_sqm_adc(2);
-   discrete_r(c_DR_CLK_SQM_ADC_3)   <= i_clk_sqm_adc(3);
-   discrete_r(c_DR_CLK_SQM_DAC_0)   <= i_clk_sqm_dac(0);
-   discrete_r(c_DR_CLK_SQM_DAC_1)   <= i_clk_sqm_dac(1);
-   discrete_r(c_DR_CLK_SQM_DAC_2)   <= i_clk_sqm_dac(2);
-   discrete_r(c_DR_CLK_SQM_DAC_3)   <= i_clk_sqm_dac(3);
-   discrete_r(c_DR_FPA_CONF_BUSY_0) <= i_fpa_conf_busy(0);
-   discrete_r(c_DR_FPA_CONF_BUSY_1) <= i_fpa_conf_busy(1);
-   discrete_r(c_DR_FPA_CONF_BUSY_2) <= i_fpa_conf_busy(2);
-   discrete_r(c_DR_FPA_CONF_BUSY_3) <= i_fpa_conf_busy(3);
+   discrete_r(c_DR_SQM_ADC_PWDN_0)  <= i_sqm_adc_pwdn(c_COL0);
+   discrete_r(c_DR_SQM_ADC_PWDN_1)  <= i_sqm_adc_pwdn(c_COL1);
+   discrete_r(c_DR_SQM_ADC_PWDN_2)  <= i_sqm_adc_pwdn(c_COL2);
+   discrete_r(c_DR_SQM_ADC_PWDN_3)  <= i_sqm_adc_pwdn(c_COL3);
+   discrete_r(c_DR_SQM_DAC_SLEEP_0) <= i_sqm_dac_sleep(c_COL0);
+   discrete_r(c_DR_SQM_DAC_SLEEP_1) <= i_sqm_dac_sleep(c_COL1);
+   discrete_r(c_DR_SQM_DAC_SLEEP_2) <= i_sqm_dac_sleep(c_COL2);
+   discrete_r(c_DR_SQM_DAC_SLEEP_3) <= i_sqm_dac_sleep(c_COL3);
+   discrete_r(c_DR_CLK_SQM_ADC_0)   <= i_clk_sqm_adc(c_COL0);
+   discrete_r(c_DR_CLK_SQM_ADC_1)   <= i_clk_sqm_adc(c_COL1);
+   discrete_r(c_DR_CLK_SQM_ADC_2)   <= i_clk_sqm_adc(c_COL2);
+   discrete_r(c_DR_CLK_SQM_ADC_3)   <= i_clk_sqm_adc(c_COL3);
+   discrete_r(c_DR_CLK_SQM_DAC_0)   <= i_clk_sqm_dac(c_COL0);
+   discrete_r(c_DR_CLK_SQM_DAC_1)   <= i_clk_sqm_dac(c_COL1);
+   discrete_r(c_DR_CLK_SQM_DAC_2)   <= i_clk_sqm_dac(c_COL2);
+   discrete_r(c_DR_CLK_SQM_DAC_3)   <= i_clk_sqm_dac(c_COL3);
+   discrete_r(c_DR_FPA_CONF_BUSY_0) <= i_fpa_conf_busy(c_COL0);
+   discrete_r(c_DR_FPA_CONF_BUSY_1) <= i_fpa_conf_busy(c_COL1);
+   discrete_r(c_DR_FPA_CONF_BUSY_2) <= i_fpa_conf_busy(c_COL2);
+   discrete_r(c_DR_FPA_CONF_BUSY_3) <= i_fpa_conf_busy(c_COL3);
 
-   discrete_r(discrete_r'high downto c_DR_S) <= (others => '0');
+   discrete_r(discrete_r'high downto c_DR_S) <= (others => c_LOW_LEV);
 
    -- ------------------------------------------------------------------------------------------------------
    --!   SQUID MUX ADC: Analog last event time
@@ -180,7 +177,7 @@ begin
       --! SQUID MUX ADC: Analog last event time
       P_sqm_adc_ana_lst_ev: process
       begin
-            sqm_adc_ana_lst_ev(k) <= 0 ns;
+            sqm_adc_ana_lst_ev(k) <= c_ZERO_TIME;
 
          loop
             wait until i_sqm_adc_ana(k)'event;
@@ -201,7 +198,7 @@ begin
       --! Discrete read last event time
       P_discrete_r_lst_ev: process
       begin
-            discrete_r_lst_ev(k) <= 0 ns;
+            discrete_r_lst_ev(k) <= c_ZERO_TIME;
 
          loop
             wait until discrete_r(k)'event;
@@ -217,16 +214,15 @@ begin
    --!   Parser sequence: read command file and write result file
    -- ------------------------------------------------------------------------------------------------------
    P_parser_seq: process
-   constant c_ERROR_CAT_NB    : integer   := 8                                                              ; --! Error category number
    variable v_error_cat       : std_logic_vector(c_ERROR_CAT_NB-1 downto 0)                                 ; --! Error category
-   alias    v_err_sim_time    : std_logic is v_error_cat(0)                                                 ; --! Error simulation time ('0' = No error, '1' = Error: Simulation time not long enough)
-   alias    v_err_chk_dis_r   : std_logic is v_error_cat(1)                                                 ; --! Error check discrete read  ('0' = No error, '1' = Error)
-   alias    v_err_chk_cmd_r   : std_logic is v_error_cat(2)                                                 ; --! Error check command return ('0' = No error, '1' = Error)
-   alias    v_err_chk_time    : std_logic is v_error_cat(3)                                                 ; --! Error check time           ('0' = No error, '1' = Error)
-   alias    v_err_chk_clk_prm : std_logic is v_error_cat(4)                                                 ; --! Error check clocks parameters ('0' = No error, '1' = Error)
-   alias    v_err_chk_spi_prm : std_logic is v_error_cat(5)                                                 ; --! Error check SPI parameters ('0' = No error, '1' = Error)
-   alias    v_err_chk_sc_pkt  : std_logic is v_error_cat(6)                                                 ; --! Error check science packet ('0' = No error, '1' = Error)
-   alias    v_err_chk_pls_shp : std_logic is v_error_cat(7)                                                 ; --! Error check pulse shaping ('0' = No error, '1' = Error)
+   alias    v_err_sim_time    : std_logic is v_error_cat(c_ERR_SIM_TIME)                                    ; --! Error simulation time ('0' = No error, '1' = Error: Simulation time not long enough)
+   alias    v_err_chk_dis_r   : std_logic is v_error_cat(c_ERR_CHK_DIS_R)                                   ; --! Error check discrete read  ('0' = No error, '1' = Error)
+   alias    v_err_chk_cmd_r   : std_logic is v_error_cat(c_ERR_CHK_CMD_R)                                   ; --! Error check command return ('0' = No error, '1' = Error)
+   alias    v_err_chk_time    : std_logic is v_error_cat(c_ERR_CHK_TIME)                                    ; --! Error check time           ('0' = No error, '1' = Error)
+   alias    v_err_chk_clk_prm : std_logic is v_error_cat(c_ERR_CHK_CLK_PRM)                                 ; --! Error check clocks parameters ('0' = No error, '1' = Error)
+   alias    v_err_chk_spi_prm : std_logic is v_error_cat(c_ERR_CHK_SPI_PRM)                                 ; --! Error check SPI parameters ('0' = No error, '1' = Error)
+   alias    v_err_chk_sc_pkt  : std_logic is v_error_cat(c_ERR_CHK_SC_PKT)                                  ; --! Error check science packet ('0' = No error, '1' = Error)
+   alias    v_err_chk_pls_shp : std_logic is v_error_cat(c_ERR_CHK_PLS_SHP)                                 ; --! Error check pulse shaping ('0' = No error, '1' = Error)
    variable v_chk_rpt_prm_ena : std_logic_vector(c_CMD_FILE_FLD_DATA_S-1 downto 0)                          ; --! Check report parameters enable
 
    variable v_line_cnt        : integer                                                                     ; --! Command file line counter
@@ -253,18 +249,18 @@ begin
       fprintf(none, c_RES_FILE_DIV_BAR & c_RES_FILE_DIV_BAR & c_RES_FILE_DIV_BAR, res_file);
 
       -- Default value initialization
-      discrete_w        <= (others => '0');
-      o_brd_ref         <= (others => '0');
+      discrete_w        <= (others => c_LOW_LEV);
+      o_brd_ref         <= (others => c_LOW_LEV);
       o_ep_cmd_ser_wd_s <= std_logic_vector(to_unsigned(c_EP_CMD_S, o_ep_cmd_ser_wd_s'length));
-      o_ep_cmd          <= (others => '0');
-      o_ep_cmd_start    <= '0';
-      o_adc_dmp_mem_cs  <= (others => '0');
-      o_fpa_cmd         <= (others => (others => '0'));
-      o_fpa_cmd_valid   <= (others => '0');
-      v_error_cat       := (others => '0');
-      v_chk_rpt_prm_ena := (others => '0');
+      o_ep_cmd          <= (others => c_LOW_LEV);
+      o_ep_cmd_start    <= c_LOW_LEV;
+      o_adc_dmp_mem_cs  <= (others => c_LOW_LEV);
+      o_fpa_cmd         <= (others => (others => c_LOW_LEV));
+      o_fpa_cmd_valid   <= (others => c_LOW_LEV);
+      v_error_cat       := (others => c_LOW_LEV);
+      v_chk_rpt_prm_ena := (others => c_LOW_LEV);
       v_line_cnt        := 1;
-      v_record_time     := 0 ns;
+      v_record_time     := c_ZERO_TIME;
 
       for k in 0 to c_NB_COL-1 loop
          o_pls_shp_fc(k) <= c_PLS_CUT_FREQ_DEF;
@@ -424,7 +420,7 @@ begin
          v_line_cnt := v_line_cnt + 1;
 
          -- Wait end of delta cycles before new command handling
-         wait for 0 ps;
+         wait for c_ZERO_TIME;
 
       end loop;
 
@@ -446,25 +442,25 @@ begin
 
             -- Check if oscillation on clock when enable inactive parameter is disable
             if c_CCHK(k).chk_osc_en = c_CHK_OSC_DIS then
-               fprintf(none, "Error number of clock oscillation when enable is inactive : " & integer'image(i_err_chk_rpt(k)(0)) &
+               fprintf(none, "Error number of clock oscillation when enable is inactive : " & integer'image(i_err_chk_rpt(k)(c_ERR_N_CLK_OSC_EN_L)) &
                ", inactive parameter (no check)", res_file);
 
             else
-               fprintf(none, "Error number of clock oscillation when enable is inactive : " & integer'image(i_err_chk_rpt(k)(0))
+               fprintf(none, "Error number of clock oscillation when enable is inactive : " & integer'image(i_err_chk_rpt(k)(c_ERR_N_CLK_OSC_EN_L))
                , res_file);
 
             end if;
 
-            fprintf(none, "Error number of high level clock period timing :            " & integer'image(i_err_chk_rpt(k)(1)) &
+            fprintf(none, "Error number of high level clock period timing :            " & integer'image(i_err_chk_rpt(k)(c_ERR_N_CLK_PER_H)) &
             ", expected timing: " & time'image(c_CCHK(k).clk_per_h), res_file);
 
-            fprintf(none, "Error number of low  level clock period timing :            " & integer'image(i_err_chk_rpt(k)(2)) &
+            fprintf(none, "Error number of low  level clock period timing :            " & integer'image(i_err_chk_rpt(k)(c_ERR_N_CLK_PER_L)) &
             ", expected timing: " & time'image(c_CCHK(k).clk_per_l), res_file);
 
-            fprintf(none, "Error number of clock state when enable goes to inactive :  " & integer'image(i_err_chk_rpt(k)(3)) &
+            fprintf(none, "Error number of clock state when enable goes to inactive :  " & integer'image(i_err_chk_rpt(k)(c_ERR_N_CLK_ST_EN_L)) &
             ", expected state:  " & std_logic'image(c_CCHK(k).clk_st_ena), res_file);
 
-            fprintf(none, "Error number of clock state when enable goes to active   :  " & integer'image(i_err_chk_rpt(k)(4)) &
+            fprintf(none, "Error number of clock state when enable goes to active   :  " & integer'image(i_err_chk_rpt(k)(c_ERR_N_CLK_ST_EN_H)) &
             ", expected state:  " & std_logic'image(c_CCHK(k).clk_st_dis), res_file);
 
             -- Set possible error
@@ -556,7 +552,7 @@ begin
       fprintf(none, "Simulation time               : " & time'image(now), res_file);
 
       -- Final test status
-      if v_error_cat = std_logic_vector(to_unsigned(0, v_error_cat'length)) and i_sc_pkt_err = '0' then
+      if v_error_cat = c_ZERO(v_error_cat'range) and i_sc_pkt_err = '0' then
          fprintf(none, "Simulation status             : PASS", res_file);
 
       else

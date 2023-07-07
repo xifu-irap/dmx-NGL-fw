@@ -39,6 +39,9 @@ package pkg_fpga_tech is
    -- ------------------------------------------------------------------------------------------------------
    --!   Global parameters
    -- ------------------------------------------------------------------------------------------------------
+constant c_LOW_LEV_B          : bit := '0'                                                                  ; --! Low  level value
+constant c_HGH_LEV_B          : bit := not(c_LOW_LEV_B)                                                     ; --! High level value
+
 constant c_IO_DEL_STEP        : integer   := 160                                                            ; --! FPGA I/O delay by step value (ps)
 constant c_PLS_CK_SW_NB       : integer   := 2                                                              ; --! Clock pulse number between clock switch command and output clock
 constant c_PAD_REG_SET_AUTH   : std_logic := '0'                                                            ; --! Initialization set to one for register located in PAD allowed ('0': No, '1': Yes)
@@ -50,17 +53,17 @@ constant c_FPGA_POS_SQA_DAC   : integer_vector(0 to 3) := ( 3, 3, 0, 0)         
    -- ------------------------------------------------------------------------------------------------------
    --!   Pll/Wave Form Generator parameters
    -- ------------------------------------------------------------------------------------------------------
-constant c_PLL_WFG_DEL_OFF    : bit     := '0'                                                              ; --! Pll/WFG Delay off
-constant c_PLL_WFG_DEL_ON     : bit     := '1'                                                              ; --! Pll/WFG Delay on
+constant c_PLL_WFG_DEL_OFF    : bit     := c_LOW_LEV_B                                                      ; --! Pll/WFG Delay off
+constant c_PLL_WFG_DEL_ON     : bit     := c_HGH_LEV_B                                                      ; --! Pll/WFG Delay on
 
-constant c_PLL_SEL_REF        : bit     := '0'                                                              ; --! Pll select reference clock input: ref input
-constant c_PLL_SEL_OSC        : bit     := '1'                                                              ; --! Pll select reference clock input: osc input
+constant c_PLL_SEL_REF        : bit     := c_LOW_LEV_B                                                      ; --! Pll select reference clock input: ref input
+constant c_PLL_SEL_OSC        : bit     := c_HGH_LEV_B                                                      ; --! Pll select reference clock input: osc input
 
-constant c_PLL_FBK_INT        : bit     := '0'                                                              ; --! Pll feedback select: Internal feedback
-constant c_PLL_FBK_EXT        : bit     := '1'                                                              ; --! Pll feedback select: External feedback
+constant c_PLL_FBK_INT        : bit     := c_LOW_LEV_B                                                      ; --! Pll feedback select: Internal feedback
+constant c_PLL_FBK_EXT        : bit     := c_HGH_LEV_B                                                      ; --! Pll feedback select: External feedback
 
-constant c_WFG_EDGE_INV_N     : bit     := '0'                                                              ; --! WFG Input clock not inverted
-constant c_WFG_PATTERN_ON     : bit     := '1'                                                              ; --! WFG pattern used
+constant c_WFG_EDGE_INV_N     : bit     := c_LOW_LEV_B                                                      ; --! WFG Input clock not inverted
+constant c_WFG_PATTERN_ON     : bit     := c_HGH_LEV_B                                                      ; --! WFG pattern used
 
 constant c_WFG_PAT_S          : integer   := 16                                                             ; --! WFG pattern bus size
 type     t_wfg_pat              is array (0 to c_WFG_PAT_S-1) of bit_vector(0 to c_WFG_PAT_S-1)             ; --! WFG sampling pattern type
@@ -118,12 +121,12 @@ constant c_MULT_ALU_CPORTA_S  : integer   := 24                                 
 constant c_MULT_ALU_OP_S      : integer   :=  6                                                             ; --! Multiplier and ALU: Operand bus size
 constant c_MULT_ALU_SAT_RNK_S : integer   :=  6                                                             ; --! Multiplier and ALU: Saturation rank bus size
 
-constant c_MULT_ALU_PRM_NU    : bit       := '0'                                                            ; --! Multiplier and ALU: parameter Not used
-constant c_MULT_ALU_PRM_DIS   : bit       := '0'                                                            ; --! Multiplier and ALU: parameter configured in Disable
-constant c_MULT_ALU_PRM_ENA   : bit       := '1'                                                            ; --! Multiplier and ALU: parameter configured in Enable
+constant c_MULT_ALU_PRM_NU    : bit       := c_LOW_LEV_B                                                    ; --! Multiplier and ALU: parameter Not used
+constant c_MULT_ALU_PRM_DIS   : bit       := c_LOW_LEV_B                                                    ; --! Multiplier and ALU: parameter configured in Disable
+constant c_MULT_ALU_PRM_ENA   : bit       := c_HGH_LEV_B                                                    ; --! Multiplier and ALU: parameter configured in Enable
 
-constant c_MULT_ALU_UNSIGNED  : bit       := '0'                                                            ; --! Multiplier and ALU: Data type unsigned
-constant c_MULT_ALU_SIGNED    : bit       := '1'                                                            ; --! Multiplier and ALU: Data type signed
+constant c_MULT_ALU_UNSIGNED  : bit       := c_LOW_LEV_B                                                    ; --! Multiplier and ALU: Data type unsigned
+constant c_MULT_ALU_SIGNED    : bit       := c_HGH_LEV_B                                                    ; --! Multiplier and ALU: Data type signed
 
    -- ------------------------------------------------------------------------------------------------------
    --!   ALU operation commands:
@@ -157,10 +160,10 @@ constant c_RAM_TYPE_PRM_STORE : integer   := 1                                  
 
 constant c_RAM_INIT_EMPTY     : integer_vector(0 to 1) := (0, 0)                                            ; --! RAM initialization: RAM empty at start
 
-constant c_RAM_PRM_DIS        : bit       := '0'                                                            ; --! RAM: parameter configured in Disable
-constant c_RAM_PRM_ENA        : bit       := '1'                                                            ; --! RAM: parameter configured in Enable
-constant c_RAM_CLK_RE         : bit       := '0'                                                            ; --! RAM: clock front polarity on rising edge
-constant c_RAM_CLK_FE         : bit       := '1'                                                            ; --! RAM: clock front polarity on falling edge
+constant c_RAM_PRM_DIS        : bit       := c_LOW_LEV_B                                                    ; --! RAM: parameter configured in Disable
+constant c_RAM_PRM_ENA        : bit       := c_HGH_LEV_B                                                    ; --! RAM: parameter configured in Enable
+constant c_RAM_CLK_RE         : bit       := c_LOW_LEV_B                                                    ; --! RAM: clock front polarity on rising edge
+constant c_RAM_CLK_FE         : bit       := c_HGH_LEV_B                                                    ; --! RAM: clock front polarity on falling edge
 
 constant c_RAM_ADD_S          : integer   := 16                                                             ; --! RAM: Address bus size
 constant c_RAM_DATA_S         : integer   := 24                                                             ; --! RAM: Data bus size

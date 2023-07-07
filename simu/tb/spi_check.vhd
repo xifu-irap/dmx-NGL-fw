@@ -52,7 +52,7 @@ begin
    P_err_n_sclk_st_cs : process
    begin
 
-      if now = 0 ps then
+      if now = c_ZERO_TIME then
          o_err_n_spi_chk(c_SPI_ERR_POS_STSCI) <= 0;
          o_err_n_spi_chk(c_SPI_ERR_POS_STSCA) <= 0;
 
@@ -78,7 +78,7 @@ begin
    variable v_sclk_per_rcd2   : time                                                                        ; --! Record time 2
    begin
 
-      if now = 0 ps then
+      if now = c_ZERO_TIME then
          o_err_n_spi_chk(c_SPI_ERR_POS_TL)      <= 0;
          o_err_n_spi_chk(c_SPI_ERR_POS_TH)      <= 0;
          o_err_n_spi_chk(c_SPI_ERR_POS_TSCMIN)  <= 0;
@@ -117,7 +117,7 @@ begin
    variable v_sclk_pr_mx_rcd2 : time                                                                        ; --! Record time 2
    begin
 
-      if now = 0 ps then
+      if now = c_ZERO_TIME then
          o_err_n_spi_chk(c_SPI_ERR_POS_TSCMAX)  <= 0;
 
          v_sclk_pr_mx_rcd1 := now;
@@ -147,7 +147,7 @@ begin
    variable v_cs_high_rcd     : time                                                                        ; --! Record time
    begin
 
-      if now = 0 ps then
+      if now = c_ZERO_TIME then
          o_err_n_spi_chk(c_SPI_ERR_POS_TCSH) <= 0;
 
       end if;
@@ -170,7 +170,7 @@ begin
    P_err_n_sclk_cs_ris : process
    begin
 
-      if now = 0 ps then
+      if now = c_ZERO_TIME then
          o_err_n_spi_chk(c_SPI_ERR_POS_TS2CSR) <= 0;
 
       end if;
@@ -191,7 +191,7 @@ begin
    variable v_mosi_sclk_rcd   : time                                                                        ; --! Record time
    begin
 
-      if now = 0 ps then
+      if now = c_ZERO_TIME then
          o_err_n_spi_chk(c_SPI_ERR_POS_TD2S) <= 0;
 
       end if;
@@ -215,7 +215,7 @@ begin
    variable v_sclk_mosi_rcd   : time                                                                        ; --! Record time
    begin
 
-      if now = 0 ps then
+      if now = c_ZERO_TIME then
          o_err_n_spi_chk(c_SPI_ERR_POS_TS2D) <= 0;
 
       end if;

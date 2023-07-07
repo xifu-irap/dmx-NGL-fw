@@ -96,7 +96,7 @@ begin
          o_delta_vout         => sqm_dac_delta_volt     -- out    real                                        --! Analog voltage (-g_VREF <= Vout1 - Vout2 < g_VREF)
    );
 
-   o_sqm_dac_delta_volt <= transport sqm_dac_delta_volt after g_SQM_VOLT_DEL when now > g_SQM_VOLT_DEL else 0.0;
+   o_sqm_dac_delta_volt <= transport sqm_dac_delta_volt after g_SQM_VOLT_DEL when now > g_SQM_VOLT_DEL else c_ZERO_REAL;
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Pulse shaping check
@@ -130,12 +130,12 @@ begin
                                                                                                               --!  with c_SQA_COEF = (2^(c_SQA_DAC_MUX_S+1)-1)/(c_SQA_DAC_COEF_DIV*2^c_SQA_DAC_MUX_S))
    );
 
-   o_sqa_volt <= transport sqa_volt after g_SQA_VOLT_DEL when now > g_SQA_VOLT_DEL else 0.0;
+   o_sqa_volt <= transport sqa_volt after g_SQA_VOLT_DEL when now > g_SQA_VOLT_DEL else c_ZERO_REAL;
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Switch ADC Voltage input
    -- ------------------------------------------------------------------------------------------------------
-   squid_err_volt <= transport i_squid_err_volt after g_SQERR_VOLT_DEL when now > g_SQERR_VOLT_DEL else 0.0;
+   squid_err_volt <= transport i_squid_err_volt after g_SQERR_VOLT_DEL when now > g_SQERR_VOLT_DEL else c_ZERO_REAL;
 
    o_sqm_adc_ana <= sqa_volt            when i_sw_adc_vin = c_SW_ADC_VIN_ST_SQA else
                     sqm_dac_delta_volt  when i_sw_adc_vin = c_SW_ADC_VIN_ST_SQM else
