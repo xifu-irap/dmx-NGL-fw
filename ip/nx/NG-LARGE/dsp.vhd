@@ -30,6 +30,7 @@ use     ieee.std_logic_1164.all;
 use     ieee.numeric_std.all;
 
 library work;
+use     work.pkg_type.all;
 use     work.pkg_fpga_tech.all;
 use     work.pkg_project.all;
 
@@ -66,7 +67,7 @@ end entity dsp;
 architecture RTL of dsp is
 constant c_SAT_RANK           : bit_vector(c_MULT_ALU_SAT_RNK_S-1 downto 0):=
                                 to_bitvector(std_logic_vector(to_unsigned(g_SAT_RANK,c_MULT_ALU_SAT_RNK_S))); --! Extrem values reached on result bus [-2**(g_SAT_RANK); 2**(g_SAT_RANK)-1]
-constant c_MUX_X              : bit_vector(1 downto 0):= g_MUX_C_CZ & '1'                                   ; --! Multiplexer ALU operand
+constant c_MUX_X              : bit_vector(1 downto 0):= g_MUX_C_CZ & c_HGH_LEV_B                           ; --! Multiplexer ALU operand
 
 signal   port_a               : std_logic_vector( c_MULT_ALU_PORTA_S-1 downto 0)                            ; --! Port A
 signal   port_b               : std_logic_vector( c_MULT_ALU_PORTB_S-1 downto 0)                            ; --! Port B
@@ -101,31 +102,31 @@ begin
                                                                                                               --!     signed: range from -2**(SAT_RANK) to 2**(SAT_RANK)   - 1
 
          MUX_CI               => c_MULT_ALU_PRM_NU    , -- bit                                              ; --! Multiplexer ALU Carry In ('0' = ALU Carry In,            '1' = Cascaded ALU Carry In)
-         MUX_A                => '0'                  , -- bit                                              ; --! Multiplexer Port A       ('0' = Port A,                  '1' = Cascaded Port A)
-         MUX_B                => '0'                  , -- bit                                              ; --! Multiplexer Port B       ('0' = Port B,                  '1' = Cascaded Port B)
-         MUX_P                => '1'                  , -- bit                                              ; --! Multiplexer Pre-Adder    ('0' = MUX_PORTB,               '1' = MUX_PORTB +/- Port D)
-         MUX_Y                => '0'                  , -- bit                                              ; --! Multiplexer Multiplier   ('0' = MUX_PORTA * MUX_PRE_ADD, '1' = MUX_PORTB & MUX_PORTA)
+         MUX_A                => c_LOW_LEV_B          , -- bit                                              ; --! Multiplexer Port A       ('0' = Port A,                  '1' = Cascaded Port A)
+         MUX_B                => c_LOW_LEV_B          , -- bit                                              ; --! Multiplexer Port B       ('0' = Port B,                  '1' = Cascaded Port B)
+         MUX_P                => c_HGH_LEV_B          , -- bit                                              ; --! Multiplexer Pre-Adder    ('0' = MUX_PORTB,               '1' = MUX_PORTB +/- Port D)
+         MUX_Y                => c_LOW_LEV_B          , -- bit                                              ; --! Multiplexer Multiplier   ('0' = MUX_PORTA * MUX_PRE_ADD, '1' = MUX_PORTB & MUX_PORTA)
          MUX_X                => c_MUX_X              , -- bit_vector(1 downto 0)                           ; --! Multiplexer ALU operand  ("X0X" = Port C,                "010" = MUX_ALU,
                                                                                                               --!   "011"= Cascaded Result Input, "110"= MUX_ALU(39:0) & Port C(15:0),
                                                                                                               --!   "111"= Cascaded Result Input(39:0) & Port C(15:0))
          CO_SEL               => c_MULT_ALU_PRM_NU    , -- bit                                              ; --! Multiplexer ALU Carry Out('0' = ALU(36),                 '1' = ALU(48))
-         MUX_Z                => '0'                  , -- bit                                              ; --! Multiplexer ALU ('0' = ALU(Port D, MUX_ALU_OP, MUX_MULT, MUX_CARRY) '1' = MUX_MULT)
+         MUX_Z                => c_LOW_LEV_B          , -- bit                                              ; --! Multiplexer ALU ('0' = ALU(Port D, MUX_ALU_OP, MUX_MULT, MUX_CARRY) '1' = MUX_MULT)
 
-         PR_CI_MUX            => '1'                  , -- bit                                              ; --! Multiplexer ALU Carry In   pipe register level number
-         PR_A_MUX             => "01"                 , -- bit_vector(1 downto 0)                           ; --! Multiplexer Port A         pipe register level number
-         PR_B_MUX             => "01"                 , -- bit_vector(1 downto 0)                           ; --! Multiplexer Port B         pipe register level number
-         PR_C_MUX             => '1'                  , -- bit                                              ; --! Multiplexer Port C         pipe register level number
-         PR_D_MUX             => '1'                  , -- bit                                              ; --! Multiplexer Port D         pipe register level number
-         PR_P_MUX             => '0'                  , -- bit                                              ; --! Multiplexer Pre-Adder      pipe register level number
-         PR_MULT_MUX          => '0'                  , -- bit                                              ; --! Multiplier Out             pipe register level number
-         PR_Y_MUX             => '1'                  , -- bit                                              ; --! Multiplexer Multiplier     pipe register level number
-         PR_ALU_MUX           => '0'                  , -- bit                                              ; --! ALU Out                    pipe register level number
-         PR_X_MUX             => '1'                  , -- bit                                              ; --! Multiplexer ALU operand    pipe register level number
-         PR_CO_MUX            => '1'                  , -- bit                                              ; --! Multiplexer ALU Carry Out  pipe register level number
-         PR_OV_MUX            => '1'                  , -- bit                                              ; --! Overflow                   pipe register level number
-         PR_Z_MUX             => '1'                  , -- bit                                              ; --! Multiplexer ALU            pipe register level number
-         PR_A_CASCADE_MUX     => "00"                 , -- bit_vector(1 downto 0)                           ; --! Cascaded Port A buffer     pipe register level number
-         PR_B_CASCADE_MUX     => "00"                 , -- bit_vector(1 downto 0)                           ; --! Cascaded Port B buffer     pipe register level number
+         PR_CI_MUX            => c_HGH_LEV_B          , -- bit                                              ; --! Multiplexer ALU Carry In   pipe register level number
+         PR_A_MUX             => c_LOW_LEV_B & c_HGH_LEV_B, -- bit_vector(1 downto 0)                       ; --! Multiplexer Port A         pipe register level number
+         PR_B_MUX             => c_LOW_LEV_B & c_HGH_LEV_B, -- bit_vector(1 downto 0)                       ; --! Multiplexer Port B         pipe register level number
+         PR_C_MUX             => c_HGH_LEV_B          , -- bit                                              ; --! Multiplexer Port C         pipe register level number
+         PR_D_MUX             => c_HGH_LEV_B          , -- bit                                              ; --! Multiplexer Port D         pipe register level number
+         PR_P_MUX             => c_LOW_LEV_B          , -- bit                                              ; --! Multiplexer Pre-Adder      pipe register level number
+         PR_MULT_MUX          => c_LOW_LEV_B          , -- bit                                              ; --! Multiplier Out             pipe register level number
+         PR_Y_MUX             => c_HGH_LEV_B          , -- bit                                              ; --! Multiplexer Multiplier     pipe register level number
+         PR_ALU_MUX           => c_LOW_LEV_B          , -- bit                                              ; --! ALU Out                    pipe register level number
+         PR_X_MUX             => c_HGH_LEV_B          , -- bit                                              ; --! Multiplexer ALU operand    pipe register level number
+         PR_CO_MUX            => c_HGH_LEV_B          , -- bit                                              ; --! Multiplexer ALU Carry Out  pipe register level number
+         PR_OV_MUX            => c_HGH_LEV_B          , -- bit                                              ; --! Overflow                   pipe register level number
+         PR_Z_MUX             => c_HGH_LEV_B          , -- bit                                              ; --! Multiplexer ALU            pipe register level number
+         PR_A_CASCADE_MUX     => c_LOW_LEV_B & c_LOW_LEV_B, -- bit_vector(1 downto 0)                       ; --! Cascaded Port A buffer     pipe register level number
+         PR_B_CASCADE_MUX     => c_LOW_LEV_B & c_LOW_LEV_B, -- bit_vector(1 downto 0)                       ; --! Cascaded Port B buffer     pipe register level number
 
          ENABLE_PR_CI_RST     => c_MULT_ALU_PRM_ENA   , -- bit                                              ; --! Multiplexer ALU Carry In   register reset ('0' = Disable, '1' = Enable)
          ENABLE_PR_A_RST      => c_MULT_ALU_PRM_ENA   , -- bit                                              ; --! Multiplexer Port A         register reset ('0' = Disable, '1' = Enable)

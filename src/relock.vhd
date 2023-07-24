@@ -63,6 +63,8 @@ end entity relock;
 architecture RTL of relock is
 constant c_FF_ERR_COR_CS_NB   : integer := 4                                                                ; --! Flip-Flop number used for SQUID MUX Data error corrected chip select register
 constant c_DLCNT_SAT          : integer := 2**c_DFLD_DLCNT_PIX_S - 1                                        ; --! Delock counter saturation value
+constant c_CNT_THR_EXC_INIT   : std_logic_vector(c_DFLD_RLDEL_COL_S downto 0) :=
+                                std_logic_vector(to_unsigned(1, c_DFLD_RLDEL_COL_S+1))                      ; --! Counter threshold exceed initialization value
 
 signal   smfb0_rl_rs          : std_logic_vector(c_SQM_DATA_FBK_S-1 downto 0)                               ; --! SQUID MUX feedback value in open loop for relock resized data stalled on MSB
 
@@ -95,7 +97,7 @@ begin
    begin
 
       if i_rst = c_RST_LEV_ACT then
-         sqm_dta_err_cor_cs_r <= (others => '0');
+         sqm_dta_err_cor_cs_r <= c_ZERO(sqm_dta_err_cor_cs_r'range);
 
       elsif rising_edge(i_clk) then
          sqm_dta_err_cor_cs_r <= sqm_dta_err_cor_cs_r(sqm_dta_err_cor_cs_r'high-1 downto 0) & i_sqm_dta_err_cor_cs;
@@ -123,10 +125,10 @@ begin
    begin
 
       if i_rst = c_RST_LEV_ACT then
-         diff_sqm_dta_smfb0   <= (others => '0');
+         diff_sqm_dta_smfb0   <= c_ZERO(diff_sqm_dta_smfb0'range);
 
       elsif rising_edge(i_clk) then
-         if i_sqm_dta_err_cor_cs = '1' then
+         if i_sqm_dta_err_cor_cs = c_HGH_LEV then
             diff_sqm_dta_smfb0  <= std_logic_vector(resize(signed(i_sqm_dta_err_cor), diff_sqm_dta_smfb0'length) -
                                                     resize(signed(smfb0_rl_rs), diff_sqm_dta_smfb0'length));
          end if;
@@ -143,19 +145,19 @@ begin
    begin
 
       if i_rst = c_RST_LEV_ACT then
-         cnt_thr_exceed_rd      <= std_logic_vector(to_unsigned(1, cnt_thr_exceed_rd'length));
-         cnt_thr_exceed_rd_r    <= std_logic_vector(to_unsigned(1, cnt_thr_exceed_rd_r'length));
-         cnt_thr_exd_rd_cmp     <= '0';
+         cnt_thr_exceed_rd      <= c_CNT_THR_EXC_INIT;
+         cnt_thr_exceed_rd_r    <= c_CNT_THR_EXC_INIT;
+         cnt_thr_exd_rd_cmp     <= c_LOW_LEV;
 
       elsif rising_edge(i_clk) then
          cnt_thr_exceed_rd      <= mem_cnt_thr_exceed(to_integer(unsigned(i_mem_rl_rd_add)));
          cnt_thr_exceed_rd_r    <= cnt_thr_exceed_rd;
 
-         if i_smfbm_close_rl = '1' and (unsigned(cnt_thr_exceed_rd) >= resize(unsigned(i_rldel), cnt_thr_exceed_rd'length)) then
-            cnt_thr_exd_rd_cmp  <= '1';
+         if i_smfbm_close_rl = c_HGH_LEV and (unsigned(cnt_thr_exceed_rd) >= resize(unsigned(i_rldel), cnt_thr_exceed_rd'length)) then
+            cnt_thr_exd_rd_cmp  <= c_HGH_LEV;
 
          else
-            cnt_thr_exd_rd_cmp  <= '0';
+            cnt_thr_exd_rd_cmp  <= c_LOW_LEV;
 
          end if;
 
@@ -168,22 +170,22 @@ begin
    begin
 
       if i_rst = c_RST_LEV_ACT then
-         cnt_thr_exceed_wr <= std_logic_vector(to_unsigned(1, cnt_thr_exceed_wr'length));
+         cnt_thr_exceed_wr <= c_CNT_THR_EXC_INIT;
 
       elsif rising_edge(i_clk) then
-         if sqm_dta_err_cor_cs_r(sqm_dta_err_cor_cs_r'low) = '1' then
-            if i_smfbm_close_rl = '0' then
-               cnt_thr_exceed_wr <= std_logic_vector(to_unsigned(1, cnt_thr_exceed_wr'length));
+         if sqm_dta_err_cor_cs_r(sqm_dta_err_cor_cs_r'low) = c_HGH_LEV then
+            if i_smfbm_close_rl = c_LOW_LEV then
+               cnt_thr_exceed_wr <= c_CNT_THR_EXC_INIT;
 
-            elsif cnt_thr_exd_rd_cmp = '1' then
-               cnt_thr_exceed_wr <= std_logic_vector(to_unsigned(1, cnt_thr_exceed_wr'length));
+            elsif cnt_thr_exd_rd_cmp = c_HGH_LEV then
+               cnt_thr_exceed_wr <= c_CNT_THR_EXC_INIT;
 
             elsif (signed(diff_sqm_dta_smfb0) > signed(resize(unsigned(i_rlthr), diff_sqm_dta_smfb0'length))) or
                  ((signed(diff_sqm_dta_smfb0) + signed(resize(unsigned(i_rlthr), diff_sqm_dta_smfb0'length))) < 0 ) then
                cnt_thr_exceed_wr <= std_logic_vector(unsigned(cnt_thr_exceed_rd_r) + 1);
 
             else
-               cnt_thr_exceed_wr <= std_logic_vector(to_unsigned(1, cnt_thr_exceed_wr'length));
+               cnt_thr_exceed_wr <= c_CNT_THR_EXC_INIT;
 
             end if;
 
@@ -217,7 +219,7 @@ begin
    ) port map (
          i_a_rst              => i_rst                , -- in     std_logic                                 ; --! Memory port A: registers reset ('0' = Inactive, '1' = Active)
          i_a_clk              => i_clk                , -- in     std_logic                                 ; --! Memory port A: main clock
-         i_a_clk_shift        => '0'                  , -- in     std_logic                                 ; --! Memory port A: 90 degrees shifted clock (used for memory content correction)
+         i_a_clk_shift        => c_LOW_LEV            , -- in     std_logic                                 ; --! Memory port A: 90 degrees shifted clock (used for memory content correction)
 
          i_a_mem              => i_mem_dlcnt          , -- in     t_mem( add(g_RAM_ADD_S-1 downto 0), ...)  ; --! Memory port A inputs (scrubbing with ping-pong buffer bit for parameters storage)
          o_a_data_out         => o_dlcnt_data         , -- out    slv(g_RAM_DATA_S-1 downto 0)              ; --! Memory port A: data out
@@ -227,7 +229,7 @@ begin
 
          i_b_rst              => i_rst                , -- in     std_logic                                 ; --! Memory port B: registers reset ('0' = Inactive, '1' = Active)
          i_b_clk              => i_clk                , -- in     std_logic                                 ; --! Memory port B: main clock
-         i_b_clk_shift        => '0'                  , -- in     std_logic                                 ; --! Memory port B: 90 degrees shifted clock (used for memory content correction)
+         i_b_clk_shift        => c_LOW_LEV            , -- in     std_logic                                 ; --! Memory port B: 90 degrees shifted clock (used for memory content correction)
 
          i_b_mem              => mem_dlcnt_prm        , -- in     t_mem( add(g_RAM_ADD_S-1 downto 0), ...)  ; --! Memory port B inputs
          o_b_data_out         => dlcnt_rd             , -- out    slv(g_RAM_DATA_S-1 downto 0)              ; --! Memory port B: data out
@@ -241,7 +243,7 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    mem_dlcnt_prm.add     <= i_mem_rl_rd_add;
    mem_dlcnt_prm.we      <= sqm_dta_err_cor_cs_r(sqm_dta_err_cor_cs_r'high) and dlcnt_wr_ena;
-   mem_dlcnt_prm.cs      <= '1';
+   mem_dlcnt_prm.cs      <= c_HGH_LEV;
    mem_dlcnt_prm.data_w  <= dlcnt_wr;
    mem_dlcnt_prm.pp      <= mem_dlcnt_pp;
 
@@ -252,17 +254,17 @@ begin
    begin
 
       if i_rst = c_RST_LEV_ACT then
-         dlcnt_wr_ena <= '1';
+         dlcnt_wr_ena <= c_HGH_LEV;
 
       elsif rising_edge(i_clk) then
          if i_mem_dlcnt.add = mem_dlcnt_prm.add then
-            if (i_mem_dlcnt.we and i_mem_dlcnt.cs) = '1' then
-               dlcnt_wr_ena <= '0';
+            if (i_mem_dlcnt.we and i_mem_dlcnt.cs) = c_HGH_LEV then
+               dlcnt_wr_ena <= c_LOW_LEV;
 
             end if;
 
          else
-            dlcnt_wr_ena <= '1';
+            dlcnt_wr_ena <= c_HGH_LEV;
 
          end if;
 
@@ -278,17 +280,17 @@ begin
    begin
 
       if i_rst = c_RST_LEV_ACT then
-         dlcnt_wr <= (others => '0');
+         dlcnt_wr <= c_ZERO(dlcnt_wr'range);
 
       elsif rising_edge(i_clk) then
-         if sqm_dta_err_cor_cs_r(2) = '1' then
+         if sqm_dta_err_cor_cs_r(2) = c_HGH_LEV then
             if i_smfmd = c_DST_SMFMD_OFF then
-               dlcnt_wr <= (others => '0');
+               dlcnt_wr <= c_ZERO(dlcnt_wr'range);
 
-            elsif dlcnt_wr_ena = '0' then
-               dlcnt_wr <= (others => '0');
+            elsif dlcnt_wr_ena = c_LOW_LEV then
+               dlcnt_wr <= c_ZERO(dlcnt_wr'range);
 
-            elsif cnt_thr_exd_rd_cmp = '1' and
+            elsif cnt_thr_exd_rd_cmp = c_HGH_LEV and
                   (dlcnt_rd /= std_logic_vector(to_unsigned(c_DLCNT_SAT, dlcnt_rd'length))) then
                dlcnt_wr <= std_logic_vector(unsigned(dlcnt_rd) + 1);
 
@@ -315,15 +317,15 @@ begin
       begin
 
          if i_rst = c_RST_LEV_ACT then
-            dlflag(k)(dlflag(dlflag'low)'low) <= '0';
+            dlflag(k)(dlflag(dlflag'low)'low) <= c_LOW_LEV;
 
          elsif rising_edge(i_clk) then
-            if (sqm_dta_err_cor_cs_r(3) = '1') and (i_mem_rl_rd_add = std_logic_vector(to_unsigned(k, i_mem_rl_rd_add'length))) then
+            if (sqm_dta_err_cor_cs_r(3) = c_HGH_LEV) and (i_mem_rl_rd_add = std_logic_vector(to_unsigned(k, i_mem_rl_rd_add'length))) then
                if dlcnt_wr = c_ZERO(dlcnt_wr'range) then
-                  dlflag(k)(dlflag(dlflag'low)'low) <= '0';
+                  dlflag(k)(dlflag(dlflag'low)'low) <= c_LOW_LEV;
 
                else
-                  dlflag(k)(dlflag(dlflag'low)'low) <= '1';
+                  dlflag(k)(dlflag(dlflag'low)'low) <= c_HGH_LEV;
 
                end if;
 
@@ -335,7 +337,7 @@ begin
 
    end generate G_dlflag;
 
-   dlflag(c_MUX_FACT to c_DLFLG_MX_STIN(1)-1) <= (others => (others => '0'));
+   dlflag(c_MUX_FACT to c_DLFLG_MX_STIN(1)-1) <= (others => (others => c_LOW_LEV));
 
    G_mux_stage: for k in 0 to c_DLFLG_MX_STNB-1 generate
    begin
@@ -352,7 +354,7 @@ begin
             i_data            => dlflag(
                                  l   *c_DLFLG_MX_INNB(k) + c_DLFLG_MX_STIN(k) to
                                 (l+1)*c_DLFLG_MX_INNB(k) + c_DLFLG_MX_STIN(k)-1)                            , --! Data buses
-            i_cs              => (others => '1')      , -- in     std_logic_vector(g_NB-1 downto 0)         ; --! Chip selects ('0' = Inactive, '1' = Active)
+            i_cs              => (others => c_HGH_LEV), -- in     std_logic_vector(g_NB-1 downto 0)         ; --! Chip selects ('0' = Inactive, '1' = Active)
             o_data_mux        => dlflag(c_DLFLG_MX_STIN(k+1)+l), -- out  slv(g_DATA_S-1 downto 0)           ; --! Multiplexed data
             o_cs_or           => open                   -- out    std_logic                                   --! Chip selects "or-ed"
          );
@@ -371,7 +373,7 @@ begin
    begin
 
       if i_rst = c_RST_LEV_ACT then
-         o_rl_ena <= '0';
+         o_rl_ena <= c_LOW_LEV;
 
       elsif rising_edge(i_clk) then
          o_rl_ena <= cnt_thr_exd_rd_cmp;

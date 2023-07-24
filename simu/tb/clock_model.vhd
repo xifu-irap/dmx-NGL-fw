@@ -28,6 +28,8 @@ library ieee;
 use     ieee.std_logic_1164.all;
 
 library work;
+use     work.pkg_type.all;
+use     work.pkg_project.all;
 use     work.pkg_model.all;
 
 entity clock_model is generic (
@@ -41,6 +43,7 @@ entity clock_model is generic (
 end entity clock_model;
 
 architecture Behavioral of clock_model is
+constant c_CLK_PER_HALF       : time    := g_CLK_REF_PER/2                                                  ; --! Half clock period
 begin
 
    -- ------------------------------------------------------------------------------------------------------
@@ -49,10 +52,10 @@ begin
    P_o_clk_ref : process
    begin
 
-      o_clk_ref <= '1';
-      wait for g_CLK_REF_PER - (g_CLK_REF_PER/2);
-      o_clk_ref <= '0';
-      wait for g_CLK_REF_PER/2;
+      o_clk_ref <= c_HGH_LEV;
+      wait for g_CLK_REF_PER - c_CLK_PER_HALF;
+      o_clk_ref <= c_LOW_LEV;
+      wait for c_CLK_PER_HALF;
 
    end process P_o_clk_ref;
 
@@ -62,11 +65,11 @@ begin
    P_o_sync : process
    begin
 
-      o_sync <= '0';
+      o_sync <= c_LOW_LEV;
       wait for g_SYNC_SHIFT;
-      o_sync <= '1';
+      o_sync <= c_HGH_LEV;
       wait for c_SYNC_HIGH;
-      o_sync <= '0';
+      o_sync <= c_LOW_LEV;
       wait for g_SYNC_PER - g_SYNC_SHIFT - c_SYNC_HIGH;
 
    end process P_o_sync;

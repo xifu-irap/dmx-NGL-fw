@@ -50,12 +50,16 @@ entity adc128s102_model is generic (
 end entity adc128s102_model;
 
 architecture Behavioral of adc128s102_model is
+constant c_LOW_LEV            : std_logic  := '0'                                                           ; --! Low  level value
+constant c_HGH_LEV            : std_logic  := not(c_LOW_LEV)                                                ; --! High level value
 constant c_ZERO_REAL          : real       := 0.0                                                           ; --! Real zero value
 
 constant c_CLK_PER            : time       := 8 ns                                                          ; --! Clock period
+constant c_CLK_PER_HALF       : time       := c_CLK_PER/2                                                   ; --! Half clock period
+constant c_RST_ACT_TIME       : time       := 3 * c_CLK_PER/2                                               ; --! Reset activation time
 
-constant c_SPI_CPOL           : std_logic  := '1'                                                           ; --! SPI Clock polarity
-constant c_SPI_CPHA           : std_logic  := '1'                                                           ; --! SPI Clock phase
+constant c_SPI_CPOL           : std_logic  := c_HGH_LEV                                                     ; --! SPI Clock polarity
+constant c_SPI_CPHA           : std_logic  := c_HGH_LEV                                                     ; --! SPI Clock phase
 constant c_SPI_DTA_WD_S       : integer    := 16                                                            ; --! SPI Data word bus size
 constant c_SPI_DTA_WD_NB_S    : integer    :=  1                                                            ; --! SPI Data word number size
 constant c_ADD_S              : integer    :=  3                                                            ; --! SPI Address size bus
@@ -65,19 +69,19 @@ constant c_ADC_DATA_S         : integer    := 12                                
 constant c_ADC_RES            : real       := g_VA / real(2**(c_ADC_DATA_S))                                ; --! ADC resolution (V)
 constant c_VIN_MAX            : real       := (real(2**(c_ADC_DATA_S)) - 1.0) * c_ADC_RES                   ; --! Analog voltage maximum limit (V)
 
-constant c_ADD0               : std_logic_vector(c_ADD_S-1 downto 0) := 
+constant c_ADD0               : std_logic_vector(c_ADD_S-1 downto 0) :=
                                 std_logic_vector(to_unsigned(0, c_ADD_S))                                   ; --! Address 0
-constant c_ADD1               : std_logic_vector(c_ADD_S-1 downto 0) := 
+constant c_ADD1               : std_logic_vector(c_ADD_S-1 downto 0) :=
                                 std_logic_vector(to_unsigned(1, c_ADD_S))                                   ; --! Address 1
-constant c_ADD2               : std_logic_vector(c_ADD_S-1 downto 0) := 
+constant c_ADD2               : std_logic_vector(c_ADD_S-1 downto 0) :=
                                 std_logic_vector(to_unsigned(2, c_ADD_S))                                   ; --! Address 2
-constant c_ADD3               : std_logic_vector(c_ADD_S-1 downto 0) := 
+constant c_ADD3               : std_logic_vector(c_ADD_S-1 downto 0) :=
                                 std_logic_vector(to_unsigned(3, c_ADD_S))                                   ; --! Address 3
-constant c_ADD4               : std_logic_vector(c_ADD_S-1 downto 0) := 
+constant c_ADD4               : std_logic_vector(c_ADD_S-1 downto 0) :=
                                 std_logic_vector(to_unsigned(4, c_ADD_S))                                   ; --! Address 4
-constant c_ADD5               : std_logic_vector(c_ADD_S-1 downto 0) := 
+constant c_ADD5               : std_logic_vector(c_ADD_S-1 downto 0) :=
                                 std_logic_vector(to_unsigned(5, c_ADD_S))                                   ; --! Address 5
-constant c_ADD6               : std_logic_vector(c_ADD_S-1 downto 0) := 
+constant c_ADD6               : std_logic_vector(c_ADD_S-1 downto 0) :=
                                 std_logic_vector(to_unsigned(6, c_ADD_S))                                   ; --! Address 6
 
 signal   rst                  : std_logic                                                                   ; --! Reset ('0' = Inactive, '1' = Active)
@@ -101,7 +105,7 @@ begin
    P_rst: process
    begin
       rst   <= g_RST_LEV_ACT;
-      wait for 3*c_CLK_PER/2;
+      wait for c_RST_ACT_TIME;
       rst   <= not(g_RST_LEV_ACT);
       wait;
 
@@ -111,10 +115,10 @@ begin
    P_clk : process
    begin
 
-      clk <= '1';
-      wait for c_CLK_PER - (c_CLK_PER/2);
-      clk <= '0';
-      wait for c_CLK_PER/2;
+      clk <= c_HGH_LEV;
+      wait for c_CLK_PER - c_CLK_PER_HALF;
+      clk <= c_LOW_LEV;
+      wait for c_CLK_PER_HALF;
 
    end process P_clk;
 
@@ -171,6 +175,6 @@ begin
          i_cs_n               => i_cs_n                 -- in     std_logic                                   --! SPI Chip Select ('0' = Active, '1' = Inactive)
    );
 
-   o_dout         <= miso when i_cs_n = '0' else 'Z';
+   o_dout         <= miso when i_cs_n = c_LOW_LEV else 'Z';
 
 end architecture Behavioral;

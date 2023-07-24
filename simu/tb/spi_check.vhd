@@ -29,6 +29,7 @@ use     ieee.std_logic_1164.all;
 
 library work;
 use     work.pkg_type.all;
+use     work.pkg_project.all;
 use     work.pkg_model.all;
 
 entity spi_check is generic (
@@ -53,17 +54,17 @@ begin
    begin
 
       if now = c_ZERO_TIME then
-         o_err_n_spi_chk(c_SPI_ERR_POS_STSCI) <= 0;
-         o_err_n_spi_chk(c_SPI_ERR_POS_STSCA) <= 0;
+         o_err_n_spi_chk(c_SPI_ERR_POS_STSCI) <= c_ZERO_INT;
+         o_err_n_spi_chk(c_SPI_ERR_POS_STSCA) <= c_ZERO_INT;
 
       end if;
 
       wait until i_spi_cs_n'event;
 
-      if i_spi_cs_n = '1' and i_spi_sclk = not(g_CPOL) then
+      if i_spi_cs_n = c_HGH_LEV and i_spi_sclk = not(g_CPOL) then
          o_err_n_spi_chk(c_SPI_ERR_POS_STSCI) <= o_err_n_spi_chk(c_SPI_ERR_POS_STSCI) + 1;
 
-      elsif i_spi_cs_n = '0' and i_spi_sclk = g_CPOL then
+      elsif i_spi_cs_n = c_LOW_LEV and i_spi_sclk = g_CPOL then
          o_err_n_spi_chk(c_SPI_ERR_POS_STSCA) <= o_err_n_spi_chk(c_SPI_ERR_POS_STSCA) + 1;
 
       end if;
@@ -79,9 +80,9 @@ begin
    begin
 
       if now = c_ZERO_TIME then
-         o_err_n_spi_chk(c_SPI_ERR_POS_TL)      <= 0;
-         o_err_n_spi_chk(c_SPI_ERR_POS_TH)      <= 0;
-         o_err_n_spi_chk(c_SPI_ERR_POS_TSCMIN)  <= 0;
+         o_err_n_spi_chk(c_SPI_ERR_POS_TL)      <= c_ZERO_INT;
+         o_err_n_spi_chk(c_SPI_ERR_POS_TH)      <= c_ZERO_INT;
+         o_err_n_spi_chk(c_SPI_ERR_POS_TSCMIN)  <= c_ZERO_INT;
 
          v_sclk_per_rcd1 := now;
 
@@ -92,12 +93,12 @@ begin
 
       wait until i_spi_sclk'event;
 
-      if i_spi_cs_n = '0' then
+      if i_spi_cs_n = c_LOW_LEV then
 
-         if i_spi_sclk = '1' and (now-v_sclk_per_rcd1) < g_SPI_TIME_CHK(c_SPI_ERR_POS_TL) then
+         if i_spi_sclk = c_HGH_LEV and (now-v_sclk_per_rcd1) < g_SPI_TIME_CHK(c_SPI_ERR_POS_TL) then
             o_err_n_spi_chk(c_SPI_ERR_POS_TL) <= o_err_n_spi_chk(c_SPI_ERR_POS_TL) + 1;
 
-         elsif i_spi_sclk = '0' and (now-v_sclk_per_rcd1) < g_SPI_TIME_CHK(c_SPI_ERR_POS_TH) then
+         elsif i_spi_sclk = c_LOW_LEV and (now-v_sclk_per_rcd1) < g_SPI_TIME_CHK(c_SPI_ERR_POS_TH) then
             o_err_n_spi_chk(c_SPI_ERR_POS_TH) <= o_err_n_spi_chk(c_SPI_ERR_POS_TH) + 1;
 
          end if;
@@ -118,7 +119,7 @@ begin
    begin
 
       if now = c_ZERO_TIME then
-         o_err_n_spi_chk(c_SPI_ERR_POS_TSCMAX)  <= 0;
+         o_err_n_spi_chk(c_SPI_ERR_POS_TSCMAX)  <= c_ZERO_INT;
 
          v_sclk_pr_mx_rcd1 := now;
 
@@ -129,7 +130,7 @@ begin
 
       wait until i_spi_sclk'event for g_SPI_TIME_CHK(c_SPI_ERR_POS_TSCMAX);
 
-      if i_spi_cs_n = '0' and i_spi_cs_n'last_event > g_SPI_TIME_CHK(c_SPI_ERR_POS_TSCMAX) then
+      if i_spi_cs_n = c_LOW_LEV and i_spi_cs_n'last_event > g_SPI_TIME_CHK(c_SPI_ERR_POS_TSCMAX) then
 
          if (now-v_sclk_pr_mx_rcd2) > g_SPI_TIME_CHK(c_SPI_ERR_POS_TSCMAX) then
             o_err_n_spi_chk(c_SPI_ERR_POS_TSCMAX) <= o_err_n_spi_chk(c_SPI_ERR_POS_TSCMAX) + 1;
@@ -148,7 +149,7 @@ begin
    begin
 
       if now = c_ZERO_TIME then
-         o_err_n_spi_chk(c_SPI_ERR_POS_TCSH) <= 0;
+         o_err_n_spi_chk(c_SPI_ERR_POS_TCSH) <= c_ZERO_INT;
 
       end if;
 
@@ -171,7 +172,7 @@ begin
    begin
 
       if now = c_ZERO_TIME then
-         o_err_n_spi_chk(c_SPI_ERR_POS_TS2CSR) <= 0;
+         o_err_n_spi_chk(c_SPI_ERR_POS_TS2CSR) <= c_ZERO_INT;
 
       end if;
 
@@ -192,7 +193,7 @@ begin
    begin
 
       if now = c_ZERO_TIME then
-         o_err_n_spi_chk(c_SPI_ERR_POS_TD2S) <= 0;
+         o_err_n_spi_chk(c_SPI_ERR_POS_TD2S) <= c_ZERO_INT;
 
       end if;
 
@@ -216,7 +217,7 @@ begin
    begin
 
       if now = c_ZERO_TIME then
-         o_err_n_spi_chk(c_SPI_ERR_POS_TS2D) <= 0;
+         o_err_n_spi_chk(c_SPI_ERR_POS_TS2D) <= c_ZERO_INT;
 
       end if;
 

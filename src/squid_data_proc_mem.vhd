@@ -127,9 +127,9 @@ begin
    --!      (Getting parameter side)
    -- ------------------------------------------------------------------------------------------------------
    mem_parma_prm.add     <= i_mem_parma_prm_add;
-   mem_parma_prm.we      <= '0';
-   mem_parma_prm.cs      <= '1';
-   mem_parma_prm.data_w  <= (others => '0');
+   mem_parma_prm.we      <= c_LOW_LEV;
+   mem_parma_prm.cs      <= c_HGH_LEV;
+   mem_parma_prm.data_w  <= c_ZERO(mem_parma_prm.data_w'range);
 
    --! Memory a(p), ping-pong buffer bit
    P_mem_parma_pp : process (i_rst, i_clk)
@@ -139,7 +139,7 @@ begin
          mem_parma_prm.pp      <= c_MEM_STR_ADD_PP_DEF;
 
       elsif rising_edge(i_clk) then
-         if i_mem_parma_pp_rdy = '1' then
+         if i_mem_parma_pp_rdy = c_HGH_LEV then
             mem_parma_prm.pp   <= mem_parma_pp;
 
          end if;
@@ -186,9 +186,9 @@ begin
    --!      (Getting parameter side)
    -- ------------------------------------------------------------------------------------------------------
    mem_kiknm_prm.add     <= i_mem_kiknm_prm_add;
-   mem_kiknm_prm.we      <= '0';
-   mem_kiknm_prm.cs      <= '1';
-   mem_kiknm_prm.data_w  <= (others => '0');
+   mem_kiknm_prm.we      <= c_LOW_LEV;
+   mem_kiknm_prm.cs      <= c_HGH_LEV;
+   mem_kiknm_prm.data_w  <= c_ZERO(mem_kiknm_prm.data_w'range);
 
    --! Memory ki(p)*knorm(p), ping-pong buffer bit
    P_mem_kiknm_prm_pp : process (i_rst, i_clk)
@@ -198,7 +198,7 @@ begin
          mem_kiknm_prm.pp      <= c_MEM_STR_ADD_PP_DEF;
 
       elsif rising_edge(i_clk) then
-         if i_mem_kiknm_pp_rdy = '1' then
+         if i_mem_kiknm_pp_rdy = c_HGH_LEV then
             mem_kiknm_prm.pp   <= mem_kiknm_pp;
 
          end if;
@@ -245,9 +245,9 @@ begin
    --!      (Getting parameter side)
    -- ------------------------------------------------------------------------------------------------------
    mem_knorm_prm.add     <= i_mem_knorm_prm_add;
-   mem_knorm_prm.we      <= '0';
-   mem_knorm_prm.cs      <= '1';
-   mem_knorm_prm.data_w  <= (others => '0');
+   mem_knorm_prm.we      <= c_LOW_LEV;
+   mem_knorm_prm.cs      <= c_HGH_LEV;
+   mem_knorm_prm.data_w  <= c_ZERO(mem_knorm_prm.data_w'range);
 
    --! Memory knorm(p), ping-pong buffer bit
    P_mem_knorm_prm_pp : process (i_rst, i_clk)
@@ -257,7 +257,7 @@ begin
          mem_knorm_prm.pp      <= c_MEM_STR_ADD_PP_DEF;
 
       elsif rising_edge(i_clk) then
-         if i_mem_knorm_pp_rdy = '1' then
+         if i_mem_knorm_pp_rdy = c_HGH_LEV then
             mem_knorm_prm.pp   <= mem_knorm_pp;
 
          end if;
@@ -297,18 +297,18 @@ begin
          o_b_flg_err          => open                   -- out    std_logic                                   --! Memory port B: flag error uncorrectable detected ('0' = No, '1' = Yes)
    );
 
-   o_elp_p_aln(o_elp_p_aln'high)                                                           <= '0';
+   o_elp_p_aln(o_elp_p_aln'high)                                                           <= c_LOW_LEV;
    o_elp_p_aln(o_elp_p_aln'high-1                downto o_elp_p_aln'length-elp_p'length-1) <= elp_p;
-   o_elp_p_aln(o_elp_p_aln'length-elp_p'length-2 downto                                 0) <= (others => '0');
+   o_elp_p_aln(o_elp_p_aln'length-elp_p'length-2 downto                                 0) <= c_ZERO(o_elp_p_aln'length-elp_p'length-2 downto 0);
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Dual port memory Elp(p): memory signals management
    --!      (Getting parameter side)
    -- ------------------------------------------------------------------------------------------------------
    mem_smlkv_prm.add     <= i_mem_smlkv_prm_add;
-   mem_smlkv_prm.we      <= '0';
-   mem_smlkv_prm.cs      <= '1';
-   mem_smlkv_prm.data_w  <= (others => '0');
+   mem_smlkv_prm.we      <= c_LOW_LEV;
+   mem_smlkv_prm.cs      <= c_HGH_LEV;
+   mem_smlkv_prm.data_w  <= c_ZERO(mem_smlkv_prm.data_w'range);
 
    --! Memory Elp(p), ping-pong buffer bit
    P_mem_smlkv_prm_pp : process (i_rst, i_clk)
@@ -318,7 +318,7 @@ begin
          mem_smlkv_prm.pp      <= c_MEM_STR_ADD_PP_DEF;
 
       elsif rising_edge(i_clk) then
-         if i_mem_smlkv_pp_rdy = '1' then
+         if i_mem_smlkv_pp_rdy = c_HGH_LEV then
             mem_smlkv_prm.pp   <= mem_smlkv_pp;
 
          end if;

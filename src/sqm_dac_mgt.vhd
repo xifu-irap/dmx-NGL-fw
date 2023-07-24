@@ -167,7 +167,7 @@ begin
    begin
 
       if i_rst_sqm_adc_dac = c_RST_LEV_ACT then
-         sync_re            <= '0';
+         sync_re            <= c_LOW_LEV;
 
       elsif rising_edge(i_clk_sqm_adc_dac) then
          sync_re  <= not(sync_r(sync_r'high)) and sync_r(sync_r'high-1);
@@ -185,13 +185,13 @@ begin
 
       if i_rst_sqm_adc_dac = c_RST_LEV_ACT then
          pls_cnt        <= std_logic_vector(to_unsigned(c_SQM_PLS_CNT_MX_VAL, pls_cnt'length));
-         pls_cnt_msb_r  <= '0';
+         pls_cnt_msb_r  <= c_LOW_LEV;
 
       elsif rising_edge(i_clk_sqm_adc_dac) then
-         if sync_re = '1' then
+         if sync_re = c_HGH_LEV then
             pls_cnt <= sqm_pls_cnt_init_r(sqm_pls_cnt_init_r'high);
 
-         elsif pls_cnt(pls_cnt'high) = '1' then
+         elsif pls_cnt(pls_cnt'high) = c_HGH_LEV then
             pls_cnt <= std_logic_vector(to_unsigned(c_SQM_PLS_CNT_MX_VAL, pls_cnt'length));
 
          else
@@ -215,16 +215,16 @@ begin
    begin
 
       if i_rst_sqm_adc_dac = c_RST_LEV_ACT then
-         pixel_pos   <= (others => '1');
+         pixel_pos   <= c_MINUSONE(pixel_pos'range);
 
       elsif rising_edge(i_clk_sqm_adc_dac) then
-         if sync_re = '1' then
+         if sync_re = c_HGH_LEV then
             pixel_pos <= sqm_pixel_pos_init_r(sqm_pixel_pos_init_r'high);
 
-         elsif (pixel_pos(pixel_pos'high) and pls_cnt(pls_cnt'high)) = '1' then
+         elsif (pixel_pos(pixel_pos'high) and pls_cnt(pls_cnt'high)) = c_HGH_LEV then
             pixel_pos <= std_logic_vector(to_signed(c_SQM_PXL_POS_MX_VAL , pixel_pos'length));
 
-         elsif (not(pixel_pos(pixel_pos'high)) and pls_cnt(pls_cnt'high)) = '1' then
+         elsif (not(pixel_pos(pixel_pos'high)) and pls_cnt(pls_cnt'high)) = c_HGH_LEV then
             pixel_pos <= std_logic_vector(signed(pixel_pos) - 1);
 
          end if;
@@ -280,7 +280,7 @@ begin
       elsif rising_edge(i_clk_sqm_adc_dac) then
          mem_plssh_add_lsb <= std_logic_vector(to_signed(c_SQM_PLS_CNT_MX_VAL, mem_plssh_add_lsb'length) - signed(pls_cnt));
 
-         if (pixel_pos(pixel_pos'high) and pls_cnt_msb_r) = '1' then
+         if (pixel_pos(pixel_pos'high) and pls_cnt_msb_r) = c_HGH_LEV then
             mem_plssh_prm.add(mem_plssh_prm.add'high downto mem_plssh_add_lsb'high) <= plsss_r(plsss_r'high);
             mem_plssh_prm.pp <= mem_plssh_pp_r(mem_plssh_pp_r'high);
 
@@ -291,9 +291,9 @@ begin
    end process P_mem_plssh_dac;
 
    mem_plssh_prm.add(mem_plssh_add_lsb'high-1 downto 0) <= mem_plssh_add_lsb(mem_plssh_add_lsb'high-1 downto 0);
-   mem_plssh_prm.we      <= '0';
-   mem_plssh_prm.cs      <= '1';
-   mem_plssh_prm.data_w  <= (others => '0');
+   mem_plssh_prm.we      <= c_LOW_LEV;
+   mem_plssh_prm.cs      <= c_HGH_LEV;
+   mem_plssh_prm.data_w  <= c_ZERO(mem_plssh_prm.data_w'range);
 
    -- ------------------------------------------------------------------------------------------------------
    --!   SQUID MUX DAC: Pulse shaping inputs

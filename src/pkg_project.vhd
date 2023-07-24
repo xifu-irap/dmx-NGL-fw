@@ -43,13 +43,6 @@ package pkg_project is
    -- ------------------------------------------------------------------------------------------------------
 constant c_FW_VERSION         : integer   :=  1                                                             ; --! Firmware version
 
-constant c_LOW_LEV            : std_logic := '0'                                                            ; --! Low  level value
-constant c_HGH_LEV            : std_logic := not(c_LOW_LEV)                                                 ; --! High level value
-constant c_RST_LEV_ACT        : std_logic := c_HGH_LEV                                                      ; --! Reset level activation value
-
-constant c_ZERO               : std_logic_vector(63 downto 0) := (others => '0')                            ; --! Zero value
-constant c_MINUSONE           : std_logic_vector(63 downto 0) := (others => '1')                            ; --! Minus one value
-
 constant c_FF_RSYNC_NB        : integer   := 2                                                              ; --! Flip-Flop number used for FPGA input resynchronization
 constant c_FF_RST_NB          : integer   := 6                                                              ; --! Flip-Flop number used for internal reset: System Clock
 constant c_FF_RST_ADC_DAC_NB  : integer   := 10                                                             ; --! Flip-Flop number used for internal reset: ADC/DAC Clock

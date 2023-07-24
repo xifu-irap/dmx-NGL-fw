@@ -29,6 +29,7 @@ use     ieee.std_logic_1164.all;
 use     ieee.numeric_std.all;
 
 library work;
+use     work.pkg_type.all;
 use     work.pkg_project.all;
 use     work.pkg_ep_cmd.all;
 use     work.pkg_model.all;
@@ -81,10 +82,10 @@ constant c_CMD_DEL            : character := '-'                                
       get_field_line(b_cmd, c_CMD_DEL, v_cmd_field, v_cmd_field_s);
 
       -- Check the [access] size
-      assert v_cmd_field_s = 1 report i_mess_header & "[access]" & c_MESS_ERR_SIZE & c_MESS_READ & integer'image(v_cmd_field_s) & c_MESS_EXP & "1" severity failure;
+      assert v_cmd_field_s = c_ONE_INT report i_mess_header & "[access]" & c_MESS_ERR_SIZE & c_MESS_READ & integer'image(v_cmd_field_s) & c_MESS_EXP & "1" severity failure;
 
       -- [access] analysis
-      case v_cmd_field(1 to 1) is
+      case v_cmd_field(c_ONE_INT to c_ONE_INT) is
 
          -- Wait the command end
          when "R"|"r"   =>
@@ -118,7 +119,7 @@ constant c_CMD_DEL            : character := '-'                                
 
       end if;
 
-      v_fld_add_index := 0;
+      v_fld_add_index := c_ZERO_INT;
 
       -- Get address index part
       if v_cmd_field_s /= v_fld_add_basis_s then
@@ -131,7 +132,7 @@ constant c_CMD_DEL            : character := '-'                                
 
       end if;
 
-      if c_EP_CMD_ADD_RW_POS = 0 then
+      if c_EP_CMD_ADD_RW_POS = c_ZERO_INT then
          o_fld_spi_cmd(o_fld_spi_cmd'high     downto c_EP_SPI_WD_S + 1) := std_logic_vector(unsigned(v_fld_add_val(v_fld_add_val'high-1 downto 0)) + to_unsigned(v_fld_add_index, v_fld_add_val'high));
 
       else
@@ -140,7 +141,7 @@ constant c_CMD_DEL            : character := '-'                                
       end if;
 
       -- Get [data]
-      rfield(b_cmd, i_mess_header & "[data]", 0, v_cmd_field);
+      rfield(b_cmd, i_mess_header & "[data]", c_ZERO_INT, v_cmd_field);
       get_field_line(v_cmd_field, c_CMD_DEL, v_fld_data, v_cmd_field_s);
       get_cmd_data(v_fld_data, v_fld_data, v_fld_data_val);
 

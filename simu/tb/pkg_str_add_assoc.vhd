@@ -29,6 +29,7 @@ use     ieee.std_logic_1164.all;
 use     ieee.numeric_std.all;
 
 library work;
+use     work.pkg_type.all;
 use     work.pkg_project.all;
 use     work.pkg_ep_cmd.all;
 use     work.pkg_model.all;
@@ -69,7 +70,7 @@ constant c_PAD                : character := ' '                                
       rfield_pad(b_line, c_PAD, c_CMD_NAME_STR_MAX_S, v_fld_add_pad);
 
       -- Return address value
-      case v_fld_add_pad(1 to c_CMD_NAME_STR_MAX_S) is
+      case v_fld_add_pad(c_ONE_INT to c_CMD_NAME_STR_MAX_S) is
          when "DATA_ACQ_MODE                 "  =>
             o_fld_add_val:= c_EP_CMD_ADD_AQMDE;
 

@@ -27,6 +27,10 @@
 library ieee;
 use     ieee.std_logic_1164.all;
 
+library work;
+use     work.pkg_type.all;
+use     work.pkg_project.all;
+
 entity im_ck is generic (
          g_FF_RSYNC_NB        : integer                                                                     ; --! Flip-Flop number used for resynchronization
          g_FF_CK_REF_NB       : integer                                                                       --! Flip-Flop number used for delaying image clock reference
@@ -65,8 +69,8 @@ begin
    begin
 
       if rising_edge(i_clock) then
-         if cmd_ck_r(cmd_ck_r'high) = '0' then
-            ck_ref   <= '0';
+         if cmd_ck_r(cmd_ck_r'high) = c_LOW_LEV then
+            ck_ref   <= c_LOW_LEV;
 
          else
             ck_ref   <= not(ck_ref);
@@ -83,8 +87,8 @@ begin
    P_im_ck : process (i_reset, i_clock)
    begin
 
-      if i_reset = '1' then
-         o_im_ck  <= '0';
+      if i_reset = c_HGH_LEV then
+         o_im_ck  <= c_LOW_LEV;
 
       elsif rising_edge(i_clock) then
          o_im_ck  <= ck_ref_r(ck_ref_r'high);

@@ -122,10 +122,10 @@ begin
    begin
 
       if i_rst = c_RST_LEV_ACT then
-         ep_cmd_rx_wd_add_r   <= (others => '0');
-         ep_cmd_rx_wd_data_r  <= (others => '0');
-         ep_cmd_rx_rw_r       <= '0';
-         ep_cmd_rx_nerr_rdy_r <= '0';
+         ep_cmd_rx_wd_add_r   <= c_ZERO(ep_cmd_rx_wd_add_r'range);
+         ep_cmd_rx_wd_data_r  <= c_ZERO(ep_cmd_rx_wd_data_r'range);
+         ep_cmd_rx_rw_r       <= c_LOW_LEV;
+         ep_cmd_rx_nerr_rdy_r <= c_LOW_LEV;
          ep_cmd_sts_rg_r      <= (others => c_EP_CMD_ERR_CLR);
 
       elsif rising_edge(i_clk) then
@@ -207,25 +207,25 @@ begin
 
             -- @Req : REG_SQ_AMP_OFFSET_MODE
             -- @Req : DRE-DMX-FW-REQ-0330
-            if ep_cmd_rx_nerr_rdy_r = '1' and ep_cmd_rx_rw_r = c_EP_CMD_ADD_RW_W and cs_rg_r(c_EP_CMD_POS_SAOFM) = '1' then
+            if ep_cmd_rx_nerr_rdy_r = c_HGH_LEV and ep_cmd_rx_rw_r = c_EP_CMD_ADD_RW_W and cs_rg_r(c_EP_CMD_POS_SAOFM) = c_HGH_LEV then
                rg_saofm(k) <= ep_cmd_rx_wd_data_r(c_NB_COL*k+c_DFLD_SAOFM_COL_S-1 downto c_NB_COL*k);
 
-            elsif rg_saofm(k) = c_DST_SAOFM_TEST and i_tst_pat_end_re = '1' then
+            elsif rg_saofm(k) = c_DST_SAOFM_TEST and i_tst_pat_end_re = c_HGH_LEV then
                rg_saofm(k) <= c_DST_SAOFM_OFFSET;
 
             end if;
 
-            if ep_cmd_rx_nerr_rdy_r = '1' and ep_cmd_rx_rw_r = c_EP_CMD_ADD_RW_W then
+            if ep_cmd_rx_nerr_rdy_r = c_HGH_LEV and ep_cmd_rx_rw_r = c_EP_CMD_ADD_RW_W then
 
                -- @Req : REG_SQ_MUX_FB_ON_OFF
-               if cs_rg_r(c_EP_CMD_POS_SMFMD) = '1' then
+               if cs_rg_r(c_EP_CMD_POS_SMFMD) = c_HGH_LEV then
                   rg_smfmd(k) <= ep_cmd_rx_wd_data_r(c_NB_COL*k+c_DFLD_SMFMD_COL_S-1 downto c_NB_COL*k);
 
                end if;
 
                -- @Req : REG_BOXCAR_LENGTH
                -- @Req : DRE-DMX-FW-REQ-0145
-               if cs_rg_r(c_EP_CMD_POS_BXLGT) = '1' then
+               if cs_rg_r(c_EP_CMD_POS_BXLGT) = c_HGH_LEV then
                   rg_bxlgt(k) <= ep_cmd_rx_wd_data_r(c_NB_COL*k+c_DFLD_BXLGT_COL_S-1 downto c_NB_COL*k);
 
                end if;
@@ -266,10 +266,10 @@ begin
 
             elsif rising_edge(i_clk) then
 
-               if ep_cmd_rx_nerr_rdy_r = '1' and ep_cmd_rx_rw_r = c_EP_CMD_ADD_RW_W and
+               if ep_cmd_rx_nerr_rdy_r = c_HGH_LEV and ep_cmd_rx_rw_r = c_EP_CMD_ADD_RW_W and
                   ep_cmd_rx_wd_add_r(c_EP_CMD_ADD_COLPOSH downto c_EP_CMD_ADD_COLPOSL) = std_logic_vector(to_unsigned(k, log2_ceil(c_NB_COL))) then
 
-                  if cs_rg_r(c_EP_RGC_POS(l)) = '1' then
+                  if cs_rg_r(c_EP_RGC_POS(l)) = c_HGH_LEV then
                      rg_col_data(k)(c_EP_RGC_ACC(l+1)-1 downto c_EP_RGC_ACC(l)) <= ep_cmd_rx_wd_data_r(c_EP_RGC_ACC(l+1)-c_EP_RGC_ACC(l)-1 downto 0);
 
                   end if;
@@ -407,7 +407,7 @@ begin
       o_ep_mem(k).dlcnt.we      <= mem_in_we(c_EP_MEM_NUM_DLCNT);
       o_ep_mem(k).dlcnt.cs      <= mem_in_cs(c_EP_MEM_NUM_DLCNT)(k);
       o_ep_mem(k).dlcnt.pp      <= c_MEM_STR_ADD_PP_DEF;
-      o_ep_mem(k).dlcnt.data_w  <= (others => '0');
+      o_ep_mem(k).dlcnt.data_w  <= c_ZERO(o_ep_mem(o_ep_mem'low).dlcnt.data_w'range);
 
    end generate G_ep_mem_col;
 
@@ -473,7 +473,7 @@ begin
          o_ep_cmd_sts_err_nin <= c_EP_CMD_ERR_CLR;
 
       elsif rising_edge(i_clk) then
-         if cs_rg_r(c_EP_CMD_POS_HKEEP) = '1' and i_hk_err_nin = c_EP_CMD_ERR_SET then
+         if cs_rg_r(c_EP_CMD_POS_HKEEP) = c_HGH_LEV and i_hk_err_nin = c_EP_CMD_ERR_SET then
             o_ep_cmd_sts_err_nin <= c_EP_CMD_ERR_SET;
 
          else
@@ -494,7 +494,7 @@ begin
    begin
 
       if i_rst = c_RST_LEV_ACT then
-         o_aqmde_dmp_cmp <= (others => '0');
+         o_aqmde_dmp_cmp <= (others => c_LOW_LEV);
          o_tsten_lop     <= c_EP_CMD_DEF_TSTEN(c_DFLD_TSTEN_LOP_S + c_DFLD_TSTEN_LOP_POS-1 downto c_DFLD_TSTEN_LOP_POS);
          o_tsten_inf     <= c_EP_CMD_DEF_TSTEN(c_DFLD_TSTEN_INF_POS);
          o_tsten_ena     <= c_EP_CMD_DEF_TSTEN(c_DFLD_TSTEN_ENA_POS);

@@ -29,6 +29,16 @@ use     ieee.std_logic_1164.all;
 
 package pkg_type is
 
+constant c_LOW_LEV            : std_logic := '0'                                                            ; --! Low  level value
+constant c_HGH_LEV            : std_logic := not(c_LOW_LEV)                                                 ; --! High level value
+constant c_RST_LEV_ACT        : std_logic := c_HGH_LEV                                                      ; --! Reset level activation value
+
+constant c_ZERO               : std_logic_vector(63 downto 0) := (others => '0')                            ; --! Zero value
+constant c_MINUSONE           : std_logic_vector(63 downto 0) := (others => '1')                            ; --! Minus one value
+
+constant c_ZERO_INT           : integer := 0                                                                ; --! Zero integer value
+constant c_ONE_INT            : integer := 1                                                                ; --! One integer value
+
 type     t_slv_arr             is array (natural range <>) of std_logic_vector                              ; --! std_logic_vector array type
 type     t_slv_arr_tab         is array (natural range <>) of t_slv_arr                                     ; --! std_logic_vector array table type
 type     t_int_arr_tab         is array (natural range <>) of integer_vector                                ; --! Integer array table type

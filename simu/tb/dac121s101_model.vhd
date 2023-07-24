@@ -45,18 +45,23 @@ end entity dac121s101_model;
 architecture Behavioral of dac121s101_model is
 constant c_LOW_LEV            : std_logic := '0'                                                            ; --! Low  level value
 constant c_HGH_LEV            : std_logic := not(c_LOW_LEV)                                                 ; --! High level value
-constant c_ZERO_REAL          : real      := 0.0                                                            ; --! Real zero value
 
 constant c_CLK_PER            : time       := 8 ns                                                          ; --! Clock period
+constant c_CLK_PER_HALF       : time       := c_CLK_PER/2                                                   ; --! Half clock period
+constant c_RST_ACT_TIME       : time       := 3 * c_CLK_PER/2                                               ; --! Reset activation time
 
-constant c_SPI_CPOL           : std_logic  := '0'                                                           ; --! SPI Clock polarity
-constant c_SPI_CPHA           : std_logic  := '1'                                                           ; --! SPI Clock phase
+constant c_SPI_CPOL           : std_logic  := c_LOW_LEV                                                     ; --! SPI Clock polarity
+constant c_SPI_CPHA           : std_logic  := c_HGH_LEV                                                     ; --! SPI Clock phase
 constant c_SPI_DTA_WD_S       : integer    := 16                                                            ; --! SPI Data word bus size
 constant c_SPI_DTA_WD_NB_S    : integer    :=  1                                                            ; --! SPI Data word number size
 constant c_DAC_DATA_S         : integer    := 12                                                            ; --! SPI DAC data size bus
 constant c_DAC_MODE_S         : integer    := 2                                                             ; --! SPI DAC mode size bus
+constant c_MODE_NORMAL        : std_logic_vector(c_DAC_MODE_S-1 downto 0) := "00"                           ; --! SPI DAC mode - Normal
 
 constant c_VOUT_FACT          : real       := 1.0 / real(2**c_DAC_DATA_S)                                   ; --! Analog voltage factor
+
+constant c_ZERO               : std_logic_vector(c_SPI_DTA_WD_S-1 downto 0) := (others => '0')              ; --! Zero value
+constant c_ZERO_REAL          : real      := 0.0                                                            ; --! Real zero value
 
 signal   rst                  : std_logic                                                                   ; --! Reset ('0' = Inactive, '1' = Active)
 signal   clk                  : std_logic                                                                   ; --! Clock
@@ -72,7 +77,7 @@ begin
    P_rst: process
    begin
       rst   <= g_RST_LEV_ACT;
-      wait for 3*c_CLK_PER/2;
+      wait for c_RST_ACT_TIME;
       rst   <= not(g_RST_LEV_ACT);
       wait;
 
@@ -82,10 +87,10 @@ begin
    P_clk : process
    begin
 
-      clk <= '1';
-      wait for c_CLK_PER - (c_CLK_PER/2);
-      clk <= '0';
-      wait for c_CLK_PER/2;
+      clk <= c_HGH_LEV;
+      wait for c_CLK_PER - c_CLK_PER_HALF;
+      clk <= c_LOW_LEV;
+      wait for c_CLK_PER_HALF;
 
    end process P_clk;
 
@@ -104,7 +109,7 @@ begin
          i_rst                => rst                  , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                => clk                  , -- in     std_logic                                 ; --! Clock
 
-         i_data_tx_wd         => (others => c_LOW_LEV), -- in     slv(g_DTA_TX_WD_S   -1 downto 0)          ; --! Data word to transmit (stall on MSB)
+         i_data_tx_wd         => c_ZERO               , -- in     slv(g_DTA_TX_WD_S   -1 downto 0)          ; --! Data word to transmit (stall on MSB)
          o_data_tx_wd_nb      => open                 , -- out    slv(g_DTA_TX_WD_NB_S-1 downto 0)          ; --! Data word to transmit number
 
          o_data_rx_wd         => spi_data_rx_wd       , -- out    slv(g_DTA_RX_WD_S   -1 downto 0)          ; --! Receipted data word (stall on LSB)
@@ -127,7 +132,8 @@ begin
    begin
 
       wait until rising_edge(i_sync_n);
-         vout_no_del <= g_VA * c_VOUT_FACT * real(to_integer(unsigned(spi_data_rx_wd(c_DAC_DATA_S-1 downto 0)))) when spi_data_rx_wd(c_DAC_MODE_S+c_DAC_DATA_S-1 downto c_DAC_DATA_S) = "00"  else c_ZERO_REAL;
+         vout_no_del <= g_VA * c_VOUT_FACT * real(to_integer(unsigned(spi_data_rx_wd(c_DAC_DATA_S-1 downto spi_data_rx_wd'low)))) when
+                        spi_data_rx_wd(c_DAC_MODE_S+c_DAC_DATA_S-1 downto c_DAC_DATA_S) = c_MODE_NORMAL else c_ZERO_REAL;
 
    end process P_vout_no_del;
 

@@ -44,7 +44,7 @@ constant c_HGH_LEV_B          : bit := not(c_LOW_LEV_B)                         
 
 constant c_IO_DEL_STEP        : integer   := 160                                                            ; --! FPGA I/O delay by step value (ps)
 constant c_PLS_CK_SW_NB       : integer   := 2                                                              ; --! Clock pulse number between clock switch command and output clock
-constant c_PAD_REG_SET_AUTH   : std_logic := '0'                                                            ; --! Initialization set to one for register located in PAD allowed ('0': No, '1': Yes)
+constant c_PAD_REG_SET_AUTH   : std_logic := c_LOW_LEV                                                      ; --! Initialization set to one for register located in PAD allowed ('0': No, '1': Yes)
 
 constant c_FPGA_POS_ADC       : integer_vector(0 to 3) := ( 2, 3, 0, 1)                                     ; --! FPGA position ADC (0:Left Up, 1:Left Down, 2:Right Down, 3:Right up)
 constant c_FPGA_POS_SQM_DAC   : integer_vector(0 to 3) := ( 2, 3, 0, 1)                                     ; --! FPGA position MUX DAC (0:Left Up, 1:Left Down, 2:Right Down, 3:Right up)
@@ -155,10 +155,10 @@ constant c_MULT_ALU_OP_XNOR   : bit_vector(c_MULT_ALU_OP_S-1 downto 0) := "11001
    --!   RAM parameters
    -- ------------------------------------------------------------------------------------------------------
 constant c_RAM_TYPE           : t_str_arr(0 to 1) := ("FAST_2kx18", "SLOW_2kx18")                           ; --! RAM type
-constant c_RAM_TYPE_DATA_TX   : integer   := 0                                                              ; --! RAM type: Data transfer
-constant c_RAM_TYPE_PRM_STORE : integer   := 1                                                              ; --! RAM type: Parameters storage
+constant c_RAM_TYPE_DATA_TX   : integer   := c_ZERO_INT                                                     ; --! RAM type: Data transfer
+constant c_RAM_TYPE_PRM_STORE : integer   := c_ONE_INT                                                      ; --! RAM type: Parameters storage
 
-constant c_RAM_INIT_EMPTY     : integer_vector(0 to 1) := (0, 0)                                            ; --! RAM initialization: RAM empty at start
+constant c_RAM_INIT_EMPTY     : integer_vector(0 to 1) := (c_ZERO_INT, c_ZERO_INT)                          ; --! RAM initialization: RAM empty at start
 
 constant c_RAM_PRM_DIS        : bit       := c_LOW_LEV_B                                                    ; --! RAM: parameter configured in Disable
 constant c_RAM_PRM_ENA        : bit       := c_HGH_LEV_B                                                    ; --! RAM: parameter configured in Enable
@@ -202,7 +202,7 @@ package body pkg_fpga_tech is
    begin
 
       -- Check if RAM must be empty at start
-      if i_ram_init'length <= 2 then
+      if i_ram_init'length <= c_RAM_INIT_EMPTY'length then
          return "";
 
       else
@@ -215,7 +215,7 @@ package body pkg_fpga_tech is
 
             -- else configure RAM init word to zero
             else
-               write(v_ram_init, std_logic_vector(to_signed(0, i_ram_data_s)));
+               write(v_ram_init, std_logic_vector(to_signed(c_ZERO_INT, i_ram_data_s)));
 
             end if;
 

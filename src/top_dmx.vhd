@@ -423,9 +423,9 @@ begin
          o_tst_pat_empty      => tst_pat_empty          -- out    std_logic                                   --! Test pattern empty ('0' = No, '1' = Yes)
    );
 
-   G_tstpt_col_mgt: for k in 1 to c_NB_COL-1 generate
+   G_tstpt_col_mgt: for k in c_ONE_INT to c_NB_COL-1 generate
    begin
-      ep_mem_data(k).tstpt <= (others => '0');
+      ep_mem_data(k).tstpt <= c_ZERO(ep_mem_data(k).tstpt'range);
 
    end generate G_tstpt_col_mgt;
 
@@ -626,7 +626,7 @@ begin
 
    end generate G_column_mgt;
 
-   o_sqa_dac_mx_en_n <= (others => '0');
+   o_sqa_dac_mx_en_n <= (others => c_LOW_LEV);
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Science Data outputs association
@@ -637,7 +637,7 @@ begin
    o_science_ctrl_01    <= science_data_ser(4*c_SC_DATA_SER_NB);
    o_science_ctrl_23    <= science_data_ser(4*c_SC_DATA_SER_NB);
 
-   o_science_data(o_science_data'high) <= (others => '0');
-   o_spare                             <= '0';
+   o_science_data(o_science_data'high) <= (others => c_LOW_LEV);
+   o_spare                             <= c_LOW_LEV;
 
 end architecture RTL;

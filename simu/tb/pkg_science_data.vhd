@@ -81,41 +81,41 @@ signal   o_sc_pkt_err         : out    std_logic                                
    begin
 
       -- Errors display
-      if i_err_sc_ctrl_dif = '1' then
-         o_sc_pkt_err <= '1';
+      if i_err_sc_ctrl_dif = c_HGH_LEV then
+         o_sc_pkt_err <= c_HGH_LEV;
          fprintf(error, "Science Data Control different on the two lines", scd_file);
       end if;
 
-      if i_err_sc_ctrl_ukn = '1' then
-         o_sc_pkt_err <= '1';
+      if i_err_sc_ctrl_ukn = c_HGH_LEV then
+         o_sc_pkt_err <= c_HGH_LEV;
          fprintf(error, "Science Data Control unknown", scd_file);
       end if;
 
-      if i_err_sc_pkt_start = '1' then
-         o_sc_pkt_err <= '1';
+      if i_err_sc_pkt_start = c_HGH_LEV then
+         o_sc_pkt_err <= c_HGH_LEV;
          fprintf(error, "Science Data packet header missing", scd_file);
       end if;
 
-      if i_err_sc_pkt_eod = '1' then
-         o_sc_pkt_err <= '1';
+      if i_err_sc_pkt_eod = c_HGH_LEV then
+         o_sc_pkt_err <= c_HGH_LEV;
          fprintf(error, "Science Data packet end of data missing", scd_file);
       end if;
 
-      if i_err_sc_pkt_size = '1' then
-         o_sc_pkt_err <= '1';
+      if i_err_sc_pkt_size = c_HGH_LEV then
+         o_sc_pkt_err <= c_HGH_LEV;
          fprintf(error, "Science Data packet size not expected", scd_file);
       end if;
 
       G_science_data_err : for k in 0 to c_NB_COL-1 loop
 
-         if (i_err_sc_data(k) and i_err_sc_dta_ena) = '1' then
-            o_sc_pkt_err <= '1';
+         if (i_err_sc_data(k) and i_err_sc_dta_ena) = c_HGH_LEV then
+            o_sc_pkt_err <= c_HGH_LEV;
             fprintf(error, "Science Data packet content, column " & integer'image(k) &
                            ", does not correspond to ADC input (Read: " & hfield_format(i_science_data(k)).all & ", Expected: " & hfield_format(i_mem_dmp_sc_dta_out(k)).all & ")", scd_file);
          end if;
 
-         if (i_science_data_err(k) and i_err_sc_dta_ena) = '1' then
-            o_sc_pkt_err <= '1';
+         if (i_science_data_err(k) and i_err_sc_dta_ena) = c_HGH_LEV then
+            o_sc_pkt_err <= c_HGH_LEV;
             fprintf(error, "Science Data packet content, column " & integer'image(k) & ", not expected", scd_file);
          end if;
 

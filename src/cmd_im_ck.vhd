@@ -28,6 +28,7 @@ library ieee;
 use     ieee.std_logic_1164.all;
 
 library work;
+use     work.pkg_type.all;
 use     work.pkg_project.all;
 
 entity cmd_im_ck is generic (
@@ -56,7 +57,7 @@ begin
    begin
 
       if i_rst = c_RST_LEV_ACT then
-         cmd_ck_dis_r   <= '0';
+         cmd_ck_dis_r   <= c_LOW_LEV;
          o_cmd_ck       <= g_CK_CMD_DEF;
          cmd_ck_sleep   <= not(g_CK_CMD_DEF);
          o_cmd_ck_sleep <= not(g_CK_CMD_DEF);
@@ -64,19 +65,19 @@ begin
       elsif rising_edge(i_clk) then
          cmd_ck_dis_r <= i_cmd_ck_dis;
 
-         if    i_cmd_ck_ena = '1' then
-            o_cmd_ck <= '1';
+         if    i_cmd_ck_ena = c_HGH_LEV then
+            o_cmd_ck <= c_HGH_LEV;
 
-         elsif i_cmd_ck_dis = '1' then
-            o_cmd_ck <= '0';
+         elsif i_cmd_ck_dis = c_HGH_LEV then
+            o_cmd_ck <= c_LOW_LEV;
 
          end if;
 
-         if    i_cmd_ck_ena = '1' then
-            cmd_ck_sleep <= '0';
+         if    i_cmd_ck_ena = c_HGH_LEV then
+            cmd_ck_sleep <= c_LOW_LEV;
 
-         elsif cmd_ck_dis_r = '1' then
-            cmd_ck_sleep <= '1';
+         elsif cmd_ck_dis_r = c_HGH_LEV then
+            cmd_ck_sleep <= c_HGH_LEV;
 
          end if;
 

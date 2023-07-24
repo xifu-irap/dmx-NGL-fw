@@ -70,8 +70,8 @@ begin
 
       elsif rising_edge(i_clk) then
 
-         if i_ep_cmd_rx_ner_ry_r = '1' and i_ep_cmd_rx_rw_r = c_EP_CMD_ADD_RW_W and i_cs_rg_tsten = '1' then
-            if i_ep_cmd_rx_wd_dta_r(c_DFLD_TSTEN_INF_POS) = '1' then
+         if i_ep_cmd_rx_ner_ry_r = c_HGH_LEV and i_ep_cmd_rx_rw_r = c_EP_CMD_ADD_RW_W and i_cs_rg_tsten = c_HGH_LEV then
+            if i_ep_cmd_rx_wd_dta_r(c_DFLD_TSTEN_INF_POS) = c_HGH_LEV then
                rg_tsten_lop <= c_ZERO(rg_tsten_lop'range);
 
             else
@@ -79,27 +79,27 @@ begin
 
             end if;
 
-         elsif i_tst_pat_empty = '1' then
+         elsif i_tst_pat_empty = c_HGH_LEV then
             rg_tsten_lop <= c_ZERO(rg_tsten_lop'range);
 
-         elsif rg_tsten_lop /= c_ZERO(rg_tsten_lop'range) and i_tst_pat_end_pat = '1' then
+         elsif rg_tsten_lop /= c_ZERO(rg_tsten_lop'range) and i_tst_pat_end_pat = c_HGH_LEV then
             rg_tsten_lop <= std_logic_vector(signed(rg_tsten_lop) - 1);
 
          end if;
 
-         if i_ep_cmd_rx_ner_ry_r = '1' and i_ep_cmd_rx_rw_r = c_EP_CMD_ADD_RW_W and i_cs_rg_tsten = '1' then
+         if i_ep_cmd_rx_ner_ry_r = c_HGH_LEV and i_ep_cmd_rx_rw_r = c_EP_CMD_ADD_RW_W and i_cs_rg_tsten = c_HGH_LEV then
             rg_tsten_inf <= i_ep_cmd_rx_wd_dta_r(c_DFLD_TSTEN_INF_POS);
 
-         elsif i_tst_pat_empty = '1' then
-            rg_tsten_inf <= '0';
+         elsif i_tst_pat_empty = c_HGH_LEV then
+            rg_tsten_inf <= c_LOW_LEV;
 
          end if;
 
-         if i_ep_cmd_rx_ner_ry_r = '1' and i_ep_cmd_rx_rw_r = c_EP_CMD_ADD_RW_W and i_cs_rg_tsten = '1' then
+         if i_ep_cmd_rx_ner_ry_r = c_HGH_LEV and i_ep_cmd_rx_rw_r = c_EP_CMD_ADD_RW_W and i_cs_rg_tsten = c_HGH_LEV then
             rg_tsten_ena <= i_ep_cmd_rx_wd_dta_r(c_DFLD_TSTEN_ENA_POS);
 
-         elsif (rg_tsten_lop = c_ZERO(rg_tsten_lop'range) and rg_tsten_inf = '0') or i_tst_pat_empty = '1' then
-            rg_tsten_ena <= '0';
+         elsif (rg_tsten_lop = c_ZERO(rg_tsten_lop'range) and rg_tsten_inf = c_LOW_LEV) or i_tst_pat_empty = c_HGH_LEV then
+            rg_tsten_ena <= c_LOW_LEV;
 
          end if;
 

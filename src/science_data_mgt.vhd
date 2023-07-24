@@ -113,17 +113,17 @@ begin
    begin
 
       if i_rst = c_RST_LEV_ACT then
-         ras_data_valid_rs_r  <= '0';
-         ras_data_valid_ltc   <= '0';
+         ras_data_valid_rs_r  <= c_LOW_LEV;
+         ras_data_valid_ltc   <= c_LOW_LEV;
 
       elsif rising_edge(i_clk) then
          ras_data_valid_rs_r  <= i_ras_data_valid_rs;
 
-         if (i_ras_data_valid_rs and not(ras_data_valid_rs_r)) = '1' then
-            ras_data_valid_ltc   <= '1';
+         if (i_ras_data_valid_rs and not(ras_data_valid_rs_r)) = c_HGH_LEV then
+            ras_data_valid_ltc   <= c_HGH_LEV;
 
-         elsif (aqmde_sync = c_DST_AQMDE_SCIE) and (sqm_dta_sc_fst_all_r(sqm_dta_sc_fst_all_r'low) and science_data_tx_ena) = '1' then
-            ras_data_valid_ltc   <= '0';
+         elsif (aqmde_sync = c_DST_AQMDE_SCIE) and (sqm_dta_sc_fst_all_r(sqm_dta_sc_fst_all_r'low) and science_data_tx_ena) = c_HGH_LEV then
+            ras_data_valid_ltc   <= c_LOW_LEV;
 
          end if;
 
@@ -141,11 +141,11 @@ begin
       begin
 
          if i_rst = c_RST_LEV_ACT then
-            sqm_data_sc_msb_pv(k)   <= (others => (others => '0'));
-            sqm_data_sc_lsb_pv(k)   <= (others => (others => '0'));
+            sqm_data_sc_msb_pv(k)   <= (others => c_ZERO(sqm_data_sc_msb_pv(sqm_data_sc_msb_pv'low)(sqm_data_sc_msb_pv'low)'range));
+            sqm_data_sc_lsb_pv(k)   <= (others => c_ZERO(sqm_data_sc_lsb_pv(sqm_data_sc_lsb_pv'low)(sqm_data_sc_lsb_pv'low)'range));
 
          elsif rising_edge(i_clk) then
-            if i_sqm_data_sc_rdy(k) = '1' then
+            if i_sqm_data_sc_rdy(k) = c_HGH_LEV then
                sqm_data_sc_msb_pv(k) <= i_sqm_data_sc_msb(k) & sqm_data_sc_msb_pv(k)(0 to c_DT_PV-2);
                sqm_data_sc_lsb_pv(k) <= i_sqm_data_sc_lsb(k) & sqm_data_sc_lsb_pv(k)(0 to c_DT_PV-2);
 
@@ -162,14 +162,14 @@ begin
       begin
 
          if i_rst = c_RST_LEV_ACT then
-            sqm_data_sc_rdy_ena(k)  <= '0';
+            sqm_data_sc_rdy_ena(k)  <= c_LOW_LEV;
 
          elsif rising_edge(i_clk) then
-            if (sqm_data_sc_rdy_and(sqm_data_sc_rdy_and'high) or sqm_data_sc_fst_and(sqm_data_sc_fst_and'high)) = '1' then
-               sqm_data_sc_rdy_ena(k)  <= '0';
+            if (sqm_data_sc_rdy_and(sqm_data_sc_rdy_and'high) or sqm_data_sc_fst_and(sqm_data_sc_fst_and'high)) = c_HGH_LEV then
+               sqm_data_sc_rdy_ena(k)  <= c_LOW_LEV;
 
-            elsif i_sqm_data_sc_rdy(k) = '1' then
-               sqm_data_sc_rdy_ena(k)  <= '1';
+            elsif i_sqm_data_sc_rdy(k) = c_HGH_LEV then
+               sqm_data_sc_rdy_ena(k)  <= c_HGH_LEV;
 
             end if;
 
@@ -184,16 +184,16 @@ begin
       begin
 
          if i_rst = c_RST_LEV_ACT then
-            sqm_data_sc_fst_ena(k)  <= '0';
-            sqm_data_sc_sel(k)      <= '1';
+            sqm_data_sc_fst_ena(k)  <= c_LOW_LEV;
+            sqm_data_sc_sel(k)      <= c_HGH_LEV;
 
          elsif rising_edge(i_clk) then
-            if    sqm_data_sc_fst_and(sqm_data_sc_fst_and'high) = '1' then
-               sqm_data_sc_fst_ena(k)  <= '0';
+            if    sqm_data_sc_fst_and(sqm_data_sc_fst_and'high) = c_HGH_LEV then
+               sqm_data_sc_fst_ena(k)  <= c_LOW_LEV;
                sqm_data_sc_sel(k)      <= i_sqm_data_sc_first(k);
 
-            elsif (i_sqm_data_sc_first(k) and i_sqm_data_sc_rdy(k)) = '1' then
-               sqm_data_sc_fst_ena(k)  <= '1';
+            elsif (i_sqm_data_sc_first(k) and i_sqm_data_sc_rdy(k)) = c_HGH_LEV then
+               sqm_data_sc_fst_ena(k)  <= c_HGH_LEV;
 
             end if;
 
@@ -208,14 +208,14 @@ begin
       begin
 
          if i_rst = c_RST_LEV_ACT then
-            sqm_data_sc_lst_ena(k)  <= '0';
+            sqm_data_sc_lst_ena(k)  <= c_LOW_LEV;
 
          elsif rising_edge(i_clk) then
-            if     sqm_data_sc_fst_and(sqm_data_sc_fst_and'high) = '1' then
-               sqm_data_sc_lst_ena(k)  <= '0';
+            if     sqm_data_sc_fst_and(sqm_data_sc_fst_and'high) = c_HGH_LEV then
+               sqm_data_sc_lst_ena(k)  <= c_LOW_LEV;
 
-            elsif (i_sqm_data_sc_last(k) and i_sqm_data_sc_rdy(k)) = '1' then
-               sqm_data_sc_lst_ena(k)  <= '1';
+            elsif (i_sqm_data_sc_last(k) and i_sqm_data_sc_rdy(k)) = c_HGH_LEV then
+               sqm_data_sc_lst_ena(k)  <= c_HGH_LEV;
 
             end if;
 
@@ -230,12 +230,12 @@ begin
       begin
 
          if i_rst = c_RST_LEV_ACT then
-            sqm_data_sc_msb_mux(k) <= (others => '0');
-            sqm_data_sc_lsb_mux(k) <= (others => '0');
+            sqm_data_sc_msb_mux(k) <= c_ZERO(sqm_data_sc_msb_mux(sqm_data_sc_msb_mux'low)'range);
+            sqm_data_sc_lsb_mux(k) <= c_ZERO(sqm_data_sc_lsb_mux(sqm_data_sc_lsb_mux'low)'range);
 
          elsif rising_edge(i_clk) then
-            if sqm_dta_sc_rdy_all_r(sqm_dta_sc_rdy_all_r'low) = '1' then
-               if sqm_data_sc_sel(k) = '0' then
+            if sqm_dta_sc_rdy_all_r(sqm_dta_sc_rdy_all_r'low) = c_HGH_LEV then
+               if sqm_data_sc_sel(k) = c_LOW_LEV then
                   sqm_data_sc_msb_mux(k) <= sqm_data_sc_msb_pv(k)(c_DT_PV-1);
                   sqm_data_sc_lsb_mux(k) <= sqm_data_sc_lsb_pv(k)(c_DT_PV-1);
 
@@ -251,7 +251,7 @@ begin
 
       end process P_sqm_data_sc_mux;
 
-      G_k: if k = 0 generate
+      G_k: if k = c_ZERO_INT generate
          sqm_data_sc_rdy_and(k)  <= sqm_data_sc_rdy_ena(k);
          sqm_data_sc_fst_and(k)  <= sqm_data_sc_fst_ena(k);
          sqm_data_sc_lst_and(k)  <= sqm_data_sc_lst_ena(k);
@@ -272,14 +272,14 @@ begin
    begin
 
       if i_rst = c_RST_LEV_ACT then
-         sqm_data_sc_fst_all  <= '0';
-         sqm_data_sc_lst_all  <= '0';
-         sqm_dta_sc_rdy_all_r <= (others => '0');
-         sqm_dta_sc_fst_all_r <= (others => '0');
-         sqm_dta_sc_lst_all_r <= '0';
+         sqm_data_sc_fst_all  <= c_LOW_LEV;
+         sqm_data_sc_lst_all  <= c_LOW_LEV;
+         sqm_dta_sc_rdy_all_r <= (others => c_LOW_LEV);
+         sqm_dta_sc_fst_all_r <= (others => c_LOW_LEV);
+         sqm_dta_sc_lst_all_r <= c_LOW_LEV;
 
       elsif rising_edge(i_clk) then
-         if sqm_data_sc_rdy_and(sqm_data_sc_rdy_and'high) = '1' then
+         if sqm_data_sc_rdy_and(sqm_data_sc_rdy_and'high) = c_HGH_LEV then
             sqm_data_sc_fst_all <= sqm_data_sc_fst_and(sqm_data_sc_fst_and'high);
             sqm_data_sc_lst_all <= sqm_data_sc_lst_and(sqm_data_sc_lst_and'high);
 
@@ -301,16 +301,16 @@ begin
 
       if i_rst = c_RST_LEV_ACT then
          aqmde_r           <= c_EP_CMD_DEF_AQMDE;
-         tst_pat_end_r     <= '1';
+         tst_pat_end_r     <= c_HGH_LEV;
 
          aqmde_sync        <= c_EP_CMD_DEF_AQMDE;
-         tst_pat_end_sync  <= '1';
+         tst_pat_end_sync  <= c_HGH_LEV;
 
       elsif rising_edge(i_clk) then
          aqmde_r           <= i_aqmde;
          tst_pat_end_r     <= i_tst_pat_end;
 
-         if (sqm_data_sc_fst_and(sqm_data_sc_fst_and'high) and sqm_data_sc_rdy_and(sqm_data_sc_rdy_and'high)) = '1' then
+         if (sqm_data_sc_fst_and(sqm_data_sc_fst_and'high) and sqm_data_sc_rdy_and(sqm_data_sc_rdy_and'high)) = c_HGH_LEV then
             aqmde_sync        <= aqmde_r;
             tst_pat_end_sync  <= tst_pat_end_r;
 
@@ -327,20 +327,20 @@ begin
    begin
 
       if i_rst = c_RST_LEV_ACT then
-         dmp_cnt_msb_r        <= (others => '1');
-         dmp_cnt              <= (others => '1');
+         dmp_cnt_msb_r        <= c_MINUSONE(dmp_cnt_msb_r'range);
+         dmp_cnt              <= c_MINUSONE(dmp_cnt'range);
 
-         o_aqmde_dmp_tx_end <= '0';
+         o_aqmde_dmp_tx_end <= c_LOW_LEV;
 
       elsif rising_edge(i_clk) then
          dmp_cnt_msb_r <= dmp_cnt_msb_r(dmp_cnt_msb_r'high-1 downto 0) & dmp_cnt(dmp_cnt'high);
 
          if aqmde_sync = c_DST_AQMDE_DUMP then
 
-            if (dmp_cnt(dmp_cnt'high) and i_sqm_mem_dump_bsy) = '1' then
+            if (dmp_cnt(dmp_cnt'high) and i_sqm_mem_dump_bsy) = c_HGH_LEV then
                dmp_cnt <= std_logic_vector(to_unsigned(c_DMP_CNT_MAX_VAL, dmp_cnt'length));
 
-            elsif not(dmp_cnt(dmp_cnt'high)) = '1' and ser_bit_cnt = std_logic_vector(to_unsigned(c_SC_DATA_SER_W_S-2, ser_bit_cnt'length)) then
+            elsif not(dmp_cnt(dmp_cnt'high)) = c_HGH_LEV and ser_bit_cnt = std_logic_vector(to_unsigned(c_SC_DATA_SER_W_S-2, ser_bit_cnt'length)) then
                dmp_cnt <= std_logic_vector(signed(dmp_cnt) - 1);
 
             end if;
@@ -358,7 +358,7 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   Control packet value
    -- ------------------------------------------------------------------------------------------------------
-   ctrl_first_pkt <= c_SC_CTRL_RAS_VLD when (aqmde_sync = c_DST_AQMDE_SCIE and ras_data_valid_ltc = '1') else
+   ctrl_first_pkt <= c_SC_CTRL_RAS_VLD when (aqmde_sync = c_DST_AQMDE_SCIE and ras_data_valid_ltc = c_HGH_LEV) else
                      c_SC_CTRL_SC_DTA  when aqmde_sync = c_DST_AQMDE_SCIE else
                      c_SC_CTRL_ERRS    when aqmde_sync = c_DST_AQMDE_ERRS else
                      c_SC_CTRL_ADC_DMP when aqmde_sync = c_DST_AQMDE_DUMP else
@@ -373,17 +373,17 @@ begin
          science_data(science_data'high) <= c_SC_CTRL_IDLE;
 
       elsif rising_edge(i_clk) then
-         if aqmde_sync = c_DST_AQMDE_IDLE or (aqmde_sync = c_DST_AQMDE_TEST and tst_pat_end_sync = '1') then
+         if aqmde_sync = c_DST_AQMDE_IDLE or (aqmde_sync = c_DST_AQMDE_TEST and tst_pat_end_sync = c_HGH_LEV) then
             science_data(science_data'high) <= c_SC_CTRL_IDLE;
 
-         elsif  ((aqmde_sync = c_DST_AQMDE_DUMP) and (dmp_cnt_msb_r(dmp_cnt_msb_r'high) and i_sqm_mem_dump_bsy) = '1') or
+         elsif  ((aqmde_sync = c_DST_AQMDE_DUMP) and (dmp_cnt_msb_r(dmp_cnt_msb_r'high) and i_sqm_mem_dump_bsy) = c_HGH_LEV) or
                (((aqmde_sync = c_DST_AQMDE_SCIE) or  (aqmde_sync = c_DST_AQMDE_ERRS) or
-                ((aqmde_sync = c_DST_AQMDE_TEST) and (tst_pat_end_sync = '0')))      and sqm_dta_sc_fst_all_r(sqm_dta_sc_fst_all_r'low) = '1') then
+                ((aqmde_sync = c_DST_AQMDE_TEST) and (tst_pat_end_sync = c_LOW_LEV)))      and sqm_dta_sc_fst_all_r(sqm_dta_sc_fst_all_r'low) = c_HGH_LEV) then
             science_data(science_data'high) <= ctrl_first_pkt;
 
          elsif  ((aqmde_sync = c_DST_AQMDE_DUMP) and dmp_cnt = c_ZERO(dmp_cnt'range)) or
-               (((aqmde_sync = c_DST_AQMDE_SCIE) or  (aqmde_sync = c_DST_AQMDE_ERRS) or
-                ((aqmde_sync = c_DST_AQMDE_TEST) and (tst_pat_end_sync = '0')))      and sqm_dta_sc_lst_all_r = '1') then
+               (((aqmde_sync = c_DST_AQMDE_SCIE) or  (aqmde_sync = c_DST_AQMDE_ERRS)  or
+                ((aqmde_sync = c_DST_AQMDE_TEST) and (tst_pat_end_sync = c_LOW_LEV))) and sqm_dta_sc_lst_all_r = c_HGH_LEV) then
             science_data(science_data'high) <= c_SC_CTRL_EOD;
 
          else
@@ -408,8 +408,8 @@ begin
       begin
 
          if i_rst = c_RST_LEV_ACT then
-            science_data(2*k+1)  <= (others => '0');
-            science_data(2*k)    <= (others => '0');
+            science_data(2*k+1)  <= c_ZERO(science_data(science_data'low)'range);
+            science_data(2*k)    <= c_ZERO(science_data(science_data'low)'range);
 
          elsif rising_edge(i_clk) then
             if    aqmde_sync = c_DST_AQMDE_DUMP then
@@ -420,11 +420,11 @@ begin
                science_data(2*k+1)  <= sqm_data_sc_msb_mux(k);
                science_data(2*k)    <= sqm_data_sc_lsb_mux(k);
 
-            elsif aqmde_sync = c_DST_AQMDE_TEST and (not(tst_pat_end_sync) and sqm_dta_sc_fst_all_r(sqm_dta_sc_fst_all_r'low)) = '1' then
+            elsif aqmde_sync = c_DST_AQMDE_TEST and (not(tst_pat_end_sync) and sqm_dta_sc_fst_all_r(sqm_dta_sc_fst_all_r'low)) = c_HGH_LEV then
                science_data(2*k+1)  <= i_test_pattern(2*c_SC_DATA_SER_W_S-1 downto c_SC_DATA_SER_W_S);
                science_data(2*k)    <= i_test_pattern(  c_SC_DATA_SER_W_S-1 downto                 0);
 
-            elsif aqmde_sync = c_DST_AQMDE_IDLE or (aqmde_sync = c_DST_AQMDE_TEST and tst_pat_end_sync = '1') then
+            elsif aqmde_sync = c_DST_AQMDE_IDLE or (aqmde_sync = c_DST_AQMDE_TEST and tst_pat_end_sync = c_HGH_LEV) then
                science_data(2*k+1)  <= c_SC_DATA_IDLE_VAL(2*c_SC_DATA_SER_W_S-1 downto c_SC_DATA_SER_W_S);
                science_data(2*k)    <= c_SC_DATA_IDLE_VAL(  c_SC_DATA_SER_W_S-1 downto                 0);
 
@@ -443,7 +443,7 @@ begin
    begin
 
       if i_rst = c_RST_LEV_ACT then
-         science_data_tx_ena <= '0';
+         science_data_tx_ena <= c_LOW_LEV;
 
       elsif rising_edge(i_clk) then
          if    aqmde_sync = c_DST_AQMDE_DUMP then
@@ -453,7 +453,7 @@ begin
             science_data_tx_ena <= sqm_dta_sc_rdy_all_r(sqm_dta_sc_rdy_all_r'high);
 
          else
-            science_data_tx_ena <= '0';
+            science_data_tx_ena <= c_LOW_LEV;
 
          end if;
 

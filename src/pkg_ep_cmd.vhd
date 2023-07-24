@@ -40,7 +40,7 @@ package pkg_ep_cmd is
    -- ------------------------------------------------------------------------------------------------------
    --    EP command
    -- ------------------------------------------------------------------------------------------------------
-constant c_EP_CMD_ADD_RW_R    : std_logic := '0'                                                            ; --! EP command: Address, Read/Write field Read value
+constant c_EP_CMD_ADD_RW_R    : std_logic := c_LOW_LEV                                                      ; --! EP command: Address, Read/Write field Read value
 constant c_EP_CMD_ADD_RW_W    : std_logic := not(c_EP_CMD_ADD_RW_R)                                         ; --! EP command: Address, Read/Write field Write value
 
 constant c_EP_CMD_WD_ADD_POS  : integer   := 0                                                              ; --! EP command: Address word position
@@ -51,7 +51,7 @@ constant c_EP_CMD_ADD_RW_POS  : integer   := 0                                  
    --    EP command: Status error
    --    @Req : REG_Status
    -- ------------------------------------------------------------------------------------------------------
-constant c_EP_CMD_ERR_SET     : std_logic := '0'                                                            ; --! EP command: Status, error set value
+constant c_EP_CMD_ERR_SET     : std_logic := c_LOW_LEV                                                      ; --! EP command: Status, error set value
 constant c_EP_CMD_ERR_CLR     : std_logic := not(c_EP_CMD_ERR_SET)                                          ; --! EP command: Status, error clear value
 
 constant c_EP_CMD_ERR_ADD_POS : integer   := 15                                                             ; --! EP command: Status, error position invalid address

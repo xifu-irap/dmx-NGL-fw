@@ -93,7 +93,7 @@ quietly set TB_DIR $3
       ${TB_DIR}/pkg_func_parser.vhd       \
       ${TB_DIR}/pkg_science_data.vhd      \
       ${TB_DIR}/adc_ad9254_model.vhd      \
-      ${TB_DIR}/dac_dac5675a_model.vhd    \
+      ${TB_DIR}/dac5675a_model.vhd        \
       ${TB_DIR}/dac121s101_model.vhd      \
       ${TB_DIR}/adc128s102_model.vhd      \
       ${TB_DIR}/cd74hc4051_model.vhd      \

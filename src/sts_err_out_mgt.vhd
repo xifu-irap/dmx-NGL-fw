@@ -29,6 +29,7 @@ use     ieee.std_logic_1164.all;
 use     ieee.numeric_std.all;
 
 library work;
+use     work.pkg_type.all;
 use     work.pkg_project.all;
 use     work.pkg_ep_cmd.all;
 
@@ -98,7 +99,7 @@ begin
 
    cond_saofc     <= i_ep_cmd_rx_wd_data(15) or i_ep_cmd_rx_wd_data(14) or i_ep_cmd_rx_wd_data(13) or i_ep_cmd_rx_wd_data(12);
 
-   cond_smfbd     <= '1' when (i_ep_cmd_rx_wd_data(c_DFLD_SMFBD_COL_S-1) = '0' and
+   cond_smfbd     <= c_HGH_LEV when (i_ep_cmd_rx_wd_data(c_DFLD_SMFBD_COL_S-1) = c_LOW_LEV and
                      i_ep_cmd_rx_wd_data(c_DFLD_SMFBD_COL_S-2 downto 0) > std_logic_vector(to_unsigned(2*c_PIXEL_DAC_NB_CYC, c_DFLD_SMFBD_COL_S-1))) else
                      i_ep_cmd_rx_wd_data(15) or i_ep_cmd_rx_wd_data(14) or i_ep_cmd_rx_wd_data(13) or i_ep_cmd_rx_wd_data(12) or
                      i_ep_cmd_rx_wd_data(11) or i_ep_cmd_rx_wd_data(10);
@@ -106,12 +107,12 @@ begin
    cond_saodd     <= i_ep_cmd_rx_wd_data(15) or i_ep_cmd_rx_wd_data(14) or i_ep_cmd_rx_wd_data(13) or i_ep_cmd_rx_wd_data(12) or
                      i_ep_cmd_rx_wd_data(11) or i_ep_cmd_rx_wd_data(10);
 
-   cond_saomd     <= '1' when (i_ep_cmd_rx_wd_data(c_DFLD_SAOMD_COL_S-1) = '0' and
+   cond_saomd     <= c_HGH_LEV when (i_ep_cmd_rx_wd_data(c_DFLD_SAOMD_COL_S-1) = c_LOW_LEV and
                      i_ep_cmd_rx_wd_data(c_DFLD_SAOMD_COL_S-2 downto 0) > std_logic_vector(to_unsigned(2*c_PIXEL_DAC_NB_CYC, c_DFLD_SAOMD_COL_S-1))) else
                      i_ep_cmd_rx_wd_data(15) or i_ep_cmd_rx_wd_data(14) or i_ep_cmd_rx_wd_data(13) or i_ep_cmd_rx_wd_data(12) or
                      i_ep_cmd_rx_wd_data(11) or i_ep_cmd_rx_wd_data(10);
 
-   cond_smpdl     <= '1' when i_ep_cmd_rx_wd_data(c_DFLD_SMPDL_COL_S-1 downto 0) >= std_logic_vector(to_unsigned(c_PIXEL_ADC_NB_CYC , c_DFLD_SMPDL_COL_S)) else
+   cond_smpdl     <= c_HGH_LEV when i_ep_cmd_rx_wd_data(c_DFLD_SMPDL_COL_S-1 downto 0) >= std_logic_vector(to_unsigned(c_PIXEL_ADC_NB_CYC , c_DFLD_SMPDL_COL_S)) else
                      i_ep_cmd_rx_wd_data(15) or i_ep_cmd_rx_wd_data(14) or i_ep_cmd_rx_wd_data(13) or i_ep_cmd_rx_wd_data(12) or
                      i_ep_cmd_rx_wd_data(11) or i_ep_cmd_rx_wd_data(10) or i_ep_cmd_rx_wd_data(9)  or i_ep_cmd_rx_wd_data(8)  or
                      i_ep_cmd_rx_wd_data(7)  or i_ep_cmd_rx_wd_data(6)  or i_ep_cmd_rx_wd_data(5);
@@ -131,7 +132,7 @@ begin
          o_ep_cmd_sts_err_out <= c_EP_CMD_ERR_CLR;
 
       elsif rising_edge(i_clk) then
-         if i_ep_cmd_rx_out_rdy = '1' then
+         if i_ep_cmd_rx_out_rdy = c_HGH_LEV then
             if i_ep_cmd_rx_rw = c_EP_CMD_ADD_RW_R then
                o_ep_cmd_sts_err_out <= c_EP_CMD_ERR_CLR;
 

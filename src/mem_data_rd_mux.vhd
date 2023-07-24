@@ -61,7 +61,7 @@ begin
    begin
 
       if i_rst = c_RST_LEV_ACT then
-         cs_r  <= (others => (others => '0'));
+         cs_r  <= (others => (others => c_LOW_LEV));
 
       elsif rising_edge(i_clk) then
          cs_r  <= i_cs & cs_r(0 to cs_r'high-1);
@@ -92,10 +92,10 @@ begin
    begin
 
       if i_rst = c_RST_LEV_ACT then
-         o_data_mux  <= (others => '0');
+         o_data_mux  <= c_ZERO(o_data_mux'range);
 
       elsif rising_edge(i_clk) then
-         if cs_or = '1' then
+         if cs_or = c_HGH_LEV then
             o_data_mux    <= data_mx;
          end if;
 

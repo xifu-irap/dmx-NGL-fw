@@ -62,6 +62,9 @@ entity test_pattern_gen is port (
 end entity test_pattern_gen;
 
 architecture RTL of test_pattern_gen is
+constant c_TST_INDEX_INIT     : std_logic_vector(c_DFLD_TSTPT_S downto 0) :=
+                                std_logic_vector(to_unsigned(1, c_DFLD_TSTPT_S+1))                          ; --! Test pattern index initialization value
+
 constant c_TST_RG_POS_MAX_VAL : integer   := (c_TST_PAT_RGN_NB - 1) * c_TST_PAT_COEF_NB                     ; --! Test pattern region position: maximal value
 constant c_TST_RG_POS_S       : integer   := log2_ceil(c_TST_RG_POS_MAX_VAL + 1) + 1                        ; --! Test pattern region position: size bus (signed)
 
@@ -107,7 +110,7 @@ begin
    begin
 
       if i_rst = c_RST_LEV_ACT then
-         sync_re_r   <= '0';
+         sync_re_r   <= c_LOW_LEV;
 
       elsif rising_edge(i_clk) then
          sync_re_r   <= i_sync_re;
@@ -123,7 +126,7 @@ begin
    begin
 
       if i_rst = c_RST_LEV_ACT then
-         loop_nb_minus1 <= (others => '1');
+         loop_nb_minus1 <= c_MINUSONE(loop_nb_minus1'range);
 
       elsif rising_edge(i_clk) then
          loop_nb_minus1 <= std_logic_vector(signed(resize(unsigned(i_tsten_lop), loop_nb_minus1'length)) - 1);
@@ -140,19 +143,19 @@ begin
 
       if i_rst = c_RST_LEV_ACT then
          tst_region_pos       <= std_logic_vector(to_signed(-c_TST_PAT_COEF_NB, tst_region_pos'length));
-         tst_region_pos_msb_r <= '1';
+         tst_region_pos_msb_r <= c_HGH_LEV;
 
       elsif rising_edge(i_clk) then
-         if i_tsten_ena = '0' then
+         if i_tsten_ena = c_LOW_LEV then
             tst_region_pos <= std_logic_vector(to_signed(-c_TST_PAT_COEF_NB, tst_region_pos'length));
 
-         elsif tst_coef_sel(c_TST_INDMAX_CHK_POS) = '1' and tst_index_max = c_ZERO(tst_index_max'range) then
+         elsif tst_coef_sel(c_TST_INDMAX_CHK_POS) = c_HGH_LEV and tst_index_max = c_ZERO(tst_index_max'range) then
             tst_region_pos <= std_logic_vector(to_unsigned(c_TST_RG_POS_MAX_VAL, tst_region_pos'length));
 
-         elsif ((i_sync_re or sync_re_r) and tst_region_pos(tst_region_pos'high)) = '1' then
+         elsif ((i_sync_re or sync_re_r) and tst_region_pos(tst_region_pos'high)) = c_HGH_LEV then
             tst_region_pos <= std_logic_vector(to_unsigned(c_TST_RG_POS_MAX_VAL, tst_region_pos'length));
 
-         elsif (i_sync_re and not(tst_region_pos(tst_region_pos'high))) = '1' and unsigned(tst_index) >= unsigned(tst_index_max) then
+         elsif (i_sync_re and not(tst_region_pos(tst_region_pos'high))) = c_HGH_LEV and unsigned(tst_index) >= unsigned(tst_index_max) then
             tst_region_pos <= std_logic_vector(signed(tst_region_pos) - to_signed(c_TST_PAT_COEF_NB, tst_region_pos'length));
 
          end if;
@@ -170,14 +173,14 @@ begin
    begin
 
       if i_rst = c_RST_LEV_ACT then
-         tst_coef_pos <= (others => '1');
+         tst_coef_pos <= c_MINUSONE(tst_coef_pos'range);
 
       elsif rising_edge(i_clk) then
-         if i_tsten_ena = '1' then
-            if (sync_re_r or tst_coef_sel(c_TST_INDMAX_CHK_POS)) = '1' then
+         if i_tsten_ena = c_HGH_LEV then
+            if (sync_re_r or tst_coef_sel(c_TST_INDMAX_CHK_POS)) = c_HGH_LEV then
                tst_coef_pos <= std_logic_vector(to_unsigned(c_TST_CF_POS_MAX_VAL, tst_coef_pos'length));
 
-            elsif tst_coef_pos(tst_coef_pos'high) = '0' then
+            elsif tst_coef_pos(tst_coef_pos'high) = c_LOW_LEV then
                tst_coef_pos <= std_logic_vector(signed(tst_coef_pos) - 1);
 
             end if;
@@ -195,10 +198,10 @@ begin
    begin
 
       if i_rst = c_RST_LEV_ACT then
-         tst_coef_sel <= (others => '0');
+         tst_coef_sel <= (others => c_LOW_LEV);
 
       elsif rising_edge(i_clk) then
-         if i_tsten_ena = '1' then
+         if i_tsten_ena = c_HGH_LEV then
             tst_coef_sel <= tst_coef_sel(tst_coef_sel'high-1 downto 0) & sync_re_r;
 
          end if;
@@ -247,9 +250,9 @@ begin
                                 resize(signed(tst_coef_pos),   tst_pos'length));
 
    mem_tstpt_prm.add     <= tst_pos(tst_pos'high-1 downto 0);
-   mem_tstpt_prm.we      <= '0';
-   mem_tstpt_prm.cs      <= '1';
-   mem_tstpt_prm.data_w  <= (others => '0');
+   mem_tstpt_prm.we      <= c_LOW_LEV;
+   mem_tstpt_prm.cs      <= c_HGH_LEV;
+   mem_tstpt_prm.data_w  <= c_ZERO(mem_tstpt_prm.data_w'range);
 
    --! Test pattern: ping-pong buffer bit
    P_mem_tstpt_pp : process (i_rst, i_clk)
@@ -259,7 +262,7 @@ begin
          mem_tstpt_prm.pp      <= c_MEM_STR_ADD_PP_DEF;
 
       elsif rising_edge(i_clk) then
-         if tst_region_pos(tst_region_pos'high) = '1' then
+         if tst_region_pos(tst_region_pos'high) = c_HGH_LEV then
             mem_tstpt_prm.pp   <= mem_tstpt_pp;
 
          end if;
@@ -275,22 +278,22 @@ begin
    begin
 
       if i_rst = c_RST_LEV_ACT then
-         tst_slope_coef <= (others => '0');
-         tst_itcpt_coef <= (others => '0');
-         tst_index_max  <= (others => '0');
+         tst_slope_coef <= c_ZERO(tst_slope_coef'range);
+         tst_itcpt_coef <= c_ZERO(tst_itcpt_coef'range);
+         tst_index_max  <= c_ZERO(tst_index_max'range);
 
       elsif rising_edge(i_clk) then
-         if tst_coef_sel(c_TST_SLOPE_COEF_POS) = '1' then
+         if tst_coef_sel(c_TST_SLOPE_COEF_POS) = c_HGH_LEV then
             tst_slope_coef <= tst_prm;
 
          end if;
 
-         if tst_coef_sel(c_TST_ITCPT_COEF_POS) = '1' then
+         if tst_coef_sel(c_TST_ITCPT_COEF_POS) = c_HGH_LEV then
             tst_itcpt_coef <= tst_prm;
 
          end if;
 
-         if (tst_coef_sel(c_TST_INDMAX1_POS) or tst_coef_sel(c_TST_INDMAX2_POS)) = '1' then
+         if (tst_coef_sel(c_TST_INDMAX1_POS) or tst_coef_sel(c_TST_INDMAX2_POS)) = c_HGH_LEV then
             tst_index_max <= std_logic_vector(resize(unsigned(tst_prm), tst_index_max'length));
 
          end if;
@@ -306,12 +309,12 @@ begin
    begin
 
       if i_rst = c_RST_LEV_ACT then
-         tst_index <= (others => '0');
+         tst_index <= c_ZERO(tst_index'range);
 
       elsif rising_edge(i_clk) then
-         if i_sync_re = '1' then
-            if (tst_region_pos(tst_region_pos'high) = '1') or (unsigned(tst_index) >= unsigned(tst_index_max)) then
-               tst_index <= std_logic_vector(to_unsigned(1, tst_index'length));
+         if i_sync_re = c_HGH_LEV then
+            if (tst_region_pos(tst_region_pos'high) = c_HGH_LEV) or (unsigned(tst_index) >= unsigned(tst_index_max)) then
+               tst_index <= c_TST_INDEX_INIT;
 
             else
                tst_index <= std_logic_vector(unsigned(tst_index) + 1);
@@ -334,22 +337,22 @@ begin
          g_PORTB_S            => c_DFLD_TSTPT_S       , -- integer                                          ; --! Port B bus size (<= c_MULT_ALU_PORTB_S)
          g_PORTC_S            => c_DFLD_TSTPT_S       , -- integer                                          ; --! Port C bus size (<= c_MULT_ALU_PORTC_S)
          g_RESULT_S           => c_DFLD_TSTPT_S       , -- integer                                          ; --! Result bus size (<= c_MULT_ALU_RESULT_S)
-         g_RESULT_LSB_POS     => 0                    , -- integer                                          ; --! Result LSB position
+         g_RESULT_LSB_POS     => c_ZERO_INT           , -- integer                                          ; --! Result LSB position
          g_SAT_RANK           => c_DFLD_TSTPT_S - 1   , -- integer                                          ; --! Extrem values reached on result bus
                                                                                                               --!   unsigned: range from               0  to 2**(g_SAT_RANK+1) - 1
                                                                                                               --!     signed: range from -2**(g_SAT_RANK) to 2**(g_SAT_RANK)   - 1
-         g_PRE_ADDER_OP       => '0'                  , -- bit                                              ; --! Pre-Adder operation     ('0' = add,    '1' = subtract)
-         g_MUX_C_CZ           => '0'                    -- bit                                                --! Multiplexer ALU operand ('0' = Port C, '1' = Cascaded Result Input)
+         g_PRE_ADDER_OP       => c_LOW_LEV_B          , -- bit                                              ; --! Pre-Adder operation     ('0' = add,    '1' = subtract)
+         g_MUX_C_CZ           => c_LOW_LEV_B            -- bit                                                --! Multiplexer ALU operand ('0' = Port C, '1' = Cascaded Result Input)
    ) port map (
          i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                => i_clk                , -- in     std_logic                                 ; --! Clock
 
-         i_carry              => '0'                  , -- in     std_logic                                 ; --! Carry In
+         i_carry              => c_LOW_LEV            , -- in     std_logic                                 ; --! Carry In
          i_a                  => tst_index_minus1     , -- in     std_logic_vector( g_PORTA_S-1 downto 0)   ; --! Port A
          i_b                  => tst_slope_coef       , -- in     std_logic_vector( g_PORTB_S-1 downto 0)   ; --! Port B
          i_c                  => tst_itcpt_coef       , -- in     std_logic_vector( g_PORTC_S-1 downto 0)   ; --! Port C
-         i_d                  => (others => '0')      , -- in     std_logic_vector( g_PORTB_S-1 downto 0)   ; --! Port D
-         i_cz                 => (others => '0')      , -- in     slv(c_MULT_ALU_RESULT_S-1 downto 0)       ; --! Cascaded Result Input
+         i_d                  => c_ZERO(c_DFLD_TSTPT_S-1 downto 0),      -- in slv( g_PORTB_S-1 downto 0)   ; --! Port D
+         i_cz                 => c_ZERO(c_MULT_ALU_RESULT_S-1 downto 0), -- in slv c_MULT_ALU_RESULT_S      ; --! Cascaded Result Input
 
          o_z                  => tst_res              , -- out    std_logic_vector(g_RESULT_S-1 downto 0)   ; --! Result
          o_cz                 => open                   -- out    slv(c_MULT_ALU_RESULT_S-1 downto 0)         --! Cascaded Result
@@ -362,20 +365,20 @@ begin
    begin
 
       if i_rst = c_RST_LEV_ACT then
-         test_pattern      <= (others => '0');
-         o_tst_pat_end_pat <= '0';
-         o_tst_pat_end     <= '1';
-         o_tst_pat_end_re  <= '0';
-         o_tst_pat_empty   <= '0';
+         test_pattern      <= c_ZERO(test_pattern'range);
+         o_tst_pat_end_pat <= c_LOW_LEV;
+         o_tst_pat_end     <= c_HGH_LEV;
+         o_tst_pat_end_re  <= c_LOW_LEV;
+         o_tst_pat_empty   <= c_LOW_LEV;
 
       elsif rising_edge(i_clk) then
-         if tst_coef_sel(c_TST_RES_POS) = '1' then
+         if tst_coef_sel(c_TST_RES_POS) = c_HGH_LEV then
             test_pattern <= tst_res;
 
          end if;
 
-         if (tst_coef_sel(c_TST_INDMAX_CHK_POS) and i_tsten_ena) = '1' and tst_index_max = c_ZERO(tst_index_max'range) then
-            o_tst_pat_end_pat <= '1';
+         if (tst_coef_sel(c_TST_INDMAX_CHK_POS) and i_tsten_ena) = c_HGH_LEV and tst_index_max = c_ZERO(tst_index_max'range) then
+            o_tst_pat_end_pat <= c_HGH_LEV;
 
          else
             o_tst_pat_end_pat <= tst_region_pos(tst_region_pos'high) and not(tst_region_pos_msb_r) and i_tsten_ena;
@@ -389,7 +392,7 @@ begin
             o_tst_pat_empty   <= tst_coef_sel(c_TST_INDMAX_CHK_POS);
 
          else
-            o_tst_pat_empty   <= '0';
+            o_tst_pat_empty   <= c_LOW_LEV;
 
          end if;
 

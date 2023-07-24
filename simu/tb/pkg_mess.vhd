@@ -27,6 +27,9 @@
 library ieee;
 use     ieee.std_logic_1164.all;
 
+library work;
+use     work.pkg_type.all;
+
 library std;
 use std.textio.all;
 
@@ -282,14 +285,14 @@ package body pkg_mess is
    begin
 
       -- Initialize field size
-      o_field_s := 0;
+      o_field_s := c_ZERO_INT;
 
       -- Read line character by character
       for i in b_line'range loop
          read(b_line, v_line_char);
 
          -- Exit loop if separator or carriage return detected
-         if (v_line_char = i_delimiter and i /= 1) or v_line_char = CR then
+         if (v_line_char = i_delimiter and i /= c_ONE_INT) or v_line_char = CR then
             exit;
          end if;
 
@@ -344,7 +347,7 @@ package body pkg_mess is
       -- Get field
       get_field_line(b_line, ' ', o_field, v_field_s);
 
-      if i_size_check /= 0 then
+      if i_size_check /= c_ZERO_INT then
 
          -- Check the field size
          assert v_field_s = i_size_check report i_mess_header & c_MESS_ERR_SIZE & c_MESS_READ & integer'image(v_field_s) & c_MESS_EXP & integer'image(i_size_check) severity failure;
@@ -368,7 +371,7 @@ package body pkg_mess is
       get_field_line(b_line, ' ', v_field, v_field_s);
 
       -- Check if field corresponds to 'now'
-      if v_field_s = 3 and v_field(1 to 3) = "now" then
+      if v_field_s = 3 and v_field(c_ONE_INT to 3) = "now" then
          o_field := now;
 
       else
@@ -458,7 +461,7 @@ package body pkg_mess is
       get_field_line(b_line, ' ', v_field, v_field_s);
 
       -- Check the mask size
-      assert v_field_s = 1 report i_mess_header & c_MESS_ERR_SIZE & c_MESS_READ & integer'image(v_field_s) & c_MESS_EXP & "1" severity failure;
+      assert v_field_s = c_ONE_INT report i_mess_header & c_MESS_ERR_SIZE & c_MESS_READ & integer'image(v_field_s) & c_MESS_EXP & "1" severity failure;
 
       -- Get field output format, binary value
       read(v_field, o_field, v_field_status);

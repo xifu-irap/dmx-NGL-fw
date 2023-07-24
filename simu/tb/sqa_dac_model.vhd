@@ -30,6 +30,7 @@ use     ieee.numeric_std.all;
 use     ieee.math_real.all;
 
 library work;
+use     work.pkg_type.all;
 use     work.pkg_project.all;
 use     work.pkg_model.all;
 
@@ -93,7 +94,7 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   SQUID AMP voltage output
    -- ------------------------------------------------------------------------------------------------------
-   sqa_mux      <= i_sqa_dac_mux when i_sqa_dac_mx_en_n = '0' else c_ZERO(sqa_mux'range);
+   sqa_mux      <= i_sqa_dac_mux when i_sqa_dac_mx_en_n = c_LOW_LEV else c_ZERO(sqa_mux'range);
    sqa_mux_volt <= transport (real(to_integer(unsigned(sqa_mux))) * sqa_dac_lsb_volt * c_SQA_MUX_VOLT_FACT) after g_SQA_MUX_TPLH when now> g_SQA_MUX_TPLH else c_ZERO_REAL;
    o_sqa_vout   <= ((sqa_dac_off_volt + sqa_mux_volt) * c_SQA_DAC_COEF_FACT) when now > c_ZERO_TIME else c_ZERO_REAL;
 

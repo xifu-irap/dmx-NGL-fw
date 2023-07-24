@@ -43,6 +43,10 @@ entity adder_sat is generic (
 end entity adder_sat;
 
 architecture RTL of adder_sat is
+constant c_LOW_LEV            : std_logic := '0'                                                            ; --! Low  level value
+constant c_HGH_LEV            : std_logic := not(c_LOW_LEV)                                                 ; --! High level value
+constant c_ZERO               : std_logic_vector(g_DATA_S-1 downto 0) := (others => '0')                    ; --! Zero value
+
 signal   data_add             : std_logic_vector(g_DATA_S-1 downto 0)                                       ; --! Data added
 
 begin
@@ -59,19 +63,17 @@ begin
    begin
 
       if i_rst = g_RST_LEV_ACT then
-         o_data_add_sat <= (others => '0');
+         o_data_add_sat <= c_ZERO;
 
       elsif rising_edge(i_clk) then
 
          -- Saturation on minimum value
-         if    (    i_data_fst(i_data_fst'high)  and     i_data_sec(i_data_sec'high)  and not(data_add(data_add'high))) = '1' then
-            o_data_add_sat(o_data_add_sat'high)            <= '1';
-            o_data_add_sat(o_data_add_sat'high-1 downto 0) <= (others => '0');
+         if    (    i_data_fst(i_data_fst'high)  and     i_data_sec(i_data_sec'high)  and not(data_add(data_add'high))) = c_HGH_LEV then
+            o_data_add_sat <= (o_data_add_sat'high => c_HGH_LEV, others => c_LOW_LEV);
 
          -- Saturation on maximum value
-         elsif (not(i_data_fst(i_data_fst'high)) and not(i_data_sec(i_data_sec'high)) and     data_add(data_add'high))  = '1' then
-            o_data_add_sat(o_data_add_sat'high)            <= '0';
-            o_data_add_sat(o_data_add_sat'high-1 downto 0) <= (others => '1');
+         elsif (not(i_data_fst(i_data_fst'high)) and not(i_data_sec(i_data_sec'high)) and     data_add(data_add'high))  = c_HGH_LEV then
+            o_data_add_sat <= (o_data_add_sat'high => c_LOW_LEV, others => c_HGH_LEV);
 
          else
             o_data_add_sat <= data_add;

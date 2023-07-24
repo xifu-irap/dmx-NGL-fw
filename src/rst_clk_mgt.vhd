@@ -31,6 +31,7 @@ use     ieee.numeric_std.all;
 library work;
 use     work.pkg_func_math.all;
 use     work.pkg_fpga_tech.all;
+use     work.pkg_type.all;
 use     work.pkg_project.all;
 
 entity rst_clk_mgt is port (
@@ -130,7 +131,7 @@ begin
          g_FF_RSYNC_NB        => c_FF_RSYNC_NB + 1    , -- integer                                          ; --! Flip-Flop number used for resynchronization
          g_FF_CK_REF_NB       => c_FF_RSYNC_NB + 1      -- integer                                            --! Flip-Flop number used for delaying image clock reference
       ) port map (
-         i_reset              => '0'                  , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+         i_reset              => c_LOW_LEV            , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clock              => clk_sqm_adc          , -- in     std_logic                                 ; --! Clock
          i_cmd_ck             => cmd_ck_adc(k)        , -- in     std_logic                                 ; --! Clock switch command ('0' = Inactive, '1' = Active)
          o_im_ck              => o_ck_sqm_adc(k)        -- out    std_logic                                   --! Image clock, frequency divided by 2
@@ -162,7 +163,7 @@ begin
          g_FF_RSYNC_NB        => c_FF_RSYNC_NB        , -- integer                                          ; --! Flip-Flop number used for resynchronization
          g_FF_CK_REF_NB       => c_FF_RSYNC_NB + 1      -- integer                                            --! Flip-Flop number used for delaying image clock reference
       ) port map (
-         i_reset              => '0'                  , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+         i_reset              => c_LOW_LEV            , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clock              => clk_sqm_dac_out      , -- in     std_logic                                 ; --! Clock
          i_cmd_ck             => cmd_ck_sqm_dac(k)    , -- in     std_logic                                 ; --! Clock switch command ('0' = Inactive, '1' = Active)
          o_im_ck              => o_ck_sqm_dac(k)        -- out    std_logic                                   --! Image clock, frequency divided by 2
@@ -192,8 +193,8 @@ begin
    begin
 
       if rst_sqm_adc_dac_pad = c_RST_LEV_ACT then
-         ck_science    <= '0';
-         o_ck_science  <= '0';
+         ck_science    <= c_LOW_LEV;
+         o_ck_science  <= c_LOW_LEV;
 
       elsif rising_edge(o_clk_sqm_adc_dac) then
          ck_science    <= not(ck_science);
@@ -212,10 +213,10 @@ begin
 
       if i_arst = c_RST_LEV_ACT then
          cnt_rst           <= std_logic_vector(to_unsigned(c_CNT_RST_MX_VAL, cnt_rst'length));
-         cnt_rst_msb_r_n   <= '1';
+         cnt_rst_msb_r_n   <= c_HGH_LEV;
 
       elsif rising_edge(o_clk) then
-         if cnt_rst(cnt_rst'high) = '0' then
+         if cnt_rst(cnt_rst'high) = c_LOW_LEV then
             cnt_rst  <= std_logic_vector(signed(cnt_rst) - 1);
 
          end if;
@@ -237,10 +238,10 @@ begin
 
       if i_arst = c_RST_LEV_ACT then
          cnt_rst_adc          <= std_logic_vector(to_unsigned(c_CNT_RST_ADC_MX_VAL, cnt_rst_adc'length));
-         cnt_rst_adc_msb_r_n  <= '1';
+         cnt_rst_adc_msb_r_n  <= c_HGH_LEV;
 
       elsif rising_edge(o_clk_sqm_adc_dac) then
-         if cnt_rst_adc(cnt_rst_adc'high) = '0' then
+         if cnt_rst_adc(cnt_rst_adc'high) = c_LOW_LEV then
             cnt_rst_adc       <= std_logic_vector(signed(cnt_rst_adc) - 1);
 
          end if;

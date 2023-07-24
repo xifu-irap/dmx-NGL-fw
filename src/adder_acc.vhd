@@ -75,8 +75,8 @@ begin
    begin
 
       if i_rst = c_RST_LEV_ACT then
-         data_acc_rdy_r  <= '0';
-         data_eln_rdy_r  <= '0';
+         data_acc_rdy_r  <= c_LOW_LEV;
+         data_eln_rdy_r  <= c_LOW_LEV;
 
       elsif rising_edge(i_clk) then
          data_acc_rdy_r  <= i_data_acc_rdy;
@@ -114,8 +114,8 @@ begin
          o_data_elnp1 <= std_logic_vector(to_signed(g_MEM_ACC_INIT_VAL, o_data_elnp1'length));
 
       elsif rising_edge(i_clk) then
-         if data_acc_rdy_r = '1' then
-            if i_rl_ena = '1' then
+         if data_acc_rdy_r = c_HGH_LEV then
+            if i_rl_ena = c_HGH_LEV then
                o_data_elnp1 <= i_mem_acc_rl_val;
 
             else
@@ -135,8 +135,8 @@ begin
    begin
 
       if rising_edge(i_clk) then
-         if data_acc_rdy_r = '1' then
-            if i_rl_ena = '1' then
+         if data_acc_rdy_r = c_HGH_LEV then
+            if i_rl_ena = c_HGH_LEV then
                mem_acc(to_integer(unsigned(i_mem_acc_add))) <= i_mem_acc_rl_val;
 
             else
@@ -158,8 +158,8 @@ begin
          o_data_eln <= std_logic_vector(to_signed(g_MEM_ACC_INIT_VAL, o_data_eln'length));
 
       elsif rising_edge(i_clk) then
-         if data_eln_rdy_r = '1' then
-            if i_mem_acc_init_ena = '1' then
+         if data_eln_rdy_r = c_HGH_LEV then
+            if i_mem_acc_init_ena = c_HGH_LEV then
                o_data_eln <= std_logic_vector(to_signed(g_MEM_ACC_INIT_VAL, o_data_eln'length));
 
             else

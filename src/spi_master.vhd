@@ -57,6 +57,11 @@ entity spi_master is generic (
 end entity spi_master;
 
 architecture RTL of spi_master is
+constant c_LOW_LEV            : std_logic := '0'                                                            ; --! Low  level value
+constant c_HGH_LEV            : std_logic := not(c_LOW_LEV)                                                 ; --! High level value
+constant c_ZERO               : std_logic_vector(g_DATA_S-1 downto 0) := (others => '0')                    ; --! Zero value
+constant c_MINUSONE           : std_logic_vector(g_DATA_S-1 downto 0) := (others => '1')                    ; --! Minus one value
+
 constant c_PULSE_GEN_L_MAX_VAL: integer:= g_N_CLK_PER_SCLK_L-2                                              ; --! Pulse generator: maximal value for elaborating SPI Serial Clock low  level
 constant c_PULSE_GEN_H_MAX_VAL: integer:= g_N_CLK_PER_SCLK_H-2                                              ; --! Pulse generator: maximal value for elaborating SPI Serial Clock high level
 constant c_PULSE_GEN_MAX_VAL  : integer:= maximum(1, maximum(c_PULSE_GEN_H_MAX_VAL, c_PULSE_GEN_L_MAX_VAL)) ; --! Pulse generator: maximal value
@@ -85,7 +90,7 @@ begin
 
       if i_rst = g_RST_LEV_ACT then
 
-         if (g_CPOL xor g_CPHA) = '0' then
+         if (g_CPOL xor g_CPHA) = c_LOW_LEV then
             pulse_gen <= std_logic_vector(to_signed(c_PULSE_GEN_L_MAX_VAL, pulse_gen'length));
 
          else
@@ -94,10 +99,10 @@ begin
          end if;
 
       elsif rising_edge(i_clk) then
-         if pls_ste_cnt(pls_ste_cnt'high) = '0' then
+         if pls_ste_cnt(pls_ste_cnt'high) = c_LOW_LEV then
 
-           if pulse_gen(pulse_gen'high) = '1' then
-               if (g_CPOL xor g_CPHA xor pls_ste_cnt(pls_ste_cnt'low)) = '0' then
+           if pulse_gen(pulse_gen'high) = c_HGH_LEV then
+               if (g_CPOL xor g_CPHA xor pls_ste_cnt(pls_ste_cnt'low)) = c_LOW_LEV then
                   pulse_gen <= std_logic_vector(to_signed(c_PULSE_GEN_L_MAX_VAL, pulse_gen'length));
 
                else
@@ -121,13 +126,13 @@ begin
    begin
 
       if i_rst = g_RST_LEV_ACT then
-         pls_ste_cnt       <= (others => '1');
+         pls_ste_cnt       <= c_MINUSONE(pls_ste_cnt'range);
 
       elsif rising_edge(i_clk) then
-         if i_start = '1' and pls_ste_cnt(pls_ste_cnt'high) = '1' then
-            pls_ste_cnt <= std_logic_vector(resize(unsigned(i_ser_wd_s & '0'), pls_ste_cnt'length) - 1);
+         if i_start = c_HGH_LEV and pls_ste_cnt(pls_ste_cnt'high) = c_HGH_LEV then
+            pls_ste_cnt <= std_logic_vector(resize(unsigned(i_ser_wd_s & c_LOW_LEV), pls_ste_cnt'length) - 1);
 
-         elsif pulse_gen(pulse_gen'high) = '1' and pls_ste_cnt(pls_ste_cnt'high) = '0' then
+         elsif pulse_gen(pulse_gen'high) = c_HGH_LEV and pls_ste_cnt(pls_ste_cnt'high) = c_LOW_LEV then
             pls_ste_cnt <= std_logic_vector(signed(pls_ste_cnt) - 1);
 
          end if;
@@ -143,14 +148,14 @@ begin
    begin
 
       if i_rst = g_RST_LEV_ACT then
-         data_tx_ser <= (others => '0');
+         data_tx_ser <= c_ZERO(data_tx_ser'range);
 
       elsif rising_edge(i_clk) then
-         if i_start = '1' and pls_ste_cnt(pls_ste_cnt'high) = '1' then
+         if i_start = c_HGH_LEV and pls_ste_cnt(pls_ste_cnt'high) = c_HGH_LEV then
             data_tx_ser <= i_data_tx;
 
-         elsif pulse_gen(pulse_gen'high) = '1' and pls_ste_cnt(pls_ste_cnt'low) = '0' and pls_ste_cnt(pls_ste_cnt'high) = '0' then
-            data_tx_ser <= data_tx_ser(data_tx_ser'high-1 downto 0) & '0';
+         elsif pulse_gen(pulse_gen'high) = c_HGH_LEV and pls_ste_cnt(pls_ste_cnt'low) = c_LOW_LEV and pls_ste_cnt(pls_ste_cnt'high) = c_LOW_LEV then
+            data_tx_ser <= data_tx_ser(data_tx_ser'high-1 downto 0) & c_LOW_LEV;
 
          end if;
 
@@ -167,27 +172,27 @@ begin
    begin
 
       if i_rst = g_RST_LEV_ACT then
-         pls_smp_data_rx_ser  <= (others => '0');
-         data_rx_ser_init     <= (others => '0');
-         data_rx_ser_end      <= (others => '0');
-         data_rx_ser          <= (others => '0');
-         o_data_rx            <= (others => '0');
-         o_data_rx_rdy        <= '0';
+         pls_smp_data_rx_ser  <= (others => c_LOW_LEV);
+         data_rx_ser_init     <= (others => c_LOW_LEV);
+         data_rx_ser_end      <= (others => c_LOW_LEV);
+         data_rx_ser          <= c_ZERO(data_rx_ser'range);
+         o_data_rx            <= c_ZERO(o_data_rx'range);
+         o_data_rx_rdy        <= c_LOW_LEV;
 
       elsif rising_edge(i_clk) then
          pls_smp_data_rx_ser  <= pls_smp_data_rx_ser(pls_smp_data_rx_ser'high-1 downto 0) & (pulse_gen(pulse_gen'high) and not(pls_ste_cnt(pls_ste_cnt'low)) and not(pls_ste_cnt(pls_ste_cnt'high)));
          data_rx_ser_init     <= data_rx_ser_init(      data_rx_ser_init'high-1 downto 0) & (i_start and pls_ste_cnt(pls_ste_cnt'high));
          data_rx_ser_end      <= data_rx_ser_end(        data_rx_ser_end'high-1 downto 0) & pls_ste_cnt(pls_ste_cnt'high);
 
-         if data_rx_ser_init(data_rx_ser_init'high-1) = '1' then
-            data_rx_ser <= (others => '0');
+         if data_rx_ser_init(data_rx_ser_init'high-1) = c_HGH_LEV then
+            data_rx_ser <= c_ZERO(data_rx_ser'range);
 
-         elsif pls_smp_data_rx_ser(pls_smp_data_rx_ser'high-1) = '1' then
+         elsif pls_smp_data_rx_ser(pls_smp_data_rx_ser'high-1) = c_HGH_LEV then
             data_rx_ser <= data_rx_ser(data_rx_ser'high-1 downto 0) & i_miso;
 
          end if;
 
-         if (data_rx_ser_end(data_rx_ser_end'high-1) and not(data_rx_ser_end(data_rx_ser_end'high))) = '1' then
+         if (data_rx_ser_end(data_rx_ser_end'high-1) and not(data_rx_ser_end(data_rx_ser_end'high))) = c_HGH_LEV then
             o_data_rx <= data_rx_ser;
 
          end if;
@@ -205,9 +210,9 @@ begin
    begin
 
       if i_rst = g_RST_LEV_ACT then
-         o_mosi   <= '0';
+         o_mosi   <= c_LOW_LEV;
          o_sclk   <= g_CPOL;
-         o_cs_n   <= '1';
+         o_cs_n   <= c_HGH_LEV;
 
       elsif rising_edge(i_clk) then
          o_mosi   <= data_tx_ser(data_tx_ser'high);

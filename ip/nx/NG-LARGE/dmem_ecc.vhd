@@ -65,7 +65,7 @@ end entity dmem_ecc;
 
 architecture RTL of dmem_ecc is
 constant c_RAM_TYPE           : string    := c_RAM_TYPE(g_RAM_TYPE)                                         ; --! RAM: type
-constant c_RAM_NG_LARGE       : bit       := '1'                                                            ; --! RAM: FPGA target NG-LARGE
+constant c_RAM_NG_LARGE       : bit       := c_HGH_LEV_B                                                    ; --! RAM: FPGA target NG-LARGE
 constant c_RAM_INIT           : string    := conv_ram_init(g_RAM_INIT, c_RAM_ECC_ADD_S, c_RAM_DATA_S)       ; --! RAM: content at initialization
 
 signal   a_mem                : t_mem( add(g_RAM_ADD_S downto 0), data_w(g_RAM_DATA_S-1 downto 0))          ; --! Memory port A inputs (scrubbing with ping-pong buffer bit for parameters storage)

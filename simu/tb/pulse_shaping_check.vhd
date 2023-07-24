@@ -22,7 +22,7 @@
 --    Automatic Generation    No
 --    Code Rules Reference    SOC of design and VHDL handbook for VLSI development, CNES Edition (v2.1)
 -- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
---!   @details                Clock parameters check
+--!   @details                Pulse shaping check
 -- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 library ieee;
 use     ieee.std_logic_1164.all;
@@ -31,6 +31,7 @@ use     ieee.math_real.all;
 
 library work;
 use     work.pkg_func_math.all;
+use     work.pkg_type.all;
 use     work.pkg_project.all;
 use     work.pkg_ep_cmd.all;
 use     work.pkg_model.all;
@@ -47,6 +48,9 @@ entity pulse_shaping_check is port (
 end entity pulse_shaping_check;
 
 architecture Behavioral of pulse_shaping_check is
+constant c_ONE_REAL           : real   := 1.0                                                               ; --! One  real value
+constant c_2PI_REAL           : real   := 2.0 * MATH_PI                                                     ; --! 2*Pi real value
+
 constant c_PLS_CNT_MAX_VAL    : integer:= c_PIXEL_DAC_NB_CYC - 2                                            ; --! Pulse shaping counter: maximal value
 constant c_PLS_CNT_S          : integer:= log2_ceil(c_PLS_CNT_MAX_VAL+1)+1                                  ; --! Pulse shaping counter: size bus (signed)
 
@@ -77,7 +81,7 @@ begin
       if i_arst = c_RST_LEV_ACT then
          sqm_dac_ana_r     <= (others => c_ZERO_REAL);
          sync_r            <= c_I_SYNC_DEF;
-         sync_re           <= '0';
+         sync_re           <= c_LOW_LEV;
 
       elsif rising_edge(i_clk_sqm_dac) then
          sqm_dac_ana_r  <= i_sqm_dac_ana & sqm_dac_ana_r(0 to sqm_dac_ana_r'high-1);
@@ -100,7 +104,7 @@ begin
 
       elsif rising_edge(i_clk_sqm_dac) then
 
-         if (sync_re or pls_cnt(pls_cnt'high)) = '1' then
+         if (sync_re or pls_cnt(pls_cnt'high)) = c_HGH_LEV then
             pls_cnt <= std_logic_vector(to_signed(c_PLS_CNT_MAX_VAL, pls_cnt'length));
 
          else
@@ -108,10 +112,10 @@ begin
 
          end if;
 
-         if sync_re = '1' then
+         if sync_re = c_HGH_LEV then
             pixel_pos <= std_logic_vector(to_signed(c_PIXEL_POS_MAX_VAL , pixel_pos'length));
 
-         elsif (not(pixel_pos(pixel_pos'high)) and pls_cnt(pls_cnt'high)) = '1' then
+         elsif (not(pixel_pos(pixel_pos'high)) and pls_cnt(pls_cnt'high)) = c_HGH_LEV then
             pixel_pos <= std_logic_vector(signed(pixel_pos) - 1);
 
          end if;
@@ -149,8 +153,8 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   Low pass filter coefficient
    -- ------------------------------------------------------------------------------------------------------
-   coef_lp_filt <= 1.0 when pls_shp_fc_rsync = 2147483647 else
-                   1.0 / (1.0 + real(c_CLK_ADC_FREQ)/(2.0 * MATH_PI * real(pls_shp_fc_rsync)));
+   coef_lp_filt <= c_ONE_REAL when pls_shp_fc_rsync = integer'high else
+                   c_ONE_REAL / (c_ONE_REAL + real(c_CLK_ADC_FREQ)/( c_2PI_REAL * real(pls_shp_fc_rsync)));
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Low pass filter calculation
@@ -162,7 +166,7 @@ begin
          lp_filter   <= c_ZERO_REAL;
 
       elsif rising_edge(i_clk_sqm_dac) then
-         lp_filter   <= coef_lp_filt * cmd_exp + (1.0 - coef_lp_filt) * lp_filter;
+         lp_filter   <= coef_lp_filt * cmd_exp + (c_ONE_REAL - coef_lp_filt) * lp_filter;
 
       end if;
 
@@ -175,7 +179,7 @@ begin
    begin
 
       if i_arst = c_RST_LEV_ACT then
-         o_err_num_pls_shp   <= 0;
+         o_err_num_pls_shp   <= c_ZERO_INT;
 
       elsif rising_edge(i_clk_sqm_dac) then
          if ((sqm_dac_ana_r(sqm_dac_ana_r'high) - lp_filter) > c_PLS_SHP_ERR_VAL) or ((sqm_dac_ana_r(sqm_dac_ana_r'high) - lp_filter) < -c_PLS_SHP_ERR_VAL) then

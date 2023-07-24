@@ -28,6 +28,9 @@ library ieee;
 use     ieee.std_logic_1164.all;
 use     ieee.numeric_std.all;
 
+library work;
+use     work.pkg_type.all;
+
 entity sqm_spi_mgt is port (
          o_sqm_adc_spi_mosi   : out    std_logic                                                            ; --! SQUID MUX ADC: SPI Serial Data In Out
          o_sqm_adc_spi_sclk   : out    std_logic                                                            ; --! SQUID MUX ADC: SPI Serial Clock (CPOL = '0', CPHA = '0')
@@ -43,8 +46,8 @@ begin
    --!   SQUID MUX ADC, static configuration without SPI
    --    @Req : DRE-DMX-FW-REQ-0100
    -- ------------------------------------------------------------------------------------------------------
-   o_sqm_adc_spi_mosi   <= '1';     -- Duty Cycle Stabilizer ('0' = Disable, '1' = Enable)
-   o_sqm_adc_spi_sclk   <= '1';     -- Data format ('0' = Binary, '1' = Twos complement)
-   o_sqm_adc_spi_cs_n   <= '1';     -- Static configuration ('0' = No, '1' = Yes)
+   o_sqm_adc_spi_mosi   <= c_HGH_LEV;     -- Duty Cycle Stabilizer ('0' = Disable, '1' = Enable)
+   o_sqm_adc_spi_sclk   <= c_HGH_LEV;     -- Data format ('0' = Binary, '1' = Twos complement)
+   o_sqm_adc_spi_cs_n   <= c_HGH_LEV;     -- Static configuration ('0' = No, '1' = Yes)
 
 end architecture RTL;

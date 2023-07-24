@@ -30,6 +30,7 @@ use     ieee.numeric_std.all;
 
 library work;
 use     work.pkg_func_math.all;
+use     work.pkg_type.all;
 use     work.pkg_project.all;
 use     work.pkg_ep_cmd.all;
 
@@ -137,22 +138,22 @@ begin
 
       if i_rst = c_RST_LEV_ACT then
 
-         if c_EP_CMD_ADD_RW_POS = 0 then
-            ep_cmd_rx_wd_add <= c_EP_CMD_ADD_STATUS(ep_cmd_rx_wd_add'high-1 downto 0) & '0';
+         if c_EP_CMD_ADD_RW_POS = c_ZERO_INT then
+            ep_cmd_rx_wd_add <= c_EP_CMD_ADD_STATUS(ep_cmd_rx_wd_add'high-1 downto 0) & c_LOW_LEV;
 
          else
-            ep_cmd_rx_wd_add <= '0' & c_EP_CMD_ADD_STATUS(ep_cmd_rx_wd_add'high-1 downto 0);
+            ep_cmd_rx_wd_add <= c_LOW_LEV & c_EP_CMD_ADD_STATUS(ep_cmd_rx_wd_add'high-1 downto 0);
 
          end if;
 
-         ep_cmd_rx_wd_add_rdy <= '0';
-         ep_cmd_rx_add_err_ry <= (others => '0');
+         ep_cmd_rx_wd_add_rdy <= c_LOW_LEV;
+         ep_cmd_rx_add_err_ry <= (others => c_LOW_LEV);
          ep_cmd_rx_wd_data    <= (others => c_EP_CMD_ERR_CLR);
-         ep_spi_wd_end_r      <= (others => '0');
-         o_ep_cmd_rx_nerr_rdy <= '0';
+         ep_spi_wd_end_r      <= (others => c_LOW_LEV);
+         o_ep_cmd_rx_nerr_rdy <= c_LOW_LEV;
 
       elsif rising_edge(i_clk) then
-         if ep_spi_data_rx_wd_ry = '1' and ep_spi_data_rx_wd_nb = std_logic_vector(to_unsigned(c_EP_CMD_WD_ADD_POS, ep_spi_data_rx_wd_nb'length)) then
+         if ep_spi_data_rx_wd_ry = c_HGH_LEV and ep_spi_data_rx_wd_nb = std_logic_vector(to_unsigned(c_EP_CMD_WD_ADD_POS, ep_spi_data_rx_wd_nb'length)) then
             ep_cmd_rx_wd_add <= ep_spi_data_rx_wd;
 
          end if;
@@ -164,7 +165,7 @@ begin
 
          ep_cmd_rx_add_err_ry <= ep_cmd_rx_add_err_ry(ep_cmd_rx_add_err_ry'high-1 downto 0) & ep_cmd_rx_wd_add_rdy;
 
-         if ep_spi_data_rx_wd_ry = '1' and ep_spi_data_rx_wd_nb = std_logic_vector(to_unsigned(c_EP_CMD_WD_DATA_POS, ep_spi_data_rx_wd_nb'length)) then
+         if ep_spi_data_rx_wd_ry = c_HGH_LEV and ep_spi_data_rx_wd_nb = std_logic_vector(to_unsigned(c_EP_CMD_WD_DATA_POS, ep_spi_data_rx_wd_nb'length)) then
             ep_cmd_rx_wd_data <= ep_spi_data_rx_wd;
 
          end if;
@@ -177,13 +178,13 @@ begin
    end process P_ep_cmd_rx_wd;
 
    -- Address Receipt: Read/Write LSB bit position
-   G_add_rw_pos_equ_nul: if c_EP_CMD_ADD_RW_POS = 0 generate
-      ep_cmd_rx_wd_add_nrw <= '0' & ep_cmd_rx_wd_add(ep_cmd_rx_wd_add'high downto 1);
+   G_add_rw_pos_equ_nul: if c_EP_CMD_ADD_RW_POS = c_ZERO_INT generate
+      ep_cmd_rx_wd_add_nrw <= c_LOW_LEV & ep_cmd_rx_wd_add(ep_cmd_rx_wd_add'high downto 1);
    end generate G_add_rw_pos_equ_nul;
 
    -- Address Receipt: Read/Write others bit position
-   G_add_rw_pos_neq_nul: if c_EP_CMD_ADD_RW_POS /= 0 generate
-      ep_cmd_rx_wd_add_nrw <= '0' & ep_cmd_rx_wd_add(ep_cmd_rx_wd_add'high-1 downto 0);
+   G_add_rw_pos_neq_nul: if c_EP_CMD_ADD_RW_POS /= c_ZERO_INT generate
+      ep_cmd_rx_wd_add_nrw <= c_LOW_LEV & ep_cmd_rx_wd_add(ep_cmd_rx_wd_add'high-1 downto 0);
    end generate G_add_rw_pos_neq_nul;
 
    ep_cmd_rx_rw <= ep_cmd_rx_wd_add(c_EP_CMD_ADD_RW_POS);
@@ -199,7 +200,7 @@ begin
    ep_cmd_tx_wd_add(c_EP_CMD_ADD_RW_POS)  <= c_EP_CMD_ADD_RW_R;
 
    -- Address Transmit: Read/Write LSB bit position
-   G_add_tw_pos_equ_nul: if c_EP_CMD_ADD_RW_POS = 0 generate
+   G_add_tw_pos_equ_nul: if c_EP_CMD_ADD_RW_POS = c_ZERO_INT generate
       ep_cmd_tx_wd_add(ep_cmd_tx_wd_add'high   downto 1) <= c_EP_CMD_ADD_STATUS(ep_cmd_tx_wd_add'high-1 downto 0) when ep_cmd_rx_wd_add(c_EP_CMD_ADD_RW_POS) = c_EP_CMD_ADD_RW_W else
                                                             c_EP_CMD_ADD_STATUS(ep_cmd_tx_wd_add'high-1 downto 0) when ep_cmd_all_err_data = c_EP_CMD_ERR_SET else
                                                             ep_cmd_rx_wd_add(   ep_cmd_tx_wd_add'high   downto 1);
@@ -212,7 +213,7 @@ begin
             ep_cmd_tx_wd_add_end <= c_EP_CMD_ADD_STATUS(ep_cmd_tx_wd_add_end'high downto 0);
 
          elsif rising_edge(i_clk) then
-            if ep_spi_wd_end = '1' then
+            if ep_spi_wd_end = c_HGH_LEV then
                ep_cmd_tx_wd_add_end <= ep_cmd_tx_wd_add(ep_cmd_tx_wd_add'high downto 1);
 
             end if;
@@ -224,7 +225,7 @@ begin
    end generate G_add_tw_pos_equ_nul;
 
    -- Address Transmit: Read/Write others bit position
-   G_add_tw_pos_neq_nul: if c_EP_CMD_ADD_RW_POS /= 0 generate
+   G_add_tw_pos_neq_nul: if c_EP_CMD_ADD_RW_POS /= c_ZERO_INT generate
       ep_cmd_tx_wd_add(ep_cmd_tx_wd_add'high-1 downto 0) <= c_EP_CMD_ADD_STATUS(ep_cmd_tx_wd_add'high-1 downto 0) when ep_cmd_rx_wd_add(c_EP_CMD_ADD_RW_POS) = c_EP_CMD_ADD_RW_W else
                                                             c_EP_CMD_ADD_STATUS(ep_cmd_tx_wd_add'high-1 downto 0) when ep_cmd_all_err_data = c_EP_CMD_ERR_SET else
                                                             ep_cmd_rx_wd_add(   ep_cmd_tx_wd_add'high-1 downto 0);
@@ -237,7 +238,7 @@ begin
             ep_cmd_tx_wd_add_end <= c_EP_CMD_ADD_STATUS(ep_cmd_tx_wd_add_end'high downto 0);
 
          elsif rising_edge(i_clk) then
-            if ep_spi_wd_end = '1' then
+            if ep_spi_wd_end = c_HGH_LEV then
                ep_cmd_tx_wd_add_end <= ep_cmd_tx_wd_add(ep_cmd_tx_wd_add'high-1 downto 0);
 
             end if;
@@ -256,7 +257,7 @@ begin
          ep_cmd_tx_wd_data <= (others => c_EP_CMD_ERR_CLR);
 
       elsif rising_edge(i_clk) then
-         if ep_spi_wd_end_r(ep_spi_wd_end_r'high) = '1' then
+         if ep_spi_wd_end_r(ep_spi_wd_end_r'high) = c_HGH_LEV then
             if ep_cmd_tx_wd_add_end = c_EP_CMD_ADD_STATUS(ep_cmd_tx_wd_add_end'high downto 0) then
                ep_cmd_tx_wd_data <= ep_cmd_sts_rg;
 
@@ -312,14 +313,14 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   EP command: Global error management
    -- ------------------------------------------------------------------------------------------------------
-   G_ep_cmd_err_clr_nul: if c_EP_CMD_ERR_CLR = '0' generate
+   G_ep_cmd_err_clr_nul: if c_EP_CMD_ERR_CLR = c_LOW_LEV generate
       ep_cmd_all_err_add   <= i_ep_cmd_sts_err_add or ep_cmd_sts_err_wrt or i_ep_cmd_sts_err_nin or i_ep_cmd_sts_err_dis;
       ep_cmd_all_err_data  <= ep_cmd_sts_err_lgt   or ep_cmd_err_add_w_end;
       ep_cmd_all_err       <= ep_cmd_sts_err_out   or ep_cmd_err_spi_w_end;
 
    end generate G_ep_cmd_err_clr_nul;
 
-   G_ep_cmd_err_clr_one: if c_EP_CMD_ERR_CLR /= '0' generate
+   G_ep_cmd_err_clr_one: if c_EP_CMD_ERR_CLR /= c_LOW_LEV generate
       ep_cmd_all_err_add   <= i_ep_cmd_sts_err_add and ep_cmd_sts_err_wrt and i_ep_cmd_sts_err_nin and i_ep_cmd_sts_err_dis;
       ep_cmd_all_err_data  <= ep_cmd_sts_err_lgt   and ep_cmd_err_add_w_end;
       ep_cmd_all_err       <= ep_cmd_sts_err_out   and ep_cmd_err_spi_w_end;
@@ -342,7 +343,7 @@ begin
          ep_cmd_sts_rg(ep_cmd_sts_rg'high downto c_EP_CMD_ERR_FST_POS) <= (others => c_EP_CMD_ERR_CLR);
 
       elsif rising_edge(i_clk) then
-         if ep_cmd_rx_add_err_ry(ep_cmd_rx_add_err_ry'high) = '1' then
+         if ep_cmd_rx_add_err_ry(ep_cmd_rx_add_err_ry'high) = c_HGH_LEV then
             ep_cmd_err_add_w_end   <= ep_cmd_all_err_add;
 
             ep_cmd_sts_rg(c_EP_CMD_ERR_ADD_POS) <= i_ep_cmd_sts_err_add;
@@ -352,7 +353,7 @@ begin
 
          end if;
 
-         if ep_spi_wd_end = '1' then
+         if ep_spi_wd_end = c_HGH_LEV then
             ep_cmd_err_spi_w_end <= ep_cmd_all_err_data;
 
             ep_cmd_sts_rg(c_EP_CMD_ERR_LGT_POS) <= ep_cmd_sts_err_lgt;

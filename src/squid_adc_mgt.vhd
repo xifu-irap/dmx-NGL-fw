@@ -160,8 +160,8 @@ begin
    begin
 
       if rst_sqm_adc_dac_pad = c_RST_LEV_ACT then
-         sqm_adc_data_r    <= (others => (others => '0'));
-         sqm_adc_oor_r     <= (others => '0');
+         sqm_adc_data_r    <= (others => c_ZERO(sqm_adc_data_r(sqm_adc_data_r'high)'range));
+         sqm_adc_oor_r     <= (others => c_LOW_LEV);
 
       elsif rising_edge(i_clk_sqm_adc_dac) then
          sqm_adc_data_r    <= i_sqm_adc_data & sqm_adc_data_r(0 to sqm_adc_data_r'high-1);
@@ -179,7 +179,7 @@ begin
 
       if i_rst = c_RST_LEV_ACT then
          sync_rs_sys       <= c_I_SYNC_DEF;
-         aqmde_dmp_cmp_sys <= '0';
+         aqmde_dmp_cmp_sys <= c_LOW_LEV;
          bxlgt_sys         <= c_EP_CMD_DEF_BXLGT;
          smpdl_sys         <= c_EP_CMD_DEF_SMPDL;
 
@@ -201,7 +201,7 @@ begin
 
       if i_rst_sqm_adc_dac = c_RST_LEV_ACT then
          sync_r            <= (others => c_I_SYNC_DEF);
-         aqmde_dmp_cmp_r   <= (others => '0');
+         aqmde_dmp_cmp_r   <= (others => c_LOW_LEV);
          bxlgt_r           <= (others => c_EP_CMD_DEF_BXLGT);
          smpdl_r           <= (others => c_EP_CMD_DEF_SMPDL);
 
@@ -222,21 +222,21 @@ begin
    begin
 
       if i_rst_sqm_adc_dac = c_RST_LEV_ACT then
-         sync_re              <= '0';
-         sync_re_adc_data     <= '0';
-         aqmde_dmp_cmp_sync   <= '0';
+         sync_re              <= c_LOW_LEV;
+         sync_re_adc_data     <= c_LOW_LEV;
+         aqmde_dmp_cmp_sync   <= c_LOW_LEV;
          bxlgt_sync           <= c_EP_CMD_DEF_BXLGT;
 
       elsif rising_edge(i_clk_sqm_adc_dac) then
          sync_re              <= not(sync_r(c_FF_RSYNC_NB+1)) and sync_r(c_FF_RSYNC_NB);
          sync_re_adc_data     <= not(sync_r(sync_r'high))   and sync_r(sync_r'high-1);
 
-         if sync_re_adc_data = '1' then
+         if sync_re_adc_data = c_HGH_LEV then
             aqmde_dmp_cmp_sync <= aqmde_dmp_cmp_r(aqmde_dmp_cmp_r'high);
 
          end if;
 
-         if pixel_pos(pixel_pos'high) = '1' and pls_cnt = c_ZERO(pls_cnt'range) then
+         if pixel_pos(pixel_pos'high) = c_HGH_LEV and pls_cnt = c_ZERO(pls_cnt'range) then
             bxlgt_sync <= bxlgt_r(bxlgt_r'high);
 
          end if;
@@ -281,10 +281,10 @@ begin
          pls_cnt    <= std_logic_vector(to_unsigned(c_PLS_CNT_MAX_VAL, pls_cnt'length));
 
       elsif rising_edge(i_clk_sqm_adc_dac) then
-         if sync_re = '1' then
+         if sync_re = c_HGH_LEV then
             pls_cnt <= pls_cnt_init;
 
-         elsif pls_cnt(pls_cnt'high) = '1' then
+         elsif pls_cnt(pls_cnt'high) = c_HGH_LEV then
             pls_cnt <= std_logic_vector(to_unsigned(c_PLS_CNT_MAX_VAL, pls_cnt'length));
 
          else
@@ -308,13 +308,13 @@ begin
          pixel_pos    <= std_logic_vector(to_signed(c_PIXEL_POS_INIT, pixel_pos'length));
 
       elsif rising_edge(i_clk_sqm_adc_dac) then
-         if sync_re = '1' then
+         if sync_re = c_HGH_LEV then
             pixel_pos <= pixel_pos_init;
 
-         elsif (pixel_pos(pixel_pos'high) and pls_cnt(pls_cnt'high)) = '1' then
+         elsif (pixel_pos(pixel_pos'high) and pls_cnt(pls_cnt'high)) = c_HGH_LEV then
             pixel_pos <= std_logic_vector(to_signed(c_PIXEL_POS_MAX_VAL , pixel_pos'length));
 
-         elsif (not(pixel_pos(pixel_pos'high)) and pls_cnt(pls_cnt'high)) = '1' then
+         elsif (not(pixel_pos(pixel_pos'high)) and pls_cnt(pls_cnt'high)) = c_HGH_LEV then
             pixel_pos <= std_logic_vector(signed(pixel_pos) - 1);
 
          end if;
@@ -331,14 +331,14 @@ begin
    begin
 
       if i_rst_sqm_adc_dac = c_RST_LEV_ACT then
-         sample_cnt        <= (others => '1');
-         sample_cnt_msb_r  <= (others => '1');
+         sample_cnt        <= c_MINUSONE(sample_cnt'range);
+         sample_cnt_msb_r  <= (others => c_MINUSONE(c_MINUSONE'high));
 
       elsif rising_edge(i_clk_sqm_adc_dac) then
-         if pls_cnt(pls_cnt'high) = '1' then
+         if pls_cnt(pls_cnt'high) = c_HGH_LEV then
             sample_cnt <= std_logic_vector(resize(unsigned(bxlgt_sync), sample_cnt'length));
 
-         elsif sample_cnt(sample_cnt'high) = '0' then
+         elsif sample_cnt(sample_cnt'high) = c_LOW_LEV then
             sample_cnt <= std_logic_vector(signed(sample_cnt) - 1);
 
          end if;
@@ -357,29 +357,29 @@ begin
    begin
 
       if i_rst_sqm_adc_dac = c_RST_LEV_ACT then
-         sum_adc_data      <= (others => '0');
-         sqm_data_err      <= (others => '0');
-         sqm_data_err_rdy  <= '0';
-         sqm_data_err_frst <= '0';
-         sqm_data_err_last <= '0';
+         sum_adc_data      <= c_ZERO(sum_adc_data'range);
+         sqm_data_err      <= c_ZERO(sqm_data_err'range);
+         sqm_data_err_rdy  <= c_LOW_LEV;
+         sqm_data_err_frst <= c_LOW_LEV;
+         sqm_data_err_last <= c_LOW_LEV;
 
       elsif rising_edge(i_clk_sqm_adc_dac) then
-         if pls_cnt(pls_cnt'high) = '1' then
-            sum_adc_data <= (others => '0');
+         if pls_cnt(pls_cnt'high) = c_HGH_LEV then
+            sum_adc_data <= c_ZERO(sum_adc_data'range);
 
-         elsif sample_cnt(sample_cnt'high) = '0' then
+         elsif sample_cnt(sample_cnt'high) = c_LOW_LEV then
             sum_adc_data <= std_logic_vector(signed(sum_adc_data) + resize(signed(sqm_adc_data_r(sqm_adc_data_r'high)), sum_adc_data'length));
 
          end if;
 
-         if (not(sample_cnt_msb_r(sample_cnt_msb_r'low)) and sample_cnt(sample_cnt'high)) = '1' then
+         if (not(sample_cnt_msb_r(sample_cnt_msb_r'low)) and sample_cnt(sample_cnt'high)) = c_HGH_LEV then
             sqm_data_err <= sum_adc_data;
 
             if pixel_pos = std_logic_vector(to_signed(c_PIXEL_POS_MAX_VAL , pixel_pos'length)) then
-               sqm_data_err_frst <= '1';
+               sqm_data_err_frst <= c_HGH_LEV;
 
             else
-               sqm_data_err_frst <= '0';
+               sqm_data_err_frst <= c_LOW_LEV;
 
             end if;
 
@@ -402,13 +402,13 @@ begin
    begin
 
       if i_rst_sqm_adc_dac = c_RST_LEV_ACT then
-         mem_dump_adc_cnt_w   <= (others => '1');
+         mem_dump_adc_cnt_w   <= c_MINUSONE(mem_dump_adc_cnt_w'range);
 
       elsif rising_edge(i_clk_sqm_adc_dac) then
-         if (mem_dump_adc_cnt_w(mem_dump_adc_cnt_w'high) and aqmde_dmp_cmp_r(aqmde_dmp_cmp_r'high) and not(aqmde_dmp_cmp_sync) and sync_re_adc_data) = '1' then
+         if (mem_dump_adc_cnt_w(mem_dump_adc_cnt_w'high) and aqmde_dmp_cmp_r(aqmde_dmp_cmp_r'high) and not(aqmde_dmp_cmp_sync) and sync_re_adc_data) = c_HGH_LEV then
             mem_dump_adc_cnt_w <= std_logic_vector(to_unsigned(c_DMP_CNT_MAX_VAL, mem_dump_adc_cnt_w'length));
 
-         elsif mem_dump_adc_cnt_w(mem_dump_adc_cnt_w'high) = '0' then
+         elsif mem_dump_adc_cnt_w(mem_dump_adc_cnt_w'high) = c_LOW_LEV then
             mem_dump_adc_cnt_w <= std_logic_vector(signed(mem_dump_adc_cnt_w) - 1);
 
          end if;
@@ -416,9 +416,9 @@ begin
 
    end process P_mem_dump_adc_cnt_w;
 
-   mem_dump_adc.pp   <= '0';
+   mem_dump_adc.pp   <= c_LOW_LEV;
    mem_dump_adc.add  <= std_logic_vector(resize(unsigned(mem_dump_adc_cnt_w(mem_dump_adc_cnt_w'high-1 downto 0)), mem_dump_adc.add'length));
-   mem_dump_adc.we   <= '1';
+   mem_dump_adc.we   <= c_HGH_LEV;
    mem_dump_adc.cs   <= not(mem_dump_adc_cnt_w(mem_dump_adc_cnt_w'high));
 
    mem_dump_adc.data_w(c_SQM_ADC_DATA_S-1 downto 0) <= sqm_adc_data_r(sqm_adc_data_r'high);
@@ -433,9 +433,9 @@ begin
          g_RAM_DATA_S         => c_MEM_DUMP_DATA_S    , -- integer                                          ; --! Memory data bus size (<= c_RAM_DATA_S)
          g_RAM_INIT           => c_RAM_INIT_EMPTY       -- integer_vector                                     --! Memory content at initialization
    ) port map (
-         i_a_rst              => '0'                  , -- in     std_logic                                 ; --! Memory port A: registers reset ('0' = Inactive, '1' = Active)
+         i_a_rst              => c_LOW_LEV            , -- in     std_logic                                 ; --! Memory port A: registers reset ('0' = Inactive, '1' = Active)
          i_a_clk              => i_clk_sqm_adc_dac    , -- in     std_logic                                 ; --! Memory port A: main clock
-         i_a_clk_shift        => '0'                  , -- in     std_logic                                 ; --! Memory port A: 90 degrees shifted clock (used for memory content correction)
+         i_a_clk_shift        => c_LOW_LEV            , -- in     std_logic                                 ; --! Memory port A: 90 degrees shifted clock (used for memory content correction)
 
          i_a_mem              => mem_dump_adc         , -- in     t_mem( add(g_RAM_ADD_S-1 downto 0), ...)  ; --! Memory port A inputs (scrubbing with ping-pong buffer bit for parameters storage)
          o_a_data_out         => open                 , -- out    slv(g_RAM_DATA_S-1 downto 0)              ; --! Memory port A: data out
@@ -445,7 +445,7 @@ begin
 
          i_b_rst              => i_rst                , -- in     std_logic                                 ; --! Memory port B: registers reset ('0' = Inactive, '1' = Active)
          i_b_clk              => i_clk                , -- in     std_logic                                 ; --! Memory port B: main clock
-         i_b_clk_shift        => '0'                  , -- in     std_logic                                 ; --! Memory port B: 90 degrees shifted clock (used for memory content correction)
+         i_b_clk_shift        => c_LOW_LEV            , -- in     std_logic                                 ; --! Memory port B: 90 degrees shifted clock (used for memory content correction)
 
          i_b_mem              => mem_dump_sc          , -- in     t_mem( add(g_RAM_ADD_S-1 downto 0), ...)  ; --! Memory port B inputs
          o_b_data_out         => mem_dump_data_out    , -- out    slv(g_RAM_DATA_S-1 downto 0)              ; --! Memory port B: data out
@@ -457,11 +457,11 @@ begin
    --!   Dual port memory for data transfer in Dump mode: memory signals management
    --!      (System Clock side)
    -- ------------------------------------------------------------------------------------------------------
-   mem_dump_sc.pp       <= '0';
+   mem_dump_sc.pp       <= c_LOW_LEV;
    mem_dump_sc.add      <= i_sqm_mem_dump_add;
-   mem_dump_sc.we       <= '0';
-   mem_dump_sc.cs       <= '1';
-   mem_dump_sc.data_w   <= (others => '0');
+   mem_dump_sc.we       <= c_LOW_LEV;
+   mem_dump_sc.cs       <= c_HGH_LEV;
+   mem_dump_sc.data_w   <= c_ZERO(mem_dump_sc.data_w'range);
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Dual port memory for data transfer in Dump mode: reading data signals
@@ -477,11 +477,11 @@ begin
    begin
 
       if i_rst = c_RST_LEV_ACT then
-         mem_dump_adc_cs_rs   <= (others => '0');
-         sqm_data_err_rs      <= (others => (others => '0'));
-         sqm_data_err_frst_rs <= (others => '0');
-         sqm_data_err_last_rs <= (others => '0');
-         sqm_data_err_rdy_rs  <= (others => '0');
+         mem_dump_adc_cs_rs   <= (others => c_LOW_LEV);
+         sqm_data_err_rs      <= (others => c_ZERO(sqm_data_err_rs(sqm_data_err_rs'low)'range));
+         sqm_data_err_frst_rs <= (others => c_LOW_LEV);
+         sqm_data_err_last_rs <= (others => c_LOW_LEV);
+         sqm_data_err_rdy_rs  <= (others => c_LOW_LEV);
 
       elsif rising_edge(i_clk) then
          mem_dump_adc_cs_rs   <= mem_dump_adc_cs_rs(mem_dump_adc_cs_rs'high-1 downto 0) & mem_dump_adc.cs;

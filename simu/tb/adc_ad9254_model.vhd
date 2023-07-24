@@ -49,6 +49,11 @@ entity adc_ad9254_model is generic (
 end entity adc_ad9254_model;
 
 architecture Behavioral of adc_ad9254_model is
+constant c_LOW_LEV            : std_logic := '0'                                                            ; --! Low  level value
+constant c_HGH_LEV            : std_logic := not(c_LOW_LEV)                                                 ; --! High level value
+
+constant c_CLK_PER_HALF       : time       := g_CLK_PER/2                                                   ; --! Half clock period
+
 constant c_ADC_RES            : real      := 2.0 * g_VREF / real(2**(o_d'length))                           ; --! ADC resolution (V)
 constant c_VIN_MAX            : real      := (real(2**(o_d'length-1)) - 1.0) * c_ADC_RES                    ; --! Analog voltage maximum limit (V)
 
@@ -82,10 +87,10 @@ begin
       wait until rising_edge(i_clk);
       wait for c_TIME_TA;
 
-      adc_data_acq  <=  std_logic_vector(to_signed(integer(round((delta_vin_sat + g_VREF)/c_ADC_RES)), adc_data_acq'length)) when i_sclk_dfs = '0' else
+      adc_data_acq  <=  std_logic_vector(to_signed(integer(round((delta_vin_sat + g_VREF)/c_ADC_RES)), adc_data_acq'length)) when i_sclk_dfs = c_LOW_LEV else
                         std_logic_vector(to_signed(integer(round(delta_vin_sat/c_ADC_RES)), adc_data_acq'length));
 
-      out_range_acq <= '1' when ((i_delta_vin < -g_VREF) or (i_delta_vin > c_VIN_MAX)) else '0';
+      out_range_acq <= c_HGH_LEV when ((i_delta_vin < -g_VREF) or (i_delta_vin > c_VIN_MAX)) else c_LOW_LEV;
 
    end process P_adc_data_acq;
 
@@ -98,15 +103,15 @@ begin
       wait until rising_edge(i_clk);
       wait for g_TIME_TPD;
 
-      adc_data_acq_r  <= adc_data_acq & adc_data_acq_r(0 to adc_data_acq_r'high-1);
-      out_range_acq_r <= out_range_acq_r(out_range_acq_r'high-1 downto 0) & out_range_acq;
+      adc_data_acq_r  <= adc_data_acq & adc_data_acq_r(adc_data_acq_r'low to adc_data_acq_r'high-1);
+      out_range_acq_r <= out_range_acq_r(out_range_acq_r'high-1 downto out_range_acq_r'low) & out_range_acq;
 
    end process P_data_pipe;
 
-   o_d   <= (others => 'Z') when (i_oeb_n or i_pwdn) = '1' else adc_data_acq_r(adc_data_acq_r'high);
-   o_or  <= 'Z' when (i_oeb_n or i_pwdn) = '1' else out_range_acq_r(out_range_acq_r'high);
+   o_d   <= (others => 'Z') when (i_oeb_n or i_pwdn) = c_HGH_LEV else adc_data_acq_r(adc_data_acq_r'high);
+   o_or  <= 'Z' when (i_oeb_n or i_pwdn) = c_HGH_LEV else out_range_acq_r(out_range_acq_r'high);
 
-   o_dco       <= transport i_clk after (c_TIME_TDCO - g_CLK_PER/2);
+   o_dco       <= transport i_clk after (c_TIME_TDCO - c_CLK_PER_HALF);
    o_sdio_dcs  <= 'Z';
 
 end architecture Behavioral;

@@ -86,13 +86,13 @@ begin
    begin
 
       if i_rst = c_RST_LEV_ACT then
-         inhib_fst_per        <= (others => '0');
+         inhib_fst_per        <= (others => c_LOW_LEV);
 
-         brd_ref_r            <= (others => (others => '0'));
-         brd_model_r          <= (others => (others => '0'));
-         hk_spi_miso_r        <= (others => '0');
+         brd_ref_r            <= (others => c_ZERO(brd_ref_r(brd_ref_r'low)'range));
+         brd_model_r          <= (others => c_ZERO(brd_model_r(brd_model_r'low)'range));
+         hk_spi_miso_r        <= (others => c_LOW_LEV);
 
-         if c_PAD_REG_SET_AUTH = '0' then
+         if c_PAD_REG_SET_AUTH = c_LOW_LEV then
             sync_r         <= (sync_r'low        => c_LOW_LEV, others => c_I_SYNC_DEF);
             ep_spi_sclk_r  <= (ep_spi_sclk_r'low => c_LOW_LEV, others => c_I_SPI_SCLK_DEF);
             ep_spi_cs_n_r  <= (ep_spi_cs_n_r'low => c_LOW_LEV, others => c_I_SPI_CS_N_DEF);
@@ -104,18 +104,18 @@ begin
 
          end if;
 
-         ep_spi_mosi_r     <= (others => '0');
-         o_sync_rs         <= (others => '0');
-         ras_data_valid_r  <= (others => '0');
+         ep_spi_mosi_r     <= (others => c_LOW_LEV);
+         o_sync_rs         <= (others => c_LOW_LEV);
+         ras_data_valid_r  <= (others => c_LOW_LEV);
 
       elsif rising_edge(i_clk) then
-         inhib_fst_per     <= inhib_fst_per(inhib_fst_per'high-1 downto 0) & '1';
+         inhib_fst_per     <= inhib_fst_per(inhib_fst_per'high-1 downto 0) & c_HGH_LEV;
 
          brd_ref_r         <= i_brd_ref   & brd_ref_r(  0 to brd_ref_r'high-1);
          brd_model_r       <= i_brd_model & brd_model_r(0 to brd_model_r'high-1);
          hk_spi_miso_r     <= hk_spi_miso_r(hk_spi_miso_r'high-1 downto 0) & i_hk_spi_miso;
 
-         sync_r            <= sync_r(                sync_r'high-1 downto 0) & i_sync;
+         sync_r            <= sync_r(              sync_r'high-1 downto 0) & i_sync;
          ep_spi_sclk_r     <= ep_spi_sclk_r(ep_spi_sclk_r'high-1 downto 0) & i_ep_spi_sclk;
          ep_spi_cs_n_r     <= ep_spi_cs_n_r(ep_spi_cs_n_r'high-1 downto 0) & i_ep_spi_cs_n;
          ep_spi_mosi_r     <= ep_spi_mosi_r(ep_spi_mosi_r'high-1 downto 0) & i_ep_spi_mosi;
@@ -133,13 +133,13 @@ begin
    o_ras_data_valid_rs     <= ras_data_valid_r(ras_data_valid_r'high);
    o_ep_spi_mosi_rs        <= ep_spi_mosi_r(ep_spi_mosi_r'high);
 
-   G_pad_reg_set_auth_0: if c_PAD_REG_SET_AUTH = '0' generate
+   G_pad_reg_set_auth_0: if c_PAD_REG_SET_AUTH = c_LOW_LEV generate
       o_ep_spi_sclk_rs     <= (inhib_fst_per(inhib_fst_per'high) and ep_spi_sclk_r(ep_spi_sclk_r'high))   or (not(inhib_fst_per(inhib_fst_per'high)) and c_I_SPI_SCLK_DEF);
       o_ep_spi_cs_n_rs     <= (inhib_fst_per(inhib_fst_per'high) and ep_spi_cs_n_r(ep_spi_cs_n_r'high))   or (not(inhib_fst_per(inhib_fst_per'high)) and c_I_SPI_CS_N_DEF);
 
    end generate G_pad_reg_set_auth_0;
 
-   G_pad_reg_set_auth_1: if c_PAD_REG_SET_AUTH = '1' generate
+   G_pad_reg_set_auth_1: if c_PAD_REG_SET_AUTH = c_HGH_LEV generate
       o_ep_spi_sclk_rs     <= ep_spi_sclk_r(ep_spi_sclk_r'high);
       o_ep_spi_cs_n_rs     <= ep_spi_cs_n_r(ep_spi_cs_n_r'high);
 

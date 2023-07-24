@@ -58,6 +58,9 @@ entity ep_spi_model is generic (
 end entity ep_spi_model;
 
 architecture Behavioral of ep_spi_model is
+constant c_CLK_PER_HALF       : time       := g_EP_CLK_PER/2                                                ; --! Half clock period
+constant c_RST_ACT_TIME       : time       := 3 * g_EP_CLK_PER/2                                            ; --! Reset activation time
+
 constant c_N_CLK_PER_MISO_DEL : integer   := 2                                                              ; --! Number of clock period for miso signal delay from spi pin input to spi master input
 
 constant c_SER_WD_MAX_S       : integer   := 2*c_EP_CMD_S                                                   ; --! Serial word maximal size
@@ -90,7 +93,7 @@ begin
    P_rst: process
    begin
       rst   <= c_RST_LEV_ACT;
-      wait for 3*g_EP_CLK_PER/2;
+      wait for c_RST_ACT_TIME;
       rst   <= not(c_RST_LEV_ACT);
       wait;
    end process P_rst;
@@ -99,9 +102,9 @@ begin
    P_clk: process
    begin
       clk   <= c_LOW_LEV;
-      wait for g_EP_CLK_PER/2 - g_EP_CLK_PER_SHIFT;
+      wait for c_CLK_PER_HALF - g_EP_CLK_PER_SHIFT;
       clk   <= c_HGH_LEV;
-      wait for g_EP_CLK_PER/2;
+      wait for c_CLK_PER_HALF;
       clk   <= c_LOW_LEV;
       wait for g_EP_CLK_PER_SHIFT;
    end process P_clk;
@@ -109,10 +112,10 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   EP: SPI links delay introduced by buffer
    -- ------------------------------------------------------------------------------------------------------
-   ep_spi_miso_bf_buf   <= transport i_ep_spi_miso      after g_EP_BUF_DEL when ep_spi_cs_n_bf_buf = '0' else '0';
-   o_ep_spi_mosi        <= transport ep_spi_mosi_bf_buf after g_EP_BUF_DEL when now > g_EP_BUF_DEL else '0';
-   o_ep_spi_sclk        <= transport ep_spi_sclk_bf_buf after g_EP_BUF_DEL when now > g_EP_BUF_DEL else '0';
-   o_ep_spi_cs_n        <= transport ep_spi_cs_n_bf_buf after g_EP_BUF_DEL when now > g_EP_BUF_DEL else '1';
+   ep_spi_miso_bf_buf   <= transport i_ep_spi_miso      after g_EP_BUF_DEL when ep_spi_cs_n_bf_buf = c_LOW_LEV else c_LOW_LEV;
+   o_ep_spi_mosi        <= transport ep_spi_mosi_bf_buf after g_EP_BUF_DEL when now > g_EP_BUF_DEL else c_LOW_LEV;
+   o_ep_spi_sclk        <= transport ep_spi_sclk_bf_buf after g_EP_BUF_DEL when now > g_EP_BUF_DEL else c_LOW_LEV;
+   o_ep_spi_cs_n        <= transport ep_spi_cs_n_bf_buf after g_EP_BUF_DEL when now > g_EP_BUF_DEL else c_HGH_LEV;
 
    -- ------------------------------------------------------------------------------------------------------
    --!   EP: SPI Master Output Slave Input delay management
@@ -121,10 +124,10 @@ begin
    begin
 
       if rst = c_RST_LEV_ACT then
-         ep_spi_miso_r <= (others => c_LOW_LEV);
+         ep_spi_miso_r <= c_ZERO(ep_spi_miso_r'range);
 
       elsif rising_edge(clk) then
-         ep_spi_miso_r <= ep_spi_miso_r(ep_spi_miso_r'high-1 downto 0) & ep_spi_miso_bf_buf;
+         ep_spi_miso_r <= ep_spi_miso_r(ep_spi_miso_r'high-1 downto ep_spi_miso_r'low) & ep_spi_miso_bf_buf;
 
       end if;
 
@@ -139,14 +142,14 @@ begin
    begin
 
       if rst = c_RST_LEV_ACT then
-         ep_cmd_start_r       <= '0';
+         ep_cmd_start_r       <= c_LOW_LEV;
          ep_cmd_ser_wd_s_srt  <= std_logic_vector(to_unsigned(c_EP_CMD_S, ep_cmd_ser_wd_s_srt'length));
          ep_cmd_ser_wd_s_srt2 <= std_logic_vector(to_unsigned(c_EP_CMD_S, ep_cmd_ser_wd_s_srt2'length));
 
       elsif rising_edge(clk) then
          ep_cmd_start_r          <= i_ep_cmd_start;
 
-         if (not(ep_cmd_start_r) and i_ep_cmd_start) = '1' then
+         if (not(ep_cmd_start_r) and i_ep_cmd_start) = c_HGH_LEV then
             ep_cmd_ser_wd_s_srt  <= i_ep_cmd_ser_wd_s;
             ep_cmd_ser_wd_s_srt2 <= ep_cmd_ser_wd_s_srt;
 
@@ -159,9 +162,9 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   SPI Data rx/tx adaptation according to serial word size requested
    -- ------------------------------------------------------------------------------------------------------
-   ep_cmd            <= i_ep_cmd & c_ZERO(c_SER_WD_MAX_S-c_EP_CMD_S-1 downto 0);
+   ep_cmd            <= i_ep_cmd & c_ZERO(c_SER_WD_MAX_S-c_EP_CMD_S-1 downto c_ZERO'low);
 
-   ep_data_rx_mux_or(ep_data_rx_mux_or'low) <= (others => c_LOW_LEV);
+   ep_data_rx_mux_or(ep_data_rx_mux_or'low) <= c_ZERO(ep_data_rx_mux_or(ep_data_rx_mux_or'low)'range);
 
    G_ep_cmd_ser_wd_s: for i in 0 to c_SER_WD_MAX_S-1 generate
    begin
@@ -173,19 +176,19 @@ begin
 
             G_bit_less: if j < c_EP_CMD_S-i generate
                ep_data_rx_mux(i)(j) <= c_EP_CMD_ERR_CLR when ep_cmd_ser_wd_s_srt2 = std_logic_vector(to_unsigned(i,ep_cmd_ser_wd_s_srt2'length)) else
-                                       '0';
+                                       c_LOW_LEV;
             end generate G_bit_less;
 
             G_bit_greater: if j >= c_EP_CMD_S-i generate
                ep_data_rx_mux(i)(j) <= ep_data_rx(i-c_EP_CMD_S+j) when ep_cmd_ser_wd_s_srt2 = std_logic_vector(to_unsigned(i,ep_cmd_ser_wd_s_srt2'length)) else
-                                       '0';
+                                       c_LOW_LEV;
             end generate G_bit_greater;
 
          end generate G_wd_s_less;
 
          G_wd_s_greater: if i >= c_EP_CMD_S generate
             ep_data_rx_mux(i)(j) <= ep_data_rx(i-c_EP_CMD_S+j) when ep_cmd_ser_wd_s_srt2 = std_logic_vector(to_unsigned(i,ep_cmd_ser_wd_s_srt2'length)) else
-                                    '0';
+                                    c_LOW_LEV;
          end generate G_wd_s_greater;
 
       end generate G_ep_data_rx_mux_bit;

@@ -91,13 +91,13 @@ begin
    begin
 
       if i_rst = c_RST_LEV_ACT then
-         hk_pos  <= (others => '0');
+         hk_pos  <= c_ZERO(hk_pos'range);
 
       elsif rising_edge(i_clk) then
-         if hk_spi_tx_busy_n = '1' then
+         if hk_spi_tx_busy_n = c_HGH_LEV then
 
             if hk_pos = std_logic_vector(to_unsigned(c_HK_NW-1, hk_pos'length)) then
-               hk_pos   <= (others => '0');
+               hk_pos   <= c_ZERO(hk_pos'range);
 
             else
                hk_pos   <= std_logic_vector(unsigned(hk_pos) + 1);
@@ -117,9 +117,9 @@ begin
    begin
 
       if i_rst = c_RST_LEV_ACT then
-         hk_spi_tx_busy_n_r   <= '1';
-         hk_spi_tx_busy_n_fe  <= '0';
-         hk_spi_tx_bsy_n_fe_r <= (others => '0');
+         hk_spi_tx_busy_n_r   <= c_HGH_LEV;
+         hk_spi_tx_busy_n_fe  <= c_LOW_LEV;
+         hk_spi_tx_bsy_n_fe_r <= (others => c_LOW_LEV);
 
       elsif rising_edge(i_clk) then
          hk_spi_tx_busy_n_r   <= hk_spi_tx_busy_n;
@@ -137,7 +137,7 @@ begin
    --    @Req : DRE-DMX-FW-REQ-0570
    -- ------------------------------------------------------------------------------------------------------
    hk_spi_data_tx(hk_spi_data_tx'high    downto c_HK_SPI_ADD_POS_LSB) <= std_logic_vector(resize(unsigned(c_HK_ADC_SEQ(to_integer(unsigned(hk_pos)))), hk_spi_data_tx'length - c_HK_SPI_ADD_POS_LSB));
-   hk_spi_data_tx(c_HK_SPI_ADD_POS_LSB-1 downto 0)                    <= (others => '0');
+   hk_spi_data_tx(c_HK_SPI_ADD_POS_LSB-1 downto 0)                    <= c_ZERO(c_HK_SPI_ADD_POS_LSB-1 downto 0);
 
    I_hk_spi_master : entity work.spi_master generic map (
          g_RST_LEV_ACT        => c_RST_LEV_ACT        , -- std_logic                                        ; --! Reset level activation value
@@ -151,7 +151,7 @@ begin
          i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                => i_clk                , -- in     std_logic                                 ; --! Clock
 
-         i_start              => '1'                  , -- in     std_logic                                 ; --! Start transmit ('0' = Inactive, '1' = Active)
+         i_start              => c_HGH_LEV            , -- in     std_logic                                 ; --! Start transmit ('0' = Inactive, '1' = Active)
          i_ser_wd_s           => c_HK_SPI_SER_WD_S_V  , -- in     slv(log2_ceil(g_DATA_S+1)-1 downto 0)     ; --! Serial word size
          i_data_tx            => hk_spi_data_tx       , -- in     std_logic_vector(g_DATA_S-1 downto 0)     ; --! Data to transmit (stall on MSB)
          o_tx_busy_n          => hk_spi_tx_busy_n     , -- out    std_logic                                 ; --! Transmit link busy ('0' = Busy, '1' = Not Busy)
@@ -170,7 +170,7 @@ begin
    begin
 
       if i_rst = c_RST_LEV_ACT then
-         o_hk_spi_mosi <= '0';
+         o_hk_spi_mosi <= c_LOW_LEV;
          o_hk_spi_sclk <= c_PAD_REG_SET_AUTH and c_HK_SPI_CPOL;
          o_hk_spi_cs_n <= c_PAD_REG_SET_AUTH;
 
@@ -191,10 +191,10 @@ begin
    begin
 
       if i_rst = c_RST_LEV_ACT then
-         o_hk_mux  <= (others => '0');
+         o_hk_mux  <= (others => c_LOW_LEV);
 
       elsif rising_edge(i_clk) then
-         if hk_spi_tx_bsy_n_fe_r(hk_spi_tx_bsy_n_fe_r'high) = '1' then
+         if hk_spi_tx_bsy_n_fe_r(hk_spi_tx_bsy_n_fe_r'high) = c_HGH_LEV then
             o_hk_mux            <= c_HK_MUX_SEQ(to_integer(unsigned(hk_pos)));
 
          end if;
@@ -203,7 +203,7 @@ begin
 
    end process P_hk_mux;
 
-   o_hk_mux_ena_n      <= '0';
+   o_hk_mux_ena_n      <= c_LOW_LEV;
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Dual port memory data storage Housekeeping
@@ -217,7 +217,7 @@ begin
    begin
 
       if rising_edge(i_clk) then
-         if hk_spi_data_rx_rdy = '1' then
+         if hk_spi_data_rx_rdy = c_HGH_LEV then
             mem_hkeep(to_integer(unsigned(mem_hkeep_add_prm))) <= hk_spi_data_rx(c_DFLD_HKEEP_S-1 downto 0);
 
          end if;
@@ -230,7 +230,7 @@ begin
    begin
 
       if i_rst = c_RST_LEV_ACT then
-         o_hkeep_data <= (others => '0');
+         o_hkeep_data <= c_ZERO(o_hkeep_data'range);
 
       elsif rising_edge(i_clk) then
          o_hkeep_data <= mem_hkeep(to_integer(unsigned(i_mem_hkeep_add)));
@@ -246,11 +246,11 @@ begin
    begin
 
       if i_rst = c_RST_LEV_ACT then
-         err_nin_rmv_ena <= (others => '0');
+         err_nin_rmv_ena <= (others => c_LOW_LEV);
 
       elsif rising_edge(i_clk) then
-         if hk_spi_data_rx_rdy = '1' then
-            err_nin_rmv_ena <=  err_nin_rmv_ena(err_nin_rmv_ena'high-1 downto 0) & '1';
+         if hk_spi_data_rx_rdy = c_HGH_LEV then
+            err_nin_rmv_ena <=  err_nin_rmv_ena(err_nin_rmv_ena'high-1 downto 0) & c_HGH_LEV;
 
          end if;
 
@@ -273,7 +273,7 @@ begin
             err_nin_flg(k)(err_nin_flg(err_nin_flg'low)'low) <= c_EP_CMD_ERR_SET;
 
          elsif rising_edge(i_clk) then
-            if (err_nin_rmv_ena(err_nin_rmv_ena'high) = '1') and (mem_hkeep_add_prm = std_logic_vector(to_unsigned(k, mem_hkeep_add_prm'length))) then
+            if (err_nin_rmv_ena(err_nin_rmv_ena'high) = c_HGH_LEV) and (mem_hkeep_add_prm = std_logic_vector(to_unsigned(k, mem_hkeep_add_prm'length))) then
                err_nin_flg(k)(err_nin_flg(err_nin_flg'low)'low) <=  c_EP_CMD_ERR_CLR;
 
             end if;
@@ -282,12 +282,12 @@ begin
 
       end process P_err_nin_flg;
 
-      err_nin_cs(k) <= '1' when i_mem_hkeep_add = std_logic_vector(to_unsigned(k, i_mem_hkeep_add'length)) else '0';
+      err_nin_cs(k) <= c_HGH_LEV when i_mem_hkeep_add = std_logic_vector(to_unsigned(k, i_mem_hkeep_add'length)) else c_LOW_LEV;
 
    end generate G_err_nin;
 
    err_nin_flg(c_HK_NW to c_ERR_NIN_MX_STIN(1)-1)     <= (others => (others => c_EP_CMD_ERR_CLR));
-   err_nin_cs( c_ERR_NIN_MX_STIN(1)-1 downto c_HK_NW) <= (others => '0');
+   err_nin_cs( c_ERR_NIN_MX_STIN(1)-1 downto c_HK_NW) <= (others => c_LOW_LEV);
 
    G_mux_stage: for k in 0 to c_ERR_NIN_MX_STNB-1 generate
    begin
@@ -296,7 +296,7 @@ begin
       begin
 
          I_multiplexer: entity work.multiplexer generic map (
-            g_DATA_S          => 1                    , -- integer                                          ; --! Data bus size
+            g_DATA_S          => c_ONE_INT            , -- integer                                          ; --! Data bus size
             g_NB              => c_ERR_NIN_MX_INNB(k)   -- integer                                            --! Data bus number
          ) port map (
             i_rst             => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)

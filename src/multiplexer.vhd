@@ -66,9 +66,9 @@ begin
    G_data_bus_nb: for k in 0 to g_NB-1 generate
    begin
 
-      data_cmp(k) <= i_data(k) when i_cs(k) = '1' else (others => '0');
+      data_cmp(k) <= i_data(k) when i_cs(k) = c_HGH_LEV else c_ZERO(data_cmp(data_cmp'low)'range);
 
-      G_k_not0: if k /= 0 generate
+      G_k_not0: if k /= c_ZERO_INT generate
 
          cs_or(k)    <= i_cs(k)     or cs_or(k-1);
          data_or(k)  <= data_cmp(k) or data_or(k-1);
@@ -84,8 +84,8 @@ begin
    begin
 
       if i_rst = c_RST_LEV_ACT then
-         o_data_mux  <= (others => '0');
-         o_cs_or     <= '0';
+         o_data_mux  <= c_ZERO(o_data_mux'range);
+         o_cs_or     <= c_LOW_LEV;
 
       elsif rising_edge(i_clk) then
          o_data_mux  <= data_or(data_or'high);

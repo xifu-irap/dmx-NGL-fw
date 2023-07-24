@@ -28,6 +28,7 @@ library ieee;
 use     ieee.std_logic_1164.all;
 
 library work;
+use     work.pkg_type.all;
 use     work.pkg_project.all;
 use     work.pkg_model.all;
 use     work.pkg_mess.all;
@@ -270,7 +271,7 @@ package body pkg_func_cmd_script is
                fprintf(note , " * " & i_mess_header & " " & time'image(i_time_left) & " not equal to expected value " & time'image(i_time_right), file_out);
 
                -- Activate error flag
-               b_err_chk_time := '1';
+               b_err_chk_time := c_HGH_LEV;
 
             end if;
 
@@ -284,7 +285,7 @@ package body pkg_func_cmd_script is
                fprintf(note , " * " & i_mess_header & " " & time'image(i_time_left) & " equal to expected value " & time'image(i_time_right), file_out);
 
                -- Activate error flag
-               b_err_chk_time := '1';
+               b_err_chk_time := c_HGH_LEV;
 
             end if;
 
@@ -298,7 +299,7 @@ package body pkg_func_cmd_script is
                fprintf(note , " * " & i_mess_header & " " & time'image(i_time_left) & " not strictly less than expected value " & time'image(i_time_right), file_out);
 
                -- Activate error flag
-               b_err_chk_time := '1';
+               b_err_chk_time := c_HGH_LEV;
 
             end if;
 
@@ -312,7 +313,7 @@ package body pkg_func_cmd_script is
                fprintf(note , " * " & i_mess_header & " " & time'image(i_time_left) & " not less than or equal to expected value " & time'image(i_time_right), file_out);
 
                -- Activate error flag
-               b_err_chk_time := '1';
+               b_err_chk_time := c_HGH_LEV;
 
             end if;
 
@@ -326,7 +327,7 @@ package body pkg_func_cmd_script is
                fprintf(note , " * " & i_mess_header & " " & time'image(i_time_left) & " not strictly greater than expected value " & time'image(i_time_right), file_out);
 
                -- Activate error flag
-               b_err_chk_time := '1';
+               b_err_chk_time := c_HGH_LEV;
 
             end if;
 
@@ -340,7 +341,7 @@ package body pkg_func_cmd_script is
                fprintf(note , " * " & i_mess_header & " " & time'image(i_time_left) & " not greater than or equal to expected value " & time'image(i_time_right), file_out);
 
                -- Activate error flag
-               b_err_chk_time := '1';
+               b_err_chk_time := c_HGH_LEV;
 
             end if;
 
@@ -365,11 +366,11 @@ package body pkg_func_cmd_script is
 
       if now = i_sim_time then
          fprintf(error, i_mess_event & " not reached. Simulation time not long enough.", file_out);
-         o_err_sim_time := '1';
+         o_err_sim_time := c_HGH_LEV;
 
       else
          fprintf(note, "Waiting " & i_mess_event & " for " & time'image(i_wait_time), file_out);
-         o_err_sim_time := '0';
+         o_err_sim_time := c_LOW_LEV;
 
       end if;
 
@@ -392,7 +393,7 @@ package body pkg_func_cmd_script is
       parse_spi_cmd(b_cmd_file_line, i_mess_header, o_mess_spi_cmd, o_fld_spi_cmd);
 
       -- Get [end] field
-      rfield(b_cmd_file_line, i_mess_header & "[end]", 1, v_fld_end);
+      rfield(b_cmd_file_line, i_mess_header & "[end]", c_ONE_INT, v_fld_end);
 
       o_wait_end := none;
 
@@ -507,7 +508,7 @@ package body pkg_func_cmd_script is
       assert o_fld_channel < c_NB_COL report i_mess_header & "[channel]" & c_MESS_ERR_SIZE severity failure;
 
       -- Get [ope] and [time]
-      rfield(b_cmd_file_line, i_mess_header & "[ope]", 0, o_fld_ope);
+      rfield(b_cmd_file_line, i_mess_header & "[ope]", c_ZERO_INT, o_fld_ope);
       rfield(b_cmd_file_line, i_mess_header & "[time]", o_fld_time);
 
    end get_param_ctdc;
@@ -531,7 +532,7 @@ package body pkg_func_cmd_script is
       assert o_fld_dr_ind /= c_DR_S report i_mess_header & "[discrete_r]" & c_MESS_ERR_UNKNOWN severity failure;
 
       -- Get [ope] and [time]
-      rfield(b_cmd_file_line, i_mess_header & "[ope]", 0, o_fld_ope);
+      rfield(b_cmd_file_line, i_mess_header & "[ope]", c_ZERO_INT, o_fld_ope);
       rfield(b_cmd_file_line, i_mess_header & "[time]", o_fld_time);
 
    end get_param_ctle;
@@ -548,7 +549,7 @@ package body pkg_func_cmd_script is
    begin
 
       -- Get [ope] and [time]
-      rfield(b_cmd_file_line, i_mess_header & "[ope]", 0, o_fld_ope);
+      rfield(b_cmd_file_line, i_mess_header & "[ope]", c_ZERO_INT, o_fld_ope);
       rfield(b_cmd_file_line, i_mess_header & "[time]", o_fld_time);
 
    end get_param_ctlr;
@@ -585,7 +586,7 @@ package body pkg_func_cmd_script is
       parse_spi_cmd(b_cmd_file_line, i_mess_header, o_mess_spi_cmd, o_fld_spi_cmd);
 
       -- Get [end] field
-      rfield(b_cmd_file_line, i_mess_header & "[end]", 1, v_fld_end);
+      rfield(b_cmd_file_line, i_mess_header & "[end]", c_ONE_INT, v_fld_end);
 
       o_wait_end := none;
 

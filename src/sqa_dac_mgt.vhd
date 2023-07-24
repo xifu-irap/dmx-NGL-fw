@@ -167,7 +167,7 @@ begin
       if i_rst_sqm_adc_dac = c_RST_LEV_ACT then
          sync_r               <= (others => c_I_SYNC_DEF);
          saofl_r              <= (others => c_EP_CMD_DEF_SAOFL);
-         sqa_fbk_mux_r        <= (others => (others => '0'));
+         sqa_fbk_mux_r        <= (others => (others => c_LOW_LEV));
          sqa_fbk_off_r        <= (others => c_EP_CMD_DEF_SAOFC);
          saodd_r              <= (others => c_EP_CMD_DEF_SAODD);
          sqa_pls_cnt_init_r   <= (others => std_logic_vector(to_signed(c_SQA_PLS_CNT_INIT, c_SQA_PLS_CNT_S)));
@@ -191,14 +191,14 @@ begin
    begin
 
       if i_rst_sqm_adc_dac = c_RST_LEV_ACT then
-         sync_re              <= '0';
-         sqa_spi_tx_busy_n_r  <= '1';
-         sqa_spi_tx_busy_n_fe <= '0';
+         sync_re              <= c_LOW_LEV;
+         sqa_spi_tx_busy_n_r  <= c_HGH_LEV;
+         sqa_spi_tx_busy_n_fe <= c_LOW_LEV;
          sqa_fbk_off_final_r  <= c_EP_CMD_DEF_SAOFC;
          sqa_fbk_off_sync     <= c_EP_CMD_DEF_SAOFC;
-         saofl_r_cmp          <= '0';
-         sqa_fbk_off_r_cmp    <= '0';
-         saodd_lim            <= (others=> '0');
+         saofl_r_cmp          <= c_LOW_LEV;
+         sqa_fbk_off_r_cmp    <= c_LOW_LEV;
+         saodd_lim            <= (others=> c_LOW_LEV);
 
       elsif rising_edge(i_clk_sqm_adc_dac) then
          sync_re              <= not(sync_r(sync_r'high)) and sync_r(sync_r'high-1);
@@ -206,48 +206,48 @@ begin
          sqa_spi_tx_busy_n_fe <= sqa_spi_tx_busy_n_r and not(sqa_spi_tx_busy_n);
          sqa_fbk_off_final_r  <= sqa_fbk_off_final;
 
-         if pls_rw_cnt(pls_rw_cnt'high) = '1' then
+         if pls_rw_cnt(pls_rw_cnt'high) = c_HGH_LEV then
             sqa_fbk_off_sync <= sqa_fbk_off_r(sqa_fbk_off_r'high);
 
          end if;
 
          if saofl_r(saofl_r'high) /= saofl_r(saofl_r'high-1) then
-            saofl_r_cmp <= '1';
+            saofl_r_cmp <= c_HGH_LEV;
 
          else
-            saofl_r_cmp <= '0';
+            saofl_r_cmp <= c_LOW_LEV;
 
          end if;
 
          if sqa_fbk_off_final_r /= sqa_fbk_off_final then
-            sqa_fbk_off_r_cmp <= '1';
+            sqa_fbk_off_r_cmp <= c_HGH_LEV;
 
          else
-            sqa_fbk_off_r_cmp <= '0';
+            sqa_fbk_off_r_cmp <= c_LOW_LEV;
 
          end if;
 
          if unsigned(saodd_r(saodd_r'high)) >= to_unsigned(2*c_PLS_RW_CNT_NB_VAL-c_PLS_RW_CNT_INIT-1, c_DFLD_SAODD_COL_S) then
-            saodd_lim(c_SAODD_LIM0) <= '1';
+            saodd_lim(c_SAODD_LIM0) <= c_HGH_LEV;
 
          else
-            saodd_lim(c_SAODD_LIM0) <= '0';
+            saodd_lim(c_SAODD_LIM0) <= c_LOW_LEV;
 
          end if;
 
          if unsigned(saodd_r(saodd_r'high)) >= to_unsigned(c_PLS_RW_CNT_NB_VAL-c_PLS_RW_CNT_INIT-1, c_DFLD_SAODD_COL_S) then
-            saodd_lim(c_SAODD_LIM1) <= '1';
+            saodd_lim(c_SAODD_LIM1) <= c_HGH_LEV;
 
          else
-            saodd_lim(c_SAODD_LIM1) <= '0';
+            saodd_lim(c_SAODD_LIM1) <= c_LOW_LEV;
 
          end if;
 
          if unsigned(saodd_r(saodd_r'high)) > to_unsigned(c_PLS_RW_CNT_MAX_VAL, c_DFLD_SAODD_COL_S) then
-            saodd_lim(c_SAODD_LIM2) <= '1';
+            saodd_lim(c_SAODD_LIM2) <= c_HGH_LEV;
 
          else
-            saodd_lim(c_SAODD_LIM2) <= '0';
+            saodd_lim(c_SAODD_LIM2) <= c_LOW_LEV;
 
          end if;
 
@@ -268,10 +268,10 @@ begin
          pls_rw_cnt_init      <= std_logic_vector(unsigned(to_signed(c_PLS_RW_CNT_INIT, pls_rw_cnt_init'length)));
 
       elsif rising_edge(i_clk_sqm_adc_dac) then
-         if saodd_lim(c_SAODD_LIM0) = '1' then
+         if saodd_lim(c_SAODD_LIM0) = c_HGH_LEV then
             pls_rw_cnt_init_oft <=  std_logic_vector(to_signed(c_PLS_RW_CNT_INIT-2*c_PLS_RW_CNT_NB_VAL, pls_rw_cnt_init_oft'length));
 
-         elsif saodd_lim(c_SAODD_LIM1) = '1' then
+         elsif saodd_lim(c_SAODD_LIM1) = c_HGH_LEV then
             pls_rw_cnt_init_oft <=  std_logic_vector(to_signed(c_PLS_RW_CNT_INIT-  c_PLS_RW_CNT_NB_VAL, pls_rw_cnt_init_oft'length));
 
          else
@@ -295,7 +295,7 @@ begin
          sqa_fbk_off_final <= c_EP_CMD_DEF_SAOFC;
 
       elsif rising_edge(i_clk_sqm_adc_dac) then
-         if saodd_lim(c_SAODD_LIM2) = '1' then
+         if saodd_lim(c_SAODD_LIM2) = c_HGH_LEV then
             sqa_fbk_off_final <= sqa_fbk_off_sync;
 
          else
@@ -317,10 +317,10 @@ begin
          pls_rw_cnt <= std_logic_vector(to_unsigned(c_PLS_RW_CNT_MAX_VAL, pls_rw_cnt'length));
 
       elsif rising_edge(i_clk_sqm_adc_dac) then
-         if sync_re = '1' then
+         if sync_re = c_HGH_LEV then
             pls_rw_cnt <= pls_rw_cnt_init;
 
-         elsif pls_rw_cnt(pls_rw_cnt'high) = '1' then
+         elsif pls_rw_cnt(pls_rw_cnt'high) = c_HGH_LEV then
             pls_rw_cnt <= std_logic_vector(to_unsigned(c_PLS_RW_CNT_MAX_VAL, pls_rw_cnt'length));
 
          else
@@ -343,10 +343,10 @@ begin
          pls_cnt    <= std_logic_vector(to_unsigned(c_SQA_PLS_CNT_MX_VAL, pls_cnt'length));
 
       elsif rising_edge(i_clk_sqm_adc_dac) then
-         if sync_re = '1' then
+         if sync_re = c_HGH_LEV then
             pls_cnt <= sqa_pls_cnt_init_r(sqa_pls_cnt_init_r'high);
 
-         elsif pls_cnt(pls_cnt'high) = '1' then
+         elsif pls_cnt(pls_cnt'high) = c_HGH_LEV then
             pls_cnt <= std_logic_vector(to_unsigned(c_SQA_PLS_CNT_MX_VAL, pls_cnt'length));
 
          else
@@ -366,28 +366,28 @@ begin
    begin
 
       if i_rst_sqm_adc_dac = c_RST_LEV_ACT then
-         saofl_tx_flg       <= '1';
-         sqa_fbk_off_tx_flg <= '1';
-         sqa_fbk_off_tx_ena <= '0';
+         saofl_tx_flg       <= c_HGH_LEV;
+         sqa_fbk_off_tx_flg <= c_HGH_LEV;
+         sqa_fbk_off_tx_ena <= c_LOW_LEV;
 
       elsif rising_edge(i_clk_sqm_adc_dac) then
-         if saofl_r_cmp = '1' then
-            saofl_tx_flg <= '1';
+         if saofl_r_cmp = c_HGH_LEV then
+            saofl_tx_flg <= c_HGH_LEV;
 
-         elsif (sqa_spi_tx_busy_n_fe and not(sqa_fbk_off_tx_ena)) = '1' then
-            saofl_tx_flg <= '0';
-
-         end if;
-
-         if sqa_fbk_off_r_cmp = '1' then
-            sqa_fbk_off_tx_flg <= '1';
-
-         elsif (sqa_spi_tx_busy_n_fe and sqa_fbk_off_tx_ena) = '1' then
-            sqa_fbk_off_tx_flg <= '0';
+         elsif (sqa_spi_tx_busy_n_fe and not(sqa_fbk_off_tx_ena)) = c_HGH_LEV then
+            saofl_tx_flg <= c_LOW_LEV;
 
          end if;
 
-         if pls_rw_cnt(pls_rw_cnt'high) = '1' then
+         if sqa_fbk_off_r_cmp = c_HGH_LEV then
+            sqa_fbk_off_tx_flg <= c_HGH_LEV;
+
+         elsif (sqa_spi_tx_busy_n_fe and sqa_fbk_off_tx_ena) = c_HGH_LEV then
+            sqa_fbk_off_tx_flg <= c_LOW_LEV;
+
+         end if;
+
+         if pls_rw_cnt(pls_rw_cnt'high) = c_HGH_LEV then
             sqa_fbk_off_tx_ena <= sqa_fbk_off_tx_flg;
 
          end if;
@@ -407,13 +407,13 @@ begin
    begin
 
       if i_rst_sqm_adc_dac = c_RST_LEV_ACT then
-         sqa_spi_start                                <= '0';
+         sqa_spi_start                                <= c_LOW_LEV;
          sqa_spi_data_tx(c_SQA_DAC_DATA_S-1 downto 0) <= c_EP_CMD_DEF_SAOFC;
 
       elsif rising_edge(i_clk_sqm_adc_dac) then
          sqa_spi_start  <= (saofl_tx_flg or sqa_fbk_off_tx_flg) and pls_rw_cnt(pls_rw_cnt'high);
 
-         if sqa_fbk_off_tx_flg = '1' then
+         if sqa_fbk_off_tx_flg = c_HGH_LEV then
             sqa_spi_data_tx(c_SQA_DAC_DATA_S-1 downto 0) <= sqa_fbk_off_final;
 
          else
@@ -426,7 +426,7 @@ begin
    end process P_sqa_spi_in;
 
    sqa_spi_data_tx(c_SQA_DAC_DATA_S+c_SQA_DAC_MODE_S-1 downto   c_SQA_DAC_DATA_S) <= c_DST_SQADAC_NORM;
-   sqa_spi_data_tx(c_SQA_SPI_SER_WD_S-1 downto c_SQA_DAC_DATA_S+c_SQA_DAC_MODE_S) <= (others => '0');
+   sqa_spi_data_tx(c_SQA_SPI_SER_WD_S-1 downto c_SQA_DAC_DATA_S+c_SQA_DAC_MODE_S) <= c_ZERO(c_SQA_SPI_SER_WD_S-1 downto c_SQA_DAC_DATA_S+c_SQA_DAC_MODE_S);
 
    -- ------------------------------------------------------------------------------------------------------
    --!   SQUID AMP SPI master
@@ -453,7 +453,7 @@ begin
          o_data_rx            => open                 , -- out    std_logic_vector(g_DATA_S-1 downto 0)     ; --! Receipted data (stall on LSB)
          o_data_rx_rdy        => open                 , -- out    std_logic                                 ; --! Receipted data ready ('0' = Not ready, '1' = Ready)
 
-         i_miso               => '0'                  , -- in     std_logic                                 ; --! SPI Master Input Slave Output
+         i_miso               => c_LOW_LEV            , -- in     std_logic                                 ; --! SPI Master Input Slave Output
          o_mosi               => sqa_dac_data         , -- out    std_logic                                 ; --! SPI Master Output Slave Input
          o_sclk               => sqa_dac_sclk         , -- out    std_logic                                 ; --! SPI Serial Clock
          o_cs_n               => sqa_dac_sync_n         -- out    std_logic                                   --! SPI Chip Select ('0' = Active, '1' = Inactive)
@@ -467,7 +467,7 @@ begin
    begin
 
       if rst_sqm_adc_dac_pad = c_RST_LEV_ACT then
-         o_sqa_dac_data    <= '0';
+         o_sqa_dac_data    <= c_LOW_LEV;
          o_sqa_dac_sclk    <= c_SQA_SPI_CPOL and c_PAD_REG_SET_AUTH;
          o_sqa_dac_snc_l_n <= c_PAD_REG_SET_AUTH;
          o_sqa_dac_snc_o_n <= c_PAD_REG_SET_AUTH;
@@ -490,10 +490,10 @@ begin
    begin
 
       if rst_sqm_adc_dac_pad = c_RST_LEV_ACT then
-         o_sqa_dac_mux <= (others => '0');
+         o_sqa_dac_mux <= (others => c_LOW_LEV);
 
       elsif rising_edge(i_clk_sqm_adc_dac) then
-         if pls_cnt(pls_cnt'high) = '1' then
+         if pls_cnt(pls_cnt'high) = c_HGH_LEV then
             o_sqa_dac_mux <= sqa_fbk_mux_r(sqa_fbk_mux_r'high);
 
          end if;

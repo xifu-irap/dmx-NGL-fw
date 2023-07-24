@@ -59,6 +59,14 @@ entity spi_slave is generic (
 end entity spi_slave;
 
 architecture RTL of spi_slave is
+constant c_LOW_LEV            : std_logic := '0'                                                            ; --! Low  level value
+constant c_HGH_LEV            : std_logic := not(c_LOW_LEV)                                                 ; --! High level value
+
+constant c_ZERO               : std_logic_vector(maximum(g_DTA_TX_WD_S, g_DTA_RX_WD_S)-1 downto 0) :=
+                                (others => '0')                                                             ; --! Zero value
+constant c_MINUSONE           : std_logic_vector(maximum(g_DTA_TX_WD_S, g_DTA_RX_WD_S)-1 downto 0) :=
+                                (others => '1')                                                             ; --! Minus one value
+
 constant c_TX_BIT_CNT_NB_VAL  : integer:= g_DTA_TX_WD_S                                                     ; --! Data transmit bit counter: number of value
 constant c_TX_BIT_CNT_MAX_VAL : integer:= c_TX_BIT_CNT_NB_VAL-2                                             ; --! Data transmit bit counter: maximal value
 constant c_TX_BIT_CNT_S       : integer:= integer(ceil(log2(real(c_TX_BIT_CNT_MAX_VAL+1))))+1               ; --! Data transmit bit counter: size bus (signed)
@@ -93,9 +101,9 @@ begin
    begin
 
       if i_rst = g_RST_LEV_ACT then
-         sclk_r      <= '0';
-         cs_n_r      <= '1';
-         pls_mosi_r  <= '0';
+         sclk_r      <= c_LOW_LEV;
+         cs_n_r      <= c_HGH_LEV;
+         pls_mosi_r  <= c_LOW_LEV;
 
       elsif rising_edge(i_clk) then
          sclk_r      <= i_sclk;
@@ -128,16 +136,16 @@ begin
    begin
 
       if i_rst = g_RST_LEV_ACT then
-         data_tx_bit_cnt <= (others => '1');
+         data_tx_bit_cnt <= c_MINUSONE(data_tx_bit_cnt'range);
 
       elsif rising_edge(i_clk) then
-         if cs_n_re = '1' then
-            data_tx_bit_cnt <= (others => '1');
+         if cs_n_re = c_HGH_LEV then
+            data_tx_bit_cnt <= c_MINUSONE(data_tx_bit_cnt'range);
 
-         elsif (pls_miso and data_tx_bit_cnt(data_tx_bit_cnt'high)) = '1' then
+         elsif (pls_miso and data_tx_bit_cnt(data_tx_bit_cnt'high)) = c_HGH_LEV then
             data_tx_bit_cnt   <= std_logic_vector(to_signed(c_TX_BIT_CNT_MAX_VAL, data_tx_bit_cnt'length));
 
-         elsif pls_miso = '1' then
+         elsif pls_miso = c_HGH_LEV then
             data_tx_bit_cnt   <= std_logic_vector(signed(data_tx_bit_cnt) - 1);
 
          end if;
@@ -153,14 +161,14 @@ begin
    begin
 
       if i_rst = g_RST_LEV_ACT then
-         data_tx_wd_ser    <= (others => '0');
+         data_tx_wd_ser    <= c_ZERO(data_tx_wd_ser'range);
 
       elsif rising_edge(i_clk) then
-         if (pls_miso and data_tx_bit_cnt(data_tx_bit_cnt'high)) = '1' then
+         if (pls_miso and data_tx_bit_cnt(data_tx_bit_cnt'high)) = c_HGH_LEV then
             data_tx_wd_ser <= i_data_tx_wd;
 
-         elsif pls_miso = '1' then
-            data_tx_wd_ser <= data_tx_wd_ser(data_tx_wd_ser'high-1 downto 0) & '0';
+         elsif pls_miso = c_HGH_LEV then
+            data_tx_wd_ser <= data_tx_wd_ser(data_tx_wd_ser'high-1 downto 0) & c_LOW_LEV;
 
          end if;
 
@@ -177,13 +185,13 @@ begin
    begin
 
       if i_rst = g_RST_LEV_ACT then
-         data_tx_wd_nb     <= (others => '0');
+         data_tx_wd_nb     <= c_ZERO(data_tx_wd_nb'range);
 
       elsif rising_edge(i_clk) then
-         if cs_n_re = '1' then
-            data_tx_wd_nb  <= (others => '0');
+         if cs_n_re = c_HGH_LEV then
+            data_tx_wd_nb  <= c_ZERO(data_tx_wd_nb'range);
 
-         elsif (pls_miso and data_tx_bit_cnt(data_tx_bit_cnt'high)) = '1' then
+         elsif (pls_miso and data_tx_bit_cnt(data_tx_bit_cnt'high)) = c_HGH_LEV then
             data_tx_wd_nb     <= std_logic_vector(unsigned(data_tx_wd_nb) + 1);
 
          end if;
@@ -201,16 +209,16 @@ begin
    begin
 
       if i_rst = g_RST_LEV_ACT then
-         data_rx_bit_cnt <= (others => '1');
+         data_rx_bit_cnt <= c_MINUSONE(data_rx_bit_cnt'range);
 
       elsif rising_edge(i_clk) then
-         if cs_n_re = '1' then
-            data_rx_bit_cnt <= (others => '1');
+         if cs_n_re = c_HGH_LEV then
+            data_rx_bit_cnt <= c_MINUSONE(data_rx_bit_cnt'range);
 
-         elsif (pls_mosi and data_rx_bit_cnt(data_rx_bit_cnt'high)) = '1' then
+         elsif (pls_mosi and data_rx_bit_cnt(data_rx_bit_cnt'high)) = c_HGH_LEV then
             data_rx_bit_cnt   <= std_logic_vector(to_signed(c_RX_BIT_CNT_MAX_VAL, data_rx_bit_cnt'length));
 
-         elsif pls_mosi = '1' then
+         elsif pls_mosi = c_HGH_LEV then
             data_rx_bit_cnt   <= std_logic_vector(signed(data_rx_bit_cnt) - 1);
 
          end if;
@@ -226,14 +234,13 @@ begin
    begin
 
       if i_rst = g_RST_LEV_ACT then
-         data_rx_wd_ser <= (others => '0');
+         data_rx_wd_ser <= c_ZERO(data_rx_wd_ser'range);
 
       elsif rising_edge(i_clk) then
-         if (pls_mosi and data_rx_bit_cnt(data_rx_bit_cnt'high)) = '1' then
-            data_rx_wd_ser(data_rx_wd_ser'high downto 1) <= (others => '0');
-            data_rx_wd_ser(data_rx_wd_ser'low)           <= i_mosi;
+         if (pls_mosi and data_rx_bit_cnt(data_rx_bit_cnt'high)) = c_HGH_LEV then
+            data_rx_wd_ser <= c_ZERO(data_rx_wd_ser'high downto 1) & i_mosi;
 
-         elsif pls_mosi = '1' then
+         elsif pls_mosi = c_HGH_LEV then
             data_rx_wd_ser <= data_rx_wd_ser(data_rx_wd_ser'high-1 downto 0) & i_mosi;
 
          end if;
@@ -249,13 +256,13 @@ begin
    begin
 
       if i_rst = g_RST_LEV_ACT then
-         data_rx_wd_nb     <= (others => '0');
+         data_rx_wd_nb     <= c_ZERO(data_rx_wd_nb'range);
 
       elsif rising_edge(i_clk) then
-         if cs_n_re = '1' then
-            data_rx_wd_nb  <= (others => '0');
+         if cs_n_re = c_HGH_LEV then
+            data_rx_wd_nb  <= c_ZERO(data_rx_wd_nb'range);
 
-         elsif (pls_mosi_r and data_rx_bit_cnt(data_rx_bit_cnt'high)) = '1' then
+         elsif (pls_mosi_r and data_rx_bit_cnt(data_rx_bit_cnt'high)) = c_HGH_LEV then
             data_rx_wd_nb     <= std_logic_vector(unsigned(data_rx_wd_nb) + 1);
 
          end if;
@@ -271,10 +278,10 @@ begin
    begin
 
       if i_rst = g_RST_LEV_ACT then
-         o_data_rx_wd_nb   <= (others => '0');
+         o_data_rx_wd_nb   <= c_ZERO(o_data_rx_wd_nb'range);
 
       elsif rising_edge(i_clk) then
-         if ((pls_mosi_r and data_rx_bit_cnt(data_rx_bit_cnt'high)) or (cs_n_re and not(data_rx_bit_cnt(data_rx_bit_cnt'high)))) = '1' then
+         if ((pls_mosi_r and data_rx_bit_cnt(data_rx_bit_cnt'high)) or (cs_n_re and not(data_rx_bit_cnt(data_rx_bit_cnt'high)))) = c_HGH_LEV then
             o_data_rx_wd_nb   <= data_rx_wd_nb;
 
          end if;
@@ -290,13 +297,13 @@ begin
    begin
 
       if i_rst = g_RST_LEV_ACT then
-         o_data_rx_wd      <= (others => '0');
+         o_data_rx_wd      <= c_ZERO(o_data_rx_wd'range);
          o_data_rx_wd_lg   <= std_logic_vector(to_unsigned(c_RX_BIT_CNT_MAX_VAL+1, o_data_rx_wd_lg'length));
-         o_data_rx_wd_rdy  <= '0';
-         o_spi_wd_end      <= '0';
+         o_data_rx_wd_rdy  <= c_LOW_LEV;
+         o_spi_wd_end      <= c_LOW_LEV;
 
       elsif rising_edge(i_clk) then
-         if ((pls_mosi_r and data_rx_bit_cnt(data_rx_bit_cnt'high)) or cs_n_re) = '1' then
+         if ((pls_mosi_r and data_rx_bit_cnt(data_rx_bit_cnt'high)) or cs_n_re) = c_HGH_LEV then
             o_data_rx_wd      <= data_rx_wd_ser;
             o_data_rx_wd_lg   <= std_logic_vector(to_unsigned(c_RX_BIT_CNT_MAX_VAL, o_data_rx_wd_lg'length) - unsigned(data_rx_bit_cnt(o_data_rx_wd_lg'high downto 0)));
          end if;

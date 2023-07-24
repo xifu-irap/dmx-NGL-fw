@@ -29,6 +29,7 @@ use     ieee.std_logic_1164.all;
 
 library work;
 use     work.pkg_type.all;
+use     work.pkg_project.all;
 use     work.pkg_model.all;
 
 entity clock_check is generic (
@@ -67,17 +68,17 @@ begin
    begin
 
       if now = c_ZERO_TIME then
-         err_n_clk_st_ena_h <= 0;
-         err_n_clk_st_ena_l <= 0;
+         err_n_clk_st_ena_h <= c_ZERO_INT;
+         err_n_clk_st_ena_l <= c_ZERO_INT;
 
       end if;
 
       wait until i_ena'event;
 
-      if i_ena = '1' and i_clk = not(g_CLK_ST_ENA) then
+      if i_ena = c_HGH_LEV and i_clk = not(g_CLK_ST_ENA) then
          err_n_clk_st_ena_h <= err_n_clk_st_ena_h + 1;
 
-      elsif i_ena = '0' and i_clk = not(g_CLK_ST_DIS) then
+      elsif i_ena = c_LOW_LEV and i_clk = not(g_CLK_ST_DIS) then
          err_n_clk_st_ena_l <= err_n_clk_st_ena_l + 1;
 
       end if;
@@ -93,8 +94,8 @@ begin
    begin
 
       if now = c_ZERO_TIME then
-         err_n_clk_per_h   <= 0;
-         err_n_clk_per_l   <= 0;
+         err_n_clk_per_h   <= c_ZERO_INT;
+         err_n_clk_per_l   <= c_ZERO_INT;
 
       end if;
 
@@ -102,12 +103,12 @@ begin
 
       wait until i_clk'event for c_TIMOUT_CLK_EV;
 
-      if i_ena = '1' and i_ena'last_event > c_TIMOUT_CLK_EV then
+      if i_ena = c_HGH_LEV and i_ena'last_event > c_TIMOUT_CLK_EV then
 
-         if i_clk = '1'  and (now-v_record_time) /= g_CLK_PER_L then
+         if i_clk = c_HGH_LEV  and (now-v_record_time) /= g_CLK_PER_L then
             err_n_clk_per_l <= err_n_clk_per_l + 1;
 
-         elsif i_clk = '0' and (now-v_record_time) /= g_CLK_PER_H then
+         elsif i_clk = c_LOW_LEV and (now-v_record_time) /= g_CLK_PER_H then
             err_n_clk_per_h <= err_n_clk_per_h + 1;
 
          end if;
@@ -126,13 +127,13 @@ begin
    begin
 
       if now = c_ZERO_TIME then
-         err_n_clk_osc_ena_l  <= 0;
+         err_n_clk_osc_ena_l  <= c_ZERO_INT;
 
       end if;
 
       wait until clk_delay'event;
 
-      if i_ena = '0' and i_chk_osc_ena_l = '1' then
+      if i_ena = c_LOW_LEV and i_chk_osc_ena_l = c_HGH_LEV then
          err_n_clk_osc_ena_l <= err_n_clk_osc_ena_l + 1;
 
       end if;

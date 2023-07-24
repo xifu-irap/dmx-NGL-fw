@@ -62,13 +62,13 @@ begin
    begin
 
       if i_rst = c_RST_LEV_ACT then
-         ser_bit_cnt <= (others => '1');
+         ser_bit_cnt <= c_MINUSONE(ser_bit_cnt'range);
 
       elsif rising_edge(i_clk) then
-         if (i_science_data_tx_ena and ser_bit_cnt(ser_bit_cnt'high)) = '1' then
+         if (i_science_data_tx_ena and ser_bit_cnt(ser_bit_cnt'high)) = c_HGH_LEV then
             ser_bit_cnt <= std_logic_vector(to_signed(c_SER_BIT_CNT_MAX_VAL, ser_bit_cnt'length));
 
-         elsif ser_bit_cnt(ser_bit_cnt'high) = '0' then
+         elsif ser_bit_cnt(ser_bit_cnt'high) = c_LOW_LEV then
             ser_bit_cnt <= std_logic_vector(signed(ser_bit_cnt) - 1);
 
          end if;
@@ -90,15 +90,15 @@ begin
       begin
 
          if i_rst = c_RST_LEV_ACT then
-            science_data_ser(k)   <= (others => '0');
-            o_science_data_ser(k) <= '0';
+            science_data_ser(k)   <= c_ZERO(science_data_ser(science_data_ser'low)'range);
+            o_science_data_ser(k) <= c_LOW_LEV;
 
          elsif rising_edge(i_clk) then
-            if (i_science_data_tx_ena and ser_bit_cnt(ser_bit_cnt'high)) = '1' then
+            if (i_science_data_tx_ena and ser_bit_cnt(ser_bit_cnt'high)) = c_HGH_LEV then
                science_data_ser(k) <= i_science_data(k);
 
             else
-               science_data_ser(k) <= science_data_ser(k)(c_SC_DATA_SER_W_S-2 downto 0) & '0';
+               science_data_ser(k) <= science_data_ser(k)(c_SC_DATA_SER_W_S-2 downto 0) & c_LOW_LEV;
 
             end if;
 

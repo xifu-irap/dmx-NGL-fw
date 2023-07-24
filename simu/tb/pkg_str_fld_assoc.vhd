@@ -29,6 +29,7 @@ use     ieee.std_logic_1164.all;
 use     ieee.numeric_std.all;
 
 library work;
+use     work.pkg_type.all;
 use     work.pkg_project.all;
 use     work.pkg_ep_cmd.all;
 use     work.pkg_model.all;
@@ -38,7 +39,8 @@ library std;
 use std.textio.all;
 
 package pkg_str_fld_assoc is
-constant c_RET_UKWN           : std_logic_vector(c_EP_SPI_WD_S-1 downto 0) := (others => '1')               ; --! Return unknown value
+constant c_RET_UKWN           : std_logic_vector(c_EP_SPI_WD_S-1 downto 0) :=
+                                c_MINUSONE(c_EP_SPI_WD_S-1 downto 0)                                        ; --! Return unknown value
 
    -- ------------------------------------------------------------------------------------------------------
    --! Get the first field (discrete output name) included in line and the associated discrete output index
@@ -105,7 +107,7 @@ constant c_PAD                : character := ' '                                
       rfield_pad(b_line, c_PAD, c_SIG_NAME_STR_MAX_S, v_fld_dw_pad);
 
       -- Return field discrete output index
-      case v_fld_dw_pad(1 to c_SIG_NAME_STR_MAX_S) is
+      case v_fld_dw_pad(c_ONE_INT to c_SIG_NAME_STR_MAX_S) is
          when "arst_n              "   =>
             o_fld_dw_ind := c_DW_ARST_N;
 
@@ -155,7 +157,7 @@ constant c_PAD                : character := ' '                                
       rfield_pad(b_line, c_PAD, c_SIG_NAME_STR_MAX_S, v_fld_dr_pad);
 
       -- Return field discrete output index
-      case v_fld_dr_pad(1 to c_SIG_NAME_STR_MAX_S) is
+      case v_fld_dr_pad(c_ONE_INT to c_SIG_NAME_STR_MAX_S) is
          when "rst                 "   =>
             o_fld_dr_ind := c_DR_D_RST;
 
@@ -301,7 +303,7 @@ constant c_PAD                : character := ' '                                
       rfield_pad(b_line, c_PAD, c_SIG_NAME_STR_MAX_S, v_fld_ce_pad);
 
       -- Return field discrete output index
-      case v_fld_ce_pad(1 to c_SIG_NAME_STR_MAX_S) is
+      case v_fld_ce_pad(c_ONE_INT to c_SIG_NAME_STR_MAX_S) is
          when "clk                 "   =>
             o_fld_ce_ind := c_CE_CLK;
 
@@ -396,7 +398,7 @@ constant c_PAD                : character := ' '                                
       rfield_pad(b_line, c_PAD, c_CMD_NAME_STR_MAX_S, v_fld_data_pad);
 
       -- Return data value
-      case v_fld_data_pad(1 to c_CMD_NAME_STR_MAX_S) is
+      case v_fld_data_pad(c_ONE_INT to c_CMD_NAME_STR_MAX_S) is
          when "FW_VERSION                    "  =>
             o_fld_data_val:= std_logic_vector(to_unsigned(c_FW_VERSION, o_fld_data_val'length));
 
@@ -467,7 +469,7 @@ constant c_PAD                : character := ' '                                
       rfield_pad(b_line, c_PAD, c_CMD_NAME_STR_MAX_S, v_fld_sc_pkt_pad);
 
       -- Return the science packet type value
-      case v_fld_sc_pkt_pad(1 to c_CMD_NAME_STR_MAX_S) is
+      case v_fld_sc_pkt_pad(c_ONE_INT to c_CMD_NAME_STR_MAX_S) is
          when "science_data                  "  =>
             o_fld_sc_pkt_val:= c_SC_CTRL_SC_DTA;
 

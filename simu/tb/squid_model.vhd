@@ -29,6 +29,7 @@ use     ieee.std_logic_1164.all;
 use     ieee.math_real.all;
 
 library work;
+use     work.pkg_type.all;
 use     work.pkg_project.all;
 use     work.pkg_model.all;
 
@@ -87,7 +88,7 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   SQUID MUX DAC model management
    -- ------------------------------------------------------------------------------------------------------
-   I_sqm_dac_model: entity work.dac_dac5675a_model generic map (
+   I_sqm_dac_model: entity work.dac5675a_model generic map (
          g_VREF               => g_SQM_DAC_VREF         -- real                                               --! Voltage reference (Volt)
    ) port map (
          i_clk                => i_clk_sqm_dac        , -- in     std_logic                                 ; --! Clock
@@ -151,7 +152,7 @@ begin
    ) port map (
          i_clk                => i_clk_sqm_adc        , -- in     std_logic                                 ; --! Clock
          i_pwdn               => i_sqm_adc_pwdn       , -- in     std_logic                                 ; --! Power down ('0' = Inactive, '1' = Active)
-         i_oeb_n              => '0'                  , -- in     std_logic                                 ; --! Output enable ('0' = Active, '1' = Inactive)
+         i_oeb_n              => c_LOW_LEV            , -- in     std_logic                                 ; --! Output enable ('0' = Active, '1' = Inactive)
          o_sdio_dcs           => o_sqm_adc_spi_sdio   , -- out    std_logic                                 ; --! SPI Data in/out, Duty Cycle stabilizer select ('0' = Disable, '1' = Enable)
          i_sclk_dfs           => i_sqm_adc_spi_sclk   , -- in     std_logic                                 ; --! SPI Serial clock, Data Format select ('0' = Binary, '1' = Twos complement)
 

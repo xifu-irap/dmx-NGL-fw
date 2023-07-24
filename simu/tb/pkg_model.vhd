@@ -221,10 +221,10 @@ constant c_ERR_CHK_PLS_SHP    : integer   := 7                                  
    --!   Model generic default values
    -- ------------------------------------------------------------------------------------------------------
 constant c_SIM_TIME_DEF       : time      := 0 ps                                                           ; --! Simulation time
-constant c_SIM_TYPE_DEF       : std_logic := '0'                                                            ; --! Simulation type ('0': No regression, '1': Coupled simulation)
+constant c_SIM_TYPE_DEF       : std_logic := c_LOW_LEV                                                      ; --! Simulation type ('0': No regression, '1': Coupled simulation)
 constant c_TST_NUM_DEF        : string    := "XXXX"                                                         ; --! Test number
-constant c_ERR_SC_DTA_ENA_DEF : std_logic := '1'                                                            ; --! Error science data enable ('0' = No, '1' = Yes)
-constant c_FRM_CNT_SC_ENA_DEF : std_logic := '0'                                                            ; --! Frame counter science enable ('0' = No, '1' = Yes)
+constant c_ERR_SC_DTA_ENA_DEF : std_logic := c_HGH_LEV                                                      ; --! Error science data enable ('0' = No, '1' = Yes)
+constant c_FRM_CNT_SC_ENA_DEF : std_logic := c_LOW_LEV                                                      ; --! Frame counter science enable ('0' = No, '1' = Yes)
 
    -- ------------------------------------------------------------------------------------------------------
    --  c_CLK_REF_PER_DEF condition to respect:
@@ -255,7 +255,7 @@ constant c_SQM_VOLT_DEL_DEF   : time    :=  0 ps                                
 constant c_SQA_VOLT_DEL_DEF   : time    :=  0 ps                                                            ; --! SQUID AMP voltage delay
 constant c_SQERR_VOLT_DEL_DEF : time    :=  0 ps                                                            ; --! SQUID Error voltage delay
 
-constant c_PLS_SP_CHK_ENA_DEF : std_logic := '0'                                                            ; --! Pulse shaping check enable default value ('0' = Disable, '1' = Enable)
+constant c_PLS_SP_CHK_ENA_DEF : std_logic := c_LOW_LEV                                                      ; --! Pulse shaping check enable default value ('0' = Disable, '1' = Enable)
 constant c_PLS_CUT_FREQ_DEF   : integer   := 20000000                                                       ; --! Pulse shaping cut frequency default value (Hz)
 
 constant c_FPA_CMD_S          : integer := 32                                                               ; --! FPASIM: Command bus size
@@ -307,8 +307,8 @@ constant c_HK_TEMP_MAX_DEF    : std_logic_vector(c_HK_SPI_DATA_S-1 downto 0):=
 constant c_ZERO_TIME          : time      := 0 ps                                                           ; --! Time zero value
 constant c_ZERO_REAL          : real      := 0.0                                                            ; --! Real zero value
 
-constant c_CHK_OSC_DIS        : std_logic :=  '0'                                                           ; --! Check oscillation on clock when enable inactive: disable value
-constant c_CHK_OSC_ENA        : std_logic :=  not(c_CHK_OSC_DIS)                                            ; --! Check oscillation on clock when enable inactive: enable  value
+constant c_CHK_OSC_DIS        : std_logic := c_LOW_LEV                                                      ; --! Check oscillation on clock when enable inactive: disable value
+constant c_CHK_OSC_ENA        : std_logic := not(c_CHK_OSC_DIS)                                             ; --! Check oscillation on clock when enable inactive: enable  value
 constant c_SPI_ERR_CHK_NB     : integer   := 10                                                             ; --! SPI error check number
 
 constant c_CLK_HPER           : time    := c_CLK_REF_PER_DEF/(2 * c_CLK_MULT)                               ; --! System Clock half-period timing
@@ -316,19 +316,19 @@ constant c_CLK_ADC_HPER       : time    := c_CLK_REF_PER_DEF/(2 * c_CLK_ADC_DAC_
 constant c_CLK_DAC_HPER       : time    := c_CLK_REF_PER_DEF/(2 * c_CLK_ADC_DAC_MULT)                       ; --! DAC Clock half-period timing
 constant c_CLK_SC_HPER        : time    := c_CLK_REF_PER_DEF/(2 * c_CLK_MULT)                               ; --! Science Data Clock half-period timing
 
-constant c_CLK_ST             : std_logic := '1'                                                            ; --! System Clock state value when the enable signal goes to active
-constant c_CLK_ADC_ST         : std_logic := '1'                                                            ; --! ADC acquisition Clock state value when the enable signal goes to active
-constant c_CLK_DAC_ST         : std_logic := '1'                                                            ; --! Pulse shaping Clock state value when the enable signal goes to active
-constant c_CLK_CX_ADC_ST      : std_logic := '0'                                                            ; --! ADC, col. X Clock state value when the enable signal goes to active
-constant c_CLK_CX_DAC_ST      : std_logic := '0'                                                            ; --! DAC, col. X Clock state value when the enable signal goes to active
-constant c_CLK_SC_ST          : std_logic := '0'                                                            ; --! Science Data Clock state value when the enable signal goes to active
+constant c_CLK_ST             : std_logic := c_HGH_LEV                                                      ; --! System Clock state value when the enable signal goes to active
+constant c_CLK_ADC_ST         : std_logic := c_HGH_LEV                                                      ; --! ADC acquisition Clock state value when the enable signal goes to active
+constant c_CLK_DAC_ST         : std_logic := c_HGH_LEV                                                      ; --! Pulse shaping Clock state value when the enable signal goes to active
+constant c_CLK_CX_ADC_ST      : std_logic := c_LOW_LEV                                                      ; --! ADC, col. X Clock state value when the enable signal goes to active
+constant c_CLK_CX_DAC_ST      : std_logic := c_LOW_LEV                                                      ; --! DAC, col. X Clock state value when the enable signal goes to active
+constant c_CLK_SC_ST          : std_logic := c_LOW_LEV                                                      ; --! Science Data Clock state value when the enable signal goes to active
 
 constant c_CLK_ST_DIS         : std_logic := not(c_CLK_ST)                                                  ; --! System Clock state value when the enable signal goes to inactive
 constant c_CLK_ADC_ST_DIS     : std_logic := not(c_CLK_ADC_ST)                                              ; --! ADC acquisition Clock state value when the enable signal goes to inactive
 constant c_CLK_DAC_ST_DIS     : std_logic := not(c_CLK_DAC_ST)                                              ; --! Pulse shaping Clock state value when the enable signal goes to inactive
-constant c_CLK_CX_ADC_ST_DIS  : std_logic := '0'                                                            ; --! ADC, col. X Clock state value when the enable signal goes to inactive
-constant c_CLK_CX_DAC_ST_DIS  : std_logic := '0'                                                            ; --! DAC, col. X Clock state value when the enable signal goes to inactive
-constant c_CLK_SC_ST_DIS      : std_logic := '0'                                                            ; --! Science Data Clock state value when the enable signal goes to inactive
+constant c_CLK_CX_ADC_ST_DIS  : std_logic := c_LOW_LEV                                                      ; --! ADC, col. X Clock state value when the enable signal goes to inactive
+constant c_CLK_CX_DAC_ST_DIS  : std_logic := c_LOW_LEV                                                      ; --! DAC, col. X Clock state value when the enable signal goes to inactive
+constant c_CLK_SC_ST_DIS      : std_logic := c_LOW_LEV                                                      ; --! Science Data Clock state value when the enable signal goes to inactive
 
 constant c_SYNC_HIGH          : time    :=  10 * c_CLK_REF_PER_DEF                                          ; --! Pixel sequence synchronization high level time
 

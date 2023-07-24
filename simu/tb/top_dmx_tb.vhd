@@ -106,7 +106,7 @@ signal   d_clk_sqm_pls_shape  : std_logic                                       
 
 signal   d_aqmde              : std_logic_vector(c_DFLD_AQMDE_S-1 downto 0)                                 ; --! Internal design: Telemetry mode
 signal   d_smfbd              : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SMFBD_COL_S-1 downto 0)                   ; --! Internal design: SQUID MUX feedback delay
-signal   d_saomd              : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SAOMD_COL_S  -1 downto 0)                 ; --! Internal design: SQUID AMP offset MUX delay
+signal   d_saomd              : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SAOMD_COL_S-1 downto 0)                   ; --! Internal design: SQUID AMP offset MUX delay
 signal   d_sqm_fbm_cls_lp_n   : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! Internal design: SQUID MUX feedback mode Closed loop ('0': Yes; '1': No)
 
 signal   sc_pkt_type          : std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0)                              ; --! Science packet type
@@ -376,7 +376,7 @@ begin
          o_sync               => open                   -- out    std_logic                                   --! Pixel sequence synchronization (R.E. detected = position sequence to the first pixel)
    );
 
-   clk_fpasim_shift <= transport clk_fpasim after (c_CLK_FPA_PER_DEF/4) when now > (c_CLK_FPA_PER_DEF/4) else '0';
+   clk_fpasim_shift <= transport clk_fpasim after (c_CLK_FPA_PER_DEF/4) when now > (c_CLK_FPA_PER_DEF/4) else c_LOW_LEV;
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Housekeeping model

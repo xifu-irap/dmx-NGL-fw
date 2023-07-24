@@ -168,12 +168,12 @@ begin
    data_rg_rd(c_EP_CMD_POS_AQMDE) <= std_logic_vector(resize(unsigned(i_rg_aqmde),  c_EP_SPI_WD_S));
 
    -- @Req : REG_SQ_MUX_FB_ON_OFF
-   data_rg_rd(c_EP_CMD_POS_SMFMD) <= std_logic_vector(resize(unsigned(i_rg_smfmd(c_COL3)), c_EP_SPI_WD_S/4) & resize(unsigned(i_rg_smfmd(c_COL2)), c_EP_SPI_WD_S/4) &
-                                                      resize(unsigned(i_rg_smfmd(c_COL1)), c_EP_SPI_WD_S/4) & resize(unsigned(i_rg_smfmd(c_COL0)), c_EP_SPI_WD_S/4));
+   data_rg_rd(c_EP_CMD_POS_SMFMD) <= std_logic_vector(resize(unsigned(i_rg_smfmd(c_COL3)), c_EP_SPI_WD_S/c_NB_COL) & resize(unsigned(i_rg_smfmd(c_COL2)), c_EP_SPI_WD_S/c_NB_COL) &
+                                                      resize(unsigned(i_rg_smfmd(c_COL1)), c_EP_SPI_WD_S/c_NB_COL) & resize(unsigned(i_rg_smfmd(c_COL0)), c_EP_SPI_WD_S/c_NB_COL));
    -- @Req : REG_SQ_AMP_OFFSET_MODE
    -- @Req : DRE-DMX-FW-REQ-0330
-   data_rg_rd(c_EP_CMD_POS_SAOFM) <= std_logic_vector(resize(unsigned(i_rg_saofm(c_COL3)), c_EP_SPI_WD_S/4) & resize(unsigned(i_rg_saofm(c_COL2)), c_EP_SPI_WD_S/4) &
-                                                      resize(unsigned(i_rg_saofm(c_COL1)), c_EP_SPI_WD_S/4) & resize(unsigned(i_rg_saofm(c_COL0)), c_EP_SPI_WD_S/4));
+   data_rg_rd(c_EP_CMD_POS_SAOFM) <= std_logic_vector(resize(unsigned(i_rg_saofm(c_COL3)), c_EP_SPI_WD_S/c_NB_COL) & resize(unsigned(i_rg_saofm(c_COL2)), c_EP_SPI_WD_S/c_NB_COL) &
+                                                      resize(unsigned(i_rg_saofm(c_COL1)), c_EP_SPI_WD_S/c_NB_COL) & resize(unsigned(i_rg_saofm(c_COL0)), c_EP_SPI_WD_S/c_NB_COL));
    -- @Req : REG_TEST_PATTERN
    -- @Req : DRE-DMX-FW-REQ-0440
    data_rg_rd(c_EP_CMD_POS_TSTPT) <= std_logic_vector(resize(unsigned(ep_mem_data_mux( c_EP_MEM_ACC(c_EP_MEM_NUM_TSTPT+1)-1 downto c_EP_MEM_ACC(c_EP_MEM_NUM_TSTPT))), c_EP_SPI_WD_S));
@@ -183,8 +183,8 @@ begin
 
    -- @Req : REG_BOXCAR_LENGTH
    -- @Req : DRE-DMX-FW-REQ-0145
-   data_rg_rd(c_EP_CMD_POS_BXLGT) <= std_logic_vector(resize(unsigned(i_rg_bxlgt(c_COL3)), c_EP_SPI_WD_S/4) & resize(unsigned(i_rg_bxlgt(c_COL2)), c_EP_SPI_WD_S/4) &
-                                                      resize(unsigned(i_rg_bxlgt(c_COL1)), c_EP_SPI_WD_S/4) & resize(unsigned(i_rg_bxlgt(c_COL0)), c_EP_SPI_WD_S/4));
+   data_rg_rd(c_EP_CMD_POS_BXLGT) <= std_logic_vector(resize(unsigned(i_rg_bxlgt(c_COL3)), c_EP_SPI_WD_S/c_NB_COL) & resize(unsigned(i_rg_bxlgt(c_COL2)), c_EP_SPI_WD_S/c_NB_COL) &
+                                                      resize(unsigned(i_rg_bxlgt(c_COL1)), c_EP_SPI_WD_S/c_NB_COL) & resize(unsigned(i_rg_bxlgt(c_COL0)), c_EP_SPI_WD_S/c_NB_COL));
    -- @Req : REG_HKEEP
    -- @Req : DRE-DMX-FW-REQ-0540
    data_rg_rd(c_EP_CMD_POS_HKEEP) <= std_logic_vector(resize(unsigned(i_hkeep_data), c_EP_SPI_WD_S));
@@ -274,7 +274,7 @@ begin
    -- @Req : DRE-DMX-FW-REQ-0435
    data_rg_rd(c_EP_CMD_POS_DLCNT) <= std_logic_vector(resize(unsigned(ep_mem_data_mux(c_EP_MEM_ACC(c_EP_MEM_NUM_DLCNT+1)-1 downto c_EP_MEM_ACC(c_EP_MEM_NUM_DLCNT))), c_EP_SPI_WD_S));
 
-   data_rg_rd(c_EP_CMD_POS_LAST to c_EP_CMD_REG_MX_STIN(1)-1) <= (others => (others => '0'));
+   data_rg_rd(c_EP_CMD_POS_LAST to c_EP_CMD_REG_MX_STIN(1)-1) <= (others => c_ZERO(data_rg_rd(data_rg_rd'low)'range));
 
    cs_rg(c_EP_CMD_REG_MX_STIN(1)-1 downto 0) <= i_cs_rg;
 

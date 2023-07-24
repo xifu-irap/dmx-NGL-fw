@@ -67,17 +67,17 @@ begin
 
       elsif rising_edge(i_clk) then
 
-         if i_ep_cmd_rx_ner_ry_r = '1' and i_ep_cmd_rx_rw_r = c_EP_CMD_ADD_RW_W and i_cs_rg_aqdme = '1' then
+         if i_ep_cmd_rx_ner_ry_r = c_HGH_LEV and i_ep_cmd_rx_rw_r = c_EP_CMD_ADD_RW_W and i_cs_rg_aqdme = c_HGH_LEV then
             o_aqmde <= i_ep_cmd_rx_wd_dta_r;
 
-         elsif (o_aqmde = c_DST_AQMDE_TEST and i_tst_pat_end_re = '1') or (o_aqmde = c_DST_AQMDE_DUMP and i_aqmde_dmp_tx_end = '1') then
+         elsif (o_aqmde = c_DST_AQMDE_TEST and i_tst_pat_end_re = c_HGH_LEV) or (o_aqmde = c_DST_AQMDE_DUMP and i_aqmde_dmp_tx_end = c_HGH_LEV) then
             o_aqmde <= rg_aqmde_sav;
 
          end if;
 
-         if i_ep_cmd_rx_ner_ry_r = '1' and i_ep_cmd_rx_rw_r = c_EP_CMD_ADD_RW_W then
+         if i_ep_cmd_rx_ner_ry_r = c_HGH_LEV and i_ep_cmd_rx_rw_r = c_EP_CMD_ADD_RW_W then
 
-            if i_cs_rg_aqdme = '1' then
+            if i_cs_rg_aqdme = c_HGH_LEV then
                if i_ep_cmd_rx_wd_dta_r = c_DST_AQMDE_TEST or
                  (i_ep_cmd_rx_wd_dta_r = c_DST_AQMDE_DUMP and o_aqmde = c_DST_AQMDE_TEST) then
                   rg_aqmde_sav <= c_DST_AQMDE_IDLE;
@@ -95,6 +95,6 @@ begin
 
    end process P_aqmde;
 
-   o_rg_aqmde_dmp_cmp <= '1' when o_aqmde = c_DST_AQMDE_DUMP else '0';
+   o_rg_aqmde_dmp_cmp <= c_HGH_LEV when o_aqmde = c_DST_AQMDE_DUMP else c_LOW_LEV;
 
 end architecture RTL;

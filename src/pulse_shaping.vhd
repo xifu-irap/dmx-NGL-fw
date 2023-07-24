@@ -30,6 +30,7 @@ use     ieee.numeric_std.all;
 
 library work;
 use     work.pkg_fpga_tech.all;
+use     work.pkg_type.all;
 use     work.pkg_project.all;
 
 entity pulse_shaping is generic (
@@ -69,7 +70,7 @@ begin
    a_mant_k_rsize <= std_logic_vector(resize(unsigned(i_a_mant_k), a_mant_k_rsize'length));
 
    x_final_shift(x_final_shift'high   downto g_A_EXP) <= std_logic_vector(resize(unsigned(i_x_final), x_final_shift'length - g_A_EXP));
-   x_final_shift(           g_A_EXP-1 downto       0) <= (others => '0');
+   x_final_shift(           g_A_EXP-1 downto       0) <= c_ZERO(g_A_EXP-1 downto 0);
 
    -- ------------------------------------------------------------------------------------------------------
    --!   NX_DSP_L_SPLIT IpCore instantiation
@@ -85,18 +86,18 @@ begin
          g_SAT_RANK           => c_FILT_SAT_RANK      , -- integer                                          ; --! Extrem values reached on result bus
                                                                                                               --!   unsigned: range from               0  to 2**(g_SAT_RANK+1) - 1
                                                                                                               --!     signed: range from -2**(g_SAT_RANK) to 2**(g_SAT_RANK)   - 1
-         g_PRE_ADDER_OP       => '1'                  , -- bit                                              ; --! Pre-Adder operation     ('0' = add,    '1' = subtract)
-         g_MUX_C_CZ           => '0'                    -- bit                                                --! Multiplexer ALU operand ('0' = Port C, '1' = Cascaded Result Input)
+         g_PRE_ADDER_OP       => c_HGH_LEV_B          , -- bit                                              ; --! Pre-Adder operation     ('0' = add,    '1' = subtract)
+         g_MUX_C_CZ           => c_LOW_LEV_B            -- bit                                                --! Multiplexer ALU operand ('0' = Port C, '1' = Cascaded Result Input)
    ) port map (
          i_rst                => i_rst_sqm_adc_dac    , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                => i_clk_sqm_adc_dac    , -- in     std_logic                                 ; --! Clock
 
-         i_carry              => '0'                  , -- in     std_logic                                 ; --! Carry In
+         i_carry              => c_LOW_LEV            , -- in     std_logic                                 ; --! Carry In
          i_a                  => a_mant_k_rsize       , -- in     std_logic_vector( g_PORTA_S-1 downto 0)   ; --! Port A
          i_b                  => x_init_rsize         , -- in     std_logic_vector( g_PORTB_S-1 downto 0)   ; --! Port B
          i_c                  => x_final_shift        , -- in     std_logic_vector( g_PORTC_S-1 downto 0)   ; --! Port C
          i_d                  => x_final_rsize        , -- in     std_logic_vector( g_PORTB_S-1 downto 0)   ; --! Port D
-         i_cz                 => (others => '0')      , -- in     slv(c_MULT_ALU_RESULT_S-1 downto 0)       ; --! Cascaded Result Input
+         i_cz                 => c_ZERO(c_MULT_ALU_RESULT_S-1 downto 0), -- in slv c_MULT_ALU_RESULT_S      ; --! Cascaded Result Input
 
          o_z                  => w_k                  , -- out    std_logic_vector(g_RESULT_S-1 downto 0)   ; --! Result
          o_cz                 => open                   -- out    slv(c_MULT_ALU_RESULT_S-1 downto 0)         --! Cascaded Result
@@ -110,8 +111,8 @@ begin
 
       if i_rst_sqm_adc_dac_pd = c_RST_LEV_ACT then
 
-         if c_PAD_REG_SET_AUTH = '0' then
-            o_y_k <= (others => '0');
+         if c_PAD_REG_SET_AUTH = c_LOW_LEV then
+            o_y_k <= c_ZERO(o_y_k'range);
 
          else
             o_y_k <= std_logic_vector(to_unsigned(c_Y_K_RST_VAL, o_y_k'length));

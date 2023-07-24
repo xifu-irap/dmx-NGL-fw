@@ -58,24 +58,24 @@ begin
 
       if i_rst = c_RST_LEV_ACT then
          mem_add_pp           <= c_MEM_STR_ADD_PP_DEF;
-         mem_add_scrub        <= (others => '0');
-         o_mem_with_scrub.add <= (others => '0');
-         o_mem_with_scrub.we  <= '0';
+         mem_add_scrub        <= c_ZERO(mem_add_scrub'range);
+         o_mem_with_scrub.add <= c_ZERO(o_mem_with_scrub.add'range);
+         o_mem_with_scrub.we  <= c_LOW_LEV;
 
       elsif rising_edge(i_clk) then
-         if i_mem_no_scrub.pp = '1' then
+         if i_mem_no_scrub.pp = c_HGH_LEV then
             mem_add_pp <= not(mem_add_pp);
 
          end if;
 
-         if i_mem_no_scrub.cs = '1' then
+         if i_mem_no_scrub.cs = c_HGH_LEV then
             o_mem_with_scrub.add <= (i_mem_no_scrub.we xor mem_add_pp) & i_mem_no_scrub.add;
             o_mem_with_scrub.we  <= i_mem_no_scrub.we;
 
          else
             mem_add_scrub  <= std_logic_vector(unsigned(mem_add_scrub) + 1);
             o_mem_with_scrub.add <= mem_add_scrub;
-            o_mem_with_scrub.we  <= '0';
+            o_mem_with_scrub.we  <= c_LOW_LEV;
 
          end if;
 
@@ -84,7 +84,7 @@ begin
    end process P_mem_sig;
 
    o_mem_with_scrub.pp     <= mem_add_pp;
-   o_mem_with_scrub.cs     <= '1';
+   o_mem_with_scrub.cs     <= c_HGH_LEV;
    o_mem_with_scrub.data_w <= i_mem_no_scrub.data_w;
 
 end architecture RTL;

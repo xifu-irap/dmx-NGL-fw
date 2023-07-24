@@ -188,11 +188,11 @@ begin
    begin
 
       if i_rst = c_RST_LEV_ACT then
-         sqm_data_err_frst_r  <= (others => '0');
-         sqm_data_err_last_r  <= (others => '0');
-         sqm_data_err_rdy_r   <= (others => '0');
-         pixel_pos_r          <= (others => (others => '0'));
-         err_sig_r            <= (others => (others => '0'));
+         sqm_data_err_frst_r  <= (others => c_LOW_LEV);
+         sqm_data_err_last_r  <= (others => c_LOW_LEV);
+         sqm_data_err_rdy_r   <= (others => c_LOW_LEV);
+         pixel_pos_r          <= (others => c_ZERO(pixel_pos_r(pixel_pos_r'low)'range));
+         err_sig_r            <= (others => c_ZERO(err_sig_r(err_sig_r'low)'range));
 
       elsif rising_edge(i_clk) then
          sqm_data_err_frst_r  <= sqm_data_err_frst_r(sqm_data_err_frst_r'high-1 downto 0) & i_sqm_data_err_frst;
@@ -212,12 +212,12 @@ begin
    begin
 
       if i_rst = c_RST_LEV_ACT then
-         pixel_pos   <= (others => '0');
+         pixel_pos   <= c_ZERO(pixel_pos'range);
 
       elsif rising_edge(i_clk) then
-         if i_sqm_data_err_rdy = '1' then
-            if i_sqm_data_err_frst = '1' then
-               pixel_pos <= (others => '0');
+         if i_sqm_data_err_rdy = c_HGH_LEV then
+            if i_sqm_data_err_frst = c_HGH_LEV then
+               pixel_pos <= c_ZERO(pixel_pos'range);
 
             elsif pixel_pos < std_logic_vector(to_unsigned(c_PIXEL_POS_MAX_VAL, pixel_pos'length)) then
                pixel_pos <= std_logic_vector(unsigned(pixel_pos) + 1);
@@ -295,8 +295,8 @@ begin
    begin
 
       if i_rst = c_RST_LEV_ACT then
-         init_fbk_acc_dfb <= '1';
-         init_fbk_acc_fb  <= '1';
+         init_fbk_acc_dfb <= c_HGH_LEV;
+         init_fbk_acc_fb  <= c_HGH_LEV;
          smfb0            <= std_logic_vector(to_unsigned(c_EP_CMD_DEF_SMFB0(c_COL0), smfb0'length));
          o_smfb0_rl       <= std_logic_vector(to_unsigned(c_EP_CMD_DEF_SMFB0(c_COL0), o_smfb0_rl'length));
 
@@ -305,7 +305,7 @@ begin
          init_fbk_acc_fb  <= mem_init_fbk_acc_fb( to_integer(unsigned(pixel_pos_r(c_INI_FB_PN_RDY_POS ))))(mem_init_fbk_acc_fb( mem_init_fbk_acc_fb'low)'low);
          smfb0            <= mem_smfb0_rl(        to_integer(unsigned(pixel_pos_r(c_FB_PN_RDY_POS))));
 
-         if sqm_data_err_rdy_r(c_FB_PNP1_RDY_POS-1) = '1' then
+         if sqm_data_err_rdy_r(c_FB_PNP1_RDY_POS-1) = c_HGH_LEV then
             o_smfb0_rl    <= smfb0;
 
          end if;
@@ -332,32 +332,32 @@ begin
    begin
 
       if i_rst = c_RST_LEV_ACT then
-         sqm_adc_ena <= '0';
+         sqm_adc_ena <= c_LOW_LEV;
          aqmde_sync  <= c_EP_CMD_DEF_AQMDE;
          bxlgt_sync  <= c_EP_CMD_DEF_BXLGT;
 
       elsif rising_edge(i_clk) then
-         if (sqm_data_err_frst_r(c_SC_PN_RDY_POS-2) and sqm_data_err_rdy_r(c_SC_PN_RDY_POS-2)) = '1' then
+         if (sqm_data_err_frst_r(c_SC_PN_RDY_POS-2) and sqm_data_err_rdy_r(c_SC_PN_RDY_POS-2)) = c_HGH_LEV then
             aqmde_sync <= i_aqmde;
 
          end if;
 
-         if (i_sqm_data_err_frst and i_sqm_data_err_rdy) = '1' then
+         if (i_sqm_data_err_frst and i_sqm_data_err_rdy) = c_HGH_LEV then
 
-            if (i_aqmde = c_DST_AQMDE_DUMP or i_aqmde = c_DST_AQMDE_SCIE or i_aqmde = c_DST_AQMDE_ERRS or i_smfmd = c_DST_SMFMD_ON) and (i_sqm_adc_pwdn = '0') then
-               sqm_adc_ena <= '1';
+            if (i_aqmde = c_DST_AQMDE_DUMP or i_aqmde = c_DST_AQMDE_SCIE or i_aqmde = c_DST_AQMDE_ERRS or i_smfmd = c_DST_SMFMD_ON) and (i_sqm_adc_pwdn = c_LOW_LEV) then
+               sqm_adc_ena <= c_HGH_LEV;
 
             else
-               sqm_adc_ena <= '0';
+               sqm_adc_ena <= c_LOW_LEV;
 
             end if;
 
          end if;
 
-         if sqm_adc_ena = '0' then
+         if sqm_adc_ena = c_LOW_LEV then
             bxlgt_sync <= c_EP_CMD_DEF_BXLGT;
 
-         elsif (i_sqm_data_err_frst and i_sqm_data_err_rdy) = '1' then
+         elsif (i_sqm_data_err_frst and i_sqm_data_err_rdy) = c_HGH_LEV then
             bxlgt_sync <= i_bxlgt;
 
          end if;
@@ -376,7 +376,7 @@ begin
          sqm_data_err <= std_logic_vector(resize(signed(c_I_SQM_ADC_DATA_DEF), sqm_data_err'length));
 
       elsif rising_edge(i_clk) then
-         if sqm_adc_ena = '1' then
+         if sqm_adc_ena = c_HGH_LEV then
             sqm_data_err <= std_logic_vector(resize(signed(i_sqm_data_err), sqm_data_err'length));
 
          else
@@ -418,18 +418,18 @@ begin
          g_SAT_RANK           => c_ADC_SMP_AVE_SAT    , -- integer                                          ; --! Extrem values reached on result bus
                                                                                                               --!   unsigned: range from               0  to 2**(g_SAT_RANK+1) - 1
                                                                                                               --!     signed: range from -2**(g_SAT_RANK) to 2**(g_SAT_RANK)   - 1
-         g_PRE_ADDER_OP       => '0'                  , -- bit                                              ; --! Pre-Adder operation     ('0' = add,    '1' = subtract)
-         g_MUX_C_CZ           => '0'                    -- bit                                                --! Multiplexer ALU operand ('0' = Port C, '1' = Cascaded Result Input)
+         g_PRE_ADDER_OP       => c_LOW_LEV_B          , -- bit                                              ; --! Pre-Adder operation     ('0' = add,    '1' = subtract)
+         g_MUX_C_CZ           => c_LOW_LEV_B            -- bit                                                --! Multiplexer ALU operand ('0' = Port C, '1' = Cascaded Result Input)
    ) port map (
          i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                => i_clk                , -- in     std_logic                                 ; --! Clock
 
-         i_carry              => '0'                  , -- in     std_logic                                 ; --! Carry In
+         i_carry              => c_LOW_LEV            , -- in     std_logic                                 ; --! Carry In
          i_a                  => adc_smp_ave_coef     , -- in     std_logic_vector( g_PORTA_S-1 downto 0)   ; --! Port A
          i_b                  => sqm_data_err         , -- in     std_logic_vector( g_PORTB_S-1 downto 0)   ; --! Port B
-         i_c                  => (others => '0')      , -- in     std_logic_vector( g_PORTC_S-1 downto 0)   ; --! Port C
-         i_d                  => (others => '0')      , -- in     std_logic_vector( g_PORTB_S-1 downto 0)   ; --! Port D
-         i_cz                 => (others => '0')      , -- in     slv(c_MULT_ALU_RESULT_S-1 downto 0)       ; --! Cascaded Result Input
+         i_c                  => c_ZERO(c_SQM_DATA_ERR_S-1 downto 0),    -- in slv( g_PORTC_S-1 downto 0)   ; --! Port C
+         i_d                  => c_ZERO(c_SQM_DATA_ERR_S-1 downto 0),    -- in slv( g_PORTB_S-1 downto 0)   ; --! Port D
+         i_cz                 => c_ZERO(c_MULT_ALU_RESULT_S-1 downto 0), -- in slv c_MULT_ALU_RESULT_S      ; --! Cascaded Result Input
 
          o_z                  => adc_smp_ave          , -- out    std_logic_vector(g_RESULT_S-1 downto 0)   ; --! Result
          o_cz                 => open                   -- out    slv(c_MULT_ALU_RESULT_S-1 downto 0)         --! Cascaded Result
@@ -443,7 +443,7 @@ begin
    begin
 
       if i_rst = c_RST_LEV_ACT then
-         e_pn_minus_elp_p <= (others => '0');
+         e_pn_minus_elp_p <= c_ZERO(e_pn_minus_elp_p'range);
 
       elsif rising_edge(i_clk) then
          e_pn_minus_elp_p <= std_logic_vector(       resize(  signed(adc_smp_ave(adc_smp_ave'high downto 1)), e_pn_minus_elp_p'length)  +
@@ -466,18 +466,18 @@ begin
          g_SAT_RANK           => c_M_PN_SAT           , -- integer                                          ; --! Extrem values reached on result bus
                                                                                                               --!   unsigned: range from               0  to 2**(g_SAT_RANK+1) - 1
                                                                                                               --!     signed: range from -2**(g_SAT_RANK) to 2**(g_SAT_RANK)   - 1
-         g_PRE_ADDER_OP       => '0'                  , -- bit                                              ; --! Pre-Adder operation     ('0' = add,    '1' = subtract)
-         g_MUX_C_CZ           => '0'                    -- bit                                                --! Multiplexer ALU operand ('0' = Port C, '1' = Cascaded Result Input)
+         g_PRE_ADDER_OP       => c_LOW_LEV_B          , -- bit                                              ; --! Pre-Adder operation     ('0' = add,    '1' = subtract)
+         g_MUX_C_CZ           => c_LOW_LEV_B            -- bit                                                --! Multiplexer ALU operand ('0' = Port C, '1' = Cascaded Result Input)
    ) port map (
          i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                => i_clk                , -- in     std_logic                                 ; --! Clock
 
-         i_carry              => '0'                  , -- in     std_logic                                 ; --! Carry In
+         i_carry              => c_LOW_LEV            , -- in     std_logic                                 ; --! Carry In
          i_a                  => e_pn_minus_elp_p     , -- in     std_logic_vector( g_PORTA_S-1 downto 0)   ; --! Port A
          i_b                  => ki_knorm_p_aln       , -- in     std_logic_vector( g_PORTB_S-1 downto 0)   ; --! Port B
-         i_c                  => (others => '0')      , -- in     std_logic_vector( g_PORTC_S-1 downto 0)   ; --! Port C
-         i_d                  => (others => '0')      , -- in     std_logic_vector( g_PORTB_S-1 downto 0)   ; --! Port D
-         i_cz                 => (others => '0')      , -- in     slv(c_MULT_ALU_RESULT_S-1 downto 0)       ; --! Cascaded Result Input
+         i_c                  => c_ZERO(c_DFLD_KIKNM_PIX_S-1 downto 0),  -- in slv( g_PORTC_S-1 downto 0)   ; --! Port C
+         i_d                  => c_ZERO(c_DFLD_KIKNM_PIX_S downto 0),    -- in slv( g_PORTB_S-1 downto 0)   ; --! Port D
+         i_cz                 => c_ZERO(c_MULT_ALU_RESULT_S-1 downto 0), -- in slv c_MULT_ALU_RESULT_S      ; --! Cascaded Result Input
 
          o_z                  => m_pn                 , -- out    std_logic_vector(g_RESULT_S-1 downto 0)   ; --! Result
          o_cz                 => open                   -- out    slv(c_MULT_ALU_RESULT_S-1 downto 0)         --! Cascaded Result
@@ -545,18 +545,18 @@ begin
          g_SAT_RANK           => c_PC1_PN_SAT         , -- integer                                          ; --! Extrem values reached on result bus
                                                                                                               --!   unsigned: range from               0  to 2**(g_SAT_RANK+1) - 1
                                                                                                               --!     signed: range from -2**(g_SAT_RANK) to 2**(g_SAT_RANK)   - 1
-         g_PRE_ADDER_OP       => '0'                  , -- bit                                              ; --! Pre-Adder operation     ('0' = add,    '1' = subtract)
-         g_MUX_C_CZ           => '0'                    -- bit                                                --! Multiplexer ALU operand ('0' = Port C, '1' = Cascaded Result Input)
+         g_PRE_ADDER_OP       => c_LOW_LEV_B          , -- bit                                              ; --! Pre-Adder operation     ('0' = add,    '1' = subtract)
+         g_MUX_C_CZ           => c_LOW_LEV_B            -- bit                                                --! Multiplexer ALU operand ('0' = Port C, '1' = Cascaded Result Input)
    ) port map (
          i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                => i_clk                , -- in     std_logic                                 ; --! Clock
 
-         i_carry              => '0'                  , -- in     std_logic                                 ; --! Carry In
+         i_carry              => c_LOW_LEV            , -- in     std_logic                                 ; --! Carry In
          i_a                  => dfb_pn               , -- in     std_logic_vector( g_PORTA_S-1 downto 0)   ; --! Port A
          i_b                  => a_p_aln              , -- in     std_logic_vector( g_PORTB_S-1 downto 0)   ; --! Port B
          i_c                  => m_pn_rnd_sat_pc1_pn  , -- in     std_logic_vector( g_PORTC_S-1 downto 0)   ; --! Port C
-         i_d                  => (others => '0')      , -- in     std_logic_vector( g_PORTB_S-1 downto 0)   ; --! Port D
-         i_cz                 => (others => '0')      , -- in     slv(c_MULT_ALU_RESULT_S-1 downto 0)       ; --! Cascaded Result Input
+         i_d                  => c_ZERO(c_DFLD_PARMA_PIX_S downto 0),    -- in slv( g_PORTB_S-1 downto 0)   ; --! Port D
+         i_cz                 => c_ZERO(c_MULT_ALU_RESULT_S-1 downto 0), -- in slv c_MULT_ALU_RESULT_S      ; --! Cascaded Result Input
 
          o_z                  => pc1_pn               , -- out    std_logic_vector(g_RESULT_S-1 downto 0)   ; --! Result
          o_cz                 => open                   -- out    slv(c_MULT_ALU_RESULT_S-1 downto 0)         --! Cascaded Result
@@ -628,18 +628,18 @@ begin
          g_SAT_RANK           => c_NRM_PN_SAT         , -- integer                                          ; --! Extrem values reached on result bus
                                                                                                               --!   unsigned: range from               0  to 2**(g_SAT_RANK+1) - 1
                                                                                                               --!     signed: range from -2**(g_SAT_RANK) to 2**(g_SAT_RANK)   - 1
-         g_PRE_ADDER_OP       => '0'                  , -- bit                                              ; --! Pre-Adder operation     ('0' = add,    '1' = subtract)
-         g_MUX_C_CZ           => '0'                    -- bit                                                --! Multiplexer ALU operand ('0' = Port C, '1' = Cascaded Result Input)
+         g_PRE_ADDER_OP       => c_LOW_LEV_B          , -- bit                                              ; --! Pre-Adder operation     ('0' = add,    '1' = subtract)
+         g_MUX_C_CZ           => c_LOW_LEV_B            -- bit                                                --! Multiplexer ALU operand ('0' = Port C, '1' = Cascaded Result Input)
    ) port map (
          i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                => i_clk                , -- in     std_logic                                 ; --! Clock
 
-         i_carry              => '0'                  , -- in     std_logic                                 ; --! Carry In
+         i_carry              => c_LOW_LEV            , -- in     std_logic                                 ; --! Carry In
          i_a                  => e_pn_minus_elp_p     , -- in     std_logic_vector( g_PORTA_S-1 downto 0)   ; --! Port A
          i_b                  => knorm_p_aln          , -- in     std_logic_vector( g_PORTB_S-1 downto 0)   ; --! Port B
-         i_c                  => (others => '0')      , -- in     std_logic_vector( g_PORTC_S-1 downto 0)   ; --! Port C
-         i_d                  => (others => '0')      , -- in     std_logic_vector( g_PORTB_S-1 downto 0)   ; --! Port D
-         i_cz                 => (others => '0')      , -- in     slv(c_MULT_ALU_RESULT_S-1 downto 0)       ; --! Cascaded Result Input
+         i_c                  => c_ZERO(c_DFLD_KNORM_PIX_S-1 downto 0),  -- in slv( g_PORTC_S-1 downto 0)   ; --! Port C
+         i_d                  => c_ZERO(c_DFLD_KNORM_PIX_S downto 0),    -- in slv( g_PORTB_S-1 downto 0)   ; --! Port D
+         i_cz                 => c_ZERO(c_MULT_ALU_RESULT_S-1 downto 0), -- in slv c_MULT_ALU_RESULT_S      ; --! Cascaded Result Input
 
          o_z                  => nrm_pn               , -- out    std_logic_vector(g_RESULT_S-1 downto 0)   ; --! Result
          o_cz                 => open                   -- out    slv(c_MULT_ALU_RESULT_S-1 downto 0)         --! Cascaded Result
@@ -707,11 +707,11 @@ begin
    begin
 
       if i_rst = c_RST_LEV_ACT then
-         o_sqm_data_sc_msb    <= (others => '0');
-         o_sqm_data_sc_lsb    <= (others => '0');
-         o_sqm_data_sc_first  <= '0';
-         o_sqm_data_sc_last   <= '0';
-         o_sqm_data_sc_rdy    <= '0';
+         o_sqm_data_sc_msb    <= c_ZERO(o_sqm_data_sc_msb'range);
+         o_sqm_data_sc_lsb    <= c_ZERO(o_sqm_data_sc_lsb'range);
+         o_sqm_data_sc_first  <= c_LOW_LEV;
+         o_sqm_data_sc_last   <= c_LOW_LEV;
+         o_sqm_data_sc_rdy    <= c_LOW_LEV;
 
       elsif rising_edge(i_clk) then
          if aqmde_sync = c_DST_AQMDE_ERRS then

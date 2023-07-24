@@ -72,6 +72,9 @@ entity sqm_fbk_mgt is port (
 end entity sqm_fbk_mgt;
 
 architecture RTL of sqm_fbk_mgt is
+constant c_MINUSTWO           : std_logic_vector(c_SQM_PLS_CNT_S-1 downto 0):=
+                                std_logic_vector(to_signed(-2, c_SQM_PLS_CNT_S))                            ; --! Minus two value
+
 constant c_FRAME_NB_CYC       : integer := c_MUX_FACT * c_PIXEL_DAC_NB_CYC                                  ; --! Frame period number
 constant c_FRAME_NB_CYC_S     : integer := log2_ceil(c_FRAME_NB_CYC)                                        ; --! Frame period number bus size
 constant c_SMFBD_POSITIVE_S   : integer := c_FRAME_NB_CYC_S + 1                                             ; --! SQUID MUX feedback delay in positive bus size
@@ -144,22 +147,22 @@ begin
    begin
 
       if i_rst = c_RST_LEV_ACT then
-         tst_pat_end_r     <= '1';
-         tst_pat_end_dtc   <= '0';
-         tst_pat_end_sync  <= '0';
+         tst_pat_end_r     <= c_HGH_LEV;
+         tst_pat_end_dtc   <= c_LOW_LEV;
+         tst_pat_end_sync  <= c_LOW_LEV;
 
       elsif rising_edge(i_clk) then
          tst_pat_end_r     <= i_tst_pat_end;
 
-         if (not(tst_pat_end_r) and i_tst_pat_end) = '1' then
-            tst_pat_end_dtc <= '1';
+         if (not(tst_pat_end_r) and i_tst_pat_end) = c_HGH_LEV then
+            tst_pat_end_dtc <= c_HGH_LEV;
 
-         elsif i_sync_re = '1' then
-            tst_pat_end_dtc <= '0';
+         elsif i_sync_re = c_HGH_LEV then
+            tst_pat_end_dtc <= c_LOW_LEV;
 
          end if;
 
-         if i_sync_re = '1' then
+         if i_sync_re = c_HGH_LEV then
             tst_pat_end_sync  <= tst_pat_end_dtc;
 
          end if;
@@ -176,17 +179,17 @@ begin
 
       if i_rst = c_RST_LEV_ACT then
          smfbd_r     <= c_EP_CMD_DEF_SMFBD;
-         smfbd_cmp   <= '0';
-         smfbd_cmp_r <= (others => '0');
+         smfbd_cmp   <= c_LOW_LEV;
+         smfbd_cmp_r <= (others => c_LOW_LEV);
 
       elsif rising_edge(i_clk) then
          smfbd_r  <= i_smfbd;
 
          if smfbd_r /= i_smfbd then
-            smfbd_cmp <= '1';
+            smfbd_cmp <= c_HGH_LEV;
 
          else
-            smfbd_cmp <= '0';
+            smfbd_cmp <= c_LOW_LEV;
 
          end if;
          smfbd_cmp_r <= smfbd_cmp_r(smfbd_cmp_r'high-1 downto 0) & smfbd_cmp;
@@ -202,10 +205,10 @@ begin
    begin
 
       if i_rst = c_RST_LEV_ACT then
-         smfbd_positive  <= (others => '0');
+         smfbd_positive  <= c_ZERO(smfbd_positive'range);
 
       elsif rising_edge(i_clk) then
-         if i_smfbd(i_smfbd'high) = '1' then
+         if i_smfbd(i_smfbd'high) = c_HGH_LEV then
             smfbd_positive <= std_logic_vector(signed(to_unsigned(c_FRAME_NB_CYC-c_DAC_SYNC_DATA_NPER-c_PLS_CNT_INIT_SHT, smfbd_positive'length))
                                       + resize(signed(i_smfbd), smfbd_positive'length));
 
@@ -230,18 +233,18 @@ begin
          g_SAT_RANK           => c_PXL_POS_INIT_SAT   , -- integer                                          ; --! Extrem values reached on result bus
                                                                                                               --!   unsigned: range from               0  to 2**(g_SAT_RANK+1) - 1
                                                                                                               --!     signed: range from -2**(g_SAT_RANK) to 2**(g_SAT_RANK)   - 1
-         g_PRE_ADDER_OP       => '0'                  , -- bit                                              ; --! Pre-Adder operation     ('0' = add,    '1' = subtract)
-         g_MUX_C_CZ           => '0'                    -- bit                                                --! Multiplexer ALU operand ('0' = Port C, '1' = Cascaded Result Input)
+         g_PRE_ADDER_OP       => c_LOW_LEV_B          , -- bit                                              ; --! Pre-Adder operation     ('0' = add,    '1' = subtract)
+         g_MUX_C_CZ           => c_LOW_LEV_B            -- bit                                                --! Multiplexer ALU operand ('0' = Port C, '1' = Cascaded Result Input)
    ) port map (
          i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                => i_clk                , -- in     std_logic                                 ; --! Clock
 
-         i_carry              => '0'                  , -- in     std_logic                                 ; --! Carry In
+         i_carry              => c_LOW_LEV            , -- in     std_logic                                 ; --! Carry In
          i_a                  => c_PXL_DAC_NCYC_INV_V , -- in     std_logic_vector( g_PORTA_S-1 downto 0)   ; --! Port A
          i_b                  => smfbd_positive       , -- in     std_logic_vector( g_PORTB_S-1 downto 0)   ; --! Port B
-         i_c                  => (others => '0')      , -- in     std_logic_vector( g_PORTC_S-1 downto 0)   ; --! Port C
+         i_c                  => c_ZERO(c_MULT_ALU_PORTC_S-1 downto 0),  -- in slv( g_PORTC_S-1 downto 0)   ; --! Port C
          i_d                  => c_PLS_CNT_INIT_SHT_V , -- in     std_logic_vector( g_PORTB_S-1 downto 0)   ; --! Port D
-         i_cz                 => (others => '0')      , -- in     slv(c_MULT_ALU_RESULT_S-1 downto 0)       ; --! Cascaded Result Input
+         i_cz                 => c_ZERO(c_MULT_ALU_RESULT_S-1 downto 0), -- in slv c_MULT_ALU_RESULT_S      ; --! Cascaded Result Input
 
          o_z                  => pixel_pos_div        , -- out    std_logic_vector(g_RESULT_S-1 downto 0)   ; --! Result
          o_cz                 => open                   -- out    slv(c_MULT_ALU_RESULT_S-1 downto 0)         --! Cascaded Result
@@ -255,22 +258,22 @@ begin
          g_PORTB_S            => c_SQM_PXL_POS_S      , -- integer                                          ; --! Port B bus size (<= c_MULT_ALU_PORTB_S)
          g_PORTC_S            => c_SMFBD_POSITIVE_S   , -- integer                                          ; --! Port C bus size (<= c_MULT_ALU_PORTC_S)
          g_RESULT_S           => c_SQM_PLS_CNT_S      , -- integer                                          ; --! Result bus size (<= c_MULT_ALU_RESULT_S)
-         g_RESULT_LSB_POS     => 0                    , -- integer                                          ; --! Result LSB position
+         g_RESULT_LSB_POS     => c_ZERO_INT           , -- integer                                          ; --! Result LSB position
          g_SAT_RANK           => c_PLS_CNT_INIT_SAT   , -- integer                                          ; --! Extrem values reached on result bus
                                                                                                               --!   unsigned: range from               0  to 2**(g_SAT_RANK+1) - 1
                                                                                                               --!     signed: range from -2**(g_SAT_RANK) to 2**(g_SAT_RANK)   - 1
-         g_PRE_ADDER_OP       => '0'                  , -- bit                                              ; --! Pre-Adder operation     ('0' = add,    '1' = subtract)
-         g_MUX_C_CZ           => '0'                    -- bit                                                --! Multiplexer ALU operand ('0' = Port C, '1' = Cascaded Result Input)
+         g_PRE_ADDER_OP       => c_LOW_LEV_B          , -- bit                                              ; --! Pre-Adder operation     ('0' = add,    '1' = subtract)
+         g_MUX_C_CZ           => c_LOW_LEV_B            -- bit                                                --! Multiplexer ALU operand ('0' = Port C, '1' = Cascaded Result Input)
    ) port map (
          i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                => i_clk                , -- in     std_logic                                 ; --! Clock
 
-         i_carry              => '0'                  , -- in     std_logic                                 ; --! Carry In
+         i_carry              => c_LOW_LEV            , -- in     std_logic                                 ; --! Carry In
          i_a                  => c_PXL_DAC_NCYC_NEG_V , -- in     std_logic_vector( g_PORTA_S-1 downto 0)   ; --! Port A
          i_b                  => pixel_pos_div        , -- in     std_logic_vector( g_PORTB_S-1 downto 0)   ; --! Port B
          i_c                  => smfbd_positive       , -- in     std_logic_vector( g_PORTC_S-1 downto 0)   ; --! Port C
-         i_d                  => (others => '0')      , -- in     std_logic_vector( g_PORTB_S-1 downto 0)   ; --! Port D
-         i_cz                 => (others => '0')      , -- in     slv(c_MULT_ALU_RESULT_S-1 downto 0)       ; --! Cascaded Result Input
+         i_d                  => c_ZERO(c_SQM_PXL_POS_S-1 downto 0),     -- in slv( g_PORTB_S-1 downto 0)   ; --! Port D
+         i_cz                 => c_ZERO(c_MULT_ALU_RESULT_S-1 downto 0), -- in slv c_MULT_ALU_RESULT_S      ; --! Cascaded Result Input
 
          o_z                  => pls_cnt_div_rem      , -- out    std_logic_vector(g_RESULT_S-1 downto 0)   ; --! Result
          o_cz                 => open                   -- out    slv(c_MULT_ALU_RESULT_S-1 downto 0)         --! Cascaded Result
@@ -284,10 +287,10 @@ begin
    begin
 
       if i_rst = c_RST_LEV_ACT then
-         sqm_pixel_pos_init <= (others => '1');
+         sqm_pixel_pos_init <= c_MINUSONE(sqm_pixel_pos_init'range);
 
       elsif rising_edge(i_clk) then
-         if pls_cnt_div_rem = std_logic_vector(to_signed(-2, pls_cnt_div_rem'length)) then
+         if pls_cnt_div_rem = c_MINUSTWO then
             if pixel_pos_div = c_MINUSONE(pixel_pos_div'range) then
                sqm_pixel_pos_init <= std_logic_vector(to_unsigned(c_SQM_PXL_POS_MX_VAL, sqm_pixel_pos_init'length));
 
@@ -339,10 +342,10 @@ begin
    begin
 
       if i_rst = c_RST_LEV_ACT then
-         sqm_pls_cnt_init  <= (others => '1');
+         sqm_pls_cnt_init  <= c_MINUSONE(sqm_pls_cnt_init'range);
 
       elsif rising_edge(i_clk) then
-         if pls_cnt_div_rem = std_logic_vector(to_signed(-2, pls_cnt_div_rem'length)) then
+         if pls_cnt_div_rem = c_MINUSTWO then
             sqm_pls_cnt_init <= std_logic_vector(to_unsigned(c_SQM_PLS_CNT_MX_VAL, sqm_pls_cnt_init'length));
 
          else
@@ -366,7 +369,7 @@ begin
          o_sqm_pls_cnt_init   <= std_logic_vector(to_signed(c_SQM_PLS_CNT_INIT, o_sqm_pls_cnt_init'length));
 
       elsif rising_edge(i_clk) then
-         if smfbd_cmp_r(smfbd_cmp_r'high) = '1' then
+         if smfbd_cmp_r(smfbd_cmp_r'high) = c_HGH_LEV then
             o_sqm_pixel_pos_init <= sqm_pixel_pos_init;
             pixel_pos_init       <= fbk_pixel_pos_init;
             o_sqm_pls_cnt_init   <= sqm_pls_cnt_init;
@@ -387,10 +390,10 @@ begin
          pls_cnt  <= std_logic_vector(to_unsigned(c_FBK_PLS_CNT_MX_VAL, pls_cnt'length));
 
       elsif rising_edge(i_clk) then
-         if i_sync_re = '1' then
+         if i_sync_re = c_HGH_LEV then
             pls_cnt <= o_sqm_pls_cnt_init(o_sqm_pls_cnt_init'high downto 1);
 
-         elsif pls_cnt(pls_cnt'high) = '1' then
+         elsif pls_cnt(pls_cnt'high) = c_HGH_LEV then
             pls_cnt <= std_logic_vector(to_unsigned(c_FBK_PLS_CNT_MX_VAL, pls_cnt'length));
 
          else
@@ -412,16 +415,16 @@ begin
    begin
 
       if i_rst = c_RST_LEV_ACT then
-         pixel_pos   <= (others => '1');
+         pixel_pos   <= c_MINUSONE(pixel_pos'range);
 
       elsif rising_edge(i_clk) then
-         if i_sync_re = '1' then
+         if i_sync_re = c_HGH_LEV then
             pixel_pos <= pixel_pos_init;
 
-         elsif (pixel_pos(pixel_pos'high) and pls_cnt(pls_cnt'high)) = '1' then
+         elsif (pixel_pos(pixel_pos'high) and pls_cnt(pls_cnt'high)) = c_HGH_LEV then
             pixel_pos <= std_logic_vector(to_unsigned(c_SQM_PXL_POS_MX_VAL , pixel_pos'length));
 
-         elsif (not(pixel_pos(pixel_pos'high)) and pls_cnt(pls_cnt'high)) = '1' then
+         elsif (not(pixel_pos(pixel_pos'high)) and pls_cnt(pls_cnt'high)) = c_HGH_LEV then
             pixel_pos <= std_logic_vector(signed(pixel_pos) - 1);
 
          end if;
@@ -447,7 +450,7 @@ begin
       elsif rising_edge(i_clk) then
          smfmd_sync_r <= smfmd_sync & smfmd_sync_r(0 to smfmd_sync_r'high-1);
 
-         if (pls_cnt(pls_cnt'high) and pixel_pos(pixel_pos'high)) = '1' then
+         if (pls_cnt(pls_cnt'high) and pixel_pos(pixel_pos'high)) = c_HGH_LEV then
             smfmd_sync         <= i_smfmd;
             mem_smfb0_prm.pp   <= mem_smfb0_pp;
             mem_smfbm_prm.pp   <= mem_smfbm_pp;
@@ -494,9 +497,9 @@ begin
    --!      (Getting parameter side)
    -- ------------------------------------------------------------------------------------------------------
    mem_smfb0_prm.add     <= pixel_pos_inc;
-   mem_smfb0_prm.we      <= '0';
-   mem_smfb0_prm.cs      <= '1';
-   mem_smfb0_prm.data_w  <= (others => '0');
+   mem_smfb0_prm.we      <= c_LOW_LEV;
+   mem_smfb0_prm.cs      <= c_HGH_LEV;
+   mem_smfb0_prm.data_w  <= c_ZERO(mem_smfb0_prm.data_w'range);
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Dual port memory for SQUID MUX feedback mode
@@ -534,7 +537,7 @@ begin
    --!      (Getting parameter side)
    -- ------------------------------------------------------------------------------------------------------
    mem_smfbm_prm.add     <= pixel_pos_inc;
-   mem_smfbm_prm.cs      <= '1';
+   mem_smfbm_prm.cs      <= c_HGH_LEV;
    mem_smfbm_prm.data_w  <= c_DST_SMFBM_OPEN;
 
    --! SQUID MUX feedback mode, memory write enable
@@ -542,14 +545,14 @@ begin
    begin
 
       if i_rst = c_RST_LEV_ACT then
-         mem_smfbm_prm.we  <= '0';
+         mem_smfbm_prm.we  <= c_LOW_LEV;
 
       elsif rising_edge(i_clk) then
-         if (smfbm = c_DST_SMFBM_TEST) and (pls_cnt = std_logic_vector(to_unsigned(c_MEM_RD_DATA_NPER, pls_cnt'length))) and (tst_pat_end_sync = '1') then
-            mem_smfbm_prm.we  <= '1';
+         if (smfbm = c_DST_SMFBM_TEST) and (pls_cnt = std_logic_vector(to_unsigned(c_MEM_RD_DATA_NPER, pls_cnt'length))) and (tst_pat_end_sync = c_HGH_LEV) then
+            mem_smfbm_prm.we  <= c_HGH_LEV;
 
          else
-            mem_smfbm_prm.we  <= '0';
+            mem_smfbm_prm.we  <= c_LOW_LEV;
 
          end if;
 
@@ -564,7 +567,7 @@ begin
    begin
 
       if rising_edge(i_clk) then
-         if i_sqm_dta_err_cor_cs = '1' then
+         if i_sqm_dta_err_cor_cs = c_HGH_LEV then
             mem_sqm_dta_err_cor(to_integer(unsigned(i_sqm_dta_pixel_pos))) <= i_sqm_dta_err_cor;
          end if;
       end if;
@@ -576,7 +579,7 @@ begin
    begin
 
       if i_rst = c_RST_LEV_ACT then
-         sqm_dta_err_cor_rd <= (others => '0');
+         sqm_dta_err_cor_rd <= c_ZERO(sqm_dta_err_cor_rd'range);
 
       elsif rising_edge(i_clk) then
          sqm_dta_err_cor_rd <= mem_sqm_dta_err_cor(to_integer(unsigned(pixel_pos_inc)));
@@ -600,11 +603,11 @@ begin
    begin
 
       if i_rst = c_RST_LEV_ACT then
-         test_pattern_sync <= (others => '0');
+         test_pattern_sync <= c_ZERO(test_pattern_sync'range);
 
       elsif rising_edge(i_clk) then
-         if (pixel_pos(pixel_pos'high) and pls_cnt(pls_cnt'high)) = '1' then
-            if i_tst_pat_end = '0' then
+         if (pixel_pos(pixel_pos'high) and pls_cnt(pls_cnt'high)) = c_HGH_LEV then
+            if i_tst_pat_end = c_LOW_LEV then
                test_pattern_sync <= i_test_pattern;
 
             else
@@ -627,11 +630,11 @@ begin
    begin
 
       if i_rst = c_RST_LEV_ACT then
-         o_sqm_data_fbk <= (others => '0');
+         o_sqm_data_fbk <= c_ZERO(o_sqm_data_fbk'range);
 
       elsif rising_edge(i_clk) then
          if smfmd_sync = c_DST_SMFMD_OFF then
-            o_sqm_data_fbk <= (others => '0');
+            o_sqm_data_fbk <= c_ZERO(o_sqm_data_fbk'range);
 
          elsif smfbm = c_DST_SMFBM_CLOSE then
             o_sqm_data_fbk <= sqm_dta_err_cor_rd;
@@ -655,17 +658,17 @@ begin
 
       if i_rst = c_RST_LEV_ACT then
          pixel_pos_inc_r   <= (others => c_ZERO(pixel_pos_inc_r(pixel_pos_inc_r'low)'range));
-         o_init_fbk_acc    <= '1';
+         o_init_fbk_acc    <= c_HGH_LEV;
          o_sqm_fbk_smfb0   <= std_logic_vector(to_unsigned(c_EP_CMD_DEF_SMFB0(c_COL0), o_sqm_fbk_smfb0'length));
 
       elsif rising_edge(i_clk) then
          pixel_pos_inc_r   <= pixel_pos_inc & pixel_pos_inc_r(0 to pixel_pos_inc_r'high-1);
 
          if (smfbm = c_DST_SMFBM_CLOSE and smfmd_sync_r(smfmd_sync_r'high) = c_DST_SMFMD_ON) then
-            o_init_fbk_acc <= '0';
+            o_init_fbk_acc <= c_LOW_LEV;
 
          else
-            o_init_fbk_acc <= '1';
+            o_init_fbk_acc <= c_HGH_LEV;
 
          end if;
 

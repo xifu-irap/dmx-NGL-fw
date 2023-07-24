@@ -233,7 +233,7 @@ begin
    begin
 
       -- Open Command and Result files
-      if g_SIM_TYPE = '0' then
+      if g_SIM_TYPE = c_LOW_LEV then
          file_open(cmd_file, c_DIR_ROOT_SIMU & c_DIR_CMD_FILE & c_SIM_NAME & c_CMD_FILE_SFX, READ_MODE );
          file_open(res_file, c_DIR_ROOT_SIMU & c_DIR_RES_FILE & c_SIM_NAME & c_RES_FILE_SFX, WRITE_MODE);
 
@@ -250,16 +250,16 @@ begin
 
       -- Default value initialization
       discrete_w        <= (others => c_LOW_LEV);
-      o_brd_ref         <= (others => c_LOW_LEV);
+      o_brd_ref         <= c_ZERO(o_brd_ref'range);
       o_ep_cmd_ser_wd_s <= std_logic_vector(to_unsigned(c_EP_CMD_S, o_ep_cmd_ser_wd_s'length));
-      o_ep_cmd          <= (others => c_LOW_LEV);
+      o_ep_cmd          <= c_ZERO(o_ep_cmd'range);
       o_ep_cmd_start    <= c_LOW_LEV;
       o_adc_dmp_mem_cs  <= (others => c_LOW_LEV);
-      o_fpa_cmd         <= (others => (others => c_LOW_LEV));
+      o_fpa_cmd         <= (others => c_ZERO(o_fpa_cmd(o_fpa_cmd'low)'range));
       o_fpa_cmd_valid   <= (others => c_LOW_LEV);
       v_error_cat       := (others => c_LOW_LEV);
       v_chk_rpt_prm_ena := (others => c_LOW_LEV);
-      v_line_cnt        := 1;
+      v_line_cnt        := c_ONE_INT;
       v_record_time     := c_ZERO_TIME;
 
       for k in 0 to c_NB_COL-1 loop
@@ -276,13 +276,13 @@ begin
          write(v_head_mess_stdout, "File " & c_SIM_NAME & ", line " & integer'image(v_line_cnt) & ": ");
 
          -- Do nothing for empty line
-         if v_cmd_file_line'length /= 0 then
+         if v_cmd_file_line'length /= c_ZERO_INT then
 
             -- Get [cmd]
             rfield(v_cmd_file_line, v_head_mess_stdout.all & "[cmd]", c_CMD_FILE_CMD_S, v_fld_cmd);
 
             -- [cmd] analysis
-            case v_fld_cmd(1 to c_CMD_FILE_CMD_S) is
+            case v_fld_cmd(c_ONE_INT to c_CMD_FILE_CMD_S) is
 
                -- ------------------------------------------------------------------------------------------------------
                -- Command CCMD [cmd] [end]: check the EP command return
@@ -412,7 +412,7 @@ begin
          end if;
 
          -- Exit loop in case of error simulation time
-         if v_err_sim_time = '1' then
+         if v_err_sim_time = c_HGH_LEV then
             exit;
          end if;
 
@@ -433,7 +433,7 @@ begin
       for k in 0 to c_CHK_ENA_CLK_NB-1 loop
 
          -- Check if clock parameters check is enabled
-         if v_chk_rpt_prm_ena(k) = '1' then
+         if v_chk_rpt_prm_ena(k) = c_HGH_LEV then
 
             -- Write clock parameters check results
             fprintf(none, c_RES_FILE_DIV_BAR & c_RES_FILE_DIV_BAR , res_file);
@@ -465,8 +465,8 @@ begin
 
             -- Set possible error
             for j in 0 to c_ERR_N_CLK_CHK_S-1 loop
-               if i_err_chk_rpt(k)(j) /= 0 then
-                  v_err_chk_clk_prm := '1';
+               if i_err_chk_rpt(k)(j) /= c_ZERO_INT then
+                  v_err_chk_clk_prm := c_HGH_LEV;
                end if;
             end loop;
 
@@ -477,7 +477,7 @@ begin
       for k in 0 to c_CHK_ENA_SPI_NB-1 loop
 
          -- Check if SPI parameters check is enabled
-         if v_chk_rpt_prm_ena(k+c_CHK_ENA_CLK_NB) = '1' then
+         if v_chk_rpt_prm_ena(k+c_CHK_ENA_CLK_NB) = c_HGH_LEV then
 
             -- Write SPI parameters check results
             fprintf(none, c_RES_FILE_DIV_BAR & c_RES_FILE_DIV_BAR , res_file);
@@ -513,8 +513,8 @@ begin
 
             -- Set possible error
             for j in 0 to c_SPI_ERR_CHK_NB-1 loop
-               if i_err_n_spi_chk(k)(j) /= 0 then
-                  v_err_chk_spi_prm := '1';
+               if i_err_n_spi_chk(k)(j) /= c_ZERO_INT then
+                  v_err_chk_spi_prm := c_HGH_LEV;
                end if;
             end loop;
 
@@ -522,15 +522,15 @@ begin
       end loop;
 
       -- Pulse shaping error report
-      if v_chk_rpt_prm_ena(c_E_PLS_SHP) = '1' then
+      if v_chk_rpt_prm_ena(c_E_PLS_SHP) = c_HGH_LEV then
          fprintf(none, c_RES_FILE_DIV_BAR & c_RES_FILE_DIV_BAR & c_RES_FILE_DIV_BAR, res_file);
 
          for k in 0 to c_NB_COL-1 loop
 
             fprintf(none, "Error number pulse shaping channel " & integer'image(k) & ": " & integer'image(i_err_num_pls_shp(k)),   res_file);
 
-            if i_err_num_pls_shp(k) /= 0 then
-               v_err_chk_pls_shp := '1';
+            if i_err_num_pls_shp(k) /= c_ZERO_INT then
+               v_err_chk_pls_shp := c_HGH_LEV;
             end if;
 
          end loop;
@@ -552,7 +552,7 @@ begin
       fprintf(none, "Simulation time               : " & time'image(now), res_file);
 
       -- Final test status
-      if v_error_cat = c_ZERO(v_error_cat'range) and i_sc_pkt_err = '0' then
+      if v_error_cat = c_ZERO(v_error_cat'range) and i_sc_pkt_err = c_LOW_LEV then
          fprintf(none, "Simulation status             : PASS", res_file);
 
       else

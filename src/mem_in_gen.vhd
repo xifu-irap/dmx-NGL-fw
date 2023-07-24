@@ -72,13 +72,13 @@ begin
       begin
 
          if i_rst = c_RST_LEV_ACT then
-            o_mem_in_cs(k) <= '0';
-            o_mem_in_pp(k) <= '0';
+            o_mem_in_cs(k) <= c_LOW_LEV;
+            o_mem_in_pp(k) <= c_LOW_LEV;
 
          elsif rising_edge(i_clk) then
             if i_col_nb = std_logic_vector(to_unsigned(k, log2_ceil(c_NB_COL))) then
 
-               if i_cs_rg = '1' then
+               if i_cs_rg = c_HGH_LEV then
                   o_mem_in_cs(k) <= i_ep_cmd_rx_ner_ry_r;
 
                   if o_mem_in_add = std_logic_vector(to_unsigned(g_MEM_ADD_END, g_MEM_ADD_S)) then

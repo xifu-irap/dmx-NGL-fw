@@ -32,6 +32,7 @@ use     ieee.std_logic_1164.all;
 library work;
 use     work.pkg_fpga_tech.all;
 use     work.pkg_func_math.all;
+use     work.pkg_type.all;
 use     work.pkg_project.all;
 
 library nx;
@@ -51,7 +52,7 @@ entity pll is port (
 end entity pll;
 
 architecture RTL of pll is
-constant c_PRM_NU             : integer :=  0                                                               ; --! Parameter not used
+constant c_PRM_NU             : integer := c_ZERO_INT                                                       ; --! Parameter not used
 
 constant c_CLK_REF_DIV        : integer := div_floor(c_CLK_REF_FREQ, 100000000)                             ; --! Pll main ref. clock freq. divided as 20MHz<= CLK_REF_FREQ /(REF_INTDIV + 1) <= 100MHz
 

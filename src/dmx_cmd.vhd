@@ -83,26 +83,26 @@ begin
 
       if i_rst = c_RST_LEV_ACT then
          sync_rs_r   <= c_I_SYNC_DEF;
-         o_sync_re   <= '0';
+         o_sync_re   <= c_LOW_LEV;
          ck_pls_cnt  <= std_logic_vector(to_signed(c_CK_PLS_CNT_MAX_VAL, ck_pls_cnt'length));
-         pixel_pos   <= (others => '1');
+         pixel_pos   <= c_MINUSONE(pixel_pos'range);
 
       elsif rising_edge(i_clk) then
          sync_rs_r   <= i_sync_rs;
          o_sync_re   <= not(sync_rs_r) and i_sync_rs;
 
-         if ((not(sync_rs_r) and i_sync_rs) or ck_pls_cnt(ck_pls_cnt'high)) = '1' then
+         if ((not(sync_rs_r) and i_sync_rs) or ck_pls_cnt(ck_pls_cnt'high)) = c_HGH_LEV then
             ck_pls_cnt <= std_logic_vector(to_signed(c_CK_PLS_CNT_MAX_VAL, ck_pls_cnt'length));
 
-         elsif not(pixel_pos(pixel_pos'high)) = '1' then
+         elsif not(pixel_pos(pixel_pos'high)) = c_HGH_LEV then
             ck_pls_cnt <= std_logic_vector(signed(ck_pls_cnt) - 1);
 
          end if;
 
-         if (not(sync_rs_r) and i_sync_rs) = '1' then
+         if (not(sync_rs_r) and i_sync_rs) = c_HGH_LEV then
             pixel_pos <= std_logic_vector(to_signed(c_PIXEL_POS_MAX_VAL , pixel_pos'length));
 
-         elsif (not(pixel_pos(pixel_pos'high)) and ck_pls_cnt(ck_pls_cnt'high)) = '1' then
+         elsif (not(pixel_pos(pixel_pos'high)) and ck_pls_cnt(ck_pls_cnt'high)) = c_HGH_LEV then
             pixel_pos <= std_logic_vector(signed(pixel_pos) - 1);
 
          end if;
@@ -118,29 +118,29 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    G_column_mgt: for k in 0 to c_NB_COL-1 generate
    begin
-      cmd_ck_adc_ena(k)     <=   '1' when i_aqmde    = c_DST_AQMDE_DUMP  else
-                                 '1' when i_aqmde    = c_DST_AQMDE_SCIE  else
-                                 '1' when i_aqmde    = c_DST_AQMDE_ERRS  else
-                                 '1' when i_smfmd(k) = c_DST_SMFMD_ON    else '0';
-      cmd_ck_sqm_dac_ena(k) <=   '1' when i_smfmd(k) = c_DST_SMFMD_ON    else '0';
+      cmd_ck_adc_ena(k)     <=   c_HGH_LEV when i_aqmde    = c_DST_AQMDE_DUMP  else
+                                 c_HGH_LEV when i_aqmde    = c_DST_AQMDE_SCIE  else
+                                 c_HGH_LEV when i_aqmde    = c_DST_AQMDE_ERRS  else
+                                 c_HGH_LEV when i_smfmd(k) = c_DST_SMFMD_ON    else c_LOW_LEV;
+      cmd_ck_sqm_dac_ena(k) <=   c_HGH_LEV when i_smfmd(k) = c_DST_SMFMD_ON    else c_LOW_LEV;
 
       --! Command switch clocks
       P_cmd_ck_sqm : process (i_rst, i_clk)
       begin
 
          if i_rst = c_RST_LEV_ACT then
-            o_cmd_ck_adc_ena(k)     <= '0';
-            o_cmd_ck_adc_dis(k)     <= '0';
+            o_cmd_ck_adc_ena(k)     <= c_LOW_LEV;
+            o_cmd_ck_adc_dis(k)     <= c_LOW_LEV;
 
-            o_cmd_ck_sqm_dac_ena(k) <= '0';
-            o_cmd_ck_sqm_dac_dis(k) <= '0';
+            o_cmd_ck_sqm_dac_ena(k) <= c_LOW_LEV;
+            o_cmd_ck_sqm_dac_dis(k) <= c_LOW_LEV;
 
          elsif rising_edge(i_clk) then
             if pixel_pos = std_logic_vector(to_signed(c_PIX_POS_SW_ON, pixel_pos'length)) then
                o_cmd_ck_adc_ena(k) <= cmd_ck_adc_ena(k) and ck_pls_cnt(ck_pls_cnt'high);
 
             else
-               o_cmd_ck_adc_ena(k) <= '0';
+               o_cmd_ck_adc_ena(k) <= c_LOW_LEV;
 
             end if;
 
@@ -148,7 +148,7 @@ begin
                o_cmd_ck_adc_dis(k) <= not(cmd_ck_adc_ena(k)) and ck_pls_cnt(ck_pls_cnt'high);
 
             else
-               o_cmd_ck_adc_dis(k) <= '0';
+               o_cmd_ck_adc_dis(k) <= c_LOW_LEV;
 
             end if;
 
@@ -156,7 +156,7 @@ begin
                o_cmd_ck_sqm_dac_ena(k) <= cmd_ck_sqm_dac_ena(k) and ck_pls_cnt(ck_pls_cnt'high);
 
             else
-               o_cmd_ck_sqm_dac_ena(k) <= '0';
+               o_cmd_ck_sqm_dac_ena(k) <= c_LOW_LEV;
 
             end if;
 
