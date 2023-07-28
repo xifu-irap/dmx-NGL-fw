@@ -102,6 +102,7 @@ constant c_FB_PN_RDY_POS      : integer := c_NRM_PN_NPER      - c_MEM_RD_DATA_NP
 constant c_FB_PNP1_RDY_POS    : integer := c_FB_PNP1_NPER  - 1                                              ; --! Ready position: FB(p,n+1)
 constant c_INI_FB_PN_RDY_POS  : integer := c_FB_PN_RDY_POS - 1                                              ; --! Ready position: Initialization FB(p,n)
 constant c_SC_PN_RDY_POS      : integer := c_SC_PN_NPER - 1                                                 ; --! Ready position: SC(p,n)
+constant c_AQMDE_RDY_POS      : integer := c_SC_PN_RDY_POS - 2                                              ; --! Ready position: AQMDE sync
 
 constant c_PIXEL_POS_MAX_VAL  : integer := c_MUX_FACT - 1                                                   ; --! Pixel position: maximal value
 constant c_PIXEL_POS_S        : integer := log2_ceil(c_PIXEL_POS_MAX_VAL+1)                                 ; --! Pixel position: size bus
@@ -337,7 +338,7 @@ begin
          bxlgt_sync  <= c_EP_CMD_DEF_BXLGT;
 
       elsif rising_edge(i_clk) then
-         if (sqm_data_err_frst_r(c_SC_PN_RDY_POS-2) and sqm_data_err_rdy_r(c_SC_PN_RDY_POS-2)) = c_HGH_LEV then
+         if (sqm_data_err_frst_r(c_AQMDE_RDY_POS) and sqm_data_err_rdy_r(c_AQMDE_RDY_POS)) = c_HGH_LEV then
             aqmde_sync <= i_aqmde;
 
          end if;
@@ -715,12 +716,12 @@ begin
 
       elsif rising_edge(i_clk) then
          if aqmde_sync = c_DST_AQMDE_ERRS then
-            o_sqm_data_sc_msb    <= err_sig_r(err_sig_r'high)(2*c_SC_DATA_SER_W_S-1 downto c_SC_DATA_SER_W_S);
-            o_sqm_data_sc_lsb    <= err_sig_r(err_sig_r'high)(  c_SC_DATA_SER_W_S-1 downto 0);
+            o_sqm_data_sc_msb    <= err_sig_r(err_sig_r'high)(c_SC_DATA_SER_NB*c_SC_DATA_SER_W_S-1 downto c_SC_DATA_SER_W_S);
+            o_sqm_data_sc_lsb    <= err_sig_r(err_sig_r'high)(                 c_SC_DATA_SER_W_S-1 downto 0);
 
          else
-            o_sqm_data_sc_msb    <= sqm_data_sc(2*c_SC_DATA_SER_W_S-1 downto c_SC_DATA_SER_W_S);
-            o_sqm_data_sc_lsb    <= sqm_data_sc(  c_SC_DATA_SER_W_S-1 downto 0);
+            o_sqm_data_sc_msb    <= sqm_data_sc(c_SC_DATA_SER_NB*c_SC_DATA_SER_W_S-1 downto c_SC_DATA_SER_W_S);
+            o_sqm_data_sc_lsb    <= sqm_data_sc(                 c_SC_DATA_SER_W_S-1 downto 0);
 
          end if;
 

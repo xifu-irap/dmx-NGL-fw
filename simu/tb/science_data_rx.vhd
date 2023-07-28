@@ -115,7 +115,7 @@ begin
             science_data(k)     <= c_ZERO(science_data(science_data'low)'range);
 
          elsif rising_edge(i_clk_science) then
-            science_data_ser(k) <= science_data_ser(k)(c_SC_DATA_SER_W_S-2 downto 0) & i_science_data_ser(k);
+            science_data_ser(k) <= science_data_ser(k)(science_data_ser(k)'high-1 downto 0) & i_science_data_ser(k);
 
             if ser_bit_cnt_msb_re = c_HGH_LEV then
                science_data(k)  <= science_data_ser(k);

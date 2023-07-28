@@ -468,7 +468,7 @@ signal   i_sqm_adc_ana_lst_ev : in     time_vector(0 to c_NB_COL-1)             
       get_param_ctdc(b_cmd_file_line, i_mess_header, v_fld_channel, v_fld_ope, v_fld_time);
 
       -- Compare time between the current time and SQUID MUX ADC output last event
-      cmp_time(v_fld_ope(c_ONE_INT to 2), now - i_sqm_adc_ana_lst_ev(v_fld_channel), v_fld_time, "ADC channel " & integer'image(v_fld_channel) & " last event" ,
+      cmp_time(v_fld_ope(c_ONE_INT to c_OPE_CMP_S), now - i_sqm_adc_ana_lst_ev(v_fld_channel), v_fld_time, "ADC channel " & integer'image(v_fld_channel) & " last event" ,
                i_mess_header & "[ope]", b_err_chk_time, res_file);
 
    end parser_cmd_ctdc;
@@ -495,7 +495,7 @@ signal   i_discrete_r_lst_ev  : time_vector(0 to c_CMD_FILE_FLD_DATA_S-1)       
       get_param_ctle(b_cmd_file_line, i_mess_header, v_fld_dr, v_fld_dr_ind, v_fld_ope, v_fld_time);
 
       -- Compare time between the current time and discrete input(s) last event
-      cmp_time(v_fld_ope(c_ONE_INT to 2), now - i_discrete_r_lst_ev(v_fld_dr_ind), v_fld_time, v_fld_dr.all & " last event" , i_mess_header & "[ope]", b_err_chk_time, res_file);
+      cmp_time(v_fld_ope(c_ONE_INT to c_OPE_CMP_S), now - i_discrete_r_lst_ev(v_fld_dr_ind), v_fld_time, v_fld_dr.all & " last event" , i_mess_header & "[ope]", b_err_chk_time, res_file);
 
    end parser_cmd_ctle;
 
@@ -518,7 +518,7 @@ file     res_file             :        text                                     
       get_param_ctlr(b_cmd_file_line, i_mess_header, v_fld_ope, v_fld_time);
 
       -- Compare time between the current and record time with expected time
-      cmp_time(v_fld_ope(c_ONE_INT to 2), now - i_record_time, v_fld_time, "record time", i_mess_header & "[ope]", b_err_chk_time, res_file);
+      cmp_time(v_fld_ope(c_ONE_INT to c_OPE_CMP_S), now - i_record_time, v_fld_time, "record time", i_mess_header & "[ope]", b_err_chk_time, res_file);
 
    end parser_cmd_ctlr;
 
@@ -568,6 +568,8 @@ signal   o_ep_cmd_start       : out    std_logic                                
 signal   i_ep_cmd_busy_n      : in     std_logic                                                            ; --  EP Command transmit busy ('0' = Busy, '1' = Not Busy)
          b_err_sim_time       : inout  std_logic                                                              --  Error simulation time ('0' = No error, '1' = Error: Simulation time not long enough)
    ) is
+   constant c_EP_START_DEL    : time := 2 * c_EP_CLK_PER_DEF                                                ; --! EP start delay
+
    variable v_mess_spi_cmd    : line                                                                        ; --! Message SPI command
    variable v_fld_spi_cmd     : std_logic_vector(c_EP_CMD_S-1 downto 0)                                     ; --! Field SPI command
    variable v_wait_end        : t_wait_cmd_end                                                              ; --! Wait command end
@@ -583,7 +585,7 @@ signal   i_ep_cmd_busy_n      : in     std_logic                                
       -- Send command
       o_ep_cmd       <= v_fld_spi_cmd;
       o_ep_cmd_start <= c_HGH_LEV;
-      wait for 2 * c_EP_CLK_PER_DEF;
+      wait for c_EP_START_DEL;
       o_ep_cmd_start <= c_LOW_LEV;
 
       -- [end] analysis
@@ -677,6 +679,8 @@ signal   i_fpa_cmd_rdy        : in     std_logic_vector(c_NB_COL-1 downto 0)    
 signal   o_fpa_cmd            : out    t_slv_arr(0 to c_NB_COL-1)(c_FPA_CMD_S-1 downto 0)                   ; --! FPASIM command
 signal   o_fpa_cmd_valid      : out    std_logic_vector(c_NB_COL-1 downto 0)                                  --! FPASIM command valid ('0' = No, '1' = Yes)
    ) is
+   constant c_FPA_CMD_VLD_DEL : time := 2 * c_CLK_FPA_PER_DEF                                               ; --! FPASIM command valid delay
+
    variable v_fld_channel     : integer range 0 to c_NB_COL-1                                               ; --! Field channel number
    variable v_fld_data        : std_logic_vector(c_FPA_CMD_S-1 downto 0)                                    ; --! Field data
    begin
@@ -695,7 +699,7 @@ signal   o_fpa_cmd_valid      : out    std_logic_vector(c_NB_COL-1 downto 0)    
 
       o_fpa_cmd(v_fld_channel)       <= v_fld_data;
       o_fpa_cmd_valid(v_fld_channel) <= c_HGH_LEV;
-      wait for 2 * c_CLK_FPA_PER_DEF;
+      wait for c_FPA_CMD_VLD_DEL;
       o_fpa_cmd_valid(v_fld_channel) <= c_LOW_LEV;
 
    end parser_cmd_wfmp;
@@ -729,7 +733,7 @@ signal   o_adc_dmp_mem_cs     : out    std_logic_vector(        c_NB_COL-1 downt
 
       -- Write in ADC dump/science memories
       o_adc_dmp_mem_add    <= std_logic_vector(to_unsigned(c_MUX_FACT * v_fld_frame + v_fld_index, o_adc_dmp_mem_add'length));
-      o_adc_dmp_mem_data   <= std_logic_vector(resize(unsigned(v_fld_data(2*c_EP_SPI_WD_S-1 downto c_EP_SPI_WD_S)), o_adc_dmp_mem_data'length));
+      o_adc_dmp_mem_data   <= std_logic_vector(resize(unsigned(v_fld_data(  c_EP_CMD_S   -1 downto c_EP_SPI_WD_S)), o_adc_dmp_mem_data'length));
       o_science_mem_data   <= std_logic_vector(resize(unsigned(v_fld_data(  c_EP_SPI_WD_S-1 downto 0)), o_science_mem_data'length));
       o_adc_dmp_mem_cs(v_fld_channel)  <= c_HGH_LEV;
       wait for c_CLK_REF_PER_DEF;

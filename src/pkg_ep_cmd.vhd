@@ -301,6 +301,10 @@ constant c_DFLD_RLDEL_COL_S   : integer   :=  c_EP_SPI_WD_S                     
 constant c_DFLD_RLTHR_COL_S   : integer   :=  c_EP_SPI_WD_S                                                 ; --! EP command: Data field, CY_RELOCK_THRESHOLD bus size
 constant c_DFLD_DLCNT_PIX_S   : integer   :=  c_EP_SPI_WD_S                                                 ; --! EP command: Data field, CY_DELOCK_COUNTERS bus size
 
+constant c_DFLD_SMFBD_MAX     : integer   :=  2*c_PIXEL_DAC_NB_CYC                                          ; --! EP command: Data field, CY_MUX_SQ_FB_DELAY maximal value
+constant c_DFLD_SAOMD_MAX     : integer   :=  2*c_PIXEL_DAC_NB_CYC                                          ; --! EP command: Data field, CY_AMP_SQ_OFFSET_MUX_DELAY maximal value
+constant c_DFLD_SMPDL_MAX     : integer   :=    c_PIXEL_ADC_NB_CYC - 1                                      ; --! EP command: Data field, CY_SAMPLING_DELAY maximal value
+
    -- ------------------------------------------------------------------------------------------------------
    --    EP command: Data field LSB position
    -- ------------------------------------------------------------------------------------------------------

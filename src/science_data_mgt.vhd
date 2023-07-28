@@ -63,6 +63,10 @@ architecture RTL of science_data_mgt is
 constant c_DT_PV              : integer:= 2                                                                 ; --! SQUID MUX Data science previous pipeline number
 constant c_DTA_SC_RDY_NPER    : integer:= 3                                                                 ; --! SQUID MUX Data science ready period number from ready for all columns activated
 
+constant c_SER_BIT_CNT_S      : integer:= log2_ceil(c_SC_DATA_SER_W_S-1) + 1                                ; --! Serial bit counter: size bus (signed)
+constant c_SER_BIT_CNT_DMP_VL : std_logic_vector(c_SER_BIT_CNT_S-1 downto 0) :=
+                                std_logic_vector(to_unsigned(c_SC_DATA_SER_W_S-2, c_SER_BIT_CNT_S))         ; --! Serial bit counter: value for dump
+
 constant c_DMP_CNT_NB_VAL     : integer:= c_DMP_SEQ_ACQ_NB * c_MUX_FACT * c_PIXEL_ADC_NB_CYC                ; --! Dump counter: number of value
 constant c_DMP_CNT_MAX_VAL    : integer:= c_DMP_CNT_NB_VAL-1                                                ; --! Dump counter: maximal value
 constant c_DMP_CNT_S          : integer:= log2_ceil(c_DMP_CNT_NB_VAL + 1) + 1                               ; --! Dump counter: size bus (signed)
@@ -102,7 +106,7 @@ signal   ctrl_first_pkt       : std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0)  
 
 signal   science_data_tx_ena  : std_logic                                                                   ; --! Science Data transmit enable
 signal   science_data         : t_slv_arr(0 to c_NB_COL*c_SC_DATA_SER_NB)(c_SC_DATA_SER_W_S-1 downto 0)     ; --! Science Data word
-signal   ser_bit_cnt          : std_logic_vector(log2_ceil(c_SC_DATA_SER_W_S-1) downto 0)                   ; --! Serial bit counter
+signal   ser_bit_cnt          : std_logic_vector(c_SER_BIT_CNT_S-1 downto 0)                                ; --! Serial bit counter
 
 begin
 
@@ -146,8 +150,8 @@ begin
 
          elsif rising_edge(i_clk) then
             if i_sqm_data_sc_rdy(k) = c_HGH_LEV then
-               sqm_data_sc_msb_pv(k) <= i_sqm_data_sc_msb(k) & sqm_data_sc_msb_pv(k)(0 to c_DT_PV-2);
-               sqm_data_sc_lsb_pv(k) <= i_sqm_data_sc_lsb(k) & sqm_data_sc_lsb_pv(k)(0 to c_DT_PV-2);
+               sqm_data_sc_msb_pv(k) <= i_sqm_data_sc_msb(k) & sqm_data_sc_msb_pv(k)(0 to sqm_data_sc_msb_pv(k)'high-1);
+               sqm_data_sc_lsb_pv(k) <= i_sqm_data_sc_lsb(k) & sqm_data_sc_lsb_pv(k)(0 to sqm_data_sc_lsb_pv(k)'high-1);
 
             end if;
 
@@ -340,7 +344,7 @@ begin
             if (dmp_cnt(dmp_cnt'high) and i_sqm_mem_dump_bsy) = c_HGH_LEV then
                dmp_cnt <= std_logic_vector(to_unsigned(c_DMP_CNT_MAX_VAL, dmp_cnt'length));
 
-            elsif not(dmp_cnt(dmp_cnt'high)) = c_HGH_LEV and ser_bit_cnt = std_logic_vector(to_unsigned(c_SC_DATA_SER_W_S-2, ser_bit_cnt'length)) then
+            elsif not(dmp_cnt(dmp_cnt'high)) = c_HGH_LEV and ser_bit_cnt = c_SER_BIT_CNT_DMP_VL then
                dmp_cnt <= std_logic_vector(signed(dmp_cnt) - 1);
 
             end if;
@@ -408,25 +412,25 @@ begin
       begin
 
          if i_rst = c_RST_LEV_ACT then
-            science_data(2*k+1)  <= c_ZERO(science_data(science_data'low)'range);
-            science_data(2*k)    <= c_ZERO(science_data(science_data'low)'range);
+            science_data(c_SC_DATA_SER_NB*k+1)  <= c_ZERO(science_data(science_data'low)'range);
+            science_data(c_SC_DATA_SER_NB*k)    <= c_ZERO(science_data(science_data'low)'range);
 
          elsif rising_edge(i_clk) then
             if    aqmde_sync = c_DST_AQMDE_DUMP then
-               science_data(2*k+1)  <= std_logic_vector(resize(unsigned(i_sqm_mem_dump_data(k)(c_SQM_ADC_DATA_S+1 downto c_SC_DATA_SER_W_S)), c_SC_DATA_SER_W_S));
-               science_data(2*k)    <= i_sqm_mem_dump_data(k)(c_SC_DATA_SER_W_S-1 downto 0);
+               science_data(c_SC_DATA_SER_NB*k+1)  <= std_logic_vector(resize(unsigned(i_sqm_mem_dump_data(k)(c_SQM_ADC_DATA_S+1 downto c_SC_DATA_SER_W_S)), c_SC_DATA_SER_W_S));
+               science_data(c_SC_DATA_SER_NB*k)    <= i_sqm_mem_dump_data(k)(c_SC_DATA_SER_W_S-1 downto 0);
 
             elsif (aqmde_sync = c_DST_AQMDE_SCIE) or (aqmde_sync = c_DST_AQMDE_ERRS) then
-               science_data(2*k+1)  <= sqm_data_sc_msb_mux(k);
-               science_data(2*k)    <= sqm_data_sc_lsb_mux(k);
+               science_data(c_SC_DATA_SER_NB*k+1)  <= sqm_data_sc_msb_mux(k);
+               science_data(c_SC_DATA_SER_NB*k)    <= sqm_data_sc_lsb_mux(k);
 
             elsif aqmde_sync = c_DST_AQMDE_TEST and (not(tst_pat_end_sync) and sqm_dta_sc_fst_all_r(sqm_dta_sc_fst_all_r'low)) = c_HGH_LEV then
-               science_data(2*k+1)  <= i_test_pattern(2*c_SC_DATA_SER_W_S-1 downto c_SC_DATA_SER_W_S);
-               science_data(2*k)    <= i_test_pattern(  c_SC_DATA_SER_W_S-1 downto                 0);
+               science_data(c_SC_DATA_SER_NB*k+1)  <= i_test_pattern(    c_SC_DATA_SER_NB*c_SC_DATA_SER_W_S-1 downto c_SC_DATA_SER_W_S);
+               science_data(c_SC_DATA_SER_NB*k)    <= i_test_pattern(                     c_SC_DATA_SER_W_S-1 downto                 0);
 
             elsif aqmde_sync = c_DST_AQMDE_IDLE or (aqmde_sync = c_DST_AQMDE_TEST and tst_pat_end_sync = c_HGH_LEV) then
-               science_data(2*k+1)  <= c_SC_DATA_IDLE_VAL(2*c_SC_DATA_SER_W_S-1 downto c_SC_DATA_SER_W_S);
-               science_data(2*k)    <= c_SC_DATA_IDLE_VAL(  c_SC_DATA_SER_W_S-1 downto                 0);
+               science_data(c_SC_DATA_SER_NB*k+1)  <= c_SC_DATA_IDLE_VAL(c_SC_DATA_SER_NB*c_SC_DATA_SER_W_S-1 downto c_SC_DATA_SER_W_S);
+               science_data(c_SC_DATA_SER_NB*k)    <= c_SC_DATA_IDLE_VAL(                 c_SC_DATA_SER_W_S-1 downto                 0);
 
             end if;
 

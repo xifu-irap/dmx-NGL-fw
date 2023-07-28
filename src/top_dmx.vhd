@@ -634,8 +634,8 @@ begin
    o_clk_science_01     <= ck_science;
    o_clk_science_23     <= ck_science;
 
-   o_science_ctrl_01    <= science_data_ser(4*c_SC_DATA_SER_NB);
-   o_science_ctrl_23    <= science_data_ser(4*c_SC_DATA_SER_NB);
+   o_science_ctrl_01    <= science_data_ser(science_data_ser'high);
+   o_science_ctrl_23    <= science_data_ser(science_data_ser'high);
 
    o_science_data(o_science_data'high) <= (others => c_LOW_LEV);
    o_spare                             <= c_LOW_LEV;

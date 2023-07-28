@@ -61,6 +61,7 @@ end entity sqa_dac_mgt;
 
 architecture RTL of sqa_dac_mgt is
 constant c_PLS_RW_CNT_NB_VAL  : integer:= c_PIXEL_DAC_NB_CYC * c_MUX_FACT                                   ; --! Pulse by row counter: number of value
+constant c_PLS_RW_CNT_GAP2    : integer:= 2*c_PLS_RW_CNT_NB_VAL                                             ; --! Pulse by row counter: second gap
 constant c_PLS_RW_CNT_MAX_VAL : integer:= c_PLS_RW_CNT_NB_VAL - 2                                           ; --! Pulse by row counter: maximal value
 constant c_PLS_RW_CNT_INIT    : integer:= c_PLS_RW_CNT_MAX_VAL - c_SAD_SYNC_DATA_NPER                       ; --! Pulse by row counter: initialization value
 constant c_PLS_RW_CNT_S       : integer:= log2_ceil(c_PLS_RW_CNT_MAX_VAL + 1) + 1                           ; --! Pulse by row counter: size bus (signed)
@@ -227,7 +228,7 @@ begin
 
          end if;
 
-         if unsigned(saodd_r(saodd_r'high)) >= to_unsigned(2*c_PLS_RW_CNT_NB_VAL-c_PLS_RW_CNT_INIT-1, c_DFLD_SAODD_COL_S) then
+         if unsigned(saodd_r(saodd_r'high)) >= to_unsigned(c_PLS_RW_CNT_GAP2 - c_PLS_RW_CNT_INIT-1, c_DFLD_SAODD_COL_S) then
             saodd_lim(c_SAODD_LIM0) <= c_HGH_LEV;
 
          else
@@ -269,10 +270,10 @@ begin
 
       elsif rising_edge(i_clk_sqm_adc_dac) then
          if saodd_lim(c_SAODD_LIM0) = c_HGH_LEV then
-            pls_rw_cnt_init_oft <=  std_logic_vector(to_signed(c_PLS_RW_CNT_INIT-2*c_PLS_RW_CNT_NB_VAL, pls_rw_cnt_init_oft'length));
+            pls_rw_cnt_init_oft <=  std_logic_vector(to_signed(c_PLS_RW_CNT_INIT - c_PLS_RW_CNT_GAP2, pls_rw_cnt_init_oft'length));
 
          elsif saodd_lim(c_SAODD_LIM1) = c_HGH_LEV then
-            pls_rw_cnt_init_oft <=  std_logic_vector(to_signed(c_PLS_RW_CNT_INIT-  c_PLS_RW_CNT_NB_VAL, pls_rw_cnt_init_oft'length));
+            pls_rw_cnt_init_oft <=  std_logic_vector(to_signed(c_PLS_RW_CNT_INIT - c_PLS_RW_CNT_NB_VAL, pls_rw_cnt_init_oft'length));
 
          else
             pls_rw_cnt_init_oft <=  std_logic_vector(to_signed(c_PLS_RW_CNT_INIT, pls_rw_cnt_init_oft'length));

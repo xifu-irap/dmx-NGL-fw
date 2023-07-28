@@ -92,6 +92,7 @@ constant c_PXL_DAC_NCYC_NEG_V : std_logic_vector(c_MULT_ALU_PORTA_S-1 downto 0) 
                                 std_logic_vector(to_signed(-c_PIXEL_DAC_NB_CYC , c_MULT_ALU_PORTA_S))       ; --! DAC clock period number allocated to one pixel acquisition negative vector
 
 constant c_FBK_PXL_POS_INIT   : integer:= c_SQA_PXL_POS_MX_VAL - 1                                          ; --! Feedback Pixel position: initialization value
+constant c_FBK_PXL_POS_SHIFT  : integer:= 2                                                                 ; --! Feedback Pixel position: shift
 
 signal   saomd_r              : std_logic_vector(c_DFLD_SAOMD_COL_S-1 downto 0)                             ; --! SQUID AMP offset MUX delay register
 signal   saomd_cmp            : std_logic                                                                   ; --! SQUID AMP offset MUX delay compare
@@ -302,7 +303,7 @@ begin
             fbk_pixel_pos_init <= std_logic_vector(to_unsigned(c_SQA_PXL_POS_MX_VAL-1, fbk_pixel_pos_init'length));
 
          else
-            fbk_pixel_pos_init <= std_logic_vector(signed(sqa_pixel_pos_init) - 2);
+            fbk_pixel_pos_init <= std_logic_vector(signed(sqa_pixel_pos_init) - c_FBK_PXL_POS_SHIFT);
 
          end if;
 

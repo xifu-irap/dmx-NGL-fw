@@ -98,7 +98,7 @@ begin
                science_data_ser(k) <= i_science_data(k);
 
             else
-               science_data_ser(k) <= science_data_ser(k)(c_SC_DATA_SER_W_S-2 downto 0) & c_LOW_LEV;
+               science_data_ser(k) <= science_data_ser(k)(science_data_ser(k)'high-1 downto 0) & c_LOW_LEV;
 
             end if;
 

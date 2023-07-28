@@ -50,6 +50,8 @@ constant c_MESS_ERR_UNKNOWN   : string  := " unknown"                           
 constant c_MESS_READ          : string  := ", read: "                                                       ; --! Message: read
 constant c_MESS_EXP           : string  := ", expected: "                                                   ; --! Message: expected
 
+constant c_HEX_W_MIN_S        : integer := 4                                                                ; --! Hexadecimal word minimum size
+
    -- ------------------------------------------------------------------------------------------------------
    --! Writes the message to the output stream file
    -- ------------------------------------------------------------------------------------------------------
@@ -256,12 +258,12 @@ package body pkg_mess is
       hwrite(v_line_temp, i_field);
 
       -- Group chain by packet of 4 characters
-      for i in 0 to v_line_temp'length/4-1 loop
+      for i in 0 to v_line_temp'length/c_HEX_W_MIN_S-1 loop
 
-         write(v_line, v_line_temp(4*i+1 to 4*(i+1)));
+         write(v_line, v_line_temp(c_HEX_W_MIN_S*i+1 to c_HEX_W_MIN_S*(i+1)));
 
          -- Insert underscore between each packet
-         if i/= v_line_temp'length/4-1 then
+         if i/= v_line_temp'length/c_HEX_W_MIN_S-1 then
             write(v_line, '_');
 
          end if;
@@ -361,6 +363,8 @@ package body pkg_mess is
          i_mess_header        : in     string                                                               ; --  Message header
          o_field              : out    time                                                                   --  Field found
    ) is
+   constant c_NOW_ST_S        : integer := 3                                                                ; --! "now" string size
+
    variable v_field           : line                                                                        ; --! First  field found
    variable v_field2          : line                                                                        ; --! Second field found
    variable v_field_s         : integer                                                                     ; --! Field size
@@ -371,7 +375,7 @@ package body pkg_mess is
       get_field_line(b_line, ' ', v_field, v_field_s);
 
       -- Check if field corresponds to 'now'
-      if v_field_s = 3 and v_field(c_ONE_INT to 3) = "now" then
+      if v_field_s = c_NOW_ST_S and v_field(c_ONE_INT to c_NOW_ST_S) = "now" then
          o_field := now;
 
       else
@@ -437,7 +441,8 @@ package body pkg_mess is
       get_field_line(b_line, ' ', v_field, v_field_s);
 
       -- Check the mask size
-      assert v_field_s = o_field'length report i_mess_header & c_MESS_ERR_SIZE & c_MESS_READ & integer'image(v_field_s) & c_MESS_EXP & integer'image(o_field'length) severity failure;
+      assert v_field_s = o_field'length report i_mess_header & c_MESS_ERR_SIZE & c_MESS_READ & integer'image(v_field_s) &
+                                               c_MESS_EXP & integer'image(o_field'length) severity failure;
 
       -- Get field output format, binary value
       read(v_field, o_field, v_field_status);
@@ -485,7 +490,7 @@ package body pkg_mess is
       get_field_line(b_line, ' ', v_field, v_field_s);
 
       -- Check the mask size
-      assert v_field_s = o_field'length/4 report i_mess_header & c_MESS_ERR_SIZE & c_MESS_READ & integer'image(v_field_s) & c_MESS_EXP & integer'image(o_field'length/4) severity failure;
+      assert v_field_s = o_field'length/c_HEX_W_MIN_S report i_mess_header & c_MESS_ERR_SIZE & c_MESS_READ & integer'image(v_field_s) & c_MESS_EXP & integer'image(o_field'length/c_HEX_W_MIN_S) severity failure;
 
       -- Get field output format, Hex value
       hread(v_field, o_field, v_field_status);

@@ -46,7 +46,7 @@ type     t_wait_cmd_end         is (none, wait_cmd_end_tx, wait_rcmd_end_rx)    
    --! Compare time and write result in file output
    -- ------------------------------------------------------------------------------------------------------
    procedure cmp_time (
-         i_ope                : in     string(1 to 2)                                                       ; --  Operator
+         i_ope                : in     string(1 to c_OPE_CMP_S)                                             ; --  Operator
          i_time_left          : in     time                                                                 ; --  Time left  operator
          i_time_right         : in     time                                                                 ; --  Time right operator
          i_mess_header        : in     string                                                               ; --  Message header
@@ -249,7 +249,7 @@ package body pkg_func_cmd_script is
    --! Compare time and write result in file output
    -- ------------------------------------------------------------------------------------------------------
    procedure cmp_time (
-         i_ope                : in     string(1 to 2)                                                       ; --  Operator
+         i_ope                : in     string(1 to c_OPE_CMP_S)                                             ; --  Operator
          i_time_left          : in     time                                                                 ; --  Time left  operator
          i_time_right         : in     time                                                                 ; --  Time right operator
          i_mess_header        : in     string                                                               ; --  Message header

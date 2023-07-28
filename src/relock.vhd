@@ -62,6 +62,9 @@ end entity relock;
 
 architecture RTL of relock is
 constant c_FF_ERR_COR_CS_NB   : integer := 4                                                                ; --! Flip-Flop number used for SQUID MUX Data error corrected chip select register
+constant c_ERR_CS_DLCWR_POS   : integer := 2                                                                ; --! SQUID MUX Data error corrected chip select Delock counter write position
+constant c_ERR_CS_DLFLG_POS   : integer := c_ERR_CS_DLCWR_POS+1                                             ; --! SQUID MUX Data error corrected chip select Delock Flags position
+
 constant c_DLCNT_SAT          : integer := 2**c_DFLD_DLCNT_PIX_S - 1                                        ; --! Delock counter saturation value
 constant c_CNT_THR_EXC_INIT   : std_logic_vector(c_DFLD_RLDEL_COL_S downto 0) :=
                                 std_logic_vector(to_unsigned(1, c_DFLD_RLDEL_COL_S+1))                      ; --! Counter threshold exceed initialization value
@@ -283,7 +286,7 @@ begin
          dlcnt_wr <= c_ZERO(dlcnt_wr'range);
 
       elsif rising_edge(i_clk) then
-         if sqm_dta_err_cor_cs_r(2) = c_HGH_LEV then
+         if sqm_dta_err_cor_cs_r(c_ERR_CS_DLCWR_POS) = c_HGH_LEV then
             if i_smfmd = c_DST_SMFMD_OFF then
                dlcnt_wr <= c_ZERO(dlcnt_wr'range);
 
@@ -320,7 +323,7 @@ begin
             dlflag(k)(dlflag(dlflag'low)'low) <= c_LOW_LEV;
 
          elsif rising_edge(i_clk) then
-            if (sqm_dta_err_cor_cs_r(3) = c_HGH_LEV) and (i_mem_rl_rd_add = std_logic_vector(to_unsigned(k, i_mem_rl_rd_add'length))) then
+            if (sqm_dta_err_cor_cs_r(c_ERR_CS_DLFLG_POS) = c_HGH_LEV) and (i_mem_rl_rd_add = std_logic_vector(to_unsigned(k, i_mem_rl_rd_add'length))) then
                if dlcnt_wr = c_ZERO(dlcnt_wr'range) then
                   dlflag(k)(dlflag(dlflag'low)'low) <= c_LOW_LEV;
 

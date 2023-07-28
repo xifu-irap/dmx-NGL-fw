@@ -69,11 +69,13 @@ begin
 
          -- Saturation on minimum value
          if    (i_data_carry(i_data_carry'high) and not(data_round(data_round'high))) = c_HGH_LEV then
-            o_data_rnd_sat <= (o_data_rnd_sat'high => c_HGH_LEV, others => c_LOW_LEV);
+            o_data_rnd_sat(o_data_rnd_sat'high)             <= c_HGH_LEV;
+            o_data_rnd_sat(o_data_rnd_sat'high-1 downto 0)  <= (others => c_LOW_LEV);
 
          -- Saturation on maximum value
          elsif (not(i_data_carry(i_data_carry'high)) and data_round(data_round'high)) = c_HGH_LEV then
-            o_data_rnd_sat <= (o_data_rnd_sat'high => c_LOW_LEV, others => c_HGH_LEV);
+            o_data_rnd_sat(o_data_rnd_sat'high)             <= c_LOW_LEV;
+            o_data_rnd_sat(o_data_rnd_sat'high-1 downto 0)  <= (others => c_HGH_LEV);
 
          else
             o_data_rnd_sat <= data_round;

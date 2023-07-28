@@ -313,7 +313,7 @@ begin
             science_data_r(k) <= (others => c_ZERO(science_data_r(science_data_r'low)(science_data_r'low)'range));
 
          elsif rising_edge(i_clk_science) then
-            science_data_r(k) <= i_science_data(k) & science_data_r(k)(0 to c_SC_DATA_R_PIP_NB-2);
+            science_data_r(k) <= i_science_data(k) & science_data_r(k)(0 to science_data_r(k)'high-1);
 
          end if;
 

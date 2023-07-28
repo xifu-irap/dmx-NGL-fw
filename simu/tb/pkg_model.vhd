@@ -93,6 +93,7 @@ constant c_CMD_FILE_FLD_DATA_S: integer := 64                                   
 constant c_RES_FILE_DIV_BAR   : string  := "--------------------------------------------------"             ; --! Result file divider bar
 constant c_SIG_NAME_STR_MAX_S : integer := 20                                                               ; --! Signal name string maximal size
 constant c_CMD_NAME_STR_MAX_S : integer := 30                                                               ; --! Command name string maximal size
+constant c_OPE_CMP_S          : integer := 2                                                                ; --! Compare operator string size
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Parser discrete input index
@@ -315,6 +316,7 @@ constant c_CLK_HPER           : time    := c_CLK_REF_PER_DEF/(2 * c_CLK_MULT)   
 constant c_CLK_ADC_HPER       : time    := c_CLK_REF_PER_DEF/(2 * c_CLK_ADC_DAC_MULT)                       ; --! ADC Clock half-period timing
 constant c_CLK_DAC_HPER       : time    := c_CLK_REF_PER_DEF/(2 * c_CLK_ADC_DAC_MULT)                       ; --! DAC Clock half-period timing
 constant c_CLK_SC_HPER        : time    := c_CLK_REF_PER_DEF/(2 * c_CLK_MULT)                               ; --! Science Data Clock half-period timing
+constant c_CLK_FPA_SHIFT      : time    := c_CLK_FPA_PER_DEF/4                                              ; --! FPASIM Clock shift
 
 constant c_CLK_ST             : std_logic := c_HGH_LEV                                                      ; --! System Clock state value when the enable signal goes to active
 constant c_CLK_ADC_ST         : std_logic := c_HGH_LEV                                                      ; --! ADC acquisition Clock state value when the enable signal goes to active

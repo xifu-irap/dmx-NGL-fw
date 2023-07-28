@@ -46,9 +46,14 @@ entity sts_err_out_mgt is port (
 end entity sts_err_out_mgt;
 
 architecture RTL of sts_err_out_mgt is
+constant c_DFLD_SMFMD_TOT_S   : integer   :=  c_EP_SPI_WD_S/c_NB_COL                                        ; --! EP command: Data field, SQ_MUX_FB_ON_OFF total bus size
+constant c_DFLD_SAOFM_TOT_S   : integer   :=  c_EP_SPI_WD_S/c_NB_COL                                        ; --! EP command: Data field, SQ_AMP_OFFSET_MODE total bus size
+
 signal   cond_aqmde           : std_logic                                                                   ; --! Error data out of range condition: DATA_ACQ_MODE
-signal   cond_smfmd           : std_logic                                                                   ; --! Error data out of range condition: SQ_MUX_FB_ON_OFF
-signal   cond_saofm           : std_logic                                                                   ; --! Error data out of range condition: SQ_AMP_OFFSET_MODE
+signal   cond_smfmd           : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! Error data out of range condition: SQ_MUX_FB_ON_OFF
+signal   cond_smfmd_or        : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! Error data out of range condition: SQ_MUX_FB_ON_OFF "or-ed"
+signal   cond_saofm           : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! Error data out of range condition: SQ_AMP_OFFSET_MODE
+signal   cond_saofm_or        : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! Error data out of range condition: SQ_AMP_OFFSET_MODE "or-ed"
 signal   cond_tsten           : std_logic                                                                   ; --! Error data out of range condition: TEST_PATTERN_ENABLE
 signal   cond_smfbm           : std_logic                                                                   ; --! Error data out of range condition: CY_MUX_SQ_FB_MODE
 signal   cond_saoff           : std_logic                                                                   ; --! Error data out of range condition: CY_AMP_SQ_OFFSET_FINE
@@ -65,62 +70,70 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   Error data out of range conditions
    -- ------------------------------------------------------------------------------------------------------
-   cond_aqmde     <= i_ep_cmd_rx_wd_data(15) or i_ep_cmd_rx_wd_data(14) or i_ep_cmd_rx_wd_data(13) or i_ep_cmd_rx_wd_data(12) or
-                     i_ep_cmd_rx_wd_data(11) or i_ep_cmd_rx_wd_data(10) or i_ep_cmd_rx_wd_data(9)  or i_ep_cmd_rx_wd_data(8)  or
-                     i_ep_cmd_rx_wd_data(7)  or i_ep_cmd_rx_wd_data(6)  or i_ep_cmd_rx_wd_data(5)  or i_ep_cmd_rx_wd_data(4)  or
-                     i_ep_cmd_rx_wd_data(3)  or
-                    (not(i_ep_cmd_rx_wd_data(2)) and  i_ep_cmd_rx_wd_data(1) and i_ep_cmd_rx_wd_data(0)) or
-                    (    i_ep_cmd_rx_wd_data(2)  and (i_ep_cmd_rx_wd_data(1) xor i_ep_cmd_rx_wd_data(0)));
+   cond_aqmde     <= c_HGH_LEV when i_ep_cmd_rx_wd_data(i_ep_cmd_rx_wd_data'high downto c_DFLD_AQMDE_S)     /= c_ZERO(i_ep_cmd_rx_wd_data'high downto c_DFLD_AQMDE_S) else
+                     c_LOW_LEV when i_ep_cmd_rx_wd_data(c_DFLD_AQMDE_S-1 downto 0) = c_DST_AQMDE_IDLE else
+                     c_LOW_LEV when i_ep_cmd_rx_wd_data(c_DFLD_AQMDE_S-1 downto 0) = c_DST_AQMDE_SCIE else
+                     c_LOW_LEV when i_ep_cmd_rx_wd_data(c_DFLD_AQMDE_S-1 downto 0) = c_DST_AQMDE_ERRS else
+                     c_LOW_LEV when i_ep_cmd_rx_wd_data(c_DFLD_AQMDE_S-1 downto 0) = c_DST_AQMDE_DUMP else
+                     c_LOW_LEV when i_ep_cmd_rx_wd_data(c_DFLD_AQMDE_S-1 downto 0) = c_DST_AQMDE_TEST else
+                     c_HGH_LEV;
 
-   cond_smfmd     <= i_ep_cmd_rx_wd_data(15) or i_ep_cmd_rx_wd_data(14) or i_ep_cmd_rx_wd_data(13) or
-                     i_ep_cmd_rx_wd_data(11) or i_ep_cmd_rx_wd_data(10) or i_ep_cmd_rx_wd_data(9)  or
-                     i_ep_cmd_rx_wd_data(7)  or i_ep_cmd_rx_wd_data(6)  or i_ep_cmd_rx_wd_data(5)  or
-                     i_ep_cmd_rx_wd_data(3)  or i_ep_cmd_rx_wd_data(2)  or i_ep_cmd_rx_wd_data(1);
+   cond_smfmd_or(0) <= cond_smfmd(0);
+   cond_saofm_or(0) <= cond_saofm(0);
 
-   cond_saofm     <= i_ep_cmd_rx_wd_data(15) or i_ep_cmd_rx_wd_data(14) or i_ep_cmd_rx_wd_data(11) or i_ep_cmd_rx_wd_data(10) or
-                     i_ep_cmd_rx_wd_data(7)  or i_ep_cmd_rx_wd_data(6)  or i_ep_cmd_rx_wd_data(3)  or i_ep_cmd_rx_wd_data(2);
+   G_column_mgt: for k in 0 to c_NB_COL-1 generate
+   begin
 
-   cond_tsten     <= i_ep_cmd_rx_wd_data(15) or i_ep_cmd_rx_wd_data(14) or i_ep_cmd_rx_wd_data(13) or i_ep_cmd_rx_wd_data(12) or
-                     i_ep_cmd_rx_wd_data(11) or i_ep_cmd_rx_wd_data(10) or i_ep_cmd_rx_wd_data(9)  or i_ep_cmd_rx_wd_data(8)  or
-                     i_ep_cmd_rx_wd_data(7)  or i_ep_cmd_rx_wd_data(6);
+      cond_smfmd(k)  <= c_HGH_LEV when i_ep_cmd_rx_wd_data((k+1)*c_DFLD_SMFMD_TOT_S-1 downto k*c_DFLD_SMFMD_TOT_S+c_DFLD_SMFMD_COL_S) /= c_ZERO(c_DFLD_SMFMD_TOT_S-1 downto c_DFLD_SMFMD_COL_S) else
+                        c_LOW_LEV;
 
-   cond_smfbm     <= i_ep_cmd_rx_wd_data(15) or i_ep_cmd_rx_wd_data(14) or i_ep_cmd_rx_wd_data(13) or i_ep_cmd_rx_wd_data(12) or
-                     i_ep_cmd_rx_wd_data(11) or i_ep_cmd_rx_wd_data(10) or i_ep_cmd_rx_wd_data(9)  or i_ep_cmd_rx_wd_data(8)  or
-                     i_ep_cmd_rx_wd_data(7)  or i_ep_cmd_rx_wd_data(6)  or i_ep_cmd_rx_wd_data(5)  or i_ep_cmd_rx_wd_data(4)  or
-                     i_ep_cmd_rx_wd_data(3)  or i_ep_cmd_rx_wd_data(2)  or
-                    (i_ep_cmd_rx_wd_data(1) and i_ep_cmd_rx_wd_data(0));
+      cond_saofm(k)  <= c_HGH_LEV when i_ep_cmd_rx_wd_data((k+1)*c_DFLD_SAOFM_TOT_S-1 downto k*c_DFLD_SAOFM_TOT_S+c_DFLD_SAOFM_COL_S) /= c_ZERO(c_DFLD_SAOFM_TOT_S-1 downto c_DFLD_SAOFM_COL_S) else
+                        c_LOW_LEV;
 
-   cond_saoff     <= i_ep_cmd_rx_wd_data(15) or i_ep_cmd_rx_wd_data(14) or i_ep_cmd_rx_wd_data(13) or i_ep_cmd_rx_wd_data(12) or
-                     i_ep_cmd_rx_wd_data(11) or i_ep_cmd_rx_wd_data(10) or i_ep_cmd_rx_wd_data(9)  or i_ep_cmd_rx_wd_data(8)  or
-                     i_ep_cmd_rx_wd_data(7)  or i_ep_cmd_rx_wd_data(6)  or i_ep_cmd_rx_wd_data(5)  or i_ep_cmd_rx_wd_data(4)  or
-                     i_ep_cmd_rx_wd_data(3);
+      G_k_not0: if k /= c_ZERO_INT generate
 
-   cond_saofl     <= i_ep_cmd_rx_wd_data(15) or i_ep_cmd_rx_wd_data(14) or i_ep_cmd_rx_wd_data(13) or i_ep_cmd_rx_wd_data(12);
+         cond_smfmd_or(k) <= cond_smfmd(k) or cond_smfmd_or(k-1);
+         cond_saofm_or(k) <= cond_saofm(k) or cond_saofm_or(k-1);
 
-   cond_saofc     <= i_ep_cmd_rx_wd_data(15) or i_ep_cmd_rx_wd_data(14) or i_ep_cmd_rx_wd_data(13) or i_ep_cmd_rx_wd_data(12);
+      end generate G_k_not0;
 
-   cond_smfbd     <= c_HGH_LEV when (i_ep_cmd_rx_wd_data(c_DFLD_SMFBD_COL_S-1) = c_LOW_LEV and
-                     i_ep_cmd_rx_wd_data(c_DFLD_SMFBD_COL_S-2 downto 0) > std_logic_vector(to_unsigned(2*c_PIXEL_DAC_NB_CYC, c_DFLD_SMFBD_COL_S-1))) else
-                     i_ep_cmd_rx_wd_data(15) or i_ep_cmd_rx_wd_data(14) or i_ep_cmd_rx_wd_data(13) or i_ep_cmd_rx_wd_data(12) or
-                     i_ep_cmd_rx_wd_data(11) or i_ep_cmd_rx_wd_data(10);
+   end generate G_column_mgt;
 
-   cond_saodd     <= i_ep_cmd_rx_wd_data(15) or i_ep_cmd_rx_wd_data(14) or i_ep_cmd_rx_wd_data(13) or i_ep_cmd_rx_wd_data(12) or
-                     i_ep_cmd_rx_wd_data(11) or i_ep_cmd_rx_wd_data(10);
+   cond_tsten     <= c_HGH_LEV when i_ep_cmd_rx_wd_data(i_ep_cmd_rx_wd_data'high downto c_DFLD_TSTEN_S)     /= c_ZERO(i_ep_cmd_rx_wd_data'high downto c_DFLD_TSTEN_S) else
+                     c_LOW_LEV;
 
-   cond_saomd     <= c_HGH_LEV when (i_ep_cmd_rx_wd_data(c_DFLD_SAOMD_COL_S-1) = c_LOW_LEV and
-                     i_ep_cmd_rx_wd_data(c_DFLD_SAOMD_COL_S-2 downto 0) > std_logic_vector(to_unsigned(2*c_PIXEL_DAC_NB_CYC, c_DFLD_SAOMD_COL_S-1))) else
-                     i_ep_cmd_rx_wd_data(15) or i_ep_cmd_rx_wd_data(14) or i_ep_cmd_rx_wd_data(13) or i_ep_cmd_rx_wd_data(12) or
-                     i_ep_cmd_rx_wd_data(11) or i_ep_cmd_rx_wd_data(10);
+   cond_smfbm     <= c_HGH_LEV when i_ep_cmd_rx_wd_data(i_ep_cmd_rx_wd_data'high downto c_DFLD_SMFBM_PIX_S) /= c_ZERO(i_ep_cmd_rx_wd_data'high downto c_DFLD_SMFBM_PIX_S) else
+                     c_LOW_LEV when i_ep_cmd_rx_wd_data(c_DFLD_SMFBM_PIX_S-1 downto 0) = c_DST_SMFBM_OPEN  else
+                     c_LOW_LEV when i_ep_cmd_rx_wd_data(c_DFLD_SMFBM_PIX_S-1 downto 0) = c_DST_SMFBM_CLOSE else
+                     c_LOW_LEV when i_ep_cmd_rx_wd_data(c_DFLD_SMFBM_PIX_S-1 downto 0) = c_DST_SMFBM_TEST  else
+                     c_HGH_LEV;
 
-   cond_smpdl     <= c_HGH_LEV when i_ep_cmd_rx_wd_data(c_DFLD_SMPDL_COL_S-1 downto 0) >= std_logic_vector(to_unsigned(c_PIXEL_ADC_NB_CYC , c_DFLD_SMPDL_COL_S)) else
-                     i_ep_cmd_rx_wd_data(15) or i_ep_cmd_rx_wd_data(14) or i_ep_cmd_rx_wd_data(13) or i_ep_cmd_rx_wd_data(12) or
-                     i_ep_cmd_rx_wd_data(11) or i_ep_cmd_rx_wd_data(10) or i_ep_cmd_rx_wd_data(9)  or i_ep_cmd_rx_wd_data(8)  or
-                     i_ep_cmd_rx_wd_data(7)  or i_ep_cmd_rx_wd_data(6)  or i_ep_cmd_rx_wd_data(5);
+   cond_saoff     <= c_HGH_LEV when i_ep_cmd_rx_wd_data(i_ep_cmd_rx_wd_data'high downto c_DFLD_SAOFF_PIX_S) /= c_ZERO(i_ep_cmd_rx_wd_data'high downto c_DFLD_SAOFF_PIX_S) else
+                     c_LOW_LEV;
 
-   cond_plsss     <= i_ep_cmd_rx_wd_data(15) or i_ep_cmd_rx_wd_data(14) or i_ep_cmd_rx_wd_data(13) or i_ep_cmd_rx_wd_data(12) or
-                     i_ep_cmd_rx_wd_data(11) or i_ep_cmd_rx_wd_data(10) or i_ep_cmd_rx_wd_data(9)  or i_ep_cmd_rx_wd_data(8)  or
-                     i_ep_cmd_rx_wd_data(7)  or i_ep_cmd_rx_wd_data(6)  or i_ep_cmd_rx_wd_data(5)  or i_ep_cmd_rx_wd_data(4)  or
-                     i_ep_cmd_rx_wd_data(3)  or i_ep_cmd_rx_wd_data(2);
+   cond_saofl     <= c_HGH_LEV when i_ep_cmd_rx_wd_data(i_ep_cmd_rx_wd_data'high downto c_DFLD_SAOFL_COL_S) /= c_ZERO(i_ep_cmd_rx_wd_data'high downto c_DFLD_SAOFL_COL_S) else
+                     c_LOW_LEV;
+
+   cond_saofc     <= c_HGH_LEV when i_ep_cmd_rx_wd_data(i_ep_cmd_rx_wd_data'high downto c_DFLD_SAOFC_COL_S) /= c_ZERO(i_ep_cmd_rx_wd_data'high downto c_DFLD_SAOFC_COL_S) else
+                     c_LOW_LEV;
+
+   cond_smfbd     <= c_HGH_LEV when i_ep_cmd_rx_wd_data(i_ep_cmd_rx_wd_data'high downto c_DFLD_SMFBD_COL_S) /= c_ZERO(i_ep_cmd_rx_wd_data'high downto c_DFLD_SMFBD_COL_S) else
+                     c_HGH_LEV when   signed(i_ep_cmd_rx_wd_data(c_DFLD_SMFBD_COL_S-1 downto 0)) > to_signed(  c_DFLD_SMFBD_MAX, c_DFLD_SMFBD_COL_S) else
+                     c_LOW_LEV;
+
+   cond_saodd     <= c_HGH_LEV when i_ep_cmd_rx_wd_data(i_ep_cmd_rx_wd_data'high downto c_DFLD_SAODD_COL_S) /= c_ZERO(i_ep_cmd_rx_wd_data'high downto c_DFLD_SAODD_COL_S) else
+                     c_LOW_LEV;
+
+   cond_saomd     <= c_HGH_LEV when i_ep_cmd_rx_wd_data(i_ep_cmd_rx_wd_data'high downto c_DFLD_SAOMD_COL_S) /= c_ZERO(i_ep_cmd_rx_wd_data'high downto c_DFLD_SAOMD_COL_S) else
+                     c_HGH_LEV when   signed(i_ep_cmd_rx_wd_data(c_DFLD_SAOMD_COL_S-1 downto 0)) > to_signed(  c_DFLD_SAOMD_MAX, c_DFLD_SAOMD_COL_S) else
+                     c_LOW_LEV;
+
+   cond_smpdl     <= c_HGH_LEV when i_ep_cmd_rx_wd_data(i_ep_cmd_rx_wd_data'high downto c_DFLD_SMPDL_COL_S) /= c_ZERO(i_ep_cmd_rx_wd_data'high downto c_DFLD_SMPDL_COL_S) else
+                     c_HGH_LEV when unsigned(i_ep_cmd_rx_wd_data(c_DFLD_SMPDL_COL_S-1 downto 0)) > to_unsigned(c_DFLD_SMPDL_MAX, c_DFLD_SMPDL_COL_S) else
+                     c_LOW_LEV;
+
+   cond_plsss     <= c_HGH_LEV when i_ep_cmd_rx_wd_data(i_ep_cmd_rx_wd_data'high downto c_DFLD_PLSSS_PLS_S) /= c_ZERO(i_ep_cmd_rx_wd_data'high downto c_DFLD_PLSSS_PLS_S) else
+                     c_LOW_LEV;
 
    -- ------------------------------------------------------------------------------------------------------
    --!   EP command: Status, error data out of range
@@ -142,10 +155,10 @@ begin
                   o_ep_cmd_sts_err_out <= cond_aqmde xor c_EP_CMD_ERR_CLR;
 
                elsif i_ep_cmd_rx_add_norw = c_EP_CMD_ADD_SMFMD  then
-                  o_ep_cmd_sts_err_out <= cond_smfmd xor c_EP_CMD_ERR_CLR;
+                  o_ep_cmd_sts_err_out <= cond_smfmd_or(cond_smfmd_or'high) xor c_EP_CMD_ERR_CLR;
 
                elsif i_ep_cmd_rx_add_norw = c_EP_CMD_ADD_SAOFM  then
-                  o_ep_cmd_sts_err_out <= cond_saofm xor c_EP_CMD_ERR_CLR;
+                  o_ep_cmd_sts_err_out <= cond_saofm_or(cond_saofm_or'high) xor c_EP_CMD_ERR_CLR;
 
                elsif i_ep_cmd_rx_add_norw = c_EP_CMD_ADD_TSTEN  then
                   o_ep_cmd_sts_err_out <= cond_tsten xor c_EP_CMD_ERR_CLR;

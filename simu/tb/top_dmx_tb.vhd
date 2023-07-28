@@ -376,7 +376,7 @@ begin
          o_sync               => open                   -- out    std_logic                                   --! Pixel sequence synchronization (R.E. detected = position sequence to the first pixel)
    );
 
-   clk_fpasim_shift <= transport clk_fpasim after (c_CLK_FPA_PER_DEF/4) when now > (c_CLK_FPA_PER_DEF/4) else c_LOW_LEV;
+   clk_fpasim_shift <= transport clk_fpasim after c_CLK_FPA_SHIFT when now > c_CLK_FPA_SHIFT else c_LOW_LEV;
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Housekeeping model

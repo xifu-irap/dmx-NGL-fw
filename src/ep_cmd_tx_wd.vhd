@@ -69,6 +69,8 @@ entity ep_cmd_tx_wd is port (
 end entity ep_cmd_tx_wd;
 
 architecture RTL of ep_cmd_tx_wd is
+constant c_HW_VER_FLD_S       : integer   := c_EP_SPI_WD_S/2                                                ; --! Hardware version field size
+
 signal   rg_col_data          : t_slv_arr(0 to c_NB_COL-1)(c_EP_RGC_ACC(c_EP_RGC_ACC'high)-1 downto 0)      ; --! EP register by column: Data read
 signal   rg_col_data_mux      : std_logic_vector(          c_EP_RGC_ACC(c_EP_RGC_ACC'high)-1 downto 0)      ; --! EP register by column: Data read multiplexer
 
@@ -202,7 +204,7 @@ begin
 
    -- @Req : REG_HW_Version
    -- @Req : DRE-DMX-FW-REQ-0530
-   data_rg_rd(c_EP_CMD_POS_HW_VER)<= std_logic_vector(resize(unsigned(i_brd_model_rs), c_EP_SPI_WD_S/2)) & std_logic_vector(resize(unsigned(i_brd_ref_rs), c_EP_SPI_WD_S/2));
+   data_rg_rd(c_EP_CMD_POS_HW_VER)<= std_logic_vector(resize(unsigned(i_brd_model_rs), c_HW_VER_FLD_S)) & std_logic_vector(resize(unsigned(i_brd_ref_rs), c_HW_VER_FLD_S));
 
    -- @Req : REG_CY_A
    -- @Req : DRE-DMX-FW-REQ-0180
