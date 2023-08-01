@@ -36,6 +36,7 @@ use     work.pkg_ep_cmd.all;
 use     work.pkg_mess.all;
 use     work.pkg_model.all;
 use     work.pkg_func_parser.all;
+use     work.pkg_mess_parser.all;
 
 library std;
 use std.textio.all;
@@ -77,7 +78,7 @@ entity parser is generic (
          o_ep_cmd             : out    std_logic_vector(c_EP_CMD_S-1 downto 0)                              ; --! EP: Command to send
          o_ep_cmd_start       : out    std_logic                                                            ; --! EP: Start command transmit ('0' = Inactive, '1' = Active)
          i_ep_cmd_busy_n      : in     std_logic                                                            ; --! EP: Command transmit busy ('0' = Busy, '1' = Not Busy)
-         o_ep_cmd_ser_wd_s    : out    std_logic_vector(log2_ceil(2*c_EP_CMD_S+1)-1 downto 0)               ; --! EP: Serial word size
+         o_ep_cmd_ser_wd_s    : out    std_logic_vector(log2_ceil(c_SER_WD_MAX_S+1)-1 downto 0)             ; --! EP: Serial word size
 
          o_brd_ref            : out    std_logic_vector(  c_BRD_REF_S-1 downto 0)                           ; --! Board reference
          o_brd_model          : out    std_logic_vector(c_BRD_MODEL_S-1 downto 0)                           ; --! Board model
@@ -215,14 +216,6 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    P_parser_seq: process
    variable v_error_cat       : std_logic_vector(c_ERROR_CAT_NB-1 downto 0)                                 ; --! Error category
-   alias    v_err_sim_time    : std_logic is v_error_cat(c_ERR_SIM_TIME)                                    ; --! Error simulation time ('0' = No error, '1' = Error: Simulation time not long enough)
-   alias    v_err_chk_dis_r   : std_logic is v_error_cat(c_ERR_CHK_DIS_R)                                   ; --! Error check discrete read  ('0' = No error, '1' = Error)
-   alias    v_err_chk_cmd_r   : std_logic is v_error_cat(c_ERR_CHK_CMD_R)                                   ; --! Error check command return ('0' = No error, '1' = Error)
-   alias    v_err_chk_time    : std_logic is v_error_cat(c_ERR_CHK_TIME)                                    ; --! Error check time           ('0' = No error, '1' = Error)
-   alias    v_err_chk_clk_prm : std_logic is v_error_cat(c_ERR_CHK_CLK_PRM)                                 ; --! Error check clocks parameters ('0' = No error, '1' = Error)
-   alias    v_err_chk_spi_prm : std_logic is v_error_cat(c_ERR_CHK_SPI_PRM)                                 ; --! Error check SPI parameters ('0' = No error, '1' = Error)
-   alias    v_err_chk_sc_pkt  : std_logic is v_error_cat(c_ERR_CHK_SC_PKT)                                  ; --! Error check science packet ('0' = No error, '1' = Error)
-   alias    v_err_chk_pls_shp : std_logic is v_error_cat(c_ERR_CHK_PLS_SHP)                                 ; --! Error check pulse shaping ('0' = No error, '1' = Error)
    variable v_chk_rpt_prm_ena : std_logic_vector(c_CMD_FILE_FLD_DATA_S-1 downto 0)                          ; --! Check report parameters enable
 
    variable v_line_cnt        : integer                                                                     ; --! Command file line counter
@@ -288,7 +281,7 @@ begin
                -- Command CCMD [cmd] [end]: check the EP command return
                -- ------------------------------------------------------------------------------------------------------
                when "CCMD" =>
-                  parser_cmd_ccmd(v_cmd_file_line, v_head_mess_stdout.all, res_file, i_ep_cmd_busy_n, i_ep_data_rx, g_SIM_TIME, v_err_chk_cmd_r, v_err_sim_time);
+                  parser_cmd_ccmd(v_cmd_file_line, v_head_mess_stdout.all, res_file, i_ep_cmd_busy_n, i_ep_data_rx, g_SIM_TIME, v_error_cat(c_ERR_CHK_CMD_R), v_error_cat(c_ERR_SIM_TIME));
 
                -- ------------------------------------------------------------------------------------------------------
                -- Command CCPE [report]: Enable the display in result file of the report about the check parameters
@@ -300,38 +293,38 @@ begin
                -- Command CDIS [discrete_r] [value]: check discrete input
                -- ------------------------------------------------------------------------------------------------------
                when "CDIS" =>
-                  parser_cmd_cdis(v_cmd_file_line, v_head_mess_stdout.all, res_file, discrete_r, v_err_chk_dis_r);
+                  parser_cmd_cdis(v_cmd_file_line, v_head_mess_stdout.all, res_file, discrete_r, v_error_cat(c_ERR_CHK_DIS_R));
 
                -- ------------------------------------------------------------------------------------------------------
                -- Command CLDC [channel] [value]: check level SQUID MUX ADC input
                -- ------------------------------------------------------------------------------------------------------
                when "CLDC" =>
-                  parser_cmd_cldc(v_cmd_file_line, v_head_mess_stdout.all, res_file, i_sqm_adc_ana, v_err_chk_dis_r);
+                  parser_cmd_cldc(v_cmd_file_line, v_head_mess_stdout.all, res_file, i_sqm_adc_ana, v_error_cat(c_ERR_CHK_DIS_R));
 
                -- ------------------------------------------------------------------------------------------------------
                -- Command CSCP [science_packet] : check the science packet type
                -- ------------------------------------------------------------------------------------------------------
                when "CSCP" =>
-                  parser_cmd_cscp(v_cmd_file_line, v_head_mess_stdout.all, res_file, i_sc_pkt_type, v_err_chk_sc_pkt);
+                  parser_cmd_cscp(v_cmd_file_line, v_head_mess_stdout.all, res_file, i_sc_pkt_type, v_error_cat(c_ERR_CHK_SC_PKT));
 
                -- ------------------------------------------------------------------------------------------------------
                -- Command CTDC [channel] [ope] [time]: check time between the current time
                --   and last event SQUID MUX ADC input
                -- ------------------------------------------------------------------------------------------------------
                when "CTDC" =>
-                  parser_cmd_ctdc(v_cmd_file_line, v_head_mess_stdout.all, res_file, sqm_adc_ana_lst_ev, v_err_chk_time);
+                  parser_cmd_ctdc(v_cmd_file_line, v_head_mess_stdout.all, res_file, sqm_adc_ana_lst_ev, v_error_cat(c_ERR_CHK_TIME));
 
                -- ------------------------------------------------------------------------------------------------------
                -- Command CTLE [mask] [ope] [time]: check time between the current time and discrete input(s) last event
                -- ------------------------------------------------------------------------------------------------------
                when "CTLE" =>
-                  parser_cmd_ctle(v_cmd_file_line, v_head_mess_stdout.all, res_file, discrete_r_lst_ev, v_err_chk_time);
+                  parser_cmd_ctle(v_cmd_file_line, v_head_mess_stdout.all, res_file, discrete_r_lst_ev, v_error_cat(c_ERR_CHK_TIME));
 
                -- ------------------------------------------------------------------------------------------------------
                -- Command CTLR [ope] [time]: check time from the last record time
                -- ------------------------------------------------------------------------------------------------------
                when "CTLR" =>
-                  parser_cmd_ctlr(v_cmd_file_line, v_head_mess_stdout.all, res_file, v_record_time, v_err_chk_time);
+                  parser_cmd_ctlr(v_cmd_file_line, v_head_mess_stdout.all, res_file, v_record_time, v_error_cat(c_ERR_CHK_TIME));
 
                -- ------------------------------------------------------------------------------------------------------
                -- Command COMM: add comment in result file
@@ -350,13 +343,13 @@ begin
                -- Command WAIT [time]: wait for time
                -- ------------------------------------------------------------------------------------------------------
                when "WAIT" =>
-                  parser_cmd_wait(v_cmd_file_line, v_head_mess_stdout.all, res_file, g_SIM_TIME, v_err_sim_time);
+                  parser_cmd_wait(v_cmd_file_line, v_head_mess_stdout.all, res_file, g_SIM_TIME, v_error_cat(c_ERR_SIM_TIME));
 
                -- ------------------------------------------------------------------------------------------------------
                -- Command WCMD [cmd] [end]: transmit EP command
                -- ------------------------------------------------------------------------------------------------------
                when "WCMD" =>
-                  parser_cmd_wcmd(v_cmd_file_line, v_head_mess_stdout.all, res_file, g_SIM_TIME, i_ep_data_rx_rdy, o_ep_cmd, o_ep_cmd_start, i_ep_cmd_busy_n, v_err_sim_time);
+                  parser_cmd_wcmd(v_cmd_file_line, v_head_mess_stdout.all, res_file, g_SIM_TIME, i_ep_data_rx_rdy, o_ep_cmd, o_ep_cmd_start, i_ep_cmd_busy_n, v_error_cat(c_ERR_SIM_TIME));
 
                -- ------------------------------------------------------------------------------------------------------
                -- Command WCMS [size]: write EP command word size
@@ -399,7 +392,7 @@ begin
                -- Command WUDI [discrete_r] [value] or WUDI [mask] [data]: wait until event on discrete(s)
                -- ------------------------------------------------------------------------------------------------------
                when "WUDI" =>
-                  parser_cmd_wudi(v_cmd_file_line, v_head_mess_stdout.all, res_file, g_SIM_TIME, discrete_r, v_err_sim_time);
+                  parser_cmd_wudi(v_cmd_file_line, v_head_mess_stdout.all, res_file, g_SIM_TIME, discrete_r, v_error_cat(c_ERR_SIM_TIME));
 
                -- ------------------------------------------------------------------------------------------------------
                -- Command unknown
@@ -412,7 +405,7 @@ begin
          end if;
 
          -- Exit loop in case of error simulation time
-         if v_err_sim_time = c_HGH_LEV then
+         if v_error_cat(c_ERR_SIM_TIME) = c_HGH_LEV then
             exit;
          end if;
 
@@ -429,138 +422,17 @@ begin
          wait for g_SIM_TIME - now;
       end if;
 
-      -- Clocks parameters results
-      for k in 0 to c_CHK_ENA_CLK_NB-1 loop
+      -- Clock parameters result message
+      clock_param_res(v_chk_rpt_prm_ena, i_err_chk_rpt, v_error_cat(c_ERR_CHK_CLK_PRM), res_file);
 
-         -- Check if clock parameters check is enabled
-         if v_chk_rpt_prm_ena(k) = c_HGH_LEV then
+      -- SPI parameters result message
+      spi_param_res(v_chk_rpt_prm_ena, i_err_n_spi_chk, v_error_cat(c_ERR_CHK_SPI_PRM), res_file);
 
-            -- Write clock parameters check results
-            fprintf(none, c_RES_FILE_DIV_BAR & c_RES_FILE_DIV_BAR , res_file);
-            fprintf(none, "Parameters check, clock " & c_CCHK(k).clk_name , res_file);
-            fprintf(none, c_RES_FILE_DIV_BAR & c_RES_FILE_DIV_BAR , res_file);
+      -- Pulse shaping result message
+      pls_shaping_res(v_chk_rpt_prm_ena, i_err_num_pls_shp, v_error_cat(c_ERR_CHK_PLS_SHP), res_file);
 
-            -- Check if oscillation on clock when enable inactive parameter is disable
-            if c_CCHK(k).chk_osc_en = c_CHK_OSC_DIS then
-               fprintf(none, "Error number of clock oscillation when enable is inactive : " & integer'image(i_err_chk_rpt(k)(c_ERR_N_CLK_OSC_EN_L)) &
-               ", inactive parameter (no check)", res_file);
-
-            else
-               fprintf(none, "Error number of clock oscillation when enable is inactive : " & integer'image(i_err_chk_rpt(k)(c_ERR_N_CLK_OSC_EN_L))
-               , res_file);
-
-            end if;
-
-            fprintf(none, "Error number of high level clock period timing :            " & integer'image(i_err_chk_rpt(k)(c_ERR_N_CLK_PER_H)) &
-            ", expected timing: " & time'image(c_CCHK(k).clk_per_h), res_file);
-
-            fprintf(none, "Error number of low  level clock period timing :            " & integer'image(i_err_chk_rpt(k)(c_ERR_N_CLK_PER_L)) &
-            ", expected timing: " & time'image(c_CCHK(k).clk_per_l), res_file);
-
-            fprintf(none, "Error number of clock state when enable goes to inactive :  " & integer'image(i_err_chk_rpt(k)(c_ERR_N_CLK_ST_EN_L)) &
-            ", expected state:  " & std_logic'image(c_CCHK(k).clk_st_ena), res_file);
-
-            fprintf(none, "Error number of clock state when enable goes to active   :  " & integer'image(i_err_chk_rpt(k)(c_ERR_N_CLK_ST_EN_H)) &
-            ", expected state:  " & std_logic'image(c_CCHK(k).clk_st_dis), res_file);
-
-            -- Set possible error
-            for j in 0 to c_ERR_N_CLK_CHK_S-1 loop
-               if i_err_chk_rpt(k)(j) /= c_ZERO_INT then
-                  v_err_chk_clk_prm := c_HGH_LEV;
-               end if;
-            end loop;
-
-         end if;
-      end loop;
-
-      -- SPI parameters results
-      for k in 0 to c_CHK_ENA_SPI_NB-1 loop
-
-         -- Check if SPI parameters check is enabled
-         if v_chk_rpt_prm_ena(k+c_CHK_ENA_CLK_NB) = c_HGH_LEV then
-
-            -- Write SPI parameters check results
-            fprintf(none, c_RES_FILE_DIV_BAR & c_RES_FILE_DIV_BAR , res_file);
-            fprintf(none, "Parameters check, SPI " & c_SCHK(k).spi_name , res_file);
-            fprintf(none, c_RES_FILE_DIV_BAR & c_RES_FILE_DIV_BAR , res_file);
-
-            fprintf(none, "Error number of low level sclk timing  :                    " & integer'image(i_err_n_spi_chk(k)(c_SPI_ERR_POS_TL)) &
-            ", expected timing >= " & time'image(c_SCHK(k).spi_time(c_SPI_ERR_POS_TL)), res_file);
-
-            fprintf(none, "Error number of high level sclk timing :                    " & integer'image(i_err_n_spi_chk(k)(c_SPI_ERR_POS_TH)) &
-            ", expected timing >= " & time'image(c_SCHK(k).spi_time(c_SPI_ERR_POS_TH)), res_file);
-
-            fprintf(none, "Error number of sclk minimum period    :                    " & integer'image(i_err_n_spi_chk(k)(c_SPI_ERR_POS_TSCMIN)) &
-            ", expected timing >= " & time'image(c_SCHK(k).spi_time(c_SPI_ERR_POS_TSCMIN)), res_file);
-
-            fprintf(none, "Error number of sclk maximum period    :                    " & integer'image(i_err_n_spi_chk(k)(c_SPI_ERR_POS_TSCMAX)) &
-            ", expected timing <= " & time'image(c_SCHK(k).spi_time(c_SPI_ERR_POS_TSCMAX)), res_file);
-
-            fprintf(none, "Error number of high level cs timing   :                    " & integer'image(i_err_n_spi_chk(k)(c_SPI_ERR_POS_TCSH)) &
-            ", expected timing >= " & time'image(c_SCHK(k).spi_time(c_SPI_ERR_POS_TCSH)), res_file);
-
-            fprintf(none, "Error number of sclk edge to cs rising edge timing :        " & integer'image(i_err_n_spi_chk(k)(c_SPI_ERR_POS_TS2CSR)) &
-            ", expected timing >= " & time'image(c_SCHK(k).spi_time(c_SPI_ERR_POS_TS2CSR)), res_file);
-
-            fprintf(none, "Error number of data edge to sclk edge timing :             " & integer'image(i_err_n_spi_chk(k)(c_SPI_ERR_POS_TD2S)) &
-            ", expected timing >= " & time'image(c_SCHK(k).spi_time(c_SPI_ERR_POS_TD2S)), res_file);
-
-            fprintf(none, "Error number of sclk edge to data edge timing :             " & integer'image(i_err_n_spi_chk(k)(c_SPI_ERR_POS_TS2D)) &
-            ", expected timing >= " & time'image(c_SCHK(k).spi_time(c_SPI_ERR_POS_TS2D)), res_file);
-
-            fprintf(none, "Error number of sclk state when cs goes to active   :       " & integer'image(i_err_n_spi_chk(k)(c_SPI_ERR_POS_STSCA)), res_file);
-            fprintf(none, "Error number of sclk state when cs goes to inactive :       " & integer'image(i_err_n_spi_chk(k)(c_SPI_ERR_POS_STSCI)), res_file);
-
-            -- Set possible error
-            for j in 0 to c_SPI_ERR_CHK_NB-1 loop
-               if i_err_n_spi_chk(k)(j) /= c_ZERO_INT then
-                  v_err_chk_spi_prm := c_HGH_LEV;
-               end if;
-            end loop;
-
-         end if;
-      end loop;
-
-      -- Pulse shaping error report
-      if v_chk_rpt_prm_ena(c_E_PLS_SHP) = c_HGH_LEV then
-         fprintf(none, c_RES_FILE_DIV_BAR & c_RES_FILE_DIV_BAR & c_RES_FILE_DIV_BAR, res_file);
-
-         for k in 0 to c_NB_COL-1 loop
-
-            fprintf(none, "Error number pulse shaping channel " & integer'image(k) & ": " & integer'image(i_err_num_pls_shp(k)),   res_file);
-
-            if i_err_num_pls_shp(k) /= c_ZERO_INT then
-               v_err_chk_pls_shp := c_HGH_LEV;
-            end if;
-
-         end loop;
-
-      end if;
-
-      -- Result file end
-      fprintf(none, c_RES_FILE_DIV_BAR & c_RES_FILE_DIV_BAR & c_RES_FILE_DIV_BAR, res_file);
-      fprintf(none, "Error simulation time         : " & std_logic'image(v_err_sim_time),   res_file);
-      fprintf(none, "Error check discrete level    : " & std_logic'image(v_err_chk_dis_r),  res_file);
-      fprintf(none, "Error check command return    : " & std_logic'image(v_err_chk_cmd_r),  res_file);
-      fprintf(none, "Error check time              : " & std_logic'image(v_err_chk_time),   res_file);
-      fprintf(none, "Error check clocks parameters : " & std_logic'image(v_err_chk_clk_prm),res_file);
-      fprintf(none, "Error check spi parameters    : " & std_logic'image(v_err_chk_spi_prm),res_file);
-      fprintf(none, "Error check science packets   : " & std_logic'image(v_err_chk_sc_pkt or i_sc_pkt_err), res_file);
-      fprintf(none, "Error check pulse shaping     : " & std_logic'image(v_err_chk_pls_shp),res_file);
-
-      fprintf(none, c_RES_FILE_DIV_BAR & c_RES_FILE_DIV_BAR & c_RES_FILE_DIV_BAR, res_file);
-      fprintf(none, "Simulation time               : " & time'image(now), res_file);
-
-      -- Final test status
-      if v_error_cat = c_ZERO(v_error_cat'range) and i_sc_pkt_err = c_LOW_LEV then
-         fprintf(none, "Simulation status             : PASS", res_file);
-
-      else
-         fprintf(none, "Simulation status             : FAIL", res_file);
-
-      end if;
-
-      fprintf(none, c_RES_FILE_DIV_BAR & c_RES_FILE_DIV_BAR & c_RES_FILE_DIV_BAR, res_file);
+      -- Final result message
+      final_mess_res(v_error_cat, i_sc_pkt_err, res_file);
 
       -- Close files
       file_close(cmd_file);

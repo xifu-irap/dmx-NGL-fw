@@ -115,7 +115,7 @@ signal   sc_pkt_err           : std_logic                                       
 signal   ep_cmd               : std_logic_vector(c_EP_CMD_S-1 downto 0)                                     ; --! EP: Command to send
 signal   ep_cmd_start         : std_logic                                                                   ; --! EP: Start command transmit (one system clock pulse)
 signal   ep_cmd_busy_n        : std_logic                                                                   ; --! EP: Command transmit busy ('0' = Busy, '1' = Not Busy)
-signal   ep_cmd_ser_wd_s      : std_logic_vector(log2_ceil(2*c_EP_CMD_S+1)-1 downto 0)                      ; --! EP: Serial word size
+signal   ep_cmd_ser_wd_s      : std_logic_vector(log2_ceil(c_SER_WD_MAX_S+1)-1 downto 0)                    ; --! EP: Serial word size
 
 signal   ep_data_rx           : std_logic_vector(c_EP_CMD_S-1 downto 0)                                     ; --! EP: Receipted data
 signal   ep_data_rx_rdy       : std_logic                                                                   ; --! EP: Receipted data ready ('0' = Inactive, '1' = Active)
@@ -395,7 +395,7 @@ begin
    --!   EP SPI model
    -- ------------------------------------------------------------------------------------------------------
    I_ep_spi_model: ep_spi_model port map (
-         i_ep_cmd_ser_wd_s    => ep_cmd_ser_wd_s      , -- in     slv(log2_ceil(2*c_EP_CMD_S+1)-1 downto 0) ; --! EP: Serial word size
+         i_ep_cmd_ser_wd_s    => ep_cmd_ser_wd_s      , -- in     slv log2_ceil(c_SER_WD_MAX_S+1)           ; --! EP: Serial word size
          i_ep_cmd_start       => ep_cmd_start         , -- in     std_logic                                 ; --! EP: Start command transmit ('0' = Inactive, '1' = Active)
          i_ep_cmd             => ep_cmd               , -- in     std_logic_vector(c_EP_CMD_S-1 downto 0)   ; --! EP: Command to send
          o_ep_cmd_busy_n      => ep_cmd_busy_n        , -- out    std_logic                                 ; --! EP: Command transmit busy ('0' = Busy, '1' = Not Busy)
@@ -538,7 +538,7 @@ begin
          o_ep_cmd             => ep_cmd               , -- out    std_logic_vector(c_EP_CMD_S-1 downto 0)   ; --! EP: Command to send
          o_ep_cmd_start       => ep_cmd_start         , -- out    std_logic                                 ; --! EP: Start command transmit ('0' = Inactive, '1' = Active)
          i_ep_cmd_busy_n      => ep_cmd_busy_n        , -- in     std_logic                                 ; --! EP: Command transmit busy ('0' = Busy, '1' = Not Busy)
-         o_ep_cmd_ser_wd_s    => ep_cmd_ser_wd_s      , -- out    slv(log2_ceil(2*c_EP_CMD_S+1)-1 downto 0) ; --! EP: Serial word size
+         o_ep_cmd_ser_wd_s    => ep_cmd_ser_wd_s      , -- out    slv log2_ceil(c_SER_WD_MAX_S+1)           ; --! EP: Serial word size
 
          o_brd_ref            => brd_ref              , -- out    std_logic_vector(  c_BRD_REF_S-1 downto 0); --! Board reference
          o_brd_model          => brd_model            , -- out    std_logic_vector(c_BRD_MODEL_S-1 downto 0); --! Board model

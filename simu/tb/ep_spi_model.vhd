@@ -42,7 +42,7 @@ entity ep_spi_model is generic (
          g_EP_N_CLK_PER_SCLK_H: integer := c_EP_SCLK_H_DEF                                                  ; --! EP: Number of clock period for elaborating SPI Serial Clock high level
          g_EP_BUF_DEL         : time    := c_EP_BUF_DEL_DEF                                                   --! EP: Delay introduced by buffer
    ); port (
-         i_ep_cmd_ser_wd_s    : in     std_logic_vector(log2_ceil(2*c_EP_CMD_S+1)-1 downto 0)               ; --! EP: Serial word size
+         i_ep_cmd_ser_wd_s    : in     std_logic_vector(log2_ceil(c_SER_WD_MAX_S+1)-1 downto 0)             ; --! EP: Serial word size
          i_ep_cmd_start       : in     std_logic                                                            ; --! EP: Start command transmit ('0' = Inactive, '1' = Active)
          i_ep_cmd             : in     std_logic_vector(c_EP_CMD_S-1 downto 0)                              ; --! EP: Command to send
          o_ep_cmd_busy_n      : out    std_logic                                                            ; --! EP: Command transmit busy ('0' = Busy, '1' = Not Busy)
@@ -63,8 +63,6 @@ constant c_RST_ACT_TIME       : time       := 3 * g_EP_CLK_PER/2                
 
 constant c_N_CLK_PER_MISO_DEL : integer   := 2                                                              ; --! Number of clock period for miso signal delay from spi pin input to spi master input
 
-constant c_SER_WD_MAX_S       : integer   := 2*c_EP_CMD_S                                                   ; --! Serial word maximal size
-
 signal   rst                  : std_logic                                                                   ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
 signal   clk                  : std_logic                                                                   ; --! System Clock
 
@@ -75,8 +73,8 @@ signal   ep_data_rx           : std_logic_vector(c_SER_WD_MAX_S-1 downto 0)     
 signal   ep_spi_miso_r        : std_logic_vector(c_N_CLK_PER_MISO_DEL-1 downto 0)                           ; --! EP: SPI Master Output Slave Input register
 signal   ep_spi_miso_r_msb    : std_logic                                                                   ; --! EP: SPI Master Output Slave Input register MSB
 
-signal   ep_cmd_ser_wd_s_srt  : std_logic_vector(log2_ceil(2*c_EP_CMD_S+1)-1 downto 0)                      ; --! EP: Serial word size recorded on start rising edge
-signal   ep_cmd_ser_wd_s_srt2 : std_logic_vector(log2_ceil(2*c_EP_CMD_S+1)-1 downto 0)                      ; --! EP: Serial word size recorded on start rising edge (second record)
+signal   ep_cmd_ser_wd_s_srt  : std_logic_vector(log2_ceil(c_SER_WD_MAX_S+1)-1 downto 0)                    ; --! EP: Serial word size recorded on start rising edge
+signal   ep_cmd_ser_wd_s_srt2 : std_logic_vector(log2_ceil(c_SER_WD_MAX_S+1)-1 downto 0)                    ; --! EP: Serial word size recorded on start rising edge (second record)
 
 signal   ep_data_rx_mux       : t_slv_arr(0 to c_SER_WD_MAX_S-1)(c_EP_CMD_S-1 downto 0)                     ; --! EP: Receipted data multiplexer
 signal   ep_data_rx_mux_or    : t_slv_arr(0 to c_SER_WD_MAX_S  )(c_EP_CMD_S-1 downto 0)                     ; --! EP: Receipted data multiplexer or

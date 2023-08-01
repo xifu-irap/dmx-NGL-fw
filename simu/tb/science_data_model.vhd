@@ -341,42 +341,16 @@ begin
             case science_data_ctrl(science_data_ctrl'low) is
 
                -- ------------------------------------------------------------------------------------------------------
-               --    Case Start Science Data/Test pattern packet
+               --    Case Science first data packet
                -- ------------------------------------------------------------------------------------------------------
                when c_SC_CTRL_SC_DTA | c_SC_CTRL_TST_PAT | c_SC_CTRL_ADC_DMP | c_SC_CTRL_ERRS | c_SC_CTRL_RAS_VLD =>
-                  v_ctrl_first_pkt  := c_HGH_LEV;
-                  v_packet_tx_time  := now - (c_SC_DATA_SER_NB*c_SC_DATA_SER_W_S+1)*c_CLK_SC_HPER;
-                  v_packet_size     := c_ONE_INT;
-
-                  if science_data_ctrl(science_data_ctrl'low) = c_SC_CTRL_ADC_DMP then
-                     v_packet_dump     := c_HGH_LEV;
-                     v_packet_size_exp := c_DMP_SEQ_ACQ_NB * c_MUX_FACT * c_PIXEL_ADC_NB_CYC;
-                  else
-                     v_packet_dump     := c_LOW_LEV;
-                     v_packet_size_exp := c_MUX_FACT;
-                  end if;
-
-                  o_sc_pkt_type     <= science_data_ctrl(science_data_ctrl'low);
-
-                  v_packet_type     := null;
-                  hwrite(v_packet_type, science_data_ctrl(science_data_ctrl'low));
-
-                  -- Reinitialize and get packet content
-                  v_packet_content := (others => null);
-
-                  for k in 0 to c_NB_COL-1 loop
-                     hwrite(v_packet_content(k), science_data(k));
-                     write(v_packet_content(k), ',');
-
-                  end loop;
-
-                  -- Check end of data control word was sent before acquiring a new packet
-                  if v_ctrl_last /= c_SC_CTRL_EOD then
-                     v_err_sc_pkt_eod  := c_HGH_LEV;
-                  end if;
+                  sc_data_first_pkt(science_data_ctrl(science_data_ctrl'low), science_data,     v_ctrl_last,      v_ctrl_first_pkt,
+                                    v_packet_tx_time                        , v_packet_type,    v_packet_dump,    v_packet_size,
+                                    v_packet_size_exp,                        v_packet_content, v_err_sc_pkt_eod, o_sc_pkt_type,
+                                    scd_file);
 
                -- ------------------------------------------------------------------------------------------------------
-               --    Case data word
+               --    Case Science data word
                -- ------------------------------------------------------------------------------------------------------
                when c_SC_CTRL_DTA_W       =>
 
@@ -384,37 +358,12 @@ begin
                   v_err_sc_pkt_start := not(v_ctrl_first_pkt);
 
                -- ------------------------------------------------------------------------------------------------------
-               --    Case end of data packet
+               --    Case Science end of data packet
                -- ------------------------------------------------------------------------------------------------------
                when c_SC_CTRL_EOD         =>
-
-                  -- Check start packet was sent before acquiring an another word
-                  v_err_sc_pkt_start := not(v_ctrl_first_pkt);
-
-                  -- Check science packet size
-                  if v_packet_size /= v_packet_size_exp then
-                     v_err_sc_pkt_size := c_HGH_LEV;
-                  end if;
-
-                  -- Science Data Result file writing
-                  fprintf(none, c_RES_FILE_DIV_BAR & c_RES_FILE_DIV_BAR & c_RES_FILE_DIV_BAR, scd_file);
-                  fprintf(none, "Packet header transmit time   : " & time'image(v_packet_tx_time)  , scd_file);
-                  fprintf(none, "Packet header                 : " & v_packet_type.all             , scd_file);
-
-                  fprintf(none, "Packet size                   : " & integer'image(v_packet_size), scd_file);
-
-                  for k in 0 to c_NB_COL-1 loop
-                  fprintf(none, "Packet content column " & integer'image(k) & "       : " & v_packet_content(k).all, scd_file);
-
-                  end loop;
-
-                  -- Packet variables reinitialization
-                  v_ctrl_first_pkt := c_LOW_LEV;
-                  v_packet_tx_time :=  c_ZERO_TIME;
-                  write(v_packet_type, c_ZERO_INT);
-                  v_packet_dump    := c_LOW_LEV;
-                  v_packet_size    := c_ZERO_INT;
-                  o_sc_pkt_type    <= c_ZERO(o_sc_pkt_type'range);
+                  sc_data_end_pkt(v_packet_size_exp, v_packet_content, v_ctrl_first_pkt, v_packet_tx_time,
+                                  v_packet_type,     v_packet_size,    v_packet_dump,    v_err_sc_pkt_start,
+                                  v_err_sc_pkt_size, o_sc_pkt_type,    scd_file);
 
                -- ------------------------------------------------------------------------------------------------------
                --    Case control word unknown
@@ -426,7 +375,7 @@ begin
 
             -- Check science data
             for k in 0 to c_NB_COL-1 loop
-               if (v_packet_dump = c_HGH_LEV) and (science_data(k) /= std_logic_vector(resize(unsigned(mem_dump_sc_data_out(k)), c_SC_DATA_SER_NB*c_SC_DATA_SER_W_S))) then
+               if (v_packet_dump = c_HGH_LEV) and (science_data(k) /= std_logic_vector(resize(unsigned(mem_dump_sc_data_out(k)), science_data(k)'length))) then
                   v_err_sc_data(k) := c_HGH_LEV;
 
                end if;

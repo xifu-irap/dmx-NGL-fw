@@ -30,12 +30,50 @@ use     ieee.std_logic_1164.all;
 library work;
 use     work.pkg_type.all;
 use     work.pkg_project.all;
+use     work.pkg_model.all;
 use     work.pkg_mess.all;
 
 library std;
 use std.textio.all;
 
 package pkg_science_data is
+
+   -- ------------------------------------------------------------------------------------------------------
+   --! Science first data packet
+   -- ------------------------------------------------------------------------------------------------------
+   procedure sc_data_first_pkt (
+         i_science_data_ctrl  : in     std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0)                       ; --  Science Data: Control word
+         i_science_data       : in     t_slv_arr(0 to c_NB_COL-1)
+                                                (c_SC_DATA_SER_NB*c_SC_DATA_SER_W_S-1 downto 0)             ; --  Science Data: Data
+         i_ctrl_last          : in     std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0)                       ; --  Control word last
+         o_ctrl_first_pkt     : out    std_logic                                                            ; --  Control word first packet detected ('0' = No, '1' = Yes)
+         o_packet_tx_time     : out    time                                                                 ; --  Science packet first word transmit time
+         o_packet_type        : out    line                                                                 ; --  Science packet type
+         o_packet_dump        : out    std_logic                                                            ; --  Science packet dump ('0' = No, '1' = Yes)
+         o_packet_size        : out    integer                                                              ; --  Science packet size
+         o_packet_size_exp    : out    integer                                                              ; --  Science packet size expected
+         o_packet_content     : out    t_line_arr(0 to c_NB_COL-1)                                          ; --  Science packet content
+         o_err_sc_pkt_eod     : out    std_logic                                                            ; --  Error science packet end of data missing ('0' = No error, '1' = Error)
+signal   o_sc_pkt_type        : out    std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0)                       ; --  Science packet type
+         file scd_file        : text                                                                          --  Science Data Result file
+   );
+
+   -- ------------------------------------------------------------------------------------------------------
+   --! Science end of data packet
+   -- ------------------------------------------------------------------------------------------------------
+   procedure sc_data_end_pkt (
+         i_packet_size_exp    : in     integer                                                              ; --  Science packet size expected
+         b_packet_content     : inout  t_line_arr(0 to c_NB_COL-1)                                          ; --  Science packet content
+         b_ctrl_first_pkt     : inout  std_logic                                                            ; --  Control word first packet detected ('0' = No, '1' = Yes)
+         b_packet_tx_time     : inout  time                                                                 ; --  Science packet first word transmit time
+         b_packet_type        : inout  line                                                                 ; --  Science packet type
+         b_packet_size        : inout  integer                                                              ; --  Science packet size
+         o_packet_dump        : out    std_logic                                                            ; --  Science packet dump ('0' = No, '1' = Yes)
+         o_err_sc_pkt_start   : out    std_logic                                                            ; --  Error science packet start missing ('0' = No error, '1' = Error)
+         o_err_sc_pkt_size    : out    std_logic                                                            ; --  Error science packet size ('0' = No error, '1' = Error)
+signal   o_sc_pkt_type        : out    std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0)                       ; --  Science packet type
+         file scd_file        : text                                                                          --  Science Data Result file
+   );
 
    -- ------------------------------------------------------------------------------------------------------
    --! Science data error display
@@ -59,6 +97,109 @@ signal   o_sc_pkt_err         : out    std_logic                                
 end pkg_science_data;
 
 package body pkg_science_data is
+
+   -- ------------------------------------------------------------------------------------------------------
+   --! Science first data packet
+   -- ------------------------------------------------------------------------------------------------------
+   procedure sc_data_first_pkt (
+         i_science_data_ctrl  : in     std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0)                       ; --  Science Data: Control word
+         i_science_data       : in     t_slv_arr(0 to c_NB_COL-1)
+                                                (c_SC_DATA_SER_NB*c_SC_DATA_SER_W_S-1 downto 0)             ; --  Science Data: Data
+         i_ctrl_last          : in     std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0)                       ; --  Control word last
+         o_ctrl_first_pkt     : out    std_logic                                                            ; --  Control word first packet detected ('0' = No, '1' = Yes)
+         o_packet_tx_time     : out    time                                                                 ; --  Science packet first word transmit time
+         o_packet_type        : out    line                                                                 ; --  Science packet type
+         o_packet_dump        : out    std_logic                                                            ; --  Science packet dump ('0' = No, '1' = Yes)
+         o_packet_size        : out    integer                                                              ; --  Science packet size
+         o_packet_size_exp    : out    integer                                                              ; --  Science packet size expected
+         o_packet_content     : out    t_line_arr(0 to c_NB_COL-1)                                          ; --  Science packet content
+         o_err_sc_pkt_eod     : out    std_logic                                                            ; --  Error science packet end of data missing ('0' = No error, '1' = Error)
+signal   o_sc_pkt_type        : out    std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0)                       ; --  Science packet type
+         file scd_file        : text                                                                          --  Science Data Result file
+   ) is
+   begin
+
+      o_ctrl_first_pkt  := c_HGH_LEV;
+      o_packet_tx_time  := now - (c_SC_DATA_SER_NB*c_SC_DATA_SER_W_S+1)*c_CLK_SC_HPER;
+      o_packet_size     := c_ONE_INT;
+
+      if i_science_data_ctrl = c_SC_CTRL_ADC_DMP then
+         o_packet_dump     := c_HGH_LEV;
+         o_packet_size_exp := c_DMP_SEQ_ACQ_NB * c_MUX_FACT * c_PIXEL_ADC_NB_CYC;
+      else
+         o_packet_dump     := c_LOW_LEV;
+         o_packet_size_exp := c_MUX_FACT;
+      end if;
+
+      o_sc_pkt_type     <= i_science_data_ctrl;
+
+      o_packet_type     := null;
+      hwrite(o_packet_type, i_science_data_ctrl);
+
+      -- Reinitialize and get packet content
+      o_packet_content := (others => null);
+
+      for k in 0 to c_NB_COL-1 loop
+         hwrite(o_packet_content(k), i_science_data(k));
+         write(o_packet_content(k), ',');
+
+      end loop;
+
+      -- Check end of data control word was sent before acquiring a new packet
+      if i_ctrl_last /= c_SC_CTRL_EOD then
+         o_err_sc_pkt_eod  := c_HGH_LEV;
+
+      end if;
+
+   end sc_data_first_pkt;
+
+   -- ------------------------------------------------------------------------------------------------------
+   --! Science end of data packet
+   -- ------------------------------------------------------------------------------------------------------
+   procedure sc_data_end_pkt (
+         i_packet_size_exp    : in     integer                                                              ; --  Science packet size expected
+         b_packet_content     : inout  t_line_arr(0 to c_NB_COL-1)                                          ; --  Science packet content
+         b_ctrl_first_pkt     : inout  std_logic                                                            ; --  Control word first packet detected ('0' = No, '1' = Yes)
+         b_packet_tx_time     : inout  time                                                                 ; --  Science packet first word transmit time
+         b_packet_type        : inout  line                                                                 ; --  Science packet type
+         b_packet_size        : inout  integer                                                              ; --  Science packet size
+         o_packet_dump        : out    std_logic                                                            ; --  Science packet dump ('0' = No, '1' = Yes)
+         o_err_sc_pkt_start   : out    std_logic                                                            ; --  Error science packet start missing ('0' = No error, '1' = Error)
+         o_err_sc_pkt_size    : out    std_logic                                                            ; --  Error science packet size ('0' = No error, '1' = Error)
+signal   o_sc_pkt_type        : out    std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0)                       ; --  Science packet type
+         file scd_file        : text                                                                          --  Science Data Result file
+   ) is
+   begin
+
+      -- Check start packet was sent before acquiring an another word
+      o_err_sc_pkt_start := not(b_ctrl_first_pkt);
+
+      -- Check science packet size
+      if b_packet_size /= i_packet_size_exp then
+         o_err_sc_pkt_size := c_HGH_LEV;
+      end if;
+
+      -- Science Data Result file writing
+      fprintf(none, c_RES_FILE_DIV_BAR & c_RES_FILE_DIV_BAR & c_RES_FILE_DIV_BAR, scd_file);
+      fprintf(none, "Packet header transmit time   : " & time'image(b_packet_tx_time)  , scd_file);
+      fprintf(none, "Packet header                 : " & b_packet_type.all             , scd_file);
+
+      fprintf(none, "Packet size                   : " & integer'image(b_packet_size), scd_file);
+
+      for k in 0 to c_NB_COL-1 loop
+      fprintf(none, "Packet content column " & integer'image(k) & "       : " & b_packet_content(k).all, scd_file);
+
+      end loop;
+
+      -- Packet variables reinitialization
+      b_ctrl_first_pkt := c_LOW_LEV;
+      b_packet_tx_time :=  c_ZERO_TIME;
+      write(b_packet_type, c_ZERO_INT);
+      o_packet_dump    := c_LOW_LEV;
+      b_packet_size    := c_ZERO_INT;
+      o_sc_pkt_type    <= c_ZERO(o_sc_pkt_type'range);
+
+   end sc_data_end_pkt;
 
    -- ------------------------------------------------------------------------------------------------------
    --! Science data error display

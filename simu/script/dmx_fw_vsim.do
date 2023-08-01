@@ -91,6 +91,7 @@ quietly set TB_DIR $3
       ${TB_DIR}/pkg_func_cmd_spi.vhd      \
       ${TB_DIR}/pkg_func_cmd_script.vhd   \
       ${TB_DIR}/pkg_func_parser.vhd       \
+      ${TB_DIR}/pkg_mess_parser.vhd       \
       ${TB_DIR}/pkg_science_data.vhd      \
       ${TB_DIR}/adc_ad9254_model.vhd      \
       ${TB_DIR}/dac5675a_model.vhd        \

@@ -348,6 +348,8 @@ constant c_MEM_SC_ADD_S       : integer := c_MEM_SC_FRM_NB_S + c_MUX_FACT_S     
 constant c_SQM_ADC_ERR_VAL    : real    := 10.0**(-7)                                                       ; --! SQUID MUX ADC error value
 constant c_PLS_SHP_ERR_VAL    : real    :=  2.0**(-c_SQM_DAC_DATA_S+2)                                      ; --! Pulse shaping error value
 
+constant c_SER_WD_MAX_S       : integer   := 2*c_EP_CMD_S                                                   ; --! EP SPI serial word maximal size
+
    -- ------------------------------------------------------------------------------------------------------
    --    Clock parameters to check
    -- ------------------------------------------------------------------------------------------------------
@@ -419,7 +421,7 @@ constant c_SCHK               : t_spi_chk_prm_arr(0 to c_CHK_ENA_SPI_NB-1) :=
          g_EP_N_CLK_PER_SCLK_H: integer := c_EP_SCLK_H_DEF                                                  ; --! EP: Number of clock period for elaborating SPI Serial Clock high level
          g_EP_BUF_DEL         : time    := c_EP_BUF_DEL_DEF                                                   --! EP: Delay introduced by buffer
    ); port (
-         i_ep_cmd_ser_wd_s    : in     std_logic_vector(log2_ceil(2*c_EP_CMD_S+1)-1 downto 0)               ; --! EP: Serial word size
+         i_ep_cmd_ser_wd_s    : in     std_logic_vector(log2_ceil(c_SER_WD_MAX_S+1)-1 downto 0)             ; --! EP: Serial word size
          i_ep_cmd_start       : in     std_logic                                                            ; --! EP: Start command transmit ('0' = Inactive, '1' = Active)
          i_ep_cmd             : in     std_logic_vector(c_EP_CMD_S-1 downto 0)                              ; --! EP: Command to send
          o_ep_cmd_busy_n      : out    std_logic                                                            ; --! EP: Command transmit busy ('0' = Busy, '1' = Not Busy)
@@ -516,7 +518,7 @@ constant c_SCHK               : t_spi_chk_prm_arr(0 to c_CHK_ENA_SPI_NB-1) :=
          o_ep_cmd             : out    std_logic_vector(c_EP_CMD_S-1 downto 0)                              ; --! EP: Command to send
          o_ep_cmd_start       : out    std_logic                                                            ; --! EP: Start command transmit ('0' = Inactive, '1' = Active)
          i_ep_cmd_busy_n      : in     std_logic                                                            ; --! EP: Command transmit busy ('0' = Busy, '1' = Not Busy)
-         o_ep_cmd_ser_wd_s    : out    std_logic_vector(log2_ceil(2*c_EP_CMD_S+1)-1 downto 0)               ; --! EP: Serial word size
+         o_ep_cmd_ser_wd_s    : out    std_logic_vector(log2_ceil(c_SER_WD_MAX_S+1)-1 downto 0)             ; --! EP: Serial word size
 
          o_brd_ref            : out    std_logic_vector(  c_BRD_REF_S-1 downto 0)                           ; --! Board reference
          o_brd_model          : out    std_logic_vector(c_BRD_MODEL_S-1 downto 0)                           ; --! Board model

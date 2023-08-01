@@ -290,9 +290,10 @@ begin
    err_nin_cs( c_ERR_NIN_MX_STIN(1)-1 downto c_HK_NW) <= (others => c_LOW_LEV);
 
    G_mux_stage: for k in 0 to c_ERR_NIN_MX_STNB-1 generate
+   constant c_MUX_NB          : integer   := c_ERR_NIN_MX_STIN(k+2) - c_ERR_NIN_MX_STIN(k+1)                ; --! Multiplexer number by stage
    begin
 
-      G_mux_nb: for l in 0 to c_ERR_NIN_MX_STIN(k+2) - c_ERR_NIN_MX_STIN(k+1) - 1 generate
+      G_mux_nb: for l in 0 to c_MUX_NB - 1 generate
       begin
 
          I_multiplexer: entity work.multiplexer generic map (

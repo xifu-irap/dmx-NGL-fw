@@ -179,7 +179,7 @@ signal   i_ep_cmd_busy_n      : in     std_logic                                
          i_mess_header        : in     string                                                               ; --  Message header
 file     res_file             :        text                                                                 ; --  Result file
 
-signal   o_ep_cmd_ser_wd_s    : out    std_logic_vector(log2_ceil(2*c_EP_CMD_S+1)-1 downto 0)                 --  EP Serial word size
+signal   o_ep_cmd_ser_wd_s    : out    std_logic_vector(log2_ceil(c_SER_WD_MAX_S+1)-1 downto 0)               --  EP Serial word size
    );
 
    -- ------------------------------------------------------------------------------------------------------
@@ -624,7 +624,7 @@ signal   i_ep_cmd_busy_n      : in     std_logic                                
          i_mess_header        : in     string                                                               ; --  Message header
 file     res_file             :        text                                                                 ; --  Result file
 
-signal   o_ep_cmd_ser_wd_s    : out    std_logic_vector(log2_ceil(2*c_EP_CMD_S+1)-1 downto 0)                 --  EP Serial word size
+signal   o_ep_cmd_ser_wd_s    : out    std_logic_vector(log2_ceil(c_SER_WD_MAX_S+1)-1 downto 0)               --  EP Serial word size
    ) is
    variable v_fld_integer     : integer                                                                     ; --! Field integer
    begin

@@ -490,7 +490,8 @@ package body pkg_mess is
       get_field_line(b_line, ' ', v_field, v_field_s);
 
       -- Check the mask size
-      assert v_field_s = o_field'length/c_HEX_W_MIN_S report i_mess_header & c_MESS_ERR_SIZE & c_MESS_READ & integer'image(v_field_s) & c_MESS_EXP & integer'image(o_field'length/c_HEX_W_MIN_S) severity failure;
+      assert v_field_s = o_field'length/c_HEX_W_MIN_S report i_mess_header & c_MESS_ERR_SIZE & c_MESS_READ & integer'image(v_field_s) & c_MESS_EXP & integer'image(o_field'length/c_HEX_W_MIN_S)
+      severity failure;
 
       -- Get field output format, Hex value
       hread(v_field, o_field, v_field_status);
