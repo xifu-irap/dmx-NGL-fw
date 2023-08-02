@@ -59,9 +59,9 @@ COMM ---------------------------------------------------------------------------
 WCMD W-C0_AMP_SQ_OFFSET_COARSE-08FF W
 COMM
 COMM ==============================================================================================
-COMM   Send command SQ_AMP_OFFSET_MODE column 0 to open loop
+COMM   Send command AMP_SQ_OFFSET_MODE column 0 to open loop
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-SQ_AMP_OFFSET_MODE-0001 W
+WCMD W-AMP_SQ_OFFSET_MODE-0001 W
 COMM
 COMM ==============================================================================================
 COMM   Check each AMP SQUID DAC column 0 goes to the new value, synchronous with sync rising edge
@@ -275,9 +275,9 @@ COMM ---------------------------------------------------------------------------
 WCMD W-C1_AMP_SQ_OFFSET_COARSE-08FF W
 COMM
 COMM ==============================================================================================
-COMM   Send command SQ_AMP_OFFSET_MODE column 0 to Off, column 1 to open loop
+COMM   Send command AMP_SQ_OFFSET_MODE column 0 to Off, column 1 to open loop
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-SQ_AMP_OFFSET_MODE-0010 W
+WCMD W-AMP_SQ_OFFSET_MODE-0010 W
 COMM
 COMM ==============================================================================================
 COMM   Check each AMP SQUID DAC column 0 goes to its middle point, column 1 goes to the new value,
@@ -425,9 +425,9 @@ COMM ---------------------------------------------------------------------------
 WCMD W-C2_AMP_SQ_OFFSET_COARSE-08FF W
 COMM
 COMM ==============================================================================================
-COMM   Send command SQ_AMP_OFFSET_MODE column 1 to Off, column 2 to open loop
+COMM   Send command AMP_SQ_OFFSET_MODE column 1 to Off, column 2 to open loop
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-SQ_AMP_OFFSET_MODE-0100 W
+WCMD W-AMP_SQ_OFFSET_MODE-0100 W
 COMM
 COMM ==============================================================================================
 COMM   Check each AMP SQUID DAC column 1 goes to its middle point, column 2 goes to the new value,
@@ -575,9 +575,9 @@ COMM ---------------------------------------------------------------------------
 WCMD W-C3_AMP_SQ_OFFSET_COARSE-08FF W
 COMM
 COMM ==============================================================================================
-COMM   Send command SQ_AMP_OFFSET_MODE column 2 to Off, column 3 to open loop
+COMM   Send command AMP_SQ_OFFSET_MODE column 2 to Off, column 3 to open loop
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-SQ_AMP_OFFSET_MODE-1000 W
+WCMD W-AMP_SQ_OFFSET_MODE-1000 W
 COMM
 COMM ==============================================================================================
 COMM   Check each AMP SQUID DAC column 2 goes to its middle point, column 3 goes to the new value,
@@ -715,9 +715,9 @@ WCMD W-DATA_ACQ_MODE-0004 W
 WAIT 175 us
 COMM
 COMM ==============================================================================================
-COMM   Send command SQ_AMP_OFFSET_MODE column 3 to Off
+COMM   Send command AMP_SQ_OFFSET_MODE column 3 to Off
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-SQ_AMP_OFFSET_MODE-0000 W
+WCMD W-AMP_SQ_OFFSET_MODE-0000 W
 COMM
 COMM ==============================================================================================
 COMM   Check each AMP SQUID DAC column 3 goes to its middle point,

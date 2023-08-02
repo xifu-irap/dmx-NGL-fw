@@ -6,12 +6,12 @@ byFile="1">
 <fileData path="./ip/nx/NG-LARGE/dmem_ecc.vhd">
 <statements active="12" hits="12" percent="100.00"/>
 <stmt ln="100" st="1" hits="720"/>
-<stmt ln="101" st="1" hits="459440"/>
+<stmt ln="101" st="1" hits="459392"/>
 <stmt ln="102" st="1" hits="29172"/>
 <stmt ln="103" st="1" hits="2920"/>
 <stmt ln="104" st="1" hits="1788171"/>
 <stmt ln="108" st="1" hits="4145"/>
-<stmt ln="113" st="1" hits="114929394"/>
+<stmt ln="113" st="1" hits="114929346"/>
 <stmt ln="114" st="1" hits="2108873"/>
 <stmt ln="116" st="1" hits="39283904"/>
 <stmt ln="117" st="1" hits="6182"/>
@@ -84,12 +84,12 @@ byFile="1">
 <ielem ln="142" st="1" true="2774216" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="157" st="1" true="720" false="5611560"/>
-<ielem ln="160" st="1" true="5611560" false="0"/>
+<ielem ln="157" st="1" true="720" false="5611572"/>
+<ielem ln="160" st="1" true="5611572" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="161" st="1" true="2774756" false="2836804"/>
-<ielem ln="161" st="1" true="2836804" false="0"/>
+<ielem ln="161" st="1" true="2774756" false="2836816"/>
+<ielem ln="161" st="1" true="2836816" false="0"/>
 </if>
 <if hasElse="1" active="2" hits="2" percent="100.00">
 <ielem ln="162" st="1" true="2763060" false="11696"/>
@@ -378,7 +378,7 @@ byFile="1">
 <stmt ln="181" st="1" hits="108"/>
 <stmt ln="184" st="1" hits="150"/>
 <stmt ln="189" st="1" hits="106"/>
-<stmt ln="192" st="1" hits="7578"/>
+<stmt ln="192" st="1" hits="7573"/>
 <stmt ln="197" st="1" hits="364"/>
 <stmt ln="199" st="1" hits="846"/>
 <stmt ln="203" st="1" hits="45"/>
@@ -444,8 +444,8 @@ byFile="1">
 <ielem ln="220" st="1" true="106823" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="232" st="1" true="90" false="8449"/>
-<ielem ln="235" st="1" true="8449" false="0"/>
+<ielem ln="232" st="1" true="90" false="8442"/>
+<ielem ln="235" st="1" true="8442" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
 <ielem ln="248" st="1" true="90" false="106821"/>
@@ -464,8 +464,8 @@ byFile="1">
 <ielem ln="276" st="1" true="695991" false="0"/>
 </if>
 <if hasElse="1" active="2" hits="2" percent="100.00">
-<ielem ln="285" st="1" true="7030" false="102632"/>
-<ielem ln="285" st="2" true="102632" false="0"/>
+<ielem ln="285" st="1" true="7023" false="102541"/>
+<ielem ln="285" st="2" true="102541" false="0"/>
 </if>
 <fec_conditions active="2" hits="2" percent="100.00"/>
 <condition ln="276" st="1" active="2" hits="2" percent="100.00">
@@ -498,12 +498,12 @@ byFile="1">
 <stmt ln="213" st="1" hits="53480"/>
 <stmt ln="221" st="1" hits="53388"/>
 <stmt ln="233" st="1" hits="90"/>
-<stmt ln="236" st="1" hits="8449"/>
+<stmt ln="236" st="1" hits="8442"/>
 <stmt ln="249" st="1" hits="90"/>
 <stmt ln="253" st="1" hits="53388"/>
 <stmt ln="273" st="1" hits="1260"/>
 <stmt ln="277" st="1" hits="53345"/>
-<stmt ln="285" st="1" hits="109662"/>
+<stmt ln="285" st="1" hits="109564"/>
 <stmt ln="289" st="1" hits="45"/>
 <stmt ln="290" st="1" hits="45"/>
 <stmt ln="319" st="1" hits="1034"/>
@@ -566,7 +566,7 @@ byFile="1">
 <stmt ln="131" st="1" hits="97"/>
 <stmt ln="132" st="1" hits="476572"/>
 <stmt ln="133" st="1" hits="96"/>
-<stmt ln="134" st="1" hits="128323"/>
+<stmt ln="134" st="1" hits="129603"/>
 <stmt ln="137" st="1" hits="853901"/>
 <stmt ln="138" st="1" hits="26838"/>
 </fileData>
@@ -593,23 +593,23 @@ byFile="1">
 <fileData path="./src/mem_in_gen.vhd">
 <branches active="8" hits="8" percent="100.00"/>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="74" st="1" true="3600" false="1548028"/>
-<ielem ln="78" st="1" true="1548028" false="0"/>
+<ielem ln="74" st="1" true="3600" false="1547996"/>
+<ielem ln="78" st="1" true="1547996" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="79" st="1" true="387007" false="1161021"/>
-<ielem ln="79" st="1" true="1161021" false="0"/>
+<ielem ln="79" st="1" true="386999" false="1160997"/>
+<ielem ln="79" st="1" true="1160997" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="81" st="1" true="29468" false="357539"/>
-<ielem ln="81" st="1" true="357539" false="0"/>
+<ielem ln="81" st="1" true="29468" false="357531"/>
+<ielem ln="81" st="1" true="357531" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
 <ielem ln="84" st="1" true="1667" false="27801"/>
 <ielem ln="84" st="1" true="27801" false="0"/>
 </if>
 <statements active="7" hits="7" percent="100.00"/>
-<stmt ln="64" st="1" hits="84936"/>
+<stmt ln="64" st="1" hits="84833"/>
 <stmt ln="65" st="1" hits="72030"/>
 <stmt ln="75" st="1" hits="3600"/>
 <stmt ln="76" st="1" hits="3600"/>
@@ -649,27 +649,27 @@ byFile="1">
 <fileData path="./src/multiplexer.vhd">
 <branches active="4" hits="4" percent="100.00"/>
 <if hasElse="1" active="2" hits="2" percent="100.00">
-<ielem ln="69" st="1" true="50239" false="9406093"/>
-<ielem ln="69" st="2" true="9406093" false="0"/>
+<ielem ln="69" st="1" true="50233" false="9406080"/>
+<ielem ln="69" st="2" true="9406080" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="86" st="1" true="7830" false="40778"/>
-<ielem ln="90" st="1" true="40778" false="0"/>
+<ielem ln="86" st="1" true="7830" false="40771"/>
+<ielem ln="90" st="1" true="40771" false="0"/>
 </if>
 <statements active="9" hits="9" percent="100.00"/>
-<stmt ln="60" st="1" hits="21985"/>
-<stmt ln="61" st="1" hits="25446"/>
-<stmt ln="69" st="1" hits="9456332"/>
-<stmt ln="73" st="1" hits="109028"/>
-<stmt ln="74" st="1" hits="114362"/>
+<stmt ln="60" st="1" hits="22055"/>
+<stmt ln="61" st="1" hits="25520"/>
+<stmt ln="69" st="1" hits="9456313"/>
+<stmt ln="73" st="1" hits="109066"/>
+<stmt ln="74" st="1" hits="114424"/>
 <stmt ln="87" st="1" hits="7830"/>
 <stmt ln="88" st="1" hits="7830"/>
-<stmt ln="91" st="1" hits="40778"/>
-<stmt ln="92" st="1" hits="40778"/>
+<stmt ln="91" st="1" hits="40771"/>
+<stmt ln="92" st="1" hits="40771"/>
 </fileData>
 <fileData path="./src/pkg_func_math.vhd">
 <statements active="4" hits="4" percent="100.00"/>
-<stmt ln="48" st="1" hits="1822438"/>
+<stmt ln="48" st="1" hits="1822406"/>
 <stmt ln="56" st="1" hits="90"/>
 <stmt ln="64" st="1" hits="859"/>
 <stmt ln="72" st="1" hits="1080"/>
@@ -814,7 +814,7 @@ byFile="1">
 <ielem ln="156" st="1" true="90" false="3150"/>
 <ielem ln="159" st="1" true="3150" false="0"/>
 </if>
-<fec_conditions active="49" hits="44" percent="89.79"/>
+<fec_conditions active="49" hits="41" percent="83.67"/>
 <condition ln="64" st="1" active="2" hits="1" percent="50.00">
 <table rows="2" cols="0" unknown="0">
 <row j="1" hits_0="45" hits_1="6" body="(i_ep_cmd_rx_wd_add_r(i_ep_cmd_rx_wd_add_r&apos;HIGH DOWNTO c_MEM_TSTPT_ADD_S) = c_EP_CMD_ADD_TSTPT(i_ep_cmd_rx_wd_add_r&apos;HIGH DOWNTO c_MEM_TSTPT_ADD_S))" input_patterns_0="-" input_patterns_1="(i_ep_cmd_rx_wd_add_r((c_MEM_TSTPT_ADD_S - 1) DOWNTO 0) &lt; (&lt;type&gt;)TO_UNSIGNED(c_TAB_TSTPT_NW, c_MEM_TSTPT_ADD_S))"/>
@@ -827,11 +827,11 @@ byFile="1">
 <row j="2" hits_0="0" hits_1="1" body="(i_ep_cmd_rx_wd_add_r((c_MEM_HKEEP_ADD_S - 1) DOWNTO 0) &lt; (&lt;type&gt;)TO_UNSIGNED(c_TAB_HKEEP_NW, c_MEM_HKEEP_ADD_S))" input_patterns_0="(i_ep_cmd_rx_wd_add_r(i_ep_cmd_rx_wd_add_r&apos;HIGH DOWNTO c_MEM_HKEEP_ADD_S) = c_EP_CMD_ADD_HKEEP(i_ep_cmd_rx_wd_add_r&apos;HIGH DOWNTO c_MEM_HKEEP_ADD_S))" input_patterns_1="(i_ep_cmd_rx_wd_add_r(i_ep_cmd_rx_wd_add_r&apos;HIGH DOWNTO c_MEM_HKEEP_ADD_S) = c_EP_CMD_ADD_HKEEP(i_ep_cmd_rx_wd_add_r&apos;HIGH DOWNTO c_MEM_HKEEP_ADD_S))"/>
 </table>
 </condition>
-<condition ln="72" st="1" active="3" hits="3" percent="100.00">
+<condition ln="72" st="1" active="3" hits="2" percent="66.66">
 <table rows="3" cols="0" unknown="0">
 <row j="1" hits_0="45" hits_1="45" body="(i_ep_cmd_rx_wd_add_r(i_ep_cmd_rx_wd_add_r&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1)) = ???(i_ep_cmd_rx_wd_add_r&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1)))" input_patterns_0="-" input_patterns_1="(i_ep_cmd_rx_wd_add_r((c_MEM_PARMA_ADD_S - 1) DOWNTO 0) &lt; (&lt;type&gt;)TO_UNSIGNED(c_TAB_PARMA_NW, c_MEM_PARMA_ADD_S)) &amp;&amp; (i_ep_cmd_rx_wd_add_r((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_PARMA_ADD_S) = ???((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_PARMA_ADD_S))"/>
 <row j="2" hits_0="28" hits_1="45" body="(i_ep_cmd_rx_wd_add_r((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_PARMA_ADD_S) = ???((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_PARMA_ADD_S))" input_patterns_0="(i_ep_cmd_rx_wd_add_r(i_ep_cmd_rx_wd_add_r&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1)) = ???(i_ep_cmd_rx_wd_add_r&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1)))" input_patterns_1="(i_ep_cmd_rx_wd_add_r((c_MEM_PARMA_ADD_S - 1) DOWNTO 0) &lt; (&lt;type&gt;)TO_UNSIGNED(c_TAB_PARMA_NW, c_MEM_PARMA_ADD_S)) &amp;&amp; (i_ep_cmd_rx_wd_add_r(i_ep_cmd_rx_wd_add_r&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1)) = ???(i_ep_cmd_rx_wd_add_r&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1)))"/>
-<row j="3" hits_0="3" hits_1="45" body="(i_ep_cmd_rx_wd_add_r((c_MEM_PARMA_ADD_S - 1) DOWNTO 0) &lt; (&lt;type&gt;)TO_UNSIGNED(c_TAB_PARMA_NW, c_MEM_PARMA_ADD_S))" input_patterns_0="((i_ep_cmd_rx_wd_add_r(i_ep_cmd_rx_wd_add_r&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1)) = ???(i_ep_cmd_rx_wd_add_r&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1))) and (i_ep_cmd_rx_wd_add_r((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_PARMA_ADD_S) = ???((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_PARMA_ADD_S)))" input_patterns_1="((i_ep_cmd_rx_wd_add_r(i_ep_cmd_rx_wd_add_r&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1)) = ???(i_ep_cmd_rx_wd_add_r&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1))) and (i_ep_cmd_rx_wd_add_r((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_PARMA_ADD_S) = ???((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_PARMA_ADD_S)))"/>
+<row j="3" hits_0="0" hits_1="45" body="(i_ep_cmd_rx_wd_add_r((c_MEM_PARMA_ADD_S - 1) DOWNTO 0) &lt; (&lt;type&gt;)TO_UNSIGNED(c_TAB_PARMA_NW, c_MEM_PARMA_ADD_S))" input_patterns_0="((i_ep_cmd_rx_wd_add_r(i_ep_cmd_rx_wd_add_r&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1)) = ???(i_ep_cmd_rx_wd_add_r&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1))) and (i_ep_cmd_rx_wd_add_r((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_PARMA_ADD_S) = ???((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_PARMA_ADD_S)))" input_patterns_1="((i_ep_cmd_rx_wd_add_r(i_ep_cmd_rx_wd_add_r&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1)) = ???(i_ep_cmd_rx_wd_add_r&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1))) and (i_ep_cmd_rx_wd_add_r((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_PARMA_ADD_S) = ???((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_PARMA_ADD_S)))"/>
 </table>
 </condition>
 <condition ln="77" st="1" active="3" hits="3" percent="100.00">
@@ -848,11 +848,11 @@ byFile="1">
 <row j="3" hits_0="0" hits_1="3" body="(i_ep_cmd_rx_wd_add_r((c_MEM_KNORM_ADD_S - 1) DOWNTO 0) &lt; (&lt;type&gt;)TO_UNSIGNED(c_TAB_KNORM_NW, c_MEM_KNORM_ADD_S))" input_patterns_0="((i_ep_cmd_rx_wd_add_r(i_ep_cmd_rx_wd_add_r&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1)) = ???(i_ep_cmd_rx_wd_add_r&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1))) and (i_ep_cmd_rx_wd_add_r((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_KNORM_ADD_S) = ???((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_KNORM_ADD_S)))" input_patterns_1="((i_ep_cmd_rx_wd_add_r(i_ep_cmd_rx_wd_add_r&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1)) = ???(i_ep_cmd_rx_wd_add_r&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1))) and (i_ep_cmd_rx_wd_add_r((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_KNORM_ADD_S) = ???((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_KNORM_ADD_S)))"/>
 </table>
 </condition>
-<condition ln="87" st="1" active="3" hits="3" percent="100.00">
+<condition ln="87" st="1" active="3" hits="2" percent="66.66">
 <table rows="3" cols="0" unknown="0">
 <row j="1" hits_0="45" hits_1="9" body="(i_ep_cmd_rx_wd_add_r(i_ep_cmd_rx_wd_add_r&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1)) = ???(i_ep_cmd_rx_wd_add_r&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1)))" input_patterns_0="-" input_patterns_1="(i_ep_cmd_rx_wd_add_r((c_MEM_SMFB0_ADD_S - 1) DOWNTO 0) &lt; (&lt;type&gt;)TO_UNSIGNED(c_TAB_SMFB0_NW, c_MEM_SMFB0_ADD_S)) &amp;&amp; (i_ep_cmd_rx_wd_add_r((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_SMFB0_ADD_S) = ???((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_SMFB0_ADD_S))"/>
 <row j="2" hits_0="45" hits_1="9" body="(i_ep_cmd_rx_wd_add_r((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_SMFB0_ADD_S) = ???((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_SMFB0_ADD_S))" input_patterns_0="(i_ep_cmd_rx_wd_add_r(i_ep_cmd_rx_wd_add_r&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1)) = ???(i_ep_cmd_rx_wd_add_r&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1)))" input_patterns_1="(i_ep_cmd_rx_wd_add_r((c_MEM_SMFB0_ADD_S - 1) DOWNTO 0) &lt; (&lt;type&gt;)TO_UNSIGNED(c_TAB_SMFB0_NW, c_MEM_SMFB0_ADD_S)) &amp;&amp; (i_ep_cmd_rx_wd_add_r(i_ep_cmd_rx_wd_add_r&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1)) = ???(i_ep_cmd_rx_wd_add_r&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1)))"/>
-<row j="3" hits_0="3" hits_1="9" body="(i_ep_cmd_rx_wd_add_r((c_MEM_SMFB0_ADD_S - 1) DOWNTO 0) &lt; (&lt;type&gt;)TO_UNSIGNED(c_TAB_SMFB0_NW, c_MEM_SMFB0_ADD_S))" input_patterns_0="((i_ep_cmd_rx_wd_add_r(i_ep_cmd_rx_wd_add_r&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1)) = ???(i_ep_cmd_rx_wd_add_r&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1))) and (i_ep_cmd_rx_wd_add_r((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_SMFB0_ADD_S) = ???((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_SMFB0_ADD_S)))" input_patterns_1="((i_ep_cmd_rx_wd_add_r(i_ep_cmd_rx_wd_add_r&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1)) = ???(i_ep_cmd_rx_wd_add_r&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1))) and (i_ep_cmd_rx_wd_add_r((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_SMFB0_ADD_S) = ???((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_SMFB0_ADD_S)))"/>
+<row j="3" hits_0="0" hits_1="9" body="(i_ep_cmd_rx_wd_add_r((c_MEM_SMFB0_ADD_S - 1) DOWNTO 0) &lt; (&lt;type&gt;)TO_UNSIGNED(c_TAB_SMFB0_NW, c_MEM_SMFB0_ADD_S))" input_patterns_0="((i_ep_cmd_rx_wd_add_r(i_ep_cmd_rx_wd_add_r&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1)) = ???(i_ep_cmd_rx_wd_add_r&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1))) and (i_ep_cmd_rx_wd_add_r((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_SMFB0_ADD_S) = ???((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_SMFB0_ADD_S)))" input_patterns_1="((i_ep_cmd_rx_wd_add_r(i_ep_cmd_rx_wd_add_r&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1)) = ???(i_ep_cmd_rx_wd_add_r&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1))) and (i_ep_cmd_rx_wd_add_r((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_SMFB0_ADD_S) = ???((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_SMFB0_ADD_S)))"/>
 </table>
 </condition>
 <condition ln="92" st="1" active="3" hits="3" percent="100.00">
@@ -869,11 +869,11 @@ byFile="1">
 <row j="3" hits_0="0" hits_1="4" body="(i_ep_cmd_rx_wd_add_r((c_MEM_SMFBM_ADD_S - 1) DOWNTO 0) &lt; (&lt;type&gt;)TO_UNSIGNED(c_TAB_SMFBM_NW, c_MEM_SMFBM_ADD_S))" input_patterns_0="((i_ep_cmd_rx_wd_add_r(i_ep_cmd_rx_wd_add_r&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1)) = ???(i_ep_cmd_rx_wd_add_r&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1))) and (i_ep_cmd_rx_wd_add_r((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_SMFBM_ADD_S) = ???((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_SMFBM_ADD_S)))" input_patterns_1="((i_ep_cmd_rx_wd_add_r(i_ep_cmd_rx_wd_add_r&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1)) = ???(i_ep_cmd_rx_wd_add_r&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1))) and (i_ep_cmd_rx_wd_add_r((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_SMFBM_ADD_S) = ???((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_SMFBM_ADD_S)))"/>
 </table>
 </condition>
-<condition ln="102" st="1" active="3" hits="3" percent="100.00">
+<condition ln="102" st="1" active="3" hits="2" percent="66.66">
 <table rows="3" cols="0" unknown="0">
 <row j="1" hits_0="45" hits_1="3" body="(i_ep_cmd_rx_wd_add_r(i_ep_cmd_rx_wd_add_r&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1)) = ???(i_ep_cmd_rx_wd_add_r&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1)))" input_patterns_0="-" input_patterns_1="(i_ep_cmd_rx_wd_add_r((c_MEM_SAOFF_ADD_S - 1) DOWNTO 0) &lt; (&lt;type&gt;)TO_UNSIGNED(c_TAB_SAOFF_NW, c_MEM_SAOFF_ADD_S)) &amp;&amp; (i_ep_cmd_rx_wd_add_r((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_SAOFF_ADD_S) = ???((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_SAOFF_ADD_S))"/>
 <row j="2" hits_0="45" hits_1="3" body="(i_ep_cmd_rx_wd_add_r((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_SAOFF_ADD_S) = ???((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_SAOFF_ADD_S))" input_patterns_0="(i_ep_cmd_rx_wd_add_r(i_ep_cmd_rx_wd_add_r&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1)) = ???(i_ep_cmd_rx_wd_add_r&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1)))" input_patterns_1="(i_ep_cmd_rx_wd_add_r((c_MEM_SAOFF_ADD_S - 1) DOWNTO 0) &lt; (&lt;type&gt;)TO_UNSIGNED(c_TAB_SAOFF_NW, c_MEM_SAOFF_ADD_S)) &amp;&amp; (i_ep_cmd_rx_wd_add_r(i_ep_cmd_rx_wd_add_r&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1)) = ???(i_ep_cmd_rx_wd_add_r&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1)))"/>
-<row j="3" hits_0="6" hits_1="3" body="(i_ep_cmd_rx_wd_add_r((c_MEM_SAOFF_ADD_S - 1) DOWNTO 0) &lt; (&lt;type&gt;)TO_UNSIGNED(c_TAB_SAOFF_NW, c_MEM_SAOFF_ADD_S))" input_patterns_0="((i_ep_cmd_rx_wd_add_r(i_ep_cmd_rx_wd_add_r&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1)) = ???(i_ep_cmd_rx_wd_add_r&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1))) and (i_ep_cmd_rx_wd_add_r((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_SAOFF_ADD_S) = ???((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_SAOFF_ADD_S)))" input_patterns_1="((i_ep_cmd_rx_wd_add_r(i_ep_cmd_rx_wd_add_r&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1)) = ???(i_ep_cmd_rx_wd_add_r&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1))) and (i_ep_cmd_rx_wd_add_r((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_SAOFF_ADD_S) = ???((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_SAOFF_ADD_S)))"/>
+<row j="3" hits_0="0" hits_1="3" body="(i_ep_cmd_rx_wd_add_r((c_MEM_SAOFF_ADD_S - 1) DOWNTO 0) &lt; (&lt;type&gt;)TO_UNSIGNED(c_TAB_SAOFF_NW, c_MEM_SAOFF_ADD_S))" input_patterns_0="((i_ep_cmd_rx_wd_add_r(i_ep_cmd_rx_wd_add_r&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1)) = ???(i_ep_cmd_rx_wd_add_r&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1))) and (i_ep_cmd_rx_wd_add_r((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_SAOFF_ADD_S) = ???((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_SAOFF_ADD_S)))" input_patterns_1="((i_ep_cmd_rx_wd_add_r(i_ep_cmd_rx_wd_add_r&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1)) = ???(i_ep_cmd_rx_wd_add_r&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1))) and (i_ep_cmd_rx_wd_add_r((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_SAOFF_ADD_S) = ???((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_SAOFF_ADD_S)))"/>
 </table>
 </condition>
 <condition ln="107" st="1" active="2" hits="2" percent="100.00">
@@ -1097,42 +1097,42 @@ byFile="1">
 <stmt ln="293" st="1" hits="417"/>
 <stmt ln="294" st="1" hits="376"/>
 <stmt ln="295" st="1" hits="440"/>
-<stmt ln="352" st="1" hits="31512"/>
+<stmt ln="352" st="1" hits="31484"/>
 <stmt ln="353" st="1" hits="28812"/>
 <stmt ln="354" st="1" hits="636"/>
 <stmt ln="355" st="1" hits="388"/>
 <stmt ln="356" st="1" hits="39896"/>
-<stmt ln="358" st="1" hits="34448"/>
+<stmt ln="358" st="1" hits="34400"/>
 <stmt ln="359" st="1" hits="28812"/>
 <stmt ln="360" st="1" hits="2024"/>
 <stmt ln="361" st="1" hits="392"/>
 <stmt ln="362" st="1" hits="39896"/>
-<stmt ln="364" st="1" hits="34448"/>
+<stmt ln="364" st="1" hits="34400"/>
 <stmt ln="365" st="1" hits="28812"/>
 <stmt ln="366" st="1" hits="2024"/>
 <stmt ln="367" st="1" hits="392"/>
 <stmt ln="368" st="1" hits="39896"/>
-<stmt ln="370" st="1" hits="34448"/>
+<stmt ln="370" st="1" hits="34400"/>
 <stmt ln="371" st="1" hits="28812"/>
 <stmt ln="372" st="1" hits="2024"/>
 <stmt ln="373" st="1" hits="392"/>
 <stmt ln="374" st="1" hits="39896"/>
-<stmt ln="376" st="1" hits="34448"/>
+<stmt ln="376" st="1" hits="34400"/>
 <stmt ln="377" st="1" hits="28812"/>
 <stmt ln="378" st="1" hits="3684"/>
 <stmt ln="379" st="1" hits="466"/>
 <stmt ln="380" st="1" hits="39896"/>
-<stmt ln="382" st="1" hits="34448"/>
+<stmt ln="382" st="1" hits="34400"/>
 <stmt ln="383" st="1" hits="28812"/>
 <stmt ln="384" st="1" hits="2024"/>
 <stmt ln="385" st="1" hits="392"/>
 <stmt ln="386" st="1" hits="39896"/>
-<stmt ln="388" st="1" hits="34448"/>
+<stmt ln="388" st="1" hits="34400"/>
 <stmt ln="389" st="1" hits="28812"/>
 <stmt ln="390" st="1" hits="3026"/>
 <stmt ln="391" st="1" hits="952"/>
 <stmt ln="392" st="1" hits="34988"/>
-<stmt ln="394" st="1" hits="34448"/>
+<stmt ln="394" st="1" hits="34400"/>
 <stmt ln="395" st="1" hits="28812"/>
 <stmt ln="396" st="1" hits="2024"/>
 <stmt ln="397" st="1" hits="392"/>
@@ -1142,12 +1142,12 @@ byFile="1">
 <stmt ln="402" st="1" hits="3116"/>
 <stmt ln="403" st="1" hits="384"/>
 <stmt ln="404" st="1" hits="39896"/>
-<stmt ln="406" st="1" hits="34448"/>
+<stmt ln="406" st="1" hits="34400"/>
 <stmt ln="407" st="1" hits="28812"/>
 <stmt ln="408" st="1" hits="1936"/>
 <stmt ln="409" st="1" hits="180"/>
 <stmt ln="410" st="1" hits="180"/>
-<stmt ln="415" st="1" hits="7833"/>
+<stmt ln="415" st="1" hits="7826"/>
 <stmt ln="473" st="1" hits="90"/>
 <stmt ln="477" st="1" hits="6"/>
 <stmt ln="480" st="1" hits="985"/>
@@ -1208,16 +1208,16 @@ byFile="1">
 <ielem ln="205" st="1" true="1388902" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="259" st="1" true="360" false="1433365"/>
-<ielem ln="262" st="1" true="1433365" false="0"/>
+<ielem ln="259" st="1" true="360" false="1433341"/>
+<ielem ln="262" st="1" true="1433341" false="0"/>
 </if>
 <if hasElse="1" active="2" hits="2" percent="100.00">
-<ielem ln="263" st="1" true="38901" false="1394464"/>
-<ielem ln="269" st="1" true="1394464" false="0"/>
+<ielem ln="263" st="1" true="42221" false="1391120"/>
+<ielem ln="269" st="1" true="1391120" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="264" st="1" true="8" false="38893"/>
-<ielem ln="264" st="1" true="38893" false="0"/>
+<ielem ln="264" st="1" true="8" false="42213"/>
+<ielem ln="264" st="1" true="42213" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
 <ielem ln="285" st="1" true="540" false="6942431"/>
@@ -1299,7 +1299,7 @@ byFile="1">
 <stmt ln="251" st="1" hits="360"/>
 <stmt ln="260" st="1" hits="360"/>
 <stmt ln="265" st="1" hits="8"/>
-<stmt ln="270" st="1" hits="1394464"/>
+<stmt ln="270" st="1" hits="1391120"/>
 <stmt ln="286" st="1" hits="540"/>
 <stmt ln="291" st="1" hits="911969"/>
 <stmt ln="294" st="1" hits="2"/>
@@ -1460,22 +1460,22 @@ byFile="1">
 <fileData path="./src/round_sat.vhd">
 <branches active="5" hits="5" percent="100.00"/>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="65" st="1" true="3420" false="4373944"/>
-<ielem ln="68" st="1" true="4373944" false="0"/>
+<ielem ln="65" st="1" true="3420" false="4373480"/>
+<ielem ln="68" st="1" true="4373480" false="0"/>
 </if>
 <if hasElse="1" active="3" hits="3" percent="100.00">
-<ielem ln="71" st="1" true="1164" false="4372780"/>
-<ielem ln="76" st="1" true="1988" false="4370792"/>
-<ielem ln="80" st="1" true="4370792" false="0"/>
+<ielem ln="71" st="1" true="1164" false="4372316"/>
+<ielem ln="76" st="1" true="1988" false="4370328"/>
+<ielem ln="80" st="1" true="4370328" false="0"/>
 </if>
 <statements active="7" hits="7" percent="100.00"/>
-<stmt ln="57" st="1" hits="4375216"/>
+<stmt ln="57" st="1" hits="4374752"/>
 <stmt ln="66" st="1" hits="3420"/>
 <stmt ln="72" st="1" hits="1164"/>
 <stmt ln="73" st="1" hits="1164"/>
 <stmt ln="77" st="1" hits="1988"/>
 <stmt ln="78" st="1" hits="1988"/>
-<stmt ln="81" st="1" hits="4370792"/>
+<stmt ln="81" st="1" hits="4370328"/>
 </fileData>
 <fileData path="./src/rst_clk_mgt.vhd">
 <branches active="12" hits="12" percent="100.00"/>
@@ -1987,13 +1987,13 @@ byFile="1">
 <ielem ln="215" st="1" true="1345673" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="236" st="1" true="900" false="2704989"/>
-<ielem ln="239" st="1" true="2704989" false="0"/>
+<ielem ln="236" st="1" true="900" false="2705152"/>
+<ielem ln="239" st="1" true="2705152" false="0"/>
 </if>
 <if hasElse="0" active="3" hits="3" percent="100.00">
-<ielem ln="240" st="1" true="80627" false="2624362"/>
-<ielem ln="243" st="1" true="1208635" false="1415727"/>
-<ielem ln="240" st="1" true="1415727" false="0"/>
+<ielem ln="240" st="1" true="80627" false="2624525"/>
+<ielem ln="243" st="1" true="1208635" false="1415890"/>
+<ielem ln="240" st="1" true="1415890" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
 <ielem ln="258" st="1" true="900" false="2689211"/>
@@ -2040,7 +2040,7 @@ byFile="1">
 <stmt ln="164" st="1" hits="900"/>
 <stmt ln="168" st="1" hits="81034"/>
 <stmt ln="171" st="1" hits="1208660"/>
-<stmt ln="179" st="1" hits="463051"/>
+<stmt ln="179" st="1" hits="463195"/>
 <stmt ln="188" st="1" hits="900"/>
 <stmt ln="192" st="1" hits="67612"/>
 <stmt ln="195" st="1" hits="81034"/>
@@ -2664,8 +2664,8 @@ byFile="1">
 <ielem ln="571" st="1" true="1387382" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="582" st="1" true="360" false="1416580"/>
-<ielem ln="585" st="1" true="1416580" false="0"/>
+<ielem ln="582" st="1" true="360" false="1416600"/>
+<ielem ln="585" st="1" true="1416600" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
 <ielem ln="606" st="1" true="540" false="13874937"/>
@@ -2680,11 +2680,11 @@ byFile="1">
 <ielem ln="614" st="1" true="38824" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="633" st="1" true="540" false="1174197"/>
-<ielem ln="636" st="1" true="1174197" false="0"/>
+<ielem ln="633" st="1" true="540" false="1173965"/>
+<ielem ln="636" st="1" true="1173965" false="0"/>
 </if>
 <if hasElse="0" active="5" hits="4" percent="80.00">
-<ielem ln="637" st="1" true="294986" false="879211"/>
+<ielem ln="637" st="1" true="294754" false="879211"/>
 <ielem ln="640" st="1" true="8945" false="870266"/>
 <ielem ln="643" st="1" true="388" false="869878"/>
 <ielem ln="646" st="1" true="869878" false="0"/>
@@ -2776,12 +2776,12 @@ byFile="1">
 <stmt ln="556" st="1" hits="13874793"/>
 <stmt ln="572" st="1" hits="1387218"/>
 <stmt ln="583" st="1" hits="360"/>
-<stmt ln="586" st="1" hits="1416580"/>
+<stmt ln="586" st="1" hits="1416600"/>
 <stmt ln="607" st="1" hits="540"/>
 <stmt ln="612" st="1" hits="1792"/>
 <stmt ln="615" st="1" hits="38824"/>
 <stmt ln="634" st="1" hits="540"/>
-<stmt ln="638" st="1" hits="294986"/>
+<stmt ln="638" st="1" hits="294754"/>
 <stmt ln="641" st="1" hits="8945"/>
 <stmt ln="644" st="1" hits="388"/>
 <stmt ln="647" st="1" hits="869878"/>
@@ -3142,7 +3142,7 @@ byFile="1">
 <stmt ln="604" st="1" hits="641196"/>
 <stmt ln="616" st="1" hits="1387406"/>
 <stmt ln="617" st="1" hits="2774812"/>
-<stmt ln="677" st="1" hits="641387"/>
+<stmt ln="677" st="1" hits="640923"/>
 <stmt ln="692" st="1" hits="518661"/>
 <stmt ln="711" st="1" hits="360"/>
 <stmt ln="712" st="1" hits="360"/>
@@ -3336,7 +3336,7 @@ byFile="1">
 <ielem ln="200" st="1" true="113" false="4789"/>
 <ielem ln="204" st="1" true="4789" false="0"/>
 </if>
-<fec_conditions active="20" hits="19" percent="95.00"/>
+<fec_conditions active="20" hits="18" percent="90.00"/>
 <condition ln="168" st="1" active="3" hits="2" percent="66.66">
 <table rows="3" cols="0" unknown="0">
 <row j="1" hits_0="12" hits_1="4" body="(i_ep_cmd_rx_add_norw(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1)) = ???(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1)))" input_patterns_0="-" input_patterns_1="(i_ep_cmd_rx_add_norw((c_MEM_SMFBM_ADD_S - 1) DOWNTO 0) &lt; (&lt;type&gt;)TO_UNSIGNED(c_TAB_SMFBM_NW, c_MEM_SMFBM_ADD_S)) &amp;&amp; (i_ep_cmd_rx_add_norw((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_SMFBM_ADD_S) = ???((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_SMFBM_ADD_S))"/>
@@ -3344,11 +3344,11 @@ byFile="1">
 <row j="3" hits_0="0" hits_1="4" body="(i_ep_cmd_rx_add_norw((c_MEM_SMFBM_ADD_S - 1) DOWNTO 0) &lt; (&lt;type&gt;)TO_UNSIGNED(c_TAB_SMFBM_NW, c_MEM_SMFBM_ADD_S))" input_patterns_0="((i_ep_cmd_rx_add_norw(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1)) = ???(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1))) and (i_ep_cmd_rx_add_norw((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_SMFBM_ADD_S) = ???((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_SMFBM_ADD_S)))" input_patterns_1="((i_ep_cmd_rx_add_norw(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1)) = ???(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1))) and (i_ep_cmd_rx_add_norw((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_SMFBM_ADD_S) = ???((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_SMFBM_ADD_S)))"/>
 </table>
 </condition>
-<condition ln="173" st="1" active="3" hits="3" percent="100.00">
+<condition ln="173" st="1" active="3" hits="2" percent="66.66">
 <table rows="3" cols="0" unknown="0">
 <row j="1" hits_0="12" hits_1="3" body="(i_ep_cmd_rx_add_norw(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1)) = ???(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1)))" input_patterns_0="-" input_patterns_1="(i_ep_cmd_rx_add_norw((c_MEM_SAOFF_ADD_S - 1) DOWNTO 0) &lt; (&lt;type&gt;)TO_UNSIGNED(c_TAB_SAOFF_NW, c_MEM_SAOFF_ADD_S)) &amp;&amp; (i_ep_cmd_rx_add_norw((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_SAOFF_ADD_S) = ???((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_SAOFF_ADD_S))"/>
-<row j="2" hits_0="23" hits_1="3" body="(i_ep_cmd_rx_add_norw((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_SAOFF_ADD_S) = ???((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_SAOFF_ADD_S))" input_patterns_0="(i_ep_cmd_rx_add_norw(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1)) = ???(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1)))" input_patterns_1="(i_ep_cmd_rx_add_norw((c_MEM_SAOFF_ADD_S - 1) DOWNTO 0) &lt; (&lt;type&gt;)TO_UNSIGNED(c_TAB_SAOFF_NW, c_MEM_SAOFF_ADD_S)) &amp;&amp; (i_ep_cmd_rx_add_norw(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1)) = ???(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1)))"/>
-<row j="3" hits_0="6" hits_1="3" body="(i_ep_cmd_rx_add_norw((c_MEM_SAOFF_ADD_S - 1) DOWNTO 0) &lt; (&lt;type&gt;)TO_UNSIGNED(c_TAB_SAOFF_NW, c_MEM_SAOFF_ADD_S))" input_patterns_0="((i_ep_cmd_rx_add_norw(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1)) = ???(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1))) and (i_ep_cmd_rx_add_norw((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_SAOFF_ADD_S) = ???((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_SAOFF_ADD_S)))" input_patterns_1="((i_ep_cmd_rx_add_norw(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1)) = ???(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1))) and (i_ep_cmd_rx_add_norw((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_SAOFF_ADD_S) = ???((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_SAOFF_ADD_S)))"/>
+<row j="2" hits_0="27" hits_1="3" body="(i_ep_cmd_rx_add_norw((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_SAOFF_ADD_S) = ???((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_SAOFF_ADD_S))" input_patterns_0="(i_ep_cmd_rx_add_norw(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1)) = ???(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1)))" input_patterns_1="(i_ep_cmd_rx_add_norw((c_MEM_SAOFF_ADD_S - 1) DOWNTO 0) &lt; (&lt;type&gt;)TO_UNSIGNED(c_TAB_SAOFF_NW, c_MEM_SAOFF_ADD_S)) &amp;&amp; (i_ep_cmd_rx_add_norw(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1)) = ???(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1)))"/>
+<row j="3" hits_0="0" hits_1="3" body="(i_ep_cmd_rx_add_norw((c_MEM_SAOFF_ADD_S - 1) DOWNTO 0) &lt; (&lt;type&gt;)TO_UNSIGNED(c_TAB_SAOFF_NW, c_MEM_SAOFF_ADD_S))" input_patterns_0="((i_ep_cmd_rx_add_norw(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1)) = ???(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1))) and (i_ep_cmd_rx_add_norw((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_SAOFF_ADD_S) = ???((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_SAOFF_ADD_S)))" input_patterns_1="((i_ep_cmd_rx_add_norw(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1)) = ???(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1))) and (i_ep_cmd_rx_add_norw((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_SAOFF_ADD_S) = ???((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_SAOFF_ADD_S)))"/>
 </table>
 </condition>
 <condition ln="177" st="1" active="2" hits="2" percent="100.00">
@@ -3470,7 +3470,7 @@ byFile="1">
 <ielem ln="176" st="1" true="140" false="1144"/>
 <ielem ln="181" st="1" true="1144" false="0"/>
 </if>
-<fec_conditions active="49" hits="24" percent="48.97"/>
+<fec_conditions active="49" hits="21" percent="42.85"/>
 <condition ln="73" st="1" active="2" hits="1" percent="50.00">
 <table rows="2" cols="0" unknown="0">
 <row j="1" hits_0="35" hits_1="6" body="(i_ep_cmd_rx_add_norw(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO c_MEM_TSTPT_ADD_S) = c_EP_CMD_ADD_TSTPT(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO c_MEM_TSTPT_ADD_S))" input_patterns_0="-" input_patterns_1="(i_ep_cmd_rx_add_norw((c_MEM_TSTPT_ADD_S - 1) DOWNTO 0) &lt; (&lt;type&gt;)TO_UNSIGNED(c_TAB_TSTPT_NW, c_MEM_TSTPT_ADD_S))"/>
@@ -3483,11 +3483,11 @@ byFile="1">
 <row j="2" hits_0="0" hits_1="1" body="(i_ep_cmd_rx_add_norw((c_MEM_HKEEP_ADD_S - 1) DOWNTO 0) &lt; (&lt;type&gt;)TO_UNSIGNED(c_TAB_HKEEP_NW, c_MEM_HKEEP_ADD_S))" input_patterns_0="(i_ep_cmd_rx_add_norw(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO c_MEM_HKEEP_ADD_S) = c_EP_CMD_ADD_HKEEP(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO c_MEM_HKEEP_ADD_S))" input_patterns_1="(i_ep_cmd_rx_add_norw(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO c_MEM_HKEEP_ADD_S) = c_EP_CMD_ADD_HKEEP(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO c_MEM_HKEEP_ADD_S))"/>
 </table>
 </condition>
-<condition ln="100" st="1" active="3" hits="2" percent="66.66">
+<condition ln="100" st="1" active="3" hits="1" percent="33.33">
 <table rows="3" cols="0" unknown="0">
 <row j="1" hits_0="0" hits_1="3" body="(i_ep_cmd_rx_add_norw(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1)) = ???(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1)))" input_patterns_0="-" input_patterns_1="(i_ep_cmd_rx_add_norw((c_MEM_PARMA_ADD_S - 1) DOWNTO 0) &lt; (&lt;type&gt;)TO_UNSIGNED(c_TAB_PARMA_NW, c_MEM_PARMA_ADD_S)) &amp;&amp; (i_ep_cmd_rx_add_norw((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_PARMA_ADD_S) = ???((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_PARMA_ADD_S))"/>
 <row j="2" hits_0="28" hits_1="3" body="(i_ep_cmd_rx_add_norw((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_PARMA_ADD_S) = ???((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_PARMA_ADD_S))" input_patterns_0="(i_ep_cmd_rx_add_norw(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1)) = ???(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1)))" input_patterns_1="(i_ep_cmd_rx_add_norw((c_MEM_PARMA_ADD_S - 1) DOWNTO 0) &lt; (&lt;type&gt;)TO_UNSIGNED(c_TAB_PARMA_NW, c_MEM_PARMA_ADD_S)) &amp;&amp; (i_ep_cmd_rx_add_norw(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1)) = ???(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1)))"/>
-<row j="3" hits_0="3" hits_1="3" body="(i_ep_cmd_rx_add_norw((c_MEM_PARMA_ADD_S - 1) DOWNTO 0) &lt; (&lt;type&gt;)TO_UNSIGNED(c_TAB_PARMA_NW, c_MEM_PARMA_ADD_S))" input_patterns_0="((i_ep_cmd_rx_add_norw(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1)) = ???(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1))) and (i_ep_cmd_rx_add_norw((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_PARMA_ADD_S) = ???((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_PARMA_ADD_S)))" input_patterns_1="((i_ep_cmd_rx_add_norw(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1)) = ???(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1))) and (i_ep_cmd_rx_add_norw((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_PARMA_ADD_S) = ???((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_PARMA_ADD_S)))"/>
+<row j="3" hits_0="0" hits_1="3" body="(i_ep_cmd_rx_add_norw((c_MEM_PARMA_ADD_S - 1) DOWNTO 0) &lt; (&lt;type&gt;)TO_UNSIGNED(c_TAB_PARMA_NW, c_MEM_PARMA_ADD_S))" input_patterns_0="((i_ep_cmd_rx_add_norw(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1)) = ???(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1))) and (i_ep_cmd_rx_add_norw((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_PARMA_ADD_S) = ???((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_PARMA_ADD_S)))" input_patterns_1="((i_ep_cmd_rx_add_norw(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1)) = ???(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1))) and (i_ep_cmd_rx_add_norw((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_PARMA_ADD_S) = ???((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_PARMA_ADD_S)))"/>
 </table>
 </condition>
 <condition ln="105" st="1" active="3" hits="1" percent="33.33">
@@ -3497,18 +3497,18 @@ byFile="1">
 <row j="3" hits_0="27" hits_1="3" body="(i_ep_cmd_rx_add_norw((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO 0) &lt; (&lt;type&gt;)((&lt;type&gt;)???((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO 0) + TO_UNSIGNED(c_TAB_KIKNM_NW, c_EP_CMD_ADD_COLPOSL)))" input_patterns_0="((i_ep_cmd_rx_add_norw(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1)) = ???(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1))) and (i_ep_cmd_rx_add_norw((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO 0) &gt;= ???((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO 0)))" input_patterns_1="((i_ep_cmd_rx_add_norw(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1)) = ???(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1))) and (i_ep_cmd_rx_add_norw((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO 0) &gt;= ???((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO 0)))"/>
 </table>
 </condition>
-<condition ln="111" st="1" active="3" hits="2" percent="66.66">
+<condition ln="111" st="1" active="3" hits="1" percent="33.33">
 <table rows="3" cols="0" unknown="0">
 <row j="1" hits_0="0" hits_1="9" body="(i_ep_cmd_rx_add_norw(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1)) = ???(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1)))" input_patterns_0="-" input_patterns_1="(i_ep_cmd_rx_add_norw((c_MEM_KNORM_ADD_S - 1) DOWNTO 0) &lt; (&lt;type&gt;)TO_UNSIGNED(c_TAB_KNORM_NW, c_MEM_KNORM_ADD_S)) &amp;&amp; (i_ep_cmd_rx_add_norw((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_KNORM_ADD_S) = ???((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_KNORM_ADD_S))"/>
 <row j="2" hits_0="25" hits_1="9" body="(i_ep_cmd_rx_add_norw((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_KNORM_ADD_S) = ???((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_KNORM_ADD_S))" input_patterns_0="(i_ep_cmd_rx_add_norw(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1)) = ???(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1)))" input_patterns_1="(i_ep_cmd_rx_add_norw((c_MEM_KNORM_ADD_S - 1) DOWNTO 0) &lt; (&lt;type&gt;)TO_UNSIGNED(c_TAB_KNORM_NW, c_MEM_KNORM_ADD_S)) &amp;&amp; (i_ep_cmd_rx_add_norw(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1)) = ???(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1)))"/>
-<row j="3" hits_0="3" hits_1="9" body="(i_ep_cmd_rx_add_norw((c_MEM_KNORM_ADD_S - 1) DOWNTO 0) &lt; (&lt;type&gt;)TO_UNSIGNED(c_TAB_KNORM_NW, c_MEM_KNORM_ADD_S))" input_patterns_0="((i_ep_cmd_rx_add_norw(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1)) = ???(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1))) and (i_ep_cmd_rx_add_norw((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_KNORM_ADD_S) = ???((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_KNORM_ADD_S)))" input_patterns_1="((i_ep_cmd_rx_add_norw(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1)) = ???(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1))) and (i_ep_cmd_rx_add_norw((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_KNORM_ADD_S) = ???((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_KNORM_ADD_S)))"/>
+<row j="3" hits_0="0" hits_1="9" body="(i_ep_cmd_rx_add_norw((c_MEM_KNORM_ADD_S - 1) DOWNTO 0) &lt; (&lt;type&gt;)TO_UNSIGNED(c_TAB_KNORM_NW, c_MEM_KNORM_ADD_S))" input_patterns_0="((i_ep_cmd_rx_add_norw(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1)) = ???(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1))) and (i_ep_cmd_rx_add_norw((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_KNORM_ADD_S) = ???((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_KNORM_ADD_S)))" input_patterns_1="((i_ep_cmd_rx_add_norw(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1)) = ???(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1))) and (i_ep_cmd_rx_add_norw((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_KNORM_ADD_S) = ???((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_KNORM_ADD_S)))"/>
 </table>
 </condition>
 <condition ln="116" st="1" active="3" hits="0" percent="0.00">
 <table rows="3" cols="0" unknown="0">
 <row j="1" hits_0="0" hits_1="0" body="(i_ep_cmd_rx_add_norw(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1)) = ???(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1)))" input_patterns_0="-" input_patterns_1="(i_ep_cmd_rx_add_norw((c_MEM_SMFB0_ADD_S - 1) DOWNTO 0) &lt; (&lt;type&gt;)TO_UNSIGNED(c_TAB_SMFB0_NW, c_MEM_SMFB0_ADD_S)) &amp;&amp; (i_ep_cmd_rx_add_norw((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_SMFB0_ADD_S) = ???((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_SMFB0_ADD_S))"/>
 <row j="2" hits_0="25" hits_1="0" body="(i_ep_cmd_rx_add_norw((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_SMFB0_ADD_S) = ???((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_SMFB0_ADD_S))" input_patterns_0="(i_ep_cmd_rx_add_norw(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1)) = ???(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1)))" input_patterns_1="(i_ep_cmd_rx_add_norw((c_MEM_SMFB0_ADD_S - 1) DOWNTO 0) &lt; (&lt;type&gt;)TO_UNSIGNED(c_TAB_SMFB0_NW, c_MEM_SMFB0_ADD_S)) &amp;&amp; (i_ep_cmd_rx_add_norw(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1)) = ???(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1)))"/>
-<row j="3" hits_0="3" hits_1="0" body="(i_ep_cmd_rx_add_norw((c_MEM_SMFB0_ADD_S - 1) DOWNTO 0) &lt; (&lt;type&gt;)TO_UNSIGNED(c_TAB_SMFB0_NW, c_MEM_SMFB0_ADD_S))" input_patterns_0="((i_ep_cmd_rx_add_norw(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1)) = ???(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1))) and (i_ep_cmd_rx_add_norw((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_SMFB0_ADD_S) = ???((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_SMFB0_ADD_S)))" input_patterns_1="((i_ep_cmd_rx_add_norw(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1)) = ???(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1))) and (i_ep_cmd_rx_add_norw((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_SMFB0_ADD_S) = ???((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_SMFB0_ADD_S)))"/>
+<row j="3" hits_0="0" hits_1="0" body="(i_ep_cmd_rx_add_norw((c_MEM_SMFB0_ADD_S - 1) DOWNTO 0) &lt; (&lt;type&gt;)TO_UNSIGNED(c_TAB_SMFB0_NW, c_MEM_SMFB0_ADD_S))" input_patterns_0="((i_ep_cmd_rx_add_norw(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1)) = ???(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1))) and (i_ep_cmd_rx_add_norw((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_SMFB0_ADD_S) = ???((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_SMFB0_ADD_S)))" input_patterns_1="((i_ep_cmd_rx_add_norw(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1)) = ???(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1))) and (i_ep_cmd_rx_add_norw((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_SMFB0_ADD_S) = ???((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_SMFB0_ADD_S)))"/>
 </table>
 </condition>
 <condition ln="121" st="1" active="3" hits="2" percent="66.66">
@@ -3525,11 +3525,11 @@ byFile="1">
 <row j="3" hits_0="0" hits_1="4" body="(i_ep_cmd_rx_add_norw((c_MEM_SMFBM_ADD_S - 1) DOWNTO 0) &lt; (&lt;type&gt;)TO_UNSIGNED(c_TAB_SMFBM_NW, c_MEM_SMFBM_ADD_S))" input_patterns_0="((i_ep_cmd_rx_add_norw(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1)) = ???(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1))) and (i_ep_cmd_rx_add_norw((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_SMFBM_ADD_S) = ???((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_SMFBM_ADD_S)))" input_patterns_1="((i_ep_cmd_rx_add_norw(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1)) = ???(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1))) and (i_ep_cmd_rx_add_norw((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_SMFBM_ADD_S) = ???((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_SMFBM_ADD_S)))"/>
 </table>
 </condition>
-<condition ln="132" st="1" active="3" hits="2" percent="66.66">
+<condition ln="132" st="1" active="3" hits="1" percent="33.33">
 <table rows="3" cols="0" unknown="0">
 <row j="1" hits_0="0" hits_1="3" body="(i_ep_cmd_rx_add_norw(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1)) = ???(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1)))" input_patterns_0="-" input_patterns_1="(i_ep_cmd_rx_add_norw((c_MEM_SAOFF_ADD_S - 1) DOWNTO 0) &lt; (&lt;type&gt;)TO_UNSIGNED(c_TAB_SAOFF_NW, c_MEM_SAOFF_ADD_S)) &amp;&amp; (i_ep_cmd_rx_add_norw((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_SAOFF_ADD_S) = ???((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_SAOFF_ADD_S))"/>
-<row j="2" hits_0="17" hits_1="3" body="(i_ep_cmd_rx_add_norw((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_SAOFF_ADD_S) = ???((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_SAOFF_ADD_S))" input_patterns_0="(i_ep_cmd_rx_add_norw(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1)) = ???(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1)))" input_patterns_1="(i_ep_cmd_rx_add_norw((c_MEM_SAOFF_ADD_S - 1) DOWNTO 0) &lt; (&lt;type&gt;)TO_UNSIGNED(c_TAB_SAOFF_NW, c_MEM_SAOFF_ADD_S)) &amp;&amp; (i_ep_cmd_rx_add_norw(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1)) = ???(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1)))"/>
-<row j="3" hits_0="6" hits_1="3" body="(i_ep_cmd_rx_add_norw((c_MEM_SAOFF_ADD_S - 1) DOWNTO 0) &lt; (&lt;type&gt;)TO_UNSIGNED(c_TAB_SAOFF_NW, c_MEM_SAOFF_ADD_S))" input_patterns_0="((i_ep_cmd_rx_add_norw(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1)) = ???(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1))) and (i_ep_cmd_rx_add_norw((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_SAOFF_ADD_S) = ???((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_SAOFF_ADD_S)))" input_patterns_1="((i_ep_cmd_rx_add_norw(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1)) = ???(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1))) and (i_ep_cmd_rx_add_norw((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_SAOFF_ADD_S) = ???((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_SAOFF_ADD_S)))"/>
+<row j="2" hits_0="21" hits_1="3" body="(i_ep_cmd_rx_add_norw((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_SAOFF_ADD_S) = ???((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_SAOFF_ADD_S))" input_patterns_0="(i_ep_cmd_rx_add_norw(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1)) = ???(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1)))" input_patterns_1="(i_ep_cmd_rx_add_norw((c_MEM_SAOFF_ADD_S - 1) DOWNTO 0) &lt; (&lt;type&gt;)TO_UNSIGNED(c_TAB_SAOFF_NW, c_MEM_SAOFF_ADD_S)) &amp;&amp; (i_ep_cmd_rx_add_norw(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1)) = ???(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1)))"/>
+<row j="3" hits_0="0" hits_1="3" body="(i_ep_cmd_rx_add_norw((c_MEM_SAOFF_ADD_S - 1) DOWNTO 0) &lt; (&lt;type&gt;)TO_UNSIGNED(c_TAB_SAOFF_NW, c_MEM_SAOFF_ADD_S))" input_patterns_0="((i_ep_cmd_rx_add_norw(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1)) = ???(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1))) and (i_ep_cmd_rx_add_norw((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_SAOFF_ADD_S) = ???((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_SAOFF_ADD_S)))" input_patterns_1="((i_ep_cmd_rx_add_norw(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1)) = ???(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO (c_EP_CMD_ADD_COLPOSH + 1))) and (i_ep_cmd_rx_add_norw((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_SAOFF_ADD_S) = ???((c_EP_CMD_ADD_COLPOSL - 1) DOWNTO c_MEM_SAOFF_ADD_S)))"/>
 </table>
 </condition>
 <condition ln="136" st="1" active="2" hits="1" percent="50.00">

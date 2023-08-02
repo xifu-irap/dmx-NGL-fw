@@ -313,9 +313,9 @@ WMDC 3 0 31 1C17_0000
 WMDC 3 0 32 1E08_0000
 WMDC 3 0 33 1FFF_0000
 COMM ==============================================================================================
-COMM   Send command SQ_MUX_FB_ON_OFF ON on all channels
+COMM   Send command MUX_SQ_FB_ON_OFF ON on all channels
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-SQ_MUX_FB_ON_OFF-1111 W
+WCMD W-MUX_SQ_FB_ON_OFF-1111 W
 WUDI sync 0
 WUDI sync 1
 COMM

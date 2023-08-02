@@ -37,13 +37,13 @@
 #             (13056000 ps) ==============================================================================================
 #             (13056000 ps)   Select pulse shaping without filter
 #             (13056000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (13056000 ps) Send SPI command value 1101_0000 (C0_FB1_PULSE_SHAPING_SELECTION, mode Write, data 0000)
+# ** Note   : (13056000 ps) Send SPI command value 1101_0000 (C0_PULSE_SHAPING_SELECTION, mode Write, data 0000)
 # ** Note   : (15378000 ps) Waiting SPI command end for 2286000 ps
 #             (15378000 ps) 
 #             (15378000 ps) ==============================================================================================
 #             (15378000 ps)   Switch on Squid MUX feedback column 0
 #             (15378000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (15378000 ps) Send SPI command value 8003_0001 (SQ_MUX_FB_ON_OFF, mode Write, data 0001)
+# ** Note   : (15378000 ps) Send SPI command value 8003_0001 (MUX_SQ_FB_ON_OFF, mode Write, data 0001)
 # ** Note   : (17700000 ps) Waiting SPI command end for 2286000 ps
 #             (17700000 ps) 
 #             (17700000 ps) ==============================================================================================

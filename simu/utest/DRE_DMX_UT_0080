@@ -183,9 +183,9 @@ CTLR << 320160 ps
 CTLR >> 160080 ps
 COMM
 COMM ==============================================================================================
-COMM   Send command SQ_MUX_FB_ON_OFF column 0 to On for o_c0_sqm_adc_pwdn deactivation
+COMM   Send command MUX_SQ_FB_ON_OFF column 0 to On for o_c0_sqm_adc_pwdn deactivation
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-SQ_MUX_FB_ON_OFF-0001 N
+WCMD W-MUX_SQ_FB_ON_OFF-0001 N
 COMM
 COMM ==============================================================================================
 COMM   Check no event is appeared on o_c0_sqm_adc_pwdn and wait o_c0_sqm_adc_pwdn deactivation
@@ -212,9 +212,9 @@ WUDI sync 1
 CTLE sqm_adc_pwdn(0) >= 160080 ps
 COMM
 COMM ==============================================================================================
-COMM   Send command SQ_MUX_FB_ON_OFF column 0 to Off loop for o_c0_sqm_adc_pwdn activation
+COMM   Send command MUX_SQ_FB_ON_OFF column 0 to Off loop for o_c0_sqm_adc_pwdn activation
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-SQ_MUX_FB_ON_OFF-0000 W
+WCMD W-MUX_SQ_FB_ON_OFF-0000 W
 COMM
 COMM ==============================================================================================
 COMM    Wait i_sync rising edge and check o_c0_sqm_adc_pwdn remains to deactivated
@@ -232,9 +232,9 @@ CTLR << 320160 ps
 CTLR >> 160080 ps
 COMM
 COMM ==============================================================================================
-COMM   Send command SQ_MUX_FB_ON_OFF column 0 to On for o_c0_sqm_adc_pwdn deactivation
+COMM   Send command MUX_SQ_FB_ON_OFF column 0 to On for o_c0_sqm_adc_pwdn deactivation
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-SQ_MUX_FB_ON_OFF-0001 N
+WCMD W-MUX_SQ_FB_ON_OFF-0001 N
 COMM
 COMM ==============================================================================================
 COMM   Check no event is appeared on o_c0_sqm_adc_pwdn and wait o_c0_sqm_adc_pwdn deactivation
@@ -261,9 +261,9 @@ WUDI sync 1
 CTLE sqm_adc_pwdn(0) >= 160080 ps
 COMM
 COMM ==============================================================================================
-COMM   Send command SQ_MUX_FB_ON_OFF column 0 to Off for o_c0_sqm_adc_pwdn activation
+COMM   Send command MUX_SQ_FB_ON_OFF column 0 to Off for o_c0_sqm_adc_pwdn activation
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-SQ_MUX_FB_ON_OFF-0000 W
+WCMD W-MUX_SQ_FB_ON_OFF-0000 W
 COMM
 COMM ==============================================================================================
 COMM    Wait i_sync rising edge and check o_c0_sqm_adc_pwdn remains to deactivated
@@ -281,9 +281,9 @@ CTLR << 320160 ps
 CTLR >> 160080 ps
 COMM
 COMM ==============================================================================================
-COMM   Send command SQ_MUX_FB_ON_OFF column 0 to On for o_c0_sqm_adc_pwdn deactivation
+COMM   Send command MUX_SQ_FB_ON_OFF column 0 to On for o_c0_sqm_adc_pwdn deactivation
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-SQ_MUX_FB_ON_OFF-0001 N
+WCMD W-MUX_SQ_FB_ON_OFF-0001 N
 COMM
 COMM ==============================================================================================
 COMM   Check no event is appeared on o_c0_sqm_adc_pwdn and wait o_c0_sqm_adc_pwdn deactivation
@@ -310,9 +310,9 @@ WUDI sync 1
 CTLE sqm_adc_pwdn(0) >= 160080 ps
 COMM
 COMM ==============================================================================================
-COMM   Send command SQ_MUX_FB_ON_OFF column 0 to Off for o_c0_sqm_adc_pwdn activation
+COMM   Send command MUX_SQ_FB_ON_OFF column 0 to Off for o_c0_sqm_adc_pwdn activation
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-SQ_MUX_FB_ON_OFF-0000 W
+WCMD W-MUX_SQ_FB_ON_OFF-0000 W
 COMM
 COMM ==============================================================================================
 COMM    Wait i_sync rising edge and check o_c0_sqm_adc_pwdn remains to deactivated
@@ -473,9 +473,9 @@ CTLR << 320160 ps
 CTLR >> 160080 ps
 COMM
 COMM ==============================================================================================
-COMM   Send command SQ_MUX_FB_ON_OFF column 1 to On for o_c1_sqm_adc_pwdn deactivation
+COMM   Send command MUX_SQ_FB_ON_OFF column 1 to On for o_c1_sqm_adc_pwdn deactivation
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-SQ_MUX_FB_ON_OFF-0010 N
+WCMD W-MUX_SQ_FB_ON_OFF-0010 N
 COMM
 COMM ==============================================================================================
 COMM   Check no event is appeared on o_c1_sqm_adc_pwdn and wait o_c1_sqm_adc_pwdn deactivation
@@ -502,9 +502,9 @@ WUDI sync 1
 CTLE sqm_adc_pwdn(1) >= 160080 ps
 COMM
 COMM ==============================================================================================
-COMM   Send command SQ_MUX_FB_ON_OFF column 1 to Off loop for o_c1_sqm_adc_pwdn activation
+COMM   Send command MUX_SQ_FB_ON_OFF column 1 to Off loop for o_c1_sqm_adc_pwdn activation
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-SQ_MUX_FB_ON_OFF-0000 W
+WCMD W-MUX_SQ_FB_ON_OFF-0000 W
 COMM
 COMM ==============================================================================================
 COMM    Wait i_sync rising edge and check o_c1_sqm_adc_pwdn remains to deactivated
@@ -522,9 +522,9 @@ CTLR << 320160 ps
 CTLR >> 160080 ps
 COMM
 COMM ==============================================================================================
-COMM   Send command SQ_MUX_FB_ON_OFF column 1 to On for o_c1_sqm_adc_pwdn deactivation
+COMM   Send command MUX_SQ_FB_ON_OFF column 1 to On for o_c1_sqm_adc_pwdn deactivation
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-SQ_MUX_FB_ON_OFF-0010 N
+WCMD W-MUX_SQ_FB_ON_OFF-0010 N
 COMM
 COMM ==============================================================================================
 COMM   Check no event is appeared on o_c1_sqm_adc_pwdn and wait o_c1_sqm_adc_pwdn deactivation
@@ -551,9 +551,9 @@ WUDI sync 1
 CTLE sqm_adc_pwdn(1) >= 160080 ps
 COMM
 COMM ==============================================================================================
-COMM   Send command SQ_MUX_FB_ON_OFF column 1 to Off for o_c1_sqm_adc_pwdn activation
+COMM   Send command MUX_SQ_FB_ON_OFF column 1 to Off for o_c1_sqm_adc_pwdn activation
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-SQ_MUX_FB_ON_OFF-0000 W
+WCMD W-MUX_SQ_FB_ON_OFF-0000 W
 COMM
 COMM ==============================================================================================
 COMM    Wait i_sync rising edge and check o_c1_sqm_adc_pwdn remains to deactivated
@@ -571,9 +571,9 @@ CTLR << 320160 ps
 CTLR >> 160080 ps
 COMM
 COMM ==============================================================================================
-COMM   Send command SQ_MUX_FB_ON_OFF column 1 to On for o_c1_sqm_adc_pwdn deactivation
+COMM   Send command MUX_SQ_FB_ON_OFF column 1 to On for o_c1_sqm_adc_pwdn deactivation
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-SQ_MUX_FB_ON_OFF-0010 N
+WCMD W-MUX_SQ_FB_ON_OFF-0010 N
 COMM
 COMM ==============================================================================================
 COMM   Check no event is appeared on o_c1_sqm_adc_pwdn and wait o_c1_sqm_adc_pwdn deactivation
@@ -600,9 +600,9 @@ WUDI sync 1
 CTLE sqm_adc_pwdn(1) >= 160080 ps
 COMM
 COMM ==============================================================================================
-COMM   Send command SQ_MUX_FB_ON_OFF column 1 to Off for o_c1_sqm_adc_pwdn activation
+COMM   Send command MUX_SQ_FB_ON_OFF column 1 to Off for o_c1_sqm_adc_pwdn activation
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-SQ_MUX_FB_ON_OFF-0000 W
+WCMD W-MUX_SQ_FB_ON_OFF-0000 W
 COMM
 COMM ==============================================================================================
 COMM    Wait i_sync rising edge and check o_c1_sqm_adc_pwdn remains to deactivated
@@ -763,9 +763,9 @@ CTLR << 320160 ps
 CTLR >> 160080 ps
 COMM
 COMM ==============================================================================================
-COMM   Send command SQ_MUX_FB_ON_OFF column 2 to On for o_c2_sqm_adc_pwdn deactivation
+COMM   Send command MUX_SQ_FB_ON_OFF column 2 to On for o_c2_sqm_adc_pwdn deactivation
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-SQ_MUX_FB_ON_OFF-0100 N
+WCMD W-MUX_SQ_FB_ON_OFF-0100 N
 COMM
 COMM ==============================================================================================
 COMM   Check no event is appeared on o_c2_sqm_adc_pwdn and wait o_c2_sqm_adc_pwdn deactivation
@@ -792,9 +792,9 @@ WUDI sync 1
 CTLE sqm_adc_pwdn(2) >= 160080 ps
 COMM
 COMM ==============================================================================================
-COMM   Send command SQ_MUX_FB_ON_OFF column 2 to Off loop for o_c2_sqm_adc_pwdn activation
+COMM   Send command MUX_SQ_FB_ON_OFF column 2 to Off loop for o_c2_sqm_adc_pwdn activation
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-SQ_MUX_FB_ON_OFF-0000 W
+WCMD W-MUX_SQ_FB_ON_OFF-0000 W
 COMM
 COMM ==============================================================================================
 COMM    Wait i_sync rising edge and check o_c2_sqm_adc_pwdn remains to deactivated
@@ -812,9 +812,9 @@ CTLR << 320160 ps
 CTLR >> 160080 ps
 COMM
 COMM ==============================================================================================
-COMM   Send command SQ_MUX_FB_ON_OFF column 2 to On for o_c2_sqm_adc_pwdn deactivation
+COMM   Send command MUX_SQ_FB_ON_OFF column 2 to On for o_c2_sqm_adc_pwdn deactivation
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-SQ_MUX_FB_ON_OFF-0100 N
+WCMD W-MUX_SQ_FB_ON_OFF-0100 N
 COMM
 COMM ==============================================================================================
 COMM   Check no event is appeared on o_c2_sqm_adc_pwdn and wait o_c2_sqm_adc_pwdn deactivation
@@ -841,9 +841,9 @@ WUDI sync 1
 CTLE sqm_adc_pwdn(2) >= 160080 ps
 COMM
 COMM ==============================================================================================
-COMM   Send command SQ_MUX_FB_ON_OFF column 2 to Off for o_c2_sqm_adc_pwdn activation
+COMM   Send command MUX_SQ_FB_ON_OFF column 2 to Off for o_c2_sqm_adc_pwdn activation
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-SQ_MUX_FB_ON_OFF-0000 W
+WCMD W-MUX_SQ_FB_ON_OFF-0000 W
 COMM
 COMM ==============================================================================================
 COMM    Wait i_sync rising edge and check o_c2_sqm_adc_pwdn remains to deactivated
@@ -861,9 +861,9 @@ CTLR << 320160 ps
 CTLR >> 160080 ps
 COMM
 COMM ==============================================================================================
-COMM   Send command SQ_MUX_FB_ON_OFF column 2 to On for o_c2_sqm_adc_pwdn deactivation
+COMM   Send command MUX_SQ_FB_ON_OFF column 2 to On for o_c2_sqm_adc_pwdn deactivation
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-SQ_MUX_FB_ON_OFF-0100 N
+WCMD W-MUX_SQ_FB_ON_OFF-0100 N
 COMM
 COMM ==============================================================================================
 COMM   Check no event is appeared on o_c2_sqm_adc_pwdn and wait o_c2_sqm_adc_pwdn deactivation
@@ -890,9 +890,9 @@ WUDI sync 1
 CTLE sqm_adc_pwdn(2) >= 160080 ps
 COMM
 COMM ==============================================================================================
-COMM   Send command SQ_MUX_FB_ON_OFF column 2 to Off for o_c2_sqm_adc_pwdn activation
+COMM   Send command MUX_SQ_FB_ON_OFF column 2 to Off for o_c2_sqm_adc_pwdn activation
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-SQ_MUX_FB_ON_OFF-0000 W
+WCMD W-MUX_SQ_FB_ON_OFF-0000 W
 COMM
 COMM ==============================================================================================
 COMM    Wait i_sync rising edge and check o_c2_sqm_adc_pwdn remains to deactivated
@@ -1053,9 +1053,9 @@ CTLR << 320160 ps
 CTLR >> 160080 ps
 COMM
 COMM ==============================================================================================
-COMM   Send command SQ_MUX_FB_ON_OFF column 3 to On for o_c3_sqm_adc_pwdn deactivation
+COMM   Send command MUX_SQ_FB_ON_OFF column 3 to On for o_c3_sqm_adc_pwdn deactivation
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-SQ_MUX_FB_ON_OFF-1000 N
+WCMD W-MUX_SQ_FB_ON_OFF-1000 N
 COMM
 COMM ==============================================================================================
 COMM   Check no event is appeared on o_c3_sqm_adc_pwdn and wait o_c3_sqm_adc_pwdn deactivation
@@ -1082,9 +1082,9 @@ WUDI sync 1
 CTLE sqm_adc_pwdn(3) >= 160080 ps
 COMM
 COMM ==============================================================================================
-COMM   Send command SQ_MUX_FB_ON_OFF column 3 to Off loop for o_c3_sqm_adc_pwdn activation
+COMM   Send command MUX_SQ_FB_ON_OFF column 3 to Off loop for o_c3_sqm_adc_pwdn activation
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-SQ_MUX_FB_ON_OFF-0000 W
+WCMD W-MUX_SQ_FB_ON_OFF-0000 W
 COMM
 COMM ==============================================================================================
 COMM    Wait i_sync rising edge and check o_c3_sqm_adc_pwdn remains to deactivated
@@ -1102,9 +1102,9 @@ CTLR << 320160 ps
 CTLR >> 160080 ps
 COMM
 COMM ==============================================================================================
-COMM   Send command SQ_MUX_FB_ON_OFF column 3 to On for o_c3_sqm_adc_pwdn deactivation
+COMM   Send command MUX_SQ_FB_ON_OFF column 3 to On for o_c3_sqm_adc_pwdn deactivation
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-SQ_MUX_FB_ON_OFF-1000 N
+WCMD W-MUX_SQ_FB_ON_OFF-1000 N
 COMM
 COMM ==============================================================================================
 COMM   Check no event is appeared on o_c3_sqm_adc_pwdn and wait o_c3_sqm_adc_pwdn deactivation
@@ -1131,9 +1131,9 @@ WUDI sync 1
 CTLE sqm_adc_pwdn(3) >= 160080 ps
 COMM
 COMM ==============================================================================================
-COMM   Send command SQ_MUX_FB_ON_OFF column 3 to Off for o_c3_sqm_adc_pwdn activation
+COMM   Send command MUX_SQ_FB_ON_OFF column 3 to Off for o_c3_sqm_adc_pwdn activation
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-SQ_MUX_FB_ON_OFF-0000 W
+WCMD W-MUX_SQ_FB_ON_OFF-0000 W
 COMM
 COMM ==============================================================================================
 COMM    Wait i_sync rising edge and check o_c3_sqm_adc_pwdn remains to deactivated
@@ -1151,9 +1151,9 @@ CTLR << 320160 ps
 CTLR >> 160080 ps
 COMM
 COMM ==============================================================================================
-COMM   Send command SQ_MUX_FB_ON_OFF column 3 to On for o_c3_sqm_adc_pwdn deactivation
+COMM   Send command MUX_SQ_FB_ON_OFF column 3 to On for o_c3_sqm_adc_pwdn deactivation
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-SQ_MUX_FB_ON_OFF-1000 N
+WCMD W-MUX_SQ_FB_ON_OFF-1000 N
 COMM
 COMM ==============================================================================================
 COMM   Check no event is appeared on o_c3_sqm_adc_pwdn and wait o_c3_sqm_adc_pwdn deactivation
@@ -1180,9 +1180,9 @@ WUDI sync 1
 CTLE sqm_adc_pwdn(3) >= 160080 ps
 COMM
 COMM ==============================================================================================
-COMM   Send command SQ_MUX_FB_ON_OFF column 3 to Off for o_c3_sqm_adc_pwdn activation
+COMM   Send command MUX_SQ_FB_ON_OFF column 3 to Off for o_c3_sqm_adc_pwdn activation
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-SQ_MUX_FB_ON_OFF-0000 W
+WCMD W-MUX_SQ_FB_ON_OFF-0000 W
 COMM
 COMM ==============================================================================================
 COMM    Wait i_sync rising edge and check o_c3_sqm_adc_pwdn remains to deactivated

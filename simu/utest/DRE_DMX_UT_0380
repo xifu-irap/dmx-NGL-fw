@@ -3464,11 +3464,11 @@ WAIT 20 ns
 WDIS frm_cnt_sc_rst 0
 COMM
 COMM ==============================================================================================
-COMM   Send command SQ_AMP_OFFSET_MODE to test pattern on all columns,
+COMM   Send command AMP_SQ_OFFSET_MODE to test pattern on all columns,
 COMM   Enable test pattern generation (2 times), Send command DATA_ACQ_MODE to error signal
 COMM ----------------------------------------------------------------------------------------------
 WUDI sync 1
-WCMD W-SQ_AMP_OFFSET_MODE-3333 W
+WCMD W-AMP_SQ_OFFSET_MODE-3333 W
 WCMD W-TEST_PATTERN_ENABLE-0022 W
 WCMD W-DATA_ACQ_MODE-0002 W
 COMM
@@ -3585,13 +3585,13 @@ WUDI sync 0
 WUDI sync 1
 COMM
 COMM ==============================================================================================
-COMM   Send command DATA_ACQ_MODE to Idle and check SQ_AMP_OFFSET_MODE state to Offset mode
+COMM   Send command DATA_ACQ_MODE to Idle and check AMP_SQ_OFFSET_MODE state to Offset mode
 COMM ----------------------------------------------------------------------------------------------
 WUDI sync 1
 WCMD W-DATA_ACQ_MODE-0000 W
-WCMD R-SQ_AMP_OFFSET_MODE-XXXX W
+WCMD R-AMP_SQ_OFFSET_MODE-XXXX W
 WUDI sync 0
 WUDI sync 1
 WCMD R-Status-XXXX W
 WCMD R-Status-XXXX R
-CCMD R-SQ_AMP_OFFSET_MODE-1111 N
+CCMD R-AMP_SQ_OFFSET_MODE-1111 N

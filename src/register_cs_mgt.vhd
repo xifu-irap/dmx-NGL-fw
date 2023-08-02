@@ -61,12 +61,12 @@ begin
    cs_rg(c_EP_CMD_POS_HW_VER) <= c_HGH_LEV when  i_ep_cmd_rx_wd_add_r = c_EP_CMD_ADD_HW_VER else c_LOW_LEV;
 
    cs_rg(c_EP_CMD_POS_TSTPT)  <= c_HGH_LEV when
-      (i_ep_cmd_rx_wd_add_r(i_ep_cmd_rx_wd_add_r'high downto c_MEM_TSTPT_ADD_S)      = c_EP_CMD_ADD_TSTPT(i_ep_cmd_rx_wd_add_r'high downto c_MEM_TSTPT_ADD_S)                and
-       i_ep_cmd_rx_wd_add_r(   c_MEM_TSTPT_ADD_S-1  downto 0)                        < std_logic_vector(to_unsigned(c_TAB_TSTPT_NW, c_MEM_TSTPT_ADD_S)))                else c_LOW_LEV;
+      (i_ep_cmd_rx_wd_add_r(i_ep_cmd_rx_wd_add_r'high downto c_MEM_TSTPT_ADD_S)        = c_EP_CMD_ADD_TSTPT(i_ep_cmd_rx_wd_add_r'high downto c_MEM_TSTPT_ADD_S)                and
+       i_ep_cmd_rx_wd_add_r(   c_MEM_TSTPT_ADD_S-1  downto 0)                          < std_logic_vector(to_unsigned(c_TAB_TSTPT_NW, c_MEM_TSTPT_ADD_S)))              else c_LOW_LEV;
 
    cs_rg(c_EP_CMD_POS_HKEEP)  <= c_HGH_LEV when
-      (i_ep_cmd_rx_wd_add_r(i_ep_cmd_rx_wd_add_r'high downto c_MEM_HKEEP_ADD_S)      = c_EP_CMD_ADD_HKEEP(i_ep_cmd_rx_wd_add_r'high downto c_MEM_HKEEP_ADD_S)                and
-       i_ep_cmd_rx_wd_add_r(   c_MEM_HKEEP_ADD_S-1  downto 0)                        < std_logic_vector(to_unsigned(c_TAB_HKEEP_NW, c_MEM_HKEEP_ADD_S)))                else c_LOW_LEV;
+      (i_ep_cmd_rx_wd_add_r(i_ep_cmd_rx_wd_add_r'high downto c_MEM_HKEEP_ADD_S)        = c_EP_CMD_ADD_HKEEP(i_ep_cmd_rx_wd_add_r'high downto c_MEM_HKEEP_ADD_S)                and
+       i_ep_cmd_rx_wd_add_r(   c_MEM_HKEEP_ADD_S-1  downto 0)                          < std_logic_vector(to_unsigned(c_TAB_HKEEP_NW, c_MEM_HKEEP_ADD_S)))              else c_LOW_LEV;
 
    cs_rg(c_EP_CMD_POS_PARMA)  <= c_HGH_LEV when
       (i_ep_cmd_rx_wd_add_r(i_ep_cmd_rx_wd_add_r'high downto c_EP_CMD_ADD_COLPOSH+1)   = c_EP_CMD_ADD_PARMA(c_COL0)(i_ep_cmd_rx_wd_add_r'high downto c_EP_CMD_ADD_COLPOSH+1) and

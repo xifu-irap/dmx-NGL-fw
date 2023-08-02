@@ -452,9 +452,9 @@
 # ** Note   : (324927072 ps) Write in ADC dump and science memories column 3, frame number 0, adress index 32, ADC dump & Science value 1E08_0000
 # ** Note   : (324943080 ps) Write in ADC dump and science memories column 3, frame number 0, adress index 33, ADC dump & Science value 1FFF_0000
 #             (324959088 ps) ==============================================================================================
-#             (324959088 ps)   Send command SQ_MUX_FB_ON_OFF ON on all channels
+#             (324959088 ps)   Send command MUX_SQ_FB_ON_OFF ON on all channels
 #             (324959088 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (324959088 ps) Send SPI command value 8003_1111 (SQ_MUX_FB_ON_OFF, mode Write, data 1111)
+# ** Note   : (324959088 ps) Send SPI command value 8003_1111 (MUX_SQ_FB_ON_OFF, mode Write, data 1111)
 # ** Note   : (327264000 ps) Waiting SPI command end for 2268912 ps
 # ** Note   : (327267552 ps) Waiting event sync = '0' for 3552 ps
 # ** Note   : (332021928 ps) Waiting event sync = '1' for 4754376 ps

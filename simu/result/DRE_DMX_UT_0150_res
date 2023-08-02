@@ -29,9 +29,9 @@
 #             (6995496 ps) ==============================================================================================
 #             (6995496 ps)   Configure MUX SQUID column 0 to ON, DAC pulse shaping set 0: fc = No filter
 #             (6995496 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (6995496 ps) Send SPI command value 1101_0000 (C0_FB1_PULSE_SHAPING_SELECTION, mode Write, data 0000)
+# ** Note   : (6995496 ps) Send SPI command value 1101_0000 (C0_PULSE_SHAPING_SELECTION, mode Write, data 0000)
 # ** Note   : (9312000 ps) Waiting SPI command end for 2280504 ps
-# ** Note   : (9312000 ps) Send SPI command value 8003_0001 (SQ_MUX_FB_ON_OFF, mode Write, data 0001)
+# ** Note   : (9312000 ps) Send SPI command value 8003_0001 (MUX_SQ_FB_ON_OFF, mode Write, data 0001)
 # ** Note   : (11634000 ps) Waiting SPI command end for 2286000 ps
 # ** Note   : (11634000 ps) Configure pulse shaping cut frequency channel 0 to 2147483647Hz
 #             (11634000 ps) 
@@ -276,7 +276,7 @@
 #             (300302000 ps) ==============================================================================================
 #             (300302000 ps)   Configure MUX SQUID column 0, DAC pulse shaping set 1: fc = 20 MHz
 #             (300302000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (300302000 ps) Send SPI command value 1101_0001 (C0_FB1_PULSE_SHAPING_SELECTION, mode Write, data 0001)
+# ** Note   : (300302000 ps) Send SPI command value 1101_0001 (C0_PULSE_SHAPING_SELECTION, mode Write, data 0001)
 # ** Note   : (302622000 ps) Waiting SPI command end for 2284000 ps
 # ** Note   : (302622000 ps) Configure pulse shaping cut frequency channel 0 to 20000000Hz
 #             (302622000 ps) 
@@ -291,7 +291,7 @@
 #             (504944000 ps) ==============================================================================================
 #             (504944000 ps)   Configure MUX SQUID column 0, DAC pulse shaping set 2: fc = 25 MHz
 #             (504944000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (504944000 ps) Send SPI command value 1101_0002 (C0_FB1_PULSE_SHAPING_SELECTION, mode Write, data 0002)
+# ** Note   : (504944000 ps) Send SPI command value 1101_0002 (C0_PULSE_SHAPING_SELECTION, mode Write, data 0002)
 # ** Note   : (507264000 ps) Waiting SPI command end for 2284000 ps
 # ** Note   : (507264000 ps) Configure pulse shaping cut frequency channel 0 to 25000000Hz
 #             (507264000 ps) 
@@ -306,7 +306,7 @@
 #             (709586000 ps) ==============================================================================================
 #             (709586000 ps)   Configure MUX SQUID column 0, DAC pulse shaping set 3: fc = 30 MHz
 #             (709586000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (709586000 ps) Send SPI command value 1101_0003 (C0_FB1_PULSE_SHAPING_SELECTION, mode Write, data 0003)
+# ** Note   : (709586000 ps) Send SPI command value 1101_0003 (C0_PULSE_SHAPING_SELECTION, mode Write, data 0003)
 # ** Note   : (711906000 ps) Waiting SPI command end for 2284000 ps
 # ** Note   : (711906000 ps) Configure pulse shaping cut frequency channel 0 to 30000000Hz
 #             (711906000 ps) 
@@ -321,45 +321,45 @@
 #             (874228000 ps) ==============================================================================================
 #             (874228000 ps)   Replace DAC pulse shaping set 3 memory content for fc = 23 MHz
 #             (874228000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (874228000 ps) Send SPI command value 10C1_76BC (C0_FB1_PULSE_SHAPING, mode Write, data 76BC)
+# ** Note   : (874228000 ps) Send SPI command value 10C1_76BC (C0_PULSE_SHAPING, mode Write, data 76BC)
 # ** Note   : (876534000 ps) Waiting SPI command end for 2270000 ps
-# ** Note   : (876534000 ps) Send SPI command value 10C3_3711 (C0_FB1_PULSE_SHAPING, mode Write, data 3711)
+# ** Note   : (876534000 ps) Send SPI command value 10C3_3711 (C0_PULSE_SHAPING, mode Write, data 3711)
 # ** Note   : (878856000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (878856000 ps) Send SPI command value 10C5_198A (C0_FB1_PULSE_SHAPING, mode Write, data 198A)
+# ** Note   : (878856000 ps) Send SPI command value 10C5_198A (C0_PULSE_SHAPING, mode Write, data 198A)
 # ** Note   : (881178000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (881178000 ps) Send SPI command value 10C7_0BD8 (C0_FB1_PULSE_SHAPING, mode Write, data 0BD8)
+# ** Note   : (881178000 ps) Send SPI command value 10C7_0BD8 (C0_PULSE_SHAPING, mode Write, data 0BD8)
 # ** Note   : (883500000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (883500000 ps) Send SPI command value 10C9_057E (C0_FB1_PULSE_SHAPING, mode Write, data 057E)
+# ** Note   : (883500000 ps) Send SPI command value 10C9_057E (C0_PULSE_SHAPING, mode Write, data 057E)
 # ** Note   : (885822000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (885822000 ps) Send SPI command value 10CB_028C (C0_FB1_PULSE_SHAPING, mode Write, data 028C)
+# ** Note   : (885822000 ps) Send SPI command value 10CB_028C (C0_PULSE_SHAPING, mode Write, data 028C)
 # ** Note   : (888144000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (888144000 ps) Send SPI command value 10CD_012F (C0_FB1_PULSE_SHAPING, mode Write, data 012F)
+# ** Note   : (888144000 ps) Send SPI command value 10CD_012F (C0_PULSE_SHAPING, mode Write, data 012F)
 # ** Note   : (890466000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (890466000 ps) Send SPI command value 10CF_008C (C0_FB1_PULSE_SHAPING, mode Write, data 008C)
+# ** Note   : (890466000 ps) Send SPI command value 10CF_008C (C0_PULSE_SHAPING, mode Write, data 008C)
 # ** Note   : (892788000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (892788000 ps) Send SPI command value 10D1_0041 (C0_FB1_PULSE_SHAPING, mode Write, data 0041)
+# ** Note   : (892788000 ps) Send SPI command value 10D1_0041 (C0_PULSE_SHAPING, mode Write, data 0041)
 # ** Note   : (895110000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (895110000 ps) Send SPI command value 10D3_001E (C0_FB1_PULSE_SHAPING, mode Write, data 001E)
+# ** Note   : (895110000 ps) Send SPI command value 10D3_001E (C0_PULSE_SHAPING, mode Write, data 001E)
 # ** Note   : (897432000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (897432000 ps) Send SPI command value 10D5_000E (C0_FB1_PULSE_SHAPING, mode Write, data 000E)
+# ** Note   : (897432000 ps) Send SPI command value 10D5_000E (C0_PULSE_SHAPING, mode Write, data 000E)
 # ** Note   : (899754000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (899754000 ps) Send SPI command value 10D7_0006 (C0_FB1_PULSE_SHAPING, mode Write, data 0006)
+# ** Note   : (899754000 ps) Send SPI command value 10D7_0006 (C0_PULSE_SHAPING, mode Write, data 0006)
 # ** Note   : (902076000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (902076000 ps) Send SPI command value 10D9_0003 (C0_FB1_PULSE_SHAPING, mode Write, data 0003)
+# ** Note   : (902076000 ps) Send SPI command value 10D9_0003 (C0_PULSE_SHAPING, mode Write, data 0003)
 # ** Note   : (904398000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (904398000 ps) Send SPI command value 10DB_0001 (C0_FB1_PULSE_SHAPING, mode Write, data 0001)
+# ** Note   : (904398000 ps) Send SPI command value 10DB_0001 (C0_PULSE_SHAPING, mode Write, data 0001)
 # ** Note   : (906720000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (906720000 ps) Send SPI command value 10DD_0001 (C0_FB1_PULSE_SHAPING, mode Write, data 0001)
+# ** Note   : (906720000 ps) Send SPI command value 10DD_0001 (C0_PULSE_SHAPING, mode Write, data 0001)
 # ** Note   : (909042000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (909042000 ps) Send SPI command value 10DF_0000 (C0_FB1_PULSE_SHAPING, mode Write, data 0000)
+# ** Note   : (909042000 ps) Send SPI command value 10DF_0000 (C0_PULSE_SHAPING, mode Write, data 0000)
 # ** Note   : (911364000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (911364000 ps) Send SPI command value 10E1_0000 (C0_FB1_PULSE_SHAPING, mode Write, data 0000)
+# ** Note   : (911364000 ps) Send SPI command value 10E1_0000 (C0_PULSE_SHAPING, mode Write, data 0000)
 # ** Note   : (913686000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (913686000 ps) Send SPI command value 10E3_0000 (C0_FB1_PULSE_SHAPING, mode Write, data 0000)
+# ** Note   : (913686000 ps) Send SPI command value 10E3_0000 (C0_PULSE_SHAPING, mode Write, data 0000)
 # ** Note   : (916008000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (916008000 ps) Send SPI command value 10E5_0000 (C0_FB1_PULSE_SHAPING, mode Write, data 0000)
+# ** Note   : (916008000 ps) Send SPI command value 10E5_0000 (C0_PULSE_SHAPING, mode Write, data 0000)
 # ** Note   : (918330000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (918330000 ps) Send SPI command value 10E7_0000 (C0_FB1_PULSE_SHAPING, mode Write, data 0000)
+# ** Note   : (918330000 ps) Send SPI command value 10E7_0000 (C0_PULSE_SHAPING, mode Write, data 0000)
 # ** Note   : (920652000 ps) Waiting SPI command end for 2286000 ps
 # ** Note   : (920652000 ps) Configure pulse shaping cut frequency channel 0 to 23000000Hz
 #             (920652000 ps) 
@@ -374,7 +374,7 @@
 #             (1122974000 ps) ==============================================================================================
 #             (1122974000 ps)   Configure MUX SQUID column 0, DAC pulse shaping set 0: fc = No filter
 #             (1122974000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (1122974000 ps) Send SPI command value 1101_0000 (C0_FB1_PULSE_SHAPING_SELECTION, mode Write, data 0000)
+# ** Note   : (1122974000 ps) Send SPI command value 1101_0000 (C0_PULSE_SHAPING_SELECTION, mode Write, data 0000)
 # ** Note   : (1125294000 ps) Waiting SPI command end for 2284000 ps
 # ** Note   : (1125294000 ps) Configure pulse shaping cut frequency channel 0 to 2147483647Hz
 # ** Note   : (1125294366 ps) Waiting event sync = '0' for 366 ps
@@ -384,7 +384,7 @@
 #             (1126819128 ps) ==============================================================================================
 #             (1126819128 ps)   Configure MUX SQUID column 0, DAC pulse shaping set 1: fc = 20 MHz
 #             (1126819128 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (1126819128 ps) Send SPI command value 1101_0001 (C0_FB1_PULSE_SHAPING_SELECTION, mode Write, data 0001)
+# ** Note   : (1126819128 ps) Send SPI command value 1101_0001 (C0_PULSE_SHAPING_SELECTION, mode Write, data 0001)
 # ** Note   : (1129128000 ps) Waiting SPI command end for 2272872 ps
 # ** Note   : (1129128000 ps) Configure pulse shaping cut frequency channel 0 to 20000000Hz
 # ** Note   : (1129128282 ps) Waiting event sync = '0' for 282 ps
@@ -394,7 +394,7 @@
 #             (1132261848 ps) ==============================================================================================
 #             (1132261848 ps)   Configure MUX SQUID column 0, DAC pulse shaping set 2: fc = 25 MHz
 #             (1132261848 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (1132261848 ps) Send SPI command value 1101_0002 (C0_FB1_PULSE_SHAPING_SELECTION, mode Write, data 0002)
+# ** Note   : (1132261848 ps) Send SPI command value 1101_0002 (C0_PULSE_SHAPING_SELECTION, mode Write, data 0002)
 # ** Note   : (1134582000 ps) Waiting SPI command end for 2284152 ps
 # ** Note   : (1134582000 ps) Configure pulse shaping cut frequency channel 0 to 25000000Hz
 # ** Note   : (1134582524 ps) Waiting event sync = '0' for 524 ps
@@ -404,9 +404,9 @@
 #             (1137704568 ps) ==============================================================================================
 #             (1137704568 ps)   Configure MUX SQUID column 1 to ON, DAC pulse shaping set 0: fc = No filter
 #             (1137704568 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (1137704568 ps) Send SPI command value 3101_0000 (C1_FB1_PULSE_SHAPING_SELECTION, mode Write, data 0000)
+# ** Note   : (1137704568 ps) Send SPI command value 3101_0000 (C1_PULSE_SHAPING_SELECTION, mode Write, data 0000)
 # ** Note   : (1140018000 ps) Waiting SPI command end for 2277432 ps
-# ** Note   : (1140018000 ps) Send SPI command value 8003_0010 (SQ_MUX_FB_ON_OFF, mode Write, data 0010)
+# ** Note   : (1140018000 ps) Send SPI command value 8003_0010 (MUX_SQ_FB_ON_OFF, mode Write, data 0010)
 # ** Note   : (1142340000 ps) Waiting SPI command end for 2286000 ps
 # ** Note   : (1142340000 ps) Configure pulse shaping cut frequency channel 1 to 2147483647Hz
 # ** Note   : (1142342402 ps) Waiting event sync = '0' for 2402 ps
@@ -583,7 +583,7 @@
 #             (1426958000 ps) ==============================================================================================
 #             (1426958000 ps)   Configure MUX SQUID column 1, DAC pulse shaping set 1: fc = 20 MHz
 #             (1426958000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (1426958000 ps) Send SPI command value 3101_0001 (C1_FB1_PULSE_SHAPING_SELECTION, mode Write, data 0001)
+# ** Note   : (1426958000 ps) Send SPI command value 3101_0001 (C1_PULSE_SHAPING_SELECTION, mode Write, data 0001)
 # ** Note   : (1429278000 ps) Waiting SPI command end for 2284000 ps
 # ** Note   : (1429278000 ps) Configure pulse shaping cut frequency channel 1 to 20000000Hz
 #             (1429278000 ps) 
@@ -598,7 +598,7 @@
 #             (1631600000 ps) ==============================================================================================
 #             (1631600000 ps)   Configure MUX SQUID column 1, DAC pulse shaping set 2: fc = 25 MHz
 #             (1631600000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (1631600000 ps) Send SPI command value 3101_0002 (C1_FB1_PULSE_SHAPING_SELECTION, mode Write, data 0002)
+# ** Note   : (1631600000 ps) Send SPI command value 3101_0002 (C1_PULSE_SHAPING_SELECTION, mode Write, data 0002)
 # ** Note   : (1633920000 ps) Waiting SPI command end for 2284000 ps
 # ** Note   : (1633920000 ps) Configure pulse shaping cut frequency channel 1 to 25000000Hz
 #             (1633920000 ps) 
@@ -613,7 +613,7 @@
 #             (1836242000 ps) ==============================================================================================
 #             (1836242000 ps)   Configure MUX SQUID column 1, DAC pulse shaping set 3: fc = 30 MHz
 #             (1836242000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (1836242000 ps) Send SPI command value 3101_0003 (C1_FB1_PULSE_SHAPING_SELECTION, mode Write, data 0003)
+# ** Note   : (1836242000 ps) Send SPI command value 3101_0003 (C1_PULSE_SHAPING_SELECTION, mode Write, data 0003)
 # ** Note   : (1838562000 ps) Waiting SPI command end for 2284000 ps
 # ** Note   : (1838562000 ps) Configure pulse shaping cut frequency channel 1 to 30000000Hz
 #             (1838562000 ps) 
@@ -628,45 +628,45 @@
 #             (2000884000 ps) ==============================================================================================
 #             (2000884000 ps)   Replace DAC pulse shaping set 3 memory content for fc = 23 MHz
 #             (2000884000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (2000884000 ps) Send SPI command value 30C1_76BC (C1_FB1_PULSE_SHAPING, mode Write, data 76BC)
+# ** Note   : (2000884000 ps) Send SPI command value 30C1_76BC (C1_PULSE_SHAPING, mode Write, data 76BC)
 # ** Note   : (2003190000 ps) Waiting SPI command end for 2270000 ps
-# ** Note   : (2003190000 ps) Send SPI command value 30C3_3711 (C1_FB1_PULSE_SHAPING, mode Write, data 3711)
+# ** Note   : (2003190000 ps) Send SPI command value 30C3_3711 (C1_PULSE_SHAPING, mode Write, data 3711)
 # ** Note   : (2005512000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (2005512000 ps) Send SPI command value 30C5_198A (C1_FB1_PULSE_SHAPING, mode Write, data 198A)
+# ** Note   : (2005512000 ps) Send SPI command value 30C5_198A (C1_PULSE_SHAPING, mode Write, data 198A)
 # ** Note   : (2007834000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (2007834000 ps) Send SPI command value 30C7_0BD8 (C1_FB1_PULSE_SHAPING, mode Write, data 0BD8)
+# ** Note   : (2007834000 ps) Send SPI command value 30C7_0BD8 (C1_PULSE_SHAPING, mode Write, data 0BD8)
 # ** Note   : (2010156000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (2010156000 ps) Send SPI command value 30C9_057E (C1_FB1_PULSE_SHAPING, mode Write, data 057E)
+# ** Note   : (2010156000 ps) Send SPI command value 30C9_057E (C1_PULSE_SHAPING, mode Write, data 057E)
 # ** Note   : (2012478000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (2012478000 ps) Send SPI command value 30CB_028C (C1_FB1_PULSE_SHAPING, mode Write, data 028C)
+# ** Note   : (2012478000 ps) Send SPI command value 30CB_028C (C1_PULSE_SHAPING, mode Write, data 028C)
 # ** Note   : (2014800000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (2014800000 ps) Send SPI command value 30CD_012F (C1_FB1_PULSE_SHAPING, mode Write, data 012F)
+# ** Note   : (2014800000 ps) Send SPI command value 30CD_012F (C1_PULSE_SHAPING, mode Write, data 012F)
 # ** Note   : (2017122000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (2017122000 ps) Send SPI command value 30CF_008C (C1_FB1_PULSE_SHAPING, mode Write, data 008C)
+# ** Note   : (2017122000 ps) Send SPI command value 30CF_008C (C1_PULSE_SHAPING, mode Write, data 008C)
 # ** Note   : (2019444000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (2019444000 ps) Send SPI command value 30D1_0041 (C1_FB1_PULSE_SHAPING, mode Write, data 0041)
+# ** Note   : (2019444000 ps) Send SPI command value 30D1_0041 (C1_PULSE_SHAPING, mode Write, data 0041)
 # ** Note   : (2021766000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (2021766000 ps) Send SPI command value 30D3_001E (C1_FB1_PULSE_SHAPING, mode Write, data 001E)
+# ** Note   : (2021766000 ps) Send SPI command value 30D3_001E (C1_PULSE_SHAPING, mode Write, data 001E)
 # ** Note   : (2024088000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (2024088000 ps) Send SPI command value 30D5_000E (C1_FB1_PULSE_SHAPING, mode Write, data 000E)
+# ** Note   : (2024088000 ps) Send SPI command value 30D5_000E (C1_PULSE_SHAPING, mode Write, data 000E)
 # ** Note   : (2026410000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (2026410000 ps) Send SPI command value 30D7_0006 (C1_FB1_PULSE_SHAPING, mode Write, data 0006)
+# ** Note   : (2026410000 ps) Send SPI command value 30D7_0006 (C1_PULSE_SHAPING, mode Write, data 0006)
 # ** Note   : (2028732000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (2028732000 ps) Send SPI command value 30D9_0003 (C1_FB1_PULSE_SHAPING, mode Write, data 0003)
+# ** Note   : (2028732000 ps) Send SPI command value 30D9_0003 (C1_PULSE_SHAPING, mode Write, data 0003)
 # ** Note   : (2031054000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (2031054000 ps) Send SPI command value 30DB_0001 (C1_FB1_PULSE_SHAPING, mode Write, data 0001)
+# ** Note   : (2031054000 ps) Send SPI command value 30DB_0001 (C1_PULSE_SHAPING, mode Write, data 0001)
 # ** Note   : (2033376000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (2033376000 ps) Send SPI command value 30DD_0001 (C1_FB1_PULSE_SHAPING, mode Write, data 0001)
+# ** Note   : (2033376000 ps) Send SPI command value 30DD_0001 (C1_PULSE_SHAPING, mode Write, data 0001)
 # ** Note   : (2035698000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (2035698000 ps) Send SPI command value 30DF_0000 (C1_FB1_PULSE_SHAPING, mode Write, data 0000)
+# ** Note   : (2035698000 ps) Send SPI command value 30DF_0000 (C1_PULSE_SHAPING, mode Write, data 0000)
 # ** Note   : (2038020000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (2038020000 ps) Send SPI command value 30E1_0000 (C1_FB1_PULSE_SHAPING, mode Write, data 0000)
+# ** Note   : (2038020000 ps) Send SPI command value 30E1_0000 (C1_PULSE_SHAPING, mode Write, data 0000)
 # ** Note   : (2040342000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (2040342000 ps) Send SPI command value 30E3_0000 (C1_FB1_PULSE_SHAPING, mode Write, data 0000)
+# ** Note   : (2040342000 ps) Send SPI command value 30E3_0000 (C1_PULSE_SHAPING, mode Write, data 0000)
 # ** Note   : (2042664000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (2042664000 ps) Send SPI command value 30E5_0000 (C1_FB1_PULSE_SHAPING, mode Write, data 0000)
+# ** Note   : (2042664000 ps) Send SPI command value 30E5_0000 (C1_PULSE_SHAPING, mode Write, data 0000)
 # ** Note   : (2044986000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (2044986000 ps) Send SPI command value 30E7_0000 (C1_FB1_PULSE_SHAPING, mode Write, data 0000)
+# ** Note   : (2044986000 ps) Send SPI command value 30E7_0000 (C1_PULSE_SHAPING, mode Write, data 0000)
 # ** Note   : (2047308000 ps) Waiting SPI command end for 2286000 ps
 # ** Note   : (2047308000 ps) Configure pulse shaping cut frequency channel 1 to 23000000Hz
 #             (2047308000 ps) 
@@ -681,7 +681,7 @@
 #             (2249630000 ps) ==============================================================================================
 #             (2249630000 ps)   Configure MUX SQUID column 1, DAC pulse shaping set 0: fc = No filter
 #             (2249630000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (2249630000 ps) Send SPI command value 3101_0000 (C1_FB1_PULSE_SHAPING_SELECTION, mode Write, data 0000)
+# ** Note   : (2249630000 ps) Send SPI command value 3101_0000 (C1_PULSE_SHAPING_SELECTION, mode Write, data 0000)
 # ** Note   : (2251950000 ps) Waiting SPI command end for 2284000 ps
 # ** Note   : (2251950000 ps) Configure pulse shaping cut frequency channel 1 to 2147483647Hz
 # ** Note   : (2251952930 ps) Waiting event sync = '0' for 2930 ps
@@ -691,7 +691,7 @@
 #             (2253462168 ps) ==============================================================================================
 #             (2253462168 ps)   Configure MUX SQUID column 1, DAC pulse shaping set 1: fc = 20 MHz
 #             (2253462168 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (2253462168 ps) Send SPI command value 3101_0001 (C1_FB1_PULSE_SHAPING_SELECTION, mode Write, data 0001)
+# ** Note   : (2253462168 ps) Send SPI command value 3101_0001 (C1_PULSE_SHAPING_SELECTION, mode Write, data 0001)
 # ** Note   : (2255784000 ps) Waiting SPI command end for 2285832 ps
 # ** Note   : (2255784000 ps) Configure pulse shaping cut frequency channel 1 to 20000000Hz
 # ** Note   : (2255786846 ps) Waiting event sync = '0' for 2846 ps
@@ -701,7 +701,7 @@
 #             (2258904888 ps) ==============================================================================================
 #             (2258904888 ps)   Configure MUX SQUID column 1, DAC pulse shaping set 2: fc = 25 MHz
 #             (2258904888 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (2258904888 ps) Send SPI command value 3101_0002 (C1_FB1_PULSE_SHAPING_SELECTION, mode Write, data 0002)
+# ** Note   : (2258904888 ps) Send SPI command value 3101_0002 (C1_PULSE_SHAPING_SELECTION, mode Write, data 0002)
 # ** Note   : (2261220000 ps) Waiting SPI command end for 2279112 ps
 # ** Note   : (2261220000 ps) Configure pulse shaping cut frequency channel 1 to 25000000Hz
 # ** Note   : (2261221562 ps) Waiting event sync = '0' for 1562 ps
@@ -711,9 +711,9 @@
 #             (2264347608 ps) ==============================================================================================
 #             (2264347608 ps)   Configure MUX SQUID column 2 to ON, DAC pulse shaping set 0: fc = No filter
 #             (2264347608 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (2264347608 ps) Send SPI command value 5101_0000 (C2_FB1_PULSE_SHAPING_SELECTION, mode Write, data 0000)
+# ** Note   : (2264347608 ps) Send SPI command value 5101_0000 (C2_PULSE_SHAPING_SELECTION, mode Write, data 0000)
 # ** Note   : (2266656000 ps) Waiting SPI command end for 2272392 ps
-# ** Note   : (2266656000 ps) Send SPI command value 8003_0100 (SQ_MUX_FB_ON_OFF, mode Write, data 0100)
+# ** Note   : (2266656000 ps) Send SPI command value 8003_0100 (MUX_SQ_FB_ON_OFF, mode Write, data 0100)
 # ** Note   : (2268978000 ps) Waiting SPI command end for 2286000 ps
 # ** Note   : (2268978000 ps) Configure pulse shaping cut frequency channel 2 to 2147483647Hz
 # ** Note   : (2268981440 ps) Waiting event sync = '0' for 3440 ps
@@ -889,7 +889,7 @@
 #             (2553596000 ps) ==============================================================================================
 #             (2553596000 ps)   Configure MUX SQUID column 2, DAC pulse shaping set 1: fc = 20 MHz
 #             (2553596000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (2553596000 ps) Send SPI command value 5101_0001 (C2_FB1_PULSE_SHAPING_SELECTION, mode Write, data 0001)
+# ** Note   : (2553596000 ps) Send SPI command value 5101_0001 (C2_PULSE_SHAPING_SELECTION, mode Write, data 0001)
 # ** Note   : (2555916000 ps) Waiting SPI command end for 2284000 ps
 # ** Note   : (2555916000 ps) Configure pulse shaping cut frequency channel 2 to 20000000Hz
 #             (2555916000 ps) 
@@ -904,7 +904,7 @@
 #             (2758238000 ps) ==============================================================================================
 #             (2758238000 ps)   Configure MUX SQUID column 2, DAC pulse shaping set 2: fc = 25 MHz
 #             (2758238000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (2758238000 ps) Send SPI command value 5101_0002 (C2_FB1_PULSE_SHAPING_SELECTION, mode Write, data 0002)
+# ** Note   : (2758238000 ps) Send SPI command value 5101_0002 (C2_PULSE_SHAPING_SELECTION, mode Write, data 0002)
 # ** Note   : (2760558000 ps) Waiting SPI command end for 2284000 ps
 # ** Note   : (2760558000 ps) Configure pulse shaping cut frequency channel 2 to 25000000Hz
 #             (2760558000 ps) 
@@ -919,7 +919,7 @@
 #             (2962880000 ps) ==============================================================================================
 #             (2962880000 ps)   Configure MUX SQUID column 2, DAC pulse shaping set 3: fc = 30 MHz
 #             (2962880000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (2962880000 ps) Send SPI command value 5101_0003 (C2_FB1_PULSE_SHAPING_SELECTION, mode Write, data 0003)
+# ** Note   : (2962880000 ps) Send SPI command value 5101_0003 (C2_PULSE_SHAPING_SELECTION, mode Write, data 0003)
 # ** Note   : (2965200000 ps) Waiting SPI command end for 2284000 ps
 # ** Note   : (2965200000 ps) Configure pulse shaping cut frequency channel 2 to 30000000Hz
 #             (2965200000 ps) 
@@ -934,45 +934,45 @@
 #             (3127522000 ps) ==============================================================================================
 #             (3127522000 ps)   Replace DAC pulse shaping set 3 memory content for fc = 23 MHz
 #             (3127522000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (3127522000 ps) Send SPI command value 50C1_76BC (C2_FB1_PULSE_SHAPING, mode Write, data 76BC)
+# ** Note   : (3127522000 ps) Send SPI command value 50C1_76BC (C2_PULSE_SHAPING, mode Write, data 76BC)
 # ** Note   : (3129828000 ps) Waiting SPI command end for 2270000 ps
-# ** Note   : (3129828000 ps) Send SPI command value 50C3_3711 (C2_FB1_PULSE_SHAPING, mode Write, data 3711)
+# ** Note   : (3129828000 ps) Send SPI command value 50C3_3711 (C2_PULSE_SHAPING, mode Write, data 3711)
 # ** Note   : (3132150000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (3132150000 ps) Send SPI command value 50C5_198A (C2_FB1_PULSE_SHAPING, mode Write, data 198A)
+# ** Note   : (3132150000 ps) Send SPI command value 50C5_198A (C2_PULSE_SHAPING, mode Write, data 198A)
 # ** Note   : (3134472000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (3134472000 ps) Send SPI command value 50C7_0BD8 (C2_FB1_PULSE_SHAPING, mode Write, data 0BD8)
+# ** Note   : (3134472000 ps) Send SPI command value 50C7_0BD8 (C2_PULSE_SHAPING, mode Write, data 0BD8)
 # ** Note   : (3136794000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (3136794000 ps) Send SPI command value 50C9_057E (C2_FB1_PULSE_SHAPING, mode Write, data 057E)
+# ** Note   : (3136794000 ps) Send SPI command value 50C9_057E (C2_PULSE_SHAPING, mode Write, data 057E)
 # ** Note   : (3139116000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (3139116000 ps) Send SPI command value 50CB_028C (C2_FB1_PULSE_SHAPING, mode Write, data 028C)
+# ** Note   : (3139116000 ps) Send SPI command value 50CB_028C (C2_PULSE_SHAPING, mode Write, data 028C)
 # ** Note   : (3141438000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (3141438000 ps) Send SPI command value 50CD_012F (C2_FB1_PULSE_SHAPING, mode Write, data 012F)
+# ** Note   : (3141438000 ps) Send SPI command value 50CD_012F (C2_PULSE_SHAPING, mode Write, data 012F)
 # ** Note   : (3143760000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (3143760000 ps) Send SPI command value 50CF_008C (C2_FB1_PULSE_SHAPING, mode Write, data 008C)
+# ** Note   : (3143760000 ps) Send SPI command value 50CF_008C (C2_PULSE_SHAPING, mode Write, data 008C)
 # ** Note   : (3146082000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (3146082000 ps) Send SPI command value 50D1_0041 (C2_FB1_PULSE_SHAPING, mode Write, data 0041)
+# ** Note   : (3146082000 ps) Send SPI command value 50D1_0041 (C2_PULSE_SHAPING, mode Write, data 0041)
 # ** Note   : (3148404000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (3148404000 ps) Send SPI command value 50D3_001E (C2_FB1_PULSE_SHAPING, mode Write, data 001E)
+# ** Note   : (3148404000 ps) Send SPI command value 50D3_001E (C2_PULSE_SHAPING, mode Write, data 001E)
 # ** Note   : (3150726000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (3150726000 ps) Send SPI command value 50D5_000E (C2_FB1_PULSE_SHAPING, mode Write, data 000E)
+# ** Note   : (3150726000 ps) Send SPI command value 50D5_000E (C2_PULSE_SHAPING, mode Write, data 000E)
 # ** Note   : (3153048000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (3153048000 ps) Send SPI command value 50D7_0006 (C2_FB1_PULSE_SHAPING, mode Write, data 0006)
+# ** Note   : (3153048000 ps) Send SPI command value 50D7_0006 (C2_PULSE_SHAPING, mode Write, data 0006)
 # ** Note   : (3155370000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (3155370000 ps) Send SPI command value 50D9_0003 (C2_FB1_PULSE_SHAPING, mode Write, data 0003)
+# ** Note   : (3155370000 ps) Send SPI command value 50D9_0003 (C2_PULSE_SHAPING, mode Write, data 0003)
 # ** Note   : (3157692000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (3157692000 ps) Send SPI command value 50DB_0001 (C2_FB1_PULSE_SHAPING, mode Write, data 0001)
+# ** Note   : (3157692000 ps) Send SPI command value 50DB_0001 (C2_PULSE_SHAPING, mode Write, data 0001)
 # ** Note   : (3160014000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (3160014000 ps) Send SPI command value 50DD_0001 (C2_FB1_PULSE_SHAPING, mode Write, data 0001)
+# ** Note   : (3160014000 ps) Send SPI command value 50DD_0001 (C2_PULSE_SHAPING, mode Write, data 0001)
 # ** Note   : (3162336000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (3162336000 ps) Send SPI command value 50DF_0000 (C2_FB1_PULSE_SHAPING, mode Write, data 0000)
+# ** Note   : (3162336000 ps) Send SPI command value 50DF_0000 (C2_PULSE_SHAPING, mode Write, data 0000)
 # ** Note   : (3164658000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (3164658000 ps) Send SPI command value 50E1_0000 (C2_FB1_PULSE_SHAPING, mode Write, data 0000)
+# ** Note   : (3164658000 ps) Send SPI command value 50E1_0000 (C2_PULSE_SHAPING, mode Write, data 0000)
 # ** Note   : (3166980000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (3166980000 ps) Send SPI command value 50E3_0000 (C2_FB1_PULSE_SHAPING, mode Write, data 0000)
+# ** Note   : (3166980000 ps) Send SPI command value 50E3_0000 (C2_PULSE_SHAPING, mode Write, data 0000)
 # ** Note   : (3169302000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (3169302000 ps) Send SPI command value 50E5_0000 (C2_FB1_PULSE_SHAPING, mode Write, data 0000)
+# ** Note   : (3169302000 ps) Send SPI command value 50E5_0000 (C2_PULSE_SHAPING, mode Write, data 0000)
 # ** Note   : (3171624000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (3171624000 ps) Send SPI command value 50E7_0000 (C2_FB1_PULSE_SHAPING, mode Write, data 0000)
+# ** Note   : (3171624000 ps) Send SPI command value 50E7_0000 (C2_PULSE_SHAPING, mode Write, data 0000)
 # ** Note   : (3173946000 ps) Waiting SPI command end for 2286000 ps
 # ** Note   : (3173946000 ps) Configure pulse shaping cut frequency channel 2 to 23000000Hz
 #             (3173946000 ps) 
@@ -987,7 +987,7 @@
 #             (3376268000 ps) ==============================================================================================
 #             (3376268000 ps)   Configure MUX SQUID column 2, DAC pulse shaping set 0: fc = No filter
 #             (3376268000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (3376268000 ps) Send SPI command value 5101_0000 (C2_FB1_PULSE_SHAPING_SELECTION, mode Write, data 0000)
+# ** Note   : (3376268000 ps) Send SPI command value 5101_0000 (C2_PULSE_SHAPING_SELECTION, mode Write, data 0000)
 # ** Note   : (3378588000 ps) Waiting SPI command end for 2284000 ps
 # ** Note   : (3378588000 ps) Configure pulse shaping cut frequency channel 2 to 2147483647Hz
 # ** Note   : (3378588450 ps) Waiting event sync = '0' for 450 ps
@@ -997,7 +997,7 @@
 #             (3380105208 ps) ==============================================================================================
 #             (3380105208 ps)   Configure MUX SQUID column 2, DAC pulse shaping set 1: fc = 20 MHz
 #             (3380105208 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (3380105208 ps) Send SPI command value 5101_0001 (C2_FB1_PULSE_SHAPING_SELECTION, mode Write, data 0001)
+# ** Note   : (3380105208 ps) Send SPI command value 5101_0001 (C2_PULSE_SHAPING_SELECTION, mode Write, data 0001)
 # ** Note   : (3382422000 ps) Waiting SPI command end for 2280792 ps
 # ** Note   : (3382422000 ps) Configure pulse shaping cut frequency channel 2 to 20000000Hz
 # ** Note   : (3382422366 ps) Waiting event sync = '0' for 366 ps
@@ -1007,7 +1007,7 @@
 #             (3385547928 ps) ==============================================================================================
 #             (3385547928 ps)   Configure MUX SQUID column 2, DAC pulse shaping set 2: fc = 25 MHz
 #             (3385547928 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (3385547928 ps) Send SPI command value 5101_0002 (C2_FB1_PULSE_SHAPING_SELECTION, mode Write, data 0002)
+# ** Note   : (3385547928 ps) Send SPI command value 5101_0002 (C2_PULSE_SHAPING_SELECTION, mode Write, data 0002)
 # ** Note   : (3387858000 ps) Waiting SPI command end for 2274072 ps
 # ** Note   : (3387858000 ps) Configure pulse shaping cut frequency channel 2 to 25000000Hz
 # ** Note   : (3387860600 ps) Waiting event sync = '0' for 2600 ps
@@ -1017,9 +1017,9 @@
 #             (3390990648 ps) ==============================================================================================
 #             (3390990648 ps)   Configure MUX SQUID column 3 to ON, DAC pulse shaping set 0: fc = No filter
 #             (3390990648 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (3390990648 ps) Send SPI command value 7101_0000 (C3_FB1_PULSE_SHAPING_SELECTION, mode Write, data 0000)
+# ** Note   : (3390990648 ps) Send SPI command value 7101_0000 (C3_PULSE_SHAPING_SELECTION, mode Write, data 0000)
 # ** Note   : (3393312000 ps) Waiting SPI command end for 2285352 ps
-# ** Note   : (3393312000 ps) Send SPI command value 8003_1000 (SQ_MUX_FB_ON_OFF, mode Write, data 1000)
+# ** Note   : (3393312000 ps) Send SPI command value 8003_1000 (MUX_SQ_FB_ON_OFF, mode Write, data 1000)
 # ** Note   : (3395634000 ps) Waiting SPI command end for 2286000 ps
 # ** Note   : (3395634000 ps) Configure pulse shaping cut frequency channel 3 to 2147483647Hz
 # ** Note   : (3395636486 ps) Waiting event sync = '0' for 2486 ps
@@ -1195,7 +1195,7 @@
 #             (3680234000 ps) ==============================================================================================
 #             (3680234000 ps)   Configure MUX SQUID column 3, DAC pulse shaping set 1: fc = 20 MHz
 #             (3680234000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (3680234000 ps) Send SPI command value 7101_0001 (C3_FB1_PULSE_SHAPING_SELECTION, mode Write, data 0001)
+# ** Note   : (3680234000 ps) Send SPI command value 7101_0001 (C3_PULSE_SHAPING_SELECTION, mode Write, data 0001)
 # ** Note   : (3682554000 ps) Waiting SPI command end for 2284000 ps
 # ** Note   : (3682554000 ps) Configure pulse shaping cut frequency channel 3 to 20000000Hz
 #             (3682554000 ps) 
@@ -1210,7 +1210,7 @@
 #             (3884876000 ps) ==============================================================================================
 #             (3884876000 ps)   Configure MUX SQUID column 3, DAC pulse shaping set 2: fc = 25 MHz
 #             (3884876000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (3884876000 ps) Send SPI command value 7101_0002 (C3_FB1_PULSE_SHAPING_SELECTION, mode Write, data 0002)
+# ** Note   : (3884876000 ps) Send SPI command value 7101_0002 (C3_PULSE_SHAPING_SELECTION, mode Write, data 0002)
 # ** Note   : (3887196000 ps) Waiting SPI command end for 2284000 ps
 # ** Note   : (3887196000 ps) Configure pulse shaping cut frequency channel 3 to 25000000Hz
 #             (3887196000 ps) 
@@ -1225,7 +1225,7 @@
 #             (4089518000 ps) ==============================================================================================
 #             (4089518000 ps)   Configure MUX SQUID column 3, DAC pulse shaping set 3: fc = 30 MHz
 #             (4089518000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (4089518000 ps) Send SPI command value 7101_0003 (C3_FB1_PULSE_SHAPING_SELECTION, mode Write, data 0003)
+# ** Note   : (4089518000 ps) Send SPI command value 7101_0003 (C3_PULSE_SHAPING_SELECTION, mode Write, data 0003)
 # ** Note   : (4091838000 ps) Waiting SPI command end for 2284000 ps
 # ** Note   : (4091838000 ps) Configure pulse shaping cut frequency channel 3 to 30000000Hz
 #             (4091838000 ps) 
@@ -1240,45 +1240,45 @@
 #             (4254160000 ps) ==============================================================================================
 #             (4254160000 ps)   Replace DAC pulse shaping set 3 memory content for fc = 23 MHz
 #             (4254160000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (4254160000 ps) Send SPI command value 70C1_76BC (C3_FB1_PULSE_SHAPING, mode Write, data 76BC)
+# ** Note   : (4254160000 ps) Send SPI command value 70C1_76BC (C3_PULSE_SHAPING, mode Write, data 76BC)
 # ** Note   : (4256466000 ps) Waiting SPI command end for 2270000 ps
-# ** Note   : (4256466000 ps) Send SPI command value 70C3_3711 (C3_FB1_PULSE_SHAPING, mode Write, data 3711)
+# ** Note   : (4256466000 ps) Send SPI command value 70C3_3711 (C3_PULSE_SHAPING, mode Write, data 3711)
 # ** Note   : (4258788000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (4258788000 ps) Send SPI command value 70C5_198A (C3_FB1_PULSE_SHAPING, mode Write, data 198A)
+# ** Note   : (4258788000 ps) Send SPI command value 70C5_198A (C3_PULSE_SHAPING, mode Write, data 198A)
 # ** Note   : (4261110000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (4261110000 ps) Send SPI command value 70C7_0BD8 (C3_FB1_PULSE_SHAPING, mode Write, data 0BD8)
+# ** Note   : (4261110000 ps) Send SPI command value 70C7_0BD8 (C3_PULSE_SHAPING, mode Write, data 0BD8)
 # ** Note   : (4263432000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (4263432000 ps) Send SPI command value 70C9_057E (C3_FB1_PULSE_SHAPING, mode Write, data 057E)
+# ** Note   : (4263432000 ps) Send SPI command value 70C9_057E (C3_PULSE_SHAPING, mode Write, data 057E)
 # ** Note   : (4265754000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (4265754000 ps) Send SPI command value 70CB_028C (C3_FB1_PULSE_SHAPING, mode Write, data 028C)
+# ** Note   : (4265754000 ps) Send SPI command value 70CB_028C (C3_PULSE_SHAPING, mode Write, data 028C)
 # ** Note   : (4268076000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (4268076000 ps) Send SPI command value 70CD_012F (C3_FB1_PULSE_SHAPING, mode Write, data 012F)
+# ** Note   : (4268076000 ps) Send SPI command value 70CD_012F (C3_PULSE_SHAPING, mode Write, data 012F)
 # ** Note   : (4270398000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (4270398000 ps) Send SPI command value 70CF_008C (C3_FB1_PULSE_SHAPING, mode Write, data 008C)
+# ** Note   : (4270398000 ps) Send SPI command value 70CF_008C (C3_PULSE_SHAPING, mode Write, data 008C)
 # ** Note   : (4272720000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (4272720000 ps) Send SPI command value 70D1_0041 (C3_FB1_PULSE_SHAPING, mode Write, data 0041)
+# ** Note   : (4272720000 ps) Send SPI command value 70D1_0041 (C3_PULSE_SHAPING, mode Write, data 0041)
 # ** Note   : (4275042000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (4275042000 ps) Send SPI command value 70D3_001E (C3_FB1_PULSE_SHAPING, mode Write, data 001E)
+# ** Note   : (4275042000 ps) Send SPI command value 70D3_001E (C3_PULSE_SHAPING, mode Write, data 001E)
 # ** Note   : (4277364000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (4277364000 ps) Send SPI command value 70D5_000E (C3_FB1_PULSE_SHAPING, mode Write, data 000E)
+# ** Note   : (4277364000 ps) Send SPI command value 70D5_000E (C3_PULSE_SHAPING, mode Write, data 000E)
 # ** Note   : (4279686000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (4279686000 ps) Send SPI command value 70D7_0006 (C3_FB1_PULSE_SHAPING, mode Write, data 0006)
+# ** Note   : (4279686000 ps) Send SPI command value 70D7_0006 (C3_PULSE_SHAPING, mode Write, data 0006)
 # ** Note   : (4282008000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (4282008000 ps) Send SPI command value 70D9_0003 (C3_FB1_PULSE_SHAPING, mode Write, data 0003)
+# ** Note   : (4282008000 ps) Send SPI command value 70D9_0003 (C3_PULSE_SHAPING, mode Write, data 0003)
 # ** Note   : (4284330000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (4284330000 ps) Send SPI command value 70DB_0001 (C3_FB1_PULSE_SHAPING, mode Write, data 0001)
+# ** Note   : (4284330000 ps) Send SPI command value 70DB_0001 (C3_PULSE_SHAPING, mode Write, data 0001)
 # ** Note   : (4286652000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (4286652000 ps) Send SPI command value 70DD_0001 (C3_FB1_PULSE_SHAPING, mode Write, data 0001)
+# ** Note   : (4286652000 ps) Send SPI command value 70DD_0001 (C3_PULSE_SHAPING, mode Write, data 0001)
 # ** Note   : (4288974000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (4288974000 ps) Send SPI command value 70DF_0000 (C3_FB1_PULSE_SHAPING, mode Write, data 0000)
+# ** Note   : (4288974000 ps) Send SPI command value 70DF_0000 (C3_PULSE_SHAPING, mode Write, data 0000)
 # ** Note   : (4291296000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (4291296000 ps) Send SPI command value 70E1_0000 (C3_FB1_PULSE_SHAPING, mode Write, data 0000)
+# ** Note   : (4291296000 ps) Send SPI command value 70E1_0000 (C3_PULSE_SHAPING, mode Write, data 0000)
 # ** Note   : (4293618000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (4293618000 ps) Send SPI command value 70E3_0000 (C3_FB1_PULSE_SHAPING, mode Write, data 0000)
+# ** Note   : (4293618000 ps) Send SPI command value 70E3_0000 (C3_PULSE_SHAPING, mode Write, data 0000)
 # ** Note   : (4295940000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (4295940000 ps) Send SPI command value 70E5_0000 (C3_FB1_PULSE_SHAPING, mode Write, data 0000)
+# ** Note   : (4295940000 ps) Send SPI command value 70E5_0000 (C3_PULSE_SHAPING, mode Write, data 0000)
 # ** Note   : (4298262000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (4298262000 ps) Send SPI command value 70E7_0000 (C3_FB1_PULSE_SHAPING, mode Write, data 0000)
+# ** Note   : (4298262000 ps) Send SPI command value 70E7_0000 (C3_PULSE_SHAPING, mode Write, data 0000)
 # ** Note   : (4300584000 ps) Waiting SPI command end for 2286000 ps
 # ** Note   : (4300584000 ps) Configure pulse shaping cut frequency channel 3 to 23000000Hz
 #             (4300584000 ps) 
@@ -1293,7 +1293,7 @@
 #             (4502906000 ps) ==============================================================================================
 #             (4502906000 ps)   Configure MUX SQUID column 3, DAC pulse shaping set 0: fc = No filter
 #             (4502906000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (4502906000 ps) Send SPI command value 7101_0000 (C3_FB1_PULSE_SHAPING_SELECTION, mode Write, data 0000)
+# ** Note   : (4502906000 ps) Send SPI command value 7101_0000 (C3_PULSE_SHAPING_SELECTION, mode Write, data 0000)
 # ** Note   : (4505226000 ps) Waiting SPI command end for 2284000 ps
 # ** Note   : (4505226000 ps) Configure pulse shaping cut frequency channel 3 to 2147483647Hz
 # ** Note   : (4505227004 ps) Waiting event sync = '0' for 1004 ps
@@ -1303,7 +1303,7 @@
 #             (4506748248 ps) ==============================================================================================
 #             (4506748248 ps)   Configure MUX SQUID column 3, DAC pulse shaping set 1: fc = 20 MHz
 #             (4506748248 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (4506748248 ps) Send SPI command value 7101_0001 (C3_FB1_PULSE_SHAPING_SELECTION, mode Write, data 0001)
+# ** Note   : (4506748248 ps) Send SPI command value 7101_0001 (C3_PULSE_SHAPING_SELECTION, mode Write, data 0001)
 # ** Note   : (4509060000 ps) Waiting SPI command end for 2275752 ps
 # ** Note   : (4509060000 ps) Configure pulse shaping cut frequency channel 3 to 20000000Hz
 # ** Note   : (4509060920 ps) Waiting event sync = '0' for 920 ps
@@ -1313,7 +1313,7 @@
 #             (4512190968 ps) ==============================================================================================
 #             (4512190968 ps)   Configure MUX SQUID column 3, DAC pulse shaping set 2: fc = 25 MHz
 #             (4512190968 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (4512190968 ps) Send SPI command value 7101_0002 (C3_FB1_PULSE_SHAPING_SELECTION, mode Write, data 0002)
+# ** Note   : (4512190968 ps) Send SPI command value 7101_0002 (C3_PULSE_SHAPING_SELECTION, mode Write, data 0002)
 # ** Note   : (4514496000 ps) Waiting SPI command end for 2269032 ps
 # ** Note   : (4514496000 ps) Configure pulse shaping cut frequency channel 3 to 25000000Hz
 # ** Note   : (4514496120 ps) Waiting event sync = '0' for 120 ps
@@ -1323,7 +1323,7 @@
 #             (4517633688 ps) ==============================================================================================
 #             (4517633688 ps)   Configure MUX SQUID OFF on all columns
 #             (4517633688 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (4517633688 ps) Send SPI command value 8003_0000 (SQ_MUX_FB_ON_OFF, mode Write, data 0000)
+# ** Note   : (4517633688 ps) Send SPI command value 8003_0000 (MUX_SQ_FB_ON_OFF, mode Write, data 0000)
 # ** Note   : (4519950000 ps) Waiting SPI command end for 2280312 ps
 # ------------------------------------------------------------------------------------------------------------------------------------------------------
 # Error number pulse shaping channel 0: 0

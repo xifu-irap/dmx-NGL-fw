@@ -346,8 +346,7 @@ begin
                when c_SC_CTRL_SC_DTA | c_SC_CTRL_TST_PAT | c_SC_CTRL_ADC_DMP | c_SC_CTRL_ERRS | c_SC_CTRL_RAS_VLD =>
                   sc_data_first_pkt(science_data_ctrl(science_data_ctrl'low), science_data,     v_ctrl_last,      v_ctrl_first_pkt,
                                     v_packet_tx_time                        , v_packet_type,    v_packet_dump,    v_packet_size,
-                                    v_packet_size_exp,                        v_packet_content, v_err_sc_pkt_eod, o_sc_pkt_type,
-                                    scd_file);
+                                    v_packet_size_exp,                        v_packet_content, v_err_sc_pkt_eod, o_sc_pkt_type);
 
                -- ------------------------------------------------------------------------------------------------------
                --    Case Science data word

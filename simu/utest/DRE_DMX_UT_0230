@@ -32,9 +32,9 @@ WCMD W-C2_AMP_SQ_OFFSET_LSB-0CF1 W
 WCMD W-C3_AMP_SQ_OFFSET_LSB-0CF1 W
 COMM
 COMM ==============================================================================================
-COMM   Send command SQ_AMP_OFFSET_MODE to open loop
+COMM   Send command AMP_SQ_OFFSET_MODE to open loop
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-SQ_AMP_OFFSET_MODE-1111 W
+WCMD W-AMP_SQ_OFFSET_MODE-1111 W
 COMM
 COMM ==============================================================================================
 COMM   Writing a new table in AMP SQUID lockpoint value column 0 memory

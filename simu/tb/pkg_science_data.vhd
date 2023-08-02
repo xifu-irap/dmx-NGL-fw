@@ -54,8 +54,7 @@ package pkg_science_data is
          o_packet_size_exp    : out    integer                                                              ; --  Science packet size expected
          o_packet_content     : out    t_line_arr(0 to c_NB_COL-1)                                          ; --  Science packet content
          o_err_sc_pkt_eod     : out    std_logic                                                            ; --  Error science packet end of data missing ('0' = No error, '1' = Error)
-signal   o_sc_pkt_type        : out    std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0)                       ; --  Science packet type
-         file scd_file        : text                                                                          --  Science Data Result file
+signal   o_sc_pkt_type        : out    std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0)                         --  Science packet type
    );
 
    -- ------------------------------------------------------------------------------------------------------
@@ -114,8 +113,7 @@ package body pkg_science_data is
          o_packet_size_exp    : out    integer                                                              ; --  Science packet size expected
          o_packet_content     : out    t_line_arr(0 to c_NB_COL-1)                                          ; --  Science packet content
          o_err_sc_pkt_eod     : out    std_logic                                                            ; --  Error science packet end of data missing ('0' = No error, '1' = Error)
-signal   o_sc_pkt_type        : out    std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0)                       ; --  Science packet type
-         file scd_file        : text                                                                          --  Science Data Result file
+signal   o_sc_pkt_type        : out    std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0)                         --  Science packet type
    ) is
    begin
 

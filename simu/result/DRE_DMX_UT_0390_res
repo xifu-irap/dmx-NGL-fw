@@ -4025,7 +4025,7 @@
 #             (727856000 ps)   Enable test pattern generation (2 times), Send command DATA_ACQ_MODE to error signal
 #             (727856000 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (729340488 ps) Waiting event sync = '1' for 1484488 ps
-# ** Note   : (729340488 ps) Send SPI command value 8003_1111 (SQ_MUX_FB_ON_OFF, mode Write, data 1111)
+# ** Note   : (729340488 ps) Send SPI command value 8003_1111 (MUX_SQ_FB_ON_OFF, mode Write, data 1111)
 # ** Note   : (731652000 ps) Waiting SPI command end for 2275512 ps
 # ** Note   : (731652000 ps) Send SPI command value 82A1_0022 (TEST_PATTERN_ENABLE, mode Write, data 0022)
 # ** Note   : (733974000 ps) Waiting SPI command end for 2286000 ps
@@ -4145,7 +4145,7 @@
 # ** Note   : (1001476488 ps) Waiting event sync = '1' for 5282640 ps
 #             (1001476488 ps) 
 #             (1001476488 ps) ==============================================================================================
-#             (1001476488 ps)   Send command DATA_ACQ_MODE to Idle and check SQ_AMP_OFFSET_MODE state to Offset mode
+#             (1001476488 ps)   Send command DATA_ACQ_MODE to Idle and check AMP_SQ_OFFSET_MODE state to Offset mode
 #             (1001476488 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (1001476488 ps) Send SPI command value 8001_0000 (DATA_ACQ_MODE, mode Write, data 0000)
 # ** Note   : (1003794000 ps) Waiting SPI command end for 2281512 ps

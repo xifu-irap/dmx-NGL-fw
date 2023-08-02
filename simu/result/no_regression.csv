@@ -5,14 +5,14 @@ DRE_DMX_UT_0030;EP command error, try to write in a read only register;PASS
 DRE_DMX_UT_0040;EP command error, invalid address;PASS
 DRE_DMX_UT_0050;EP command, read register Firmware/Hardware Version and Status with no errors;PASS
 DRE_DMX_UT_0060;EP command, DATA_ACQ_MODE register;PASS
-DRE_DMX_UT_0070;EP command, SQ_MUX_FB_ON_OFF register;PASS
+DRE_DMX_UT_0070;EP command, MUX_SQ_FB_ON_OFF register;PASS
 DRE_DMX_UT_0080;ADC Power Down and ADC clock signals behavior;PASS
 DRE_DMX_UT_0090;DAC Sleep and DAC clock signals behavior;PASS
-DRE_DMX_UT_0100;EP command, SQ_AMP_OFFSET_MODE register;PASS
+DRE_DMX_UT_0100;EP command, AMP_SQ_OFFSET_MODE register;PASS
 DRE_DMX_UT_0110;ADC Dump on science data telemetry;PASS
 DRE_DMX_UT_0120;EP command, CY_MUX_SQ_FB0 memory;PASS
 DRE_DMX_UT_0130;EP command, CY_MUX_SQ_FB_MODE memory;PASS
-DRE_DMX_UT_0140;EP command, CY_FB1_PULSE_SHAPING memory;PASS
+DRE_DMX_UT_0140;EP command, CY_PULSE_SHAPING memory;PASS
 DRE_DMX_UT_0150;MUX SQUID in open loop mode with different pulse shapings;PASS
 DRE_DMX_UT_0160;EP command, CY_AMP_SQ_OFFSET_FINE memory;PASS
 DRE_DMX_UT_0170;EP command, CY_AMP_SQ_OFFSET_LSB register;PASS
@@ -23,7 +23,7 @@ DRE_DMX_UT_0210;EP command, CY_AMP_SQ_OFFSET_DAC_DELAY register;PASS
 DRE_DMX_UT_0220;SQUID MUX DAC delay;PASS
 DRE_DMX_UT_0230;AMP SQUID offset mux delay;PASS
 DRE_DMX_UT_0240;AMP SQUID offset DAC delay;PASS
-DRE_DMX_UT_0250;EP command, CY_FB1_PULSE_SHAPING_SELECTION register;PASS
+DRE_DMX_UT_0250;EP command, CY_PULSE_SHAPING_SELECTION register;PASS
 DRE_DMX_UT_0260;EP command, CY_AMP_SQ_OFFSET_MUX_DELAY register;PASS
 DRE_DMX_UT_0270;EP command, CY_SAMPLING_DELAY register;PASS
 DRE_DMX_UT_0280;EP command, BOXCAR_LENGTH register;PASS

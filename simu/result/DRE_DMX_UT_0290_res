@@ -719,15 +719,15 @@
 #             (640751088 ps) ==============================================================================================
 #             (640751088 ps)   Configure DAC pulse shaping set 0: fc = No filter
 #             (640751088 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (640751088 ps) Send SPI command value 1101_0000 (C0_FB1_PULSE_SHAPING_SELECTION, mode Write, data 0000)
+# ** Note   : (640751088 ps) Send SPI command value 1101_0000 (C0_PULSE_SHAPING_SELECTION, mode Write, data 0000)
 # ** Note   : (643056000 ps) Waiting SPI command end for 2268912 ps
-# ** Note   : (643056000 ps) Send SPI command value 3101_0000 (C1_FB1_PULSE_SHAPING_SELECTION, mode Write, data 0000)
+# ** Note   : (643056000 ps) Send SPI command value 3101_0000 (C1_PULSE_SHAPING_SELECTION, mode Write, data 0000)
 # ** Note   : (645378000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (645378000 ps) Send SPI command value 5101_0000 (C2_FB1_PULSE_SHAPING_SELECTION, mode Write, data 0000)
+# ** Note   : (645378000 ps) Send SPI command value 5101_0000 (C2_PULSE_SHAPING_SELECTION, mode Write, data 0000)
 # ** Note   : (647700000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (647700000 ps) Send SPI command value 7101_0000 (C3_FB1_PULSE_SHAPING_SELECTION, mode Write, data 0000)
+# ** Note   : (647700000 ps) Send SPI command value 7101_0000 (C3_PULSE_SHAPING_SELECTION, mode Write, data 0000)
 # ** Note   : (650022000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (650022000 ps) Send SPI command value 8003_1111 (SQ_MUX_FB_ON_OFF, mode Write, data 1111)
+# ** Note   : (650022000 ps) Send SPI command value 8003_1111 (MUX_SQ_FB_ON_OFF, mode Write, data 1111)
 # ** Note   : (652344000 ps) Waiting SPI command end for 2286000 ps
 #             (652344000 ps) 
 #             (652344000 ps) ==============================================================================================

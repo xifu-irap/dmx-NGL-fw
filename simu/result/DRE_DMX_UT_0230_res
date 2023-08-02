@@ -29,19 +29,19 @@
 #             (6995496 ps) ==============================================================================================
 #             (6995496 ps)   Configure AMP SQUID LSB
 #             (6995496 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (6995496 ps) Send SPI command value 0847_0CF1 (C0_AMP_SQ_OFFSET_LSB, mode Write, data 0CF1)
+# ** Note   : (6995496 ps) Send SPI command value 0881_0CF1 (C0_AMP_SQ_OFFSET_LSB, mode Write, data 0CF1)
 # ** Note   : (9312000 ps) Waiting SPI command end for 2280504 ps
-# ** Note   : (9312000 ps) Send SPI command value 2847_0CF1 (C1_AMP_SQ_OFFSET_LSB, mode Write, data 0CF1)
+# ** Note   : (9312000 ps) Send SPI command value 2881_0CF1 (C1_AMP_SQ_OFFSET_LSB, mode Write, data 0CF1)
 # ** Note   : (11634000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (11634000 ps) Send SPI command value 4847_0CF1 (C2_AMP_SQ_OFFSET_LSB, mode Write, data 0CF1)
+# ** Note   : (11634000 ps) Send SPI command value 4881_0CF1 (C2_AMP_SQ_OFFSET_LSB, mode Write, data 0CF1)
 # ** Note   : (13956000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (13956000 ps) Send SPI command value 6847_0CF1 (C3_AMP_SQ_OFFSET_LSB, mode Write, data 0CF1)
+# ** Note   : (13956000 ps) Send SPI command value 6881_0CF1 (C3_AMP_SQ_OFFSET_LSB, mode Write, data 0CF1)
 # ** Note   : (16278000 ps) Waiting SPI command end for 2286000 ps
 #             (16278000 ps) 
 #             (16278000 ps) ==============================================================================================
-#             (16278000 ps)   Send command SQ_AMP_OFFSET_MODE to open loop
+#             (16278000 ps)   Send command AMP_SQ_OFFSET_MODE to open loop
 #             (16278000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (16278000 ps) Send SPI command value 8005_1111 (SQ_AMP_OFFSET_MODE, mode Write, data 1111)
+# ** Note   : (16278000 ps) Send SPI command value 8005_1111 (AMP_SQ_OFFSET_MODE, mode Write, data 1111)
 # ** Note   : (18600000 ps) Waiting SPI command end for 2286000 ps
 #             (18600000 ps) 
 #             (18600000 ps) ==============================================================================================

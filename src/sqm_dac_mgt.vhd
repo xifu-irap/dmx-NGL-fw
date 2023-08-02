@@ -235,7 +235,7 @@ begin
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Dual port memory for pulse shaping coefficient
-   --    @Req : REG_CY_FB1_PULSE_SHAPING
+   --    @Req : REG_CY_PULSE_SHAPING
    --    @Req : DRE-DMX-FW-REQ-0230
    -- ------------------------------------------------------------------------------------------------------
    I_mem_pls_shape: entity work.dmem_ecc generic map (

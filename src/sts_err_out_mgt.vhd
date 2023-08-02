@@ -46,14 +46,14 @@ entity sts_err_out_mgt is port (
 end entity sts_err_out_mgt;
 
 architecture RTL of sts_err_out_mgt is
-constant c_DFLD_SMFMD_TOT_S   : integer   :=  c_EP_SPI_WD_S/c_NB_COL                                        ; --! EP command: Data field, SQ_MUX_FB_ON_OFF total bus size
-constant c_DFLD_SAOFM_TOT_S   : integer   :=  c_EP_SPI_WD_S/c_NB_COL                                        ; --! EP command: Data field, SQ_AMP_OFFSET_MODE total bus size
+constant c_DFLD_SMFMD_TOT_S   : integer   :=  c_EP_SPI_WD_S/c_NB_COL                                        ; --! EP command: Data field, MUX_SQ_FB_ON_OFF total bus size
+constant c_DFLD_SAOFM_TOT_S   : integer   :=  c_EP_SPI_WD_S/c_NB_COL                                        ; --! EP command: Data field, AMP_SQ_OFFSET_MODE total bus size
 
 signal   cond_aqmde           : std_logic                                                                   ; --! Error data out of range condition: DATA_ACQ_MODE
-signal   cond_smfmd           : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! Error data out of range condition: SQ_MUX_FB_ON_OFF
-signal   cond_smfmd_or        : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! Error data out of range condition: SQ_MUX_FB_ON_OFF "or-ed"
-signal   cond_saofm           : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! Error data out of range condition: SQ_AMP_OFFSET_MODE
-signal   cond_saofm_or        : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! Error data out of range condition: SQ_AMP_OFFSET_MODE "or-ed"
+signal   cond_smfmd           : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! Error data out of range condition: MUX_SQ_FB_ON_OFF
+signal   cond_smfmd_or        : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! Error data out of range condition: MUX_SQ_FB_ON_OFF "or-ed"
+signal   cond_saofm           : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! Error data out of range condition: AMP_SQ_OFFSET_MODE
+signal   cond_saofm_or        : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! Error data out of range condition: AMP_SQ_OFFSET_MODE "or-ed"
 signal   cond_tsten           : std_logic                                                                   ; --! Error data out of range condition: TEST_PATTERN_ENABLE
 signal   cond_smfbm           : std_logic                                                                   ; --! Error data out of range condition: CY_MUX_SQ_FB_MODE
 signal   cond_saoff           : std_logic                                                                   ; --! Error data out of range condition: CY_AMP_SQ_OFFSET_FINE
@@ -63,7 +63,7 @@ signal   cond_smfbd           : std_logic                                       
 signal   cond_saodd           : std_logic                                                                   ; --! Error data out of range condition: CY_AMP_SQ_OFFSET_DAC_DELAY
 signal   cond_saomd           : std_logic                                                                   ; --! Error data out of range condition: CY_AMP_SQ_OFFSET_MUX_DELAY
 signal   cond_smpdl           : std_logic                                                                   ; --! Error data out of range condition: CY_SAMPLING_DELAY
-signal   cond_plsss           : std_logic                                                                   ; --! Error data out of range condition: CY_FB1_PULSE_SHAPING_SELECTION
+signal   cond_plsss           : std_logic                                                                   ; --! Error data out of range condition: CY_PULSE_SHAPING_SELECTION
 
 begin
 

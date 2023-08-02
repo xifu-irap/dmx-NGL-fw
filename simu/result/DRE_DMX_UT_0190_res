@@ -58,19 +58,19 @@
 #             (16360168 ps) ==============================================================================================
 #             (16360168 ps)   Configure AMP SQUID DAC LSB column 0
 #             (16360168 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (16360168 ps) Send SPI command value 0847_0CF1 (C0_AMP_SQ_OFFSET_LSB, mode Write, data 0CF1)
+# ** Note   : (16360168 ps) Send SPI command value 0881_0CF1 (C0_AMP_SQ_OFFSET_LSB, mode Write, data 0CF1)
 # ** Note   : (18672000 ps) Waiting SPI command end for 2275832 ps
 #             (18672000 ps) 
 #             (18672000 ps) ==============================================================================================
 #             (18672000 ps)   Configure AMP SQUID lockpoint Offset column 0
 #             (18672000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (18672000 ps) Send SPI command value 0845_08FF (C0_AMP_SQ_OFFSET_COARSE, mode Write, data 08FF)
+# ** Note   : (18672000 ps) Send SPI command value 0883_08FF (C0_AMP_SQ_OFFSET_COARSE, mode Write, data 08FF)
 # ** Note   : (20994000 ps) Waiting SPI command end for 2286000 ps
 #             (20994000 ps) 
 #             (20994000 ps) ==============================================================================================
-#             (20994000 ps)   Send command SQ_AMP_OFFSET_MODE column 0 to open loop
+#             (20994000 ps)   Send command AMP_SQ_OFFSET_MODE column 0 to open loop
 #             (20994000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (20994000 ps) Send SPI command value 8005_0001 (SQ_AMP_OFFSET_MODE, mode Write, data 0001)
+# ** Note   : (20994000 ps) Send SPI command value 8005_0001 (AMP_SQ_OFFSET_MODE, mode Write, data 0001)
 # ** Note   : (23316000 ps) Waiting SPI command end for 2286000 ps
 #             (23316000 ps) 
 #             (23316000 ps) ==============================================================================================
@@ -314,19 +314,19 @@
 #             (285670000 ps) ==============================================================================================
 #             (285670000 ps)   Configure AMP SQUID DAC LSB column 1
 #             (285670000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (285670000 ps) Send SPI command value 2847_0CF1 (C1_AMP_SQ_OFFSET_LSB, mode Write, data 0CF1)
+# ** Note   : (285670000 ps) Send SPI command value 2881_0CF1 (C1_AMP_SQ_OFFSET_LSB, mode Write, data 0CF1)
 # ** Note   : (287988000 ps) Waiting SPI command end for 2282000 ps
 #             (287988000 ps) 
 #             (287988000 ps) ==============================================================================================
 #             (287988000 ps)   Configure AMP SQUID lockpoint Offset column 1
 #             (287988000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (287988000 ps) Send SPI command value 2845_08FF (C1_AMP_SQ_OFFSET_COARSE, mode Write, data 08FF)
+# ** Note   : (287988000 ps) Send SPI command value 2883_08FF (C1_AMP_SQ_OFFSET_COARSE, mode Write, data 08FF)
 # ** Note   : (290310000 ps) Waiting SPI command end for 2286000 ps
 #             (290310000 ps) 
 #             (290310000 ps) ==============================================================================================
-#             (290310000 ps)   Send command SQ_AMP_OFFSET_MODE column 0 to Off, column 1 to open loop
+#             (290310000 ps)   Send command AMP_SQ_OFFSET_MODE column 0 to Off, column 1 to open loop
 #             (290310000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (290310000 ps) Send SPI command value 8005_0010 (SQ_AMP_OFFSET_MODE, mode Write, data 0010)
+# ** Note   : (290310000 ps) Send SPI command value 8005_0010 (AMP_SQ_OFFSET_MODE, mode Write, data 0010)
 # ** Note   : (292632000 ps) Waiting SPI command end for 2286000 ps
 #             (292632000 ps) 
 #             (292632000 ps) ==============================================================================================
@@ -506,19 +506,19 @@
 #             (551278000 ps) ==============================================================================================
 #             (551278000 ps)   Configure AMP SQUID DAC LSB column 2
 #             (551278000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (551278000 ps) Send SPI command value 4847_0CF1 (C2_AMP_SQ_OFFSET_LSB, mode Write, data 0CF1)
+# ** Note   : (551278000 ps) Send SPI command value 4881_0CF1 (C2_AMP_SQ_OFFSET_LSB, mode Write, data 0CF1)
 # ** Note   : (553596000 ps) Waiting SPI command end for 2282000 ps
 #             (553596000 ps) 
 #             (553596000 ps) ==============================================================================================
 #             (553596000 ps)   Configure AMP SQUID lockpoint Offset column 2
 #             (553596000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (553596000 ps) Send SPI command value 4845_08FF (C2_AMP_SQ_OFFSET_COARSE, mode Write, data 08FF)
+# ** Note   : (553596000 ps) Send SPI command value 4883_08FF (C2_AMP_SQ_OFFSET_COARSE, mode Write, data 08FF)
 # ** Note   : (555918000 ps) Waiting SPI command end for 2286000 ps
 #             (555918000 ps) 
 #             (555918000 ps) ==============================================================================================
-#             (555918000 ps)   Send command SQ_AMP_OFFSET_MODE column 1 to Off, column 2 to open loop
+#             (555918000 ps)   Send command AMP_SQ_OFFSET_MODE column 1 to Off, column 2 to open loop
 #             (555918000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (555918000 ps) Send SPI command value 8005_0100 (SQ_AMP_OFFSET_MODE, mode Write, data 0100)
+# ** Note   : (555918000 ps) Send SPI command value 8005_0100 (AMP_SQ_OFFSET_MODE, mode Write, data 0100)
 # ** Note   : (558240000 ps) Waiting SPI command end for 2286000 ps
 #             (558240000 ps) 
 #             (558240000 ps) ==============================================================================================
@@ -698,19 +698,19 @@
 #             (817966000 ps) ==============================================================================================
 #             (817966000 ps)   Configure AMP SQUID DAC LSB column 3
 #             (817966000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (817966000 ps) Send SPI command value 6847_0CF1 (C3_AMP_SQ_OFFSET_LSB, mode Write, data 0CF1)
+# ** Note   : (817966000 ps) Send SPI command value 6881_0CF1 (C3_AMP_SQ_OFFSET_LSB, mode Write, data 0CF1)
 # ** Note   : (820284000 ps) Waiting SPI command end for 2282000 ps
 #             (820284000 ps) 
 #             (820284000 ps) ==============================================================================================
 #             (820284000 ps)   Configure AMP SQUID lockpoint Offset column 3
 #             (820284000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (820284000 ps) Send SPI command value 6845_08FF (C3_AMP_SQ_OFFSET_COARSE, mode Write, data 08FF)
+# ** Note   : (820284000 ps) Send SPI command value 6883_08FF (C3_AMP_SQ_OFFSET_COARSE, mode Write, data 08FF)
 # ** Note   : (822606000 ps) Waiting SPI command end for 2286000 ps
 #             (822606000 ps) 
 #             (822606000 ps) ==============================================================================================
-#             (822606000 ps)   Send command SQ_AMP_OFFSET_MODE column 2 to Off, column 3 to open loop
+#             (822606000 ps)   Send command AMP_SQ_OFFSET_MODE column 2 to Off, column 3 to open loop
 #             (822606000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (822606000 ps) Send SPI command value 8005_1000 (SQ_AMP_OFFSET_MODE, mode Write, data 1000)
+# ** Note   : (822606000 ps) Send SPI command value 8005_1000 (AMP_SQ_OFFSET_MODE, mode Write, data 1000)
 # ** Note   : (824928000 ps) Waiting SPI command end for 2286000 ps
 #             (824928000 ps) 
 #             (824928000 ps) ==============================================================================================
@@ -888,9 +888,9 @@
 # ** Note   : (1084672000 ps) Waiting time for 175000000 ps
 #             (1084672000 ps) 
 #             (1084672000 ps) ==============================================================================================
-#             (1084672000 ps)   Send command SQ_AMP_OFFSET_MODE column 3 to Off
+#             (1084672000 ps)   Send command AMP_SQ_OFFSET_MODE column 3 to Off
 #             (1084672000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (1084672000 ps) Send SPI command value 8005_0000 (SQ_AMP_OFFSET_MODE, mode Write, data 0000)
+# ** Note   : (1084672000 ps) Send SPI command value 8005_0000 (AMP_SQ_OFFSET_MODE, mode Write, data 0000)
 # ** Note   : (1086990000 ps) Waiting SPI command end for 2282000 ps
 #             (1086990000 ps) 
 #             (1086990000 ps) ==============================================================================================

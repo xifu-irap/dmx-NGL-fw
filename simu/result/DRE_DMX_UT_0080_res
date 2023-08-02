@@ -215,9 +215,9 @@
 # ** Note   : (245194536 ps)  * record time 256128 ps strictly greater than expected value 160080 ps
 #             (245194536 ps) 
 #             (245194536 ps) ==============================================================================================
-#             (245194536 ps)   Send command SQ_MUX_FB_ON_OFF column 0 to On for o_c0_sqm_adc_pwdn deactivation
+#             (245194536 ps)   Send command MUX_SQ_FB_ON_OFF column 0 to On for o_c0_sqm_adc_pwdn deactivation
 #             (245194536 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (245194536 ps) Send SPI command value 8003_0001 (SQ_MUX_FB_ON_OFF, mode Write, data 0001)
+# ** Note   : (245194536 ps) Send SPI command value 8003_0001 (MUX_SQ_FB_ON_OFF, mode Write, data 0001)
 #             (245230536 ps) 
 #             (245230536 ps) ==============================================================================================
 #             (245230536 ps)   Check no event is appeared on o_c0_sqm_adc_pwdn and wait o_c0_sqm_adc_pwdn deactivation
@@ -248,9 +248,9 @@
 # ** Note   : (255823848 ps)  * sqm_adc_pwdn(0) last event 240120 ps greater than or equal to expected value 160080 ps
 #             (255823848 ps) 
 #             (255823848 ps) ==============================================================================================
-#             (255823848 ps)   Send command SQ_MUX_FB_ON_OFF column 0 to Off loop for o_c0_sqm_adc_pwdn activation
+#             (255823848 ps)   Send command MUX_SQ_FB_ON_OFF column 0 to Off loop for o_c0_sqm_adc_pwdn activation
 #             (255823848 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (255823848 ps) Send SPI command value 8003_0000 (SQ_MUX_FB_ON_OFF, mode Write, data 0000)
+# ** Note   : (255823848 ps) Send SPI command value 8003_0000 (MUX_SQ_FB_ON_OFF, mode Write, data 0000)
 # ** Note   : (263328000 ps) Waiting SPI command end for 7468152 ps
 #             (263328000 ps) 
 #             (263328000 ps) ==============================================================================================
@@ -272,9 +272,9 @@
 # ** Note   : (266965416 ps)  * record time 256128 ps strictly greater than expected value 160080 ps
 #             (266965416 ps) 
 #             (266965416 ps) ==============================================================================================
-#             (266965416 ps)   Send command SQ_MUX_FB_ON_OFF column 0 to On for o_c0_sqm_adc_pwdn deactivation
+#             (266965416 ps)   Send command MUX_SQ_FB_ON_OFF column 0 to On for o_c0_sqm_adc_pwdn deactivation
 #             (266965416 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (266965416 ps) Send SPI command value 8003_0001 (SQ_MUX_FB_ON_OFF, mode Write, data 0001)
+# ** Note   : (266965416 ps) Send SPI command value 8003_0001 (MUX_SQ_FB_ON_OFF, mode Write, data 0001)
 #             (267001416 ps) 
 #             (267001416 ps) ==============================================================================================
 #             (267001416 ps)   Check no event is appeared on o_c0_sqm_adc_pwdn and wait o_c0_sqm_adc_pwdn deactivation
@@ -305,9 +305,9 @@
 # ** Note   : (277594728 ps)  * sqm_adc_pwdn(0) last event 240120 ps greater than or equal to expected value 160080 ps
 #             (277594728 ps) 
 #             (277594728 ps) ==============================================================================================
-#             (277594728 ps)   Send command SQ_MUX_FB_ON_OFF column 0 to Off for o_c0_sqm_adc_pwdn activation
+#             (277594728 ps)   Send command MUX_SQ_FB_ON_OFF column 0 to Off for o_c0_sqm_adc_pwdn activation
 #             (277594728 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (277594728 ps) Send SPI command value 8003_0000 (SQ_MUX_FB_ON_OFF, mode Write, data 0000)
+# ** Note   : (277594728 ps) Send SPI command value 8003_0000 (MUX_SQ_FB_ON_OFF, mode Write, data 0000)
 # ** Note   : (285090000 ps) Waiting SPI command end for 7459272 ps
 #             (285090000 ps) 
 #             (285090000 ps) ==============================================================================================
@@ -329,9 +329,9 @@
 # ** Note   : (288736296 ps)  * record time 256128 ps strictly greater than expected value 160080 ps
 #             (288736296 ps) 
 #             (288736296 ps) ==============================================================================================
-#             (288736296 ps)   Send command SQ_MUX_FB_ON_OFF column 0 to On for o_c0_sqm_adc_pwdn deactivation
+#             (288736296 ps)   Send command MUX_SQ_FB_ON_OFF column 0 to On for o_c0_sqm_adc_pwdn deactivation
 #             (288736296 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (288736296 ps) Send SPI command value 8003_0001 (SQ_MUX_FB_ON_OFF, mode Write, data 0001)
+# ** Note   : (288736296 ps) Send SPI command value 8003_0001 (MUX_SQ_FB_ON_OFF, mode Write, data 0001)
 #             (288772296 ps) 
 #             (288772296 ps) ==============================================================================================
 #             (288772296 ps)   Check no event is appeared on o_c0_sqm_adc_pwdn and wait o_c0_sqm_adc_pwdn deactivation
@@ -362,9 +362,9 @@
 # ** Note   : (299365608 ps)  * sqm_adc_pwdn(0) last event 240120 ps greater than or equal to expected value 160080 ps
 #             (299365608 ps) 
 #             (299365608 ps) ==============================================================================================
-#             (299365608 ps)   Send command SQ_MUX_FB_ON_OFF column 0 to Off for o_c0_sqm_adc_pwdn activation
+#             (299365608 ps)   Send command MUX_SQ_FB_ON_OFF column 0 to Off for o_c0_sqm_adc_pwdn activation
 #             (299365608 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (299365608 ps) Send SPI command value 8003_0000 (SQ_MUX_FB_ON_OFF, mode Write, data 0000)
+# ** Note   : (299365608 ps) Send SPI command value 8003_0000 (MUX_SQ_FB_ON_OFF, mode Write, data 0000)
 # ** Note   : (306870000 ps) Waiting SPI command end for 7468392 ps
 #             (306870000 ps) 
 #             (306870000 ps) ==============================================================================================
@@ -550,9 +550,9 @@
 # ** Note   : (544544136 ps)  * record time 256128 ps strictly greater than expected value 160080 ps
 #             (544544136 ps) 
 #             (544544136 ps) ==============================================================================================
-#             (544544136 ps)   Send command SQ_MUX_FB_ON_OFF column 1 to On for o_c1_sqm_adc_pwdn deactivation
+#             (544544136 ps)   Send command MUX_SQ_FB_ON_OFF column 1 to On for o_c1_sqm_adc_pwdn deactivation
 #             (544544136 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (544544136 ps) Send SPI command value 8003_0010 (SQ_MUX_FB_ON_OFF, mode Write, data 0010)
+# ** Note   : (544544136 ps) Send SPI command value 8003_0010 (MUX_SQ_FB_ON_OFF, mode Write, data 0010)
 #             (544580136 ps) 
 #             (544580136 ps) ==============================================================================================
 #             (544580136 ps)   Check no event is appeared on o_c1_sqm_adc_pwdn and wait o_c1_sqm_adc_pwdn deactivation
@@ -583,9 +583,9 @@
 # ** Note   : (555173448 ps)  * sqm_adc_pwdn(1) last event 240120 ps greater than or equal to expected value 160080 ps
 #             (555173448 ps) 
 #             (555173448 ps) ==============================================================================================
-#             (555173448 ps)   Send command SQ_MUX_FB_ON_OFF column 1 to Off loop for o_c1_sqm_adc_pwdn activation
+#             (555173448 ps)   Send command MUX_SQ_FB_ON_OFF column 1 to Off loop for o_c1_sqm_adc_pwdn activation
 #             (555173448 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (555173448 ps) Send SPI command value 8003_0000 (SQ_MUX_FB_ON_OFF, mode Write, data 0000)
+# ** Note   : (555173448 ps) Send SPI command value 8003_0000 (MUX_SQ_FB_ON_OFF, mode Write, data 0000)
 # ** Note   : (562668000 ps) Waiting SPI command end for 7458552 ps
 #             (562668000 ps) 
 #             (562668000 ps) ==============================================================================================
@@ -607,9 +607,9 @@
 # ** Note   : (566315016 ps)  * record time 256128 ps strictly greater than expected value 160080 ps
 #             (566315016 ps) 
 #             (566315016 ps) ==============================================================================================
-#             (566315016 ps)   Send command SQ_MUX_FB_ON_OFF column 1 to On for o_c1_sqm_adc_pwdn deactivation
+#             (566315016 ps)   Send command MUX_SQ_FB_ON_OFF column 1 to On for o_c1_sqm_adc_pwdn deactivation
 #             (566315016 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (566315016 ps) Send SPI command value 8003_0010 (SQ_MUX_FB_ON_OFF, mode Write, data 0010)
+# ** Note   : (566315016 ps) Send SPI command value 8003_0010 (MUX_SQ_FB_ON_OFF, mode Write, data 0010)
 #             (566351016 ps) 
 #             (566351016 ps) ==============================================================================================
 #             (566351016 ps)   Check no event is appeared on o_c1_sqm_adc_pwdn and wait o_c1_sqm_adc_pwdn deactivation
@@ -640,9 +640,9 @@
 # ** Note   : (576944328 ps)  * sqm_adc_pwdn(1) last event 240120 ps greater than or equal to expected value 160080 ps
 #             (576944328 ps) 
 #             (576944328 ps) ==============================================================================================
-#             (576944328 ps)   Send command SQ_MUX_FB_ON_OFF column 1 to Off for o_c1_sqm_adc_pwdn activation
+#             (576944328 ps)   Send command MUX_SQ_FB_ON_OFF column 1 to Off for o_c1_sqm_adc_pwdn activation
 #             (576944328 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (576944328 ps) Send SPI command value 8003_0000 (SQ_MUX_FB_ON_OFF, mode Write, data 0000)
+# ** Note   : (576944328 ps) Send SPI command value 8003_0000 (MUX_SQ_FB_ON_OFF, mode Write, data 0000)
 # ** Note   : (584448000 ps) Waiting SPI command end for 7467672 ps
 #             (584448000 ps) 
 #             (584448000 ps) ==============================================================================================
@@ -664,9 +664,9 @@
 # ** Note   : (588085896 ps)  * record time 256128 ps strictly greater than expected value 160080 ps
 #             (588085896 ps) 
 #             (588085896 ps) ==============================================================================================
-#             (588085896 ps)   Send command SQ_MUX_FB_ON_OFF column 1 to On for o_c1_sqm_adc_pwdn deactivation
+#             (588085896 ps)   Send command MUX_SQ_FB_ON_OFF column 1 to On for o_c1_sqm_adc_pwdn deactivation
 #             (588085896 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (588085896 ps) Send SPI command value 8003_0010 (SQ_MUX_FB_ON_OFF, mode Write, data 0010)
+# ** Note   : (588085896 ps) Send SPI command value 8003_0010 (MUX_SQ_FB_ON_OFF, mode Write, data 0010)
 #             (588121896 ps) 
 #             (588121896 ps) ==============================================================================================
 #             (588121896 ps)   Check no event is appeared on o_c1_sqm_adc_pwdn and wait o_c1_sqm_adc_pwdn deactivation
@@ -697,9 +697,9 @@
 # ** Note   : (598715208 ps)  * sqm_adc_pwdn(1) last event 240120 ps greater than or equal to expected value 160080 ps
 #             (598715208 ps) 
 #             (598715208 ps) ==============================================================================================
-#             (598715208 ps)   Send command SQ_MUX_FB_ON_OFF column 1 to Off for o_c1_sqm_adc_pwdn activation
+#             (598715208 ps)   Send command MUX_SQ_FB_ON_OFF column 1 to Off for o_c1_sqm_adc_pwdn activation
 #             (598715208 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (598715208 ps) Send SPI command value 8003_0000 (SQ_MUX_FB_ON_OFF, mode Write, data 0000)
+# ** Note   : (598715208 ps) Send SPI command value 8003_0000 (MUX_SQ_FB_ON_OFF, mode Write, data 0000)
 # ** Note   : (606210000 ps) Waiting SPI command end for 7458792 ps
 #             (606210000 ps) 
 #             (606210000 ps) ==============================================================================================
@@ -885,9 +885,9 @@
 # ** Note   : (843893736 ps)  * record time 256128 ps strictly greater than expected value 160080 ps
 #             (843893736 ps) 
 #             (843893736 ps) ==============================================================================================
-#             (843893736 ps)   Send command SQ_MUX_FB_ON_OFF column 2 to On for o_c2_sqm_adc_pwdn deactivation
+#             (843893736 ps)   Send command MUX_SQ_FB_ON_OFF column 2 to On for o_c2_sqm_adc_pwdn deactivation
 #             (843893736 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (843893736 ps) Send SPI command value 8003_0100 (SQ_MUX_FB_ON_OFF, mode Write, data 0100)
+# ** Note   : (843893736 ps) Send SPI command value 8003_0100 (MUX_SQ_FB_ON_OFF, mode Write, data 0100)
 #             (843929736 ps) 
 #             (843929736 ps) ==============================================================================================
 #             (843929736 ps)   Check no event is appeared on o_c2_sqm_adc_pwdn and wait o_c2_sqm_adc_pwdn deactivation
@@ -918,9 +918,9 @@
 # ** Note   : (854523048 ps)  * sqm_adc_pwdn(2) last event 240120 ps greater than or equal to expected value 160080 ps
 #             (854523048 ps) 
 #             (854523048 ps) ==============================================================================================
-#             (854523048 ps)   Send command SQ_MUX_FB_ON_OFF column 2 to Off loop for o_c2_sqm_adc_pwdn activation
+#             (854523048 ps)   Send command MUX_SQ_FB_ON_OFF column 2 to Off loop for o_c2_sqm_adc_pwdn activation
 #             (854523048 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (854523048 ps) Send SPI command value 8003_0000 (SQ_MUX_FB_ON_OFF, mode Write, data 0000)
+# ** Note   : (854523048 ps) Send SPI command value 8003_0000 (MUX_SQ_FB_ON_OFF, mode Write, data 0000)
 # ** Note   : (862026000 ps) Waiting SPI command end for 7466952 ps
 #             (862026000 ps) 
 #             (862026000 ps) ==============================================================================================
@@ -942,9 +942,9 @@
 # ** Note   : (865664616 ps)  * record time 256128 ps strictly greater than expected value 160080 ps
 #             (865664616 ps) 
 #             (865664616 ps) ==============================================================================================
-#             (865664616 ps)   Send command SQ_MUX_FB_ON_OFF column 2 to On for o_c2_sqm_adc_pwdn deactivation
+#             (865664616 ps)   Send command MUX_SQ_FB_ON_OFF column 2 to On for o_c2_sqm_adc_pwdn deactivation
 #             (865664616 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (865664616 ps) Send SPI command value 8003_0100 (SQ_MUX_FB_ON_OFF, mode Write, data 0100)
+# ** Note   : (865664616 ps) Send SPI command value 8003_0100 (MUX_SQ_FB_ON_OFF, mode Write, data 0100)
 #             (865700616 ps) 
 #             (865700616 ps) ==============================================================================================
 #             (865700616 ps)   Check no event is appeared on o_c2_sqm_adc_pwdn and wait o_c2_sqm_adc_pwdn deactivation
@@ -975,9 +975,9 @@
 # ** Note   : (876293928 ps)  * sqm_adc_pwdn(2) last event 240120 ps greater than or equal to expected value 160080 ps
 #             (876293928 ps) 
 #             (876293928 ps) ==============================================================================================
-#             (876293928 ps)   Send command SQ_MUX_FB_ON_OFF column 2 to Off for o_c2_sqm_adc_pwdn activation
+#             (876293928 ps)   Send command MUX_SQ_FB_ON_OFF column 2 to Off for o_c2_sqm_adc_pwdn activation
 #             (876293928 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (876293928 ps) Send SPI command value 8003_0000 (SQ_MUX_FB_ON_OFF, mode Write, data 0000)
+# ** Note   : (876293928 ps) Send SPI command value 8003_0000 (MUX_SQ_FB_ON_OFF, mode Write, data 0000)
 # ** Note   : (883788000 ps) Waiting SPI command end for 7458072 ps
 #             (883788000 ps) 
 #             (883788000 ps) ==============================================================================================
@@ -999,9 +999,9 @@
 # ** Note   : (887435496 ps)  * record time 256128 ps strictly greater than expected value 160080 ps
 #             (887435496 ps) 
 #             (887435496 ps) ==============================================================================================
-#             (887435496 ps)   Send command SQ_MUX_FB_ON_OFF column 2 to On for o_c2_sqm_adc_pwdn deactivation
+#             (887435496 ps)   Send command MUX_SQ_FB_ON_OFF column 2 to On for o_c2_sqm_adc_pwdn deactivation
 #             (887435496 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (887435496 ps) Send SPI command value 8003_0100 (SQ_MUX_FB_ON_OFF, mode Write, data 0100)
+# ** Note   : (887435496 ps) Send SPI command value 8003_0100 (MUX_SQ_FB_ON_OFF, mode Write, data 0100)
 #             (887471496 ps) 
 #             (887471496 ps) ==============================================================================================
 #             (887471496 ps)   Check no event is appeared on o_c2_sqm_adc_pwdn and wait o_c2_sqm_adc_pwdn deactivation
@@ -1032,9 +1032,9 @@
 # ** Note   : (898064808 ps)  * sqm_adc_pwdn(2) last event 240120 ps greater than or equal to expected value 160080 ps
 #             (898064808 ps) 
 #             (898064808 ps) ==============================================================================================
-#             (898064808 ps)   Send command SQ_MUX_FB_ON_OFF column 2 to Off for o_c2_sqm_adc_pwdn activation
+#             (898064808 ps)   Send command MUX_SQ_FB_ON_OFF column 2 to Off for o_c2_sqm_adc_pwdn activation
 #             (898064808 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (898064808 ps) Send SPI command value 8003_0000 (SQ_MUX_FB_ON_OFF, mode Write, data 0000)
+# ** Note   : (898064808 ps) Send SPI command value 8003_0000 (MUX_SQ_FB_ON_OFF, mode Write, data 0000)
 # ** Note   : (905568000 ps) Waiting SPI command end for 7467192 ps
 #             (905568000 ps) 
 #             (905568000 ps) ==============================================================================================
@@ -1220,9 +1220,9 @@
 # ** Note   : (1143243336 ps)  * record time 256128 ps strictly greater than expected value 160080 ps
 #             (1143243336 ps) 
 #             (1143243336 ps) ==============================================================================================
-#             (1143243336 ps)   Send command SQ_MUX_FB_ON_OFF column 3 to On for o_c3_sqm_adc_pwdn deactivation
+#             (1143243336 ps)   Send command MUX_SQ_FB_ON_OFF column 3 to On for o_c3_sqm_adc_pwdn deactivation
 #             (1143243336 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (1143243336 ps) Send SPI command value 8003_1000 (SQ_MUX_FB_ON_OFF, mode Write, data 1000)
+# ** Note   : (1143243336 ps) Send SPI command value 8003_1000 (MUX_SQ_FB_ON_OFF, mode Write, data 1000)
 #             (1143279336 ps) 
 #             (1143279336 ps) ==============================================================================================
 #             (1143279336 ps)   Check no event is appeared on o_c3_sqm_adc_pwdn and wait o_c3_sqm_adc_pwdn deactivation
@@ -1253,9 +1253,9 @@
 # ** Note   : (1153872648 ps)  * sqm_adc_pwdn(3) last event 240120 ps greater than or equal to expected value 160080 ps
 #             (1153872648 ps) 
 #             (1153872648 ps) ==============================================================================================
-#             (1153872648 ps)   Send command SQ_MUX_FB_ON_OFF column 3 to Off loop for o_c3_sqm_adc_pwdn activation
+#             (1153872648 ps)   Send command MUX_SQ_FB_ON_OFF column 3 to Off loop for o_c3_sqm_adc_pwdn activation
 #             (1153872648 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (1153872648 ps) Send SPI command value 8003_0000 (SQ_MUX_FB_ON_OFF, mode Write, data 0000)
+# ** Note   : (1153872648 ps) Send SPI command value 8003_0000 (MUX_SQ_FB_ON_OFF, mode Write, data 0000)
 # ** Note   : (1161366000 ps) Waiting SPI command end for 7457352 ps
 #             (1161366000 ps) 
 #             (1161366000 ps) ==============================================================================================
@@ -1277,9 +1277,9 @@
 # ** Note   : (1165014216 ps)  * record time 256128 ps strictly greater than expected value 160080 ps
 #             (1165014216 ps) 
 #             (1165014216 ps) ==============================================================================================
-#             (1165014216 ps)   Send command SQ_MUX_FB_ON_OFF column 3 to On for o_c3_sqm_adc_pwdn deactivation
+#             (1165014216 ps)   Send command MUX_SQ_FB_ON_OFF column 3 to On for o_c3_sqm_adc_pwdn deactivation
 #             (1165014216 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (1165014216 ps) Send SPI command value 8003_1000 (SQ_MUX_FB_ON_OFF, mode Write, data 1000)
+# ** Note   : (1165014216 ps) Send SPI command value 8003_1000 (MUX_SQ_FB_ON_OFF, mode Write, data 1000)
 #             (1165050216 ps) 
 #             (1165050216 ps) ==============================================================================================
 #             (1165050216 ps)   Check no event is appeared on o_c3_sqm_adc_pwdn and wait o_c3_sqm_adc_pwdn deactivation
@@ -1310,9 +1310,9 @@
 # ** Note   : (1175643528 ps)  * sqm_adc_pwdn(3) last event 240120 ps greater than or equal to expected value 160080 ps
 #             (1175643528 ps) 
 #             (1175643528 ps) ==============================================================================================
-#             (1175643528 ps)   Send command SQ_MUX_FB_ON_OFF column 3 to Off for o_c3_sqm_adc_pwdn activation
+#             (1175643528 ps)   Send command MUX_SQ_FB_ON_OFF column 3 to Off for o_c3_sqm_adc_pwdn activation
 #             (1175643528 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (1175643528 ps) Send SPI command value 8003_0000 (SQ_MUX_FB_ON_OFF, mode Write, data 0000)
+# ** Note   : (1175643528 ps) Send SPI command value 8003_0000 (MUX_SQ_FB_ON_OFF, mode Write, data 0000)
 # ** Note   : (1183146000 ps) Waiting SPI command end for 7466472 ps
 #             (1183146000 ps) 
 #             (1183146000 ps) ==============================================================================================
@@ -1334,9 +1334,9 @@
 # ** Note   : (1186785096 ps)  * record time 256128 ps strictly greater than expected value 160080 ps
 #             (1186785096 ps) 
 #             (1186785096 ps) ==============================================================================================
-#             (1186785096 ps)   Send command SQ_MUX_FB_ON_OFF column 3 to On for o_c3_sqm_adc_pwdn deactivation
+#             (1186785096 ps)   Send command MUX_SQ_FB_ON_OFF column 3 to On for o_c3_sqm_adc_pwdn deactivation
 #             (1186785096 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (1186785096 ps) Send SPI command value 8003_1000 (SQ_MUX_FB_ON_OFF, mode Write, data 1000)
+# ** Note   : (1186785096 ps) Send SPI command value 8003_1000 (MUX_SQ_FB_ON_OFF, mode Write, data 1000)
 #             (1186821096 ps) 
 #             (1186821096 ps) ==============================================================================================
 #             (1186821096 ps)   Check no event is appeared on o_c3_sqm_adc_pwdn and wait o_c3_sqm_adc_pwdn deactivation
@@ -1367,9 +1367,9 @@
 # ** Note   : (1197414408 ps)  * sqm_adc_pwdn(3) last event 240120 ps greater than or equal to expected value 160080 ps
 #             (1197414408 ps) 
 #             (1197414408 ps) ==============================================================================================
-#             (1197414408 ps)   Send command SQ_MUX_FB_ON_OFF column 3 to Off for o_c3_sqm_adc_pwdn activation
+#             (1197414408 ps)   Send command MUX_SQ_FB_ON_OFF column 3 to Off for o_c3_sqm_adc_pwdn activation
 #             (1197414408 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (1197414408 ps) Send SPI command value 8003_0000 (SQ_MUX_FB_ON_OFF, mode Write, data 0000)
+# ** Note   : (1197414408 ps) Send SPI command value 8003_0000 (MUX_SQ_FB_ON_OFF, mode Write, data 0000)
 # ** Note   : (1204908000 ps) Waiting SPI command end for 7457592 ps
 #             (1204908000 ps) 
 #             (1204908000 ps) ==============================================================================================

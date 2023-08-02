@@ -2,7 +2,7 @@
 # Simulation DRE_DMX_UT_0100
 # ------------------------------------------------------------------------------------------------------------------------------------------------------
 #             (0 ps) **********************************************************************************************
-#             (0 ps)   Test: EP command, SQ_AMP_OFFSET_MODE register
+#             (0 ps)   Test: EP command, AMP_SQ_OFFSET_MODE register
 #             (0 ps) **********************************************************************************************
 #             (0 ps) 
 #             (0 ps) ==============================================================================================
@@ -22,23 +22,23 @@
 # ** Note   : (6995496 ps) Waiting event rst = '0' for 6915496 ps
 #             (6995496 ps) 
 #             (6995496 ps) ==============================================================================================
-#             (6995496 ps)   Start SQ_AMP_OFFSET_MODE register test
+#             (6995496 ps)   Start AMP_SQ_OFFSET_MODE register test
 #             (6995496 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (6995496 ps) Send SPI command value 8004_XXXX (SQ_AMP_OFFSET_MODE, mode Read, data XXXX)
+# ** Note   : (6995496 ps) Send SPI command value 8004_XXXX (AMP_SQ_OFFSET_MODE, mode Read, data XXXX)
 # ** Note   : (14496000 ps) Waiting SPI command end for 7464504 ps
-# ** Note   : (14496000 ps) Send SPI command value 8005_8XXX (SQ_AMP_OFFSET_MODE, mode Write, data 8XXX)
+# ** Note   : (14496000 ps) Send SPI command value 8005_8XXX (AMP_SQ_OFFSET_MODE, mode Write, data 8XXX)
 # ** Note   : (22002000 ps) Waiting SPI command end for 7470000 ps
-# ** Note   : (22002000 ps) Send SPI command value 8004_XXXX (SQ_AMP_OFFSET_MODE, mode Read, data XXXX)
+# ** Note   : (22002000 ps) Send SPI command value 8004_XXXX (AMP_SQ_OFFSET_MODE, mode Read, data XXXX)
 # ** Note   : (22074000 ps) Waiting SPI command return end for 36000 ps
 #             (22074000 ps) 
 #             (22074000 ps) ==============================================================================================
-#             (22074000 ps)   Check SQ_AMP_OFFSET_MODE content at start:
+#             (22074000 ps)   Check AMP_SQ_OFFSET_MODE content at start:
 #             (22074000 ps)   Col(3)->Off, Col(2)->Off, Col(1)->Off, Col(0)->Off
 #             (22074000 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (22092000 ps) Check command return: PASS
-# ** Note   : (22092000 ps)  * Read 8004_0000, expected value 8004_0000 (SQ_AMP_OFFSET_MODE, mode Read, data 0000)
+# ** Note   : (22092000 ps)  * Read 8004_0000, expected value 8004_0000 (AMP_SQ_OFFSET_MODE, mode Read, data 0000)
 # ** Note   : (29508000 ps) Waiting SPI command end for 7416000 ps
-# ** Note   : (29508000 ps) Send SPI command value 8005_4XXX (SQ_AMP_OFFSET_MODE, mode Write, data 4XXX)
+# ** Note   : (29508000 ps) Send SPI command value 8005_4XXX (AMP_SQ_OFFSET_MODE, mode Write, data 4XXX)
 # ** Note   : (29580000 ps) Waiting SPI command return end for 36000 ps
 #             (29580000 ps) 
 #             (29580000 ps) ==============================================================================================
@@ -47,16 +47,16 @@
 # ** Note   : (29598000 ps) Check command return: PASS
 # ** Note   : (29598000 ps)  * Read C000_EFFF, expected value C000_EFFF (Status, mode Read, data EFFF)
 # ** Note   : (37014000 ps) Waiting SPI command end for 7416000 ps
-# ** Note   : (37014000 ps) Send SPI command value 8004_XXXX (SQ_AMP_OFFSET_MODE, mode Read, data XXXX)
+# ** Note   : (37014000 ps) Send SPI command value 8004_XXXX (AMP_SQ_OFFSET_MODE, mode Read, data XXXX)
 # ** Note   : (37086000 ps) Waiting SPI command return end for 36000 ps
 #             (37086000 ps) 
 #             (37086000 ps) ==============================================================================================
-#             (37086000 ps)   Check SQ_AMP_OFFSET_MODE no change
+#             (37086000 ps)   Check AMP_SQ_OFFSET_MODE no change
 #             (37086000 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (37104000 ps) Check command return: PASS
-# ** Note   : (37104000 ps)  * Read 8004_0000, expected value 8004_0000 (SQ_AMP_OFFSET_MODE, mode Read, data 0000)
+# ** Note   : (37104000 ps)  * Read 8004_0000, expected value 8004_0000 (AMP_SQ_OFFSET_MODE, mode Read, data 0000)
 # ** Note   : (44520000 ps) Waiting SPI command end for 7416000 ps
-# ** Note   : (44520000 ps) Send SPI command value 8005_X8XX (SQ_AMP_OFFSET_MODE, mode Write, data X8XX)
+# ** Note   : (44520000 ps) Send SPI command value 8005_X8XX (AMP_SQ_OFFSET_MODE, mode Write, data X8XX)
 # ** Note   : (44592000 ps) Waiting SPI command return end for 36000 ps
 #             (44592000 ps) 
 #             (44592000 ps) ==============================================================================================
@@ -65,16 +65,16 @@
 # ** Note   : (44610000 ps) Check command return: PASS
 # ** Note   : (44610000 ps)  * Read C000_EFFF, expected value C000_EFFF (Status, mode Read, data EFFF)
 # ** Note   : (52026000 ps) Waiting SPI command end for 7416000 ps
-# ** Note   : (52026000 ps) Send SPI command value 8004_XXXX (SQ_AMP_OFFSET_MODE, mode Read, data XXXX)
+# ** Note   : (52026000 ps) Send SPI command value 8004_XXXX (AMP_SQ_OFFSET_MODE, mode Read, data XXXX)
 # ** Note   : (52098000 ps) Waiting SPI command return end for 36000 ps
 #             (52098000 ps) 
 #             (52098000 ps) ==============================================================================================
-#             (52098000 ps)   Check SQ_AMP_OFFSET_MODE no change
+#             (52098000 ps)   Check AMP_SQ_OFFSET_MODE no change
 #             (52098000 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (52116000 ps) Check command return: PASS
-# ** Note   : (52116000 ps)  * Read 8004_0000, expected value 8004_0000 (SQ_AMP_OFFSET_MODE, mode Read, data 0000)
+# ** Note   : (52116000 ps)  * Read 8004_0000, expected value 8004_0000 (AMP_SQ_OFFSET_MODE, mode Read, data 0000)
 # ** Note   : (59532000 ps) Waiting SPI command end for 7416000 ps
-# ** Note   : (59532000 ps) Send SPI command value 8005_X4XX (SQ_AMP_OFFSET_MODE, mode Write, data X4XX)
+# ** Note   : (59532000 ps) Send SPI command value 8005_X4XX (AMP_SQ_OFFSET_MODE, mode Write, data X4XX)
 # ** Note   : (59604000 ps) Waiting SPI command return end for 36000 ps
 #             (59604000 ps) 
 #             (59604000 ps) ==============================================================================================
@@ -83,16 +83,16 @@
 # ** Note   : (59622000 ps) Check command return: PASS
 # ** Note   : (59622000 ps)  * Read C000_EFFF, expected value C000_EFFF (Status, mode Read, data EFFF)
 # ** Note   : (67038000 ps) Waiting SPI command end for 7416000 ps
-# ** Note   : (67038000 ps) Send SPI command value 8004_XXXX (SQ_AMP_OFFSET_MODE, mode Read, data XXXX)
+# ** Note   : (67038000 ps) Send SPI command value 8004_XXXX (AMP_SQ_OFFSET_MODE, mode Read, data XXXX)
 # ** Note   : (67110000 ps) Waiting SPI command return end for 36000 ps
 #             (67110000 ps) 
 #             (67110000 ps) ==============================================================================================
-#             (67110000 ps)   Check SQ_AMP_OFFSET_MODE no change
+#             (67110000 ps)   Check AMP_SQ_OFFSET_MODE no change
 #             (67110000 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (67128000 ps) Check command return: PASS
-# ** Note   : (67128000 ps)  * Read 8004_0000, expected value 8004_0000 (SQ_AMP_OFFSET_MODE, mode Read, data 0000)
+# ** Note   : (67128000 ps)  * Read 8004_0000, expected value 8004_0000 (AMP_SQ_OFFSET_MODE, mode Read, data 0000)
 # ** Note   : (74544000 ps) Waiting SPI command end for 7416000 ps
-# ** Note   : (74544000 ps) Send SPI command value 8005_XX8X (SQ_AMP_OFFSET_MODE, mode Write, data XX8X)
+# ** Note   : (74544000 ps) Send SPI command value 8005_XX8X (AMP_SQ_OFFSET_MODE, mode Write, data XX8X)
 # ** Note   : (74616000 ps) Waiting SPI command return end for 36000 ps
 #             (74616000 ps) 
 #             (74616000 ps) ==============================================================================================
@@ -101,16 +101,16 @@
 # ** Note   : (74634000 ps) Check command return: PASS
 # ** Note   : (74634000 ps)  * Read C000_EFFF, expected value C000_EFFF (Status, mode Read, data EFFF)
 # ** Note   : (82050000 ps) Waiting SPI command end for 7416000 ps
-# ** Note   : (82050000 ps) Send SPI command value 8004_XXXX (SQ_AMP_OFFSET_MODE, mode Read, data XXXX)
+# ** Note   : (82050000 ps) Send SPI command value 8004_XXXX (AMP_SQ_OFFSET_MODE, mode Read, data XXXX)
 # ** Note   : (82122000 ps) Waiting SPI command return end for 36000 ps
 #             (82122000 ps) 
 #             (82122000 ps) ==============================================================================================
-#             (82122000 ps)   Check SQ_AMP_OFFSET_MODE no change
+#             (82122000 ps)   Check AMP_SQ_OFFSET_MODE no change
 #             (82122000 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (82140000 ps) Check command return: PASS
-# ** Note   : (82140000 ps)  * Read 8004_0000, expected value 8004_0000 (SQ_AMP_OFFSET_MODE, mode Read, data 0000)
+# ** Note   : (82140000 ps)  * Read 8004_0000, expected value 8004_0000 (AMP_SQ_OFFSET_MODE, mode Read, data 0000)
 # ** Note   : (89556000 ps) Waiting SPI command end for 7416000 ps
-# ** Note   : (89556000 ps) Send SPI command value 8005_XX4X (SQ_AMP_OFFSET_MODE, mode Write, data XX4X)
+# ** Note   : (89556000 ps) Send SPI command value 8005_XX4X (AMP_SQ_OFFSET_MODE, mode Write, data XX4X)
 # ** Note   : (89628000 ps) Waiting SPI command return end for 36000 ps
 #             (89628000 ps) 
 #             (89628000 ps) ==============================================================================================
@@ -119,16 +119,16 @@
 # ** Note   : (89646000 ps) Check command return: PASS
 # ** Note   : (89646000 ps)  * Read C000_EFFF, expected value C000_EFFF (Status, mode Read, data EFFF)
 # ** Note   : (97062000 ps) Waiting SPI command end for 7416000 ps
-# ** Note   : (97062000 ps) Send SPI command value 8004_XXXX (SQ_AMP_OFFSET_MODE, mode Read, data XXXX)
+# ** Note   : (97062000 ps) Send SPI command value 8004_XXXX (AMP_SQ_OFFSET_MODE, mode Read, data XXXX)
 # ** Note   : (97134000 ps) Waiting SPI command return end for 36000 ps
 #             (97134000 ps) 
 #             (97134000 ps) ==============================================================================================
-#             (97134000 ps)   Check SQ_AMP_OFFSET_MODE no change
+#             (97134000 ps)   Check AMP_SQ_OFFSET_MODE no change
 #             (97134000 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (97152000 ps) Check command return: PASS
-# ** Note   : (97152000 ps)  * Read 8004_0000, expected value 8004_0000 (SQ_AMP_OFFSET_MODE, mode Read, data 0000)
+# ** Note   : (97152000 ps)  * Read 8004_0000, expected value 8004_0000 (AMP_SQ_OFFSET_MODE, mode Read, data 0000)
 # ** Note   : (104568000 ps) Waiting SPI command end for 7416000 ps
-# ** Note   : (104568000 ps) Send SPI command value 8005_XXX8 (SQ_AMP_OFFSET_MODE, mode Write, data XXX8)
+# ** Note   : (104568000 ps) Send SPI command value 8005_XXX8 (AMP_SQ_OFFSET_MODE, mode Write, data XXX8)
 # ** Note   : (104640000 ps) Waiting SPI command return end for 36000 ps
 #             (104640000 ps) 
 #             (104640000 ps) ==============================================================================================
@@ -137,16 +137,16 @@
 # ** Note   : (104658000 ps) Check command return: PASS
 # ** Note   : (104658000 ps)  * Read C000_EFFF, expected value C000_EFFF (Status, mode Read, data EFFF)
 # ** Note   : (112074000 ps) Waiting SPI command end for 7416000 ps
-# ** Note   : (112074000 ps) Send SPI command value 8004_XXXX (SQ_AMP_OFFSET_MODE, mode Read, data XXXX)
+# ** Note   : (112074000 ps) Send SPI command value 8004_XXXX (AMP_SQ_OFFSET_MODE, mode Read, data XXXX)
 # ** Note   : (112146000 ps) Waiting SPI command return end for 36000 ps
 #             (112146000 ps) 
 #             (112146000 ps) ==============================================================================================
-#             (112146000 ps)   Check SQ_AMP_OFFSET_MODE no change
+#             (112146000 ps)   Check AMP_SQ_OFFSET_MODE no change
 #             (112146000 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (112164000 ps) Check command return: PASS
-# ** Note   : (112164000 ps)  * Read 8004_0000, expected value 8004_0000 (SQ_AMP_OFFSET_MODE, mode Read, data 0000)
+# ** Note   : (112164000 ps)  * Read 8004_0000, expected value 8004_0000 (AMP_SQ_OFFSET_MODE, mode Read, data 0000)
 # ** Note   : (119580000 ps) Waiting SPI command end for 7416000 ps
-# ** Note   : (119580000 ps) Send SPI command value 8005_XXX4 (SQ_AMP_OFFSET_MODE, mode Write, data XXX4)
+# ** Note   : (119580000 ps) Send SPI command value 8005_XXX4 (AMP_SQ_OFFSET_MODE, mode Write, data XXX4)
 # ** Note   : (119652000 ps) Waiting SPI command return end for 36000 ps
 #             (119652000 ps) 
 #             (119652000 ps) ==============================================================================================
@@ -155,16 +155,16 @@
 # ** Note   : (119670000 ps) Check command return: PASS
 # ** Note   : (119670000 ps)  * Read C000_EFFF, expected value C000_EFFF (Status, mode Read, data EFFF)
 # ** Note   : (127086000 ps) Waiting SPI command end for 7416000 ps
-# ** Note   : (127086000 ps) Send SPI command value 8004_XXXX (SQ_AMP_OFFSET_MODE, mode Read, data XXXX)
+# ** Note   : (127086000 ps) Send SPI command value 8004_XXXX (AMP_SQ_OFFSET_MODE, mode Read, data XXXX)
 # ** Note   : (127158000 ps) Waiting SPI command return end for 36000 ps
 #             (127158000 ps) 
 #             (127158000 ps) ==============================================================================================
-#             (127158000 ps)   Check SQ_AMP_OFFSET_MODE no change
+#             (127158000 ps)   Check AMP_SQ_OFFSET_MODE no change
 #             (127158000 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (127176000 ps) Check command return: PASS
-# ** Note   : (127176000 ps)  * Read 8004_0000, expected value 8004_0000 (SQ_AMP_OFFSET_MODE, mode Read, data 0000)
+# ** Note   : (127176000 ps)  * Read 8004_0000, expected value 8004_0000 (AMP_SQ_OFFSET_MODE, mode Read, data 0000)
 # ** Note   : (134592000 ps) Waiting SPI command end for 7416000 ps
-# ** Note   : (134592000 ps) Send SPI command value 8005_0223 (SQ_AMP_OFFSET_MODE, mode Write, data 0223)
+# ** Note   : (134592000 ps) Send SPI command value 8005_0223 (AMP_SQ_OFFSET_MODE, mode Write, data 0223)
 # ** Note   : (134664000 ps) Waiting SPI command return end for 36000 ps
 #             (134664000 ps) 
 #             (134664000 ps) ==============================================================================================
@@ -173,16 +173,16 @@
 # ** Note   : (134682000 ps) Check command return: PASS
 # ** Note   : (134682000 ps)  * Read C000_EFFF, expected value C000_EFFF (Status, mode Read, data EFFF)
 # ** Note   : (142098000 ps) Waiting SPI command end for 7416000 ps
-# ** Note   : (142098000 ps) Send SPI command value 8004_XXXX (SQ_AMP_OFFSET_MODE, mode Read, data XXXX)
+# ** Note   : (142098000 ps) Send SPI command value 8004_XXXX (AMP_SQ_OFFSET_MODE, mode Read, data XXXX)
 # ** Note   : (142170000 ps) Waiting SPI command return end for 36000 ps
 #             (142170000 ps) 
 #             (142170000 ps) ==============================================================================================
-#             (142170000 ps)   Check SQ_AMP_OFFSET_MODE no change
+#             (142170000 ps)   Check AMP_SQ_OFFSET_MODE no change
 #             (142170000 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (142188000 ps) Check command return: PASS
-# ** Note   : (142188000 ps)  * Read 8004_0000, expected value 8004_0000 (SQ_AMP_OFFSET_MODE, mode Read, data 0000)
+# ** Note   : (142188000 ps)  * Read 8004_0000, expected value 8004_0000 (AMP_SQ_OFFSET_MODE, mode Read, data 0000)
 # ** Note   : (149604000 ps) Waiting SPI command end for 7416000 ps
-# ** Note   : (149604000 ps) Send SPI command value 8005_3320 (SQ_AMP_OFFSET_MODE, mode Write, data 3320)
+# ** Note   : (149604000 ps) Send SPI command value 8005_3320 (AMP_SQ_OFFSET_MODE, mode Write, data 3320)
 # ** Note   : (149676000 ps) Waiting SPI command return end for 36000 ps
 #             (149676000 ps) 
 #             (149676000 ps) ==============================================================================================
@@ -191,17 +191,17 @@
 # ** Note   : (149694000 ps) Check command return: PASS
 # ** Note   : (149694000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
 # ** Note   : (157110000 ps) Waiting SPI command end for 7416000 ps
-# ** Note   : (157110000 ps) Send SPI command value 8004_XXXX (SQ_AMP_OFFSET_MODE, mode Read, data XXXX)
+# ** Note   : (157110000 ps) Send SPI command value 8004_XXXX (AMP_SQ_OFFSET_MODE, mode Read, data XXXX)
 # ** Note   : (157182000 ps) Waiting SPI command return end for 36000 ps
 #             (157182000 ps) 
 #             (157182000 ps) ==============================================================================================
-#             (157182000 ps)   Check SQ_AMP_OFFSET_MODE content:
+#             (157182000 ps)   Check AMP_SQ_OFFSET_MODE content:
 #             (157182000 ps)   Col(3)->Off, Col(2)->Close loop, Col(1)->Close loop, Col(0)->Test pattern
 #             (157182000 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (157200000 ps) Check command return: PASS
-# ** Note   : (157200000 ps)  * Read 8004_0223, expected value 8004_0223 (SQ_AMP_OFFSET_MODE, mode Read, data 0223)
+# ** Note   : (157200000 ps)  * Read 8004_0223, expected value 8004_0223 (AMP_SQ_OFFSET_MODE, mode Read, data 0223)
 # ** Note   : (164616000 ps) Waiting SPI command end for 7416000 ps
-# ** Note   : (164616000 ps) Send SPI command value 8005_2030 (SQ_AMP_OFFSET_MODE, mode Write, data 2030)
+# ** Note   : (164616000 ps) Send SPI command value 8005_2030 (AMP_SQ_OFFSET_MODE, mode Write, data 2030)
 # ** Note   : (164688000 ps) Waiting SPI command return end for 36000 ps
 #             (164688000 ps) 
 #             (164688000 ps) ==============================================================================================
@@ -210,17 +210,17 @@
 # ** Note   : (164706000 ps) Check command return: PASS
 # ** Note   : (164706000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
 # ** Note   : (172122000 ps) Waiting SPI command end for 7416000 ps
-# ** Note   : (172122000 ps) Send SPI command value 8004_XXXX (SQ_AMP_OFFSET_MODE, mode Read, data XXXX)
+# ** Note   : (172122000 ps) Send SPI command value 8004_XXXX (AMP_SQ_OFFSET_MODE, mode Read, data XXXX)
 # ** Note   : (172194000 ps) Waiting SPI command return end for 36000 ps
 #             (172194000 ps) 
 #             (172194000 ps) ==============================================================================================
-#             (172194000 ps)   Check SQ_AMP_OFFSET_MODE content:
+#             (172194000 ps)   Check AMP_SQ_OFFSET_MODE content:
 #             (172194000 ps)   Col(3)->Test pattern, Col(2)->Test pattern, Col(1)->Close loop, Col(0)->Off
 #             (172194000 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (172212000 ps) Check command return: PASS
-# ** Note   : (172212000 ps)  * Read 8004_3320, expected value 8004_3320 (SQ_AMP_OFFSET_MODE, mode Read, data 3320)
+# ** Note   : (172212000 ps)  * Read 8004_3320, expected value 8004_3320 (AMP_SQ_OFFSET_MODE, mode Read, data 3320)
 # ** Note   : (179628000 ps) Waiting SPI command end for 7416000 ps
-# ** Note   : (179628000 ps) Send SPI command value 8005_2302 (SQ_AMP_OFFSET_MODE, mode Write, data 2302)
+# ** Note   : (179628000 ps) Send SPI command value 8005_2302 (AMP_SQ_OFFSET_MODE, mode Write, data 2302)
 # ** Note   : (179700000 ps) Waiting SPI command return end for 36000 ps
 #             (179700000 ps) 
 #             (179700000 ps) ==============================================================================================
@@ -229,17 +229,17 @@
 # ** Note   : (179718000 ps) Check command return: PASS
 # ** Note   : (179718000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
 # ** Note   : (187134000 ps) Waiting SPI command end for 7416000 ps
-# ** Note   : (187134000 ps) Send SPI command value 8004_XXXX (SQ_AMP_OFFSET_MODE, mode Read, data XXXX)
+# ** Note   : (187134000 ps) Send SPI command value 8004_XXXX (AMP_SQ_OFFSET_MODE, mode Read, data XXXX)
 # ** Note   : (187206000 ps) Waiting SPI command return end for 36000 ps
 #             (187206000 ps) 
 #             (187206000 ps) ==============================================================================================
-#             (187206000 ps)   Check SQ_AMP_OFFSET_MODE content:
+#             (187206000 ps)   Check AMP_SQ_OFFSET_MODE content:
 #             (187206000 ps)   Col(3)->Close loop, Col(2)->Off, Col(1)->Test pattern, Col(0)->Off
 #             (187206000 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (187224000 ps) Check command return: PASS
-# ** Note   : (187224000 ps)  * Read 8004_2030, expected value 8004_2030 (SQ_AMP_OFFSET_MODE, mode Read, data 2030)
+# ** Note   : (187224000 ps)  * Read 8004_2030, expected value 8004_2030 (AMP_SQ_OFFSET_MODE, mode Read, data 2030)
 # ** Note   : (194640000 ps) Waiting SPI command end for 7416000 ps
-# ** Note   : (194640000 ps) Send SPI command value 8005_1203 (SQ_AMP_OFFSET_MODE, mode Write, data 1203)
+# ** Note   : (194640000 ps) Send SPI command value 8005_1203 (AMP_SQ_OFFSET_MODE, mode Write, data 1203)
 # ** Note   : (194712000 ps) Waiting SPI command return end for 36000 ps
 #             (194712000 ps) 
 #             (194712000 ps) ==============================================================================================
@@ -248,17 +248,17 @@
 # ** Note   : (194730000 ps) Check command return: PASS
 # ** Note   : (194730000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
 # ** Note   : (202146000 ps) Waiting SPI command end for 7416000 ps
-# ** Note   : (202146000 ps) Send SPI command value 8004_XXXX (SQ_AMP_OFFSET_MODE, mode Read, data XXXX)
+# ** Note   : (202146000 ps) Send SPI command value 8004_XXXX (AMP_SQ_OFFSET_MODE, mode Read, data XXXX)
 # ** Note   : (202218000 ps) Waiting SPI command return end for 36000 ps
 #             (202218000 ps) 
 #             (202218000 ps) ==============================================================================================
-#             (202218000 ps)   Check SQ_AMP_OFFSET_MODE content:
+#             (202218000 ps)   Check AMP_SQ_OFFSET_MODE content:
 #             (202218000 ps)   Col(3)->Close loop, Col(2)->Test pattern, Col(1)->Off, Col(0)->Close loop
 #             (202218000 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (202236000 ps) Check command return: PASS
-# ** Note   : (202236000 ps)  * Read 8004_2302, expected value 8004_2302 (SQ_AMP_OFFSET_MODE, mode Read, data 2302)
+# ** Note   : (202236000 ps)  * Read 8004_2302, expected value 8004_2302 (AMP_SQ_OFFSET_MODE, mode Read, data 2302)
 # ** Note   : (209652000 ps) Waiting SPI command end for 7416000 ps
-# ** Note   : (209652000 ps) Send SPI command value 8005_3120 (SQ_AMP_OFFSET_MODE, mode Write, data 3120)
+# ** Note   : (209652000 ps) Send SPI command value 8005_3120 (AMP_SQ_OFFSET_MODE, mode Write, data 3120)
 # ** Note   : (209724000 ps) Waiting SPI command return end for 36000 ps
 #             (209724000 ps) 
 #             (209724000 ps) ==============================================================================================
@@ -267,17 +267,17 @@
 # ** Note   : (209742000 ps) Check command return: PASS
 # ** Note   : (209742000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
 # ** Note   : (217158000 ps) Waiting SPI command end for 7416000 ps
-# ** Note   : (217158000 ps) Send SPI command value 8004_XXXX (SQ_AMP_OFFSET_MODE, mode Read, data XXXX)
+# ** Note   : (217158000 ps) Send SPI command value 8004_XXXX (AMP_SQ_OFFSET_MODE, mode Read, data XXXX)
 # ** Note   : (217230000 ps) Waiting SPI command return end for 36000 ps
 #             (217230000 ps) 
 #             (217230000 ps) ==============================================================================================
-#             (217230000 ps)   Check SQ_AMP_OFFSET_MODE content:
+#             (217230000 ps)   Check AMP_SQ_OFFSET_MODE content:
 #             (217230000 ps)   Col(3)->Open loop, Col(2)->Close loop, Col(1)->Off, Col(0)->Test pattern
 #             (217230000 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (217248000 ps) Check command return: PASS
-# ** Note   : (217248000 ps)  * Read 8004_1203, expected value 8004_1203 (SQ_AMP_OFFSET_MODE, mode Read, data 1203)
+# ** Note   : (217248000 ps)  * Read 8004_1203, expected value 8004_1203 (AMP_SQ_OFFSET_MODE, mode Read, data 1203)
 # ** Note   : (224664000 ps) Waiting SPI command end for 7416000 ps
-# ** Note   : (224664000 ps) Send SPI command value 8005_0312 (SQ_AMP_OFFSET_MODE, mode Write, data 0312)
+# ** Note   : (224664000 ps) Send SPI command value 8005_0312 (AMP_SQ_OFFSET_MODE, mode Write, data 0312)
 # ** Note   : (224736000 ps) Waiting SPI command return end for 36000 ps
 #             (224736000 ps) 
 #             (224736000 ps) ==============================================================================================
@@ -286,17 +286,17 @@
 # ** Note   : (224754000 ps) Check command return: PASS
 # ** Note   : (224754000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
 # ** Note   : (232170000 ps) Waiting SPI command end for 7416000 ps
-# ** Note   : (232170000 ps) Send SPI command value 8004_XXXX (SQ_AMP_OFFSET_MODE, mode Read, data XXXX)
+# ** Note   : (232170000 ps) Send SPI command value 8004_XXXX (AMP_SQ_OFFSET_MODE, mode Read, data XXXX)
 # ** Note   : (232242000 ps) Waiting SPI command return end for 36000 ps
 #             (232242000 ps) 
 #             (232242000 ps) ==============================================================================================
-#             (232242000 ps)   Check SQ_AMP_OFFSET_MODE content:
+#             (232242000 ps)   Check AMP_SQ_OFFSET_MODE content:
 #             (232242000 ps)   Col(3)->Test pattern, Col(2)->Open loop, Col(1)->Close loop, Col(0)->Off
 #             (232242000 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (232260000 ps) Check command return: PASS
-# ** Note   : (232260000 ps)  * Read 8004_3120, expected value 8004_3120 (SQ_AMP_OFFSET_MODE, mode Read, data 3120)
+# ** Note   : (232260000 ps)  * Read 8004_3120, expected value 8004_3120 (AMP_SQ_OFFSET_MODE, mode Read, data 3120)
 # ** Note   : (239676000 ps) Waiting SPI command end for 7416000 ps
-# ** Note   : (239676000 ps) Send SPI command value 8005_2031 (SQ_AMP_OFFSET_MODE, mode Write, data 2031)
+# ** Note   : (239676000 ps) Send SPI command value 8005_2031 (AMP_SQ_OFFSET_MODE, mode Write, data 2031)
 # ** Note   : (239748000 ps) Waiting SPI command return end for 36000 ps
 #             (239748000 ps) 
 #             (239748000 ps) ==============================================================================================
@@ -305,17 +305,17 @@
 # ** Note   : (239766000 ps) Check command return: PASS
 # ** Note   : (239766000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
 # ** Note   : (247182000 ps) Waiting SPI command end for 7416000 ps
-# ** Note   : (247182000 ps) Send SPI command value 8004_XXXX (SQ_AMP_OFFSET_MODE, mode Read, data XXXX)
+# ** Note   : (247182000 ps) Send SPI command value 8004_XXXX (AMP_SQ_OFFSET_MODE, mode Read, data XXXX)
 # ** Note   : (247254000 ps) Waiting SPI command return end for 36000 ps
 #             (247254000 ps) 
 #             (247254000 ps) ==============================================================================================
-#             (247254000 ps)   Check SQ_AMP_OFFSET_MODE content:
+#             (247254000 ps)   Check AMP_SQ_OFFSET_MODE content:
 #             (247254000 ps)   Col(3)->Off, Col(2)->Test pattern, Col(1)->Open loop, Col(0)->Close loop
 #             (247254000 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (247272000 ps) Check command return: PASS
-# ** Note   : (247272000 ps)  * Read 8004_0312, expected value 8004_0312 (SQ_AMP_OFFSET_MODE, mode Read, data 0312)
+# ** Note   : (247272000 ps)  * Read 8004_0312, expected value 8004_0312 (AMP_SQ_OFFSET_MODE, mode Read, data 0312)
 # ** Note   : (254688000 ps) Waiting SPI command end for 7416000 ps
-# ** Note   : (254688000 ps) Send SPI command value 8005_0000 (SQ_AMP_OFFSET_MODE, mode Write, data 0000)
+# ** Note   : (254688000 ps) Send SPI command value 8005_0000 (AMP_SQ_OFFSET_MODE, mode Write, data 0000)
 # ** Note   : (254760000 ps) Waiting SPI command return end for 36000 ps
 #             (254760000 ps) 
 #             (254760000 ps) ==============================================================================================
@@ -324,17 +324,17 @@
 # ** Note   : (254778000 ps) Check command return: PASS
 # ** Note   : (254778000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
 # ** Note   : (262194000 ps) Waiting SPI command end for 7416000 ps
-# ** Note   : (262194000 ps) Send SPI command value 8004_XXXX (SQ_AMP_OFFSET_MODE, mode Read, data XXXX)
+# ** Note   : (262194000 ps) Send SPI command value 8004_XXXX (AMP_SQ_OFFSET_MODE, mode Read, data XXXX)
 # ** Note   : (262266000 ps) Waiting SPI command return end for 36000 ps
 #             (262266000 ps) 
 #             (262266000 ps) ==============================================================================================
-#             (262266000 ps)   Check SQ_AMP_OFFSET_MODE content:
+#             (262266000 ps)   Check AMP_SQ_OFFSET_MODE content:
 #             (262266000 ps)   Col(3)->Close loop, Col(2)->Off, Col(1)->Test pattern, Col(0)->Open loop
 #             (262266000 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (262284000 ps) Check command return: PASS
-# ** Note   : (262284000 ps)  * Read 8004_2031, expected value 8004_2031 (SQ_AMP_OFFSET_MODE, mode Read, data 2031)
+# ** Note   : (262284000 ps)  * Read 8004_2031, expected value 8004_2031 (AMP_SQ_OFFSET_MODE, mode Read, data 2031)
 # ** Note   : (269700000 ps) Waiting SPI command end for 7416000 ps
-# ** Note   : (269700000 ps) Send SPI command value 8005_0000 (SQ_AMP_OFFSET_MODE, mode Write, data 0000)
+# ** Note   : (269700000 ps) Send SPI command value 8005_0000 (AMP_SQ_OFFSET_MODE, mode Write, data 0000)
 # ** Note   : (269772000 ps) Waiting SPI command return end for 36000 ps
 # ------------------------------------------------------------------------------------------------------------------------------------------------------
 # Error simulation time         : '0'

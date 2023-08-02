@@ -40,9 +40,9 @@ WCMD W-C2_AMP_SQ_OFFSET_DAC_DELAY-0080 W
 WCMD W-C3_AMP_SQ_OFFSET_DAC_DELAY-00C0 W
 COMM
 COMM ==============================================================================================
-COMM   Send command SQ_AMP_OFFSET_MODE to open loop
+COMM   Send command AMP_SQ_OFFSET_MODE to open loop
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-SQ_AMP_OFFSET_MODE-1111 W
+WCMD W-AMP_SQ_OFFSET_MODE-1111 W
 WUDI sync 0
 WUDI sync 1
 WUDI sync 0
@@ -58,9 +58,9 @@ CTDC 2 == 4418.208 ns
 CTDC 3 == 3905.952 ns
 COMM
 COMM ==============================================================================================
-COMM   Send command SQ_AMP_OFFSET_MODE to off
+COMM   Send command AMP_SQ_OFFSET_MODE to off
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-SQ_AMP_OFFSET_MODE-0000 W
+WCMD W-AMP_SQ_OFFSET_MODE-0000 W
 WUDI sync 0
 WUDI sync 1
 WUDI sync 0
@@ -84,9 +84,9 @@ WCMD W-C2_AMP_SQ_OFFSET_DAC_DELAY-0180 W
 WCMD W-C3_AMP_SQ_OFFSET_DAC_DELAY-01C0 W
 COMM
 COMM ==============================================================================================
-COMM   Send command SQ_AMP_OFFSET_MODE to open loop
+COMM   Send command AMP_SQ_OFFSET_MODE to open loop
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-SQ_AMP_OFFSET_MODE-1111 W
+WCMD W-AMP_SQ_OFFSET_MODE-1111 W
 WUDI sync 0
 WUDI sync 1
 WUDI sync 0
@@ -102,9 +102,9 @@ CTDC 2 == 2369.184 ns
 CTDC 3 == 1856.928 ns
 COMM
 COMM ==============================================================================================
-COMM   Send command SQ_AMP_OFFSET_MODE to off
+COMM   Send command AMP_SQ_OFFSET_MODE to off
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-SQ_AMP_OFFSET_MODE-0000 W
+WCMD W-AMP_SQ_OFFSET_MODE-0000 W
 WUDI sync 0
 WUDI sync 1
 WUDI sync 0
@@ -128,9 +128,9 @@ WCMD W-C2_AMP_SQ_OFFSET_DAC_DELAY-0280 W
 WCMD W-C3_AMP_SQ_OFFSET_DAC_DELAY-02C0 W
 COMM
 COMM ==============================================================================================
-COMM   Send command SQ_AMP_OFFSET_MODE to open loop
+COMM   Send command AMP_SQ_OFFSET_MODE to open loop
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-SQ_AMP_OFFSET_MODE-1111 W
+WCMD W-AMP_SQ_OFFSET_MODE-1111 W
 WUDI sync 0
 WUDI sync 1
 WUDI sync 0
@@ -148,9 +148,9 @@ WUDI sync 1
 CTDC 3 == 5250.624 ns
 COMM
 COMM ==============================================================================================
-COMM   Send command SQ_AMP_OFFSET_MODE to off
+COMM   Send command AMP_SQ_OFFSET_MODE to off
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-SQ_AMP_OFFSET_MODE-0000 W
+WCMD W-AMP_SQ_OFFSET_MODE-0000 W
 WUDI sync 0
 WUDI sync 1
 WUDI sync 0
@@ -176,9 +176,9 @@ WCMD W-C2_AMP_SQ_OFFSET_DAC_DELAY-0380 W
 WCMD W-C3_AMP_SQ_OFFSET_DAC_DELAY-03FF W
 COMM
 COMM ==============================================================================================
-COMM   Send command SQ_AMP_OFFSET_MODE to open loop
+COMM   Send command AMP_SQ_OFFSET_MODE to open loop
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-SQ_AMP_OFFSET_MODE-1111 W
+WCMD W-AMP_SQ_OFFSET_MODE-1111 W
 WUDI sync 0
 WUDI sync 1
 WUDI sync 0
@@ -196,9 +196,9 @@ CTDC 2 == 3713.856 ns
 CTDC 3 == 2697.348 ns
 COMM
 COMM ==============================================================================================
-COMM   Send command SQ_AMP_OFFSET_MODE to off
+COMM   Send command AMP_SQ_OFFSET_MODE to off
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-SQ_AMP_OFFSET_MODE-0000 W
+WCMD W-AMP_SQ_OFFSET_MODE-0000 W
 WUDI sync 0
 WUDI sync 1
 WUDI sync 0

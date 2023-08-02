@@ -74,10 +74,10 @@ constant c_PAD                : character := ' '                                
          when "DATA_ACQ_MODE                 "  =>
             o_fld_add_val:= c_EP_CMD_ADD_AQMDE;
 
-         when "SQ_MUX_FB_ON_OFF              "  =>
+         when "MUX_SQ_FB_ON_OFF              "  =>
             o_fld_add_val:= c_EP_CMD_ADD_SMFMD;
 
-         when "SQ_AMP_OFFSET_MODE            "  =>
+         when "AMP_SQ_OFFSET_MODE            "  =>
             o_fld_add_val:= c_EP_CMD_ADD_SAOFM;
 
          when "TEST_PATTERN                  "  =>
@@ -182,10 +182,10 @@ constant c_PAD                : character := ' '                                
          when "C0_SAMPLING_DELAY             "  =>
             o_fld_add_val:= c_EP_CMD_ADD_SMPDL(c_COL0);
 
-         when "C0_FB1_PULSE_SHAPING          "  =>
+         when "C0_PULSE_SHAPING              "  =>
             o_fld_add_val:= c_EP_CMD_ADD_PLSSH(c_COL0);
 
-         when "C0_FB1_PULSE_SHAPING_SELECTION"  =>
+         when "C0_PULSE_SHAPING_SELECTION    "  =>
             o_fld_add_val:= c_EP_CMD_ADD_PLSSS(c_COL0);
 
          when "C0_RELOCK_DELAY               "  =>
@@ -236,10 +236,10 @@ constant c_PAD                : character := ' '                                
          when "C1_SAMPLING_DELAY             "  =>
             o_fld_add_val:= c_EP_CMD_ADD_SMPDL(c_COL1);
 
-         when "C1_FB1_PULSE_SHAPING          "  =>
+         when "C1_PULSE_SHAPING              "  =>
             o_fld_add_val:= c_EP_CMD_ADD_PLSSH(c_COL1);
 
-         when "C1_FB1_PULSE_SHAPING_SELECTION"  =>
+         when "C1_PULSE_SHAPING_SELECTION    "  =>
             o_fld_add_val:= c_EP_CMD_ADD_PLSSS(c_COL1);
 
          when "C1_RELOCK_DELAY               "  =>
@@ -290,10 +290,10 @@ constant c_PAD                : character := ' '                                
          when "C2_SAMPLING_DELAY             "  =>
             o_fld_add_val:= c_EP_CMD_ADD_SMPDL(c_COL2);
 
-         when "C2_FB1_PULSE_SHAPING          "  =>
+         when "C2_PULSE_SHAPING              "  =>
             o_fld_add_val:= c_EP_CMD_ADD_PLSSH(c_COL2);
 
-         when "C2_FB1_PULSE_SHAPING_SELECTION"  =>
+         when "C2_PULSE_SHAPING_SELECTION    "  =>
             o_fld_add_val:= c_EP_CMD_ADD_PLSSS(c_COL2);
 
          when "C2_RELOCK_DELAY               "  =>
@@ -344,10 +344,10 @@ constant c_PAD                : character := ' '                                
          when "C3_SAMPLING_DELAY             "  =>
             o_fld_add_val:= c_EP_CMD_ADD_SMPDL(c_COL3);
 
-         when "C3_FB1_PULSE_SHAPING          "  =>
+         when "C3_PULSE_SHAPING              "  =>
             o_fld_add_val:= c_EP_CMD_ADD_PLSSH(c_COL3);
 
-         when "C3_FB1_PULSE_SHAPING_SELECTION"  =>
+         when "C3_PULSE_SHAPING_SELECTION    "  =>
             o_fld_add_val:= c_EP_CMD_ADD_PLSSS(c_COL3);
 
          when "C3_RELOCK_DELAY               "  =>

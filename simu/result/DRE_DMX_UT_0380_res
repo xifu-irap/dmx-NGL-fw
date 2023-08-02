@@ -3469,13 +3469,13 @@
 #             (96252000 ps) ==============================================================================================
 #             (96252000 ps)   Configure AMP SQUID lockpoint Offset all columns
 #             (96252000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (96252000 ps) Send SPI command value 0845_08FF (C0_AMP_SQ_OFFSET_COARSE, mode Write, data 08FF)
+# ** Note   : (96252000 ps) Send SPI command value 0883_08FF (C0_AMP_SQ_OFFSET_COARSE, mode Write, data 08FF)
 # ** Note   : (98574000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (98574000 ps) Send SPI command value 2845_0555 (C1_AMP_SQ_OFFSET_COARSE, mode Write, data 0555)
+# ** Note   : (98574000 ps) Send SPI command value 2883_0555 (C1_AMP_SQ_OFFSET_COARSE, mode Write, data 0555)
 # ** Note   : (100896000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (100896000 ps) Send SPI command value 4845_0AAA (C2_AMP_SQ_OFFSET_COARSE, mode Write, data 0AAA)
+# ** Note   : (100896000 ps) Send SPI command value 4883_0AAA (C2_AMP_SQ_OFFSET_COARSE, mode Write, data 0AAA)
 # ** Note   : (103218000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (103218000 ps) Send SPI command value 6845_0756 (C3_AMP_SQ_OFFSET_COARSE, mode Write, data 0756)
+# ** Note   : (103218000 ps) Send SPI command value 6883_0756 (C3_AMP_SQ_OFFSET_COARSE, mode Write, data 0756)
 # ** Note   : (105540000 ps) Waiting SPI command end for 2286000 ps
 #             (105540000 ps) 
 #             (105540000 ps) ==============================================================================================
@@ -3486,11 +3486,11 @@
 # ** Note   : (105560000 ps) Write discrete: frm_cnt_sc_rst = '0'
 #             (105560000 ps) 
 #             (105560000 ps) ==============================================================================================
-#             (105560000 ps)   Send command SQ_AMP_OFFSET_MODE to test pattern on all columns,
+#             (105560000 ps)   Send command AMP_SQ_OFFSET_MODE to test pattern on all columns,
 #             (105560000 ps)   Enable test pattern generation (2 times), Send command DATA_ACQ_MODE to error signal
 #             (105560000 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (108870408 ps) Waiting event sync = '1' for 3310408 ps
-# ** Note   : (108870408 ps) Send SPI command value 8005_3333 (SQ_AMP_OFFSET_MODE, mode Write, data 3333)
+# ** Note   : (108870408 ps) Send SPI command value 8005_3333 (AMP_SQ_OFFSET_MODE, mode Write, data 3333)
 # ** Note   : (111192000 ps) Waiting SPI command end for 2285592 ps
 # ** Note   : (111192000 ps) Send SPI command value 82A1_0022 (TEST_PATTERN_ENABLE, mode Write, data 0022)
 # ** Note   : (113514000 ps) Waiting SPI command end for 2286000 ps
@@ -3610,12 +3610,12 @@
 # ** Note   : (381006408 ps) Waiting event sync = '1' for 5282640 ps
 #             (381006408 ps) 
 #             (381006408 ps) ==============================================================================================
-#             (381006408 ps)   Send command DATA_ACQ_MODE to Idle and check SQ_AMP_OFFSET_MODE state to Offset mode
+#             (381006408 ps)   Send command DATA_ACQ_MODE to Idle and check AMP_SQ_OFFSET_MODE state to Offset mode
 #             (381006408 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (381006408 ps) Waiting event sync = '1' for 0 ps
 # ** Note   : (381006408 ps) Send SPI command value 8001_0000 (DATA_ACQ_MODE, mode Write, data 0000)
 # ** Note   : (383316000 ps) Waiting SPI command end for 2273592 ps
-# ** Note   : (383316000 ps) Send SPI command value 8004_XXXX (SQ_AMP_OFFSET_MODE, mode Read, data XXXX)
+# ** Note   : (383316000 ps) Send SPI command value 8004_XXXX (AMP_SQ_OFFSET_MODE, mode Read, data XXXX)
 # ** Note   : (385638000 ps) Waiting SPI command end for 2286000 ps
 # ** Note   : (385640240 ps) Waiting event sync = '0' for 2240 ps
 # ** Note   : (386449128 ps) Waiting event sync = '1' for 808888 ps
@@ -3624,7 +3624,7 @@
 # ** Note   : (388770000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
 # ** Note   : (388842000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (388860000 ps) Check command return: PASS
-# ** Note   : (388860000 ps)  * Read 8004_1111, expected value 8004_1111 (SQ_AMP_OFFSET_MODE, mode Read, data 1111)
+# ** Note   : (388860000 ps)  * Read 8004_1111, expected value 8004_1111 (AMP_SQ_OFFSET_MODE, mode Read, data 1111)
 # ------------------------------------------------------------------------------------------------------------------------------------------------------
 # Error simulation time         : '0'
 # Error check discrete level    : '0'

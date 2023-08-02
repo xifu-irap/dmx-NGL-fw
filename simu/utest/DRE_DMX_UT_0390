@@ -3735,7 +3735,7 @@ COMM  Activate SQUID MUX output of all columns and
 COMM   Enable test pattern generation (2 times), Send command DATA_ACQ_MODE to error signal
 COMM ----------------------------------------------------------------------------------------------
 WUDI sync 1
-WCMD W-SQ_MUX_FB_ON_OFF-1111 W
+WCMD W-MUX_SQ_FB_ON_OFF-1111 W
 WCMD W-TEST_PATTERN_ENABLE-0022 W
 WCMD W-DATA_ACQ_MODE-0002 W
 COMM
@@ -3852,7 +3852,7 @@ WUDI sync 0
 WUDI sync 1
 COMM
 COMM ==============================================================================================
-COMM   Send command DATA_ACQ_MODE to Idle and check SQ_AMP_OFFSET_MODE state to Offset mode
+COMM   Send command DATA_ACQ_MODE to Idle and check AMP_SQ_OFFSET_MODE state to Offset mode
 COMM ----------------------------------------------------------------------------------------------
 WCMD W-DATA_ACQ_MODE-0000 W
 WUDI sync 0

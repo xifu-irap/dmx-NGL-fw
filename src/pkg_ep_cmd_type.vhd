@@ -46,7 +46,7 @@ type     t_rgc                 is record
          saodd                : std_logic_vector(c_DFLD_SAODD_COL_S-1 downto 0)                             ; --! EP command: Register linked to CY_AMP_SQ_OFFSET_DAC_DELAY
          saomd                : std_logic_vector(c_DFLD_SAOMD_COL_S-1 downto 0)                             ; --! EP command: Register linked to CY_AMP_SQ_OFFSET_MUX_DELAY
          smpdl                : std_logic_vector(c_DFLD_SMPDL_COL_S-1 downto 0)                             ; --! EP command: Register linked to CY_SAMPLING_DELAY
-         plsss                : std_logic_vector(c_DFLD_PLSSS_PLS_S-1 downto 0)                             ; --! EP command: Register linked to CY_FB1_PULSE_SHAPING_SELECTION
+         plsss                : std_logic_vector(c_DFLD_PLSSS_PLS_S-1 downto 0)                             ; --! EP command: Register linked to CY_PULSE_SHAPING_SELECTION
          rldel                : std_logic_vector(c_DFLD_RLDEL_COL_S-1 downto 0)                             ; --! EP command: Register linked to CY_RELOCK_DELAY
          rlthr                : std_logic_vector(c_DFLD_RLTHR_COL_S-1 downto 0)                             ; --! EP command: Register linked to CY_RELOCK_THRESHOLD
 end record t_rgc                                                                                            ; --! EP command: Register by column
@@ -60,7 +60,7 @@ constant c_EP_RGC_NUM_SMFBD   : integer   := c_EP_RGC_NUM_SAOFL + 1             
 constant c_EP_RGC_NUM_SAODD   : integer   := c_EP_RGC_NUM_SMFBD + 1                                         ; --! EP command: Register by column number, CY_AMP_SQ_OFFSET_DAC_DELAY
 constant c_EP_RGC_NUM_SAOMD   : integer   := c_EP_RGC_NUM_SAODD + 1                                         ; --! EP command: Register by column number, CY_AMP_SQ_OFFSET_MUX_DELAY
 constant c_EP_RGC_NUM_SMPDL   : integer   := c_EP_RGC_NUM_SAOMD + 1                                         ; --! EP command: Register by column number, CY_SAMPLING_DELAY
-constant c_EP_RGC_NUM_PLSSS   : integer   := c_EP_RGC_NUM_SMPDL + 1                                         ; --! EP command: Register by column number, CY_FB1_PULSE_SHAPING_SELECTION
+constant c_EP_RGC_NUM_PLSSS   : integer   := c_EP_RGC_NUM_SMPDL + 1                                         ; --! EP command: Register by column number, CY_PULSE_SHAPING_SELECTION
 constant c_EP_RGC_NUM_RLDEL   : integer   := c_EP_RGC_NUM_PLSSS + 1                                         ; --! EP command: Register by column number, CY_RELOCK_DELAY
 constant c_EP_RGC_NUM_RLTHR   : integer   := c_EP_RGC_NUM_RLDEL + 1                                         ; --! EP command: Register by column number, CY_RELOCK_THRESHOLD
 
@@ -73,7 +73,7 @@ constant c_EP_RGC_ACC_SMFBD   : integer   := c_DFLD_SMFBD_COL_S + c_EP_RGC_ACC_S
 constant c_EP_RGC_ACC_SAODD   : integer   := c_DFLD_SAODD_COL_S + c_EP_RGC_ACC_SMFBD                        ; --! EP command: Register by column accumulated bus size, CY_AMP_SQ_OFFSET_DAC_DELAY
 constant c_EP_RGC_ACC_SAOMD   : integer   := c_DFLD_SAOMD_COL_S + c_EP_RGC_ACC_SAODD                        ; --! EP command: Register by column accumulated bus size, CY_AMP_SQ_OFFSET_MUX_DELAY
 constant c_EP_RGC_ACC_SMPDL   : integer   := c_DFLD_SMPDL_COL_S + c_EP_RGC_ACC_SAOMD                        ; --! EP command: Register by column accumulated bus size, CY_SAMPLING_DELAY
-constant c_EP_RGC_ACC_PLSSS   : integer   := c_DFLD_PLSSS_PLS_S + c_EP_RGC_ACC_SMPDL                        ; --! EP command: Register by column accumulated bus size, CY_FB1_PULSE_SHAPING_SELECTION
+constant c_EP_RGC_ACC_PLSSS   : integer   := c_DFLD_PLSSS_PLS_S + c_EP_RGC_ACC_SMPDL                        ; --! EP command: Register by column accumulated bus size, CY_PULSE_SHAPING_SELECTION
 constant c_EP_RGC_ACC_RLDEL   : integer   := c_DFLD_RLDEL_COL_S + c_EP_RGC_ACC_PLSSS                        ; --! EP command: Register by column accumulated bus size, CY_RELOCK_DELAY
 constant c_EP_RGC_ACC_RLTHR   : integer   := c_DFLD_RLTHR_COL_S + c_EP_RGC_ACC_RLDEL                        ; --! EP command: Register by column accumulated bus size, CY_RELOCK_THRESHOLD
 
@@ -89,7 +89,7 @@ constant c_EP_RGC_REC_DEF     : t_rgc := (
          saodd                => c_EP_CMD_DEF_SAODD   , --        slv(c_DFLD_SAODD_COL_S-1 downto 0)        ; --! EP command: Register linked to CY_AMP_SQ_OFFSET_DAC_DELAY
          saomd                => c_EP_CMD_DEF_SAOMD   , --        slv(c_DFLD_SAOMD_COL_S-1 downto 0)        ; --! EP command: Register linked to CY_AMP_SQ_OFFSET_MUX_DELAY
          smpdl                => c_EP_CMD_DEF_SMPDL   , --        slv(c_DFLD_SMPDL_COL_S-1 downto 0)        ; --! EP command: Register linked to CY_SAMPLING_DELAY
-         plsss                => c_EP_CMD_DEF_PLSSS   , --        slv(c_DFLD_PLSSS_PLS_S-1 downto 0)        ; --! EP command: Register linked to CY_FB1_PULSE_SHAPING_SELECTION
+         plsss                => c_EP_CMD_DEF_PLSSS   , --        slv(c_DFLD_PLSSS_PLS_S-1 downto 0)        ; --! EP command: Register linked to CY_PULSE_SHAPING_SELECTION
          rldel                => c_EP_CMD_DEF_RLDEL   , --        slv(c_DFLD_RLDEL_COL_S-1 downto 0)        ; --! EP command: Register linked to CY_RELOCK_DELAY
          rlthr                => c_EP_CMD_DEF_RLTHR     --        slv(c_DFLD_RLTHR_COL_S-1 downto 0)        ; --! EP command: Register linked to CY_RELOCK_THRESHOLD
       );                                                                                                      --! EP command: Register by column record default value
@@ -150,7 +150,7 @@ type     t_ep_mem             is record
                                 data_w(          c_DFLD_SAOFF_PIX_S-1 downto 0))                            ; --! EP command: Memory interface linked to CY_AMP_SQ_OFFSET_FINE
          plssh                : t_mem(
                                 add(              c_MEM_PLSSH_ADD_S-1 downto 0),
-                                data_w(          c_DFLD_PLSSH_PLS_S-1 downto 0))                            ; --! EP command: Memory interface linked to CY_FB1_PULSE_SHAPING
+                                data_w(          c_DFLD_PLSSH_PLS_S-1 downto 0))                            ; --! EP command: Memory interface linked to CY_PULSE_SHAPING
          dlcnt                : t_mem(
                                 add(              c_MEM_DLCNT_ADD_S-1 downto 0),
                                 data_w(          c_DFLD_DLCNT_PIX_S-1 downto 0))                            ; --! EP command: Memory interface linked to CY_DELOCK_COUNTERS
@@ -161,7 +161,7 @@ type     t_ep_mem_dta         is record
          smfb0                : std_logic_vector(c_DFLD_SMFB0_PIX_S-1 downto 0)                             ; --! EP command: Memory data read linked to CY_MUX_SQ_FB0
          smfbm                : std_logic_vector(c_DFLD_SMFBM_PIX_S-1 downto 0)                             ; --! EP command: Memory data read linked to CY_MUX_SQ_FB_MODE
          saoff                : std_logic_vector(c_DFLD_SAOFF_PIX_S-1 downto 0)                             ; --! EP command: Memory data read linked to CY_AMP_SQ_OFFSET_FINE
-         plssh                : std_logic_vector(c_DFLD_PLSSH_PLS_S-1 downto 0)                             ; --! EP command: Memory data read linked to CY_FB1_PULSE_SHAPING
+         plssh                : std_logic_vector(c_DFLD_PLSSH_PLS_S-1 downto 0)                             ; --! EP command: Memory data read linked to CY_PULSE_SHAPING
          dlcnt                : std_logic_vector(c_DFLD_DLCNT_PIX_S-1 downto 0)                             ; --! EP command: Memory data read linked to CY_DELOCK_COUNTERS
 end record t_ep_mem_dta                                                                                     ; --! EP command: Memory data read
 
@@ -180,7 +180,7 @@ constant c_EP_MEM_NUM_SMFB0   : integer   := c_EP_MEM_NUM_KNORM + 1             
 constant c_EP_MEM_NUM_SMLKV   : integer   := c_EP_MEM_NUM_SMFB0 + 1                                         ; --! EP command: Memory for data squid proc. number, CY_MUX_SQ_LOCKPOINT_V
 constant c_EP_MEM_NUM_SMFBM   : integer   := c_EP_MEM_NUM_SMLKV + 1                                         ; --! EP command: Memory number, CY_MUX_SQ_FB_MODE
 constant c_EP_MEM_NUM_SAOFF   : integer   := c_EP_MEM_NUM_SMFBM + 1                                         ; --! EP command: Memory number, CY_AMP_SQ_OFFSET_FINE
-constant c_EP_MEM_NUM_PLSSH   : integer   := c_EP_MEM_NUM_SAOFF + 1                                         ; --! EP command: Memory number, CY_FB1_PULSE_SHAPING
+constant c_EP_MEM_NUM_PLSSH   : integer   := c_EP_MEM_NUM_SAOFF + 1                                         ; --! EP command: Memory number, CY_PULSE_SHAPING
 constant c_EP_MEM_NUM_DLCNT   : integer   := c_EP_MEM_NUM_PLSSH + 1                                         ; --! EP command: Memory number, CY_DELOCK_COUNTERS
 
 constant c_EP_MEM_NUM_LAST    : integer   := c_EP_MEM_NUM_DLCNT + 1                                         ; --! EP command: Memory number, last position
@@ -194,7 +194,7 @@ constant c_EP_MEM_ACC_SMFB0   : integer   := c_DFLD_SMFB0_PIX_S + c_EP_MEM_ACC_K
 constant c_EP_MEM_ACC_SMLKV   : integer   := c_DFLD_SMLKV_PIX_S + c_EP_MEM_ACC_SMFB0                        ; --! EP command: Memory for data squid proc. accumulated bus size, CY_MUX_SQ_LOCKPOINT_V
 constant c_EP_MEM_ACC_SMFBM   : integer   := c_DFLD_SMFBM_PIX_S + c_EP_MEM_ACC_SMLKV                        ; --! EP command: Memory accumulated bus size, CY_MUX_SQ_FB_MODE
 constant c_EP_MEM_ACC_SAOFF   : integer   := c_DFLD_SAOFF_PIX_S + c_EP_MEM_ACC_SMFBM                        ; --! EP command: Memory accumulated bus size, CY_AMP_SQ_OFFSET_FINE
-constant c_EP_MEM_ACC_PLSSH   : integer   := c_DFLD_PLSSH_PLS_S + c_EP_MEM_ACC_SAOFF                        ; --! EP command: Memory accumulated bus size, CY_FB1_PULSE_SHAPING
+constant c_EP_MEM_ACC_PLSSH   : integer   := c_DFLD_PLSSH_PLS_S + c_EP_MEM_ACC_SAOFF                        ; --! EP command: Memory accumulated bus size, CY_PULSE_SHAPING
 constant c_EP_MEM_ACC_DLCNT   : integer   := c_DFLD_DLCNT_PIX_S + c_EP_MEM_ACC_PLSSH                        ; --! EP command: Memory accumulated bus size, CY_DELOCK_COUNTERS
 
    --! EP command: Memory address accumulated bus size
@@ -206,7 +206,7 @@ constant c_EP_MEM_ADDAC_SMFB0 : integer   := c_MEM_SMFB0_ADD_S + c_EP_MEM_ADDAC_
 constant c_EP_MEM_ADDAC_SMLKV : integer   := c_MEM_SMLKV_ADD_S + c_EP_MEM_ADDAC_SMFB0                       ; --! EP command: Memory for data squid proc. accumulated bus size, CY_MUX_SQ_LOCKPOINT_V
 constant c_EP_MEM_ADDAC_SMFBM : integer   := c_MEM_SMFBM_ADD_S + c_EP_MEM_ADDAC_SMLKV                       ; --! EP command: Memory accumulated bus size, CY_MUX_SQ_FB_MODE
 constant c_EP_MEM_ADDAC_SAOFF : integer   := c_MEM_SAOFF_ADD_S + c_EP_MEM_ADDAC_SMFBM                       ; --! EP command: Memory accumulated bus size, CY_AMP_SQ_OFFSET_FINE
-constant c_EP_MEM_ADDAC_PLSSH : integer   := c_MEM_PLSSH_ADD_S + c_EP_MEM_ADDAC_SAOFF                       ; --! EP command: Memory accumulated bus size, CY_FB1_PULSE_SHAPING
+constant c_EP_MEM_ADDAC_PLSSH : integer   := c_MEM_PLSSH_ADD_S + c_EP_MEM_ADDAC_SAOFF                       ; --! EP command: Memory accumulated bus size, CY_PULSE_SHAPING
 constant c_EP_MEM_ADDAC_DLCNT : integer   := c_MEM_DLCNT_ADD_S + c_EP_MEM_ADDAC_PLSSH                       ; --! EP command: Memory accumulated bus size, CY_DELOCK_COUNTERS
 
 constant c_EP_MEM_ACC         : integer_vector(0 to c_EP_MEM_NUM_LAST) := (0,

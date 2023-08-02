@@ -29,13 +29,13 @@
 #             (6995496 ps) ==============================================================================================
 #             (6995496 ps)   Configure AMP SQUID lockpoint Offset
 #             (6995496 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (6995496 ps) Send SPI command value 0845_0FFF (C0_AMP_SQ_OFFSET_COARSE, mode Write, data 0FFF)
+# ** Note   : (6995496 ps) Send SPI command value 0883_0FFF (C0_AMP_SQ_OFFSET_COARSE, mode Write, data 0FFF)
 # ** Note   : (9312000 ps) Waiting SPI command end for 2280504 ps
-# ** Note   : (9312000 ps) Send SPI command value 2845_0FFF (C1_AMP_SQ_OFFSET_COARSE, mode Write, data 0FFF)
+# ** Note   : (9312000 ps) Send SPI command value 2883_0FFF (C1_AMP_SQ_OFFSET_COARSE, mode Write, data 0FFF)
 # ** Note   : (11634000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (11634000 ps) Send SPI command value 4845_0FFF (C2_AMP_SQ_OFFSET_COARSE, mode Write, data 0FFF)
+# ** Note   : (11634000 ps) Send SPI command value 4883_0FFF (C2_AMP_SQ_OFFSET_COARSE, mode Write, data 0FFF)
 # ** Note   : (13956000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (13956000 ps) Send SPI command value 6845_0FFF (C3_AMP_SQ_OFFSET_COARSE, mode Write, data 0FFF)
+# ** Note   : (13956000 ps) Send SPI command value 6883_0FFF (C3_AMP_SQ_OFFSET_COARSE, mode Write, data 0FFF)
 # ** Note   : (16278000 ps) Waiting SPI command end for 2286000 ps
 #             (16278000 ps) 
 #             (16278000 ps) ==============================================================================================
@@ -51,9 +51,9 @@
 # ** Note   : (25566000 ps) Waiting SPI command end for 2286000 ps
 #             (25566000 ps) 
 #             (25566000 ps) ==============================================================================================
-#             (25566000 ps)   Send command SQ_AMP_OFFSET_MODE to open loop
+#             (25566000 ps)   Send command AMP_SQ_OFFSET_MODE to open loop
 #             (25566000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (25566000 ps) Send SPI command value 8005_1111 (SQ_AMP_OFFSET_MODE, mode Write, data 1111)
+# ** Note   : (25566000 ps) Send SPI command value 8005_1111 (AMP_SQ_OFFSET_MODE, mode Write, data 1111)
 # ** Note   : (27888000 ps) Waiting SPI command end for 2286000 ps
 # ** Note   : (27889938 ps) Waiting event sync = '0' for 1938 ps
 # ** Note   : (32672328 ps) Waiting event sync = '1' for 4782390 ps
@@ -74,9 +74,9 @@
 # ** Note   : (38115048 ps)  * ADC channel 3 last event 3905952 ps equal to expected value 3905952 ps
 #             (38115048 ps) 
 #             (38115048 ps) ==============================================================================================
-#             (38115048 ps)   Send command SQ_AMP_OFFSET_MODE to off
+#             (38115048 ps)   Send command AMP_SQ_OFFSET_MODE to off
 #             (38115048 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (38115048 ps) Send SPI command value 8005_0000 (SQ_AMP_OFFSET_MODE, mode Write, data 0000)
+# ** Note   : (38115048 ps) Send SPI command value 8005_0000 (AMP_SQ_OFFSET_MODE, mode Write, data 0000)
 # ** Note   : (40434000 ps) Waiting SPI command end for 2282952 ps
 # ** Note   : (40436208 ps) Waiting event sync = '0' for 2208 ps
 # ** Note   : (43557768 ps) Waiting event sync = '1' for 3121560 ps
@@ -109,9 +109,9 @@
 # ** Note   : (58272000 ps) Waiting SPI command end for 2286000 ps
 #             (58272000 ps) 
 #             (58272000 ps) ==============================================================================================
-#             (58272000 ps)   Send command SQ_AMP_OFFSET_MODE to open loop
+#             (58272000 ps)   Send command AMP_SQ_OFFSET_MODE to open loop
 #             (58272000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (58272000 ps) Send SPI command value 8005_1111 (SQ_AMP_OFFSET_MODE, mode Write, data 1111)
+# ** Note   : (58272000 ps) Send SPI command value 8005_1111 (AMP_SQ_OFFSET_MODE, mode Write, data 1111)
 # ** Note   : (60594000 ps) Waiting SPI command end for 2286000 ps
 # ** Note   : (60594282 ps) Waiting event sync = '0' for 282 ps
 # ** Note   : (65328648 ps) Waiting event sync = '1' for 4734366 ps
@@ -132,9 +132,9 @@
 # ** Note   : (70771368 ps)  * ADC channel 3 last event 1856928 ps equal to expected value 1856928 ps
 #             (70771368 ps) 
 #             (70771368 ps) ==============================================================================================
-#             (70771368 ps)   Send command SQ_AMP_OFFSET_MODE to off
+#             (70771368 ps)   Send command AMP_SQ_OFFSET_MODE to off
 #             (70771368 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (70771368 ps) Send SPI command value 8005_0000 (SQ_AMP_OFFSET_MODE, mode Write, data 0000)
+# ** Note   : (70771368 ps) Send SPI command value 8005_0000 (AMP_SQ_OFFSET_MODE, mode Write, data 0000)
 # ** Note   : (73086000 ps) Waiting SPI command end for 2278632 ps
 # ** Note   : (73088526 ps) Waiting event sync = '0' for 2526 ps
 # ** Note   : (76214088 ps) Waiting event sync = '1' for 3125562 ps
@@ -167,9 +167,9 @@
 # ** Note   : (90942000 ps) Waiting SPI command end for 2286000 ps
 #             (90942000 ps) 
 #             (90942000 ps) ==============================================================================================
-#             (90942000 ps)   Send command SQ_AMP_OFFSET_MODE to open loop
+#             (90942000 ps)   Send command AMP_SQ_OFFSET_MODE to open loop
 #             (90942000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (90942000 ps) Send SPI command value 8005_1111 (SQ_AMP_OFFSET_MODE, mode Write, data 1111)
+# ** Note   : (90942000 ps) Send SPI command value 8005_1111 (AMP_SQ_OFFSET_MODE, mode Write, data 1111)
 # ** Note   : (93264000 ps) Waiting SPI command end for 2286000 ps
 # ** Note   : (93266610 ps) Waiting event sync = '0' for 2610 ps
 # ** Note   : (97984968 ps) Waiting event sync = '1' for 4718358 ps
@@ -192,9 +192,9 @@
 # ** Note   : (108870408 ps)  * ADC channel 3 last event 5250624 ps equal to expected value 5250624 ps
 #             (108870408 ps) 
 #             (108870408 ps) ==============================================================================================
-#             (108870408 ps)   Send command SQ_AMP_OFFSET_MODE to off
+#             (108870408 ps)   Send command AMP_SQ_OFFSET_MODE to off
 #             (108870408 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (108870408 ps) Send SPI command value 8005_0000 (SQ_AMP_OFFSET_MODE, mode Write, data 0000)
+# ** Note   : (108870408 ps) Send SPI command value 8005_0000 (AMP_SQ_OFFSET_MODE, mode Write, data 0000)
 # ** Note   : (111192000 ps) Waiting SPI command end for 2285592 ps
 # ** Note   : (111195570 ps) Waiting event sync = '0' for 3570 ps
 # ** Note   : (114313128 ps) Waiting event sync = '1' for 3117558 ps
@@ -229,9 +229,9 @@
 # ** Note   : (134484000 ps) Waiting SPI command end for 2286000 ps
 #             (134484000 ps) 
 #             (134484000 ps) ==============================================================================================
-#             (134484000 ps)   Send command SQ_AMP_OFFSET_MODE to open loop
+#             (134484000 ps)   Send command AMP_SQ_OFFSET_MODE to open loop
 #             (134484000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (134484000 ps) Send SPI command value 8005_1111 (SQ_AMP_OFFSET_MODE, mode Write, data 1111)
+# ** Note   : (134484000 ps) Send SPI command value 8005_1111 (AMP_SQ_OFFSET_MODE, mode Write, data 1111)
 # ** Note   : (136806000 ps) Waiting SPI command end for 2286000 ps
 # ** Note   : (136808370 ps) Waiting event sync = '0' for 2370 ps
 # ** Note   : (141526728 ps) Waiting event sync = '1' for 4718358 ps
@@ -254,9 +254,9 @@
 # ** Note   : (152412168 ps)  * ADC channel 3 last event 2697348 ps equal to expected value 2697348 ps
 #             (152412168 ps) 
 #             (152412168 ps) ==============================================================================================
-#             (152412168 ps)   Send command SQ_AMP_OFFSET_MODE to off
+#             (152412168 ps)   Send command AMP_SQ_OFFSET_MODE to off
 #             (152412168 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (152412168 ps) Send SPI command value 8005_0000 (SQ_AMP_OFFSET_MODE, mode Write, data 0000)
+# ** Note   : (152412168 ps) Send SPI command value 8005_0000 (AMP_SQ_OFFSET_MODE, mode Write, data 0000)
 # ** Note   : (154734000 ps) Waiting SPI command end for 2285832 ps
 # ** Note   : (154737330 ps) Waiting event sync = '0' for 3330 ps
 # ** Note   : (157854888 ps) Waiting event sync = '1' for 3117558 ps

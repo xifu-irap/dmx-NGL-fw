@@ -94,8 +94,8 @@ signal   ep_cmd_sts_rg_r      : std_logic_vector(c_EP_SPI_WD_S-1 downto 0)      
 signal   rg_aqmde_dmp_cmp     : std_logic                                                                   ; --! EP register: DATA_ACQ_MODE, status "Dump" compared ('0' = Inactive, '1' = Active)
 signal   rg_tsten             : std_logic_vector(    c_DFLD_TSTEN_S-1 downto 0)                             ; --! Test pattern enable
 
-signal   rg_smfmd             : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SMFMD_COL_S-1 downto 0)                   ; --! EP register: SQ_MUX_FB_ON_OFF
-signal   rg_saofm             : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SAOFM_COL_S-1 downto 0)                   ; --! EP register: SQ_AMP_OFFSET_MODE
+signal   rg_smfmd             : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SMFMD_COL_S-1 downto 0)                   ; --! EP register: MUX_SQ_FB_ON_OFF
+signal   rg_saofm             : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SAOFM_COL_S-1 downto 0)                   ; --! EP register: AMP_SQ_OFFSET_MODE
 signal   rg_bxlgt             : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_BXLGT_COL_S-1 downto 0)                   ; --! EP register: BOXCAR_LENGTH
 
 signal   rg_col               : t_rgc_arr(0 to c_NB_COL-1)                                                  ; --! EP register by column
@@ -205,7 +205,7 @@ begin
 
          elsif rising_edge(i_clk) then
 
-            -- @Req : REG_SQ_AMP_OFFSET_MODE
+            -- @Req : REG_AMP_SQ_OFFSET_MODE
             -- @Req : DRE-DMX-FW-REQ-0330
             if ep_cmd_rx_nerr_rdy_r = c_HGH_LEV and ep_cmd_rx_rw_r = c_EP_CMD_ADD_RW_W and cs_rg_r(c_EP_CMD_POS_SAOFM) = c_HGH_LEV then
                rg_saofm(k) <= ep_cmd_rx_wd_data_r(c_NB_COL*k+c_DFLD_SAOFM_COL_S-1 downto c_NB_COL*k);
@@ -217,7 +217,7 @@ begin
 
             if ep_cmd_rx_nerr_rdy_r = c_HGH_LEV and ep_cmd_rx_rw_r = c_EP_CMD_ADD_RW_W then
 
-               -- @Req : REG_SQ_MUX_FB_ON_OFF
+               -- @Req : REG_MUX_SQ_FB_ON_OFF
                if cs_rg_r(c_EP_CMD_POS_SMFMD) = c_HGH_LEV then
                   rg_smfmd(k) <= ep_cmd_rx_wd_data_r(c_NB_COL*k+c_DFLD_SMFMD_COL_S-1 downto c_NB_COL*k);
 
@@ -244,7 +244,7 @@ begin
       --    @Req : REG_CY_AMP_SQ_OFFSET_DAC_DELAY
       --    @Req : REG_CY_AMP_SQ_OFFSET_MUX_DELAY
       --    @Req : REG_CY_SAMPLING_DELAY
-      --    @Req : REG_CY_FB1_PULSE_SHAPING_SEL
+      --    @Req : REG_CY_PULSE_SHAPING_SEL
       --    @Req : REG_CY_RELOCK_DELAY
       --    @Req : REG_CY_RELOCK_THRESHOLD
       --    @Req : DRE-DMX-FW-REQ-0150
@@ -306,7 +306,7 @@ begin
    --    @Req : REG_CY_MUX_SQ_LOCKPOINT_V
    --    @Req : REG_CY_MUX_SQ_FB_MODE
    --    @Req : REG_CY_AMP_SQ_OFFSET_FINE
-   --    @Req : REG_CY_FB1_PULSE_SHAPING
+   --    @Req : REG_CY_PULSE_SHAPING
    --    @Req : REG_CY_DELOCK_COUNTERS
    --    @Req : DRE-DMX-FW-REQ-0170
    --    @Req : DRE-DMX-FW-REQ-0180
@@ -430,8 +430,8 @@ begin
 
          i_rg_aqmde           => o_aqmde              , -- in     slv(c_DFLD_AQMDE_S-1 downto 0)            ; --! EP register: DATA_ACQ_MODE
 
-         i_rg_smfmd           => rg_smfmd             , -- in     t_slv_arr c_NB_COL c_DFLD_SMFMD_COL_S     ; --! EP register: SQ_MUX_FB_ON_OFF
-         i_rg_saofm           => rg_saofm             , -- in     t_slv_arr c_NB_COL c_DFLD_SAOFM_COL_S     ; --! EP register: SQ_AMP_OFFSET_MODE
+         i_rg_smfmd           => rg_smfmd             , -- in     t_slv_arr c_NB_COL c_DFLD_SMFMD_COL_S     ; --! EP register: MUX_SQ_FB_ON_OFF
+         i_rg_saofm           => rg_saofm             , -- in     t_slv_arr c_NB_COL c_DFLD_SAOFM_COL_S     ; --! EP register: AMP_SQ_OFFSET_MODE
          i_rg_tsten           => rg_tsten             , -- in     slv(c_DFLD_TSTEN_S-1 downto 0)            ; --! EP register: TEST_PATTERN_ENABLE
          i_rg_bxlgt           => rg_bxlgt             , -- in     t_slv_arr c_NB_COL c_DFLD_BXLGT_COL_S     ; --! EP register: BOXCAR_LENGTH
          i_ep_cmd_sts_rg_r    => ep_cmd_sts_rg_r      , -- in     slv(c_EP_SPI_WD_S-1 downto 0)             ; --! EP command: Status register, registered

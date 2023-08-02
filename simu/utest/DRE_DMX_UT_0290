@@ -450,11 +450,11 @@ COMM
 COMM ==============================================================================================
 COMM   Configure DAC pulse shaping set 0: fc = No filter
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-C0_FB1_PULSE_SHAPING_SELECTION-0000 W
-WCMD W-C1_FB1_PULSE_SHAPING_SELECTION-0000 W
-WCMD W-C2_FB1_PULSE_SHAPING_SELECTION-0000 W
-WCMD W-C3_FB1_PULSE_SHAPING_SELECTION-0000 W
-WCMD W-SQ_MUX_FB_ON_OFF-1111 W
+WCMD W-C0_PULSE_SHAPING_SELECTION-0000 W
+WCMD W-C1_PULSE_SHAPING_SELECTION-0000 W
+WCMD W-C2_PULSE_SHAPING_SELECTION-0000 W
+WCMD W-C3_PULSE_SHAPING_SELECTION-0000 W
+WCMD W-MUX_SQ_FB_ON_OFF-1111 W
 COMM
 COMM ==============================================================================================
 COMM   Set command 0: Feedback open loop mem. select, DAC delays,

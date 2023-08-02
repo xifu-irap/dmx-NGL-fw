@@ -42,10 +42,10 @@
 # ** Note   : (6995496 ps) Waiting event rst = '0' for 6915496 ps
 #             (6995496 ps) 
 #             (6995496 ps) ==============================================================================================
-#             (6995496 ps)   Send command SQ_MUX_FB_ON_OFF column 0 to On for o_c0_sqm_dac_sleep deactivation
+#             (6995496 ps)   Send command MUX_SQ_FB_ON_OFF column 0 to On for o_c0_sqm_dac_sleep deactivation
 #             (6995496 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (10901448 ps) Waiting event sync = '1' for 3905952 ps
-# ** Note   : (10901448 ps) Send SPI command value 8003_0001 (SQ_MUX_FB_ON_OFF, mode Write, data 0001)
+# ** Note   : (10901448 ps) Send SPI command value 8003_0001 (MUX_SQ_FB_ON_OFF, mode Write, data 0001)
 #             (10937448 ps) 
 #             (10937448 ps) ==============================================================================================
 #             (10937448 ps)   Check no event is appeared on o_c0_sqm_dac_sleep and wait o_c0_sqm_dac_sleep deactivation
@@ -74,9 +74,9 @@
 # ** Note   : (21786888 ps)  * sqm_dac_sleep(0) last event 240120 ps greater than or equal to expected value 160080 ps
 #             (21786888 ps) 
 #             (21786888 ps) ==============================================================================================
-#             (21786888 ps)   Send command SQ_MUX_FB_ON_OFF column 0 to Off for o_c0_sqm_dac_sleep activation
+#             (21786888 ps)   Send command MUX_SQ_FB_ON_OFF column 0 to Off for o_c0_sqm_dac_sleep activation
 #             (21786888 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (21786888 ps) Send SPI command value 8003_0000 (SQ_MUX_FB_ON_OFF, mode Write, data 0000)
+# ** Note   : (21786888 ps) Send SPI command value 8003_0000 (MUX_SQ_FB_ON_OFF, mode Write, data 0000)
 # ** Note   : (29292000 ps) Waiting SPI command end for 7469112 ps
 #             (29292000 ps) 
 #             (29292000 ps) ==============================================================================================
@@ -96,10 +96,10 @@
 # ** Note   : (32768376 ps)  * record time 96048 ps strictly less than expected value 160080 ps
 #             (32768376 ps) 
 #             (32768376 ps) ==============================================================================================
-#             (32768376 ps)   Send command SQ_MUX_FB_ON_OFF column 0 to On for o_c0_sqm_dac_sleep deactivation
+#             (32768376 ps)   Send command MUX_SQ_FB_ON_OFF column 0 to On for o_c0_sqm_dac_sleep deactivation
 #             (32768376 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (32771894 ps) Waiting event sync = '1' for 3518 ps
-# ** Note   : (32771894 ps) Send SPI command value 8003_0001 (SQ_MUX_FB_ON_OFF, mode Write, data 0001)
+# ** Note   : (32771894 ps) Send SPI command value 8003_0001 (MUX_SQ_FB_ON_OFF, mode Write, data 0001)
 #             (32807894 ps) 
 #             (32807894 ps) ==============================================================================================
 #             (32807894 ps)   check o_c0_sqm_dac_sleep remains to activated and wait o_c0_sqm_dac_sleep deactivation
@@ -128,9 +128,9 @@
 # ** Note   : (43557768 ps)  * sqm_dac_sleep(0) last event 240120 ps greater than or equal to expected value 160080 ps
 #             (43557768 ps) 
 #             (43557768 ps) ==============================================================================================
-#             (43557768 ps)   Send command SQ_MUX_FB_ON_OFF column 0 to Off for o_c0_sqm_dac_sleep activation
+#             (43557768 ps)   Send command MUX_SQ_FB_ON_OFF column 0 to Off for o_c0_sqm_dac_sleep activation
 #             (43557768 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (43557768 ps) Send SPI command value 8003_0000 (SQ_MUX_FB_ON_OFF, mode Write, data 0000)
+# ** Note   : (43557768 ps) Send SPI command value 8003_0000 (MUX_SQ_FB_ON_OFF, mode Write, data 0000)
 # ** Note   : (51054000 ps) Waiting SPI command end for 7460232 ps
 #             (51054000 ps) 
 #             (51054000 ps) ==============================================================================================
@@ -150,10 +150,10 @@
 # ** Note   : (54539256 ps)  * record time 96048 ps strictly less than expected value 160080 ps
 #             (54539256 ps) 
 #             (54539256 ps) ==============================================================================================
-#             (54539256 ps)   Send command SQ_MUX_FB_ON_OFF column 0 to On for o_c0_sqm_dac_sleep deactivation
+#             (54539256 ps)   Send command MUX_SQ_FB_ON_OFF column 0 to On for o_c0_sqm_dac_sleep deactivation
 #             (54539256 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (54542774 ps) Waiting event sync = '1' for 3518 ps
-# ** Note   : (54542774 ps) Send SPI command value 8003_0001 (SQ_MUX_FB_ON_OFF, mode Write, data 0001)
+# ** Note   : (54542774 ps) Send SPI command value 8003_0001 (MUX_SQ_FB_ON_OFF, mode Write, data 0001)
 #             (54578774 ps) 
 #             (54578774 ps) ==============================================================================================
 #             (54578774 ps)   check o_c0_sqm_dac_sleep remains to activated and wait o_c0_sqm_dac_sleep deactivation
@@ -182,9 +182,9 @@
 # ** Note   : (65328648 ps)  * sqm_dac_sleep(0) last event 240120 ps greater than or equal to expected value 160080 ps
 #             (65328648 ps) 
 #             (65328648 ps) ==============================================================================================
-#             (65328648 ps)   Send command SQ_MUX_FB_ON_OFF column 0 to Off for o_c0_sqm_dac_sleep activation
+#             (65328648 ps)   Send command MUX_SQ_FB_ON_OFF column 0 to Off for o_c0_sqm_dac_sleep activation
 #             (65328648 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (65328648 ps) Send SPI command value 8003_0000 (SQ_MUX_FB_ON_OFF, mode Write, data 0000)
+# ** Note   : (65328648 ps) Send SPI command value 8003_0000 (MUX_SQ_FB_ON_OFF, mode Write, data 0000)
 # ** Note   : (72834000 ps) Waiting SPI command end for 7469352 ps
 #             (72834000 ps) 
 #             (72834000 ps) ==============================================================================================
@@ -204,10 +204,10 @@
 # ** Note   : (76310136 ps)  * record time 96048 ps strictly less than expected value 160080 ps
 #             (76310136 ps) 
 #             (76310136 ps) ==============================================================================================
-#             (76310136 ps)   Send command SQ_MUX_FB_ON_OFF column 1 to On for o_c1_sqm_dac_sleep deactivation
+#             (76310136 ps)   Send command MUX_SQ_FB_ON_OFF column 1 to On for o_c1_sqm_dac_sleep deactivation
 #             (76310136 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (76313654 ps) Waiting event sync = '1' for 3518 ps
-# ** Note   : (76313654 ps) Send SPI command value 8003_0010 (SQ_MUX_FB_ON_OFF, mode Write, data 0010)
+# ** Note   : (76313654 ps) Send SPI command value 8003_0010 (MUX_SQ_FB_ON_OFF, mode Write, data 0010)
 #             (76349654 ps) 
 #             (76349654 ps) ==============================================================================================
 #             (76349654 ps)   Check no event is appeared on o_c1_sqm_dac_sleep and wait o_c1_sqm_dac_sleep deactivation
@@ -236,9 +236,9 @@
 # ** Note   : (87099528 ps)  * sqm_dac_sleep(1) last event 240120 ps greater than or equal to expected value 160080 ps
 #             (87099528 ps) 
 #             (87099528 ps) ==============================================================================================
-#             (87099528 ps)   Send command SQ_MUX_FB_ON_OFF column 1 to Off for o_c1_sqm_dac_sleep activation
+#             (87099528 ps)   Send command MUX_SQ_FB_ON_OFF column 1 to Off for o_c1_sqm_dac_sleep activation
 #             (87099528 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (87099528 ps) Send SPI command value 8003_0000 (SQ_MUX_FB_ON_OFF, mode Write, data 0000)
+# ** Note   : (87099528 ps) Send SPI command value 8003_0000 (MUX_SQ_FB_ON_OFF, mode Write, data 0000)
 # ** Note   : (94596000 ps) Waiting SPI command end for 7460472 ps
 #             (94596000 ps) 
 #             (94596000 ps) ==============================================================================================
@@ -258,10 +258,10 @@
 # ** Note   : (98081016 ps)  * record time 96048 ps strictly less than expected value 160080 ps
 #             (98081016 ps) 
 #             (98081016 ps) ==============================================================================================
-#             (98081016 ps)   Send command SQ_MUX_FB_ON_OFF column 1 to On for o_c1_sqm_dac_sleep deactivation
+#             (98081016 ps)   Send command MUX_SQ_FB_ON_OFF column 1 to On for o_c1_sqm_dac_sleep deactivation
 #             (98081016 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (98084534 ps) Waiting event sync = '1' for 3518 ps
-# ** Note   : (98084534 ps) Send SPI command value 8003_0010 (SQ_MUX_FB_ON_OFF, mode Write, data 0010)
+# ** Note   : (98084534 ps) Send SPI command value 8003_0010 (MUX_SQ_FB_ON_OFF, mode Write, data 0010)
 #             (98120534 ps) 
 #             (98120534 ps) ==============================================================================================
 #             (98120534 ps)   check o_c1_sqm_dac_sleep remains to activated and wait o_c1_sqm_dac_sleep deactivation
@@ -290,9 +290,9 @@
 # ** Note   : (108870408 ps)  * sqm_dac_sleep(1) last event 240120 ps greater than or equal to expected value 160080 ps
 #             (108870408 ps) 
 #             (108870408 ps) ==============================================================================================
-#             (108870408 ps)   Send command SQ_MUX_FB_ON_OFF column 1 to Off for o_c1_sqm_dac_sleep activation
+#             (108870408 ps)   Send command MUX_SQ_FB_ON_OFF column 1 to Off for o_c1_sqm_dac_sleep activation
 #             (108870408 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (108870408 ps) Send SPI command value 8003_0000 (SQ_MUX_FB_ON_OFF, mode Write, data 0000)
+# ** Note   : (108870408 ps) Send SPI command value 8003_0000 (MUX_SQ_FB_ON_OFF, mode Write, data 0000)
 # ** Note   : (116376000 ps) Waiting SPI command end for 7469592 ps
 #             (116376000 ps) 
 #             (116376000 ps) ==============================================================================================
@@ -312,10 +312,10 @@
 # ** Note   : (119851896 ps)  * record time 96048 ps strictly less than expected value 160080 ps
 #             (119851896 ps) 
 #             (119851896 ps) ==============================================================================================
-#             (119851896 ps)   Send command SQ_MUX_FB_ON_OFF column 1 to On for o_c1_sqm_dac_sleep deactivation
+#             (119851896 ps)   Send command MUX_SQ_FB_ON_OFF column 1 to On for o_c1_sqm_dac_sleep deactivation
 #             (119851896 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (119855414 ps) Waiting event sync = '1' for 3518 ps
-# ** Note   : (119855414 ps) Send SPI command value 8003_0010 (SQ_MUX_FB_ON_OFF, mode Write, data 0010)
+# ** Note   : (119855414 ps) Send SPI command value 8003_0010 (MUX_SQ_FB_ON_OFF, mode Write, data 0010)
 #             (119891414 ps) 
 #             (119891414 ps) ==============================================================================================
 #             (119891414 ps)   check o_c1_sqm_dac_sleep remains to activated and wait o_c1_sqm_dac_sleep deactivation
@@ -344,9 +344,9 @@
 # ** Note   : (130641288 ps)  * sqm_dac_sleep(1) last event 240120 ps greater than or equal to expected value 160080 ps
 #             (130641288 ps) 
 #             (130641288 ps) ==============================================================================================
-#             (130641288 ps)   Send command SQ_MUX_FB_ON_OFF column 1 to Off for o_c1_sqm_dac_sleep activation
+#             (130641288 ps)   Send command MUX_SQ_FB_ON_OFF column 1 to Off for o_c1_sqm_dac_sleep activation
 #             (130641288 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (130641288 ps) Send SPI command value 8003_0000 (SQ_MUX_FB_ON_OFF, mode Write, data 0000)
+# ** Note   : (130641288 ps) Send SPI command value 8003_0000 (MUX_SQ_FB_ON_OFF, mode Write, data 0000)
 # ** Note   : (138138000 ps) Waiting SPI command end for 7460712 ps
 #             (138138000 ps) 
 #             (138138000 ps) ==============================================================================================
@@ -366,10 +366,10 @@
 # ** Note   : (141622776 ps)  * record time 96048 ps strictly less than expected value 160080 ps
 #             (141622776 ps) 
 #             (141622776 ps) ==============================================================================================
-#             (141622776 ps)   Send command SQ_MUX_FB_ON_OFF column 2 to On for o_c2_sqm_dac_sleep deactivation
+#             (141622776 ps)   Send command MUX_SQ_FB_ON_OFF column 2 to On for o_c2_sqm_dac_sleep deactivation
 #             (141622776 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (141626294 ps) Waiting event sync = '1' for 3518 ps
-# ** Note   : (141626294 ps) Send SPI command value 8003_0100 (SQ_MUX_FB_ON_OFF, mode Write, data 0100)
+# ** Note   : (141626294 ps) Send SPI command value 8003_0100 (MUX_SQ_FB_ON_OFF, mode Write, data 0100)
 #             (141662294 ps) 
 #             (141662294 ps) ==============================================================================================
 #             (141662294 ps)   Check no event is appeared on o_c2_sqm_dac_sleep and wait o_c2_sqm_dac_sleep deactivation
@@ -398,9 +398,9 @@
 # ** Note   : (152412168 ps)  * sqm_dac_sleep(2) last event 240120 ps greater than or equal to expected value 160080 ps
 #             (152412168 ps) 
 #             (152412168 ps) ==============================================================================================
-#             (152412168 ps)   Send command SQ_MUX_FB_ON_OFF column 2 to Off for o_c2_sqm_dac_sleep activation
+#             (152412168 ps)   Send command MUX_SQ_FB_ON_OFF column 2 to Off for o_c2_sqm_dac_sleep activation
 #             (152412168 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (152412168 ps) Send SPI command value 8003_0000 (SQ_MUX_FB_ON_OFF, mode Write, data 0000)
+# ** Note   : (152412168 ps) Send SPI command value 8003_0000 (MUX_SQ_FB_ON_OFF, mode Write, data 0000)
 # ** Note   : (159918000 ps) Waiting SPI command end for 7469832 ps
 #             (159918000 ps) 
 #             (159918000 ps) ==============================================================================================
@@ -420,10 +420,10 @@
 # ** Note   : (163393656 ps)  * record time 96048 ps strictly less than expected value 160080 ps
 #             (163393656 ps) 
 #             (163393656 ps) ==============================================================================================
-#             (163393656 ps)   Send command SQ_MUX_FB_ON_OFF column 2 to On for o_c2_sqm_dac_sleep deactivation
+#             (163393656 ps)   Send command MUX_SQ_FB_ON_OFF column 2 to On for o_c2_sqm_dac_sleep deactivation
 #             (163393656 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (163397174 ps) Waiting event sync = '1' for 3518 ps
-# ** Note   : (163397174 ps) Send SPI command value 8003_0100 (SQ_MUX_FB_ON_OFF, mode Write, data 0100)
+# ** Note   : (163397174 ps) Send SPI command value 8003_0100 (MUX_SQ_FB_ON_OFF, mode Write, data 0100)
 #             (163433174 ps) 
 #             (163433174 ps) ==============================================================================================
 #             (163433174 ps)   check o_c2_sqm_dac_sleep remains to activated and wait o_c2_sqm_dac_sleep deactivation
@@ -452,9 +452,9 @@
 # ** Note   : (174183048 ps)  * sqm_dac_sleep(2) last event 240120 ps greater than or equal to expected value 160080 ps
 #             (174183048 ps) 
 #             (174183048 ps) ==============================================================================================
-#             (174183048 ps)   Send command SQ_MUX_FB_ON_OFF column 2 to Off for o_c2_sqm_dac_sleep activation
+#             (174183048 ps)   Send command MUX_SQ_FB_ON_OFF column 2 to Off for o_c2_sqm_dac_sleep activation
 #             (174183048 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (174183048 ps) Send SPI command value 8003_0000 (SQ_MUX_FB_ON_OFF, mode Write, data 0000)
+# ** Note   : (174183048 ps) Send SPI command value 8003_0000 (MUX_SQ_FB_ON_OFF, mode Write, data 0000)
 # ** Note   : (181680000 ps) Waiting SPI command end for 7460952 ps
 #             (181680000 ps) 
 #             (181680000 ps) ==============================================================================================
@@ -474,10 +474,10 @@
 # ** Note   : (185164536 ps)  * record time 96048 ps strictly less than expected value 160080 ps
 #             (185164536 ps) 
 #             (185164536 ps) ==============================================================================================
-#             (185164536 ps)   Send command SQ_MUX_FB_ON_OFF column 2 to On for o_c2_sqm_dac_sleep deactivation
+#             (185164536 ps)   Send command MUX_SQ_FB_ON_OFF column 2 to On for o_c2_sqm_dac_sleep deactivation
 #             (185164536 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (185168054 ps) Waiting event sync = '1' for 3518 ps
-# ** Note   : (185168054 ps) Send SPI command value 8003_0100 (SQ_MUX_FB_ON_OFF, mode Write, data 0100)
+# ** Note   : (185168054 ps) Send SPI command value 8003_0100 (MUX_SQ_FB_ON_OFF, mode Write, data 0100)
 #             (185204054 ps) 
 #             (185204054 ps) ==============================================================================================
 #             (185204054 ps)   check o_c2_sqm_dac_sleep remains to activated and wait o_c2_sqm_dac_sleep deactivation
@@ -506,9 +506,9 @@
 # ** Note   : (195953928 ps)  * sqm_dac_sleep(2) last event 240120 ps greater than or equal to expected value 160080 ps
 #             (195953928 ps) 
 #             (195953928 ps) ==============================================================================================
-#             (195953928 ps)   Send command SQ_MUX_FB_ON_OFF column 2 to Off for o_c2_sqm_dac_sleep activation
+#             (195953928 ps)   Send command MUX_SQ_FB_ON_OFF column 2 to Off for o_c2_sqm_dac_sleep activation
 #             (195953928 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (195953928 ps) Send SPI command value 8003_0000 (SQ_MUX_FB_ON_OFF, mode Write, data 0000)
+# ** Note   : (195953928 ps) Send SPI command value 8003_0000 (MUX_SQ_FB_ON_OFF, mode Write, data 0000)
 # ** Note   : (203442000 ps) Waiting SPI command end for 7452072 ps
 #             (203442000 ps) 
 #             (203442000 ps) ==============================================================================================
@@ -528,10 +528,10 @@
 # ** Note   : (206935416 ps)  * record time 96048 ps strictly less than expected value 160080 ps
 #             (206935416 ps) 
 #             (206935416 ps) ==============================================================================================
-#             (206935416 ps)   Send command SQ_MUX_FB_ON_OFF column 3 to On for o_c3_sqm_dac_sleep deactivation
+#             (206935416 ps)   Send command MUX_SQ_FB_ON_OFF column 3 to On for o_c3_sqm_dac_sleep deactivation
 #             (206935416 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (206938934 ps) Waiting event sync = '1' for 3518 ps
-# ** Note   : (206938934 ps) Send SPI command value 8003_1000 (SQ_MUX_FB_ON_OFF, mode Write, data 1000)
+# ** Note   : (206938934 ps) Send SPI command value 8003_1000 (MUX_SQ_FB_ON_OFF, mode Write, data 1000)
 #             (206974934 ps) 
 #             (206974934 ps) ==============================================================================================
 #             (206974934 ps)   Check no event is appeared on o_c3_sqm_dac_sleep and wait o_c3_sqm_dac_sleep deactivation
@@ -560,9 +560,9 @@
 # ** Note   : (217724808 ps)  * sqm_dac_sleep(3) last event 240120 ps greater than or equal to expected value 160080 ps
 #             (217724808 ps) 
 #             (217724808 ps) ==============================================================================================
-#             (217724808 ps)   Send command SQ_MUX_FB_ON_OFF column 3 to Off for o_c3_sqm_dac_sleep activation
+#             (217724808 ps)   Send command MUX_SQ_FB_ON_OFF column 3 to Off for o_c3_sqm_dac_sleep activation
 #             (217724808 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (217724808 ps) Send SPI command value 8003_0000 (SQ_MUX_FB_ON_OFF, mode Write, data 0000)
+# ** Note   : (217724808 ps) Send SPI command value 8003_0000 (MUX_SQ_FB_ON_OFF, mode Write, data 0000)
 # ** Note   : (225222000 ps) Waiting SPI command end for 7461192 ps
 #             (225222000 ps) 
 #             (225222000 ps) ==============================================================================================
@@ -582,10 +582,10 @@
 # ** Note   : (228706296 ps)  * record time 96048 ps strictly less than expected value 160080 ps
 #             (228706296 ps) 
 #             (228706296 ps) ==============================================================================================
-#             (228706296 ps)   Send command SQ_MUX_FB_ON_OFF column 3 to On for o_c3_sqm_dac_sleep deactivation
+#             (228706296 ps)   Send command MUX_SQ_FB_ON_OFF column 3 to On for o_c3_sqm_dac_sleep deactivation
 #             (228706296 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (228709814 ps) Waiting event sync = '1' for 3518 ps
-# ** Note   : (228709814 ps) Send SPI command value 8003_1000 (SQ_MUX_FB_ON_OFF, mode Write, data 1000)
+# ** Note   : (228709814 ps) Send SPI command value 8003_1000 (MUX_SQ_FB_ON_OFF, mode Write, data 1000)
 #             (228745814 ps) 
 #             (228745814 ps) ==============================================================================================
 #             (228745814 ps)   check o_c3_sqm_dac_sleep remains to activated and wait o_c3_sqm_dac_sleep deactivation
@@ -614,9 +614,9 @@
 # ** Note   : (239495688 ps)  * sqm_dac_sleep(3) last event 240120 ps greater than or equal to expected value 160080 ps
 #             (239495688 ps) 
 #             (239495688 ps) ==============================================================================================
-#             (239495688 ps)   Send command SQ_MUX_FB_ON_OFF column 3 to Off for o_c3_sqm_dac_sleep activation
+#             (239495688 ps)   Send command MUX_SQ_FB_ON_OFF column 3 to Off for o_c3_sqm_dac_sleep activation
 #             (239495688 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (239495688 ps) Send SPI command value 8003_0000 (SQ_MUX_FB_ON_OFF, mode Write, data 0000)
+# ** Note   : (239495688 ps) Send SPI command value 8003_0000 (MUX_SQ_FB_ON_OFF, mode Write, data 0000)
 # ** Note   : (246984000 ps) Waiting SPI command end for 7452312 ps
 #             (246984000 ps) 
 #             (246984000 ps) ==============================================================================================
@@ -636,10 +636,10 @@
 # ** Note   : (250477176 ps)  * record time 96048 ps strictly less than expected value 160080 ps
 #             (250477176 ps) 
 #             (250477176 ps) ==============================================================================================
-#             (250477176 ps)   Send command SQ_MUX_FB_ON_OFF column 3 to On for o_c3_sqm_dac_sleep deactivation
+#             (250477176 ps)   Send command MUX_SQ_FB_ON_OFF column 3 to On for o_c3_sqm_dac_sleep deactivation
 #             (250477176 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (250480694 ps) Waiting event sync = '1' for 3518 ps
-# ** Note   : (250480694 ps) Send SPI command value 8003_1000 (SQ_MUX_FB_ON_OFF, mode Write, data 1000)
+# ** Note   : (250480694 ps) Send SPI command value 8003_1000 (MUX_SQ_FB_ON_OFF, mode Write, data 1000)
 #             (250516694 ps) 
 #             (250516694 ps) ==============================================================================================
 #             (250516694 ps)   check o_c3_sqm_dac_sleep remains to activated and wait o_c3_sqm_dac_sleep deactivation
@@ -668,9 +668,9 @@
 # ** Note   : (261266568 ps)  * sqm_dac_sleep(3) last event 240120 ps greater than or equal to expected value 160080 ps
 #             (261266568 ps) 
 #             (261266568 ps) ==============================================================================================
-#             (261266568 ps)   Send command SQ_MUX_FB_ON_OFF column 3 to Off for o_c3_sqm_dac_sleep activation
+#             (261266568 ps)   Send command MUX_SQ_FB_ON_OFF column 3 to Off for o_c3_sqm_dac_sleep activation
 #             (261266568 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (261266568 ps) Send SPI command value 8003_0000 (SQ_MUX_FB_ON_OFF, mode Write, data 0000)
+# ** Note   : (261266568 ps) Send SPI command value 8003_0000 (MUX_SQ_FB_ON_OFF, mode Write, data 0000)
 # ** Note   : (268764000 ps) Waiting SPI command end for 7461432 ps
 #             (268764000 ps) 
 #             (268764000 ps) ==============================================================================================

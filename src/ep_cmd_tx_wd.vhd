@@ -47,8 +47,8 @@ entity ep_cmd_tx_wd is port (
 
          i_rg_aqmde           : in     std_logic_vector(c_DFLD_AQMDE_S-1 downto 0)                          ; --! EP register: DATA_ACQ_MODE
 
-         i_rg_smfmd           : in     t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SMFMD_COL_S-1 downto 0)            ; --! EP register: SQ_MUX_FB_ON_OFF
-         i_rg_saofm           : in     t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SAOFM_COL_S-1 downto 0)            ; --! EP register: SQ_AMP_OFFSET_MODE
+         i_rg_smfmd           : in     t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SMFMD_COL_S-1 downto 0)            ; --! EP register: MUX_SQ_FB_ON_OFF
+         i_rg_saofm           : in     t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SAOFM_COL_S-1 downto 0)            ; --! EP register: AMP_SQ_OFFSET_MODE
          i_rg_tsten           : in     std_logic_vector(c_DFLD_TSTEN_S-1 downto 0)                          ; --! EP register: TEST_PATTERN_ENABLE
          i_rg_bxlgt           : in     t_slv_arr(0 to c_NB_COL-1)(c_DFLD_BXLGT_COL_S-1 downto 0)            ; --! EP register: BOXCAR_LENGTH
          i_ep_cmd_sts_rg_r    : in     std_logic_vector(c_EP_SPI_WD_S-1 downto 0)                           ; --! EP command: Status register, registered
@@ -169,10 +169,10 @@ begin
    -- @Req : DRE-DMX-FW-REQ-0580
    data_rg_rd(c_EP_CMD_POS_AQMDE) <= std_logic_vector(resize(unsigned(i_rg_aqmde),  c_EP_SPI_WD_S));
 
-   -- @Req : REG_SQ_MUX_FB_ON_OFF
+   -- @Req : REG_MUX_SQ_FB_ON_OFF
    data_rg_rd(c_EP_CMD_POS_SMFMD) <= std_logic_vector(resize(unsigned(i_rg_smfmd(c_COL3)), c_EP_SPI_WD_S/c_NB_COL) & resize(unsigned(i_rg_smfmd(c_COL2)), c_EP_SPI_WD_S/c_NB_COL) &
                                                       resize(unsigned(i_rg_smfmd(c_COL1)), c_EP_SPI_WD_S/c_NB_COL) & resize(unsigned(i_rg_smfmd(c_COL0)), c_EP_SPI_WD_S/c_NB_COL));
-   -- @Req : REG_SQ_AMP_OFFSET_MODE
+   -- @Req : REG_AMP_SQ_OFFSET_MODE
    -- @Req : DRE-DMX-FW-REQ-0330
    data_rg_rd(c_EP_CMD_POS_SAOFM) <= std_logic_vector(resize(unsigned(i_rg_saofm(c_COL3)), c_EP_SPI_WD_S/c_NB_COL) & resize(unsigned(i_rg_saofm(c_COL2)), c_EP_SPI_WD_S/c_NB_COL) &
                                                       resize(unsigned(i_rg_saofm(c_COL1)), c_EP_SPI_WD_S/c_NB_COL) & resize(unsigned(i_rg_saofm(c_COL0)), c_EP_SPI_WD_S/c_NB_COL));
@@ -257,11 +257,11 @@ begin
    -- @Req : DRE-DMX-FW-REQ-0150
    data_rg_rd(c_EP_CMD_POS_SMPDL) <= std_logic_vector(resize(unsigned(rg_col_data_mux(c_EP_RGC_ACC(c_EP_RGC_NUM_SMPDL+1)-1 downto c_EP_RGC_ACC(c_EP_RGC_NUM_SMPDL))), c_EP_SPI_WD_S));
 
-   -- @Req : REG_CY_FB1_PULSE_SHAPING
+   -- @Req : REG_CY_PULSE_SHAPING
    -- @Req : DRE-DMX-FW-REQ-0230
    data_rg_rd(c_EP_CMD_POS_PLSSH) <= std_logic_vector(resize(unsigned(ep_mem_data_mux(c_EP_MEM_ACC(c_EP_MEM_NUM_PLSSH+1)-1 downto c_EP_MEM_ACC(c_EP_MEM_NUM_PLSSH))), c_EP_SPI_WD_S));
 
-   -- @Req : REG_CY_FB1_PULSE_SHAPING_SEL
+   -- @Req : REG_CY_PULSE_SHAPING_SEL
    data_rg_rd(c_EP_CMD_POS_PLSSS) <= std_logic_vector(resize(unsigned(rg_col_data_mux(c_EP_RGC_ACC(c_EP_RGC_NUM_PLSSS+1)-1 downto c_EP_RGC_ACC(c_EP_RGC_NUM_PLSSS))), c_EP_SPI_WD_S));
 
    -- @Req : REG_CY_RELOCK_DELAY
