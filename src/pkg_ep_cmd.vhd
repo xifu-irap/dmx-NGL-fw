@@ -347,7 +347,7 @@ constant c_DST_SQADAC_PDZ     : std_logic_vector(c_SQA_DAC_MODE_S-1 downto 0):= 
    --!   Calculus chain parameters
    -- ------------------------------------------------------------------------------------------------------
 constant c_A_P_FRC_S          : integer := c_DFLD_PARMA_PIX_S                                               ; --! a(p) fractional part bus size
-constant c_ELP_P_FRC_S        : integer := c_DFLD_SMLKV_PIX_S - c_SQM_ADC_DATA_S + 1                        ; --! Elp(p) fractional part bus size
+constant c_ELP_P_FRC_S        : integer := c_DFLD_SMLKV_PIX_S - c_SQM_ADC_DATA_S                            ; --! Elp(p) fractional part bus size
 constant c_KI_KNORM_P_FRC_S   : integer := c_DFLD_KIKNM_PIX_S                                               ; --! ki(p)*knorm(p) fractional part bus size
 constant c_KNORM_P_FRC_S      : integer := 18                                                               ; --! knorm(p) fractional part bus size
 

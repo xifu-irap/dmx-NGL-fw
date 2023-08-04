@@ -297,9 +297,14 @@ begin
          o_b_flg_err          => open                   -- out    std_logic                                   --! Memory port B: flag error uncorrectable detected ('0' = No, '1' = Yes)
    );
 
-   o_elp_p_aln(o_elp_p_aln'high)                                                           <= c_LOW_LEV;
-   o_elp_p_aln(o_elp_p_aln'high-1                downto o_elp_p_aln'length-elp_p'length-1) <= elp_p;
-   o_elp_p_aln(o_elp_p_aln'length-elp_p'length-2 downto                                 0) <= c_ZERO(o_elp_p_aln'length-elp_p'length-2 downto 0);
+   -- Parameters Elp(p) aligned on E(p,n)
+   I_elp_p_aln : entity work.resize_stall_msb generic map (
+         g_DATA_S             => c_DFLD_SMLKV_PIX_S   , -- integer                                          ; --! Data input bus size
+         g_DATA_STALL_MSB_S   => c_ADC_SMP_AVE_S        -- integer                                            --! Data stalled on Mean Significant Bit bus size
+   ) port map (
+         i_data               => elp_p                , -- in     slv(          g_DATA_S-1 downto 0)        ; --! Data
+         o_data_stall_msb     => o_elp_p_aln            -- out    slv(g_DATA_STALL_MSB_S-1 downto 0)          --! Data stalled on Mean Significant Bit
+   );
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Dual port memory Elp(p): memory signals management

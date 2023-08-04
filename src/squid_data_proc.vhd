@@ -449,7 +449,7 @@ begin
       elsif rising_edge(i_clk) then
          e_pn_minus_elp_p <= std_logic_vector(       resize(  signed(adc_smp_ave(adc_smp_ave'high downto 1)), e_pn_minus_elp_p'length)  +
                                               signed(resize(unsigned(adc_smp_ave(0                downto 0)), e_pn_minus_elp_p'length)) -
-                                              signed(resize(unsigned(elp_p_aln                             ), e_pn_minus_elp_p'length)));
+                                                     resize(  signed(elp_p_aln                             ), e_pn_minus_elp_p'length));
       end if;
 
    end process P_e_pn_minus_elp_p;
