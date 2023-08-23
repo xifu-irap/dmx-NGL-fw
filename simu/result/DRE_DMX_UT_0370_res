@@ -711,29 +711,29 @@
 #             (17880936 ps)   TEST_PATTERN: writing a new table in ping-pong memories
 #             (17880936 ps)    (all step number coefficients are null)
 #             (17880936 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (17880936 ps) Send SPI command value 8203_8000 (TEST_PATTERN, mode Write, data 8000)
+# ** Note   : (17880936 ps) Send SPI command value 8201_8000 (TEST_PATTERN, mode Write, data 8000)
 # ** Note   : (20202000 ps) Waiting SPI command end for 2285064 ps
 # ** Note   : (20202000 ps) Send SPI command value 8209_7FFF (TEST_PATTERN, mode Write, data 7FFF)
 # ** Note   : (22524000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (22524000 ps) Send SPI command value 820F_2800 (TEST_PATTERN, mode Write, data 2800)
+# ** Note   : (22524000 ps) Send SPI command value 8211_2800 (TEST_PATTERN, mode Write, data 2800)
 # ** Note   : (24846000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (24846000 ps) Send SPI command value 8215_9C00 (TEST_PATTERN, mode Write, data 9C00)
+# ** Note   : (24846000 ps) Send SPI command value 8219_9C00 (TEST_PATTERN, mode Write, data 9C00)
 # ** Note   : (27168000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (27168000 ps) Send SPI command value 821B_0C00 (TEST_PATTERN, mode Write, data 0C00)
+# ** Note   : (27168000 ps) Send SPI command value 8221_0C00 (TEST_PATTERN, mode Write, data 0C00)
 # ** Note   : (29490000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (29490000 ps) Send SPI command value 821D_0000 (TEST_PATTERN, mode Write, data 0000)
+# ** Note   : (29490000 ps) Send SPI command value 8227_0000 (TEST_PATTERN, mode Write, data 0000)
 # ** Note   : (31812000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (31812000 ps) Send SPI command value 8203_8000 (TEST_PATTERN, mode Write, data 8000)
+# ** Note   : (31812000 ps) Send SPI command value 8201_8000 (TEST_PATTERN, mode Write, data 8000)
 # ** Note   : (34134000 ps) Waiting SPI command end for 2286000 ps
 # ** Note   : (34134000 ps) Send SPI command value 8209_7FFF (TEST_PATTERN, mode Write, data 7FFF)
 # ** Note   : (36456000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (36456000 ps) Send SPI command value 820F_2800 (TEST_PATTERN, mode Write, data 2800)
+# ** Note   : (36456000 ps) Send SPI command value 8211_2800 (TEST_PATTERN, mode Write, data 2800)
 # ** Note   : (38778000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (38778000 ps) Send SPI command value 8215_9C00 (TEST_PATTERN, mode Write, data 9C00)
+# ** Note   : (38778000 ps) Send SPI command value 8219_9C00 (TEST_PATTERN, mode Write, data 9C00)
 # ** Note   : (41100000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (41100000 ps) Send SPI command value 821B_0C00 (TEST_PATTERN, mode Write, data 0C00)
+# ** Note   : (41100000 ps) Send SPI command value 8221_0C00 (TEST_PATTERN, mode Write, data 0C00)
 # ** Note   : (43422000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (43422000 ps) Send SPI command value 821D_0000 (TEST_PATTERN, mode Write, data 0000)
+# ** Note   : (43422000 ps) Send SPI command value 8227_0000 (TEST_PATTERN, mode Write, data 0000)
 # ** Note   : (45744000 ps) Waiting SPI command end for 2286000 ps
 #             (45744000 ps) 
 #             (45744000 ps) ==============================================================================================
@@ -795,9 +795,9 @@
 #             (79260000 ps) ==============================================================================================
 #             (79260000 ps)   TEST_PATTERN: write the step number coefficient of the first region
 #             (79260000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (79260000 ps) Send SPI command value 8205_0001 (TEST_PATTERN, mode Write, data 0001)
+# ** Note   : (79260000 ps) Send SPI command value 8207_0001 (TEST_PATTERN, mode Write, data 0001)
 # ** Note   : (81582000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (81582000 ps) Send SPI command value 821D_0000 (TEST_PATTERN, mode Write, data 0000)
+# ** Note   : (81582000 ps) Send SPI command value 8227_0000 (TEST_PATTERN, mode Write, data 0000)
 # ** Note   : (83904000 ps) Waiting SPI command end for 2286000 ps
 #             (83904000 ps) 
 #             (83904000 ps) ==============================================================================================
@@ -893,11 +893,11 @@
 #             (134502000 ps) ==============================================================================================
 #             (134502000 ps)   TEST_PATTERN: write the step number coefficient of the 2 first region
 #             (134502000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (134502000 ps) Send SPI command value 8205_0001 (TEST_PATTERN, mode Write, data 0001)
+# ** Note   : (134502000 ps) Send SPI command value 8207_0001 (TEST_PATTERN, mode Write, data 0001)
 # ** Note   : (136824000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (136824000 ps) Send SPI command value 820B_0001 (TEST_PATTERN, mode Write, data 0001)
+# ** Note   : (136824000 ps) Send SPI command value 820F_0001 (TEST_PATTERN, mode Write, data 0001)
 # ** Note   : (139146000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (139146000 ps) Send SPI command value 821D_0000 (TEST_PATTERN, mode Write, data 0000)
+# ** Note   : (139146000 ps) Send SPI command value 8227_0000 (TEST_PATTERN, mode Write, data 0000)
 # ** Note   : (141468000 ps) Waiting SPI command end for 2286000 ps
 #             (141468000 ps) 
 #             (141468000 ps) ==============================================================================================
@@ -1201,11 +1201,11 @@
 #             (346758000 ps) ==============================================================================================
 #             (346758000 ps)   TEST_PATTERN: write the step number coefficient of the 3 first region
 #             (346758000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (346758000 ps) Send SPI command value 820B_0001 (TEST_PATTERN, mode Write, data 0001)
+# ** Note   : (346758000 ps) Send SPI command value 820F_0001 (TEST_PATTERN, mode Write, data 0001)
 # ** Note   : (349080000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (349080000 ps) Send SPI command value 8211_0001 (TEST_PATTERN, mode Write, data 0001)
+# ** Note   : (349080000 ps) Send SPI command value 8217_0001 (TEST_PATTERN, mode Write, data 0001)
 # ** Note   : (351402000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (351402000 ps) Send SPI command value 821D_0000 (TEST_PATTERN, mode Write, data 0000)
+# ** Note   : (351402000 ps) Send SPI command value 8227_0000 (TEST_PATTERN, mode Write, data 0000)
 # ** Note   : (353724000 ps) Waiting SPI command end for 2286000 ps
 #             (353724000 ps) 
 #             (353724000 ps) ==============================================================================================
@@ -1257,11 +1257,11 @@
 #             (384864000 ps) ==============================================================================================
 #             (384864000 ps)   TEST_PATTERN: write the step number coefficient of the 4 first region
 #             (384864000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (384864000 ps) Send SPI command value 8211_0001 (TEST_PATTERN, mode Write, data 0001)
+# ** Note   : (384864000 ps) Send SPI command value 8217_0001 (TEST_PATTERN, mode Write, data 0001)
 # ** Note   : (387186000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (387186000 ps) Send SPI command value 8217_0001 (TEST_PATTERN, mode Write, data 0001)
+# ** Note   : (387186000 ps) Send SPI command value 821F_0001 (TEST_PATTERN, mode Write, data 0001)
 # ** Note   : (389508000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (389508000 ps) Send SPI command value 821D_0000 (TEST_PATTERN, mode Write, data 0000)
+# ** Note   : (389508000 ps) Send SPI command value 8227_0000 (TEST_PATTERN, mode Write, data 0000)
 # ** Note   : (391830000 ps) Waiting SPI command end for 2286000 ps
 #             (391830000 ps) 
 #             (391830000 ps) ==============================================================================================
@@ -1315,9 +1315,9 @@
 #             (428406000 ps) ==============================================================================================
 #             (428406000 ps)   TEST_PATTERN: write the step number coefficient of the 5 first region
 #             (428406000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (428406000 ps) Send SPI command value 8217_0001 (TEST_PATTERN, mode Write, data 0001)
+# ** Note   : (428406000 ps) Send SPI command value 821F_0001 (TEST_PATTERN, mode Write, data 0001)
 # ** Note   : (430728000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (430728000 ps) Send SPI command value 821D_0001 (TEST_PATTERN, mode Write, data 0001)
+# ** Note   : (430728000 ps) Send SPI command value 8227_0001 (TEST_PATTERN, mode Write, data 0001)
 # ** Note   : (433050000 ps) Waiting SPI command end for 2286000 ps
 #             (433050000 ps) 
 #             (433050000 ps) ==============================================================================================
@@ -4641,35 +4641,35 @@
 #             (529634112 ps) ==============================================================================================
 #             (529634112 ps)   TEST_PATTERN: writing a new table
 #             (529634112 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (529634112 ps) Send SPI command value 8201_0000 (TEST_PATTERN, mode Write, data 0000)
+# ** Note   : (529634112 ps) Send SPI command value 8201_8000 (TEST_PATTERN, mode Write, data 8000)
 # ** Note   : (531942000 ps) Waiting SPI command end for 2271888 ps
-# ** Note   : (531942000 ps) Send SPI command value 8203_8000 (TEST_PATTERN, mode Write, data 8000)
+# ** Note   : (531942000 ps) Send SPI command value 8205_0000 (TEST_PATTERN, mode Write, data 0000)
 # ** Note   : (534264000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (534264000 ps) Send SPI command value 8205_0003 (TEST_PATTERN, mode Write, data 0003)
+# ** Note   : (534264000 ps) Send SPI command value 8207_0003 (TEST_PATTERN, mode Write, data 0003)
 # ** Note   : (536586000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (536586000 ps) Send SPI command value 8207_2000 (TEST_PATTERN, mode Write, data 2000)
+# ** Note   : (536586000 ps) Send SPI command value 8209_8000 (TEST_PATTERN, mode Write, data 8000)
 # ** Note   : (538908000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (538908000 ps) Send SPI command value 8209_8000 (TEST_PATTERN, mode Write, data 8000)
+# ** Note   : (538908000 ps) Send SPI command value 820D_2000 (TEST_PATTERN, mode Write, data 2000)
 # ** Note   : (541230000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (541230000 ps) Send SPI command value 820B_0007 (TEST_PATTERN, mode Write, data 0007)
+# ** Note   : (541230000 ps) Send SPI command value 820F_0007 (TEST_PATTERN, mode Write, data 0007)
 # ** Note   : (543552000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (543552000 ps) Send SPI command value 820D_0000 (TEST_PATTERN, mode Write, data 0000)
+# ** Note   : (543552000 ps) Send SPI command value 8211_6000 (TEST_PATTERN, mode Write, data 6000)
 # ** Note   : (545874000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (545874000 ps) Send SPI command value 820F_6000 (TEST_PATTERN, mode Write, data 6000)
+# ** Note   : (545874000 ps) Send SPI command value 8215_0000 (TEST_PATTERN, mode Write, data 0000)
 # ** Note   : (548196000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (548196000 ps) Send SPI command value 8211_0004 (TEST_PATTERN, mode Write, data 0004)
+# ** Note   : (548196000 ps) Send SPI command value 8217_0004 (TEST_PATTERN, mode Write, data 0004)
 # ** Note   : (550518000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (550518000 ps) Send SPI command value 8213_E400 (TEST_PATTERN, mode Write, data E400)
+# ** Note   : (550518000 ps) Send SPI command value 8219_6000 (TEST_PATTERN, mode Write, data 6000)
 # ** Note   : (552840000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (552840000 ps) Send SPI command value 8215_6000 (TEST_PATTERN, mode Write, data 6000)
+# ** Note   : (552840000 ps) Send SPI command value 821D_E400 (TEST_PATTERN, mode Write, data E400)
 # ** Note   : (555162000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (555162000 ps) Send SPI command value 8217_0008 (TEST_PATTERN, mode Write, data 0008)
+# ** Note   : (555162000 ps) Send SPI command value 821F_0008 (TEST_PATTERN, mode Write, data 0008)
 # ** Note   : (557484000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (557484000 ps) Send SPI command value 8219_0000 (TEST_PATTERN, mode Write, data 0000)
+# ** Note   : (557484000 ps) Send SPI command value 8221_8000 (TEST_PATTERN, mode Write, data 8000)
 # ** Note   : (559806000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (559806000 ps) Send SPI command value 821B_8000 (TEST_PATTERN, mode Write, data 8000)
+# ** Note   : (559806000 ps) Send SPI command value 8225_0000 (TEST_PATTERN, mode Write, data 0000)
 # ** Note   : (562128000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (562128000 ps) Send SPI command value 821D_0002 (TEST_PATTERN, mode Write, data 0002)
+# ** Note   : (562128000 ps) Send SPI command value 8227_0002 (TEST_PATTERN, mode Write, data 0002)
 # ** Note   : (564450000 ps) Waiting SPI command end for 2286000 ps
 #             (564450000 ps) 
 #             (564450000 ps) ==============================================================================================

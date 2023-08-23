@@ -220,7 +220,7 @@ begin
       elsif rising_edge(i_clk_science) then
          if i_science_data_rdy = c_HGH_LEV then
 
-            if    i_science_data_ctrl = c_SC_CTRL_ERRS or i_science_data_ctrl = c_SC_CTRL_SC_DTA or i_science_data_ctrl = c_SC_CTRL_TST_PAT then
+            if    i_science_data_ctrl = c_SC_CTRL_ERRS or i_science_data_ctrl = c_SC_CTRL_SC_DTA or i_science_data_ctrl = c_SC_CTRL_TST_PAT or i_science_data_ctrl = c_SC_CTRL_RAS_VLD then
                pls_cnt_sc <= c_ZERO(pls_cnt_sc'range);
 
             elsif pls_cnt_sc < std_logic_vector(to_unsigned(c_PLS_CNT_SC_MAX_VAL, pls_cnt_sc'length)) then

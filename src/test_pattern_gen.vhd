@@ -53,6 +53,7 @@ entity test_pattern_gen is port (
          o_test_pattern_sqm   : out    std_logic_vector(c_SQM_DATA_FBK_S-1 downto 0)                        ; --! Test pattern: MUX SQUID
          o_test_pattern_sqa   : out    std_logic_vector(c_SQA_DAC_DATA_S-1 downto 0)                        ; --! Test pattern: AMP SQUID
          o_test_pattern_sc    : out    std_logic_vector(c_SC_DATA_SER_W_S*c_SC_DATA_SER_NB-1 downto 0)      ; --! Test pattern: Science Telemetry
+         o_tst_pat_new_step   : out    std_logic                                                            ; --! Test pattern new step ('0' = Inactive, '1' = Active)
          o_tst_pat_end_pat    : out    std_logic                                                            ; --! Test pattern end of one pattern  ('0' = Inactive, '1' = Active)
          o_tst_pat_end        : out    std_logic                                                            ; --! Test pattern end of all patterns ('0' = Inactive, '1' = Active)
          o_tst_pat_end_re     : out    std_logic                                                            ; --! Test pattern end of all patterns rising edge ('0' = Inactive, '1' = Active)
@@ -62,21 +63,9 @@ entity test_pattern_gen is port (
 end entity test_pattern_gen;
 
 architecture RTL of test_pattern_gen is
-constant c_TST_INDEX_INIT     : std_logic_vector(c_DFLD_TSTPT_S downto 0) :=
-                                std_logic_vector(to_unsigned(1, c_DFLD_TSTPT_S+1))                          ; --! Test pattern index initialization value
-
-constant c_TST_RG_POS_MAX_VAL : integer   := (c_TST_PAT_RGN_NB - 1) * c_TST_PAT_COEF_NB                     ; --! Test pattern region position: maximal value
+constant c_TST_RG_POS_MAX_VAL : integer   := c_TST_PAT_RGN_NB - 1                                           ; --! Test pattern region position: maximal value
 constant c_TST_RG_POS_S       : integer   := log2_ceil(c_TST_RG_POS_MAX_VAL + 1) + 1                        ; --! Test pattern region position: size bus (signed)
-
-constant c_TST_CF_POS_MAX_VAL : integer   := c_TST_PAT_COEF_NB - 2                                          ; --! Test pattern coefficient position: maximal value
-constant c_TST_CF_POS_S       : integer   := log2_ceil(c_TST_CF_POS_MAX_VAL + 1) + 1                        ; --! Test pattern coefficient position: size bus (signed)
-
-constant c_TST_INDMAX1_POS    : integer   := c_MEM_RD_DATA_NPER                                             ; --! Test pattern: Index Maximum First reading position
-constant c_TST_INDMAX_CHK_POS : integer   := c_TST_INDMAX1_POS    + 1                                       ; --! Test pattern: Index Maximum Check position
-constant c_TST_INDMAX2_POS    : integer   := c_TST_INDMAX_CHK_POS + c_MEM_RD_DATA_NPER + 1                  ; --! Test pattern: Index Maximum Second reading position
-constant c_TST_ITCPT_COEF_POS : integer   := c_TST_INDMAX2_POS    + 1                                       ; --! Test pattern: Intercept coefficient position
-constant c_TST_SLOPE_COEF_POS : integer   := c_TST_ITCPT_COEF_POS + 1                                       ; --! Test pattern: Slope coefficient position
-constant c_TST_RES_POS        : integer   := c_TST_SLOPE_COEF_POS + c_DSP_NPER                              ; --! Test pattern: Result position
+constant c_TST_COEF_SEQ_POS_S : integer   := log2_ceil(c_TST_COEF_RD_SEQ_S  + 1)                            ; --! Test pattern: coefficient reading sequence position size bus
 
 signal   mem_tstpt_pp         : std_logic                                                                   ; --! Test pattern, TC/HK side: ping-pong buffer bit
 signal   mem_tstpt_prm        : t_mem(
@@ -84,40 +73,44 @@ signal   mem_tstpt_prm        : t_mem(
                                 data_w(          c_DFLD_TSTPT_S-1 downto 0))                                ; --! Test pattern, getting parameter side: memory inputs
 
 signal   sync_re_r            : std_logic                                                                   ; --! Pixel sequence synchronization, rising edge register
-signal   loop_nb_minus1       : std_logic_vector(c_DFLD_TSTEN_LOP_S  downto 0)                              ; --! Loop number minus 1
+signal   loop_nb_minus1       : std_logic_vector(c_DFLD_TSTEN_LOP_S     downto 0)                           ; --! Loop number minus 1
 
-signal   tst_region_pos       : std_logic_vector(c_TST_RG_POS_S-1    downto 0)                              ; --! Test pattern: region position
-signal   tst_region_pos_msb_r : std_logic                                                                   ; --! Test pattern: region position MSB register
-signal   tst_coef_pos         : std_logic_vector(c_TST_CF_POS_S-1    downto 0)                              ; --! Test pattern: coefficient position
-signal   tst_pos              : std_logic_vector(c_MEM_TSTPT_ADD_S   downto 0)                              ; --! Test pattern: global position
-signal   tst_coef_sel         : std_logic_vector(c_TST_RES_POS       downto 0)                              ; --! Test pattern: coefficient select
+signal   tst_region_change    : std_logic                                                                   ; --! Test pattern: region change ('0' = No, '1' = Yes)
+signal   tst_region_pos       : std_logic_vector(c_TST_RG_POS_S-1       downto 0)                           ; --! Test pattern: region position
+signal   tst_coef_seq_pos     : std_logic_vector(c_TST_COEF_SEQ_POS_S-1 downto 0)                           ; --! Test pattern: coefficient reading sequence position
+signal   tst_pos              : std_logic_vector(c_MEM_TSTPT_ADD_S      downto 0)                           ; --! Test pattern: global position
+signal   tst_coef_sel         : std_logic_vector(c_TST_RES_RDY          downto 0)                           ; --! Test pattern: coefficient select
 
 signal   tst_prm              : std_logic_vector(c_DFLD_TSTPT_S-1 downto 0)                                 ; --! Test pattern: parameters from memory
 signal   tst_slope_coef       : std_logic_vector(c_DFLD_TSTPT_S-1 downto 0)                                 ; --! Test pattern: Slope coefficient
 signal   tst_itcpt_coef       : std_logic_vector(c_DFLD_TSTPT_S-1 downto 0)                                 ; --! Test pattern: Intercept coefficient
+signal   tst_index_frm_max    : std_logic_vector(c_DFLD_TSTPT_S   downto 0)                                 ; --! Test pattern: Index Maximum frame by step
+signal   tst_index_frm        : std_logic_vector(c_DFLD_TSTPT_S   downto 0)                                 ; --! Test pattern: Index frame by step
 signal   tst_index_max        : std_logic_vector(c_DFLD_TSTPT_S   downto 0)                                 ; --! Test pattern: Index Maximum
 signal   tst_index            : std_logic_vector(c_DFLD_TSTPT_S   downto 0)                                 ; --! Test pattern: Index
-signal   tst_index_minus1     : std_logic_vector(c_DFLD_TSTPT_S   downto 0)                                 ; --! Test pattern: Index minus 1
+signal   tst_index_gte        : std_logic                                                                   ; --! Test pattern: Index greater than or equal to Index Maximum ('0' = No, '1' = Yes)
+signal   tst_index_end        : std_logic                                                                   ; --! Test pattern: Index end ('0' = No, '1' = Yes)
 signal   tst_res              : std_logic_vector(c_DFLD_TSTPT_S-1 downto 0)                                 ; --! Test pattern: Result
 signal   test_pattern         : std_logic_vector(c_DFLD_TSTPT_S-1 downto 0)                                 ; --! Test pattern
+signal   test_pattern_last    : std_logic_vector(c_DFLD_TSTPT_S-1 downto 0)                                 ; --! Test pattern last value
 
 begin
 
    -- ------------------------------------------------------------------------------------------------------
-   --!   Pixel sequence synchronization, rising edge register
+   --!   Test pattern: coefficient select
    -- ------------------------------------------------------------------------------------------------------
-   P_sync_re_r : process (i_rst, i_clk)
+   P_tst_coef_sel : process (i_rst, i_clk)
    begin
 
       if i_rst = c_RST_LEV_ACT then
-         sync_re_r   <= c_LOW_LEV;
+         tst_coef_sel <= (others => c_LOW_LEV);
 
       elsif rising_edge(i_clk) then
-         sync_re_r   <= i_sync_re;
+         tst_coef_sel <= tst_coef_sel(tst_coef_sel'high-1 downto 0) & i_sync_re;
 
       end if;
 
-   end process P_sync_re_r;
+   end process P_tst_coef_sel;
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Loop number minus 1
@@ -136,79 +129,72 @@ begin
    end process P_loop_nb_minus1;
 
    -- ------------------------------------------------------------------------------------------------------
+   --!   Test pattern: region change
+   -- ------------------------------------------------------------------------------------------------------
+   P_tst_region_change : process (i_rst, i_clk)
+   begin
+
+      if i_rst = c_RST_LEV_ACT then
+         tst_region_change <= c_LOW_LEV;
+
+      elsif rising_edge(i_clk) then
+         tst_region_change <= tst_index_frm(tst_index_frm'high) and
+                              ((    tst_index_frm_max(tst_index_frm_max'high)  and tst_index_gte) or
+                               (not(tst_index_frm_max(tst_index_frm_max'high)) and tst_index_end));
+
+      end if;
+
+   end process P_tst_region_change;
+
+   -- ------------------------------------------------------------------------------------------------------
    --!   Test pattern: region position
    -- ------------------------------------------------------------------------------------------------------
    P_tst_region_pos : process (i_rst, i_clk)
    begin
 
       if i_rst = c_RST_LEV_ACT then
-         tst_region_pos       <= std_logic_vector(to_signed(-c_TST_PAT_COEF_NB, tst_region_pos'length));
-         tst_region_pos_msb_r <= c_HGH_LEV;
+         tst_region_pos       <= c_MINUSONE(tst_region_pos'range);
 
       elsif rising_edge(i_clk) then
          if i_tsten_ena = c_LOW_LEV then
-            tst_region_pos <= std_logic_vector(to_signed(-c_TST_PAT_COEF_NB, tst_region_pos'length));
+            tst_region_pos <= c_MINUSONE(tst_region_pos'range);
 
-         elsif tst_coef_sel(c_TST_INDMAX_CHK_POS) = c_HGH_LEV and tst_index_max = c_ZERO(tst_index_max'range) then
+         elsif (i_sync_re and tst_region_pos(tst_region_pos'high)) = c_HGH_LEV then
             tst_region_pos <= std_logic_vector(to_unsigned(c_TST_RG_POS_MAX_VAL, tst_region_pos'length));
 
-         elsif ((i_sync_re or sync_re_r) and tst_region_pos(tst_region_pos'high)) = c_HGH_LEV then
+         elsif tst_coef_sel(c_TST_INDMAX_CHK_RDY) = c_HGH_LEV and tst_prm = c_ZERO(tst_prm'range) then
             tst_region_pos <= std_logic_vector(to_unsigned(c_TST_RG_POS_MAX_VAL, tst_region_pos'length));
 
-         elsif (i_sync_re and not(tst_region_pos(tst_region_pos'high))) = c_HGH_LEV and unsigned(tst_index) >= unsigned(tst_index_max) then
-            tst_region_pos <= std_logic_vector(signed(tst_region_pos) - to_signed(c_TST_PAT_COEF_NB, tst_region_pos'length));
+         elsif (i_sync_re and not(tst_region_pos(tst_region_pos'high)) and tst_region_change) = c_HGH_LEV then
+             tst_region_pos <= std_logic_vector(signed(tst_region_pos) - 1);
 
          end if;
-
-         tst_region_pos_msb_r <= tst_region_pos(tst_region_pos'high);
 
       end if;
 
    end process P_tst_region_pos;
 
    -- ------------------------------------------------------------------------------------------------------
-   --!   Test pattern: coefficient position
+   --!   Test pattern: coefficient reading sequence position
    -- ------------------------------------------------------------------------------------------------------
-   P_tst_coef_pos : process (i_rst, i_clk)
+   P_tst_coef_seq_pos : process (i_rst, i_clk)
    begin
 
       if i_rst = c_RST_LEV_ACT then
-         tst_coef_pos <= c_MINUSONE(tst_coef_pos'range);
+         tst_coef_seq_pos <= c_ZERO(tst_coef_seq_pos'range);
 
       elsif rising_edge(i_clk) then
-         if i_tsten_ena = c_HGH_LEV then
-            if (sync_re_r or tst_coef_sel(c_TST_INDMAX_CHK_POS)) = c_HGH_LEV then
-               tst_coef_pos <= std_logic_vector(to_unsigned(c_TST_CF_POS_MAX_VAL, tst_coef_pos'length));
+         if i_sync_re = c_HGH_LEV then
+            tst_coef_seq_pos <= c_ZERO(tst_coef_seq_pos'range);
 
-            elsif tst_coef_pos(tst_coef_pos'high) = c_LOW_LEV then
-               tst_coef_pos <= std_logic_vector(signed(tst_coef_pos) - 1);
-
-            end if;
+         elsif unsigned(tst_coef_seq_pos) < to_unsigned(c_TST_COEF_RD_SEQ'length-1, tst_coef_seq_pos'length) then
+            tst_coef_seq_pos <= std_logic_vector(unsigned(tst_coef_seq_pos) + 1);
 
          end if;
 
       end if;
 
-   end process P_tst_coef_pos;
-
-   -- ------------------------------------------------------------------------------------------------------
-   --!   Test pattern: coefficient select
-   -- ------------------------------------------------------------------------------------------------------
-   P_tst_coef_sel : process (i_rst, i_clk)
-   begin
-
-      if i_rst = c_RST_LEV_ACT then
-         tst_coef_sel <= (others => c_LOW_LEV);
-
-      elsif rising_edge(i_clk) then
-         if i_tsten_ena = c_HGH_LEV then
-            tst_coef_sel <= tst_coef_sel(tst_coef_sel'high-1 downto 0) & sync_re_r;
-
-         end if;
-
-      end if;
-
-   end process P_tst_coef_sel;
+   end process P_tst_coef_seq_pos;
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Dual port memory for test pattern parameters
@@ -245,9 +231,10 @@ begin
    --!   Dual port memory test pattern parameters: memory signals management
    --!      (Getting parameter side)
    -- ------------------------------------------------------------------------------------------------------
-   tst_pos <=  std_logic_vector(to_signed(c_TST_RG_POS_MAX_VAL + 1, tst_pos'length) -
-                                resize(signed(tst_region_pos), tst_pos'length) +
-                                resize(signed(tst_coef_pos),   tst_pos'length));
+   tst_pos(tst_pos'high downto c_TST_PAT_COEF_NB_S) <=  std_logic_vector(to_signed(c_TST_RG_POS_MAX_VAL, tst_pos'length - c_TST_PAT_COEF_NB_S) -
+                                                                         resize(signed(tst_region_pos),  tst_pos'length - c_TST_PAT_COEF_NB_S));
+
+   tst_pos(c_TST_PAT_COEF_NB_S-1 downto 0)          <= c_TST_COEF_RD_SEQ(to_integer(unsigned(tst_coef_seq_pos)));
 
    mem_tstpt_prm.add     <= tst_pos(tst_pos'high-1 downto 0);
    mem_tstpt_prm.we      <= c_LOW_LEV;
@@ -278,23 +265,29 @@ begin
    begin
 
       if i_rst = c_RST_LEV_ACT then
-         tst_slope_coef <= c_ZERO(tst_slope_coef'range);
-         tst_itcpt_coef <= c_ZERO(tst_itcpt_coef'range);
-         tst_index_max  <= c_ZERO(tst_index_max'range);
+         tst_slope_coef    <= c_ZERO(tst_slope_coef'range);
+         tst_itcpt_coef    <= c_ZERO(tst_itcpt_coef'range);
+         tst_index_frm_max <= c_MINUSONE(tst_index_frm_max'range);
+         tst_index_max     <= c_MINUSONE(tst_index_max'range);
 
       elsif rising_edge(i_clk) then
-         if tst_coef_sel(c_TST_SLOPE_COEF_POS) = c_HGH_LEV then
+         if tst_coef_sel(c_TST_SLOPE_COEF_RDY) = c_HGH_LEV then
             tst_slope_coef <= tst_prm;
 
          end if;
 
-         if tst_coef_sel(c_TST_ITCPT_COEF_POS) = c_HGH_LEV then
+         if tst_coef_sel(c_TST_ITCPT_COEF_RDY) = c_HGH_LEV then
             tst_itcpt_coef <= tst_prm;
 
          end if;
 
-         if (tst_coef_sel(c_TST_INDMAX1_POS) or tst_coef_sel(c_TST_INDMAX2_POS)) = c_HGH_LEV then
-            tst_index_max <= std_logic_vector(resize(unsigned(tst_prm), tst_index_max'length));
+         if tst_coef_sel(c_TST_INDMAX_FRM_RDY) = c_HGH_LEV then
+            tst_index_frm_max <= std_logic_vector(resize(unsigned(tst_prm), tst_index_frm_max'length) - 1) ;
+
+         end if;
+
+         if (i_tsten_ena and tst_coef_sel(c_TST_INDMAX_RDY)) = c_HGH_LEV then
+            tst_index_max <= std_logic_vector(resize(unsigned(tst_prm), tst_index_max'length) - 1);
 
          end if;
 
@@ -303,21 +296,21 @@ begin
    end process P_tst_prm_dispatch;
 
    -- ------------------------------------------------------------------------------------------------------
-   --!   Test pattern index
+   --!   Test pattern index frame by step
    -- ------------------------------------------------------------------------------------------------------
-   P_tst_index : process (i_rst, i_clk)
+   P_tst_index_frm : process (i_rst, i_clk)
    begin
 
       if i_rst = c_RST_LEV_ACT then
-         tst_index <= c_ZERO(tst_index'range);
+         tst_index_frm <= c_MINUSONE(tst_index_frm'range);
 
       elsif rising_edge(i_clk) then
-         if i_sync_re = c_HGH_LEV then
-            if (tst_region_pos(tst_region_pos'high) = c_HGH_LEV) or (unsigned(tst_index) >= unsigned(tst_index_max)) then
-               tst_index <= c_TST_INDEX_INIT;
+         if tst_coef_sel(c_TST_IND_FRM_RDY) = c_HGH_LEV then
+            if tst_index_frm(tst_index_frm'high) = c_HGH_LEV then
+               tst_index_frm <= tst_index_frm_max;
 
             else
-               tst_index <= std_logic_vector(unsigned(tst_index) + 1);
+               tst_index_frm <= std_logic_vector(signed(tst_index_frm) - 1);
 
             end if;
 
@@ -325,9 +318,82 @@ begin
 
       end if;
 
+   end process P_tst_index_frm;
+
+   -- ------------------------------------------------------------------------------------------------------
+   --!   Test pattern index end
+   -- ------------------------------------------------------------------------------------------------------
+   P_tst_index_end : process (i_rst, i_clk)
+   begin
+
+      if i_rst = c_RST_LEV_ACT then
+         tst_index_end <= c_LOW_LEV;
+
+      elsif rising_edge(i_clk) then
+         if i_tsten_ena = c_LOW_LEV then
+            tst_index_end <= c_LOW_LEV;
+
+         elsif (tst_coef_sel(c_TST_IND_FRM_RDY+1) and tst_index_frm(tst_index_frm'high)) = c_HGH_LEV then
+            if tst_index_end = c_LOW_LEV then
+               tst_index_end <= tst_index_gte;
+
+            else
+               tst_index_end <= c_LOW_LEV;
+
+            end if;
+
+         end if;
+
+      end if;
+
+   end process P_tst_index_end;
+
+   -- ------------------------------------------------------------------------------------------------------
+   --!   Test pattern index
+   -- ------------------------------------------------------------------------------------------------------
+   P_tst_index : process (i_rst, i_clk)
+   begin
+
+      if i_rst = c_RST_LEV_ACT then
+         tst_index <= c_MINUSONE(tst_index'range);
+
+      elsif rising_edge(i_clk) then
+         if i_tsten_ena = c_LOW_LEV then
+            tst_index <= c_MINUSONE(tst_index'range);
+
+         elsif (i_sync_re and tst_index_frm(tst_index_frm'high) and tst_region_change) = c_HGH_LEV then
+            tst_index <= c_MINUSONE(tst_index'range);
+
+         elsif (tst_coef_sel(c_TST_IND_FRM_RDY) and tst_index_frm(tst_index_frm'high)) = c_HGH_LEV then
+            tst_index <= std_logic_vector(unsigned(tst_index) + 1);
+
+         end if;
+
+      end if;
+
    end process P_tst_index;
 
-   tst_index_minus1 <= std_logic_vector(unsigned(tst_index) - 1);
+   -- ------------------------------------------------------------------------------------------------------
+   --!   Test pattern index greater than or equal to Index Maximum
+   -- ------------------------------------------------------------------------------------------------------
+   P_tst_index_gte : process (i_rst, i_clk)
+   begin
+
+      if i_rst = c_RST_LEV_ACT then
+         tst_index_gte <= c_HGH_LEV;
+
+      elsif rising_edge(i_clk) then
+         if signed(tst_index) >= signed(tst_index_max) then
+            tst_index_gte <= c_HGH_LEV;
+
+         else
+            tst_index_gte <= c_LOW_LEV;
+
+         end if;
+
+      end if;
+
+   end process P_tst_index_gte;
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Test pattern generation
@@ -348,7 +414,7 @@ begin
          i_clk                => i_clk                , -- in     std_logic                                 ; --! Clock
 
          i_carry              => c_LOW_LEV            , -- in     std_logic                                 ; --! Carry In
-         i_a                  => tst_index_minus1     , -- in     std_logic_vector( g_PORTA_S-1 downto 0)   ; --! Port A
+         i_a                  => tst_index            , -- in     std_logic_vector( g_PORTA_S-1 downto 0)   ; --! Port A
          i_b                  => tst_slope_coef       , -- in     std_logic_vector( g_PORTB_S-1 downto 0)   ; --! Port B
          i_c                  => tst_itcpt_coef       , -- in     std_logic_vector( g_PORTC_S-1 downto 0)   ; --! Port C
          i_d                  => c_ZERO(c_DFLD_TSTPT_S-1 downto 0),      -- in slv( g_PORTB_S-1 downto 0)   ; --! Port D
@@ -365,31 +431,43 @@ begin
    begin
 
       if i_rst = c_RST_LEV_ACT then
-         test_pattern      <= c_ZERO(test_pattern'range);
-         o_tst_pat_end_pat <= c_LOW_LEV;
-         o_tst_pat_end     <= c_HGH_LEV;
-         o_tst_pat_end_re  <= c_LOW_LEV;
-         o_tst_pat_empty   <= c_LOW_LEV;
+         test_pattern         <= c_ZERO(test_pattern'range);
+         test_pattern_last    <= c_ZERO(test_pattern_last'range);
+         o_tst_pat_new_step   <= c_LOW_LEV;
+         o_tst_pat_end_pat    <= c_LOW_LEV;
+         o_tst_pat_end        <= c_HGH_LEV;
+         o_tst_pat_end_re     <= c_LOW_LEV;
+         o_tst_pat_empty      <= c_LOW_LEV;
 
       elsif rising_edge(i_clk) then
-         if tst_coef_sel(c_TST_RES_POS) = c_HGH_LEV then
-            test_pattern <= tst_res;
+         if tst_coef_sel(c_TST_RES_RDY) = c_HGH_LEV then
+            test_pattern      <= tst_res;
+            test_pattern_last <= test_pattern;
 
          end if;
 
-         if (tst_coef_sel(c_TST_INDMAX_CHK_POS) and i_tsten_ena) = c_HGH_LEV and tst_index_max = c_ZERO(tst_index_max'range) then
-            o_tst_pat_end_pat <= c_HGH_LEV;
+         if i_sync_re = c_HGH_LEV then
+            if test_pattern_last = test_pattern then
+               o_tst_pat_new_step <= c_LOW_LEV;
 
-         else
-            o_tst_pat_end_pat <= tst_region_pos(tst_region_pos'high) and not(tst_region_pos_msb_r) and i_tsten_ena;
+            else
+               o_tst_pat_new_step <= c_HGH_LEV;
+
+            end if;
+
+         end if;
+
+         if tst_prm = c_ZERO(tst_prm'range) then
+            o_tst_pat_end_pat <= tst_coef_sel(c_TST_INDMAX_CHK_RDY) and i_tsten_ena;
 
          end if;
 
          o_tst_pat_end        <= loop_nb_minus1(loop_nb_minus1'high) and not(i_tsten_inf);
          o_tst_pat_end_re     <= not(o_tst_pat_end) and loop_nb_minus1(loop_nb_minus1'high) and not(i_tsten_inf);
 
-         if tst_region_pos = std_logic_vector(to_unsigned(c_TST_RG_POS_MAX_VAL, tst_region_pos'length)) and tst_index_max = c_ZERO(tst_index_max'range) then
-            o_tst_pat_empty   <= tst_coef_sel(c_TST_INDMAX_CHK_POS);
+         if (i_tsten_ena and tst_index_max(tst_index_max'high)) = c_HGH_LEV and
+             tst_region_pos = std_logic_vector(to_unsigned(c_TST_RG_POS_MAX_VAL, tst_region_pos'length)) then
+            o_tst_pat_empty   <= tst_coef_sel(c_TST_INDMAX_RDY+1);
 
          else
             o_tst_pat_empty   <= c_LOW_LEV;

@@ -232,8 +232,33 @@ constant c_PIX_POS_SW_ADC_OFF : integer   := c_MUX_FACT - 1                     
 
 constant c_MUX_FACT_S         : integer   := log2_ceil(c_MUX_FACT)                                          ; --! DEMUX: multiplexing factor bus size
 
-constant c_TST_PAT_COEF_NB    : integer   := 3                                                              ; --! Test pattern: coefficient by region number
 constant c_TST_PAT_RGN_NB     : integer   := 5                                                              ; --! Test pattern: region number
+constant c_TST_PAT_COEF_NB    : integer   := 4                                                              ; --! Test pattern: coefficient by region number
+constant c_TST_PAT_COEF_NB_S  : integer   := log2_ceil(c_TST_PAT_COEF_NB)                                   ; --! Test pattern: coefficient position size bus
+
+constant c_TST_ITCPT_COEF_POS : integer   := 0                                                              ; --! Test pattern: Intercept coefficient position
+constant c_TST_INDMAX_FRM_POS : integer   := 1                                                              ; --! Test pattern: Index Maximum frame by step position
+constant c_TST_SLOPE_COEF_POS : integer   := 2                                                              ; --! Test pattern: Slope coefficient position
+constant c_TST_INDMAX_POS     : integer   := 3                                                              ; --! Test pattern: Index Maximum step by region position
+
+constant c_TST_COEF_RD_SEQ_S  : integer   := 8                                                              ; --! Test pattern: Coefficient reading sequence size
+constant c_TST_COEF_RD_SEQ    : t_slv_arr(0 to c_TST_COEF_RD_SEQ_S-1)(c_TST_PAT_COEF_NB_S-1 downto 0) :=
+                                (std_logic_vector(to_unsigned(c_TST_INDMAX_POS,     c_TST_PAT_COEF_NB_S)),
+                                 std_logic_vector(to_unsigned(c_TST_INDMAX_POS,     c_TST_PAT_COEF_NB_S)),
+                                 std_logic_vector(to_unsigned(c_TST_INDMAX_POS,     c_TST_PAT_COEF_NB_S)),
+                                 std_logic_vector(to_unsigned(c_TST_INDMAX_POS,     c_TST_PAT_COEF_NB_S)),
+                                 std_logic_vector(to_unsigned(c_TST_INDMAX_FRM_POS, c_TST_PAT_COEF_NB_S)),
+                                 std_logic_vector(to_unsigned(c_TST_SLOPE_COEF_POS, c_TST_PAT_COEF_NB_S)),
+                                 std_logic_vector(to_unsigned(c_TST_ITCPT_COEF_POS, c_TST_PAT_COEF_NB_S)),
+                                 std_logic_vector(to_unsigned(c_TST_INDMAX_POS,     c_TST_PAT_COEF_NB_S)))  ; --! Test pattern: Coefficient reading sequence
+
+constant c_TST_INDMAX_CHK_RDY : integer   := 2                                                              ; --! Test pattern: Index Maximum Check ready
+constant c_TST_INDMAX_RDY     : integer   := c_MEM_RD_DATA_NPER + 3                                         ; --! Test pattern: Index Maximum step by region ready
+constant c_TST_INDMAX_FRM_RDY : integer   := c_MEM_RD_DATA_NPER + 4                                         ; --! Test pattern: Index Maximum frame by step ready
+constant c_TST_SLOPE_COEF_RDY : integer   := c_MEM_RD_DATA_NPER + 5                                         ; --! Test pattern: Slope coefficient ready
+constant c_TST_ITCPT_COEF_RDY : integer   := c_MEM_RD_DATA_NPER + 6                                         ; --! Test pattern: Intercept coefficient ready
+constant c_TST_RES_RDY        : integer   := c_TST_ITCPT_COEF_RDY + c_DSP_NPER + 1                          ; --! Test pattern: Result ready
+constant c_TST_IND_FRM_RDY    : integer   := c_TST_INDMAX_FRM_RDY + 1                                       ; --! Test pattern: Index frame by step ready
 
 constant c_ERR_NIN_MX_STNB    : integer   := 2                                                              ; --! Error parameter to read not initialized yet: Multiplexer stage number
 constant c_ERR_NIN_MX_STIN    : integer_vector(0 to c_ERR_NIN_MX_STNB+1) := ( 0, 16, 20, 21)                ; --! Error parameter to read not initialized yet: Inputs by multiplexer stage (accumulated)

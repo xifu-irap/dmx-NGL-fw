@@ -184,200 +184,310 @@
 # ** Note   : (74418000 ps)  * Read 821A_0000, expected value 821A_0000 (TEST_PATTERN, mode Read, data 0000)
 # ** Note   : (76650000 ps) Waiting SPI command end for 2232000 ps
 #             (76650000 ps) 
-#             (76650000 ps) ==============================================================================================
-#             (76650000 ps)   TEST_PATTERN: check ping-pong memory toggle after writing the last word of the table
-#             (76650000 ps)     and check the memory content
-#             (76650000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (76650000 ps) Send SPI command value 8201_8207 (TEST_PATTERN, mode Write, data 8207)
+# ** Note   : (76650000 ps) Send SPI command value 821F_81AF (TEST_PATTERN, mode Write, data 81AF)
 # ** Note   : (76722000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (76740000 ps) Check command return: PASS
 # ** Note   : (76740000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
 # ** Note   : (78972000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (78972000 ps) Send SPI command value 8200_XXXX (TEST_PATTERN, mode Read, data XXXX)
+# ** Note   : (78972000 ps) Send SPI command value 821E_XXXX (TEST_PATTERN, mode Read, data XXXX)
 # ** Note   : (79044000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (79062000 ps) Check command return: PASS
-# ** Note   : (79062000 ps)  * Read 821C_709E, expected value 821C_709E (TEST_PATTERN, mode Read, data 709E)
+# ** Note   : (79062000 ps)  * Read 821C_0000, expected value 821C_0000 (TEST_PATTERN, mode Read, data 0000)
 # ** Note   : (81294000 ps) Waiting SPI command end for 2232000 ps
 #             (81294000 ps) 
-# ** Note   : (81294000 ps) Send SPI command value 8203_040F (TEST_PATTERN, mode Write, data 040F)
+# ** Note   : (81294000 ps) Send SPI command value 8221_92B0 (TEST_PATTERN, mode Write, data 92B0)
 # ** Note   : (81366000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (81384000 ps) Check command return: PASS
 # ** Note   : (81384000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
 # ** Note   : (83616000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (83616000 ps) Send SPI command value 8202_XXXX (TEST_PATTERN, mode Read, data XXXX)
+# ** Note   : (83616000 ps) Send SPI command value 8220_XXXX (TEST_PATTERN, mode Read, data XXXX)
 # ** Note   : (83688000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (83706000 ps) Check command return: PASS
-# ** Note   : (83706000 ps)  * Read 8200_0782, expected value 8200_0782 (TEST_PATTERN, mode Read, data 0782)
+# ** Note   : (83706000 ps)  * Read 821E_0000, expected value 821E_0000 (TEST_PATTERN, mode Read, data 0000)
 # ** Note   : (85938000 ps) Waiting SPI command end for 2232000 ps
 #             (85938000 ps) 
-# ** Note   : (85938000 ps) Send SPI command value 8205_8616 (TEST_PATTERN, mode Write, data 8616)
+# ** Note   : (85938000 ps) Send SPI command value 8223_A3C1 (TEST_PATTERN, mode Write, data A3C1)
 # ** Note   : (86010000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (86028000 ps) Check command return: PASS
 # ** Note   : (86028000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
 # ** Note   : (88260000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (88260000 ps) Send SPI command value 8204_XXXX (TEST_PATTERN, mode Read, data XXXX)
+# ** Note   : (88260000 ps) Send SPI command value 8222_XXXX (TEST_PATTERN, mode Read, data XXXX)
 # ** Note   : (88332000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (88350000 ps) Check command return: PASS
-# ** Note   : (88350000 ps)  * Read 8202_0F04, expected value 8202_0F04 (TEST_PATTERN, mode Read, data 0F04)
+# ** Note   : (88350000 ps)  * Read 8220_0000, expected value 8220_0000 (TEST_PATTERN, mode Read, data 0000)
 # ** Note   : (90582000 ps) Waiting SPI command end for 2232000 ps
 #             (90582000 ps) 
-# ** Note   : (90582000 ps) Send SPI command value 8207_081E (TEST_PATTERN, mode Write, data 081E)
+# ** Note   : (90582000 ps) Send SPI command value 8225_B4D2 (TEST_PATTERN, mode Write, data B4D2)
 # ** Note   : (90654000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (90672000 ps) Check command return: PASS
 # ** Note   : (90672000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
 # ** Note   : (92904000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (92904000 ps) Send SPI command value 8206_XXXX (TEST_PATTERN, mode Read, data XXXX)
+# ** Note   : (92904000 ps) Send SPI command value 8224_XXXX (TEST_PATTERN, mode Read, data XXXX)
 # ** Note   : (92976000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (92994000 ps) Check command return: PASS
-# ** Note   : (92994000 ps)  * Read 8204_1686, expected value 8204_1686 (TEST_PATTERN, mode Read, data 1686)
+# ** Note   : (92994000 ps)  * Read 8222_0000, expected value 8222_0000 (TEST_PATTERN, mode Read, data 0000)
 # ** Note   : (95226000 ps) Waiting SPI command end for 2232000 ps
 #             (95226000 ps) 
-# ** Note   : (95226000 ps) Send SPI command value 8209_8A25 (TEST_PATTERN, mode Write, data 8A25)
+# ** Note   : (95226000 ps) Send SPI command value 8227_C5E3 (TEST_PATTERN, mode Write, data C5E3)
 # ** Note   : (95298000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (95316000 ps) Check command return: PASS
 # ** Note   : (95316000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
 # ** Note   : (97548000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (97548000 ps) Send SPI command value 8208_XXXX (TEST_PATTERN, mode Read, data XXXX)
+# ** Note   : (97548000 ps) Send SPI command value 8226_XXXX (TEST_PATTERN, mode Read, data XXXX)
 # ** Note   : (97620000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (97638000 ps) Check command return: PASS
-# ** Note   : (97638000 ps)  * Read 8206_1E08, expected value 8206_1E08 (TEST_PATTERN, mode Read, data 1E08)
+# ** Note   : (97638000 ps)  * Read 8224_0000, expected value 8224_0000 (TEST_PATTERN, mode Read, data 0000)
 # ** Note   : (99870000 ps) Waiting SPI command end for 2232000 ps
 #             (99870000 ps) 
-# ** Note   : (99870000 ps) Send SPI command value 820B_0C2D (TEST_PATTERN, mode Write, data 0C2D)
+#             (99870000 ps) ==============================================================================================
+#             (99870000 ps)   TEST_PATTERN: check ping-pong memory toggle after writing the last word of the table
+#             (99870000 ps)     and check the memory content
+#             (99870000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (99870000 ps) Send SPI command value 8201_8207 (TEST_PATTERN, mode Write, data 8207)
 # ** Note   : (99942000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (99960000 ps) Check command return: PASS
 # ** Note   : (99960000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
 # ** Note   : (102192000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (102192000 ps) Send SPI command value 820A_XXXX (TEST_PATTERN, mode Read, data XXXX)
+# ** Note   : (102192000 ps) Send SPI command value 8200_XXXX (TEST_PATTERN, mode Read, data XXXX)
 # ** Note   : (102264000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (102282000 ps) Check command return: PASS
-# ** Note   : (102282000 ps)  * Read 8208_258A, expected value 8208_258A (TEST_PATTERN, mode Read, data 258A)
+# ** Note   : (102282000 ps)  * Read 8226_C5E3, expected value 8226_C5E3 (TEST_PATTERN, mode Read, data C5E3)
 # ** Note   : (104514000 ps) Waiting SPI command end for 2232000 ps
 #             (104514000 ps) 
-# ** Note   : (104514000 ps) Send SPI command value 820D_8E34 (TEST_PATTERN, mode Write, data 8E34)
+# ** Note   : (104514000 ps) Send SPI command value 8203_040F (TEST_PATTERN, mode Write, data 040F)
 # ** Note   : (104586000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (104604000 ps) Check command return: PASS
 # ** Note   : (104604000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
 # ** Note   : (106836000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (106836000 ps) Send SPI command value 820C_XXXX (TEST_PATTERN, mode Read, data XXXX)
+# ** Note   : (106836000 ps) Send SPI command value 8202_XXXX (TEST_PATTERN, mode Read, data XXXX)
 # ** Note   : (106908000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (106926000 ps) Check command return: PASS
-# ** Note   : (106926000 ps)  * Read 820A_2D0C, expected value 820A_2D0C (TEST_PATTERN, mode Read, data 2D0C)
+# ** Note   : (106926000 ps)  * Read 8200_0782, expected value 8200_0782 (TEST_PATTERN, mode Read, data 0782)
 # ** Note   : (109158000 ps) Waiting SPI command end for 2232000 ps
 #             (109158000 ps) 
-# ** Note   : (109158000 ps) Send SPI command value 820F_103C (TEST_PATTERN, mode Write, data 103C)
+# ** Note   : (109158000 ps) Send SPI command value 8205_8616 (TEST_PATTERN, mode Write, data 8616)
 # ** Note   : (109230000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (109248000 ps) Check command return: PASS
 # ** Note   : (109248000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
 # ** Note   : (111480000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (111480000 ps) Send SPI command value 820E_XXXX (TEST_PATTERN, mode Read, data XXXX)
+# ** Note   : (111480000 ps) Send SPI command value 8204_XXXX (TEST_PATTERN, mode Read, data XXXX)
 # ** Note   : (111552000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (111570000 ps) Check command return: PASS
-# ** Note   : (111570000 ps)  * Read 820C_348E, expected value 820C_348E (TEST_PATTERN, mode Read, data 348E)
+# ** Note   : (111570000 ps)  * Read 8202_0F04, expected value 8202_0F04 (TEST_PATTERN, mode Read, data 0F04)
 # ** Note   : (113802000 ps) Waiting SPI command end for 2232000 ps
 #             (113802000 ps) 
-# ** Note   : (113802000 ps) Send SPI command value 8211_9243 (TEST_PATTERN, mode Write, data 9243)
+# ** Note   : (113802000 ps) Send SPI command value 8207_081E (TEST_PATTERN, mode Write, data 081E)
 # ** Note   : (113874000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (113892000 ps) Check command return: PASS
 # ** Note   : (113892000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
 # ** Note   : (116124000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (116124000 ps) Send SPI command value 8210_XXXX (TEST_PATTERN, mode Read, data XXXX)
+# ** Note   : (116124000 ps) Send SPI command value 8206_XXXX (TEST_PATTERN, mode Read, data XXXX)
 # ** Note   : (116196000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (116214000 ps) Check command return: PASS
-# ** Note   : (116214000 ps)  * Read 820E_3C10, expected value 820E_3C10 (TEST_PATTERN, mode Read, data 3C10)
+# ** Note   : (116214000 ps)  * Read 8204_1686, expected value 8204_1686 (TEST_PATTERN, mode Read, data 1686)
 # ** Note   : (118446000 ps) Waiting SPI command end for 2232000 ps
 #             (118446000 ps) 
-# ** Note   : (118446000 ps) Send SPI command value 8213_144B (TEST_PATTERN, mode Write, data 144B)
+# ** Note   : (118446000 ps) Send SPI command value 8209_8A25 (TEST_PATTERN, mode Write, data 8A25)
 # ** Note   : (118518000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (118536000 ps) Check command return: PASS
 # ** Note   : (118536000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
 # ** Note   : (120768000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (120768000 ps) Send SPI command value 8212_XXXX (TEST_PATTERN, mode Read, data XXXX)
+# ** Note   : (120768000 ps) Send SPI command value 8208_XXXX (TEST_PATTERN, mode Read, data XXXX)
 # ** Note   : (120840000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (120858000 ps) Check command return: PASS
-# ** Note   : (120858000 ps)  * Read 8210_4392, expected value 8210_4392 (TEST_PATTERN, mode Read, data 4392)
+# ** Note   : (120858000 ps)  * Read 8206_1E08, expected value 8206_1E08 (TEST_PATTERN, mode Read, data 1E08)
 # ** Note   : (123090000 ps) Waiting SPI command end for 2232000 ps
 #             (123090000 ps) 
-# ** Note   : (123090000 ps) Send SPI command value 8215_9652 (TEST_PATTERN, mode Write, data 9652)
+# ** Note   : (123090000 ps) Send SPI command value 820B_0C2D (TEST_PATTERN, mode Write, data 0C2D)
 # ** Note   : (123162000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (123180000 ps) Check command return: PASS
 # ** Note   : (123180000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
 # ** Note   : (125412000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (125412000 ps) Send SPI command value 8214_XXXX (TEST_PATTERN, mode Read, data XXXX)
+# ** Note   : (125412000 ps) Send SPI command value 820A_XXXX (TEST_PATTERN, mode Read, data XXXX)
 # ** Note   : (125484000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (125502000 ps) Check command return: PASS
-# ** Note   : (125502000 ps)  * Read 8212_4B14, expected value 8212_4B14 (TEST_PATTERN, mode Read, data 4B14)
+# ** Note   : (125502000 ps)  * Read 8208_258A, expected value 8208_258A (TEST_PATTERN, mode Read, data 258A)
 # ** Note   : (127734000 ps) Waiting SPI command end for 2232000 ps
 #             (127734000 ps) 
-# ** Note   : (127734000 ps) Send SPI command value 8217_185A (TEST_PATTERN, mode Write, data 185A)
+# ** Note   : (127734000 ps) Send SPI command value 820D_8E34 (TEST_PATTERN, mode Write, data 8E34)
 # ** Note   : (127806000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (127824000 ps) Check command return: PASS
 # ** Note   : (127824000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
 # ** Note   : (130056000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (130056000 ps) Send SPI command value 8216_XXXX (TEST_PATTERN, mode Read, data XXXX)
+# ** Note   : (130056000 ps) Send SPI command value 820C_XXXX (TEST_PATTERN, mode Read, data XXXX)
 # ** Note   : (130128000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (130146000 ps) Check command return: PASS
-# ** Note   : (130146000 ps)  * Read 8214_5296, expected value 8214_5296 (TEST_PATTERN, mode Read, data 5296)
+# ** Note   : (130146000 ps)  * Read 820A_2D0C, expected value 820A_2D0C (TEST_PATTERN, mode Read, data 2D0C)
 # ** Note   : (132378000 ps) Waiting SPI command end for 2232000 ps
 #             (132378000 ps) 
-# ** Note   : (132378000 ps) Send SPI command value 8219_9A61 (TEST_PATTERN, mode Write, data 9A61)
+# ** Note   : (132378000 ps) Send SPI command value 820F_103C (TEST_PATTERN, mode Write, data 103C)
 # ** Note   : (132450000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (132468000 ps) Check command return: PASS
 # ** Note   : (132468000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
 # ** Note   : (134700000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (134700000 ps) Send SPI command value 8218_XXXX (TEST_PATTERN, mode Read, data XXXX)
+# ** Note   : (134700000 ps) Send SPI command value 820E_XXXX (TEST_PATTERN, mode Read, data XXXX)
 # ** Note   : (134772000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (134790000 ps) Check command return: PASS
-# ** Note   : (134790000 ps)  * Read 8216_5A18, expected value 8216_5A18 (TEST_PATTERN, mode Read, data 5A18)
+# ** Note   : (134790000 ps)  * Read 820C_348E, expected value 820C_348E (TEST_PATTERN, mode Read, data 348E)
 # ** Note   : (137022000 ps) Waiting SPI command end for 2232000 ps
 #             (137022000 ps) 
-# ** Note   : (137022000 ps) Send SPI command value 821B_1C69 (TEST_PATTERN, mode Write, data 1C69)
+# ** Note   : (137022000 ps) Send SPI command value 8211_9243 (TEST_PATTERN, mode Write, data 9243)
 # ** Note   : (137094000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (137112000 ps) Check command return: PASS
 # ** Note   : (137112000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
 # ** Note   : (139344000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (139344000 ps) Send SPI command value 821A_XXXX (TEST_PATTERN, mode Read, data XXXX)
+# ** Note   : (139344000 ps) Send SPI command value 8210_XXXX (TEST_PATTERN, mode Read, data XXXX)
 # ** Note   : (139416000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (139434000 ps) Check command return: PASS
-# ** Note   : (139434000 ps)  * Read 8218_619A, expected value 8218_619A (TEST_PATTERN, mode Read, data 619A)
+# ** Note   : (139434000 ps)  * Read 820E_3C10, expected value 820E_3C10 (TEST_PATTERN, mode Read, data 3C10)
 # ** Note   : (141666000 ps) Waiting SPI command end for 2232000 ps
 #             (141666000 ps) 
-# ** Note   : (141666000 ps) Send SPI command value 821D_9E70 (TEST_PATTERN, mode Write, data 9E70)
+# ** Note   : (141666000 ps) Send SPI command value 8213_144B (TEST_PATTERN, mode Write, data 144B)
 # ** Note   : (141738000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (141756000 ps) Check command return: PASS
 # ** Note   : (141756000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
 # ** Note   : (143988000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (143988000 ps) Send SPI command value 821C_XXXX (TEST_PATTERN, mode Read, data XXXX)
+# ** Note   : (143988000 ps) Send SPI command value 8212_XXXX (TEST_PATTERN, mode Read, data XXXX)
 # ** Note   : (144060000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (144078000 ps) Check command return: PASS
-# ** Note   : (144078000 ps)  * Read 821A_691C, expected value 821A_691C (TEST_PATTERN, mode Read, data 691C)
+# ** Note   : (144078000 ps)  * Read 8210_4392, expected value 8210_4392 (TEST_PATTERN, mode Read, data 4392)
 # ** Note   : (146310000 ps) Waiting SPI command end for 2232000 ps
 #             (146310000 ps) 
-#             (146310000 ps) ==============================================================================================
-#             (146310000 ps)   TEST_PATTERN: check ping-pong memory toggle after writing the last word of the table
-#             (146310000 ps)     and check the first memory content
-#             (146310000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (146310000 ps) Send SPI command value 8201_1111 (TEST_PATTERN, mode Write, data 1111)
+# ** Note   : (146310000 ps) Send SPI command value 8215_9652 (TEST_PATTERN, mode Write, data 9652)
 # ** Note   : (146382000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (146400000 ps) Check command return: PASS
 # ** Note   : (146400000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
 # ** Note   : (148632000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (148632000 ps) Send SPI command value 8200_XXXX (TEST_PATTERN, mode Read, data XXXX)
+# ** Note   : (148632000 ps) Send SPI command value 8214_XXXX (TEST_PATTERN, mode Read, data XXXX)
 # ** Note   : (148704000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (148722000 ps) Check command return: PASS
-# ** Note   : (148722000 ps)  * Read 821C_9E70, expected value 821C_9E70 (TEST_PATTERN, mode Read, data 9E70)
+# ** Note   : (148722000 ps)  * Read 8212_4B14, expected value 8212_4B14 (TEST_PATTERN, mode Read, data 4B14)
 # ** Note   : (150954000 ps) Waiting SPI command end for 2232000 ps
 #             (150954000 ps) 
-# ** Note   : (150954000 ps) Send SPI command value 8203_040F (TEST_PATTERN, mode Write, data 040F)
+# ** Note   : (150954000 ps) Send SPI command value 8217_185A (TEST_PATTERN, mode Write, data 185A)
 # ** Note   : (151026000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (151044000 ps) Check command return: PASS
 # ** Note   : (151044000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
 # ** Note   : (153276000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (153276000 ps) Send SPI command value 8202_XXXX (TEST_PATTERN, mode Read, data XXXX)
+# ** Note   : (153276000 ps) Send SPI command value 8216_XXXX (TEST_PATTERN, mode Read, data XXXX)
 # ** Note   : (153348000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (153366000 ps) Check command return: PASS
-# ** Note   : (153366000 ps)  * Read 8200_8207, expected value 8200_8207 (TEST_PATTERN, mode Read, data 8207)
+# ** Note   : (153366000 ps)  * Read 8214_5296, expected value 8214_5296 (TEST_PATTERN, mode Read, data 5296)
 # ** Note   : (155598000 ps) Waiting SPI command end for 2232000 ps
+#             (155598000 ps) 
+# ** Note   : (155598000 ps) Send SPI command value 8219_9A61 (TEST_PATTERN, mode Write, data 9A61)
+# ** Note   : (155670000 ps) Waiting SPI command return end for 36000 ps
+# ** Note   : (155688000 ps) Check command return: PASS
+# ** Note   : (155688000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
+# ** Note   : (157920000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (157920000 ps) Send SPI command value 8218_XXXX (TEST_PATTERN, mode Read, data XXXX)
+# ** Note   : (157992000 ps) Waiting SPI command return end for 36000 ps
+# ** Note   : (158010000 ps) Check command return: PASS
+# ** Note   : (158010000 ps)  * Read 8216_5A18, expected value 8216_5A18 (TEST_PATTERN, mode Read, data 5A18)
+# ** Note   : (160242000 ps) Waiting SPI command end for 2232000 ps
+#             (160242000 ps) 
+# ** Note   : (160242000 ps) Send SPI command value 821B_1C69 (TEST_PATTERN, mode Write, data 1C69)
+# ** Note   : (160314000 ps) Waiting SPI command return end for 36000 ps
+# ** Note   : (160332000 ps) Check command return: PASS
+# ** Note   : (160332000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
+# ** Note   : (162564000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (162564000 ps) Send SPI command value 821A_XXXX (TEST_PATTERN, mode Read, data XXXX)
+# ** Note   : (162636000 ps) Waiting SPI command return end for 36000 ps
+# ** Note   : (162654000 ps) Check command return: PASS
+# ** Note   : (162654000 ps)  * Read 8218_619A, expected value 8218_619A (TEST_PATTERN, mode Read, data 619A)
+# ** Note   : (164886000 ps) Waiting SPI command end for 2232000 ps
+#             (164886000 ps) 
+# ** Note   : (164886000 ps) Send SPI command value 821D_9E70 (TEST_PATTERN, mode Write, data 9E70)
+# ** Note   : (164958000 ps) Waiting SPI command return end for 36000 ps
+# ** Note   : (164976000 ps) Check command return: PASS
+# ** Note   : (164976000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
+# ** Note   : (167208000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (167208000 ps) Send SPI command value 821C_XXXX (TEST_PATTERN, mode Read, data XXXX)
+# ** Note   : (167280000 ps) Waiting SPI command return end for 36000 ps
+# ** Note   : (167298000 ps) Check command return: PASS
+# ** Note   : (167298000 ps)  * Read 821A_691C, expected value 821A_691C (TEST_PATTERN, mode Read, data 691C)
+# ** Note   : (169530000 ps) Waiting SPI command end for 2232000 ps
+#             (169530000 ps) 
+# ** Note   : (169530000 ps) Send SPI command value 821F_AF81 (TEST_PATTERN, mode Write, data AF81)
+# ** Note   : (169602000 ps) Waiting SPI command return end for 36000 ps
+# ** Note   : (169620000 ps) Check command return: PASS
+# ** Note   : (169620000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
+# ** Note   : (171852000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (171852000 ps) Send SPI command value 821E_XXXX (TEST_PATTERN, mode Read, data XXXX)
+# ** Note   : (171924000 ps) Waiting SPI command return end for 36000 ps
+# ** Note   : (171942000 ps) Check command return: PASS
+# ** Note   : (171942000 ps)  * Read 821C_709E, expected value 821C_709E (TEST_PATTERN, mode Read, data 709E)
+# ** Note   : (174174000 ps) Waiting SPI command end for 2232000 ps
+#             (174174000 ps) 
+# ** Note   : (174174000 ps) Send SPI command value 8221_B092 (TEST_PATTERN, mode Write, data B092)
+# ** Note   : (174246000 ps) Waiting SPI command return end for 36000 ps
+# ** Note   : (174264000 ps) Check command return: PASS
+# ** Note   : (174264000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
+# ** Note   : (176496000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (176496000 ps) Send SPI command value 8220_XXXX (TEST_PATTERN, mode Read, data XXXX)
+# ** Note   : (176568000 ps) Waiting SPI command return end for 36000 ps
+# ** Note   : (176586000 ps) Check command return: PASS
+# ** Note   : (176586000 ps)  * Read 821E_81AF, expected value 821E_81AF (TEST_PATTERN, mode Read, data 81AF)
+# ** Note   : (178818000 ps) Waiting SPI command end for 2232000 ps
+#             (178818000 ps) 
+# ** Note   : (178818000 ps) Send SPI command value 8223_C1A3 (TEST_PATTERN, mode Write, data C1A3)
+# ** Note   : (178890000 ps) Waiting SPI command return end for 36000 ps
+# ** Note   : (178908000 ps) Check command return: PASS
+# ** Note   : (178908000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
+# ** Note   : (181140000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (181140000 ps) Send SPI command value 8222_XXXX (TEST_PATTERN, mode Read, data XXXX)
+# ** Note   : (181212000 ps) Waiting SPI command return end for 36000 ps
+# ** Note   : (181230000 ps) Check command return: PASS
+# ** Note   : (181230000 ps)  * Read 8220_92B0, expected value 8220_92B0 (TEST_PATTERN, mode Read, data 92B0)
+# ** Note   : (183462000 ps) Waiting SPI command end for 2232000 ps
+#             (183462000 ps) 
+# ** Note   : (183462000 ps) Send SPI command value 8225_D2B4 (TEST_PATTERN, mode Write, data D2B4)
+# ** Note   : (183534000 ps) Waiting SPI command return end for 36000 ps
+# ** Note   : (183552000 ps) Check command return: PASS
+# ** Note   : (183552000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
+# ** Note   : (185784000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (185784000 ps) Send SPI command value 8224_XXXX (TEST_PATTERN, mode Read, data XXXX)
+# ** Note   : (185856000 ps) Waiting SPI command return end for 36000 ps
+# ** Note   : (185874000 ps) Check command return: PASS
+# ** Note   : (185874000 ps)  * Read 8222_A3C1, expected value 8222_A3C1 (TEST_PATTERN, mode Read, data A3C1)
+# ** Note   : (188106000 ps) Waiting SPI command end for 2232000 ps
+#             (188106000 ps) 
+# ** Note   : (188106000 ps) Send SPI command value 8227_E3C5 (TEST_PATTERN, mode Write, data E3C5)
+# ** Note   : (188178000 ps) Waiting SPI command return end for 36000 ps
+# ** Note   : (188196000 ps) Check command return: PASS
+# ** Note   : (188196000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
+# ** Note   : (190428000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (190428000 ps) Send SPI command value 8226_XXXX (TEST_PATTERN, mode Read, data XXXX)
+# ** Note   : (190500000 ps) Waiting SPI command return end for 36000 ps
+# ** Note   : (190518000 ps) Check command return: PASS
+# ** Note   : (190518000 ps)  * Read 8224_B4D2, expected value 8224_B4D2 (TEST_PATTERN, mode Read, data B4D2)
+# ** Note   : (192750000 ps) Waiting SPI command end for 2232000 ps
+#             (192750000 ps) 
+#             (192750000 ps) ==============================================================================================
+#             (192750000 ps)   TEST_PATTERN: check ping-pong memory toggle after writing the last word of the table
+#             (192750000 ps)     and check the first memory content
+#             (192750000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (192750000 ps) Send SPI command value 8201_1111 (TEST_PATTERN, mode Write, data 1111)
+# ** Note   : (192822000 ps) Waiting SPI command return end for 36000 ps
+# ** Note   : (192840000 ps) Check command return: PASS
+# ** Note   : (192840000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
+# ** Note   : (195072000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (195072000 ps) Send SPI command value 8200_XXXX (TEST_PATTERN, mode Read, data XXXX)
+# ** Note   : (195144000 ps) Waiting SPI command return end for 36000 ps
+# ** Note   : (195162000 ps) Check command return: PASS
+# ** Note   : (195162000 ps)  * Read 8226_E3C5, expected value 8226_E3C5 (TEST_PATTERN, mode Read, data E3C5)
+# ** Note   : (197394000 ps) Waiting SPI command end for 2232000 ps
+#             (197394000 ps) 
+# ** Note   : (197394000 ps) Send SPI command value 8203_040F (TEST_PATTERN, mode Write, data 040F)
+# ** Note   : (197466000 ps) Waiting SPI command return end for 36000 ps
+# ** Note   : (197484000 ps) Check command return: PASS
+# ** Note   : (197484000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
+# ** Note   : (199716000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (199716000 ps) Send SPI command value 8202_XXXX (TEST_PATTERN, mode Read, data XXXX)
+# ** Note   : (199788000 ps) Waiting SPI command return end for 36000 ps
+# ** Note   : (199806000 ps) Check command return: PASS
+# ** Note   : (199806000 ps)  * Read 8200_8207, expected value 8200_8207 (TEST_PATTERN, mode Read, data 8207)
+# ** Note   : (202038000 ps) Waiting SPI command end for 2232000 ps
 # ------------------------------------------------------------------------------------------------------------------------------------------------------
 # Error simulation time         : '0'
 # Error check discrete level    : '0'
@@ -388,6 +498,6 @@
 # Error check science packets   : '0'
 # Error check pulse shaping     : '0'
 # ------------------------------------------------------------------------------------------------------------------------------------------------------
-# Simulation time               : 160000000 ps
+# Simulation time               : 205000000 ps
 # Simulation status             : PASS
 # ------------------------------------------------------------------------------------------------------------------------------------------------------

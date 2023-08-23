@@ -144,6 +144,7 @@ signal   sqa_pls_cnt_init     : t_slv_arr(0 to c_NB_COL-1)(   c_SQA_PLS_CNT_S-1 
 signal   test_pattern_sqm     : std_logic_vector(c_SQM_DATA_FBK_S-1 downto 0)                               ; --! Test pattern: MUX SQUID
 signal   test_pattern_sqa     : std_logic_vector(c_SQA_DAC_DATA_S-1 downto 0)                               ; --! Test pattern: AMP SQUID
 signal   test_pattern_sc      : std_logic_vector(c_SC_DATA_SER_W_S*c_SC_DATA_SER_NB-1 downto 0)             ; --! Test pattern: Science Telemetry
+signal   tst_pat_new_step     : std_logic                                                                   ; --! Test pattern new step ('0' = Inactive, '1' = Active)
 signal   tst_pat_end_pat      : std_logic                                                                   ; --! Test pattern end of one pattern  ('0' = Inactive, '1' = Active)
 signal   tst_pat_end          : std_logic                                                                   ; --! Test pattern end of all patterns ('0' = Inactive, '1' = Active)
 signal   tst_pat_end_re       : std_logic                                                                   ; --! Test pattern end of all patterns rising edge ('0' = Inactive, '1' = Active)
@@ -270,7 +271,9 @@ begin
 
          i_ras_data_valid_rs  => ras_data_valid_rs    , -- in     std_logic                                 ; --! RAS Data valid, synchronized on System Clock ('0' = No, '1' = Yes)
          i_aqmde              => aqmde                , -- in     slv(c_DFLD_AQMDE_S-1 downto 0)            ; --! Telemetry mode
+         i_tsten_ena          => tsten_ena            , -- in     std_logic                                 ; --! Test pattern enable, field Enable ('0' = Inactive, '1' = Active)
          i_tst_pat_end        => tst_pat_end          , -- in     std_logic                                 ; --! Test pattern end of all patterns ('0' = Inactive, '1' = Active)
+         i_tst_pat_new_step   => tst_pat_new_step     , -- in     std_logic                                 ; --! Test pattern new step ('0' = Inactive, '1' = Active)
 
          i_test_pattern       => test_pattern_sc      , -- in     slv c_SC_DATA_SER_W_S*c_SC_DATA_SER_NB    ; --! Test pattern
          i_sqm_data_sc_msb    => sqm_data_sc_msb      , -- in     t_slv_arr c_NB_COL c_SC_DATA_SER_W_S      ; --! SQUID MUX Data science MSB
@@ -417,6 +420,7 @@ begin
          o_test_pattern_sqm   => test_pattern_sqm     , -- out    slv(c_SQM_DATA_FBK_S-1 downto 0)          ; --! Test pattern: MUX SQUID
          o_test_pattern_sqa   => test_pattern_sqa     , -- out    slv(c_SQA_DAC_DATA_S-1 downto 0)          ; --! Test pattern: AMP SQUID
          o_test_pattern_sc    => test_pattern_sc      , -- out    slv c_SC_DATA_SER_W_S*c_SC_DATA_SER_NB    ; --! Test pattern: Science Telemetry
+         o_tst_pat_new_step   => tst_pat_new_step     , -- out    std_logic                                 ; --! Test pattern new step ('0' = Inactive, '1' = Active)
          o_tst_pat_end_pat    => tst_pat_end_pat      , -- out    std_logic                                 ; --! Test pattern end of one pattern  ('0' = Inactive, '1' = Active)
          o_tst_pat_end        => tst_pat_end          , -- out    std_logic                                 ; --! Test pattern end of all patterns ('0' = Inactive, '1' = Active)
          o_tst_pat_end_re     => tst_pat_end_re       , -- out    std_logic                                 ; --! Test pattern end of all patterns rising edge ('0' = Inactive, '1' = Active)
@@ -578,7 +582,6 @@ begin
          i_clk_90             => clk_90               , -- in     std_logic                                 ; --! System Clock 90 degrees shift
 
          i_sync_re            => sync_re              , -- in     std_logic                                 ; --! Pixel sequence synchronization, rising edge
-         i_tst_pat_end        => tst_pat_end          , -- in     std_logic                                 ; --! Test pattern end of all patterns ('0' = Inactive, '1' = Active)
 
          i_saofm              => saofm(k)             , -- in     slv(c_DFLD_SAOFM_COL_S-1 downto 0)        ; --! SQUID AMP offset mode
          i_saofc              => rg_col(k).saofc      , -- in     slv(  c_SQA_DAC_DATA_S-1 downto 0)        ; --! SQUID AMP lockpoint coarse offset

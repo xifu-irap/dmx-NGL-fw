@@ -41,7 +41,6 @@ entity sqa_fbk_mgt is port (
          i_clk_90             : in     std_logic                                                            ; --! System Clock 90 degrees shift
 
          i_sync_re            : in     std_logic                                                            ; --! Pixel sequence synchronization, rising edge
-         i_tst_pat_end        : in     std_logic                                                            ; --! Test pattern end of all patterns ('0' = Inactive, '1' = Active)
 
          i_saofm              : in     std_logic_vector(c_DFLD_SAOFM_COL_S-1 downto 0)                      ; --! SQUID AMP offset mode
          i_saofc              : in     std_logic_vector(c_DFLD_SAOFC_COL_S-1 downto 0)                      ; --! SQUID AMP lockpoint coarse offset
@@ -484,7 +483,7 @@ begin
          o_sqa_fbk_mux <= (others => c_LOW_LEV);
 
       elsif rising_edge(i_clk) then
-         if saofm_sync = c_DST_SAOFM_OFFSET then
+         if saofm_sync = c_DST_SAOFM_OFFSET or saofm_sync = c_DST_SAOFM_TEST then
             o_sqa_fbk_mux <= saoff;
 
          else
@@ -511,13 +510,13 @@ begin
       elsif rising_edge(i_clk) then
          if pls_rw_cnt(pls_rw_cnt'high) = c_HGH_LEV then
 
-            if i_saofm = c_DST_SAOFM_OFFSET or (i_saofm = c_DST_SAOFM_TEST and i_tst_pat_end = c_HGH_LEV) then
+            if i_saofm = c_DST_SAOFM_OFFSET then
                o_sqa_fbk_off <= i_saofc;
 
             elsif i_saofm = c_DST_SAOFM_CLOSE then
                o_sqa_fbk_off <= sqa_fb_close;
 
-            elsif i_saofm = c_DST_SAOFM_TEST and i_tst_pat_end = c_LOW_LEV then
+            elsif i_saofm = c_DST_SAOFM_TEST then
                o_sqa_fbk_off <= std_logic_vector(signed(i_test_pattern) + to_signed(c_SQA_DAC_MDL_POINT, o_sqa_fbk_off'length));
 
             elsif i_saofm = c_DST_SAOFM_OFF then

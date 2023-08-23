@@ -40,7 +40,9 @@ entity science_data_mgt is port (
 
          i_ras_data_valid_rs  : in     std_logic                                                            ; --! RAS Data valid, synchronized on System Clock ('0' = No, '1' = Yes)
          i_aqmde              : in     std_logic_vector(c_DFLD_AQMDE_S-1 downto 0)                          ; --! Telemetry mode
+         i_tsten_ena          : in     std_logic                                                            ; --! Test pattern enable, field Enable ('0' = Inactive, '1' = Active)
          i_tst_pat_end        : in     std_logic                                                            ; --! Test pattern end of all patterns ('0' = Inactive, '1' = Active)
+         i_tst_pat_new_step   : in     std_logic                                                            ; --! Test pattern new step ('0' = Inactive, '1' = Active)
 
          i_test_pattern       : in     std_logic_vector(c_SC_DATA_SER_W_S*c_SC_DATA_SER_NB-1 downto 0)      ; --! Test pattern
          i_sqm_data_sc_msb    : in     t_slv_arr(0 to c_NB_COL-1)(c_SC_DATA_SER_W_S-1 downto 0)             ; --! SQUID MUX Data science MSB
@@ -363,10 +365,12 @@ begin
    --!   Control packet value
    -- ------------------------------------------------------------------------------------------------------
    ctrl_first_pkt <= c_SC_CTRL_RAS_VLD when (aqmde_sync = c_DST_AQMDE_SCIE and ras_data_valid_ltc = c_HGH_LEV) else
-                     c_SC_CTRL_SC_DTA  when aqmde_sync = c_DST_AQMDE_SCIE else
-                     c_SC_CTRL_ERRS    when aqmde_sync = c_DST_AQMDE_ERRS else
-                     c_SC_CTRL_ADC_DMP when aqmde_sync = c_DST_AQMDE_DUMP else
-                     c_SC_CTRL_TST_PAT when aqmde_sync = c_DST_AQMDE_TEST else
+                     c_SC_CTRL_RAS_VLD when (aqmde_sync = c_DST_AQMDE_SCIE and (i_tsten_ena and i_tst_pat_new_step) = c_HGH_LEV) else
+                     c_SC_CTRL_SC_DTA  when  aqmde_sync = c_DST_AQMDE_SCIE else
+                     c_SC_CTRL_RAS_VLD when (aqmde_sync = c_DST_AQMDE_ERRS and (i_tsten_ena and i_tst_pat_new_step) = c_HGH_LEV) else
+                     c_SC_CTRL_ERRS    when  aqmde_sync = c_DST_AQMDE_ERRS else
+                     c_SC_CTRL_ADC_DMP when  aqmde_sync = c_DST_AQMDE_DUMP else
+                     c_SC_CTRL_TST_PAT when  aqmde_sync = c_DST_AQMDE_TEST else
                      c_SC_CTRL_IDLE;
 
    --! Control packet management

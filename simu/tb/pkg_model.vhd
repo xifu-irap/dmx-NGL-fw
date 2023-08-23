@@ -341,7 +341,7 @@ constant c_SW_ADC_VIN_ST_SQM  : std_logic_vector(c_SW_ADC_VIN_S-1 downto 0) := "
 constant c_SW_ADC_VIN_ST_SQA  : std_logic_vector(c_SW_ADC_VIN_S-1 downto 0) := "01"                         ; --! Switch ADC voltage input: SQUID AMP voltage state
 constant c_SW_ADC_VIN_ST_FPA  : std_logic_vector(c_SW_ADC_VIN_S-1 downto 0) := "10"                         ; --! Switch ADC voltage input: FPASIM error voltage state
 
-constant c_MEM_SC_FRM_NB      : integer := 32                                                               ; --! Memory science data frame number
+constant c_MEM_SC_FRM_NB      : integer := 64                                                               ; --! Memory science data frame number
 constant c_MEM_SC_FRM_NB_S    : integer := log2_ceil(c_MEM_SC_FRM_NB+1)                                     ; --! Memory science data frame number bus size
 constant c_MEM_SC_ADD_S       : integer := c_MEM_SC_FRM_NB_S + c_MUX_FACT_S                                 ; --! Memory science address bus size
 

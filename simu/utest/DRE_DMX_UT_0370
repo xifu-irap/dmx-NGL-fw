@@ -708,18 +708,18 @@ COMM ===========================================================================
 COMM   TEST_PATTERN: writing a new table in ping-pong memories
 COMM    (all step number coefficients are null)
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-TEST_PATTERN(1)-8000 W
+WCMD W-TEST_PATTERN(0)-8000 W
 WCMD W-TEST_PATTERN(4)-7FFF W
-WCMD W-TEST_PATTERN(7)-2800 W
-WCMD W-TEST_PATTERN(10)-9C00 W
-WCMD W-TEST_PATTERN(13)-0C00 W
-WCMD W-TEST_PATTERN(14)-0000 W
-WCMD W-TEST_PATTERN(1)-8000 W
+WCMD W-TEST_PATTERN(8)-2800 W
+WCMD W-TEST_PATTERN(12)-9C00 W
+WCMD W-TEST_PATTERN(16)-0C00 W
+WCMD W-TEST_PATTERN(19)-0000 W
+WCMD W-TEST_PATTERN(0)-8000 W
 WCMD W-TEST_PATTERN(4)-7FFF W
-WCMD W-TEST_PATTERN(7)-2800 W
-WCMD W-TEST_PATTERN(10)-9C00 W
-WCMD W-TEST_PATTERN(13)-0C00 W
-WCMD W-TEST_PATTERN(14)-0000 W
+WCMD W-TEST_PATTERN(8)-2800 W
+WCMD W-TEST_PATTERN(12)-9C00 W
+WCMD W-TEST_PATTERN(16)-0C00 W
+WCMD W-TEST_PATTERN(19)-0000 W
 COMM
 COMM ==============================================================================================
 COMM   Send command DATA_ACQ_MODE to test pattern and enable test pattern generation (15 time)
@@ -760,8 +760,8 @@ COMM
 COMM ==============================================================================================
 COMM   TEST_PATTERN: write the step number coefficient of the first region
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-TEST_PATTERN(2)-0001 W
-WCMD W-TEST_PATTERN(14)-0000 W
+WCMD W-TEST_PATTERN(3)-0001 W
+WCMD W-TEST_PATTERN(19)-0000 W
 COMM
 COMM ==============================================================================================
 COMM   Send command DATA_ACQ_MODE to test pattern and enable test pattern generation (1 time)
@@ -827,9 +827,9 @@ COMM
 COMM ==============================================================================================
 COMM   TEST_PATTERN: write the step number coefficient of the 2 first region
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-TEST_PATTERN(2)-0001 W
-WCMD W-TEST_PATTERN(5)-0001 W
-WCMD W-TEST_PATTERN(14)-0000 W
+WCMD W-TEST_PATTERN(3)-0001 W
+WCMD W-TEST_PATTERN(7)-0001 W
+WCMD W-TEST_PATTERN(19)-0000 W
 COMM
 COMM ==============================================================================================
 COMM   Reset science frame counter
@@ -1064,9 +1064,9 @@ COMM
 COMM ==============================================================================================
 COMM   TEST_PATTERN: write the step number coefficient of the 3 first region
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-TEST_PATTERN(5)-0001 W
-WCMD W-TEST_PATTERN(8)-0001 W
-WCMD W-TEST_PATTERN(14)-0000 W
+WCMD W-TEST_PATTERN(7)-0001 W
+WCMD W-TEST_PATTERN(11)-0001 W
+WCMD W-TEST_PATTERN(19)-0000 W
 COMM
 COMM ==============================================================================================
 COMM   Reset science frame counter
@@ -1104,9 +1104,9 @@ COMM
 COMM ==============================================================================================
 COMM   TEST_PATTERN: write the step number coefficient of the 4 first region
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-TEST_PATTERN(8)-0001 W
 WCMD W-TEST_PATTERN(11)-0001 W
-WCMD W-TEST_PATTERN(14)-0000 W
+WCMD W-TEST_PATTERN(15)-0001 W
+WCMD W-TEST_PATTERN(19)-0000 W
 COMM
 COMM ==============================================================================================
 COMM   Reset science frame counter
@@ -1146,8 +1146,8 @@ COMM
 COMM ==============================================================================================
 COMM   TEST_PATTERN: write the step number coefficient of the 5 first region
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-TEST_PATTERN(11)-0001 W
-WCMD W-TEST_PATTERN(14)-0001 W
+WCMD W-TEST_PATTERN(15)-0001 W
+WCMD W-TEST_PATTERN(19)-0001 W
 COMM
 COMM ==============================================================================================
 COMM   Reset science frame counter
@@ -4457,21 +4457,21 @@ COMM
 COMM ==============================================================================================
 COMM   TEST_PATTERN: writing a new table
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-TEST_PATTERN(0)-0000 W
-WCMD W-TEST_PATTERN(1)-8000 W
-WCMD W-TEST_PATTERN(2)-0003 W
-WCMD W-TEST_PATTERN(3)-2000 W
+WCMD W-TEST_PATTERN(0)-8000 W
+WCMD W-TEST_PATTERN(2)-0000 W
+WCMD W-TEST_PATTERN(3)-0003 W
 WCMD W-TEST_PATTERN(4)-8000 W
-WCMD W-TEST_PATTERN(5)-0007 W
-WCMD W-TEST_PATTERN(6)-0000 W
-WCMD W-TEST_PATTERN(7)-6000 W
-WCMD W-TEST_PATTERN(8)-0004 W
-WCMD W-TEST_PATTERN(9)-E400 W
-WCMD W-TEST_PATTERN(10)-6000 W
-WCMD W-TEST_PATTERN(11)-0008 W
-WCMD W-TEST_PATTERN(12)-0000 W
-WCMD W-TEST_PATTERN(13)-8000 W
-WCMD W-TEST_PATTERN(14)-0002 W
+WCMD W-TEST_PATTERN(6)-2000 W
+WCMD W-TEST_PATTERN(7)-0007 W
+WCMD W-TEST_PATTERN(8)-6000 W
+WCMD W-TEST_PATTERN(10)-0000 W
+WCMD W-TEST_PATTERN(11)-0004 W
+WCMD W-TEST_PATTERN(12)-6000 W
+WCMD W-TEST_PATTERN(14)-E400 W
+WCMD W-TEST_PATTERN(15)-0008 W
+WCMD W-TEST_PATTERN(16)-8000 W
+WCMD W-TEST_PATTERN(18)-0000 W
+WCMD W-TEST_PATTERN(19)-0002 W
 COMM
 COMM ==============================================================================================
 COMM   Reset science frame counter

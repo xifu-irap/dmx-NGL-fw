@@ -22,168 +22,218 @@ COMM ===========================================================================
 COMM   TEST_PATTERN: writing a new table in ping-pong memory
 COMM    and check reading of the memory part currently applicable is kept to its initial value
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-TEST_PATTERN(0)-0782 W        #  Command C0-0
-WCMD R-TEST_PATTERN(0)-XXXX W        #  Command C0-1
+WCMD W-TEST_PATTERN(0)-0782 W        #  Command 0
+WCMD R-TEST_PATTERN(0)-XXXX W        #  Command 1
 COMM
-WCMD W-TEST_PATTERN(1)-0F04 R        #  Command C0-2
-CCMD R-Status-FFFF W                 #  Return Command C0-0
-WCMD R-TEST_PATTERN(1)-XXXX R        #  Command C0-3
-CCMD R-TEST_PATTERN(0)-0000 W        #  Return Command C0-1
+WCMD W-TEST_PATTERN(1)-0F04 R        #  Command 2
+CCMD R-Status-FFFF W                 #  Return Command 0
+WCMD R-TEST_PATTERN(1)-XXXX R        #  Command 3
+CCMD R-TEST_PATTERN(0)-0000 W        #  Return Command 1
 COMM
-WCMD W-TEST_PATTERN(2)-1686 R        #  Command C0-4
-CCMD R-Status-FFFF W                 #  Return Command C0-2
-WCMD R-TEST_PATTERN(2)-XXXX R        #  Command C0-5
-CCMD R-TEST_PATTERN(1)-0000 W        #  Return Command C0-3
+WCMD W-TEST_PATTERN(2)-1686 R        #  Command 4
+CCMD R-Status-FFFF W                 #  Return Command 2
+WCMD R-TEST_PATTERN(2)-XXXX R        #  Command 5
+CCMD R-TEST_PATTERN(1)-0000 W        #  Return Command 3
 COMM
-WCMD W-TEST_PATTERN(3)-1E08 R        #  Command C0-6
-CCMD R-Status-FFFF W                 #  Return Command C0-4
-WCMD R-TEST_PATTERN(3)-XXXX R        #  Command C0-7
-CCMD R-TEST_PATTERN(2)-0000 W        #  Return Command C0-5
+WCMD W-TEST_PATTERN(3)-1E08 R        #  Command 6
+CCMD R-Status-FFFF W                 #  Return Command 4
+WCMD R-TEST_PATTERN(3)-XXXX R        #  Command 7
+CCMD R-TEST_PATTERN(2)-0000 W        #  Return Command 5
 COMM
-WCMD W-TEST_PATTERN(4)-258A R        #  Command C0-8
-CCMD R-Status-FFFF W                 #  Return Command C0-6
-WCMD R-TEST_PATTERN(4)-XXXX R        #  Command C0-9
-CCMD R-TEST_PATTERN(3)-0000 W        #  Return Command C0-7
+WCMD W-TEST_PATTERN(4)-258A R        #  Command 8
+CCMD R-Status-FFFF W                 #  Return Command 6
+WCMD R-TEST_PATTERN(4)-XXXX R        #  Command 9
+CCMD R-TEST_PATTERN(3)-0000 W        #  Return Command 7
 COMM
-WCMD W-TEST_PATTERN(5)-2D0C R        #  Command C0-10
-CCMD R-Status-FFFF W                 #  Return Command C0-8
-WCMD R-TEST_PATTERN(5)-XXXX R        #  Command C0-11
-CCMD R-TEST_PATTERN(4)-0000 W        #  Return Command C0-9
+WCMD W-TEST_PATTERN(5)-2D0C R        #  Command 10
+CCMD R-Status-FFFF W                 #  Return Command 8
+WCMD R-TEST_PATTERN(5)-XXXX R        #  Command 11
+CCMD R-TEST_PATTERN(4)-0000 W        #  Return Command 9
 COMM
-WCMD W-TEST_PATTERN(6)-348E R        #  Command C0-12
-CCMD R-Status-FFFF W                 #  Return Command C0-10
-WCMD R-TEST_PATTERN(6)-XXXX R        #  Command C0-13
-CCMD R-TEST_PATTERN(5)-0000 W        #  Return Command C0-11
+WCMD W-TEST_PATTERN(6)-348E R        #  Command 12
+CCMD R-Status-FFFF W                 #  Return Command 10
+WCMD R-TEST_PATTERN(6)-XXXX R        #  Command 13
+CCMD R-TEST_PATTERN(5)-0000 W        #  Return Command 11
 COMM
-WCMD W-TEST_PATTERN(7)-3C10 R        #  Command C0-14
-CCMD R-Status-FFFF W                 #  Return Command C0-12
-WCMD R-TEST_PATTERN(7)-XXXX R        #  Command C0-15
-CCMD R-TEST_PATTERN(6)-0000 W        #  Return Command C0-13
+WCMD W-TEST_PATTERN(7)-3C10 R        #  Command 14
+CCMD R-Status-FFFF W                 #  Return Command 12
+WCMD R-TEST_PATTERN(7)-XXXX R        #  Command 15
+CCMD R-TEST_PATTERN(6)-0000 W        #  Return Command 13
 COMM
-WCMD W-TEST_PATTERN(8)-4392 R        #  Command C0-16
-CCMD R-Status-FFFF W                 #  Return Command C0-14
-WCMD R-TEST_PATTERN(8)-XXXX R        #  Command C0-17
-CCMD R-TEST_PATTERN(7)-0000 W        #  Return Command C0-15
+WCMD W-TEST_PATTERN(8)-4392 R        #  Command 16
+CCMD R-Status-FFFF W                 #  Return Command 14
+WCMD R-TEST_PATTERN(8)-XXXX R        #  Command 17
+CCMD R-TEST_PATTERN(7)-0000 W        #  Return Command 15
 COMM
-WCMD W-TEST_PATTERN(9)-4B14 R        #  Command C0-18
-CCMD R-Status-FFFF W                 #  Return Command C0-16
-WCMD R-TEST_PATTERN(9)-XXXX R        #  Command C0-19
-CCMD R-TEST_PATTERN(8)-0000 W        #  Return Command C0-17
+WCMD W-TEST_PATTERN(9)-4B14 R        #  Command 18
+CCMD R-Status-FFFF W                 #  Return Command 16
+WCMD R-TEST_PATTERN(9)-XXXX R        #  Command 19
+CCMD R-TEST_PATTERN(8)-0000 W        #  Return Command 17
 COMM
-WCMD W-TEST_PATTERN(10)-5296 R       #  Command C0-20
-CCMD R-Status-FFFF W                 #  Return Command C0-18
-WCMD R-TEST_PATTERN(10)-XXXX R       #  Command C0-21
-CCMD R-TEST_PATTERN(9)-0000 W        #  Return Command C0-19
+WCMD W-TEST_PATTERN(10)-5296 R       #  Command 20
+CCMD R-Status-FFFF W                 #  Return Command 18
+WCMD R-TEST_PATTERN(10)-XXXX R       #  Command 21
+CCMD R-TEST_PATTERN(9)-0000 W        #  Return Command 19
 COMM
-WCMD W-TEST_PATTERN(11)-5A18 R       #  Command C0-22
-CCMD R-Status-FFFF W                 #  Return Command C0-20
-WCMD R-TEST_PATTERN(11)-XXXX R       #  Command C0-23
-CCMD R-TEST_PATTERN(10)-0000 W       #  Return Command C0-21
+WCMD W-TEST_PATTERN(11)-5A18 R       #  Command 22
+CCMD R-Status-FFFF W                 #  Return Command 20
+WCMD R-TEST_PATTERN(11)-XXXX R       #  Command 23
+CCMD R-TEST_PATTERN(10)-0000 W       #  Return Command 21
 COMM
-WCMD W-TEST_PATTERN(12)-619A R       #  Command C0-24
-CCMD R-Status-FFFF W                 #  Return Command C0-22
-WCMD R-TEST_PATTERN(12)-XXXX R       #  Command C0-25
-CCMD R-TEST_PATTERN(11)-0000 W       #  Return Command C0-23
+WCMD W-TEST_PATTERN(12)-619A R       #  Command 24
+CCMD R-Status-FFFF W                 #  Return Command 22
+WCMD R-TEST_PATTERN(12)-XXXX R       #  Command 25
+CCMD R-TEST_PATTERN(11)-0000 W       #  Return Command 23
 COMM
-WCMD W-TEST_PATTERN(13)-691C R       #  Command C0-26
-CCMD R-Status-FFFF W                 #  Return Command C0-24
-WCMD R-TEST_PATTERN(13)-XXXX R       #  Command C0-27
-CCMD R-TEST_PATTERN(12)-0000 W       #  Return Command C0-25
+WCMD W-TEST_PATTERN(13)-691C R       #  Command 26
+CCMD R-Status-FFFF W                 #  Return Command 24
+WCMD R-TEST_PATTERN(13)-XXXX R       #  Command 27
+CCMD R-TEST_PATTERN(12)-0000 W       #  Return Command 25
 COMM
-WCMD W-TEST_PATTERN(14)-709E R       #  Command C0-28
-CCMD R-Status-FFFF W                 #  Return Command C0-26
-WCMD R-TEST_PATTERN(14)-XXXX R       #  Command C0-29
-CCMD R-TEST_PATTERN(13)-0000 W       #  Return Command C0-27
+WCMD W-TEST_PATTERN(14)-709E R       #  Command 28
+CCMD R-Status-FFFF W                 #  Return Command 26
+WCMD R-TEST_PATTERN(14)-XXXX R       #  Command 29
+CCMD R-TEST_PATTERN(13)-0000 W       #  Return Command 27
+COMM
+WCMD W-TEST_PATTERN(15)-81AF R       #  Command 30
+CCMD R-Status-FFFF W                 #  Return Command 28
+WCMD R-TEST_PATTERN(15)-XXXX R       #  Command 31
+CCMD R-TEST_PATTERN(14)-0000 W       #  Return Command 29
+COMM
+WCMD W-TEST_PATTERN(16)-92B0 R       #  Command 32
+CCMD R-Status-FFFF W                 #  Return Command 30
+WCMD R-TEST_PATTERN(16)-XXXX R       #  Command 33
+CCMD R-TEST_PATTERN(15)-0000 W       #  Return Command 31
+COMM
+WCMD W-TEST_PATTERN(17)-A3C1 R       #  Command 34
+CCMD R-Status-FFFF W                 #  Return Command 32
+WCMD R-TEST_PATTERN(17)-XXXX R       #  Command 35
+CCMD R-TEST_PATTERN(16)-0000 W       #  Return Command 33
+COMM
+WCMD W-TEST_PATTERN(18)-B4D2 R       #  Command 36
+CCMD R-Status-FFFF W                 #  Return Command 34
+WCMD R-TEST_PATTERN(18)-XXXX R       #  Command 37
+CCMD R-TEST_PATTERN(17)-0000 W       #  Return Command 35
+COMM
+WCMD W-TEST_PATTERN(19)-C5E3 R       #  Command 38
+CCMD R-Status-FFFF W                 #  Return Command 36
+WCMD R-TEST_PATTERN(19)-XXXX R       #  Command 39
+CCMD R-TEST_PATTERN(18)-0000 W       #  Return Command 37
 COMM
 COMM ==============================================================================================
 COMM   TEST_PATTERN: check ping-pong memory toggle after writing the last word of the table
 COMM     and check the memory content
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-TEST_PATTERN(0)-8207 R        #  Command C0-68
-CCMD R-Status-FFFF W                 #  Return Command C0-66
-WCMD R-TEST_PATTERN(0)-XXXX R        #  Command C0-69
-CCMD R-TEST_PATTERN(14)-709E W       #  Return Command C0-67
+WCMD W-TEST_PATTERN(0)-8207 R        #  Command 38
+CCMD R-Status-FFFF W                 #  Return Command 36
+WCMD R-TEST_PATTERN(0)-XXXX R        #  Command 39
+CCMD R-TEST_PATTERN(19)-C5E3 W       #  Return Command 37
 COMM
-WCMD W-TEST_PATTERN(1)-040F R        #  Command C0-70
-CCMD R-Status-FFFF W                 #  Return Command C0-68
-WCMD R-TEST_PATTERN(1)-XXXX R        #  Command C0-71
-CCMD R-TEST_PATTERN(0)-0782 W        #  Return Command C0-69
+WCMD W-TEST_PATTERN(1)-040F R        #  Command 40
+CCMD R-Status-FFFF W                 #  Return Command 38
+WCMD R-TEST_PATTERN(1)-XXXX R        #  Command 41
+CCMD R-TEST_PATTERN(0)-0782 W        #  Return Command 39
 COMM
-WCMD W-TEST_PATTERN(2)-8616 R        #  Command C0-72
-CCMD R-Status-FFFF W                 #  Return Command C0-70
-WCMD R-TEST_PATTERN(2)-XXXX R        #  Command C0-73
-CCMD R-TEST_PATTERN(1)-0F04 W        #  Return Command C0-71
+WCMD W-TEST_PATTERN(2)-8616 R        #  Command 42
+CCMD R-Status-FFFF W                 #  Return Command 40
+WCMD R-TEST_PATTERN(2)-XXXX R        #  Command 43
+CCMD R-TEST_PATTERN(1)-0F04 W        #  Return Command 41
 COMM
-WCMD W-TEST_PATTERN(3)-081E R        #  Command C0-74
-CCMD R-Status-FFFF W                 #  Return Command C0-72
-WCMD R-TEST_PATTERN(3)-XXXX R        #  Command C0-75
-CCMD R-TEST_PATTERN(2)-1686 W        #  Return Command C0-73
+WCMD W-TEST_PATTERN(3)-081E R        #  Command 44
+CCMD R-Status-FFFF W                 #  Return Command 42
+WCMD R-TEST_PATTERN(3)-XXXX R        #  Command 45
+CCMD R-TEST_PATTERN(2)-1686 W        #  Return Command 43
 COMM
-WCMD W-TEST_PATTERN(4)-8A25 R        #  Command C0-76
-CCMD R-Status-FFFF W                 #  Return Command C0-74
-WCMD R-TEST_PATTERN(4)-XXXX R        #  Command C0-77
-CCMD R-TEST_PATTERN(3)-1E08 W        #  Return Command C0-75
+WCMD W-TEST_PATTERN(4)-8A25 R        #  Command 46
+CCMD R-Status-FFFF W                 #  Return Command 44
+WCMD R-TEST_PATTERN(4)-XXXX R        #  Command 47
+CCMD R-TEST_PATTERN(3)-1E08 W        #  Return Command 45
 COMM
-WCMD W-TEST_PATTERN(5)-0C2D R        #  Command C0-78
-CCMD R-Status-FFFF W                 #  Return Command C0-76
-WCMD R-TEST_PATTERN(5)-XXXX R        #  Command C0-79
-CCMD R-TEST_PATTERN(4)-258A W        #  Return Command C0-77
+WCMD W-TEST_PATTERN(5)-0C2D R        #  Command 48
+CCMD R-Status-FFFF W                 #  Return Command 46
+WCMD R-TEST_PATTERN(5)-XXXX R        #  Command 49
+CCMD R-TEST_PATTERN(4)-258A W        #  Return Command 47
 COMM
-WCMD W-TEST_PATTERN(6)-8E34 R        #  Command C0-80
-CCMD R-Status-FFFF W                 #  Return Command C0-78
-WCMD R-TEST_PATTERN(6)-XXXX R        #  Command C0-81
-CCMD R-TEST_PATTERN(5)-2D0C W        #  Return Command C0-79
+WCMD W-TEST_PATTERN(6)-8E34 R        #  Command 50
+CCMD R-Status-FFFF W                 #  Return Command 48
+WCMD R-TEST_PATTERN(6)-XXXX R        #  Command 51
+CCMD R-TEST_PATTERN(5)-2D0C W        #  Return Command 49
 COMM
-WCMD W-TEST_PATTERN(7)-103C R        #  Command C0-82
-CCMD R-Status-FFFF W                 #  Return Command C0-80
-WCMD R-TEST_PATTERN(7)-XXXX R        #  Command C0-83
-CCMD R-TEST_PATTERN(6)-348E W        #  Return Command C0-81
+WCMD W-TEST_PATTERN(7)-103C R        #  Command 52
+CCMD R-Status-FFFF W                 #  Return Command 50
+WCMD R-TEST_PATTERN(7)-XXXX R        #  Command 53
+CCMD R-TEST_PATTERN(6)-348E W        #  Return Command 51
 COMM
-WCMD W-TEST_PATTERN(8)-9243 R        #  Command C0-84
-CCMD R-Status-FFFF W                 #  Return Command C0-82
-WCMD R-TEST_PATTERN(8)-XXXX R        #  Command C0-85
-CCMD R-TEST_PATTERN(7)-3C10 W        #  Return Command C0-83
+WCMD W-TEST_PATTERN(8)-9243 R        #  Command 54
+CCMD R-Status-FFFF W                 #  Return Command 52
+WCMD R-TEST_PATTERN(8)-XXXX R        #  Command 55
+CCMD R-TEST_PATTERN(7)-3C10 W        #  Return Command 53
 COMM
-WCMD W-TEST_PATTERN(9)-144B R        #  Command C0-86
-CCMD R-Status-FFFF W                 #  Return Command C0-84
-WCMD R-TEST_PATTERN(9)-XXXX R        #  Command C0-87
-CCMD R-TEST_PATTERN(8)-4392 W        #  Return Command C0-85
+WCMD W-TEST_PATTERN(9)-144B R        #  Command 56
+CCMD R-Status-FFFF W                 #  Return Command 54
+WCMD R-TEST_PATTERN(9)-XXXX R        #  Command 57
+CCMD R-TEST_PATTERN(8)-4392 W        #  Return Command 55
 COMM
-WCMD W-TEST_PATTERN(10)-9652 R       #  Command C0-88
-CCMD R-Status-FFFF W                 #  Return Command C0-86
-WCMD R-TEST_PATTERN(10)-XXXX R       #  Command C0-89
-CCMD R-TEST_PATTERN(9)-4B14 W        #  Return Command C0-87
+WCMD W-TEST_PATTERN(10)-9652 R       #  Command 58
+CCMD R-Status-FFFF W                 #  Return Command 56
+WCMD R-TEST_PATTERN(10)-XXXX R       #  Command 59
+CCMD R-TEST_PATTERN(9)-4B14 W        #  Return Command 57
 COMM
-WCMD W-TEST_PATTERN(11)-185A R       #  Command C0-90
-CCMD R-Status-FFFF W                 #  Return Command C0-88
-WCMD R-TEST_PATTERN(11)-XXXX R       #  Command C0-91
-CCMD R-TEST_PATTERN(10)-5296 W       #  Return Command C0-89
+WCMD W-TEST_PATTERN(11)-185A R       #  Command 60
+CCMD R-Status-FFFF W                 #  Return Command 58
+WCMD R-TEST_PATTERN(11)-XXXX R       #  Command 61
+CCMD R-TEST_PATTERN(10)-5296 W       #  Return Command 59
 COMM
-WCMD W-TEST_PATTERN(12)-9A61 R       #  Command C0-92
-CCMD R-Status-FFFF W                 #  Return Command C0-90
-WCMD R-TEST_PATTERN(12)-XXXX R       #  Command C0-93
-CCMD R-TEST_PATTERN(11)-5A18 W       #  Return Command C0-91
+WCMD W-TEST_PATTERN(12)-9A61 R       #  Command 62
+CCMD R-Status-FFFF W                 #  Return Command 60
+WCMD R-TEST_PATTERN(12)-XXXX R       #  Command 63
+CCMD R-TEST_PATTERN(11)-5A18 W       #  Return Command 61
 COMM
-WCMD W-TEST_PATTERN(13)-1C69 R       #  Command C0-94
-CCMD R-Status-FFFF W                 #  Return Command C0-92
-WCMD R-TEST_PATTERN(13)-XXXX R       #  Command C0-95
-CCMD R-TEST_PATTERN(12)-619A W       #  Return Command C0-93
+WCMD W-TEST_PATTERN(13)-1C69 R       #  Command 64
+CCMD R-Status-FFFF W                 #  Return Command 62
+WCMD R-TEST_PATTERN(13)-XXXX R       #  Command 65
+CCMD R-TEST_PATTERN(12)-619A W       #  Return Command 63
 COMM
-WCMD W-TEST_PATTERN(14)-9E70 R       #  Command C0-96
-CCMD R-Status-FFFF W                 #  Return Command C0-94
-WCMD R-TEST_PATTERN(14)-XXXX R       #  Command C0-97
-CCMD R-TEST_PATTERN(13)-691C W       #  Return Command C0-95
+WCMD W-TEST_PATTERN(14)-9E70 R       #  Command 66
+CCMD R-Status-FFFF W                 #  Return Command 64
+WCMD R-TEST_PATTERN(14)-XXXX R       #  Command 67
+CCMD R-TEST_PATTERN(13)-691C W       #  Return Command 65
+COMM
+WCMD W-TEST_PATTERN(15)-AF81 R       #  Command 68
+CCMD R-Status-FFFF W                 #  Return Command 66
+WCMD R-TEST_PATTERN(15)-XXXX R       #  Command 69
+CCMD R-TEST_PATTERN(14)-709E W       #  Return Command 67
+COMM
+WCMD W-TEST_PATTERN(16)-B092 R       #  Command 70
+CCMD R-Status-FFFF W                 #  Return Command 68
+WCMD R-TEST_PATTERN(16)-XXXX R       #  Command 71
+CCMD R-TEST_PATTERN(15)-81AF W       #  Return Command 69
+COMM
+WCMD W-TEST_PATTERN(17)-C1A3 R       #  Command 72
+CCMD R-Status-FFFF W                 #  Return Command 70
+WCMD R-TEST_PATTERN(17)-XXXX R       #  Command 73
+CCMD R-TEST_PATTERN(16)-92B0 W       #  Return Command 71
+COMM
+WCMD W-TEST_PATTERN(18)-D2B4 R       #  Command 74
+CCMD R-Status-FFFF W                 #  Return Command 72
+WCMD R-TEST_PATTERN(18)-XXXX R       #  Command 75
+CCMD R-TEST_PATTERN(17)-A3C1 W       #  Return Command 73
+COMM
+WCMD W-TEST_PATTERN(19)-E3C5 R       #  Command 76
+CCMD R-Status-FFFF W                 #  Return Command 74
+WCMD R-TEST_PATTERN(19)-XXXX R       #  Command 77
+CCMD R-TEST_PATTERN(18)-B4D2 W       #  Return Command 75
 COMM
 COMM ==============================================================================================
 COMM   TEST_PATTERN: check ping-pong memory toggle after writing the last word of the table
 COMM     and check the first memory content
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-TEST_PATTERN(0)-1111 R        #  Command C0-136
-CCMD R-Status-FFFF W                 #  Return Command C0-134
-WCMD R-TEST_PATTERN(0)-XXXX R        #  Command C0-137
-CCMD R-TEST_PATTERN(14)-9E70 W       #  Return Command C0-135
+WCMD W-TEST_PATTERN(0)-1111 R        #  Command 78
+CCMD R-Status-FFFF W                 #  Return Command 76
+WCMD R-TEST_PATTERN(0)-XXXX R        #  Command 79
+CCMD R-TEST_PATTERN(19)-E3C5 W       #  Return Command 77
 COMM
-WCMD W-TEST_PATTERN(1)-040F R        #  Command C0-138
-CCMD R-Status-FFFF W                 #  Return Command C0-136
-WCMD R-TEST_PATTERN(1)-XXXX R        #  Command C0-139
-CCMD R-TEST_PATTERN(0)-8207 W        #  Return Command C0-137
+WCMD W-TEST_PATTERN(1)-040F R        #  Command 80
+CCMD R-Status-FFFF W                 #  Return Command 78
+WCMD R-TEST_PATTERN(1)-XXXX R        #  Command 81
+CCMD R-TEST_PATTERN(0)-8207 W        #  Return Command 79

@@ -179,14 +179,14 @@ proc run_utest {args} {
       vcover merge ${COVER_DIR}/${COVER_DIR}.ucdb ${COVER_DIR}/*.ucdb
       vcover report -output ${RES_DIR}/${COVER_DIR}.xml -srcfile=* -details -all -dump -option -code {s b c} -xml ${COVER_DIR}/${COVER_DIR}.ucdb
 
-      # Modify path root inside coverage report 
+      # Modify path root inside coverage report
       set CoverReport [open ${RES_DIR}/${COVER_DIR}.xml RDONLY]
       set CoverReportContent [read $CoverReport]
       close $CoverReport
 
       set CoverReport [open ${RES_DIR}/${COVER_DIR}.xml {WRONLY CREAT TRUNC}]
       puts $CoverReport [string map { "../project/dmx-fw" . } $CoverReportContent]
-      close $CoverReport 
+      close $CoverReport
 
    } else {
 
