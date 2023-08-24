@@ -102,10 +102,6 @@ vcom -work fpasim  -93 \
 "${PR_DIR}/ip/xilinx/xpm/ram/sdpram.vhd" \
 "${PR_DIR}/ip/xilinx/xpm/ram/tdpram.vhd" \
 "${PR_DIR}/src/hdl/utils/ram/ram_check.vhd" \
-"${PR_DIR}/src/hdl/fpasim/amp_squid/core/amp_squid_fpagain_table.vhd" \
-
-vcom -work fpasim  -2008 \
-"${PR_DIR}/src/hdl/utils/math/mult_sfixed.vhd" \
 
 vcom -work fpasim  -93 \
 "${PR_DIR}/src/hdl/utils/error/one_error_latch.vhd" \
@@ -190,9 +186,6 @@ vcom -work fpasim  -93 \
 "${PR_DIR}/src/hdl/utils/math/mult_sub_sfixed.vhd" \
 "${PR_DIR}/src/hdl/fpasim/tes/core/tes_pulse_shape_manager.vhd" \
 "${PR_DIR}/src/hdl/fpasim/tes/tes_top.vhd" \
-
-vcom -work fpasim  -2008 \
-"${PR_DIR}/src/hdl/utils/math/add_sfixed.vhd" \
 
 vcom -work fpasim  -93 \
 "${PR_DIR}/src/hdl/fpasim/mux_squid/core/mux_squid.vhd" \
