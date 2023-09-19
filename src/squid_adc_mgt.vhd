@@ -72,6 +72,7 @@ constant c_PLS_CNT_S          : integer:= log2_ceil(c_PLS_CNT_MAX_VAL + 1) + 1  
 constant c_PIXEL_POS_MAX_VAL  : integer:= c_MUX_FACT - 2                                                    ; --! Pixel position: maximal value
 constant c_PIXEL_POS_INIT     : integer:= -1                                                                ; --! Pixel position: initialization value
 constant c_PIXEL_POS_S        : integer:= log2_ceil(c_PIXEL_POS_MAX_VAL+1) + 1                              ; --! Pixel position: size bus (signed)
+constant c_PIXEL_POS_MSB_R_S  : integer:= 4                                                                 ; --! Pixel position MSB register: size bus (signed)
 
 constant c_SAMPLE_CNT_S       : integer:= c_DFLD_BXLGT_COL_S + 2                                            ; --! Sample counter: size bus (signed)
 
@@ -103,6 +104,7 @@ signal   bxlgt_sync           : std_logic_vector(c_DFLD_BXLGT_COL_S-1 downto 0) 
 signal   pls_cnt              : std_logic_vector(  c_PLS_CNT_S-1 downto 0)                                  ; --! Pulse counter
 signal   pls_cnt_init         : std_logic_vector(  c_PLS_CNT_S-1 downto 0)                                  ; --! Pulse shaping counter initialization
 signal   pixel_pos            : std_logic_vector(c_PIXEL_POS_S-1 downto 0)                                  ; --! Pixel position
+signal   pixel_pos_msb_r      : std_logic_vector(c_PIXEL_POS_MSB_R_S-1 downto 0)                            ; --! Pixel position MSB register
 signal   pixel_pos_init       : std_logic_vector(c_PIXEL_POS_S-1 downto 0)                                  ; --! Pixel position initialization
 
 signal   sample_cnt           : std_logic_vector(  c_SAMPLE_CNT_S-1 downto 0)                               ; --! Sample counter
@@ -162,10 +164,12 @@ begin
       if rst_sqm_adc_dac_pad = c_RST_LEV_ACT then
          sqm_adc_data_r    <= (others => c_ZERO(sqm_adc_data_r(sqm_adc_data_r'high)'range));
          sqm_adc_oor_r     <= (others => c_LOW_LEV);
+         pixel_pos_msb_r   <= (others => c_HGH_LEV);
 
       elsif rising_edge(i_clk_sqm_adc_dac) then
          sqm_adc_data_r    <= i_sqm_adc_data & sqm_adc_data_r(0 to sqm_adc_data_r'high-1);
          sqm_adc_oor_r     <= sqm_adc_oor_r(sqm_adc_oor_r'high-1 downto 0) & i_sqm_adc_oor;
+         pixel_pos_msb_r   <= pixel_pos_msb_r(pixel_pos_msb_r'high-1 downto 0) & pixel_pos(pixel_pos'high);
 
       end if;
 
@@ -383,7 +387,13 @@ begin
 
             end if;
 
-            sqm_data_err_last <= pixel_pos(pixel_pos'high);
+         end if;
+
+         if pixel_pos(pixel_pos'high) = c_HGH_LEV then
+            sqm_data_err_last <= c_HGH_LEV;
+
+         elsif (pixel_pos_msb_r(pixel_pos_msb_r'high) and not(pixel_pos_msb_r(pixel_pos_msb_r'high-1))) = c_HGH_LEV then
+            sqm_data_err_last <= c_LOW_LEV;
 
          end if;
 

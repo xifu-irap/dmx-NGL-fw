@@ -646,6 +646,89 @@ WAIT 6 us
 COMM
 WCMD W-C1_MUX_SQ_FB0(33)-83E2 W
 COMM
+WCMD W-C0_MUX_SQ_FB_DELAY-0012 W
+WCMD W-C1_MUX_SQ_FB_DELAY-0012 W
+WCMD W-C2_MUX_SQ_FB_DELAY-0012 W
+WCMD W-C3_MUX_SQ_FB_DELAY-0012 W
+COMM
+WCMD W-C0_SAMPLING_DELAY-0013 W
+WCMD W-C1_SAMPLING_DELAY-0013 W
+WCMD W-C2_SAMPLING_DELAY-0013 W
+WCMD W-C3_SAMPLING_DELAY-0013 W
+WCMD W-BOXCAR_LENGTH-0000 W
+COMM
+WCMD W-DATA_ACQ_MODE-0002 W
+WAIT 6 us
+COMM
+COMM ==============================================================================================
+COMM   Set command 9: Feedback open loop mem. select, DAC delays,
+COMM   ADC sampling delays and sample number for ADC error signal average
+COMM   No telemetry mode switch off:  Check the science frame is complete with its start and stop,
+COMM    but the content can be altered because cross talk parameters is adjusted in the same time of
+COMM    science frame sending
+COMM ----------------------------------------------------------------------------------------------
+WUDI sync 0
+WUDI sync 1
+COMM
+WCMD W-C0_MUX_SQ_FB_DELAY-0000 W
+WCMD W-C0_SAMPLING_DELAY-0001 W
+WMDC 0 0 1 3FFF_7C20
+WUDI sync 0
+WUDI sync 1
+WUDI sync 0
+WUDI sync 1
+WMDC 0 0 1 3FFF_FFFC
+WAIT 6 us
+COMM
+COMM ==============================================================================================
+COMM   Set command 10: Feedback open loop mem. select, DAC delays,
+COMM   ADC sampling delays and sample number for ADC error signal average
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-DATA_ACQ_MODE-0000 W
+WAIT 6 us
+COMM
+WCMD W-C1_MUX_SQ_FB0(33)-7C20 W
+WCMD W-C2_MUX_SQ_FB0(33)-7C20 W
+WCMD W-C3_MUX_SQ_FB0(33)-7C20 W
+COMM
+WCMD W-C1_MUX_SQ_FB_DELAY-0013 W
+WCMD W-C2_MUX_SQ_FB_DELAY-0013 W
+WCMD W-C3_MUX_SQ_FB_DELAY-0013 W
+COMM
+WCMD W-C1_SAMPLING_DELAY-0000 W
+WCMD W-C2_SAMPLING_DELAY-0000 W
+WCMD W-C3_SAMPLING_DELAY-0000 W
+WCMD W-BOXCAR_LENGTH-0000 W
+COMM
+WCMD W-DATA_ACQ_MODE-0002 W
+WAIT 6 us
+COMM
+COMM ==============================================================================================
+COMM   Set command 11: Feedback open loop mem. select, DAC delays,
+COMM   ADC sampling delays and sample number for ADC error signal average
+COMM   No telemetry mode switch off:  Check the science frame is complete with its start and stop,
+COMM    but the content can be altered because cross talk parameters is adjusted in the same time of
+COMM    science frame sending
+COMM ----------------------------------------------------------------------------------------------
+WUDI sync 0
+WUDI sync 1
+COMM
+WCMD W-C0_MUX_SQ_FB_DELAY-0012 W
+WCMD W-C0_SAMPLING_DELAY-0013 W
+WAIT 6 us
+COMM
+COMM ==============================================================================================
+COMM   Set command 12: Feedback open loop mem. select, DAC delays,
+COMM   ADC sampling delays and sample number for ADC error signal average
+COMM   No telemetry mode switch off
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-DATA_ACQ_MODE-0000 W
+WAIT 6 us
+COMM
+WCMD W-C1_MUX_SQ_FB0(33)-83E2 W
+WCMD W-C2_MUX_SQ_FB0(33)-83E2 W
+WCMD W-C3_MUX_SQ_FB0(33)-83E2 W
+COMM
 WCMD W-C0_MUX_SQ_FB_DELAY-0000 W
 WCMD W-C1_MUX_SQ_FB_DELAY-0000 W
 WCMD W-C2_MUX_SQ_FB_DELAY-0000 W

@@ -63,7 +63,7 @@ end entity science_data_mgt;
 
 architecture RTL of science_data_mgt is
 constant c_DT_PV              : integer:= 2                                                                 ; --! SQUID MUX Data science previous pipeline number
-constant c_DTA_SC_RDY_NPER    : integer:= 3                                                                 ; --! SQUID MUX Data science ready period number from ready for all columns activated
+constant c_DTA_SC_RDY_NPER    : integer:= 4                                                                 ; --! SQUID MUX Data science ready period number from ready for all columns activated
 
 constant c_SER_BIT_CNT_S      : integer:= log2_ceil(c_SC_DATA_SER_W_S-1) + 1                                ; --! Serial bit counter: size bus (signed)
 constant c_SER_BIT_CNT_DMP_VL : std_logic_vector(c_SER_BIT_CNT_S-1 downto 0) :=
@@ -90,7 +90,7 @@ signal   sqm_data_sc_sel      : std_logic_vector(c_NB_COL-1 downto 0)           
 signal   sqm_data_sc_fst_ena  : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! SQUID MUX Data science first pixel enable ('0' = No, '1' = Yes)
 signal   sqm_data_sc_fst_and  : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! SQUID MUX Data science first pixel "and-ed"
 signal   sqm_data_sc_fst_all  : std_logic                                                                   ; --! SQUID MUX Data science first pixel for all columns
-signal   sqm_dta_sc_fst_all_r : std_logic_vector(c_DTA_SC_RDY_NPER-2 downto 0)                              ; --! SQUID MUX Data science first pixel for all columns register
+signal   sqm_dta_sc_fst_all_r : std_logic                                                                   ; --! SQUID MUX Data science first pixel for all columns register
 signal   sqm_data_sc_lst_ena  : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! SQUID MUX Data science last pixel enable ('0' = No, '1' = Yes)
 signal   sqm_data_sc_lst_and  : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! SQUID MUX Data science last pixel "and-ed"
 signal   sqm_data_sc_lst_all  : std_logic                                                                   ; --! SQUID MUX Data science last pixel for all columns
@@ -106,6 +106,7 @@ signal   dmp_cnt_msb_r        : std_logic_vector(c_MEM_RD_DATA_NPER downto 0)   
 
 signal   ctrl_first_pkt       : std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0)                              ; --! Control first packet value
 
+signal   science_frame_ena    : std_logic                                                                   ; --! Science frame enable
 signal   science_data_tx_ena  : std_logic                                                                   ; --! Science Data transmit enable
 signal   science_data         : t_slv_arr(0 to c_NB_COL*c_SC_DATA_SER_NB)(c_SC_DATA_SER_W_S-1 downto 0)     ; --! Science Data word
 signal   ser_bit_cnt          : std_logic_vector(c_SER_BIT_CNT_S-1 downto 0)                                ; --! Serial bit counter
@@ -128,7 +129,7 @@ begin
          if (i_ras_data_valid_rs and not(ras_data_valid_rs_r)) = c_HGH_LEV then
             ras_data_valid_ltc   <= c_HGH_LEV;
 
-         elsif (aqmde_sync = c_DST_AQMDE_SCIE) and (sqm_dta_sc_fst_all_r(sqm_dta_sc_fst_all_r'low) and science_data_tx_ena) = c_HGH_LEV then
+         elsif (aqmde_sync = c_DST_AQMDE_SCIE) and (sqm_dta_sc_fst_all_r and science_data_tx_ena) = c_HGH_LEV then
             ras_data_valid_ltc   <= c_LOW_LEV;
 
          end if;
@@ -281,18 +282,18 @@ begin
          sqm_data_sc_fst_all  <= c_LOW_LEV;
          sqm_data_sc_lst_all  <= c_LOW_LEV;
          sqm_dta_sc_rdy_all_r <= (others => c_LOW_LEV);
-         sqm_dta_sc_fst_all_r <= (others => c_LOW_LEV);
+         sqm_dta_sc_fst_all_r <= c_LOW_LEV;
          sqm_dta_sc_lst_all_r <= c_LOW_LEV;
 
       elsif rising_edge(i_clk) then
-         if sqm_data_sc_rdy_and(sqm_data_sc_rdy_and'high) = c_HGH_LEV then
+         if (sqm_data_sc_rdy_and(sqm_data_sc_rdy_and'high) or sqm_data_sc_fst_and(sqm_data_sc_fst_and'high)) = c_HGH_LEV then
             sqm_data_sc_fst_all <= sqm_data_sc_fst_and(sqm_data_sc_fst_and'high);
             sqm_data_sc_lst_all <= sqm_data_sc_lst_and(sqm_data_sc_lst_and'high);
 
          end if;
 
-         sqm_dta_sc_rdy_all_r <= sqm_dta_sc_rdy_all_r(sqm_dta_sc_rdy_all_r'high-1 downto 0) & sqm_data_sc_rdy_and(sqm_data_sc_rdy_and'high);
-         sqm_dta_sc_fst_all_r <= sqm_dta_sc_fst_all_r(sqm_dta_sc_fst_all_r'high-1 downto 0) & sqm_data_sc_fst_all;
+         sqm_dta_sc_rdy_all_r <= sqm_dta_sc_rdy_all_r(sqm_dta_sc_rdy_all_r'high-1 downto 0) & (sqm_data_sc_rdy_and(sqm_data_sc_rdy_and'high) or sqm_data_sc_fst_and(sqm_data_sc_fst_and'high));
+         sqm_dta_sc_fst_all_r <= sqm_data_sc_fst_all;
          sqm_dta_sc_lst_all_r <= sqm_data_sc_lst_all;
 
       end if;
@@ -316,7 +317,7 @@ begin
          aqmde_r           <= i_aqmde;
          tst_pat_end_r     <= i_tst_pat_end;
 
-         if (sqm_data_sc_fst_and(sqm_data_sc_fst_and'high) and sqm_data_sc_rdy_and(sqm_data_sc_rdy_and'high)) = c_HGH_LEV then
+         if sqm_data_sc_fst_and(sqm_data_sc_fst_and'high) = c_HGH_LEV then
             aqmde_sync        <= aqmde_r;
             tst_pat_end_sync  <= tst_pat_end_r;
 
@@ -386,7 +387,7 @@ begin
 
          elsif  ((aqmde_sync = c_DST_AQMDE_DUMP) and (dmp_cnt_msb_r(dmp_cnt_msb_r'high) and i_sqm_mem_dump_bsy) = c_HGH_LEV) or
                (((aqmde_sync = c_DST_AQMDE_SCIE) or  (aqmde_sync = c_DST_AQMDE_ERRS) or
-                ((aqmde_sync = c_DST_AQMDE_TEST) and (tst_pat_end_sync = c_LOW_LEV)))      and sqm_dta_sc_fst_all_r(sqm_dta_sc_fst_all_r'low) = c_HGH_LEV) then
+                ((aqmde_sync = c_DST_AQMDE_TEST) and (tst_pat_end_sync = c_LOW_LEV)))      and sqm_dta_sc_fst_all_r = c_HGH_LEV) then
             science_data(science_data'high) <= ctrl_first_pkt;
 
          elsif  ((aqmde_sync = c_DST_AQMDE_DUMP) and dmp_cnt = c_ZERO(dmp_cnt'range)) or
@@ -428,7 +429,7 @@ begin
                science_data(c_SC_DATA_SER_NB*k+1)  <= sqm_data_sc_msb_mux(k);
                science_data(c_SC_DATA_SER_NB*k)    <= sqm_data_sc_lsb_mux(k);
 
-            elsif aqmde_sync = c_DST_AQMDE_TEST and (not(tst_pat_end_sync) and sqm_dta_sc_fst_all_r(sqm_dta_sc_fst_all_r'low)) = c_HGH_LEV then
+            elsif aqmde_sync = c_DST_AQMDE_TEST and (not(tst_pat_end_sync) and sqm_dta_sc_fst_all_r) = c_HGH_LEV then
                science_data(c_SC_DATA_SER_NB*k+1)  <= i_test_pattern(    c_SC_DATA_SER_NB*c_SC_DATA_SER_W_S-1 downto c_SC_DATA_SER_W_S);
                science_data(c_SC_DATA_SER_NB*k)    <= i_test_pattern(                     c_SC_DATA_SER_W_S-1 downto                 0);
 
@@ -445,6 +446,28 @@ begin
    end generate G_science_data;
 
    -- ------------------------------------------------------------------------------------------------------
+   --!   Science frame enable
+   -- ------------------------------------------------------------------------------------------------------
+   P_science_frame_ena : process (i_rst, i_clk)
+   begin
+
+      if i_rst = c_RST_LEV_ACT then
+         science_frame_ena <= c_LOW_LEV;
+
+      elsif rising_edge(i_clk) then
+         if    sqm_data_sc_fst_and(sqm_data_sc_fst_and'high) then
+            science_frame_ena <= c_HGH_LEV;
+
+         elsif (sqm_dta_sc_rdy_all_r(sqm_dta_sc_rdy_all_r'high) and sqm_data_sc_lst_and(sqm_data_sc_fst_and'high)) then
+            science_frame_ena <= c_LOW_LEV;
+
+         end if;
+
+      end if;
+
+   end process P_science_frame_ena;
+
+   -- ------------------------------------------------------------------------------------------------------
    --!   Science Data transmit enable
    -- ------------------------------------------------------------------------------------------------------
    P_sc_data_tx_ena : process (i_rst, i_clk)
@@ -458,7 +481,7 @@ begin
             science_data_tx_ena <= not(dmp_cnt_msb_r(dmp_cnt_msb_r'high-1));
 
          elsif (aqmde_sync = c_DST_AQMDE_SCIE) or (aqmde_sync = c_DST_AQMDE_ERRS) or (aqmde_sync = c_DST_AQMDE_TEST) then
-            science_data_tx_ena <= sqm_dta_sc_rdy_all_r(sqm_dta_sc_rdy_all_r'high);
+            science_data_tx_ena <= sqm_dta_sc_rdy_all_r(sqm_dta_sc_rdy_all_r'high-1) and science_frame_ena;
 
          else
             science_data_tx_ena <= c_LOW_LEV;
