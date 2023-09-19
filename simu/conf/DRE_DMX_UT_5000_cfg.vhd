@@ -95,6 +95,7 @@ configuration DRE_DMX_UT_5000_cfg of top_dmx_tb is
             g_AMP_SQ_OF_DELAY    => 0                    , -- natural := c_FPA_AMP_SQ_DEL_DEF               ; --! FPASIM cmd: Squid AMP delay (clock cycle number) (<= 63)
             g_ERROR_DELAY        => 0                    , -- natural := c_FPA_ERR_DEL_DEF                  ; --! FPASIM cmd: Error delay (clock cycle number) (<= 63)
             g_RA_DELAY           => 0                    , -- natural := c_FPA_SYNC_DEL_DEF                 ; --! FPASIM cmd: Pixel sequence sync. delay (clock cycle number) (<= 63)
+            g_INTER_SQUID_GAIN   => c_FPA_INR_SQ_GN_DEF  , -- natural := c_FPA_INR_SQ_GN_DEF                ; --! FPASIM cmd: Inter squid gain (<= 255)
             g_NB_PIXEL_BY_FRAME  => c_MUX_FACT           , -- natural := c_MUX_FACT                         ; --! DEMUX multiplexing factor
             g_NB_SAMPLE_BY_PIXEL => c_FPA_PXL_NB_CYC_DEF   -- natural := c_FPA_PXL_NB_CYC_DEF                 --! Clock cycles number by pixel
          );
@@ -128,6 +129,7 @@ configuration DRE_DMX_UT_5000_cfg of top_dmx_tb is
             g_AMP_SQ_OF_DELAY    => c_FPA_AMP_SQ_DEL_DEF , -- natural := c_FPA_AMP_SQ_DEL_DEF               ; --! FPASIM cmd: Squid AMP delay (clock cycle number) (<= 63)
             g_ERROR_DELAY        => c_FPA_ERR_DEL_DEF    , -- natural := c_FPA_ERR_DEL_DEF                  ; --! FPASIM cmd: Error delay (clock cycle number) (<= 63)
             g_RA_DELAY           => c_FPA_SYNC_DEL_DEF   , -- natural := c_FPA_SYNC_DEL_DEF                 ; --! FPASIM cmd: Pixel sequence sync. delay (clock cycle number) (<= 63)
+            g_INTER_SQUID_GAIN   => c_FPA_INR_SQ_GN_DEF  , -- natural := c_FPA_INR_SQ_GN_DEF                ; --! FPASIM cmd: Inter squid gain (<= 255)
             g_NB_PIXEL_BY_FRAME  => c_MUX_FACT           , -- natural := c_MUX_FACT                         ; --! DEMUX multiplexing factor
             g_NB_SAMPLE_BY_PIXEL => c_FPA_PXL_NB_CYC_DEF   -- natural := c_FPA_PXL_NB_CYC_DEF                 --! Clock cycles number by pixel
          );
@@ -161,6 +163,7 @@ configuration DRE_DMX_UT_5000_cfg of top_dmx_tb is
             g_AMP_SQ_OF_DELAY    => c_FPA_AMP_SQ_DEL_DEF , -- natural := c_FPA_AMP_SQ_DEL_DEF               ; --! FPASIM cmd: Squid AMP delay (clock cycle number) (<= 63)
             g_ERROR_DELAY        => c_FPA_ERR_DEL_DEF    , -- natural := c_FPA_ERR_DEL_DEF                  ; --! FPASIM cmd: Error delay (clock cycle number) (<= 63)
             g_RA_DELAY           => c_FPA_SYNC_DEL_DEF   , -- natural := c_FPA_SYNC_DEL_DEF                 ; --! FPASIM cmd: Pixel sequence sync. delay (clock cycle number) (<= 63)
+            g_INTER_SQUID_GAIN   => c_FPA_INR_SQ_GN_DEF  , -- natural := c_FPA_INR_SQ_GN_DEF                ; --! FPASIM cmd: Inter squid gain (<= 255)
             g_NB_PIXEL_BY_FRAME  => c_MUX_FACT           , -- natural := c_MUX_FACT                         ; --! DEMUX multiplexing factor
             g_NB_SAMPLE_BY_PIXEL => c_FPA_PXL_NB_CYC_DEF   -- natural := c_FPA_PXL_NB_CYC_DEF                 --! Clock cycles number by pixel
          );
@@ -194,6 +197,7 @@ configuration DRE_DMX_UT_5000_cfg of top_dmx_tb is
             g_AMP_SQ_OF_DELAY    => c_FPA_AMP_SQ_DEL_DEF , -- natural := c_FPA_AMP_SQ_DEL_DEF               ; --! FPASIM cmd: Squid AMP delay (clock cycle number) (<= 63)
             g_ERROR_DELAY        => c_FPA_ERR_DEL_DEF    , -- natural := c_FPA_ERR_DEL_DEF                  ; --! FPASIM cmd: Error delay (clock cycle number) (<= 63)
             g_RA_DELAY           => c_FPA_SYNC_DEL_DEF   , -- natural := c_FPA_SYNC_DEL_DEF                 ; --! FPASIM cmd: Pixel sequence sync. delay (clock cycle number) (<= 63)
+            g_INTER_SQUID_GAIN   => c_FPA_INR_SQ_GN_DEF  , -- natural := c_FPA_INR_SQ_GN_DEF                ; --! FPASIM cmd: Inter squid gain (<= 255)
             g_NB_PIXEL_BY_FRAME  => c_MUX_FACT           , -- natural := c_MUX_FACT                         ; --! DEMUX multiplexing factor
             g_NB_SAMPLE_BY_PIXEL => c_FPA_PXL_NB_CYC_DEF   -- natural := c_FPA_PXL_NB_CYC_DEF                 --! Clock cycles number by pixel
          );

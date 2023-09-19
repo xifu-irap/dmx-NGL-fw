@@ -269,6 +269,7 @@ constant c_FPA_MUX_SQ_DEL_DEF : natural := 3                                    
 constant c_FPA_AMP_SQ_DEL_DEF : natural := 3                                                                ; --! FPASIM cmd: Squid AMP delay (clock cycle number) default value (<= 63)
 constant c_FPA_ERR_DEL_DEF    : natural := 3                                                                ; --! FPASIM cmd: Error delay (clock cycle number) default value (<= 63)
 constant c_FPA_SYNC_DEL_DEF   : natural := 4                                                                ; --! FPASIM cmd: Pixel sequence sync. delay (clock cycle number) default value (<= 63)
+constant c_FPA_INR_SQ_GN_DEF  : natural := 255                                                              ; --! FPASIM cmd: Inter squid gain (<= 255)
 constant c_FPA_PXL_NB_CYC_DEF : integer := c_PIXEL_ADC_NB_CYC * c_CLK_FPA_MULT / c_CLK_ADC_DAC_MULT         ; --! FPASIM: clock period number allocated to one pixel acquisition
 
 constant c_HK_MUX_TPS_DEF     : time    :=  90 ns                                                           ; --! HouseKeeping, Multiplexer time Data Propagation switch in to out default value
@@ -586,6 +587,7 @@ constant c_SCHK               : t_spi_chk_prm_arr(0 to c_CHK_ENA_SPI_NB-1) :=
          g_AMP_SQ_OF_DELAY    : natural := c_FPA_AMP_SQ_DEL_DEF                                             ; --! FPASIM cmd: Squid AMP delay (clock cycle number) (<= 63)
          g_ERROR_DELAY        : natural := c_FPA_ERR_DEL_DEF                                                ; --! FPASIM cmd: Error delay (clock cycle number) (<= 63)
          g_RA_DELAY           : natural := c_FPA_SYNC_DEL_DEF                                               ; --! FPASIM cmd: Pixel sequence sync. delay (clock cycle number) (<= 63)
+         g_INTER_SQUID_GAIN   : natural := c_FPA_INR_SQ_GN_DEF                                              ; --! FPASIM cmd: Inter squid gain (<= 255)
          g_NB_PIXEL_BY_FRAME  : natural := c_MUX_FACT                                                       ; --! DEMUX multiplexing factor
          g_NB_SAMPLE_BY_PIXEL : natural := c_FPA_PXL_NB_CYC_DEF                                               --! Clock cycles number by pixel
    ); port (

@@ -72,7 +72,6 @@ signal   mem_tstpt_prm        : t_mem(
                                 add(          c_MEM_TSTPT_ADD_S-1 downto 0),
                                 data_w(          c_DFLD_TSTPT_S-1 downto 0))                                ; --! Test pattern, getting parameter side: memory inputs
 
-signal   sync_re_r            : std_logic                                                                   ; --! Pixel sequence synchronization, rising edge register
 signal   loop_nb_minus1       : std_logic_vector(c_DFLD_TSTEN_LOP_S     downto 0)                           ; --! Loop number minus 1
 
 signal   tst_region_change    : std_logic                                                                   ; --! Test pattern: region change ('0' = No, '1' = Yes)
