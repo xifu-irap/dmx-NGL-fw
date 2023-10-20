@@ -42,6 +42,7 @@ entity dmx_cmd is port (
 
          i_aqmde              : in     std_logic_vector(c_DFLD_AQMDE_S-1 downto 0)                          ; --! Telemetry mode
          i_smfmd              : in     t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SMFMD_COL_S-1 downto 0)            ; --! SQUID MUX feedback mode
+         i_saofm              : in     t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SAOFM_COL_S-1 downto 0)            ; --! SQUID AMP offset mode
 
          o_sync_re            : out    std_logic                                                            ; --! Pixel sequence synchronization, rising edge
 
@@ -121,7 +122,8 @@ begin
       cmd_ck_adc_ena(k)     <=   c_HGH_LEV when i_aqmde    = c_DST_AQMDE_DUMP  else
                                  c_HGH_LEV when i_aqmde    = c_DST_AQMDE_SCIE  else
                                  c_HGH_LEV when i_aqmde    = c_DST_AQMDE_ERRS  else
-                                 c_HGH_LEV when i_smfmd(k) = c_DST_SMFMD_ON    else c_LOW_LEV;
+                                 c_HGH_LEV when i_smfmd(k) = c_DST_SMFMD_ON    else
+                                 c_HGH_LEV when i_saofm(k) = c_DST_SAOFM_CLOSE else c_LOW_LEV;
       cmd_ck_sqm_dac_ena(k) <=   c_HGH_LEV when i_smfmd(k) = c_DST_SMFMD_ON    else c_LOW_LEV;
 
       --! Command switch clocks

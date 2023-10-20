@@ -43,6 +43,7 @@ entity squid_data_proc is port (
 
          i_aqmde              : in     std_logic_vector(c_DFLD_AQMDE_S-1 downto 0)                          ; --! Telemetry mode
          i_smfmd              : in     std_logic_vector(c_DFLD_SMFMD_COL_S-1 downto 0)                      ; --! SQUID MUX feedback mode
+         i_saofm              : in     std_logic_vector(c_DFLD_SAOFM_COL_S-1 downto 0)                      ; --! SQUID AMP offset mode
          i_bxlgt              : in     std_logic_vector(c_DFLD_BXLGT_COL_S-1 downto 0)                      ; --! ADC sample number for averaging
          i_sqm_adc_pwdn       : in     std_logic                                                            ; --! SQUID MUX ADC: Power Down ('0' = Inactive, '1' = Active)
 
@@ -70,6 +71,7 @@ entity squid_data_proc is port (
          o_sqm_data_sc_rdy    : out    std_logic                                                            ; --! SQUID MUX Data science ready ('0' = Not ready, '1' = Ready)
 
          o_sqm_dta_pixel_pos  : out    std_logic_vector(    c_MUX_FACT_S-1 downto 0)                        ; --! SQUID MUX Data error corrected pixel position
+         o_sqm_dta_err_frst   : out    std_logic                                                            ; --! SQUID MUX Data error corrected first pixel
          o_sqm_dta_err_cor    : out    std_logic_vector(c_SQM_DATA_FBK_S-1 downto 0)                        ; --! SQUID MUX Data error corrected (signed)
          o_sqm_dta_err_cor_cs : out    std_logic                                                              --! SQUID MUX Data error corrected chip select ('0' = Inactive, '1' = Active)
    );
@@ -345,7 +347,8 @@ begin
 
          if (i_sqm_data_err_frst and i_sqm_data_err_rdy) = c_HGH_LEV then
 
-            if (i_aqmde = c_DST_AQMDE_DUMP or i_aqmde = c_DST_AQMDE_SCIE or i_aqmde = c_DST_AQMDE_ERRS or i_smfmd = c_DST_SMFMD_ON) and (i_sqm_adc_pwdn = c_LOW_LEV) then
+            if (i_aqmde = c_DST_AQMDE_DUMP or i_aqmde = c_DST_AQMDE_SCIE or i_aqmde = c_DST_AQMDE_ERRS or i_smfmd = c_DST_SMFMD_ON or i_saofm = c_DST_SAOFM_CLOSE) and
+               (i_sqm_adc_pwdn = c_LOW_LEV) then
                sqm_adc_ena <= c_HGH_LEV;
 
             else
@@ -615,6 +618,7 @@ begin
 
    o_sqm_dta_pixel_pos  <= pixel_pos_r(c_FB_PNP1_RDY_POS-1);
    o_sqm_dta_err_cor_cs <= sqm_data_err_rdy_r(c_FB_PNP1_RDY_POS);
+   o_sqm_dta_err_frst   <= sqm_data_err_frst_r(c_FB_PNP1_RDY_POS);
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Result: NRM(p,n) = knorm(p)*(E(p,n) - Elp(p))

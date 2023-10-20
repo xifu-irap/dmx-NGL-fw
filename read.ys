@@ -43,6 +43,8 @@ verific -vhdl ./src/squid_data_proc.vhd
 verific -vhdl ./src/sqm_fbk_mgt.vhd
 verific -vhdl ./src/pulse_shaping.vhd
 verific -vhdl ./src/sqm_dac_mgt.vhd
+verific -vhdl ./src/fir_deci.vhd
+verific -vhdl ./src/sqa_under_samp.vhd
 verific -vhdl ./src/sqa_fbk_mgt.vhd
 verific -vhdl ./src/sqa_dac_mgt.vhd
 verific -vhdl ./src/sqm_spi_mgt.vhd

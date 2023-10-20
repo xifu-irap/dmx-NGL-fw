@@ -47,7 +47,9 @@ entity sqa_fbk_mgt is port (
 
          i_saomd              : in     std_logic_vector(c_DFLD_SAOMD_COL_S-1 downto 0)                      ; --! SQUID AMP offset MUX delay
          i_test_pattern       : in     std_logic_vector(  c_SQA_DAC_DATA_S-1 downto 0)                      ; --! Test pattern
+         i_sqm_dta_err_frst   : in     std_logic                                                            ; --! SQUID MUX Data error corrected first pixel
          i_sqm_dta_err_cor    : in     std_logic_vector(c_SQM_DATA_FBK_S  -1 downto 0)                      ; --! SQUID MUX Data error corrected (signed)
+         i_sqm_dta_err_cor_cs : in     std_logic                                                            ; --! SQUID MUX Data error corrected chip select ('0' = Inactive, '1' = Active)
 
          i_mem_saoff          : in     t_mem(
                                        add(              c_MEM_SAOFF_ADD_S-1 downto 0),
@@ -483,11 +485,11 @@ begin
          o_sqa_fbk_mux <= (others => c_LOW_LEV);
 
       elsif rising_edge(i_clk) then
-         if saofm_sync = c_DST_SAOFM_OFFSET or saofm_sync = c_DST_SAOFM_TEST then
-            o_sqa_fbk_mux <= saoff;
+         if saofm_sync = c_DST_SAOFM_OFF then
+            o_sqa_fbk_mux <= (others => c_LOW_LEV);
 
          else
-            o_sqa_fbk_mux <= (others => c_LOW_LEV);
+            o_sqa_fbk_mux <= saoff;
 
          end if;
 
@@ -534,7 +536,19 @@ begin
    --!   SQUID AMP close loop mode
    --    @Req : DRE-DMX-FW-REQ-0325
    -- ------------------------------------------------------------------------------------------------------
-   --TODO
-   sqa_fb_close    <=  i_sqm_dta_err_cor(i_sqm_dta_err_cor'high downto i_sqm_dta_err_cor'length-sqa_fb_close'length);
+   I_sqa_under_samp: entity work.sqa_under_samp port map (
+         i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+         i_clk                => i_clk                , -- in     std_logic                                 ; --! System Clock
+         i_clk_90             => i_clk_90             , -- in     std_logic                                 ; --! System Clock 90 degrees shift
+
+         i_saofm              => i_saofm              , -- in     slv(c_DFLD_SAOFM_COL_S-1 downto 0)        ; --! SQUID AMP offset mode
+         i_saofc              => i_saofc              , -- in     slv(c_DFLD_SAOFC_COL_S-1 downto 0)        ; --! SQUID AMP lockpoint coarse offset
+
+         i_sqm_dta_err_frst   => i_sqm_dta_err_frst   , -- in     std_logic                                 ; --! SQUID MUX Data error corrected first pixel
+         i_sqm_dta_err_cor    => i_sqm_dta_err_cor    , -- in     slv(c_SQM_DATA_FBK_S-1 downto 0)          ; --! SQUID MUX Data error corrected (signed)
+         i_sqm_dta_err_cor_cs => i_sqm_dta_err_cor_cs , -- in     std_logic                                 ; --! SQUID MUX Data error corrected chip select ('0' = Inactive, '1' = Active)
+
+         o_sqa_fb_close       => sqa_fb_close           -- out    slv(c_SQA_DAC_DATA_S-1 downto 0)            --! SQUID AMP feedback close mode
+   );
 
 end architecture RTL;

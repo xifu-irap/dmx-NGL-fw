@@ -76,12 +76,14 @@ quietly set TB_DIR $3
       ${SRC_DIR}/sqm_fbk_mgt.vhd          \
       ${SRC_DIR}/pulse_shaping.vhd        \
       ${SRC_DIR}/sqm_dac_mgt.vhd          \
+      ${SRC_DIR}/fir_deci.vhd             \
+      ${SRC_DIR}/sqa_under_samp.vhd       \
       ${SRC_DIR}/sqa_fbk_mgt.vhd          \
       ${SRC_DIR}/sqa_dac_mgt.vhd          \
       ${SRC_DIR}/sqm_spi_mgt.vhd          \
       ${SRC_DIR}/test_pattern_gen.vhd     \
       ${SRC_DIR}/relock.vhd               \
-      ${SRC_DIR}/top_dmx.vhd              
+      ${SRC_DIR}/top_dmx.vhd
 
    vcom -work work -2008                  \
       ${TB_DIR}/pkg_model.vhd             \

@@ -59,6 +59,7 @@ entity sqm_fbk_mgt is port (
                                        add(              c_MEM_SMFBM_ADD_S-1 downto 0),
                                        data_w(          c_DFLD_SMFBM_PIX_S-1 downto 0))                     ; --! SQUID MUX feedback mode: memory inputs
          o_smfbm_data         : out    std_logic_vector(c_DFLD_SMFBM_PIX_S-1 downto 0)                      ; --! SQUID MUX feedback mode: data read
+         i_saofm              : in     std_logic_vector(c_DFLD_SAOFM_COL_S-1 downto 0)                      ; --! SQUID AMP offset mode
 
          o_sqm_data_fbk       : out    std_logic_vector( c_SQM_DATA_FBK_S-1 downto 0)                       ; --! SQUID MUX Data feedback (signed)
          o_sqm_pixel_pos_init : out    std_logic_vector(  c_SQM_PXL_POS_S-1 downto 0)                       ; --! SQUID MUX Pixel position initialization
@@ -134,6 +135,8 @@ signal   mem_smfbm_prm        : t_mem(
 
 signal   smfmd_sync           : std_logic_vector(c_DFLD_SMFMD_COL_S-1 downto 0)                             ; --! SQUID MUX feedback mode synchronized on first Pixel sequence
 signal   smfmd_sync_r         : t_slv_arr(0 to c_MEM_RD_DATA_NPER-1)(c_DFLD_SMFMD_COL_S-1 downto 0)         ; --! SQUID MUX feedback mode synchronized on first Pixel sequence register
+
+signal   saofm_close_sync     : std_logic                                                                   ; --! SQUID AMP offset close mode synchronized on first Pixel sequence
 
 signal   smfbm                : std_logic_vector(c_DFLD_SMFBM_PIX_S-1 downto 0)                             ; --! SQUID MUX feedback mode
 signal   smfb0                : std_logic_vector(c_DFLD_SMFB0_PIX_S-1 downto 0)                             ; --! SQUID MUX feedback value in open loop (signed)
@@ -447,6 +450,7 @@ begin
          smfmd_sync            <= c_DST_SMFMD_OFF;
          mem_smfb0_prm.pp      <= c_MEM_STR_ADD_PP_DEF;
          mem_smfbm_prm.pp      <= c_MEM_STR_ADD_PP_DEF;
+         saofm_close_sync      <= c_LOW_LEV;
 
       elsif rising_edge(i_clk) then
          smfmd_sync_r <= smfmd_sync & smfmd_sync_r(0 to smfmd_sync_r'high-1);
@@ -455,6 +459,14 @@ begin
             smfmd_sync         <= i_smfmd;
             mem_smfb0_prm.pp   <= mem_smfb0_pp;
             mem_smfbm_prm.pp   <= mem_smfbm_pp;
+
+            if i_saofm = c_DST_SAOFM_CLOSE then
+               saofm_close_sync <= c_HGH_LEV;
+
+            else
+               saofm_close_sync <= c_LOW_LEV;
+
+            end if;
 
          end if;
 
@@ -665,7 +677,7 @@ begin
       elsif rising_edge(i_clk) then
          pixel_pos_inc_r   <= pixel_pos_inc & pixel_pos_inc_r(0 to pixel_pos_inc_r'high-1);
 
-         if (smfbm = c_DST_SMFBM_CLOSE and smfmd_sync_r(smfmd_sync_r'high) = c_DST_SMFMD_ON) then
+         if (smfbm = c_DST_SMFBM_CLOSE and smfmd_sync_r(smfmd_sync_r'high) = c_DST_SMFMD_ON) or (saofm_close_sync = c_HGH_LEV) then
             o_init_fbk_acc <= c_LOW_LEV;
 
          else
