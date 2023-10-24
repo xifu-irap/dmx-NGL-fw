@@ -264,7 +264,6 @@ constant c_FPA_ADC_VPP_DEF    : natural := 2 * integer(c_SQM_DAC_VREF_DEF)      
 constant c_FPA_ADC_DEL_DEF    : natural := 0                                                                ; --! FPASIM: ADC conversion delay default value (clock cycle number)
 constant c_FPA_DAC_VPP_DEF    : natural := 2 * integer(c_SQM_ADC_VREF_DEF)                                  ; --! FPASIM: DAC differential output voltage default value (Volt)
 constant c_FPA_DAC_DEL_DEF    : natural := 0                                                                ; --! FPASIM: DAC conversion delay default value (clock cycle number)
-constant c_FPA_ERR_GAIN_DEF   : natural := 3                                                                ; --! FPASIM cmd: Error gain default value (0:0.25, 1:0.5, 3:1, 4:1.5, 5:2, 6:3, 7:4)
 constant c_FPA_MUX_SQ_DEL_DEF : natural := 3                                                                ; --! FPASIM cmd: Squid MUX delay (clock cycle number) default value (<= 63)
 constant c_FPA_AMP_SQ_DEL_DEF : natural := 3                                                                ; --! FPASIM cmd: Squid AMP delay (clock cycle number) default value (<= 63)
 constant c_FPA_ERR_DEL_DEF    : natural := 3                                                                ; --! FPASIM cmd: Error delay (clock cycle number) default value (<= 63)
@@ -582,7 +581,6 @@ constant c_SCHK               : t_spi_chk_prm_arr(0 to c_CHK_ENA_SPI_NB-1) :=
          g_ADC_DELAY          : natural := c_FPA_ADC_DEL_DEF                                                ; --! ADC conversion delay (clock cycle number)
          g_DAC_VPP            : natural := c_FPA_DAC_VPP_DEF                                                ; --! DAC differential output voltage (Volt)
          g_DAC_DELAY          : natural := c_FPA_DAC_DEL_DEF                                                ; --! DAC conversion delay (clock cycle number)
-         g_FPASIM_GAIN        : natural := c_FPA_ERR_GAIN_DEF                                               ; --! FPASIM cmd: Error gain (0:0.25, 1:0.5, 3:1, 4:1.5, 5:2, 6:3, 7:4)
          g_MUX_SQ_FB_DELAY    : natural := c_FPA_MUX_SQ_DEL_DEF                                             ; --! FPASIM cmd: Squid MUX delay (clock cycle number) (<= 63)
          g_AMP_SQ_OF_DELAY    : natural := c_FPA_AMP_SQ_DEL_DEF                                             ; --! FPASIM cmd: Squid AMP delay (clock cycle number) (<= 63)
          g_ERROR_DELAY        : natural := c_FPA_ERR_DEL_DEF                                                ; --! FPASIM cmd: Error delay (clock cycle number) (<= 63)
@@ -601,8 +599,10 @@ constant c_SCHK               : t_spi_chk_prm_arr(0 to c_CHK_ENA_SPI_NB-1) :=
          i_adc0_real          : in     real                                                                 ; --! FPASIM ADC Analog Squid MUX
          i_adc1_real          : in     real                                                                 ; --! FPASIM ADC Analog Squid AMP
 
-         o_ref_clk            : out    std_logic                                                            ; --! Reference Clock
-         o_sync               : out    std_logic                                                            ; --! Pixel sequence synchronization (R.E. detected = position sequence to the first pixel)
+         o_clk_ref_p          : out    std_logic                                                            ; --! Diff. Reference Clock
+         o_clk_ref_n          : out    std_logic                                                            ; --! Diff. Reference Clock
+         o_clk_frame_p        : out    std_logic                                                            ; --! Diff. pixel sequence sync. (R.E. detected = position sequence to the first pixel)
+         o_clk_frame_n        : out    std_logic                                                            ; --! Diff. pixel sequence sync. (R.E. detected = position sequence to the first pixel)
 
          o_dac_real_valid     : out    std_logic                                                            ; --! FPASIM DAC Error valid ('0' = No, '1' = Yes)
          o_dac_real           : out    real                                                                   --! FPASIM DAC Analog Error

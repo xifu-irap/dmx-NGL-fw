@@ -170,6 +170,8 @@ vcom -work fpasim  -93 \
 "${PR_DIR}/src/hdl/fpasim/regdecode/regdecode_top.vhd" \
 
 vcom -work fpasim  -2008 \
+"${PR_DIR}/src/hdl/fpasim/adc/core/adc_shift.vhd" \
+"${PR_DIR}/src/hdl/fpasim/adc/core/adc_bypass.vhd" \
 "${PR_DIR}/src/hdl/fpasim/adc/adc_top.vhd" \
 
 vcom -work fpasim  -93 \
@@ -194,6 +196,8 @@ vcom -work fpasim  -93 \
 "${PR_DIR}/src/hdl/fpasim/sync/sync_top.vhd" \
 "${PR_DIR}/src/hdl/fpasim/recording/recording_adc.vhd" \
 "${PR_DIR}/src/hdl/fpasim/recording/recording_top.vhd" \
+"${PR_DIR}/src/hdl/fpasim/pulse/core/pulse_generator.vhd" \
+"${PR_DIR}/src/hdl/fpasim/pulse/pulse_top.vhd" \
 
 vcom -work fpasim  -2008 \
 "${PR_DIR}/src/hdl/fpasim/fpasim_top.vhd" \
@@ -205,9 +209,12 @@ vcom -work fpasim  -93 \
 "${PR_DIR}/src/hdl/io/core/io_sync.vhd" \
 "${PR_DIR}/src/hdl/io/core/io_dac_data_insert.vhd" \
 "${PR_DIR}/src/hdl/io/core/io_dac.vhd" \
+"${PR_DIR}/src/hdl/io/core/io_pulse.vhd" \
 "${PR_DIR}/src/hdl/io/io_top.vhd" \
 "${PR_DIR}/src/hdl/utils/others/synchronizer.vhd" \
 "${PR_DIR}/src/hdl/utils/others/pipeliner_with_init.vhd" \
+"${PR_DIR}/src/hdl/led/core/led_pulse.vhd" \
+"${PR_DIR}/src/hdl/led/led_top.vhd" \
 "${PR_DIR}/src/hdl/spi/core/spi_io.vhd" \
 "${PR_DIR}/src/hdl/spi/core/pkg_spi.vhd" \
 "${PR_DIR}/src/hdl/spi/core/spi_master_clock_gen.vhd" \

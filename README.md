@@ -7,7 +7,7 @@ DRE-DEMUX TDM firmware: https://github.com/xifu-irap/dmx-fw
       + IRAP/XIFU-DRE/FM/SP/0065 - DRE TDM firmware requirements, ed. 0.15
       + IRAP/XIFU-DRE/FM/SP/0069 - DRE Inter-Modules Telemetry And Commands Definition, ed. 1.3
       + IRAP/XIFU-DRE/FM/SP/0136 - FPAsim command dictionnary, rev. 4
-   - FPASIM simulation coupling: https://github.com/xifu-irap/fpasim-fw (commit 5a98922)
+   - FPASIM simulation coupling: https://github.com/xifu-irap/fpasim-fw (commit 4f6c8d9)
 
 ## 1. Directories and files description
 

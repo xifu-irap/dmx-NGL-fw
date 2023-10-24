@@ -461,8 +461,10 @@ begin
          i_adc0_real          => sqm_dac_delta_volt(k), -- in     real                                      ; --! FPASIM ADC Analog Squid MUX
          i_adc1_real          => sqa_volt(k)          , -- in     real                                      ; --! FPASIM ADC Analog Squid AMP
 
-         o_ref_clk            => clk_ref(k)           , -- out    std_logic                                 ; --! Reference Clock
-         o_sync               => sync(k)              , -- out    std_logic                                 ; --! Pixel sequence synchronization (R.E. detected = position sequence to the first pixel)
+         o_clk_ref_p          => clk_ref(k)           , -- out    std_logic                                 ; --! Diff. Reference Clock
+         o_clk_ref_n          => open                 , -- out    std_logic                                 ; --! Diff. Reference Clock
+         o_clk_frame_p        => sync(k)              , -- out    std_logic                                 ; --! Diff. pixel sequence sync. (R.E. detected = position sequence to the first pixel)
+         o_clk_frame_n        => open                 , -- out    std_logic                                 ; --! Diff. pixel sequence sync. (R.E. detected = position sequence to the first pixel)
 
          o_dac_real_valid     => open                 , -- out    std_logic                                 ; --! FPASIM DAC Error valid ('0' = No, '1' = Yes)
          o_dac_real           => squid_err_volt(k)      -- out    real                                        --! FPASIM DAC Analog Error

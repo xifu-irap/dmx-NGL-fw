@@ -38,7 +38,6 @@ entity fpga_system_fpasim_top is generic (
          g_ADC_DELAY          : natural := c_FPA_ADC_DEL_DEF                                                ; --! ADC conversion delay (clock cycle number)
          g_DAC_VPP            : natural := c_FPA_DAC_VPP_DEF                                                ; --! DAC differential output voltage (Volt)
          g_DAC_DELAY          : natural := c_FPA_DAC_DEL_DEF                                                ; --! DAC conversion delay (clock cycle number)
-         g_FPASIM_GAIN        : natural := c_FPA_ERR_GAIN_DEF                                               ; --! FPASIM cmd: Error gain (0:0.25, 1:0.5, 3:1, 4:1.5, 5:2, 6:3, 7:4)
          g_MUX_SQ_FB_DELAY    : natural := c_FPA_MUX_SQ_DEL_DEF                                             ; --! FPASIM cmd: Squid MUX delay (clock cycle number) (<= 63)
          g_AMP_SQ_OF_DELAY    : natural := c_FPA_AMP_SQ_DEL_DEF                                             ; --! FPASIM cmd: Squid AMP delay (clock cycle number) (<= 63)
          g_ERROR_DELAY        : natural := c_FPA_ERR_DEL_DEF                                                ; --! FPASIM cmd: Error delay (clock cycle number) (<= 63)
@@ -57,8 +56,10 @@ entity fpga_system_fpasim_top is generic (
          i_adc0_real          : in     real                                                                 ; --! FPASIM ADC Analog Squid MUX
          i_adc1_real          : in     real                                                                 ; --! FPASIM ADC Analog Squid AMP
 
-         o_ref_clk            : out    std_logic                                                            ; --! Reference Clock
-         o_sync               : out    std_logic                                                            ; --! Pixel sequence synchronization (R.E. detected = position sequence to the first pixel)
+         o_clk_ref_p          : out    std_logic                                                            ; --! Diff. Reference Clock
+         o_clk_ref_n          : out    std_logic                                                            ; --! Diff. Reference Clock
+         o_clk_frame_p        : out    std_logic                                                            ; --! Diff. pixel sequence sync. (R.E. detected = position sequence to the first pixel)
+         o_clk_frame_n        : out    std_logic                                                            ; --! Diff. pixel sequence sync. (R.E. detected = position sequence to the first pixel)
 
          o_dac_real_valid     : out    std_logic                                                            ; --! FPASIM DAC Error valid ('0' = No, '1' = Yes)
          o_dac_real           : out    real                                                                   --! FPASIM DAC Analog Error
@@ -79,8 +80,11 @@ begin
    --!   Clock reference generation
    -- ------------------------------------------------------------------------------------------------------
    I_clock_model: clock_model port map (
-         o_clk_ref            => o_ref_clk            , -- out    std_logic                                 ; --! Reference Clock
-         o_sync               => o_sync                 -- out    std_logic                                   --! Pixel sequence synchronization (R.E. detected = position sequence to the first pixel)
+         o_clk_ref            => o_clk_ref_p          , -- out    std_logic                                 ; --! Reference Clock
+         o_sync               => o_clk_frame_p          -- out    std_logic                                   --! Pixel sequence synchronization (R.E. detected = position sequence to the first pixel)
    );
+
+   o_clk_ref_n    <= not(o_clk_ref_p);
+   o_clk_frame_n  <= not(o_clk_frame_n);
 
 end architecture Behavioral;
