@@ -482,7 +482,8 @@ begin
          g_DATA_STALL_MSB_S   => c_SQM_DATA_FBK_S       -- integer                                            --! Data stalled on Mean Significant Bit bus size
    ) port map (
          i_data               => test_pattern         , -- in     slv(          g_DATA_S-1 downto 0)        ; --! Data
-         o_data_stall_msb     => o_test_pattern_sqm     -- out    slv(g_DATA_STALL_MSB_S-1 downto 0)          --! Data stalled on Mean Significant Bit
+         o_data_stall_msb     => o_test_pattern_sqm   , -- out    slv(g_DATA_STALL_MSB_S-1 downto 0)        ; --! Data stalled on Mean Significant Bit
+         o_data               => open                   -- out    slv(          g_DATA_S-1 downto 0)          --! Data
    );
 
    I_test_pattern_sqa : entity work.resize_stall_msb generic map (
@@ -490,7 +491,8 @@ begin
          g_DATA_STALL_MSB_S   => c_SQA_DAC_DATA_S       -- integer                                            --! Data stalled on Mean Significant Bit bus size
    ) port map (
          i_data               => test_pattern         , -- in     slv(          g_DATA_S-1 downto 0)        ; --! Data
-         o_data_stall_msb     => o_test_pattern_sqa     -- out    slv(g_DATA_STALL_MSB_S-1 downto 0)          --! Data stalled on Mean Significant Bit
+         o_data_stall_msb     => o_test_pattern_sqa   , -- out    slv(g_DATA_STALL_MSB_S-1 downto 0)        ; --! Data stalled on Mean Significant Bit
+         o_data               => open                   -- out    slv(          g_DATA_S-1 downto 0)          --! Data
    );
 
    I_test_pattern_sc  : entity work.resize_stall_msb generic map (
@@ -498,7 +500,8 @@ begin
          g_DATA_STALL_MSB_S   => c_SC_DATA_SER_W_S*c_SC_DATA_SER_NB  -- integer                               --! Data stalled on Mean Significant Bit bus size
    ) port map (
          i_data               => test_pattern         , -- in     slv(          g_DATA_S-1 downto 0)        ; --! Data
-         o_data_stall_msb     => o_test_pattern_sc      -- out    slv(g_DATA_STALL_MSB_S-1 downto 0)          --! Data stalled on Mean Significant Bit
+         o_data_stall_msb     => o_test_pattern_sc    , -- out    slv(g_DATA_STALL_MSB_S-1 downto 0)        ; --! Data stalled on Mean Significant Bit
+         o_data               => open                   -- out    slv(          g_DATA_S-1 downto 0)          --! Data
    );
 
 end architecture RTL;

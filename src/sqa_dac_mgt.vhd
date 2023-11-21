@@ -36,7 +36,6 @@ use     work.pkg_project.all;
 use     work.pkg_ep_cmd.all;
 
 entity sqa_dac_mgt is port (
-         i_rst_sqm_adc_dac_pd : in     std_logic                                                            ; --! Reset for SQUID ADC/DAC for pad, de-assertion on system clock
          i_rst_sqm_adc_dac    : in     std_logic                                                            ; --! Reset for SQUID ADC/DAC, de-assertion on system clock ('0' = Inactive, '1' = Active)
          i_clk_sqm_adc_dac    : in     std_logic                                                            ; --! SQUID ADC/DAC internal Clock
 
@@ -74,11 +73,11 @@ constant c_SAODD_LIM0         : integer:= 0                                     
 constant c_SAODD_LIM1         : integer:= 1                                                                 ; --! SQUID AMP offset DAC delay limits: bit 1
 constant c_SAODD_LIM2         : integer:= 2                                                                 ; --! SQUID AMP offset DAC delay limits: bit 2
 
-signal   rst_sqm_adc_dac_pad  : std_logic                                                                   ; --! Reset for SQUID ADC/DAC pads, de-assertion on system clock
+signal   sync_rs_rsys         : std_logic                                                                   ; --! Pixel sequence synchronization register (System Clock)
+signal   saofl_rsys           : std_logic_vector(c_DFLD_SAOFL_COL_S-1 downto 0)                             ; --! SQUID AMP offset DAC LSB register (System clock)
+signal   saodd_rsys           : std_logic_vector(c_DFLD_SAODD_COL_S-1 downto 0)                             ; --! SQUID AMP offset DAC delay register (System clock)
 
-signal   sync_rs_sys          : std_logic                                                                   ; --! Pixel sequence synchronization, synchronized on System Clock register (System clock)
-signal   saofl_sys            : std_logic_vector(c_DFLD_SAOFL_COL_S-1 downto 0)                             ; --! SQUID AMP offset DAC LSB register (System clock)
-signal   saodd_sys            : std_logic_vector(c_DFLD_SAODD_COL_S-1 downto 0)                             ; --! SQUID AMP offset DAC delay register (System clock)
+signal   rst_sqm_adc_dac_loc  : std_logic                                                                   ; --! Local reset for SQUID ADC/DAC, de-assertion on system clock
 
 signal   sync_r               : std_logic_vector(c_FF_RSYNC_NB downto 0)                                    ; --! Pixel sequence sync. register (R.E. detected = position sequence to the first pixel)
 signal   sync_re              : std_logic                                                                   ; --! Pixel sequence sync. rising edge
@@ -115,57 +114,53 @@ signal   sqa_dac_sclk         : std_logic                                       
 signal   sqa_dac_sync_n       : std_logic                                                                   ; --! SQUID AMP DAC: Frame Synchronization ('0' = Active, '1' = Inactive)
 
 attribute syn_preserve        : boolean                                                                     ; --! Disabling signal optimization
-attribute syn_preserve          of rst_sqm_adc_dac_pad   : signal is true                                   ; --! Disabling signal optimization: rst_sqm_adc_dac_pad
-attribute syn_preserve          of sync_rs_sys           : signal is true                                   ; --! Disabling signal optimization: sync_rs_sys
+attribute syn_preserve          of rst_sqm_adc_dac_loc   : signal is true                                   ; --! Disabling signal optimization: rst_sqm_adc_dac_loc
+attribute syn_preserve          of sync_rs_rsys          : signal is true                                   ; --! Disabling signal optimization: sync_rs_rsys
 attribute syn_preserve          of sync_r                : signal is true                                   ; --! Disabling signal optimization: sync_r
 attribute syn_preserve          of sync_re               : signal is true                                   ; --! Disabling signal optimization: sync_re
 
 begin
 
    -- ------------------------------------------------------------------------------------------------------
-   --!   Reset on SQUID ADC/DAC internal Clock Clock
+   --!   Inputs entity register on System Clock
+   -- ------------------------------------------------------------------------------------------------------
+   I_sqa_dac_sys: entity work.sqa_dac_sys port map (
+         i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+         i_clk                => i_clk                , -- in     std_logic                                 ; --! System Clock
+
+         i_sync_rs            => i_sync_rs            , -- in     std_logic                                 ; --! Pixel sequence synchronization (System Clock)
+         i_saofl              => i_saofl              , -- in     slv(c_DFLD_SAOFL_COL_S-1 downto 0)        ; --! SQUID AMP offset DAC LSB (System Clock)
+         i_saodd              => i_saodd              , -- in     slv(c_DFLD_SAODD_COL_S-1 downto 0)        ; --! SQUID AMP offset DAC delay (System Clock)
+
+         o_sync_rs_rsys       => sync_rs_rsys         , -- out    std_logic                                 ; --! Pixel sequence synchronization register (System Clock)
+         o_saofl_rsys         => saofl_rsys           , -- out    slv(c_DFLD_SAOFL_COL_S-1 downto 0)        ; --! SQUID AMP offset DAC LSB register (System Clock)
+         o_saodd_rsys         => saodd_rsys             -- out    slv(c_DFLD_SAODD_COL_S-1 downto 0)          --! SQUID AMP offset DAC delay register (System Clock)
+   );
+
+   -- ------------------------------------------------------------------------------------------------------
+   --!   Local reset on SQUID MUX ADC acquisition Clock
    --    @Req : DRE-DMX-FW-REQ-0050
    -- ------------------------------------------------------------------------------------------------------
-   P_rst_sqm_adc_dac_pd: process (i_rst_sqm_adc_dac_pd, i_clk_sqm_adc_dac)
+   P_rst_sqm_adc_dac_lc: process (i_rst_sqm_adc_dac, i_clk_sqm_adc_dac)
    begin
 
-      if i_rst_sqm_adc_dac_pd = c_RST_LEV_ACT then
-         rst_sqm_adc_dac_pad <= c_RST_LEV_ACT;
+      if i_rst_sqm_adc_dac = c_RST_LEV_ACT then
+         rst_sqm_adc_dac_loc <= c_RST_LEV_ACT;
 
       elsif rising_edge(i_clk_sqm_adc_dac) then
-         rst_sqm_adc_dac_pad <= not(c_RST_LEV_ACT);
+         rst_sqm_adc_dac_loc <= not(c_RST_LEV_ACT);
 
       end if;
 
-   end process P_rst_sqm_adc_dac_pd;
-
-   -- ------------------------------------------------------------------------------------------------------
-   --!   Inputs registered on system clock before resynchronization
-   -- ------------------------------------------------------------------------------------------------------
-   P_reg_sys: process (i_rst, i_clk)
-   begin
-
-      if i_rst = c_RST_LEV_ACT then
-         sync_rs_sys       <= c_I_SYNC_DEF;
-         saofl_sys         <= c_EP_CMD_DEF_SAOFL;
-         saodd_sys         <= c_EP_CMD_DEF_SAODD;
-
-      elsif rising_edge(i_clk) then
-         sync_rs_sys       <= i_sync_rs;
-         saofl_sys         <= i_saofl;
-         saodd_sys         <= i_saodd;
-
-      end if;
-
-   end process P_reg_sys;
+   end process P_rst_sqm_adc_dac_lc;
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Inputs Resynchronization
    -- ------------------------------------------------------------------------------------------------------
-   P_rsync : process (i_rst_sqm_adc_dac, i_clk_sqm_adc_dac)
+   P_rsync : process (rst_sqm_adc_dac_loc, i_clk_sqm_adc_dac)
    begin
 
-      if i_rst_sqm_adc_dac = c_RST_LEV_ACT then
+      if rst_sqm_adc_dac_loc = c_RST_LEV_ACT then
          sync_r               <= (others => c_I_SYNC_DEF);
          saofl_r              <= (others => c_EP_CMD_DEF_SAOFL);
          sqa_fbk_mux_r        <= (others => (others => c_LOW_LEV));
@@ -174,11 +169,11 @@ begin
          sqa_pls_cnt_init_r   <= (others => std_logic_vector(to_signed(c_SQA_PLS_CNT_INIT, c_SQA_PLS_CNT_S)));
 
       elsif rising_edge(i_clk_sqm_adc_dac) then
-         sync_r               <= sync_r(sync_r'high-1 downto 0) & sync_rs_sys;
-         saofl_r              <= saofl_sys     & saofl_r(      0 to saofl_r'high-1);
+         sync_r               <= sync_r(sync_r'high-1 downto 0) & sync_rs_rsys;
+         saofl_r              <= saofl_rsys     & saofl_r(      0 to saofl_r'high-1);
          sqa_fbk_mux_r        <= i_sqa_fbk_mux & sqa_fbk_mux_r(0 to sqa_fbk_mux_r'high-1);
          sqa_fbk_off_r        <= i_sqa_fbk_off & sqa_fbk_off_r(0 to sqa_fbk_off_r'high-1);
-         saodd_r              <= saodd_sys     & saodd_r(      0 to saodd_r'high-1);
+         saodd_r              <= saodd_rsys     & saodd_r(      0 to saodd_r'high-1);
          sqa_pls_cnt_init_r   <= i_sqa_pls_cnt_init   & sqa_pls_cnt_init_r(   0 to sqa_pls_cnt_init_r'high-1);
 
       end if;
@@ -188,10 +183,10 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   Specific signals
    -- ------------------------------------------------------------------------------------------------------
-   P_sig : process (i_rst_sqm_adc_dac, i_clk_sqm_adc_dac)
+   P_sig : process (rst_sqm_adc_dac_loc, i_clk_sqm_adc_dac)
    begin
 
-      if i_rst_sqm_adc_dac = c_RST_LEV_ACT then
+      if rst_sqm_adc_dac_loc = c_RST_LEV_ACT then
          sync_re              <= c_LOW_LEV;
          sqa_spi_tx_busy_n_r  <= c_HGH_LEV;
          sqa_spi_tx_busy_n_fe <= c_LOW_LEV;
@@ -261,10 +256,10 @@ begin
    -- ------------------------------------------------------------------------------------------------------
 
 
-   P_pls_rw_cnt_init : process (i_rst_sqm_adc_dac, i_clk_sqm_adc_dac)
+   P_pls_rw_cnt_init : process (rst_sqm_adc_dac_loc, i_clk_sqm_adc_dac)
    begin
 
-      if i_rst_sqm_adc_dac = c_RST_LEV_ACT then
+      if rst_sqm_adc_dac_loc = c_RST_LEV_ACT then
          pls_rw_cnt_init_oft  <= std_logic_vector(unsigned(to_signed(c_PLS_RW_CNT_INIT, pls_rw_cnt_init_oft'length)));
          pls_rw_cnt_init      <= std_logic_vector(unsigned(to_signed(c_PLS_RW_CNT_INIT, pls_rw_cnt_init'length)));
 
@@ -289,10 +284,10 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   SQUID AMP coarse offset final
    -- ------------------------------------------------------------------------------------------------------
-   P_sqa_fbk_off_final : process (i_rst_sqm_adc_dac, i_clk_sqm_adc_dac)
+   P_sqa_fbk_off_final : process (rst_sqm_adc_dac_loc, i_clk_sqm_adc_dac)
    begin
 
-      if i_rst_sqm_adc_dac = c_RST_LEV_ACT then
+      if rst_sqm_adc_dac_loc = c_RST_LEV_ACT then
          sqa_fbk_off_final <= c_EP_CMD_DEF_SAOFC;
 
       elsif rising_edge(i_clk_sqm_adc_dac) then
@@ -311,10 +306,10 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   Pulse by row counter
    -- ------------------------------------------------------------------------------------------------------
-   P_pls_rw_cnt : process (i_rst_sqm_adc_dac, i_clk_sqm_adc_dac)
+   P_pls_rw_cnt : process (rst_sqm_adc_dac_loc, i_clk_sqm_adc_dac)
    begin
 
-      if i_rst_sqm_adc_dac = c_RST_LEV_ACT then
+      if rst_sqm_adc_dac_loc = c_RST_LEV_ACT then
          pls_rw_cnt <= std_logic_vector(to_unsigned(c_PLS_RW_CNT_MAX_VAL, pls_rw_cnt'length));
 
       elsif rising_edge(i_clk_sqm_adc_dac) then
@@ -337,10 +332,10 @@ begin
    --!   Pulse counter
    --    @Req : DRE-DMX-FW-REQ-0375
    -- ------------------------------------------------------------------------------------------------------
-   P_pls_cnt : process (i_rst_sqm_adc_dac, i_clk_sqm_adc_dac)
+   P_pls_cnt : process (rst_sqm_adc_dac_loc, i_clk_sqm_adc_dac)
    begin
 
-      if i_rst_sqm_adc_dac = c_RST_LEV_ACT then
+      if rst_sqm_adc_dac_loc = c_RST_LEV_ACT then
          pls_cnt    <= std_logic_vector(to_unsigned(c_SQA_PLS_CNT_MX_VAL, pls_cnt'length));
 
       elsif rising_edge(i_clk_sqm_adc_dac) then
@@ -363,10 +358,10 @@ begin
    --!   Transmit flags management
    --    @Req : DRE-DMX-FW-REQ-0370
    -- ------------------------------------------------------------------------------------------------------
-   P_tx_flg : process (i_rst_sqm_adc_dac, i_clk_sqm_adc_dac)
+   P_tx_flg : process (rst_sqm_adc_dac_loc, i_clk_sqm_adc_dac)
    begin
 
-      if i_rst_sqm_adc_dac = c_RST_LEV_ACT then
+      if rst_sqm_adc_dac_loc = c_RST_LEV_ACT then
          saofl_tx_flg       <= c_HGH_LEV;
          sqa_fbk_off_tx_flg <= c_HGH_LEV;
          sqa_fbk_off_tx_ena <= c_LOW_LEV;
@@ -404,10 +399,10 @@ begin
    --    @Req : DRE-DMX-FW-REQ-0340
    --    @Req : DRE-DMX-FW-REQ-0370
    -- ------------------------------------------------------------------------------------------------------
-   P_sqa_spi_in : process (i_rst_sqm_adc_dac, i_clk_sqm_adc_dac)
+   P_sqa_spi_in : process (rst_sqm_adc_dac_loc, i_clk_sqm_adc_dac)
    begin
 
-      if i_rst_sqm_adc_dac = c_RST_LEV_ACT then
+      if rst_sqm_adc_dac_loc = c_RST_LEV_ACT then
          sqa_spi_start                                <= c_LOW_LEV;
          sqa_spi_data_tx(c_SQA_DAC_DATA_S-1 downto 0) <= c_EP_CMD_DEF_SAOFC;
 
@@ -443,7 +438,7 @@ begin
          g_N_CLK_PER_MISO_DEL => 0                    , -- integer                                          ; --! Number of clock period for miso signal delay from spi pin input to spi master input
          g_DATA_S             => c_SQA_SPI_SER_WD_S     -- integer                                            --! Data bus size
    ) port map (
-         i_rst                => i_rst_sqm_adc_dac    , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+         i_rst                => rst_sqm_adc_dac_loc  , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                => i_clk_sqm_adc_dac    , -- in     std_logic                                 ; --! Clock
 
          i_start              => sqa_spi_start        , -- in     std_logic                                 ; --! Start transmit ('0' = Inactive, '1' = Active)
@@ -464,10 +459,10 @@ begin
    --!   SQUID AMP SPI outputs
    --    @Req : DRE-DMX-FW-REQ-0340
    -- ------------------------------------------------------------------------------------------------------
-   P_sqa_spi_out : process (rst_sqm_adc_dac_pad, i_clk_sqm_adc_dac)
+   P_sqa_spi_out : process (rst_sqm_adc_dac_loc, i_clk_sqm_adc_dac)
    begin
 
-      if rst_sqm_adc_dac_pad = c_RST_LEV_ACT then
+      if rst_sqm_adc_dac_loc = c_RST_LEV_ACT then
          o_sqa_dac_data    <= c_LOW_LEV;
          o_sqa_dac_sclk    <= c_SQA_SPI_CPOL and c_PAD_REG_SET_AUTH;
          o_sqa_dac_snc_l_n <= c_PAD_REG_SET_AUTH;
@@ -487,10 +482,10 @@ begin
    --!   SQUID AMP feedback DAC Multiplexer
    --    @Req : DRE-DMX-FW-REQ-0360
    -- ------------------------------------------------------------------------------------------------------
-   P_sqa_dac_mux : process (rst_sqm_adc_dac_pad, i_clk_sqm_adc_dac)
+   P_sqa_dac_mux : process (rst_sqm_adc_dac_loc, i_clk_sqm_adc_dac)
    begin
 
-      if rst_sqm_adc_dac_pad = c_RST_LEV_ACT then
+      if rst_sqm_adc_dac_loc = c_RST_LEV_ACT then
          o_sqa_dac_mux <= (others => c_LOW_LEV);
 
       elsif rising_edge(i_clk_sqm_adc_dac) then

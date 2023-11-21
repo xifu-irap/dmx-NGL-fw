@@ -32,7 +32,7 @@ AllowedVariants     = ['NG-MEDIUM','NG-MEDIUM-EMBEDDED','NG-LARGE']
 DefaultOption       = ''
 AllowedOptions      = ['','USE_DSP']
 #Project
-DefaultSeed         = '0250'
+DefaultSeed         = '1140'
 DefaultTimingDriven = 'Yes'
 DefaultSta          = 'routed'
 DefaultStaCondition = 'worstcase'

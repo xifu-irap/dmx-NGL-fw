@@ -539,7 +539,6 @@ begin
    I_sqa_under_samp: entity work.sqa_under_samp port map (
          i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                => i_clk                , -- in     std_logic                                 ; --! System Clock
-         i_clk_90             => i_clk_90             , -- in     std_logic                                 ; --! System Clock 90 degrees shift
 
          i_saofm              => i_saofm              , -- in     slv(c_DFLD_SAOFM_COL_S-1 downto 0)        ; --! SQUID AMP offset mode
          i_saofc              => i_saofc              , -- in     slv(c_DFLD_SAOFC_COL_S-1 downto 0)        ; --! SQUID AMP lockpoint coarse offset

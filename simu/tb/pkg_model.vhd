@@ -138,8 +138,10 @@ constant c_DR_FPA_CONF_BUSY_0 : integer :=  36                                  
 constant c_DR_FPA_CONF_BUSY_1 : integer :=  37                                                              ; --! Discrete input index, signal: i_c1_fpa_conf_busy
 constant c_DR_FPA_CONF_BUSY_2 : integer :=  38                                                              ; --! Discrete input index, signal: i_c2_fpa_conf_busy
 constant c_DR_FPA_CONF_BUSY_3 : integer :=  39                                                              ; --! Discrete input index, signal: i_c3_fpa_conf_busy
+constant c_DR_CLK_SCIENCE_01  : integer :=  40                                                              ; --! Discrete input index, signal: i_clk_science_01
+constant c_DR_CLK_SCIENCE_23  : integer :=  41                                                              ; --! Discrete input index, signal: i_clk_science_23
 
-constant c_DR_S               : integer :=  40                                                              ; --! Discrete input size
+constant c_DR_S               : integer :=  42                                                              ; --! Discrete input size
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Parser discrete output index
@@ -509,6 +511,8 @@ constant c_SCHK               : t_spi_chk_prm_arr(0 to c_CHK_ENA_SPI_NB-1) :=
 
          i_clk_sqm_adc        : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! SQUID MUX ADC: Clock
          i_clk_sqm_dac        : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! SQUID MUX DAC: Clock
+         i_clk_science_01     : in     std_logic                                                            ; --! Science Data: Clock channel 0/1
+         i_clk_science_23     : in     std_logic                                                            ; --! Science Data: Clock channel 2/3
 
          i_sc_pkt_type        : in     std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0)                       ; --! Science packet type
          i_sc_pkt_err         : in     std_logic                                                            ; --! Science packet error ('0' = No error, '1' = Error)

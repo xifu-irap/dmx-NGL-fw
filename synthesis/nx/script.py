@@ -32,7 +32,7 @@ import traceback
 import os
 import time
 
-from nxmap import *
+from nxpython import *
 
 from project_class import project_class
 
@@ -52,7 +52,7 @@ def __main__(TopCellLib,TopCellName,Suffix,Variant,Progress,Option,TimingDriven,
 
     script_path  = os.getcwd()
 
-    project_path = script_path + '/../../../synthesis/'+ TopCellName + '_' + Variant
+    project_path = script_path + '/../../synthesis/'+ TopCellName + '_' + Variant + '_' + Seed
 
     if not Option=='':
         project_path+='_' + Option
@@ -76,7 +76,6 @@ def __main__(TopCellLib,TopCellName,Suffix,Variant,Progress,Option,TimingDriven,
     ###########################################GLOBAL SETTING###########################################
 
     p = createProject(project_path)
-    p.setTimingUnit('ns')
 
     if Progress == 'scratch':
         p.setVariantName(Variant)
@@ -84,7 +83,7 @@ def __main__(TopCellLib,TopCellName,Suffix,Variant,Progress,Option,TimingDriven,
     else:
         p.load(original_project_path + '/' + Progress + '.nym')
 
-    p.setAnalysisConditions(StaCondition)
+    p.setAnalysisConditions(conditions = StaCondition)
 
     ###########################################VARIANT SETTINGS#########################################
 

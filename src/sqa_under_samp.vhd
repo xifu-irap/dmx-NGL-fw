@@ -34,11 +34,11 @@ use     work.pkg_fpga_tech.all;
 use     work.pkg_func_math.all;
 use     work.pkg_project.all;
 use     work.pkg_ep_cmd.all;
+use     work.pkg_fir.all;
 
 entity sqa_under_samp is port (
          i_rst                : in     std_logic                                                            ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                : in     std_logic                                                            ; --! System Clock
-         i_clk_90             : in     std_logic                                                            ; --! System Clock 90 degrees shift
 
          i_saofm              : in     std_logic_vector(c_DFLD_SAOFM_COL_S-1 downto 0)                      ; --! SQUID AMP offset mode
          i_saofc              : in     std_logic_vector(c_DFLD_SAOFC_COL_S-1 downto 0)                      ; --! SQUID AMP lockpoint coarse offset
@@ -128,7 +128,8 @@ begin
          g_DATA_STALL_MSB_S   => c_FIR1_DATA_S - 1      -- integer                                            --! Data stalled on Mean Significant Bit bus size
    ) port map (
          i_data               => i_saofc              , -- in     slv(          g_DATA_S-1 downto 0)        ; --! Data
-         o_data_stall_msb     => fir1_saofc_stall_msb   -- out    slv(g_DATA_STALL_MSB_S-1 downto 0)          --! Data stalled on Mean Significant Bit
+         o_data_stall_msb     => fir1_saofc_stall_msb , -- out    slv(g_DATA_STALL_MSB_S-1 downto 0)        ; --! Data stalled on Mean Significant Bit
+         o_data               => open                   -- out    slv(          g_DATA_S-1 downto 0)          --! Data
    );
 
    fir1_init_val <= std_logic_vector(resize(unsigned(fir1_saofc_stall_msb), fir1_init_val'length));
@@ -139,15 +140,14 @@ begin
    I_fir_deci1: entity work.fir_deci generic map (
          g_FIR_DCI_VAL        => c_SQA_FIR1_DCI_VAL   , -- integer                                          ; --! Filter FIR decimation value
          g_FIR_TAB_NW         => c_SQA_FIR1_TAB_NW    , -- integer                                          ; --! Filter FIR table number word
-         g_FIR_COEF           => c_SQA_FIR1_TAB       , -- integer_vector                                   ; --! Filter FIR coefficients
          g_FIR_COEF_S         => c_SQA_FIR1_S         , -- integer                                          ; --! Filter FIR coefficient bus size
+         g_FIR_COEF           => c_SQA_FIR1_TAB       , -- t_slv_arr g_FIR_TAB_NW g_FIR_COEF_S              ; --! Filter FIR coefficients
          g_FIR_COEF_SUM_S     => c_SQA_FIR1_COEF_SM_S , -- integer                                          ; --! Filter FIR coefficient sum bus size
          g_FIR_DATA_S         => c_FIR1_DATA_S        , -- integer                                          ; --! Filter FIR data bus size
          g_FIR_RES_S          => c_FIR2_DATA_S + 1      -- integer                                            --! Filter FIR result bus size
    )  port map (
          i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                => i_clk                , -- in     std_logic                                 ; --! System Clock
-         i_clk_90             => i_clk_90             , -- in     std_logic                                 ; --! System Clock 90 degrees shift
 
          i_fir_init_val       => fir1_init_val        , -- in     std_logic_vector(g_FIR_DATA_S-1 downto 0) ; --! Filter FIR data initialization value
          i_fir_init_ena       => fir_init_ena         , -- in     std_logic                                 ; --! Filter FIR data initialization enable ('0' = No, '1' = Yes)
@@ -197,7 +197,8 @@ begin
          g_DATA_STALL_MSB_S   => c_FIR2_DATA_S - 1      -- integer                                            --! Data stalled on Mean Significant Bit bus size
    ) port map (
          i_data               => i_saofc              , -- in     slv(          g_DATA_S-1 downto 0)        ; --! Data
-         o_data_stall_msb     => fir2_saofc_stall_msb   -- out    slv(g_DATA_STALL_MSB_S-1 downto 0)          --! Data stalled on Mean Significant Bit
+         o_data_stall_msb     => fir2_saofc_stall_msb , -- out    slv(g_DATA_STALL_MSB_S-1 downto 0)        ; --! Data stalled on Mean Significant Bit
+         o_data               => open                   -- out    slv(          g_DATA_S-1 downto 0)          --! Data
    );
 
    fir2_init_val <= std_logic_vector(resize(unsigned(fir2_saofc_stall_msb), fir2_init_val'length));
@@ -208,15 +209,14 @@ begin
    I_fir_deci2: entity work.fir_deci generic map (
          g_FIR_DCI_VAL        => c_SQA_FIR2_DCI_VAL   , -- integer                                          ; --! Filter FIR decimation value
          g_FIR_TAB_NW         => c_SQA_FIR2_TAB_NW    , -- integer                                          ; --! Filter FIR table number word
-         g_FIR_COEF           => c_SQA_FIR2_TAB       , -- integer_vector                                   ; --! Filter FIR coefficients
          g_FIR_COEF_S         => c_SQA_FIR2_S         , -- integer                                          ; --! Filter FIR coefficient bus size
+         g_FIR_COEF           => c_SQA_FIR2_TAB       , -- t_slv_arr g_FIR_TAB_NW g_FIR_COEF_S              ; --! Filter FIR coefficients
          g_FIR_COEF_SUM_S     => c_SQA_FIR2_COEF_SM_S , -- integer                                          ; --! Filter FIR coefficient sum bus size
          g_FIR_DATA_S         => c_FIR2_DATA_S        , -- integer                                          ; --! Filter FIR data bus size
          g_FIR_RES_S          => c_FIR2_RES_S           -- integer                                            --! Filter FIR result bus size
    )  port map (
          i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                => i_clk                , -- in     std_logic                                 ; --! System Clock
-         i_clk_90             => i_clk_90             , -- in     std_logic                                 ; --! System Clock 90 degrees shift
 
          i_fir_init_val       => fir2_init_val        , -- in     std_logic_vector(g_FIR_DATA_S-1 downto 0) ; --! Filter FIR data initialization value
          i_fir_init_ena       => fir_init_ena         , -- in     std_logic                                 ; --! Filter FIR data initialization enable ('0' = No, '1' = Yes)

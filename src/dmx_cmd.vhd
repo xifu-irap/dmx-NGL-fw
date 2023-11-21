@@ -40,9 +40,8 @@ entity dmx_cmd is port (
 
          i_sync_rs            : in     std_logic                                                            ; --! Pixel sequence synchronization, synchronized on System Clock
 
-         i_aqmde              : in     std_logic_vector(c_DFLD_AQMDE_S-1 downto 0)                          ; --! Telemetry mode
+         i_adc_ena            : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! ADC enable ('0' = Inactive, '1' = Active)
          i_smfmd              : in     t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SMFMD_COL_S-1 downto 0)            ; --! SQUID MUX feedback mode
-         i_saofm              : in     t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SAOFM_COL_S-1 downto 0)            ; --! SQUID AMP offset mode
 
          o_sync_re            : out    std_logic                                                            ; --! Pixel sequence synchronization, rising edge
 
@@ -64,7 +63,6 @@ signal   sync_rs_r            : std_logic                                       
 signal   ck_pls_cnt           : std_logic_vector(c_CK_PLS_CNT_S-1 downto 0)                                 ; --! System clock pulse counter
 signal   pixel_pos            : std_logic_vector( c_PIXEL_POS_S-1 downto 0)                                 ; --! Pixel position
 
-signal   cmd_ck_adc_ena       : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! SQUID MUX ADC Clocks switch commands enable (for each column: '0'=Inactive,'1'=Active)
 signal   cmd_ck_sqm_dac_ena   : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! SQUID MUX DAC Clocks switch commands enable (for each column: '0'=Inactive,'1'=Active)
 
 attribute syn_preserve        : boolean                                                                     ; --! Disabling signal optimization
@@ -119,12 +117,7 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    G_column_mgt: for k in 0 to c_NB_COL-1 generate
    begin
-      cmd_ck_adc_ena(k)     <=   c_HGH_LEV when i_aqmde    = c_DST_AQMDE_DUMP  else
-                                 c_HGH_LEV when i_aqmde    = c_DST_AQMDE_SCIE  else
-                                 c_HGH_LEV when i_aqmde    = c_DST_AQMDE_ERRS  else
-                                 c_HGH_LEV when i_smfmd(k) = c_DST_SMFMD_ON    else
-                                 c_HGH_LEV when i_saofm(k) = c_DST_SAOFM_CLOSE else c_LOW_LEV;
-      cmd_ck_sqm_dac_ena(k) <=   c_HGH_LEV when i_smfmd(k) = c_DST_SMFMD_ON    else c_LOW_LEV;
+      cmd_ck_sqm_dac_ena(k) <= c_HGH_LEV when i_smfmd(k) = c_DST_SMFMD_ON else c_LOW_LEV;
 
       --! Command switch clocks
       P_cmd_ck_sqm : process (i_rst, i_clk)
@@ -139,7 +132,7 @@ begin
 
          elsif rising_edge(i_clk) then
             if pixel_pos = std_logic_vector(to_signed(c_PIX_POS_SW_ON, pixel_pos'length)) then
-               o_cmd_ck_adc_ena(k) <= cmd_ck_adc_ena(k) and ck_pls_cnt(ck_pls_cnt'high);
+               o_cmd_ck_adc_ena(k) <= i_adc_ena(k) and ck_pls_cnt(ck_pls_cnt'high);
 
             else
                o_cmd_ck_adc_ena(k) <= c_LOW_LEV;
@@ -147,7 +140,7 @@ begin
             end if;
 
             if pixel_pos = std_logic_vector(to_signed(c_PIX_POS_SW_ADC_OFF, pixel_pos'length)) then
-               o_cmd_ck_adc_dis(k) <= not(cmd_ck_adc_ena(k)) and ck_pls_cnt(ck_pls_cnt'high);
+               o_cmd_ck_adc_dis(k) <= not(i_adc_ena(k)) and ck_pls_cnt(ck_pls_cnt'high);
 
             else
                o_cmd_ck_adc_dis(k) <= c_LOW_LEV;

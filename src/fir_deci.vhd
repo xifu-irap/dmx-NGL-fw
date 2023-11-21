@@ -37,15 +37,14 @@ use     work.pkg_project.all;
 entity fir_deci is generic (
          g_FIR_DCI_VAL        : integer                                                                     ; --! Filter FIR decimation value
          g_FIR_TAB_NW         : integer                                                                     ; --! Filter FIR table number word
-         g_FIR_COEF           : integer_vector                                                              ; --! Filter FIR coefficients
          g_FIR_COEF_S         : integer                                                                     ; --! Filter FIR coefficient bus size
+         g_FIR_COEF           : t_slv_arr(0 to g_FIR_TAB_NW-1)(g_FIR_COEF_S-1 downto 0)                     ; --! Filter FIR coefficients
          g_FIR_COEF_SUM_S     : integer                                                                     ; --! Filter FIR coefficient sum bus size
          g_FIR_DATA_S         : integer                                                                     ; --! Filter FIR data bus size
          g_FIR_RES_S          : integer                                                                       --! Filter FIR result bus size
    ); port (
          i_rst                : in     std_logic                                                            ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                : in     std_logic                                                            ; --! System Clock
-         i_clk_90             : in     std_logic                                                            ; --! System Clock 90 degrees shift
 
          i_fir_init_val       : in     std_logic_vector(g_FIR_DATA_S-1 downto 0)                            ; --! Filter FIR data initialization value
          i_fir_init_ena       : in     std_logic                                                            ; --! Filter FIR data initialization enable ('0' = No, '1' = Yes)
@@ -68,7 +67,7 @@ constant c_FIR_SUM_RDY_POS    : integer := c_FIR_PRD_RDY_POS + 1                
 
 constant c_TOT_RDY_POS        : integer := c_FIR_SUM_RDY_POS                                                ; --! Ready position: Total
 
-constant c_FIR_SYNC_COEF_DATA : integer := 2                                                                ; --! Filter FIR synchronization between FIR coefficient and data
+constant c_FIR_SYNC_COEF_DATA : integer := 3                                                                ; --! Filter FIR synchronization between FIR coefficient and data
 constant c_FIR_ADD_INIT       : integer := g_FIR_TAB_NW - g_FIR_DCI_VAL                                     ; --! Filter FIR data address initialization value
 
 constant c_FIR_W_CNT_MAX_VAL  : integer:= g_FIR_DCI_VAL - 2                                                 ; --! Filter FIR data decimation word counter: maximal value
@@ -88,14 +87,6 @@ signal   mem_fir_data_wr      : t_mem(
 signal   mem_fir_data_rd      : t_mem(
                                 add(    c_FIR_ADD_S-1 downto 0),
                                 data_w(g_FIR_DATA_S-1 downto 0))                                            ; --! Filter FIR data read: memory inputs
-
-signal   mem_fir_coef_nu      : t_mem(
-                                add(    c_FIR_ADD_S-1 downto 0),
-                                data_w(g_FIR_COEF_S-1 downto 0))                                            ; --! Filter FIR coefficients, not used side: memory inputs
-
-signal   mem_fir_coef         : t_mem(
-                                add(    c_FIR_ADD_S-1 downto 0),
-                                data_w(g_FIR_COEF_S-1 downto 0))                                            ; --! Filter FIR coefficients: memory inputs
 
 signal   fir_init_ena_r       : std_logic                                                                   ; --! Filter FIR initialization enable register
 signal   fir_init_ena_fe      : std_logic                                                                   ; --! Filter FIR initialization enable falling edge
@@ -378,46 +369,18 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   Dual port memory for Filter FIR coefficients (Read only)
    -- ------------------------------------------------------------------------------------------------------
-   I_mem_fir_coef: entity work.dmem_ecc generic map (
-         g_RAM_TYPE           => c_RAM_TYPE_PRM_STORE , -- integer                                          ; --! Memory type ( 0  = Data transfer,  1  = Parameters storage)
-         g_RAM_ADD_S          => c_FIR_ADD_S          , -- integer                                          ; --! Memory address bus size (<= c_RAM_ECC_ADD_S)
-         g_RAM_DATA_S         => g_FIR_COEF_S         , -- integer                                          ; --! Memory data bus size (<= c_RAM_DATA_S)
-         g_RAM_INIT           => g_FIR_COEF             -- integer_vector                                     --! Memory content at initialization
-   ) port map (
-         i_a_rst              => i_rst                , -- in     std_logic                                 ; --! Memory port A: registers reset ('0' = Inactive, '1' = Active)
-         i_a_clk              => i_clk                , -- in     std_logic                                 ; --! Memory port A: main clock
-         i_a_clk_shift        => i_clk_90             , -- in     std_logic                                 ; --! Memory port A: 90 degrees shifted clock (used for memory content correction)
+   P_fir_coef : process (i_rst, i_clk)
+   begin
 
-         i_a_mem              => mem_fir_coef_nu      , -- in     t_mem( add(g_RAM_ADD_S-1 downto 0), ...)  ; --! Memory port A inputs (scrubbing with ping-pong buffer bit for parameters storage)
-         o_a_data_out         => open                 , -- out    slv(g_RAM_DATA_S-1 downto 0)              ; --! Memory port A: data out
-         o_a_pp               => open                 , -- out    std_logic                                 ; --! Memory port A: ping-pong buffer bit for address management
+      if i_rst = c_RST_LEV_ACT then
+         fir_coef <= g_FIR_COEF(to_integer(unsigned(c_ZERO(fir_add_r(fir_add_r'low)'range))));
 
-         o_a_flg_err          => open                 , -- out    std_logic                                 ; --! Memory port A: flag error uncorrectable detected ('0' = No, '1' = Yes)
+      elsif rising_edge(i_clk) then
+         fir_coef <= g_FIR_COEF(to_integer(unsigned(fir_add_r(fir_add_r'high))));
 
-         i_b_rst              => i_rst                , -- in     std_logic                                 ; --! Memory port B: registers reset ('0' = Inactive, '1' = Active)
-         i_b_clk              => i_clk                , -- in     std_logic                                 ; --! Memory port B: main clock
-         i_b_clk_shift        => i_clk_90             , -- in     std_logic                                 ; --! Memory port B: 90 degrees shifted clock (used for memory content correction)
+      end if;
 
-         i_b_mem              => mem_fir_coef         , -- in     t_mem( add(g_RAM_ADD_S-1 downto 0), ...)  ; --! Memory port B inputs
-         o_b_data_out         => fir_coef             , -- out    slv(g_RAM_DATA_S-1 downto 0)              ; --! Memory port B: data out
-
-         o_b_flg_err          => open                   -- out    std_logic                                   --! Memory port B: flag error uncorrectable detected ('0' = No, '1' = Yes)
-   );
-
-   -- ------------------------------------------------------------------------------------------------------
-   --!   Dual port memory Filter FIR coefficients: memory signals management
-   -- ------------------------------------------------------------------------------------------------------
-   mem_fir_coef_nu.add      <= c_ZERO(mem_fir_coef_nu.add'range);
-   mem_fir_coef_nu.we       <= c_LOW_LEV;
-   mem_fir_coef_nu.cs       <= c_LOW_LEV;
-   mem_fir_coef_nu.data_w   <= c_ZERO(mem_fir_coef_nu.data_w'range);
-   mem_fir_coef_nu.pp       <= c_LOW_LEV;
-
-   mem_fir_coef.add         <= fir_add_r(fir_add_r'high);
-   mem_fir_coef.we          <= c_LOW_LEV;
-   mem_fir_coef.cs          <= c_HGH_LEV;
-   mem_fir_coef.data_w      <= c_ZERO(mem_fir_coef.data_w'range);
-   mem_fir_coef.pp          <= c_LOW_LEV;
+   end process P_fir_coef;
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Filter FIR product result
@@ -478,7 +441,8 @@ begin
          g_DATA_STALL_MSB_S   => g_FIR_RES_S + 1        -- integer                                            --! Data stalled on Mean Significant Bit bus size
    ) port map (
          i_data               => fir_sum              , -- in     slv(          g_DATA_S-1 downto 0)        ; --! Data
-         o_data_stall_msb     => fir_sum_stall_msb      -- out    slv(g_DATA_STALL_MSB_S-1 downto 0)          --! Data stalled on Mean Significant Bit
+         o_data_stall_msb     => fir_sum_stall_msb    , -- out    slv(g_DATA_STALL_MSB_S-1 downto 0)        ; --! Data stalled on Mean Significant Bit
+         o_data               => open                   -- out    slv(          g_DATA_S-1 downto 0)          --! Data
    );
 
    -- ------------------------------------------------------------------------------------------------------

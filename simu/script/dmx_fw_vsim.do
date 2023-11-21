@@ -39,6 +39,7 @@ quietly set TB_DIR $3
       ${SRC_DIR}/pkg_project.vhd          \
       ${SRC_DIR}/pkg_ep_cmd.vhd           \
       ${SRC_DIR}/pkg_ep_cmd_type.vhd      \
+      ${SRC_DIR}/pkg_fir.vhd              \
       ${SRC_DIR}/multiplexer.vhd          \
       ${SRC_DIR}/resize_stall_msb.vhd     \
       ${SRC_DIR}/cmd_im_ck.vhd            \
@@ -48,6 +49,7 @@ quietly set TB_DIR $3
       ${IP_DIR}/pll.vhd                   \
       ${IP_DIR}/dmem_ecc.vhd              \
       ${SRC_DIR}/im_ck.vhd                \
+      ${SRC_DIR}/rst_gen.vhd              \
       ${SRC_DIR}/rst_clk_mgt.vhd          \
       ${SRC_DIR}/in_rs_clk.vhd            \
       ${SRC_DIR}/round_sat.vhd            \
@@ -60,6 +62,7 @@ quietly set TB_DIR $3
       ${SRC_DIR}/mem_data_rd_mux.vhd      \
       ${SRC_DIR}/ep_cmd_tx_wd.vhd         \
       ${SRC_DIR}/mem_in_gen.vhd           \
+      ${SRC_DIR}/squid_close_mode.vhd     \
       ${SRC_DIR}/register_cs_mgt.vhd      \
       ${SRC_DIR}/rg_aqmde_mgt.vhd         \
       ${SRC_DIR}/rg_tsten_mgt.vhd         \
@@ -70,15 +73,18 @@ quietly set TB_DIR $3
       ${SRC_DIR}/science_data_mgt.vhd     \
       ${SRC_DIR}/hk_mgt.vhd               \
       ${SRC_DIR}/adder_acc.vhd            \
+      ${SRC_DIR}/squid_adc_sys.vhd        \
       ${SRC_DIR}/squid_adc_mgt.vhd        \
       ${SRC_DIR}/squid_data_proc_mem.vhd  \
       ${SRC_DIR}/squid_data_proc.vhd      \
       ${SRC_DIR}/sqm_fbk_mgt.vhd          \
       ${SRC_DIR}/pulse_shaping.vhd        \
+      ${SRC_DIR}/sqm_dac_sys.vhd          \
       ${SRC_DIR}/sqm_dac_mgt.vhd          \
       ${SRC_DIR}/fir_deci.vhd             \
       ${SRC_DIR}/sqa_under_samp.vhd       \
       ${SRC_DIR}/sqa_fbk_mgt.vhd          \
+      ${SRC_DIR}/sqa_dac_sys.vhd          \
       ${SRC_DIR}/sqa_dac_mgt.vhd          \
       ${SRC_DIR}/sqm_spi_mgt.vhd          \
       ${SRC_DIR}/test_pattern_gen.vhd     \

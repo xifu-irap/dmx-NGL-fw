@@ -41,22 +41,19 @@ entity squid_data_proc is port (
          i_clk                : in     std_logic                                                            ; --! Clock
          i_clk_90             : in     std_logic                                                            ; --! System Clock 90 degrees shift
 
+         i_adc_ena            : in     std_logic                                                            ; --! ADC enable ('0' = Inactive, '1' = Active)
          i_aqmde              : in     std_logic_vector(c_DFLD_AQMDE_S-1 downto 0)                          ; --! Telemetry mode
-         i_smfmd              : in     std_logic_vector(c_DFLD_SMFMD_COL_S-1 downto 0)                      ; --! SQUID MUX feedback mode
-         i_saofm              : in     std_logic_vector(c_DFLD_SAOFM_COL_S-1 downto 0)                      ; --! SQUID AMP offset mode
          i_bxlgt              : in     std_logic_vector(c_DFLD_BXLGT_COL_S-1 downto 0)                      ; --! ADC sample number for averaging
          i_sqm_adc_pwdn       : in     std_logic                                                            ; --! SQUID MUX ADC: Power Down ('0' = Inactive, '1' = Active)
 
          i_mem_prc            : in     t_mem_prc                                                            ; --! Memory for data squid proc.: memory interface
          o_mem_prc_data       : out    t_mem_prc_dta                                                        ; --! Memory for data squid proc.: data read
 
-         i_init_fbk_pixel_pos : in     std_logic_vector(c_MUX_FACT_S-1 downto 0)                            ; --! Initialization feedback chain accumulators Pixel position
-         i_init_fbk_acc       : in     std_logic                                                            ; --! Initialization feedback chain accumulators ('0' = Inactive, '1' = Active)
+         o_smfbm_add          : out    std_logic_vector( c_MEM_SMFBM_ADD_S-1 downto 0)                      ; --! SQUID MUX feedback mode: address, memory output
+         o_smfbm_cs           : out    std_logic                                                            ; --! SQUID MUX feedback mode: chip select, memory output ('0' = Inactive, '1' = Active)
+         i_squid_close_mode_n : in     std_logic                                                            ; --! SQUID MUX/AMP Close mode ('0' = Yes, '1' = No)
 
          i_rl_ena             : in     std_logic                                                            ; --! Relock enable ('0' = No, '1' = Yes)
-         i_sqm_fbk_smfb0      : in     std_logic_vector(c_DFLD_SMFB0_PIX_S-1 downto 0)                      ; --! SQUID MUX feedback value in open loop (signed)
-         o_smfbm_close_rl     : out    std_logic                                                            ; --! SQUID MUX feedback close mode for relock ('0' = No close , '1' = Close)
-         o_smfb0_rl           : out    std_logic_vector(c_DFLD_SMFB0_PIX_S-1 downto 0)                      ; --! SQUID MUX feedback value in open loop for relock (signed)
          o_mem_rl_rd_add      : out    std_logic_vector(      c_MUX_FACT_S-1 downto 0)                      ; --! Relock memories read address
 
          i_sqm_data_err       : in     std_logic_vector(c_SQM_DATA_ERR_S-1 downto 0)                        ; --! SQUID MUX Data error
@@ -73,13 +70,14 @@ entity squid_data_proc is port (
          o_sqm_dta_pixel_pos  : out    std_logic_vector(    c_MUX_FACT_S-1 downto 0)                        ; --! SQUID MUX Data error corrected pixel position
          o_sqm_dta_err_frst   : out    std_logic                                                            ; --! SQUID MUX Data error corrected first pixel
          o_sqm_dta_err_cor    : out    std_logic_vector(c_SQM_DATA_FBK_S-1 downto 0)                        ; --! SQUID MUX Data error corrected (signed)
+         o_diff_sqm_dta_smfb0 : out    std_logic_vector(c_SQM_DATA_FBK_S   downto 0)                        ; --! SQUID MUX Data error corrected minus SQUID MUX feedback value in open loop
          o_sqm_dta_err_cor_cs : out    std_logic                                                              --! SQUID MUX Data error corrected chip select ('0' = Inactive, '1' = Active)
    );
 end entity squid_data_proc;
 
 architecture RTL of squid_data_proc is
 constant c_MEM_ACC_WR_NPER    : integer := 2                                                                ; --! Clock period number for getting data to write in add/acc mem. from data to acc. ready
-constant c_MEM_ELN_RD_NPER    : integer := 1                                                                ; --! Clock period number for reading data in add/acc memory from data element n ready
+constant c_MEM_ELN_RD_NPER    : integer := 2                                                                ; --! Clock period number for reading data in add/acc memory from data element n ready
 constant c_MEM_PAR_NPER       : integer := c_MEM_RD_DATA_NPER + 1                                           ; --! Clock period number for getting parameter in memory from memory address update
 constant c_ADC_SMP_AVE_NPER   : integer := c_DSP_NPER + 1                                                   ; --! Clock period number for ADC sample average from SQUID MUX Data error ready
 constant c_ERR_SIG_NPER       : integer := c_ADC_SMP_AVE_NPER + 1                                           ; --! Clock period number for Error signal from SQUID MUX Data error ready
@@ -97,12 +95,13 @@ constant c_KIKNM_P_RDY_POS    : integer := c_DIF_E_PN_NPER    - c_MEM_PAR_NPER -
 constant c_KNORM_P_RDY_POS    : integer := c_KIKNM_P_RDY_POS                                                ; --! Ready position: parameters knorm(p)
 constant c_A_P_RDY_POS        : integer := c_M_PN_NPER        - c_MEM_PAR_NPER - 1                          ; --! Ready position: parameters a(p)
 constant c_DFB_PN_RDY_POS     : integer := c_M_PN_NPER        - c_MEM_RD_DATA_NPER - c_MEM_ELN_RD_NPER      ; --! Ready position: dFB(p,n)
-constant c_INI_DFB_PN_RDY_POS : integer := c_DFB_PN_RDY_POS   - 1                                           ; --! Ready position: Initialization dFB(p,n)
+constant c_INI_DFB_PN_RDY_POS : integer := c_DFB_PN_RDY_POS   - c_MEM_PAR_NPER                              ; --! Ready position: Initialization dFB(p,n)
 constant c_M_PN_RDY_POS       : integer := c_M_PN_NPER - 1                                                  ; --! Ready position: M(p,n)
 constant c_PC1_PN_RDY_POS     : integer := c_PC1_PN_NPER - 1                                                ; --! Ready position: PC1(p,n)
 constant c_FB_PN_RDY_POS      : integer := c_NRM_PN_NPER      - c_MEM_RD_DATA_NPER - c_MEM_ELN_RD_NPER      ; --! Ready position: FB(p,n)
 constant c_FB_PNP1_RDY_POS    : integer := c_FB_PNP1_NPER  - 1                                              ; --! Ready position: FB(p,n+1)
 constant c_INI_FB_PN_RDY_POS  : integer := c_FB_PN_RDY_POS - 1                                              ; --! Ready position: Initialization FB(p,n)
+constant c_SMFB0_P_RDY_POS    : integer := c_FB_PN_RDY_POS                                                  ; --! Ready position: parameters smfb0
 constant c_SC_PN_RDY_POS      : integer := c_SC_PN_NPER - 1                                                 ; --! Ready position: SC(p,n)
 constant c_AQMDE_RDY_POS      : integer := c_SC_PN_RDY_POS - 2                                              ; --! Ready position: AQMDE sync
 
@@ -122,11 +121,13 @@ signal   pixel_pos_r          : t_slv_arr(0 to c_TOT_NPER-1)(c_PIXEL_POS_S-1 dow
 signal   mem_parma_prm_add    : std_logic_vector(c_MEM_PARMA_ADD_S-1  downto 0)                             ; --! Parameter a(p): memory parameter side address
 signal   mem_kiknm_prm_add    : std_logic_vector(c_MEM_KIKNM_ADD_S-1  downto 0)                             ; --! Parameter ki(p)*knorm(p): memory parameter side address
 signal   mem_knorm_prm_add    : std_logic_vector(c_MEM_KNORM_ADD_S-1  downto 0)                             ; --! Parameter knorm(p): memory parameter side address
+signal   mem_smfb0_prm_add    : std_logic_vector(c_MEM_SMFB0_ADD_S-1  downto 0)                             ; --! Parameter smfb0(p): memory parameter side address
 signal   mem_smlkv_prm_add    : std_logic_vector(c_MEM_SMLKV_ADD_S-1  downto 0)                             ; --! Parameter Elp(p): memory parameter side address
 
 signal   mem_parma_pp_rdy     : std_logic                                                                   ; --! Parameter a(p): ping-pong buffer bit ready ('0' = Inactive, '1' = Active)
 signal   mem_kiknm_pp_rdy     : std_logic                                                                   ; --! Parameter ki(p)*knorm(p): ping-pong buffer bit ready ('0' = Inactive, '1' = Active)
 signal   mem_knorm_pp_rdy     : std_logic                                                                   ; --! Parameter knorm(p): ping-pong buffer bit ready ('0' = Inactive, '1' = Active)
+signal   mem_smfb0_pp_rdy     : std_logic                                                                   ; --! Parameter smfb0(p): ping-pong buffer bit ready ('0' = Inactive, '1' = Active)
 signal   mem_smlkv_pp_rdy     : std_logic                                                                   ; --! Parameter Elp(p): ping-pong buffer bit ready ('0' = Inactive, '1' = Active)
 
 signal   a_p_aln              : std_logic_vector(c_DFLD_PARMA_PIX_S   downto 0)                             ; --! Parameters a(p)
@@ -136,12 +137,12 @@ signal   elp_p_aln            : std_logic_vector(c_ADC_SMP_AVE_S-1    downto 0) 
 
 signal   mem_init_fbk_acc_dfb : t_slv_arr(0 to 2**c_MUX_FACT_S-1)(0 downto 0)                               ; --! Memory initialization feedback chain accumulators dFB(p,n)
 signal   mem_init_fbk_acc_fb  : t_slv_arr(0 to 2**c_MUX_FACT_S-1)(0 downto 0)                               ; --! Memory initialization feedback chain accumulators FB(p,n)
-signal   mem_smfb0_rl         : t_slv_arr(0 to 2**c_MUX_FACT_S-1)(c_DFLD_SMFB0_PIX_S-1 downto 0)            ; --! Memory SQUID MUX feedback value in open loop for relock (signed)
 
 signal   init_fbk_acc_dfb     : std_logic                                                                   ; --! Initialization feedback chain accumulators dFB(p,n)
 signal   init_fbk_acc_fb      : std_logic                                                                   ; --! Initialization feedback chain accumulators FB(p,n)
 signal   smfb0                : std_logic_vector(c_DFLD_SMFB0_PIX_S-1 downto 0)                             ; --! SQUID MUX feedback value in open loop (signed)
-signal   smfb0_rl_rs          : std_logic_vector(c_FB_PN_S-1 downto 0)                                      ; --! SQUID MUX feedback value in open loop for relock resize
+signal   smfb0_fb_aln         : std_logic_vector(c_FB_PN_S-1 downto 0)                                      ; --! SQUID MUX feedback value in open loop for FB(p,n) alignment
+signal   smfb0_rl_aln         : std_logic_vector(c_SQM_DATA_FBK_S-1 downto 0)                               ; --! SQUID MUX feedback value in open loop for relock alignment
 
 signal   sqm_adc_ena          : std_logic                                                                   ; --! ADC enable ('0'= No, '1'= Yes)
 signal   aqmde_sync           : std_logic_vector(c_DFLD_AQMDE_S-1 downto 0)                                 ; --! Telemetry mode, sync. on first pixel
@@ -239,6 +240,7 @@ begin
    mem_parma_prm_add <= pixel_pos_r(c_A_P_RDY_POS);
    mem_kiknm_prm_add <= pixel_pos_r(c_KIKNM_P_RDY_POS);
    mem_knorm_prm_add <= pixel_pos_r(c_KNORM_P_RDY_POS);
+   mem_smfb0_prm_add <= pixel_pos_r(c_SMFB0_P_RDY_POS);
    mem_smlkv_prm_add <= pixel_pos_r(c_ELP_P_RDY_POS);
 
    -- ------------------------------------------------------------------------------------------------------
@@ -247,6 +249,7 @@ begin
    mem_parma_pp_rdy  <= sqm_data_err_rdy_r(c_A_P_RDY_POS) and sqm_data_err_frst_r(c_A_P_RDY_POS);
    mem_kiknm_pp_rdy  <= sqm_data_err_rdy_r(c_KIKNM_P_RDY_POS) and sqm_data_err_frst_r(c_KIKNM_P_RDY_POS);
    mem_knorm_pp_rdy  <= sqm_data_err_rdy_r(c_KNORM_P_RDY_POS) and sqm_data_err_frst_r(c_KNORM_P_RDY_POS);
+   mem_smfb0_pp_rdy  <= sqm_data_err_rdy_r(c_SMFB0_P_RDY_POS) and sqm_data_err_frst_r(c_SMFB0_P_RDY_POS);
    mem_smlkv_pp_rdy  <= sqm_data_err_rdy_r(c_ELP_P_RDY_POS) and sqm_data_err_frst_r(c_ELP_P_RDY_POS);
 
    -- ------------------------------------------------------------------------------------------------------
@@ -263,70 +266,21 @@ begin
          i_mem_parma_prm_add  => mem_parma_prm_add    , -- in     slv(c_MEM_PARMA_ADD_S-1  downto 0)        ; --! Parameter a(p): memory parameter side address
          i_mem_kiknm_prm_add  => mem_kiknm_prm_add    , -- in     slv(c_MEM_KIKNM_ADD_S-1  downto 0)        ; --! Parameter ki(p)*knorm(p): memory parameter side address
          i_mem_knorm_prm_add  => mem_knorm_prm_add    , -- in     slv(c_MEM_KNORM_ADD_S-1  downto 0)        ; --! Parameter knorm(p): memory parameter side address
+         i_mem_smfb0_prm_add  => mem_smfb0_prm_add    , -- in     slv(c_MEM_SMFB0_ADD_S-1  downto 0)        ; --! Parameter smfb0(p): memory parameter side address
          i_mem_smlkv_prm_add  => mem_smlkv_prm_add    , -- in     slv(c_MEM_SMLKV_ADD_S-1  downto 0)        ; --! Parameter Elp(p): memory parameter side address
 
          i_mem_parma_pp_rdy   => mem_parma_pp_rdy     , -- in     std_logic                                 ; --! Parameter a(p): ping-pong buffer bit ready ('0' = Inactive, '1' = Active)
          i_mem_kiknm_pp_rdy   => mem_kiknm_pp_rdy     , -- in     std_logic                                 ; --! Parameter ki(p)*knorm(p): ping-pong buffer bit ready ('0' = Inactive, '1' = Active)
          i_mem_knorm_pp_rdy   => mem_knorm_pp_rdy     , -- in     std_logic                                 ; --! Parameter knorm(p): ping-pong buffer bit ready ('0' = Inactive, '1' = Active)
+         i_mem_smfb0_pp_rdy   => mem_smfb0_pp_rdy     , -- in     std_logic                                 ; --! Parameter smfb0(p): ping-pong buffer bit ready ('0' = Inactive, '1' = Active)
          i_mem_smlkv_pp_rdy   => mem_smlkv_pp_rdy     , -- in     std_logic                                 ; --! Parameter Elp(p): ping-pong buffer bit ready ('0' = Inactive, '1' = Active)
 
          o_a_p_aln            => a_p_aln              , -- out    slv(c_DFLD_PARMA_PIX_S   downto 0)        ; --! Parameters a(p)
          o_ki_knorm_p_aln     => ki_knorm_p_aln       , -- out    slv(c_DFLD_KIKNM_PIX_S   downto 0)        ; --! Parameters ki(p)*knorm(p)
          o_knorm_p_aln        => knorm_p_aln          , -- out    slv(c_DFLD_KNORM_PIX_S   downto 0)        ; --! Parameters knorm(p)
+         o_smfb0_p_aln        => smfb0                , -- out    slv(c_DFLD_SMFB0_PIX_S-1 downto 0)        ; --! Parameters smfb0(p)
          o_elp_p_aln          => elp_p_aln              -- out    slv(c_ADC_SMP_AVE_S-1    downto 0)          --! Parameters Elp(p) aligned on E(p,n) bus size
    );
-
-   -- ------------------------------------------------------------------------------------------------------
-   --!   Dual port memory initialization feedback chain accumulators and
-   --!    SQUID MUX feedback value in open loop for relock
-   -- ------------------------------------------------------------------------------------------------------
-   --! Memories write
-   P_init_fbk_acc_wr : process (i_clk)
-   begin
-
-      if rising_edge(i_clk) then
-         mem_init_fbk_acc_dfb(to_integer(unsigned(i_init_fbk_pixel_pos)))(mem_init_fbk_acc_dfb(mem_init_fbk_acc_dfb'low)'low) <= i_init_fbk_acc;
-         mem_init_fbk_acc_fb( to_integer(unsigned(i_init_fbk_pixel_pos)))(mem_init_fbk_acc_fb( mem_init_fbk_acc_fb'low)'low)  <= i_init_fbk_acc;
-         mem_smfb0_rl(to_integer(unsigned(i_init_fbk_pixel_pos)))                                                             <= i_sqm_fbk_smfb0;
-
-      end if;
-
-   end process P_init_fbk_acc_wr;
-
-   --! Memories read
-   P_init_fbk_acc_rd : process (i_rst, i_clk)
-   begin
-
-      if i_rst = c_RST_LEV_ACT then
-         init_fbk_acc_dfb <= c_HGH_LEV;
-         init_fbk_acc_fb  <= c_HGH_LEV;
-         smfb0            <= std_logic_vector(to_unsigned(c_EP_CMD_DEF_SMFB0(c_COL0), smfb0'length));
-         o_smfb0_rl       <= std_logic_vector(to_unsigned(c_EP_CMD_DEF_SMFB0(c_COL0), o_smfb0_rl'length));
-
-      elsif rising_edge(i_clk) then
-         init_fbk_acc_dfb <= mem_init_fbk_acc_dfb(to_integer(unsigned(pixel_pos_r(c_INI_DFB_PN_RDY_POS))))(mem_init_fbk_acc_dfb(mem_init_fbk_acc_dfb'low)'low);
-         init_fbk_acc_fb  <= mem_init_fbk_acc_fb( to_integer(unsigned(pixel_pos_r(c_INI_FB_PN_RDY_POS ))))(mem_init_fbk_acc_fb( mem_init_fbk_acc_fb'low)'low);
-         smfb0            <= mem_smfb0_rl(        to_integer(unsigned(pixel_pos_r(c_FB_PN_RDY_POS))));
-
-         if sqm_data_err_rdy_r(c_FB_PNP1_RDY_POS-1) = c_HGH_LEV then
-            o_smfb0_rl    <= smfb0;
-
-         end if;
-
-      end if;
-
-   end process P_init_fbk_acc_rd;
-
-   I_smfb0_rl_rs : entity work.resize_stall_msb generic map (
-         g_DATA_S             => c_DFLD_SMFB0_PIX_S   , -- integer                                          ; --! Data input bus size
-         g_DATA_STALL_MSB_S   => c_FB_PN_S              -- integer                                            --! Data stalled on Mean Significant Bit bus size
-   ) port map (
-         i_data               => smfb0                , -- in     slv(          g_DATA_S-1 downto 0)        ; --! Data
-         o_data_stall_msb     => smfb0_rl_rs            -- out    slv(g_DATA_STALL_MSB_S-1 downto 0)          --! Data stalled on Mean Significant Bit
-   );
-
-   o_smfbm_close_rl  <= not(init_fbk_acc_fb);
-   o_mem_rl_rd_add   <= pixel_pos_r(c_FB_PN_RDY_POS-1);
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Registers sync. on first pixel
@@ -346,15 +300,7 @@ begin
          end if;
 
          if (i_sqm_data_err_frst and i_sqm_data_err_rdy) = c_HGH_LEV then
-
-            if (i_aqmde = c_DST_AQMDE_DUMP or i_aqmde = c_DST_AQMDE_SCIE or i_aqmde = c_DST_AQMDE_ERRS or i_smfmd = c_DST_SMFMD_ON or i_saofm = c_DST_SAOFM_CLOSE) and
-               (i_sqm_adc_pwdn = c_LOW_LEV) then
-               sqm_adc_ena <= c_HGH_LEV;
-
-            else
-               sqm_adc_ena <= c_LOW_LEV;
-
-            end if;
+            sqm_adc_ena <= i_adc_ena and not(i_sqm_adc_pwdn);
 
          end if;
 
@@ -513,6 +459,9 @@ begin
    --!   Adder with accumulator: dFB(p,n+1) = M(p,n) + dFB(p,n)
    --    @Req : DRE-DMX-FW-REQ-0160
    -- ------------------------------------------------------------------------------------------------------
+   o_smfbm_add       <= pixel_pos_r(       c_INI_DFB_PN_RDY_POS);
+   o_smfbm_cs        <= sqm_data_err_rdy_r(c_INI_DFB_PN_RDY_POS);
+
    dfb_mem_acc_add   <= pixel_pos_r(       c_DFB_PN_RDY_POS);
    dfb_data_eln_rdy  <= sqm_data_err_rdy_r(c_DFB_PN_RDY_POS);
    dfb_data_acc_rdy  <= sqm_data_err_rdy_r(c_M_PN_RDY_POS);
@@ -526,7 +475,7 @@ begin
          i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                => i_clk                , -- in     std_logic                                 ; --! Clock
          i_mem_acc_add        => dfb_mem_acc_add      , -- in     slv(log2_ceil(g_MEM_ACC_NW)-1 downto 0)   ; --! Memory accumulator address
-         i_mem_acc_init_ena   => init_fbk_acc_dfb     , -- in     std_logic                                 ; --! Memory accumulator initialization enable ('0' = No, '1' = Yes)
+         i_mem_acc_init_ena   => i_squid_close_mode_n , -- in     std_logic                                 ; --! Memory accumulator initialization enable ('0' = No, '1' = Yes)
          i_mem_acc_rl_val     => c_DFB_PN_INIT_VAL_V  , -- in     std_logic_vector(g_DATA_ELN_S-1 downto 0) ; --! Memory accumulator relock value (signed)
          i_rl_ena             => i_rl_ena             , -- in     std_logic                                 ; --! Relock enable ('0' = No, '1' = Yes)
          i_data_acc           => m_pn_rnd_sat_dfb_pn  , -- in     std_logic_vector(g_DATA_ACC_S-1 downto 0) ; --! Data to accumulate (signed)
@@ -581,6 +530,15 @@ begin
    --    @Req : DRE-DMX-FW-REQ-0160
    --    @Req : DRE-DMX-FW-REQ-0400
    -- ------------------------------------------------------------------------------------------------------
+   I_smfb0_fb_aln : entity work.resize_stall_msb generic map (
+         g_DATA_S             => c_DFLD_SMFB0_PIX_S   , -- integer                                          ; --! Data input bus size
+         g_DATA_STALL_MSB_S   => c_FB_PN_S              -- integer                                            --! Data stalled on Mean Significant Bit bus size
+   ) port map (
+         i_data               => smfb0                , -- in     slv(          g_DATA_S-1 downto 0)        ; --! Data
+         o_data_stall_msb     => smfb0_fb_aln         , -- out    slv(g_DATA_STALL_MSB_S-1 downto 0)        ; --! Data stalled on Mean Significant Bit
+         o_data               => open                   -- out    slv(          g_DATA_S-1 downto 0)          --! Data
+   );
+
    fb_mem_acc_add    <= pixel_pos_r(       c_FB_PN_RDY_POS);
    fb_data_eln_rdy   <= sqm_data_err_rdy_r(c_FB_PN_RDY_POS);
    fb_data_acc_rdy   <= sqm_data_err_rdy_r(c_PC1_PN_RDY_POS);
@@ -594,8 +552,8 @@ begin
          i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                => i_clk                , -- in     std_logic                                 ; --! Clock
          i_mem_acc_add        => fb_mem_acc_add       , -- in     slv(log2_ceil(g_MEM_ACC_NW)-1 downto 0)   ; --! Memory accumulator address
-         i_mem_acc_init_ena   => init_fbk_acc_fb      , -- in     std_logic                                 ; --! Memory accumulator initialization enable ('0' = No, '1' = Yes)
-         i_mem_acc_rl_val     => smfb0_rl_rs          , -- in     std_logic_vector(g_DATA_ELN_S-1 downto 0) ; --! Memory accumulator relock value (signed)
+         i_mem_acc_init_ena   => i_squid_close_mode_n , -- in     std_logic                                 ; --! Memory accumulator initialization enable ('0' = No, '1' = Yes)
+         i_mem_acc_rl_val     => smfb0_fb_aln         , -- in     std_logic_vector(g_DATA_ELN_S-1 downto 0) ; --! Memory accumulator relock value (signed)
          i_rl_ena             => i_rl_ena             , -- in     std_logic                                 ; --! Relock enable ('0' = No, '1' = Yes)
          i_data_acc           => pc1_pn_rnd_sat_fb_pn , -- in     std_logic_vector(g_DATA_ACC_S-1 downto 0) ; --! Data to accumulate (signed)
          i_data_acc_rdy       => fb_data_acc_rdy      , -- in     std_logic                                 ; --! Data to accumulate ready ('0' = Not ready, '1' = Ready)
@@ -736,5 +694,36 @@ begin
       end if;
 
    end process P_sqm_data_sc;
+
+   -- ------------------------------------------------------------------------------------------------------
+   --!   Relock: Difference between SQUID MUX Data error corrected and SQUID MUX feedback value in open loop
+   --    @Req : DRE-DMX-FW-REQ-0400
+   -- ------------------------------------------------------------------------------------------------------
+   I_smfb0_rl_aln : entity work.resize_stall_msb generic map (
+         g_DATA_S             => c_DFLD_SMFB0_PIX_S   , -- integer                                          ; --! Data input bus size
+         g_DATA_STALL_MSB_S   => c_SQM_DATA_FBK_S       -- integer                                            --! Data stalled on Mean Significant Bit bus size
+   ) port map (
+         i_data               => smfb0                , -- in     slv(          g_DATA_S-1 downto 0)        ; --! Data
+         o_data_stall_msb     => smfb0_rl_aln         , -- out    slv(g_DATA_STALL_MSB_S-1 downto 0)        ; --! Data stalled on Mean Significant Bit
+         o_data               => open                   -- out    slv(          g_DATA_S-1 downto 0)          --! Data
+   );
+
+   P_diff_sqm_dta_smfb0 : process (i_rst, i_clk)
+   begin
+
+      if i_rst = c_RST_LEV_ACT then
+         o_diff_sqm_dta_smfb0   <= c_ZERO(o_diff_sqm_dta_smfb0'range);
+
+      elsif rising_edge(i_clk) then
+         if o_sqm_dta_err_cor_cs = c_HGH_LEV then
+            o_diff_sqm_dta_smfb0  <= std_logic_vector(resize(signed(o_sqm_dta_err_cor), o_diff_sqm_dta_smfb0'length) -
+                                                      resize(signed(smfb0_rl_aln), o_diff_sqm_dta_smfb0'length));
+         end if;
+
+      end if;
+
+   end process P_diff_sqm_dta_smfb0;
+
+   o_mem_rl_rd_add   <= pixel_pos_r(c_FB_PN_RDY_POS-1);
 
 end architecture RTL;

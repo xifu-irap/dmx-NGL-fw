@@ -244,18 +244,18 @@ proc run_utest {args} {
          add wave -format Logic                    -group "Inputs"                              sim/:top_dmx_tb:I_top_dmx:i_sync
          add wave -format Logic                    -group "Inputs"                              sim/:top_dmx_tb:I_top_dmx:i_ras_data_valid
 
-         add wave -format Logic                    -group "Local Resets"                        sim/:top_dmx_tb:I_top_dmx:G_column_mgt(0):I_squid_adc_mgt:i_rst_sqm_adc_dac
-         add wave -format Logic                    -group "Local Resets"                        sim/:top_dmx_tb:I_top_dmx:G_column_mgt(1):I_squid_adc_mgt:i_rst_sqm_adc_dac
-         add wave -format Logic                    -group "Local Resets"                        sim/:top_dmx_tb:I_top_dmx:G_column_mgt(2):I_squid_adc_mgt:i_rst_sqm_adc_dac
-         add wave -format Logic                    -group "Local Resets"                        sim/:top_dmx_tb:I_top_dmx:G_column_mgt(3):I_squid_adc_mgt:i_rst_sqm_adc_dac
-         add wave -format Logic                    -group "Local Resets"                        sim/:top_dmx_tb:I_top_dmx:G_column_mgt(0):I_sqm_dac_mgt:i_rst_sqm_adc_dac
-         add wave -format Logic                    -group "Local Resets"                        sim/:top_dmx_tb:I_top_dmx:G_column_mgt(1):I_sqm_dac_mgt:i_rst_sqm_adc_dac
-         add wave -format Logic                    -group "Local Resets"                        sim/:top_dmx_tb:I_top_dmx:G_column_mgt(2):I_sqm_dac_mgt:i_rst_sqm_adc_dac
-         add wave -format Logic                    -group "Local Resets"                        sim/:top_dmx_tb:I_top_dmx:G_column_mgt(3):I_sqm_dac_mgt:i_rst_sqm_adc_dac
-         add wave -format Logic                    -group "Local Resets"                        sim/:top_dmx_tb:I_top_dmx:G_column_mgt(0):I_sqa_dac_mgt:i_rst_sqm_adc_dac
-         add wave -format Logic                    -group "Local Resets"                        sim/:top_dmx_tb:I_top_dmx:G_column_mgt(1):I_sqa_dac_mgt:i_rst_sqm_adc_dac
-         add wave -format Logic                    -group "Local Resets"                        sim/:top_dmx_tb:I_top_dmx:G_column_mgt(2):I_sqa_dac_mgt:i_rst_sqm_adc_dac
-         add wave -format Logic                    -group "Local Resets"                        sim/:top_dmx_tb:I_top_dmx:G_column_mgt(3):I_sqa_dac_mgt:i_rst_sqm_adc_dac
+         add wave -format Logic                    -group "Local Resets"                        sim/:top_dmx_tb:I_top_dmx:G_column_mgt(0):I_squid_adc_mgt:rst_sqm_adc_dac_loc
+         add wave -format Logic                    -group "Local Resets"                        sim/:top_dmx_tb:I_top_dmx:G_column_mgt(1):I_squid_adc_mgt:rst_sqm_adc_dac_loc
+         add wave -format Logic                    -group "Local Resets"                        sim/:top_dmx_tb:I_top_dmx:G_column_mgt(2):I_squid_adc_mgt:rst_sqm_adc_dac_loc
+         add wave -format Logic                    -group "Local Resets"                        sim/:top_dmx_tb:I_top_dmx:G_column_mgt(3):I_squid_adc_mgt:rst_sqm_adc_dac_loc
+         add wave -format Logic                    -group "Local Resets"                        sim/:top_dmx_tb:I_top_dmx:G_column_mgt(0):I_sqm_dac_mgt:rst_sqm_adc_dac_loc
+         add wave -format Logic                    -group "Local Resets"                        sim/:top_dmx_tb:I_top_dmx:G_column_mgt(1):I_sqm_dac_mgt:rst_sqm_adc_dac_loc
+         add wave -format Logic                    -group "Local Resets"                        sim/:top_dmx_tb:I_top_dmx:G_column_mgt(2):I_sqm_dac_mgt:rst_sqm_adc_dac_loc
+         add wave -format Logic                    -group "Local Resets"                        sim/:top_dmx_tb:I_top_dmx:G_column_mgt(3):I_sqm_dac_mgt:rst_sqm_adc_dac_loc
+         add wave -format Logic                    -group "Local Resets"                        sim/:top_dmx_tb:I_top_dmx:G_column_mgt(0):I_sqa_dac_mgt:rst_sqm_adc_dac_loc
+         add wave -format Logic                    -group "Local Resets"                        sim/:top_dmx_tb:I_top_dmx:G_column_mgt(1):I_sqa_dac_mgt:rst_sqm_adc_dac_loc
+         add wave -format Logic                    -group "Local Resets"                        sim/:top_dmx_tb:I_top_dmx:G_column_mgt(2):I_sqa_dac_mgt:rst_sqm_adc_dac_loc
+         add wave -format Logic                    -group "Local Resets"                        sim/:top_dmx_tb:I_top_dmx:G_column_mgt(3):I_sqa_dac_mgt:rst_sqm_adc_dac_loc
 
          add wave -format Logic                                                                 sim/:top_dmx_tb:I_top_dmx:rst
          add wave -format Logic                                                                 sim/:top_dmx_tb:I_top_dmx:clk

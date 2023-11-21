@@ -17,42 +17,57 @@
 --                            along with this program.  If not, see <https://www.gnu.org/licenses/>.
 -- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --    email                   slaurent@nanoxplore.com
---!   @file                   resize_stall_msb.vhd
+--!   @file                   sqm_dac_sys.vhd
 -- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --    Automatic Generation    No
 --    Code Rules Reference    SOC of design and VHDL handbook for VLSI development, CNES Edition (v2.1)
 -- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
---!   @details                return resized data stalled on Mean Significant Bit
+--!   @details                SQUID MUX DAC signals synchronized on system clock
 -- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 library ieee;
 use     ieee.std_logic_1164.all;
+use     ieee.numeric_std.all;
 
-entity resize_stall_msb is generic (
-         g_DATA_S             : integer                                                                     ; --! Data input bus size
-         g_DATA_STALL_MSB_S   : integer                                                                       --! Data stalled on Mean Significant Bit bus size
-   ); port (
-         i_data               : in     std_logic_vector(          g_DATA_S-1 downto 0)                      ; --! Data
-         o_data_stall_msb     : out    std_logic_vector(g_DATA_STALL_MSB_S-1 downto 0)                      ; --! Data stalled on Mean Significant Bit
-         o_data               : out    std_logic_vector(          g_DATA_S-1 downto 0)                        --! Data
+library work;
+use     work.pkg_type.all;
+use     work.pkg_fpga_tech.all;
+use     work.pkg_project.all;
+use     work.pkg_ep_cmd.all;
+
+entity sqm_dac_sys is port (
+         i_rst                : in     std_logic                                                            ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+         i_clk                : in     std_logic                                                            ; --! System Clock
+
+         i_sync_rs            : in     std_logic                                                            ; --! Pixel sequence synchronization (System Clock)
+         i_plsss              : in     std_logic_vector(c_DFLD_PLSSS_PLS_S-1 downto 0)                      ; --! SQUID MUX feedback pulse shaping set (System Clock)
+
+         o_sync_rs_rsys       : out    std_logic                                                            ; --! Pixel sequence synchronization register (System Clock)
+         o_plsss_rsys         : out    std_logic_vector(c_DFLD_PLSSS_PLS_S-1 downto 0)                        --! SQUID MUX feedback pulse shaping set register (System Clock)
    );
-end entity resize_stall_msb;
+end entity sqm_dac_sys;
 
-architecture RTL of resize_stall_msb is
+architecture RTL of sqm_dac_sys is
+attribute syn_preserve        : boolean                                                                     ; --! Disabling signal optimization
+attribute syn_preserve          of o_sync_rs_rsys        : signal is true                                   ; --! Disabling signal optimization: o_sync_rs_rsys
+
 begin
 
-   G_dta_stall_msb_s : for k in 0 to o_data_stall_msb'high generate
+   -- ------------------------------------------------------------------------------------------------------
+   --!   Inputs registered on system clock
+   -- ------------------------------------------------------------------------------------------------------
+   P_reg_sys: process (i_rst, i_clk)
    begin
 
-      G_data_stall_msb_lss : if k <= g_DATA_S-1 generate
-         o_data_stall_msb(o_data_stall_msb'high - k) <= i_data(i_data'high - k);
+      if i_rst = c_RST_LEV_ACT then
+         o_sync_rs_rsys <= c_I_SYNC_DEF;
+         o_plsss_rsys   <= c_EP_CMD_DEF_PLSSS;
 
-      else generate
-         o_data_stall_msb(o_data_stall_msb'high - k) <= '0';
+      elsif rising_edge(i_clk) then
+         o_sync_rs_rsys <= i_sync_rs;
+         o_plsss_rsys   <= i_plsss;
 
-      end generate G_data_stall_msb_lss;
+      end if;
 
-   end generate G_dta_stall_msb_s;
-
-   o_data <= i_data;
+   end process P_reg_sys;
 
 end architecture RTL;

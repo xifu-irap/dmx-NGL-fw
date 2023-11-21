@@ -2,7 +2,7 @@
 DRE-DEMUX TDM firmware: https://github.com/xifu-irap/dmx-fw
 
    - FPGA target: NG-LARGE (NanoXplore)
-   - Synthesis tool: Nxmap v22.2.0.4
+   - Synthesis tool: Impulse v23.3.0.2
    - Firmware specification:
       + IRAP/XIFU-DRE/FM/SP/0065 - DRE TDM firmware requirements, ed. 0.15
       + IRAP/XIFU-DRE/FM/SP/0069 - DRE Inter-Modules Telemetry And Commands Definition, ed. 1.3
@@ -94,7 +94,9 @@ DRE-DEMUX TDM firmware: https://github.com/xifu-irap/dmx-fw
    - Position 28+x: **clk_sqm_adc(x)**, SQUID MUX ADC column 'x' (0->3) - Clock
    - Position 32+x: **clk_sqm_dac(x)**, SQUID MUX DAC column 'x' (0->3) - Clock
    - Position 36+x: **fpa_conf_busy(x)**, FPASIM column 'x' (0->3) - configuration ('0' = conf. over, '1' = conf. in progress)
-   - Position 63-40: Not Used
+   - Position 40: **clk_science_01**, Science Data, clock column 0/1
+   - Position 41: **clk_science_23**, Science Data, clock column 2/3
+   - Position 63-42: Not Used
 
 
 ## 5. Discrete outputs description (seen from simulation pilot side)

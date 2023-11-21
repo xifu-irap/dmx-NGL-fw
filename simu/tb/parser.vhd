@@ -69,6 +69,8 @@ entity parser is generic (
 
          i_clk_sqm_adc        : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! SQUID MUX ADC: Clock
          i_clk_sqm_dac        : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! SQUID MUX DAC: Clock
+         i_clk_science_01     : in     std_logic                                                            ; --! Science Data: Clock channel 0/1
+         i_clk_science_23     : in     std_logic                                                            ; --! Science Data: Clock channel 2/3
 
          i_sc_pkt_type        : in     std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0)                       ; --! Science packet type
          i_sc_pkt_err         : in     std_logic                                                            ; --! Science packet error ('0' = No error, '1' = Error)
@@ -166,6 +168,8 @@ begin
    discrete_r(c_DR_FPA_CONF_BUSY_1) <= i_fpa_conf_busy(c_COL1);
    discrete_r(c_DR_FPA_CONF_BUSY_2) <= i_fpa_conf_busy(c_COL2);
    discrete_r(c_DR_FPA_CONF_BUSY_3) <= i_fpa_conf_busy(c_COL3);
+   discrete_r(c_DR_CLK_SCIENCE_01)  <= i_clk_science_01;
+   discrete_r(c_DR_CLK_SCIENCE_23)  <= i_clk_science_23;
 
    discrete_r(discrete_r'high downto c_DR_S) <= (others => c_LOW_LEV);
 

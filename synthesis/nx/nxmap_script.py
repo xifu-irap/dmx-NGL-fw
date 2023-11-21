@@ -36,7 +36,7 @@
 #                            nxpython nxmap_script.py -v NG-LARGE --bitstream Yes                               : Launch the script for NG-LARGE variant generating a bitstream at the end
 # ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-from nxmap import *
+from nxpython import *
 import sys
 sys.path.insert(0, "./synthesis/nx")
 sys.path.insert(0, "./constraints/nx")

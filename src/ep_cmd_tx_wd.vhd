@@ -130,7 +130,7 @@ begin
       ep_mem_data(k)(c_EP_MEM_ACC(c_EP_MEM_NUM_PARMA+1)-1 downto c_EP_MEM_ACC(c_EP_MEM_NUM_PARMA)) <= i_mem_prc_data(k).parma;
       ep_mem_data(k)(c_EP_MEM_ACC(c_EP_MEM_NUM_KIKNM+1)-1 downto c_EP_MEM_ACC(c_EP_MEM_NUM_KIKNM)) <= i_mem_prc_data(k).kiknm;
       ep_mem_data(k)(c_EP_MEM_ACC(c_EP_MEM_NUM_KNORM+1)-1 downto c_EP_MEM_ACC(c_EP_MEM_NUM_KNORM)) <= i_mem_prc_data(k).knorm;
-      ep_mem_data(k)(c_EP_MEM_ACC(c_EP_MEM_NUM_SMFB0+1)-1 downto c_EP_MEM_ACC(c_EP_MEM_NUM_SMFB0)) <= i_ep_mem_data(k).smfb0;
+      ep_mem_data(k)(c_EP_MEM_ACC(c_EP_MEM_NUM_SMFB0+1)-1 downto c_EP_MEM_ACC(c_EP_MEM_NUM_SMFB0)) <= i_mem_prc_data(k).smfb0;
       ep_mem_data(k)(c_EP_MEM_ACC(c_EP_MEM_NUM_SMLKV+1)-1 downto c_EP_MEM_ACC(c_EP_MEM_NUM_SMLKV)) <= i_mem_prc_data(k).smlkv;
       ep_mem_data(k)(c_EP_MEM_ACC(c_EP_MEM_NUM_SMFBM+1)-1 downto c_EP_MEM_ACC(c_EP_MEM_NUM_SMFBM)) <= i_ep_mem_data(k).smfbm;
       ep_mem_data(k)(c_EP_MEM_ACC(c_EP_MEM_NUM_SAOFF+1)-1 downto c_EP_MEM_ACC(c_EP_MEM_NUM_SAOFF)) <= i_ep_mem_data(k).saoff;

@@ -25,6 +25,20 @@ COMM ---------------------------------------------------------------------------
 WUDI rst 0
 COMM
 COMM ==============================================================================================
+COMM   Check clock science inverted with system Clock
+COMM ----------------------------------------------------------------------------------------------
+WUDI clk_science_01 1
+CTLE clk_science_23 == 0 ps
+CTLE clk == 0 ps
+CDIS clk_science_23 1
+CDIS clk 0
+WUDI clk_science_01 0
+CTLE clk_science_23 == 0 ps
+CTLE clk == 0 ps
+CDIS clk_science_23 0
+CDIS clk 1
+COMM
+COMM ==============================================================================================
 COMM   Writing a new table in feedback open loop column 0 memory
 COMM ----------------------------------------------------------------------------------------------
 WCMD W-C0_MUX_SQ_FB0(0)-8000 W

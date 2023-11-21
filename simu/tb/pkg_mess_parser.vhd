@@ -93,6 +93,7 @@ signal   i_err_chk_rpt        : in     t_int_arr_tab(0 to c_CHK_ENA_CLK_NB-1)(0 
    begin
 
       -- Clocks parameters results
+      o_err_chk_clk_prm := c_LOW_LEV;
       for k in 0 to c_CHK_ENA_CLK_NB-1 loop
 
          -- Check if clock parameters check is enabled
@@ -150,6 +151,7 @@ signal   i_err_n_spi_chk      : in     t_int_arr_tab(0 to c_CHK_ENA_SPI_NB-1)(0 
    begin
 
       -- SPI parameters results
+      o_err_chk_spi_prm := c_LOW_LEV;
       for k in 0 to c_CHK_ENA_SPI_NB-1 loop
 
          -- Check if SPI parameters check is enabled
@@ -211,6 +213,7 @@ signal   i_err_num_pls_shp    : in     integer_vector(0 to c_NB_COL-1)          
    begin
 
       -- Pulse shaping error report
+      o_err_chk_pls_shp := c_LOW_LEV;
       if i_chk_rpt_prm_ena(c_E_PLS_SHP) = c_HGH_LEV then
          fprintf(none, c_RES_FILE_DIV_BAR & c_RES_FILE_DIV_BAR & c_RES_FILE_DIV_BAR, res_file);
 

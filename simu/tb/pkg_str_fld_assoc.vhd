@@ -278,6 +278,12 @@ constant c_PAD                : character := ' '                                
          when "fpa_conf_busy(3)    "   =>
             o_fld_dr_ind := c_DR_FPA_CONF_BUSY_3;
 
+         when "clk_science_01      "   =>
+            o_fld_dr_ind := c_DR_CLK_SCIENCE_01;
+
+         when "clk_science_23      "   =>
+            o_fld_dr_ind := c_DR_CLK_SCIENCE_23;
+
          when others                   =>
             o_fld_dr_ind := c_DR_S;
 

@@ -40,13 +40,12 @@ entity relock is port (
          i_clk                : in     std_logic                                                            ; --! Clock
 
          i_sqm_dta_pixel_pos  : in     std_logic_vector(    c_MUX_FACT_S-1 downto 0)                        ; --! SQUID MUX Data error corrected pixel position
-         i_sqm_dta_err_cor    : in     std_logic_vector(c_SQM_DATA_FBK_S-1 downto 0)                        ; --! SQUID MUX Data error corrected (signed)
+         i_diff_sqm_dta_smfb0 : in     std_logic_vector(  c_SQM_DATA_FBK_S   downto 0)                      ; --! SQUID MUX Data error corrected minus SQUID MUX feedback value in open loop
          i_sqm_dta_err_cor_cs : in     std_logic                                                            ; --! SQUID MUX Data error corrected chip select ('0' = Inactive, '1' = Active)
 
          i_mem_rl_rd_add      : in     std_logic_vector(      c_MUX_FACT_S-1 downto 0)                      ; --! Relock memories read address
          i_smfmd              : in     std_logic_vector(c_DFLD_SMFMD_COL_S-1 downto 0)                      ; --! SQUID MUX feedback mode
-         i_smfbm_close_rl     : in     std_logic                                                            ; --! SQUID MUX feedback close mode for relock ('0' = No close , '1' = Close)
-         i_smfb0_rl           : in     std_logic_vector(c_DFLD_SMFB0_PIX_S-1 downto 0)                      ; --! SQUID MUX feedback value in open loop for relock (signed)
+         i_squid_close_mode_n : in     std_logic                                                            ; --! SQUID MUX/AMP Close mode ('0' = Yes, '1' = No)
          i_rldel              : in     std_logic_vector(c_DFLD_RLDEL_COL_S-1 downto 0)                      ; --! Relock delay
          i_rlthr              : in     std_logic_vector(c_DFLD_RLTHR_COL_S-1 downto 0)                      ; --! Relock threshold
 
@@ -69,10 +68,9 @@ constant c_DLCNT_SAT          : integer := 2**c_DFLD_DLCNT_PIX_S - 1            
 constant c_CNT_THR_EXC_INIT   : std_logic_vector(c_DFLD_RLDEL_COL_S downto 0) :=
                                 std_logic_vector(to_unsigned(1, c_DFLD_RLDEL_COL_S+1))                      ; --! Counter threshold exceed initialization value
 
-signal   smfb0_rl_rs          : std_logic_vector(c_SQM_DATA_FBK_S-1 downto 0)                               ; --! SQUID MUX feedback value in open loop for relock resized data stalled on MSB
-
+signal   rlthr_r              : std_logic_vector(c_DFLD_RLTHR_COL_S-1 downto 0)                             ; --! Relock threshold register
+signal   squid_close_mode_n_r : std_logic                                                                   ; --! SQUID MUX/AMP Close mode register ('0' = Yes, '1' = No)
 signal   sqm_dta_err_cor_cs_r : std_logic_vector(c_FF_ERR_COR_CS_NB-1 downto 0)                             ; --! SQUID MUX Data error corrected chip select register
-signal   diff_sqm_dta_smfb0   : std_logic_vector(c_SQM_DATA_FBK_S     downto 0)                             ; --! SQUID MUX Data error corrected minus SQUID MUX feedback value in open loop
 
 signal   mem_cnt_thr_exceed   : t_slv_arr(0 to 2**c_MUX_FACT_S-1)(c_DFLD_RLDEL_COL_S downto 0)              ; --! Memory counter threshold exceed
 signal   cnt_thr_exceed_rd    : std_logic_vector(c_DFLD_RLDEL_COL_S downto 0)                               ; --! Counter threshold exceed read
@@ -100,45 +98,19 @@ begin
    begin
 
       if i_rst = c_RST_LEV_ACT then
+         rlthr_r              <= std_logic_vector(to_unsigned(c_EP_CMD_DEF_RLTHR_I, rlthr_r'length));
+         squid_close_mode_n_r <= c_HGH_LEV;
          sqm_dta_err_cor_cs_r <= c_ZERO(sqm_dta_err_cor_cs_r'range);
 
       elsif rising_edge(i_clk) then
+         rlthr_r              <= i_rlthr;
+         squid_close_mode_n_r <= i_squid_close_mode_n;
          sqm_dta_err_cor_cs_r <= sqm_dta_err_cor_cs_r(sqm_dta_err_cor_cs_r'high-1 downto 0) & i_sqm_dta_err_cor_cs;
 
       end if;
 
    end process P_sig_r;
 
-   -- ------------------------------------------------------------------------------------------------------
-   --!   SQUID MUX feedback value in open loop for relock resized data stalled on MSB
-   -- ------------------------------------------------------------------------------------------------------
-   I_smfb0_rl_rs : entity work.resize_stall_msb generic map (
-         g_DATA_S             => c_DFLD_SMFB0_PIX_S   , -- integer                                          ; --! Data input bus size
-         g_DATA_STALL_MSB_S   => c_SQM_DATA_FBK_S       -- integer                                            --! Data stalled on Mean Significant Bit bus size
-   ) port map (
-         i_data               => i_smfb0_rl           , -- in     slv(          g_DATA_S-1 downto 0)        ; --! Data
-         o_data_stall_msb     => smfb0_rl_rs            -- out    slv(g_DATA_STALL_MSB_S-1 downto 0)          --! Data stalled on Mean Significant Bit
-   );
-
-   -- ------------------------------------------------------------------------------------------------------
-   --!   Difference between SQUID MUX Data error corrected and SQUID MUX feedback value in open loop
-   --    @Req : DRE-DMX-FW-REQ-0400
-   -- ------------------------------------------------------------------------------------------------------
-   P_diff_sqm_dta_smfb0 : process (i_rst, i_clk)
-   begin
-
-      if i_rst = c_RST_LEV_ACT then
-         diff_sqm_dta_smfb0   <= c_ZERO(diff_sqm_dta_smfb0'range);
-
-      elsif rising_edge(i_clk) then
-         if i_sqm_dta_err_cor_cs = c_HGH_LEV then
-            diff_sqm_dta_smfb0  <= std_logic_vector(resize(signed(i_sqm_dta_err_cor), diff_sqm_dta_smfb0'length) -
-                                                    resize(signed(smfb0_rl_rs), diff_sqm_dta_smfb0'length));
-         end if;
-
-      end if;
-
-   end process P_diff_sqm_dta_smfb0;
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Dual port memory counter threshold exceed
@@ -156,7 +128,7 @@ begin
          cnt_thr_exceed_rd      <= mem_cnt_thr_exceed(to_integer(unsigned(i_mem_rl_rd_add)));
          cnt_thr_exceed_rd_r    <= cnt_thr_exceed_rd;
 
-         if i_smfbm_close_rl = c_HGH_LEV and (unsigned(cnt_thr_exceed_rd) >= resize(unsigned(i_rldel), cnt_thr_exceed_rd'length)) then
+         if squid_close_mode_n_r = c_LOW_LEV and (unsigned(cnt_thr_exceed_rd) >= resize(unsigned(i_rldel), cnt_thr_exceed_rd'length)) then
             cnt_thr_exd_rd_cmp  <= c_HGH_LEV;
 
          else
@@ -177,14 +149,14 @@ begin
 
       elsif rising_edge(i_clk) then
          if sqm_dta_err_cor_cs_r(sqm_dta_err_cor_cs_r'low) = c_HGH_LEV then
-            if i_smfbm_close_rl = c_LOW_LEV then
+            if squid_close_mode_n_r = c_HGH_LEV then
                cnt_thr_exceed_wr <= c_CNT_THR_EXC_INIT;
 
             elsif cnt_thr_exd_rd_cmp = c_HGH_LEV then
                cnt_thr_exceed_wr <= c_CNT_THR_EXC_INIT;
 
-            elsif (signed(diff_sqm_dta_smfb0) > signed(resize(unsigned(i_rlthr), diff_sqm_dta_smfb0'length))) or
-                 ((signed(diff_sqm_dta_smfb0) + signed(resize(unsigned(i_rlthr), diff_sqm_dta_smfb0'length))) < 0 ) then
+            elsif (signed(i_diff_sqm_dta_smfb0) > signed(resize(unsigned(rlthr_r), i_diff_sqm_dta_smfb0'length))) or
+                 ((signed(i_diff_sqm_dta_smfb0) + signed(resize(unsigned(rlthr_r), i_diff_sqm_dta_smfb0'length))) < 0 ) then
                cnt_thr_exceed_wr <= std_logic_vector(unsigned(cnt_thr_exceed_rd_r) + 1);
 
             else

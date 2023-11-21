@@ -6,6 +6,7 @@ verific -vhdl ./ip/nx/NG-LARGE/pkg_fpga_tech.vhd
 verific -vhdl ./src/pkg_project.vhd
 verific -vhdl ./src/pkg_ep_cmd.vhd
 verific -vhdl ./src/pkg_ep_cmd_type.vhd
+verific -vhdl ./src/pkg_fir.vhd
 verific -vhdl ./src/multiplexer.vhd
 verific -vhdl ./src/resize_stall_msb.vhd
 verific -vhdl ./src/cmd_im_ck.vhd
@@ -15,6 +16,7 @@ verific -vhdl ./ip/nx/NG-LARGE/dsp.vhd
 verific -vhdl ./ip/nx/NG-LARGE/pll.vhd
 verific -vhdl ./ip/nx/NG-LARGE/dmem_ecc.vhd
 verific -vhdl ./src/im_ck.vhd
+verific -vhdl ./src/rst_gen.vhd
 verific -vhdl ./src/rst_clk_mgt.vhd
 verific -vhdl ./src/in_rs_clk.vhd
 verific -vhdl ./src/round_sat.vhd
@@ -27,6 +29,7 @@ verific -vhdl ./src/ep_cmd.vhd
 verific -vhdl ./src/mem_data_rd_mux.vhd
 verific -vhdl ./src/ep_cmd_tx_wd.vhd
 verific -vhdl ./src/mem_in_gen.vhd
+verific -vhdl ./src/squid_close_mode.vhd
 verific -vhdl ./src/register_cs_mgt.vhd
 verific -vhdl ./src/rg_aqmde_mgt.vhd
 verific -vhdl ./src/rg_tsten_mgt.vhd
@@ -37,15 +40,18 @@ verific -vhdl ./src/science_data_tx.vhd
 verific -vhdl ./src/science_data_mgt.vhd
 verific -vhdl ./src/hk_mgt.vhd
 verific -vhdl ./src/adder_acc.vhd
+verific -vhdl ./src/squid_adc_sys.vhd
 verific -vhdl ./src/squid_adc_mgt.vhd
 verific -vhdl ./src/squid_data_proc_mem.vhd
 verific -vhdl ./src/squid_data_proc.vhd
 verific -vhdl ./src/sqm_fbk_mgt.vhd
 verific -vhdl ./src/pulse_shaping.vhd
+verific -vhdl ./src/sqm_dac_sys.vhd
 verific -vhdl ./src/sqm_dac_mgt.vhd
 verific -vhdl ./src/fir_deci.vhd
 verific -vhdl ./src/sqa_under_samp.vhd
 verific -vhdl ./src/sqa_fbk_mgt.vhd
+verific -vhdl ./src/sqa_dac_sys.vhd
 verific -vhdl ./src/sqa_dac_mgt.vhd
 verific -vhdl ./src/sqm_spi_mgt.vhd
 verific -vhdl ./src/test_pattern_gen.vhd

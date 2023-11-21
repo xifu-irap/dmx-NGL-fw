@@ -58,13 +58,18 @@ entity adder_acc is generic (
 end entity adder_acc;
 
 architecture RTL of adder_acc is
+constant c_FF_DATA_ACC_RDY_NB : integer := 3                                                                ; --! Flip-Flop number used for Data to accumulate ready register
+constant c_FF_DATA_ELN_RDY_NB : integer := 2                                                                ; --! Flip-Flop number used for Data element n ready register
+
 signal   mem_acc              : t_slv_arr(0 to g_MEM_ACC_NW-1)(g_DATA_ELN_S-1 downto 0)                     ; --! Memory accumulator
 
-signal   data_acc_rdy_r       : std_logic                                                                   ; --! Data to accumulate ready register ('0' = Not ready, '1' = Ready)
-signal   data_eln_rdy_r       : std_logic                                                                   ; --! Data element n ready register     ('0' = Not ready, '1' = Ready)
+signal   data_acc_rdy_r       : std_logic_vector(c_FF_DATA_ACC_RDY_NB-1 downto 0)                           ; --! Data to accumulate ready register ('0' = Not ready, '1' = Ready)
+signal   data_eln_rdy_r       : std_logic_vector(c_FF_DATA_ELN_RDY_NB-1 downto 0)                           ; --! Data element n ready register     ('0' = Not ready, '1' = Ready)
 
 signal   data_acc_rs          : std_logic_vector(g_DATA_ELN_S-1 downto 0)                                   ; --! Data to accumulate resize (signed)
 signal   data_add_acc_sat     : std_logic_vector(g_DATA_ELN_S-1 downto 0)                                   ; --! Data adder and accumulate with saturation
+signal   data_eln             : std_logic_vector(g_DATA_ELN_S-1 downto 0)                                   ; --! Data element n
+signal   data_elnp1_r         : std_logic_vector(g_DATA_ELN_S-1 downto 0)                                   ; --! Data element n+1 register
 
 begin
 
@@ -75,12 +80,12 @@ begin
    begin
 
       if i_rst = c_RST_LEV_ACT then
-         data_acc_rdy_r  <= c_LOW_LEV;
-         data_eln_rdy_r  <= c_LOW_LEV;
+         data_acc_rdy_r  <= (others => c_LOW_LEV);
+         data_eln_rdy_r  <= (others => c_LOW_LEV);
 
       elsif rising_edge(i_clk) then
-         data_acc_rdy_r  <= i_data_acc_rdy;
-         data_eln_rdy_r  <= i_data_eln_rdy;
+         data_acc_rdy_r  <= data_acc_rdy_r(data_acc_rdy_r'high-1 downto 0) & i_data_acc_rdy;
+         data_eln_rdy_r  <= data_eln_rdy_r(data_eln_rdy_r'high-1 downto 0) & i_data_eln_rdy;
 
       end if;
 
@@ -112,9 +117,10 @@ begin
 
       if i_rst = c_RST_LEV_ACT then
          o_data_elnp1 <= std_logic_vector(to_signed(g_MEM_ACC_INIT_VAL, o_data_elnp1'length));
+         data_elnp1_r <= std_logic_vector(to_signed(g_MEM_ACC_INIT_VAL, data_elnp1_r'length));
 
       elsif rising_edge(i_clk) then
-         if data_acc_rdy_r = c_HGH_LEV then
+         if data_acc_rdy_r(data_acc_rdy_r'low) = c_HGH_LEV then
             if i_rl_ena = c_HGH_LEV then
                o_data_elnp1 <= i_mem_acc_rl_val;
 
@@ -122,7 +128,10 @@ begin
                o_data_elnp1 <= data_add_acc_sat;
 
             end if;
+
          end if;
+
+         data_elnp1_r <= o_data_elnp1;
 
       end if;
 
@@ -135,14 +144,8 @@ begin
    begin
 
       if rising_edge(i_clk) then
-         if data_acc_rdy_r = c_HGH_LEV then
-            if i_rl_ena = c_HGH_LEV then
-               mem_acc(to_integer(unsigned(i_mem_acc_add))) <= i_mem_acc_rl_val;
-
-            else
-               mem_acc(to_integer(unsigned(i_mem_acc_add))) <= data_add_acc_sat;
-
-            end if;
+         if data_acc_rdy_r(data_acc_rdy_r'high) = c_HGH_LEV then
+            mem_acc(to_integer(unsigned(i_mem_acc_add))) <= data_elnp1_r;
 
          end if;
 
@@ -155,15 +158,18 @@ begin
    begin
 
       if i_rst = c_RST_LEV_ACT then
-         o_data_eln <= std_logic_vector(to_signed(g_MEM_ACC_INIT_VAL, o_data_eln'length));
+         data_eln    <= std_logic_vector(to_signed(g_MEM_ACC_INIT_VAL, data_eln'length));
+         o_data_eln  <= std_logic_vector(to_signed(g_MEM_ACC_INIT_VAL, o_data_eln'length));
 
       elsif rising_edge(i_clk) then
-         if data_eln_rdy_r = c_HGH_LEV then
+         data_eln <= mem_acc(to_integer(unsigned(i_mem_acc_add)));
+
+         if data_eln_rdy_r(data_eln_rdy_r'high) = c_HGH_LEV then
             if i_mem_acc_init_ena = c_HGH_LEV then
                o_data_eln <= std_logic_vector(to_signed(g_MEM_ACC_INIT_VAL, o_data_eln'length));
 
             else
-               o_data_eln <= mem_acc(to_integer(unsigned(i_mem_acc_add)));
+               o_data_eln <= data_eln;
 
             end if;
 

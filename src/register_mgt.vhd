@@ -38,6 +38,7 @@ use     work.pkg_ep_cmd_type.all;
 entity register_mgt is port (
          i_rst                : in     std_logic                                                            ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                : in     std_logic                                                            ; --! System Clock
+         i_clk_90             : in     std_logic                                                            ; --! System Clock 90 degrees shift
 
          i_brd_ref_rs         : in     std_logic_vector(  c_BRD_REF_S-1 downto 0)                           ; --! Board reference, synchronized on System Clock
          i_brd_model_rs       : in     std_logic_vector(c_BRD_MODEL_S-1 downto 0)                           ; --! Board model, synchronized on System Clock
@@ -67,6 +68,7 @@ entity register_mgt is port (
          o_tsten_inf          : out    std_logic                                                            ; --! Test pattern enable, field Infinity loop ('0' = Inactive, '1' = Active)
          o_tsten_ena          : out    std_logic                                                            ; --! Test pattern enable, field Enable ('0' = Inactive, '1' = Active)
 
+         o_adc_ena            : out    std_logic_vector(c_NB_COL-1 downto 0)                                ; --! ADC enable ('0' = Inactive, '1' = Active)
          o_smfmd              : out    t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SMFMD_COL_S-1 downto 0)            ; --! SQUID MUX feedback mode
          o_saofm              : out    t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SAOFM_COL_S-1 downto 0)            ; --! SQUID AMP offset mode
          o_bxlgt              : out    t_slv_arr(0 to c_NB_COL-1)(c_DFLD_BXLGT_COL_S-1 downto 0)            ; --! ADC sample number for averaging
@@ -79,7 +81,11 @@ entity register_mgt is port (
          i_ep_mem_data        : in     t_ep_mem_dta_arr(0 to c_NB_COL-1)                                    ; --! Memory: data read
 
          o_mem_hkeep_add      : out    std_logic_vector(c_MEM_HKEEP_ADD_S-1 downto 0)                       ; --! Housekeeping: memory address
-         i_hkeep_data         : in     std_logic_vector(c_DFLD_HKEEP_S-1 downto 0)                            --! Housekeeping: data read
+         i_hkeep_data         : in     std_logic_vector(c_DFLD_HKEEP_S-1 downto 0)                          ; --! Housekeeping: data read
+
+         i_smfbm_add          : in     t_slv_arr(0 to c_NB_COL-1)( c_MEM_SMFBM_ADD_S-1 downto 0)            ; --! SQUID MUX feedback mode: address, memory output
+         i_smfbm_cs           : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! SQUID MUX feedback mode: chip select, memory output ('0' = Inactive, '1' = Active)
+         o_squid_close_mode_n : out    std_logic_vector(c_NB_COL-1 downto 0)                                  --! SQUID MUX/AMP Close mode ('0' = Yes, '1' = No)
    );
 end entity register_mgt;
 
@@ -203,6 +209,8 @@ begin
             rg_smfmd(k) <= c_EP_CMD_DEF_SMFMD;
             rg_bxlgt(k) <= c_EP_CMD_DEF_BXLGT;
 
+            o_adc_ena(k)<= c_LOW_LEV;
+
          elsif rising_edge(i_clk) then
 
             -- @Req : REG_AMP_SQ_OFFSET_MODE
@@ -229,6 +237,14 @@ begin
                   rg_bxlgt(k) <= ep_cmd_rx_wd_data_r(c_NB_COL*k+c_DFLD_BXLGT_COL_S-1 downto c_NB_COL*k);
 
                end if;
+
+            end if;
+
+            if (o_aqmde = c_DST_AQMDE_DUMP or o_aqmde = c_DST_AQMDE_SCIE or o_aqmde = c_DST_AQMDE_ERRS or rg_smfmd(k) = c_DST_SMFMD_ON or rg_saofm(k) = c_DST_SAOFM_CLOSE) then
+               o_adc_ena(k) <= c_HGH_LEV;
+
+            else
+               o_adc_ena(k) <= c_LOW_LEV;
 
             end if;
 
@@ -373,11 +389,11 @@ begin
       o_mem_prc(k).knorm.pp     <= mem_in_pp(c_EP_MEM_NUM_KNORM)(k);
       o_mem_prc(k).knorm.data_w <= ep_cmd_rx_wd_data_r(o_mem_prc(k).knorm.data_w'range);
 
-      o_ep_mem(k).smfb0.add     <= mem_in_add(c_EP_MEM_ADDAC_S(c_EP_MEM_NUM_SMFB0+1)-1 downto c_EP_MEM_ADDAC_S(c_EP_MEM_NUM_SMFB0));
-      o_ep_mem(k).smfb0.we      <= mem_in_we(c_EP_MEM_NUM_SMFB0);
-      o_ep_mem(k).smfb0.cs      <= mem_in_cs(c_EP_MEM_NUM_SMFB0)(k);
-      o_ep_mem(k).smfb0.pp      <= mem_in_pp(c_EP_MEM_NUM_SMFB0)(k);
-      o_ep_mem(k).smfb0.data_w  <= ep_cmd_rx_wd_data_r(o_ep_mem(k).smfb0.data_w'range);
+      o_mem_prc(k).smfb0.add    <= mem_in_add(c_EP_MEM_ADDAC_S(c_EP_MEM_NUM_SMFB0+1)-1 downto c_EP_MEM_ADDAC_S(c_EP_MEM_NUM_SMFB0));
+      o_mem_prc(k).smfb0.we     <= mem_in_we(c_EP_MEM_NUM_SMFB0);
+      o_mem_prc(k).smfb0.cs     <= mem_in_cs(c_EP_MEM_NUM_SMFB0)(k);
+      o_mem_prc(k).smfb0.pp     <= mem_in_pp(c_EP_MEM_NUM_SMFB0)(k);
+      o_mem_prc(k).smfb0.data_w <= ep_cmd_rx_wd_data_r(o_mem_prc(k).smfb0.data_w'range);
 
       o_mem_prc(k).smlkv.add    <= mem_in_add(c_EP_MEM_ADDAC_S(c_EP_MEM_NUM_SMLKV+1)-1 downto c_EP_MEM_ADDAC_S(c_EP_MEM_NUM_SMLKV));
       o_mem_prc(k).smlkv.we     <= mem_in_we(c_EP_MEM_NUM_SMLKV);
@@ -408,6 +424,18 @@ begin
       o_ep_mem(k).dlcnt.cs      <= mem_in_cs(c_EP_MEM_NUM_DLCNT)(k);
       o_ep_mem(k).dlcnt.pp      <= c_MEM_STR_ADD_PP_DEF;
       o_ep_mem(k).dlcnt.data_w  <= c_ZERO(o_ep_mem(o_ep_mem'low).dlcnt.data_w'range);
+
+      I_squid_close_mode: entity work.squid_close_mode port map (
+         i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+         i_clk                => i_clk                , -- in     std_logic                                 ; --! System Clock
+         i_clk_90             => i_clk_90             , -- in     std_logic                                 ; --! System Clock 90 degrees shift
+         i_saofm              => rg_saofm(k)          , -- in     slv(c_DFLD_SAOFM_COL_S-1 downto 0)        ; --! SQUID AMP offset mode
+         i_smfmd              => rg_smfmd(k)          , -- in     slv(c_DFLD_SMFMD_COL_S-1 downto 0)        ; --! SQUID MUX feedback mode
+         i_mem_smfbm          => o_ep_mem(k).smfbm    , -- in     t_mem                                     ; --! SQUID MUX feedback mode: memory inputs
+         i_smfbm_add          => i_smfbm_add(k)       , -- in     slv( c_MEM_SMFBM_ADD_S-1 downto 0)        ; --! SQUID MUX feedback mode: address, memory output
+         i_smfbm_cs           => i_smfbm_cs(k)        , -- in     std_logic                                 ; --! SQUID MUX feedback mode: chip select, memory output ('0' = Inactive, '1' = Active)
+         o_squid_close_mode_n => o_squid_close_mode_n(k)-- out    std_logic                                   --! SQUID MUX/AMP Close mode by pixel ('0' = Yes, '1' = No)
+      );
 
    end generate G_ep_mem_col;
 

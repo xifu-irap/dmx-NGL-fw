@@ -46,7 +46,6 @@ entity rst_clk_mgt is port (
 
          o_rst                : out    std_logic                                                            ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          o_rst_sqm_adc_dac    : out    std_logic                                                            ; --! Reset for SQUID ADC/DAC, de-assertion on system clock ('0' = Inactive, '1' = Active)
-         o_rst_sqm_adc_dac_pd : out    std_logic                                                            ; --! Reset for SQUID ADC/DAC pads, de-assertion on system clock
 
          o_clk                : out    std_logic                                                            ; --! System Clock
          o_clk_sqm_adc_dac    : out    std_logic                                                            ; --! SQUID MUX ADC/DAC internal Clock
@@ -64,19 +63,7 @@ entity rst_clk_mgt is port (
 end entity rst_clk_mgt;
 
 architecture RTL of rst_clk_mgt is
-constant c_CNT_RST_MX_VAL     : integer:= c_FF_RST_NB - 3                                                   ; --! Counter for reset generation: maximal value
-constant c_CNT_RST_S          : integer:= log2_ceil(c_CNT_RST_MX_VAL + 1) + 1                               ; --! Counter for reset generation: size bus (signed)
-
-constant c_CNT_RST_ADC_MX_VAL : integer:= c_FF_RST_ADC_DAC_NB - 3                                           ; --! Counter for reset SQUID ADC/DAC generation: maximal value
-constant c_CNT_RST_ADC_S      : integer:= log2_ceil(c_CNT_RST_ADC_MX_VAL + 1) + 1                           ; --! Counter for reset SQUID ADC/DAC generation: size bus (signed)
-
-signal   rst_sqm_adc_dac_pad  : std_logic                                                                   ; --! Reset for SQUID ADC/DAC pads, de-assertion on system clock
-
-signal   cnt_rst              : std_logic_vector(c_CNT_RST_S-1 downto 0)                                    ; --! Counter for reset generation
-signal   cnt_rst_msb_r_n      : std_logic                                                                   ; --! Counter for reset generation MSB inverted register
-
-signal   cnt_rst_adc          : std_logic_vector(c_CNT_RST_ADC_S-1 downto 0)                                ; --! Counter for reset SQUID ADC/DAC generation
-signal   cnt_rst_adc_msb_r_n  : std_logic                                                                   ; --! Counter for reset SQUID ADC/DAC generation MSB inverted register
+signal   rst_sqm_adc_dac_loc  : std_logic                                                                   ; --! Local reset for SQUID ADC/DAC, de-assertion on system clock
 
 signal   clk_sqm_adc          : std_logic                                                                   ; --! SQUID MUX ADC Clocks
 signal   clk_sqm_dac_out      : std_logic                                                                   ; --! SQUID MUX DAC output Clock
@@ -85,6 +72,9 @@ signal   cmd_ck_adc           : std_logic_vector(c_NB_COL-1 downto 0)           
 signal   cmd_ck_sqm_dac       : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! SQUID MUX DAC Clocks switch commands ('0' = Inactive, '1' = Active)
 
 signal   ck_science           : std_logic                                                                   ; --! Science Data Image Clock
+
+attribute syn_preserve        : boolean                                                                     ; --! Disabling signal optimization
+attribute syn_preserve          of rst_sqm_adc_dac_loc   : signal is true                                   ; --! Disabling signal optimization: rst_sqm_adc_dac_loc
 
 begin
 
@@ -100,6 +90,32 @@ begin
          o_clk_sqm_dac_out    => clk_sqm_dac_out      , -- out    std_logic                                 ; --! Clock for SQUID MUX DAC output Image Clock
          o_clk_90             => o_clk_90             , -- out    std_logic                                 ; --! System Clock 90 degrees shift
          o_clk_sqm_adc_dac_90 => o_clk_sqm_adc_dac_90   -- out    std_logic                                   --! SQUID MUX ADC/DAC internal 90 degrees shift
+   );
+
+   -- ------------------------------------------------------------------------------------------------------
+   --!   Resets on system clock generation
+   --    @Req : DRE-DMX-FW-REQ-0050
+   -- ------------------------------------------------------------------------------------------------------
+   --!   Reset on system clock
+   I_rst: entity work.rst_gen generic map (
+         g_RST_LEV_ACT        => c_RST_LEV_ACT        , -- std_logic                                        ; --! Reset level activation value
+         g_CNT_RST_NB_VAL     => c_FF_RST_NB            -- integer                                            --! Counter for reset generation: number of value
+   ) port map (
+         i_arst               => i_arst               , -- in     std_logic                                 ; --! Asynchronous reset ('0' = Inactive, '1' = Active)
+         i_clock              => o_clk                , -- in     std_logic                                 ; --! Clock
+
+         o_reset              => o_rst                  -- out    std_logic                                   --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+   );
+
+   --! Reset on SQUID ADC/DAC
+   I_rst_adc_dac: entity work.rst_gen generic map (
+         g_RST_LEV_ACT        => c_RST_LEV_ACT        , -- std_logic                                        ; --! Reset level activation value
+         g_CNT_RST_NB_VAL     => c_FF_RST_ADC_DAC_NB-1  -- integer                                            --! Counter for reset generation: number of value
+   ) port map (
+         i_arst               => i_arst               , -- in     std_logic                                 ; --! Asynchronous reset ('0' = Inactive, '1' = Active)
+         i_clock              => o_clk_sqm_adc_dac    , -- in     std_logic                                 ; --! Clock
+
+         o_reset              => o_rst_sqm_adc_dac      -- out    std_logic                                   --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
    );
 
    G_column_mgt: for k in 0 to c_NB_COL-1 generate
@@ -175,25 +191,25 @@ begin
    --!  Science Data Image Clock generation
    --    @Req : DRE-DMX-FW-REQ-0050
    -- ------------------------------------------------------------------------------------------------------
-   P_rst_sqm_adc_dac_pd: process (o_rst_sqm_adc_dac_pd, o_clk_sqm_adc_dac)
+   P_rst_sqm_adc_dac_lc: process (o_rst_sqm_adc_dac, o_clk_sqm_adc_dac)
    begin
 
-      if o_rst_sqm_adc_dac_pd = c_RST_LEV_ACT then
-         rst_sqm_adc_dac_pad <= c_RST_LEV_ACT;
+      if o_rst_sqm_adc_dac = c_RST_LEV_ACT then
+         rst_sqm_adc_dac_loc <= c_RST_LEV_ACT;
 
       elsif rising_edge(o_clk_sqm_adc_dac) then
-         rst_sqm_adc_dac_pad <= not(c_RST_LEV_ACT);
+         rst_sqm_adc_dac_loc <= not(c_RST_LEV_ACT);
 
       end if;
 
-   end process P_rst_sqm_adc_dac_pd;
+   end process P_rst_sqm_adc_dac_lc;
 
    --! Science Data Image Clock
-   P_ck_science : process (rst_sqm_adc_dac_pad, o_clk_sqm_adc_dac)
+   P_ck_science : process (rst_sqm_adc_dac_loc, o_clk_sqm_adc_dac)
    begin
 
-      if rst_sqm_adc_dac_pad = c_RST_LEV_ACT then
-         ck_science    <= c_LOW_LEV;
+      if rst_sqm_adc_dac_loc = c_RST_LEV_ACT then
+         ck_science    <= c_HGH_LEV;
          o_ck_science  <= c_LOW_LEV;
 
       elsif rising_edge(o_clk_sqm_adc_dac) then
@@ -203,63 +219,5 @@ begin
       end if;
 
    end process P_ck_science;
-
-   -- ------------------------------------------------------------------------------------------------------
-   --!   Reset on system clock generation
-   --    @Req : DRE-DMX-FW-REQ-0050
-   -- ------------------------------------------------------------------------------------------------------
-   P_cnt_rst : process (i_arst, o_clk)
-   begin
-
-      if i_arst = c_RST_LEV_ACT then
-         cnt_rst           <= std_logic_vector(to_unsigned(c_CNT_RST_MX_VAL, cnt_rst'length));
-         cnt_rst_msb_r_n   <= c_HGH_LEV;
-
-      elsif rising_edge(o_clk) then
-         if cnt_rst(cnt_rst'high) = c_LOW_LEV then
-            cnt_rst  <= std_logic_vector(signed(cnt_rst) - 1);
-
-         end if;
-
-         cnt_rst_msb_r_n  <= not(cnt_rst(cnt_rst'high));
-
-      end if;
-
-   end process P_cnt_rst;
-
-   I_rst: entity work.lowskew port map (
-         i_sig                => cnt_rst_msb_r_n      , -- in     std_logic                                 ; --! Signal
-         o_sig_lowskew        => o_rst                  -- out    std_logic                                   --! Signal connected to lowskew network
-   );
-
-   --! Counter for reset SQUID ADC/DAC generation
-   P_cnt_rst_adc : process (i_arst, o_clk_sqm_adc_dac)
-   begin
-
-      if i_arst = c_RST_LEV_ACT then
-         cnt_rst_adc          <= std_logic_vector(to_unsigned(c_CNT_RST_ADC_MX_VAL, cnt_rst_adc'length));
-         cnt_rst_adc_msb_r_n  <= c_HGH_LEV;
-
-      elsif rising_edge(o_clk_sqm_adc_dac) then
-         if cnt_rst_adc(cnt_rst_adc'high) = c_LOW_LEV then
-            cnt_rst_adc       <= std_logic_vector(signed(cnt_rst_adc) - 1);
-
-         end if;
-
-         cnt_rst_adc_msb_r_n  <= not(cnt_rst_adc(cnt_rst_adc'high));
-
-      end if;
-
-   end process P_cnt_rst_adc;
-
-   I_rst_sqm_adc_dac: entity work.lowskew port map (
-         i_sig                => cnt_rst_adc_msb_r_n  , -- in     std_logic                                 ; --! Signal
-         o_sig_lowskew        => o_rst_sqm_adc_dac      -- out    std_logic                                   --! Signal connected to lowskew network
-   );
-
-   I_rst_sqm_adc_dac_pd: entity work.lowskew port map (
-         i_sig                => not(cnt_rst_adc(cnt_rst_adc'high)), -- in     std_logic                    ; --! Signal
-         o_sig_lowskew        => o_rst_sqm_adc_dac_pd   -- out    std_logic                                   --! Signal connected to lowskew network
-   );
 
 end architecture RTL;

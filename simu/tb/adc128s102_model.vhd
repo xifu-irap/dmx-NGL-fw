@@ -53,6 +53,7 @@ architecture Behavioral of adc128s102_model is
 constant c_LOW_LEV            : std_logic  := '0'                                                           ; --! Low  level value
 constant c_HGH_LEV            : std_logic  := not(c_LOW_LEV)                                                ; --! High level value
 constant c_ZERO_REAL          : real       := 0.0                                                           ; --! Real zero value
+constant c_ZERO_TIME          : time       := 0 ps                                                          ; --! Time zero value
 
 constant c_CLK_PER            : time       := 8 ns                                                          ; --! Clock period
 constant c_CLK_PER_HALF       : time       := c_CLK_PER/2                                                   ; --! Half clock period
@@ -65,9 +66,10 @@ constant c_SPI_DTA_WD_NB_S    : integer    :=  1                                
 constant c_ADD_S              : integer    :=  3                                                            ; --! SPI Address size bus
 constant c_ADD_POS_LSB        : integer    := 11                                                            ; --! SPI Address position LSB
 constant c_ADC_DATA_S         : integer    := 12                                                            ; --! SPI ADC data size bus
+constant c_ADC_DATA_DEF       : std_logic_vector(c_ADC_DATA_S-1 downto 0) := (others => c_LOW_LEV)          ; --! SPI ADC data size bus
 
 constant c_ADC_RES            : real       := g_VA / real(2**(c_ADC_DATA_S))                                ; --! ADC resolution (V)
-constant c_VIN_MAX            : real       := (real(2**(c_ADC_DATA_S)) - 1.0) * c_ADC_RES                   ; --! Analog voltage maximum limit (V)
+constant c_VIN_MAX            : real       := (real(2**(c_ADC_DATA_S)) - 1.0) * c_ADC_RES                   ; --! ADC data default value
 
 constant c_ADD0               : std_logic_vector(c_ADD_S-1 downto 0) :=
                                 std_logic_vector(to_unsigned(0, c_ADD_S))                                   ; --! Address 0
@@ -140,7 +142,7 @@ begin
                      c_VIN_MAX   when (vin_sel > c_VIN_MAX)   else
                      vin_sel;
 
-   adc_data       <= std_logic_vector(to_unsigned(integer(round(vin_sel_sat/c_ADC_RES)), adc_data'length));
+   adc_data       <= std_logic_vector(to_unsigned(integer(round(vin_sel_sat/c_ADC_RES)), adc_data'length)) when now > c_ZERO_TIME else c_ADC_DATA_DEF;
 
    spi_data_tx_wd <= std_logic_vector(resize(unsigned(adc_data), spi_data_tx_wd'length));
 

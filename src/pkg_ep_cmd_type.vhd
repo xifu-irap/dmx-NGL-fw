@@ -123,6 +123,9 @@ type     t_mem_prc             is record
          knorm                : t_mem(
                                 add(              c_MEM_KNORM_ADD_S-1 downto 0),
                                 data_w(          c_DFLD_KNORM_PIX_S-1 downto 0))                            ; --! EP command: Memory interface linked to CY_KNORM
+         smfb0                : t_mem(
+                                add(              c_MEM_SMFB0_ADD_S-1 downto 0),
+                                data_w(          c_DFLD_SMFB0_PIX_S-1 downto 0))                            ; --! EP command: Memory interface linked to CY_MUX_SQ_FB0
          smlkv                : t_mem(
                                 add(              c_MEM_SMLKV_ADD_S-1 downto 0),
                                 data_w(          c_DFLD_SMLKV_PIX_S-1 downto 0))                            ; --! EP command: Memory interface linked to CY_MUX_SQ_LOCKPOINT_V
@@ -132,6 +135,7 @@ type     t_mem_prc_dta         is record
          parma                : std_logic_vector(c_DFLD_PARMA_PIX_S-1 downto 0)                             ; --! EP command: Memory data read linked to CY_A
          kiknm                : std_logic_vector(c_DFLD_KIKNM_PIX_S-1 downto 0)                             ; --! EP command: Memory data read linked to CY_KI_KNORM
          knorm                : std_logic_vector(c_DFLD_KNORM_PIX_S-1 downto 0)                             ; --! EP command: Memory data read linked to CY_KNORM
+         smfb0                : std_logic_vector(c_DFLD_SMFB0_PIX_S-1 downto 0)                             ; --! EP command: Memory data read linked to CY_MUX_SQ_FB0
          smlkv                : std_logic_vector(c_DFLD_SMLKV_PIX_S-1 downto 0)                             ; --! EP command: Memory data read linked to CY_MUX_SQ_LOCKPOINT_V
 end record t_mem_prc_dta                                                                                    ; --! EP command: Memory data read for data squid proc.
 
@@ -139,9 +143,6 @@ type     t_ep_mem             is record
          tstpt                : t_mem(
                                 add(              c_MEM_TSTPT_ADD_S-1 downto 0),
                                 data_w(              c_DFLD_TSTPT_S-1 downto 0))                            ; --! EP command: Memory interface linked to TEST_PATTERN
-         smfb0                : t_mem(
-                                add(              c_MEM_SMFB0_ADD_S-1 downto 0),
-                                data_w(          c_DFLD_SMFB0_PIX_S-1 downto 0))                            ; --! EP command: Memory interface linked to CY_MUX_SQ_FB0
          smfbm                : t_mem(
                                 add(              c_MEM_SMFBM_ADD_S-1 downto 0),
                                 data_w(          c_DFLD_SMFBM_PIX_S-1 downto 0))                            ; --! EP command: Memory interface linked to CY_MUX_SQ_FB_MODE
@@ -158,7 +159,6 @@ end record t_ep_mem                                                             
 
 type     t_ep_mem_dta         is record
          tstpt                : std_logic_vector(c_DFLD_TSTPT_S-1     downto 0)                             ; --! EP command: Memory data read linked to TEST_PATTERN
-         smfb0                : std_logic_vector(c_DFLD_SMFB0_PIX_S-1 downto 0)                             ; --! EP command: Memory data read linked to CY_MUX_SQ_FB0
          smfbm                : std_logic_vector(c_DFLD_SMFBM_PIX_S-1 downto 0)                             ; --! EP command: Memory data read linked to CY_MUX_SQ_FB_MODE
          saoff                : std_logic_vector(c_DFLD_SAOFF_PIX_S-1 downto 0)                             ; --! EP command: Memory data read linked to CY_AMP_SQ_OFFSET_FINE
          plssh                : std_logic_vector(c_DFLD_PLSSH_PLS_S-1 downto 0)                             ; --! EP command: Memory data read linked to CY_PULSE_SHAPING
