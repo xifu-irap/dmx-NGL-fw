@@ -67,4 +67,4 @@ jobs:
         with:
           name: debug
           path: |
-            ".linty/"
+            .linty/
