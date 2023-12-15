@@ -374,9 +374,17 @@ WCMD R-C0_MUX_SQ_FB0(0)-XXXX R  #  Command C0-137
 CCMD R-C0_MUX_SQ_FB0(33)-44FF W #  Return Command C0-135
 COMM
 WCMD W-C0_MUX_SQ_FB0(1)-040F R  #  Command C0-138
-CCMD R-Status-FFFF W         #  Return Command C0-136
-WCMD R-C0_MUX_SQ_FB0(1)-XXXX R  #  Command C0-139
+CCMD R-Status-FFFF W            #  Return Command C0-136
+WCMD R-Status-FFFF R            #  Command C0-139
 CCMD R-C0_MUX_SQ_FB0(0)-8207 W  #  Return Command C0-137
+COMM
+WCMD W-C0_MUX_SQ_FB0(48)-XXXX R #  Command C0-140
+CCMD R-Status-FFFF W            #  Return Command C0-138
+WCMD R-C0_MUX_SQ_FB0(1)-XXXX R  #  Command C0-141
+CCMD R-Status-FFFF W            #  Return Command C0-139
+COMM
+WCMD R-Status-XXXX R            #  Command C0-142
+CCMD R-Status-7FFF W            #  Return Command C0-140
 COMM
 COMM ==============================================================================================
 COMM   C1_MUX_SQ_FB0: writing a new table in ping-pong memory
@@ -735,8 +743,16 @@ CCMD R-C1_MUX_SQ_FB0(33)-44FF W #  Return Command C1-135
 COMM
 WCMD W-C1_MUX_SQ_FB0(1)-040F R  #  Command C1-138
 CCMD R-Status-FFFF W         #  Return Command C1-136
-WCMD R-C1_MUX_SQ_FB0(1)-XXXX R  #  Command C1-139
+WCMD R-Status-FFFF R            #  Command C1-139
 CCMD R-C1_MUX_SQ_FB0(0)-8207 W  #  Return Command C1-137
+COMM
+WCMD W-C1_MUX_SQ_FB0(48)-XXXX R #  Command C1-140
+CCMD R-Status-FFFF W            #  Return Command C1-138
+WCMD R-C1_MUX_SQ_FB0(1)-XXXX R  #  Command C1-141
+CCMD R-Status-FFFF W            #  Return Command C1-139
+COMM
+WCMD R-Status-XXXX R            #  Command C1-142
+CCMD R-Status-7FFF W            #  Return Command C1-140
 COMM
 COMM ==============================================================================================
 COMM   C2_MUX_SQ_FB0: writing a new table in ping-pong memory
@@ -1095,8 +1111,16 @@ CCMD R-C2_MUX_SQ_FB0(33)-44FF W #  Return Command C2-135
 COMM
 WCMD W-C2_MUX_SQ_FB0(1)-040F R  #  Command C2-138
 CCMD R-Status-FFFF W         #  Return Command C2-136
-WCMD R-C2_MUX_SQ_FB0(1)-XXXX R  #  Command C2-139
+WCMD R-Status-FFFF R            #  Command C2-139
 CCMD R-C2_MUX_SQ_FB0(0)-8207 W  #  Return Command C2-137
+COMM
+WCMD W-C2_MUX_SQ_FB0(48)-XXXX R #  Command C2-140
+CCMD R-Status-FFFF W            #  Return Command C2-138
+WCMD R-C2_MUX_SQ_FB0(1)-XXXX R  #  Command C2-141
+CCMD R-Status-FFFF W            #  Return Command C2-139
+COMM
+WCMD R-Status-XXXX R            #  Command C2-142
+CCMD R-Status-7FFF W            #  Return Command C2-140
 COMM
 COMM ==============================================================================================
 COMM   C3_MUX_SQ_FB0: writing a new table in ping-pong memory
@@ -1455,5 +1479,14 @@ CCMD R-C3_MUX_SQ_FB0(33)-44FF W #  Return Command C3-135
 COMM
 WCMD W-C3_MUX_SQ_FB0(1)-040F R  #  Command C3-138
 CCMD R-Status-FFFF W         #  Return Command C3-136
-WCMD R-C3_MUX_SQ_FB0(1)-XXXX R  #  Command C3-139
+WCMD R-Status-FFFF R            #  Command C3-139
 CCMD R-C3_MUX_SQ_FB0(0)-8207 W  #  Return Command C3-137
+COMM
+WCMD W-C3_MUX_SQ_FB0(48)-XXXX R #  Command C3-140
+CCMD R-Status-FFFF W            #  Return Command C3-138
+WCMD R-C3_MUX_SQ_FB0(1)-XXXX R  #  Command C3-141
+CCMD R-Status-FFFF W            #  Return Command C3-139
+COMM
+WCMD R-Status-XXXX R            #  Command C3-142
+CCMD R-Status-7FFF W            #  Return Command C3-140
+COMM

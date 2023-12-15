@@ -65,7 +65,7 @@ constant c_PLS_VAL_SYNC_PRM   : integer:= c_SQM_PLS_CNT_MX_VAL - (c_DAC_MEM_PRM_
 signal   sync_rs_rsys         : std_logic                                                                   ; --! Pixel sequence synchronization register (System Clock)
 signal   plsss_rsys           : std_logic_vector(c_DFLD_PLSSS_PLS_S-1 downto 0)                             ; --! SQUID MUX feedback pulse shaping set register (System clock)
 
-signal   rst_sqm_adc_dac_loc  : std_logic                                                                   ; --! Local reset for SQUID ADC/DAC, de-assertion on system clock
+signal   rst_sqm_adc_dac_lc   : std_logic                                                                   ; --! Local reset for SQUID ADC/DAC, de-assertion on system clock
 
 signal   sync_r               : std_logic_vector(     c_FF_RSYNC_NB+1 downto 0)                             ; --! Pixel sequence sync. register (R.E. detected = position sequence to the first pixel)
 signal   sync_re              : std_logic                                                                   ; --! Pixel sequence sync. rising edge
@@ -91,7 +91,7 @@ signal   a_mant_k             : std_logic_vector(  c_DFLD_PLSSH_PLS_S-1 downto 0
 signal   a_mant_k_rs          : std_logic_vector( c_SQM_PLS_SHP_A_EXP-1 downto 0)                           ; --! Pulse shaping: A[k] filter mantissa parameter (unsigned) resized
 
 attribute syn_preserve        : boolean                                                                     ; --! Disabling signal optimization
-attribute syn_preserve          of rst_sqm_adc_dac_loc   : signal is true                                   ; --! Disabling signal optimization: rst_sqm_adc_dac_loc
+attribute syn_preserve          of rst_sqm_adc_dac_lc    : signal is true                                   ; --! Disabling signal optimization: rst_sqm_adc_dac_lc
 attribute syn_preserve          of sync_rs_rsys          : signal is true                                   ; --! Disabling signal optimization: sync_rs_sys
 attribute syn_preserve          of sync_r                : signal is true                                   ; --! Disabling signal optimization: sync_r
 attribute syn_preserve          of sync_re               : signal is true                                   ; --! Disabling signal optimization: sync_re
@@ -120,10 +120,10 @@ begin
    begin
 
       if i_rst_sqm_adc_dac = c_RST_LEV_ACT then
-         rst_sqm_adc_dac_loc <= c_RST_LEV_ACT;
+         rst_sqm_adc_dac_lc  <= c_RST_LEV_ACT;
 
       elsif rising_edge(i_clk_sqm_adc_dac) then
-         rst_sqm_adc_dac_loc <= not(c_RST_LEV_ACT);
+         rst_sqm_adc_dac_lc  <= not(c_RST_LEV_ACT);
 
       end if;
 
@@ -132,10 +132,10 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   Inputs Resynchronization
    -- ------------------------------------------------------------------------------------------------------
-   P_rsync : process (rst_sqm_adc_dac_loc, i_clk_sqm_adc_dac)
+   P_rsync : process (rst_sqm_adc_dac_lc , i_clk_sqm_adc_dac)
    begin
 
-      if rst_sqm_adc_dac_loc = c_RST_LEV_ACT then
+      if rst_sqm_adc_dac_lc  = c_RST_LEV_ACT then
          sync_r               <= (others => c_I_SYNC_DEF);
          sqm_data_fbk_r       <= (others => std_logic_vector(to_unsigned(c_DAC_MDL_POINT, c_SQM_DATA_FBK_S)));
          sqm_pixel_pos_init_r <= (others => std_logic_vector(to_signed(c_SQM_PXL_POS_INIT, c_SQM_PXL_POS_S)));
@@ -158,10 +158,10 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   Specific signals
    -- ------------------------------------------------------------------------------------------------------
-   P_sig : process (rst_sqm_adc_dac_loc, i_clk_sqm_adc_dac)
+   P_sig : process (rst_sqm_adc_dac_lc , i_clk_sqm_adc_dac)
    begin
 
-      if rst_sqm_adc_dac_loc = c_RST_LEV_ACT then
+      if rst_sqm_adc_dac_lc  = c_RST_LEV_ACT then
          sync_re            <= c_LOW_LEV;
 
       elsif rising_edge(i_clk_sqm_adc_dac) then
@@ -175,10 +175,10 @@ begin
    --!   Pulse shaping counter
    --    @Req : DRE-DMX-FW-REQ-0275
    -- ------------------------------------------------------------------------------------------------------
-   P_pls_cnt : process (rst_sqm_adc_dac_loc, i_clk_sqm_adc_dac)
+   P_pls_cnt : process (rst_sqm_adc_dac_lc , i_clk_sqm_adc_dac)
    begin
 
-      if rst_sqm_adc_dac_loc = c_RST_LEV_ACT then
+      if rst_sqm_adc_dac_lc  = c_RST_LEV_ACT then
          pls_cnt        <= std_logic_vector(to_unsigned(c_SQM_PLS_CNT_MX_VAL, pls_cnt'length));
          pls_cnt_msb_r  <= c_LOW_LEV;
 
@@ -206,10 +206,10 @@ begin
    --    @Req : DRE-DMX-FW-REQ-0090
    --    @Req : DRE-DMX-FW-REQ-0285
    -- ------------------------------------------------------------------------------------------------------
-   P_pixel_pos : process (rst_sqm_adc_dac_loc, i_clk_sqm_adc_dac)
+   P_pixel_pos : process (rst_sqm_adc_dac_lc , i_clk_sqm_adc_dac)
    begin
 
-      if rst_sqm_adc_dac_loc = c_RST_LEV_ACT then
+      if rst_sqm_adc_dac_lc  = c_RST_LEV_ACT then
          pixel_pos   <= c_MINUSONE(pixel_pos'range);
 
       elsif rising_edge(i_clk_sqm_adc_dac) then
@@ -249,7 +249,7 @@ begin
 
          o_a_flg_err          => open                 , -- out    std_logic                                 ; --! Memory port A: flag error uncorrectable detected ('0' = No, '1' = Yes)
 
-         i_b_rst              => rst_sqm_adc_dac_loc  , -- in     std_logic                                 ; --! Memory port B: registers reset ('0' = Inactive, '1' = Active)
+         i_b_rst              => rst_sqm_adc_dac_lc   , -- in     std_logic                                 ; --! Memory port B: registers reset ('0' = Inactive, '1' = Active)
          i_b_clk              => i_clk_sqm_adc_dac    , -- in     std_logic                                 ; --! Memory port B: main clock
          i_b_clk_shift        => i_clk_sqm_adc_dac_90 , -- in     std_logic                                 ; --! Memory port B: 90 degrees shifted clock (used for memory content correction)
 
@@ -264,10 +264,10 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   Memory pulse shaping coefficient signals, DAC side
    -- ------------------------------------------------------------------------------------------------------
-   P_mem_plssh_dac : process (rst_sqm_adc_dac_loc, i_clk_sqm_adc_dac)
+   P_mem_plssh_dac : process (rst_sqm_adc_dac_lc , i_clk_sqm_adc_dac)
    begin
 
-      if rst_sqm_adc_dac_loc = c_RST_LEV_ACT then
+      if rst_sqm_adc_dac_lc  = c_RST_LEV_ACT then
          mem_plssh_add_lsb <= c_ZERO(mem_plssh_add_lsb'range);
          mem_plssh_prm.add(mem_plssh_prm.add'high downto mem_plssh_add_lsb'high) <= c_EP_CMD_DEF_PLSSS;
          mem_plssh_prm.pp <= c_MEM_STR_ADD_PP_DEF;
@@ -297,10 +297,10 @@ begin
    --     - i_sqm_data_fbk =  2^(c_SQM_DATA_FBK_S-1)-1 -> o_sqm_dac_data = 2^(c_SQM_DAC_DATA_S)-1 (DAC analog output =   Vref)
    --     Either: x_final = i_sqm_data_fbk + 2^(c_SQM_DATA_FBK_S-1)
    -- ------------------------------------------------------------------------------------------------------
-   P_pulse_shaping_in : process (rst_sqm_adc_dac_loc, i_clk_sqm_adc_dac)
+   P_pulse_shaping_in : process (rst_sqm_adc_dac_lc , i_clk_sqm_adc_dac)
    begin
 
-      if rst_sqm_adc_dac_loc = c_RST_LEV_ACT then
+      if rst_sqm_adc_dac_lc  = c_RST_LEV_ACT then
          x_init   <= std_logic_vector(to_unsigned(c_DAC_MDL_POINT, x_init'length));
          x_final  <= std_logic_vector(to_unsigned(c_DAC_MDL_POINT, x_final'length));
 
@@ -325,7 +325,7 @@ begin
          g_A_EXP              => c_SQM_PLS_SHP_A_EXP  , -- integer                                          ; --! A[k]: filter exponent parameter (<= c_MULT_ALU_PORTC_S-g_X_K_S-1)
          g_Y_K_S              => c_SQM_DAC_DATA_S       -- integer                                            --! y[k]: filtered data out bus size
    ) port map (
-         i_rst_sqm_adc_dac_lc => rst_sqm_adc_dac_loc  , -- in     std_logic                                 ; --! Local reset for SQUID ADC/DAC, de-assertion on system clock
+         i_rst_sqm_adc_dac_lc => rst_sqm_adc_dac_lc   , -- in     std_logic                                 ; --! Local reset for SQUID ADC/DAC, de-assertion on system clock
          i_clk_sqm_adc_dac    => i_clk_sqm_adc_dac    , -- in     std_logic                                 ; --! SQUID MUX pulse shaping Clock
          i_x_init             => x_init               , -- in     std_logic_vector(g_X_K_S-1 downto 0)      ; --! Last value reached by y[k] at the end of last slice (unsigned)
          i_x_final            => x_final              , -- in     std_logic_vector(g_X_K_S-1 downto 0)      ; --! Final value to reach by y[k] (unsigned)

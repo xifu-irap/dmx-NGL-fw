@@ -321,7 +321,7 @@
 # ** Note   : (83706000 ps) Check command return: PASS
 # ** Note   : (83706000 ps)  * Read C000_DFFF, expected value C000_DFFF (Status, mode Read, data DFFF)
 # ** Note   : (85938000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (85938000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (85938000 ps) Send SPI command value 8C1C_XXXX (, mode Read, data XXXX)
 # ** Note   : (86010000 ps) Waiting SPI command return end for 36000 ps
 #             (86010000 ps) 
 #             (86010000 ps) ==============================================================================================
@@ -339,6 +339,15 @@
 # ** Note   : (88350000 ps) Check command return: PASS
 # ** Note   : (88350000 ps)  * Read C000_DFFF, expected value C000_DFFF (Status, mode Read, data DFFF)
 # ** Note   : (90582000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (90582000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (90654000 ps) Waiting SPI command return end for 36000 ps
+#             (90654000 ps) 
+#             (90654000 ps) ==============================================================================================
+#             (90654000 ps)   Check error Invalid register address detected
+#             (90654000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (90672000 ps) Check command return: PASS
+# ** Note   : (90672000 ps)  * Read C000_7FFF, expected value C000_7FFF (Status, mode Read, data 7FFF)
+# ** Note   : (92904000 ps) Waiting SPI command end for 2232000 ps
 # ----------------------------------------------------------------------------------------------------
 # Parameters check, SPI spi_hk           
 # ----------------------------------------------------------------------------------------------------
@@ -362,6 +371,6 @@
 # Error check science packets   : '0'
 # Error check pulse shaping     : '0'
 # ------------------------------------------------------------------------------------------------------------------------------------------------------
-# Simulation time               : 91000000 ps
+# Simulation time               : 94000000 ps
 # Simulation status             : PASS
 # ------------------------------------------------------------------------------------------------------------------------------------------------------

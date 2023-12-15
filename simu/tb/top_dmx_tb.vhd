@@ -199,40 +199,40 @@ begin
    G_get_top_level_sig: if true generate
    alias td_rst               : std_logic is <<signal .top_dmx_tb.I_top_dmx.rst              : std_logic>>  ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
    alias td_rst_sqm_adc_0     : std_logic is <<signal
-                                .top_dmx_tb.I_top_dmx.G_column_mgt(c_COL0).I_squid_adc_mgt.rst_sqm_adc_dac_loc
+                                .top_dmx_tb.I_top_dmx.G_column_mgt(c_COL0).I_squid_adc_mgt.rst_sqm_adc_dac_lc
                                                                                              : std_logic>>  ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
    alias td_rst_sqm_adc_1     : std_logic is <<signal
-                                .top_dmx_tb.I_top_dmx.G_column_mgt(c_COL1).I_squid_adc_mgt.rst_sqm_adc_dac_loc
+                                .top_dmx_tb.I_top_dmx.G_column_mgt(c_COL1).I_squid_adc_mgt.rst_sqm_adc_dac_lc
                                                                                              : std_logic>>  ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
    alias td_rst_sqm_adc_2     : std_logic is <<signal
-                                .top_dmx_tb.I_top_dmx.G_column_mgt(c_COL2).I_squid_adc_mgt.rst_sqm_adc_dac_loc
+                                .top_dmx_tb.I_top_dmx.G_column_mgt(c_COL2).I_squid_adc_mgt.rst_sqm_adc_dac_lc
                                                                                              : std_logic>>  ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
    alias td_rst_sqm_adc_3     : std_logic is <<signal
-                                .top_dmx_tb.I_top_dmx.G_column_mgt(c_COL3).I_squid_adc_mgt.rst_sqm_adc_dac_loc
+                                .top_dmx_tb.I_top_dmx.G_column_mgt(c_COL3).I_squid_adc_mgt.rst_sqm_adc_dac_lc
                                                                                              : std_logic>>  ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
    alias td_rst_sqm_dac_0     : std_logic is <<signal
-                                .top_dmx_tb.I_top_dmx.G_column_mgt(c_COL0).I_sqm_dac_mgt.rst_sqm_adc_dac_loc
+                                .top_dmx_tb.I_top_dmx.G_column_mgt(c_COL0).I_sqm_dac_mgt.rst_sqm_adc_dac_lc
                                                                                              : std_logic>>  ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
    alias td_rst_sqm_dac_1     : std_logic is <<signal
-                                .top_dmx_tb.I_top_dmx.G_column_mgt(c_COL1).I_sqm_dac_mgt.rst_sqm_adc_dac_loc
+                                .top_dmx_tb.I_top_dmx.G_column_mgt(c_COL1).I_sqm_dac_mgt.rst_sqm_adc_dac_lc
                                                                                              : std_logic>>  ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
    alias td_rst_sqm_dac_2     : std_logic is <<signal
-                                .top_dmx_tb.I_top_dmx.G_column_mgt(c_COL2).I_sqm_dac_mgt.rst_sqm_adc_dac_loc
+                                .top_dmx_tb.I_top_dmx.G_column_mgt(c_COL2).I_sqm_dac_mgt.rst_sqm_adc_dac_lc
                                                                                              : std_logic>>  ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
    alias td_rst_sqm_dac_3     : std_logic is <<signal
-                                .top_dmx_tb.I_top_dmx.G_column_mgt(c_COL3).I_sqm_dac_mgt.rst_sqm_adc_dac_loc
+                                .top_dmx_tb.I_top_dmx.G_column_mgt(c_COL3).I_sqm_dac_mgt.rst_sqm_adc_dac_lc
                                                                                              : std_logic>>  ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
    alias td_rst_sqa_mux_0     : std_logic is <<signal
-                                .top_dmx_tb.I_top_dmx.G_column_mgt(c_COL0).I_sqa_dac_mgt.rst_sqm_adc_dac_loc
+                                .top_dmx_tb.I_top_dmx.G_column_mgt(c_COL0).I_sqa_dac_mgt.rst_sqm_adc_dac_lc
                                                                                              : std_logic>>  ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
    alias td_rst_sqa_mux_1     : std_logic is <<signal
-                                .top_dmx_tb.I_top_dmx.G_column_mgt(c_COL1).I_sqa_dac_mgt.rst_sqm_adc_dac_loc
+                                .top_dmx_tb.I_top_dmx.G_column_mgt(c_COL1).I_sqa_dac_mgt.rst_sqm_adc_dac_lc
                                                                                              : std_logic>>  ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
    alias td_rst_sqa_mux_2     : std_logic is <<signal
-                                .top_dmx_tb.I_top_dmx.G_column_mgt(c_COL2).I_sqa_dac_mgt.rst_sqm_adc_dac_loc
+                                .top_dmx_tb.I_top_dmx.G_column_mgt(c_COL2).I_sqa_dac_mgt.rst_sqm_adc_dac_lc
                                                                                              : std_logic>>  ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
    alias td_rst_sqa_mux_3     : std_logic is <<signal
-                                .top_dmx_tb.I_top_dmx.G_column_mgt(c_COL3).I_sqa_dac_mgt.rst_sqm_adc_dac_loc
+                                .top_dmx_tb.I_top_dmx.G_column_mgt(c_COL3).I_sqa_dac_mgt.rst_sqm_adc_dac_lc
                                                                                              : std_logic>>  ; --! Internal design: Reset asynchronous assertion, synchronous de-assertion
    alias td_clk               : std_logic is <<signal .top_dmx_tb.I_top_dmx.clk              : std_logic>>  ; --! Internal design: System Clock
    alias td_clk_sqm_adc_acq   : std_logic is <<signal .top_dmx_tb.I_top_dmx.clk_sqm_adc_dac  : std_logic>>  ; --! Internal design: SQUID MUX ADC acquisition Clock
@@ -267,18 +267,9 @@ begin
                                  <<signal .top_dmx_tb.I_top_dmx.G_column_mgt(c_COL3).I_sqa_fbk_mgt.i_saomd:
                                    std_logic_vector(c_DFLD_SAOMD_COL_S-1 downto 0)>>                        ; --! Internal design: SQUID AMP offset MUX delay
 
-   alias td_sqm_fbm_clslp_n_0 : std_logic is <<signal
-                                .top_dmx_tb.I_top_dmx.G_column_mgt(c_COL0).I_squid_data_proc.init_fbk_acc_fb
-                                                                                             : std_logic>>  ; --! Internal design: SQUID MUX feedback mode Closed loop
-   alias td_sqm_fbm_clslp_n_1 : std_logic is <<signal
-                                .top_dmx_tb.I_top_dmx.G_column_mgt(c_COL1).I_squid_data_proc.init_fbk_acc_fb
-                                                                                             : std_logic>>  ; --! Internal design: SQUID MUX feedback mode Closed loop
-   alias td_sqm_fbm_clslp_n_2 : std_logic is <<signal
-                                .top_dmx_tb.I_top_dmx.G_column_mgt(c_COL2).I_squid_data_proc.init_fbk_acc_fb
-                                                                                             : std_logic>>  ; --! Internal design: SQUID MUX feedback mode Closed loop
-   alias td_sqm_fbm_clslp_n_3 : std_logic is <<signal
-                                .top_dmx_tb.I_top_dmx.G_column_mgt(c_COL3).I_squid_data_proc.init_fbk_acc_fb
-                                                                                             : std_logic>>  ; --! Internal design: SQUID MUX feedback mode Closed loop
+   alias td_sqm_fbm_clslp_n   : std_logic_vector(c_NB_COL-1 downto 0) is
+                                 <<signal .top_dmx_tb.I_top_dmx.squid_close_mode_n:
+                                   std_logic_vector(c_NB_COL-1 downto 0)>>                                  ; --! Internal design: SQUID MUX feedback mode Closed loop
    begin
 
       d_rst                      <= td_rst;
@@ -306,10 +297,7 @@ begin
       d_saomd(c_COL1)            <= td_saomd_1;
       d_saomd(c_COL2)            <= td_saomd_2;
       d_saomd(c_COL3)            <= td_saomd_3;
-      d_sqm_fbm_cls_lp_n(c_COL0) <= td_sqm_fbm_clslp_n_0;
-      d_sqm_fbm_cls_lp_n(c_COL1) <= td_sqm_fbm_clslp_n_1;
-      d_sqm_fbm_cls_lp_n(c_COL2) <= td_sqm_fbm_clslp_n_2;
-      d_sqm_fbm_cls_lp_n(c_COL3) <= td_sqm_fbm_clslp_n_3;
+      d_sqm_fbm_cls_lp_n         <= td_sqm_fbm_clslp_n;
 
    end generate G_get_top_level_sig;
 

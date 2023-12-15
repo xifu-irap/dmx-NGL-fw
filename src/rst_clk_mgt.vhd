@@ -63,7 +63,7 @@ entity rst_clk_mgt is port (
 end entity rst_clk_mgt;
 
 architecture RTL of rst_clk_mgt is
-signal   rst_sqm_adc_dac_loc  : std_logic                                                                   ; --! Local reset for SQUID ADC/DAC, de-assertion on system clock
+signal   rst_sqm_adc_dac_lc   : std_logic                                                                   ; --! Local reset for SQUID ADC/DAC, de-assertion on system clock
 
 signal   clk_sqm_adc          : std_logic                                                                   ; --! SQUID MUX ADC Clocks
 signal   clk_sqm_dac_out      : std_logic                                                                   ; --! SQUID MUX DAC output Clock
@@ -74,7 +74,7 @@ signal   cmd_ck_sqm_dac       : std_logic_vector(c_NB_COL-1 downto 0)           
 signal   ck_science           : std_logic                                                                   ; --! Science Data Image Clock
 
 attribute syn_preserve        : boolean                                                                     ; --! Disabling signal optimization
-attribute syn_preserve          of rst_sqm_adc_dac_loc   : signal is true                                   ; --! Disabling signal optimization: rst_sqm_adc_dac_loc
+attribute syn_preserve          of rst_sqm_adc_dac_lc    : signal is true                                   ; --! Disabling signal optimization: rst_sqm_adc_dac_lc
 
 begin
 
@@ -147,7 +147,6 @@ begin
          g_FF_RSYNC_NB        => c_FF_RSYNC_NB + 1    , -- integer                                          ; --! Flip-Flop number used for resynchronization
          g_FF_CK_REF_NB       => c_FF_RSYNC_NB + 1      -- integer                                            --! Flip-Flop number used for delaying image clock reference
       ) port map (
-         i_reset              => c_LOW_LEV            , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clock              => clk_sqm_adc          , -- in     std_logic                                 ; --! Clock
          i_cmd_ck             => cmd_ck_adc(k)        , -- in     std_logic                                 ; --! Clock switch command ('0' = Inactive, '1' = Active)
          o_im_ck              => o_ck_sqm_adc(k)        -- out    std_logic                                   --! Image clock, frequency divided by 2
@@ -179,7 +178,6 @@ begin
          g_FF_RSYNC_NB        => c_FF_RSYNC_NB        , -- integer                                          ; --! Flip-Flop number used for resynchronization
          g_FF_CK_REF_NB       => c_FF_RSYNC_NB + 1      -- integer                                            --! Flip-Flop number used for delaying image clock reference
       ) port map (
-         i_reset              => c_LOW_LEV            , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clock              => clk_sqm_dac_out      , -- in     std_logic                                 ; --! Clock
          i_cmd_ck             => cmd_ck_sqm_dac(k)    , -- in     std_logic                                 ; --! Clock switch command ('0' = Inactive, '1' = Active)
          o_im_ck              => o_ck_sqm_dac(k)        -- out    std_logic                                   --! Image clock, frequency divided by 2
@@ -195,20 +193,20 @@ begin
    begin
 
       if o_rst_sqm_adc_dac = c_RST_LEV_ACT then
-         rst_sqm_adc_dac_loc <= c_RST_LEV_ACT;
+         rst_sqm_adc_dac_lc  <= c_RST_LEV_ACT;
 
       elsif rising_edge(o_clk_sqm_adc_dac) then
-         rst_sqm_adc_dac_loc <= not(c_RST_LEV_ACT);
+         rst_sqm_adc_dac_lc  <= not(c_RST_LEV_ACT);
 
       end if;
 
    end process P_rst_sqm_adc_dac_lc;
 
    --! Science Data Image Clock
-   P_ck_science : process (rst_sqm_adc_dac_loc, o_clk_sqm_adc_dac)
+   P_ck_science : process (rst_sqm_adc_dac_lc , o_clk_sqm_adc_dac)
    begin
 
-      if rst_sqm_adc_dac_loc = c_RST_LEV_ACT then
+      if rst_sqm_adc_dac_lc  = c_RST_LEV_ACT then
          ck_science    <= c_HGH_LEV;
          o_ck_science  <= c_LOW_LEV;
 

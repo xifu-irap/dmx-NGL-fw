@@ -483,11 +483,28 @@
 # ** Note   : (197484000 ps) Check command return: PASS
 # ** Note   : (197484000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
 # ** Note   : (199716000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (199716000 ps) Send SPI command value 8202_XXXX (TEST_PATTERN, mode Read, data XXXX)
+# ** Note   : (199716000 ps) Send SPI command value C000_FFFF (Status, mode Read, data FFFF)
 # ** Note   : (199788000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (199806000 ps) Check command return: PASS
 # ** Note   : (199806000 ps)  * Read 8200_8207, expected value 8200_8207 (TEST_PATTERN, mode Read, data 8207)
 # ** Note   : (202038000 ps) Waiting SPI command end for 2232000 ps
+#             (202038000 ps) 
+# ** Note   : (202038000 ps) Send SPI command value 8229_XXXX (TEST_PATTERN, mode Write, data XXXX)
+# ** Note   : (202110000 ps) Waiting SPI command return end for 36000 ps
+# ** Note   : (202128000 ps) Check command return: PASS
+# ** Note   : (202128000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
+# ** Note   : (204360000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (204360000 ps) Send SPI command value 8202_XXXX (TEST_PATTERN, mode Read, data XXXX)
+# ** Note   : (204432000 ps) Waiting SPI command return end for 36000 ps
+# ** Note   : (204450000 ps) Check command return: PASS
+# ** Note   : (204450000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
+# ** Note   : (206682000 ps) Waiting SPI command end for 2232000 ps
+#             (206682000 ps) 
+# ** Note   : (206682000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (206754000 ps) Waiting SPI command return end for 36000 ps
+# ** Note   : (206772000 ps) Check command return: PASS
+# ** Note   : (206772000 ps)  * Read C000_7FFF, expected value C000_7FFF (Status, mode Read, data 7FFF)
+# ** Note   : (209004000 ps) Waiting SPI command end for 2232000 ps
 # ------------------------------------------------------------------------------------------------------------------------------------------------------
 # Error simulation time         : '0'
 # Error check discrete level    : '0'
@@ -498,6 +515,6 @@
 # Error check science packets   : '0'
 # Error check pulse shaping     : '0'
 # ------------------------------------------------------------------------------------------------------------------------------------------------------
-# Simulation time               : 205000000 ps
+# Simulation time               : 210000000 ps
 # Simulation status             : PASS
 # ------------------------------------------------------------------------------------------------------------------------------------------------------

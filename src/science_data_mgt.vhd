@@ -387,12 +387,12 @@ begin
 
          elsif  ((aqmde_sync = c_DST_AQMDE_DUMP) and (dmp_cnt_msb_r(dmp_cnt_msb_r'high) and i_sqm_mem_dump_bsy) = c_HGH_LEV) or
                (((aqmde_sync = c_DST_AQMDE_SCIE) or  (aqmde_sync = c_DST_AQMDE_ERRS) or
-                ((aqmde_sync = c_DST_AQMDE_TEST) and (tst_pat_end_sync = c_LOW_LEV)))      and sqm_dta_sc_fst_all_r = c_HGH_LEV) then
+                ((aqmde_sync = c_DST_AQMDE_TEST))) and sqm_dta_sc_fst_all_r = c_HGH_LEV) then
             science_data(science_data'high) <= ctrl_first_pkt;
 
          elsif  ((aqmde_sync = c_DST_AQMDE_DUMP) and dmp_cnt = c_ZERO(dmp_cnt'range)) or
                (((aqmde_sync = c_DST_AQMDE_SCIE) or  (aqmde_sync = c_DST_AQMDE_ERRS)  or
-                ((aqmde_sync = c_DST_AQMDE_TEST) and (tst_pat_end_sync = c_LOW_LEV))) and sqm_dta_sc_lst_all_r = c_HGH_LEV) then
+                ((aqmde_sync = c_DST_AQMDE_TEST))) and sqm_dta_sc_lst_all_r = c_HGH_LEV) then
             science_data(science_data'high) <= c_SC_CTRL_EOD;
 
          else
@@ -433,7 +433,7 @@ begin
                science_data(c_SC_DATA_SER_NB*k+1)  <= i_test_pattern(    c_SC_DATA_SER_NB*c_SC_DATA_SER_W_S-1 downto c_SC_DATA_SER_W_S);
                science_data(c_SC_DATA_SER_NB*k)    <= i_test_pattern(                     c_SC_DATA_SER_W_S-1 downto                 0);
 
-            elsif aqmde_sync = c_DST_AQMDE_IDLE or (aqmde_sync = c_DST_AQMDE_TEST and tst_pat_end_sync = c_HGH_LEV) then
+            elsif aqmde_sync = c_DST_AQMDE_IDLE or tst_pat_end_sync = c_HGH_LEV then
                science_data(c_SC_DATA_SER_NB*k+1)  <= c_SC_DATA_IDLE_VAL(c_SC_DATA_SER_NB*c_SC_DATA_SER_W_S-1 downto c_SC_DATA_SER_W_S);
                science_data(c_SC_DATA_SER_NB*k)    <= c_SC_DATA_IDLE_VAL(                 c_SC_DATA_SER_W_S-1 downto                 0);
 

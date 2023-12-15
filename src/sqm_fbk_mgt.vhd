@@ -283,13 +283,7 @@ begin
 
       elsif rising_edge(i_clk) then
          if pls_cnt_div_rem = c_MINUSTWO then
-            if pixel_pos_div = c_MINUSONE(pixel_pos_div'range) then
-               sqm_pixel_pos_init <= std_logic_vector(to_unsigned(c_SQM_PXL_POS_MX_VAL, sqm_pixel_pos_init'length));
-
-            else
-               sqm_pixel_pos_init <= std_logic_vector(signed(pixel_pos_div) - 1);
-
-            end if;
+            sqm_pixel_pos_init <= std_logic_vector(signed(pixel_pos_div) - 1);
 
          else
             sqm_pixel_pos_init <= pixel_pos_div;
@@ -632,10 +626,11 @@ begin
          elsif smfbm = c_DST_SMFBM_TEST then
             o_sqm_data_fbk <= test_pattern_sync;
 
-         elsif smfbm = c_DST_SMFBM_OPEN then
+         else
             o_sqm_data_fbk <= smfb0_rs;
 
          end if;
+
       end if;
 
    end process P_sqm_data_fbk;

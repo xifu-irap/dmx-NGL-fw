@@ -235,5 +235,13 @@ CCMD R-TEST_PATTERN(19)-E3C5 W       #  Return Command 77
 COMM
 WCMD W-TEST_PATTERN(1)-040F R        #  Command 80
 CCMD R-Status-FFFF W                 #  Return Command 78
-WCMD R-TEST_PATTERN(1)-XXXX R        #  Command 81
+WCMD R-Status-FFFF R                 #  Command 81
 CCMD R-TEST_PATTERN(0)-8207 W        #  Return Command 79
+COMM
+WCMD W-TEST_PATTERN(20)-XXXX R       #  Command 82
+CCMD R-Status-FFFF W                 #  Return Command 80
+WCMD R-TEST_PATTERN(1)-XXXX R        #  Command 83
+CCMD R-Status-FFFF W                 #  Return Command 81
+COMM
+WCMD R-Status-XXXX R                 #  Command 84
+CCMD R-Status-7FFF W                 #  Return Command 82

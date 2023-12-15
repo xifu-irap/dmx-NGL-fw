@@ -35,7 +35,6 @@ entity im_ck is generic (
          g_FF_RSYNC_NB        : integer                                                                     ; --! Flip-Flop number used for resynchronization
          g_FF_CK_REF_NB       : integer                                                                       --! Flip-Flop number used for delaying image clock reference
    ); port (
-         i_reset              : in     std_logic                                                            ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clock              : in     std_logic                                                            ; --! Clock
          i_cmd_ck             : in     std_logic                                                            ; --! Clock switch command ('0' = Inactive, '1' = Active)
          o_im_ck              : out    std_logic                                                              --! Image clock, frequency divided by 2
@@ -78,23 +77,10 @@ begin
          end if;
 
          ck_ref_r <= ck_ref_r(ck_ref_r'high-1 downto 0) & ck_ref;
-
-      end if;
-
-   end process P_ck_ref;
-
-   --! Image clock
-   P_im_ck : process (i_reset, i_clock)
-   begin
-
-      if i_reset = c_HGH_LEV then
-         o_im_ck  <= c_LOW_LEV;
-
-      elsif rising_edge(i_clock) then
          o_im_ck  <= ck_ref_r(ck_ref_r'high);
 
       end if;
 
-   end process P_im_ck;
+   end process P_ck_ref;
 
 end architecture RTL;

@@ -132,7 +132,7 @@ begin
          if i_start = c_HGH_LEV and pls_ste_cnt(pls_ste_cnt'high) = c_HGH_LEV then
             pls_ste_cnt <= std_logic_vector(resize(unsigned(i_ser_wd_s & c_LOW_LEV), pls_ste_cnt'length) - 1);
 
-         elsif pulse_gen(pulse_gen'high) = c_HGH_LEV and pls_ste_cnt(pls_ste_cnt'high) = c_LOW_LEV then
+         elsif pulse_gen(pulse_gen'high) = c_HGH_LEV then
             pls_ste_cnt <= std_logic_vector(signed(pls_ste_cnt) - 1);
 
          end if;
@@ -154,7 +154,7 @@ begin
          if i_start = c_HGH_LEV and pls_ste_cnt(pls_ste_cnt'high) = c_HGH_LEV then
             data_tx_ser <= i_data_tx;
 
-         elsif pulse_gen(pulse_gen'high) = c_HGH_LEV and pls_ste_cnt(pls_ste_cnt'low) = c_LOW_LEV and pls_ste_cnt(pls_ste_cnt'high) = c_LOW_LEV then
+         elsif pulse_gen(pulse_gen'high) = c_HGH_LEV and pls_ste_cnt(pls_ste_cnt'low) = c_LOW_LEV then
             data_tx_ser <= data_tx_ser(data_tx_ser'high-1 downto 0) & c_LOW_LEV;
 
          end if;

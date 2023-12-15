@@ -36,12 +36,12 @@
 # ** Note   : (22092000 ps) Check command return: PASS
 # ** Note   : (22092000 ps)  * Read C000_7FFF, expected value C000_7FFF (Status, mode Read, data 7FFF)
 # ** Note   : (29508000 ps) Waiting SPI command end for 7416000 ps
-# ** Note   : (29508000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (29508000 ps) Send SPI command value A001_XXXX (, mode Write, data XXXX)
 # ** Note   : (29580000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (29598000 ps) Check command return: PASS
 # ** Note   : (29598000 ps)  * Read C000_7FFF, expected value C000_7FFF (Status, mode Read, data 7FFF)
 # ** Note   : (37014000 ps) Waiting SPI command end for 7416000 ps
-# ** Note   : (37014000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (37014000 ps) Send SPI command value E001_XXXX (, mode Write, data XXXX)
 # ** Note   : (37086000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (37104000 ps) Check command return: PASS
 # ** Note   : (37104000 ps)  * Read C000_7FFF, expected value C000_7FFF (Status, mode Read, data 7FFF)
@@ -49,7 +49,17 @@
 # ** Note   : (44520000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
 # ** Note   : (44592000 ps) Waiting SPI command return end for 36000 ps
 # ** Note   : (44610000 ps) Check command return: PASS
-# ** Note   : (44610000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
+# ** Note   : (44610000 ps)  * Read C000_7FFF, expected value C000_7FFF (Status, mode Read, data 7FFF)
+# ** Note   : (52026000 ps) Waiting SPI command end for 7416000 ps
+# ** Note   : (52026000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (52098000 ps) Waiting SPI command return end for 36000 ps
+# ** Note   : (52116000 ps) Check command return: PASS
+# ** Note   : (52116000 ps)  * Read C000_7FFF, expected value C000_7FFF (Status, mode Read, data 7FFF)
+# ** Note   : (59532000 ps) Waiting SPI command end for 7416000 ps
+# ** Note   : (59532000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (59604000 ps) Waiting SPI command return end for 36000 ps
+# ** Note   : (59622000 ps) Check command return: PASS
+# ** Note   : (59622000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
 # ------------------------------------------------------------------------------------------------------------------------------------------------------
 # Error simulation time         : '0'
 # Error check discrete level    : '0'
@@ -60,6 +70,6 @@
 # Error check science packets   : '0'
 # Error check pulse shaping     : '0'
 # ------------------------------------------------------------------------------------------------------------------------------------------------------
-# Simulation time               : 46000000 ps
+# Simulation time               : 60000000 ps
 # Simulation status             : PASS
 # ------------------------------------------------------------------------------------------------------------------------------------------------------

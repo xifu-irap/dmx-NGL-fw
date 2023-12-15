@@ -86,7 +86,7 @@ signal   aqmde_dmp_cmp_rsys   : std_logic                                       
 signal   bxlgt_rsys           : std_logic_vector(c_DFLD_BXLGT_COL_S-1 downto 0)                             ; --! ADC sample number for averaging register (System Clock)
 signal   smpdl_rsys           : std_logic_vector(c_DFLD_SMPDL_COL_S-1 downto 0)                             ; --! ADC sample delay register (System Clock)
 
-signal   rst_sqm_adc_dac_loc  : std_logic                                                                   ; --! Local reset for SQUID ADC/DAC, de-assertion on system clock
+signal   rst_sqm_adc_dac_lc   : std_logic                                                                   ; --! Local reset for SQUID ADC/DAC, de-assertion on system clock
 
 signal   sync_r               : std_logic_vector(c_ADC_DATA_SYNC_NPER+c_FF_RSYNC_NB downto 0)               ; --! Pixel sequence sync. register (R.E. detected = position sequence to the first pixel)
 signal   aqmde_dmp_cmp_r      : std_logic_vector(c_FF_RSYNC_NB-1 downto 0)                                  ; --! Telemetry mode, status "Dump" compared register ('0' = Inactive, '1' = Active)
@@ -114,13 +114,6 @@ signal   sqm_data_err_rdy     : std_logic                                       
 signal   sqm_data_err_frst    : std_logic                                                                   ; --! SQUID MUX Data error first pixel
 signal   sqm_data_err_last    : std_logic                                                                   ; --! SQUID MUX Data error last pixel
 
-signal   sqm_data_err_rs      : t_slv_arr(0 to c_FF_RSYNC_NB-1)(c_SQM_DATA_ERR_S-1 downto 0)                ; --! SQUID MUX Data error, resynchronized on system clock
-signal   sqm_data_err_frst_rs : std_logic_vector(c_FF_RSYNC_NB-1 downto 0)                                  ; --! SQUID MUX Data error first pixel, resynchronized on system clock
-signal   sqm_data_err_last_rs : std_logic_vector(c_FF_RSYNC_NB-1 downto 0)                                  ; --! SQUID MUX Data error last pixel, resynchronized on system clock
-signal   sqm_data_err_rdy_rs  : std_logic_vector(c_FF_RSYNC_NB-1 downto 0)                                  ; --! SQUID MUX Data error ready, resynchronized on system clock
-
-signal   mem_dump_adc_cs_rs   : std_logic_vector(c_FF_RSYNC_NB-1 downto 0)                                  ; --! Memory Dump, ADC acquisition side: chip select, resynchronized on system clock
-
 signal   mem_dump_adc_cnt_w   : std_logic_vector(  c_DMP_CNT_S-1 downto 0)                                  ; --! Memory Dump, ADC acquisition side: counter words
 signal   mem_dump_adc         : t_mem(add(c_MEM_DUMP_ADD_S-1 downto 0),data_w(c_MEM_DUMP_DATA_S-1 downto 0)); --! Memory Dump, ADC acquisition side inputs
 
@@ -129,7 +122,7 @@ signal   mem_dump_data_out    : std_logic_vector(c_MEM_DUMP_DATA_S-1 downto 0)  
 signal   mem_dump_flg_err     : std_logic                                                                   ; --! Memory Dump, Science Acquisition side: flag error uncor. detected ('0'=No,'1'= Yes)
 
 attribute syn_preserve        : boolean                                                                     ; --! Disabling signal optimization
-attribute syn_preserve          of rst_sqm_adc_dac_loc   : signal is true                                   ; --! Disabling signal optimization: rst_sqm_adc_dac_loc
+attribute syn_preserve          of rst_sqm_adc_dac_lc    : signal is true                                   ; --! Disabling signal optimization: rst_sqm_adc_dac_lc
 attribute syn_preserve          of sync_rs_rsys          : signal is true                                   ; --! Disabling signal optimization: sync_rs_rsys
 attribute syn_preserve          of sync_r                : signal is true                                   ; --! Disabling signal optimization: sync_r
 attribute syn_preserve          of sync_re               : signal is true                                   ; --! Disabling signal optimization: sync_re
@@ -174,10 +167,10 @@ begin
    begin
 
       if i_rst_sqm_adc_dac = c_RST_LEV_ACT then
-         rst_sqm_adc_dac_loc <= c_RST_LEV_ACT;
+         rst_sqm_adc_dac_lc  <= c_RST_LEV_ACT;
 
       elsif rising_edge(i_clk_sqm_adc_dac) then
-         rst_sqm_adc_dac_loc <= not(c_RST_LEV_ACT);
+         rst_sqm_adc_dac_lc  <= not(c_RST_LEV_ACT);
 
       end if;
 
@@ -187,10 +180,10 @@ begin
    --!   Inputs Pad Resynchronization on SQUID MUX ADC acquisition Clock
    --    @Req : DRE-DMX-FW-REQ-0100
    -- ------------------------------------------------------------------------------------------------------
-   P_in_pad_rsync : process (rst_sqm_adc_dac_loc, i_clk_sqm_adc_dac)
+   P_in_pad_rsync : process (rst_sqm_adc_dac_lc , i_clk_sqm_adc_dac)
    begin
 
-      if rst_sqm_adc_dac_loc = c_RST_LEV_ACT then
+      if rst_sqm_adc_dac_lc  = c_RST_LEV_ACT then
          sqm_adc_data_r    <= (others => c_ZERO(sqm_adc_data_r(sqm_adc_data_r'high)'range));
          sqm_adc_oor_r     <= (others => c_LOW_LEV);
          pixel_pos_msb_r   <= (others => c_HGH_LEV);
@@ -207,10 +200,10 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   Inputs Resynchronization on SQUID MUX ADC acquisition Clock
    -- ------------------------------------------------------------------------------------------------------
-   P_in_rsync : process (rst_sqm_adc_dac_loc, i_clk_sqm_adc_dac)
+   P_in_rsync : process (rst_sqm_adc_dac_lc , i_clk_sqm_adc_dac)
    begin
 
-      if rst_sqm_adc_dac_loc = c_RST_LEV_ACT then
+      if rst_sqm_adc_dac_lc  = c_RST_LEV_ACT then
          sync_r            <= (others => c_I_SYNC_DEF);
          aqmde_dmp_cmp_r   <= (others => c_LOW_LEV);
          bxlgt_r           <= (others => c_EP_CMD_DEF_BXLGT);
@@ -229,10 +222,10 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   Signals registered
    -- ------------------------------------------------------------------------------------------------------
-   P_reg : process (rst_sqm_adc_dac_loc, i_clk_sqm_adc_dac)
+   P_reg : process (rst_sqm_adc_dac_lc , i_clk_sqm_adc_dac)
    begin
 
-      if rst_sqm_adc_dac_loc = c_RST_LEV_ACT then
+      if rst_sqm_adc_dac_lc  = c_RST_LEV_ACT then
          sync_re              <= c_LOW_LEV;
          sync_re_adc_data     <= c_LOW_LEV;
          aqmde_dmp_cmp_sync   <= c_LOW_LEV;
@@ -260,10 +253,10 @@ begin
    --!   Pulse counter/Pixel position initialization
    --    @Req : DRE-DMX-FW-REQ-0150
    -- ------------------------------------------------------------------------------------------------------
-   P_pls_cnt_del : process (rst_sqm_adc_dac_loc, i_clk_sqm_adc_dac)
+   P_pls_cnt_del : process (rst_sqm_adc_dac_lc , i_clk_sqm_adc_dac)
    begin
 
-      if rst_sqm_adc_dac_loc = c_RST_LEV_ACT then
+      if rst_sqm_adc_dac_lc  = c_RST_LEV_ACT then
          pls_cnt_init   <= std_logic_vector(unsigned(to_signed(c_PLS_CNT_INIT, pls_cnt_init'length)));
          pixel_pos_init <= std_logic_vector(to_signed(c_PIXEL_POS_INIT , pixel_pos'length));
 
@@ -285,10 +278,10 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   Pulse counter
    -- ------------------------------------------------------------------------------------------------------
-   P_pls_cnt : process (rst_sqm_adc_dac_loc, i_clk_sqm_adc_dac)
+   P_pls_cnt : process (rst_sqm_adc_dac_lc , i_clk_sqm_adc_dac)
    begin
 
-      if rst_sqm_adc_dac_loc = c_RST_LEV_ACT then
+      if rst_sqm_adc_dac_lc  = c_RST_LEV_ACT then
          pls_cnt    <= std_logic_vector(to_unsigned(c_PLS_CNT_MAX_VAL, pls_cnt'length));
 
       elsif rising_edge(i_clk_sqm_adc_dac) then
@@ -312,10 +305,10 @@ begin
    --    @Req : DRE-DMX-FW-REQ-0080
    --    @Req : DRE-DMX-FW-REQ-0090
    -- ------------------------------------------------------------------------------------------------------
-   P_pixel_pos : process (rst_sqm_adc_dac_loc, i_clk_sqm_adc_dac)
+   P_pixel_pos : process (rst_sqm_adc_dac_lc , i_clk_sqm_adc_dac)
    begin
 
-      if rst_sqm_adc_dac_loc = c_RST_LEV_ACT then
+      if rst_sqm_adc_dac_lc  = c_RST_LEV_ACT then
          pixel_pos    <= std_logic_vector(to_signed(c_PIXEL_POS_INIT, pixel_pos'length));
 
       elsif rising_edge(i_clk_sqm_adc_dac) then
@@ -338,10 +331,10 @@ begin
    --!   Sample counter
    --    @Req : DRE-DMX-FW-REQ-0145
    -- ------------------------------------------------------------------------------------------------------
-   P_sample_cnt : process (rst_sqm_adc_dac_loc, i_clk_sqm_adc_dac)
+   P_sample_cnt : process (rst_sqm_adc_dac_lc , i_clk_sqm_adc_dac)
    begin
 
-      if rst_sqm_adc_dac_loc = c_RST_LEV_ACT then
+      if rst_sqm_adc_dac_lc  = c_RST_LEV_ACT then
          sample_cnt        <= c_MINUSONE(sample_cnt'range);
          sample_cnt_msb_r  <= (others => c_MINUSONE(c_MINUSONE'high));
 
@@ -364,10 +357,10 @@ begin
    --!   SQUID MUX Data error
    --    @Req : DRE-DMX-FW-REQ-0140
    -- ------------------------------------------------------------------------------------------------------
-   P_sqm_data_err : process (rst_sqm_adc_dac_loc, i_clk_sqm_adc_dac)
+   P_sqm_data_err : process (rst_sqm_adc_dac_lc , i_clk_sqm_adc_dac)
    begin
 
-      if rst_sqm_adc_dac_loc = c_RST_LEV_ACT then
+      if rst_sqm_adc_dac_lc  = c_RST_LEV_ACT then
          sum_adc_data      <= c_ZERO(sum_adc_data'range);
          sqm_data_err      <= c_ZERO(sqm_data_err'range);
          sqm_data_err_rdy  <= c_LOW_LEV;
@@ -415,10 +408,10 @@ begin
    --!   Dual port memory for data transfer in Dump mode: memory signals management
    --!      (SQUID MUX ADC acquisition Clock side)
    -- ------------------------------------------------------------------------------------------------------
-   P_mem_dump_adc_cnt_w : process (rst_sqm_adc_dac_loc, i_clk_sqm_adc_dac)
+   P_mem_dump_adc_cnt_w : process (rst_sqm_adc_dac_lc , i_clk_sqm_adc_dac)
    begin
 
-      if rst_sqm_adc_dac_loc = c_RST_LEV_ACT then
+      if rst_sqm_adc_dac_lc  = c_RST_LEV_ACT then
          mem_dump_adc_cnt_w   <= c_MINUSONE(mem_dump_adc_cnt_w'range);
 
       elsif rising_edge(i_clk_sqm_adc_dac) then

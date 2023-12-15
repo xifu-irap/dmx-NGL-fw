@@ -100,7 +100,6 @@ constant c_M_PN_RDY_POS       : integer := c_M_PN_NPER - 1                      
 constant c_PC1_PN_RDY_POS     : integer := c_PC1_PN_NPER - 1                                                ; --! Ready position: PC1(p,n)
 constant c_FB_PN_RDY_POS      : integer := c_NRM_PN_NPER      - c_MEM_RD_DATA_NPER - c_MEM_ELN_RD_NPER      ; --! Ready position: FB(p,n)
 constant c_FB_PNP1_RDY_POS    : integer := c_FB_PNP1_NPER  - 1                                              ; --! Ready position: FB(p,n+1)
-constant c_INI_FB_PN_RDY_POS  : integer := c_FB_PN_RDY_POS - 1                                              ; --! Ready position: Initialization FB(p,n)
 constant c_SMFB0_P_RDY_POS    : integer := c_FB_PN_RDY_POS                                                  ; --! Ready position: parameters smfb0
 constant c_SC_PN_RDY_POS      : integer := c_SC_PN_NPER - 1                                                 ; --! Ready position: SC(p,n)
 constant c_AQMDE_RDY_POS      : integer := c_SC_PN_RDY_POS - 2                                              ; --! Ready position: AQMDE sync
@@ -135,11 +134,6 @@ signal   ki_knorm_p_aln       : std_logic_vector(c_DFLD_KIKNM_PIX_S   downto 0) 
 signal   knorm_p_aln          : std_logic_vector(c_DFLD_KNORM_PIX_S   downto 0)                             ; --! Parameters knorm(p)
 signal   elp_p_aln            : std_logic_vector(c_ADC_SMP_AVE_S-1    downto 0)                             ; --! Parameters Elp(p) aligned on E(p,n) bus size
 
-signal   mem_init_fbk_acc_dfb : t_slv_arr(0 to 2**c_MUX_FACT_S-1)(0 downto 0)                               ; --! Memory initialization feedback chain accumulators dFB(p,n)
-signal   mem_init_fbk_acc_fb  : t_slv_arr(0 to 2**c_MUX_FACT_S-1)(0 downto 0)                               ; --! Memory initialization feedback chain accumulators FB(p,n)
-
-signal   init_fbk_acc_dfb     : std_logic                                                                   ; --! Initialization feedback chain accumulators dFB(p,n)
-signal   init_fbk_acc_fb      : std_logic                                                                   ; --! Initialization feedback chain accumulators FB(p,n)
 signal   smfb0                : std_logic_vector(c_DFLD_SMFB0_PIX_S-1 downto 0)                             ; --! SQUID MUX feedback value in open loop (signed)
 signal   smfb0_fb_aln         : std_logic_vector(c_FB_PN_S-1 downto 0)                                      ; --! SQUID MUX feedback value in open loop for FB(p,n) alignment
 signal   smfb0_rl_aln         : std_logic_vector(c_SQM_DATA_FBK_S-1 downto 0)                               ; --! SQUID MUX feedback value in open loop for relock alignment
@@ -708,6 +702,7 @@ begin
          o_data               => open                   -- out    slv(          g_DATA_S-1 downto 0)          --! Data
    );
 
+   --!   Relock: Difference between SQUID MUX Data error corrected and SQUID MUX feedback value in open loop
    P_diff_sqm_dta_smfb0 : process (i_rst, i_clk)
    begin
 

@@ -33,7 +33,7 @@ configuration DRE_DMX_UT_0160_cfg of top_dmx_tb is
       -- ------------------------------------------------------------------------------------------------------
       for I_parser : parser
          use entity work.parser generic map (
-            g_SIM_TIME           => 1308 us              , -- time    := c_SIM_TIME_DEF                     ; --! Simulation time
+            g_SIM_TIME           => 1400 us              , -- time    := c_SIM_TIME_DEF                     ; --! Simulation time
             g_TST_NUM            => "0160"                 -- string  := c_TST_NUM_DEF                        --! Test number
          );
       end for;

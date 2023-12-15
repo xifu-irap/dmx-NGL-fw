@@ -21,6 +21,22 @@ COMM ---------------------------------------------------------------------------
 WUDI rst 0
 COMM
 COMM ==============================================================================================
+COMM  Check DELOCK_COUNTERS out of range table generate invalid register address status
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-C0_DELOCK_COUNTERS(48)-XXXX W
+WCMD W-C1_DELOCK_COUNTERS(48)-XXXX W
+COMM
+WCMD W-C2_DELOCK_COUNTERS(48)-XXXX R
+CCMD R-Status-7FFF W
+WCMD W-C3_DELOCK_COUNTERS(48)-XXXX R
+CCMD R-Status-7FFF W
+COMM
+WCMD R-Status-XXXX R
+CCMD R-Status-7FFF W
+WCMD R-Status-XXXX R
+CCMD R-Status-7FFF W
+COMM
+COMM ==============================================================================================
 COMM   Configure DAC pulse shaping set 0: fc = No filter
 COMM ----------------------------------------------------------------------------------------------
 WCMD W-C0_PULSE_SHAPING_SELECTION-0000 W

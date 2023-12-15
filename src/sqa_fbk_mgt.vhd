@@ -269,13 +269,7 @@ begin
 
       elsif rising_edge(i_clk) then
          if pls_cnt_div_rem = c_MINUSTWO then
-            if pixel_pos_div = c_MINUSONE(pixel_pos_div'range) then
-               sqa_pixel_pos_init <= std_logic_vector(to_unsigned(c_SQA_PXL_POS_MX_VAL, sqa_pixel_pos_init'length));
-
-            else
-               sqa_pixel_pos_init <= std_logic_vector(signed(pixel_pos_div) - 1);
-
-            end if;
+            sqa_pixel_pos_init <= std_logic_vector(signed(pixel_pos_div) - 1);
 
          else
             sqa_pixel_pos_init <= pixel_pos_div;
@@ -521,7 +515,7 @@ begin
             elsif i_saofm = c_DST_SAOFM_TEST then
                o_sqa_fbk_off <= std_logic_vector(signed(i_test_pattern) + to_signed(c_SQA_DAC_MDL_POINT, o_sqa_fbk_off'length));
 
-            elsif i_saofm = c_DST_SAOFM_OFF then
+            else
                o_sqa_fbk_off <= c_ZERO(o_sqa_fbk_off'range);
 
             end if;
