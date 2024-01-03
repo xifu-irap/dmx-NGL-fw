@@ -65,7 +65,6 @@ end entity dmem_ecc;
 
 architecture RTL of dmem_ecc is
 constant c_RAM_TYPE           : string    := c_RAM_TYPE(g_RAM_TYPE)                                         ; --! RAM: type
-constant c_RAM_NG_LARGE       : bit       := c_HGH_LEV_B                                                    ; --! RAM: FPGA target NG-LARGE
 constant c_RAM_INIT           : string    := conv_ram_init(g_RAM_INIT, c_RAM_ECC_ADD_S, c_RAM_DATA_S)       ; --! RAM: content at initialization
 
 signal   a_mem                : t_mem( add(g_RAM_ADD_S downto 0), data_w(g_RAM_DATA_S-1 downto 0))          ; --! Memory port A inputs (scrubbing with ping-pong buffer bit for parameters storage)
@@ -131,8 +130,6 @@ begin
          PIPE_OB              => c_RAM_PRM_ENA        , -- bit                                              ; --! Memory port B: register at the port outputs ('0' = Disable, '1' = Enable)
          RAW_CONFIG0          => (others => c_LOW_LEV_B), -- bit_vector( 3 downto 0)                        ; --! Optional registers declaration. Ignored if STD_MODE is not empty
          RAW_CONFIG1          => (others => c_LOW_LEV_B), -- bit_vector(15 downto 0)                        ; --! RAM configuration. Ignored if STD_MODE is not empty
-         RAW_L_ENABLE         => c_RAM_NG_LARGE       , -- bit                                              ; --! FPGA target('0' = NG-MEDIUM, '1' = NG-LARGE)
-         RAW_L_EXTEND         => (others => c_LOW_LEV_B), -- bit_vector( 3 downto 0)                        ; --! Not used
          MEM_CTXT             => c_RAM_INIT             -- string                                             --! Memory content at initialization
    )     port map (
          ar                   => i_a_rst              , -- in     std_logic                                 ; --! Memory port A: registers reset ('0' = Inactive, '1' = Active)

@@ -321,7 +321,7 @@
 # ** Note   : (83706000 ps) Check command return: PASS
 # ** Note   : (83706000 ps)  * Read C000_DFFF, expected value C000_DFFF (Status, mode Read, data DFFF)
 # ** Note   : (85938000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (85938000 ps) Send SPI command value 8C1C_XXXX (, mode Read, data XXXX)
+# ** Note   : (85938000 ps) Send SPI command value 8C1D_XXXX (, mode Write, data XXXX)
 # ** Note   : (86010000 ps) Waiting SPI command return end for 36000 ps
 #             (86010000 ps) 
 #             (86010000 ps) ==============================================================================================

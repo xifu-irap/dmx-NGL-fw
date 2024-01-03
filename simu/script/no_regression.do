@@ -26,7 +26,7 @@
 
 #### Parameters ####
 quietly set VARIANT "NG-LARGE"
-quietly set NXMAP3_MODEL_PATH "../modelsim"
+quietly set NX_MODEL_PATH "../modelsim"
 quietly set PR_DIR "../project/dmx-fw"
 quietly set FPASIM_DIR "../project/fpasim-fw"
 quietly set XLX_LIB_DIR "../xilinx_lib"
@@ -48,11 +48,11 @@ quietly set OPKELLY_DIR "${XLX_LIB_DIR}/opal_kelly"
 # Compile library linked to the FPGA technology
 vlib nx
 if {${VARIANT} == "NG-MEDIUM" || ${VARIANT} == "NG-MEDIUM-EMBEDDED"} {
-   vcom -work nx -2008 "${NXMAP3_MODEL_PATH}/nxLibrary-Medium.vhdp"
+   vcom -work nx -2008 "${NX_MODEL_PATH}/nxLibrary-Medium.vhdp"
 } elseif { $VARIANT == "NG-LARGE" || ${VARIANT} == "NG-LARGE-EMBEDDED"} {
-   vcom -work nx -2008 "${NXMAP3_MODEL_PATH}/nxLibrary-Large.vhdp"
+   vcom -work nx -2008 "${NX_MODEL_PATH}/nxLibrary-Large.vhdp"
 } elseif { $VARIANT == "NG-ULTRA" || ${VARIANT} == "NG-ULTRA-EMBEDDED"} {
-   vcom -work nx -2008 "${NXMAP3_MODEL_PATH}/nxLibrary-Ultra.vhdp"
+   vcom -work nx -2008 "${NX_MODEL_PATH}/nxLibrary-Ultra.vhdp"
 } else {
    puts "Unrecognized Variant"}
 

@@ -220,7 +220,7 @@ COMM ===========================================================================
 COMM   Check error Try to write in a read only register detected
 COMM ----------------------------------------------------------------------------------------------
 CCMD R-Status-DFFF W          # Return Command 31
-WCMD R-460E-XXXX R            # Command 34
+WCMD W-460E-XXXX R            # Command 34
 COMM
 COMM ==============================================================================================
 COMM   Check error Try to write in a read only register detected

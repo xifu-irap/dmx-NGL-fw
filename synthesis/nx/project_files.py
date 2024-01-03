@@ -19,7 +19,7 @@
 #    email                   slaurent@nanoxplore.com
 #    @file                   project_files.py
 # ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-#    @details                List the source files necessary for Nxmap synthesis
+#    @details                List the source files necessary for Nx synthesis
 # ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 def add_files(p,sources_files_directory,variant,option):

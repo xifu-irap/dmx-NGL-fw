@@ -17,23 +17,23 @@
 #                            along with this program.  If not, see <https://www.gnu.org/licenses/>.
 # ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 #    email                   kchopier@nanoxplore.com
-#    @file                   nxmap_script.py
+#    @file                   nx_script.py
 # ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-#    @details                Nxmap run synthesis
-#                            nxpython nxmap_script.py -h : get help
-#                            nxpython nxmap_script.py -i : get info about default values and allowed values
-#                            nxpython nxmap_script.py -c : clean directory removing all generated directories and files
+#    @details                Nx run synthesis
+#                            nxpython nx_script.py -h : get help
+#                            nxpython nx_script.py -i : get info about default values and allowed values
+#                            nxpython nx_script.py -c : clean directory removing all generated directories and files
 #
 #                            Examples :
-#                            nxpython nxmap_script.py -v NG-LARGE                                               : Launch the script for NG-LARGE variant
-#                            nxpython nxmap_script.py -v NG-LARGE --option USE_DSP                              : Launch the script for NG-LARGE variant with option "USE_DSP" which is used in sub_scripts
-#                            nxpython nxmap_script.py -v NG-LARGE --progress synthesized                        : Launch the script for NG-LARGE variant reloading synthesized project from previous run with same variant and same option
-#                            nxpython nxmap_script.py -v NG-LARGE --suffix try_1                                : Launch the script for NG-LARGE variant adding a suffix in the project name. Useful in case of multiple tries changing scripts.
-#                            nxpython nxmap_script.py -v NG-LARGE --topcellname switch_counter --topcelllib work: Launch the script for NG-LARGE variant for a different top cell than the default one. Useful in case of unitary run before top run
-#                            nxpython nxmap_script.py -v NG-LARGE --timingdriven Yes                            : Launch the script for NG-LARGE variant with TimingDriven enabled
-#                            nxpython nxmap_script.py -v NG-LARGE --seed 3557                                   : Launch the script for NG-LARGE variant with a different seed
-#                            nxpython nxmap_script.py -v NG-LARGE --sta all --stacondition typical              : Launch the script for NG-LARGE variant generating sta after Prepared and Routed steps in typical conditions
-#                            nxpython nxmap_script.py -v NG-LARGE --bitstream Yes                               : Launch the script for NG-LARGE variant generating a bitstream at the end
+#                            nxpython nx_script.py -v NG-LARGE                                               : Launch the script for NG-LARGE variant
+#                            nxpython nx_script.py -v NG-LARGE --option USE_DSP                              : Launch the script for NG-LARGE variant with option "USE_DSP" which is used in sub_scripts
+#                            nxpython nx_script.py -v NG-LARGE --progress synthesized                        : Launch the script for NG-LARGE variant reloading synthesized project from previous run with same variant and same option
+#                            nxpython nx_script.py -v NG-LARGE --suffix try_1                                : Launch the script for NG-LARGE variant adding a suffix in the project name. Useful in case of multiple tries changing scripts.
+#                            nxpython nx_script.py -v NG-LARGE --topcellname switch_counter --topcelllib work: Launch the script for NG-LARGE variant for a different top cell than the default one. Useful in case of unitary run before top run
+#                            nxpython nx_script.py -v NG-LARGE --timingdriven Yes                            : Launch the script for NG-LARGE variant with TimingDriven enabled
+#                            nxpython nx_script.py -v NG-LARGE --seed 3557                                   : Launch the script for NG-LARGE variant with a different seed
+#                            nxpython nx_script.py -v NG-LARGE --sta all --stacondition typical              : Launch the script for NG-LARGE variant generating sta after Prepared and Routed steps in typical conditions
+#                            nxpython nx_script.py -v NG-LARGE --bitstream Yes                               : Launch the script for NG-LARGE variant generating a bitstream at the end
 # ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 from nxpython import *

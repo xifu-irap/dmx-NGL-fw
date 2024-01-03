@@ -19,14 +19,13 @@
 #    email                   slaurent@nanoxplore.com
 #    @file                   project_options.py
 # ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-#    @details                Nxmap options
+#    @details                Nx options
 # ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 def add_options(p,variant,timing_driven,seed,option):
     p.setOptions({
         'Autosave'                          : 'Yes',
         'BypassingEffort'                   : 'High',
-        'CMICLatency'                       : '0',
         'CongestionEffort'                  : 'High',
         'DefaultFSMEncoding'                : 'OneHot',
         'DefaultRAMMapping'                 : 'AUTO',
@@ -59,7 +58,6 @@ def add_options(p,variant,timing_driven,seed,option):
         'MaxRegisterCount'                  : '20000',
         'OptimizedMux'                      : 'Yes',
         'PolishingEffort'                   : 'High',
-        'ReadyOffWithSoftReset'             : 'No',
         'ReplicationApproval'               : 'Yes',
         'RoutingEffort'                     : 'High',
         'SaveTiming'                        : 'No',

@@ -2,7 +2,7 @@
 DRE-DEMUX TDM firmware: https://github.com/xifu-irap/dmx-fw
 
    - FPGA target: NG-LARGE (NanoXplore)
-   - Synthesis tool: Impulse v23.3.0.2
+   - Synthesis tool: nxdesignsuite v23.5.0.5
    - Firmware specification:
       + IRAP/XIFU-DRE/FM/SP/0065 - DRE TDM firmware requirements, ed. 0.15
       + IRAP/XIFU-DRE/FM/SP/0069 - DRE Inter-Modules Telemetry And Commands Definition, ed. 1.3
@@ -30,23 +30,29 @@ DRE-DEMUX TDM firmware: https://github.com/xifu-irap/dmx-fw
 
 ## 2. Commands
 
-   Questasim and Nxmap must be previously installed.
+   Questasim and nxdesignsuite must be previously installed.
 
    The parameters of the modelsim.ini file must be configured as follows:
    PathSeparator = :
    DatasetSeparator = /
 
-   The script simu/script/no_regression.do must indicated the NXMAP3_MODEL_PATH where are located the vhdp files (deliver in Nxmap archive and located in /share/modelsim/).
+   The script simu/script/no_regression.do must indicated the NX_MODEL_PATH where are located the vhdp files (deliver in nxdesignsuite archive and located in /share/modelsim/).
 
    - Synthesis tool:
       1. Position to the root path directory
-      2. Run command: nxpython /synthesis/nx/nxmap_script.py
+      2. Run command: nxpython /synthesis/nx/nx_script.py
 
 
    - No regression analysis (<path_dmx_fw> replaced by the Demux firmware location):
       1. Position to the path directory for result simulation storage (choosen by user)
       2. Run command: vsim -do <path_dmx_fw>/simu/script/run.do -l transcript
       3. The no regression results are stored in directory /simu/result
+
+
+   - Code coverage analysis:
+      1. Run no regression analysis
+      2. Position to the path directory for result simulation storage (choosen by user)
+      3. The code coverage analysis is stored in directory /coverage/coverage/index.html
 
 
    - Play a specific unitary test, signal chronograms display (<path_dmx_fw> replaced by the Demux firmware location):

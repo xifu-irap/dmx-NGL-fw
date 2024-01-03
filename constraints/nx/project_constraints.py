@@ -19,7 +19,7 @@
 #    email                   slaurent@nanoxplore.com
 #    @file                   project_constraints.py
 # ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-#    @details                Nxmap project constraints
+#    @details                Nx project constraints
 # ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 from nxpython import *
 
@@ -37,11 +37,20 @@ def synthesis_constraints(p,variant,option):
     if variant == 'NG-LARGE' or variant == 'NG-LARGE-EMBEDDED':
 
         # ------------------------------------------------------------------------------------------------------
+        #   WFG location
+        # ------------------------------------------------------------------------------------------------------
+        p.addWFGLocation('I_rst_clk_mgt|I_pll|I_wfg_clk','CKG3.WFG_C1')
+        p.addWFGLocation('I_rst_clk_mgt|I_pll|I_wfg_clk_adc_dac','CKG3.WFG_C2')
+        p.addWFGLocation('I_rst_clk_mgt|I_pll|I_wfg_clk_90','CKG3.WFG_C3')
+        p.addWFGLocation('I_rst_clk_mgt|I_pll|I_wfg_clk_adc_dac_90','CKG3.WFG_C4')
+        p.addWFGLocation('I_rst_clk_mgt|I_pll|I_wfg_clk_adc','CKG3.WFG_M1')
+        p.addWFGLocation('I_rst_clk_mgt|I_pll|I_wfg_clk_dac_out','CKG3.WFG_M2')
+        p.addWFGLocation('I_rst_clk_mgt|I_pll|I_wfg_clk_sync_ref','CKG3.WFG_M3')
+
+        # ------------------------------------------------------------------------------------------------------
         #   Mapping directive
         # ------------------------------------------------------------------------------------------------------
         p.addMappingDirective(getModels('*fir_deci*'), 'ROM', 'LUT')
-        p.setSite('I_rst_clk_mgt|I_rst.cnt_rst_msb_r_n_reg','TILE[25x10]')
-        p.setSite('I_rst_clk_mgt|I_rst_adc_dac.cnt_rst_msb_r_n_reg','TILE[25x10]')
 
         # ------------------------------------------------------------------------------------------------------
         #   Region creation

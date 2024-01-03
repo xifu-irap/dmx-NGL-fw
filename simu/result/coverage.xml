@@ -5,18 +5,18 @@ lines="1"
 byFile="1">
 <fileData path="./ip/nx/NG-LARGE/dmem_ecc.vhd">
 <statements active="12" hits="12" percent="100.00"/>
-<stmt ln="100" st="1" hits="1472"/>
-<stmt ln="101" st="1" hits="29733675"/>
-<stmt ln="102" st="1" hits="30196"/>
-<stmt ln="103" st="1" hits="18902"/>
-<stmt ln="104" st="1" hits="1800734"/>
-<stmt ln="108" st="1" hits="6086"/>
-<stmt ln="113" st="1" hits="205370223"/>
-<stmt ln="114" st="1" hits="2206667"/>
-<stmt ln="116" st="1" hits="51962975"/>
-<stmt ln="117" st="1" hits="7734"/>
-<stmt ln="167" st="1" hits="12495691"/>
-<stmt ln="168" st="1" hits="24330435"/>
+<stmt ln="99" st="1" hits="1472"/>
+<stmt ln="100" st="1" hits="29733675"/>
+<stmt ln="101" st="1" hits="30196"/>
+<stmt ln="102" st="1" hits="18902"/>
+<stmt ln="103" st="1" hits="1800734"/>
+<stmt ln="107" st="1" hits="6086"/>
+<stmt ln="112" st="1" hits="205370223"/>
+<stmt ln="113" st="1" hits="2206667"/>
+<stmt ln="115" st="1" hits="51962975"/>
+<stmt ln="116" st="1" hits="7734"/>
+<stmt ln="164" st="1" hits="12495691"/>
+<stmt ln="165" st="1" hits="24330435"/>
 </fileData>
 <fileData path="./ip/nx/NG-LARGE/dsp.vhd">
 <statements active="5" hits="5" percent="100.00"/>
@@ -239,8 +239,8 @@ byFile="1">
 <ielem ln="168" st="1" true="384462" false="0"/>
 </if>
 <if hasElse="1" active="3" hits="3" percent="100.00">
-<ielem ln="204" st="1" true="25124" false="16614"/>
-<ielem ln="205" st="1" true="10926" false="5688"/>
+<ielem ln="204" st="1" true="25125" false="16613"/>
+<ielem ln="205" st="1" true="10925" false="5688"/>
 <ielem ln="205" st="2" true="5688" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
@@ -706,7 +706,7 @@ byFile="1">
 <stmt ln="131" st="1" hits="99"/>
 <stmt ln="132" st="1" hits="588182"/>
 <stmt ln="133" st="1" hits="98"/>
-<stmt ln="134" st="1" hits="137599"/>
+<stmt ln="134" st="1" hits="137600"/>
 <stmt ln="137" st="1" hits="907784"/>
 <stmt ln="138" st="1" hits="28526"/>
 </fileData>
@@ -813,11 +813,11 @@ byFile="1">
 <stmt ln="68" st="1" hits="92"/>
 <stmt ln="76" st="1" hits="881"/>
 <stmt ln="84" st="1" hits="1104"/>
-<stmt ln="98" st="1" hits="92"/>
-<stmt ln="98" st="2" hits="23552"/>
-<stmt ln="99" st="1" hits="23552"/>
+<stmt ln="100" st="1" hits="92"/>
+<stmt ln="100" st="2" hits="23552"/>
 <stmt ln="101" st="1" hits="23552"/>
-<stmt ln="103" st="1" hits="92"/>
+<stmt ln="103" st="1" hits="23552"/>
+<stmt ln="105" st="1" hits="92"/>
 </fileData>
 <fileData path="./src/pulse_shaping.vhd">
 <branches active="3" hits="3" percent="100.00"/>
@@ -1155,12 +1155,12 @@ byFile="1">
 <ielem ln="246" st="1" true="130773" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="280" st="1" true="3312" false="1671700"/>
-<ielem ln="283" st="1" true="1671700" false="0"/>
+<ielem ln="280" st="1" true="3312" false="1671664"/>
+<ielem ln="283" st="1" true="1671664" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
-<ielem ln="285" st="1" true="72495" false="1599205"/>
-<ielem ln="285" st="1" true="1599205" false="0"/>
+<ielem ln="285" st="1" true="72495" false="1599169"/>
+<ielem ln="285" st="1" true="1599169" false="0"/>
 </if>
 <if hasElse="0" active="2" hits="2" percent="100.00">
 <ielem ln="288" st="1" true="627" false="71868"/>
@@ -3465,18 +3465,18 @@ byFile="1">
 <ielem ln="60" st="1" true="13823" false="0"/>
 </if>
 <if hasElse="1" active="2" hits="2" percent="100.00">
-<ielem ln="61" st="1" true="5314" false="8509"/>
-<ielem ln="64" st="1" true="8509" false="0"/>
+<ielem ln="61" st="1" true="5313" false="8510"/>
+<ielem ln="64" st="1" true="8510" false="0"/>
 </if>
 <case active="2" hits="2" percent="100.00">
 <celem ln="66" st="1" hits="551"/>
-<celem ln="69" st="1" hits="7958"/>
+<celem ln="69" st="1" hits="7959"/>
 </case>
 <statements active="4" hits="4" percent="100.00"/>
 <stmt ln="58" st="1" hits="92"/>
-<stmt ln="62" st="1" hits="5314"/>
+<stmt ln="62" st="1" hits="5313"/>
 <stmt ln="67" st="1" hits="551"/>
-<stmt ln="70" st="1" hits="7958"/>
+<stmt ln="70" st="1" hits="7959"/>
 </fileData>
 <fileData path="./src/sts_err_out_mgt.vhd">
 <branches active="57" hits="57" percent="100.00"/>
@@ -3552,24 +3552,24 @@ byFile="1">
 <ielem ln="148" st="1" true="28379" false="0"/>
 </if>
 <if hasElse="1" active="2" hits="2" percent="100.00">
-<ielem ln="149" st="1" true="5698" false="8471"/>
-<ielem ln="152" st="1" true="8471" false="0"/>
+<ielem ln="149" st="1" true="5697" false="8472"/>
+<ielem ln="152" st="1" true="8472" false="0"/>
 </if>
 <if hasElse="1" active="14" hits="14" percent="100.00">
-<ielem ln="154" st="1" true="465" false="8006"/>
-<ielem ln="157" st="1" true="80" false="7926"/>
-<ielem ln="160" st="1" true="34" false="7892"/>
-<ielem ln="163" st="1" true="24" false="7868"/>
-<ielem ln="166" st="1" true="1368" false="6500"/>
-<ielem ln="171" st="1" true="756" false="5744"/>
-<ielem ln="176" st="1" true="40" false="5704"/>
-<ielem ln="180" st="1" true="40" false="5664"/>
-<ielem ln="184" st="1" true="197" false="5467"/>
-<ielem ln="188" st="1" true="52" false="5415"/>
-<ielem ln="192" st="1" true="152" false="5263"/>
-<ielem ln="196" st="1" true="121" false="5142"/>
-<ielem ln="200" st="1" true="113" false="5029"/>
-<ielem ln="204" st="1" true="5029" false="0"/>
+<ielem ln="154" st="1" true="465" false="8007"/>
+<ielem ln="157" st="1" true="80" false="7927"/>
+<ielem ln="160" st="1" true="34" false="7893"/>
+<ielem ln="163" st="1" true="24" false="7869"/>
+<ielem ln="166" st="1" true="1368" false="6501"/>
+<ielem ln="171" st="1" true="756" false="5745"/>
+<ielem ln="176" st="1" true="40" false="5705"/>
+<ielem ln="180" st="1" true="40" false="5665"/>
+<ielem ln="184" st="1" true="197" false="5468"/>
+<ielem ln="188" st="1" true="52" false="5416"/>
+<ielem ln="192" st="1" true="152" false="5264"/>
+<ielem ln="196" st="1" true="121" false="5143"/>
+<ielem ln="200" st="1" true="113" false="5030"/>
+<ielem ln="204" st="1" true="5030" false="0"/>
 </if>
 <fec_conditions active="20" hits="20" percent="100.00"/>
 <condition ln="168" st="1" active="3" hits="3" percent="100.00">
@@ -3647,7 +3647,7 @@ byFile="1">
 <stmt ln="133" st="1" hits="10187"/>
 <stmt ln="136" st="1" hits="9293"/>
 <stmt ln="145" st="1" hits="92"/>
-<stmt ln="150" st="1" hits="5698"/>
+<stmt ln="150" st="1" hits="5697"/>
 <stmt ln="155" st="1" hits="465"/>
 <stmt ln="158" st="1" hits="80"/>
 <stmt ln="161" st="1" hits="34"/>
@@ -3661,7 +3661,7 @@ byFile="1">
 <stmt ln="194" st="1" hits="152"/>
 <stmt ln="198" st="1" hits="121"/>
 <stmt ln="202" st="1" hits="113"/>
-<stmt ln="205" st="1" hits="5029"/>
+<stmt ln="205" st="1" hits="5030"/>
 </fileData>
 <fileData path="./src/sts_err_wrt_mgt.vhd">
 <branches active="36" hits="36" percent="100.00"/>
@@ -3670,22 +3670,22 @@ byFile="1">
 <ielem ln="58" st="1" true="13621" false="0"/>
 </if>
 <if hasElse="1" active="2" hits="2" percent="100.00">
-<ielem ln="59" st="1" true="5264" false="8357"/>
-<ielem ln="62" st="1" true="8357" false="0"/>
+<ielem ln="59" st="1" true="5263" false="8358"/>
+<ielem ln="62" st="1" true="8358" false="0"/>
 </if>
 <if hasElse="1" active="13" hits="13" percent="100.00">
-<ielem ln="63" st="1" true="407" false="7950"/>
-<ielem ln="66" st="1" true="37" false="7913"/>
-<ielem ln="69" st="1" true="30" false="7883"/>
-<ielem ln="72" st="1" true="141" false="7742"/>
-<ielem ln="76" st="1" true="24" false="7718"/>
-<ielem ln="79" st="1" true="20" false="7698"/>
-<ielem ln="82" st="1" true="14" false="7684"/>
-<ielem ln="86" st="1" true="1" false="7683"/>
-<ielem ln="89" st="1" true="1" false="7682"/>
-<ielem ln="92" st="1" true="1" false="7681"/>
-<ielem ln="95" st="1" true="1" false="7680"/>
-<ielem ln="98" st="1" true="3" false="7677"/>
+<ielem ln="63" st="1" true="407" false="7951"/>
+<ielem ln="66" st="1" true="37" false="7914"/>
+<ielem ln="69" st="1" true="30" false="7884"/>
+<ielem ln="72" st="1" true="141" false="7743"/>
+<ielem ln="76" st="1" true="24" false="7719"/>
+<ielem ln="79" st="1" true="20" false="7699"/>
+<ielem ln="82" st="1" true="14" false="7685"/>
+<ielem ln="86" st="1" true="1" false="7684"/>
+<ielem ln="89" st="1" true="1" false="7683"/>
+<ielem ln="92" st="1" true="1" false="7682"/>
+<ielem ln="95" st="1" true="1" false="7681"/>
+<ielem ln="98" st="1" true="4" false="7677"/>
 <ielem ln="101" st="1" true="7677" false="0"/>
 </if>
 <if hasElse="1" active="19" hits="19" percent="100.00">
@@ -3709,17 +3709,17 @@ byFile="1">
 <ielem ln="163" st="1" true="140" false="616"/>
 <ielem ln="167" st="1" true="616" false="0"/>
 </if>
-<fec_conditions active="22" hits="21" percent="95.45"/>
+<fec_conditions active="22" hits="22" percent="100.00"/>
 <condition ln="73" st="1" active="2" hits="2" percent="100.00">
 <table rows="2" cols="0" unknown="0">
 <row j="1" hits_0="37" hits_1="6" body="(i_ep_cmd_rx_add_norw(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO c_MEM_TSTPT_ADD_S) = c_EP_CMD_ADD_TSTPT(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO c_MEM_TSTPT_ADD_S))" input_patterns_0="-" input_patterns_1="(i_ep_cmd_rx_add_norw((c_MEM_TSTPT_ADD_S - 1) DOWNTO 0) &lt; (&lt;type&gt;)TO_UNSIGNED(c_TAB_TSTPT_NW, c_MEM_TSTPT_ADD_S))"/>
 <row j="2" hits_0="1" hits_1="6" body="(i_ep_cmd_rx_add_norw((c_MEM_TSTPT_ADD_S - 1) DOWNTO 0) &lt; (&lt;type&gt;)TO_UNSIGNED(c_TAB_TSTPT_NW, c_MEM_TSTPT_ADD_S))" input_patterns_0="(i_ep_cmd_rx_add_norw(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO c_MEM_TSTPT_ADD_S) = c_EP_CMD_ADD_TSTPT(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO c_MEM_TSTPT_ADD_S))" input_patterns_1="(i_ep_cmd_rx_add_norw(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO c_MEM_TSTPT_ADD_S) = c_EP_CMD_ADD_TSTPT(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO c_MEM_TSTPT_ADD_S))"/>
 </table>
 </condition>
-<condition ln="83" st="1" active="2" hits="1" percent="50.00">
+<condition ln="83" st="1" active="2" hits="2" percent="100.00">
 <table rows="2" cols="0" unknown="0">
 <row j="1" hits_0="33" hits_1="1" body="(i_ep_cmd_rx_add_norw(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO c_MEM_HKEEP_ADD_S) = c_EP_CMD_ADD_HKEEP(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO c_MEM_HKEEP_ADD_S))" input_patterns_0="-" input_patterns_1="(i_ep_cmd_rx_add_norw((c_MEM_HKEEP_ADD_S - 1) DOWNTO 0) &lt; (&lt;type&gt;)TO_UNSIGNED(c_TAB_HKEEP_NW, c_MEM_HKEEP_ADD_S))"/>
-<row j="2" hits_0="0" hits_1="1" body="(i_ep_cmd_rx_add_norw((c_MEM_HKEEP_ADD_S - 1) DOWNTO 0) &lt; (&lt;type&gt;)TO_UNSIGNED(c_TAB_HKEEP_NW, c_MEM_HKEEP_ADD_S))" input_patterns_0="(i_ep_cmd_rx_add_norw(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO c_MEM_HKEEP_ADD_S) = c_EP_CMD_ADD_HKEEP(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO c_MEM_HKEEP_ADD_S))" input_patterns_1="(i_ep_cmd_rx_add_norw(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO c_MEM_HKEEP_ADD_S) = c_EP_CMD_ADD_HKEEP(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO c_MEM_HKEEP_ADD_S))"/>
+<row j="2" hits_0="1" hits_1="1" body="(i_ep_cmd_rx_add_norw((c_MEM_HKEEP_ADD_S - 1) DOWNTO 0) &lt; (&lt;type&gt;)TO_UNSIGNED(c_TAB_HKEEP_NW, c_MEM_HKEEP_ADD_S))" input_patterns_0="(i_ep_cmd_rx_add_norw(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO c_MEM_HKEEP_ADD_S) = c_EP_CMD_ADD_HKEEP(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO c_MEM_HKEEP_ADD_S))" input_patterns_1="(i_ep_cmd_rx_add_norw(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO c_MEM_HKEEP_ADD_S) = c_EP_CMD_ADD_HKEEP(i_ep_cmd_rx_add_norw&apos;HIGH DOWNTO c_MEM_HKEEP_ADD_S))"/>
 </table>
 </condition>
 <condition ln="103" st="1" active="2" hits="2" percent="100.00">
@@ -3778,7 +3778,7 @@ byFile="1">
 </condition>
 <statements active="33" hits="33" percent="100.00"/>
 <stmt ln="56" st="1" hits="92"/>
-<stmt ln="60" st="1" hits="5264"/>
+<stmt ln="60" st="1" hits="5263"/>
 <stmt ln="64" st="1" hits="407"/>
 <stmt ln="67" st="1" hits="37"/>
 <stmt ln="70" st="1" hits="30"/>
@@ -3790,7 +3790,7 @@ byFile="1">
 <stmt ln="90" st="1" hits="1"/>
 <stmt ln="93" st="1" hits="1"/>
 <stmt ln="96" st="1" hits="1"/>
-<stmt ln="99" st="1" hits="3"/>
+<stmt ln="99" st="1" hits="4"/>
 <stmt ln="104" st="1" hits="552"/>
 <stmt ln="109" st="1" hits="552"/>
 <stmt ln="113" st="1" hits="688"/>
