@@ -25,15 +25,7 @@
 #                            nxpython nx_script.py -c : clean directory removing all generated directories and files
 #
 #                            Examples :
-#                            nxpython nx_script.py -v NG-LARGE                                               : Launch the script for NG-LARGE variant
-#                            nxpython nx_script.py -v NG-LARGE --option USE_DSP                              : Launch the script for NG-LARGE variant with option "USE_DSP" which is used in sub_scripts
-#                            nxpython nx_script.py -v NG-LARGE --progress synthesized                        : Launch the script for NG-LARGE variant reloading synthesized project from previous run with same variant and same option
-#                            nxpython nx_script.py -v NG-LARGE --suffix try_1                                : Launch the script for NG-LARGE variant adding a suffix in the project name. Useful in case of multiple tries changing scripts.
-#                            nxpython nx_script.py -v NG-LARGE --topcellname switch_counter --topcelllib work: Launch the script for NG-LARGE variant for a different top cell than the default one. Useful in case of unitary run before top run
-#                            nxpython nx_script.py -v NG-LARGE --timingdriven Yes                            : Launch the script for NG-LARGE variant with TimingDriven enabled
-#                            nxpython nx_script.py -v NG-LARGE --seed 3557                                   : Launch the script for NG-LARGE variant with a different seed
-#                            nxpython nx_script.py -v NG-LARGE --sta all --stacondition typical              : Launch the script for NG-LARGE variant generating sta after Prepared and Routed steps in typical conditions
-#                            nxpython nx_script.py -v NG-LARGE --bitstream Yes                               : Launch the script for NG-LARGE variant generating a bitstream at the end
+#                            nxpython nx_script.py --modelboard dk  : Launch the script for Devkit Model Board
 # ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 from nxpython import *
@@ -70,47 +62,46 @@ def get_info(arg_name,arg,allowed_values=None):
         message += arg_name + ' must be in: ' + str(allowed_values) + '\n'
     print(message)
 
-
 #Parser arguments
 parser = argparse.ArgumentParser()
-parser.add_argument('-i'              ,                                        action='store_true', help='Get info about the project (topcell, variants, ...)')
-parser.add_argument('-c'              ,                                        action='store_true', help='Clean the directory')
-parser.add_argument('--variant'       , default=DefaultVariant,                                     help='Set variant name (Default: %(default)s)')
-parser.add_argument('--progress'      , default='scratch',                                          help='Progress from which the project starts [scratch,native,synthesized,placed,routed] (Default: %(default)s)')
-parser.add_argument('--option'        , default=DefaultOption,                                      help='Add an option in script (Default: %(default)s)')
-parser.add_argument('--timingdriven'  , default=DefaultTimingDriven,                                help='Enable TimingDriven option [Yes,No] (Default: %(default)s)')
-parser.add_argument('--seed'          , default=DefaultSeed,                                        help='Set Seed (Default: %(default)s)')
-parser.add_argument('--sta'           , default=DefaultSta,                                         help='Generate STA after progress prepared, routed or both (Default: %(default)s)')
-parser.add_argument('--stacondition'  , default=DefaultStaCondition,                                help='Set condition for STA (Default: %(default)s)')
-parser.add_argument('--bitstream'     , default=DefaultBitstream,                                   help='Generate bitstream (Default: %(default)s)')
-parser.add_argument('--topcellname'   , default=DefaultTopCellName,                                 help='Set top cell name (Default: %(default)s)')
-parser.add_argument('--topcelllib'    , default=DefaultTopCellLib,                                  help='Set top cell library (Default: %(default)s)')
-parser.add_argument('--suffix'        , default='',                                                 help='Set a suffix in the project name directory (Default: %(default)s)')
+parser.add_argument('-i'              ,                                 action='store_true',    help='Get info about the project (topcell, model board, ...)')
+parser.add_argument('-c'              ,                                 action='store_true',    help='Clean the directory')
+parser.add_argument('--projectname'   , default=DefaultProjectName,                             help='Set project name (Default: %(default)s)')
+parser.add_argument('--modelboard'    , default=DefaultModelBoard,                              help='Set model board (Default: %(default)s)')
+parser.add_argument('--topcelllib'    , default=DefaultTopCellLib,                              help='Set top cell library (Default: %(default)s)')
+parser.add_argument('--seed'          , default='',                                             help='Set Seed (Default: %(default)s)')
+parser.add_argument('--timingdriven'  , default=DefaultTimingDriven,                            help='Enable TimingDriven option [Yes,No] (Default: %(default)s)')
+parser.add_argument('--sta'           , default=DefaultSta,                                     help='Generate STA after progress prepared, routed or both (Default: %(default)s)')
+parser.add_argument('--stacondition'  , default=DefaultStaCondition,                            help='Set condition for STA (Default: %(default)s)')
+parser.add_argument('--bitstream'     , default=DefaultBitstream,                               help='Generate bitstream (Default: %(default)s)')
+parser.add_argument('--progress'      , default='scratch',                                      help='Progress from which the project starts [scratch,native,synthesized,placed,routed] (Default: %(default)s)')
+parser.add_argument('--suffix'        , default='',                                             help='Set a suffix in the project name directory (Default: %(default)s)')
 args = parser.parse_args()
 
+if args.seed == '':
+    args.seed = DefaultSeed[AllowedModelBoard.index(args.modelboard)]
 
 args_dict = {
-    'Variant'        : {'arg' : args.variant,        'allowed_values' : AllowedVariants,                                      'allowed_type' : None},
-    'Progress'       : {'arg' : args.progress,       'allowed_values' : ['scratch','native','synthesized','placed','routed'], 'allowed_type' : None},
-    'Option'         : {'arg' : args.option,         'allowed_values' : AllowedOptions,                                       'allowed_type' : None},
+    'Project Name'   : {'arg' : args.projectname,    'allowed_values' : None,                                                 'allowed_type' : None},
+    'Model Board'    : {'arg' : args.modelboard,     'allowed_values' : AllowedModelBoard,                                    'allowed_type' : None},
+    'Top Cell Lib'   : {'arg' : args.topcelllib,     'allowed_values' : None,                                                 'allowed_type' : None},
+    'Seed'           : {'arg' : args.seed,           'allowed_values' : None,                                                 'allowed_type' : None},
     'Timing Driven'  : {'arg' : args.timingdriven,   'allowed_values' : ['Yes','No'],                                         'allowed_type' : None},
-    'Seed'           : {'arg' : args.seed,           'allowed_values' : None,                                                 'allowed_type' : 'int'},
     'Sta'            : {'arg' : args.sta,            'allowed_values' : ['none','prepared','routed','all'],                   'allowed_type' : None},
     'Sta Condtion'   : {'arg' : args.stacondition,   'allowed_values' : ['bestcase','typical','worstcase'],                   'allowed_type' : None},
     'Bitstream'      : {'arg' : args.bitstream,      'allowed_values' : None,                                                 'allowed_type' : None},
-    'Top Cell Name'  : {'arg' : args.topcellname,    'allowed_values' : None,                                                 'allowed_type' : None},
-    'Top Cell Lib'   : {'arg' : args.topcelllib,     'allowed_values' : None,                                                 'allowed_type' : None},
+    'Progress'       : {'arg' : args.progress,       'allowed_values' : ['scratch','native','synthesized','placed','routed'], 'allowed_type' : None},
     'Suffix'         : {'arg' : args.suffix,         'allowed_values' : None,                                                 'allowed_type' : None},
     }
+
+Variant     = DefaultVariants[AllowedModelBoard.index(args.modelboard)]
+TopCellName = DefaultTopCellName[AllowedModelBoard.index(args.modelboard)]
 
 #Execute Command
 if args.i:#Get info
     for arg in args_dict:
          get_info(arg,args_dict[arg]['arg'],args_dict[arg]['allowed_values'])
 elif args.c:#Clean directory
-    for variant in AllowedVariants:#Remove projects
-        for elem in glob.glob('*'+variant+'*'):
-            shutil.rmtree(elem)
     for elem in ['transcript.py','logs','__pycache__','sub_scripts/__pycache__']:#Remove other generated elements
         if glob.glob(elem):
             shutil.rmtree(elem)
@@ -125,5 +116,5 @@ else:#Launch project
         message+='|%(variable)-20s|%(value)-20s|\n' % {'variable': arg, 'value': str(args_dict[arg]['arg'])}
     print(message)
 
-    script.__main__(args.topcelllib,args.topcellname,args.suffix,args.variant,args.progress,args.option,args.timingdriven,args.seed,args.sta,args.stacondition,args.bitstream)
+    script.__main__(args.projectname,args.modelboard,Variant,TopCellName,args.topcelllib,args.seed,args.timingdriven,args.sta,args.stacondition,args.bitstream,args.progress,args.suffix)
 

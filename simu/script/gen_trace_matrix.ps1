@@ -21,11 +21,28 @@
 # ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 #    @details                Generation of Requirement Traceability Matrix from pattern located in directories of source files.
 #                             The pattern must be separated from requirement tag by a colon (:).
+#                                * Command line argument 0: model board (dk, dm, em)
 # ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 # Parameter declaration
-$source_path      = "..\..\src","..\..\ip\nx\NG-LARGE"               # Paths of source directory to analyse
-$file_out_dir     = "..\result"                                      # Path of generated output file
+$model_board=$args[0]
+
+if ($model_board -eq "dk")
+{
+   $source_path      = "..\..\src\common","..\..\src\dm","..\..\ip\nx\NG-LARGE" # Paths of source directory to analyse
+   $file_out_dir     = "..\result\dk"                                           # Path of generated output file
+}
+elseif ($model_board -eq "dm")
+{
+   $source_path      = "..\..\src\common","..\..\src\dm","..\..\ip\nx\NG-LARGE" # Paths of source directory to analyse
+   $file_out_dir     = "..\result\dm"                                           # Path of generated output file
+}
+else
+{
+   $source_path      = "..\..\src\common","..\..\src\em","..\..\ip\nx\U300"     # Paths of source directory to analyse
+   $file_out_dir     = "..\result\em"                                           # Path of generated output file
+}
+
 $comment_pattern  = "--"                                             # Comment pattern of files to analyse
 $req_pattern      = "@Req"                                           # Requirement pattern of files to analyse
 $file_out_name    = "Traceability.csv"                               # File output name with extension

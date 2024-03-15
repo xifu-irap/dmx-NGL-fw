@@ -33,19 +33,96 @@ class Region:
         self.c2 = col + width   # Col2
         self.r2 = row + height  # Row2
 
-def synthesis_constraints(p,variant,option):
-    if variant == 'NG-LARGE' or variant == 'NG-LARGE-EMBEDDED':
+def synthesis_constraints(p,modelboard):
+    if   modelboard == 'dk':
 
         # ------------------------------------------------------------------------------------------------------
-        #   WFG location
+        #   Region creation
         # ------------------------------------------------------------------------------------------------------
-        p.addWFGLocation('I_rst_clk_mgt|I_pll|I_wfg_clk','CKG3.WFG_C1')
-        p.addWFGLocation('I_rst_clk_mgt|I_pll|I_wfg_clk_adc_dac','CKG3.WFG_C2')
-        p.addWFGLocation('I_rst_clk_mgt|I_pll|I_wfg_clk_90','CKG3.WFG_C3')
-        p.addWFGLocation('I_rst_clk_mgt|I_pll|I_wfg_clk_adc_dac_90','CKG3.WFG_C4')
-        p.addWFGLocation('I_rst_clk_mgt|I_pll|I_wfg_clk_adc','CKG3.WFG_M1')
-        p.addWFGLocation('I_rst_clk_mgt|I_pll|I_wfg_clk_dac_out','CKG3.WFG_M2')
-        p.addWFGLocation('I_rst_clk_mgt|I_pll|I_wfg_clk_sync_ref','CKG3.WFG_M3')
+        SQM_ADC_0       = Region('SQM_ADC_0'    , 22, 14,  1,  3)
+        SQM_ADC_1       = Region('SQM_ADC_1'    , 24, 14,  1,  3)
+        SQM_ADC_2       = Region('SQM_ADC_2'    , 26, 14,  1,  3)
+        SQM_ADC_3       = Region('SQM_ADC_3'    , 28, 14,  1,  3)
+
+        SQM_DAC_0       = Region('SQM_DAC_0'    , 21, 14,  1,  3)
+        SQM_DAC_1       = Region('SQM_DAC_1'    , 23, 14,  1,  3)
+        SQM_DAC_2       = Region('SQM_DAC_2'    , 25, 14,  1,  3)
+        SQM_DAC_3       = Region('SQM_DAC_3'    , 27, 14,  1,  3)
+
+        EP_CMD          = Region('EP_CMD'       , 37,  6,  1,  1)
+        REGISTER_MGT    = Region('REGISTER_MGT' , 19,  8, 10, 10)
+        HK_MGT          = Region('HK_MGT'       , 18, 12,  1,  1)
+
+        SCIENCE_MGT     = Region('SCIENCE_MGT'  , 27,  2,  2,  2)
+
+        # ------------------------------------------------------------------------------------------------------
+        #   SQUID MUX ADC management constraints
+        # ------------------------------------------------------------------------------------------------------
+        p.addModule('squid_adc_mgt', 'I_top_dmx_dm_clk|G_column_mgt[0].I_squid_adc_mgt', 'squid_adc_mgt_0', 'Soft')
+        p.addModule('squid_adc_mgt', 'I_top_dmx_dm_clk|G_column_mgt[1].I_squid_adc_mgt', 'squid_adc_mgt_1', 'Soft')
+        p.addModule('squid_adc_mgt', 'I_top_dmx_dm_clk|G_column_mgt[2].I_squid_adc_mgt', 'squid_adc_mgt_2', 'Soft')
+        p.addModule('squid_adc_mgt', 'I_top_dmx_dm_clk|G_column_mgt[3].I_squid_adc_mgt', 'squid_adc_mgt_3', 'Soft')
+
+        p.addRegion(SQM_ADC_0.n, SQM_ADC_0.c, SQM_ADC_0.r, SQM_ADC_0.w, SQM_ADC_0.h, False)
+        p.addRegion(SQM_ADC_1.n, SQM_ADC_1.c, SQM_ADC_1.r, SQM_ADC_1.w, SQM_ADC_1.h, False)
+        p.addRegion(SQM_ADC_2.n, SQM_ADC_2.c, SQM_ADC_2.r, SQM_ADC_2.w, SQM_ADC_2.h, False)
+        p.addRegion(SQM_ADC_3.n, SQM_ADC_3.c, SQM_ADC_3.r, SQM_ADC_3.w, SQM_ADC_3.h, False)
+
+        p.confineModule('squid_adc_mgt_0', SQM_ADC_0.n)
+        p.confineModule('squid_adc_mgt_1', SQM_ADC_1.n)
+        p.confineModule('squid_adc_mgt_2', SQM_ADC_2.n)
+        p.confineModule('squid_adc_mgt_3', SQM_ADC_3.n)
+
+        # ------------------------------------------------------------------------------------------------------
+        #   SQUID MUX DAC management constraints
+        # ------------------------------------------------------------------------------------------------------
+        p.addModule('sqm_dac_mgt', 'I_top_dmx_dm_clk|G_column_mgt[0].I_sqm_dac_mgt', 'sqm_dac_mgt_0', 'Soft')
+        p.addModule('sqm_dac_mgt', 'I_top_dmx_dm_clk|G_column_mgt[1].I_sqm_dac_mgt', 'sqm_dac_mgt_1', 'Soft')
+        p.addModule('sqm_dac_mgt', 'I_top_dmx_dm_clk|G_column_mgt[2].I_sqm_dac_mgt', 'sqm_dac_mgt_2', 'Soft')
+        p.addModule('sqm_dac_mgt', 'I_top_dmx_dm_clk|G_column_mgt[3].I_sqm_dac_mgt', 'sqm_dac_mgt_3', 'Soft')
+
+        p.addRegion(SQM_DAC_0.n, SQM_DAC_0.c, SQM_DAC_0.r, SQM_DAC_0.w, SQM_DAC_0.h, False)
+        p.addRegion(SQM_DAC_1.n, SQM_DAC_1.c, SQM_DAC_1.r, SQM_DAC_1.w, SQM_DAC_1.h, False)
+        p.addRegion(SQM_DAC_2.n, SQM_DAC_2.c, SQM_DAC_2.r, SQM_DAC_2.w, SQM_DAC_2.h, False)
+        p.addRegion(SQM_DAC_3.n, SQM_DAC_3.c, SQM_DAC_3.r, SQM_DAC_3.w, SQM_DAC_3.h, False)
+
+        p.confineModule('sqm_dac_mgt_0', SQM_DAC_0.n)
+        p.confineModule('sqm_dac_mgt_1', SQM_DAC_1.n)
+        p.confineModule('sqm_dac_mgt_2', SQM_DAC_2.n)
+        p.confineModule('sqm_dac_mgt_3', SQM_DAC_3.n)
+
+        # ------------------------------------------------------------------------------------------------------
+        #   EP SPI constraints
+        # ------------------------------------------------------------------------------------------------------
+        p.addModule('spi_slave(XCA4B7C09)', 'I_top_dmx_dm_clk|I_ep_cmd|I_spi_slave', 'ep_cmd_spi_slave', 'Soft')
+        p.addRegion(EP_CMD.n, EP_CMD.c, EP_CMD.r, EP_CMD.w, EP_CMD.h, False)
+        p.confineModule('ep_cmd_spi_slave', EP_CMD.n)
+
+        p.addModule('ep_cmd', 'I_top_dmx_dm_clk|I_ep_cmd', 'ep_cmd', 'Soft')
+        p.addRegion(REGISTER_MGT.n, REGISTER_MGT.c, REGISTER_MGT.r, REGISTER_MGT.w, REGISTER_MGT.h, False)
+        p.confineModule('ep_cmd', REGISTER_MGT.n)
+
+        # ------------------------------------------------------------------------------------------------------
+        #   Science constraints
+        # ------------------------------------------------------------------------------------------------------
+        p.addModule('science_data_mgt', 'I_top_dmx_dm_clk|I_science_data_mgt', 'science_data_mgt', 'Soft')
+        p.addRegion(SCIENCE_MGT.n, SCIENCE_MGT.c, SCIENCE_MGT.r, SCIENCE_MGT.w, SCIENCE_MGT.h, False)
+        p.confineModule('science_data_mgt', SCIENCE_MGT.n)
+
+        # ------------------------------------------------------------------------------------------------------
+        #   Internal constraints
+        # ------------------------------------------------------------------------------------------------------
+        p.addModule('register_mgt', 'I_top_dmx_dm_clk|I_register_mgt', 'register_mgt', 'Soft')
+        p.confineModule('register_mgt', REGISTER_MGT.n)
+
+        p.addModule('spi_slave(XE62E9FBB)', 'I_hk_spi_slave', 'hk_spi_slave', 'Soft')
+        p.addRegion(HK_MGT.n, HK_MGT.c, HK_MGT.r, HK_MGT.w, HK_MGT.h, False)
+        p.confineModule('hk_spi_slave', HK_MGT.n)
+
+        p.addModule('hk_mgt', 'I_top_dmx_dm_clk|I_hk_mgt', 'hk_mgt', 'Soft')
+        p.confineModule('hk_mgt', HK_MGT.n)
+
+    elif modelboard == 'dm':
 
         # ------------------------------------------------------------------------------------------------------
         #   Mapping directive
@@ -192,11 +269,6 @@ def synthesis_constraints(p,variant,option):
         p.confineModule('sqm_dac_mgt_2', SQM_DAC_2.n)
         p.confineModule('sqm_dac_mgt_3', SQM_DAC_3.n)
 
-        p.setSite('*G_column_mgt[0].I_sqm_fbk_mgt|o_sqm_data_fbk_reg*','TILE[33x6]')
-        p.setSite('*G_column_mgt[1].I_sqm_fbk_mgt|o_sqm_data_fbk_reg*','TILE[25x18]')
-        p.setSite('*G_column_mgt[2].I_sqm_fbk_mgt|o_sqm_data_fbk_reg*','TILE[17x18]')
-        p.setSite('*G_column_mgt[3].I_sqm_fbk_mgt|o_sqm_data_fbk_reg*','TILE[15x6]')
-
         # ------------------------------------------------------------------------------------------------------
         #   SQUID AMP DAC management constraints
         # ------------------------------------------------------------------------------------------------------
@@ -254,19 +326,53 @@ def synthesis_constraints(p,variant,option):
         p.addModule('register_mgt', 'I_register_mgt', 'register_mgt', 'Soft')
         p.confineModule('register_mgt', REGISTER_MGT.n)
 
-    if option=='USE_DSP':
-        p.addMappingDirective('getModels(*)','ADD','DSP')
+def placing_constraints(p,modelboard):
+    if   modelboard == 'dk':
 
-def placing_constraints(p,variant,option):
-    print("No placing common constraints")
+        # ------------------------------------------------------------------------------------------------------
+        #   Mapping directive
+        # ------------------------------------------------------------------------------------------------------
+        p.setSite('I_top_dmx_dm_clk|I_rst_clk_mgt|I_rst|cnt_rst_msb_r_n_reg','TILE[25x10]')
+        p.setSite('I_top_dmx_dm_clk|I_rst_clk_mgt|I_rst_adc_dac|cnt_rst_msb_r_n_reg','TILE[25x10]')
+        p.setSite('I_top_dmx_dm_clk|I_rst_clk_mgt|rst_sqm_adc_dac_lc_reg','TILE[32x2]')
 
-def routing_constraints(p,variant,option):
+        p.setSite('*G_column_mgt[0].I_sqm_fbk_mgt|o_sqm_data_fbk_reg*','TILE[21x14]')
+        p.setSite('*G_column_mgt[1].I_sqm_fbk_mgt|o_sqm_data_fbk_reg*','TILE[23x14]')
+        p.setSite('*G_column_mgt[2].I_sqm_fbk_mgt|o_sqm_data_fbk_reg*','TILE[25x14]')
+        p.setSite('*G_column_mgt[3].I_sqm_fbk_mgt|o_sqm_data_fbk_reg*','TILE[27x14]')
+
+    elif modelboard == 'dm':
+
+        # ------------------------------------------------------------------------------------------------------
+        #   WFG location
+        # ------------------------------------------------------------------------------------------------------
+        p.addWFGLocation('I_rst_clk_mgt|I_pll|I_wfg_clk','CKG3.WFG_C1')
+        p.addWFGLocation('I_rst_clk_mgt|I_pll|I_wfg_clk_adc_dac','CKG3.WFG_C2')
+        p.addWFGLocation('I_rst_clk_mgt|I_pll|I_wfg_clk_90','CKG3.WFG_C3')
+        p.addWFGLocation('I_rst_clk_mgt|I_pll|I_wfg_clk_adc_dac_90','CKG3.WFG_C4')
+        p.addWFGLocation('I_rst_clk_mgt|I_pll|I_wfg_clk_adc','CKG3.WFG_M1')
+        p.addWFGLocation('I_rst_clk_mgt|I_pll|I_wfg_clk_dac_out','CKG3.WFG_M2')
+        p.addWFGLocation('I_rst_clk_mgt|I_pll|I_wfg_clk_sync_ref','CKG3.WFG_M3')
+
+        # ------------------------------------------------------------------------------------------------------
+        #   Mapping directive
+        # ------------------------------------------------------------------------------------------------------
+        p.setSite('I_rst_clk_mgt|I_rst.cnt_rst_msb_r_n_reg','TILE[25x10]')
+        p.setSite('I_rst_clk_mgt|I_rst_adc_dac.cnt_rst_msb_r_n_reg','TILE[25x10]')
+        p.setSite('I_rst_clk_mgt|rst_sqm_adc_dac_lc_reg','TILE[37x22]')
+
+        p.setSite('*G_column_mgt[0].I_sqm_fbk_mgt|o_sqm_data_fbk_reg*','TILE[33x6]')
+        p.setSite('*G_column_mgt[1].I_sqm_fbk_mgt|o_sqm_data_fbk_reg*','TILE[25x18]')
+        p.setSite('*G_column_mgt[2].I_sqm_fbk_mgt|o_sqm_data_fbk_reg*','TILE[17x18]')
+        p.setSite('*G_column_mgt[3].I_sqm_fbk_mgt|o_sqm_data_fbk_reg*','TILE[15x6]')
+
+def routing_constraints(p,modelboard):
     print("No routing common constraints")
 
-def add_constraints(p,variant,step,option):
+def add_constraints(p,modelboard,step):
     if step == "Synthesize":
-        synthesis_constraints(p,variant,option)
+        synthesis_constraints(p,modelboard)
     elif step == "Place":
-        placing_constraints(p,variant,option)
+        placing_constraints(p,modelboard)
     elif step == "Route":
-        routing_constraints(p,variant,option)
+        routing_constraints(p,modelboard)

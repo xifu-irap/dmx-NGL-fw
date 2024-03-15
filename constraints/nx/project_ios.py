@@ -22,15 +22,66 @@
 #    @details                Banks & pads configuration
 # ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-def add_ios(p,variant,option=None):
-    if not 'EMBEDDED' in variant:
-        add_banks(p,variant,option)
-        add_pads(p,variant,option)
-    else:
-        add_pins(p,variant,option)
+def add_ios(p,modelboard):
+    if   modelboard == 'dk':
+        banks = {
+        # 'IOB0'   : {'voltage': '3.3'}, # N.C.
+        # 'IOB1'   : {'voltage': '3.3'}, # N.C.
+        # 'IOB2'   : {'voltage': '3.3'}, # N.C.
+        # 'IOB3'   : {'voltage': '3.3'}, # N.C.
+        # 'IOB4'   : {'voltage': '2.5'}, # N.C.
+        # 'IOB5'   : {'voltage': '3.3'}, # N.C.
+        # 'IOB6'   : {'voltage': '2.5'}, # N.C.
+        # 'IOB7'   : {'voltage': '2.5'}, # N.C.
+        # 'IOB8'   : {'voltage': '2.5'}, # N.C.
+        # 'IOB9'   : {'voltage': '2.5'}, # N.C.
+        # 'IOB10'  : {'voltage': '2.5'}, # N.C.
+        'IOB11'  : {'voltage': '3.3'},
+        'IOB12'  : {'voltage': '3.3'},
+        # 'IOB13'  : {'voltage': '2.5'}, # N.C.
+        'IOB14'  : {'voltage': '3.3'},
+        # 'IOB15'  : {'voltage': '3.3'}, # N.C.
+        # 'IOB16'  : {'voltage': '3.3'}, # N.C.
+        # 'IOB17'  : {'voltage': '3.3'}, # N.C.
+        # 'IOB18'  : {'voltage': '3.3'}, # N.C.
+        'IOB19'  : {'voltage': '2.5'},
+        'IOB20'  : {'voltage': '2.5'},
+        # 'IOB21'  : {'voltage': '2.5'}, # N.C.
+        # 'IOB22'  : {'voltage': '2.5'}, # N.C.
+        'IOB23'  : {'voltage': '2.5'}
+                }
+        p.addBanks(banks)
 
-def add_banks(p,variant,option=None):
-    if variant == 'NG-LARGE':
+        pads =  {
+        'i_arst_n'              : {'location':'IOB11_D01N', 'standard':'LVCMOS', 'differential':False,                                           'weakTermination':'None'  ,                                                        'turbo':False, 'inputDelayOn':False, 'inputDelayLine':0, 'outputDelayOn':False, 'outputDelayLine':0},
+        'i_clk_ref'             : {'location':'IOB11_D12P', 'standard':'LVCMOS', 'differential':False,                                           'weakTermination':'None'  ,                                                        'turbo':True , 'inputDelayOn':False, 'inputDelayLine':0, 'outputDelayOn':False, 'outputDelayLine':0},
+        'o_clk_science_01'      : {'location':'IOB20_D05P', 'standard':'LVDS'  , 'differential':True , 'drive':'Undefined', 'slewRate':'Slow'  , 'weakTermination':'None'  ,                                                                       'inputDelayOn':False, 'inputDelayLine':0, 'outputDelayOn':False, 'outputDelayLine':0, 'registered':'O'},
+        'o_clk_science_23'      : {'location':'IOB20_D16P', 'standard':'LVDS'  , 'differential':True , 'drive':'Undefined', 'slewRate':'Slow'  , 'weakTermination':'None'  ,                                                                       'inputDelayOn':False, 'inputDelayLine':0, 'outputDelayOn':False, 'outputDelayLine':0, 'registered':'O'},
+        'i_ras_data_valid_n'    : {'location':'IOB11_D01P', 'standard':'LVCMOS', 'differential':False,                                           'weakTermination':'None'  ,                                                        'turbo':False, 'inputDelayOn':False, 'inputDelayLine':0, 'outputDelayOn':False, 'outputDelayLine':0, 'registered':'I'},
+        'o_science_ctrl_01'     : {'location':'IOB20_D17P', 'standard':'LVDS'  , 'differential':True , 'drive':'Undefined', 'slewRate':'Slow'  , 'weakTermination':'None'  ,                                                                       'inputDelayOn':False, 'inputDelayLine':0, 'outputDelayOn':False, 'outputDelayLine':0, 'registered':'O'},
+        'o_science_ctrl_23'     : {'location':'IOB20_D04P', 'standard':'LVDS'  , 'differential':True , 'drive':'Undefined', 'slewRate':'Slow'  , 'weakTermination':'None'  ,                                                                       'inputDelayOn':False, 'inputDelayLine':0, 'outputDelayOn':False, 'outputDelayLine':0, 'registered':'O'},
+        'o_science_data[0][0]'  : {'location':'IOB19_D14P', 'standard':'LVDS'  , 'differential':True , 'drive':'Undefined', 'slewRate':'Slow'  , 'weakTermination':'None'  ,                                                                       'inputDelayOn':False, 'inputDelayLine':0, 'outputDelayOn':False, 'outputDelayLine':0, 'registered':'O'},
+        'o_science_data[0][1]'  : {'location':'IOB19_D15P', 'standard':'LVDS'  , 'differential':True , 'drive':'Undefined', 'slewRate':'Slow'  , 'weakTermination':'None'  ,                                                                       'inputDelayOn':False, 'inputDelayLine':0, 'outputDelayOn':False, 'outputDelayLine':0, 'registered':'O'},
+        'o_science_data[1][0]'  : {'location':'IOB20_D14P', 'standard':'LVDS'  , 'differential':True , 'drive':'Undefined', 'slewRate':'Slow'  , 'weakTermination':'None'  ,                                                                       'inputDelayOn':False, 'inputDelayLine':0, 'outputDelayOn':False, 'outputDelayLine':0, 'registered':'O'},
+        'o_science_data[1][1]'  : {'location':'IOB20_D15P', 'standard':'LVDS'  , 'differential':True , 'drive':'Undefined', 'slewRate':'Slow'  , 'weakTermination':'None'  ,                                                                       'inputDelayOn':False, 'inputDelayLine':0, 'outputDelayOn':False, 'outputDelayLine':0, 'registered':'O'},
+        'o_science_data[2][0]'  : {'location':'IOB20_D07P', 'standard':'LVDS'  , 'differential':True , 'drive':'Undefined', 'slewRate':'Slow'  , 'weakTermination':'None'  ,                                                                       'inputDelayOn':False, 'inputDelayLine':0, 'outputDelayOn':False, 'outputDelayLine':0, 'registered':'O'},
+        'o_science_data[2][1]'  : {'location':'IOB19_D04P', 'standard':'LVDS'  , 'differential':True , 'drive':'Undefined', 'slewRate':'Slow'  , 'weakTermination':'None'  ,                                                                       'inputDelayOn':False, 'inputDelayLine':0, 'outputDelayOn':False, 'outputDelayLine':0, 'registered':'O'},
+        'o_science_data[3][0]'  : {'location':'IOB20_D01P', 'standard':'LVDS'  , 'differential':True , 'drive':'Undefined', 'slewRate':'Slow'  , 'weakTermination':'None'  ,                                                                       'inputDelayOn':False, 'inputDelayLine':0, 'outputDelayOn':False, 'outputDelayLine':0, 'registered':'O'},
+        'o_science_data[3][1]'  : {'location':'IOB20_D10P', 'standard':'LVDS'  , 'differential':True , 'drive':'Undefined', 'slewRate':'Slow'  , 'weakTermination':'None'  ,                                                                       'inputDelayOn':False, 'inputDelayLine':0, 'outputDelayOn':False, 'outputDelayLine':0, 'registered':'O'},
+        'o_science_data_c2_0'   : {'location':'IOB23_D14P', 'standard':'LVDS'  , 'differential':True , 'drive':'Undefined', 'slewRate':'Slow'  , 'weakTermination':'None'  ,                                                                       'inputDelayOn':False, 'inputDelayLine':0, 'outputDelayOn':False, 'outputDelayLine':0, 'registered':'O'},
+        'i_ep_spi_sel'          : {'location':'IOB12_D11P', 'standard':'LVCMOS', 'differential':False,                                           'weakTermination':'None'  ,                                                        'turbo':False, 'inputDelayOn':False, 'inputDelayLine':0, 'outputDelayOn':False, 'outputDelayLine':0, 'registered':'I'},
+        'i_ep_spi_mosi[0]'      : {'location':'IOB14_D07P', 'standard':'LVCMOS', 'differential':False,                                           'weakTermination':'None'  ,                                                        'turbo':False, 'inputDelayOn':False, 'inputDelayLine':0, 'outputDelayOn':False, 'outputDelayLine':0, 'registered':'I'},
+        'o_ep_spi_miso[0]'      : {'location':'IOB14_D12N', 'standard':'LVCMOS', 'differential':False, 'drive':'2mA'      , 'slewRate':'Slow'  , 'weakTermination':'None'  ,                                                                       'inputDelayOn':False, 'inputDelayLine':0, 'outputDelayOn':False, 'outputDelayLine':0, 'registered':'O'},
+        'i_ep_spi_sclk[0]'      : {'location':'IOB14_D06P', 'standard':'LVCMOS', 'differential':False,                                           'weakTermination':'None'  ,                                                        'turbo':False, 'inputDelayOn':False, 'inputDelayLine':0, 'outputDelayOn':False, 'outputDelayLine':0, 'registered':'I'},
+        'i_ep_spi_cs_n[0]'      : {'location':'IOB14_D11N', 'standard':'LVCMOS', 'differential':False,                                           'weakTermination':'None'  ,                                                        'turbo':False, 'inputDelayOn':False, 'inputDelayLine':0, 'outputDelayOn':False, 'outputDelayLine':0, 'registered':'I'},
+        'i_ep_spi_mosi[1]'      : {'location':'IOB19_D01N', 'standard':'LVCMOS', 'differential':False,                                           'weakTermination':'None'  ,                                                        'turbo':False, 'inputDelayOn':False, 'inputDelayLine':0, 'outputDelayOn':False, 'outputDelayLine':0, 'registered':'I'},
+        'o_ep_spi_miso[1]'      : {'location':'IOB19_D01P', 'standard':'LVCMOS', 'differential':False, 'drive':'2mA'      , 'slewRate':'Slow'  , 'weakTermination':'None'  ,                                                                       'inputDelayOn':False, 'inputDelayLine':0, 'outputDelayOn':False, 'outputDelayLine':0, 'registered':'O'},
+        'i_ep_spi_sclk[1]'      : {'location':'IOB19_D02N', 'standard':'LVCMOS', 'differential':False,                                           'weakTermination':'None'  ,                                                        'turbo':False, 'inputDelayOn':False, 'inputDelayLine':0, 'outputDelayOn':False, 'outputDelayLine':0, 'registered':'I'},
+        'i_ep_spi_cs_n[1]'      : {'location':'IOB19_D03P', 'standard':'LVCMOS', 'differential':False,                                           'weakTermination':'None'  ,                                                        'turbo':False, 'inputDelayOn':False, 'inputDelayLine':0, 'outputDelayOn':False, 'outputDelayLine':0, 'registered':'I'},
+                }
+        p.addPads(pads)
+
+    elif modelboard == 'dm':
         banks = {
         'IOB0'   : {'voltage': '3.3'},
         'IOB1'   : {'voltage': '3.3'},
@@ -59,8 +110,6 @@ def add_banks(p,variant,option=None):
                 }
         p.addBanks(banks)
 
-def add_pads(p,variant,option=None):
-    if variant == 'NG-LARGE':
         pads =  {
         'i_arst_n'              : {'location':'SHAREDIO_D12', 'standard':'LVCMOS', 'differential':False,                                           'weakTermination':'None'  ,                                                        'turbo':False, 'inputDelayOn':False, 'inputDelayLine':0, 'outputDelayOn':False, 'outputDelayLine':0},
         'i_clk_ref'             : {'location':'IOB10_D09P', 'standard':'LVDS'  , 'differential':True ,                                           'weakTermination':'PullUp', 'termination':'50', 'terminationReference':'Floating', 'turbo':True , 'inputDelayOn':False, 'inputDelayLine':0, 'outputDelayOn':False, 'outputDelayLine':0},
@@ -305,8 +354,3 @@ def add_pads(p,variant,option=None):
         'o_spare'               : {'location':'IOB20_D01P', 'standard':'LVDS'  , 'differential':True , 'drive':'Undefined', 'slewRate':'Slow'  , 'weakTermination':'None'  ,                                                                       'inputDelayOn':False, 'inputDelayLine':0, 'outputDelayOn':False, 'outputDelayLine':0, 'registered':'O'}
                 }
         p.addPads(pads)
-
-def add_pins(p,variant,option=None):
-    pins = {
-            }
-    p.addPins(pins)

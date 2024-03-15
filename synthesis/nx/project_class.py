@@ -30,21 +30,23 @@ import project_constraints
 
 class project_class():
 
-    def __init__(self,variant,sources_files_directory):
+    def __init__(self,modelboard,variant,seed,sources_files_directory):
+        self.modelboard = modelboard
         self.variant = variant
+        self.seed = seed
         self.sources_files_directory = sources_files_directory
 
-    def add_ios(self,p,option=None):
-        project_ios.add_ios(p,self.variant,option)
+    def add_ios(self,p):
+        project_ios.add_ios(p,self.modelboard)
 
-    def add_files(self,p,option=None):
-        project_files.add_files(p,self.sources_files_directory,self.variant,option)
+    def add_files(self,p):
+        project_files.add_files(p,self.sources_files_directory,self.modelboard,self.variant)
 
-    def add_parameters(self,p,option=None):
-        project_parameters.add_parameters(p,self.variant,option)
+    def add_parameters(self,p):
+        project_parameters.add_parameters(p,self.modelboard)
 
-    def add_options(self,p,timing_driven,seed,option=None):
-        project_options.add_options(p,self.variant,timing_driven,seed,option)
+    def add_options(self,p,timing_driven):
+        project_options.add_options(p,timing_driven,self.seed)
 
-    def add_constraints(self,p,step,option=None):
-        project_constraints.add_constraints(p,self.variant,step,option)
+    def add_constraints(self,p,step):
+        project_constraints.add_constraints(p,self.modelboard,step)

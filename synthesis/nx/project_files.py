@@ -22,13 +22,13 @@
 #    @details                List the source files necessary for Nx synthesis
 # ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-def add_files(p,sources_files_directory,variant,option):
+def add_files(p,sources_files_directory,modelboard,variant):
     print("Import Common files")
     import os
     VHDFiles=[]
-    for file in os.listdir(sources_files_directory):
+    for file in os.listdir(sources_files_directory + '/common'):
         if file.endswith(".vhd"):
-            VHDFiles.append(os.path.join(sources_files_directory, file))
+            VHDFiles.append(os.path.join(sources_files_directory + '/common', file))
 
     p.addFiles('work', VHDFiles)
 
@@ -39,3 +39,19 @@ def add_files(p,sources_files_directory,variant,option):
             VHDFiles.append(os.path.join(sources_files_directory + '/../ip/nx/' + variant, file))
 
     p.addFiles('work', VHDFiles)
+
+    print("Specific Model Board files")
+    VHDFiles=[]
+    for file in os.listdir(sources_files_directory + '/' + modelboard):
+        if file.endswith(".vhd"):
+            VHDFiles.append(os.path.join(sources_files_directory + '/' + modelboard, file))
+
+    p.addFiles('work', VHDFiles)
+
+    if modelboard == 'dk':
+        VHDFiles=[]
+        for file in os.listdir(sources_files_directory + '/' + 'dm'):
+            if file.endswith(".vhd"):
+                VHDFiles.append(os.path.join(sources_files_directory + '/' + 'dm', file))
+
+        p.addFiles('work', VHDFiles)

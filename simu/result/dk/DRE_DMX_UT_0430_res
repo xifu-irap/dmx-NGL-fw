@@ -1,0 +1,161 @@
+# ------------------------------------------------------------------------------------------------------------------------------------------------------
+# Simulation DRE_DMX_UT_0430
+# ------------------------------------------------------------------------------------------------------------------------------------------------------
+#             (0 ps) **********************************************************************************************
+#             (0 ps)   Test: RAS Data valid
+#             (0 ps) **********************************************************************************************
+#             (0 ps) 
+#             (0 ps) ==============================================================================================
+#             (0 ps)   Asynchronous reset activated
+#             (0 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (0 ps) Write discrete: arst_n = '0'
+# ** Note   : (80000 ps) Waiting time for 80000 ps
+#             (80000 ps) 
+#             (80000 ps) ==============================================================================================
+#             (80000 ps)   Asynchronous reset deactivated
+#             (80000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (80000 ps) Write discrete: arst_n = '1'
+#             (80000 ps) 
+#             (80000 ps) ==============================================================================================
+#             (80000 ps)   Wait internal reset deactivated
+#             (80000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (6995496 ps) Waiting event rst = '0' for 6915496 ps
+#             (6995496 ps) 
+#             (6995496 ps) ==============================================================================================
+#             (6995496 ps)   Active RAS Data valid signal
+#             (6995496 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (6995496 ps) Write discrete: ras_data_valid = '1'
+# ** Note   : (7095496 ps) Waiting time for 100000 ps
+# ** Note   : (7095496 ps) Write discrete: ras_data_valid = '0'
+#             (7095496 ps) 
+#             (7095496 ps) ==============================================================================================
+#             (7095496 ps)   Switch on data acquisition in mode science
+#             (7095496 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (7095496 ps) Send SPI command value 8001_0001 (DATA_ACQ_MODE, mode Write, data 0001)
+# ** Note   : (14586000 ps) Waiting SPI command end for 7454504 ps
+#             (14586000 ps) 
+#             (14586000 ps) ==============================================================================================
+#             (14586000 ps)   Check the RAS Data valid packet type currently transfered
+#             (14586000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (14591292 ps) Waiting event sync = '0' for 5292 ps
+# ** Note   : (16344168 ps) Waiting event sync = '1' for 1752876 ps
+# ** Note   : (16504248 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (21786888 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (21786888 ps) Check science packet type: PASS
+# ** Note   : (21786888 ps)  * Science packet type: ras_data_valid, value 11001010, expected 11001010
+#             (21786888 ps) 
+#             (21786888 ps) ==============================================================================================
+#             (21786888 ps)   Check the science data packet type transfered after
+#             (21786888 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (21946968 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (27229608 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (27229608 ps) Check science packet type: PASS
+# ** Note   : (27229608 ps)  * Science packet type: science_data, value 11001000, expected 11001000
+#             (27229608 ps) 
+#             (27229608 ps) ==============================================================================================
+#             (27229608 ps)   Check the data packet type still science
+#             (27229608 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (37229608 ps) Waiting time for 10000000 ps
+# ** Note   : (37234608 ps) Waiting event sync = '0' for 5000 ps
+# ** Note   : (38115048 ps) Waiting event sync = '1' for 880440 ps
+# ** Note   : (38115048 ps) Check science packet type: PASS
+# ** Note   : (38115048 ps)  * Science packet type: science_data, value 11001000, expected 11001000
+#             (38115048 ps) 
+#             (38115048 ps) ==============================================================================================
+#             (38115048 ps)   Active RAS Data valid signal
+#             (38115048 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (38115048 ps) Write discrete: ras_data_valid = '1'
+# ** Note   : (38215048 ps) Waiting time for 100000 ps
+# ** Note   : (38215048 ps) Write discrete: ras_data_valid = '0'
+#             (38215048 ps) 
+#             (38215048 ps) ==============================================================================================
+#             (38215048 ps)   Check the RAS Data valid packet type currently transfered
+#             (38215048 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (38275128 ps) Waiting event sync = '0' for 60080 ps
+# ** Note   : (43557768 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (43557768 ps) Check science packet type: PASS
+# ** Note   : (43557768 ps)  * Science packet type: ras_data_valid, value 11001010, expected 11001010
+#             (43557768 ps) 
+#             (43557768 ps) ==============================================================================================
+#             (43557768 ps)   Check the science data packet type transfered after
+#             (43557768 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (43717848 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (49000488 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (49000488 ps) Check science packet type: PASS
+# ** Note   : (49000488 ps)  * Science packet type: science_data, value 11001000, expected 11001000
+#             (49000488 ps) 
+#             (49000488 ps) ==============================================================================================
+#             (49000488 ps)   Switch on data acquisition in mode error science
+#             (49000488 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (49000488 ps) Send SPI command value 8001_0002 (DATA_ACQ_MODE, mode Write, data 0002)
+# ** Note   : (56490000 ps) Waiting SPI command end for 7453512 ps
+#             (56490000 ps) 
+#             (56490000 ps) ==============================================================================================
+#             (56490000 ps)   Check the error science data packet type transfered
+#             (56490000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (56492232 ps) Waiting event sync = '0' for 2232 ps
+# ** Note   : (59885928 ps) Waiting event sync = '1' for 3393696 ps
+# ** Note   : (60046008 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (65328648 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (65328648 ps) Check science packet type: PASS
+# ** Note   : (65328648 ps)  * Science packet type: error_signal, value 11100010, expected 11100010
+#             (65328648 ps) 
+#             (65328648 ps) ==============================================================================================
+#             (65328648 ps)   Active RAS Data valid signal
+#             (65328648 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (65328648 ps) Write discrete: ras_data_valid = '1'
+# ** Note   : (65428648 ps) Waiting time for 100000 ps
+# ** Note   : (65428648 ps) Write discrete: ras_data_valid = '0'
+#             (65428648 ps) 
+#             (65428648 ps) ==============================================================================================
+#             (65428648 ps)   Check the error science data packet type transfered after
+#             (65428648 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (65488728 ps) Waiting event sync = '0' for 60080 ps
+# ** Note   : (70771368 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (70771368 ps) Check science packet type: PASS
+# ** Note   : (70771368 ps)  * Science packet type: error_signal, value 11100010, expected 11100010
+#             (70771368 ps) 
+#             (70771368 ps) ==============================================================================================
+#             (70771368 ps)   Check the error science data packet type transfered after
+#             (70771368 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (70931448 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (76214088 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (76214088 ps) Check science packet type: PASS
+# ** Note   : (76214088 ps)  * Science packet type: error_signal, value 11100010, expected 11100010
+#             (76214088 ps) 
+#             (76214088 ps) ==============================================================================================
+#             (76214088 ps)   Switch on data acquisition in mode science
+#             (76214088 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (76214088 ps) Send SPI command value 8001_0001 (DATA_ACQ_MODE, mode Write, data 0001)
+# ** Note   : (83706000 ps) Waiting SPI command end for 7455912 ps
+#             (83706000 ps) 
+#             (83706000 ps) ==============================================================================================
+#             (83706000 ps)   Check the RAS Data valid packet type currently transfered
+#             (83706000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (83713836 ps) Waiting event sync = '0' for 7836 ps
+# ** Note   : (87099528 ps) Waiting event sync = '1' for 3385692 ps
+# ** Note   : (87259608 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (92542248 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (92542248 ps) Check science packet type: PASS
+# ** Note   : (92542248 ps)  * Science packet type: ras_data_valid, value 11001010, expected 11001010
+#             (92542248 ps) 
+#             (92542248 ps) ==============================================================================================
+#             (92542248 ps)   Check the science data packet type transfered after
+#             (92542248 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (92702328 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (97984968 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (97984968 ps) Check science packet type: PASS
+# ** Note   : (97984968 ps)  * Science packet type: science_data, value 11001000, expected 11001000
+# ------------------------------------------------------------------------------------------------------------------------------------------------------
+# Error simulation time         : '0'
+# Error check discrete level    : '0'
+# Error check command return    : '0'
+# Error check time              : '0'
+# Error check clocks parameters : '0'
+# Error check spi parameters    : '0'
+# Error check science packets   : '0'
+# Error check pulse shaping     : '0'
+# ------------------------------------------------------------------------------------------------------------------------------------------------------
+# Simulation time               : 100000000 ps
+# Simulation status             : PASS
+# ------------------------------------------------------------------------------------------------------------------------------------------------------

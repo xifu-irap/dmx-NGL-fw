@@ -31,6 +31,7 @@ import sys
 import traceback
 import os
 import time
+import csv
 
 from nxpython import *
 
@@ -44,7 +45,7 @@ def print_duration(start_time,end_time):
     seconds  = int((float(duration) - float(hours*3600) - float(minutes*60)))
     printText('ELAPSED TIME: ' + str(hours) + ' hours ' + str(minutes) + ' minutes ' + str(seconds) + ' seconds' )
 
-def __main__(TopCellLib,TopCellName,Suffix,Variant,Progress,Option,TimingDriven,Seed,Sta,StaCondition,Bitstream):
+def __main__(ProjectName,ModelBoard,Variant,TopCellName,TopCellLib,Seed,TimingDriven,Sta,StaCondition,Bitstream,Progress,Suffix):
 
     ##########################################GLOBAL CONSTANT###########################################
 
@@ -52,10 +53,22 @@ def __main__(TopCellLib,TopCellName,Suffix,Variant,Progress,Option,TimingDriven,
 
     script_path  = os.getcwd()
 
-    project_path = script_path + '/../../synthesis/'+ TopCellName + '_' + Variant + '_' + Seed
+    sources_files_directory = script_path + '/src'
 
-    if not Option=='':
-        project_path+='_' + Option
+    # Get Firmware ID
+    with open(sources_files_directory + '/common/pkg_project.vhd') as pkg_project:
+        reader_line = csv.reader(pkg_project, delimiter='#')
+
+        for line in reader_line:
+            if len(line) > 1:
+                field = line[0].split()
+
+                if field[1] == 'c_FW_VERSION':
+                    Firmware_ID = line[1]
+
+    BitstreamName = ProjectName + '-' + ModelBoard + '_' + Firmware_ID
+
+    project_path = script_path + '/../../synthesis/'+ BitstreamName + '_' + Seed
 
     if not Suffix=='':
         project_path+='_' + Suffix
@@ -66,8 +79,6 @@ def __main__(TopCellLib,TopCellName,Suffix,Variant,Progress,Option,TimingDriven,
 
     if not os.path.isdir(project_path):
             os.makedirs(project_path)
-
-    sources_files_directory = script_path + '/src'
 
     ####################################################################################################
     ##########################################PROJECT CREATION##########################################
@@ -85,15 +96,15 @@ def __main__(TopCellLib,TopCellName,Suffix,Variant,Progress,Option,TimingDriven,
 
     p.setAnalysisConditions(conditions = StaCondition)
 
-    ###########################################VARIANT SETTINGS#########################################
+    ###########################################MODEL BOARD SETTINGS#########################################
 
-    project_custom = project_class(Variant,sources_files_directory)
+    project_custom = project_class(ModelBoard,Variant,Seed,sources_files_directory)
 
     if Progress == 'scratch':
-        project_custom.add_files(p,Option)
-        project_custom.add_parameters(p,Option)
-        project_custom.add_options(p,TimingDriven,Seed,Option)
-        project_custom.add_ios(p,Option)
+        project_custom.add_files(p)
+        project_custom.add_parameters(p)
+        project_custom.add_options(p,TimingDriven)
+        project_custom.add_ios(p)
 
         p.save(project_path + '/native'+'.nym')
 
@@ -108,7 +119,7 @@ def __main__(TopCellLib,TopCellName,Suffix,Variant,Progress,Option,TimingDriven,
 
     for i in range(len(step_progress)):#Progress
         if Progress in allowed_start_step[i]:#Skip step_progress progress if already done
-            project_custom.add_constraints(p,step_progress[i],Option)
+            project_custom.add_constraints(p,step_progress[i])
             for j in range(nb_steps[i]):
                 if not p.progress(step_progress[i],j+1):#Browse all steps
                     p.destroy()
@@ -135,7 +146,7 @@ def __main__(TopCellLib,TopCellName,Suffix,Variant,Progress,Option,TimingDriven,
 
     if Bitstream == 'Yes':
         p.setDeviceID(15)                           # Broadcast mode
-        p.generateBitstream('bitstream'+'.nxb')
+        p.generateBitstream(BitstreamName + '.nxb')
 
     ################################################SUMMARY#############################################
     print('Errors: ', getErrorCount())

@@ -22,6 +22,6 @@
 #    @details                Nx project parameters
 # ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-def add_parameters(p,variant,option):
+def add_parameters(p,modelboard):
     print("Common parameters")
     p.createClock(falling = 8, name = "clk", period = 16, rising = 0, target = "getClockNet(i_clk_ref)")

@@ -1,0 +1,33 @@
+COMM **********************************************************************************************
+COMM   Test: EP command, read register Firmware/Hardware Version and Status with no errors
+COMM **********************************************************************************************
+COMM
+COMM ==============================================================================================
+COMM   Asynchronous reset activated
+COMM ----------------------------------------------------------------------------------------------
+WDIS arst_n 0
+WAIT 80 ns
+COMM
+COMM ==============================================================================================
+COMM   Asynchronous reset deactivated
+COMM ----------------------------------------------------------------------------------------------
+WDIS arst_n 1
+COMM
+COMM ==============================================================================================
+COMM   Wait internal reset deactivated
+COMM ----------------------------------------------------------------------------------------------
+WUDI rst 0
+COMM
+COMM ==============================================================================================
+COMM   Read register Firmware/Hardware Version and Status with no errors
+COMM ----------------------------------------------------------------------------------------------
+WCMD R-Fw_Version-XXXX W
+
+WCMD R-Hw_Version-XXXX R
+CCMD R-Status-FFFF W
+
+WCMD R-Hw_Version-XXXX R
+CCMD R-Fw_Version-FW_VERSION W
+
+WCMD R-Hw_Version-XXXX R
+CCMD R-Hw_Version-0700 N

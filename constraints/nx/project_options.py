@@ -22,7 +22,7 @@
 #    @details                Nx options
 # ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-def add_options(p,variant,timing_driven,seed,option):
+def add_options(p,timing_driven,seed):
     p.setOptions({
         'Autosave'                          : 'Yes',
         'BypassingEffort'                   : 'High',

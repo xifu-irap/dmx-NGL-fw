@@ -22,17 +22,15 @@
 #    @details                Nx project variables
 # ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-#Top Cell
-DefaultTopCellName  = 'top_dmx'
+#Project variables
+DefaultProjectName  = 'dmx-fw'
+DefaultModelBoard   = 'dm'
+AllowedModelBoard   = ['dk','dm','em']
+DefaultVariants     = ['NG-LARGE','NG-LARGE','ULTRA300']
+DefaultTopCellName  = ['top_dmx_dk','top_dmx_dm','top_dmx_em']
+#NanoXplore tool variables
 DefaultTopCellLib   = 'work'
-#Variant
-DefaultVariant      = 'NG-LARGE'
-AllowedVariants     = ['NG-MEDIUM','NG-MEDIUM-EMBEDDED','NG-LARGE']
-#Option
-DefaultOption       = ''
-AllowedOptions      = ['','USE_DSP']
-#Project
-DefaultSeed         = '1120'
+DefaultSeed         = ['1420','1040','1040']
 DefaultTimingDriven = 'Yes'
 DefaultSta          = 'routed'
 DefaultStaCondition = 'worstcase'

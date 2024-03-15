@@ -1,0 +1,4 @@
+Test result number; Test Title; Final Status
+DRE_DMX_UT_0050;EP command, read register Firmware/Hardware Version and Status with no errors;PASS
+DRE_DMX_UT_0430;RAS Data valid;PASS
+DRE_DMX_UT_0440;Housekeeping;PASS

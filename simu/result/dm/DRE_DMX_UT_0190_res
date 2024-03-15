@@ -1,0 +1,1025 @@
+# ------------------------------------------------------------------------------------------------------------------------------------------------------
+# Simulation DRE_DMX_UT_0190
+# ------------------------------------------------------------------------------------------------------------------------------------------------------
+#             (0 ps) **********************************************************************************************
+#             (0 ps)   Test: AMP SQUID in open loop mode
+#             (0 ps) **********************************************************************************************
+#             (0 ps) 
+#             (0 ps) ==============================================================================================
+#             (0 ps)   Enable SPI AMP SQUID reports display
+#             (0 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (0 ps) Report display activated: spi_sqa_lsb(0)
+# ** Note   : (0 ps) Report display activated: spi_sqa_lsb(1)
+# ** Note   : (0 ps) Report display activated: spi_sqa_lsb(2)
+# ** Note   : (0 ps) Report display activated: spi_sqa_lsb(3)
+# ** Note   : (0 ps) Report display activated: spi_sqa_off(0)
+# ** Note   : (0 ps) Report display activated: spi_sqa_off(1)
+# ** Note   : (0 ps) Report display activated: spi_sqa_off(2)
+# ** Note   : (0 ps) Report display activated: spi_sqa_off(3)
+#             (0 ps) 
+#             (0 ps) ==============================================================================================
+#             (0 ps)   Switch ADC voltage on AMP SQUID DAC
+#             (0 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (0 ps) Write discrete: sw_adc_vin(0) = '1'
+#             (0 ps) 
+#             (0 ps) ==============================================================================================
+#             (0 ps)   Asynchronous reset activated
+#             (0 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (0 ps) Write discrete: arst_n = '0'
+# ** Note   : (80000 ps) Waiting time for 80000 ps
+#             (80000 ps) 
+#             (80000 ps) ==============================================================================================
+#             (80000 ps)   Asynchronous reset deactivated
+#             (80000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (80000 ps) Write discrete: arst_n = '1'
+#             (80000 ps) 
+#             (80000 ps) ==============================================================================================
+#             (80000 ps)   Wait internal reset deactivated
+#             (80000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (6995496 ps) Waiting event rst = '0' for 6915496 ps
+#             (6995496 ps) 
+#             (6995496 ps) ==============================================================================================
+#             (6995496 ps)   Check each AMP SQUID DAC output goes to zero, synchronous with sync rising edge
+#             (6995496 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (6999498 ps) Waiting event sync = '0' for 4002 ps
+# ** Note   : (10901448 ps) Waiting event sync = '1' for 3901950 ps
+# ** Note   : (11061528 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (16344168 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (16360168 ps) Waiting time for 16000 ps
+# ** Note   : (16360168 ps) Check ADC level: PASS
+# ** Note   : (16360168 ps)  * Read ADC channel 0, value 0.000000e+00, expected 0.000000e+00
+# ** Note   : (16360168 ps) Check ADC level: PASS
+# ** Note   : (16360168 ps)  * Read ADC channel 1, value 0.000000e+00, expected 0.000000e+00
+# ** Note   : (16360168 ps) Check ADC level: PASS
+# ** Note   : (16360168 ps)  * Read ADC channel 2, value 0.000000e+00, expected 0.000000e+00
+# ** Note   : (16360168 ps) Check ADC level: PASS
+# ** Note   : (16360168 ps)  * Read ADC channel 3, value 0.000000e+00, expected 0.000000e+00
+#             (16360168 ps) 
+#             (16360168 ps) ==============================================================================================
+#             (16360168 ps)   Configure AMP SQUID DAC LSB column 0
+#             (16360168 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (16360168 ps) Send SPI command value 0881_0CF1 (C0_AMP_SQ_OFFSET_LSB, mode Write, data 0CF1)
+# ** Note   : (18672000 ps) Waiting SPI command end for 2275832 ps
+#             (18672000 ps) 
+#             (18672000 ps) ==============================================================================================
+#             (18672000 ps)   Configure AMP SQUID lockpoint Offset column 0
+#             (18672000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (18672000 ps) Send SPI command value 0883_08FF (C0_AMP_SQ_OFFSET_COARSE, mode Write, data 08FF)
+# ** Note   : (20994000 ps) Waiting SPI command end for 2286000 ps
+#             (20994000 ps) 
+#             (20994000 ps) ==============================================================================================
+#             (20994000 ps)   Send command AMP_SQ_OFFSET_MODE column 0 to open loop
+#             (20994000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (20994000 ps) Send SPI command value 8005_0001 (AMP_SQ_OFFSET_MODE, mode Write, data 0001)
+# ** Note   : (23316000 ps) Waiting SPI command end for 2286000 ps
+#             (23316000 ps) 
+#             (23316000 ps) ==============================================================================================
+#             (23316000 ps)   Check each AMP SQUID DAC column 0 goes to the new value, synchronous with sync rising edge
+#             (23316000 ps)   Voltage formula: g_SQA_DAC_VREF/(2^c_SQA_DAC_DATA_S * c_SQA_DAC_COEF_DIV) * AMP_SQ_OFFSET_COARSE
+#             (23316000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (23319654 ps) Waiting event sync = '0' for 3654 ps
+# ** Note   : (27229608 ps) Waiting event sync = '1' for 3909954 ps
+# ** Note   : (27245608 ps) Waiting time for 16000 ps
+# ** Note   : (27245608 ps) Check time, ADC channel 0 last event: PASS
+# ** Note   : (27245608 ps)  * ADC channel 0 last event 16000 ps equal to expected value 16000 ps
+# ** Note   : (27245608 ps) Check ADC level: PASS
+# ** Note   : (27245608 ps)  * Read ADC channel 0, value 2.998698e-01, expected 2.998698e-01
+#             (27245608 ps) 
+#             (27245608 ps) ==============================================================================================
+#             (27245608 ps)   Writing a new table in AMP SQUID lockpoint value column 0 memory
+#             (27245608 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (27245608 ps) Send SPI command value 0801_0007 (C0_AMP_SQ_OFFSET_FINE, mode Write, data 0007)
+# ** Note   : (29562000 ps) Waiting SPI command end for 2280392 ps
+# ** Note   : (29562000 ps) Send SPI command value 0803_0006 (C0_AMP_SQ_OFFSET_FINE, mode Write, data 0006)
+# ** Note   : (31884000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (31884000 ps) Send SPI command value 0805_0005 (C0_AMP_SQ_OFFSET_FINE, mode Write, data 0005)
+# ** Note   : (34206000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (34206000 ps) Send SPI command value 0807_0004 (C0_AMP_SQ_OFFSET_FINE, mode Write, data 0004)
+# ** Note   : (36528000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (36528000 ps) Send SPI command value 0809_0003 (C0_AMP_SQ_OFFSET_FINE, mode Write, data 0003)
+# ** Note   : (38850000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (38850000 ps) Send SPI command value 080B_0002 (C0_AMP_SQ_OFFSET_FINE, mode Write, data 0002)
+# ** Note   : (41172000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (41172000 ps) Send SPI command value 080D_0001 (C0_AMP_SQ_OFFSET_FINE, mode Write, data 0001)
+# ** Note   : (43494000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (43494000 ps) Send SPI command value 080F_0000 (C0_AMP_SQ_OFFSET_FINE, mode Write, data 0000)
+# ** Note   : (45816000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (45816000 ps) Send SPI command value 0811_0007 (C0_AMP_SQ_OFFSET_FINE, mode Write, data 0007)
+# ** Note   : (48138000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (48138000 ps) Send SPI command value 0813_0006 (C0_AMP_SQ_OFFSET_FINE, mode Write, data 0006)
+# ** Note   : (50460000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (50460000 ps) Send SPI command value 0815_0005 (C0_AMP_SQ_OFFSET_FINE, mode Write, data 0005)
+# ** Note   : (52782000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (52782000 ps) Send SPI command value 0817_0004 (C0_AMP_SQ_OFFSET_FINE, mode Write, data 0004)
+# ** Note   : (55104000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (55104000 ps) Send SPI command value 0819_0003 (C0_AMP_SQ_OFFSET_FINE, mode Write, data 0003)
+# ** Note   : (57426000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (57426000 ps) Send SPI command value 081B_0002 (C0_AMP_SQ_OFFSET_FINE, mode Write, data 0002)
+# ** Note   : (59748000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (59748000 ps) Send SPI command value 081D_0001 (C0_AMP_SQ_OFFSET_FINE, mode Write, data 0001)
+# ** Note   : (62070000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (62070000 ps) Send SPI command value 081F_0000 (C0_AMP_SQ_OFFSET_FINE, mode Write, data 0000)
+# ** Note   : (64392000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (64392000 ps) Send SPI command value 0821_0007 (C0_AMP_SQ_OFFSET_FINE, mode Write, data 0007)
+# ** Note   : (66714000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (66714000 ps) Send SPI command value 0823_0006 (C0_AMP_SQ_OFFSET_FINE, mode Write, data 0006)
+# ** Note   : (69036000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (69036000 ps) Send SPI command value 0825_0005 (C0_AMP_SQ_OFFSET_FINE, mode Write, data 0005)
+# ** Note   : (71358000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (71358000 ps) Send SPI command value 0827_0004 (C0_AMP_SQ_OFFSET_FINE, mode Write, data 0004)
+# ** Note   : (73680000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (73680000 ps) Send SPI command value 0829_0003 (C0_AMP_SQ_OFFSET_FINE, mode Write, data 0003)
+# ** Note   : (76002000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (76002000 ps) Send SPI command value 082B_0002 (C0_AMP_SQ_OFFSET_FINE, mode Write, data 0002)
+# ** Note   : (78324000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (78324000 ps) Send SPI command value 082D_0001 (C0_AMP_SQ_OFFSET_FINE, mode Write, data 0001)
+# ** Note   : (80646000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (80646000 ps) Send SPI command value 082F_0000 (C0_AMP_SQ_OFFSET_FINE, mode Write, data 0000)
+# ** Note   : (82968000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (82968000 ps) Send SPI command value 0831_0007 (C0_AMP_SQ_OFFSET_FINE, mode Write, data 0007)
+# ** Note   : (85290000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (85290000 ps) Send SPI command value 0833_0006 (C0_AMP_SQ_OFFSET_FINE, mode Write, data 0006)
+# ** Note   : (87612000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (87612000 ps) Send SPI command value 0835_0005 (C0_AMP_SQ_OFFSET_FINE, mode Write, data 0005)
+# ** Note   : (89934000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (89934000 ps) Send SPI command value 0837_0004 (C0_AMP_SQ_OFFSET_FINE, mode Write, data 0004)
+# ** Note   : (92256000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (92256000 ps) Send SPI command value 0839_0003 (C0_AMP_SQ_OFFSET_FINE, mode Write, data 0003)
+# ** Note   : (94578000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (94578000 ps) Send SPI command value 083B_0002 (C0_AMP_SQ_OFFSET_FINE, mode Write, data 0002)
+# ** Note   : (96900000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (96900000 ps) Send SPI command value 083D_0001 (C0_AMP_SQ_OFFSET_FINE, mode Write, data 0001)
+# ** Note   : (99222000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (99222000 ps) Send SPI command value 083F_0000 (C0_AMP_SQ_OFFSET_FINE, mode Write, data 0000)
+# ** Note   : (101544000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (101544000 ps) Send SPI command value 0841_0007 (C0_AMP_SQ_OFFSET_FINE, mode Write, data 0007)
+# ** Note   : (103866000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (103866000 ps) Send SPI command value 0843_0007 (C0_AMP_SQ_OFFSET_FINE, mode Write, data 0007)
+# ** Note   : (106188000 ps) Waiting SPI command end for 2286000 ps
+#             (106188000 ps) 
+#             (106188000 ps) ==============================================================================================
+#             (106188000 ps)   Writing memory dump data to compare
+#             (106188000 ps)   Formula: round(2^c_SQM_ADC_DATA_S * V_SQA / (2 * g_SQM_ADC_VREF))
+#             (106188000 ps)   with V_SQA = g_SQA_DAC_VREF/(2^c_SQA_DAC_DATA_S * c_SQA_DAC_COEF_DIV) *
+#             (106188000 ps)            (AMP_SQ_OFFSET_COARSE + AMP_SQ_OFFSET_FINE * AMP_SQ_OFFSET_LSB/2^c_SQA_DAC_MUX_S)
+#             (106188000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (106188000 ps) Write in ADC dump and science memories column 0, frame number 0, adress index 0, ADC dump & Science value 15AD_0000
+# ** Note   : (106204008 ps) Write in ADC dump and science memories column 0, frame number 0, adress index 1, ADC dump & Science value 13F3_0000
+# ** Note   : (106220016 ps) Write in ADC dump and science memories column 0, frame number 0, adress index 2, ADC dump & Science value 1239_0000
+# ** Note   : (106236024 ps) Write in ADC dump and science memories column 0, frame number 0, adress index 3, ADC dump & Science value 107F_0000
+# ** Note   : (106252032 ps) Write in ADC dump and science memories column 0, frame number 0, adress index 4, ADC dump & Science value 0EC6_0000
+# ** Note   : (106268040 ps) Write in ADC dump and science memories column 0, frame number 0, adress index 5, ADC dump & Science value 0D0C_0000
+# ** Note   : (106284048 ps) Write in ADC dump and science memories column 0, frame number 0, adress index 6, ADC dump & Science value 0B52_0000
+# ** Note   : (106300056 ps) Write in ADC dump and science memories column 0, frame number 0, adress index 7, ADC dump & Science value 0999_0000
+# ** Note   : (106316064 ps) Write in ADC dump and science memories column 0, frame number 0, adress index 8, ADC dump & Science value 15AD_0000
+# ** Note   : (106332072 ps) Write in ADC dump and science memories column 0, frame number 0, adress index 9, ADC dump & Science value 13F3_0000
+# ** Note   : (106348080 ps) Write in ADC dump and science memories column 0, frame number 0, adress index 10, ADC dump & Science value 1239_0000
+# ** Note   : (106364088 ps) Write in ADC dump and science memories column 0, frame number 0, adress index 11, ADC dump & Science value 107F_0000
+# ** Note   : (106380096 ps) Write in ADC dump and science memories column 0, frame number 0, adress index 12, ADC dump & Science value 0EC6_0000
+# ** Note   : (106396104 ps) Write in ADC dump and science memories column 0, frame number 0, adress index 13, ADC dump & Science value 0D0C_0000
+# ** Note   : (106412112 ps) Write in ADC dump and science memories column 0, frame number 0, adress index 14, ADC dump & Science value 0B52_0000
+# ** Note   : (106428120 ps) Write in ADC dump and science memories column 0, frame number 0, adress index 15, ADC dump & Science value 0999_0000
+# ** Note   : (106444128 ps) Write in ADC dump and science memories column 0, frame number 0, adress index 16, ADC dump & Science value 15AD_0000
+# ** Note   : (106460136 ps) Write in ADC dump and science memories column 0, frame number 0, adress index 17, ADC dump & Science value 13F3_0000
+# ** Note   : (106476144 ps) Write in ADC dump and science memories column 0, frame number 0, adress index 18, ADC dump & Science value 1239_0000
+# ** Note   : (106492152 ps) Write in ADC dump and science memories column 0, frame number 0, adress index 19, ADC dump & Science value 107F_0000
+# ** Note   : (106508160 ps) Write in ADC dump and science memories column 0, frame number 0, adress index 20, ADC dump & Science value 0EC6_0000
+# ** Note   : (106524168 ps) Write in ADC dump and science memories column 0, frame number 0, adress index 21, ADC dump & Science value 0D0C_0000
+# ** Note   : (106540176 ps) Write in ADC dump and science memories column 0, frame number 0, adress index 22, ADC dump & Science value 0B52_0000
+# ** Note   : (106556184 ps) Write in ADC dump and science memories column 0, frame number 0, adress index 23, ADC dump & Science value 0999_0000
+# ** Note   : (106572192 ps) Write in ADC dump and science memories column 0, frame number 0, adress index 24, ADC dump & Science value 15AD_0000
+# ** Note   : (106588200 ps) Write in ADC dump and science memories column 0, frame number 0, adress index 25, ADC dump & Science value 13F3_0000
+# ** Note   : (106604208 ps) Write in ADC dump and science memories column 0, frame number 0, adress index 26, ADC dump & Science value 1239_0000
+# ** Note   : (106620216 ps) Write in ADC dump and science memories column 0, frame number 0, adress index 27, ADC dump & Science value 107F_0000
+# ** Note   : (106636224 ps) Write in ADC dump and science memories column 0, frame number 0, adress index 28, ADC dump & Science value 0EC6_0000
+# ** Note   : (106652232 ps) Write in ADC dump and science memories column 0, frame number 0, adress index 29, ADC dump & Science value 0D0C_0000
+# ** Note   : (106668240 ps) Write in ADC dump and science memories column 0, frame number 0, adress index 30, ADC dump & Science value 0B52_0000
+# ** Note   : (106684248 ps) Write in ADC dump and science memories column 0, frame number 0, adress index 31, ADC dump & Science value 0999_0000
+# ** Note   : (106700256 ps) Write in ADC dump and science memories column 0, frame number 0, adress index 32, ADC dump & Science value 15AD_0000
+# ** Note   : (106716264 ps) Write in ADC dump and science memories column 0, frame number 0, adress index 33, ADC dump & Science value 15AD_0000
+#             (106732272 ps) 
+# ** Note   : (106732272 ps) Write in ADC dump and science memories column 1, frame number 0, adress index 0, ADC dump & Science value 0000_0000
+# ** Note   : (106748280 ps) Write in ADC dump and science memories column 1, frame number 0, adress index 1, ADC dump & Science value 0000_0000
+# ** Note   : (106764288 ps) Write in ADC dump and science memories column 1, frame number 0, adress index 2, ADC dump & Science value 0000_0000
+# ** Note   : (106780296 ps) Write in ADC dump and science memories column 1, frame number 0, adress index 3, ADC dump & Science value 0000_0000
+# ** Note   : (106796304 ps) Write in ADC dump and science memories column 1, frame number 0, adress index 4, ADC dump & Science value 0000_0000
+# ** Note   : (106812312 ps) Write in ADC dump and science memories column 1, frame number 0, adress index 5, ADC dump & Science value 0000_0000
+# ** Note   : (106828320 ps) Write in ADC dump and science memories column 1, frame number 0, adress index 6, ADC dump & Science value 0000_0000
+# ** Note   : (106844328 ps) Write in ADC dump and science memories column 1, frame number 0, adress index 7, ADC dump & Science value 0000_0000
+# ** Note   : (106860336 ps) Write in ADC dump and science memories column 1, frame number 0, adress index 8, ADC dump & Science value 0000_0000
+# ** Note   : (106876344 ps) Write in ADC dump and science memories column 1, frame number 0, adress index 9, ADC dump & Science value 0000_0000
+# ** Note   : (106892352 ps) Write in ADC dump and science memories column 1, frame number 0, adress index 10, ADC dump & Science value 0000_0000
+# ** Note   : (106908360 ps) Write in ADC dump and science memories column 1, frame number 0, adress index 11, ADC dump & Science value 0000_0000
+# ** Note   : (106924368 ps) Write in ADC dump and science memories column 1, frame number 0, adress index 12, ADC dump & Science value 0000_0000
+# ** Note   : (106940376 ps) Write in ADC dump and science memories column 1, frame number 0, adress index 13, ADC dump & Science value 0000_0000
+# ** Note   : (106956384 ps) Write in ADC dump and science memories column 1, frame number 0, adress index 14, ADC dump & Science value 0000_0000
+# ** Note   : (106972392 ps) Write in ADC dump and science memories column 1, frame number 0, adress index 15, ADC dump & Science value 0000_0000
+# ** Note   : (106988400 ps) Write in ADC dump and science memories column 1, frame number 0, adress index 16, ADC dump & Science value 0000_0000
+# ** Note   : (107004408 ps) Write in ADC dump and science memories column 1, frame number 0, adress index 17, ADC dump & Science value 0000_0000
+# ** Note   : (107020416 ps) Write in ADC dump and science memories column 1, frame number 0, adress index 18, ADC dump & Science value 0000_0000
+# ** Note   : (107036424 ps) Write in ADC dump and science memories column 1, frame number 0, adress index 19, ADC dump & Science value 0000_0000
+# ** Note   : (107052432 ps) Write in ADC dump and science memories column 1, frame number 0, adress index 20, ADC dump & Science value 0000_0000
+# ** Note   : (107068440 ps) Write in ADC dump and science memories column 1, frame number 0, adress index 21, ADC dump & Science value 0000_0000
+# ** Note   : (107084448 ps) Write in ADC dump and science memories column 1, frame number 0, adress index 22, ADC dump & Science value 0000_0000
+# ** Note   : (107100456 ps) Write in ADC dump and science memories column 1, frame number 0, adress index 23, ADC dump & Science value 0000_0000
+# ** Note   : (107116464 ps) Write in ADC dump and science memories column 1, frame number 0, adress index 24, ADC dump & Science value 0000_0000
+# ** Note   : (107132472 ps) Write in ADC dump and science memories column 1, frame number 0, adress index 25, ADC dump & Science value 0000_0000
+# ** Note   : (107148480 ps) Write in ADC dump and science memories column 1, frame number 0, adress index 26, ADC dump & Science value 0000_0000
+# ** Note   : (107164488 ps) Write in ADC dump and science memories column 1, frame number 0, adress index 27, ADC dump & Science value 0000_0000
+# ** Note   : (107180496 ps) Write in ADC dump and science memories column 1, frame number 0, adress index 28, ADC dump & Science value 0000_0000
+# ** Note   : (107196504 ps) Write in ADC dump and science memories column 1, frame number 0, adress index 29, ADC dump & Science value 0000_0000
+# ** Note   : (107212512 ps) Write in ADC dump and science memories column 1, frame number 0, adress index 30, ADC dump & Science value 0000_0000
+# ** Note   : (107228520 ps) Write in ADC dump and science memories column 1, frame number 0, adress index 31, ADC dump & Science value 0000_0000
+# ** Note   : (107244528 ps) Write in ADC dump and science memories column 1, frame number 0, adress index 32, ADC dump & Science value 0000_0000
+# ** Note   : (107260536 ps) Write in ADC dump and science memories column 1, frame number 0, adress index 33, ADC dump & Science value 0000_0000
+#             (107276544 ps) 
+# ** Note   : (107276544 ps) Write in ADC dump and science memories column 2, frame number 0, adress index 0, ADC dump & Science value 0000_0000
+# ** Note   : (107292552 ps) Write in ADC dump and science memories column 2, frame number 0, adress index 1, ADC dump & Science value 0000_0000
+# ** Note   : (107308560 ps) Write in ADC dump and science memories column 2, frame number 0, adress index 2, ADC dump & Science value 0000_0000
+# ** Note   : (107324568 ps) Write in ADC dump and science memories column 2, frame number 0, adress index 3, ADC dump & Science value 0000_0000
+# ** Note   : (107340576 ps) Write in ADC dump and science memories column 2, frame number 0, adress index 4, ADC dump & Science value 0000_0000
+# ** Note   : (107356584 ps) Write in ADC dump and science memories column 2, frame number 0, adress index 5, ADC dump & Science value 0000_0000
+# ** Note   : (107372592 ps) Write in ADC dump and science memories column 2, frame number 0, adress index 6, ADC dump & Science value 0000_0000
+# ** Note   : (107388600 ps) Write in ADC dump and science memories column 2, frame number 0, adress index 7, ADC dump & Science value 0000_0000
+# ** Note   : (107404608 ps) Write in ADC dump and science memories column 2, frame number 0, adress index 8, ADC dump & Science value 0000_0000
+# ** Note   : (107420616 ps) Write in ADC dump and science memories column 2, frame number 0, adress index 9, ADC dump & Science value 0000_0000
+# ** Note   : (107436624 ps) Write in ADC dump and science memories column 2, frame number 0, adress index 10, ADC dump & Science value 0000_0000
+# ** Note   : (107452632 ps) Write in ADC dump and science memories column 2, frame number 0, adress index 11, ADC dump & Science value 0000_0000
+# ** Note   : (107468640 ps) Write in ADC dump and science memories column 2, frame number 0, adress index 12, ADC dump & Science value 0000_0000
+# ** Note   : (107484648 ps) Write in ADC dump and science memories column 2, frame number 0, adress index 13, ADC dump & Science value 0000_0000
+# ** Note   : (107500656 ps) Write in ADC dump and science memories column 2, frame number 0, adress index 14, ADC dump & Science value 0000_0000
+# ** Note   : (107516664 ps) Write in ADC dump and science memories column 2, frame number 0, adress index 15, ADC dump & Science value 0000_0000
+# ** Note   : (107532672 ps) Write in ADC dump and science memories column 2, frame number 0, adress index 16, ADC dump & Science value 0000_0000
+# ** Note   : (107548680 ps) Write in ADC dump and science memories column 2, frame number 0, adress index 17, ADC dump & Science value 0000_0000
+# ** Note   : (107564688 ps) Write in ADC dump and science memories column 2, frame number 0, adress index 18, ADC dump & Science value 0000_0000
+# ** Note   : (107580696 ps) Write in ADC dump and science memories column 2, frame number 0, adress index 19, ADC dump & Science value 0000_0000
+# ** Note   : (107596704 ps) Write in ADC dump and science memories column 2, frame number 0, adress index 20, ADC dump & Science value 0000_0000
+# ** Note   : (107612712 ps) Write in ADC dump and science memories column 2, frame number 0, adress index 21, ADC dump & Science value 0000_0000
+# ** Note   : (107628720 ps) Write in ADC dump and science memories column 2, frame number 0, adress index 22, ADC dump & Science value 0000_0000
+# ** Note   : (107644728 ps) Write in ADC dump and science memories column 2, frame number 0, adress index 23, ADC dump & Science value 0000_0000
+# ** Note   : (107660736 ps) Write in ADC dump and science memories column 2, frame number 0, adress index 24, ADC dump & Science value 0000_0000
+# ** Note   : (107676744 ps) Write in ADC dump and science memories column 2, frame number 0, adress index 25, ADC dump & Science value 0000_0000
+# ** Note   : (107692752 ps) Write in ADC dump and science memories column 2, frame number 0, adress index 26, ADC dump & Science value 0000_0000
+# ** Note   : (107708760 ps) Write in ADC dump and science memories column 2, frame number 0, adress index 27, ADC dump & Science value 0000_0000
+# ** Note   : (107724768 ps) Write in ADC dump and science memories column 2, frame number 0, adress index 28, ADC dump & Science value 0000_0000
+# ** Note   : (107740776 ps) Write in ADC dump and science memories column 2, frame number 0, adress index 29, ADC dump & Science value 0000_0000
+# ** Note   : (107756784 ps) Write in ADC dump and science memories column 2, frame number 0, adress index 30, ADC dump & Science value 0000_0000
+# ** Note   : (107772792 ps) Write in ADC dump and science memories column 2, frame number 0, adress index 31, ADC dump & Science value 0000_0000
+# ** Note   : (107788800 ps) Write in ADC dump and science memories column 2, frame number 0, adress index 32, ADC dump & Science value 0000_0000
+# ** Note   : (107804808 ps) Write in ADC dump and science memories column 2, frame number 0, adress index 33, ADC dump & Science value 0000_0000
+#             (107820816 ps) 
+# ** Note   : (107820816 ps) Write in ADC dump and science memories column 3, frame number 0, adress index 0, ADC dump & Science value 0000_0000
+# ** Note   : (107836824 ps) Write in ADC dump and science memories column 3, frame number 0, adress index 1, ADC dump & Science value 0000_0000
+# ** Note   : (107852832 ps) Write in ADC dump and science memories column 3, frame number 0, adress index 2, ADC dump & Science value 0000_0000
+# ** Note   : (107868840 ps) Write in ADC dump and science memories column 3, frame number 0, adress index 3, ADC dump & Science value 0000_0000
+# ** Note   : (107884848 ps) Write in ADC dump and science memories column 3, frame number 0, adress index 4, ADC dump & Science value 0000_0000
+# ** Note   : (107900856 ps) Write in ADC dump and science memories column 3, frame number 0, adress index 5, ADC dump & Science value 0000_0000
+# ** Note   : (107916864 ps) Write in ADC dump and science memories column 3, frame number 0, adress index 6, ADC dump & Science value 0000_0000
+# ** Note   : (107932872 ps) Write in ADC dump and science memories column 3, frame number 0, adress index 7, ADC dump & Science value 0000_0000
+# ** Note   : (107948880 ps) Write in ADC dump and science memories column 3, frame number 0, adress index 8, ADC dump & Science value 0000_0000
+# ** Note   : (107964888 ps) Write in ADC dump and science memories column 3, frame number 0, adress index 9, ADC dump & Science value 0000_0000
+# ** Note   : (107980896 ps) Write in ADC dump and science memories column 3, frame number 0, adress index 10, ADC dump & Science value 0000_0000
+# ** Note   : (107996904 ps) Write in ADC dump and science memories column 3, frame number 0, adress index 11, ADC dump & Science value 0000_0000
+# ** Note   : (108012912 ps) Write in ADC dump and science memories column 3, frame number 0, adress index 12, ADC dump & Science value 0000_0000
+# ** Note   : (108028920 ps) Write in ADC dump and science memories column 3, frame number 0, adress index 13, ADC dump & Science value 0000_0000
+# ** Note   : (108044928 ps) Write in ADC dump and science memories column 3, frame number 0, adress index 14, ADC dump & Science value 0000_0000
+# ** Note   : (108060936 ps) Write in ADC dump and science memories column 3, frame number 0, adress index 15, ADC dump & Science value 0000_0000
+# ** Note   : (108076944 ps) Write in ADC dump and science memories column 3, frame number 0, adress index 16, ADC dump & Science value 0000_0000
+# ** Note   : (108092952 ps) Write in ADC dump and science memories column 3, frame number 0, adress index 17, ADC dump & Science value 0000_0000
+# ** Note   : (108108960 ps) Write in ADC dump and science memories column 3, frame number 0, adress index 18, ADC dump & Science value 0000_0000
+# ** Note   : (108124968 ps) Write in ADC dump and science memories column 3, frame number 0, adress index 19, ADC dump & Science value 0000_0000
+# ** Note   : (108140976 ps) Write in ADC dump and science memories column 3, frame number 0, adress index 20, ADC dump & Science value 0000_0000
+# ** Note   : (108156984 ps) Write in ADC dump and science memories column 3, frame number 0, adress index 21, ADC dump & Science value 0000_0000
+# ** Note   : (108172992 ps) Write in ADC dump and science memories column 3, frame number 0, adress index 22, ADC dump & Science value 0000_0000
+# ** Note   : (108189000 ps) Write in ADC dump and science memories column 3, frame number 0, adress index 23, ADC dump & Science value 0000_0000
+# ** Note   : (108205008 ps) Write in ADC dump and science memories column 3, frame number 0, adress index 24, ADC dump & Science value 0000_0000
+# ** Note   : (108221016 ps) Write in ADC dump and science memories column 3, frame number 0, adress index 25, ADC dump & Science value 0000_0000
+# ** Note   : (108237024 ps) Write in ADC dump and science memories column 3, frame number 0, adress index 26, ADC dump & Science value 0000_0000
+# ** Note   : (108253032 ps) Write in ADC dump and science memories column 3, frame number 0, adress index 27, ADC dump & Science value 0000_0000
+# ** Note   : (108269040 ps) Write in ADC dump and science memories column 3, frame number 0, adress index 28, ADC dump & Science value 0000_0000
+# ** Note   : (108285048 ps) Write in ADC dump and science memories column 3, frame number 0, adress index 29, ADC dump & Science value 0000_0000
+# ** Note   : (108301056 ps) Write in ADC dump and science memories column 3, frame number 0, adress index 30, ADC dump & Science value 0000_0000
+# ** Note   : (108317064 ps) Write in ADC dump and science memories column 3, frame number 0, adress index 31, ADC dump & Science value 0000_0000
+# ** Note   : (108333072 ps) Write in ADC dump and science memories column 3, frame number 0, adress index 32, ADC dump & Science value 0000_0000
+# ** Note   : (108349080 ps) Write in ADC dump and science memories column 3, frame number 0, adress index 33, ADC dump & Science value 0000_0000
+#             (108365088 ps) 
+#             (108365088 ps) ==============================================================================================
+#             (108365088 ps)   Record AMP SQUID DAC column 0 by requesting an ADC dump on science
+#             (108365088 ps)    (DAC feedback on ADC)
+#             (108365088 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (108365088 ps) Send SPI command value 8001_0004 (DATA_ACQ_MODE, mode Write, data 0004)
+# ** Note   : (110670000 ps) Waiting SPI command end for 2268912 ps
+# ** Note   : (285670000 ps) Waiting time for 175000000 ps
+#             (285670000 ps) 
+#             (285670000 ps) ==============================================================================================
+#             (285670000 ps)   Configure AMP SQUID DAC LSB column 1
+#             (285670000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (285670000 ps) Send SPI command value 2881_0CF1 (C1_AMP_SQ_OFFSET_LSB, mode Write, data 0CF1)
+# ** Note   : (287988000 ps) Waiting SPI command end for 2282000 ps
+#             (287988000 ps) 
+#             (287988000 ps) ==============================================================================================
+#             (287988000 ps)   Configure AMP SQUID lockpoint Offset column 1
+#             (287988000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (287988000 ps) Send SPI command value 2883_08FF (C1_AMP_SQ_OFFSET_COARSE, mode Write, data 08FF)
+# ** Note   : (290310000 ps) Waiting SPI command end for 2286000 ps
+#             (290310000 ps) 
+#             (290310000 ps) ==============================================================================================
+#             (290310000 ps)   Send command AMP_SQ_OFFSET_MODE column 0 to Off, column 1 to open loop
+#             (290310000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (290310000 ps) Send SPI command value 8005_0010 (AMP_SQ_OFFSET_MODE, mode Write, data 0010)
+# ** Note   : (292632000 ps) Waiting SPI command end for 2286000 ps
+#             (292632000 ps) 
+#             (292632000 ps) ==============================================================================================
+#             (292632000 ps)   Check each AMP SQUID DAC column 0 goes to its middle point, column 1 goes to the new value,
+#             (292632000 ps)   synchronous with sync rising edge
+#             (292632000 ps)   Check time formula: 16 ns - c_SQA_MUX_TPLH_DEF
+#             (292632000 ps)   Voltage formula: g_SQA_DAC_VREF/(2^c_SQA_DAC_DATA_S * c_SQA_DAC_COEF_DIV) * AMP_SQ_OFFSET_COARSE
+#             (292632000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (292633760 ps) Waiting event sync = '0' for 1760 ps
+# ** Note   : (293922888 ps) Waiting event sync = '1' for 1289128 ps
+# ** Note   : (293938888 ps) Waiting time for 16000 ps
+# ** Note   : (293938888 ps) Check time, ADC channel 0 last event: PASS
+# ** Note   : (293938888 ps)  * ADC channel 0 last event 12000 ps equal to expected value 12000 ps
+# ** Note   : (293938888 ps) Check ADC level: PASS
+# ** Note   : (293938888 ps)  * Read ADC channel 0, value 0.000000e+00, expected 0.000000e+00
+# ** Note   : (293938888 ps) Check time, ADC channel 1 last event: PASS
+# ** Note   : (293938888 ps)  * ADC channel 1 last event 16000 ps equal to expected value 16000 ps
+# ** Note   : (293938888 ps) Check ADC level: PASS
+# ** Note   : (293938888 ps)  * Read ADC channel 1, value 2.998698e-01, expected 2.998698e-01
+#             (293938888 ps) 
+#             (293938888 ps) ==============================================================================================
+#             (293938888 ps)   Writing a new table in AMP SQUID lockpoint value column 1 memory
+#             (293938888 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (293938888 ps) Send SPI command value 2801_0007 (C1_AMP_SQ_OFFSET_FINE, mode Write, data 0007)
+# ** Note   : (296250000 ps) Waiting SPI command end for 2275112 ps
+# ** Note   : (296250000 ps) Send SPI command value 2803_0006 (C1_AMP_SQ_OFFSET_FINE, mode Write, data 0006)
+# ** Note   : (298572000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (298572000 ps) Send SPI command value 2805_0005 (C1_AMP_SQ_OFFSET_FINE, mode Write, data 0005)
+# ** Note   : (300894000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (300894000 ps) Send SPI command value 2807_0004 (C1_AMP_SQ_OFFSET_FINE, mode Write, data 0004)
+# ** Note   : (303216000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (303216000 ps) Send SPI command value 2809_0003 (C1_AMP_SQ_OFFSET_FINE, mode Write, data 0003)
+# ** Note   : (305538000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (305538000 ps) Send SPI command value 280B_0002 (C1_AMP_SQ_OFFSET_FINE, mode Write, data 0002)
+# ** Note   : (307860000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (307860000 ps) Send SPI command value 280D_0001 (C1_AMP_SQ_OFFSET_FINE, mode Write, data 0001)
+# ** Note   : (310182000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (310182000 ps) Send SPI command value 280F_0000 (C1_AMP_SQ_OFFSET_FINE, mode Write, data 0000)
+# ** Note   : (312504000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (312504000 ps) Send SPI command value 2811_0007 (C1_AMP_SQ_OFFSET_FINE, mode Write, data 0007)
+# ** Note   : (314826000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (314826000 ps) Send SPI command value 2813_0006 (C1_AMP_SQ_OFFSET_FINE, mode Write, data 0006)
+# ** Note   : (317148000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (317148000 ps) Send SPI command value 2815_0005 (C1_AMP_SQ_OFFSET_FINE, mode Write, data 0005)
+# ** Note   : (319470000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (319470000 ps) Send SPI command value 2817_0004 (C1_AMP_SQ_OFFSET_FINE, mode Write, data 0004)
+# ** Note   : (321792000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (321792000 ps) Send SPI command value 2819_0003 (C1_AMP_SQ_OFFSET_FINE, mode Write, data 0003)
+# ** Note   : (324114000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (324114000 ps) Send SPI command value 281B_0002 (C1_AMP_SQ_OFFSET_FINE, mode Write, data 0002)
+# ** Note   : (326436000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (326436000 ps) Send SPI command value 281D_0001 (C1_AMP_SQ_OFFSET_FINE, mode Write, data 0001)
+# ** Note   : (328758000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (328758000 ps) Send SPI command value 281F_0000 (C1_AMP_SQ_OFFSET_FINE, mode Write, data 0000)
+# ** Note   : (331080000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (331080000 ps) Send SPI command value 2821_0007 (C1_AMP_SQ_OFFSET_FINE, mode Write, data 0007)
+# ** Note   : (333402000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (333402000 ps) Send SPI command value 2823_0006 (C1_AMP_SQ_OFFSET_FINE, mode Write, data 0006)
+# ** Note   : (335724000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (335724000 ps) Send SPI command value 2825_0005 (C1_AMP_SQ_OFFSET_FINE, mode Write, data 0005)
+# ** Note   : (338046000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (338046000 ps) Send SPI command value 2827_0004 (C1_AMP_SQ_OFFSET_FINE, mode Write, data 0004)
+# ** Note   : (340368000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (340368000 ps) Send SPI command value 2829_0003 (C1_AMP_SQ_OFFSET_FINE, mode Write, data 0003)
+# ** Note   : (342690000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (342690000 ps) Send SPI command value 282B_0002 (C1_AMP_SQ_OFFSET_FINE, mode Write, data 0002)
+# ** Note   : (345012000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (345012000 ps) Send SPI command value 282D_0001 (C1_AMP_SQ_OFFSET_FINE, mode Write, data 0001)
+# ** Note   : (347334000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (347334000 ps) Send SPI command value 282F_0000 (C1_AMP_SQ_OFFSET_FINE, mode Write, data 0000)
+# ** Note   : (349656000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (349656000 ps) Send SPI command value 2831_0007 (C1_AMP_SQ_OFFSET_FINE, mode Write, data 0007)
+# ** Note   : (351978000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (351978000 ps) Send SPI command value 2833_0006 (C1_AMP_SQ_OFFSET_FINE, mode Write, data 0006)
+# ** Note   : (354300000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (354300000 ps) Send SPI command value 2835_0005 (C1_AMP_SQ_OFFSET_FINE, mode Write, data 0005)
+# ** Note   : (356622000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (356622000 ps) Send SPI command value 2837_0004 (C1_AMP_SQ_OFFSET_FINE, mode Write, data 0004)
+# ** Note   : (358944000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (358944000 ps) Send SPI command value 2839_0003 (C1_AMP_SQ_OFFSET_FINE, mode Write, data 0003)
+# ** Note   : (361266000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (361266000 ps) Send SPI command value 283B_0002 (C1_AMP_SQ_OFFSET_FINE, mode Write, data 0002)
+# ** Note   : (363588000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (363588000 ps) Send SPI command value 283D_0001 (C1_AMP_SQ_OFFSET_FINE, mode Write, data 0001)
+# ** Note   : (365910000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (365910000 ps) Send SPI command value 283F_0000 (C1_AMP_SQ_OFFSET_FINE, mode Write, data 0000)
+# ** Note   : (368232000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (368232000 ps) Send SPI command value 2841_0007 (C1_AMP_SQ_OFFSET_FINE, mode Write, data 0007)
+# ** Note   : (370554000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (370554000 ps) Send SPI command value 2843_0007 (C1_AMP_SQ_OFFSET_FINE, mode Write, data 0007)
+# ** Note   : (372876000 ps) Waiting SPI command end for 2286000 ps
+#             (372876000 ps) 
+#             (372876000 ps) ==============================================================================================
+#             (372876000 ps)   Writing memory dump data to compare
+#             (372876000 ps)   Formula: round(2^c_SQM_ADC_DATA_S * V_SQA / (2 * g_SQM_ADC_VREF))
+#             (372876000 ps)   with V_SQA = g_SQA_DAC_VREF/(2^c_SQA_DAC_DATA_S * c_SQA_DAC_COEF_DIV) *
+#             (372876000 ps)            (AMP_SQ_OFFSET_COARSE + AMP_SQ_OFFSET_FINE * AMP_SQ_OFFSET_LSB/2^c_SQA_DAC_MUX_S)
+#             (372876000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (372876000 ps) Write in ADC dump and science memories column 1, frame number 0, adress index 0, ADC dump & Science value 15AD_0000
+# ** Note   : (372892008 ps) Write in ADC dump and science memories column 1, frame number 0, adress index 1, ADC dump & Science value 13F3_0000
+# ** Note   : (372908016 ps) Write in ADC dump and science memories column 1, frame number 0, adress index 2, ADC dump & Science value 1239_0000
+# ** Note   : (372924024 ps) Write in ADC dump and science memories column 1, frame number 0, adress index 3, ADC dump & Science value 107F_0000
+# ** Note   : (372940032 ps) Write in ADC dump and science memories column 1, frame number 0, adress index 4, ADC dump & Science value 0EC6_0000
+# ** Note   : (372956040 ps) Write in ADC dump and science memories column 1, frame number 0, adress index 5, ADC dump & Science value 0D0C_0000
+# ** Note   : (372972048 ps) Write in ADC dump and science memories column 1, frame number 0, adress index 6, ADC dump & Science value 0B52_0000
+# ** Note   : (372988056 ps) Write in ADC dump and science memories column 1, frame number 0, adress index 7, ADC dump & Science value 0999_0000
+# ** Note   : (373004064 ps) Write in ADC dump and science memories column 1, frame number 0, adress index 8, ADC dump & Science value 15AD_0000
+# ** Note   : (373020072 ps) Write in ADC dump and science memories column 1, frame number 0, adress index 9, ADC dump & Science value 13F3_0000
+# ** Note   : (373036080 ps) Write in ADC dump and science memories column 1, frame number 0, adress index 10, ADC dump & Science value 1239_0000
+# ** Note   : (373052088 ps) Write in ADC dump and science memories column 1, frame number 0, adress index 11, ADC dump & Science value 107F_0000
+# ** Note   : (373068096 ps) Write in ADC dump and science memories column 1, frame number 0, adress index 12, ADC dump & Science value 0EC6_0000
+# ** Note   : (373084104 ps) Write in ADC dump and science memories column 1, frame number 0, adress index 13, ADC dump & Science value 0D0C_0000
+# ** Note   : (373100112 ps) Write in ADC dump and science memories column 1, frame number 0, adress index 14, ADC dump & Science value 0B52_0000
+# ** Note   : (373116120 ps) Write in ADC dump and science memories column 1, frame number 0, adress index 15, ADC dump & Science value 0999_0000
+# ** Note   : (373132128 ps) Write in ADC dump and science memories column 1, frame number 0, adress index 16, ADC dump & Science value 15AD_0000
+# ** Note   : (373148136 ps) Write in ADC dump and science memories column 1, frame number 0, adress index 17, ADC dump & Science value 13F3_0000
+# ** Note   : (373164144 ps) Write in ADC dump and science memories column 1, frame number 0, adress index 18, ADC dump & Science value 1239_0000
+# ** Note   : (373180152 ps) Write in ADC dump and science memories column 1, frame number 0, adress index 19, ADC dump & Science value 107F_0000
+# ** Note   : (373196160 ps) Write in ADC dump and science memories column 1, frame number 0, adress index 20, ADC dump & Science value 0EC6_0000
+# ** Note   : (373212168 ps) Write in ADC dump and science memories column 1, frame number 0, adress index 21, ADC dump & Science value 0D0C_0000
+# ** Note   : (373228176 ps) Write in ADC dump and science memories column 1, frame number 0, adress index 22, ADC dump & Science value 0B52_0000
+# ** Note   : (373244184 ps) Write in ADC dump and science memories column 1, frame number 0, adress index 23, ADC dump & Science value 0999_0000
+# ** Note   : (373260192 ps) Write in ADC dump and science memories column 1, frame number 0, adress index 24, ADC dump & Science value 15AD_0000
+# ** Note   : (373276200 ps) Write in ADC dump and science memories column 1, frame number 0, adress index 25, ADC dump & Science value 13F3_0000
+# ** Note   : (373292208 ps) Write in ADC dump and science memories column 1, frame number 0, adress index 26, ADC dump & Science value 1239_0000
+# ** Note   : (373308216 ps) Write in ADC dump and science memories column 1, frame number 0, adress index 27, ADC dump & Science value 107F_0000
+# ** Note   : (373324224 ps) Write in ADC dump and science memories column 1, frame number 0, adress index 28, ADC dump & Science value 0EC6_0000
+# ** Note   : (373340232 ps) Write in ADC dump and science memories column 1, frame number 0, adress index 29, ADC dump & Science value 0D0C_0000
+# ** Note   : (373356240 ps) Write in ADC dump and science memories column 1, frame number 0, adress index 30, ADC dump & Science value 0B52_0000
+# ** Note   : (373372248 ps) Write in ADC dump and science memories column 1, frame number 0, adress index 31, ADC dump & Science value 0999_0000
+# ** Note   : (373388256 ps) Write in ADC dump and science memories column 1, frame number 0, adress index 32, ADC dump & Science value 15AD_0000
+# ** Note   : (373404264 ps) Write in ADC dump and science memories column 1, frame number 0, adress index 33, ADC dump & Science value 15AD_0000
+#             (373420272 ps) 
+# ** Note   : (373420272 ps) Write in ADC dump and science memories column 0, frame number 0, adress index 0, ADC dump & Science value 0000_0000
+# ** Note   : (373436280 ps) Write in ADC dump and science memories column 0, frame number 0, adress index 1, ADC dump & Science value 0000_0000
+# ** Note   : (373452288 ps) Write in ADC dump and science memories column 0, frame number 0, adress index 2, ADC dump & Science value 0000_0000
+# ** Note   : (373468296 ps) Write in ADC dump and science memories column 0, frame number 0, adress index 3, ADC dump & Science value 0000_0000
+# ** Note   : (373484304 ps) Write in ADC dump and science memories column 0, frame number 0, adress index 4, ADC dump & Science value 0000_0000
+# ** Note   : (373500312 ps) Write in ADC dump and science memories column 0, frame number 0, adress index 5, ADC dump & Science value 0000_0000
+# ** Note   : (373516320 ps) Write in ADC dump and science memories column 0, frame number 0, adress index 6, ADC dump & Science value 0000_0000
+# ** Note   : (373532328 ps) Write in ADC dump and science memories column 0, frame number 0, adress index 7, ADC dump & Science value 0000_0000
+# ** Note   : (373548336 ps) Write in ADC dump and science memories column 0, frame number 0, adress index 8, ADC dump & Science value 0000_0000
+# ** Note   : (373564344 ps) Write in ADC dump and science memories column 0, frame number 0, adress index 9, ADC dump & Science value 0000_0000
+# ** Note   : (373580352 ps) Write in ADC dump and science memories column 0, frame number 0, adress index 10, ADC dump & Science value 0000_0000
+# ** Note   : (373596360 ps) Write in ADC dump and science memories column 0, frame number 0, adress index 11, ADC dump & Science value 0000_0000
+# ** Note   : (373612368 ps) Write in ADC dump and science memories column 0, frame number 0, adress index 12, ADC dump & Science value 0000_0000
+# ** Note   : (373628376 ps) Write in ADC dump and science memories column 0, frame number 0, adress index 13, ADC dump & Science value 0000_0000
+# ** Note   : (373644384 ps) Write in ADC dump and science memories column 0, frame number 0, adress index 14, ADC dump & Science value 0000_0000
+# ** Note   : (373660392 ps) Write in ADC dump and science memories column 0, frame number 0, adress index 15, ADC dump & Science value 0000_0000
+# ** Note   : (373676400 ps) Write in ADC dump and science memories column 0, frame number 0, adress index 16, ADC dump & Science value 0000_0000
+# ** Note   : (373692408 ps) Write in ADC dump and science memories column 0, frame number 0, adress index 17, ADC dump & Science value 0000_0000
+# ** Note   : (373708416 ps) Write in ADC dump and science memories column 0, frame number 0, adress index 18, ADC dump & Science value 0000_0000
+# ** Note   : (373724424 ps) Write in ADC dump and science memories column 0, frame number 0, adress index 19, ADC dump & Science value 0000_0000
+# ** Note   : (373740432 ps) Write in ADC dump and science memories column 0, frame number 0, adress index 20, ADC dump & Science value 0000_0000
+# ** Note   : (373756440 ps) Write in ADC dump and science memories column 0, frame number 0, adress index 21, ADC dump & Science value 0000_0000
+# ** Note   : (373772448 ps) Write in ADC dump and science memories column 0, frame number 0, adress index 22, ADC dump & Science value 0000_0000
+# ** Note   : (373788456 ps) Write in ADC dump and science memories column 0, frame number 0, adress index 23, ADC dump & Science value 0000_0000
+# ** Note   : (373804464 ps) Write in ADC dump and science memories column 0, frame number 0, adress index 24, ADC dump & Science value 0000_0000
+# ** Note   : (373820472 ps) Write in ADC dump and science memories column 0, frame number 0, adress index 25, ADC dump & Science value 0000_0000
+# ** Note   : (373836480 ps) Write in ADC dump and science memories column 0, frame number 0, adress index 26, ADC dump & Science value 0000_0000
+# ** Note   : (373852488 ps) Write in ADC dump and science memories column 0, frame number 0, adress index 27, ADC dump & Science value 0000_0000
+# ** Note   : (373868496 ps) Write in ADC dump and science memories column 0, frame number 0, adress index 28, ADC dump & Science value 0000_0000
+# ** Note   : (373884504 ps) Write in ADC dump and science memories column 0, frame number 0, adress index 29, ADC dump & Science value 0000_0000
+# ** Note   : (373900512 ps) Write in ADC dump and science memories column 0, frame number 0, adress index 30, ADC dump & Science value 0000_0000
+# ** Note   : (373916520 ps) Write in ADC dump and science memories column 0, frame number 0, adress index 31, ADC dump & Science value 0000_0000
+# ** Note   : (373932528 ps) Write in ADC dump and science memories column 0, frame number 0, adress index 32, ADC dump & Science value 0000_0000
+# ** Note   : (373948536 ps) Write in ADC dump and science memories column 0, frame number 0, adress index 33, ADC dump & Science value 0000_0000
+#             (373964544 ps) 
+#             (373964544 ps) ==============================================================================================
+#             (373964544 ps)   Record AMP SQUID DAC column 1 by requesting an ADC dump on science
+#             (373964544 ps)    (DAC feedback on ADC)
+#             (373964544 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (373964544 ps) Send SPI command value 8001_0004 (DATA_ACQ_MODE, mode Write, data 0004)
+# ** Note   : (376278000 ps) Waiting SPI command end for 2277456 ps
+# ** Note   : (551278000 ps) Waiting time for 175000000 ps
+#             (551278000 ps) 
+#             (551278000 ps) ==============================================================================================
+#             (551278000 ps)   Configure AMP SQUID DAC LSB column 2
+#             (551278000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (551278000 ps) Send SPI command value 4881_0CF1 (C2_AMP_SQ_OFFSET_LSB, mode Write, data 0CF1)
+# ** Note   : (553596000 ps) Waiting SPI command end for 2282000 ps
+#             (553596000 ps) 
+#             (553596000 ps) ==============================================================================================
+#             (553596000 ps)   Configure AMP SQUID lockpoint Offset column 2
+#             (553596000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (553596000 ps) Send SPI command value 4883_08FF (C2_AMP_SQ_OFFSET_COARSE, mode Write, data 08FF)
+# ** Note   : (555918000 ps) Waiting SPI command end for 2286000 ps
+#             (555918000 ps) 
+#             (555918000 ps) ==============================================================================================
+#             (555918000 ps)   Send command AMP_SQ_OFFSET_MODE column 1 to Off, column 2 to open loop
+#             (555918000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (555918000 ps) Send SPI command value 8005_0100 (AMP_SQ_OFFSET_MODE, mode Write, data 0100)
+# ** Note   : (558240000 ps) Waiting SPI command end for 2286000 ps
+#             (558240000 ps) 
+#             (558240000 ps) ==============================================================================================
+#             (558240000 ps)   Check each AMP SQUID DAC column 1 goes to its middle point, column 2 goes to the new value,
+#             (558240000 ps)   synchronous with sync rising edge
+#             (558240000 ps)   Check time formula: 16 ns - c_SQA_MUX_TPLH_DEF
+#             (558240000 ps)   Voltage formula: g_SQA_DAC_VREF/(2^c_SQA_DAC_DATA_S * c_SQA_DAC_COEF_DIV) * AMP_SQ_OFFSET_COARSE
+#             (558240000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (558242498 ps) Waiting event sync = '0' for 2498 ps
+# ** Note   : (560616168 ps) Waiting event sync = '1' for 2373670 ps
+# ** Note   : (560632168 ps) Waiting time for 16000 ps
+# ** Note   : (560632168 ps) Check time, ADC channel 1 last event: PASS
+# ** Note   : (560632168 ps)  * ADC channel 1 last event 12000 ps equal to expected value 12000 ps
+# ** Note   : (560632168 ps) Check ADC level: PASS
+# ** Note   : (560632168 ps)  * Read ADC channel 1, value 0.000000e+00, expected 0.000000e+00
+# ** Note   : (560632168 ps) Check time, ADC channel 2 last event: PASS
+# ** Note   : (560632168 ps)  * ADC channel 2 last event 16000 ps equal to expected value 16000 ps
+# ** Note   : (560632168 ps) Check ADC level: PASS
+# ** Note   : (560632168 ps)  * Read ADC channel 2, value 2.998698e-01, expected 2.998698e-01
+#             (560632168 ps) 
+#             (560632168 ps) ==============================================================================================
+#             (560632168 ps)   Writing a new table in AMP SQUID lockpoint value column 2 memory
+#             (560632168 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (560632168 ps) Send SPI command value 4801_0007 (C2_AMP_SQ_OFFSET_FINE, mode Write, data 0007)
+# ** Note   : (562938000 ps) Waiting SPI command end for 2269832 ps
+# ** Note   : (562938000 ps) Send SPI command value 4803_0006 (C2_AMP_SQ_OFFSET_FINE, mode Write, data 0006)
+# ** Note   : (565260000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (565260000 ps) Send SPI command value 4805_0005 (C2_AMP_SQ_OFFSET_FINE, mode Write, data 0005)
+# ** Note   : (567582000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (567582000 ps) Send SPI command value 4807_0004 (C2_AMP_SQ_OFFSET_FINE, mode Write, data 0004)
+# ** Note   : (569904000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (569904000 ps) Send SPI command value 4809_0003 (C2_AMP_SQ_OFFSET_FINE, mode Write, data 0003)
+# ** Note   : (572226000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (572226000 ps) Send SPI command value 480B_0002 (C2_AMP_SQ_OFFSET_FINE, mode Write, data 0002)
+# ** Note   : (574548000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (574548000 ps) Send SPI command value 480D_0001 (C2_AMP_SQ_OFFSET_FINE, mode Write, data 0001)
+# ** Note   : (576870000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (576870000 ps) Send SPI command value 480F_0000 (C2_AMP_SQ_OFFSET_FINE, mode Write, data 0000)
+# ** Note   : (579192000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (579192000 ps) Send SPI command value 4811_0007 (C2_AMP_SQ_OFFSET_FINE, mode Write, data 0007)
+# ** Note   : (581514000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (581514000 ps) Send SPI command value 4813_0006 (C2_AMP_SQ_OFFSET_FINE, mode Write, data 0006)
+# ** Note   : (583836000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (583836000 ps) Send SPI command value 4815_0005 (C2_AMP_SQ_OFFSET_FINE, mode Write, data 0005)
+# ** Note   : (586158000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (586158000 ps) Send SPI command value 4817_0004 (C2_AMP_SQ_OFFSET_FINE, mode Write, data 0004)
+# ** Note   : (588480000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (588480000 ps) Send SPI command value 4819_0003 (C2_AMP_SQ_OFFSET_FINE, mode Write, data 0003)
+# ** Note   : (590802000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (590802000 ps) Send SPI command value 481B_0002 (C2_AMP_SQ_OFFSET_FINE, mode Write, data 0002)
+# ** Note   : (593124000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (593124000 ps) Send SPI command value 481D_0001 (C2_AMP_SQ_OFFSET_FINE, mode Write, data 0001)
+# ** Note   : (595446000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (595446000 ps) Send SPI command value 481F_0000 (C2_AMP_SQ_OFFSET_FINE, mode Write, data 0000)
+# ** Note   : (597768000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (597768000 ps) Send SPI command value 4821_0007 (C2_AMP_SQ_OFFSET_FINE, mode Write, data 0007)
+# ** Note   : (600090000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (600090000 ps) Send SPI command value 4823_0006 (C2_AMP_SQ_OFFSET_FINE, mode Write, data 0006)
+# ** Note   : (602412000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (602412000 ps) Send SPI command value 4825_0005 (C2_AMP_SQ_OFFSET_FINE, mode Write, data 0005)
+# ** Note   : (604734000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (604734000 ps) Send SPI command value 4827_0004 (C2_AMP_SQ_OFFSET_FINE, mode Write, data 0004)
+# ** Note   : (607056000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (607056000 ps) Send SPI command value 4829_0003 (C2_AMP_SQ_OFFSET_FINE, mode Write, data 0003)
+# ** Note   : (609378000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (609378000 ps) Send SPI command value 482B_0002 (C2_AMP_SQ_OFFSET_FINE, mode Write, data 0002)
+# ** Note   : (611700000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (611700000 ps) Send SPI command value 482D_0001 (C2_AMP_SQ_OFFSET_FINE, mode Write, data 0001)
+# ** Note   : (614022000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (614022000 ps) Send SPI command value 482F_0000 (C2_AMP_SQ_OFFSET_FINE, mode Write, data 0000)
+# ** Note   : (616344000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (616344000 ps) Send SPI command value 4831_0007 (C2_AMP_SQ_OFFSET_FINE, mode Write, data 0007)
+# ** Note   : (618666000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (618666000 ps) Send SPI command value 4833_0006 (C2_AMP_SQ_OFFSET_FINE, mode Write, data 0006)
+# ** Note   : (620988000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (620988000 ps) Send SPI command value 4835_0005 (C2_AMP_SQ_OFFSET_FINE, mode Write, data 0005)
+# ** Note   : (623310000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (623310000 ps) Send SPI command value 4837_0004 (C2_AMP_SQ_OFFSET_FINE, mode Write, data 0004)
+# ** Note   : (625632000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (625632000 ps) Send SPI command value 4839_0003 (C2_AMP_SQ_OFFSET_FINE, mode Write, data 0003)
+# ** Note   : (627954000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (627954000 ps) Send SPI command value 483B_0002 (C2_AMP_SQ_OFFSET_FINE, mode Write, data 0002)
+# ** Note   : (630276000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (630276000 ps) Send SPI command value 483D_0001 (C2_AMP_SQ_OFFSET_FINE, mode Write, data 0001)
+# ** Note   : (632598000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (632598000 ps) Send SPI command value 483F_0000 (C2_AMP_SQ_OFFSET_FINE, mode Write, data 0000)
+# ** Note   : (634920000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (634920000 ps) Send SPI command value 4841_0007 (C2_AMP_SQ_OFFSET_FINE, mode Write, data 0007)
+# ** Note   : (637242000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (637242000 ps) Send SPI command value 4843_0007 (C2_AMP_SQ_OFFSET_FINE, mode Write, data 0007)
+# ** Note   : (639564000 ps) Waiting SPI command end for 2286000 ps
+#             (639564000 ps) 
+#             (639564000 ps) ==============================================================================================
+#             (639564000 ps)   Writing memory dump data to compare
+#             (639564000 ps)   Formula: round(2^c_SQM_ADC_DATA_S * V_SQA / (2 * g_SQM_ADC_VREF))
+#             (639564000 ps)   with V_SQA = g_SQA_DAC_VREF/(2^c_SQA_DAC_DATA_S * c_SQA_DAC_COEF_DIV) *
+#             (639564000 ps)            (AMP_SQ_OFFSET_COARSE + AMP_SQ_OFFSET_FINE * AMP_SQ_OFFSET_LSB/2^c_SQA_DAC_MUX_S)
+#             (639564000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (639564000 ps) Write in ADC dump and science memories column 2, frame number 0, adress index 0, ADC dump & Science value 15AD_0000
+# ** Note   : (639580008 ps) Write in ADC dump and science memories column 2, frame number 0, adress index 1, ADC dump & Science value 13F3_0000
+# ** Note   : (639596016 ps) Write in ADC dump and science memories column 2, frame number 0, adress index 2, ADC dump & Science value 1239_0000
+# ** Note   : (639612024 ps) Write in ADC dump and science memories column 2, frame number 0, adress index 3, ADC dump & Science value 107F_0000
+# ** Note   : (639628032 ps) Write in ADC dump and science memories column 2, frame number 0, adress index 4, ADC dump & Science value 0EC6_0000
+# ** Note   : (639644040 ps) Write in ADC dump and science memories column 2, frame number 0, adress index 5, ADC dump & Science value 0D0C_0000
+# ** Note   : (639660048 ps) Write in ADC dump and science memories column 2, frame number 0, adress index 6, ADC dump & Science value 0B52_0000
+# ** Note   : (639676056 ps) Write in ADC dump and science memories column 2, frame number 0, adress index 7, ADC dump & Science value 0999_0000
+# ** Note   : (639692064 ps) Write in ADC dump and science memories column 2, frame number 0, adress index 8, ADC dump & Science value 15AD_0000
+# ** Note   : (639708072 ps) Write in ADC dump and science memories column 2, frame number 0, adress index 9, ADC dump & Science value 13F3_0000
+# ** Note   : (639724080 ps) Write in ADC dump and science memories column 2, frame number 0, adress index 10, ADC dump & Science value 1239_0000
+# ** Note   : (639740088 ps) Write in ADC dump and science memories column 2, frame number 0, adress index 11, ADC dump & Science value 107F_0000
+# ** Note   : (639756096 ps) Write in ADC dump and science memories column 2, frame number 0, adress index 12, ADC dump & Science value 0EC6_0000
+# ** Note   : (639772104 ps) Write in ADC dump and science memories column 2, frame number 0, adress index 13, ADC dump & Science value 0D0C_0000
+# ** Note   : (639788112 ps) Write in ADC dump and science memories column 2, frame number 0, adress index 14, ADC dump & Science value 0B52_0000
+# ** Note   : (639804120 ps) Write in ADC dump and science memories column 2, frame number 0, adress index 15, ADC dump & Science value 0999_0000
+# ** Note   : (639820128 ps) Write in ADC dump and science memories column 2, frame number 0, adress index 16, ADC dump & Science value 15AD_0000
+# ** Note   : (639836136 ps) Write in ADC dump and science memories column 2, frame number 0, adress index 17, ADC dump & Science value 13F3_0000
+# ** Note   : (639852144 ps) Write in ADC dump and science memories column 2, frame number 0, adress index 18, ADC dump & Science value 1239_0000
+# ** Note   : (639868152 ps) Write in ADC dump and science memories column 2, frame number 0, adress index 19, ADC dump & Science value 107F_0000
+# ** Note   : (639884160 ps) Write in ADC dump and science memories column 2, frame number 0, adress index 20, ADC dump & Science value 0EC6_0000
+# ** Note   : (639900168 ps) Write in ADC dump and science memories column 2, frame number 0, adress index 21, ADC dump & Science value 0D0C_0000
+# ** Note   : (639916176 ps) Write in ADC dump and science memories column 2, frame number 0, adress index 22, ADC dump & Science value 0B52_0000
+# ** Note   : (639932184 ps) Write in ADC dump and science memories column 2, frame number 0, adress index 23, ADC dump & Science value 0999_0000
+# ** Note   : (639948192 ps) Write in ADC dump and science memories column 2, frame number 0, adress index 24, ADC dump & Science value 15AD_0000
+# ** Note   : (639964200 ps) Write in ADC dump and science memories column 2, frame number 0, adress index 25, ADC dump & Science value 13F3_0000
+# ** Note   : (639980208 ps) Write in ADC dump and science memories column 2, frame number 0, adress index 26, ADC dump & Science value 1239_0000
+# ** Note   : (639996216 ps) Write in ADC dump and science memories column 2, frame number 0, adress index 27, ADC dump & Science value 107F_0000
+# ** Note   : (640012224 ps) Write in ADC dump and science memories column 2, frame number 0, adress index 28, ADC dump & Science value 0EC6_0000
+# ** Note   : (640028232 ps) Write in ADC dump and science memories column 2, frame number 0, adress index 29, ADC dump & Science value 0D0C_0000
+# ** Note   : (640044240 ps) Write in ADC dump and science memories column 2, frame number 0, adress index 30, ADC dump & Science value 0B52_0000
+# ** Note   : (640060248 ps) Write in ADC dump and science memories column 2, frame number 0, adress index 31, ADC dump & Science value 0999_0000
+# ** Note   : (640076256 ps) Write in ADC dump and science memories column 2, frame number 0, adress index 32, ADC dump & Science value 15AD_0000
+# ** Note   : (640092264 ps) Write in ADC dump and science memories column 2, frame number 0, adress index 33, ADC dump & Science value 15AD_0000
+#             (640108272 ps) 
+# ** Note   : (640108272 ps) Write in ADC dump and science memories column 1, frame number 0, adress index 0, ADC dump & Science value 0000_0000
+# ** Note   : (640124280 ps) Write in ADC dump and science memories column 1, frame number 0, adress index 1, ADC dump & Science value 0000_0000
+# ** Note   : (640140288 ps) Write in ADC dump and science memories column 1, frame number 0, adress index 2, ADC dump & Science value 0000_0000
+# ** Note   : (640156296 ps) Write in ADC dump and science memories column 1, frame number 0, adress index 3, ADC dump & Science value 0000_0000
+# ** Note   : (640172304 ps) Write in ADC dump and science memories column 1, frame number 0, adress index 4, ADC dump & Science value 0000_0000
+# ** Note   : (640188312 ps) Write in ADC dump and science memories column 1, frame number 0, adress index 5, ADC dump & Science value 0000_0000
+# ** Note   : (640204320 ps) Write in ADC dump and science memories column 1, frame number 0, adress index 6, ADC dump & Science value 0000_0000
+# ** Note   : (640220328 ps) Write in ADC dump and science memories column 1, frame number 0, adress index 7, ADC dump & Science value 0000_0000
+# ** Note   : (640236336 ps) Write in ADC dump and science memories column 1, frame number 0, adress index 8, ADC dump & Science value 0000_0000
+# ** Note   : (640252344 ps) Write in ADC dump and science memories column 1, frame number 0, adress index 9, ADC dump & Science value 0000_0000
+# ** Note   : (640268352 ps) Write in ADC dump and science memories column 1, frame number 0, adress index 10, ADC dump & Science value 0000_0000
+# ** Note   : (640284360 ps) Write in ADC dump and science memories column 1, frame number 0, adress index 11, ADC dump & Science value 0000_0000
+# ** Note   : (640300368 ps) Write in ADC dump and science memories column 1, frame number 0, adress index 12, ADC dump & Science value 0000_0000
+# ** Note   : (640316376 ps) Write in ADC dump and science memories column 1, frame number 0, adress index 13, ADC dump & Science value 0000_0000
+# ** Note   : (640332384 ps) Write in ADC dump and science memories column 1, frame number 0, adress index 14, ADC dump & Science value 0000_0000
+# ** Note   : (640348392 ps) Write in ADC dump and science memories column 1, frame number 0, adress index 15, ADC dump & Science value 0000_0000
+# ** Note   : (640364400 ps) Write in ADC dump and science memories column 1, frame number 0, adress index 16, ADC dump & Science value 0000_0000
+# ** Note   : (640380408 ps) Write in ADC dump and science memories column 1, frame number 0, adress index 17, ADC dump & Science value 0000_0000
+# ** Note   : (640396416 ps) Write in ADC dump and science memories column 1, frame number 0, adress index 18, ADC dump & Science value 0000_0000
+# ** Note   : (640412424 ps) Write in ADC dump and science memories column 1, frame number 0, adress index 19, ADC dump & Science value 0000_0000
+# ** Note   : (640428432 ps) Write in ADC dump and science memories column 1, frame number 0, adress index 20, ADC dump & Science value 0000_0000
+# ** Note   : (640444440 ps) Write in ADC dump and science memories column 1, frame number 0, adress index 21, ADC dump & Science value 0000_0000
+# ** Note   : (640460448 ps) Write in ADC dump and science memories column 1, frame number 0, adress index 22, ADC dump & Science value 0000_0000
+# ** Note   : (640476456 ps) Write in ADC dump and science memories column 1, frame number 0, adress index 23, ADC dump & Science value 0000_0000
+# ** Note   : (640492464 ps) Write in ADC dump and science memories column 1, frame number 0, adress index 24, ADC dump & Science value 0000_0000
+# ** Note   : (640508472 ps) Write in ADC dump and science memories column 1, frame number 0, adress index 25, ADC dump & Science value 0000_0000
+# ** Note   : (640524480 ps) Write in ADC dump and science memories column 1, frame number 0, adress index 26, ADC dump & Science value 0000_0000
+# ** Note   : (640540488 ps) Write in ADC dump and science memories column 1, frame number 0, adress index 27, ADC dump & Science value 0000_0000
+# ** Note   : (640556496 ps) Write in ADC dump and science memories column 1, frame number 0, adress index 28, ADC dump & Science value 0000_0000
+# ** Note   : (640572504 ps) Write in ADC dump and science memories column 1, frame number 0, adress index 29, ADC dump & Science value 0000_0000
+# ** Note   : (640588512 ps) Write in ADC dump and science memories column 1, frame number 0, adress index 30, ADC dump & Science value 0000_0000
+# ** Note   : (640604520 ps) Write in ADC dump and science memories column 1, frame number 0, adress index 31, ADC dump & Science value 0000_0000
+# ** Note   : (640620528 ps) Write in ADC dump and science memories column 1, frame number 0, adress index 32, ADC dump & Science value 0000_0000
+# ** Note   : (640636536 ps) Write in ADC dump and science memories column 1, frame number 0, adress index 33, ADC dump & Science value 0000_0000
+#             (640652544 ps) 
+#             (640652544 ps) ==============================================================================================
+#             (640652544 ps)   Record AMP SQUID DAC column 2 by requesting an ADC dump on science
+#             (640652544 ps)    (DAC feedback on ADC)
+#             (640652544 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (640652544 ps) Send SPI command value 8001_0004 (DATA_ACQ_MODE, mode Write, data 0004)
+# ** Note   : (642966000 ps) Waiting SPI command end for 2277456 ps
+# ** Note   : (817966000 ps) Waiting time for 175000000 ps
+#             (817966000 ps) 
+#             (817966000 ps) ==============================================================================================
+#             (817966000 ps)   Configure AMP SQUID DAC LSB column 3
+#             (817966000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (817966000 ps) Send SPI command value 6881_0CF1 (C3_AMP_SQ_OFFSET_LSB, mode Write, data 0CF1)
+# ** Note   : (820284000 ps) Waiting SPI command end for 2282000 ps
+#             (820284000 ps) 
+#             (820284000 ps) ==============================================================================================
+#             (820284000 ps)   Configure AMP SQUID lockpoint Offset column 3
+#             (820284000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (820284000 ps) Send SPI command value 6883_08FF (C3_AMP_SQ_OFFSET_COARSE, mode Write, data 08FF)
+# ** Note   : (822606000 ps) Waiting SPI command end for 2286000 ps
+#             (822606000 ps) 
+#             (822606000 ps) ==============================================================================================
+#             (822606000 ps)   Send command AMP_SQ_OFFSET_MODE column 2 to Off, column 3 to open loop
+#             (822606000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (822606000 ps) Send SPI command value 8005_1000 (AMP_SQ_OFFSET_MODE, mode Write, data 1000)
+# ** Note   : (824928000 ps) Waiting SPI command end for 2286000 ps
+#             (824928000 ps) 
+#             (824928000 ps) ==============================================================================================
+#             (824928000 ps)   Check each AMP SQUID DAC column 2 goes to its middle point, column 3 goes to the new value,
+#             (824928000 ps)   synchronous with sync rising edge
+#             (824928000 ps)   Check time formula: 16 ns - c_SQA_MUX_TPLH_DEF
+#             (824928000 ps)   Voltage formula: g_SQA_DAC_VREF/(2^c_SQA_DAC_DATA_S * c_SQA_DAC_COEF_DIV) * AMP_SQ_OFFSET_COARSE
+#             (824928000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (824928258 ps) Waiting event sync = '0' for 258 ps
+# ** Note   : (827309448 ps) Waiting event sync = '1' for 2381190 ps
+# ** Note   : (827325448 ps) Waiting time for 16000 ps
+# ** Note   : (827325448 ps) Check time, ADC channel 2 last event: PASS
+# ** Note   : (827325448 ps)  * ADC channel 2 last event 12000 ps equal to expected value 12000 ps
+# ** Note   : (827325448 ps) Check ADC level: PASS
+# ** Note   : (827325448 ps)  * Read ADC channel 2, value 0.000000e+00, expected 0.000000e+00
+# ** Note   : (827325448 ps) Check time, ADC channel 3 last event: PASS
+# ** Note   : (827325448 ps)  * ADC channel 3 last event 16000 ps equal to expected value 16000 ps
+# ** Note   : (827325448 ps) Check ADC level: PASS
+# ** Note   : (827325448 ps)  * Read ADC channel 3, value 2.998698e-01, expected 2.998698e-01
+#             (827325448 ps) 
+#             (827325448 ps) ==============================================================================================
+#             (827325448 ps)   Writing a new table in AMP SQUID lockpoint value column 3 memory
+#             (827325448 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (827325448 ps) Send SPI command value 6801_0007 (C3_AMP_SQ_OFFSET_FINE, mode Write, data 0007)
+# ** Note   : (829644000 ps) Waiting SPI command end for 2282552 ps
+# ** Note   : (829644000 ps) Send SPI command value 6803_0006 (C3_AMP_SQ_OFFSET_FINE, mode Write, data 0006)
+# ** Note   : (831966000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (831966000 ps) Send SPI command value 6805_0005 (C3_AMP_SQ_OFFSET_FINE, mode Write, data 0005)
+# ** Note   : (834288000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (834288000 ps) Send SPI command value 6807_0004 (C3_AMP_SQ_OFFSET_FINE, mode Write, data 0004)
+# ** Note   : (836610000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (836610000 ps) Send SPI command value 6809_0003 (C3_AMP_SQ_OFFSET_FINE, mode Write, data 0003)
+# ** Note   : (838932000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (838932000 ps) Send SPI command value 680B_0002 (C3_AMP_SQ_OFFSET_FINE, mode Write, data 0002)
+# ** Note   : (841254000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (841254000 ps) Send SPI command value 680D_0001 (C3_AMP_SQ_OFFSET_FINE, mode Write, data 0001)
+# ** Note   : (843576000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (843576000 ps) Send SPI command value 680F_0000 (C3_AMP_SQ_OFFSET_FINE, mode Write, data 0000)
+# ** Note   : (845898000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (845898000 ps) Send SPI command value 6811_0007 (C3_AMP_SQ_OFFSET_FINE, mode Write, data 0007)
+# ** Note   : (848220000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (848220000 ps) Send SPI command value 6813_0006 (C3_AMP_SQ_OFFSET_FINE, mode Write, data 0006)
+# ** Note   : (850542000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (850542000 ps) Send SPI command value 6815_0005 (C3_AMP_SQ_OFFSET_FINE, mode Write, data 0005)
+# ** Note   : (852864000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (852864000 ps) Send SPI command value 6817_0004 (C3_AMP_SQ_OFFSET_FINE, mode Write, data 0004)
+# ** Note   : (855186000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (855186000 ps) Send SPI command value 6819_0003 (C3_AMP_SQ_OFFSET_FINE, mode Write, data 0003)
+# ** Note   : (857508000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (857508000 ps) Send SPI command value 681B_0002 (C3_AMP_SQ_OFFSET_FINE, mode Write, data 0002)
+# ** Note   : (859830000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (859830000 ps) Send SPI command value 681D_0001 (C3_AMP_SQ_OFFSET_FINE, mode Write, data 0001)
+# ** Note   : (862152000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (862152000 ps) Send SPI command value 681F_0000 (C3_AMP_SQ_OFFSET_FINE, mode Write, data 0000)
+# ** Note   : (864474000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (864474000 ps) Send SPI command value 6821_0007 (C3_AMP_SQ_OFFSET_FINE, mode Write, data 0007)
+# ** Note   : (866796000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (866796000 ps) Send SPI command value 6823_0006 (C3_AMP_SQ_OFFSET_FINE, mode Write, data 0006)
+# ** Note   : (869118000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (869118000 ps) Send SPI command value 6825_0005 (C3_AMP_SQ_OFFSET_FINE, mode Write, data 0005)
+# ** Note   : (871440000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (871440000 ps) Send SPI command value 6827_0004 (C3_AMP_SQ_OFFSET_FINE, mode Write, data 0004)
+# ** Note   : (873762000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (873762000 ps) Send SPI command value 6829_0003 (C3_AMP_SQ_OFFSET_FINE, mode Write, data 0003)
+# ** Note   : (876084000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (876084000 ps) Send SPI command value 682B_0002 (C3_AMP_SQ_OFFSET_FINE, mode Write, data 0002)
+# ** Note   : (878406000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (878406000 ps) Send SPI command value 682D_0001 (C3_AMP_SQ_OFFSET_FINE, mode Write, data 0001)
+# ** Note   : (880728000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (880728000 ps) Send SPI command value 682F_0000 (C3_AMP_SQ_OFFSET_FINE, mode Write, data 0000)
+# ** Note   : (883050000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (883050000 ps) Send SPI command value 6831_0007 (C3_AMP_SQ_OFFSET_FINE, mode Write, data 0007)
+# ** Note   : (885372000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (885372000 ps) Send SPI command value 6833_0006 (C3_AMP_SQ_OFFSET_FINE, mode Write, data 0006)
+# ** Note   : (887694000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (887694000 ps) Send SPI command value 6835_0005 (C3_AMP_SQ_OFFSET_FINE, mode Write, data 0005)
+# ** Note   : (890016000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (890016000 ps) Send SPI command value 6837_0004 (C3_AMP_SQ_OFFSET_FINE, mode Write, data 0004)
+# ** Note   : (892338000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (892338000 ps) Send SPI command value 6839_0003 (C3_AMP_SQ_OFFSET_FINE, mode Write, data 0003)
+# ** Note   : (894660000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (894660000 ps) Send SPI command value 683B_0002 (C3_AMP_SQ_OFFSET_FINE, mode Write, data 0002)
+# ** Note   : (896982000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (896982000 ps) Send SPI command value 683D_0001 (C3_AMP_SQ_OFFSET_FINE, mode Write, data 0001)
+# ** Note   : (899304000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (899304000 ps) Send SPI command value 683F_0000 (C3_AMP_SQ_OFFSET_FINE, mode Write, data 0000)
+# ** Note   : (901626000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (901626000 ps) Send SPI command value 6841_0007 (C3_AMP_SQ_OFFSET_FINE, mode Write, data 0007)
+# ** Note   : (903948000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (903948000 ps) Send SPI command value 6843_0007 (C3_AMP_SQ_OFFSET_FINE, mode Write, data 0007)
+# ** Note   : (906270000 ps) Waiting SPI command end for 2286000 ps
+#             (906270000 ps) 
+#             (906270000 ps) ==============================================================================================
+#             (906270000 ps)   Writing memory dump data to compare
+#             (906270000 ps)   Formula: round(2^c_SQM_ADC_DATA_S * V_SQA / (2 * g_SQM_ADC_VREF))
+#             (906270000 ps)   with V_SQA = g_SQA_DAC_VREF/(2^c_SQA_DAC_DATA_S * c_SQA_DAC_COEF_DIV) *
+#             (906270000 ps)            (AMP_SQ_OFFSET_COARSE + AMP_SQ_OFFSET_FINE * AMP_SQ_OFFSET_LSB/2^c_SQA_DAC_MUX_S)
+#             (906270000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (906270000 ps) Write in ADC dump and science memories column 3, frame number 0, adress index 0, ADC dump & Science value 15AD_0000
+# ** Note   : (906286008 ps) Write in ADC dump and science memories column 3, frame number 0, adress index 1, ADC dump & Science value 13F3_0000
+# ** Note   : (906302016 ps) Write in ADC dump and science memories column 3, frame number 0, adress index 2, ADC dump & Science value 1239_0000
+# ** Note   : (906318024 ps) Write in ADC dump and science memories column 3, frame number 0, adress index 3, ADC dump & Science value 107F_0000
+# ** Note   : (906334032 ps) Write in ADC dump and science memories column 3, frame number 0, adress index 4, ADC dump & Science value 0EC6_0000
+# ** Note   : (906350040 ps) Write in ADC dump and science memories column 3, frame number 0, adress index 5, ADC dump & Science value 0D0C_0000
+# ** Note   : (906366048 ps) Write in ADC dump and science memories column 3, frame number 0, adress index 6, ADC dump & Science value 0B52_0000
+# ** Note   : (906382056 ps) Write in ADC dump and science memories column 3, frame number 0, adress index 7, ADC dump & Science value 0999_0000
+# ** Note   : (906398064 ps) Write in ADC dump and science memories column 3, frame number 0, adress index 8, ADC dump & Science value 15AD_0000
+# ** Note   : (906414072 ps) Write in ADC dump and science memories column 3, frame number 0, adress index 9, ADC dump & Science value 13F3_0000
+# ** Note   : (906430080 ps) Write in ADC dump and science memories column 3, frame number 0, adress index 10, ADC dump & Science value 1239_0000
+# ** Note   : (906446088 ps) Write in ADC dump and science memories column 3, frame number 0, adress index 11, ADC dump & Science value 107F_0000
+# ** Note   : (906462096 ps) Write in ADC dump and science memories column 3, frame number 0, adress index 12, ADC dump & Science value 0EC6_0000
+# ** Note   : (906478104 ps) Write in ADC dump and science memories column 3, frame number 0, adress index 13, ADC dump & Science value 0D0C_0000
+# ** Note   : (906494112 ps) Write in ADC dump and science memories column 3, frame number 0, adress index 14, ADC dump & Science value 0B52_0000
+# ** Note   : (906510120 ps) Write in ADC dump and science memories column 3, frame number 0, adress index 15, ADC dump & Science value 0999_0000
+# ** Note   : (906526128 ps) Write in ADC dump and science memories column 3, frame number 0, adress index 16, ADC dump & Science value 15AD_0000
+# ** Note   : (906542136 ps) Write in ADC dump and science memories column 3, frame number 0, adress index 17, ADC dump & Science value 13F3_0000
+# ** Note   : (906558144 ps) Write in ADC dump and science memories column 3, frame number 0, adress index 18, ADC dump & Science value 1239_0000
+# ** Note   : (906574152 ps) Write in ADC dump and science memories column 3, frame number 0, adress index 19, ADC dump & Science value 107F_0000
+# ** Note   : (906590160 ps) Write in ADC dump and science memories column 3, frame number 0, adress index 20, ADC dump & Science value 0EC6_0000
+# ** Note   : (906606168 ps) Write in ADC dump and science memories column 3, frame number 0, adress index 21, ADC dump & Science value 0D0C_0000
+# ** Note   : (906622176 ps) Write in ADC dump and science memories column 3, frame number 0, adress index 22, ADC dump & Science value 0B52_0000
+# ** Note   : (906638184 ps) Write in ADC dump and science memories column 3, frame number 0, adress index 23, ADC dump & Science value 0999_0000
+# ** Note   : (906654192 ps) Write in ADC dump and science memories column 3, frame number 0, adress index 24, ADC dump & Science value 15AD_0000
+# ** Note   : (906670200 ps) Write in ADC dump and science memories column 3, frame number 0, adress index 25, ADC dump & Science value 13F3_0000
+# ** Note   : (906686208 ps) Write in ADC dump and science memories column 3, frame number 0, adress index 26, ADC dump & Science value 1239_0000
+# ** Note   : (906702216 ps) Write in ADC dump and science memories column 3, frame number 0, adress index 27, ADC dump & Science value 107F_0000
+# ** Note   : (906718224 ps) Write in ADC dump and science memories column 3, frame number 0, adress index 28, ADC dump & Science value 0EC6_0000
+# ** Note   : (906734232 ps) Write in ADC dump and science memories column 3, frame number 0, adress index 29, ADC dump & Science value 0D0C_0000
+# ** Note   : (906750240 ps) Write in ADC dump and science memories column 3, frame number 0, adress index 30, ADC dump & Science value 0B52_0000
+# ** Note   : (906766248 ps) Write in ADC dump and science memories column 3, frame number 0, adress index 31, ADC dump & Science value 0999_0000
+# ** Note   : (906782256 ps) Write in ADC dump and science memories column 3, frame number 0, adress index 32, ADC dump & Science value 15AD_0000
+# ** Note   : (906798264 ps) Write in ADC dump and science memories column 3, frame number 0, adress index 33, ADC dump & Science value 15AD_0000
+#             (906814272 ps) 
+# ** Note   : (906814272 ps) Write in ADC dump and science memories column 2, frame number 0, adress index 0, ADC dump & Science value 0000_0000
+# ** Note   : (906830280 ps) Write in ADC dump and science memories column 2, frame number 0, adress index 1, ADC dump & Science value 0000_0000
+# ** Note   : (906846288 ps) Write in ADC dump and science memories column 2, frame number 0, adress index 2, ADC dump & Science value 0000_0000
+# ** Note   : (906862296 ps) Write in ADC dump and science memories column 2, frame number 0, adress index 3, ADC dump & Science value 0000_0000
+# ** Note   : (906878304 ps) Write in ADC dump and science memories column 2, frame number 0, adress index 4, ADC dump & Science value 0000_0000
+# ** Note   : (906894312 ps) Write in ADC dump and science memories column 2, frame number 0, adress index 5, ADC dump & Science value 0000_0000
+# ** Note   : (906910320 ps) Write in ADC dump and science memories column 2, frame number 0, adress index 6, ADC dump & Science value 0000_0000
+# ** Note   : (906926328 ps) Write in ADC dump and science memories column 2, frame number 0, adress index 7, ADC dump & Science value 0000_0000
+# ** Note   : (906942336 ps) Write in ADC dump and science memories column 2, frame number 0, adress index 8, ADC dump & Science value 0000_0000
+# ** Note   : (906958344 ps) Write in ADC dump and science memories column 2, frame number 0, adress index 9, ADC dump & Science value 0000_0000
+# ** Note   : (906974352 ps) Write in ADC dump and science memories column 2, frame number 0, adress index 10, ADC dump & Science value 0000_0000
+# ** Note   : (906990360 ps) Write in ADC dump and science memories column 2, frame number 0, adress index 11, ADC dump & Science value 0000_0000
+# ** Note   : (907006368 ps) Write in ADC dump and science memories column 2, frame number 0, adress index 12, ADC dump & Science value 0000_0000
+# ** Note   : (907022376 ps) Write in ADC dump and science memories column 2, frame number 0, adress index 13, ADC dump & Science value 0000_0000
+# ** Note   : (907038384 ps) Write in ADC dump and science memories column 2, frame number 0, adress index 14, ADC dump & Science value 0000_0000
+# ** Note   : (907054392 ps) Write in ADC dump and science memories column 2, frame number 0, adress index 15, ADC dump & Science value 0000_0000
+# ** Note   : (907070400 ps) Write in ADC dump and science memories column 2, frame number 0, adress index 16, ADC dump & Science value 0000_0000
+# ** Note   : (907086408 ps) Write in ADC dump and science memories column 2, frame number 0, adress index 17, ADC dump & Science value 0000_0000
+# ** Note   : (907102416 ps) Write in ADC dump and science memories column 2, frame number 0, adress index 18, ADC dump & Science value 0000_0000
+# ** Note   : (907118424 ps) Write in ADC dump and science memories column 2, frame number 0, adress index 19, ADC dump & Science value 0000_0000
+# ** Note   : (907134432 ps) Write in ADC dump and science memories column 2, frame number 0, adress index 20, ADC dump & Science value 0000_0000
+# ** Note   : (907150440 ps) Write in ADC dump and science memories column 2, frame number 0, adress index 21, ADC dump & Science value 0000_0000
+# ** Note   : (907166448 ps) Write in ADC dump and science memories column 2, frame number 0, adress index 22, ADC dump & Science value 0000_0000
+# ** Note   : (907182456 ps) Write in ADC dump and science memories column 2, frame number 0, adress index 23, ADC dump & Science value 0000_0000
+# ** Note   : (907198464 ps) Write in ADC dump and science memories column 2, frame number 0, adress index 24, ADC dump & Science value 0000_0000
+# ** Note   : (907214472 ps) Write in ADC dump and science memories column 2, frame number 0, adress index 25, ADC dump & Science value 0000_0000
+# ** Note   : (907230480 ps) Write in ADC dump and science memories column 2, frame number 0, adress index 26, ADC dump & Science value 0000_0000
+# ** Note   : (907246488 ps) Write in ADC dump and science memories column 2, frame number 0, adress index 27, ADC dump & Science value 0000_0000
+# ** Note   : (907262496 ps) Write in ADC dump and science memories column 2, frame number 0, adress index 28, ADC dump & Science value 0000_0000
+# ** Note   : (907278504 ps) Write in ADC dump and science memories column 2, frame number 0, adress index 29, ADC dump & Science value 0000_0000
+# ** Note   : (907294512 ps) Write in ADC dump and science memories column 2, frame number 0, adress index 30, ADC dump & Science value 0000_0000
+# ** Note   : (907310520 ps) Write in ADC dump and science memories column 2, frame number 0, adress index 31, ADC dump & Science value 0000_0000
+# ** Note   : (907326528 ps) Write in ADC dump and science memories column 2, frame number 0, adress index 32, ADC dump & Science value 0000_0000
+# ** Note   : (907342536 ps) Write in ADC dump and science memories column 2, frame number 0, adress index 33, ADC dump & Science value 0000_0000
+#             (907358544 ps) 
+#             (907358544 ps) ==============================================================================================
+#             (907358544 ps)   Record AMP SQUID DAC column 3 by requesting an ADC dump on science
+#             (907358544 ps)    (DAC feedback on ADC)
+#             (907358544 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (907358544 ps) Send SPI command value 8001_0004 (DATA_ACQ_MODE, mode Write, data 0004)
+# ** Note   : (909672000 ps) Waiting SPI command end for 2277456 ps
+# ** Note   : (1084672000 ps) Waiting time for 175000000 ps
+#             (1084672000 ps) 
+#             (1084672000 ps) ==============================================================================================
+#             (1084672000 ps)   Send command AMP_SQ_OFFSET_MODE column 3 to Off
+#             (1084672000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (1084672000 ps) Send SPI command value 8005_0000 (AMP_SQ_OFFSET_MODE, mode Write, data 0000)
+# ** Note   : (1086990000 ps) Waiting SPI command end for 2282000 ps
+#             (1086990000 ps) 
+#             (1086990000 ps) ==============================================================================================
+#             (1086990000 ps)   Check each AMP SQUID DAC column 3 goes to its middle point,
+#             (1086990000 ps)   synchronous with sync rising edge
+#             (1086990000 ps)   Check time formula: 16 ns - c_SQA_MUX_TPLH_DEF
+#             (1086990000 ps)   Voltage formula: g_SQA_DAC_VREF/(2^c_SQA_DAC_DATA_S * c_SQA_DAC_COEF_DIV) * AMP_SQ_OFFSET_COARSE
+#             (1086990000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (1086990740 ps) Waiting event sync = '0' for 740 ps
+# ** Note   : (1088560008 ps) Waiting event sync = '1' for 1569268 ps
+# ** Note   : (1088576008 ps) Waiting time for 16000 ps
+# ** Note   : (1088576008 ps) Check time, ADC channel 3 last event: PASS
+# ** Note   : (1088576008 ps)  * ADC channel 3 last event 12000 ps equal to expected value 12000 ps
+# ** Note   : (1088576008 ps) Check ADC level: PASS
+# ** Note   : (1088576008 ps)  * Read ADC channel 3, value 0.000000e+00, expected 0.000000e+00
+# ----------------------------------------------------------------------------------------------------
+# Parameters check, SPI spi_sqa_lsb(0)   
+# ----------------------------------------------------------------------------------------------------
+# Error number of low level sclk timing  :                    0, expected timing >= 13000 ps
+# Error number of high level sclk timing :                    0, expected timing >= 13000 ps
+# Error number of sclk minimum period    :                    0, expected timing >= 33000 ps
+# Error number of sclk maximum period    :                    0, expected timing <= 999999000000000 ps
+# Error number of high level cs timing   :                    0, expected timing >= 20000 ps
+# Error number of sclk edge to cs rising edge timing :        0, expected timing >= 1000 ps
+# Error number of data edge to sclk edge timing :             0, expected timing >= 5000 ps
+# Error number of sclk edge to data edge timing :             0, expected timing >= 4500 ps
+# Error number of sclk state when cs goes to active   :       0
+# Error number of sclk state when cs goes to inactive :       0
+# ----------------------------------------------------------------------------------------------------
+# Parameters check, SPI spi_sqa_lsb(1)   
+# ----------------------------------------------------------------------------------------------------
+# Error number of low level sclk timing  :                    0, expected timing >= 13000 ps
+# Error number of high level sclk timing :                    0, expected timing >= 13000 ps
+# Error number of sclk minimum period    :                    0, expected timing >= 33000 ps
+# Error number of sclk maximum period    :                    0, expected timing <= 999999000000000 ps
+# Error number of high level cs timing   :                    0, expected timing >= 20000 ps
+# Error number of sclk edge to cs rising edge timing :        0, expected timing >= 1000 ps
+# Error number of data edge to sclk edge timing :             0, expected timing >= 5000 ps
+# Error number of sclk edge to data edge timing :             0, expected timing >= 4500 ps
+# Error number of sclk state when cs goes to active   :       0
+# Error number of sclk state when cs goes to inactive :       0
+# ----------------------------------------------------------------------------------------------------
+# Parameters check, SPI spi_sqa_lsb(2)   
+# ----------------------------------------------------------------------------------------------------
+# Error number of low level sclk timing  :                    0, expected timing >= 13000 ps
+# Error number of high level sclk timing :                    0, expected timing >= 13000 ps
+# Error number of sclk minimum period    :                    0, expected timing >= 33000 ps
+# Error number of sclk maximum period    :                    0, expected timing <= 999999000000000 ps
+# Error number of high level cs timing   :                    0, expected timing >= 20000 ps
+# Error number of sclk edge to cs rising edge timing :        0, expected timing >= 1000 ps
+# Error number of data edge to sclk edge timing :             0, expected timing >= 5000 ps
+# Error number of sclk edge to data edge timing :             0, expected timing >= 4500 ps
+# Error number of sclk state when cs goes to active   :       0
+# Error number of sclk state when cs goes to inactive :       0
+# ----------------------------------------------------------------------------------------------------
+# Parameters check, SPI spi_sqa_lsb(3)   
+# ----------------------------------------------------------------------------------------------------
+# Error number of low level sclk timing  :                    0, expected timing >= 13000 ps
+# Error number of high level sclk timing :                    0, expected timing >= 13000 ps
+# Error number of sclk minimum period    :                    0, expected timing >= 33000 ps
+# Error number of sclk maximum period    :                    0, expected timing <= 999999000000000 ps
+# Error number of high level cs timing   :                    0, expected timing >= 20000 ps
+# Error number of sclk edge to cs rising edge timing :        0, expected timing >= 1000 ps
+# Error number of data edge to sclk edge timing :             0, expected timing >= 5000 ps
+# Error number of sclk edge to data edge timing :             0, expected timing >= 4500 ps
+# Error number of sclk state when cs goes to active   :       0
+# Error number of sclk state when cs goes to inactive :       0
+# ----------------------------------------------------------------------------------------------------
+# Parameters check, SPI spi_sqa_off(0)   
+# ----------------------------------------------------------------------------------------------------
+# Error number of low level sclk timing  :                    0, expected timing >= 13000 ps
+# Error number of high level sclk timing :                    0, expected timing >= 13000 ps
+# Error number of sclk minimum period    :                    0, expected timing >= 33000 ps
+# Error number of sclk maximum period    :                    0, expected timing <= 999999000000000 ps
+# Error number of high level cs timing   :                    0, expected timing >= 20000 ps
+# Error number of sclk edge to cs rising edge timing :        0, expected timing >= 1000 ps
+# Error number of data edge to sclk edge timing :             0, expected timing >= 5000 ps
+# Error number of sclk edge to data edge timing :             0, expected timing >= 4500 ps
+# Error number of sclk state when cs goes to active   :       0
+# Error number of sclk state when cs goes to inactive :       0
+# ----------------------------------------------------------------------------------------------------
+# Parameters check, SPI spi_sqa_off(1)   
+# ----------------------------------------------------------------------------------------------------
+# Error number of low level sclk timing  :                    0, expected timing >= 13000 ps
+# Error number of high level sclk timing :                    0, expected timing >= 13000 ps
+# Error number of sclk minimum period    :                    0, expected timing >= 33000 ps
+# Error number of sclk maximum period    :                    0, expected timing <= 999999000000000 ps
+# Error number of high level cs timing   :                    0, expected timing >= 20000 ps
+# Error number of sclk edge to cs rising edge timing :        0, expected timing >= 1000 ps
+# Error number of data edge to sclk edge timing :             0, expected timing >= 5000 ps
+# Error number of sclk edge to data edge timing :             0, expected timing >= 4500 ps
+# Error number of sclk state when cs goes to active   :       0
+# Error number of sclk state when cs goes to inactive :       0
+# ----------------------------------------------------------------------------------------------------
+# Parameters check, SPI spi_sqa_off(2)   
+# ----------------------------------------------------------------------------------------------------
+# Error number of low level sclk timing  :                    0, expected timing >= 13000 ps
+# Error number of high level sclk timing :                    0, expected timing >= 13000 ps
+# Error number of sclk minimum period    :                    0, expected timing >= 33000 ps
+# Error number of sclk maximum period    :                    0, expected timing <= 999999000000000 ps
+# Error number of high level cs timing   :                    0, expected timing >= 20000 ps
+# Error number of sclk edge to cs rising edge timing :        0, expected timing >= 1000 ps
+# Error number of data edge to sclk edge timing :             0, expected timing >= 5000 ps
+# Error number of sclk edge to data edge timing :             0, expected timing >= 4500 ps
+# Error number of sclk state when cs goes to active   :       0
+# Error number of sclk state when cs goes to inactive :       0
+# ----------------------------------------------------------------------------------------------------
+# Parameters check, SPI spi_sqa_off(3)   
+# ----------------------------------------------------------------------------------------------------
+# Error number of low level sclk timing  :                    0, expected timing >= 13000 ps
+# Error number of high level sclk timing :                    0, expected timing >= 13000 ps
+# Error number of sclk minimum period    :                    0, expected timing >= 33000 ps
+# Error number of sclk maximum period    :                    0, expected timing <= 999999000000000 ps
+# Error number of high level cs timing   :                    0, expected timing >= 20000 ps
+# Error number of sclk edge to cs rising edge timing :        0, expected timing >= 1000 ps
+# Error number of data edge to sclk edge timing :             0, expected timing >= 5000 ps
+# Error number of sclk edge to data edge timing :             0, expected timing >= 4500 ps
+# Error number of sclk state when cs goes to active   :       0
+# Error number of sclk state when cs goes to inactive :       0
+# ------------------------------------------------------------------------------------------------------------------------------------------------------
+# Error simulation time         : '0'
+# Error check discrete level    : '0'
+# Error check command return    : '0'
+# Error check time              : '0'
+# Error check clocks parameters : '0'
+# Error check spi parameters    : '0'
+# Error check science packets   : '0'
+# Error check pulse shaping     : '0'
+# ------------------------------------------------------------------------------------------------------------------------------------------------------
+# Simulation time               : 1120000000 ps
+# Simulation status             : PASS
+# ------------------------------------------------------------------------------------------------------------------------------------------------------

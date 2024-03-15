@@ -1,0 +1,55 @@
+# ------------------------------------------------------------------------------------------------------------------------------------------------------
+# Simulation DRE_DMX_UT_0050
+# ------------------------------------------------------------------------------------------------------------------------------------------------------
+#             (0 ps) **********************************************************************************************
+#             (0 ps)   Test: EP command, read register Firmware/Hardware Version and Status with no errors
+#             (0 ps) **********************************************************************************************
+#             (0 ps) 
+#             (0 ps) ==============================================================================================
+#             (0 ps)   Asynchronous reset activated
+#             (0 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (0 ps) Write discrete: arst_n = '0'
+# ** Note   : (80000 ps) Waiting time for 80000 ps
+#             (80000 ps) 
+#             (80000 ps) ==============================================================================================
+#             (80000 ps)   Asynchronous reset deactivated
+#             (80000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (80000 ps) Write discrete: arst_n = '1'
+#             (80000 ps) 
+#             (80000 ps) ==============================================================================================
+#             (80000 ps)   Wait internal reset deactivated
+#             (80000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (6995496 ps) Waiting event rst = '0' for 6915496 ps
+#             (6995496 ps) 
+#             (6995496 ps) ==============================================================================================
+#             (6995496 ps)   Read register Firmware/Hardware Version and Status with no errors
+#             (6995496 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (6995496 ps) Send SPI command value C002_XXXX (Fw_Version, mode Read, data XXXX)
+# ** Note   : (14496000 ps) Waiting SPI command end for 7464504 ps
+# ** Note   : (14496000 ps) Send SPI command value C004_XXXX (Hw_Version, mode Read, data XXXX)
+# ** Note   : (14568000 ps) Waiting SPI command return end for 36000 ps
+# ** Note   : (14586000 ps) Check command return: PASS
+# ** Note   : (14586000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
+# ** Note   : (22002000 ps) Waiting SPI command end for 7416000 ps
+# ** Note   : (22002000 ps) Send SPI command value C004_XXXX (Hw_Version, mode Read, data XXXX)
+# ** Note   : (22074000 ps) Waiting SPI command return end for 36000 ps
+# ** Note   : (22092000 ps) Check command return: PASS
+# ** Note   : (22092000 ps)  * Read C002_0002, expected value C002_0002 (Fw_Version, mode Read, data 0002)
+# ** Note   : (29508000 ps) Waiting SPI command end for 7416000 ps
+# ** Note   : (29508000 ps) Send SPI command value C004_XXXX (Hw_Version, mode Read, data XXXX)
+# ** Note   : (29580000 ps) Waiting SPI command return end for 36000 ps
+# ** Note   : (29598000 ps) Check command return: PASS
+# ** Note   : (29598000 ps)  * Read C004_0700, expected value C004_0700 (Hw_Version, mode Read, data 0700)
+# ------------------------------------------------------------------------------------------------------------------------------------------------------
+# Error simulation time         : '0'
+# Error check discrete level    : '0'
+# Error check command return    : '0'
+# Error check time              : '0'
+# Error check clocks parameters : '0'
+# Error check spi parameters    : '0'
+# Error check science packets   : '0'
+# Error check pulse shaping     : '0'
+# ------------------------------------------------------------------------------------------------------------------------------------------------------
+# Simulation time               : 30000000 ps
+# Simulation status             : PASS
+# ------------------------------------------------------------------------------------------------------------------------------------------------------
