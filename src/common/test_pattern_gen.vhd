@@ -402,10 +402,9 @@ begin
          g_PORTB_S            => c_DFLD_TSTPT_S       , -- integer                                          ; --! Port B bus size (<= c_MULT_ALU_PORTB_S)
          g_PORTC_S            => c_DFLD_TSTPT_S       , -- integer                                          ; --! Port C bus size (<= c_MULT_ALU_PORTC_S)
          g_RESULT_S           => c_DFLD_TSTPT_S       , -- integer                                          ; --! Result bus size (<= c_MULT_ALU_RESULT_S)
-         g_RESULT_LSB_POS     => c_ZERO_INT           , -- integer                                          ; --! Result LSB position
-         g_SAT_RANK           => c_DFLD_TSTPT_S - 1   , -- integer                                          ; --! Extrem values reached on result bus
-                                                                                                              --!   unsigned: range from               0  to 2**(g_SAT_RANK+1) - 1
-                                                                                                              --!     signed: range from -2**(g_SAT_RANK) to 2**(g_SAT_RANK)   - 1
+         g_LIN_SAT            => c_MULT_ALU_LSAT_DIS  , -- integer range 0 to 1                             ; --! Linear saturation (0 = Disable, 1 = Enable)
+         g_SAT_RANK           => c_DFLD_TSTPT_S       , -- integer                                          ; --! Extrem values reached on result bus, not used if linear saturation enabled
+                                                                                                              --!     range from -2**(g_SAT_RANK-1) to 2**(g_SAT_RANK-1) - 1
          g_PRE_ADDER_OP       => c_LOW_LEV_B          , -- bit                                              ; --! Pre-Adder operation     ('0' = add,    '1' = subtract)
          g_MUX_C_CZ           => c_LOW_LEV_B            -- bit                                                --! Multiplexer ALU operand ('0' = Port C, '1' = Cascaded Result Input)
    ) port map (

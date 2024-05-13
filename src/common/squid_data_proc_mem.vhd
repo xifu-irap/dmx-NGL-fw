@@ -35,11 +35,18 @@ use     work.pkg_func_math.all;
 use     work.pkg_project.all;
 use     work.pkg_ep_cmd.all;
 use     work.pkg_ep_cmd_type.all;
+use     work.pkg_calc_chain.all;
 
 entity squid_data_proc_mem is port (
          i_rst                : in     std_logic                                                            ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                : in     std_logic                                                            ; --! Clock
          i_clk_90             : in     std_logic                                                            ; --! System Clock 90 degrees shift
+
+         i_sakkm              : in     std_logic_vector(c_DFLD_SAKKM_COL_S-1 downto 0)                      ; --! SQUID AMP ki*knorm
+         i_sakrm              : in     std_logic_vector(c_DFLD_SAKRM_COL_S-1 downto 0)                      ; --! SQUID AMP knorm
+         i_saofc              : in     std_logic_vector(c_DFLD_SAOFC_COL_S-1 downto 0)                      ; --! SQUID AMP lockpoint coarse offset
+         i_squid_gain         : in     std_logic_vector(c_DFLD_SMIGN_COL_S-1 downto 0)                      ; --! SQUID gain
+         i_squid_amp_close    : in     std_logic                                                            ; --! SQUID AMP Close mode     ('0' = Yes, '1' = No)
 
          i_mem_prc            : in     t_mem_prc                                                            ; --! Memory for data squid proc.: memory interface
          o_mem_prc_data       : out    t_mem_prc_dta                                                        ; --! Memory for data squid proc.: data read
@@ -57,10 +64,11 @@ entity squid_data_proc_mem is port (
          i_mem_smlkv_pp_rdy   : in     std_logic                                                            ; --! Parameter Elp(p): ping-pong buffer bit ready ('0' = Inactive, '1' = Active)
 
          o_a_p_aln            : out    std_logic_vector(c_DFLD_PARMA_PIX_S   downto 0)                      ; --! Parameters a(p)
-         o_ki_knorm_p_aln     : out    std_logic_vector(c_DFLD_KIKNM_PIX_S   downto 0)                      ; --! Parameters ki(p)*knorm(p)
-         o_knorm_p_aln        : out    std_logic_vector(c_DFLD_KNORM_PIX_S   downto 0)                      ; --! Parameters knorm(p)
-         o_smfb0_p_aln        : out    std_logic_vector(c_DFLD_SMFB0_PIX_S-1 downto 0)                      ; --! Parameters smfb0(p)
-         o_elp_p_aln          : out    std_logic_vector(c_ADC_SMP_AVE_S-1    downto 0)                        --! Parameters Elp(p) aligned on E(p,n) bus size
+         o_fb0_fb_aln         : out    std_logic_vector(c_FB_PN_S-1          downto 0)                      ; --! Feedback value in open loop for FB(p,n) alignment
+         o_fb0_rl_aln         : out    std_logic_vector(c_SQM_DATA_FBK_S-1   downto 0)                      ; --! Feedback value in open loop for relock alignment
+         o_fgn_p              : out    std_logic_vector(c_FGN_P_S-1          downto 0)                      ; --! Parameters gain*ki(p)*knorm(p)
+         o_sgn_p              : out    std_logic_vector(c_SGN_P_S-1          downto 0)                      ; --! Parameters gain*knorm(p)
+         o_minus_elp_p_aln    : out    std_logic_vector(c_ADC_SMP_AVE_S-1    downto 0)                        --! Parameters -Elp(p) aligned on E(p,n) bus size
    );
 end entity squid_data_proc_mem;
 
@@ -90,13 +98,52 @@ signal   mem_smlkv_prm        : t_mem(
                                 add(              c_MEM_SMLKV_ADD_S-1 downto 0),
                                 data_w(          c_DFLD_SMLKV_PIX_S-1 downto 0))                            ; --! Parameter elp(p), getting parameter side: memory inputs
 
-signal   a_p                  : std_logic_vector(c_DFLD_PARMA_PIX_S-1 downto 0)                             ; --! Parameters a(p)
+signal   mem_kiknm_pp_rdy_r   : std_logic_vector(c_MEM_RD_DATA_NPER-1 downto 0)                             ; --! Parameter ki(p)*knorm(p): ping-pong buffer bit ready register
+signal   mem_knorm_pp_rdy_r   : std_logic_vector(c_MEM_RD_DATA_NPER-1 downto 0)                             ; --! Parameter knorm(p): ping-pong buffer bit ready register
+signal   mem_smfb0_pp_rdy_r   : std_logic_vector(c_MEM_RD_DATA_NPER-1 downto 0)                             ; --! Parameter smfb0(p): ping-pong buffer bit ready register
+
+signal   mux_ki_knorm_p       : std_logic_vector(c_DFLD_KIKNM_PIX_S-1 downto 0)                             ; --! Parameters MUX ki(p)*knorm(p)
+signal   amp_ki_knorm         : std_logic_vector(c_DFLD_SAKKM_COL_S-1 downto 0)                             ; --! Parameters AMP ki*knorm
 signal   ki_knorm_p           : std_logic_vector(c_DFLD_KIKNM_PIX_S-1 downto 0)                             ; --! Parameters ki(p)*knorm(p)
+signal   ki_knorm_p_aln       : std_logic_vector(c_DFLD_KIKNM_PIX_S   downto 0)                             ; --! Parameters ki(p)*knorm(p) aligned
+signal   fgn_p                : std_logic_vector(c_FGN_P_S            downto 0)                             ; --! Parameters gain*ki(p)*knorm(p) (bus size result +1 bit for rounding)
+
+signal   mux_knorm_p          : std_logic_vector(c_DFLD_KNORM_PIX_S-1 downto 0)                             ; --! Parameters MUX knorm(p)
+signal   amp_knorm            : std_logic_vector(c_DFLD_SAKRM_COL_S-1 downto 0)                             ; --! Parameters AMP knorm
 signal   knorm_p              : std_logic_vector(c_DFLD_KNORM_PIX_S-1 downto 0)                             ; --! Parameters knorm(p)
-signal   smfb0_p              : std_logic_vector(c_DFLD_SMFB0_PIX_S-1 downto 0)                             ; --! Parameters smfb0(p)
+signal   knorm_p_aln          : std_logic_vector(c_DFLD_KNORM_PIX_S   downto 0)                             ; --! Parameters knorm(p) aligned
+signal   sgn_p                : std_logic_vector(c_SGN_P_S            downto 0)                             ; --! Parameters gain*knorm(p) (bus size result +1 bit for rounding)
+
+signal   a_p                  : std_logic_vector(c_DFLD_PARMA_PIX_S-1 downto 0)                             ; --! Parameters a(p)
+signal   smfb0_p              : std_logic_vector(c_DFLD_SMFB0_PIX_S-1 downto 0)                             ; --! Parameters MUX fb0(p)
+signal   safb0                : std_logic_vector(c_DFLD_SAOFC_COL_S-1 downto 0)                             ; --! Parameters AMP fb0 (unsigned)
+signal   safb0_aln            : std_logic_vector(c_DFLD_SMFB0_PIX_S-2 downto 0)                             ; --! Parameters AMP fb0 (unsigned)
+signal   fb0_p_aln            : std_logic_vector(c_DFLD_SMFB0_PIX_S-1 downto 0)                             ; --! Parameters fb0(p) (signed)
+
 signal   elp_p                : std_logic_vector(c_DFLD_SMLKV_PIX_S-1 downto 0)                             ; --! Parameters Elp(p)
+signal   elp_p_aln            : std_logic_vector(c_ADC_SMP_AVE_S-1    downto 0)                             ; --! Parameters Elp(p) aligned on E(p,n) bus size
 
 begin
+
+   -- ------------------------------------------------------------------------------------------------------
+   --!   Signal registered
+   -- ------------------------------------------------------------------------------------------------------
+   P_sig_r : process (i_rst, i_clk)
+   begin
+
+      if i_rst = c_RST_LEV_ACT then
+         mem_kiknm_pp_rdy_r   <= (others => c_LOW_LEV);
+         mem_knorm_pp_rdy_r   <= (others => c_LOW_LEV);
+         mem_smfb0_pp_rdy_r   <= (others => c_LOW_LEV);
+
+      elsif rising_edge(i_clk) then
+         mem_kiknm_pp_rdy_r   <= mem_kiknm_pp_rdy_r(mem_kiknm_pp_rdy_r'high-1 downto 0) & i_mem_kiknm_pp_rdy;
+         mem_knorm_pp_rdy_r   <= mem_knorm_pp_rdy_r(mem_knorm_pp_rdy_r'high-1 downto 0) & i_mem_knorm_pp_rdy;
+         mem_smfb0_pp_rdy_r   <= mem_smfb0_pp_rdy_r(mem_smfb0_pp_rdy_r'high-1 downto 0) & i_mem_smfb0_pp_rdy;
+
+      end if;
+
+   end process P_sig_r;
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Dual port memory for parameters a(p)
@@ -158,9 +205,9 @@ begin
    end process P_mem_parma_pp;
 
    -- ------------------------------------------------------------------------------------------------------
-   --!   Dual port memory for parameters ki(p)*knorm(p)
+   --!   Dual port memory for parameters MUX ki(p)*knorm(p)
    --    @Req : DRE-DMX-FW-REQ-0170
-   --    @Req : REG_CY_KI_KNORM
+   --    @Req : REG_CY_MUX_SQ_KI_KNORM
    -- ------------------------------------------------------------------------------------------------------
    I_mem_kiknm_val: entity work.dmem_ecc generic map (
          g_RAM_TYPE           => c_RAM_TYPE_PRM_STORE , -- integer                                          ; --! Memory type ( 0  = Data transfer,  1  = Parameters storage)
@@ -183,15 +230,13 @@ begin
          i_b_clk_shift        => i_clk_90             , -- in     std_logic                                 ; --! Memory port B: 90 degrees shifted clock (used for memory content correction)
 
          i_b_mem              => mem_kiknm_prm        , -- in     t_mem( add(g_RAM_ADD_S-1 downto 0), ...)  ; --! Memory port B inputs
-         o_b_data_out         => ki_knorm_p           , -- out    slv(g_RAM_DATA_S-1 downto 0)              ; --! Memory port B: data out
+         o_b_data_out         => mux_ki_knorm_p       , -- out    slv(g_RAM_DATA_S-1 downto 0)              ; --! Memory port B: data out
 
          o_b_flg_err          => open                   -- out    std_logic                                   --! Memory port B: flag error uncorrectable detected ('0' = No, '1' = Yes)
    );
 
-   o_ki_knorm_p_aln <= std_logic_vector(resize(unsigned(ki_knorm_p), o_ki_knorm_p_aln'length));
-
    -- ------------------------------------------------------------------------------------------------------
-   --!   Dual port memory ki(p)*knorm(p): memory signals management
+   --!   Dual port memory MUX ki(p)*knorm(p): memory signals management
    --!      (Getting parameter side)
    -- ------------------------------------------------------------------------------------------------------
    mem_kiknm_prm.add     <= i_mem_kiknm_prm_add;
@@ -217,9 +262,92 @@ begin
    end process P_mem_kiknm_prm_pp;
 
    -- ------------------------------------------------------------------------------------------------------
-   --!   Dual port memory for parameters knorm(p)
-   --    @Req : DRE-DMX-FW-REQ-0185
-   --    @Req : REG_CY_KNORM
+   --!   Parameters AMP ki*knorm
+   -- ------------------------------------------------------------------------------------------------------
+   P_amp_ki_knorm : process (i_rst, i_clk)
+   begin
+
+      if i_rst = c_RST_LEV_ACT then
+         amp_ki_knorm   <= c_EP_CMD_DEF_SAKKM;
+
+      elsif rising_edge(i_clk) then
+         if mem_kiknm_pp_rdy_r(mem_kiknm_pp_rdy_r'high) = c_HGH_LEV then
+            amp_ki_knorm   <= i_sakkm;
+
+         end if;
+
+      end if;
+
+   end process P_amp_ki_knorm;
+
+   -- ------------------------------------------------------------------------------------------------------
+   --!   Parameter ki*knorm select
+   --    @Req : DRE-DMX-FW-REQ-0392
+   -- ------------------------------------------------------------------------------------------------------
+   P_ki_knorm_p : process (i_rst, i_clk)
+   begin
+
+      if i_rst = c_RST_LEV_ACT then
+         ki_knorm_p <= std_logic_vector(to_unsigned(c_EP_CMD_DEF_KIKNM(0), ki_knorm_p'length));
+
+      elsif rising_edge(i_clk) then
+         if i_squid_amp_close = c_HGH_LEV then
+            ki_knorm_p <= amp_ki_knorm;
+
+         else
+            ki_knorm_p <= mux_ki_knorm_p;
+
+         end if;
+
+      end if;
+
+   end process P_ki_knorm_p;
+
+   ki_knorm_p_aln <= std_logic_vector(resize(unsigned(ki_knorm_p), ki_knorm_p_aln'length));
+
+   -- ------------------------------------------------------------------------------------------------------
+   --!   Result: fgn(p) = gain*ki(p)*knorm(p) (bus size result +1 bit for rounding)
+   --    @Req : DRE-DMX-FW-REQ-0147
+   --    @Req : DRE-DMX-FW-REQ-0148
+   -- ------------------------------------------------------------------------------------------------------
+   I_fgn_p: entity work.dsp generic map (
+         g_PORTA_S            => c_DFLD_SMIGN_COL_S   , -- integer                                          ; --! Port A bus size (<= c_MULT_ALU_PORTA_S)
+         g_PORTB_S            => c_DFLD_KIKNM_PIX_S+1 , -- integer                                          ; --! Port B bus size (<= c_MULT_ALU_PORTB_S)
+         g_PORTC_S            => c_DFLD_SMIGN_COL_S   , -- integer                                          ; --! Port C bus size (<= c_MULT_ALU_PORTC_S)
+         g_RESULT_S           => c_FGN_P_S + 1        , -- integer                                          ; --! Result bus size (<= c_MULT_ALU_RESULT_S)
+         g_LIN_SAT            => c_MULT_ALU_LSAT_ENA  , -- integer range 0 to 1                             ; --! Linear saturation (0 = Disable, 1 = Enable)
+         g_SAT_RANK           => c_MULT_ALU_SAT_NU    , -- integer                                          ; --! Extrem values reached on result bus, not used if linear saturation enabled
+                                                                                                              --!     range from -2**(g_SAT_RANK-1) to 2**(g_SAT_RANK-1) - 1
+         g_PRE_ADDER_OP       => c_LOW_LEV_B          , -- bit                                              ; --! Pre-Adder operation     ('0' = add,    '1' = subtract)
+         g_MUX_C_CZ           => c_LOW_LEV_B            -- bit                                                --! Multiplexer ALU operand ('0' = Port C, '1' = Cascaded Result Input)
+   ) port map (
+         i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+         i_clk                => i_clk                , -- in     std_logic                                 ; --! Clock
+
+         i_carry              => c_LOW_LEV            , -- in     std_logic                                 ; --! Carry In
+         i_a                  => i_squid_gain         , -- in     std_logic_vector( g_PORTA_S-1 downto 0)   ; --! Port A
+         i_b                  => ki_knorm_p_aln       , -- in     std_logic_vector( g_PORTB_S-1 downto 0)   ; --! Port B
+         i_c                  => c_ZERO(c_DFLD_SMIGN_COL_S-1  downto 0), -- in slv( g_PORTC_S-1 downto 0)   ; --! Port C
+         i_d                  => c_ZERO(c_DFLD_KIKNM_PIX_S    downto 0), -- in slv( g_PORTB_S-1 downto 0)   ; --! Port D
+         i_cz                 => c_ZERO(c_MULT_ALU_RESULT_S-1 downto 0), -- in slv c_MULT_ALU_RESULT_S      ; --! Cascaded Result Input
+
+         o_z                  => fgn_p                , -- out    std_logic_vector(g_RESULT_S-1 downto 0)   ; --! Result
+         o_cz                 => open                   -- out    slv(c_MULT_ALU_RESULT_S-1 downto 0)         --! Cascaded Result
+   );
+
+   I_fgn_p_rnd_sat: entity work.round_sat generic map (
+         g_RST_LEV_ACT        => c_RST_LEV_ACT        , -- std_logic                                        ; --! Reset level activation value
+         g_DATA_CARRY_S       => c_FGN_P_S + 1          -- integer                                            --! Data with carry bus size
+   )  port map (
+         i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+         i_clk                => i_clk                , -- in     std_logic                                 ; --! Clock
+         i_data_carry         => fgn_p                , -- in     slv(g_DATA_CARRY_S-1 downto 0)            ; --! Data with carry on lsb (signed)
+         o_data_rnd_sat       => o_fgn_p                -- out    slv(g_DATA_CARRY_S-2 downto 0)              --! Data rounded with saturation (signed)
+   );
+
+   -- ------------------------------------------------------------------------------------------------------
+   --!   Dual port memory for parameters MUX knorm(p)
+   --    @Req : REG_CY_MUX_SQ_KNORM
    -- ------------------------------------------------------------------------------------------------------
    I_mem_knorm_val: entity work.dmem_ecc generic map (
          g_RAM_TYPE           => c_RAM_TYPE_PRM_STORE , -- integer                                          ; --! Memory type ( 0  = Data transfer,  1  = Parameters storage)
@@ -242,15 +370,13 @@ begin
          i_b_clk_shift        => i_clk_90             , -- in     std_logic                                 ; --! Memory port B: 90 degrees shifted clock (used for memory content correction)
 
          i_b_mem              => mem_knorm_prm        , -- in     t_mem( add(g_RAM_ADD_S-1 downto 0), ...)  ; --! Memory port B inputs
-         o_b_data_out         => knorm_p              , -- out    slv(g_RAM_DATA_S-1 downto 0)              ; --! Memory port B: data out
+         o_b_data_out         => mux_knorm_p          , -- out    slv(g_RAM_DATA_S-1 downto 0)              ; --! Memory port B: data out
 
          o_b_flg_err          => open                   -- out    std_logic                                   --! Memory port B: flag error uncorrectable detected ('0' = No, '1' = Yes)
    );
 
-   o_knorm_p_aln <= std_logic_vector(resize(unsigned(knorm_p), o_knorm_p_aln'length));
-
    -- ------------------------------------------------------------------------------------------------------
-   --!   Dual port memory knorm(p): memory signals management
+   --!   Dual port memory MUX knorm(p): memory signals management
    --!      (Getting parameter side)
    -- ------------------------------------------------------------------------------------------------------
    mem_knorm_prm.add     <= i_mem_knorm_prm_add;
@@ -274,6 +400,90 @@ begin
       end if;
 
    end process P_mem_knorm_prm_pp;
+
+   -- ------------------------------------------------------------------------------------------------------
+   --!   Parameters AMP knorm
+   -- ------------------------------------------------------------------------------------------------------
+   P_amp_knorm : process (i_rst, i_clk)
+   begin
+
+      if i_rst = c_RST_LEV_ACT then
+         amp_knorm      <= c_EP_CMD_DEF_SAKRM;
+
+      elsif rising_edge(i_clk) then
+         if mem_knorm_pp_rdy_r(mem_knorm_pp_rdy_r'high) = c_HGH_LEV then
+            amp_knorm   <= i_sakrm;
+
+         end if;
+
+      end if;
+
+   end process P_amp_knorm;
+
+   -- ------------------------------------------------------------------------------------------------------
+   --!   Parameter knorm select
+   --    @Req : DRE-DMX-FW-REQ-0392
+   -- ------------------------------------------------------------------------------------------------------
+   P_knorm_p : process (i_rst, i_clk)
+   begin
+
+      if i_rst = c_RST_LEV_ACT then
+         knorm_p <= std_logic_vector(to_unsigned(c_EP_CMD_DEF_KNORM(0), knorm_p'length));
+
+      elsif rising_edge(i_clk) then
+         if i_squid_amp_close = c_HGH_LEV then
+            knorm_p <= amp_knorm;
+
+         else
+            knorm_p <= mux_knorm_p;
+
+         end if;
+
+      end if;
+
+   end process P_knorm_p;
+
+   knorm_p_aln <= std_logic_vector(resize(unsigned(knorm_p), knorm_p_aln'length));
+
+   -- ------------------------------------------------------------------------------------------------------
+   --!   Result: sgn(p) = gain*knorm(p) (bus size result +1 bit for rounding)
+   --    @Req : DRE-DMX-FW-REQ-0147
+   --    @Req : DRE-DMX-FW-REQ-0148
+   -- ------------------------------------------------------------------------------------------------------
+   I_sgn_p: entity work.dsp generic map (
+         g_PORTA_S            => c_DFLD_SMIGN_COL_S   , -- integer                                          ; --! Port A bus size (<= c_MULT_ALU_PORTA_S)
+         g_PORTB_S            => c_DFLD_KNORM_PIX_S+1 , -- integer                                          ; --! Port B bus size (<= c_MULT_ALU_PORTB_S)
+         g_PORTC_S            => c_DFLD_SMIGN_COL_S   , -- integer                                          ; --! Port C bus size (<= c_MULT_ALU_PORTC_S)
+         g_RESULT_S           => c_SGN_P_S + 1        , -- integer                                          ; --! Result bus size (<= c_MULT_ALU_RESULT_S)
+         g_LIN_SAT            => c_MULT_ALU_LSAT_ENA  , -- integer range 0 to 1                             ; --! Linear saturation (0 = Disable, 1 = Enable)
+         g_SAT_RANK           => c_MULT_ALU_SAT_NU    , -- integer                                          ; --! Extrem values reached on result bus, not used if linear saturation enabled
+                                                                                                              --!     range from -2**(g_SAT_RANK-1) to 2**(g_SAT_RANK-1) - 1
+         g_PRE_ADDER_OP       => c_LOW_LEV_B          , -- bit                                              ; --! Pre-Adder operation     ('0' = add,    '1' = subtract)
+         g_MUX_C_CZ           => c_LOW_LEV_B            -- bit                                                --! Multiplexer ALU operand ('0' = Port C, '1' = Cascaded Result Input)
+   ) port map (
+         i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+         i_clk                => i_clk                , -- in     std_logic                                 ; --! Clock
+
+         i_carry              => c_LOW_LEV            , -- in     std_logic                                 ; --! Carry In
+         i_a                  => i_squid_gain         , -- in     std_logic_vector( g_PORTA_S-1 downto 0)   ; --! Port A
+         i_b                  => knorm_p_aln          , -- in     std_logic_vector( g_PORTB_S-1 downto 0)   ; --! Port B
+         i_c                  => c_ZERO(c_DFLD_SMIGN_COL_S-1  downto 0), -- in slv( g_PORTC_S-1 downto 0)   ; --! Port C
+         i_d                  => c_ZERO(c_DFLD_KNORM_PIX_S    downto 0), -- in slv( g_PORTB_S-1 downto 0)   ; --! Port D
+         i_cz                 => c_ZERO(c_MULT_ALU_RESULT_S-1 downto 0), -- in slv c_MULT_ALU_RESULT_S      ; --! Cascaded Result Input
+
+         o_z                  => sgn_p                , -- out    std_logic_vector(g_RESULT_S-1 downto 0)   ; --! Result
+         o_cz                 => open                   -- out    slv(c_MULT_ALU_RESULT_S-1 downto 0)         --! Cascaded Result
+   );
+
+   I_sgn_p_rnd_sat: entity work.round_sat generic map (
+         g_RST_LEV_ACT        => c_RST_LEV_ACT        , -- std_logic                                        ; --! Reset level activation value
+         g_DATA_CARRY_S       => c_SGN_P_S + 1          -- integer                                            --! Data with carry bus size
+   )  port map (
+         i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+         i_clk                => i_clk                , -- in     std_logic                                 ; --! Clock
+         i_data_carry         => sgn_p                , -- in     slv(g_DATA_CARRY_S-1 downto 0)            ; --! Data with carry on lsb (signed)
+         o_data_rnd_sat       => o_sgn_p                -- out    slv(g_DATA_CARRY_S-2 downto 0)              --! Data rounded with saturation (signed)
+   );
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Dual port memory for smfb0(p)
@@ -306,8 +516,6 @@ begin
          o_b_flg_err          => open                   -- out    std_logic                                   --! Memory port B: flag error uncorrectable detected ('0' = No, '1' = Yes)
    );
 
-   o_smfb0_p_aln <= std_logic_vector(resize(unsigned(smfb0_p), o_smfb0_p_aln'length));
-
    -- ------------------------------------------------------------------------------------------------------
    --!   Dual port memory smfb0(p): memory signals management
    --!      (Getting parameter side)
@@ -333,6 +541,74 @@ begin
       end if;
 
    end process P_mem_smfb0_prm_pp;
+
+   -- ------------------------------------------------------------------------------------------------------
+   --!   Parameters AMP fb0
+   -- ------------------------------------------------------------------------------------------------------
+   P_safb0 : process (i_rst, i_clk)
+   begin
+
+      if i_rst = c_RST_LEV_ACT then
+         safb0    <= c_EP_CMD_DEF_SAOFC;
+
+      elsif rising_edge(i_clk) then
+         if mem_smfb0_pp_rdy_r(mem_smfb0_pp_rdy_r'high) = c_HGH_LEV then
+            safb0 <= i_saofc;
+
+         end if;
+
+      end if;
+
+   end process P_safb0;
+
+   I_safb0_aln : entity work.resize_stall_msb generic map (
+         g_DATA_S             => c_DFLD_SAOFC_COL_S   , -- integer                                          ; --! Data input bus size
+         g_DATA_STALL_MSB_S   => c_DFLD_SMFB0_PIX_S-1   -- integer                                            --! Data stalled on Mean Significant Bit bus size
+   ) port map (
+         i_data               => safb0                , -- in     slv(          g_DATA_S-1 downto 0)        ; --! Data
+         o_data_stall_msb     => safb0_aln            , -- out    slv(g_DATA_STALL_MSB_S-1 downto 0)        ; --! Data stalled on Mean Significant Bit
+         o_data               => open                   -- out    slv(          g_DATA_S-1 downto 0)          --! Data
+   );
+
+   -- ------------------------------------------------------------------------------------------------------
+   --!   Parameter FB0 select
+   -- ------------------------------------------------------------------------------------------------------
+   P_fb0_p_aln : process (i_rst, i_clk)
+   begin
+
+      if i_rst = c_RST_LEV_ACT then
+         fb0_p_aln <= std_logic_vector(to_unsigned(c_EP_CMD_DEF_SMFB0(0), fb0_p_aln'length));
+
+      elsif rising_edge(i_clk) then
+         if i_squid_amp_close = c_HGH_LEV then
+            fb0_p_aln <= std_logic_vector(resize(unsigned(safb0_aln), fb0_p_aln'length));
+
+         else
+            fb0_p_aln <= smfb0_p;
+
+         end if;
+
+      end if;
+
+   end process P_fb0_p_aln;
+
+   I_fb0_fb_aln : entity work.resize_stall_msb generic map (
+         g_DATA_S             => c_DFLD_SMFB0_PIX_S   , -- integer                                          ; --! Data input bus size
+         g_DATA_STALL_MSB_S   => c_FB_PN_S              -- integer                                            --! Data stalled on Mean Significant Bit bus size
+   ) port map (
+         i_data               => fb0_p_aln            , -- in     slv(          g_DATA_S-1 downto 0)        ; --! Data
+         o_data_stall_msb     => o_fb0_fb_aln         , -- out    slv(g_DATA_STALL_MSB_S-1 downto 0)        ; --! Data stalled on Mean Significant Bit
+         o_data               => open                   -- out    slv(          g_DATA_S-1 downto 0)          --! Data
+   );
+
+   I_fb0_rl_aln : entity work.resize_stall_msb generic map (
+         g_DATA_S             => c_DFLD_SMFB0_PIX_S   , -- integer                                          ; --! Data input bus size
+         g_DATA_STALL_MSB_S   => c_SQM_DATA_FBK_S       -- integer                                            --! Data stalled on Mean Significant Bit bus size
+   ) port map (
+         i_data               => fb0_p_aln            , -- in     slv(          g_DATA_S-1 downto 0)        ; --! Data
+         o_data_stall_msb     => o_fb0_rl_aln         , -- out    slv(g_DATA_STALL_MSB_S-1 downto 0)        ; --! Data stalled on Mean Significant Bit
+         o_data               => open                   -- out    slv(          g_DATA_S-1 downto 0)          --! Data
+   );
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Dual port memory for parameters Elp(p)
@@ -371,9 +647,30 @@ begin
          g_DATA_STALL_MSB_S   => c_ADC_SMP_AVE_S        -- integer                                            --! Data stalled on Mean Significant Bit bus size
    ) port map (
          i_data               => elp_p                , -- in     slv(          g_DATA_S-1 downto 0)        ; --! Data
-         o_data_stall_msb     => o_elp_p_aln          , -- out    slv(g_DATA_STALL_MSB_S-1 downto 0)        ; --! Data stalled on Mean Significant Bit
+         o_data_stall_msb     => elp_p_aln            , -- out    slv(g_DATA_STALL_MSB_S-1 downto 0)        ; --! Data stalled on Mean Significant Bit
          o_data               => open                   -- out    slv(          g_DATA_S-1 downto 0)          --! Data
    );
+
+
+   P_minus_elp_p_aln : process (i_rst, i_clk)
+   begin
+
+      if i_rst = c_RST_LEV_ACT then
+         o_minus_elp_p_aln <= c_ZERO(o_minus_elp_p_aln'range);
+
+      elsif rising_edge(i_clk) then
+         if (elp_p(elp_p'high) = c_HGH_LEV and elp_p(elp_p'high-1 downto 0) = c_ZERO(elp_p'high-1 downto 0)) then
+            o_minus_elp_p_aln(o_minus_elp_p_aln'high)             <= c_LOW_LEV;
+            o_minus_elp_p_aln(o_minus_elp_p_aln'high-1 downto 0)  <= (others => c_HGH_LEV);
+
+         else
+            o_minus_elp_p_aln <= std_logic_vector(signed(c_ZERO(o_minus_elp_p_aln'range)) - signed(elp_p_aln));
+
+         end if;
+
+      end if;
+
+   end process P_minus_elp_p_aln;
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Dual port memory Elp(p): memory signals management

@@ -39,14 +39,16 @@ entity science_data_mgt is port (
          i_clk                : in     std_logic                                                            ; --! System Clock
 
          i_ras_data_valid_rs  : in     std_logic                                                            ; --! RAS Data valid, synchronized on System Clock ('0' = No, '1' = Yes)
-         i_aqmde              : in     std_logic_vector(c_DFLD_AQMDE_S-1 downto 0)                          ; --! Telemetry mode
+         i_aqmde_sync         : in     t_slv_arr(0 to c_NB_COL-1)(c_DFLD_AQMDE_S-1 downto 0)                ; --! Telemetry mode, sync. on first pixel
          i_tsten_ena          : in     std_logic                                                            ; --! Test pattern enable, field Enable ('0' = Inactive, '1' = Active)
          i_tst_pat_end        : in     std_logic                                                            ; --! Test pattern end of all patterns ('0' = Inactive, '1' = Active)
          i_tst_pat_new_step   : in     std_logic                                                            ; --! Test pattern new step ('0' = Inactive, '1' = Active)
 
          i_test_pattern       : in     std_logic_vector(c_SC_DATA_SER_W_S*c_SC_DATA_SER_NB-1 downto 0)      ; --! Test pattern
-         i_sqm_data_sc_msb    : in     t_slv_arr(0 to c_NB_COL-1)(c_SC_DATA_SER_W_S-1 downto 0)             ; --! SQUID MUX Data science MSB
-         i_sqm_data_sc_lsb    : in     t_slv_arr(0 to c_NB_COL-1)(c_SC_DATA_SER_W_S-1 downto 0)             ; --! SQUID MUX Data science LSB
+         i_err_sig            : in     t_slv_arr(0 to c_NB_COL-1)
+                                                (c_SC_DATA_SER_NB*c_SC_DATA_SER_W_S-1 downto 0)             ; --! Error signal (signed)
+         i_sqm_data_sc        : in     t_slv_arr(0 to c_NB_COL-1)
+                                                (c_SC_DATA_SER_NB*c_SC_DATA_SER_W_S-1 downto 0)             ; --! SQUID MUX Data science
          i_sqm_data_sc_first  : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! SQUID MUX Data science first pixel ('0' = No, '1' = Yes)
          i_sqm_data_sc_last   : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! SQUID MUX Data science last pixel ('0' = No, '1' = Yes)
          i_sqm_data_sc_rdy    : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! SQUID MUX Data science ready ('0' = Not ready, '1' = Ready)
@@ -76,6 +78,12 @@ constant c_DMP_CNT_S          : integer:= log2_ceil(c_DMP_CNT_NB_VAL + 1) + 1   
 signal   ras_data_valid_rs_r  : std_logic                                                                   ; --! RAS Data valid register ('0' = No, '1' = Yes)
 signal   ras_data_valid_ltc   : std_logic                                                                   ; --! RAS Data valid synchronous latch
 
+signal   sqm_data_sc_msb      : t_slv_arr(0 to c_NB_COL-1)(c_SC_DATA_SER_W_S-1 downto 0)                    ; --! SQUID MUX Data science MSB
+signal   sqm_data_sc_lsb      : t_slv_arr(0 to c_NB_COL-1)(c_SC_DATA_SER_W_S-1 downto 0)                    ; --! SQUID MUX Data science LSB
+signal   sqm_data_sc_first_r  : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! SQUID MUX Data science first pixel register ('0' = No, '1' = Yes)
+signal   sqm_data_sc_last_r   : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! SQUID MUX Data science last pixel register ('0' = No, '1' = Yes)
+signal   sqm_data_sc_rdy_r    : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! SQUID MUX Data science ready register ('0' = Not ready, '1' = Ready)
+
 signal   sqm_data_sc_msb_pv   : t_slv_arr_tab(0 to c_NB_COL-1)(0 to c_DT_PV-1)(c_SC_DATA_SER_W_S-1 downto 0); --! SQUID MUX Data science MSB previous
 signal   sqm_data_sc_lsb_pv   : t_slv_arr_tab(0 to c_NB_COL-1)(0 to c_DT_PV-1)(c_SC_DATA_SER_W_S-1 downto 0); --! SQUID MUX Data science LSB previous
 
@@ -96,7 +104,6 @@ signal   sqm_data_sc_lst_and  : std_logic_vector(c_NB_COL-1 downto 0)           
 signal   sqm_data_sc_lst_all  : std_logic                                                                   ; --! SQUID MUX Data science last pixel for all columns
 signal   sqm_dta_sc_lst_all_r : std_logic                                                                   ; --! SQUID MUX Data science last pixel for all columns register
 
-signal   aqmde_r              : std_logic_vector(c_DFLD_AQMDE_S-1 downto 0)                                 ; --! Telemetry mode register
 signal   aqmde_sync           : std_logic_vector(c_DFLD_AQMDE_S-1 downto 0)                                 ; --! Telemetry mode, sync on pixel sequence
 signal   tst_pat_end_r        : std_logic                                                                   ; --! Test pattern end of all patterns register
 signal   tst_pat_end_sync     : std_logic                                                                   ; --! Test pattern end of all patterns, sync on pixel sequence
@@ -141,6 +148,38 @@ begin
    G_column_mgt: for k in 0 to c_NB_COL-1 generate
    begin
 
+      -- ------------------------------------------------------------------------------------------------------
+      --!   SQUID MUX Data science
+      -- ------------------------------------------------------------------------------------------------------
+      P_sqm_data_sc : process (i_rst, i_clk)
+      begin
+
+         if i_rst = c_RST_LEV_ACT then
+            sqm_data_sc_msb(k)      <= c_ZERO(sqm_data_sc_msb(k)'range);
+            sqm_data_sc_lsb(k)      <= c_ZERO(sqm_data_sc_lsb(k)'range);
+            sqm_data_sc_first_r(k)  <= c_LOW_LEV;
+            sqm_data_sc_last_r(k)   <= c_LOW_LEV;
+            sqm_data_sc_rdy_r(k)    <= c_LOW_LEV;
+
+         elsif rising_edge(i_clk) then
+            if i_aqmde_sync(k) = c_DST_AQMDE_ERRS then
+               sqm_data_sc_msb(k)   <= i_err_sig(k)(c_SC_DATA_SER_NB*c_SC_DATA_SER_W_S-1 downto c_SC_DATA_SER_W_S);
+               sqm_data_sc_lsb(k)   <= i_err_sig(k)(                 c_SC_DATA_SER_W_S-1 downto 0);
+
+            else
+               sqm_data_sc_msb(k)   <= i_sqm_data_sc(k)(c_SC_DATA_SER_NB*c_SC_DATA_SER_W_S-1 downto c_SC_DATA_SER_W_S);
+               sqm_data_sc_lsb(k)   <= i_sqm_data_sc(k)(                 c_SC_DATA_SER_W_S-1 downto 0);
+
+            end if;
+
+            sqm_data_sc_first_r(k)  <= i_sqm_data_sc_first(k);
+            sqm_data_sc_last_r(k)   <= i_sqm_data_sc_last(k);
+            sqm_data_sc_rdy_r(k)    <= i_sqm_data_sc_rdy(k);
+
+         end if;
+
+      end process P_sqm_data_sc;
+
    -- ------------------------------------------------------------------------------------------------------
    --!   SQUID MUX Data science previous value
    -- ------------------------------------------------------------------------------------------------------
@@ -152,9 +191,9 @@ begin
             sqm_data_sc_lsb_pv(k)   <= (others => c_ZERO(sqm_data_sc_lsb_pv(sqm_data_sc_lsb_pv'low)(sqm_data_sc_lsb_pv'low)'range));
 
          elsif rising_edge(i_clk) then
-            if i_sqm_data_sc_rdy(k) = c_HGH_LEV then
-               sqm_data_sc_msb_pv(k) <= i_sqm_data_sc_msb(k) & sqm_data_sc_msb_pv(k)(0 to sqm_data_sc_msb_pv(k)'high-1);
-               sqm_data_sc_lsb_pv(k) <= i_sqm_data_sc_lsb(k) & sqm_data_sc_lsb_pv(k)(0 to sqm_data_sc_lsb_pv(k)'high-1);
+            if sqm_data_sc_rdy_r(k) = c_HGH_LEV then
+               sqm_data_sc_msb_pv(k) <= sqm_data_sc_msb(k) & sqm_data_sc_msb_pv(k)(0 to sqm_data_sc_msb_pv(k)'high-1);
+               sqm_data_sc_lsb_pv(k) <= sqm_data_sc_lsb(k) & sqm_data_sc_lsb_pv(k)(0 to sqm_data_sc_lsb_pv(k)'high-1);
 
             end if;
 
@@ -175,7 +214,7 @@ begin
             if (sqm_data_sc_rdy_and(sqm_data_sc_rdy_and'high) or sqm_data_sc_fst_and(sqm_data_sc_fst_and'high)) = c_HGH_LEV then
                sqm_data_sc_rdy_ena(k)  <= c_LOW_LEV;
 
-            elsif i_sqm_data_sc_rdy(k) = c_HGH_LEV then
+            elsif sqm_data_sc_rdy_r(k) = c_HGH_LEV then
                sqm_data_sc_rdy_ena(k)  <= c_HGH_LEV;
 
             end if;
@@ -197,9 +236,9 @@ begin
          elsif rising_edge(i_clk) then
             if    sqm_data_sc_fst_and(sqm_data_sc_fst_and'high) = c_HGH_LEV then
                sqm_data_sc_fst_ena(k)  <= c_LOW_LEV;
-               sqm_data_sc_sel(k)      <= i_sqm_data_sc_first(k);
+               sqm_data_sc_sel(k)      <= sqm_data_sc_first_r(k);
 
-            elsif (i_sqm_data_sc_first(k) and i_sqm_data_sc_rdy(k)) = c_HGH_LEV then
+            elsif (sqm_data_sc_first_r(k) and sqm_data_sc_rdy_r(k)) = c_HGH_LEV then
                sqm_data_sc_fst_ena(k)  <= c_HGH_LEV;
 
             end if;
@@ -221,7 +260,7 @@ begin
             if     sqm_data_sc_fst_and(sqm_data_sc_fst_and'high) = c_HGH_LEV then
                sqm_data_sc_lst_ena(k)  <= c_LOW_LEV;
 
-            elsif (i_sqm_data_sc_last(k) and i_sqm_data_sc_rdy(k)) = c_HGH_LEV then
+            elsif (sqm_data_sc_last_r(k) and sqm_data_sc_rdy_r(k)) = c_HGH_LEV then
                sqm_data_sc_lst_ena(k)  <= c_HGH_LEV;
 
             end if;
@@ -247,8 +286,8 @@ begin
                   sqm_data_sc_lsb_mux(k) <= sqm_data_sc_lsb_pv(k)(c_DT_PV-1);
 
                else
-                  sqm_data_sc_msb_mux(k) <= i_sqm_data_sc_msb(k);
-                  sqm_data_sc_lsb_mux(k) <= i_sqm_data_sc_lsb(k);
+                  sqm_data_sc_msb_mux(k) <= sqm_data_sc_msb(k);
+                  sqm_data_sc_lsb_mux(k) <= sqm_data_sc_lsb(k);
 
                end if;
 
@@ -307,18 +346,16 @@ begin
    begin
 
       if i_rst = c_RST_LEV_ACT then
-         aqmde_r           <= c_EP_CMD_DEF_AQMDE;
          tst_pat_end_r     <= c_HGH_LEV;
 
          aqmde_sync        <= c_EP_CMD_DEF_AQMDE;
          tst_pat_end_sync  <= c_HGH_LEV;
 
       elsif rising_edge(i_clk) then
-         aqmde_r           <= i_aqmde;
          tst_pat_end_r     <= i_tst_pat_end;
 
          if sqm_data_sc_fst_and(sqm_data_sc_fst_and'high) = c_HGH_LEV then
-            aqmde_sync        <= aqmde_r;
+            aqmde_sync        <= i_aqmde_sync(c_COL0);
             tst_pat_end_sync  <= tst_pat_end_r;
 
          end if;
@@ -406,7 +443,6 @@ begin
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Science data management
-   --    @Req : DRE-DMX-FW-REQ-0460
    --    @Req : DRE-DMX-FW-REQ-0580
    -- ------------------------------------------------------------------------------------------------------
    G_science_data : for k in 0 to c_NB_COL-1 generate

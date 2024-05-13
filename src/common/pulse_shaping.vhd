@@ -48,8 +48,6 @@ entity pulse_shaping is generic (
 end entity pulse_shaping;
 
 architecture RTL of pulse_shaping is
-constant c_Y_K_LSB_POS        : integer := g_A_EXP + g_X_K_S - g_Y_K_S                                      ; --! y[k]: filtered data out LSB position
-constant c_FILT_SAT_RANK      : integer := g_X_K_S + g_A_EXP                                                ; --! Filter: saturation rank range from 0 to 2^(c_FILT_SAT_RANK+1) - 1
 constant c_Y_K_RST_VAL        : integer := c_DAC_MDL_POINT/2**(g_X_K_S-g_Y_K_S)                             ; --! y[k]: filtered data out reset value
 
 signal   x_init_rsize         : std_logic_vector(g_X_K_S   downto 0)                                        ; --! Last value reached by y[k] at the end of last slice resized (unsigned)
@@ -57,7 +55,7 @@ signal   x_final_rsize        : std_logic_vector(g_X_K_S   downto 0)            
 signal   a_mant_k_rsize       : std_logic_vector(g_A_EXP   downto 0)                                        ; --! A[k]: filter mantissa parameter resized (unsigned)
 signal   x_final_shift        : std_logic_vector(c_MULT_ALU_PORTC_S-1 downto 0)                             ; --! Final value to reach by y[k] resized (unsigned)
 
-signal   w_k                  : std_logic_vector(g_Y_K_S-1 downto 0)                                        ; --! Filter output (unsigned)
+signal   w_k                  : std_logic_vector(g_Y_K_S   downto 0)                                        ; --! Filter output (unsigned)
 
 begin
 
@@ -80,11 +78,10 @@ begin
          g_PORTA_S            => g_A_EXP+1            , -- integer                                          ; --! Port A bus size (<= c_MULT_ALU_PORTA_S)
          g_PORTB_S            => g_X_K_S+1            , -- integer                                          ; --! Port B bus size (<= c_MULT_ALU_PORTB_S)
          g_PORTC_S            => c_MULT_ALU_PORTC_S   , -- integer                                          ; --! Port C bus size (<= c_MULT_ALU_PORTC_S)
-         g_RESULT_S           => g_Y_K_S              , -- integer                                          ; --! Result bus size (<= c_MULT_ALU_RESULT_S)
-         g_RESULT_LSB_POS     => c_Y_K_LSB_POS        , -- integer                                          ; --! Result LSB position
-         g_SAT_RANK           => c_FILT_SAT_RANK      , -- integer                                          ; --! Extrem values reached on result bus
-                                                                                                              --!   unsigned: range from               0  to 2**(g_SAT_RANK+1) - 1
-                                                                                                              --!     signed: range from -2**(g_SAT_RANK) to 2**(g_SAT_RANK)   - 1
+         g_RESULT_S           => g_Y_K_S+1            , -- integer                                          ; --! Result bus size (<= c_MULT_ALU_RESULT_S)
+         g_LIN_SAT            => c_MULT_ALU_LSAT_ENA  , -- integer range 0 to 1                             ; --! Linear saturation (0 = Disable, 1 = Enable)
+         g_SAT_RANK           => c_MULT_ALU_SAT_NU    , -- integer                                          ; --! Extrem values reached on result bus, not used if linear saturation enabled
+                                                                                                              --!     range from -2**(g_SAT_RANK-1) to 2**(g_SAT_RANK-1) - 1
          g_PRE_ADDER_OP       => c_HGH_LEV_B          , -- bit                                              ; --! Pre-Adder operation     ('0' = add,    '1' = subtract)
          g_MUX_C_CZ           => c_LOW_LEV_B            -- bit                                                --! Multiplexer ALU operand ('0' = Port C, '1' = Cascaded Result Input)
    ) port map (
@@ -119,7 +116,7 @@ begin
          end if;
 
       elsif rising_edge(i_clk_sqm_adc_dac) then
-         o_y_k <= w_k;
+         o_y_k <= w_k(o_y_k'range);
 
       end if;
 

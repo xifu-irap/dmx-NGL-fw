@@ -29,8 +29,8 @@ DRE_DMX_UT_0270;EP command, CY_SAMPLING_DELAY register;PASS
 DRE_DMX_UT_0280;EP command, BOXCAR_LENGTH register;PASS
 DRE_DMX_UT_0290;ADC Error signal on science data telemetry;PASS
 DRE_DMX_UT_0300;EP command, CY_A memory;PASS
-DRE_DMX_UT_0310;EP command, CY_KI_KNORM memory;PASS
-DRE_DMX_UT_0320;EP command, CY_KNORM memory;PASS
+DRE_DMX_UT_0310;EP command, CY_MUX_SQ_KI_KNORM memory;PASS
+DRE_DMX_UT_0320;EP command, CY_MUX_SQ_KNORM memory;PASS
 DRE_DMX_UT_0330;EP command, CY_MUX_SQ_LOCKPOINT_V memory;PASS
 DRE_DMX_UT_0340;Feedback chain calculation and science data telemetry;PASS
 DRE_DMX_UT_0350;EP command, TEST_PATTERN memory;PASS
@@ -44,4 +44,9 @@ DRE_DMX_UT_0420;Auto-Relock;PASS
 DRE_DMX_UT_0430;RAS Data valid;PASS
 DRE_DMX_UT_0440;Housekeeping;PASS
 DRE_DMX_UT_0450;AMP SQUID in close loop mode;PASS
+DRE_DMX_UT_0460;EP command, CY_MUX_SQ_INPUT_GAIN register;PASS
+DRE_DMX_UT_0470;EP command, CY_AMP_SQ_INPUT_GAIN register;PASS
+DRE_DMX_UT_0480;EP command, CY_AMP_SQ_KI_KNORM register;PASS
+DRE_DMX_UT_0490;EP command, CY_AMP_SQ_KNORM register;PASS
+DRE_DMX_UT_0500;EP command, CY_AMP_SQ_OFFSET_LSB_PTR register;PASS
 DRE_DMX_UT_5000;Coupling DEMUX/FPASIM simple test;PASS

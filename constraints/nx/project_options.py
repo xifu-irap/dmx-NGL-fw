@@ -25,7 +25,7 @@
 def add_options(p,timing_driven,seed):
     p.setOptions({
         'Autosave'                          : 'Yes',
-        'BypassingEffort'                   : 'High',
+        'BypassingEffort'                   : 'Medium',
         'CongestionEffort'                  : 'High',
         'DefaultFSMEncoding'                : 'OneHot',
         'DefaultRAMMapping'                 : 'AUTO',

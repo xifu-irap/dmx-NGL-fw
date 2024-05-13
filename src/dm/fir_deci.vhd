@@ -77,7 +77,7 @@ constant c_FIR_A_CNT_MAX_VAL  : integer:= g_FIR_TAB_NW - 2                      
 constant c_FIR_A_CNT_S        : integer:= log2_ceil(c_FIR_A_CNT_MAX_VAL + 1) + 1                            ; --! Filter FIR address counter: size bus (signed)
 
 constant c_FIR_ADD_S          : integer := log2_ceil(g_FIR_TAB_NW)                                          ; --! Filter FIR address bus size
-constant c_FIR_PROD_S         : integer := g_FIR_DATA_S + g_FIR_COEF_S                                      ; --! Filter FIR product result bus size
+constant c_FIR_PROD_S         : integer := g_FIR_DATA_S + g_FIR_COEF_S - 1                                  ; --! Filter FIR product result bus size
 constant c_FIR_SUM_S          : integer := g_FIR_DATA_S + g_FIR_COEF_SUM_S                                  ; --! Filter FIR result bus size
 
 signal   mem_fir_data_wr      : t_mem(
@@ -390,10 +390,9 @@ begin
          g_PORTB_S            => g_FIR_COEF_S         , -- integer                                          ; --! Port B bus size (<= c_MULT_ALU_PORTB_S)
          g_PORTC_S            => c_MULT_ALU_PORTC_S   , -- integer                                          ; --! Port C bus size (<= c_MULT_ALU_PORTC_S)
          g_RESULT_S           => c_FIR_PROD_S         , -- integer                                          ; --! Result bus size (<= c_MULT_ALU_RESULT_S)
-         g_RESULT_LSB_POS     => 0                    , -- integer                                          ; --! Result LSB position
-         g_SAT_RANK           => c_FIR_PROD_S + 1     , -- integer                                          ; --! Extrem values reached on result bus
-                                                                                                              --!   unsigned: range from               0  to 2**(g_SAT_RANK+1) - 1
-                                                                                                              --!     signed: range from -2**(g_SAT_RANK) to 2**(g_SAT_RANK)   - 1
+         g_LIN_SAT            => c_MULT_ALU_LSAT_ENA  , -- integer range 0 to 1                             ; --! Linear saturation (0 = Disable, 1 = Enable)
+         g_SAT_RANK           => c_MULT_ALU_SAT_NU    , -- integer                                          ; --! Extrem values reached on result bus, not used if linear saturation enabled
+                                                                                                              --!     range from -2**(g_SAT_RANK-1) to 2**(g_SAT_RANK-1) - 1
          g_PRE_ADDER_OP       => c_LOW_LEV_B          , -- bit                                              ; --! Pre-Adder operation     ('0' = add,    '1' = subtract)
          g_MUX_C_CZ           => c_LOW_LEV_B            -- bit                                                --! Multiplexer ALU operand ('0' = Port C, '1' = Cascaded Result Input)
    ) port map (
@@ -425,10 +424,10 @@ begin
             fir_sum <= c_ZERO(fir_sum'range);
 
          elsif cnt_fir_add_msb_r(cnt_fir_add_msb_r'high) = c_LOW_LEV then
-            fir_sum <= std_logic_vector(signed(fir_prod) + signed(fir_sum));
+            fir_sum <= std_logic_vector(resize(signed(fir_prod), fir_sum'length) + signed(fir_sum));
 
          elsif (cnt_fir_data_wd_lst and data_rdy_r(c_FIR_PRD_RDY_POS)) = c_HGH_LEV then
-            fir_sum <= std_logic_vector(signed(fir_prod) + signed(fir_sum));
+            fir_sum <= std_logic_vector(resize(signed(fir_prod), fir_sum'length) + signed(fir_sum));
 
          end if;
 

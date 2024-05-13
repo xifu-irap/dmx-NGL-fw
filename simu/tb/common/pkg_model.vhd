@@ -337,7 +337,7 @@ constant c_CLK_SC_ST_DIS      : std_logic := c_LOW_LEV                          
 
 constant c_SYNC_HIGH          : time    :=  10 * c_CLK_REF_PER_DEF                                          ; --! Pixel sequence synchronization high level time
 
-constant c_SQA_DAC_COEF_FACT  : real    := 1.0 / 6.0                                                        ; --! SQUID AMP DAC: Factor coefficient for voltage output
+constant c_SQA_DAC_COEF_FACT  : real    := 1.0 / 3.0                                                        ; --! SQUID AMP DAC: Factor coefficient for voltage output
 
 constant c_SW_ADC_VIN_S       : integer :=  2                                                               ; --! Switch ADC voltage input bus size
 constant c_SW_ADC_VIN_ST_SQM  : std_logic_vector(c_SW_ADC_VIN_S-1 downto 0) := "00"                         ; --! Switch ADC voltage input: SQUID MUX voltage state

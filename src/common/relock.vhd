@@ -39,8 +39,8 @@ entity relock is port (
          i_rst                : in     std_logic                                                            ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                : in     std_logic                                                            ; --! Clock
 
-         i_sqm_dta_pixel_pos  : in     std_logic_vector(    c_MUX_FACT_S-1 downto 0)                        ; --! SQUID MUX Data error corrected pixel position
-         i_diff_sqm_dta_smfb0 : in     std_logic_vector(  c_SQM_DATA_FBK_S   downto 0)                      ; --! SQUID MUX Data error corrected minus SQUID MUX feedback value in open loop
+         i_sqm_dta_err_cor    : in     std_logic_vector(c_SQM_DATA_FBK_S-1   downto 0)                      ; --! SQUID MUX Data error corrected (signed)
+         i_fb0_rl_aln         : in     std_logic_vector(c_SQM_DATA_FBK_S-1   downto 0)                      ; --! Feedback value in open loop for relock alignment
          i_sqm_dta_err_cor_cs : in     std_logic                                                            ; --! SQUID MUX Data error corrected chip select ('0' = Inactive, '1' = Active)
 
          i_mem_rl_rd_add      : in     std_logic_vector(      c_MUX_FACT_S-1 downto 0)                      ; --! Relock memories read address
@@ -50,7 +50,7 @@ entity relock is port (
          i_rlthr              : in     std_logic_vector(c_DFLD_RLTHR_COL_S-1 downto 0)                      ; --! Relock threshold
 
          i_mem_dlcnt          : in     t_mem(
-                                       add(      c_MEM_DLCNT_ADD_S-1 downto 0),
+                                       add(    c_MEM_DLCNT_ADD_S-1 downto 0),
                                        data_w(c_DFLD_DLCNT_PIX_S-1 downto 0))                               ; --! Delock counter: memory inputs
          o_dlcnt_data         : out    std_logic_vector(c_DFLD_DLCNT_PIX_S-1 downto 0)                      ; --! Delock counter: data read
          o_dlflg              : out    std_logic_vector(c_DFLD_DLFLG_COL_S-1 downto 0)                      ; --! Delock flag ('0' = No delock on pixels, '1' = Delock on at least one pixel)
@@ -60,13 +60,16 @@ entity relock is port (
 end entity relock;
 
 architecture RTL of relock is
-constant c_FF_ERR_COR_CS_NB   : integer := 4                                                                ; --! Flip-Flop number used for SQUID MUX Data error corrected chip select register
-constant c_ERR_CS_DLCWR_POS   : integer := 2                                                                ; --! SQUID MUX Data error corrected chip select Delock counter write position
-constant c_ERR_CS_DLFLG_POS   : integer := c_ERR_CS_DLCWR_POS+1                                             ; --! SQUID MUX Data error corrected chip select Delock Flags position
+constant c_ERR_CS_THRCP_POS   : integer := 0                                                                ; --! SQUID MUX Data error corrected chip select Counter threshold exceed read compare
+constant c_ERR_CS_THRWR_POS   : integer := c_ERR_CS_THRCP_POS + 1                                           ; --! SQUID MUX Data error corrected chip select Counter threshold exceed write position
+constant c_ERR_CS_DLCWR_POS   : integer := c_ERR_CS_THRCP_POS + 1                                           ; --! SQUID MUX Data error corrected chip select Delock counter write position
+constant c_FF_ERR_COR_CS_NB   : integer := c_ERR_CS_DLCWR_POS + 1                                           ; --! Flip-Flop number used for SQUID MUX Data error corrected chip select register
 
 constant c_DLCNT_SAT          : integer := 2**c_DFLD_DLCNT_PIX_S - 1                                        ; --! Delock counter saturation value
 constant c_CNT_THR_EXC_INIT   : std_logic_vector(c_DFLD_RLDEL_COL_S downto 0) :=
                                 std_logic_vector(to_unsigned(1, c_DFLD_RLDEL_COL_S+1))                      ; --! Counter threshold exceed initialization value
+
+signal   diff_sqm_dta_fb0     : std_logic_vector(  c_SQM_DATA_FBK_S   downto 0)                             ; --! Data error corrected minus feedback value in open loop
 
 signal   rlthr_r              : std_logic_vector(c_DFLD_RLTHR_COL_S-1 downto 0)                             ; --! Relock threshold register
 signal   squid_close_mode_n_r : std_logic                                                                   ; --! SQUID MUX/AMP Close mode register ('0' = Yes, '1' = No)
@@ -111,6 +114,25 @@ begin
 
    end process P_sig_r;
 
+   -- ------------------------------------------------------------------------------------------------------
+   --!   Relock: Difference between Data error corrected and feedback value in open loop
+   --    @Req : DRE-DMX-FW-REQ-0400
+   -- ------------------------------------------------------------------------------------------------------
+   P_diff_sqm_dta_fb0 : process (i_rst, i_clk)
+   begin
+
+      if i_rst = c_RST_LEV_ACT then
+         diff_sqm_dta_fb0   <= c_ZERO(diff_sqm_dta_fb0'range);
+
+      elsif rising_edge(i_clk) then
+         if i_sqm_dta_err_cor_cs = c_HGH_LEV then
+            diff_sqm_dta_fb0  <= std_logic_vector(resize(signed(i_sqm_dta_err_cor), diff_sqm_dta_fb0'length) -
+                                                  resize(signed(i_fb0_rl_aln), diff_sqm_dta_fb0'length));
+         end if;
+
+      end if;
+
+   end process P_diff_sqm_dta_fb0;
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Dual port memory counter threshold exceed
@@ -128,7 +150,7 @@ begin
          cnt_thr_exceed_rd      <= mem_cnt_thr_exceed(to_integer(unsigned(i_mem_rl_rd_add)));
          cnt_thr_exceed_rd_r    <= cnt_thr_exceed_rd;
 
-         if squid_close_mode_n_r = c_LOW_LEV and (unsigned(cnt_thr_exceed_rd) >= resize(unsigned(i_rldel), cnt_thr_exceed_rd'length)) then
+         if squid_close_mode_n_r = c_LOW_LEV and (unsigned(cnt_thr_exceed_rd_r) >= resize(unsigned(i_rldel), cnt_thr_exceed_rd_r'length)) then
             cnt_thr_exd_rd_cmp  <= c_HGH_LEV;
 
          else
@@ -148,15 +170,15 @@ begin
          cnt_thr_exceed_wr <= c_CNT_THR_EXC_INIT;
 
       elsif rising_edge(i_clk) then
-         if sqm_dta_err_cor_cs_r(sqm_dta_err_cor_cs_r'low) = c_HGH_LEV then
+         if sqm_dta_err_cor_cs_r(c_ERR_CS_THRCP_POS) = c_HGH_LEV then
             if squid_close_mode_n_r = c_HGH_LEV then
                cnt_thr_exceed_wr <= c_CNT_THR_EXC_INIT;
 
             elsif cnt_thr_exd_rd_cmp = c_HGH_LEV then
                cnt_thr_exceed_wr <= c_CNT_THR_EXC_INIT;
 
-            elsif (signed(i_diff_sqm_dta_smfb0) > signed(resize(unsigned(rlthr_r), i_diff_sqm_dta_smfb0'length))) or
-                 ((signed(i_diff_sqm_dta_smfb0) + signed(resize(unsigned(rlthr_r), i_diff_sqm_dta_smfb0'length))) < 0 ) then
+            elsif (signed(diff_sqm_dta_fb0) > signed(resize(unsigned(rlthr_r), diff_sqm_dta_fb0'length))) or
+                 ((signed(diff_sqm_dta_fb0) + signed(resize(unsigned(rlthr_r), diff_sqm_dta_fb0'length))) < 0 ) then
                cnt_thr_exceed_wr <= std_logic_vector(unsigned(cnt_thr_exceed_rd_r) + 1);
 
             else
@@ -175,7 +197,10 @@ begin
    begin
 
       if rising_edge(i_clk) then
-         mem_cnt_thr_exceed(to_integer(unsigned(i_sqm_dta_pixel_pos))) <= cnt_thr_exceed_wr;
+         if sqm_dta_err_cor_cs_r(c_ERR_CS_THRWR_POS) = c_HGH_LEV then
+            mem_cnt_thr_exceed(to_integer(unsigned(i_mem_rl_rd_add))) <= cnt_thr_exceed_wr;
+
+         end if;
 
       end if;
 
@@ -217,7 +242,7 @@ begin
    --!      (Getting parameter side)
    -- ------------------------------------------------------------------------------------------------------
    mem_dlcnt_prm.add     <= i_mem_rl_rd_add;
-   mem_dlcnt_prm.we      <= sqm_dta_err_cor_cs_r(sqm_dta_err_cor_cs_r'high) and dlcnt_wr_ena;
+   mem_dlcnt_prm.we      <= sqm_dta_err_cor_cs_r(c_ERR_CS_DLCWR_POS) and dlcnt_wr_ena;
    mem_dlcnt_prm.cs      <= c_HGH_LEV;
    mem_dlcnt_prm.data_w  <= dlcnt_wr;
    mem_dlcnt_prm.pp      <= mem_dlcnt_pp;
@@ -258,7 +283,7 @@ begin
          dlcnt_wr <= c_ZERO(dlcnt_wr'range);
 
       elsif rising_edge(i_clk) then
-         if sqm_dta_err_cor_cs_r(c_ERR_CS_DLCWR_POS) = c_HGH_LEV then
+         if sqm_dta_err_cor_cs_r(c_ERR_CS_THRCP_POS) = c_HGH_LEV then
             if i_smfmd = c_DST_SMFMD_OFF then
                dlcnt_wr <= c_ZERO(dlcnt_wr'range);
 
@@ -295,7 +320,7 @@ begin
             dlflag(k)(dlflag(dlflag'low)'low) <= c_LOW_LEV;
 
          elsif rising_edge(i_clk) then
-            if (sqm_dta_err_cor_cs_r(c_ERR_CS_DLFLG_POS) = c_HGH_LEV) and (i_mem_rl_rd_add = std_logic_vector(to_unsigned(k, i_mem_rl_rd_add'length))) then
+            if (sqm_dta_err_cor_cs_r(c_ERR_CS_DLCWR_POS) = c_HGH_LEV) and (i_mem_rl_rd_add = std_logic_vector(to_unsigned(k, i_mem_rl_rd_add'length))) then
                if dlcnt_wr = c_ZERO(dlcnt_wr'range) then
                   dlflag(k)(dlflag(dlflag'low)'low) <= c_LOW_LEV;
 

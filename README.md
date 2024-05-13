@@ -4,8 +4,8 @@ DRE-DEMUX TDM firmware: https://github.com/xifu-irap/dmx-fw
    - FPGA target: DK/DM: NG-LARGE (NanoXplore)
    - Synthesis tool: nxdesignsuite v23.5.1.2
    - Firmware specification:
-      + IRAP/XIFU-DRE/FM/SP/0065 - DRE TDM firmware requirements, ed. 0.15
-      + IRAP/XIFU-DRE/FM/SP/0069 - DRE Inter-Modules Telemetry And Commands Definition, ed. 1.3
+      + IRAP/XIFU-DRE/FM/SP/0065 - DRE TDM firmware requirements, ed. 1.0
+      + IRAP/XIFU-DRE/FM/SP/0069 - DRE Inter-Modules Telemetry And Commands Definition, ed. 4.0
       + IRAP/XIFU-DRE/FM/SP/0136 - FPAsim command dictionnary, ed. ??
    - FPASIM simulation coupling: https://github.com/xifu-irap/fpasim-fw (tag 2.2.3)
 

@@ -58,8 +58,8 @@ begin
 
       if i_rst = c_RST_LEV_ACT then
          mem_add_pp           <= c_MEM_STR_ADD_PP_DEF;
-         mem_add_scrub        <= c_ZERO(mem_add_scrub'range);
-         o_mem_with_scrub.add <= c_ZERO(o_mem_with_scrub.add'range);
+         mem_add_scrub        <= c_MINUSONE(mem_add_scrub'range);
+         o_mem_with_scrub.add <= c_MINUSONE(o_mem_with_scrub.add'range);
          o_mem_with_scrub.we  <= c_LOW_LEV;
 
       elsif rising_edge(i_clk) then

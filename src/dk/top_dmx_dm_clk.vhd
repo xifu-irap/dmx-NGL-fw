@@ -133,10 +133,9 @@ signal   sqm_dta_pixel_pos    : t_slv_arr(0 to c_NB_COL-1)(c_MUX_FACT_S-1     do
 signal   sqm_dta_err_cor      : t_slv_arr(0 to c_NB_COL-1)(c_SQM_DATA_FBK_S-1 downto 0)                     ; --! SQUID MUX Data error corrected (signed)
 signal   sqm_dta_err_cor_cs   : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! SQUID MUX Data error corrected chip select ('0' = Inactive, '1' = Active)
 signal   sqm_dta_err_frst     : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! SQUID MUX Data error corrected first pixel
-signal   diff_sqm_dta_smfb0   : t_slv_arr(0 to c_NB_COL-1)(c_SQM_DATA_FBK_S    downto 0)                    ; --! SQUID MUX Data error corrected minus SQUID MUX feedback value in open loop
 
-signal   sqm_data_sc_msb      : t_slv_arr(0 to c_NB_COL-1)(c_SC_DATA_SER_W_S-1 downto 0)                    ; --! SQUID MUX Data science MSB
-signal   sqm_data_sc_lsb      : t_slv_arr(0 to c_NB_COL-1)(c_SC_DATA_SER_W_S-1 downto 0)                    ; --! SQUID MUX Data science LSB
+signal   err_sig              : t_slv_arr(0 to c_NB_COL-1)(c_SC_DATA_SER_NB*c_SC_DATA_SER_W_S-1 downto 0)   ; --! Error signal (signed)
+signal   sqm_data_sc          : t_slv_arr(0 to c_NB_COL-1)(c_SC_DATA_SER_NB*c_SC_DATA_SER_W_S-1 downto 0)   ; --! SQUID MUX Data science
 signal   sqm_data_sc_first    : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! SQUID MUX Data science first pixel ('0' = No, '1' = Yes)
 signal   sqm_data_sc_last     : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! SQUID MUX Data science last pixel ('0' = No, '1' = Yes)
 signal   sqm_data_sc_rdy      : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! SQUID MUX Data science ready ('0' = Not ready, '1' = Ready)
@@ -144,7 +143,8 @@ signal   sqm_data_sc_rdy      : std_logic_vector(c_NB_COL-1 downto 0)           
 signal   sqm_data_fbk         : t_slv_arr(0 to c_NB_COL-1)(c_SQM_DATA_FBK_S-1 downto 0)                     ; --! SQUID MUX Data feedback (signed)
 signal   sqm_pixel_pos_init   : t_slv_arr(0 to c_NB_COL-1)( c_SQM_PXL_POS_S-1 downto 0)                     ; --! SQUID MUX Pixel position initialization
 signal   sqm_pls_cnt_init     : t_slv_arr(0 to c_NB_COL-1)( c_SQM_PLS_CNT_S-1 downto 0)                     ; --! SQUID MUX Pulse shaping counter initialization
-signal   sqa_fbk_mux          : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SAOFF_PIX_S-1 downto 0)                   ; --! SQUID AMP Feedback Multiplexer
+signal   sqa_off_lsb          : t_slv_arr(0 to c_NB_COL-1)(c_SQA_DAC_DATA_S-1 downto 0)                     ; --! SQUID AMP offset LSB
+signal   sqa_fbk_mux          : t_slv_arr(0 to c_NB_COL-1)( c_SQA_DAC_MUX_S-1 downto 0)                     ; --! SQUID AMP Feedback Multiplexer
 signal   sqa_fbk_off          : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SAOFC_COL_S-1 downto 0)                   ; --! SQUID AMP coarse offset
 signal   sqa_pls_cnt_init     : t_slv_arr(0 to c_NB_COL-1)(   c_SQA_PLS_CNT_S-1 downto 0)                   ; --! SQUID AMP Pulse counter initialization
 
@@ -176,6 +176,7 @@ signal   ep_cmd_tx_wd_rd_rg   : std_logic_vector(c_EP_SPI_WD_S-1 downto 0)      
 signal   aqmde_dmp_tx_end     : std_logic                                                                   ; --! Telemetry mode, dump transmit end ('0' = Inactive, '1' = Active)
 signal   aqmde                : std_logic_vector(c_DFLD_AQMDE_S-1 downto 0)                                 ; --! Telemetry mode
 signal   aqmde_dmp_cmp        : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! Telemetry mode, status "Dump" compared ('0' = Inactive, '1' = Active)
+signal   aqmde_sync           : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_AQMDE_S-1 downto 0)                       ; --! Telemetry mode, sync. on first pixel
 
 signal   tsten_lop            : std_logic_vector(c_DFLD_TSTEN_LOP_S-1 downto 0)                             ; --! Test pattern enable, field Loop number
 signal   tsten_inf            : std_logic                                                                   ; --! Test pattern enable, field Infinity loop ('0' = Inactive, '1' = Active)
@@ -187,6 +188,7 @@ signal   saofm                : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SAOFM_COL_S-1 
 signal   bxlgt                : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_BXLGT_COL_S-1 downto 0)                   ; --! ADC sample number for averaging
 signal   dlflg                : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_DLFLG_COL_S-1 downto 0)                   ; --! Delock flag ('0' = No delock on pixels, '1' = Delock on at least one pixel)
 signal   rg_col               : t_rgc_arr(0 to c_NB_COL-1)                                                  ; --! EP register by column
+signal   squid_gain           : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SMIGN_COL_S-1 downto 0)                   ; --! SQUID gain
 
 signal   mem_prc              : t_mem_prc_arr(0 to c_NB_COL-1)                                              ; --! Memory for data squid proc.: memory interface
 signal   mem_data_prc         : t_mem_prc_dta_arr(0 to c_NB_COL-1)                                          ; --! Memory for data squid proc.: data read
@@ -199,10 +201,9 @@ signal   hkeep_data           : std_logic_vector(c_DFLD_HKEEP_S-1 downto 0)     
 
 signal   smfbm_add            : t_slv_arr(0 to c_NB_COL-1)( c_MEM_SMFBM_ADD_S-1 downto 0)                   ; --! SQUID MUX feedback mode: address, memory output
 signal   smfbm_cs             : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! SQUID MUX feedback mode: chip select, memory output ('0' = Inactive, '1' = Active)
+signal   squid_amp_close      : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! SQUID AMP Close mode     ('0' = Yes, '1' = No)
 signal   squid_close_mode_n   : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! SQUID MUX/AMP Close mode ('0' = Yes, '1' = No)
-
-signal   rl_ena               : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! Relock enable ('0' = No, '1' = Yes)
-signal   mem_rl_rd_add        : t_slv_arr(0 to c_NB_COL-1)(c_MUX_FACT_S-1 downto 0)                         ; --! Relock memories read address
+signal   amp_frst_lst_frm     : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! SQUID AMP First and Last frame('0' = No, '1' = Yes)
 
 begin
 
@@ -276,14 +277,14 @@ begin
          i_clk                => clk                  , -- in     std_logic                                 ; --! System Clock
 
          i_ras_data_valid_rs  => ras_data_valid_rs    , -- in     std_logic                                 ; --! RAS Data valid, synchronized on System Clock ('0' = No, '1' = Yes)
-         i_aqmde              => aqmde                , -- in     slv(c_DFLD_AQMDE_S-1 downto 0)            ; --! Telemetry mode
+         i_aqmde_sync         => aqmde_sync           , -- in     t_slv_arr c_NB_COL c_DFLD_AQMDE_S         ; --! Telemetry mode, sync. on first pixel
          i_tsten_ena          => tsten_ena            , -- in     std_logic                                 ; --! Test pattern enable, field Enable ('0' = Inactive, '1' = Active)
          i_tst_pat_end        => tst_pat_end          , -- in     std_logic                                 ; --! Test pattern end of all patterns ('0' = Inactive, '1' = Active)
          i_tst_pat_new_step   => tst_pat_new_step     , -- in     std_logic                                 ; --! Test pattern new step ('0' = Inactive, '1' = Active)
 
          i_test_pattern       => test_pattern_sc      , -- in     slv c_SC_DATA_SER_W_S*c_SC_DATA_SER_NB    ; --! Test pattern
-         i_sqm_data_sc_msb    => sqm_data_sc_msb      , -- in     t_slv_arr c_NB_COL c_SC_DATA_SER_W_S      ; --! SQUID MUX Data science MSB
-         i_sqm_data_sc_lsb    => sqm_data_sc_lsb      , -- in     t_slv_arr c_NB_COL c_SC_DATA_SER_W_S      ; --! SQUID MUX Data science LSB
+         i_err_sig            => err_sig              , -- in     t_slv_arr c_NB_COL                        ; --! Error signal (signed)
+         i_sqm_data_sc        => sqm_data_sc          , -- in     t_slv_arr c_NB_COL                        ; --! SQUID MUX Data science
          i_sqm_data_sc_first  => sqm_data_sc_first    , -- in     std_logic_vector(c_NB_COL-1 downto 0)     ; --! SQUID MUX Data science first pixel ('0' = No, '1' = Yes)
          i_sqm_data_sc_last   => sqm_data_sc_last     , -- in     std_logic_vector(c_NB_COL-1 downto 0)     ; --! SQUID MUX Data science last pixel ('0' = No, '1' = Yes)
          i_sqm_data_sc_rdy    => sqm_data_sc_rdy      , -- in     std_logic_vector(c_NB_COL-1 downto 0)     ; --! SQUID MUX Data science ready ('0' = Not ready, '1' = Ready)
@@ -338,6 +339,8 @@ begin
          o_saofm              => saofm                , -- out    t_slv_arr c_NB_COL c_DFLD_SAOFM_COL_S     ; --! SQUID AMP offset mode
          o_bxlgt              => bxlgt                , -- out    t_slv_arr c_NB_COL c_DFLD_BXLGT_COL_S     ; --! ADC sample number for averaging
          o_rg_col             => rg_col               , -- out    t_rgc                                     ; --! EP register by column
+         o_squid_gain         => squid_gain           , -- out    t_slv_arr c_NB_COL c_DFLD_SMIGN_COL_S     ; --! SQUID gain
+         o_sqa_off_lsb        => sqa_off_lsb          , -- out    t_slv_arr c_NB_COL c_SQA_DAC_DATA_S       ; --! SQUID AMP offset LSB
 
          o_mem_prc            => mem_prc              , -- out    t_mem_prc_arr(0 to c_NB_COL-1)            ; --! Memory for data squid proc.: memory interface
          i_mem_prc_data       => mem_data_prc         , -- in     t_mem_prc_dta_arr(0 to c_NB_COL-1)        ; --! Memory for data squid proc.: data read
@@ -350,7 +353,9 @@ begin
 
          i_smfbm_add          => smfbm_add            , -- in     t_slv_arr c_NB_COL c_MEM_SMFBM_ADD_S      ; --! SQUID MUX feedback mode: address, memory output
          i_smfbm_cs           => smfbm_cs             , -- in     std_logic_vector(c_NB_COL-1 downto 0)     ; --! SQUID MUX feedback mode: chip select, memory output ('0' = Inactive, '1' = Active)
-         o_squid_close_mode_n => squid_close_mode_n     -- out    std_logic_vector(c_NB_COL-1 downto 0)       --! SQUID MUX/AMP Close mode by pixel ('0' = Yes, '1' = No)
+         o_squid_amp_close    => squid_amp_close      , -- out    std_logic_vector(c_NB_COL-1 downto 0)     ; --! SQUID AMP Close mode     ('0' = Yes, '1' = No)
+         o_squid_close_mode_n => squid_close_mode_n   , -- out    std_logic_vector(c_NB_COL-1 downto 0)     ; --! SQUID MUX/AMP Close mode by pixel ('0' = Yes, '1' = No)
+         o_amp_frst_lst_frm   => amp_frst_lst_frm       -- in     std_logic                                   --! SQUID AMP First and Last frame('0' = No, '1' = Yes)
       );
 
    -- ------------------------------------------------------------------------------------------------------
@@ -484,6 +489,13 @@ begin
          i_adc_ena            => adc_ena(k)           , -- in     std_logic_vector(c_NB_COL-1 downto 0)     ; --! ADC enable ('0' = Inactive, '1' = Active)
          i_aqmde              => aqmde                , -- in     slv(c_DFLD_AQMDE_S-1 downto 0)            ; --! Telemetry mode
          i_bxlgt              => bxlgt(k)             , -- in     slv(c_DFLD_BXLGT_COL_S-1 downto 0)        ; --! ADC sample number for averaging
+         i_smfmd              => smfmd(k)             , -- in     slv(c_DFLD_SMFMD_COL_S-1 downto 0)        ; --! SQUID MUX feedback mode
+         i_saofc              => rg_col(k).saofc      , -- in     slv(  c_SQA_DAC_DATA_S-1 downto 0)        ; --! SQUID AMP lockpoint coarse offset
+         i_sakkm              => rg_col(k).sakkm      , -- in     slv(c_DFLD_SAKKM_COL_S-1 downto 0)        ; --! SQUID AMP ki*knorm
+         i_sakrm              => rg_col(k).sakrm      , -- in     slv(c_DFLD_SAKRM_COL_S-1 downto 0)        ; --! SQUID AMP knorm
+         i_rldel              => rg_col(k).rldel      , -- in     slv(c_DFLD_RLDEL_COL_S-1 downto 0)        ; --! Relock delay
+         i_rlthr              => rg_col(k).rlthr      , -- in     slv(c_DFLD_RLTHR_COL_S-1 downto 0)        ; --! Relock threshold
+         i_squid_gain         => squid_gain(k)        , -- in     slv(c_DFLD_SMIGN_COL_S-1 downto 0)        ; --! SQUID gain
          i_sqm_adc_pwdn       => o_sqm_adc_pwdn(k)    , -- in     std_logic                                 ; --! SQUID MUX ADC: Power Down ('0' = Inactive, '1' = Active)
 
          i_mem_prc            => mem_prc(k)           , -- in     t_mem_prc                                 ; --! Memory for data squid proc.: memory interface
@@ -491,48 +503,30 @@ begin
 
          o_smfbm_add          => smfbm_add(k)         , -- out    slv(c_MEM_SMFBM_ADD_S-1 downto 0)         ; --! SQUID MUX feedback mode: address, memory output
          o_smfbm_cs           => smfbm_cs(k)          , -- out    std_logic                                 ; --! SQUID MUX feedback mode: chip select, memory output ('0' = Inactive, '1' = Active)
+         i_squid_amp_close    => squid_amp_close(k)   , -- in     std_logic                                 ; --! SQUID AMP Close mode     ('0' = Yes, '1' = No)
          i_squid_close_mode_n => squid_close_mode_n(k), -- in     std_logic                                 ; --! SQUID MUX/AMP Close mode by pixel ('0' = Yes, '1' = No)
-
-         i_rl_ena             => rl_ena(k)            , -- in     std_logic                                 ; --! Relock enable ('0' = No, '1' = Yes)
-         o_mem_rl_rd_add      => mem_rl_rd_add(k)     , -- out    slv(c_MUX_FACT_S-1 downto 0)              ; --! Relock memories read address
+         i_amp_frst_lst_frm   => amp_frst_lst_frm(k)  , -- in     std_logic                                 ; --! SQUID AMP First and Last frame('0' = No, '1' = Yes)
 
          i_sqm_data_err       => sqm_data_err(k)      , -- in     slv(c_SQM_DATA_ERR_S-1 downto 0)          ; --! SQUID MUX Data error
          i_sqm_data_err_frst  => sqm_data_err_frst(k) , -- in     std_logic                                 ; --! SQUID MUX Data error first pixel ('0' = No, '1' = Yes)
          i_sqm_data_err_last  => sqm_data_err_last(k) , -- in     std_logic                                 ; --! SQUID MUX Data error last pixel ('0' = No, '1' = Yes)
          i_sqm_data_err_rdy   => sqm_data_err_rdy(k)  , -- in     std_logic                                 ; --! SQUID MUX Data error ready ('0' = Not ready, '1' = Ready)
 
-         o_sqm_data_sc_msb    => sqm_data_sc_msb(k)   , -- out    slv(c_SC_DATA_SER_W_S-1 downto 0)         ; --! SQUID MUX Data science MSB
-         o_sqm_data_sc_lsb    => sqm_data_sc_lsb(k)   , -- out    slv(c_SC_DATA_SER_W_S-1 downto 0)         ; --! SQUID MUX Data science LSB
+         o_err_sig            => err_sig(k)           , -- out    slv c_SC_DATA_SER_NB*c_SC_DATA_SER_W_S    ; --! Error signal (signed)
+         o_sqm_data_sc        => sqm_data_sc(k)       , -- out    slv c_SC_DATA_SER_NB*c_SC_DATA_SER_W_S    ; --! SQUID MUX Data science
          o_sqm_data_sc_first  => sqm_data_sc_first(k) , -- out    std_logic                                 ; --! SQUID MUX Data science first pixel ('0' = No, '1' = Yes)
          o_sqm_data_sc_last   => sqm_data_sc_last(k)  , -- out    std_logic                                 ; --! SQUID MUX Data science last pixel ('0' = No, '1' = Yes)
          o_sqm_data_sc_rdy    => sqm_data_sc_rdy(k)   , -- out    std_logic                                 ; --! SQUID MUX Data science ready ('0' = Not ready, '1' = Ready)
 
+         o_aqmde_sync         => aqmde_sync(k)        , -- out    slv(  c_DFLD_AQMDE_S-1 downto 0)          ; --! Telemetry mode, sync. on first pixel
          o_sqm_dta_pixel_pos  => sqm_dta_pixel_pos(k) , -- out    slv(    c_MUX_FACT_S-1 downto 0)          ; --! SQUID MUX Data error corrected pixel position
          o_sqm_dta_err_frst   => sqm_dta_err_frst(k)  , -- out    std_logic                                 ; --! SQUID MUX Data error corrected first pixel
          o_sqm_dta_err_cor    => sqm_dta_err_cor(k)   , -- out    slv(c_SQM_DATA_FBK_S-1 downto 0)          ; --! SQUID MUX Data error corrected (signed)
-         o_diff_sqm_dta_smfb0 => diff_sqm_dta_smfb0(k), -- out    slv(  c_SQM_DATA_FBK_S   downto 0)        ; --! SQUID MUX Data error corrected minus SQUID MUX feedback value in open loop
-         o_sqm_dta_err_cor_cs => sqm_dta_err_cor_cs(k)  -- out    std_logic                                   --! SQUID MUX Data error corrected chip select ('0' = Inactive, '1' = Active)
-      );
-
-      I_relock: entity work.relock port map (
-         i_rst                => rst                  , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
-         i_clk                => clk                  , -- in     std_logic                                 ; --! System Clock
-
-         i_sqm_dta_pixel_pos  => sqm_dta_pixel_pos(k) , -- in     slv(    c_MUX_FACT_S-1 downto 0)          ; --! SQUID MUX Data error corrected pixel position
-         i_diff_sqm_dta_smfb0 => diff_sqm_dta_smfb0(k), -- in     slv(  c_SQM_DATA_FBK_S   downto 0)        ; --! SQUID MUX Data error corrected minus SQUID MUX feedback value in open loop
-         i_sqm_dta_err_cor_cs => sqm_dta_err_cor_cs(k), -- in     std_logic                                 ; --! SQUID MUX Data error corrected chip select ('0' = Inactive, '1' = Active)
-
-         i_mem_rl_rd_add      => mem_rl_rd_add(k)     , -- in     slv(c_MUX_FACT_S-1 downto 0)              ; --! Relock memories read address
-         i_smfmd              => smfmd(k)             , -- in     slv(c_DFLD_SMFMD_COL_S-1 downto 0)        ; --! SQUID MUX feedback mode
-         i_squid_close_mode_n => squid_close_mode_n(k), -- in     std_logic                                 ; --! SQUID MUX/AMP Close mode by pixel ('0' = Yes, '1' = No)
-         i_rldel              => rg_col(k).rldel      , -- in     slv(c_DFLD_RLDEL_COL_S-1 downto 0)        ; --! Relock delay
-         i_rlthr              => rg_col(k).rlthr      , -- in     slv(c_DFLD_RLTHR_COL_S-1 downto 0)        ; --! Relock threshold
+         o_sqm_dta_err_cor_cs => sqm_dta_err_cor_cs(k), -- out    std_logic                                 ; --! SQUID MUX Data error corrected chip select ('0' = Inactive, '1' = Active)
 
          i_mem_dlcnt          => ep_mem(k).dlcnt      , -- in     t_mem                                     ; --! Delock counter: memory inputs
          o_dlcnt_data         => ep_mem_data(k).dlcnt , -- out    slv(c_DFLD_DLCNT_PIX_S-1 downto 0)        ; --! Delock counter: data read
-         o_dlflg              => dlflg(k)             , -- out    slv(c_DFLD_DLFLG_COL_S-1 downto 0)        ; --! Delock flag ('0' = No delock on pixels, '1' = Delock on at least one pixel)
-
-         o_rl_ena             => rl_ena(k)              -- out    std_logic                                   --! Relock enable ('0' = No, '1' = Yes)
+         o_dlflg              => dlflg(k)               -- out    slv(c_DFLD_DLFLG_COL_S-1 downto 0)          --! Delock flag ('0' = No delock on pixels, '1' = Delock on at least one pixel)
       );
 
       I_sqm_fbk_mgt: entity work.sqm_fbk_mgt port map (
@@ -598,7 +592,7 @@ begin
          i_mem_saoff          => ep_mem(k).saoff      , -- in     t_mem                                     ; --! SQUID AMP lockpoint fine offset: memory inputs
          o_saoff_data         => ep_mem_data(k).saoff , -- out    slv(c_DFLD_SAOFF_PIX_S  -1 downto 0)      ; --! SQUID AMP lockpoint fine offset: data read
 
-         o_sqa_fbk_mux        => sqa_fbk_mux(k)       , -- out    slv(c_DFLD_SAOFF_PIX_S-1 downto 0)        ; --! SQUID AMP Feedback Multiplexer
+         o_sqa_fbk_mux        => sqa_fbk_mux(k)       , -- out    slv(   c_SQA_DAC_MUX_S-1 downto 0)        ; --! SQUID AMP Feedback Multiplexer
          o_sqa_fbk_off        => sqa_fbk_off(k)       , -- out    slv(  c_SQA_DAC_DATA_S-1 downto 0)        ; --! SQUID AMP coarse offset
          o_sqa_pls_cnt_init   => sqa_pls_cnt_init(k)    -- out    slv(   c_SQA_PLS_CNT_S-1 downto 0)          --! SQUID AMP Pulse counter initialization
       );
@@ -611,8 +605,8 @@ begin
          i_clk                => clk                  , -- in     std_logic                                 ; --! System Clock
 
          i_sync_rs            => sync_rs(c_FPGA_POS_SQA_DAC(k)), -- in     std_logic                        ; --! Pixel sequence synchronization, synchronized on System Clock
-         i_saofl              => rg_col(k).saofl      , -- in     slv(c_DFLD_SAOFC_COL_S-1 downto 0)        ; --! SQUID AMP offset DAC LSB
-         i_sqa_fbk_mux        => sqa_fbk_mux(k)       , -- in     slv(c_DFLD_SAOFF_PIX_S-1 downto 0)        ; --! SQUID AMP Feedback Multiplexer
+         i_sqa_off_lsb        => sqa_off_lsb(k)       , -- in     slv(   c_SQA_DAC_MUX_S-1 downto 0)        ; --! SQUID AMP offset LSB
+         i_sqa_fbk_mux        => sqa_fbk_mux(k)       , -- in     slv(   c_SQA_DAC_MUX_S-1 downto 0)        ; --! SQUID AMP Feedback Multiplexer
          i_sqa_fbk_off        => sqa_fbk_off(k)       , -- in     slv(c_DFLD_SAOFC_COL_S-1 downto 0)        ; --! SQUID AMP coarse offset
          i_saodd              => rg_col(k).saodd      , -- in     slv(c_DFLD_SAODD_COL_S-1 downto 0)        ; --! SQUID AMP offset DAC delay
          i_sqa_pls_cnt_init   => sqa_pls_cnt_init(k)  , -- in     slv(   c_SQA_PLS_CNT_S-1 downto 0)        ; --! SQUID AMP Pulse counter initialization

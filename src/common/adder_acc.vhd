@@ -36,17 +36,19 @@ use     work.pkg_project.all;
 entity adder_acc is generic (
          g_DATA_ACC_S         : integer                                                                     ; --! Data to accumulate bus size
          g_DATA_ELN_S         : integer                                                                     ; --! Data element n bus size (>= g_DATA_ACC_S)
-         g_MEM_ACC_NW         : integer                                                                     ; --! Memory accumulator number word
-         g_MEM_ACC_INIT_VAL   : integer                                                                       --! Memory accumulator initialization value
+         g_MEM_ACC_NW         : integer                                                                       --! Memory accumulator number word
    ); port (
          i_rst                : in     std_logic                                                            ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                : in     std_logic                                                            ; --! System Clock
 
-         i_mem_acc_add        : in     std_logic_vector(log2_ceil(g_MEM_ACC_NW)-1 downto 0)                 ; --! Memory accumulator address
-         i_mem_acc_init_ena   : in     std_logic                                                            ; --! Memory accumulator initialization enable ('0' = No, '1' = Yes)
+         i_mem_eln_rd_add     : in     std_logic_vector(log2_ceil(g_MEM_ACC_NW)-1 downto 0)                 ; --! Memory accumulator address element n read
+         i_mem_acc_wr_add     : in     std_logic_vector(log2_ceil(g_MEM_ACC_NW)-1 downto 0)                 ; --! Memory accumulator address data to accumulate write
+         i_squid_close_mode_n : in     std_logic                                                            ; --! SQUID MUX/AMP Close mode ('0' = Yes, '1' = No)
+         i_amp_frst_lst_frm   : in     std_logic                                                            ; --! SQUID AMP First and Last frame('0' = No, '1' = Yes)
 
-         i_mem_acc_rl_val     : in     std_logic_vector(g_DATA_ELN_S-1 downto 0)                            ; --! Memory accumulator relock value (signed)
+         i_mem_acc_init_val   : in     std_logic_vector(g_DATA_ELN_S-1 downto 0)                            ; --! Memory accumulator initialization value (signed)
          i_rl_ena             : in     std_logic                                                            ; --! Relock enable ('0' = No, '1' = Yes)
+         i_rl_ena_rdy         : in     std_logic                                                            ; --! Relock enable ready
 
          i_data_acc           : in     std_logic_vector(g_DATA_ACC_S-1 downto 0)                            ; --! Data to accumulate (signed)
          i_data_acc_rdy       : in     std_logic                                                            ; --! Data to accumulate ready ('0' = Not ready, '1' = Ready)
@@ -58,15 +60,17 @@ entity adder_acc is generic (
 end entity adder_acc;
 
 architecture RTL of adder_acc is
-constant c_FF_DATA_ACC_RDY_NB : integer := 3                                                                ; --! Flip-Flop number used for Data to accumulate ready register
+constant c_FF_RL_ENA_RDY_NB   : integer := 2                                                                ; --! Flip-Flop number used for Relock enable  ready register
 constant c_FF_DATA_ELN_RDY_NB : integer := 2                                                                ; --! Flip-Flop number used for Data element n ready register
 
-signal   mem_acc              : t_slv_arr(0 to g_MEM_ACC_NW-1)(g_DATA_ELN_S-1 downto 0)                     ; --! Memory accumulator
+signal   mem_acc              : t_slv_arr(0 to 2**log2_ceil(g_MEM_ACC_NW)-1)(g_DATA_ELN_S-1 downto 0)       ; --! Memory accumulator
 
-signal   data_acc_rdy_r       : std_logic_vector(c_FF_DATA_ACC_RDY_NB-1 downto 0)                           ; --! Data to accumulate ready register ('0' = Not ready, '1' = Ready)
+signal   rl_ena_rdy_r         : std_logic_vector(c_FF_RL_ENA_RDY_NB-1 downto 0)                             ; --! Relock enable ready register
+signal   data_acc_rdy_r       : std_logic                                                                   ; --! Data to accumulate ready register ('0' = Not ready, '1' = Ready)
 signal   data_eln_rdy_r       : std_logic_vector(c_FF_DATA_ELN_RDY_NB-1 downto 0)                           ; --! Data element n ready register     ('0' = Not ready, '1' = Ready)
 
 signal   data_acc_rs          : std_logic_vector(g_DATA_ELN_S-1 downto 0)                                   ; --! Data to accumulate resize (signed)
+signal   dta_add_acc_sat      : std_logic_vector(g_DATA_ELN_S-1 downto 0)                                   ; --! Data adder and accumulate with saturation
 signal   data_add_acc_sat     : std_logic_vector(g_DATA_ELN_S-1 downto 0)                                   ; --! Data adder and accumulate with saturation
 signal   data_eln             : std_logic_vector(g_DATA_ELN_S-1 downto 0)                                   ; --! Data element n
 signal   data_elnp1_r         : std_logic_vector(g_DATA_ELN_S-1 downto 0)                                   ; --! Data element n+1 register
@@ -80,12 +84,14 @@ begin
    begin
 
       if i_rst = c_RST_LEV_ACT then
-         data_acc_rdy_r  <= (others => c_LOW_LEV);
-         data_eln_rdy_r  <= (others => c_LOW_LEV);
+         rl_ena_rdy_r   <= (others => c_LOW_LEV);
+         data_acc_rdy_r <= c_LOW_LEV;
+         data_eln_rdy_r <= (others => c_LOW_LEV);
 
       elsif rising_edge(i_clk) then
-         data_acc_rdy_r  <= data_acc_rdy_r(data_acc_rdy_r'high-1 downto 0) & i_data_acc_rdy;
-         data_eln_rdy_r  <= data_eln_rdy_r(data_eln_rdy_r'high-1 downto 0) & i_data_eln_rdy;
+         rl_ena_rdy_r   <= rl_ena_rdy_r(    rl_ena_rdy_r'high-1 downto 0) & i_rl_ena_rdy;
+         data_acc_rdy_r <= i_data_acc_rdy;
+         data_eln_rdy_r <= data_eln_rdy_r(data_eln_rdy_r'high-1 downto 0) & i_data_eln_rdy;
 
       end if;
 
@@ -106,8 +112,25 @@ begin
          i_data_fst           => data_acc_rs          , -- in     std_logic_vector(g_DATA_S-1 downto 0)     ; --! Data first (signed)
          i_data_sec           => o_data_eln           , -- in     std_logic_vector(g_DATA_S-1 downto 0)     ; --! Data second (signed)
 
-         o_data_add_sat       => data_add_acc_sat       -- out    std_logic_vector(g_DATA_S-1 downto 0)       --! Data added with saturation (signed)
+         o_data_add_sat       => dta_add_acc_sat        -- out    std_logic_vector(g_DATA_S-1 downto 0)       --! Data added with saturation (signed)
    );
+
+   --!   Data adder and accumulate with saturation
+   P_data_add_acc_sat : process (i_rst, i_clk)
+   begin
+
+      if i_rst = c_RST_LEV_ACT then
+         data_add_acc_sat <= c_ZERO(data_add_acc_sat'range);
+
+      elsif rising_edge(i_clk) then
+         if data_acc_rdy_r = c_HGH_LEV then
+            data_add_acc_sat <= dta_add_acc_sat;
+
+         end if;
+
+      end if;
+
+   end process P_data_add_acc_sat;
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Data element n+1 (signed)
@@ -116,13 +139,13 @@ begin
    begin
 
       if i_rst = c_RST_LEV_ACT then
-         o_data_elnp1 <= std_logic_vector(to_signed(g_MEM_ACC_INIT_VAL, o_data_elnp1'length));
-         data_elnp1_r <= std_logic_vector(to_signed(g_MEM_ACC_INIT_VAL, data_elnp1_r'length));
+         o_data_elnp1 <= c_ZERO(o_data_elnp1'range);
+         data_elnp1_r <= c_ZERO(data_elnp1_r'range);
 
       elsif rising_edge(i_clk) then
-         if data_acc_rdy_r(data_acc_rdy_r'low) = c_HGH_LEV then
-            if i_rl_ena = c_HGH_LEV then
-               o_data_elnp1 <= i_mem_acc_rl_val;
+         if i_rl_ena_rdy = c_HGH_LEV then
+            if (i_rl_ena or i_squid_close_mode_n or i_amp_frst_lst_frm)= c_HGH_LEV then
+               o_data_elnp1 <= i_mem_acc_init_val;
 
             else
                o_data_elnp1 <= data_add_acc_sat;
@@ -144,8 +167,8 @@ begin
    begin
 
       if rising_edge(i_clk) then
-         if data_acc_rdy_r(data_acc_rdy_r'high) = c_HGH_LEV then
-            mem_acc(to_integer(unsigned(i_mem_acc_add))) <= data_elnp1_r;
+         if rl_ena_rdy_r(rl_ena_rdy_r'high) = c_HGH_LEV then
+            mem_acc(to_integer(unsigned(i_mem_acc_wr_add))) <= data_elnp1_r;
 
          end if;
 
@@ -158,15 +181,18 @@ begin
    begin
 
       if i_rst = c_RST_LEV_ACT then
-         data_eln    <= std_logic_vector(to_signed(g_MEM_ACC_INIT_VAL, data_eln'length));
-         o_data_eln  <= std_logic_vector(to_signed(g_MEM_ACC_INIT_VAL, o_data_eln'length));
+         data_eln    <= c_ZERO(data_eln'range);
+         o_data_eln  <= c_ZERO(o_data_eln'range);
 
       elsif rising_edge(i_clk) then
-         data_eln <= mem_acc(to_integer(unsigned(i_mem_acc_add)));
+         data_eln <= mem_acc(to_integer(unsigned(i_mem_eln_rd_add)));
 
          if data_eln_rdy_r(data_eln_rdy_r'high) = c_HGH_LEV then
-            if i_mem_acc_init_ena = c_HGH_LEV then
-               o_data_eln <= std_logic_vector(to_signed(g_MEM_ACC_INIT_VAL, o_data_eln'length));
+            if i_squid_close_mode_n = c_HGH_LEV then
+               o_data_eln <= c_ZERO(o_data_eln'range);
+
+            elsif i_amp_frst_lst_frm = c_HGH_LEV then
+               o_data_eln <= i_mem_acc_init_val;
 
             else
                o_data_eln <= data_eln;

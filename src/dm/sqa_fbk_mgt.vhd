@@ -56,7 +56,7 @@ entity sqa_fbk_mgt is port (
                                        data_w(          c_DFLD_SAOFF_PIX_S-1 downto 0))                     ; --! SQUID AMP lockpoint fine offset: memory inputs
          o_saoff_data         : out    std_logic_vector(c_DFLD_SAOFF_PIX_S-1 downto 0)                      ; --! SQUID AMP lockpoint fine offset: data read
 
-         o_sqa_fbk_mux        : out    std_logic_vector(c_DFLD_SAOFF_PIX_S-1 downto 0)                      ; --! SQUID AMP Feedback Multiplexer
+         o_sqa_fbk_mux        : out    std_logic_vector(   c_SQA_DAC_MUX_S-1 downto 0)                      ; --! SQUID AMP Feedback Multiplexer
          o_sqa_fbk_off        : out    std_logic_vector(  c_SQA_DAC_DATA_S-1 downto 0)                      ; --! SQUID AMP coarse offset
          o_sqa_pls_cnt_init   : out    std_logic_vector(   c_SQA_PLS_CNT_S-1 downto 0)                        --! SQUID AMP Pulse counter initialization
 
@@ -77,7 +77,6 @@ constant c_FRAME_NB_CYC_S     : integer := log2_ceil(c_FRAME_NB_CYC)            
 constant c_SAOMD_POSITIVE_S   : integer := c_FRAME_NB_CYC_S + 1                                             ; --! SQUID AMP offset MUX delay in positive bus size
 constant c_SAOMD_CMP_R_S      : integer := 2 * c_DSP_NPER + 2                                               ; --! SQUID AMP offset MUX delay compare register bus size
 
-constant c_PLS_CNT_INIT_SAT   : integer := c_SQA_PXL_POS_S + log2_ceil(c_PIXEL_DAC_NB_CYC+1)+1              ; --! Pulse counter initialization saturation
 constant c_PLS_CNT_INIT_SHT   : integer := 2                                                                ; --! Pulse counter initialization number cycle shift
 constant c_PLS_CNT_INIT_SHT_V : std_logic_vector(c_SAOMD_POSITIVE_S-1 downto 0) :=
                                 std_logic_vector(to_unsigned(c_PLS_CNT_INIT_SHT , c_SAOMD_POSITIVE_S))      ; --! Pulse counter initialization number cycle shift vector
@@ -85,10 +84,10 @@ constant c_PLS_CNT_INIT_SHT_V : std_logic_vector(c_SAOMD_POSITIVE_S-1 downto 0) 
 constant c_FBK_PLS_CNT_NB_VAL : integer:= c_PIXEL_DAC_NB_CYC/2                                              ; --! Feedback Pulse counter: number of value
 constant c_FBK_PLS_CNT_MX_VAL : integer:= c_FBK_PLS_CNT_NB_VAL - 2                                          ; --! Feedback Pulse counter: maximal value
 
-constant c_PXL_POS_INIT_SAT   : integer := c_MULT_ALU_PORTA_S + c_SAOMD_POSITIVE_S                          ; --! Pixel position initialization saturation
 constant c_PXL_DAC_NCYC_INV   : integer := div_round(2**(c_MULT_ALU_PORTA_S), c_PIXEL_DAC_NB_CYC)           ; --! DAC clock period number allocated to one pixel acquisition inverted
-constant c_PXL_DAC_NCYC_INV_V : std_logic_vector(c_MULT_ALU_PORTA_S-1 downto 0) :=
-                                std_logic_vector(to_unsigned(c_PXL_DAC_NCYC_INV , c_MULT_ALU_PORTA_S))      ; --! DAC clock period number allocated to one pixel acquisition inverted vector
+constant c_PXL_DAC_NCYC_INV_S : integer := log2_ceil(c_PXL_DAC_NCYC_INV) + 1                                ; --! DAC clock period number allocated to one pixel acquisition inverted bus size
+constant c_PXL_DAC_NCYC_INV_V : std_logic_vector(c_PXL_DAC_NCYC_INV_S-1 downto 0) :=
+                                std_logic_vector(to_unsigned(c_PXL_DAC_NCYC_INV , c_PXL_DAC_NCYC_INV_S))    ; --! DAC clock period number allocated to one pixel acquisition inverted vector
 constant c_PXL_DAC_NCYC_NEG_V : std_logic_vector(c_MULT_ALU_PORTA_S-1 downto 0) :=
                                 std_logic_vector(to_signed(-c_PIXEL_DAC_NB_CYC , c_MULT_ALU_PORTA_S))       ; --! DAC clock period number allocated to one pixel acquisition negative vector
 
@@ -119,8 +118,15 @@ signal   mem_saoff_prm        : t_mem(
                                 data_w(       c_DFLD_SAOFF_PIX_S-1 downto 0))                               ; --! SQUID AMP lockpoint fine offset, getting parameter side: memory inputs
 
 signal   saofm_sync           : std_logic_vector(c_DFLD_SAOFM_COL_S-1 downto 0)                             ; --! SQUID AMP offset mode synchronized on first Pixel sequence
-signal   sqa_fb_close         : std_logic_vector(c_SQA_DAC_DATA_S-1 downto 0)                               ; --! SQUID AMP feedback close mode
-signal   saoff                : std_logic_vector(c_SQA_DAC_MUX_S-1  downto 0)                               ; --! SQUID AMP lockpoint fine offset
+signal   saofm_close          : std_logic                                                                   ; --! SQUID AMP offset mode in close mode
+signal   saofm_close_sync     : std_logic                                                                   ; --! SQUID AMP offset mode in close mode synchronized
+signal   sqa_fb_close_fst_frm : std_logic                                                                   ; --! SQUID AMP feedback close mode first frame
+signal   sqa_fb_close         : std_logic_vector(  c_SQA_DAC_DATA_S+1 downto 0)                             ; --! SQUID AMP feedback close mode
+signal   sqa_fb_close_rnd_sat : std_logic_vector(  c_SQA_DAC_DATA_S   downto 0)                             ; --! SQUID AMP feedback close mode round with saturation
+signal   sqa_fb_close_ptve    : std_logic_vector(  c_SQA_DAC_DATA_S-1 downto 0)                             ; --! SQUID AMP feedback close mode positive
+signal   saoff                : std_logic_vector(c_DFLD_SAOFF_PIX_S-1 downto 0)                             ; --! SQUID AMP lockpoint fine offset
+signal   saoff_off_mode       : std_logic_vector(   c_SQA_DAC_MUX_S-1 downto 0)                             ; --! SQUID AMP lockpoint fine offset, SQUID AMP in offset mode
+signal   saoff_ptr            : std_logic_vector(   c_SQA_DAC_MUX_S-1 downto 0)                             ; --! SQUID AMP lockpoint fine offset, SQUID AMP in test pattern mode
 
 begin
 
@@ -203,14 +209,13 @@ begin
    --!   Pixel position division result
    -- ------------------------------------------------------------------------------------------------------
    I_pixel_pos_div: entity work.dsp generic map (
-         g_PORTA_S            => c_MULT_ALU_PORTA_S   , -- integer                                          ; --! Port A bus size (<= c_MULT_ALU_PORTA_S)
+         g_PORTA_S            => c_PXL_DAC_NCYC_INV_S , -- integer                                          ; --! Port A bus size (<= c_MULT_ALU_PORTA_S)
          g_PORTB_S            => c_SAOMD_POSITIVE_S   , -- integer                                          ; --! Port B bus size (<= c_MULT_ALU_PORTB_S)
          g_PORTC_S            => c_MULT_ALU_PORTC_S   , -- integer                                          ; --! Port C bus size (<= c_MULT_ALU_PORTC_S)
          g_RESULT_S           => c_SQA_PXL_POS_S      , -- integer                                          ; --! Result bus size (<= c_MULT_ALU_RESULT_S)
-         g_RESULT_LSB_POS     => c_MULT_ALU_PORTA_S   , -- integer                                          ; --! Result LSB position
-         g_SAT_RANK           => c_PXL_POS_INIT_SAT   , -- integer                                          ; --! Extrem values reached on result bus
-                                                                                                              --!   unsigned: range from               0  to 2**(g_SAT_RANK+1) - 1
-                                                                                                              --!     signed: range from -2**(g_SAT_RANK) to 2**(g_SAT_RANK)   - 1
+         g_LIN_SAT            => c_MULT_ALU_LSAT_ENA  , -- integer range 0 to 1                             ; --! Linear saturation (0 = Disable, 1 = Enable)
+         g_SAT_RANK           => c_MULT_ALU_SAT_NU    , -- integer                                          ; --! Extrem values reached on result bus, not used if linear saturation enabled
+                                                                                                              --!     range from -2**(g_SAT_RANK-1) to 2**(g_SAT_RANK-1) - 1
          g_PRE_ADDER_OP       => c_LOW_LEV_B          , -- bit                                              ; --! Pre-Adder operation     ('0' = add,    '1' = subtract)
          g_MUX_C_CZ           => c_LOW_LEV_B            -- bit                                                --! Multiplexer ALU operand ('0' = Port C, '1' = Cascaded Result Input)
    ) port map (
@@ -236,10 +241,9 @@ begin
          g_PORTB_S            => c_SQA_PXL_POS_S      , -- integer                                          ; --! Port B bus size (<= c_MULT_ALU_PORTB_S)
          g_PORTC_S            => c_SAOMD_POSITIVE_S   , -- integer                                          ; --! Port C bus size (<= c_MULT_ALU_PORTC_S)
          g_RESULT_S           => c_SQA_PLS_CNT_S      , -- integer                                          ; --! Result bus size (<= c_MULT_ALU_RESULT_S)
-         g_RESULT_LSB_POS     => c_ZERO_INT           , -- integer                                          ; --! Result LSB position
-         g_SAT_RANK           => c_PLS_CNT_INIT_SAT   , -- integer                                          ; --! Extrem values reached on result bus
-                                                                                                              --!   unsigned: range from               0  to 2**(g_SAT_RANK+1) - 1
-                                                                                                              --!     signed: range from -2**(g_SAT_RANK) to 2**(g_SAT_RANK)   - 1
+         g_LIN_SAT            => c_MULT_ALU_LSAT_DIS  , -- integer range 0 to 1                             ; --! Linear saturation (0 = Disable, 1 = Enable)
+         g_SAT_RANK           => c_SQA_PLS_CNT_S      , -- integer                                          ; --! Extrem values reached on result bus, not used if linear saturation enabled
+                                                                                                              --!     range from -2**(g_SAT_RANK-1) to 2**(g_SAT_RANK-1) - 1
          g_PRE_ADDER_OP       => c_LOW_LEV_B          , -- bit                                              ; --! Pre-Adder operation     ('0' = add,    '1' = subtract)
          g_MUX_C_CZ           => c_LOW_LEV_B            -- bit                                                --! Multiplexer ALU operand ('0' = Port C, '1' = Cascaded Result Input)
    ) port map (
@@ -259,7 +263,6 @@ begin
 
    -- ------------------------------------------------------------------------------------------------------
    --!   SQUID AMP Pixel position initialization
-   --    @Req : DRE-DMX-FW-REQ-0380
    -- ------------------------------------------------------------------------------------------------------
    P_sqa_pixel_pos_init : process (i_rst, i_clk)
    begin
@@ -282,7 +285,6 @@ begin
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Internal pixel position initialization
-   --    @Req : DRE-DMX-FW-REQ-0380
    -- ------------------------------------------------------------------------------------------------------
    P_fbk_pixel_pos_init : process (i_rst, i_clk)
    begin
@@ -308,7 +310,6 @@ begin
 
    -- ------------------------------------------------------------------------------------------------------
    --!   SQUID AMP Pulse counter initialization
-   --    @Req : DRE-DMX-FW-REQ-0380
    -- ------------------------------------------------------------------------------------------------------
    P_sqa_pls_cnt_init : process (i_rst, i_clk)
    begin
@@ -353,6 +354,7 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   Pulse counter
    --    @Req : DRE-DMX-FW-REQ-0375
+   --    @Req : DRE-DMX-FW-REQ-0385
    -- ------------------------------------------------------------------------------------------------------
    P_pls_cnt : process (i_rst, i_clk)
    begin
@@ -408,6 +410,7 @@ begin
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Signals synchronized on first Pixel sequence
+   --    @Req : DRE-DMX-FW-REQ-0385
    -- ------------------------------------------------------------------------------------------------------
    P_sig_sync : process (i_rst, i_clk)
    begin
@@ -431,6 +434,7 @@ begin
    --!   Dual port memory for SQUID AMP lockpoint fine offset
    --    @Req : REG_CY_AMP_SQ_OFFSET_FINE
    --    @Req : DRE-DMX-FW-REQ-0300
+   --    @Req : DRE-DMX-FW-REQ-0305
    -- ------------------------------------------------------------------------------------------------------
    I_mem_sqa_pxl_lkp: entity work.dmem_ecc generic map (
          g_RAM_TYPE           => c_RAM_TYPE_PRM_STORE , -- integer                                          ; --! Memory type ( 0  = Data transfer,  1  = Parameters storage)
@@ -458,6 +462,9 @@ begin
          o_b_flg_err          => open                   -- out    std_logic                                   --! Memory port B: flag error uncorrectable detected ('0' = No, '1' = Yes)
    );
 
+   saoff_off_mode <= saoff(c_SQA_DAC_MUX_S-1 downto 0);
+   saoff_ptr      <= saoff(saoff'high        downto c_SQA_DAC_MUX_S);
+
    -- ------------------------------------------------------------------------------------------------------
    --!   Memory SQUID AMP lockpoint fine offset signals: memory signals management
    --!      (Getting parameter side)
@@ -469,6 +476,7 @@ begin
 
    -- ------------------------------------------------------------------------------------------------------
    --!   SQUID AMP feedback Multiplexer
+   --    @Req : DRE-DMX-FW-REQ-0305
    --    @Req : DRE-DMX-FW-REQ-0330
    --    @Req : DRE-DMX-FW-REQ-0360
    -- ------------------------------------------------------------------------------------------------------
@@ -479,11 +487,14 @@ begin
          o_sqa_fbk_mux <= (others => c_LOW_LEV);
 
       elsif rising_edge(i_clk) then
-         if saofm_sync = c_DST_SAOFM_OFF then
-            o_sqa_fbk_mux <= (others => c_LOW_LEV);
+         if saofm_sync = c_DST_SAOFM_OFFSET then
+            o_sqa_fbk_mux <= saoff_off_mode;
+
+         elsif saofm_sync = c_DST_SAOFM_TEST then
+            o_sqa_fbk_mux <= saoff_ptr;
 
          else
-            o_sqa_fbk_mux <= saoff;
+            o_sqa_fbk_mux <= (others => c_LOW_LEV);
 
          end if;
 
@@ -492,25 +503,93 @@ begin
    end process P_sqa_fbk_mux;
 
    -- ------------------------------------------------------------------------------------------------------
+   --!   SQUID AMP close loop mode
+   -- ------------------------------------------------------------------------------------------------------
+   sqa_fb_close <= i_sqm_dta_err_cor(i_sqm_dta_err_cor'high downto i_sqm_dta_err_cor'length-sqa_fb_close'length);
+
+   I_sqa_fb_close: entity work.round_sat generic map (
+         g_RST_LEV_ACT        => c_RST_LEV_ACT        , -- std_logic                                        ; --! Reset level activation value
+         g_DATA_CARRY_S       => c_SQA_DAC_DATA_S+2     -- integer                                            --! Data with carry bus size
+   )  port map (
+         i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
+         i_clk                => i_clk                , -- in     std_logic                                 ; --! Clock
+         i_data_carry         => sqa_fb_close         , -- in     slv(g_DATA_CARRY_S-1 downto 0)            ; --! Data with carry on lsb (signed)
+         o_data_rnd_sat       => sqa_fb_close_rnd_sat   -- out    slv(g_DATA_CARRY_S-2 downto 0)              --! Data rounded with saturation (signed)
+   );
+
+    --! SQUID AMP close loop mode: Saturation in case of negative data value
+   P_sqa_fb_close_ptve : process (i_rst, i_clk)
+   begin
+
+      if i_rst = c_RST_LEV_ACT then
+         sqa_fb_close_ptve <= c_EP_CMD_DEF_SAOFC;
+
+      elsif rising_edge(i_clk) then
+         if (i_sqm_dta_err_cor_cs and i_sqm_dta_err_frst) = c_HGH_LEV then
+            if sqa_fb_close_rnd_sat(sqa_fb_close_rnd_sat'high) = c_HGH_LEV then
+               sqa_fb_close_ptve <= c_ZERO(sqa_fb_close_ptve'range);
+
+            else
+               sqa_fb_close_ptve <= sqa_fb_close_rnd_sat(sqa_fb_close_ptve'range);
+
+            end if;
+
+         end if;
+
+      end if;
+
+   end process P_sqa_fb_close_ptve;
+
+   -- ------------------------------------------------------------------------------------------------------
+   --!   SQUID AMP feedback close mode first frame
+   -- ------------------------------------------------------------------------------------------------------
+   P_sqa_fb_cls_fst_frm : process (i_rst, i_clk)
+   begin
+
+      if i_rst = c_RST_LEV_ACT then
+         saofm_close_sync     <= c_LOW_LEV;
+         sqa_fb_close_fst_frm <= c_LOW_LEV;
+
+      elsif rising_edge(i_clk) then
+         if pls_rw_cnt = c_ZERO(pls_rw_cnt'range) then
+
+            if i_saofm = c_DST_SAOFM_CLOSE then
+               saofm_close_sync     <= c_HGH_LEV;
+
+            else
+               saofm_close_sync     <= c_LOW_LEV;
+
+            end if;
+
+            sqa_fb_close_fst_frm <= saofm_close and not(saofm_close_sync);
+
+         end if;
+
+      end if;
+
+   end process P_sqa_fb_cls_fst_frm;
+
+   saofm_close <= c_HGH_LEV when i_saofm = c_DST_SAOFM_CLOSE else c_LOW_LEV;
+
+   -- ------------------------------------------------------------------------------------------------------
    --!   SQUID AMP coarse offset
    --    @Req : DRE-DMX-FW-REQ-0290
    --    @Req : DRE-DMX-FW-REQ-0330
-   --    @Req : DRE-DMX-FW-REQ-0455
    -- ------------------------------------------------------------------------------------------------------
    P_sqa_fbk_off : process (i_rst, i_clk)
    begin
 
       if i_rst = c_RST_LEV_ACT then
-         o_sqa_fbk_off <= c_EP_CMD_DEF_SAOFC;
+         o_sqa_fbk_off  <= c_EP_CMD_DEF_SAOFC;
 
       elsif rising_edge(i_clk) then
          if pls_rw_cnt(pls_rw_cnt'high) = c_HGH_LEV then
 
-            if i_saofm = c_DST_SAOFM_OFFSET then
+            if (i_saofm = c_DST_SAOFM_OFFSET) or ((i_saofm = c_DST_SAOFM_CLOSE) and  sqa_fb_close_fst_frm = c_HGH_LEV) then
                o_sqa_fbk_off <= i_saofc;
 
             elsif i_saofm = c_DST_SAOFM_CLOSE then
-               o_sqa_fbk_off <= sqa_fb_close;
+               o_sqa_fbk_off <= sqa_fb_close_ptve;
 
             elsif i_saofm = c_DST_SAOFM_TEST then
                o_sqa_fbk_off <= std_logic_vector(signed(i_test_pattern) + to_signed(c_SQA_DAC_MDL_POINT, o_sqa_fbk_off'length));
@@ -525,23 +604,5 @@ begin
       end if;
 
    end process P_sqa_fbk_off;
-
-   -- ------------------------------------------------------------------------------------------------------
-   --!   SQUID AMP close loop mode
-   --    @Req : DRE-DMX-FW-REQ-0325
-   -- ------------------------------------------------------------------------------------------------------
-   I_sqa_under_samp: entity work.sqa_under_samp port map (
-         i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
-         i_clk                => i_clk                , -- in     std_logic                                 ; --! System Clock
-
-         i_saofm              => i_saofm              , -- in     slv(c_DFLD_SAOFM_COL_S-1 downto 0)        ; --! SQUID AMP offset mode
-         i_saofc              => i_saofc              , -- in     slv(c_DFLD_SAOFC_COL_S-1 downto 0)        ; --! SQUID AMP lockpoint coarse offset
-
-         i_sqm_dta_err_frst   => i_sqm_dta_err_frst   , -- in     std_logic                                 ; --! SQUID MUX Data error corrected first pixel
-         i_sqm_dta_err_cor    => i_sqm_dta_err_cor    , -- in     slv(c_SQM_DATA_FBK_S-1 downto 0)          ; --! SQUID MUX Data error corrected (signed)
-         i_sqm_dta_err_cor_cs => i_sqm_dta_err_cor_cs , -- in     std_logic                                 ; --! SQUID MUX Data error corrected chip select ('0' = Inactive, '1' = Active)
-
-         o_sqa_fb_close       => sqa_fb_close           -- out    slv(c_SQA_DAC_DATA_S-1 downto 0)            --! SQUID AMP feedback close mode
-   );
 
 end architecture RTL;

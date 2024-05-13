@@ -4,6 +4,7 @@ verific -vhdl ./src/common/pkg_type.vhd
 verific -vhdl ./src/common/pkg_func_math.vhd
 verific -vhdl ./ip/nx/NG-LARGE/pkg_fpga_tech.vhd
 verific -vhdl ./src/common/pkg_project.vhd
+verific -vhdl ./src/common/pkg_calc_chain.vhd
 verific -vhdl ./src/common/pkg_ep_cmd.vhd
 verific -vhdl ./src/common/pkg_ep_cmd_type.vhd
 verific -vhdl ./src/common/multiplexer.vhd
@@ -42,7 +43,8 @@ verific -vhdl ./src/common/adder_acc.vhd
 verific -vhdl ./src/common/squid_adc_sys.vhd
 verific -vhdl ./src/common/squid_adc_mgt.vhd
 verific -vhdl ./src/common/squid_data_proc_mem.vhd
-verific -vhdl ./src/common/squid_data_proc.vhd
+verific -vhdl ./src/common/err_average.vhd
+verific -vhdl ./src/common/err_proc.vhd
 verific -vhdl ./src/common/sqm_fbk_mgt.vhd
 verific -vhdl ./src/common/pulse_shaping.vhd
 verific -vhdl ./src/common/sqm_dac_sys.vhd
@@ -56,6 +58,7 @@ verific -vhdl ./src/dm/sqa_under_samp.vhd
 verific -vhdl ./src/dm/sqa_fbk_mgt.vhd
 verific -vhdl ./src/dm/sqa_dac_sys.vhd
 verific -vhdl ./src/dm/sqa_dac_mgt.vhd
+verific -vhdl ./src/dm/squid_data_proc.vhd
 verific -vhdl ./src/dm/top_dmx_dm.vhd
 verific -vhdl ./src/dk/top_dmx_dm_clk.vhd
 verific -vhdl ./src/dk/top_dmx_dk.vhd

@@ -39,6 +39,7 @@ quietly set TB_DIR $4
       ${SRC_DIR}/common/pkg_func_math.vhd        \
       ${IP_DIR}/pkg_fpga_tech.vhd                \
       ${SRC_DIR}/common/pkg_project.vhd          \
+      ${SRC_DIR}/common/pkg_calc_chain.vhd       \
       ${SRC_DIR}/common/pkg_ep_cmd.vhd           \
       ${SRC_DIR}/common/pkg_ep_cmd_type.vhd      \
       ${SRC_DIR}/common/multiplexer.vhd          \
@@ -77,7 +78,8 @@ quietly set TB_DIR $4
       ${SRC_DIR}/common/squid_adc_sys.vhd        \
       ${SRC_DIR}/common/squid_adc_mgt.vhd        \
       ${SRC_DIR}/common/squid_data_proc_mem.vhd  \
-      ${SRC_DIR}/common/squid_data_proc.vhd      \
+      ${SRC_DIR}/common/err_average.vhd          \
+      ${SRC_DIR}/common/err_proc.vhd             \
       ${SRC_DIR}/common/sqm_fbk_mgt.vhd          \
       ${SRC_DIR}/common/pulse_shaping.vhd        \
       ${SRC_DIR}/common/sqm_dac_sys.vhd          \
@@ -94,6 +96,7 @@ quietly set TB_DIR $4
          ${SRC_DIR}/dm/sqa_fbk_mgt.vhd           \
          ${SRC_DIR}/dm/sqa_dac_sys.vhd           \
          ${SRC_DIR}/dm/sqa_dac_mgt.vhd           \
+         ${SRC_DIR}/dm/squid_data_proc.vhd       \
          ${SRC_DIR}/dm/top_dmx_dm.vhd
    }
 

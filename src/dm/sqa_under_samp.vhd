@@ -34,30 +34,31 @@ use     work.pkg_fpga_tech.all;
 use     work.pkg_func_math.all;
 use     work.pkg_project.all;
 use     work.pkg_ep_cmd.all;
+use     work.pkg_calc_chain.all;
 use     work.pkg_fir.all;
 
 entity sqa_under_samp is port (
          i_rst                : in     std_logic                                                            ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                : in     std_logic                                                            ; --! System Clock
 
-         i_saofm              : in     std_logic_vector(c_DFLD_SAOFM_COL_S-1 downto 0)                      ; --! SQUID AMP offset mode
+         i_squid_amp_close    : in     std_logic                                                            ; --! SQUID AMP Close mode     ('0' = Yes, '1' = No)
          i_saofc              : in     std_logic_vector(c_DFLD_SAOFC_COL_S-1 downto 0)                      ; --! SQUID AMP lockpoint coarse offset
 
-         i_sqm_dta_err_frst   : in     std_logic                                                            ; --! SQUID MUX Data error corrected first pixel
-         i_sqm_dta_err_cor    : in     std_logic_vector(c_SQM_DATA_FBK_S-1 downto 0)                        ; --! SQUID MUX Data error corrected (signed)
-         i_sqm_dta_err_cor_cs : in     std_logic                                                            ; --! SQUID MUX Data error corrected chip select ('0' = Inactive, '1' = Active)
+         i_adc_smp_ave        : in     std_logic_vector(c_ADC_SMP_AVE_S-1    downto 0)                      ; --! ADC sample average (signed) (bus size result +1 bit for rounding)
+         i_adc_smp_ave_frst   : in     std_logic                                                            ; --! ADC sample average first pixel
+         i_adc_smp_ave_cs     : in     std_logic                                                            ; --! ADC sample average chip select ('0' = Inactive, '1' = Active)
 
-         o_sqa_fb_close       : out    std_logic_vector(c_SQA_DAC_DATA_S-1 downto 0)                          --! SQUID AMP feedback close mode
+         o_sqa_under_samp     : out    std_logic_vector(c_ADC_SMP_AVE_S-1    downto 0)                        --! SQUID AMP under-sampling
    );
 end entity sqa_under_samp;
 
 architecture RTL of sqa_under_samp is
-constant c_FIR1_DATA_S        : integer:= c_SQM_DATA_FBK_S                                                  ; --! Filter FIR1: Data input bus size
+constant c_FIR1_DATA_S        : integer:= c_RAM_ECC_DATA_S                                                  ; --! Filter FIR1: Data input bus size
 constant c_FIR2_DATA_S        : integer:= c_RAM_ECC_DATA_S                                                  ; --! Filter FIR2: Data input bus size
-constant c_FIR2_RES_S         : integer:= c_SQA_DAC_DATA_S + 1                                              ; --! Filter FIR2: Result bus size
+constant c_FIR2_RES_S         : integer:= c_ADC_SMP_AVE_S                                                   ; --! Filter FIR2: Result bus size
 
-signal   sqm_dta_err_fst_r    : std_logic                                                                   ; --! SQUID MUX Data error corrected first pixel register
-signal   sqm_dta_err_rdy      : std_logic                                                                   ; --! SQUID MUX Data error corrected ready
+signal   adc_smp_ave_fst_r    : std_logic                                                                   ; --! ADC sample average first pixel register
+signal   adc_smp_ave_rdy      : std_logic                                                                   ; --! ADC sample average ready
 
 signal   fir_init_ena         : std_logic                                                                   ; --! Filter FIR: initialization enable
 
@@ -82,18 +83,18 @@ begin
    begin
 
       if i_rst = c_RST_LEV_ACT then
-         sqm_dta_err_fst_r <= c_LOW_LEV;
+         adc_smp_ave_fst_r <= c_LOW_LEV;
          fir1_res_rdy_r    <= c_LOW_LEV;
 
       elsif rising_edge(i_clk) then
-         sqm_dta_err_fst_r <= i_sqm_dta_err_frst;
+         adc_smp_ave_fst_r <= i_adc_smp_ave_frst;
          fir1_res_rdy_r    <= fir1_res_rdy;
 
       end if;
 
    end process P_sig_r;
 
-   sqm_dta_err_rdy <= sqm_dta_err_fst_r and i_sqm_dta_err_cor_cs;
+   adc_smp_ave_rdy <= adc_smp_ave_fst_r and i_adc_smp_ave_cs;
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Filter FIR: initialization enable
@@ -105,14 +106,8 @@ begin
          fir_init_ena   <= c_HGH_LEV;
 
       elsif rising_edge(i_clk) then
-         if (i_sqm_dta_err_cor_cs and i_sqm_dta_err_frst) = c_HGH_LEV then
-            if i_saofm = c_DST_SAOFM_CLOSE then
-               fir_init_ena   <= c_LOW_LEV;
-
-            else
-               fir_init_ena   <= c_HGH_LEV;
-
-            end if;
+         if (i_adc_smp_ave_cs and i_adc_smp_ave_frst) = c_HGH_LEV then
+            fir_init_ena   <= not(i_squid_amp_close);
 
          end if;
 
@@ -152,8 +147,8 @@ begin
          i_fir_init_val       => fir1_init_val        , -- in     std_logic_vector(g_FIR_DATA_S-1 downto 0) ; --! Filter FIR data initialization value
          i_fir_init_ena       => fir_init_ena         , -- in     std_logic                                 ; --! Filter FIR data initialization enable ('0' = No, '1' = Yes)
 
-         i_data               => i_sqm_dta_err_cor    , -- in     std_logic_vector(g_FIR_DATA_S-1 downto 0) ; --! Data (signed)
-         i_data_rdy           => sqm_dta_err_rdy      , -- in     std_logic                                 ; --! Data ready ('0' = Inactive, '1' = Active)
+         i_data               => i_adc_smp_ave        , -- in     std_logic_vector(g_FIR_DATA_S-1 downto 0) ; --! Data (signed)
+         i_data_rdy           => adc_smp_ave_rdy      , -- in     std_logic                                 ; --! Data ready ('0' = Inactive, '1' = Active)
 
          o_fir_res            => fir1_res             , -- out    std_logic_vector( g_FIR_RES_S-1 downto 0) ; --! Filter FIR result (signed)
          o_fir_res_rdy        => fir1_res_rdy           -- out    std_logic                                   --! Filter FIR result ready ('0' = Inactive, '1' = Active)
@@ -181,7 +176,7 @@ begin
             fir1_res_sat(fir1_res_sat'high-1 downto 0)<= (others => c_HGH_LEV);
 
          else
-            fir1_res_sat <= fir1_res(fir1_res_sat'high downto 0);
+            fir1_res_sat <= fir1_res(fir1_res_sat'range);
 
          end if;
 
@@ -229,33 +224,25 @@ begin
    );
 
    -- ------------------------------------------------------------------------------------------------------
-   --!   Filter FIR2
+   --!   SQUID AMP under-sampling
    -- ------------------------------------------------------------------------------------------------------
-   P_sqa_fb_close : process (i_rst, i_clk)
+   P_sqa_under_samp : process (i_rst, i_clk)
    begin
 
       if i_rst = c_RST_LEV_ACT then
-         o_sqa_fb_close <= c_EP_CMD_DEF_SAOFC;
+         o_sqa_under_samp <= std_logic_vector(resize(unsigned(c_EP_CMD_DEF_SAOFC), o_sqa_under_samp'length));
 
       elsif rising_edge(i_clk) then
          if fir_init_ena = c_HGH_LEV then
-            o_sqa_fb_close <= i_saofc;
+            o_sqa_under_samp <= fir2_init_val;
 
          elsif fir2_res_rdy = c_HGH_LEV then
-
-            -- Saturation in case of negative FIR2 filter output
-            if fir2_res(fir2_res'high) = c_HGH_LEV then
-               o_sqa_fb_close <= c_ZERO(o_sqa_fb_close'range);
-
-            else
-               o_sqa_fb_close <= std_logic_vector(resize(unsigned(fir2_res), o_sqa_fb_close'length));
-
-            end if;
+            o_sqa_under_samp <= fir2_res;
 
          end if;
 
       end if;
 
-   end process P_sqa_fb_close;
+   end process P_sqa_under_samp;
 
 end architecture RTL;

@@ -263,12 +263,13 @@ begin
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Memory pulse shaping coefficient signals, DAC side
+   --    @Req : DRE-DMX-FW-REQ-0235
    -- ------------------------------------------------------------------------------------------------------
    P_mem_plssh_dac : process (rst_sqm_adc_dac_lc , i_clk_sqm_adc_dac)
    begin
 
       if rst_sqm_adc_dac_lc  = c_RST_LEV_ACT then
-         mem_plssh_add_lsb <= c_ZERO(mem_plssh_add_lsb'range);
+         mem_plssh_add_lsb <= c_MINUSONE(mem_plssh_add_lsb'range);
          mem_plssh_prm.add(mem_plssh_prm.add'high downto mem_plssh_add_lsb'high) <= c_EP_CMD_DEF_PLSSS;
          mem_plssh_prm.pp <= c_MEM_STR_ADD_PP_DEF;
 

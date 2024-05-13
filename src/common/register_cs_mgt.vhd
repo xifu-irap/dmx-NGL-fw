@@ -73,15 +73,31 @@ begin
        i_ep_cmd_rx_wd_add_r(c_EP_CMD_ADD_COLPOSL-1  downto c_MEM_PARMA_ADD_S)          = c_EP_CMD_ADD_PARMA(c_COL0)(c_EP_CMD_ADD_COLPOSL-1  downto c_MEM_PARMA_ADD_S)        and
        i_ep_cmd_rx_wd_add_r(   c_MEM_PARMA_ADD_S-1  downto 0)                          < std_logic_vector(to_unsigned(c_TAB_PARMA_NW, c_MEM_PARMA_ADD_S)))              else c_LOW_LEV;
 
+   cs_rg(c_EP_CMD_POS_SMIGN)  <= c_HGH_LEV when
+      (i_ep_cmd_rx_wd_add_r(i_ep_cmd_rx_wd_add_r'high downto c_EP_CMD_ADD_COLPOSH+1)   = c_EP_CMD_ADD_SMIGN(c_COL0)(i_ep_cmd_rx_wd_add_r'high downto c_EP_CMD_ADD_COLPOSH+1) and
+       i_ep_cmd_rx_wd_add_r(c_EP_CMD_ADD_COLPOSL-1  downto 0)                          = c_EP_CMD_ADD_SMIGN(c_COL0)(c_EP_CMD_ADD_COLPOSL-1  downto 0))                  else c_LOW_LEV;
+
+   cs_rg(c_EP_CMD_POS_SAIGN)  <= c_HGH_LEV when
+      (i_ep_cmd_rx_wd_add_r(i_ep_cmd_rx_wd_add_r'high downto c_EP_CMD_ADD_COLPOSH+1)   = c_EP_CMD_ADD_SAIGN(c_COL0)(i_ep_cmd_rx_wd_add_r'high downto c_EP_CMD_ADD_COLPOSH+1) and
+       i_ep_cmd_rx_wd_add_r(c_EP_CMD_ADD_COLPOSL-1  downto 0)                          = c_EP_CMD_ADD_SAIGN(c_COL0)(c_EP_CMD_ADD_COLPOSL-1  downto 0))                  else c_LOW_LEV;
+
    cs_rg(c_EP_CMD_POS_KIKNM)  <= c_HGH_LEV when
       (i_ep_cmd_rx_wd_add_r(i_ep_cmd_rx_wd_add_r'high downto c_EP_CMD_ADD_COLPOSH+1)   = c_EP_CMD_ADD_KIKNM(c_COL0)(i_ep_cmd_rx_wd_add_r'high downto c_EP_CMD_ADD_COLPOSH+1) and
        i_ep_cmd_rx_wd_add_r(c_EP_CMD_ADD_COLPOSL-1  downto 0)                         >= c_EP_CMD_ADD_KIKNM(c_COL0)(c_EP_CMD_ADD_COLPOSL-1  downto 0)                        and
        i_ep_cmd_rx_wd_add_r(c_EP_CMD_ADD_COLPOSL-1  downto 0)                          < std_logic_vector(unsigned(c_EP_CMD_ADD_KIKNM(c_COL0)(c_EP_CMD_ADD_COLPOSL-1 downto 0))
                                                                                                      + to_unsigned(c_TAB_KIKNM_NW, c_EP_CMD_ADD_COLPOSL)))              else c_LOW_LEV;
+   cs_rg(c_EP_CMD_POS_SAKKM)  <= c_HGH_LEV when
+      (i_ep_cmd_rx_wd_add_r(i_ep_cmd_rx_wd_add_r'high downto c_EP_CMD_ADD_COLPOSH+1)   = c_EP_CMD_ADD_SAKKM(c_COL0)(i_ep_cmd_rx_wd_add_r'high downto c_EP_CMD_ADD_COLPOSH+1) and
+       i_ep_cmd_rx_wd_add_r(c_EP_CMD_ADD_COLPOSL-1  downto 0)                          = c_EP_CMD_ADD_SAKKM(c_COL0)(c_EP_CMD_ADD_COLPOSL-1  downto 0))                  else c_LOW_LEV;
+
    cs_rg(c_EP_CMD_POS_KNORM)  <= c_HGH_LEV when
       (i_ep_cmd_rx_wd_add_r(i_ep_cmd_rx_wd_add_r'high downto c_EP_CMD_ADD_COLPOSH+1)   = c_EP_CMD_ADD_KNORM(c_COL0)(i_ep_cmd_rx_wd_add_r'high downto c_EP_CMD_ADD_COLPOSH+1) and
        i_ep_cmd_rx_wd_add_r(c_EP_CMD_ADD_COLPOSL-1  downto c_MEM_KNORM_ADD_S)          = c_EP_CMD_ADD_KNORM(c_COL0)(c_EP_CMD_ADD_COLPOSL-1  downto c_MEM_KNORM_ADD_S)        and
        i_ep_cmd_rx_wd_add_r(   c_MEM_KNORM_ADD_S-1  downto 0)                          < std_logic_vector(to_unsigned(c_TAB_KNORM_NW, c_MEM_KNORM_ADD_S)))              else c_LOW_LEV;
+
+   cs_rg(c_EP_CMD_POS_SAKRM)  <= c_HGH_LEV when
+      (i_ep_cmd_rx_wd_add_r(i_ep_cmd_rx_wd_add_r'high downto c_EP_CMD_ADD_COLPOSH+1)   = c_EP_CMD_ADD_SAKRM(c_COL0)(i_ep_cmd_rx_wd_add_r'high downto c_EP_CMD_ADD_COLPOSH+1) and
+       i_ep_cmd_rx_wd_add_r(c_EP_CMD_ADD_COLPOSL-1  downto 0)                          = c_EP_CMD_ADD_SAKRM(c_COL0)(c_EP_CMD_ADD_COLPOSL-1  downto 0))                  else c_LOW_LEV;
 
    cs_rg(c_EP_CMD_POS_SMFB0)  <= c_HGH_LEV when
       (i_ep_cmd_rx_wd_add_r(i_ep_cmd_rx_wd_add_r'high downto c_EP_CMD_ADD_COLPOSH+1)   = c_EP_CMD_ADD_SMFB0(c_COL0)(i_ep_cmd_rx_wd_add_r'high downto c_EP_CMD_ADD_COLPOSH+1) and
@@ -97,6 +113,10 @@ begin
       (i_ep_cmd_rx_wd_add_r(i_ep_cmd_rx_wd_add_r'high downto c_EP_CMD_ADD_COLPOSH+1)   = c_EP_CMD_ADD_SMFBM(c_COL0)(i_ep_cmd_rx_wd_add_r'high downto c_EP_CMD_ADD_COLPOSH+1) and
        i_ep_cmd_rx_wd_add_r(c_EP_CMD_ADD_COLPOSL-1  downto c_MEM_SMFBM_ADD_S)          = c_EP_CMD_ADD_SMFBM(c_COL0)(c_EP_CMD_ADD_COLPOSL-1  downto c_MEM_SMFBM_ADD_S)        and
        i_ep_cmd_rx_wd_add_r(   c_MEM_SMFBM_ADD_S-1  downto 0)                          < std_logic_vector(to_unsigned(c_TAB_SMFBM_NW, c_MEM_SMFBM_ADD_S)))              else c_LOW_LEV;
+
+   cs_rg(c_EP_CMD_POS_SAOLP)  <= c_HGH_LEV when
+      (i_ep_cmd_rx_wd_add_r(i_ep_cmd_rx_wd_add_r'high downto c_EP_CMD_ADD_COLPOSH+1)   = c_EP_CMD_ADD_SAOLP(c_COL0)(i_ep_cmd_rx_wd_add_r'high downto c_EP_CMD_ADD_COLPOSH+1) and
+       i_ep_cmd_rx_wd_add_r(c_EP_CMD_ADD_COLPOSL-1  downto 0)                          = c_EP_CMD_ADD_SAOLP(c_COL0)(c_EP_CMD_ADD_COLPOSL-1  downto 0))                  else c_LOW_LEV;
 
    cs_rg(c_EP_CMD_POS_SAOFF)  <= c_HGH_LEV when
       (i_ep_cmd_rx_wd_add_r(i_ep_cmd_rx_wd_add_r'high downto c_EP_CMD_ADD_COLPOSH+1)   = c_EP_CMD_ADD_SAOFF(c_COL0)(i_ep_cmd_rx_wd_add_r'high downto c_EP_CMD_ADD_COLPOSH+1) and

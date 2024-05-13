@@ -73,6 +73,8 @@ entity register_mgt is port (
          o_saofm              : out    t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SAOFM_COL_S-1 downto 0)            ; --! SQUID AMP offset mode
          o_bxlgt              : out    t_slv_arr(0 to c_NB_COL-1)(c_DFLD_BXLGT_COL_S-1 downto 0)            ; --! ADC sample number for averaging
          o_rg_col             : out    t_rgc_arr(0 to c_NB_COL-1)                                           ; --! EP register by column
+         o_squid_gain         : out    t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SMIGN_COL_S-1 downto 0)            ; --! SQUID gain
+         o_sqa_off_lsb        : out    t_slv_arr(0 to c_NB_COL-1)(  c_SQA_DAC_DATA_S-1 downto 0)            ; --! SQUID AMP offset LSB
 
          o_mem_prc            : out    t_mem_prc_arr(0 to c_NB_COL-1)                                       ; --! Memory for data squid proc.: memory interface
          i_mem_prc_data       : in     t_mem_prc_dta_arr(0 to c_NB_COL-1)                                   ; --! Memory for data squid proc.: data read
@@ -85,7 +87,9 @@ entity register_mgt is port (
 
          i_smfbm_add          : in     t_slv_arr(0 to c_NB_COL-1)( c_MEM_SMFBM_ADD_S-1 downto 0)            ; --! SQUID MUX feedback mode: address, memory output
          i_smfbm_cs           : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! SQUID MUX feedback mode: chip select, memory output ('0' = Inactive, '1' = Active)
-         o_squid_close_mode_n : out    std_logic_vector(c_NB_COL-1 downto 0)                                  --! SQUID MUX/AMP Close mode ('0' = Yes, '1' = No)
+         o_squid_amp_close    : out    std_logic_vector(c_NB_COL-1 downto 0)                                ; --! SQUID AMP Close mode     ('0' = Yes, '1' = No)
+         o_squid_close_mode_n : out    std_logic_vector(c_NB_COL-1 downto 0)                                ; --! SQUID MUX/AMP Close mode ('0' = Yes, '1' = No)
+         o_amp_frst_lst_frm   : out    std_logic_vector(c_NB_COL-1 downto 0)                                  --! SQUID AMP First and Last frame('0' = No, '1' = Yes)
    );
 end entity register_mgt;
 
@@ -205,11 +209,13 @@ begin
       begin
 
          if i_rst = c_RST_LEV_ACT then
-            rg_saofm(k) <= c_EP_CMD_DEF_SAOFM;
-            rg_smfmd(k) <= c_EP_CMD_DEF_SMFMD;
-            rg_bxlgt(k) <= c_EP_CMD_DEF_BXLGT;
+            rg_saofm(k)       <= c_EP_CMD_DEF_SAOFM;
+            rg_smfmd(k)       <= c_EP_CMD_DEF_SMFMD;
+            rg_bxlgt(k)       <= c_EP_CMD_DEF_BXLGT;
 
-            o_adc_ena(k)<= c_LOW_LEV;
+            o_adc_ena(k)      <= c_LOW_LEV;
+            o_squid_gain(k)   <= c_EP_CMD_DEF_SMIGN;
+            o_sqa_off_lsb(k)  <= c_EP_CMD_DEF_SAOFL;
 
          elsif rising_edge(i_clk) then
 
@@ -248,12 +254,37 @@ begin
 
             end if;
 
+            --    @Req : DRE-DMX-FW-REQ-0147
+            --    @Req : DRE-DMX-FW-REQ-0148
+            if o_squid_amp_close(k) = c_HGH_LEV then
+               o_squid_gain(k) <= rg_col(k).saign;
+
+            else
+               o_squid_gain(k) <= rg_col(k).smign;
+
+            end if;
+
+            --    @Req : DRE-DMX-FW-REQ-0297
+            --    @Req : DRE-DMX-FW-REQ-0298
+            if rg_saofm(k) = c_DST_SAOFM_TEST then
+               o_sqa_off_lsb(k) <= rg_col(k).saolp;
+
+            else
+               o_sqa_off_lsb(k) <= rg_col(k).saofl;
+
+            end if;
+
          end if;
 
       end process P_rg_com_for_all;
 
       -- ------------------------------------------------------------------------------------------------------
       --!   EP command: one register by column
+      --    @Req : REG_CY_MUX_SQ_INPUT_GAIN
+      --    @Req : REG_CY_AMP_SQ_INPUT_GAIN
+      --    @Req : REG_CY_AMP_SQ_KI_KNORM
+      --    @Req : REG_CY_AMP_SQ_KNORM
+      --    @Req : REG_CY_AMP_SQ_OFFSET_LSB_PTR
       --    @Req : REG_CY_AMP_SQ_OFFSET_COARSE
       --    @Req : REG_CY_AMP_SQ_OFFSET_LSB
       --    @Req : REG_CY_MUX_SQ_FB_DELAY
@@ -263,10 +294,22 @@ begin
       --    @Req : REG_CY_PULSE_SHAPING_SEL
       --    @Req : REG_CY_RELOCK_DELAY
       --    @Req : REG_CY_RELOCK_THRESHOLD
+      --    @Req : DRE-DMX-FW-REQ-0147
+      --    @Req : DRE-DMX-FW-REQ-0148
       --    @Req : DRE-DMX-FW-REQ-0150
+      --    @Req : DRE-DMX-FW-REQ-0155
+      --    @Req : DRE-DMX-FW-REQ-0235
       --    @Req : DRE-DMX-FW-REQ-0280
       --    @Req : DRE-DMX-FW-REQ-0290
+      --    @Req : DRE-DMX-FW-REQ-0292
+      --    @Req : DRE-DMX-FW-REQ-0295
+      --    @Req : DRE-DMX-FW-REQ-0297
+      --    @Req : DRE-DMX-FW-REQ-0298
+      --    @Req : DRE-DMX-FW-REQ-0305
+      --    @Req : DRE-DMX-FW-REQ-0326
       --    @Req : DRE-DMX-FW-REQ-0380
+      --    @Req : DRE-DMX-FW-REQ-0387
+      --    @Req : DRE-DMX-FW-REQ-0392
       --    @Req : DRE-DMX-FW-REQ-0410
       --    @Req : DRE-DMX-FW-REQ-0420
       -- ------------------------------------------------------------------------------------------------------
@@ -300,6 +343,11 @@ begin
 
       end generate G_rg_col;
 
+      rg_col(k).smign <= rg_col_data(k)(c_EP_RGC_ACC(c_EP_RGC_NUM_SMIGN+1)-1 downto c_EP_RGC_ACC(c_EP_RGC_NUM_SMIGN));
+      rg_col(k).saign <= rg_col_data(k)(c_EP_RGC_ACC(c_EP_RGC_NUM_SAIGN+1)-1 downto c_EP_RGC_ACC(c_EP_RGC_NUM_SAIGN));
+      rg_col(k).sakkm <= rg_col_data(k)(c_EP_RGC_ACC(c_EP_RGC_NUM_SAKKM+1)-1 downto c_EP_RGC_ACC(c_EP_RGC_NUM_SAKKM));
+      rg_col(k).sakrm <= rg_col_data(k)(c_EP_RGC_ACC(c_EP_RGC_NUM_SAKRM+1)-1 downto c_EP_RGC_ACC(c_EP_RGC_NUM_SAKRM));
+      rg_col(k).saolp <= rg_col_data(k)(c_EP_RGC_ACC(c_EP_RGC_NUM_SAOLP+1)-1 downto c_EP_RGC_ACC(c_EP_RGC_NUM_SAOLP));
       rg_col(k).saofc <= rg_col_data(k)(c_EP_RGC_ACC(c_EP_RGC_NUM_SAOFC+1)-1 downto c_EP_RGC_ACC(c_EP_RGC_NUM_SAOFC));
       rg_col(k).saofl <= rg_col_data(k)(c_EP_RGC_ACC(c_EP_RGC_NUM_SAOFL+1)-1 downto c_EP_RGC_ACC(c_EP_RGC_NUM_SAOFL));
       rg_col(k).smfbd <= rg_col_data(k)(c_EP_RGC_ACC(c_EP_RGC_NUM_SMFBD+1)-1 downto c_EP_RGC_ACC(c_EP_RGC_NUM_SMFBD));
@@ -316,8 +364,8 @@ begin
    --!   Memories inputs generation
    --    @Req : REG_TEST_PATTERN
    --    @Req : REG_CY_A
-   --    @Req : REG_CY_KI_KNORM
-   --    @Req : REG_CY_KNORM
+   --    @Req : REG_CY_MUX_SQ_KI_KNORM
+   --    @Req : REG_CY_MUX_SQ_KNORM
    --    @Req : REG_CY_MUX_SQ_FB0
    --    @Req : REG_CY_MUX_SQ_LOCKPOINT_V
    --    @Req : REG_CY_MUX_SQ_FB_MODE
@@ -326,7 +374,6 @@ begin
    --    @Req : REG_CY_DELOCK_COUNTERS
    --    @Req : DRE-DMX-FW-REQ-0170
    --    @Req : DRE-DMX-FW-REQ-0180
-   --    @Req : DRE-DMX-FW-REQ-0185
    --    @Req : DRE-DMX-FW-REQ-0190
    --    @Req : DRE-DMX-FW-REQ-0200
    --    @Req : DRE-DMX-FW-REQ-0210
@@ -434,7 +481,9 @@ begin
          i_mem_smfbm          => o_ep_mem(k).smfbm    , -- in     t_mem                                     ; --! SQUID MUX feedback mode: memory inputs
          i_smfbm_add          => i_smfbm_add(k)       , -- in     slv( c_MEM_SMFBM_ADD_S-1 downto 0)        ; --! SQUID MUX feedback mode: address, memory output
          i_smfbm_cs           => i_smfbm_cs(k)        , -- in     std_logic                                 ; --! SQUID MUX feedback mode: chip select, memory output ('0' = Inactive, '1' = Active)
-         o_squid_close_mode_n => o_squid_close_mode_n(k)-- out    std_logic                                   --! SQUID MUX/AMP Close mode by pixel ('0' = Yes, '1' = No)
+         o_squid_amp_close    => o_squid_amp_close(k) , -- out    std_logic                                 ; --! SQUID AMP Close mode     ('0' = Yes, '1' = No)
+         o_squid_close_mode_n => o_squid_close_mode_n(k),--out    std_logic                                 ; --! SQUID MUX/AMP Close mode by pixel ('0' = Yes, '1' = No)
+         o_amp_frst_lst_frm   => o_amp_frst_lst_frm(k)  -- in     std_logic                                   --! SQUID AMP First and Last frame('0' = No, '1' = Yes)
       );
 
    end generate G_ep_mem_col;

@@ -73,7 +73,6 @@ constant c_FRAME_NB_CYC_S     : integer := log2_ceil(c_FRAME_NB_CYC)            
 constant c_SMFBD_POSITIVE_S   : integer := c_FRAME_NB_CYC_S + 1                                             ; --! SQUID MUX feedback delay in positive bus size
 constant c_SMFBD_CMP_R_S      : integer := 2 * c_DSP_NPER + 2                                               ; --! SQUID MUX feedback delay compare register bus size
 
-constant c_PLS_CNT_INIT_SAT   : integer := c_SQM_PXL_POS_S + log2_ceil(c_PIXEL_DAC_NB_CYC+1)+1              ; --! Pulse counter initialization saturation
 constant c_PLS_CNT_INIT_SHT   : integer := 2                                                                ; --! Pulse counter initialization number cycle shift
 constant c_PLS_CNT_INIT_SHT_V : std_logic_vector(c_SMFBD_POSITIVE_S-1 downto 0) :=
                                 std_logic_vector(to_unsigned(c_PLS_CNT_INIT_SHT , c_SMFBD_POSITIVE_S))      ; --! Pulse counter initialization number cycle shift vector
@@ -81,10 +80,10 @@ constant c_PLS_CNT_INIT_SHT_V : std_logic_vector(c_SMFBD_POSITIVE_S-1 downto 0) 
 constant c_FBK_PLS_CNT_NB_VAL : integer:= c_PIXEL_DAC_NB_CYC/2                                              ; --! Feedback Pulse counter: number of value
 constant c_FBK_PLS_CNT_MX_VAL : integer:= c_FBK_PLS_CNT_NB_VAL - 2                                          ; --! Feedback Pulse counter: maximal value
 
-constant c_PXL_POS_INIT_SAT   : integer := c_MULT_ALU_PORTA_S + c_SMFBD_POSITIVE_S                          ; --! Pixel position initialization saturation
 constant c_PXL_DAC_NCYC_INV   : integer := div_round(2**(c_MULT_ALU_PORTA_S), c_PIXEL_DAC_NB_CYC)           ; --! DAC clock period number allocated to one pixel acquisition inverted
-constant c_PXL_DAC_NCYC_INV_V : std_logic_vector(c_MULT_ALU_PORTA_S-1 downto 0) :=
-                                std_logic_vector(to_unsigned(c_PXL_DAC_NCYC_INV , c_MULT_ALU_PORTA_S))      ; --! DAC clock period number allocated to one pixel acquisition inverted vector
+constant c_PXL_DAC_NCYC_INV_S : integer := log2_ceil(c_PXL_DAC_NCYC_INV) + 1                                ; --! DAC clock period number allocated to one pixel acquisition inverted bus size
+constant c_PXL_DAC_NCYC_INV_V : std_logic_vector(c_PXL_DAC_NCYC_INV_S-1 downto 0) :=
+                                std_logic_vector(to_unsigned(c_PXL_DAC_NCYC_INV , c_PXL_DAC_NCYC_INV_S))    ; --! DAC clock period number allocated to one pixel acquisition inverted vector
 constant c_PXL_DAC_NCYC_NEG_V : std_logic_vector(c_MULT_ALU_PORTA_S-1 downto 0) :=
                                 std_logic_vector(to_signed(-c_PIXEL_DAC_NB_CYC , c_MULT_ALU_PORTA_S))       ; --! DAC clock period number allocated to one pixel acquisition negative vector
 
@@ -217,14 +216,13 @@ begin
    --!   Pixel position division result
    -- ------------------------------------------------------------------------------------------------------
    I_pixel_pos_div: entity work.dsp generic map (
-         g_PORTA_S            => c_MULT_ALU_PORTA_S   , -- integer                                          ; --! Port A bus size (<= c_MULT_ALU_PORTA_S)
+         g_PORTA_S            => c_PXL_DAC_NCYC_INV_S , -- integer                                          ; --! Port A bus size (<= c_MULT_ALU_PORTA_S)
          g_PORTB_S            => c_SMFBD_POSITIVE_S   , -- integer                                          ; --! Port B bus size (<= c_MULT_ALU_PORTB_S)
          g_PORTC_S            => c_MULT_ALU_PORTC_S   , -- integer                                          ; --! Port C bus size (<= c_MULT_ALU_PORTC_S)
          g_RESULT_S           => c_SQM_PXL_POS_S      , -- integer                                          ; --! Result bus size (<= c_MULT_ALU_RESULT_S)
-         g_RESULT_LSB_POS     => c_MULT_ALU_PORTA_S   , -- integer                                          ; --! Result LSB position
-         g_SAT_RANK           => c_PXL_POS_INIT_SAT   , -- integer                                          ; --! Extrem values reached on result bus
-                                                                                                              --!   unsigned: range from               0  to 2**(g_SAT_RANK+1) - 1
-                                                                                                              --!     signed: range from -2**(g_SAT_RANK) to 2**(g_SAT_RANK)   - 1
+         g_LIN_SAT            => c_MULT_ALU_LSAT_ENA  , -- integer range 0 to 1                             ; --! Linear saturation (0 = Disable, 1 = Enable)
+         g_SAT_RANK           => c_MULT_ALU_SAT_NU    , -- integer                                          ; --! Extrem values reached on result bus, not used if linear saturation enabled
+                                                                                                              --!     range from -2**(g_SAT_RANK-1) to 2**(g_SAT_RANK-1) - 1
          g_PRE_ADDER_OP       => c_LOW_LEV_B          , -- bit                                              ; --! Pre-Adder operation     ('0' = add,    '1' = subtract)
          g_MUX_C_CZ           => c_LOW_LEV_B            -- bit                                                --! Multiplexer ALU operand ('0' = Port C, '1' = Cascaded Result Input)
    ) port map (
@@ -250,10 +248,9 @@ begin
          g_PORTB_S            => c_SQM_PXL_POS_S      , -- integer                                          ; --! Port B bus size (<= c_MULT_ALU_PORTB_S)
          g_PORTC_S            => c_SMFBD_POSITIVE_S   , -- integer                                          ; --! Port C bus size (<= c_MULT_ALU_PORTC_S)
          g_RESULT_S           => c_SQM_PLS_CNT_S      , -- integer                                          ; --! Result bus size (<= c_MULT_ALU_RESULT_S)
-         g_RESULT_LSB_POS     => c_ZERO_INT           , -- integer                                          ; --! Result LSB position
-         g_SAT_RANK           => c_PLS_CNT_INIT_SAT   , -- integer                                          ; --! Extrem values reached on result bus
-                                                                                                              --!   unsigned: range from               0  to 2**(g_SAT_RANK+1) - 1
-                                                                                                              --!     signed: range from -2**(g_SAT_RANK) to 2**(g_SAT_RANK)   - 1
+         g_LIN_SAT            => c_MULT_ALU_LSAT_DIS  , -- integer range 0 to 1                             ; --! Linear saturation (0 = Disable, 1 = Enable)
+         g_SAT_RANK           => c_SQM_PLS_CNT_S      , -- integer                                          ; --! Extrem values reached on result bus, not used if linear saturation enabled
+                                                                                                              --!     range from -2**(g_SAT_RANK-1) to 2**(g_SAT_RANK-1) - 1
          g_PRE_ADDER_OP       => c_LOW_LEV_B          , -- bit                                              ; --! Pre-Adder operation     ('0' = add,    '1' = subtract)
          g_MUX_C_CZ           => c_LOW_LEV_B            -- bit                                                --! Multiplexer ALU operand ('0' = Port C, '1' = Cascaded Result Input)
    ) port map (
@@ -608,7 +605,6 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   SQUID MUX Data feedback
    --    @Req : DRE-DMX-FW-REQ-0210
-   --    @Req : DRE-DMX-FW-REQ-0450
    -- ------------------------------------------------------------------------------------------------------
    P_sqm_data_fbk : process (i_rst, i_clk)
    begin

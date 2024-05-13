@@ -48,7 +48,9 @@ entity squid_close_mode is port (
          i_smfbm_add          : in     std_logic_vector( c_MEM_SMFBM_ADD_S-1 downto 0)                      ; --! SQUID MUX feedback mode: address, memory output
          i_smfbm_cs           : in     std_logic                                                            ; --! SQUID MUX feedback mode: chip select, memory output ('0' = Inactive, '1' = Active)
 
-         o_squid_close_mode_n : out    std_logic                                                              --! SQUID MUX/AMP Close mode ('0' = Yes, '1' = No)
+         o_squid_amp_close    : out    std_logic                                                            ; --! SQUID AMP Close mode     ('0' = Yes, '1' = No)
+         o_squid_close_mode_n : out    std_logic                                                            ; --! SQUID MUX/AMP Close mode ('0' = Yes, '1' = No)
+         o_amp_frst_lst_frm   : out    std_logic                                                              --! SQUID AMP First and Last frame('0' = No, '1' = Yes)
    );
 end entity squid_close_mode;
 
@@ -60,6 +62,7 @@ signal   mem_smfbm_prm        : t_mem(
 
 signal   smfmd_sync           : std_logic_vector(c_DFLD_SMFMD_COL_S-1 downto 0)                             ; --! SQUID MUX feedback mode synchronized on first Pixel sequence
 signal   saofm_close_sync     : std_logic                                                                   ; --! SQUID AMP offset close mode synchronized on first Pixel sequence
+signal   saofm_close_sync_r   : std_logic                                                                   ; --! SQUID AMP offset close mode synchronized on first Pixel sequence register
 
 signal   smfbm                : std_logic_vector(c_DFLD_SMFBM_PIX_S-1 downto 0)                             ; --! SQUID MUX feedback mode
 
@@ -75,6 +78,7 @@ begin
          mem_smfbm_prm.pp      <= c_MEM_STR_ADD_PP_DEF;
          smfmd_sync            <= c_DST_SMFMD_OFF;
          saofm_close_sync      <= c_LOW_LEV;
+         saofm_close_sync_r    <= c_LOW_LEV;
 
       elsif rising_edge(i_clk) then
          if (i_smfbm_cs = c_HGH_LEV) and i_smfbm_add = std_logic_vector(to_unsigned(c_TAB_SMFBM_NW-1, i_smfbm_add'length)) then
@@ -90,6 +94,8 @@ begin
             end if;
 
          end if;
+
+         saofm_close_sync_r <= saofm_close_sync;
 
       end if;
 
@@ -140,14 +146,32 @@ begin
    begin
 
       if i_rst = c_RST_LEV_ACT then
+         o_squid_amp_close    <= c_LOW_LEV;
          o_squid_close_mode_n <= c_HGH_LEV;
+         o_amp_frst_lst_frm   <= c_LOW_LEV;
 
       elsif rising_edge(i_clk) then
+         if i_saofm = c_DST_SAOFM_CLOSE then
+            o_squid_amp_close <= c_HGH_LEV;
+
+         else
+            o_squid_amp_close <= c_LOW_LEV;
+
+         end if;
+
          if (smfbm = c_DST_SMFBM_CLOSE and smfmd_sync = c_DST_SMFMD_ON) or (saofm_close_sync = c_HGH_LEV) then
             o_squid_close_mode_n <= c_LOW_LEV;
 
          else
             o_squid_close_mode_n <= c_HGH_LEV;
+
+         end if;
+
+         if (saofm_close_sync xor saofm_close_sync_r) = c_HGH_LEV then
+            o_amp_frst_lst_frm <= c_HGH_LEV;
+
+         elsif (i_smfbm_cs = c_HGH_LEV) and i_smfbm_add = std_logic_vector(to_unsigned(c_TAB_SMFBM_NW-1, i_smfbm_add'length)) then
+            o_amp_frst_lst_frm <= c_LOW_LEV;
 
          end if;
 

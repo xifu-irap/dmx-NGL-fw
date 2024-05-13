@@ -127,6 +127,10 @@ constant c_MULT_ALU_PRM_ENA   : bit       := c_HGH_LEV_B                        
 constant c_MULT_ALU_UNSIGNED  : bit       := c_LOW_LEV_B                                                    ; --! Multiplier and ALU: Data type unsigned
 constant c_MULT_ALU_SIGNED    : bit       := c_HGH_LEV_B                                                    ; --! Multiplier and ALU: Data type signed
 
+constant c_MULT_ALU_LSAT_DIS  : integer   := 0                                                              ; --! Multiplier and ALU: Linear saturation on result disable
+constant c_MULT_ALU_LSAT_ENA  : integer   := 1                                                              ; --! Multiplier and ALU: Linear saturation on result enable
+constant c_MULT_ALU_SAT_NU    : integer   := 0                                                              ; --! Multiplier and ALU: Saturation rank Not Used
+
    -- ------------------------------------------------------------------------------------------------------
    --!   ALU operation commands:
    --!    + MUX_ALU_OP -> A

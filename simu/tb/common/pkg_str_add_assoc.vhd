@@ -146,11 +146,23 @@ constant c_PAD                : character := ' '                                
          when "C0_A                          "  =>
             o_fld_add_val:= c_EP_CMD_ADD_PARMA(c_COL0);
 
-         when "C0_KI_KNORM                   "  =>
+         when "C0_MUX_SQ_INPUT_GAIN          "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_SMIGN(c_COL0);
+
+         when "C0_AMP_SQ_INPUT_GAIN          "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_SAIGN(c_COL0);
+
+         when "C0_MUX_SQ_KI_KNORM            "  =>
             o_fld_add_val:= c_EP_CMD_ADD_KIKNM(c_COL0);
 
-         when "C0_KNORM                      "  =>
+         when "C0_AMP_SQ_KI_KNORM            "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_SAKKM(c_COL0);
+
+         when "C0_MUX_SQ_KNORM               "  =>
             o_fld_add_val:= c_EP_CMD_ADD_KNORM(c_COL0);
+
+         when "C0_AMP_SQ_KNORM               "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_SAKRM(c_COL0);
 
          when "C0_MUX_SQ_FB0                 "  =>
             o_fld_add_val:= c_EP_CMD_ADD_SMFB0(c_COL0);
@@ -163,6 +175,9 @@ constant c_PAD                : character := ' '                                
 
          when "C0_AMP_SQ_OFFSET_FINE         "  =>
             o_fld_add_val:= c_EP_CMD_ADD_SAOFF(c_COL0);
+
+         when "C0_AMP_SQ_OFFSET_LSB_PTR      "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_SAOLP(c_COL0);
 
          when "C0_AMP_SQ_OFFSET_COARSE       "  =>
             o_fld_add_val:= c_EP_CMD_ADD_SAOFC(c_COL0);
@@ -200,11 +215,23 @@ constant c_PAD                : character := ' '                                
          when "C1_A                          "  =>
             o_fld_add_val:= c_EP_CMD_ADD_PARMA(c_COL1);
 
-         when "C1_KI_KNORM                   "  =>
+         when "C1_MUX_SQ_INPUT_GAIN          "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_SMIGN(c_COL1);
+
+         when "C1_AMP_SQ_INPUT_GAIN          "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_SAIGN(c_COL1);
+
+         when "C1_MUX_SQ_KI_KNORM            "  =>
             o_fld_add_val:= c_EP_CMD_ADD_KIKNM(c_COL1);
 
-         when "C1_KNORM                      "  =>
+         when "C1_AMP_SQ_KI_KNORM            "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_SAKKM(c_COL1);
+
+         when "C1_MUX_SQ_KNORM               "  =>
             o_fld_add_val:= c_EP_CMD_ADD_KNORM(c_COL1);
+
+         when "C1_AMP_SQ_KNORM               "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_SAKRM(c_COL1);
 
          when "C1_MUX_SQ_FB0                 "  =>
             o_fld_add_val:= c_EP_CMD_ADD_SMFB0(c_COL1);
@@ -217,6 +244,9 @@ constant c_PAD                : character := ' '                                
 
          when "C1_AMP_SQ_OFFSET_FINE         "  =>
             o_fld_add_val:= c_EP_CMD_ADD_SAOFF(c_COL1);
+
+         when "C1_AMP_SQ_OFFSET_LSB_PTR      "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_SAOLP(c_COL1);
 
          when "C1_AMP_SQ_OFFSET_COARSE       "  =>
             o_fld_add_val:= c_EP_CMD_ADD_SAOFC(c_COL1);
@@ -254,11 +284,23 @@ constant c_PAD                : character := ' '                                
          when "C2_A                          "  =>
             o_fld_add_val:= c_EP_CMD_ADD_PARMA(c_COL2);
 
-         when "C2_KI_KNORM                   "  =>
+         when "C2_MUX_SQ_INPUT_GAIN          "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_SMIGN(c_COL2);
+
+         when "C2_AMP_SQ_INPUT_GAIN          "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_SAIGN(c_COL2);
+
+         when "C2_MUX_SQ_KI_KNORM            "  =>
             o_fld_add_val:= c_EP_CMD_ADD_KIKNM(c_COL2);
 
-         when "C2_KNORM                      "  =>
+         when "C2_AMP_SQ_KI_KNORM            "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_SAKKM(c_COL2);
+
+         when "C2_MUX_SQ_KNORM               "  =>
             o_fld_add_val:= c_EP_CMD_ADD_KNORM(c_COL2);
+
+         when "C2_AMP_SQ_KNORM               "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_SAKRM(c_COL2);
 
          when "C2_MUX_SQ_FB0                 "  =>
             o_fld_add_val:= c_EP_CMD_ADD_SMFB0(c_COL2);
@@ -271,6 +313,9 @@ constant c_PAD                : character := ' '                                
 
          when "C2_AMP_SQ_OFFSET_FINE         "  =>
             o_fld_add_val:= c_EP_CMD_ADD_SAOFF(c_COL2);
+
+         when "C2_AMP_SQ_OFFSET_LSB_PTR      "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_SAOLP(c_COL2);
 
          when "C2_AMP_SQ_OFFSET_COARSE       "  =>
             o_fld_add_val:= c_EP_CMD_ADD_SAOFC(c_COL2);
@@ -308,11 +353,23 @@ constant c_PAD                : character := ' '                                
          when "C3_A                          "  =>
             o_fld_add_val:= c_EP_CMD_ADD_PARMA(c_COL3);
 
-         when "C3_KI_KNORM                   "  =>
+         when "C3_MUX_SQ_INPUT_GAIN          "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_SMIGN(c_COL3);
+
+         when "C3_AMP_SQ_INPUT_GAIN          "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_SAIGN(c_COL3);
+
+         when "C3_MUX_SQ_KI_KNORM            "  =>
             o_fld_add_val:= c_EP_CMD_ADD_KIKNM(c_COL3);
 
-         when "C3_KNORM                      "  =>
+         when "C3_AMP_SQ_KI_KNORM            "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_SAKKM(c_COL3);
+
+         when "C3_MUX_SQ_KNORM               "  =>
             o_fld_add_val:= c_EP_CMD_ADD_KNORM(c_COL3);
+
+         when "C3_AMP_SQ_KNORM               "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_SAKRM(c_COL3);
 
          when "C3_MUX_SQ_FB0                 "  =>
             o_fld_add_val:= c_EP_CMD_ADD_SMFB0(c_COL3);
@@ -325,6 +382,9 @@ constant c_PAD                : character := ' '                                
 
          when "C3_AMP_SQ_OFFSET_FINE         "  =>
             o_fld_add_val:= c_EP_CMD_ADD_SAOFF(c_COL3);
+
+         when "C3_AMP_SQ_OFFSET_LSB_PTR      "  =>
+            o_fld_add_val:= c_EP_CMD_ADD_SAOLP(c_COL3);
 
          when "C3_AMP_SQ_OFFSET_COARSE       "  =>
             o_fld_add_val:= c_EP_CMD_ADD_SAOFC(c_COL3);

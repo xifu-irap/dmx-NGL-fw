@@ -87,6 +87,11 @@ begin
    --!   Register by Column Data read multiplexer
    -- ------------------------------------------------------------------------------------------------------
    G_rg_col_in_trans : for k in 0 to c_NB_COL-1 generate
+      rg_col_data(k)(c_EP_RGC_ACC(c_EP_RGC_NUM_SMIGN+1)-1 downto c_EP_RGC_ACC(c_EP_RGC_NUM_SMIGN)) <= i_rg_col(k).smign;
+      rg_col_data(k)(c_EP_RGC_ACC(c_EP_RGC_NUM_SAIGN+1)-1 downto c_EP_RGC_ACC(c_EP_RGC_NUM_SAIGN)) <= i_rg_col(k).saign;
+      rg_col_data(k)(c_EP_RGC_ACC(c_EP_RGC_NUM_SAKKM+1)-1 downto c_EP_RGC_ACC(c_EP_RGC_NUM_SAKKM)) <= i_rg_col(k).sakkm;
+      rg_col_data(k)(c_EP_RGC_ACC(c_EP_RGC_NUM_SAKRM+1)-1 downto c_EP_RGC_ACC(c_EP_RGC_NUM_SAKRM)) <= i_rg_col(k).sakrm;
+      rg_col_data(k)(c_EP_RGC_ACC(c_EP_RGC_NUM_SAOLP+1)-1 downto c_EP_RGC_ACC(c_EP_RGC_NUM_SAOLP)) <= i_rg_col(k).saolp;
       rg_col_data(k)(c_EP_RGC_ACC(c_EP_RGC_NUM_SAOFC+1)-1 downto c_EP_RGC_ACC(c_EP_RGC_NUM_SAOFC)) <= i_rg_col(k).saofc;
       rg_col_data(k)(c_EP_RGC_ACC(c_EP_RGC_NUM_SAOFL+1)-1 downto c_EP_RGC_ACC(c_EP_RGC_NUM_SAOFL)) <= i_rg_col(k).saofl;
       rg_col_data(k)(c_EP_RGC_ACC(c_EP_RGC_NUM_SMFBD+1)-1 downto c_EP_RGC_ACC(c_EP_RGC_NUM_SMFBD)) <= i_rg_col(k).smfbd;
@@ -210,13 +215,29 @@ begin
    -- @Req : DRE-DMX-FW-REQ-0180
    data_rg_rd(c_EP_CMD_POS_PARMA) <= std_logic_vector(resize(unsigned(ep_mem_data_mux(c_EP_MEM_ACC(c_EP_MEM_NUM_PARMA+1)-1 downto c_EP_MEM_ACC(c_EP_MEM_NUM_PARMA))), c_EP_SPI_WD_S));
 
-   -- @Req : REG_CY_KI_KNORM
+   -- @Req : REG_CY_MUX_SQ_INPUT_GAIN
+   -- @Req : DRE-DMX-FW-REQ-0147
+   data_rg_rd(c_EP_CMD_POS_SMIGN) <= std_logic_vector(resize(unsigned(rg_col_data_mux(c_EP_MEM_ACC(c_EP_RGC_NUM_SMIGN+1)-1 downto c_EP_MEM_ACC(c_EP_RGC_NUM_SMIGN))), c_EP_SPI_WD_S));
+
+   -- @Req : REG_CY_AMP_SQ_INPUT_GAIN
+   -- @Req : DRE-DMX-FW-REQ-0148
+   data_rg_rd(c_EP_CMD_POS_SAIGN) <= std_logic_vector(resize(unsigned(rg_col_data_mux(c_EP_MEM_ACC(c_EP_RGC_NUM_SAIGN+1)-1 downto c_EP_MEM_ACC(c_EP_RGC_NUM_SAIGN))), c_EP_SPI_WD_S));
+
+   -- @Req : REG_CY_MUX_SQ_KI_KNORM
    -- @Req : DRE-DMX-FW-REQ-0170
    data_rg_rd(c_EP_CMD_POS_KIKNM) <= std_logic_vector(resize(unsigned(ep_mem_data_mux(c_EP_MEM_ACC(c_EP_MEM_NUM_KIKNM+1)-1 downto c_EP_MEM_ACC(c_EP_MEM_NUM_KIKNM))), c_EP_SPI_WD_S));
 
-   -- @Req : REG_CY_KNORM
-   -- @Req : DRE-DMX-FW-REQ-0185
+   -- @Req : REG_CY_AMP_SQ_KI_KNORM
+   -- @Req : DRE-DMX-FW-REQ-0326
+   data_rg_rd(c_EP_CMD_POS_SAKKM) <= std_logic_vector(resize(unsigned(rg_col_data_mux(c_EP_MEM_ACC(c_EP_RGC_NUM_SAKKM+1)-1 downto c_EP_MEM_ACC(c_EP_RGC_NUM_SAKKM))), c_EP_SPI_WD_S));
+
+   -- @Req : REG_CY_MUX_SQ_KNORM
+   -- @Req : DRE-DMX-FW-REQ-0392
    data_rg_rd(c_EP_CMD_POS_KNORM) <= std_logic_vector(resize(unsigned(ep_mem_data_mux(c_EP_MEM_ACC(c_EP_MEM_NUM_KNORM+1)-1 downto c_EP_MEM_ACC(c_EP_MEM_NUM_KNORM))), c_EP_SPI_WD_S));
+
+   -- @Req : REG_CY_AMP_SQ_KNORM
+   -- @Req : DRE-DMX-FW-REQ-0392
+   data_rg_rd(c_EP_CMD_POS_SAKRM) <= std_logic_vector(resize(unsigned(rg_col_data_mux(c_EP_MEM_ACC(c_EP_RGC_NUM_SAKRM+1)-1 downto c_EP_MEM_ACC(c_EP_RGC_NUM_SAKRM))), c_EP_SPI_WD_S));
 
    -- @Req : REG_CY_MUX_SQ_FB0
    -- @Req : DRE-DMX-FW-REQ-0200
@@ -232,14 +253,21 @@ begin
 
    -- @Req : REG_CY_AMP_SQ_OFFSET_FINE
    -- @Req : DRE-DMX-FW-REQ-0300
+   -- @Req : DRE-DMX-FW-REQ-0305
    data_rg_rd(c_EP_CMD_POS_SAOFF) <= std_logic_vector(resize(unsigned(ep_mem_data_mux(c_EP_MEM_ACC(c_EP_MEM_NUM_SAOFF+1)-1 downto c_EP_MEM_ACC(c_EP_MEM_NUM_SAOFF))), c_EP_SPI_WD_S));
+
+   -- @Req : REG_CY_AMP_SQ_OFFSET_LSB_PTR
+   -- @Req : DRE-DMX-FW-REQ-0298
+   data_rg_rd(c_EP_CMD_POS_SAOLP) <= std_logic_vector(resize(unsigned(rg_col_data_mux(c_EP_MEM_ACC(c_EP_RGC_NUM_SAOLP+1)-1 downto c_EP_MEM_ACC(c_EP_RGC_NUM_SAOLP))), c_EP_SPI_WD_S));
 
    -- @Req : REG_CY_AMP_SQ_OFFSET_COARSE
    -- @Req : DRE-DMX-FW-REQ-0290
+   -- @Req : DRE-DMX-FW-REQ-0292
    data_rg_rd(c_EP_CMD_POS_SAOFC) <= std_logic_vector(resize(unsigned(rg_col_data_mux(c_EP_RGC_ACC(c_EP_RGC_NUM_SAOFC+1)-1 downto c_EP_RGC_ACC(c_EP_RGC_NUM_SAOFC))), c_EP_SPI_WD_S));
 
    -- @Req : REG_CY_AMP_SQ_OFFSET_LSB
-   -- @Req : DRE-DMX-FW-REQ-0290
+   -- @Req : DRE-DMX-FW-REQ-0295
+   -- @Req : DRE-DMX-FW-REQ-0297
    data_rg_rd(c_EP_CMD_POS_SAOFL) <= std_logic_vector(resize(unsigned(rg_col_data_mux(c_EP_RGC_ACC(c_EP_RGC_NUM_SAOFL+1)-1 downto c_EP_RGC_ACC(c_EP_RGC_NUM_SAOFL))), c_EP_SPI_WD_S));
 
    -- @Req : REG_CY_MUX_SQ_FB_DELAY
@@ -247,14 +275,16 @@ begin
    data_rg_rd(c_EP_CMD_POS_SMFBD) <= std_logic_vector(resize(unsigned(rg_col_data_mux(c_EP_RGC_ACC(c_EP_RGC_NUM_SMFBD+1)-1 downto c_EP_RGC_ACC(c_EP_RGC_NUM_SMFBD))), c_EP_SPI_WD_S));
 
    -- @Req : REG_CY_AMP_SQ_OFFSET_DAC_DELAY
-   -- @Req : DRE-DMX-FW-REQ-0380
+   -- @Req : DRE-DMX-FW-REQ-0387
    data_rg_rd(c_EP_CMD_POS_SAODD) <= std_logic_vector(resize(unsigned(rg_col_data_mux(c_EP_RGC_ACC(c_EP_RGC_NUM_SAODD+1)-1 downto c_EP_RGC_ACC(c_EP_RGC_NUM_SAODD))), c_EP_SPI_WD_S));
 
    -- @Req : REG_CY_AMP_SQ_OFFSET_MUX_DELAY
+   -- @Req : DRE-DMX-FW-REQ-0380
    data_rg_rd(c_EP_CMD_POS_SAOMD) <= std_logic_vector(resize(unsigned(rg_col_data_mux(c_EP_RGC_ACC(c_EP_RGC_NUM_SAOMD+1)-1 downto c_EP_RGC_ACC(c_EP_RGC_NUM_SAOMD))), c_EP_SPI_WD_S));
 
    -- @Req : REG_CY_SAMPLING_DELAY
    -- @Req : DRE-DMX-FW-REQ-0150
+   -- @Req : DRE-DMX-FW-REQ-0155
    data_rg_rd(c_EP_CMD_POS_SMPDL) <= std_logic_vector(resize(unsigned(rg_col_data_mux(c_EP_RGC_ACC(c_EP_RGC_NUM_SMPDL+1)-1 downto c_EP_RGC_ACC(c_EP_RGC_NUM_SMPDL))), c_EP_SPI_WD_S));
 
    -- @Req : REG_CY_PULSE_SHAPING
@@ -262,6 +292,7 @@ begin
    data_rg_rd(c_EP_CMD_POS_PLSSH) <= std_logic_vector(resize(unsigned(ep_mem_data_mux(c_EP_MEM_ACC(c_EP_MEM_NUM_PLSSH+1)-1 downto c_EP_MEM_ACC(c_EP_MEM_NUM_PLSSH))), c_EP_SPI_WD_S));
 
    -- @Req : REG_CY_PULSE_SHAPING_SEL
+   -- @Req : DRE-DMX-FW-REQ-0235
    data_rg_rd(c_EP_CMD_POS_PLSSS) <= std_logic_vector(resize(unsigned(rg_col_data_mux(c_EP_RGC_ACC(c_EP_RGC_NUM_PLSSS+1)-1 downto c_EP_RGC_ACC(c_EP_RGC_NUM_PLSSS))), c_EP_SPI_WD_S));
 
    -- @Req : REG_CY_RELOCK_DELAY

@@ -24,6 +24,7 @@
 -- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --!   @details                Digital Signal Processing. Realize the signed operation in 3 clock cycles:
 --!                            o_z = o_cz = i_a * (i_b +- i_d) + i_carry + mux(i_cz, i_c)
+--!                            LSB elaborated from saturation rank and result bus size
 -- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 library ieee;
 use     ieee.std_logic_1164.all;
@@ -42,10 +43,9 @@ entity dsp is generic (
          g_PORTB_S            : integer                                                                     ; --! Port B bus size (<= c_MULT_ALU_PORTB_S)
          g_PORTC_S            : integer                                                                     ; --! Port C bus size (<= c_MULT_ALU_PORTC_S)
          g_RESULT_S           : integer                                                                     ; --! Result bus size (<= c_MULT_ALU_RESULT_S)
-         g_RESULT_LSB_POS     : integer                                                                     ; --! Result LSB position
-         g_SAT_RANK           : integer                                                                     ; --! Extrem values reached on result bus
-                                                                                                              --!   unsigned: range from               0  to 2**(g_SAT_RANK+1) - 1
-                                                                                                              --!     signed: range from -2**(g_SAT_RANK) to 2**(g_SAT_RANK)   - 1
+         g_LIN_SAT            : integer range 0 to 1                                                        ; --! Linear saturation (0 = Disable, 1 = Enable)
+         g_SAT_RANK           : integer                                                                     ; --! Extrem values reached on result bus, not used if linear saturation enabled
+                                                                                                              --!     range from -2**(g_SAT_RANK-1) to 2**(g_SAT_RANK-1) - 1
          g_PRE_ADDER_OP       : bit                                                                         ; --! Pre-Adder operation     ('0' = add,    '1' = subtract)
          g_MUX_C_CZ           : bit                                                                           --! Multiplexer ALU operand ('0' = Port C, '1' = Cascaded Result Input)
    ); port (
@@ -65,8 +65,12 @@ entity dsp is generic (
 end entity dsp;
 
 architecture RTL of dsp is
+constant c_RESULT_TOT_S       : integer := g_PORTA_S + g_PORTB_S - 1                                        ; --! Result total bus size
+constant c_SAT                : integer := g_LIN_SAT * c_RESULT_TOT_S + (1 - g_LIN_SAT) * g_SAT_RANK        ; --! Saturation
+constant c_RESULT_LSB_POS     : integer := c_SAT - g_RESULT_S                                               ; --! Result LSB position
+
 constant c_SAT_RANK           : bit_vector(c_MULT_ALU_SAT_RNK_S-1 downto 0):=
-                                to_bitvector(std_logic_vector(to_unsigned(g_SAT_RANK,c_MULT_ALU_SAT_RNK_S))); --! Extrem values reached on result bus [-2**(g_SAT_RANK); 2**(g_SAT_RANK)-1]
+                                to_bitvector(std_logic_vector(to_unsigned(c_SAT-1,c_MULT_ALU_SAT_RNK_S)))   ; --! Extrem values reached on result bus [-2**(c_SAT-1); 2**(c_SAT-1)-1]
 constant c_MUX_X              : bit_vector(1 downto 0):= g_MUX_C_CZ & c_HGH_LEV_B                           ; --! Multiplexer ALU operand
 
 signal   port_a               : std_logic_vector( c_MULT_ALU_PORTA_S-1 downto 0)                            ; --! Port A
@@ -171,6 +175,6 @@ begin
          czo                  => o_cz                   -- out    slv(c_MULT_ALU_RESULT_S-1 downto 0)         --! Cascaded Result buffer     (MUX_ALU       registered output)
    );
 
-   o_z <= result(g_RESULT_S+g_RESULT_LSB_POS-1 downto g_RESULT_LSB_POS);
+   o_z <= result(g_RESULT_S+c_RESULT_LSB_POS-1 downto c_RESULT_LSB_POS);
 
 end architecture RTL;

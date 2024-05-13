@@ -22,7 +22,7 @@ COMM ===========================================================================
 COMM   C0_AMP_SQ_OFFSET_FINE: writing a new table in ping-pong memory
 COMM    and check reading of the memory part currently applicable is kept to its initial value
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-C0_AMP_SQ_OFFSET_FINE(0)-0001 W  #  Command C0-0
+WCMD W-C0_AMP_SQ_OFFSET_FINE(0)-0039 W  #  Command C0-0
 WCMD R-C0_AMP_SQ_OFFSET_FINE(0)-XXXX W  #  Command C0-1
 COMM
 WCMD W-C0_AMP_SQ_OFFSET_FINE(1)-0002 R  #  Command C0-2
@@ -35,7 +35,7 @@ CCMD R-Status-FFFF W                   #  Return Command C0-2
 WCMD R-C0_AMP_SQ_OFFSET_FINE(2)-XXXX R  #  Command C0-5
 CCMD R-C0_AMP_SQ_OFFSET_FINE(1)-0000 W  #  Return Command C0-3
 COMM
-WCMD W-C0_AMP_SQ_OFFSET_FINE(3)-0001 R  #  Command C0-6
+WCMD W-C0_AMP_SQ_OFFSET_FINE(3)-0031 R  #  Command C0-6
 CCMD R-Status-FFFF W                   #  Return Command C0-4
 WCMD R-C0_AMP_SQ_OFFSET_FINE(3)-XXXX R  #  Command C0-7
 CCMD R-C0_AMP_SQ_OFFSET_FINE(2)-0000 W  #  Return Command C0-5
@@ -50,7 +50,7 @@ CCMD R-Status-FFFF W                   #  Return Command C0-8
 WCMD R-C0_AMP_SQ_OFFSET_FINE(5)-XXXX R  #  Command C0-11
 CCMD R-C0_AMP_SQ_OFFSET_FINE(4)-0000 W  #  Return Command C0-9
 COMM
-WCMD W-C0_AMP_SQ_OFFSET_FINE(6)-0001 R  #  Command C0-12
+WCMD W-C0_AMP_SQ_OFFSET_FINE(6)-0029 R  #  Command C0-12
 CCMD R-Status-FFFF W                   #  Return Command C0-10
 WCMD R-C0_AMP_SQ_OFFSET_FINE(6)-XXXX R  #  Command C0-13
 CCMD R-C0_AMP_SQ_OFFSET_FINE(5)-0000 W  #  Return Command C0-11
@@ -65,7 +65,7 @@ CCMD R-Status-FFFF W                   #  Return Command C0-14
 WCMD R-C0_AMP_SQ_OFFSET_FINE(8)-XXXX R  #  Command C0-17
 CCMD R-C0_AMP_SQ_OFFSET_FINE(7)-0000 W  #  Return Command C0-15
 COMM
-WCMD W-C0_AMP_SQ_OFFSET_FINE(9)-0001 R  #  Command C0-18
+WCMD W-C0_AMP_SQ_OFFSET_FINE(9)-0021 R  #  Command C0-18
 CCMD R-Status-FFFF W                   #  Return Command C0-16
 WCMD R-C0_AMP_SQ_OFFSET_FINE(9)-XXXX R  #  Command C0-19
 CCMD R-C0_AMP_SQ_OFFSET_FINE(8)-0000 W  #  Return Command C0-17
@@ -80,7 +80,7 @@ CCMD R-Status-FFFF W                   #  Return Command C0-20
 WCMD R-C0_AMP_SQ_OFFSET_FINE(11)-XXXX R #  Command C0-23
 CCMD R-C0_AMP_SQ_OFFSET_FINE(10)-0000 W #  Return Command C0-21
 COMM
-WCMD W-C0_AMP_SQ_OFFSET_FINE(12)-0001 R #  Command C0-24
+WCMD W-C0_AMP_SQ_OFFSET_FINE(12)-0019 R #  Command C0-24
 CCMD R-Status-FFFF W                   #  Return Command C0-22
 WCMD R-C0_AMP_SQ_OFFSET_FINE(12)-XXXX R #  Command C0-25
 CCMD R-C0_AMP_SQ_OFFSET_FINE(11)-0000 W #  Return Command C0-23
@@ -95,7 +95,7 @@ CCMD R-Status-FFFF W                   #  Return Command C0-26
 WCMD R-C0_AMP_SQ_OFFSET_FINE(14)-XXXX R #  Command C0-29
 CCMD R-C0_AMP_SQ_OFFSET_FINE(13)-0000 W #  Return Command C0-27
 COMM
-WCMD W-C0_AMP_SQ_OFFSET_FINE(15)-0001 R #  Command C0-30
+WCMD W-C0_AMP_SQ_OFFSET_FINE(15)-0011 R #  Command C0-30
 CCMD R-Status-FFFF W                   #  Return Command C0-28
 WCMD R-C0_AMP_SQ_OFFSET_FINE(15)-XXXX R #  Command C0-31
 CCMD R-C0_AMP_SQ_OFFSET_FINE(14)-0000 W #  Return Command C0-29
@@ -110,7 +110,7 @@ CCMD R-Status-FFFF W                   #  Return Command C0-32
 WCMD R-C0_AMP_SQ_OFFSET_FINE(17)-XXXX R #  Command C0-35
 CCMD R-C0_AMP_SQ_OFFSET_FINE(16)-0000 W #  Return Command C0-33
 COMM
-WCMD W-C0_AMP_SQ_OFFSET_FINE(18)-0001 R #  Command C0-36
+WCMD W-C0_AMP_SQ_OFFSET_FINE(18)-0009 R #  Command C0-36
 CCMD R-Status-FFFF W                   #  Return Command C0-34
 WCMD R-C0_AMP_SQ_OFFSET_FINE(18)-XXXX R #  Command C0-37
 CCMD R-C0_AMP_SQ_OFFSET_FINE(17)-0000 W #  Return Command C0-35
@@ -170,7 +170,7 @@ CCMD R-Status-FFFF W                   #  Return Command C0-56
 WCMD R-C0_AMP_SQ_OFFSET_FINE(29)-XXXX R #  Command C0-59
 CCMD R-C0_AMP_SQ_OFFSET_FINE(28)-0000 W #  Return Command C0-57
 COMM
-WCMD W-C0_AMP_SQ_OFFSET_FINE(30)-0001 R #  Command C0-60
+WCMD W-C0_AMP_SQ_OFFSET_FINE(30)-0039 R #  Command C0-60
 CCMD R-Status-FFFF W                   #  Return Command C0-58
 WCMD R-C0_AMP_SQ_OFFSET_FINE(30)-XXXX R #  Command C0-61
 CCMD R-C0_AMP_SQ_OFFSET_FINE(29)-0000 W #  Return Command C0-59
@@ -185,7 +185,7 @@ CCMD R-Status-FFFF W                   #  Return Command C0-62
 WCMD R-C0_AMP_SQ_OFFSET_FINE(32)-XXXX R #  Command C0-65
 CCMD R-C0_AMP_SQ_OFFSET_FINE(31)-0000 W #  Return Command C0-63
 COMM
-WCMD W-C0_AMP_SQ_OFFSET_FINE(33)-0001 R #  Command C0-66
+WCMD W-C0_AMP_SQ_OFFSET_FINE(33)-0031 R #  Command C0-66
 CCMD R-Status-FFFF W                   #  Return Command C0-64
 WCMD R-C0_AMP_SQ_OFFSET_FINE(33)-XXXX R #  Command C0-67
 CCMD R-C0_AMP_SQ_OFFSET_FINE(32)-0000 W #  Return Command C0-65
@@ -197,14 +197,14 @@ COMM ---------------------------------------------------------------------------
 WCMD W-C0_AMP_SQ_OFFSET_FINE(0)-0002 R  #  Command C0-68
 CCMD R-Status-FFFF W                   #  Return Command C0-66
 WCMD R-C0_AMP_SQ_OFFSET_FINE(0)-XXXX R  #  Command C0-69
-CCMD R-C0_AMP_SQ_OFFSET_FINE(33)-0001 W #  Return Command C0-67
+CCMD R-C0_AMP_SQ_OFFSET_FINE(33)-0031 W #  Return Command C0-67
 COMM
 WCMD W-C0_AMP_SQ_OFFSET_FINE(1)-0003 R  #  Command C0-70
 CCMD R-Status-FFFF W                   #  Return Command C0-68
 WCMD R-C0_AMP_SQ_OFFSET_FINE(1)-XXXX R  #  Command C0-71
-CCMD R-C0_AMP_SQ_OFFSET_FINE(0)-0001 W  #  Return Command C0-69
+CCMD R-C0_AMP_SQ_OFFSET_FINE(0)-0039 W  #  Return Command C0-69
 COMM
-WCMD W-C0_AMP_SQ_OFFSET_FINE(2)-0001 R  #  Command C0-72
+WCMD W-C0_AMP_SQ_OFFSET_FINE(2)-0019 R  #  Command C0-72
 CCMD R-Status-FFFF W                   #  Return Command C0-70
 WCMD R-C0_AMP_SQ_OFFSET_FINE(2)-XXXX R  #  Command C0-73
 CCMD R-C0_AMP_SQ_OFFSET_FINE(1)-0002 W  #  Return Command C0-71
@@ -217,9 +217,9 @@ COMM
 WCMD W-C0_AMP_SQ_OFFSET_FINE(4)-0003 R  #  Command C0-76
 CCMD R-Status-FFFF W                   #  Return Command C0-74
 WCMD R-C0_AMP_SQ_OFFSET_FINE(4)-XXXX R  #  Command C0-77
-CCMD R-C0_AMP_SQ_OFFSET_FINE(3)-0001 W  #  Return Command C0-75
+CCMD R-C0_AMP_SQ_OFFSET_FINE(3)-0031 W  #  Return Command C0-75
 COMM
-WCMD W-C0_AMP_SQ_OFFSET_FINE(5)-0001 R  #  Command C0-78
+WCMD W-C0_AMP_SQ_OFFSET_FINE(5)-0011 R  #  Command C0-78
 CCMD R-Status-FFFF W                   #  Return Command C0-76
 WCMD R-C0_AMP_SQ_OFFSET_FINE(5)-XXXX R  #  Command C0-79
 CCMD R-C0_AMP_SQ_OFFSET_FINE(4)-0002 W  #  Return Command C0-77
@@ -232,9 +232,9 @@ COMM
 WCMD W-C0_AMP_SQ_OFFSET_FINE(7)-0003 R  #  Command C0-82
 CCMD R-Status-FFFF W                   #  Return Command C0-80
 WCMD R-C0_AMP_SQ_OFFSET_FINE(7)-XXXX R  #  Command C0-83
-CCMD R-C0_AMP_SQ_OFFSET_FINE(6)-0001 W  #  Return Command C0-81
+CCMD R-C0_AMP_SQ_OFFSET_FINE(6)-0029 W  #  Return Command C0-81
 COMM
-WCMD W-C0_AMP_SQ_OFFSET_FINE(8)-0001 R  #  Command C0-84
+WCMD W-C0_AMP_SQ_OFFSET_FINE(8)-0009 R  #  Command C0-84
 CCMD R-Status-FFFF W                   #  Return Command C0-82
 WCMD R-C0_AMP_SQ_OFFSET_FINE(8)-XXXX R  #  Command C0-85
 CCMD R-C0_AMP_SQ_OFFSET_FINE(7)-0002 W  #  Return Command C0-83
@@ -247,7 +247,7 @@ COMM
 WCMD W-C0_AMP_SQ_OFFSET_FINE(10)-0003 R #  Command C0-88
 CCMD R-Status-FFFF W                   #  Return Command C0-86
 WCMD R-C0_AMP_SQ_OFFSET_FINE(10)-XXXX R #  Command C0-89
-CCMD R-C0_AMP_SQ_OFFSET_FINE(9)-0001 W  #  Return Command C0-87
+CCMD R-C0_AMP_SQ_OFFSET_FINE(9)-0021 W  #  Return Command C0-87
 COMM
 WCMD W-C0_AMP_SQ_OFFSET_FINE(11)-0001 R #  Command C0-90
 CCMD R-Status-FFFF W                   #  Return Command C0-88
@@ -262,7 +262,7 @@ COMM
 WCMD W-C0_AMP_SQ_OFFSET_FINE(13)-0003 R #  Command C0-94
 CCMD R-Status-FFFF W                   #  Return Command C0-92
 WCMD R-C0_AMP_SQ_OFFSET_FINE(13)-XXXX R #  Command C0-95
-CCMD R-C0_AMP_SQ_OFFSET_FINE(12)-0001 W #  Return Command C0-93
+CCMD R-C0_AMP_SQ_OFFSET_FINE(12)-0019 W #  Return Command C0-93
 COMM
 WCMD W-C0_AMP_SQ_OFFSET_FINE(14)-0001 R #  Command C0-96
 CCMD R-Status-FFFF W                   #  Return Command C0-94
@@ -277,7 +277,7 @@ COMM
 WCMD W-C0_AMP_SQ_OFFSET_FINE(16)-0003 R #  Command C0-100
 CCMD R-Status-FFFF W                   #  Return Command C0-98
 WCMD R-C0_AMP_SQ_OFFSET_FINE(16)-XXXX R #  Command C0-101
-CCMD R-C0_AMP_SQ_OFFSET_FINE(15)-0001 W #  Return Command C0-99
+CCMD R-C0_AMP_SQ_OFFSET_FINE(15)-0011 W #  Return Command C0-99
 COMM
 WCMD W-C0_AMP_SQ_OFFSET_FINE(17)-0001 R #  Command C0-102
 CCMD R-Status-FFFF W                   #  Return Command C0-100
@@ -292,9 +292,9 @@ COMM
 WCMD W-C0_AMP_SQ_OFFSET_FINE(19)-0003 R #  Command C0-106
 CCMD R-Status-FFFF W                   #  Return Command C0-104
 WCMD R-C0_AMP_SQ_OFFSET_FINE(19)-XXXX R #  Command C0-107
-CCMD R-C0_AMP_SQ_OFFSET_FINE(18)-0001 W #  Return Command C0-105
+CCMD R-C0_AMP_SQ_OFFSET_FINE(18)-0009 W #  Return Command C0-105
 COMM
-WCMD W-C0_AMP_SQ_OFFSET_FINE(20)-0001 R #  Command C0-108
+WCMD W-C0_AMP_SQ_OFFSET_FINE(20)-0039 R #  Command C0-108
 CCMD R-Status-FFFF W                   #  Return Command C0-106
 WCMD R-C0_AMP_SQ_OFFSET_FINE(20)-XXXX R #  Command C0-109
 CCMD R-C0_AMP_SQ_OFFSET_FINE(19)-0002 W #  Return Command C0-107
@@ -309,7 +309,7 @@ CCMD R-Status-FFFF W                   #  Return Command C0-110
 WCMD R-C0_AMP_SQ_OFFSET_FINE(22)-XXXX R #  Command C0-113
 CCMD R-C0_AMP_SQ_OFFSET_FINE(21)-0001 W #  Return Command C0-111
 COMM
-WCMD W-C0_AMP_SQ_OFFSET_FINE(23)-0001 R #  Command C0-114
+WCMD W-C0_AMP_SQ_OFFSET_FINE(23)-0031 R #  Command C0-114
 CCMD R-Status-FFFF W                   #  Return Command C0-112
 WCMD R-C0_AMP_SQ_OFFSET_FINE(23)-XXXX R #  Command C0-115
 CCMD R-C0_AMP_SQ_OFFSET_FINE(22)-0002 W #  Return Command C0-113
@@ -324,7 +324,7 @@ CCMD R-Status-FFFF W                   #  Return Command C0-116
 WCMD R-C0_AMP_SQ_OFFSET_FINE(25)-XXXX R #  Command C0-119
 CCMD R-C0_AMP_SQ_OFFSET_FINE(24)-0001 W #  Return Command C0-117
 COMM
-WCMD W-C0_AMP_SQ_OFFSET_FINE(26)-0001 R #  Command C0-120
+WCMD W-C0_AMP_SQ_OFFSET_FINE(26)-0029 R #  Command C0-120
 CCMD R-Status-FFFF W                   #  Return Command C0-118
 WCMD R-C0_AMP_SQ_OFFSET_FINE(26)-XXXX R #  Command C0-121
 CCMD R-C0_AMP_SQ_OFFSET_FINE(25)-0002 W #  Return Command C0-119
@@ -339,7 +339,7 @@ CCMD R-Status-FFFF W                   #  Return Command C0-122
 WCMD R-C0_AMP_SQ_OFFSET_FINE(28)-XXXX R #  Command C0-125
 CCMD R-C0_AMP_SQ_OFFSET_FINE(27)-0001 W #  Return Command C0-123
 COMM
-WCMD W-C0_AMP_SQ_OFFSET_FINE(29)-0001 R #  Command C0-126
+WCMD W-C0_AMP_SQ_OFFSET_FINE(29)-0021 R #  Command C0-126
 CCMD R-Status-FFFF W                   #  Return Command C0-124
 WCMD R-C0_AMP_SQ_OFFSET_FINE(29)-XXXX R #  Command C0-127
 CCMD R-C0_AMP_SQ_OFFSET_FINE(28)-0002 W #  Return Command C0-125
@@ -352,9 +352,9 @@ COMM
 WCMD W-C0_AMP_SQ_OFFSET_FINE(31)-0003 R #  Command C0-130
 CCMD R-Status-FFFF W                   #  Return Command C0-128
 WCMD R-C0_AMP_SQ_OFFSET_FINE(31)-XXXX R #  Command C0-131
-CCMD R-C0_AMP_SQ_OFFSET_FINE(30)-0001 W #  Return Command C0-129
+CCMD R-C0_AMP_SQ_OFFSET_FINE(30)-0039 W #  Return Command C0-129
 COMM
-WCMD W-C0_AMP_SQ_OFFSET_FINE(32)-0001 R #  Command C0-132
+WCMD W-C0_AMP_SQ_OFFSET_FINE(32)-0019 R #  Command C0-132
 CCMD R-Status-FFFF W                   #  Return Command C0-130
 WCMD R-C0_AMP_SQ_OFFSET_FINE(32)-XXXX R #  Command C0-133
 CCMD R-C0_AMP_SQ_OFFSET_FINE(31)-0002 W #  Return Command C0-131
@@ -390,7 +390,7 @@ COMM ===========================================================================
 COMM   C1_AMP_SQ_OFFSET_FINE: writing a new table in ping-pong memory
 COMM    and check reading of the memory part currently applicable is kept to its initial value
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-C1_AMP_SQ_OFFSET_FINE(0)-0001 W  #  Command C1-0
+WCMD W-C1_AMP_SQ_OFFSET_FINE(0)-0039 W  #  Command C1-0
 WCMD R-C1_AMP_SQ_OFFSET_FINE(0)-XXXX W  #  Command C1-1
 COMM
 WCMD W-C1_AMP_SQ_OFFSET_FINE(1)-0002 R  #  Command C1-2
@@ -403,7 +403,7 @@ CCMD R-Status-FFFF W                   #  Return Command C1-2
 WCMD R-C1_AMP_SQ_OFFSET_FINE(2)-XXXX R  #  Command C1-5
 CCMD R-C1_AMP_SQ_OFFSET_FINE(1)-0000 W  #  Return Command C1-3
 COMM
-WCMD W-C1_AMP_SQ_OFFSET_FINE(3)-0001 R  #  Command C1-6
+WCMD W-C1_AMP_SQ_OFFSET_FINE(3)-0031 R  #  Command C1-6
 CCMD R-Status-FFFF W                   #  Return Command C1-4
 WCMD R-C1_AMP_SQ_OFFSET_FINE(3)-XXXX R  #  Command C1-7
 CCMD R-C1_AMP_SQ_OFFSET_FINE(2)-0000 W  #  Return Command C1-5
@@ -418,7 +418,7 @@ CCMD R-Status-FFFF W                   #  Return Command C1-8
 WCMD R-C1_AMP_SQ_OFFSET_FINE(5)-XXXX R  #  Command C1-11
 CCMD R-C1_AMP_SQ_OFFSET_FINE(4)-0000 W  #  Return Command C1-9
 COMM
-WCMD W-C1_AMP_SQ_OFFSET_FINE(6)-0001 R  #  Command C1-12
+WCMD W-C1_AMP_SQ_OFFSET_FINE(6)-0029 R  #  Command C1-12
 CCMD R-Status-FFFF W                   #  Return Command C1-10
 WCMD R-C1_AMP_SQ_OFFSET_FINE(6)-XXXX R  #  Command C1-13
 CCMD R-C1_AMP_SQ_OFFSET_FINE(5)-0000 W  #  Return Command C1-11
@@ -433,7 +433,7 @@ CCMD R-Status-FFFF W                   #  Return Command C1-14
 WCMD R-C1_AMP_SQ_OFFSET_FINE(8)-XXXX R  #  Command C1-17
 CCMD R-C1_AMP_SQ_OFFSET_FINE(7)-0000 W  #  Return Command C1-15
 COMM
-WCMD W-C1_AMP_SQ_OFFSET_FINE(9)-0001 R  #  Command C1-18
+WCMD W-C1_AMP_SQ_OFFSET_FINE(9)-0021 R  #  Command C1-18
 CCMD R-Status-FFFF W                   #  Return Command C1-16
 WCMD R-C1_AMP_SQ_OFFSET_FINE(9)-XXXX R  #  Command C1-19
 CCMD R-C1_AMP_SQ_OFFSET_FINE(8)-0000 W  #  Return Command C1-17
@@ -448,7 +448,7 @@ CCMD R-Status-FFFF W                   #  Return Command C1-20
 WCMD R-C1_AMP_SQ_OFFSET_FINE(11)-XXXX R #  Command C1-23
 CCMD R-C1_AMP_SQ_OFFSET_FINE(10)-0000 W #  Return Command C1-21
 COMM
-WCMD W-C1_AMP_SQ_OFFSET_FINE(12)-0001 R #  Command C1-24
+WCMD W-C1_AMP_SQ_OFFSET_FINE(12)-0019 R #  Command C1-24
 CCMD R-Status-FFFF W                   #  Return Command C1-22
 WCMD R-C1_AMP_SQ_OFFSET_FINE(12)-XXXX R #  Command C1-25
 CCMD R-C1_AMP_SQ_OFFSET_FINE(11)-0000 W #  Return Command C1-23
@@ -463,7 +463,7 @@ CCMD R-Status-FFFF W                   #  Return Command C1-26
 WCMD R-C1_AMP_SQ_OFFSET_FINE(14)-XXXX R #  Command C1-29
 CCMD R-C1_AMP_SQ_OFFSET_FINE(13)-0000 W #  Return Command C1-27
 COMM
-WCMD W-C1_AMP_SQ_OFFSET_FINE(15)-0001 R #  Command C1-30
+WCMD W-C1_AMP_SQ_OFFSET_FINE(15)-0011 R #  Command C1-30
 CCMD R-Status-FFFF W                   #  Return Command C1-28
 WCMD R-C1_AMP_SQ_OFFSET_FINE(15)-XXXX R #  Command C1-31
 CCMD R-C1_AMP_SQ_OFFSET_FINE(14)-0000 W #  Return Command C1-29
@@ -478,7 +478,7 @@ CCMD R-Status-FFFF W                   #  Return Command C1-32
 WCMD R-C1_AMP_SQ_OFFSET_FINE(17)-XXXX R #  Command C1-35
 CCMD R-C1_AMP_SQ_OFFSET_FINE(16)-0000 W #  Return Command C1-33
 COMM
-WCMD W-C1_AMP_SQ_OFFSET_FINE(18)-0001 R #  Command C1-36
+WCMD W-C1_AMP_SQ_OFFSET_FINE(18)-0009 R #  Command C1-36
 CCMD R-Status-FFFF W                   #  Return Command C1-34
 WCMD R-C1_AMP_SQ_OFFSET_FINE(18)-XXXX R #  Command C1-37
 CCMD R-C1_AMP_SQ_OFFSET_FINE(17)-0000 W #  Return Command C1-35
@@ -538,7 +538,7 @@ CCMD R-Status-FFFF W                   #  Return Command C1-56
 WCMD R-C1_AMP_SQ_OFFSET_FINE(29)-XXXX R #  Command C1-59
 CCMD R-C1_AMP_SQ_OFFSET_FINE(28)-0000 W #  Return Command C1-57
 COMM
-WCMD W-C1_AMP_SQ_OFFSET_FINE(30)-0001 R #  Command C1-60
+WCMD W-C1_AMP_SQ_OFFSET_FINE(30)-0039 R #  Command C1-60
 CCMD R-Status-FFFF W                   #  Return Command C1-58
 WCMD R-C1_AMP_SQ_OFFSET_FINE(30)-XXXX R #  Command C1-61
 CCMD R-C1_AMP_SQ_OFFSET_FINE(29)-0000 W #  Return Command C1-59
@@ -553,7 +553,7 @@ CCMD R-Status-FFFF W                   #  Return Command C1-62
 WCMD R-C1_AMP_SQ_OFFSET_FINE(32)-XXXX R #  Command C1-65
 CCMD R-C1_AMP_SQ_OFFSET_FINE(31)-0000 W #  Return Command C1-63
 COMM
-WCMD W-C1_AMP_SQ_OFFSET_FINE(33)-0001 R #  Command C1-66
+WCMD W-C1_AMP_SQ_OFFSET_FINE(33)-0031 R #  Command C1-66
 CCMD R-Status-FFFF W                   #  Return Command C1-64
 WCMD R-C1_AMP_SQ_OFFSET_FINE(33)-XXXX R #  Command C1-67
 CCMD R-C1_AMP_SQ_OFFSET_FINE(32)-0000 W #  Return Command C1-65
@@ -565,14 +565,14 @@ COMM ---------------------------------------------------------------------------
 WCMD W-C1_AMP_SQ_OFFSET_FINE(0)-0002 R  #  Command C1-68
 CCMD R-Status-FFFF W                   #  Return Command C1-66
 WCMD R-C1_AMP_SQ_OFFSET_FINE(0)-XXXX R  #  Command C1-69
-CCMD R-C1_AMP_SQ_OFFSET_FINE(33)-0001 W #  Return Command C1-67
+CCMD R-C1_AMP_SQ_OFFSET_FINE(33)-0031 W #  Return Command C1-67
 COMM
 WCMD W-C1_AMP_SQ_OFFSET_FINE(1)-0003 R  #  Command C1-70
 CCMD R-Status-FFFF W                   #  Return Command C1-68
 WCMD R-C1_AMP_SQ_OFFSET_FINE(1)-XXXX R  #  Command C1-71
-CCMD R-C1_AMP_SQ_OFFSET_FINE(0)-0001 W  #  Return Command C1-69
+CCMD R-C1_AMP_SQ_OFFSET_FINE(0)-0039 W  #  Return Command C1-69
 COMM
-WCMD W-C1_AMP_SQ_OFFSET_FINE(2)-0001 R  #  Command C1-72
+WCMD W-C1_AMP_SQ_OFFSET_FINE(2)-0019 R  #  Command C1-72
 CCMD R-Status-FFFF W                   #  Return Command C1-70
 WCMD R-C1_AMP_SQ_OFFSET_FINE(2)-XXXX R  #  Command C1-73
 CCMD R-C1_AMP_SQ_OFFSET_FINE(1)-0002 W  #  Return Command C1-71
@@ -585,9 +585,9 @@ COMM
 WCMD W-C1_AMP_SQ_OFFSET_FINE(4)-0003 R  #  Command C1-76
 CCMD R-Status-FFFF W                   #  Return Command C1-74
 WCMD R-C1_AMP_SQ_OFFSET_FINE(4)-XXXX R  #  Command C1-77
-CCMD R-C1_AMP_SQ_OFFSET_FINE(3)-0001 W  #  Return Command C1-75
+CCMD R-C1_AMP_SQ_OFFSET_FINE(3)-0031 W  #  Return Command C1-75
 COMM
-WCMD W-C1_AMP_SQ_OFFSET_FINE(5)-0001 R  #  Command C1-78
+WCMD W-C1_AMP_SQ_OFFSET_FINE(5)-0011 R  #  Command C1-78
 CCMD R-Status-FFFF W                   #  Return Command C1-76
 WCMD R-C1_AMP_SQ_OFFSET_FINE(5)-XXXX R  #  Command C1-79
 CCMD R-C1_AMP_SQ_OFFSET_FINE(4)-0002 W  #  Return Command C1-77
@@ -600,9 +600,9 @@ COMM
 WCMD W-C1_AMP_SQ_OFFSET_FINE(7)-0003 R  #  Command C1-82
 CCMD R-Status-FFFF W                   #  Return Command C1-80
 WCMD R-C1_AMP_SQ_OFFSET_FINE(7)-XXXX R  #  Command C1-83
-CCMD R-C1_AMP_SQ_OFFSET_FINE(6)-0001 W  #  Return Command C1-81
+CCMD R-C1_AMP_SQ_OFFSET_FINE(6)-0029 W  #  Return Command C1-81
 COMM
-WCMD W-C1_AMP_SQ_OFFSET_FINE(8)-0001 R  #  Command C1-84
+WCMD W-C1_AMP_SQ_OFFSET_FINE(8)-0009 R  #  Command C1-84
 CCMD R-Status-FFFF W                   #  Return Command C1-82
 WCMD R-C1_AMP_SQ_OFFSET_FINE(8)-XXXX R  #  Command C1-85
 CCMD R-C1_AMP_SQ_OFFSET_FINE(7)-0002 W  #  Return Command C1-83
@@ -615,7 +615,7 @@ COMM
 WCMD W-C1_AMP_SQ_OFFSET_FINE(10)-0003 R #  Command C1-88
 CCMD R-Status-FFFF W                   #  Return Command C1-86
 WCMD R-C1_AMP_SQ_OFFSET_FINE(10)-XXXX R #  Command C1-89
-CCMD R-C1_AMP_SQ_OFFSET_FINE(9)-0001 W  #  Return Command C1-87
+CCMD R-C1_AMP_SQ_OFFSET_FINE(9)-0021 W  #  Return Command C1-87
 COMM
 WCMD W-C1_AMP_SQ_OFFSET_FINE(11)-0001 R #  Command C1-90
 CCMD R-Status-FFFF W                   #  Return Command C1-88
@@ -630,7 +630,7 @@ COMM
 WCMD W-C1_AMP_SQ_OFFSET_FINE(13)-0003 R #  Command C1-94
 CCMD R-Status-FFFF W                   #  Return Command C1-92
 WCMD R-C1_AMP_SQ_OFFSET_FINE(13)-XXXX R #  Command C1-95
-CCMD R-C1_AMP_SQ_OFFSET_FINE(12)-0001 W #  Return Command C1-93
+CCMD R-C1_AMP_SQ_OFFSET_FINE(12)-0019 W #  Return Command C1-93
 COMM
 WCMD W-C1_AMP_SQ_OFFSET_FINE(14)-0001 R #  Command C1-96
 CCMD R-Status-FFFF W                   #  Return Command C1-94
@@ -645,7 +645,7 @@ COMM
 WCMD W-C1_AMP_SQ_OFFSET_FINE(16)-0003 R #  Command C1-100
 CCMD R-Status-FFFF W                   #  Return Command C1-98
 WCMD R-C1_AMP_SQ_OFFSET_FINE(16)-XXXX R #  Command C1-101
-CCMD R-C1_AMP_SQ_OFFSET_FINE(15)-0001 W #  Return Command C1-99
+CCMD R-C1_AMP_SQ_OFFSET_FINE(15)-0011 W #  Return Command C1-99
 COMM
 WCMD W-C1_AMP_SQ_OFFSET_FINE(17)-0001 R #  Command C1-102
 CCMD R-Status-FFFF W                   #  Return Command C1-100
@@ -660,9 +660,9 @@ COMM
 WCMD W-C1_AMP_SQ_OFFSET_FINE(19)-0003 R #  Command C1-106
 CCMD R-Status-FFFF W                   #  Return Command C1-104
 WCMD R-C1_AMP_SQ_OFFSET_FINE(19)-XXXX R #  Command C1-107
-CCMD R-C1_AMP_SQ_OFFSET_FINE(18)-0001 W #  Return Command C1-105
+CCMD R-C1_AMP_SQ_OFFSET_FINE(18)-0009 W #  Return Command C1-105
 COMM
-WCMD W-C1_AMP_SQ_OFFSET_FINE(20)-0001 R #  Command C1-108
+WCMD W-C1_AMP_SQ_OFFSET_FINE(20)-0039 R #  Command C1-108
 CCMD R-Status-FFFF W                   #  Return Command C1-106
 WCMD R-C1_AMP_SQ_OFFSET_FINE(20)-XXXX R #  Command C1-109
 CCMD R-C1_AMP_SQ_OFFSET_FINE(19)-0002 W #  Return Command C1-107
@@ -677,7 +677,7 @@ CCMD R-Status-FFFF W                   #  Return Command C1-110
 WCMD R-C1_AMP_SQ_OFFSET_FINE(22)-XXXX R #  Command C1-113
 CCMD R-C1_AMP_SQ_OFFSET_FINE(21)-0001 W #  Return Command C1-111
 COMM
-WCMD W-C1_AMP_SQ_OFFSET_FINE(23)-0001 R #  Command C1-114
+WCMD W-C1_AMP_SQ_OFFSET_FINE(23)-0031 R #  Command C1-114
 CCMD R-Status-FFFF W                   #  Return Command C1-112
 WCMD R-C1_AMP_SQ_OFFSET_FINE(23)-XXXX R #  Command C1-115
 CCMD R-C1_AMP_SQ_OFFSET_FINE(22)-0002 W #  Return Command C1-113
@@ -692,7 +692,7 @@ CCMD R-Status-FFFF W                   #  Return Command C1-116
 WCMD R-C1_AMP_SQ_OFFSET_FINE(25)-XXXX R #  Command C1-119
 CCMD R-C1_AMP_SQ_OFFSET_FINE(24)-0001 W #  Return Command C1-117
 COMM
-WCMD W-C1_AMP_SQ_OFFSET_FINE(26)-0001 R #  Command C1-120
+WCMD W-C1_AMP_SQ_OFFSET_FINE(26)-0029 R #  Command C1-120
 CCMD R-Status-FFFF W                   #  Return Command C1-118
 WCMD R-C1_AMP_SQ_OFFSET_FINE(26)-XXXX R #  Command C1-121
 CCMD R-C1_AMP_SQ_OFFSET_FINE(25)-0002 W #  Return Command C1-119
@@ -707,7 +707,7 @@ CCMD R-Status-FFFF W                   #  Return Command C1-122
 WCMD R-C1_AMP_SQ_OFFSET_FINE(28)-XXXX R #  Command C1-125
 CCMD R-C1_AMP_SQ_OFFSET_FINE(27)-0001 W #  Return Command C1-123
 COMM
-WCMD W-C1_AMP_SQ_OFFSET_FINE(29)-0001 R #  Command C1-126
+WCMD W-C1_AMP_SQ_OFFSET_FINE(29)-0021 R #  Command C1-126
 CCMD R-Status-FFFF W                   #  Return Command C1-124
 WCMD R-C1_AMP_SQ_OFFSET_FINE(29)-XXXX R #  Command C1-127
 CCMD R-C1_AMP_SQ_OFFSET_FINE(28)-0002 W #  Return Command C1-125
@@ -720,9 +720,9 @@ COMM
 WCMD W-C1_AMP_SQ_OFFSET_FINE(31)-0003 R #  Command C1-130
 CCMD R-Status-FFFF W                   #  Return Command C1-128
 WCMD R-C1_AMP_SQ_OFFSET_FINE(31)-XXXX R #  Command C1-131
-CCMD R-C1_AMP_SQ_OFFSET_FINE(30)-0001 W #  Return Command C1-129
+CCMD R-C1_AMP_SQ_OFFSET_FINE(30)-0039 W #  Return Command C1-129
 COMM
-WCMD W-C1_AMP_SQ_OFFSET_FINE(32)-0001 R #  Command C1-132
+WCMD W-C1_AMP_SQ_OFFSET_FINE(32)-0019 R #  Command C1-132
 CCMD R-Status-FFFF W                   #  Return Command C1-130
 WCMD R-C1_AMP_SQ_OFFSET_FINE(32)-XXXX R #  Command C1-133
 CCMD R-C1_AMP_SQ_OFFSET_FINE(31)-0002 W #  Return Command C1-131
@@ -758,7 +758,7 @@ COMM ===========================================================================
 COMM   C2_AMP_SQ_OFFSET_FINE: writing a new table in ping-pong memory
 COMM    and check reading of the memory part currently applicable is kept to its initial value
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-C2_AMP_SQ_OFFSET_FINE(0)-0001 W  #  Command C2-0
+WCMD W-C2_AMP_SQ_OFFSET_FINE(0)-0039 W  #  Command C2-0
 WCMD R-C2_AMP_SQ_OFFSET_FINE(0)-XXXX W  #  Command C2-1
 COMM
 WCMD W-C2_AMP_SQ_OFFSET_FINE(1)-0002 R  #  Command C2-2
@@ -771,7 +771,7 @@ CCMD R-Status-FFFF W                   #  Return Command C2-2
 WCMD R-C2_AMP_SQ_OFFSET_FINE(2)-XXXX R  #  Command C2-5
 CCMD R-C2_AMP_SQ_OFFSET_FINE(1)-0000 W  #  Return Command C2-3
 COMM
-WCMD W-C2_AMP_SQ_OFFSET_FINE(3)-0001 R  #  Command C2-6
+WCMD W-C2_AMP_SQ_OFFSET_FINE(3)-0031 R  #  Command C2-6
 CCMD R-Status-FFFF W                   #  Return Command C2-4
 WCMD R-C2_AMP_SQ_OFFSET_FINE(3)-XXXX R  #  Command C2-7
 CCMD R-C2_AMP_SQ_OFFSET_FINE(2)-0000 W  #  Return Command C2-5
@@ -786,7 +786,7 @@ CCMD R-Status-FFFF W                   #  Return Command C2-8
 WCMD R-C2_AMP_SQ_OFFSET_FINE(5)-XXXX R  #  Command C2-11
 CCMD R-C2_AMP_SQ_OFFSET_FINE(4)-0000 W  #  Return Command C2-9
 COMM
-WCMD W-C2_AMP_SQ_OFFSET_FINE(6)-0001 R  #  Command C2-12
+WCMD W-C2_AMP_SQ_OFFSET_FINE(6)-0029 R  #  Command C2-12
 CCMD R-Status-FFFF W                   #  Return Command C2-10
 WCMD R-C2_AMP_SQ_OFFSET_FINE(6)-XXXX R  #  Command C2-13
 CCMD R-C2_AMP_SQ_OFFSET_FINE(5)-0000 W  #  Return Command C2-11
@@ -801,7 +801,7 @@ CCMD R-Status-FFFF W                   #  Return Command C2-14
 WCMD R-C2_AMP_SQ_OFFSET_FINE(8)-XXXX R  #  Command C2-17
 CCMD R-C2_AMP_SQ_OFFSET_FINE(7)-0000 W  #  Return Command C2-15
 COMM
-WCMD W-C2_AMP_SQ_OFFSET_FINE(9)-0001 R  #  Command C2-18
+WCMD W-C2_AMP_SQ_OFFSET_FINE(9)-0021 R  #  Command C2-18
 CCMD R-Status-FFFF W                   #  Return Command C2-16
 WCMD R-C2_AMP_SQ_OFFSET_FINE(9)-XXXX R  #  Command C2-19
 CCMD R-C2_AMP_SQ_OFFSET_FINE(8)-0000 W  #  Return Command C2-17
@@ -816,7 +816,7 @@ CCMD R-Status-FFFF W                   #  Return Command C2-20
 WCMD R-C2_AMP_SQ_OFFSET_FINE(11)-XXXX R #  Command C2-23
 CCMD R-C2_AMP_SQ_OFFSET_FINE(10)-0000 W #  Return Command C2-21
 COMM
-WCMD W-C2_AMP_SQ_OFFSET_FINE(12)-0001 R #  Command C2-24
+WCMD W-C2_AMP_SQ_OFFSET_FINE(12)-0019 R #  Command C2-24
 CCMD R-Status-FFFF W                   #  Return Command C2-22
 WCMD R-C2_AMP_SQ_OFFSET_FINE(12)-XXXX R #  Command C2-25
 CCMD R-C2_AMP_SQ_OFFSET_FINE(11)-0000 W #  Return Command C2-23
@@ -831,7 +831,7 @@ CCMD R-Status-FFFF W                   #  Return Command C2-26
 WCMD R-C2_AMP_SQ_OFFSET_FINE(14)-XXXX R #  Command C2-29
 CCMD R-C2_AMP_SQ_OFFSET_FINE(13)-0000 W #  Return Command C2-27
 COMM
-WCMD W-C2_AMP_SQ_OFFSET_FINE(15)-0001 R #  Command C2-30
+WCMD W-C2_AMP_SQ_OFFSET_FINE(15)-0011 R #  Command C2-30
 CCMD R-Status-FFFF W                   #  Return Command C2-28
 WCMD R-C2_AMP_SQ_OFFSET_FINE(15)-XXXX R #  Command C2-31
 CCMD R-C2_AMP_SQ_OFFSET_FINE(14)-0000 W #  Return Command C2-29
@@ -846,7 +846,7 @@ CCMD R-Status-FFFF W                   #  Return Command C2-32
 WCMD R-C2_AMP_SQ_OFFSET_FINE(17)-XXXX R #  Command C2-35
 CCMD R-C2_AMP_SQ_OFFSET_FINE(16)-0000 W #  Return Command C2-33
 COMM
-WCMD W-C2_AMP_SQ_OFFSET_FINE(18)-0001 R #  Command C2-36
+WCMD W-C2_AMP_SQ_OFFSET_FINE(18)-0009 R #  Command C2-36
 CCMD R-Status-FFFF W                   #  Return Command C2-34
 WCMD R-C2_AMP_SQ_OFFSET_FINE(18)-XXXX R #  Command C2-37
 CCMD R-C2_AMP_SQ_OFFSET_FINE(17)-0000 W #  Return Command C2-35
@@ -906,7 +906,7 @@ CCMD R-Status-FFFF W                   #  Return Command C2-56
 WCMD R-C2_AMP_SQ_OFFSET_FINE(29)-XXXX R #  Command C2-59
 CCMD R-C2_AMP_SQ_OFFSET_FINE(28)-0000 W #  Return Command C2-57
 COMM
-WCMD W-C2_AMP_SQ_OFFSET_FINE(30)-0001 R #  Command C2-60
+WCMD W-C2_AMP_SQ_OFFSET_FINE(30)-0039 R #  Command C2-60
 CCMD R-Status-FFFF W                   #  Return Command C2-58
 WCMD R-C2_AMP_SQ_OFFSET_FINE(30)-XXXX R #  Command C2-61
 CCMD R-C2_AMP_SQ_OFFSET_FINE(29)-0000 W #  Return Command C2-59
@@ -921,7 +921,7 @@ CCMD R-Status-FFFF W                   #  Return Command C2-62
 WCMD R-C2_AMP_SQ_OFFSET_FINE(32)-XXXX R #  Command C2-65
 CCMD R-C2_AMP_SQ_OFFSET_FINE(31)-0000 W #  Return Command C2-63
 COMM
-WCMD W-C2_AMP_SQ_OFFSET_FINE(33)-0001 R #  Command C2-66
+WCMD W-C2_AMP_SQ_OFFSET_FINE(33)-0031 R #  Command C2-66
 CCMD R-Status-FFFF W                   #  Return Command C2-64
 WCMD R-C2_AMP_SQ_OFFSET_FINE(33)-XXXX R #  Command C2-67
 CCMD R-C2_AMP_SQ_OFFSET_FINE(32)-0000 W #  Return Command C2-65
@@ -933,14 +933,14 @@ COMM ---------------------------------------------------------------------------
 WCMD W-C2_AMP_SQ_OFFSET_FINE(0)-0002 R  #  Command C2-68
 CCMD R-Status-FFFF W                   #  Return Command C2-66
 WCMD R-C2_AMP_SQ_OFFSET_FINE(0)-XXXX R  #  Command C2-69
-CCMD R-C2_AMP_SQ_OFFSET_FINE(33)-0001 W #  Return Command C2-67
+CCMD R-C2_AMP_SQ_OFFSET_FINE(33)-0031 W #  Return Command C2-67
 COMM
 WCMD W-C2_AMP_SQ_OFFSET_FINE(1)-0003 R  #  Command C2-70
 CCMD R-Status-FFFF W                   #  Return Command C2-68
 WCMD R-C2_AMP_SQ_OFFSET_FINE(1)-XXXX R  #  Command C2-71
-CCMD R-C2_AMP_SQ_OFFSET_FINE(0)-0001 W  #  Return Command C2-69
+CCMD R-C2_AMP_SQ_OFFSET_FINE(0)-0039 W  #  Return Command C2-69
 COMM
-WCMD W-C2_AMP_SQ_OFFSET_FINE(2)-0001 R  #  Command C2-72
+WCMD W-C2_AMP_SQ_OFFSET_FINE(2)-0019 R  #  Command C2-72
 CCMD R-Status-FFFF W                   #  Return Command C2-70
 WCMD R-C2_AMP_SQ_OFFSET_FINE(2)-XXXX R  #  Command C2-73
 CCMD R-C2_AMP_SQ_OFFSET_FINE(1)-0002 W  #  Return Command C2-71
@@ -953,9 +953,9 @@ COMM
 WCMD W-C2_AMP_SQ_OFFSET_FINE(4)-0003 R  #  Command C2-76
 CCMD R-Status-FFFF W                   #  Return Command C2-74
 WCMD R-C2_AMP_SQ_OFFSET_FINE(4)-XXXX R  #  Command C2-77
-CCMD R-C2_AMP_SQ_OFFSET_FINE(3)-0001 W  #  Return Command C2-75
+CCMD R-C2_AMP_SQ_OFFSET_FINE(3)-0031 W  #  Return Command C2-75
 COMM
-WCMD W-C2_AMP_SQ_OFFSET_FINE(5)-0001 R  #  Command C2-78
+WCMD W-C2_AMP_SQ_OFFSET_FINE(5)-0011 R  #  Command C2-78
 CCMD R-Status-FFFF W                   #  Return Command C2-76
 WCMD R-C2_AMP_SQ_OFFSET_FINE(5)-XXXX R  #  Command C2-79
 CCMD R-C2_AMP_SQ_OFFSET_FINE(4)-0002 W  #  Return Command C2-77
@@ -968,9 +968,9 @@ COMM
 WCMD W-C2_AMP_SQ_OFFSET_FINE(7)-0003 R  #  Command C2-82
 CCMD R-Status-FFFF W                   #  Return Command C2-80
 WCMD R-C2_AMP_SQ_OFFSET_FINE(7)-XXXX R  #  Command C2-83
-CCMD R-C2_AMP_SQ_OFFSET_FINE(6)-0001 W  #  Return Command C2-81
+CCMD R-C2_AMP_SQ_OFFSET_FINE(6)-0029 W  #  Return Command C2-81
 COMM
-WCMD W-C2_AMP_SQ_OFFSET_FINE(8)-0001 R  #  Command C2-84
+WCMD W-C2_AMP_SQ_OFFSET_FINE(8)-0009 R  #  Command C2-84
 CCMD R-Status-FFFF W                   #  Return Command C2-82
 WCMD R-C2_AMP_SQ_OFFSET_FINE(8)-XXXX R  #  Command C2-85
 CCMD R-C2_AMP_SQ_OFFSET_FINE(7)-0002 W  #  Return Command C2-83
@@ -983,7 +983,7 @@ COMM
 WCMD W-C2_AMP_SQ_OFFSET_FINE(10)-0003 R #  Command C2-88
 CCMD R-Status-FFFF W                   #  Return Command C2-86
 WCMD R-C2_AMP_SQ_OFFSET_FINE(10)-XXXX R #  Command C2-89
-CCMD R-C2_AMP_SQ_OFFSET_FINE(9)-0001 W  #  Return Command C2-87
+CCMD R-C2_AMP_SQ_OFFSET_FINE(9)-0021 W  #  Return Command C2-87
 COMM
 WCMD W-C2_AMP_SQ_OFFSET_FINE(11)-0001 R #  Command C2-90
 CCMD R-Status-FFFF W                   #  Return Command C2-88
@@ -998,7 +998,7 @@ COMM
 WCMD W-C2_AMP_SQ_OFFSET_FINE(13)-0003 R #  Command C2-94
 CCMD R-Status-FFFF W                   #  Return Command C2-92
 WCMD R-C2_AMP_SQ_OFFSET_FINE(13)-XXXX R #  Command C2-95
-CCMD R-C2_AMP_SQ_OFFSET_FINE(12)-0001 W #  Return Command C2-93
+CCMD R-C2_AMP_SQ_OFFSET_FINE(12)-0019 W #  Return Command C2-93
 COMM
 WCMD W-C2_AMP_SQ_OFFSET_FINE(14)-0001 R #  Command C2-96
 CCMD R-Status-FFFF W                   #  Return Command C2-94
@@ -1013,7 +1013,7 @@ COMM
 WCMD W-C2_AMP_SQ_OFFSET_FINE(16)-0003 R #  Command C2-100
 CCMD R-Status-FFFF W                   #  Return Command C2-98
 WCMD R-C2_AMP_SQ_OFFSET_FINE(16)-XXXX R #  Command C2-101
-CCMD R-C2_AMP_SQ_OFFSET_FINE(15)-0001 W #  Return Command C2-99
+CCMD R-C2_AMP_SQ_OFFSET_FINE(15)-0011 W #  Return Command C2-99
 COMM
 WCMD W-C2_AMP_SQ_OFFSET_FINE(17)-0001 R #  Command C2-102
 CCMD R-Status-FFFF W                   #  Return Command C2-100
@@ -1028,9 +1028,9 @@ COMM
 WCMD W-C2_AMP_SQ_OFFSET_FINE(19)-0003 R #  Command C2-106
 CCMD R-Status-FFFF W                   #  Return Command C2-104
 WCMD R-C2_AMP_SQ_OFFSET_FINE(19)-XXXX R #  Command C2-107
-CCMD R-C2_AMP_SQ_OFFSET_FINE(18)-0001 W #  Return Command C2-105
+CCMD R-C2_AMP_SQ_OFFSET_FINE(18)-0009 W #  Return Command C2-105
 COMM
-WCMD W-C2_AMP_SQ_OFFSET_FINE(20)-0001 R #  Command C2-108
+WCMD W-C2_AMP_SQ_OFFSET_FINE(20)-0039 R #  Command C2-108
 CCMD R-Status-FFFF W                   #  Return Command C2-106
 WCMD R-C2_AMP_SQ_OFFSET_FINE(20)-XXXX R #  Command C2-109
 CCMD R-C2_AMP_SQ_OFFSET_FINE(19)-0002 W #  Return Command C2-107
@@ -1045,7 +1045,7 @@ CCMD R-Status-FFFF W                   #  Return Command C2-110
 WCMD R-C2_AMP_SQ_OFFSET_FINE(22)-XXXX R #  Command C2-113
 CCMD R-C2_AMP_SQ_OFFSET_FINE(21)-0001 W #  Return Command C2-111
 COMM
-WCMD W-C2_AMP_SQ_OFFSET_FINE(23)-0001 R #  Command C2-114
+WCMD W-C2_AMP_SQ_OFFSET_FINE(23)-0031 R #  Command C2-114
 CCMD R-Status-FFFF W                   #  Return Command C2-112
 WCMD R-C2_AMP_SQ_OFFSET_FINE(23)-XXXX R #  Command C2-115
 CCMD R-C2_AMP_SQ_OFFSET_FINE(22)-0002 W #  Return Command C2-113
@@ -1060,7 +1060,7 @@ CCMD R-Status-FFFF W                   #  Return Command C2-116
 WCMD R-C2_AMP_SQ_OFFSET_FINE(25)-XXXX R #  Command C2-119
 CCMD R-C2_AMP_SQ_OFFSET_FINE(24)-0001 W #  Return Command C2-117
 COMM
-WCMD W-C2_AMP_SQ_OFFSET_FINE(26)-0001 R #  Command C2-120
+WCMD W-C2_AMP_SQ_OFFSET_FINE(26)-0029 R #  Command C2-120
 CCMD R-Status-FFFF W                   #  Return Command C2-118
 WCMD R-C2_AMP_SQ_OFFSET_FINE(26)-XXXX R #  Command C2-121
 CCMD R-C2_AMP_SQ_OFFSET_FINE(25)-0002 W #  Return Command C2-119
@@ -1075,7 +1075,7 @@ CCMD R-Status-FFFF W                   #  Return Command C2-122
 WCMD R-C2_AMP_SQ_OFFSET_FINE(28)-XXXX R #  Command C2-125
 CCMD R-C2_AMP_SQ_OFFSET_FINE(27)-0001 W #  Return Command C2-123
 COMM
-WCMD W-C2_AMP_SQ_OFFSET_FINE(29)-0001 R #  Command C2-126
+WCMD W-C2_AMP_SQ_OFFSET_FINE(29)-0021 R #  Command C2-126
 CCMD R-Status-FFFF W                   #  Return Command C2-124
 WCMD R-C2_AMP_SQ_OFFSET_FINE(29)-XXXX R #  Command C2-127
 CCMD R-C2_AMP_SQ_OFFSET_FINE(28)-0002 W #  Return Command C2-125
@@ -1088,9 +1088,9 @@ COMM
 WCMD W-C2_AMP_SQ_OFFSET_FINE(31)-0003 R #  Command C2-130
 CCMD R-Status-FFFF W                   #  Return Command C2-128
 WCMD R-C2_AMP_SQ_OFFSET_FINE(31)-XXXX R #  Command C2-131
-CCMD R-C2_AMP_SQ_OFFSET_FINE(30)-0001 W #  Return Command C2-129
+CCMD R-C2_AMP_SQ_OFFSET_FINE(30)-0039 W #  Return Command C2-129
 COMM
-WCMD W-C2_AMP_SQ_OFFSET_FINE(32)-0001 R #  Command C2-132
+WCMD W-C2_AMP_SQ_OFFSET_FINE(32)-0019 R #  Command C2-132
 CCMD R-Status-FFFF W                   #  Return Command C2-130
 WCMD R-C2_AMP_SQ_OFFSET_FINE(32)-XXXX R #  Command C2-133
 CCMD R-C2_AMP_SQ_OFFSET_FINE(31)-0002 W #  Return Command C2-131
@@ -1126,7 +1126,7 @@ COMM ===========================================================================
 COMM   C3_AMP_SQ_OFFSET_FINE: writing a new table in ping-pong memory
 COMM    and check reading of the memory part currently applicable is kept to its initial value
 COMM ----------------------------------------------------------------------------------------------
-WCMD W-C3_AMP_SQ_OFFSET_FINE(0)-0001 W  #  Command C3-0
+WCMD W-C3_AMP_SQ_OFFSET_FINE(0)-0039 W  #  Command C3-0
 WCMD R-C3_AMP_SQ_OFFSET_FINE(0)-XXXX W  #  Command C3-1
 COMM
 WCMD W-C3_AMP_SQ_OFFSET_FINE(1)-0002 R  #  Command C3-2
@@ -1139,7 +1139,7 @@ CCMD R-Status-FFFF W                   #  Return Command C3-2
 WCMD R-C3_AMP_SQ_OFFSET_FINE(2)-XXXX R  #  Command C3-5
 CCMD R-C3_AMP_SQ_OFFSET_FINE(1)-0000 W  #  Return Command C3-3
 COMM
-WCMD W-C3_AMP_SQ_OFFSET_FINE(3)-0001 R  #  Command C3-6
+WCMD W-C3_AMP_SQ_OFFSET_FINE(3)-0031 R  #  Command C3-6
 CCMD R-Status-FFFF W                   #  Return Command C3-4
 WCMD R-C3_AMP_SQ_OFFSET_FINE(3)-XXXX R  #  Command C3-7
 CCMD R-C3_AMP_SQ_OFFSET_FINE(2)-0000 W  #  Return Command C3-5
@@ -1154,7 +1154,7 @@ CCMD R-Status-FFFF W                   #  Return Command C3-8
 WCMD R-C3_AMP_SQ_OFFSET_FINE(5)-XXXX R  #  Command C3-11
 CCMD R-C3_AMP_SQ_OFFSET_FINE(4)-0000 W  #  Return Command C3-9
 COMM
-WCMD W-C3_AMP_SQ_OFFSET_FINE(6)-0001 R  #  Command C3-12
+WCMD W-C3_AMP_SQ_OFFSET_FINE(6)-0029 R  #  Command C3-12
 CCMD R-Status-FFFF W                   #  Return Command C3-10
 WCMD R-C3_AMP_SQ_OFFSET_FINE(6)-XXXX R  #  Command C3-13
 CCMD R-C3_AMP_SQ_OFFSET_FINE(5)-0000 W  #  Return Command C3-11
@@ -1169,7 +1169,7 @@ CCMD R-Status-FFFF W                   #  Return Command C3-14
 WCMD R-C3_AMP_SQ_OFFSET_FINE(8)-XXXX R  #  Command C3-17
 CCMD R-C3_AMP_SQ_OFFSET_FINE(7)-0000 W  #  Return Command C3-15
 COMM
-WCMD W-C3_AMP_SQ_OFFSET_FINE(9)-0001 R  #  Command C3-18
+WCMD W-C3_AMP_SQ_OFFSET_FINE(9)-0021 R  #  Command C3-18
 CCMD R-Status-FFFF W                   #  Return Command C3-16
 WCMD R-C3_AMP_SQ_OFFSET_FINE(9)-XXXX R  #  Command C3-19
 CCMD R-C3_AMP_SQ_OFFSET_FINE(8)-0000 W  #  Return Command C3-17
@@ -1184,7 +1184,7 @@ CCMD R-Status-FFFF W                   #  Return Command C3-20
 WCMD R-C3_AMP_SQ_OFFSET_FINE(11)-XXXX R #  Command C3-23
 CCMD R-C3_AMP_SQ_OFFSET_FINE(10)-0000 W #  Return Command C3-21
 COMM
-WCMD W-C3_AMP_SQ_OFFSET_FINE(12)-0001 R #  Command C3-24
+WCMD W-C3_AMP_SQ_OFFSET_FINE(12)-0019 R #  Command C3-24
 CCMD R-Status-FFFF W                   #  Return Command C3-22
 WCMD R-C3_AMP_SQ_OFFSET_FINE(12)-XXXX R #  Command C3-25
 CCMD R-C3_AMP_SQ_OFFSET_FINE(11)-0000 W #  Return Command C3-23
@@ -1199,7 +1199,7 @@ CCMD R-Status-FFFF W                   #  Return Command C3-26
 WCMD R-C3_AMP_SQ_OFFSET_FINE(14)-XXXX R #  Command C3-29
 CCMD R-C3_AMP_SQ_OFFSET_FINE(13)-0000 W #  Return Command C3-27
 COMM
-WCMD W-C3_AMP_SQ_OFFSET_FINE(15)-0001 R #  Command C3-30
+WCMD W-C3_AMP_SQ_OFFSET_FINE(15)-0011 R #  Command C3-30
 CCMD R-Status-FFFF W                   #  Return Command C3-28
 WCMD R-C3_AMP_SQ_OFFSET_FINE(15)-XXXX R #  Command C3-31
 CCMD R-C3_AMP_SQ_OFFSET_FINE(14)-0000 W #  Return Command C3-29
@@ -1214,7 +1214,7 @@ CCMD R-Status-FFFF W                   #  Return Command C3-32
 WCMD R-C3_AMP_SQ_OFFSET_FINE(17)-XXXX R #  Command C3-35
 CCMD R-C3_AMP_SQ_OFFSET_FINE(16)-0000 W #  Return Command C3-33
 COMM
-WCMD W-C3_AMP_SQ_OFFSET_FINE(18)-0001 R #  Command C3-36
+WCMD W-C3_AMP_SQ_OFFSET_FINE(18)-0009 R #  Command C3-36
 CCMD R-Status-FFFF W                   #  Return Command C3-34
 WCMD R-C3_AMP_SQ_OFFSET_FINE(18)-XXXX R #  Command C3-37
 CCMD R-C3_AMP_SQ_OFFSET_FINE(17)-0000 W #  Return Command C3-35
@@ -1274,7 +1274,7 @@ CCMD R-Status-FFFF W                   #  Return Command C3-56
 WCMD R-C3_AMP_SQ_OFFSET_FINE(29)-XXXX R #  Command C3-59
 CCMD R-C3_AMP_SQ_OFFSET_FINE(28)-0000 W #  Return Command C3-57
 COMM
-WCMD W-C3_AMP_SQ_OFFSET_FINE(30)-0001 R #  Command C3-60
+WCMD W-C3_AMP_SQ_OFFSET_FINE(30)-0039 R #  Command C3-60
 CCMD R-Status-FFFF W                   #  Return Command C3-58
 WCMD R-C3_AMP_SQ_OFFSET_FINE(30)-XXXX R #  Command C3-61
 CCMD R-C3_AMP_SQ_OFFSET_FINE(29)-0000 W #  Return Command C3-59
@@ -1289,7 +1289,7 @@ CCMD R-Status-FFFF W                   #  Return Command C3-62
 WCMD R-C3_AMP_SQ_OFFSET_FINE(32)-XXXX R #  Command C3-65
 CCMD R-C3_AMP_SQ_OFFSET_FINE(31)-0000 W #  Return Command C3-63
 COMM
-WCMD W-C3_AMP_SQ_OFFSET_FINE(33)-0001 R #  Command C3-66
+WCMD W-C3_AMP_SQ_OFFSET_FINE(33)-0031 R #  Command C3-66
 CCMD R-Status-FFFF W                   #  Return Command C3-64
 WCMD R-C3_AMP_SQ_OFFSET_FINE(33)-XXXX R #  Command C3-67
 CCMD R-C3_AMP_SQ_OFFSET_FINE(32)-0000 W #  Return Command C3-65
@@ -1301,14 +1301,14 @@ COMM ---------------------------------------------------------------------------
 WCMD W-C3_AMP_SQ_OFFSET_FINE(0)-0002 R  #  Command C3-68
 CCMD R-Status-FFFF W                   #  Return Command C3-66
 WCMD R-C3_AMP_SQ_OFFSET_FINE(0)-XXXX R  #  Command C3-69
-CCMD R-C3_AMP_SQ_OFFSET_FINE(33)-0001 W #  Return Command C3-67
+CCMD R-C3_AMP_SQ_OFFSET_FINE(33)-0031 W #  Return Command C3-67
 COMM
 WCMD W-C3_AMP_SQ_OFFSET_FINE(1)-0003 R  #  Command C3-70
 CCMD R-Status-FFFF W                   #  Return Command C3-68
 WCMD R-C3_AMP_SQ_OFFSET_FINE(1)-XXXX R  #  Command C3-71
-CCMD R-C3_AMP_SQ_OFFSET_FINE(0)-0001 W  #  Return Command C3-69
+CCMD R-C3_AMP_SQ_OFFSET_FINE(0)-0039 W  #  Return Command C3-69
 COMM
-WCMD W-C3_AMP_SQ_OFFSET_FINE(2)-0001 R  #  Command C3-72
+WCMD W-C3_AMP_SQ_OFFSET_FINE(2)-0019 R  #  Command C3-72
 CCMD R-Status-FFFF W                   #  Return Command C3-70
 WCMD R-C3_AMP_SQ_OFFSET_FINE(2)-XXXX R  #  Command C3-73
 CCMD R-C3_AMP_SQ_OFFSET_FINE(1)-0002 W  #  Return Command C3-71
@@ -1321,9 +1321,9 @@ COMM
 WCMD W-C3_AMP_SQ_OFFSET_FINE(4)-0003 R  #  Command C3-76
 CCMD R-Status-FFFF W                   #  Return Command C3-74
 WCMD R-C3_AMP_SQ_OFFSET_FINE(4)-XXXX R  #  Command C3-77
-CCMD R-C3_AMP_SQ_OFFSET_FINE(3)-0001 W  #  Return Command C3-75
+CCMD R-C3_AMP_SQ_OFFSET_FINE(3)-0031 W  #  Return Command C3-75
 COMM
-WCMD W-C3_AMP_SQ_OFFSET_FINE(5)-0001 R  #  Command C3-78
+WCMD W-C3_AMP_SQ_OFFSET_FINE(5)-0011 R  #  Command C3-78
 CCMD R-Status-FFFF W                   #  Return Command C3-76
 WCMD R-C3_AMP_SQ_OFFSET_FINE(5)-XXXX R  #  Command C3-79
 CCMD R-C3_AMP_SQ_OFFSET_FINE(4)-0002 W  #  Return Command C3-77
@@ -1336,9 +1336,9 @@ COMM
 WCMD W-C3_AMP_SQ_OFFSET_FINE(7)-0003 R  #  Command C3-82
 CCMD R-Status-FFFF W                   #  Return Command C3-80
 WCMD R-C3_AMP_SQ_OFFSET_FINE(7)-XXXX R  #  Command C3-83
-CCMD R-C3_AMP_SQ_OFFSET_FINE(6)-0001 W  #  Return Command C3-81
+CCMD R-C3_AMP_SQ_OFFSET_FINE(6)-0029 W  #  Return Command C3-81
 COMM
-WCMD W-C3_AMP_SQ_OFFSET_FINE(8)-0001 R  #  Command C3-84
+WCMD W-C3_AMP_SQ_OFFSET_FINE(8)-0009 R  #  Command C3-84
 CCMD R-Status-FFFF W                   #  Return Command C3-82
 WCMD R-C3_AMP_SQ_OFFSET_FINE(8)-XXXX R  #  Command C3-85
 CCMD R-C3_AMP_SQ_OFFSET_FINE(7)-0002 W  #  Return Command C3-83
@@ -1351,7 +1351,7 @@ COMM
 WCMD W-C3_AMP_SQ_OFFSET_FINE(10)-0003 R #  Command C3-88
 CCMD R-Status-FFFF W                   #  Return Command C3-86
 WCMD R-C3_AMP_SQ_OFFSET_FINE(10)-XXXX R #  Command C3-89
-CCMD R-C3_AMP_SQ_OFFSET_FINE(9)-0001 W  #  Return Command C3-87
+CCMD R-C3_AMP_SQ_OFFSET_FINE(9)-0021 W  #  Return Command C3-87
 COMM
 WCMD W-C3_AMP_SQ_OFFSET_FINE(11)-0001 R #  Command C3-90
 CCMD R-Status-FFFF W                   #  Return Command C3-88
@@ -1366,7 +1366,7 @@ COMM
 WCMD W-C3_AMP_SQ_OFFSET_FINE(13)-0003 R #  Command C3-94
 CCMD R-Status-FFFF W                   #  Return Command C3-92
 WCMD R-C3_AMP_SQ_OFFSET_FINE(13)-XXXX R #  Command C3-95
-CCMD R-C3_AMP_SQ_OFFSET_FINE(12)-0001 W #  Return Command C3-93
+CCMD R-C3_AMP_SQ_OFFSET_FINE(12)-0019 W #  Return Command C3-93
 COMM
 WCMD W-C3_AMP_SQ_OFFSET_FINE(14)-0001 R #  Command C3-96
 CCMD R-Status-FFFF W                   #  Return Command C3-94
@@ -1381,7 +1381,7 @@ COMM
 WCMD W-C3_AMP_SQ_OFFSET_FINE(16)-0003 R #  Command C3-100
 CCMD R-Status-FFFF W                   #  Return Command C3-98
 WCMD R-C3_AMP_SQ_OFFSET_FINE(16)-XXXX R #  Command C3-101
-CCMD R-C3_AMP_SQ_OFFSET_FINE(15)-0001 W #  Return Command C3-99
+CCMD R-C3_AMP_SQ_OFFSET_FINE(15)-0011 W #  Return Command C3-99
 COMM
 WCMD W-C3_AMP_SQ_OFFSET_FINE(17)-0001 R #  Command C3-102
 CCMD R-Status-FFFF W                   #  Return Command C3-100
@@ -1396,9 +1396,9 @@ COMM
 WCMD W-C3_AMP_SQ_OFFSET_FINE(19)-0003 R #  Command C3-106
 CCMD R-Status-FFFF W                   #  Return Command C3-104
 WCMD R-C3_AMP_SQ_OFFSET_FINE(19)-XXXX R #  Command C3-107
-CCMD R-C3_AMP_SQ_OFFSET_FINE(18)-0001 W #  Return Command C3-105
+CCMD R-C3_AMP_SQ_OFFSET_FINE(18)-0009 W #  Return Command C3-105
 COMM
-WCMD W-C3_AMP_SQ_OFFSET_FINE(20)-0001 R #  Command C3-108
+WCMD W-C3_AMP_SQ_OFFSET_FINE(20)-0039 R #  Command C3-108
 CCMD R-Status-FFFF W                   #  Return Command C3-106
 WCMD R-C3_AMP_SQ_OFFSET_FINE(20)-XXXX R #  Command C3-109
 CCMD R-C3_AMP_SQ_OFFSET_FINE(19)-0002 W #  Return Command C3-107
@@ -1413,7 +1413,7 @@ CCMD R-Status-FFFF W                   #  Return Command C3-110
 WCMD R-C3_AMP_SQ_OFFSET_FINE(22)-XXXX R #  Command C3-113
 CCMD R-C3_AMP_SQ_OFFSET_FINE(21)-0001 W #  Return Command C3-111
 COMM
-WCMD W-C3_AMP_SQ_OFFSET_FINE(23)-0001 R #  Command C3-114
+WCMD W-C3_AMP_SQ_OFFSET_FINE(23)-0031 R #  Command C3-114
 CCMD R-Status-FFFF W                   #  Return Command C3-112
 WCMD R-C3_AMP_SQ_OFFSET_FINE(23)-XXXX R #  Command C3-115
 CCMD R-C3_AMP_SQ_OFFSET_FINE(22)-0002 W #  Return Command C3-113
@@ -1428,7 +1428,7 @@ CCMD R-Status-FFFF W                   #  Return Command C3-116
 WCMD R-C3_AMP_SQ_OFFSET_FINE(25)-XXXX R #  Command C3-119
 CCMD R-C3_AMP_SQ_OFFSET_FINE(24)-0001 W #  Return Command C3-117
 COMM
-WCMD W-C3_AMP_SQ_OFFSET_FINE(26)-0001 R #  Command C3-120
+WCMD W-C3_AMP_SQ_OFFSET_FINE(26)-0029 R #  Command C3-120
 CCMD R-Status-FFFF W                   #  Return Command C3-118
 WCMD R-C3_AMP_SQ_OFFSET_FINE(26)-XXXX R #  Command C3-121
 CCMD R-C3_AMP_SQ_OFFSET_FINE(25)-0002 W #  Return Command C3-119
@@ -1443,7 +1443,7 @@ CCMD R-Status-FFFF W                   #  Return Command C3-122
 WCMD R-C3_AMP_SQ_OFFSET_FINE(28)-XXXX R #  Command C3-125
 CCMD R-C3_AMP_SQ_OFFSET_FINE(27)-0001 W #  Return Command C3-123
 COMM
-WCMD W-C3_AMP_SQ_OFFSET_FINE(29)-0001 R #  Command C3-126
+WCMD W-C3_AMP_SQ_OFFSET_FINE(29)-0021 R #  Command C3-126
 CCMD R-Status-FFFF W                   #  Return Command C3-124
 WCMD R-C3_AMP_SQ_OFFSET_FINE(29)-XXXX R #  Command C3-127
 CCMD R-C3_AMP_SQ_OFFSET_FINE(28)-0002 W #  Return Command C3-125
@@ -1456,9 +1456,9 @@ COMM
 WCMD W-C3_AMP_SQ_OFFSET_FINE(31)-0003 R #  Command C3-130
 CCMD R-Status-FFFF W                   #  Return Command C3-128
 WCMD R-C3_AMP_SQ_OFFSET_FINE(31)-XXXX R #  Command C3-131
-CCMD R-C3_AMP_SQ_OFFSET_FINE(30)-0001 W #  Return Command C3-129
+CCMD R-C3_AMP_SQ_OFFSET_FINE(30)-0039 W #  Return Command C3-129
 COMM
-WCMD W-C3_AMP_SQ_OFFSET_FINE(32)-0001 R #  Command C3-132
+WCMD W-C3_AMP_SQ_OFFSET_FINE(32)-0019 R #  Command C3-132
 CCMD R-Status-FFFF W                   #  Return Command C3-130
 WCMD R-C3_AMP_SQ_OFFSET_FINE(32)-XXXX R #  Command C3-133
 CCMD R-C3_AMP_SQ_OFFSET_FINE(31)-0002 W #  Return Command C3-131

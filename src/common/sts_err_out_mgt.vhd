@@ -57,6 +57,7 @@ signal   cond_saofm_or        : std_logic_vector(c_NB_COL-1 downto 0)           
 signal   cond_tsten           : std_logic                                                                   ; --! Error data out of range condition: TEST_PATTERN_ENABLE
 signal   cond_smfbm           : std_logic                                                                   ; --! Error data out of range condition: CY_MUX_SQ_FB_MODE
 signal   cond_saoff           : std_logic                                                                   ; --! Error data out of range condition: CY_AMP_SQ_OFFSET_FINE
+signal   cond_saolp           : std_logic                                                                   ; --! Error data out of range condition: CY_AMP_SQ_OFFSET_LSB_PTR
 signal   cond_saofl           : std_logic                                                                   ; --! Error data out of range condition: CY_AMP_SQ_OFFSET_LSB
 signal   cond_saofc           : std_logic                                                                   ; --! Error data out of range condition: CY_AMP_SQ_OFFSET_COARSE
 signal   cond_smfbd           : std_logic                                                                   ; --! Error data out of range condition: CY_MUX_SQ_FB_DELAY
@@ -109,6 +110,9 @@ begin
                      c_HGH_LEV;
 
    cond_saoff     <= c_HGH_LEV when i_ep_cmd_rx_wd_data(i_ep_cmd_rx_wd_data'high downto c_DFLD_SAOFF_PIX_S) /= c_ZERO(i_ep_cmd_rx_wd_data'high downto c_DFLD_SAOFF_PIX_S) else
+                     c_LOW_LEV;
+
+   cond_saolp     <= c_HGH_LEV when i_ep_cmd_rx_wd_data(i_ep_cmd_rx_wd_data'high downto c_DFLD_SAOLP_COL_S) /= c_ZERO(i_ep_cmd_rx_wd_data'high downto c_DFLD_SAOLP_COL_S) else
                      c_LOW_LEV;
 
    cond_saofl     <= c_HGH_LEV when i_ep_cmd_rx_wd_data(i_ep_cmd_rx_wd_data'high downto c_DFLD_SAOFL_COL_S) /= c_ZERO(i_ep_cmd_rx_wd_data'high downto c_DFLD_SAOFL_COL_S) else
@@ -172,6 +176,10 @@ begin
                      i_ep_cmd_rx_add_norw(c_EP_CMD_ADD_COLPOSL-1    downto c_MEM_SAOFF_ADD_S)      = c_EP_CMD_ADD_SAOFF(c_COL0)(c_EP_CMD_ADD_COLPOSL-1    downto c_MEM_SAOFF_ADD_S)      and
                      i_ep_cmd_rx_add_norw(   c_MEM_SAOFF_ADD_S-1    downto 0)                      < std_logic_vector(to_unsigned(c_TAB_SAOFF_NW, c_MEM_SAOFF_ADD_S))                    then
                   o_ep_cmd_sts_err_out <= cond_saoff xor c_EP_CMD_ERR_CLR;
+
+               elsif i_ep_cmd_rx_add_norw(i_ep_cmd_rx_add_norw'high downto c_EP_CMD_ADD_COLPOSH+1) = c_EP_CMD_ADD_SAOLP(c_COL0)(i_ep_cmd_rx_add_norw'high downto c_EP_CMD_ADD_COLPOSH+1) and
+                     i_ep_cmd_rx_add_norw(c_EP_CMD_ADD_COLPOSL-1    downto 0)                      = c_EP_CMD_ADD_SAOLP(c_COL0)(c_EP_CMD_ADD_COLPOSL-1    downto 0)                      then
+                  o_ep_cmd_sts_err_out <= cond_saolp xor c_EP_CMD_ERR_CLR;
 
                elsif i_ep_cmd_rx_add_norw(i_ep_cmd_rx_add_norw'high downto c_EP_CMD_ADD_COLPOSH+1) = c_EP_CMD_ADD_SAOFL(c_COL0)(i_ep_cmd_rx_add_norw'high downto c_EP_CMD_ADD_COLPOSH+1) and
                      i_ep_cmd_rx_add_norw(c_EP_CMD_ADD_COLPOSL-1    downto 0)                      = c_EP_CMD_ADD_SAOFL(c_COL0)(c_EP_CMD_ADD_COLPOSL-1    downto 0)                      then

@@ -43,8 +43,8 @@ entity sqa_dac_mgt is port (
          i_clk                : in     std_logic                                                            ; --! System Clock
 
          i_sync_rs            : in     std_logic                                                            ; --! Pixel sequence synchronization, synchronized on System Clock
-         i_saofl              : in     std_logic_vector(c_DFLD_SAOFL_COL_S-1 downto 0)                      ; --! SQUID AMP offset DAC LSB
-         i_sqa_fbk_mux        : in     std_logic_vector(c_DFLD_SAOFF_PIX_S-1 downto 0)                      ; --! SQUID AMP Feedback Multiplexer
+         i_sqa_off_lsb        : in     std_logic_vector(  c_SQA_DAC_DATA_S-1 downto 0)                      ; --! SQUID AMP offset LSB
+         i_sqa_fbk_mux        : in     std_logic_vector(   c_SQA_DAC_MUX_S-1 downto 0)                      ; --! SQUID AMP Feedback Multiplexer
          i_sqa_fbk_off        : in     std_logic_vector(c_DFLD_SAOFC_COL_S-1 downto 0)                      ; --! SQUID AMP coarse offset
          i_saodd              : in     std_logic_vector(c_DFLD_SAODD_COL_S-1 downto 0)                      ; --! SQUID AMP offset DAC delay
          i_sqa_pls_cnt_init   : in     std_logic_vector(   c_SQA_PLS_CNT_S-1 downto 0)                      ; --! SQUID AMP Pulse counter initialization
@@ -74,15 +74,15 @@ constant c_SAODD_LIM1         : integer:= 1                                     
 constant c_SAODD_LIM2         : integer:= 2                                                                 ; --! SQUID AMP offset DAC delay limits: bit 2
 
 signal   sync_rs_rsys         : std_logic                                                                   ; --! Pixel sequence synchronization register (System Clock)
-signal   saofl_rsys           : std_logic_vector(c_DFLD_SAOFL_COL_S-1 downto 0)                             ; --! SQUID AMP offset DAC LSB register (System clock)
+signal   sqa_off_lsb_rsys     : std_logic_vector(  c_SQA_DAC_DATA_S-1 downto 0)                             ; --! SQUID AMP offset LSB register (System Clock)
 signal   saodd_rsys           : std_logic_vector(c_DFLD_SAODD_COL_S-1 downto 0)                             ; --! SQUID AMP offset DAC delay register (System clock)
 
 signal   rst_sqm_adc_dac_lc   : std_logic                                                                   ; --! Local reset for SQUID ADC/DAC, de-assertion on system clock
 
 signal   sync_r               : std_logic_vector(c_FF_RSYNC_NB downto 0)                                    ; --! Pixel sequence sync. register (R.E. detected = position sequence to the first pixel)
 signal   sync_re              : std_logic                                                                   ; --! Pixel sequence sync. rising edge
-signal   saofl_r              : t_slv_arr(0 to c_FF_RSYNC_NB  )(c_DFLD_SAOFC_COL_S-1 downto 0)              ; --! SQUID AMP offset DAC LSB register
-signal   sqa_fbk_mux_r        : t_slv_arr(0 to c_FF_RSYNC_NB-1)(c_DFLD_SAOFF_PIX_S-1 downto 0)              ; --! SQUID AMP Feedback Multiplexer register
+signal   sqa_off_lsb_r        : t_slv_arr(0 to c_FF_RSYNC_NB  )(  c_SQA_DAC_DATA_S-1 downto 0)              ; --! SQUID AMP offset DAC LSB register
+signal   sqa_fbk_mux_r        : t_slv_arr(0 to c_FF_RSYNC_NB-1)(   c_SQA_DAC_MUX_S-1 downto 0)              ; --! SQUID AMP Feedback Multiplexer register
 signal   sqa_fbk_off_r        : t_slv_arr(0 to c_FF_RSYNC_NB-1)(c_DFLD_SAOFC_COL_S-1 downto 0)              ; --! SQUID AMP coarse offset register
 signal   saodd_r              : t_slv_arr(0 to c_FF_RSYNC_NB-1)(c_DFLD_SAODD_COL_S-1 downto 0)              ; --! SQUID AMP offset DAC delay register
 signal   sqa_pls_cnt_init_r   : t_slv_arr(0 to c_FF_RSYNC_NB-1)(   c_SQA_PLS_CNT_S-1 downto 0)              ; --! Pulse counter initialization register
@@ -90,7 +90,7 @@ signal   sqa_pls_cnt_init_r   : t_slv_arr(0 to c_FF_RSYNC_NB-1)(   c_SQA_PLS_CNT
 signal   sqa_fbk_off_sync     : std_logic_vector(c_DFLD_SAOFC_COL_S-1 downto 0)                             ; --! SQUID AMP coarse offset synchronized on pulse by row counter start
 signal   sqa_fbk_off_final    : std_logic_vector(c_DFLD_SAOFC_COL_S-1 downto 0)                             ; --! SQUID AMP coarse offset final
 signal   sqa_fbk_off_final_r  : std_logic_vector(c_DFLD_SAOFC_COL_S-1 downto 0)                             ; --! SQUID AMP coarse offset register
-signal   saofl_r_cmp          : std_logic                                                                   ; --! SQUID AMP offset DAC LSB register compare
+signal   sqa_off_lsb_r_cmp    : std_logic                                                                   ; --! SQUID AMP offset DAC LSB register compare
 signal   sqa_fbk_off_r_cmp    : std_logic                                                                   ; --! SQUID AMP coarse offset register compare
 signal   saodd_lim            : std_logic_vector(2 downto 0)                                                ; --! SQUID AMP offset DAC delay limits
 
@@ -99,7 +99,7 @@ signal   pls_rw_cnt_init_oft  : std_logic_vector(c_PLS_RW_CNT_S-1 downto 0)     
 signal   pls_rw_cnt_init      : std_logic_vector(c_PLS_RW_CNT_S-1 downto 0)                                 ; --! Pulse by row counter initialization
 signal   pls_cnt              : std_logic_vector(c_SQA_PLS_CNT_S-1 downto 0)                                ; --! Pulse counter
 
-signal   saofl_tx_flg         : std_logic                                                                   ; --! SQUID AMP offset DAC LSB transmit flag ('0'= no data to TX,'1'= data to TX)
+signal   sqa_off_lsb_tx_flg   : std_logic                                                                   ; --! SQUID AMP offset DAC LSB transmit flag ('0'= no data to TX,'1'= data to TX)
 signal   sqa_fbk_off_tx_flg   : std_logic                                                                   ; --! SQUID AMP coarse offset transmit flag ('0'= no data to TX,'1'= data to TX)
 signal   sqa_fbk_off_tx_ena   : std_logic                                                                   ; --! SQUID AMP coarse offset transmit enable ('0' = Inactive, '1' = Active)
 
@@ -129,11 +129,11 @@ begin
          i_clk                => i_clk                , -- in     std_logic                                 ; --! System Clock
 
          i_sync_rs            => i_sync_rs            , -- in     std_logic                                 ; --! Pixel sequence synchronization (System Clock)
-         i_saofl              => i_saofl              , -- in     slv(c_DFLD_SAOFL_COL_S-1 downto 0)        ; --! SQUID AMP offset DAC LSB (System Clock)
+         i_sqa_off_lsb        => i_sqa_off_lsb        , -- in     slv(  c_SQA_DAC_DATA_S-1 downto 0)        ; --! SQUID AMP offset LSB
          i_saodd              => i_saodd              , -- in     slv(c_DFLD_SAODD_COL_S-1 downto 0)        ; --! SQUID AMP offset DAC delay (System Clock)
 
          o_sync_rs_rsys       => sync_rs_rsys         , -- out    std_logic                                 ; --! Pixel sequence synchronization register (System Clock)
-         o_saofl_rsys         => saofl_rsys           , -- out    slv(c_DFLD_SAOFL_COL_S-1 downto 0)        ; --! SQUID AMP offset DAC LSB register (System Clock)
+         o_sqa_off_lsb_rsys   => sqa_off_lsb_rsys     , -- out    slv(  c_SQA_DAC_DATA_S-1 downto 0)        ; --! SQUID AMP offset LSB register (System Clock)
          o_saodd_rsys         => saodd_rsys             -- out    slv(c_DFLD_SAODD_COL_S-1 downto 0)          --! SQUID AMP offset DAC delay register (System Clock)
    );
 
@@ -162,7 +162,7 @@ begin
 
       if rst_sqm_adc_dac_lc  = c_RST_LEV_ACT then
          sync_r               <= (others => c_I_SYNC_DEF);
-         saofl_r              <= (others => c_EP_CMD_DEF_SAOFL);
+         sqa_off_lsb_r        <= (others => c_EP_CMD_DEF_SAOFL);
          sqa_fbk_mux_r        <= (others => (others => c_LOW_LEV));
          sqa_fbk_off_r        <= (others => c_EP_CMD_DEF_SAOFC);
          saodd_r              <= (others => c_EP_CMD_DEF_SAODD);
@@ -170,10 +170,10 @@ begin
 
       elsif rising_edge(i_clk_sqm_adc_dac) then
          sync_r               <= sync_r(sync_r'high-1 downto 0) & sync_rs_rsys;
-         saofl_r              <= saofl_rsys     & saofl_r(      0 to saofl_r'high-1);
-         sqa_fbk_mux_r        <= i_sqa_fbk_mux & sqa_fbk_mux_r(0 to sqa_fbk_mux_r'high-1);
-         sqa_fbk_off_r        <= i_sqa_fbk_off & sqa_fbk_off_r(0 to sqa_fbk_off_r'high-1);
-         saodd_r              <= saodd_rsys     & saodd_r(      0 to saodd_r'high-1);
+         sqa_off_lsb_r        <= sqa_off_lsb_rsys & sqa_off_lsb_r(0 to sqa_off_lsb_r'high-1);
+         sqa_fbk_mux_r        <= i_sqa_fbk_mux    & sqa_fbk_mux_r(0 to sqa_fbk_mux_r'high-1);
+         sqa_fbk_off_r        <= i_sqa_fbk_off    & sqa_fbk_off_r(0 to sqa_fbk_off_r'high-1);
+         saodd_r              <= saodd_rsys       & saodd_r(      0 to saodd_r'high-1);
          sqa_pls_cnt_init_r   <= i_sqa_pls_cnt_init   & sqa_pls_cnt_init_r(   0 to sqa_pls_cnt_init_r'high-1);
 
       end if;
@@ -192,7 +192,7 @@ begin
          sqa_spi_tx_busy_n_fe <= c_LOW_LEV;
          sqa_fbk_off_final_r  <= c_EP_CMD_DEF_SAOFC;
          sqa_fbk_off_sync     <= c_EP_CMD_DEF_SAOFC;
-         saofl_r_cmp          <= c_LOW_LEV;
+         sqa_off_lsb_r_cmp    <= c_LOW_LEV;
          sqa_fbk_off_r_cmp    <= c_LOW_LEV;
          saodd_lim            <= (others=> c_LOW_LEV);
 
@@ -207,11 +207,11 @@ begin
 
          end if;
 
-         if saofl_r(saofl_r'high) /= saofl_r(saofl_r'high-1) then
-            saofl_r_cmp <= c_HGH_LEV;
+         if sqa_off_lsb_r(sqa_off_lsb_r'high) /= sqa_off_lsb_r(sqa_off_lsb_r'high-1) then
+            sqa_off_lsb_r_cmp <= c_HGH_LEV;
 
          else
-            saofl_r_cmp <= c_LOW_LEV;
+            sqa_off_lsb_r_cmp <= c_LOW_LEV;
 
          end if;
 
@@ -253,9 +253,8 @@ begin
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Pulse by row counter initialization
+   --    @Req : DRE-DMX-FW-REQ-0388
    -- ------------------------------------------------------------------------------------------------------
-
-
    P_pls_rw_cnt_init : process (rst_sqm_adc_dac_lc , i_clk_sqm_adc_dac)
    begin
 
@@ -283,6 +282,7 @@ begin
 
    -- ------------------------------------------------------------------------------------------------------
    --!   SQUID AMP coarse offset final
+   --    @Req : DRE-DMX-FW-REQ-0388
    -- ------------------------------------------------------------------------------------------------------
    P_sqa_fbk_off_final : process (rst_sqm_adc_dac_lc , i_clk_sqm_adc_dac)
    begin
@@ -331,6 +331,7 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   Pulse counter
    --    @Req : DRE-DMX-FW-REQ-0375
+   --    @Req : DRE-DMX-FW-REQ-0385
    -- ------------------------------------------------------------------------------------------------------
    P_pls_cnt : process (rst_sqm_adc_dac_lc , i_clk_sqm_adc_dac)
    begin
@@ -362,16 +363,16 @@ begin
    begin
 
       if rst_sqm_adc_dac_lc  = c_RST_LEV_ACT then
-         saofl_tx_flg       <= c_HGH_LEV;
+         sqa_off_lsb_tx_flg <= c_HGH_LEV;
          sqa_fbk_off_tx_flg <= c_HGH_LEV;
          sqa_fbk_off_tx_ena <= c_LOW_LEV;
 
       elsif rising_edge(i_clk_sqm_adc_dac) then
-         if saofl_r_cmp = c_HGH_LEV then
-            saofl_tx_flg <= c_HGH_LEV;
+         if sqa_off_lsb_r_cmp = c_HGH_LEV then
+            sqa_off_lsb_tx_flg <= c_HGH_LEV;
 
          elsif (sqa_spi_tx_busy_n_fe and not(sqa_fbk_off_tx_ena)) = c_HGH_LEV then
-            saofl_tx_flg <= c_LOW_LEV;
+            sqa_off_lsb_tx_flg <= c_LOW_LEV;
 
          end if;
 
@@ -396,6 +397,8 @@ begin
    --!   SQUID AMP SPI inputs
    --!   Feedback offset priority on DAC LSB for data transmit
    --    @Req : DRE-DMX-FW-REQ-0290
+   --    @Req : DRE-DMX-FW-REQ-0297
+   --    @Req : DRE-DMX-FW-REQ-0298
    --    @Req : DRE-DMX-FW-REQ-0340
    --    @Req : DRE-DMX-FW-REQ-0370
    -- ------------------------------------------------------------------------------------------------------
@@ -407,13 +410,13 @@ begin
          sqa_spi_data_tx(c_SQA_DAC_DATA_S-1 downto 0) <= c_EP_CMD_DEF_SAOFC;
 
       elsif rising_edge(i_clk_sqm_adc_dac) then
-         sqa_spi_start  <= (saofl_tx_flg or sqa_fbk_off_tx_flg) and pls_rw_cnt(pls_rw_cnt'high);
+         sqa_spi_start  <= (sqa_off_lsb_tx_flg or sqa_fbk_off_tx_flg) and pls_rw_cnt(pls_rw_cnt'high);
 
          if sqa_fbk_off_tx_flg = c_HGH_LEV then
             sqa_spi_data_tx(c_SQA_DAC_DATA_S-1 downto 0) <= sqa_fbk_off_final;
 
          else
-            sqa_spi_data_tx(c_SQA_DAC_DATA_S-1 downto 0) <= saofl_r(saofl_r'high);
+            sqa_spi_data_tx(c_SQA_DAC_DATA_S-1 downto 0) <= sqa_off_lsb_r(sqa_off_lsb_r'high);
 
          end if;
 
@@ -427,7 +430,6 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   SQUID AMP SPI master
    --    @Req : DRE-DMX-FW-REQ-0340
-   --    @Req : DRE-DMX-FW-REQ-0350
    -- ------------------------------------------------------------------------------------------------------
    I_sqa_spi_master : entity work.spi_master generic map (
          g_RST_LEV_ACT        => c_RST_LEV_ACT        , -- std_logic                                        ; --! Reset level activation value
@@ -481,6 +483,7 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   SQUID AMP feedback DAC Multiplexer
    --    @Req : DRE-DMX-FW-REQ-0360
+   --    @Req : DRE-DMX-FW-REQ-0385
    -- ------------------------------------------------------------------------------------------------------
    P_sqa_dac_mux : process (rst_sqm_adc_dac_lc , i_clk_sqm_adc_dac)
    begin
