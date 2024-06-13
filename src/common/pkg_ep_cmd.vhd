@@ -437,26 +437,26 @@ constant c_EP_CMD_DEF_RLTHR   : std_logic_vector(c_DFLD_RLTHR_COL_S-1 downto 0):
    -- ------------------------------------------------------------------------------------------------------
    --    EP command: Default value memory
    -- ------------------------------------------------------------------------------------------------------
-constant c_EP_CMD_DEF_TSTPT   : integer_vector(0 to 2*c_TAB_TSTPT_NW-1) := (others => 0)                    ; --! EP command: Default value, TEST_PATTERN
+constant c_EP_CMD_DEF_TSTPT   : integer_vector(0 to 2**(c_MEM_TSTPT_ADD_S+1)-1) := (others => 0)            ; --! EP command: Default value, TEST_PATTERN
 
-constant c_EP_CMD_DEF_PARMA   : integer_vector(0 to 2*c_TAB_PARMA_NW-1) :=
+constant c_EP_CMD_DEF_PARMA   : integer_vector(0 to 2**(c_MEM_PARMA_ADD_S+1)-1) :=
                                 (others => integer(round(0.2 * real(2**c_A_P_FRC_S))))                      ; --! EP command: Default value, CY_A memory with ping-pong buffer bit
 
-constant c_EP_CMD_DEF_KIKNM   : integer_vector(0 to 2*c_TAB_KIKNM_NW-1) :=
+constant c_EP_CMD_DEF_KIKNM   : integer_vector(0 to 2**(c_MEM_KIKNM_ADD_S+1)-1) :=
                                 (others => integer(round(0.2372991 * real(2**c_KI_KNORM_P_FRC_S))))         ; --! EP command: Default value, CY_MUX_SQ_KI_KNORM memory with ping-pong buffer bit
 
-constant c_EP_CMD_DEF_KNORM   : integer_vector(0 to 2*c_TAB_KNORM_NW-1) :=
+constant c_EP_CMD_DEF_KNORM   : integer_vector(0 to 2**(c_MEM_KNORM_ADD_S+1)-1) :=
                                 (others => integer(round(0.1078632 * real(2**c_KNORM_P_FRC_S))))            ; --! EP command: Default value, CY_MUX_SQ_KNORM memory with ping-pong buffer bit
 
-constant c_EP_CMD_DEF_SMFB0   : integer_vector(0 to 2*c_TAB_SMFB0_NW-1) := (others => 0)                    ; --! EP command: Default value, CY_MUX_SQ_FB0 memory with ping-pong buffer bit
+constant c_EP_CMD_DEF_SMFB0   : integer_vector(0 to 2**(c_MEM_SMFB0_ADD_S+1)-1) := (others => 0)            ; --! EP command: Default value, CY_MUX_SQ_FB0 memory with ping-pong buffer bit
 
-constant c_EP_CMD_DEF_SMLKV   : integer_vector(0 to 2*c_TAB_SMLKV_NW-1) :=
+constant c_EP_CMD_DEF_SMLKV   : integer_vector(0 to 2**(c_MEM_SMLKV_ADD_S+1)-1) :=
                                 (others => to_integer(unsigned(c_I_SQM_ADC_DATA_DEF) * 2**c_ELP_P_FRC_S))   ; --! EP command: Default value, CY_MUX_SQ_LOCKPOINT_V memory with ping-pong buffer bit
 
-constant c_EP_CMD_DEF_SMFBM   : integer_vector(0 to 2*c_TAB_SMFBM_NW-1) :=
+constant c_EP_CMD_DEF_SMFBM   : integer_vector(0 to 2**(c_MEM_SMFBM_ADD_S+1)-1) :=
                                 (others => to_integer(unsigned(c_DST_SMFBM_OPEN)))                          ; --! EP command: Default value, CY_MUX_SQ_FB_MODE memory with ping-pong buffer bit
 
-constant c_EP_CMD_DEF_SAOFF   : integer_vector(0 to 2*c_TAB_SAOFF_NW-1) := (others => 0)                    ; --! EP command: Default value, CY_AMP_SQ_OFFSET_FINE memory with ping-pong buffer bit
+constant c_EP_CMD_DEF_SAOFF   : integer_vector(0 to 2**(c_MEM_SAOFF_ADD_S+1)-1) := (others => 0)            ; --! EP command: Default value, CY_AMP_SQ_OFFSET_FINE memory with ping-pong buffer bit
 
 constant c_EP_CMD_DEF_PLSSH   : integer_vector(0 to 2**(c_MEM_PLSSH_ADD_S+1)-1) :=
                                 (    0,     0,     0,     0,     0,     0,     0,     0,
@@ -499,6 +499,6 @@ constant c_EP_CMD_DEF_PLSSH   : integer_vector(0 to 2**(c_MEM_PLSSH_ADD_S+1)-1) 
                                      0,     0,     0,     0,     0,     0,     0,     0,
                                      0,     0,     0,     0,     0,     0,     0,     0)                    ; --! EP command: Default value, CY_PULSE_SHAPING mem. (fc=No filter/20/25/30 MHz)
 
-constant c_EP_CMD_DEF_DLCNT   : integer_vector(0 to 2*c_TAB_DLCNT_NW-1) := (others => 0)                    ; --! EP command: Default value, CY_DELOCK_COUNTERS
+constant c_EP_CMD_DEF_DLCNT   : integer_vector(0 to 2**(c_MEM_DLCNT_ADD_S+1)-1) := (others => 0)            ; --! EP command: Default value, CY_DELOCK_COUNTERS
 
 end pkg_ep_cmd;
