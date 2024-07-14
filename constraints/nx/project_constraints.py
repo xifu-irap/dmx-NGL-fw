@@ -172,7 +172,7 @@ def synthesis_constraints(p,modelboard):
         SQA_FBK_2       = Region('SQA_FBK_2'    ,  1,  6,  7,  5)
         SQA_FBK_3       = Region('SQA_FBK_3'    ,  1,  2,  7,  5)
 
-        EP_CMD          = Region('EP_CMD'       , 38, 12,  1,  1)
+        EP_CMD          = Region('EP_CMD'       , 34, 18,  1,  1)
         REGISTER_MGT    = Region('REGISTER_MGT' , 22,  8,  7, 10)
 
         SCIENCE_MGT     = Region('SCIENCE_MGT'  , 36, 18,  2,  2)
