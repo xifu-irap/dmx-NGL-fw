@@ -131,6 +131,7 @@ signal   sqm_data_err_rdy     : std_logic_vector(c_NB_COL-1 downto 0)           
 
 signal   sqm_dta_pixel_pos    : t_slv_arr(0 to c_NB_COL-1)(c_MUX_FACT_S-1     downto 0)                     ; --! SQUID MUX Data error corrected pixel position
 signal   sqm_dta_err_cor      : t_slv_arr(0 to c_NB_COL-1)(c_SQM_DATA_FBK_S-1 downto 0)                     ; --! SQUID MUX Data error corrected (signed)
+signal   sqa_fb_close         : t_slv_arr(0 to c_NB_COL-1)(c_SQA_DAC_DATA_S+1 downto 0)                     ; --! SQUID AMP feedback close mode
 signal   sqm_dta_err_cor_cs   : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! SQUID MUX Data error corrected chip select ('0' = Inactive, '1' = Active)
 signal   sqm_dta_err_frst     : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! SQUID MUX Data error corrected first pixel
 
@@ -522,6 +523,7 @@ begin
          o_sqm_dta_pixel_pos  => sqm_dta_pixel_pos(k) , -- out    slv(    c_MUX_FACT_S-1 downto 0)          ; --! SQUID MUX Data error corrected pixel position
          o_sqm_dta_err_frst   => sqm_dta_err_frst(k)  , -- out    std_logic                                 ; --! SQUID MUX Data error corrected first pixel
          o_sqm_dta_err_cor    => sqm_dta_err_cor(k)   , -- out    slv(c_SQM_DATA_FBK_S-1 downto 0)          ; --! SQUID MUX Data error corrected (signed)
+         o_sqa_fb_close       => sqa_fb_close(k)      , -- out    slv(c_SQA_DAC_DATA_S+1 downto 0)          ; --! SQUID AMP feedback close mode
          o_sqm_dta_err_cor_cs => sqm_dta_err_cor_cs(k), -- out    std_logic                                 ; --! SQUID MUX Data error corrected chip select ('0' = Inactive, '1' = Active)
 
          i_mem_dlcnt          => ep_mem(k).dlcnt      , -- in     t_mem                                     ; --! Delock counter: memory inputs
@@ -586,7 +588,7 @@ begin
          i_saomd              => rg_col(k).saomd      , -- in     slv(c_DFLD_SAOMD_COL_S-1 downto 0)        ; --! SQUID AMP offset MUX delay
          i_test_pattern       => test_pattern_sqa     , -- in     slv(  c_SQA_DAC_DATA_S-1 downto 0)        ; --! Test pattern
          i_sqm_dta_err_frst   => sqm_dta_err_frst(k)  , -- in     std_logic                                 ; --! SQUID MUX Data error corrected first pixel
-         i_sqm_dta_err_cor    => sqm_dta_err_cor(k)   , -- in     slv(c_SQM_DATA_FBK_S-1 downto 0)          ; --! SQUID MUX Data error corrected (signed)
+         i_sqa_fb_close       => sqa_fb_close(k)      , -- in     slv(c_SQA_DAC_DATA_S+1 downto 0)          ; --! SQUID AMP feedback close mode
          i_sqm_dta_err_cor_cs => sqm_dta_err_cor_cs(k), -- in     std_logic                                 ; --! SQUID MUX Data error corrected chip select ('0' = Inactive, '1' = Active)
 
          i_mem_saoff          => ep_mem(k).saoff      , -- in     t_mem                                     ; --! SQUID AMP lockpoint fine offset: memory inputs

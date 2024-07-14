@@ -641,7 +641,7 @@ begin
          o_b_flg_err          => open                   -- out    std_logic                                   --! Memory port B: flag error uncorrectable detected ('0' = No, '1' = Yes)
    );
 
-   -- Parameters Elp(p) aligned on E(p,n)
+   -- Parameter Elp(p) aligned on E(p,n)
    I_elp_p_aln : entity work.resize_stall_msb generic map (
          g_DATA_S             => c_DFLD_SMLKV_PIX_S   , -- integer                                          ; --! Data input bus size
          g_DATA_STALL_MSB_S   => c_ADC_SMP_AVE_S        -- integer                                            --! Data stalled on Mean Significant Bit bus size
@@ -651,7 +651,7 @@ begin
          o_data               => open                   -- out    slv(          g_DATA_S-1 downto 0)          --! Data
    );
 
-
+   -- Parameter -Elp(p) aligned on E(p,n) with saturation on the most low value
    P_minus_elp_p_aln : process (i_rst, i_clk)
    begin
 
