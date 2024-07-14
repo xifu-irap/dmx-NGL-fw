@@ -78,6 +78,7 @@ entity squid_data_proc is port (
          o_sqm_dta_pixel_pos  : out    std_logic_vector(    c_MUX_FACT_S-1 downto 0)                        ; --! SQUID MUX Data error corrected pixel position
          o_sqm_dta_err_frst   : out    std_logic                                                            ; --! SQUID MUX Data error corrected first pixel
          o_sqm_dta_err_cor    : out    std_logic_vector(c_SQM_DATA_FBK_S-1 downto 0)                        ; --! SQUID MUX Data error corrected (signed)
+         o_sqa_fb_close       : out    std_logic_vector(c_SQA_DAC_DATA_S+1 downto 0)                        ; --! SQUID AMP feedback close mode
          o_sqm_dta_err_cor_cs : out    std_logic                                                            ; --! SQUID MUX Data error corrected chip select ('0' = Inactive, '1' = Active)
 
          i_mem_dlcnt          : in     t_mem(
@@ -292,6 +293,8 @@ begin
          o_sqm_dta_err_cor    => o_sqm_dta_err_cor    , -- out    slv(c_SQM_DATA_FBK_S-1 downto 0)          ; --! SQUID MUX Data error corrected (signed)
          o_sqm_dta_err_cor_cs => o_sqm_dta_err_cor_cs   -- out    std_logic                                   --! SQUID MUX Data error corrected chip select ('0' = Inactive, '1' = Active)
    );
+
+   o_sqa_fb_close <= o_sqm_dta_err_cor(o_sqm_dta_err_cor'high downto o_sqm_dta_err_cor'length-o_sqa_fb_close'length);
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Relock

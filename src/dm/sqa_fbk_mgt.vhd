@@ -48,7 +48,7 @@ entity sqa_fbk_mgt is port (
          i_saomd              : in     std_logic_vector(c_DFLD_SAOMD_COL_S-1 downto 0)                      ; --! SQUID AMP offset MUX delay
          i_test_pattern       : in     std_logic_vector(  c_SQA_DAC_DATA_S-1 downto 0)                      ; --! Test pattern
          i_sqm_dta_err_frst   : in     std_logic                                                            ; --! SQUID MUX Data error corrected first pixel
-         i_sqm_dta_err_cor    : in     std_logic_vector(c_SQM_DATA_FBK_S  -1 downto 0)                      ; --! SQUID MUX Data error corrected (signed)
+         i_sqa_fb_close       : in     std_logic_vector(  c_SQA_DAC_DATA_S+1 downto 0)                      ; --! SQUID AMP feedback close mode
          i_sqm_dta_err_cor_cs : in     std_logic                                                            ; --! SQUID MUX Data error corrected chip select ('0' = Inactive, '1' = Active)
 
          i_mem_saoff          : in     t_mem(
@@ -121,7 +121,6 @@ signal   saofm_sync           : std_logic_vector(c_DFLD_SAOFM_COL_S-1 downto 0) 
 signal   saofm_close          : std_logic                                                                   ; --! SQUID AMP offset mode in close mode
 signal   saofm_close_sync     : std_logic                                                                   ; --! SQUID AMP offset mode in close mode synchronized
 signal   sqa_fb_close_fst_frm : std_logic                                                                   ; --! SQUID AMP feedback close mode first frame
-signal   sqa_fb_close         : std_logic_vector(  c_SQA_DAC_DATA_S+1 downto 0)                             ; --! SQUID AMP feedback close mode
 signal   sqa_fb_close_rnd_sat : std_logic_vector(  c_SQA_DAC_DATA_S   downto 0)                             ; --! SQUID AMP feedback close mode round with saturation
 signal   sqa_fb_close_ptve    : std_logic_vector(  c_SQA_DAC_DATA_S-1 downto 0)                             ; --! SQUID AMP feedback close mode positive
 signal   saoff                : std_logic_vector(c_DFLD_SAOFF_PIX_S-1 downto 0)                             ; --! SQUID AMP lockpoint fine offset
@@ -505,15 +504,13 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   SQUID AMP close loop mode
    -- ------------------------------------------------------------------------------------------------------
-   sqa_fb_close <= i_sqm_dta_err_cor(i_sqm_dta_err_cor'high downto i_sqm_dta_err_cor'length-sqa_fb_close'length);
-
-   I_sqa_fb_close: entity work.round_sat generic map (
+   I_sqa_fb_clse: entity work.round_sat generic map (
          g_RST_LEV_ACT        => c_RST_LEV_ACT        , -- std_logic                                        ; --! Reset level activation value
          g_DATA_CARRY_S       => c_SQA_DAC_DATA_S+2     -- integer                                            --! Data with carry bus size
    )  port map (
          i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                => i_clk                , -- in     std_logic                                 ; --! Clock
-         i_data_carry         => sqa_fb_close         , -- in     slv(g_DATA_CARRY_S-1 downto 0)            ; --! Data with carry on lsb (signed)
+         i_data_carry         => i_sqa_fb_close       , -- in     slv(g_DATA_CARRY_S-1 downto 0)            ; --! Data with carry on lsb (signed)
          o_data_rnd_sat       => sqa_fb_close_rnd_sat   -- out    slv(g_DATA_CARRY_S-2 downto 0)              --! Data rounded with saturation (signed)
    );
 

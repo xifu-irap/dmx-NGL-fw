@@ -258,6 +258,7 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    hk_spi_add  <= hk_spi_data_rx_wd(c_HK_SPI_ADD_S+c_HK_SPI_ADD_POS_LSB-1 downto c_HK_SPI_ADD_POS_LSB);
 
+   --! HK Data
    P_hk_data : process (rst, clk)
    begin
 
