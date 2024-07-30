@@ -53,7 +53,6 @@ def add_ios(p,modelboard):
         p.addBanks(banks)
 
         pads =  {
-        'i_arst_n'              : {'location':'IOB11_D01N', 'standard':'LVCMOS', 'differential':False,                                           'weakTermination':'None'  ,                                                        'turbo':False, 'inputDelayOn':False, 'inputDelayLine':0, 'outputDelayOn':False, 'outputDelayLine':0},
         'i_clk_ref'             : {'location':'IOB11_D12P', 'standard':'LVCMOS', 'differential':False,                                           'weakTermination':'None'  ,                                                        'turbo':True , 'inputDelayOn':False, 'inputDelayLine':0, 'outputDelayOn':False, 'outputDelayLine':0},
         'o_clk_science_01'      : {'location':'IOB20_D05P', 'standard':'LVDS'  , 'differential':True , 'drive':'Undefined', 'slewRate':'Slow'  , 'weakTermination':'None'  ,                                                                       'inputDelayOn':False, 'inputDelayLine':0, 'outputDelayOn':False, 'outputDelayLine':0, 'registered':'O'},
         'o_clk_science_23'      : {'location':'IOB20_D16P', 'standard':'LVDS'  , 'differential':True , 'drive':'Undefined', 'slewRate':'Slow'  , 'weakTermination':'None'  ,                                                                       'inputDelayOn':False, 'inputDelayLine':0, 'outputDelayOn':False, 'outputDelayLine':0, 'registered':'O'},
@@ -111,7 +110,6 @@ def add_ios(p,modelboard):
         p.addBanks(banks)
 
         pads =  {
-        'i_arst_n'              : {'location':'SHAREDIO_D12', 'standard':'LVCMOS', 'differential':False,                                           'weakTermination':'None'  ,                                                        'turbo':False, 'inputDelayOn':False, 'inputDelayLine':0, 'outputDelayOn':False, 'outputDelayLine':0},
         'i_clk_ref'             : {'location':'IOB10_D09P', 'standard':'LVDS'  , 'differential':True ,                                           'weakTermination':'None'  ,                                                        'turbo':True , 'inputDelayOn':False, 'inputDelayLine':0, 'outputDelayOn':False, 'outputDelayLine':0},
         'o_clk_sqm_adc[0]'      : {'location':'IOB09_D17P', 'standard':'LVDS'  , 'differential':True , 'drive':'Undefined', 'slewRate':'Medium', 'weakTermination':'None'  ,                                                                       'inputDelayOn':False, 'inputDelayLine':0, 'outputDelayOn':False, 'outputDelayLine':0, 'registered':'O'},
         'o_clk_sqm_adc[1]'      : {'location':'IOB19_D17P', 'standard':'LVDS'  , 'differential':True , 'drive':'Undefined', 'slewRate':'Medium', 'weakTermination':'None'  ,                                                                       'inputDelayOn':False, 'inputDelayLine':0, 'outputDelayOn':False, 'outputDelayLine':0, 'registered':'O'},

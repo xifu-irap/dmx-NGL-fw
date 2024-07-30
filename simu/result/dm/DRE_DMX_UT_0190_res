@@ -36,13 +36,13 @@
 #             (80000 ps) ==============================================================================================
 #             (80000 ps)   Wait internal reset deactivated
 #             (80000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (6995496 ps) Waiting event rst = '0' for 6915496 ps
-#             (6995496 ps) 
-#             (6995496 ps) ==============================================================================================
-#             (6995496 ps)   Check each AMP SQUID DAC output goes to zero, synchronous with sync rising edge
-#             (6995496 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (6999498 ps) Waiting event sync = '0' for 4002 ps
-# ** Note   : (10901448 ps) Waiting event sync = '1' for 3901950 ps
+# ** Note   : (6915456 ps) Waiting event rst = '0' for 6835456 ps
+#             (6915456 ps) 
+#             (6915456 ps) ==============================================================================================
+#             (6915456 ps)   Check each AMP SQUID DAC output goes to zero, synchronous with sync rising edge
+#             (6915456 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (6919458 ps) Waiting event sync = '0' for 4002 ps
+# ** Note   : (10901448 ps) Waiting event sync = '1' for 3981990 ps
 # ** Note   : (11061528 ps) Waiting event sync = '0' for 160080 ps
 # ** Note   : (16344168 ps) Waiting event sync = '1' for 5282640 ps
 # ** Note   : (16360168 ps) Waiting time for 16000 ps

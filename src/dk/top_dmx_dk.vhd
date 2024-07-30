@@ -37,7 +37,6 @@ use     work.pkg_ep_cmd.all;
 use     work.pkg_ep_cmd_type.all;
 
 entity top_dmx_dk is port (
-         i_arst_n             : in     std_logic                                                            ; --! Asynchronous reset ('0' = Active, '1' = Inactive)
          i_clk_ref            : in     std_logic                                                            ; --! Reference Clock
 
          o_clk_science_01     : out    std_logic                                                            ; --! Science Data: Clock channel 0/1
@@ -363,7 +362,6 @@ begin
    --!   DEMUX: Top level
    -- ------------------------------------------------------------------------------------------------------
    I_top_dmx_dm_clk: entity work.top_dmx_dm_clk port map (
-         i_arst_n             => i_arst_n             , -- in     std_logic                                 ; --! Asynchronous reset ('0' = Active, '1' = Inactive)
          i_clk_ref            => i_clk_ref            , -- in     std_logic                                 ; --! Reference Clock
 
          o_rst                => rst                  , -- out    std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)

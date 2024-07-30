@@ -36,7 +36,6 @@ use     work.pkg_ep_cmd.all;
 use     work.pkg_ep_cmd_type.all;
 
 entity top_dmx_dm is port (
-         i_arst_n             : in     std_logic                                                            ; --! Asynchronous reset ('0' = Active, '1' = Inactive)
          i_clk_ref            : in     std_logic                                                            ; --! Reference Clock
 
          o_clk_sqm_adc        : out    std_logic_vector(c_NB_COL-1 downto 0)                                ; --! SQUID MUX ADC: Clock
@@ -89,7 +88,6 @@ entity top_dmx_dm is port (
 end entity top_dmx_dm;
 
 architecture RTL of top_dmx_dm is
-signal   arst                 : std_logic                                                                   ; --! Asynchronous reset ('0' = Inactive, '1' = Active)
 signal   rst                  : std_logic                                                                   ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
 signal   rst_sqm_adc_dac      : std_logic                                                                   ; --! Reset for SQUID ADC/DAC, de-assertion on system clock ('0' = Inactive, '1' = Active)
 
@@ -206,10 +204,7 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   Manage the internal reset and generate the clocks
    -- ------------------------------------------------------------------------------------------------------
-   arst <= not(i_arst_n);
-
    I_rst_clk_mgt: entity work.rst_clk_mgt port map (
-         i_arst               => arst                 , -- in     std_logic                                 ; --! Asynchronous reset ('0' = Inactive, '1' = Active)
          i_clk_ref            => i_clk_ref            , -- in     std_logic                                 ; --! Reference Clock
 
          i_cmd_ck_adc_ena     => cmd_ck_adc_ena       , -- in     std_logic_vector(c_NB_COL-1 downto 0)     ; --! SQUID MUX ADC Clocks switch commands enable  ('0' = Inactive, '1' = Active)

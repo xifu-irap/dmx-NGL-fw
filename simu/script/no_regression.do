@@ -245,7 +245,6 @@ proc run_utest {args} {
          # Display signals
          if {${MODEL_BOARD} == "dk" } {
             add wave -noupdate -divider "Reset & general clocks"
-            add wave -format Logic                    -group "Inputs"                              sim/:top_dmx_tb:I_top_dmx_dk:I_top_dmx_dm_clk:i_arst_n
             add wave -format Logic                    -group "Inputs"                              sim/:top_dmx_tb:I_top_dmx_dk:I_top_dmx_dm_clk:i_clk_ref
             add wave -format Logic                    -group "Inputs"                              sim/:top_dmx_tb:I_top_dmx_dk:I_top_dmx_dm_clk:i_sync
             add wave -format Logic                    -group "Inputs"                              sim/:top_dmx_tb:I_top_dmx_dk:I_top_dmx_dm_clk:i_ras_data_valid
@@ -331,7 +330,6 @@ proc run_utest {args} {
             add wave -format Logic -Radix unsigned    -group "Inputs"                              sim/:top_dmx_tb:I_top_dmx_dm:i_brd_ref
             add wave -format Logic -Radix unsigned    -group "Inputs"                              sim/:top_dmx_tb:I_top_dmx_dm:i_brd_model
 
-            add wave -format Logic                    -group "Inputs"                              sim/:top_dmx_tb:I_top_dmx_dm:i_arst_n
             add wave -format Logic                    -group "Inputs"                              sim/:top_dmx_tb:I_top_dmx_dm:i_clk_ref
             add wave -format Logic                    -group "Inputs"                              sim/:top_dmx_tb:I_top_dmx_dm:i_sync
             add wave -format Logic                    -group "Inputs"                              sim/:top_dmx_tb:I_top_dmx_dm:i_ras_data_valid

@@ -39,7 +39,6 @@ library nx;
 use     nx.nxpackage.all;
 
 entity pll is port (
-         i_arst               : in     std_logic                                                            ; --! Asynchronous reset ('0' = Inactive, '1' = Active)
          i_clk_ref            : in     std_logic                                                            ; --! Reference Clock
          o_clk                : out    std_logic                                                            ; --! System Clock
          o_clk_sqm_adc_dac    : out    std_logic                                                            ; --! SQUID MUX ADC/DAC internal Clock
@@ -102,7 +101,7 @@ begin
    )     port map (
          ref                  => i_clk_ref            , -- in     std_logic                                 ; --! Reference clock
          fbk                  => clk_sync_ref         , -- in     std_logic                                 ; --! External feedback
-         r                    => i_arst               , -- in     std_logic                                 ; --! Reset ('0' = Inactive, '1' = Active)
+         r                    => c_LOW_LEV            , -- in     std_logic                                 ; --! Reset ('0' = Inactive, '1' = Active)
          vco                  => pll_main_vco         , -- out    std_logic                                 ; --! VCO
          refo                 => open                 , -- out    std_logic                                 ; --! Output REF_INTDIV divider, refo_frequency = CLK_REF_FREQ /(REF_INTDIV + 1)
          ldfo                 => open                 , -- out    std_logic                                 ; --! Output FBK_INTDIV divider, ldfo_frequency = 2 * (FBK_INTDIV+2) * refo_frequency
@@ -127,7 +126,7 @@ begin
          PATTERN_END          => c_CLK_SYNC_REF_N_PAT , -- integer range 0 to 15                            ; --! Number of pattern to apply to generated clock
          PATTERN              => c_CLK_SYNC_REF_PAT     -- bit_vector(0 to 15)                                --! Pattern applied to generated clock: use only PATTERN_END+1 MSB bits
    )     port map (
-         r                    => i_arst               , -- in     std_logic                                 ; --! Reset ('0' = Inactive, '1' = Active)
+         r                    => c_LOW_LEV            , -- in     std_logic                                 ; --! Reset ('0' = Inactive, '1' = Active)
          si                   => clk_sync_ref_end_seq , -- in     std_logic                                 ; --! Reset pattern sequence  ('0' = Inactive, '1' = Active)
          zi                   => pll_main_vco         , -- in     std_logic                                 ; --! Input clock (connected to PLL VCO or D1, D2 or D3 output)
          rdy                  => c_HGH_LEV            , -- in     std_logic                                 ; --! '1' for the WFG generating PLL clock on external feedback, pll_locked pin otherwise
@@ -146,7 +145,7 @@ begin
          PATTERN_END          => c_CLK_N_PAT          , -- integer range 0 to 15                            ; --! Number of pattern to apply to generated clock
          PATTERN              => c_CLK_PAT              -- bit_vector(0 to 15)                                --! Pattern applied to generated clock: use only PATTERN_END+1 MSB bits
    )     port map (
-         r                    => i_arst               , -- in     std_logic                                 ; --! Reset ('0' = Inactive, '1' = Active)
+         r                    => c_LOW_LEV            , -- in     std_logic                                 ; --! Reset ('0' = Inactive, '1' = Active)
          si                   => clk_end_seq          , -- in     std_logic                                 ; --! Reset pattern sequence  ('0' = Inactive, '1' = Active)
          zi                   => pll_main_vco         , -- in     std_logic                                 ; --! Input clock (connected to PLL VCO or D1, D2 or D3 output)
          rdy                  => pll_main_lock        , -- in     std_logic                                 ; --! '1' for the WFG generating PLL clock on external feedback, pll_locked pin otherwise
@@ -165,7 +164,7 @@ begin
          PATTERN_END          => c_CLK_ADC_DAC_N_PAT  , -- integer range 0 to 15                            ; --! Number of pattern to apply to generated clock
          PATTERN              => c_CLK_ADC_DAC_PAT      -- bit_vector(0 to 15)                                --! Pattern applied to generated clock: use only PATTERN_END+1 MSB bits
    )     port map (
-         r                    => i_arst               , -- in     std_logic                                 ; --! Reset ('0' = Inactive, '1' = Active)
+         r                    => c_LOW_LEV            , -- in     std_logic                                 ; --! Reset ('0' = Inactive, '1' = Active)
          si                   => clk_adc_dac_end_seq  , -- in     std_logic                                 ; --! Reset pattern sequence  ('0' = Inactive, '1' = Active)
          zi                   => pll_main_vco         , -- in     std_logic                                 ; --! Input clock (connected to PLL VCO or D1, D2 or D3 output)
          rdy                  => pll_main_lock        , -- in     std_logic                                 ; --! '1' for the WFG generating PLL clock on external feedback, pll_locked pin otherwise
@@ -187,7 +186,7 @@ begin
          PATTERN_END          => c_CLK_DAC_OUT_N_PAT  , -- integer range 0 to 15                            ; --! Number of pattern to apply to generated clock
          PATTERN              => c_CLK_DAC_OUT_PAT      -- bit_vector(0 to 15)                                --! Pattern applied to generated clock: use only PATTERN_END+1 MSB bits
    )     port map (
-         r                    => i_arst               , -- in     std_logic                                 ; --! Reset ('0' = Inactive, '1' = Active)
+         r                    => c_LOW_LEV            , -- in     std_logic                                 ; --! Reset ('0' = Inactive, '1' = Active)
          si                   => clk_adc_end_seq      , -- in     std_logic                                 ; --! Reset pattern sequence  ('0' = Inactive, '1' = Active)
          zi                   => pll_main_vco         , -- in     std_logic                                 ; --! Input clock (connected to PLL VCO or D1, D2 or D3 output)
          rdy                  => pll_main_lock        , -- in     std_logic                                 ; --! '1' for the WFG generating PLL clock on external feedback, pll_locked pin otherwise
@@ -207,7 +206,7 @@ begin
          PATTERN_END          => c_CLK_DAC_OUT_N_PAT  , -- integer range 0 to 15                            ; --! Number of pattern to apply to generated clock
          PATTERN              => c_CLK_DAC_OUT_PAT      -- bit_vector(0 to 15)                                --! Pattern applied to generated clock: use only PATTERN_END+1 MSB bits
    )     port map (
-         r                    => i_arst               , -- in     std_logic                                 ; --! Reset ('0' = Inactive, '1' = Active)
+         r                    => c_LOW_LEV            , -- in     std_logic                                 ; --! Reset ('0' = Inactive, '1' = Active)
          si                   => clk_dac_out_end_seq  , -- in     std_logic                                 ; --! Reset pattern sequence  ('0' = Inactive, '1' = Active)
          zi                   => pll_main_vco         , -- in     std_logic                                 ; --! Input clock (connected to PLL VCO or D1, D2 or D3 output)
          rdy                  => pll_main_lock        , -- in     std_logic                                 ; --! '1' for the WFG generating PLL clock on external feedback, pll_locked pin otherwise
@@ -226,7 +225,7 @@ begin
          PATTERN_END          => c_CLK_N_PAT          , -- integer range 0 to 15                            ; --! Number of pattern to apply to generated clock
          PATTERN              => c_CLK_90_PAT           -- bit_vector(0 to 15)                                --! Pattern applied to generated clock: use only PATTERN_END+1 MSB bits
    )     port map (
-         r                    => i_arst               , -- in     std_logic                                 ; --! Reset ('0' = Inactive, '1' = Active)
+         r                    => c_LOW_LEV            , -- in     std_logic                                 ; --! Reset ('0' = Inactive, '1' = Active)
          si                   => clk_end_seq          , -- in     std_logic                                 ; --! Reset pattern sequence  ('0' = Inactive, '1' = Active)
          zi                   => pll_main_vco         , -- in     std_logic                                 ; --! Input clock (connected to PLL VCO or D1, D2 or D3 output)
          rdy                  => pll_main_lock        , -- in     std_logic                                 ; --! '1' for the WFG generating PLL clock on external feedback, pll_locked pin otherwise
@@ -245,7 +244,7 @@ begin
          PATTERN_END          => c_CLK_ADC_DAC_N_PAT  , -- integer range 0 to 15                            ; --! Number of pattern to apply to generated clock
          PATTERN              => c_CLK_ADC_DAC_90_PAT   -- bit_vector(0 to 15)                                --! Pattern applied to generated clock: use only PATTERN_END+1 MSB bits
    )     port map (
-         r                    => i_arst               , -- in     std_logic                                 ; --! Reset ('0' = Inactive, '1' = Active)
+         r                    => c_LOW_LEV            , -- in     std_logic                                 ; --! Reset ('0' = Inactive, '1' = Active)
          si                   => clk_adc_dac_end_seq  , -- in     std_logic                                 ; --! Reset pattern sequence  ('0' = Inactive, '1' = Active)
          zi                   => pll_main_vco         , -- in     std_logic                                 ; --! Input clock (connected to PLL VCO or D1, D2 or D3 output)
          rdy                  => pll_main_lock        , -- in     std_logic                                 ; --! '1' for the WFG generating PLL clock on external feedback, pll_locked pin otherwise

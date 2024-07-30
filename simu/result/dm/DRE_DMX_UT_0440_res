@@ -24,330 +24,330 @@
 #             (80000 ps) ==============================================================================================
 #             (80000 ps)   Wait internal reset deactivated
 #             (80000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (6995496 ps) Waiting event rst = '0' for 6915496 ps
-#             (6995496 ps) 
-#             (6995496 ps) ==============================================================================================
-#             (6995496 ps)   Start Housekeeping test
-#             (6995496 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (6995496 ps) Send SPI command value 8C08_XXXX (HK_M2V5_ANA, mode Read, data XXXX)
-# ** Note   : (9312000 ps) Waiting SPI command end for 2280504 ps
-# ** Note   : (9312000 ps) Send SPI command value 8C0A_XXXX (HK_M5V0_ANA, mode Read, data XXXX)
-# ** Note   : (11634000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (11634000 ps) Send SPI command value 8C0E_XXXX (HK_P2V5_DIG, mode Read, data XXXX)
-# ** Note   : (11706000 ps) Waiting SPI command return end for 36000 ps
-#             (11706000 ps) 
-#             (11706000 ps) ==============================================================================================
-#             (11706000 ps)   Check error parameter to read not yet initialized detected
-#             (11706000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (11724000 ps) Check command return: PASS
-# ** Note   : (11724000 ps)  * Read C000_F7FF, expected value C000_F7FF (Status, mode Read, data F7FF)
-# ** Note   : (13956000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (13956000 ps) Send SPI command value 8C0C_XXXX (HK_P3V3_DIG, mode Read, data XXXX)
-# ** Note   : (14028000 ps) Waiting SPI command return end for 36000 ps
-#             (14028000 ps) 
-#             (14028000 ps) ==============================================================================================
-#             (14028000 ps)   Check error parameter to read not yet initialized detected
-#             (14028000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (14046000 ps) Check command return: PASS
-# ** Note   : (14046000 ps)  * Read C000_F7FF, expected value C000_F7FF (Status, mode Read, data F7FF)
-# ** Note   : (16278000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (16278000 ps) Send SPI command value 8C00_XXXX (HK_P5V0_ANA, mode Read, data XXXX)
-# ** Note   : (16350000 ps) Waiting SPI command return end for 36000 ps
-#             (16350000 ps) 
-#             (16350000 ps) ==============================================================================================
-#             (16350000 ps)   Check error parameter to read not yet initialized detected
-#             (16350000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (16368000 ps) Check command return: PASS
-# ** Note   : (16368000 ps)  * Read C000_F7FF, expected value C000_F7FF (Status, mode Read, data F7FF)
-# ** Note   : (18600000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (18600000 ps) Send SPI command value 8C14_XXXX (HK_TEMP_MAX, mode Read, data XXXX)
-# ** Note   : (18672000 ps) Waiting SPI command return end for 36000 ps
-#             (18672000 ps) 
-#             (18672000 ps) ==============================================================================================
-#             (18672000 ps)   Check error parameter to read not yet initialized detected
-#             (18672000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (18690000 ps) Check command return: PASS
-# ** Note   : (18690000 ps)  * Read C000_F7FF, expected value C000_F7FF (Status, mode Read, data F7FF)
-# ** Note   : (20922000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (20922000 ps) Send SPI command value 8C06_XXXX (HK_P1V8_ANA, mode Read, data XXXX)
-# ** Note   : (20994000 ps) Waiting SPI command return end for 36000 ps
-#             (20994000 ps) 
-#             (20994000 ps) ==============================================================================================
-#             (20994000 ps)   Check error parameter to read not yet initialized detected
-#             (20994000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (21012000 ps) Check command return: PASS
-# ** Note   : (21012000 ps)  * Read C000_F7FF, expected value C000_F7FF (Status, mode Read, data F7FF)
-# ** Note   : (23244000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (23244000 ps) Send SPI command value 8C04_XXXX (HK_P2V5_ANA, mode Read, data XXXX)
-# ** Note   : (23316000 ps) Waiting SPI command return end for 36000 ps
-#             (23316000 ps) 
-#             (23316000 ps) ==============================================================================================
-#             (23316000 ps)   Check error parameter to read not yet initialized detected
-#             (23316000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (23334000 ps) Check command return: PASS
-# ** Note   : (23334000 ps)  * Read C000_F7FF, expected value C000_F7FF (Status, mode Read, data F7FF)
-# ** Note   : (25566000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (25566000 ps) Send SPI command value 8C08_XXXX (HK_M2V5_ANA, mode Read, data XXXX)
-# ** Note   : (25638000 ps) Waiting SPI command return end for 36000 ps
-#             (25638000 ps) 
-#             (25638000 ps) ==============================================================================================
-#             (25638000 ps)   Check Housekeeping content
-#             (25638000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (25656000 ps) Check command return: PASS
-# ** Note   : (25656000 ps)  * Read 8C06_0492, expected value 8C06_0492 (HK_P1V8_ANA, mode Read, data 0492)
-# ** Note   : (27888000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (27888000 ps) Send SPI command value 8C02_XXXX (HK_P3V3_ANA, mode Read, data XXXX)
-# ** Note   : (27960000 ps) Waiting SPI command return end for 36000 ps
-#             (27960000 ps) 
-#             (27960000 ps) ==============================================================================================
-#             (27960000 ps)   Check Housekeeping content
-#             (27960000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (27978000 ps) Check command return: PASS
-# ** Note   : (27978000 ps)  * Read 8C04_036E, expected value 8C04_036E (HK_P2V5_ANA, mode Read, data 036E)
-# ** Note   : (30210000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (30210000 ps) Send SPI command value 8C0A_XXXX (HK_M5V0_ANA, mode Read, data XXXX)
-# ** Note   : (30282000 ps) Waiting SPI command return end for 36000 ps
-#             (30282000 ps) 
-#             (30282000 ps) ==============================================================================================
-#             (30282000 ps)   Check Housekeeping content
-#             (30282000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (30300000 ps) Check command return: PASS
-# ** Note   : (30300000 ps)  * Read 8C08_05B7, expected value 8C08_05B7 (HK_M2V5_ANA, mode Read, data 05B7)
-# ** Note   : (32532000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (32532000 ps) Send SPI command value 8C10_XXXX (HK_P1V2_DIG, mode Read, data XXXX)
-# ** Note   : (32604000 ps) Waiting SPI command return end for 36000 ps
-#             (32604000 ps) 
-#             (32604000 ps) ==============================================================================================
-#             (32604000 ps)   Check Housekeeping content
-#             (32604000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (32622000 ps) Check command return: PASS
-# ** Note   : (32622000 ps)  * Read 8C02_0249, expected value 8C02_0249 (HK_P3V3_ANA, mode Read, data 0249)
-# ** Note   : (34854000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (34854000 ps) Send SPI command value 8C0E_XXXX (HK_P2V5_DIG, mode Read, data XXXX)
-# ** Note   : (34926000 ps) Waiting SPI command return end for 36000 ps
-#             (34926000 ps) 
-#             (34926000 ps) ==============================================================================================
-#             (34926000 ps)   Check Housekeeping content
-#             (34926000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (34944000 ps) Check command return: PASS
-# ** Note   : (34944000 ps)  * Read 8C0A_06DB, expected value 8C0A_06DB (HK_M5V0_ANA, mode Read, data 06DB)
-# ** Note   : (37176000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (37176000 ps) Send SPI command value 8C16_XXXX (HK_P2V5_AUX, mode Read, data XXXX)
-# ** Note   : (37248000 ps) Waiting SPI command return end for 36000 ps
-#             (37248000 ps) 
-#             (37248000 ps) ==============================================================================================
-#             (37248000 ps)   Check Housekeeping content
-#             (37248000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (37266000 ps) Check command return: PASS
-# ** Note   : (37266000 ps)  * Read 8C10_0A49, expected value 8C10_0A49 (HK_P1V2_DIG, mode Read, data 0A49)
-# ** Note   : (39498000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (39498000 ps) Send SPI command value 8C0C_XXXX (HK_P3V3_DIG, mode Read, data XXXX)
-# ** Note   : (39570000 ps) Waiting SPI command return end for 36000 ps
-#             (39570000 ps) 
-#             (39570000 ps) ==============================================================================================
-#             (39570000 ps)   Check Housekeeping content
-#             (39570000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (39588000 ps) Check command return: PASS
-# ** Note   : (39588000 ps)  * Read 8C0E_0924, expected value 8C0E_0924 (HK_P2V5_DIG, mode Read, data 0924)
-# ** Note   : (41820000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (41820000 ps) Send SPI command value 8C18_XXXX (HK_VREF_TMP, mode Read, data XXXX)
-# ** Note   : (41892000 ps) Waiting SPI command return end for 36000 ps
-#             (41892000 ps) 
-#             (41892000 ps) ==============================================================================================
-#             (41892000 ps)   Check Housekeeping content
-#             (41892000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (41910000 ps) Check command return: PASS
-# ** Note   : (41910000 ps)  * Read 8C16_0DB6, expected value 8C16_0DB6 (HK_P2V5_AUX, mode Read, data 0DB6)
-# ** Note   : (44142000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (44142000 ps) Send SPI command value 8C1A_XXXX (HK_VREF_R2R, mode Read, data XXXX)
-# ** Note   : (44214000 ps) Waiting SPI command return end for 36000 ps
-#             (44214000 ps) 
-#             (44214000 ps) ==============================================================================================
-#             (44214000 ps)   Check Housekeeping content
-#             (44214000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (44232000 ps) Check command return: PASS
-# ** Note   : (44232000 ps)  * Read 8C0C_0800, expected value 8C0C_0800 (HK_P3V3_DIG, mode Read, data 0800)
-# ** Note   : (46464000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (46464000 ps) Send SPI command value 8C00_XXXX (HK_P5V0_ANA, mode Read, data XXXX)
-# ** Note   : (46536000 ps) Waiting SPI command return end for 36000 ps
-#             (46536000 ps) 
-#             (46536000 ps) ==============================================================================================
-#             (46536000 ps)   Check Housekeeping content
-#             (46536000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (46554000 ps) Check command return: PASS
-# ** Note   : (46554000 ps)  * Read 8C18_0EDB, expected value 8C18_0EDB (HK_VREF_TMP, mode Read, data 0EDB)
-# ** Note   : (48786000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (48786000 ps) Send SPI command value 8C12_XXXX (HK_TEMP_AVE, mode Read, data XXXX)
-# ** Note   : (48858000 ps) Waiting SPI command return end for 36000 ps
-#             (48858000 ps) 
-#             (48858000 ps) ==============================================================================================
-#             (48858000 ps)   Check Housekeeping content
-#             (48858000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (48876000 ps) Check command return: PASS
-# ** Note   : (48876000 ps)  * Read 8C1A_0FA0, expected value 8C1A_0FA0 (HK_VREF_R2R, mode Read, data 0FA0)
-# ** Note   : (51108000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (51108000 ps) Send SPI command value 8C14_XXXX (HK_TEMP_MAX, mode Read, data XXXX)
-# ** Note   : (51180000 ps) Waiting SPI command return end for 36000 ps
-#             (51180000 ps) 
-#             (51180000 ps) ==============================================================================================
-#             (51180000 ps)   Check Housekeeping content
-#             (51180000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (51198000 ps) Check command return: PASS
-# ** Note   : (51198000 ps)  * Read 8C00_0125, expected value 8C00_0125 (HK_P5V0_ANA, mode Read, data 0125)
-# ** Note   : (53430000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (53430000 ps) Send SPI command value 8C07_XXXX (HK_P1V8_ANA, mode Write, data XXXX)
-# ** Note   : (53502000 ps) Waiting SPI command return end for 36000 ps
-#             (53502000 ps) 
-#             (53502000 ps) ==============================================================================================
-#             (53502000 ps)   Check Housekeeping content
-#             (53502000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (53520000 ps) Check command return: PASS
-# ** Note   : (53520000 ps)  * Read 8C12_0B6D, expected value 8C12_0B6D (HK_TEMP_AVE, mode Read, data 0B6D)
-# ** Note   : (55752000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (55752000 ps) Send SPI command value 8C05_XXXX (HK_P2V5_ANA, mode Write, data XXXX)
-# ** Note   : (55824000 ps) Waiting SPI command return end for 36000 ps
-#             (55824000 ps) 
-#             (55824000 ps) ==============================================================================================
-#             (55824000 ps)   Check Housekeeping content
-#             (55824000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (55842000 ps) Check command return: PASS
-# ** Note   : (55842000 ps)  * Read 8C14_0C92, expected value 8C14_0C92 (HK_TEMP_MAX, mode Read, data 0C92)
-# ** Note   : (58074000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (58074000 ps) Send SPI command value 8C09_XXXX (HK_M2V5_ANA, mode Write, data XXXX)
-# ** Note   : (58146000 ps) Waiting SPI command return end for 36000 ps
-#             (58146000 ps) 
-#             (58146000 ps) ==============================================================================================
-#             (58146000 ps)   Check error Try to write in a read only register detected
-#             (58146000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (58164000 ps) Check command return: PASS
-# ** Note   : (58164000 ps)  * Read C000_DFFF, expected value C000_DFFF (Status, mode Read, data DFFF)
-# ** Note   : (60396000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (60396000 ps) Send SPI command value 8C03_XXXX (HK_P3V3_ANA, mode Write, data XXXX)
-# ** Note   : (60468000 ps) Waiting SPI command return end for 36000 ps
-#             (60468000 ps) 
-#             (60468000 ps) ==============================================================================================
-#             (60468000 ps)   Check error Try to write in a read only register detected
-#             (60468000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (60486000 ps) Check command return: PASS
-# ** Note   : (60486000 ps)  * Read C000_DFFF, expected value C000_DFFF (Status, mode Read, data DFFF)
-# ** Note   : (62718000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (62718000 ps) Send SPI command value 8C0B_XXXX (HK_M5V0_ANA, mode Write, data XXXX)
-# ** Note   : (62790000 ps) Waiting SPI command return end for 36000 ps
-#             (62790000 ps) 
-#             (62790000 ps) ==============================================================================================
-#             (62790000 ps)   Check error Try to write in a read only register detected
-#             (62790000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (62808000 ps) Check command return: PASS
-# ** Note   : (62808000 ps)  * Read C000_DFFF, expected value C000_DFFF (Status, mode Read, data DFFF)
-# ** Note   : (65040000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (65040000 ps) Send SPI command value 8C11_XXXX (HK_P1V2_DIG, mode Write, data XXXX)
-# ** Note   : (65112000 ps) Waiting SPI command return end for 36000 ps
-#             (65112000 ps) 
-#             (65112000 ps) ==============================================================================================
-#             (65112000 ps)   Check error Try to write in a read only register detected
-#             (65112000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (65130000 ps) Check command return: PASS
-# ** Note   : (65130000 ps)  * Read C000_DFFF, expected value C000_DFFF (Status, mode Read, data DFFF)
-# ** Note   : (67362000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (67362000 ps) Send SPI command value 8C0F_XXXX (HK_P2V5_DIG, mode Write, data XXXX)
-# ** Note   : (67434000 ps) Waiting SPI command return end for 36000 ps
-#             (67434000 ps) 
-#             (67434000 ps) ==============================================================================================
-#             (67434000 ps)   Check error Try to write in a read only register detected
-#             (67434000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (67452000 ps) Check command return: PASS
-# ** Note   : (67452000 ps)  * Read C000_DFFF, expected value C000_DFFF (Status, mode Read, data DFFF)
-# ** Note   : (69684000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (69684000 ps) Send SPI command value 8C17_XXXX (HK_P2V5_AUX, mode Write, data XXXX)
-# ** Note   : (69756000 ps) Waiting SPI command return end for 36000 ps
-#             (69756000 ps) 
-#             (69756000 ps) ==============================================================================================
-#             (69756000 ps)   Check error Try to write in a read only register detected
-#             (69756000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (69774000 ps) Check command return: PASS
-# ** Note   : (69774000 ps)  * Read C000_DFFF, expected value C000_DFFF (Status, mode Read, data DFFF)
-# ** Note   : (72006000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (72006000 ps) Send SPI command value 8C0D_XXXX (HK_P3V3_DIG, mode Write, data XXXX)
-# ** Note   : (72078000 ps) Waiting SPI command return end for 36000 ps
-#             (72078000 ps) 
-#             (72078000 ps) ==============================================================================================
-#             (72078000 ps)   Check error Try to write in a read only register detected
-#             (72078000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (72096000 ps) Check command return: PASS
-# ** Note   : (72096000 ps)  * Read C000_DFFF, expected value C000_DFFF (Status, mode Read, data DFFF)
-# ** Note   : (74328000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (74328000 ps) Send SPI command value 8C19_XXXX (HK_VREF_TMP, mode Write, data XXXX)
-# ** Note   : (74400000 ps) Waiting SPI command return end for 36000 ps
-#             (74400000 ps) 
-#             (74400000 ps) ==============================================================================================
-#             (74400000 ps)   Check error Try to write in a read only register detected
-#             (74400000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (74418000 ps) Check command return: PASS
-# ** Note   : (74418000 ps)  * Read C000_DFFF, expected value C000_DFFF (Status, mode Read, data DFFF)
-# ** Note   : (76650000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (76650000 ps) Send SPI command value 8C1B_XXXX (HK_VREF_R2R, mode Write, data XXXX)
-# ** Note   : (76722000 ps) Waiting SPI command return end for 36000 ps
-#             (76722000 ps) 
-#             (76722000 ps) ==============================================================================================
-#             (76722000 ps)   Check error Try to write in a read only register detected
-#             (76722000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (76740000 ps) Check command return: PASS
-# ** Note   : (76740000 ps)  * Read C000_DFFF, expected value C000_DFFF (Status, mode Read, data DFFF)
-# ** Note   : (78972000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (78972000 ps) Send SPI command value 8C01_XXXX (HK_P5V0_ANA, mode Write, data XXXX)
-# ** Note   : (79044000 ps) Waiting SPI command return end for 36000 ps
-#             (79044000 ps) 
-#             (79044000 ps) ==============================================================================================
-#             (79044000 ps)   Check error Try to write in a read only register detected
-#             (79044000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (79062000 ps) Check command return: PASS
-# ** Note   : (79062000 ps)  * Read C000_DFFF, expected value C000_DFFF (Status, mode Read, data DFFF)
-# ** Note   : (81294000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (81294000 ps) Send SPI command value 8C13_XXXX (HK_TEMP_AVE, mode Write, data XXXX)
-# ** Note   : (81366000 ps) Waiting SPI command return end for 36000 ps
-#             (81366000 ps) 
-#             (81366000 ps) ==============================================================================================
-#             (81366000 ps)   Check error Try to write in a read only register detected
-#             (81366000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (81384000 ps) Check command return: PASS
-# ** Note   : (81384000 ps)  * Read C000_DFFF, expected value C000_DFFF (Status, mode Read, data DFFF)
-# ** Note   : (83616000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (83616000 ps) Send SPI command value 8C15_XXXX (HK_TEMP_MAX, mode Write, data XXXX)
-# ** Note   : (83688000 ps) Waiting SPI command return end for 36000 ps
-#             (83688000 ps) 
-#             (83688000 ps) ==============================================================================================
-#             (83688000 ps)   Check error Try to write in a read only register detected
-#             (83688000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (83706000 ps) Check command return: PASS
-# ** Note   : (83706000 ps)  * Read C000_DFFF, expected value C000_DFFF (Status, mode Read, data DFFF)
-# ** Note   : (85938000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (85938000 ps) Send SPI command value 8C1D_XXXX (, mode Write, data XXXX)
-# ** Note   : (86010000 ps) Waiting SPI command return end for 36000 ps
-#             (86010000 ps) 
-#             (86010000 ps) ==============================================================================================
-#             (86010000 ps)   Check error Try to write in a read only register detected
-#             (86010000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (86028000 ps) Check command return: PASS
-# ** Note   : (86028000 ps)  * Read C000_DFFF, expected value C000_DFFF (Status, mode Read, data DFFF)
-# ** Note   : (88260000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (88260000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
-# ** Note   : (88332000 ps) Waiting SPI command return end for 36000 ps
-#             (88332000 ps) 
-#             (88332000 ps) ==============================================================================================
-#             (88332000 ps)   Check error Try to write in a read only register detected
-#             (88332000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (88350000 ps) Check command return: PASS
-# ** Note   : (88350000 ps)  * Read C000_DFFF, expected value C000_DFFF (Status, mode Read, data DFFF)
-# ** Note   : (90582000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (90582000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
-# ** Note   : (90654000 ps) Waiting SPI command return end for 36000 ps
-#             (90654000 ps) 
-#             (90654000 ps) ==============================================================================================
-#             (90654000 ps)   Check error Invalid register address detected
-#             (90654000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (90672000 ps) Check command return: PASS
-# ** Note   : (90672000 ps)  * Read C000_7FFF, expected value C000_7FFF (Status, mode Read, data 7FFF)
-# ** Note   : (92904000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (6915456 ps) Waiting event rst = '0' for 6835456 ps
+#             (6915456 ps) 
+#             (6915456 ps) ==============================================================================================
+#             (6915456 ps)   Start Housekeeping test
+#             (6915456 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (6915456 ps) Send SPI command value 8C08_XXXX (HK_M2V5_ANA, mode Read, data XXXX)
+# ** Note   : (9222000 ps) Waiting SPI command end for 2270544 ps
+# ** Note   : (9222000 ps) Send SPI command value 8C0A_XXXX (HK_M5V0_ANA, mode Read, data XXXX)
+# ** Note   : (11544000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (11544000 ps) Send SPI command value 8C0E_XXXX (HK_P2V5_DIG, mode Read, data XXXX)
+# ** Note   : (11616000 ps) Waiting SPI command return end for 36000 ps
+#             (11616000 ps) 
+#             (11616000 ps) ==============================================================================================
+#             (11616000 ps)   Check error parameter to read not yet initialized detected
+#             (11616000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (11634000 ps) Check command return: PASS
+# ** Note   : (11634000 ps)  * Read C000_F7FF, expected value C000_F7FF (Status, mode Read, data F7FF)
+# ** Note   : (13866000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (13866000 ps) Send SPI command value 8C0C_XXXX (HK_P3V3_DIG, mode Read, data XXXX)
+# ** Note   : (13938000 ps) Waiting SPI command return end for 36000 ps
+#             (13938000 ps) 
+#             (13938000 ps) ==============================================================================================
+#             (13938000 ps)   Check error parameter to read not yet initialized detected
+#             (13938000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (13956000 ps) Check command return: PASS
+# ** Note   : (13956000 ps)  * Read C000_F7FF, expected value C000_F7FF (Status, mode Read, data F7FF)
+# ** Note   : (16188000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (16188000 ps) Send SPI command value 8C00_XXXX (HK_P5V0_ANA, mode Read, data XXXX)
+# ** Note   : (16260000 ps) Waiting SPI command return end for 36000 ps
+#             (16260000 ps) 
+#             (16260000 ps) ==============================================================================================
+#             (16260000 ps)   Check error parameter to read not yet initialized detected
+#             (16260000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (16278000 ps) Check command return: PASS
+# ** Note   : (16278000 ps)  * Read C000_F7FF, expected value C000_F7FF (Status, mode Read, data F7FF)
+# ** Note   : (18510000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (18510000 ps) Send SPI command value 8C14_XXXX (HK_TEMP_MAX, mode Read, data XXXX)
+# ** Note   : (18582000 ps) Waiting SPI command return end for 36000 ps
+#             (18582000 ps) 
+#             (18582000 ps) ==============================================================================================
+#             (18582000 ps)   Check error parameter to read not yet initialized detected
+#             (18582000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (18600000 ps) Check command return: PASS
+# ** Note   : (18600000 ps)  * Read C000_F7FF, expected value C000_F7FF (Status, mode Read, data F7FF)
+# ** Note   : (20832000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (20832000 ps) Send SPI command value 8C06_XXXX (HK_P1V8_ANA, mode Read, data XXXX)
+# ** Note   : (20904000 ps) Waiting SPI command return end for 36000 ps
+#             (20904000 ps) 
+#             (20904000 ps) ==============================================================================================
+#             (20904000 ps)   Check error parameter to read not yet initialized detected
+#             (20904000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (20922000 ps) Check command return: PASS
+# ** Note   : (20922000 ps)  * Read C000_F7FF, expected value C000_F7FF (Status, mode Read, data F7FF)
+# ** Note   : (23154000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (23154000 ps) Send SPI command value 8C04_XXXX (HK_P2V5_ANA, mode Read, data XXXX)
+# ** Note   : (23226000 ps) Waiting SPI command return end for 36000 ps
+#             (23226000 ps) 
+#             (23226000 ps) ==============================================================================================
+#             (23226000 ps)   Check error parameter to read not yet initialized detected
+#             (23226000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (23244000 ps) Check command return: PASS
+# ** Note   : (23244000 ps)  * Read C000_F7FF, expected value C000_F7FF (Status, mode Read, data F7FF)
+# ** Note   : (25476000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (25476000 ps) Send SPI command value 8C08_XXXX (HK_M2V5_ANA, mode Read, data XXXX)
+# ** Note   : (25548000 ps) Waiting SPI command return end for 36000 ps
+#             (25548000 ps) 
+#             (25548000 ps) ==============================================================================================
+#             (25548000 ps)   Check Housekeeping content
+#             (25548000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (25566000 ps) Check command return: PASS
+# ** Note   : (25566000 ps)  * Read 8C06_0492, expected value 8C06_0492 (HK_P1V8_ANA, mode Read, data 0492)
+# ** Note   : (27798000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (27798000 ps) Send SPI command value 8C02_XXXX (HK_P3V3_ANA, mode Read, data XXXX)
+# ** Note   : (27870000 ps) Waiting SPI command return end for 36000 ps
+#             (27870000 ps) 
+#             (27870000 ps) ==============================================================================================
+#             (27870000 ps)   Check Housekeeping content
+#             (27870000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (27888000 ps) Check command return: PASS
+# ** Note   : (27888000 ps)  * Read 8C04_036E, expected value 8C04_036E (HK_P2V5_ANA, mode Read, data 036E)
+# ** Note   : (30120000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (30120000 ps) Send SPI command value 8C0A_XXXX (HK_M5V0_ANA, mode Read, data XXXX)
+# ** Note   : (30192000 ps) Waiting SPI command return end for 36000 ps
+#             (30192000 ps) 
+#             (30192000 ps) ==============================================================================================
+#             (30192000 ps)   Check Housekeeping content
+#             (30192000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (30210000 ps) Check command return: PASS
+# ** Note   : (30210000 ps)  * Read 8C08_05B7, expected value 8C08_05B7 (HK_M2V5_ANA, mode Read, data 05B7)
+# ** Note   : (32442000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (32442000 ps) Send SPI command value 8C10_XXXX (HK_P1V2_DIG, mode Read, data XXXX)
+# ** Note   : (32514000 ps) Waiting SPI command return end for 36000 ps
+#             (32514000 ps) 
+#             (32514000 ps) ==============================================================================================
+#             (32514000 ps)   Check Housekeeping content
+#             (32514000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (32532000 ps) Check command return: PASS
+# ** Note   : (32532000 ps)  * Read 8C02_0249, expected value 8C02_0249 (HK_P3V3_ANA, mode Read, data 0249)
+# ** Note   : (34764000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (34764000 ps) Send SPI command value 8C0E_XXXX (HK_P2V5_DIG, mode Read, data XXXX)
+# ** Note   : (34836000 ps) Waiting SPI command return end for 36000 ps
+#             (34836000 ps) 
+#             (34836000 ps) ==============================================================================================
+#             (34836000 ps)   Check Housekeeping content
+#             (34836000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (34854000 ps) Check command return: PASS
+# ** Note   : (34854000 ps)  * Read 8C0A_06DB, expected value 8C0A_06DB (HK_M5V0_ANA, mode Read, data 06DB)
+# ** Note   : (37086000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (37086000 ps) Send SPI command value 8C16_XXXX (HK_P2V5_AUX, mode Read, data XXXX)
+# ** Note   : (37158000 ps) Waiting SPI command return end for 36000 ps
+#             (37158000 ps) 
+#             (37158000 ps) ==============================================================================================
+#             (37158000 ps)   Check Housekeeping content
+#             (37158000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (37176000 ps) Check command return: PASS
+# ** Note   : (37176000 ps)  * Read 8C10_0A49, expected value 8C10_0A49 (HK_P1V2_DIG, mode Read, data 0A49)
+# ** Note   : (39408000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (39408000 ps) Send SPI command value 8C0C_XXXX (HK_P3V3_DIG, mode Read, data XXXX)
+# ** Note   : (39480000 ps) Waiting SPI command return end for 36000 ps
+#             (39480000 ps) 
+#             (39480000 ps) ==============================================================================================
+#             (39480000 ps)   Check Housekeeping content
+#             (39480000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (39498000 ps) Check command return: PASS
+# ** Note   : (39498000 ps)  * Read 8C0E_0924, expected value 8C0E_0924 (HK_P2V5_DIG, mode Read, data 0924)
+# ** Note   : (41730000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (41730000 ps) Send SPI command value 8C18_XXXX (HK_VREF_TMP, mode Read, data XXXX)
+# ** Note   : (41802000 ps) Waiting SPI command return end for 36000 ps
+#             (41802000 ps) 
+#             (41802000 ps) ==============================================================================================
+#             (41802000 ps)   Check Housekeeping content
+#             (41802000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (41820000 ps) Check command return: PASS
+# ** Note   : (41820000 ps)  * Read 8C16_0DB6, expected value 8C16_0DB6 (HK_P2V5_AUX, mode Read, data 0DB6)
+# ** Note   : (44052000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (44052000 ps) Send SPI command value 8C1A_XXXX (HK_VREF_R2R, mode Read, data XXXX)
+# ** Note   : (44124000 ps) Waiting SPI command return end for 36000 ps
+#             (44124000 ps) 
+#             (44124000 ps) ==============================================================================================
+#             (44124000 ps)   Check Housekeeping content
+#             (44124000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (44142000 ps) Check command return: PASS
+# ** Note   : (44142000 ps)  * Read 8C0C_0800, expected value 8C0C_0800 (HK_P3V3_DIG, mode Read, data 0800)
+# ** Note   : (46374000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (46374000 ps) Send SPI command value 8C00_XXXX (HK_P5V0_ANA, mode Read, data XXXX)
+# ** Note   : (46446000 ps) Waiting SPI command return end for 36000 ps
+#             (46446000 ps) 
+#             (46446000 ps) ==============================================================================================
+#             (46446000 ps)   Check Housekeeping content
+#             (46446000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (46464000 ps) Check command return: PASS
+# ** Note   : (46464000 ps)  * Read 8C18_0EDB, expected value 8C18_0EDB (HK_VREF_TMP, mode Read, data 0EDB)
+# ** Note   : (48696000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (48696000 ps) Send SPI command value 8C12_XXXX (HK_TEMP_AVE, mode Read, data XXXX)
+# ** Note   : (48768000 ps) Waiting SPI command return end for 36000 ps
+#             (48768000 ps) 
+#             (48768000 ps) ==============================================================================================
+#             (48768000 ps)   Check Housekeeping content
+#             (48768000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (48786000 ps) Check command return: PASS
+# ** Note   : (48786000 ps)  * Read 8C1A_0FA0, expected value 8C1A_0FA0 (HK_VREF_R2R, mode Read, data 0FA0)
+# ** Note   : (51018000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (51018000 ps) Send SPI command value 8C14_XXXX (HK_TEMP_MAX, mode Read, data XXXX)
+# ** Note   : (51090000 ps) Waiting SPI command return end for 36000 ps
+#             (51090000 ps) 
+#             (51090000 ps) ==============================================================================================
+#             (51090000 ps)   Check Housekeeping content
+#             (51090000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (51108000 ps) Check command return: PASS
+# ** Note   : (51108000 ps)  * Read 8C00_0125, expected value 8C00_0125 (HK_P5V0_ANA, mode Read, data 0125)
+# ** Note   : (53340000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (53340000 ps) Send SPI command value 8C07_XXXX (HK_P1V8_ANA, mode Write, data XXXX)
+# ** Note   : (53412000 ps) Waiting SPI command return end for 36000 ps
+#             (53412000 ps) 
+#             (53412000 ps) ==============================================================================================
+#             (53412000 ps)   Check Housekeeping content
+#             (53412000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (53430000 ps) Check command return: PASS
+# ** Note   : (53430000 ps)  * Read 8C12_0B6D, expected value 8C12_0B6D (HK_TEMP_AVE, mode Read, data 0B6D)
+# ** Note   : (55662000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (55662000 ps) Send SPI command value 8C05_XXXX (HK_P2V5_ANA, mode Write, data XXXX)
+# ** Note   : (55734000 ps) Waiting SPI command return end for 36000 ps
+#             (55734000 ps) 
+#             (55734000 ps) ==============================================================================================
+#             (55734000 ps)   Check Housekeeping content
+#             (55734000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (55752000 ps) Check command return: PASS
+# ** Note   : (55752000 ps)  * Read 8C14_0C92, expected value 8C14_0C92 (HK_TEMP_MAX, mode Read, data 0C92)
+# ** Note   : (57984000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (57984000 ps) Send SPI command value 8C09_XXXX (HK_M2V5_ANA, mode Write, data XXXX)
+# ** Note   : (58056000 ps) Waiting SPI command return end for 36000 ps
+#             (58056000 ps) 
+#             (58056000 ps) ==============================================================================================
+#             (58056000 ps)   Check error Try to write in a read only register detected
+#             (58056000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (58074000 ps) Check command return: PASS
+# ** Note   : (58074000 ps)  * Read C000_DFFF, expected value C000_DFFF (Status, mode Read, data DFFF)
+# ** Note   : (60306000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (60306000 ps) Send SPI command value 8C03_XXXX (HK_P3V3_ANA, mode Write, data XXXX)
+# ** Note   : (60378000 ps) Waiting SPI command return end for 36000 ps
+#             (60378000 ps) 
+#             (60378000 ps) ==============================================================================================
+#             (60378000 ps)   Check error Try to write in a read only register detected
+#             (60378000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (60396000 ps) Check command return: PASS
+# ** Note   : (60396000 ps)  * Read C000_DFFF, expected value C000_DFFF (Status, mode Read, data DFFF)
+# ** Note   : (62628000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (62628000 ps) Send SPI command value 8C0B_XXXX (HK_M5V0_ANA, mode Write, data XXXX)
+# ** Note   : (62700000 ps) Waiting SPI command return end for 36000 ps
+#             (62700000 ps) 
+#             (62700000 ps) ==============================================================================================
+#             (62700000 ps)   Check error Try to write in a read only register detected
+#             (62700000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (62718000 ps) Check command return: PASS
+# ** Note   : (62718000 ps)  * Read C000_DFFF, expected value C000_DFFF (Status, mode Read, data DFFF)
+# ** Note   : (64950000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (64950000 ps) Send SPI command value 8C11_XXXX (HK_P1V2_DIG, mode Write, data XXXX)
+# ** Note   : (65022000 ps) Waiting SPI command return end for 36000 ps
+#             (65022000 ps) 
+#             (65022000 ps) ==============================================================================================
+#             (65022000 ps)   Check error Try to write in a read only register detected
+#             (65022000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (65040000 ps) Check command return: PASS
+# ** Note   : (65040000 ps)  * Read C000_DFFF, expected value C000_DFFF (Status, mode Read, data DFFF)
+# ** Note   : (67272000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (67272000 ps) Send SPI command value 8C0F_XXXX (HK_P2V5_DIG, mode Write, data XXXX)
+# ** Note   : (67344000 ps) Waiting SPI command return end for 36000 ps
+#             (67344000 ps) 
+#             (67344000 ps) ==============================================================================================
+#             (67344000 ps)   Check error Try to write in a read only register detected
+#             (67344000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (67362000 ps) Check command return: PASS
+# ** Note   : (67362000 ps)  * Read C000_DFFF, expected value C000_DFFF (Status, mode Read, data DFFF)
+# ** Note   : (69594000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (69594000 ps) Send SPI command value 8C17_XXXX (HK_P2V5_AUX, mode Write, data XXXX)
+# ** Note   : (69666000 ps) Waiting SPI command return end for 36000 ps
+#             (69666000 ps) 
+#             (69666000 ps) ==============================================================================================
+#             (69666000 ps)   Check error Try to write in a read only register detected
+#             (69666000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (69684000 ps) Check command return: PASS
+# ** Note   : (69684000 ps)  * Read C000_DFFF, expected value C000_DFFF (Status, mode Read, data DFFF)
+# ** Note   : (71916000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (71916000 ps) Send SPI command value 8C0D_XXXX (HK_P3V3_DIG, mode Write, data XXXX)
+# ** Note   : (71988000 ps) Waiting SPI command return end for 36000 ps
+#             (71988000 ps) 
+#             (71988000 ps) ==============================================================================================
+#             (71988000 ps)   Check error Try to write in a read only register detected
+#             (71988000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (72006000 ps) Check command return: PASS
+# ** Note   : (72006000 ps)  * Read C000_DFFF, expected value C000_DFFF (Status, mode Read, data DFFF)
+# ** Note   : (74238000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (74238000 ps) Send SPI command value 8C19_XXXX (HK_VREF_TMP, mode Write, data XXXX)
+# ** Note   : (74310000 ps) Waiting SPI command return end for 36000 ps
+#             (74310000 ps) 
+#             (74310000 ps) ==============================================================================================
+#             (74310000 ps)   Check error Try to write in a read only register detected
+#             (74310000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (74328000 ps) Check command return: PASS
+# ** Note   : (74328000 ps)  * Read C000_DFFF, expected value C000_DFFF (Status, mode Read, data DFFF)
+# ** Note   : (76560000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (76560000 ps) Send SPI command value 8C1B_XXXX (HK_VREF_R2R, mode Write, data XXXX)
+# ** Note   : (76632000 ps) Waiting SPI command return end for 36000 ps
+#             (76632000 ps) 
+#             (76632000 ps) ==============================================================================================
+#             (76632000 ps)   Check error Try to write in a read only register detected
+#             (76632000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (76650000 ps) Check command return: PASS
+# ** Note   : (76650000 ps)  * Read C000_DFFF, expected value C000_DFFF (Status, mode Read, data DFFF)
+# ** Note   : (78882000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (78882000 ps) Send SPI command value 8C01_XXXX (HK_P5V0_ANA, mode Write, data XXXX)
+# ** Note   : (78954000 ps) Waiting SPI command return end for 36000 ps
+#             (78954000 ps) 
+#             (78954000 ps) ==============================================================================================
+#             (78954000 ps)   Check error Try to write in a read only register detected
+#             (78954000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (78972000 ps) Check command return: PASS
+# ** Note   : (78972000 ps)  * Read C000_DFFF, expected value C000_DFFF (Status, mode Read, data DFFF)
+# ** Note   : (81204000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (81204000 ps) Send SPI command value 8C13_XXXX (HK_TEMP_AVE, mode Write, data XXXX)
+# ** Note   : (81276000 ps) Waiting SPI command return end for 36000 ps
+#             (81276000 ps) 
+#             (81276000 ps) ==============================================================================================
+#             (81276000 ps)   Check error Try to write in a read only register detected
+#             (81276000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (81294000 ps) Check command return: PASS
+# ** Note   : (81294000 ps)  * Read C000_DFFF, expected value C000_DFFF (Status, mode Read, data DFFF)
+# ** Note   : (83526000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (83526000 ps) Send SPI command value 8C15_XXXX (HK_TEMP_MAX, mode Write, data XXXX)
+# ** Note   : (83598000 ps) Waiting SPI command return end for 36000 ps
+#             (83598000 ps) 
+#             (83598000 ps) ==============================================================================================
+#             (83598000 ps)   Check error Try to write in a read only register detected
+#             (83598000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (83616000 ps) Check command return: PASS
+# ** Note   : (83616000 ps)  * Read C000_DFFF, expected value C000_DFFF (Status, mode Read, data DFFF)
+# ** Note   : (85848000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (85848000 ps) Send SPI command value 8C1D_XXXX (, mode Write, data XXXX)
+# ** Note   : (85920000 ps) Waiting SPI command return end for 36000 ps
+#             (85920000 ps) 
+#             (85920000 ps) ==============================================================================================
+#             (85920000 ps)   Check error Try to write in a read only register detected
+#             (85920000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (85938000 ps) Check command return: PASS
+# ** Note   : (85938000 ps)  * Read C000_DFFF, expected value C000_DFFF (Status, mode Read, data DFFF)
+# ** Note   : (88170000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (88170000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (88242000 ps) Waiting SPI command return end for 36000 ps
+#             (88242000 ps) 
+#             (88242000 ps) ==============================================================================================
+#             (88242000 ps)   Check error Try to write in a read only register detected
+#             (88242000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (88260000 ps) Check command return: PASS
+# ** Note   : (88260000 ps)  * Read C000_DFFF, expected value C000_DFFF (Status, mode Read, data DFFF)
+# ** Note   : (90492000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (90492000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (90564000 ps) Waiting SPI command return end for 36000 ps
+#             (90564000 ps) 
+#             (90564000 ps) ==============================================================================================
+#             (90564000 ps)   Check error Invalid register address detected
+#             (90564000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (90582000 ps) Check command return: PASS
+# ** Note   : (90582000 ps)  * Read C000_7FFF, expected value C000_7FFF (Status, mode Read, data 7FFF)
+# ** Note   : (92814000 ps) Waiting SPI command end for 2232000 ps
 # ----------------------------------------------------------------------------------------------------
 # Parameters check, SPI spi_hk           
 # ----------------------------------------------------------------------------------------------------

@@ -35,7 +35,6 @@ use     work.pkg_type.all;
 use     work.pkg_project.all;
 
 entity rst_clk_mgt is port (
-         i_arst               : in     std_logic                                                            ; --! Asynchronous reset ('0' = Inactive, '1' = Active)
          i_clk_ref            : in     std_logic                                                            ; --! Reference Clock
 
          i_cmd_ck_adc_ena     : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! SQUID MUX ADC Clocks switch commands enable  ('0' = Inactive, '1' = Active)
@@ -82,7 +81,6 @@ begin
    --!   Clocks generation
    -- ------------------------------------------------------------------------------------------------------
    I_pll: entity work.pll port map (
-         i_arst               => i_arst               , -- in     std_logic                                 ; --! Asynchronous reset ('0' = Inactive, '1' = Active)
          i_clk_ref            => i_clk_ref            , -- in     std_logic                                 ; --! Reference Clock
          o_clk                => o_clk                , -- out    std_logic                                 ; --! System Clock
          o_clk_sqm_adc_dac    => o_clk_sqm_adc_dac    , -- out    std_logic                                 ; --! SQUID MUX ADC/DAC internal Clock
@@ -98,23 +96,17 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   Reset on system clock
    I_rst: entity work.rst_gen generic map (
-         g_RST_LEV_ACT        => c_RST_LEV_ACT        , -- std_logic                                        ; --! Reset level activation value
          g_CNT_RST_NB_VAL     => c_FF_RST_NB            -- integer                                            --! Counter for reset generation: number of value
    ) port map (
-         i_arst               => i_arst               , -- in     std_logic                                 ; --! Asynchronous reset ('0' = Inactive, '1' = Active)
          i_clock              => o_clk                , -- in     std_logic                                 ; --! Clock
-
          o_reset              => o_rst                  -- out    std_logic                                   --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
    );
 
    --! Reset on SQUID ADC/DAC
    I_rst_adc_dac: entity work.rst_gen generic map (
-         g_RST_LEV_ACT        => c_RST_LEV_ACT        , -- std_logic                                        ; --! Reset level activation value
          g_CNT_RST_NB_VAL     => c_FF_RST_ADC_DAC_NB-1  -- integer                                            --! Counter for reset generation: number of value
    ) port map (
-         i_arst               => i_arst               , -- in     std_logic                                 ; --! Asynchronous reset ('0' = Inactive, '1' = Active)
          i_clock              => o_clk_sqm_adc_dac    , -- in     std_logic                                 ; --! Clock
-
          o_reset              => o_rst_sqm_adc_dac      -- out    std_logic                                   --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
    );
 

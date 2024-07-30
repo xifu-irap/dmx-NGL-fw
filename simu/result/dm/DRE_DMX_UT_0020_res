@@ -19,299 +19,299 @@
 #             (80000 ps) ==============================================================================================
 #             (80000 ps)   Wait internal reset deactivated
 #             (80000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (6995496 ps) Waiting event rst = '0' for 6915496 ps
-#             (6995496 ps) 
-#             (6995496 ps) ==============================================================================================
-#             (6995496 ps)   Send commands with only SPI command length error
-#             (6995496 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (6995496 ps) Configure SPI command to 18 bits size
-# ** Note   : (6995496 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
-# ** Note   : (11220000 ps) Waiting SPI command end for 4188504 ps
-# ** Note   : (11220000 ps) Configure SPI command to 19 bits size
-# ** Note   : (11220000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
-# ** Note   : (11292000 ps) Waiting SPI command return end for 36000 ps
-# ** Note   : (11310000 ps) Check command return: PASS
-# ** Note   : (11310000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
-# ** Note   : (15684000 ps) Waiting SPI command end for 4374000 ps
-# ** Note   : (15684000 ps) Configure SPI command to 20 bits size
-# ** Note   : (15684000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
-# ** Note   : (15756000 ps) Waiting SPI command return end for 36000 ps
-# ** Note   : (15774000 ps) Check command return: PASS
-# ** Note   : (15774000 ps)  * Read C000_BFFF, expected value C000_BFFF (Status, mode Read, data BFFF)
-# ** Note   : (20382000 ps) Waiting SPI command end for 4608000 ps
-# ** Note   : (20382000 ps) Configure SPI command to 21 bits size
-# ** Note   : (20382000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
-# ** Note   : (20454000 ps) Waiting SPI command return end for 36000 ps
-# ** Note   : (20472000 ps) Check command return: PASS
-# ** Note   : (20472000 ps)  * Read C000_BFFF, expected value C000_BFFF (Status, mode Read, data BFFF)
-# ** Note   : (25314000 ps) Waiting SPI command end for 4842000 ps
-# ** Note   : (25314000 ps) Configure SPI command to 22 bits size
-# ** Note   : (25314000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
-# ** Note   : (25386000 ps) Waiting SPI command return end for 36000 ps
-# ** Note   : (25404000 ps) Check command return: PASS
-# ** Note   : (25404000 ps)  * Read C000_BFFF, expected value C000_BFFF (Status, mode Read, data BFFF)
-# ** Note   : (30480000 ps) Waiting SPI command end for 5076000 ps
-# ** Note   : (30480000 ps) Configure SPI command to 23 bits size
-# ** Note   : (30480000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
-# ** Note   : (30552000 ps) Waiting SPI command return end for 36000 ps
-# ** Note   : (30570000 ps) Check command return: PASS
-# ** Note   : (30570000 ps)  * Read C000_BFFF, expected value C000_BFFF (Status, mode Read, data BFFF)
-# ** Note   : (35880000 ps) Waiting SPI command end for 5310000 ps
-# ** Note   : (35880000 ps) Configure SPI command to 24 bits size
-# ** Note   : (35880000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
-# ** Note   : (35952000 ps) Waiting SPI command return end for 36000 ps
-# ** Note   : (35970000 ps) Check command return: PASS
-# ** Note   : (35970000 ps)  * Read C000_BFFF, expected value C000_BFFF (Status, mode Read, data BFFF)
-# ** Note   : (41514000 ps) Waiting SPI command end for 5544000 ps
-# ** Note   : (41514000 ps) Configure SPI command to 25 bits size
-# ** Note   : (41514000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
-# ** Note   : (41586000 ps) Waiting SPI command return end for 36000 ps
-# ** Note   : (41604000 ps) Check command return: PASS
-# ** Note   : (41604000 ps)  * Read C000_BFFF, expected value C000_BFFF (Status, mode Read, data BFFF)
-# ** Note   : (47382000 ps) Waiting SPI command end for 5778000 ps
-# ** Note   : (47382000 ps) Configure SPI command to 26 bits size
-# ** Note   : (47382000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
-# ** Note   : (47454000 ps) Waiting SPI command return end for 36000 ps
-# ** Note   : (47472000 ps) Check command return: PASS
-# ** Note   : (47472000 ps)  * Read C000_BFFF, expected value C000_BFFF (Status, mode Read, data BFFF)
-# ** Note   : (53484000 ps) Waiting SPI command end for 6012000 ps
-# ** Note   : (53484000 ps) Configure SPI command to 27 bits size
-# ** Note   : (53484000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
-# ** Note   : (53556000 ps) Waiting SPI command return end for 36000 ps
-# ** Note   : (53574000 ps) Check command return: PASS
-# ** Note   : (53574000 ps)  * Read C000_BFFF, expected value C000_BFFF (Status, mode Read, data BFFF)
-# ** Note   : (59820000 ps) Waiting SPI command end for 6246000 ps
-# ** Note   : (59820000 ps) Configure SPI command to 28 bits size
-# ** Note   : (59820000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
-# ** Note   : (59892000 ps) Waiting SPI command return end for 36000 ps
-# ** Note   : (59910000 ps) Check command return: PASS
-# ** Note   : (59910000 ps)  * Read C000_BFFF, expected value C000_BFFF (Status, mode Read, data BFFF)
-# ** Note   : (66390000 ps) Waiting SPI command end for 6480000 ps
-# ** Note   : (66390000 ps) Configure SPI command to 29 bits size
-# ** Note   : (66390000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
-# ** Note   : (66462000 ps) Waiting SPI command return end for 36000 ps
-# ** Note   : (66480000 ps) Check command return: PASS
-# ** Note   : (66480000 ps)  * Read C000_BFFF, expected value C000_BFFF (Status, mode Read, data BFFF)
-# ** Note   : (73194000 ps) Waiting SPI command end for 6714000 ps
-# ** Note   : (73194000 ps) Configure SPI command to 30 bits size
-# ** Note   : (73194000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
-# ** Note   : (73266000 ps) Waiting SPI command return end for 36000 ps
-# ** Note   : (73284000 ps) Check command return: PASS
-# ** Note   : (73284000 ps)  * Read C000_BFFF, expected value C000_BFFF (Status, mode Read, data BFFF)
-# ** Note   : (80232000 ps) Waiting SPI command end for 6948000 ps
-# ** Note   : (80232000 ps) Configure SPI command to 31 bits size
-# ** Note   : (80232000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
-# ** Note   : (80304000 ps) Waiting SPI command return end for 36000 ps
-# ** Note   : (80322000 ps) Check command return: PASS
-# ** Note   : (80322000 ps)  * Read C000_BFFF, expected value C000_BFFF (Status, mode Read, data BFFF)
-# ** Note   : (87504000 ps) Waiting SPI command end for 7182000 ps
-# ** Note   : (87504000 ps) Configure SPI command to 32 bits size
-# ** Note   : (87504000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
-# ** Note   : (87576000 ps) Waiting SPI command return end for 36000 ps
-# ** Note   : (87594000 ps) Check command return: PASS
-# ** Note   : (87594000 ps)  * Read C000_BFFF, expected value C000_BFFF (Status, mode Read, data BFFF)
-# ** Note   : (95010000 ps) Waiting SPI command end for 7416000 ps
-# ** Note   : (95010000 ps) Configure SPI command to 33 bits size
-# ** Note   : (95010000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
-# ** Note   : (95082000 ps) Waiting SPI command return end for 36000 ps
-# ** Note   : (95100000 ps) Check command return: PASS
-# ** Note   : (95100000 ps)  * Read C000_BFFF, expected value C000_BFFF (Status, mode Read, data BFFF)
-# ** Note   : (102750000 ps) Waiting SPI command end for 7650000 ps
-# ** Note   : (102750000 ps) Configure SPI command to 34 bits size
-# ** Note   : (102750000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
-# ** Note   : (102822000 ps) Waiting SPI command return end for 36000 ps
-# ** Note   : (102840000 ps) Check command return: PASS
-# ** Note   : (102840000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
-# ** Note   : (110724000 ps) Waiting SPI command end for 7884000 ps
-# ** Note   : (110724000 ps) Configure SPI command to 35 bits size
-# ** Note   : (110724000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
-# ** Note   : (110796000 ps) Waiting SPI command return end for 36000 ps
-# ** Note   : (110814000 ps) Check command return: PASS
-# ** Note   : (110814000 ps)  * Read C000_BFFF, expected value C000_BFFF (Status, mode Read, data BFFF)
-# ** Note   : (118932000 ps) Waiting SPI command end for 8118000 ps
-# ** Note   : (118932000 ps) Configure SPI command to 36 bits size
-# ** Note   : (118932000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
-# ** Note   : (119004000 ps) Waiting SPI command return end for 36000 ps
-# ** Note   : (119022000 ps) Check command return: PASS
-# ** Note   : (119022000 ps)  * Read C000_BFFF, expected value C000_BFFF (Status, mode Read, data BFFF)
-# ** Note   : (127374000 ps) Waiting SPI command end for 8352000 ps
-# ** Note   : (127374000 ps) Configure SPI command to 37 bits size
-# ** Note   : (127374000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
-# ** Note   : (127446000 ps) Waiting SPI command return end for 36000 ps
-# ** Note   : (127464000 ps) Check command return: PASS
-# ** Note   : (127464000 ps)  * Read C000_BFFF, expected value C000_BFFF (Status, mode Read, data BFFF)
-# ** Note   : (136050000 ps) Waiting SPI command end for 8586000 ps
-# ** Note   : (136050000 ps) Configure SPI command to 38 bits size
-# ** Note   : (136050000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
-# ** Note   : (136122000 ps) Waiting SPI command return end for 36000 ps
-# ** Note   : (136140000 ps) Check command return: PASS
-# ** Note   : (136140000 ps)  * Read C000_BFFF, expected value C000_BFFF (Status, mode Read, data BFFF)
-# ** Note   : (144960000 ps) Waiting SPI command end for 8820000 ps
-# ** Note   : (144960000 ps) Configure SPI command to 39 bits size
-# ** Note   : (144960000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
-# ** Note   : (145032000 ps) Waiting SPI command return end for 36000 ps
-# ** Note   : (145050000 ps) Check command return: PASS
-# ** Note   : (145050000 ps)  * Read C000_BFFF, expected value C000_BFFF (Status, mode Read, data BFFF)
-# ** Note   : (154104000 ps) Waiting SPI command end for 9054000 ps
-# ** Note   : (154104000 ps) Configure SPI command to 40 bits size
-# ** Note   : (154104000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
-# ** Note   : (154176000 ps) Waiting SPI command return end for 36000 ps
-# ** Note   : (154194000 ps) Check command return: PASS
-# ** Note   : (154194000 ps)  * Read C000_BFFF, expected value C000_BFFF (Status, mode Read, data BFFF)
-# ** Note   : (163482000 ps) Waiting SPI command end for 9288000 ps
-# ** Note   : (163482000 ps) Configure SPI command to 41 bits size
-# ** Note   : (163482000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
-# ** Note   : (163554000 ps) Waiting SPI command return end for 36000 ps
-# ** Note   : (163572000 ps) Check command return: PASS
-# ** Note   : (163572000 ps)  * Read C000_BFFF, expected value C000_BFFF (Status, mode Read, data BFFF)
-# ** Note   : (173094000 ps) Waiting SPI command end for 9522000 ps
-# ** Note   : (173094000 ps) Configure SPI command to 42 bits size
-# ** Note   : (173094000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
-# ** Note   : (173166000 ps) Waiting SPI command return end for 36000 ps
-# ** Note   : (173184000 ps) Check command return: PASS
-# ** Note   : (173184000 ps)  * Read C000_BFFF, expected value C000_BFFF (Status, mode Read, data BFFF)
-# ** Note   : (182940000 ps) Waiting SPI command end for 9756000 ps
-# ** Note   : (182940000 ps) Configure SPI command to 43 bits size
-# ** Note   : (182940000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
-# ** Note   : (183012000 ps) Waiting SPI command return end for 36000 ps
-# ** Note   : (183030000 ps) Check command return: PASS
-# ** Note   : (183030000 ps)  * Read C000_BFFF, expected value C000_BFFF (Status, mode Read, data BFFF)
-# ** Note   : (193020000 ps) Waiting SPI command end for 9990000 ps
-# ** Note   : (193020000 ps) Configure SPI command to 44 bits size
-# ** Note   : (193020000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
-# ** Note   : (193092000 ps) Waiting SPI command return end for 36000 ps
-# ** Note   : (193110000 ps) Check command return: PASS
-# ** Note   : (193110000 ps)  * Read C000_BFFF, expected value C000_BFFF (Status, mode Read, data BFFF)
-# ** Note   : (203334000 ps) Waiting SPI command end for 10224000 ps
-# ** Note   : (203334000 ps) Configure SPI command to 45 bits size
-# ** Note   : (203334000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
-# ** Note   : (203406000 ps) Waiting SPI command return end for 36000 ps
-# ** Note   : (203424000 ps) Check command return: PASS
-# ** Note   : (203424000 ps)  * Read C000_BFFF, expected value C000_BFFF (Status, mode Read, data BFFF)
-# ** Note   : (213882000 ps) Waiting SPI command end for 10458000 ps
-# ** Note   : (213882000 ps) Configure SPI command to 46 bits size
-# ** Note   : (213882000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
-# ** Note   : (213954000 ps) Waiting SPI command return end for 36000 ps
-# ** Note   : (213972000 ps) Check command return: PASS
-# ** Note   : (213972000 ps)  * Read C000_BFFF, expected value C000_BFFF (Status, mode Read, data BFFF)
-# ** Note   : (224664000 ps) Waiting SPI command end for 10692000 ps
-# ** Note   : (224664000 ps) Configure SPI command to 47 bits size
-# ** Note   : (224664000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
-# ** Note   : (224736000 ps) Waiting SPI command return end for 36000 ps
-# ** Note   : (224754000 ps) Check command return: PASS
-# ** Note   : (224754000 ps)  * Read C000_BFFF, expected value C000_BFFF (Status, mode Read, data BFFF)
-# ** Note   : (235680000 ps) Waiting SPI command end for 10926000 ps
-# ** Note   : (235680000 ps) Configure SPI command to 48 bits size
-# ** Note   : (235680000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
-# ** Note   : (235752000 ps) Waiting SPI command return end for 36000 ps
-# ** Note   : (235770000 ps) Check command return: PASS
-# ** Note   : (235770000 ps)  * Read C000_BFFF, expected value C000_BFFF (Status, mode Read, data BFFF)
-# ** Note   : (246930000 ps) Waiting SPI command end for 11160000 ps
-# ** Note   : (246930000 ps) Configure SPI command to 49 bits size
-# ** Note   : (246930000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
-# ** Note   : (247002000 ps) Waiting SPI command return end for 36000 ps
-# ** Note   : (247020000 ps) Check command return: PASS
-# ** Note   : (247020000 ps)  * Read C000_BFFF, expected value C000_BFFF (Status, mode Read, data BFFF)
-# ** Note   : (258414000 ps) Waiting SPI command end for 11394000 ps
-# ** Note   : (258414000 ps) Configure SPI command to 50 bits size
-# ** Note   : (258414000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
-# ** Note   : (258486000 ps) Waiting SPI command return end for 36000 ps
-# ** Note   : (258504000 ps) Check command return: PASS
-# ** Note   : (258504000 ps)  * Read C000_BFFF, expected value C000_BFFF (Status, mode Read, data BFFF)
-# ** Note   : (270132000 ps) Waiting SPI command end for 11628000 ps
-# ** Note   : (270132000 ps) Configure SPI command to 51 bits size
-# ** Note   : (270132000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
-# ** Note   : (270204000 ps) Waiting SPI command return end for 36000 ps
-# ** Note   : (270222000 ps) Check command return: PASS
-# ** Note   : (270222000 ps)  * Read C000_BFFF, expected value C000_BFFF (Status, mode Read, data BFFF)
-# ** Note   : (282084000 ps) Waiting SPI command end for 11862000 ps
-# ** Note   : (282084000 ps) Configure SPI command to 52 bits size
-# ** Note   : (282084000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
-# ** Note   : (282156000 ps) Waiting SPI command return end for 36000 ps
-# ** Note   : (282174000 ps) Check command return: PASS
-# ** Note   : (282174000 ps)  * Read C000_BFFF, expected value C000_BFFF (Status, mode Read, data BFFF)
-# ** Note   : (294270000 ps) Waiting SPI command end for 12096000 ps
-# ** Note   : (294270000 ps) Configure SPI command to 53 bits size
-# ** Note   : (294270000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
-# ** Note   : (294342000 ps) Waiting SPI command return end for 36000 ps
-# ** Note   : (294360000 ps) Check command return: PASS
-# ** Note   : (294360000 ps)  * Read C000_BFFF, expected value C000_BFFF (Status, mode Read, data BFFF)
-# ** Note   : (306690000 ps) Waiting SPI command end for 12330000 ps
-# ** Note   : (306690000 ps) Configure SPI command to 54 bits size
-# ** Note   : (306690000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
-# ** Note   : (306762000 ps) Waiting SPI command return end for 36000 ps
-# ** Note   : (306780000 ps) Check command return: PASS
-# ** Note   : (306780000 ps)  * Read C000_BFFF, expected value C000_BFFF (Status, mode Read, data BFFF)
-# ** Note   : (319344000 ps) Waiting SPI command end for 12564000 ps
-# ** Note   : (319344000 ps) Configure SPI command to 55 bits size
-# ** Note   : (319344000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
-# ** Note   : (319416000 ps) Waiting SPI command return end for 36000 ps
-# ** Note   : (319434000 ps) Check command return: PASS
-# ** Note   : (319434000 ps)  * Read C000_BFFF, expected value C000_BFFF (Status, mode Read, data BFFF)
-# ** Note   : (332232000 ps) Waiting SPI command end for 12798000 ps
-# ** Note   : (332232000 ps) Configure SPI command to 56 bits size
-# ** Note   : (332232000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
-# ** Note   : (332304000 ps) Waiting SPI command return end for 36000 ps
-# ** Note   : (332322000 ps) Check command return: PASS
-# ** Note   : (332322000 ps)  * Read C000_BFFF, expected value C000_BFFF (Status, mode Read, data BFFF)
-# ** Note   : (345354000 ps) Waiting SPI command end for 13032000 ps
-# ** Note   : (345354000 ps) Configure SPI command to 57 bits size
-# ** Note   : (345354000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
-# ** Note   : (345426000 ps) Waiting SPI command return end for 36000 ps
-# ** Note   : (345444000 ps) Check command return: PASS
-# ** Note   : (345444000 ps)  * Read C000_BFFF, expected value C000_BFFF (Status, mode Read, data BFFF)
-# ** Note   : (358710000 ps) Waiting SPI command end for 13266000 ps
-# ** Note   : (358710000 ps) Configure SPI command to 58 bits size
-# ** Note   : (358710000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
-# ** Note   : (358782000 ps) Waiting SPI command return end for 36000 ps
-# ** Note   : (358800000 ps) Check command return: PASS
-# ** Note   : (358800000 ps)  * Read C000_BFFF, expected value C000_BFFF (Status, mode Read, data BFFF)
-# ** Note   : (372300000 ps) Waiting SPI command end for 13500000 ps
-# ** Note   : (372300000 ps) Configure SPI command to 59 bits size
-# ** Note   : (372300000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
-# ** Note   : (372372000 ps) Waiting SPI command return end for 36000 ps
-# ** Note   : (372390000 ps) Check command return: PASS
-# ** Note   : (372390000 ps)  * Read C000_BFFF, expected value C000_BFFF (Status, mode Read, data BFFF)
-# ** Note   : (386124000 ps) Waiting SPI command end for 13734000 ps
-# ** Note   : (386124000 ps) Configure SPI command to 60 bits size
-# ** Note   : (386124000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
-# ** Note   : (386196000 ps) Waiting SPI command return end for 36000 ps
-# ** Note   : (386214000 ps) Check command return: PASS
-# ** Note   : (386214000 ps)  * Read C000_BFFF, expected value C000_BFFF (Status, mode Read, data BFFF)
-# ** Note   : (400182000 ps) Waiting SPI command end for 13968000 ps
-# ** Note   : (400182000 ps) Configure SPI command to 61 bits size
-# ** Note   : (400182000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
-# ** Note   : (400254000 ps) Waiting SPI command return end for 36000 ps
-# ** Note   : (400272000 ps) Check command return: PASS
-# ** Note   : (400272000 ps)  * Read C000_BFFF, expected value C000_BFFF (Status, mode Read, data BFFF)
-# ** Note   : (414474000 ps) Waiting SPI command end for 14202000 ps
-# ** Note   : (414474000 ps) Configure SPI command to 62 bits size
-# ** Note   : (414474000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
-# ** Note   : (414546000 ps) Waiting SPI command return end for 36000 ps
-# ** Note   : (414564000 ps) Check command return: PASS
-# ** Note   : (414564000 ps)  * Read C000_BFFF, expected value C000_BFFF (Status, mode Read, data BFFF)
-# ** Note   : (429000000 ps) Waiting SPI command end for 14436000 ps
-# ** Note   : (429000000 ps) Configure SPI command to 63 bits size
-# ** Note   : (429000000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
-# ** Note   : (429072000 ps) Waiting SPI command return end for 36000 ps
-# ** Note   : (429090000 ps) Check command return: PASS
-# ** Note   : (429090000 ps)  * Read C000_BFFF, expected value C000_BFFF (Status, mode Read, data BFFF)
-# ** Note   : (443760000 ps) Waiting SPI command end for 14670000 ps
-# ** Note   : (443760000 ps) Configure SPI command to 32 bits size
-# ** Note   : (443760000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
-# ** Note   : (443832000 ps) Waiting SPI command return end for 36000 ps
-# ** Note   : (443850000 ps) Check command return: PASS
-# ** Note   : (443850000 ps)  * Read C000_BFFF, expected value C000_BFFF (Status, mode Read, data BFFF)
-# ** Note   : (451266000 ps) Waiting SPI command end for 7416000 ps
-# ** Note   : (451266000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
-# ** Note   : (451338000 ps) Waiting SPI command return end for 36000 ps
-# ** Note   : (451356000 ps) Check command return: PASS
-# ** Note   : (451356000 ps)  * Read C000_BFFF, expected value C000_BFFF (Status, mode Read, data BFFF)
-# ** Note   : (458772000 ps) Waiting SPI command end for 7416000 ps
-# ** Note   : (458772000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
-# ** Note   : (458844000 ps) Waiting SPI command return end for 36000 ps
-# ** Note   : (458862000 ps) Check command return: PASS
-# ** Note   : (458862000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
+# ** Note   : (6915456 ps) Waiting event rst = '0' for 6835456 ps
+#             (6915456 ps) 
+#             (6915456 ps) ==============================================================================================
+#             (6915456 ps)   Send commands with only SPI command length error
+#             (6915456 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (6915456 ps) Configure SPI command to 18 bits size
+# ** Note   : (6915456 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (11130000 ps) Waiting SPI command end for 4178544 ps
+# ** Note   : (11130000 ps) Configure SPI command to 19 bits size
+# ** Note   : (11130000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (11202000 ps) Waiting SPI command return end for 36000 ps
+# ** Note   : (11220000 ps) Check command return: PASS
+# ** Note   : (11220000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
+# ** Note   : (15594000 ps) Waiting SPI command end for 4374000 ps
+# ** Note   : (15594000 ps) Configure SPI command to 20 bits size
+# ** Note   : (15594000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (15666000 ps) Waiting SPI command return end for 36000 ps
+# ** Note   : (15684000 ps) Check command return: PASS
+# ** Note   : (15684000 ps)  * Read C000_BFFF, expected value C000_BFFF (Status, mode Read, data BFFF)
+# ** Note   : (20292000 ps) Waiting SPI command end for 4608000 ps
+# ** Note   : (20292000 ps) Configure SPI command to 21 bits size
+# ** Note   : (20292000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (20364000 ps) Waiting SPI command return end for 36000 ps
+# ** Note   : (20382000 ps) Check command return: PASS
+# ** Note   : (20382000 ps)  * Read C000_BFFF, expected value C000_BFFF (Status, mode Read, data BFFF)
+# ** Note   : (25224000 ps) Waiting SPI command end for 4842000 ps
+# ** Note   : (25224000 ps) Configure SPI command to 22 bits size
+# ** Note   : (25224000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (25296000 ps) Waiting SPI command return end for 36000 ps
+# ** Note   : (25314000 ps) Check command return: PASS
+# ** Note   : (25314000 ps)  * Read C000_BFFF, expected value C000_BFFF (Status, mode Read, data BFFF)
+# ** Note   : (30390000 ps) Waiting SPI command end for 5076000 ps
+# ** Note   : (30390000 ps) Configure SPI command to 23 bits size
+# ** Note   : (30390000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (30462000 ps) Waiting SPI command return end for 36000 ps
+# ** Note   : (30480000 ps) Check command return: PASS
+# ** Note   : (30480000 ps)  * Read C000_BFFF, expected value C000_BFFF (Status, mode Read, data BFFF)
+# ** Note   : (35790000 ps) Waiting SPI command end for 5310000 ps
+# ** Note   : (35790000 ps) Configure SPI command to 24 bits size
+# ** Note   : (35790000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (35862000 ps) Waiting SPI command return end for 36000 ps
+# ** Note   : (35880000 ps) Check command return: PASS
+# ** Note   : (35880000 ps)  * Read C000_BFFF, expected value C000_BFFF (Status, mode Read, data BFFF)
+# ** Note   : (41424000 ps) Waiting SPI command end for 5544000 ps
+# ** Note   : (41424000 ps) Configure SPI command to 25 bits size
+# ** Note   : (41424000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (41496000 ps) Waiting SPI command return end for 36000 ps
+# ** Note   : (41514000 ps) Check command return: PASS
+# ** Note   : (41514000 ps)  * Read C000_BFFF, expected value C000_BFFF (Status, mode Read, data BFFF)
+# ** Note   : (47292000 ps) Waiting SPI command end for 5778000 ps
+# ** Note   : (47292000 ps) Configure SPI command to 26 bits size
+# ** Note   : (47292000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (47364000 ps) Waiting SPI command return end for 36000 ps
+# ** Note   : (47382000 ps) Check command return: PASS
+# ** Note   : (47382000 ps)  * Read C000_BFFF, expected value C000_BFFF (Status, mode Read, data BFFF)
+# ** Note   : (53394000 ps) Waiting SPI command end for 6012000 ps
+# ** Note   : (53394000 ps) Configure SPI command to 27 bits size
+# ** Note   : (53394000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (53466000 ps) Waiting SPI command return end for 36000 ps
+# ** Note   : (53484000 ps) Check command return: PASS
+# ** Note   : (53484000 ps)  * Read C000_BFFF, expected value C000_BFFF (Status, mode Read, data BFFF)
+# ** Note   : (59730000 ps) Waiting SPI command end for 6246000 ps
+# ** Note   : (59730000 ps) Configure SPI command to 28 bits size
+# ** Note   : (59730000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (59802000 ps) Waiting SPI command return end for 36000 ps
+# ** Note   : (59820000 ps) Check command return: PASS
+# ** Note   : (59820000 ps)  * Read C000_BFFF, expected value C000_BFFF (Status, mode Read, data BFFF)
+# ** Note   : (66300000 ps) Waiting SPI command end for 6480000 ps
+# ** Note   : (66300000 ps) Configure SPI command to 29 bits size
+# ** Note   : (66300000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (66372000 ps) Waiting SPI command return end for 36000 ps
+# ** Note   : (66390000 ps) Check command return: PASS
+# ** Note   : (66390000 ps)  * Read C000_BFFF, expected value C000_BFFF (Status, mode Read, data BFFF)
+# ** Note   : (73104000 ps) Waiting SPI command end for 6714000 ps
+# ** Note   : (73104000 ps) Configure SPI command to 30 bits size
+# ** Note   : (73104000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (73176000 ps) Waiting SPI command return end for 36000 ps
+# ** Note   : (73194000 ps) Check command return: PASS
+# ** Note   : (73194000 ps)  * Read C000_BFFF, expected value C000_BFFF (Status, mode Read, data BFFF)
+# ** Note   : (80142000 ps) Waiting SPI command end for 6948000 ps
+# ** Note   : (80142000 ps) Configure SPI command to 31 bits size
+# ** Note   : (80142000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (80214000 ps) Waiting SPI command return end for 36000 ps
+# ** Note   : (80232000 ps) Check command return: PASS
+# ** Note   : (80232000 ps)  * Read C000_BFFF, expected value C000_BFFF (Status, mode Read, data BFFF)
+# ** Note   : (87414000 ps) Waiting SPI command end for 7182000 ps
+# ** Note   : (87414000 ps) Configure SPI command to 32 bits size
+# ** Note   : (87414000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (87486000 ps) Waiting SPI command return end for 36000 ps
+# ** Note   : (87504000 ps) Check command return: PASS
+# ** Note   : (87504000 ps)  * Read C000_BFFF, expected value C000_BFFF (Status, mode Read, data BFFF)
+# ** Note   : (94920000 ps) Waiting SPI command end for 7416000 ps
+# ** Note   : (94920000 ps) Configure SPI command to 33 bits size
+# ** Note   : (94920000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (94992000 ps) Waiting SPI command return end for 36000 ps
+# ** Note   : (95010000 ps) Check command return: PASS
+# ** Note   : (95010000 ps)  * Read C000_BFFF, expected value C000_BFFF (Status, mode Read, data BFFF)
+# ** Note   : (102660000 ps) Waiting SPI command end for 7650000 ps
+# ** Note   : (102660000 ps) Configure SPI command to 34 bits size
+# ** Note   : (102660000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (102732000 ps) Waiting SPI command return end for 36000 ps
+# ** Note   : (102750000 ps) Check command return: PASS
+# ** Note   : (102750000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
+# ** Note   : (110634000 ps) Waiting SPI command end for 7884000 ps
+# ** Note   : (110634000 ps) Configure SPI command to 35 bits size
+# ** Note   : (110634000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (110706000 ps) Waiting SPI command return end for 36000 ps
+# ** Note   : (110724000 ps) Check command return: PASS
+# ** Note   : (110724000 ps)  * Read C000_BFFF, expected value C000_BFFF (Status, mode Read, data BFFF)
+# ** Note   : (118842000 ps) Waiting SPI command end for 8118000 ps
+# ** Note   : (118842000 ps) Configure SPI command to 36 bits size
+# ** Note   : (118842000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (118914000 ps) Waiting SPI command return end for 36000 ps
+# ** Note   : (118932000 ps) Check command return: PASS
+# ** Note   : (118932000 ps)  * Read C000_BFFF, expected value C000_BFFF (Status, mode Read, data BFFF)
+# ** Note   : (127284000 ps) Waiting SPI command end for 8352000 ps
+# ** Note   : (127284000 ps) Configure SPI command to 37 bits size
+# ** Note   : (127284000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (127356000 ps) Waiting SPI command return end for 36000 ps
+# ** Note   : (127374000 ps) Check command return: PASS
+# ** Note   : (127374000 ps)  * Read C000_BFFF, expected value C000_BFFF (Status, mode Read, data BFFF)
+# ** Note   : (135960000 ps) Waiting SPI command end for 8586000 ps
+# ** Note   : (135960000 ps) Configure SPI command to 38 bits size
+# ** Note   : (135960000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (136032000 ps) Waiting SPI command return end for 36000 ps
+# ** Note   : (136050000 ps) Check command return: PASS
+# ** Note   : (136050000 ps)  * Read C000_BFFF, expected value C000_BFFF (Status, mode Read, data BFFF)
+# ** Note   : (144870000 ps) Waiting SPI command end for 8820000 ps
+# ** Note   : (144870000 ps) Configure SPI command to 39 bits size
+# ** Note   : (144870000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (144942000 ps) Waiting SPI command return end for 36000 ps
+# ** Note   : (144960000 ps) Check command return: PASS
+# ** Note   : (144960000 ps)  * Read C000_BFFF, expected value C000_BFFF (Status, mode Read, data BFFF)
+# ** Note   : (154014000 ps) Waiting SPI command end for 9054000 ps
+# ** Note   : (154014000 ps) Configure SPI command to 40 bits size
+# ** Note   : (154014000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (154086000 ps) Waiting SPI command return end for 36000 ps
+# ** Note   : (154104000 ps) Check command return: PASS
+# ** Note   : (154104000 ps)  * Read C000_BFFF, expected value C000_BFFF (Status, mode Read, data BFFF)
+# ** Note   : (163392000 ps) Waiting SPI command end for 9288000 ps
+# ** Note   : (163392000 ps) Configure SPI command to 41 bits size
+# ** Note   : (163392000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (163464000 ps) Waiting SPI command return end for 36000 ps
+# ** Note   : (163482000 ps) Check command return: PASS
+# ** Note   : (163482000 ps)  * Read C000_BFFF, expected value C000_BFFF (Status, mode Read, data BFFF)
+# ** Note   : (173004000 ps) Waiting SPI command end for 9522000 ps
+# ** Note   : (173004000 ps) Configure SPI command to 42 bits size
+# ** Note   : (173004000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (173076000 ps) Waiting SPI command return end for 36000 ps
+# ** Note   : (173094000 ps) Check command return: PASS
+# ** Note   : (173094000 ps)  * Read C000_BFFF, expected value C000_BFFF (Status, mode Read, data BFFF)
+# ** Note   : (182850000 ps) Waiting SPI command end for 9756000 ps
+# ** Note   : (182850000 ps) Configure SPI command to 43 bits size
+# ** Note   : (182850000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (182922000 ps) Waiting SPI command return end for 36000 ps
+# ** Note   : (182940000 ps) Check command return: PASS
+# ** Note   : (182940000 ps)  * Read C000_BFFF, expected value C000_BFFF (Status, mode Read, data BFFF)
+# ** Note   : (192930000 ps) Waiting SPI command end for 9990000 ps
+# ** Note   : (192930000 ps) Configure SPI command to 44 bits size
+# ** Note   : (192930000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (193002000 ps) Waiting SPI command return end for 36000 ps
+# ** Note   : (193020000 ps) Check command return: PASS
+# ** Note   : (193020000 ps)  * Read C000_BFFF, expected value C000_BFFF (Status, mode Read, data BFFF)
+# ** Note   : (203244000 ps) Waiting SPI command end for 10224000 ps
+# ** Note   : (203244000 ps) Configure SPI command to 45 bits size
+# ** Note   : (203244000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (203316000 ps) Waiting SPI command return end for 36000 ps
+# ** Note   : (203334000 ps) Check command return: PASS
+# ** Note   : (203334000 ps)  * Read C000_BFFF, expected value C000_BFFF (Status, mode Read, data BFFF)
+# ** Note   : (213792000 ps) Waiting SPI command end for 10458000 ps
+# ** Note   : (213792000 ps) Configure SPI command to 46 bits size
+# ** Note   : (213792000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (213864000 ps) Waiting SPI command return end for 36000 ps
+# ** Note   : (213882000 ps) Check command return: PASS
+# ** Note   : (213882000 ps)  * Read C000_BFFF, expected value C000_BFFF (Status, mode Read, data BFFF)
+# ** Note   : (224574000 ps) Waiting SPI command end for 10692000 ps
+# ** Note   : (224574000 ps) Configure SPI command to 47 bits size
+# ** Note   : (224574000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (224646000 ps) Waiting SPI command return end for 36000 ps
+# ** Note   : (224664000 ps) Check command return: PASS
+# ** Note   : (224664000 ps)  * Read C000_BFFF, expected value C000_BFFF (Status, mode Read, data BFFF)
+# ** Note   : (235590000 ps) Waiting SPI command end for 10926000 ps
+# ** Note   : (235590000 ps) Configure SPI command to 48 bits size
+# ** Note   : (235590000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (235662000 ps) Waiting SPI command return end for 36000 ps
+# ** Note   : (235680000 ps) Check command return: PASS
+# ** Note   : (235680000 ps)  * Read C000_BFFF, expected value C000_BFFF (Status, mode Read, data BFFF)
+# ** Note   : (246840000 ps) Waiting SPI command end for 11160000 ps
+# ** Note   : (246840000 ps) Configure SPI command to 49 bits size
+# ** Note   : (246840000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (246912000 ps) Waiting SPI command return end for 36000 ps
+# ** Note   : (246930000 ps) Check command return: PASS
+# ** Note   : (246930000 ps)  * Read C000_BFFF, expected value C000_BFFF (Status, mode Read, data BFFF)
+# ** Note   : (258324000 ps) Waiting SPI command end for 11394000 ps
+# ** Note   : (258324000 ps) Configure SPI command to 50 bits size
+# ** Note   : (258324000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (258396000 ps) Waiting SPI command return end for 36000 ps
+# ** Note   : (258414000 ps) Check command return: PASS
+# ** Note   : (258414000 ps)  * Read C000_BFFF, expected value C000_BFFF (Status, mode Read, data BFFF)
+# ** Note   : (270042000 ps) Waiting SPI command end for 11628000 ps
+# ** Note   : (270042000 ps) Configure SPI command to 51 bits size
+# ** Note   : (270042000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (270114000 ps) Waiting SPI command return end for 36000 ps
+# ** Note   : (270132000 ps) Check command return: PASS
+# ** Note   : (270132000 ps)  * Read C000_BFFF, expected value C000_BFFF (Status, mode Read, data BFFF)
+# ** Note   : (281994000 ps) Waiting SPI command end for 11862000 ps
+# ** Note   : (281994000 ps) Configure SPI command to 52 bits size
+# ** Note   : (281994000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (282066000 ps) Waiting SPI command return end for 36000 ps
+# ** Note   : (282084000 ps) Check command return: PASS
+# ** Note   : (282084000 ps)  * Read C000_BFFF, expected value C000_BFFF (Status, mode Read, data BFFF)
+# ** Note   : (294180000 ps) Waiting SPI command end for 12096000 ps
+# ** Note   : (294180000 ps) Configure SPI command to 53 bits size
+# ** Note   : (294180000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (294252000 ps) Waiting SPI command return end for 36000 ps
+# ** Note   : (294270000 ps) Check command return: PASS
+# ** Note   : (294270000 ps)  * Read C000_BFFF, expected value C000_BFFF (Status, mode Read, data BFFF)
+# ** Note   : (306600000 ps) Waiting SPI command end for 12330000 ps
+# ** Note   : (306600000 ps) Configure SPI command to 54 bits size
+# ** Note   : (306600000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (306672000 ps) Waiting SPI command return end for 36000 ps
+# ** Note   : (306690000 ps) Check command return: PASS
+# ** Note   : (306690000 ps)  * Read C000_BFFF, expected value C000_BFFF (Status, mode Read, data BFFF)
+# ** Note   : (319254000 ps) Waiting SPI command end for 12564000 ps
+# ** Note   : (319254000 ps) Configure SPI command to 55 bits size
+# ** Note   : (319254000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (319326000 ps) Waiting SPI command return end for 36000 ps
+# ** Note   : (319344000 ps) Check command return: PASS
+# ** Note   : (319344000 ps)  * Read C000_BFFF, expected value C000_BFFF (Status, mode Read, data BFFF)
+# ** Note   : (332142000 ps) Waiting SPI command end for 12798000 ps
+# ** Note   : (332142000 ps) Configure SPI command to 56 bits size
+# ** Note   : (332142000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (332214000 ps) Waiting SPI command return end for 36000 ps
+# ** Note   : (332232000 ps) Check command return: PASS
+# ** Note   : (332232000 ps)  * Read C000_BFFF, expected value C000_BFFF (Status, mode Read, data BFFF)
+# ** Note   : (345264000 ps) Waiting SPI command end for 13032000 ps
+# ** Note   : (345264000 ps) Configure SPI command to 57 bits size
+# ** Note   : (345264000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (345336000 ps) Waiting SPI command return end for 36000 ps
+# ** Note   : (345354000 ps) Check command return: PASS
+# ** Note   : (345354000 ps)  * Read C000_BFFF, expected value C000_BFFF (Status, mode Read, data BFFF)
+# ** Note   : (358620000 ps) Waiting SPI command end for 13266000 ps
+# ** Note   : (358620000 ps) Configure SPI command to 58 bits size
+# ** Note   : (358620000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (358692000 ps) Waiting SPI command return end for 36000 ps
+# ** Note   : (358710000 ps) Check command return: PASS
+# ** Note   : (358710000 ps)  * Read C000_BFFF, expected value C000_BFFF (Status, mode Read, data BFFF)
+# ** Note   : (372210000 ps) Waiting SPI command end for 13500000 ps
+# ** Note   : (372210000 ps) Configure SPI command to 59 bits size
+# ** Note   : (372210000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (372282000 ps) Waiting SPI command return end for 36000 ps
+# ** Note   : (372300000 ps) Check command return: PASS
+# ** Note   : (372300000 ps)  * Read C000_BFFF, expected value C000_BFFF (Status, mode Read, data BFFF)
+# ** Note   : (386034000 ps) Waiting SPI command end for 13734000 ps
+# ** Note   : (386034000 ps) Configure SPI command to 60 bits size
+# ** Note   : (386034000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (386106000 ps) Waiting SPI command return end for 36000 ps
+# ** Note   : (386124000 ps) Check command return: PASS
+# ** Note   : (386124000 ps)  * Read C000_BFFF, expected value C000_BFFF (Status, mode Read, data BFFF)
+# ** Note   : (400092000 ps) Waiting SPI command end for 13968000 ps
+# ** Note   : (400092000 ps) Configure SPI command to 61 bits size
+# ** Note   : (400092000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (400164000 ps) Waiting SPI command return end for 36000 ps
+# ** Note   : (400182000 ps) Check command return: PASS
+# ** Note   : (400182000 ps)  * Read C000_BFFF, expected value C000_BFFF (Status, mode Read, data BFFF)
+# ** Note   : (414384000 ps) Waiting SPI command end for 14202000 ps
+# ** Note   : (414384000 ps) Configure SPI command to 62 bits size
+# ** Note   : (414384000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (414456000 ps) Waiting SPI command return end for 36000 ps
+# ** Note   : (414474000 ps) Check command return: PASS
+# ** Note   : (414474000 ps)  * Read C000_BFFF, expected value C000_BFFF (Status, mode Read, data BFFF)
+# ** Note   : (428910000 ps) Waiting SPI command end for 14436000 ps
+# ** Note   : (428910000 ps) Configure SPI command to 63 bits size
+# ** Note   : (428910000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (428982000 ps) Waiting SPI command return end for 36000 ps
+# ** Note   : (429000000 ps) Check command return: PASS
+# ** Note   : (429000000 ps)  * Read C000_BFFF, expected value C000_BFFF (Status, mode Read, data BFFF)
+# ** Note   : (443670000 ps) Waiting SPI command end for 14670000 ps
+# ** Note   : (443670000 ps) Configure SPI command to 32 bits size
+# ** Note   : (443670000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (443742000 ps) Waiting SPI command return end for 36000 ps
+# ** Note   : (443760000 ps) Check command return: PASS
+# ** Note   : (443760000 ps)  * Read C000_BFFF, expected value C000_BFFF (Status, mode Read, data BFFF)
+# ** Note   : (451176000 ps) Waiting SPI command end for 7416000 ps
+# ** Note   : (451176000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (451248000 ps) Waiting SPI command return end for 36000 ps
+# ** Note   : (451266000 ps) Check command return: PASS
+# ** Note   : (451266000 ps)  * Read C000_BFFF, expected value C000_BFFF (Status, mode Read, data BFFF)
+# ** Note   : (458682000 ps) Waiting SPI command end for 7416000 ps
+# ** Note   : (458682000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (458754000 ps) Waiting SPI command return end for 36000 ps
+# ** Note   : (458772000 ps) Check command return: PASS
+# ** Note   : (458772000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
 # ------------------------------------------------------------------------------------------------------------------------------------------------------
 # Error simulation time         : '0'
 # Error check discrete level    : '0'

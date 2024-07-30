@@ -19,292 +19,292 @@
 #             (80000 ps) ==============================================================================================
 #             (80000 ps)   Wait internal reset deactivated
 #             (80000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (6995496 ps) Waiting event rst = '0' for 6915496 ps
-#             (6995496 ps) 
-#             (6995496 ps) ==============================================================================================
-#             (6995496 ps)   Start C0_RELOCK_THRESHOLD register test
-#             (6995496 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (6995496 ps) Send SPI command value 1202_XXXX (C0_RELOCK_THRESHOLD, mode Read, data XXXX)
-# ** Note   : (14496000 ps) Waiting SPI command end for 7464504 ps
-# ** Note   : (14496000 ps) Send SPI command value 1203_5555 (C0_RELOCK_THRESHOLD, mode Write, data 5555)
-# ** Note   : (22002000 ps) Waiting SPI command end for 7470000 ps
-# ** Note   : (22002000 ps) Send SPI command value 1202_XXXX (C0_RELOCK_THRESHOLD, mode Read, data XXXX)
-# ** Note   : (22074000 ps) Waiting SPI command return end for 36000 ps
-#             (22074000 ps) 
-#             (22074000 ps) ==============================================================================================
-#             (22074000 ps)   Check C0_RELOCK_THRESHOLD content at start
-#             (22074000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (22092000 ps) Check command return: PASS
-# ** Note   : (22092000 ps)  * Read 1202_FFFF, expected value 1202_FFFF (C0_RELOCK_THRESHOLD, mode Read, data FFFF)
-# ** Note   : (29508000 ps) Waiting SPI command end for 7416000 ps
-# ** Note   : (29508000 ps) Send SPI command value 1203_AAAA (C0_RELOCK_THRESHOLD, mode Write, data AAAA)
-# ** Note   : (29580000 ps) Waiting SPI command return end for 36000 ps
-#             (29580000 ps) 
-#             (29580000 ps) ==============================================================================================
-#             (29580000 ps)   Check no error
-#             (29580000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (29598000 ps) Check command return: PASS
-# ** Note   : (29598000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
-# ** Note   : (37014000 ps) Waiting SPI command end for 7416000 ps
-# ** Note   : (37014000 ps) Send SPI command value 1202_XXXX (C0_RELOCK_THRESHOLD, mode Read, data XXXX)
-# ** Note   : (37086000 ps) Waiting SPI command return end for 36000 ps
-#             (37086000 ps) 
-#             (37086000 ps) ==============================================================================================
-#             (37086000 ps)   Check C0_RELOCK_THRESHOLD content
-#             (37086000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (37104000 ps) Check command return: PASS
-# ** Note   : (37104000 ps)  * Read 1202_5555, expected value 1202_5555 (C0_RELOCK_THRESHOLD, mode Read, data 5555)
-# ** Note   : (44520000 ps) Waiting SPI command end for 7416000 ps
-# ** Note   : (44520000 ps) Send SPI command value 1203_0000 (C0_RELOCK_THRESHOLD, mode Write, data 0000)
-# ** Note   : (44592000 ps) Waiting SPI command return end for 36000 ps
-#             (44592000 ps) 
-#             (44592000 ps) ==============================================================================================
-#             (44592000 ps)   Check no error
-#             (44592000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (44610000 ps) Check command return: PASS
-# ** Note   : (44610000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
-# ** Note   : (52026000 ps) Waiting SPI command end for 7416000 ps
-# ** Note   : (52026000 ps) Send SPI command value 1202_XXXX (C0_RELOCK_THRESHOLD, mode Read, data XXXX)
-# ** Note   : (52098000 ps) Waiting SPI command return end for 36000 ps
-#             (52098000 ps) 
-#             (52098000 ps) ==============================================================================================
-#             (52098000 ps)   Check C0_RELOCK_THRESHOLD content
-#             (52098000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (52116000 ps) Check command return: PASS
-# ** Note   : (52116000 ps)  * Read 1202_AAAA, expected value 1202_AAAA (C0_RELOCK_THRESHOLD, mode Read, data AAAA)
-# ** Note   : (59532000 ps) Waiting SPI command end for 7416000 ps
-# ** Note   : (59532000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
-# ** Note   : (59604000 ps) Waiting SPI command return end for 36000 ps
-#             (59604000 ps) 
-#             (59604000 ps) ==============================================================================================
-#             (59604000 ps)   Check no error
-#             (59604000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (59622000 ps) Check command return: PASS
-# ** Note   : (59622000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
-# ** Note   : (67038000 ps) Waiting SPI command end for 7416000 ps
-# ** Note   : (67038000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
-# ** Note   : (67110000 ps) Waiting SPI command return end for 36000 ps
-#             (67110000 ps) 
-#             (67110000 ps) ==============================================================================================
-#             (67110000 ps)   Check C0_RELOCK_THRESHOLD content
-#             (67110000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (67128000 ps) Check command return: PASS
-# ** Note   : (67128000 ps)  * Read 1202_0000, expected value 1202_0000 (C0_RELOCK_THRESHOLD, mode Read, data 0000)
-# ** Note   : (74544000 ps) Waiting SPI command end for 7416000 ps
-#             (74544000 ps) 
-#             (74544000 ps) ==============================================================================================
-#             (74544000 ps)   Start C1_RELOCK_THRESHOLD register test
-#             (74544000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (74544000 ps) Send SPI command value 3202_XXXX (C1_RELOCK_THRESHOLD, mode Read, data XXXX)
-# ** Note   : (82050000 ps) Waiting SPI command end for 7470000 ps
-# ** Note   : (82050000 ps) Send SPI command value 3203_5555 (C1_RELOCK_THRESHOLD, mode Write, data 5555)
-# ** Note   : (89556000 ps) Waiting SPI command end for 7470000 ps
-# ** Note   : (89556000 ps) Send SPI command value 3202_XXXX (C1_RELOCK_THRESHOLD, mode Read, data XXXX)
-# ** Note   : (89628000 ps) Waiting SPI command return end for 36000 ps
-#             (89628000 ps) 
-#             (89628000 ps) ==============================================================================================
-#             (89628000 ps)   Check C1_RELOCK_THRESHOLD content at start
-#             (89628000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (89646000 ps) Check command return: PASS
-# ** Note   : (89646000 ps)  * Read 3202_FFFF, expected value 3202_FFFF (C1_RELOCK_THRESHOLD, mode Read, data FFFF)
-# ** Note   : (97062000 ps) Waiting SPI command end for 7416000 ps
-# ** Note   : (97062000 ps) Send SPI command value 3203_AAAA (C1_RELOCK_THRESHOLD, mode Write, data AAAA)
-# ** Note   : (97134000 ps) Waiting SPI command return end for 36000 ps
-#             (97134000 ps) 
-#             (97134000 ps) ==============================================================================================
-#             (97134000 ps)   Check no error
-#             (97134000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (97152000 ps) Check command return: PASS
-# ** Note   : (97152000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
-# ** Note   : (104568000 ps) Waiting SPI command end for 7416000 ps
-# ** Note   : (104568000 ps) Send SPI command value 3202_XXXX (C1_RELOCK_THRESHOLD, mode Read, data XXXX)
-# ** Note   : (104640000 ps) Waiting SPI command return end for 36000 ps
-#             (104640000 ps) 
-#             (104640000 ps) ==============================================================================================
-#             (104640000 ps)   Check C1_RELOCK_THRESHOLD content
-#             (104640000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (104658000 ps) Check command return: PASS
-# ** Note   : (104658000 ps)  * Read 3202_5555, expected value 3202_5555 (C1_RELOCK_THRESHOLD, mode Read, data 5555)
-# ** Note   : (112074000 ps) Waiting SPI command end for 7416000 ps
-# ** Note   : (112074000 ps) Send SPI command value 3203_0000 (C1_RELOCK_THRESHOLD, mode Write, data 0000)
-# ** Note   : (112146000 ps) Waiting SPI command return end for 36000 ps
-#             (112146000 ps) 
-#             (112146000 ps) ==============================================================================================
-#             (112146000 ps)   Check no error
-#             (112146000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (112164000 ps) Check command return: PASS
-# ** Note   : (112164000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
-# ** Note   : (119580000 ps) Waiting SPI command end for 7416000 ps
-# ** Note   : (119580000 ps) Send SPI command value 3202_XXXX (C1_RELOCK_THRESHOLD, mode Read, data XXXX)
-# ** Note   : (119652000 ps) Waiting SPI command return end for 36000 ps
-#             (119652000 ps) 
-#             (119652000 ps) ==============================================================================================
-#             (119652000 ps)   Check C1_RELOCK_THRESHOLD content
-#             (119652000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (119670000 ps) Check command return: PASS
-# ** Note   : (119670000 ps)  * Read 3202_AAAA, expected value 3202_AAAA (C1_RELOCK_THRESHOLD, mode Read, data AAAA)
-# ** Note   : (127086000 ps) Waiting SPI command end for 7416000 ps
-# ** Note   : (127086000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
-# ** Note   : (127158000 ps) Waiting SPI command return end for 36000 ps
-#             (127158000 ps) 
-#             (127158000 ps) ==============================================================================================
-#             (127158000 ps)   Check no error
-#             (127158000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (127176000 ps) Check command return: PASS
-# ** Note   : (127176000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
-# ** Note   : (134592000 ps) Waiting SPI command end for 7416000 ps
-# ** Note   : (134592000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
-# ** Note   : (134664000 ps) Waiting SPI command return end for 36000 ps
-#             (134664000 ps) 
-#             (134664000 ps) ==============================================================================================
-#             (134664000 ps)   Check C1_RELOCK_THRESHOLD content
-#             (134664000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (134682000 ps) Check command return: PASS
-# ** Note   : (134682000 ps)  * Read 3202_0000, expected value 3202_0000 (C1_RELOCK_THRESHOLD, mode Read, data 0000)
-# ** Note   : (142098000 ps) Waiting SPI command end for 7416000 ps
-#             (142098000 ps) 
-#             (142098000 ps) 
-#             (142098000 ps) ==============================================================================================
-#             (142098000 ps)   Start C2_RELOCK_THRESHOLD register test
-#             (142098000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (142098000 ps) Send SPI command value 5202_XXXX (C2_RELOCK_THRESHOLD, mode Read, data XXXX)
-# ** Note   : (149604000 ps) Waiting SPI command end for 7470000 ps
-# ** Note   : (149604000 ps) Send SPI command value 5203_5555 (C2_RELOCK_THRESHOLD, mode Write, data 5555)
-# ** Note   : (157110000 ps) Waiting SPI command end for 7470000 ps
-# ** Note   : (157110000 ps) Send SPI command value 5202_XXXX (C2_RELOCK_THRESHOLD, mode Read, data XXXX)
-# ** Note   : (157182000 ps) Waiting SPI command return end for 36000 ps
-#             (157182000 ps) 
-#             (157182000 ps) ==============================================================================================
-#             (157182000 ps)   Check C2_RELOCK_THRESHOLD content at start
-#             (157182000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (157200000 ps) Check command return: PASS
-# ** Note   : (157200000 ps)  * Read 5202_FFFF, expected value 5202_FFFF (C2_RELOCK_THRESHOLD, mode Read, data FFFF)
-# ** Note   : (164616000 ps) Waiting SPI command end for 7416000 ps
-# ** Note   : (164616000 ps) Send SPI command value 5203_AAAA (C2_RELOCK_THRESHOLD, mode Write, data AAAA)
-# ** Note   : (164688000 ps) Waiting SPI command return end for 36000 ps
-#             (164688000 ps) 
-#             (164688000 ps) ==============================================================================================
-#             (164688000 ps)   Check no error
-#             (164688000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (164706000 ps) Check command return: PASS
-# ** Note   : (164706000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
-# ** Note   : (172122000 ps) Waiting SPI command end for 7416000 ps
-# ** Note   : (172122000 ps) Send SPI command value 5202_XXXX (C2_RELOCK_THRESHOLD, mode Read, data XXXX)
-# ** Note   : (172194000 ps) Waiting SPI command return end for 36000 ps
-#             (172194000 ps) 
-#             (172194000 ps) ==============================================================================================
-#             (172194000 ps)   Check C2_RELOCK_THRESHOLD content
-#             (172194000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (172212000 ps) Check command return: PASS
-# ** Note   : (172212000 ps)  * Read 5202_5555, expected value 5202_5555 (C2_RELOCK_THRESHOLD, mode Read, data 5555)
-# ** Note   : (179628000 ps) Waiting SPI command end for 7416000 ps
-# ** Note   : (179628000 ps) Send SPI command value 5203_0000 (C2_RELOCK_THRESHOLD, mode Write, data 0000)
-# ** Note   : (179700000 ps) Waiting SPI command return end for 36000 ps
-#             (179700000 ps) 
-#             (179700000 ps) ==============================================================================================
-#             (179700000 ps)   Check no error
-#             (179700000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (179718000 ps) Check command return: PASS
-# ** Note   : (179718000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
-# ** Note   : (187134000 ps) Waiting SPI command end for 7416000 ps
-# ** Note   : (187134000 ps) Send SPI command value 5202_XXXX (C2_RELOCK_THRESHOLD, mode Read, data XXXX)
-# ** Note   : (187206000 ps) Waiting SPI command return end for 36000 ps
-#             (187206000 ps) 
-#             (187206000 ps) ==============================================================================================
-#             (187206000 ps)   Check C2_RELOCK_THRESHOLD content
-#             (187206000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (187224000 ps) Check command return: PASS
-# ** Note   : (187224000 ps)  * Read 5202_AAAA, expected value 5202_AAAA (C2_RELOCK_THRESHOLD, mode Read, data AAAA)
-# ** Note   : (194640000 ps) Waiting SPI command end for 7416000 ps
-# ** Note   : (194640000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
-# ** Note   : (194712000 ps) Waiting SPI command return end for 36000 ps
-#             (194712000 ps) 
-#             (194712000 ps) ==============================================================================================
-#             (194712000 ps)   Check no error
-#             (194712000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (194730000 ps) Check command return: PASS
-# ** Note   : (194730000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
-# ** Note   : (202146000 ps) Waiting SPI command end for 7416000 ps
-# ** Note   : (202146000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
-# ** Note   : (202218000 ps) Waiting SPI command return end for 36000 ps
-#             (202218000 ps) 
-#             (202218000 ps) ==============================================================================================
-#             (202218000 ps)   Check C2_RELOCK_THRESHOLD content
-#             (202218000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (202236000 ps) Check command return: PASS
-# ** Note   : (202236000 ps)  * Read 5202_0000, expected value 5202_0000 (C2_RELOCK_THRESHOLD, mode Read, data 0000)
-# ** Note   : (209652000 ps) Waiting SPI command end for 7416000 ps
-#             (209652000 ps) 
-#             (209652000 ps) ==============================================================================================
-#             (209652000 ps)   Start C3_RELOCK_THRESHOLD register test
-#             (209652000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (209652000 ps) Send SPI command value 7202_XXXX (C3_RELOCK_THRESHOLD, mode Read, data XXXX)
-# ** Note   : (217158000 ps) Waiting SPI command end for 7470000 ps
-# ** Note   : (217158000 ps) Send SPI command value 7203_5555 (C3_RELOCK_THRESHOLD, mode Write, data 5555)
-# ** Note   : (224664000 ps) Waiting SPI command end for 7470000 ps
-# ** Note   : (224664000 ps) Send SPI command value 7202_XXXX (C3_RELOCK_THRESHOLD, mode Read, data XXXX)
-# ** Note   : (224736000 ps) Waiting SPI command return end for 36000 ps
-#             (224736000 ps) 
-#             (224736000 ps) ==============================================================================================
-#             (224736000 ps)   Check C3_RELOCK_THRESHOLD content at start
-#             (224736000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (224754000 ps) Check command return: PASS
-# ** Note   : (224754000 ps)  * Read 7202_FFFF, expected value 7202_FFFF (C3_RELOCK_THRESHOLD, mode Read, data FFFF)
-# ** Note   : (232170000 ps) Waiting SPI command end for 7416000 ps
-# ** Note   : (232170000 ps) Send SPI command value 7203_AAAA (C3_RELOCK_THRESHOLD, mode Write, data AAAA)
-# ** Note   : (232242000 ps) Waiting SPI command return end for 36000 ps
-#             (232242000 ps) 
-#             (232242000 ps) ==============================================================================================
-#             (232242000 ps)   Check no error
-#             (232242000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (232260000 ps) Check command return: PASS
-# ** Note   : (232260000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
-# ** Note   : (239676000 ps) Waiting SPI command end for 7416000 ps
-# ** Note   : (239676000 ps) Send SPI command value 7202_XXXX (C3_RELOCK_THRESHOLD, mode Read, data XXXX)
-# ** Note   : (239748000 ps) Waiting SPI command return end for 36000 ps
-#             (239748000 ps) 
-#             (239748000 ps) ==============================================================================================
-#             (239748000 ps)   Check C3_RELOCK_THRESHOLD content
-#             (239748000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (239766000 ps) Check command return: PASS
-# ** Note   : (239766000 ps)  * Read 7202_5555, expected value 7202_5555 (C3_RELOCK_THRESHOLD, mode Read, data 5555)
-# ** Note   : (247182000 ps) Waiting SPI command end for 7416000 ps
-# ** Note   : (247182000 ps) Send SPI command value 7203_0000 (C3_RELOCK_THRESHOLD, mode Write, data 0000)
-# ** Note   : (247254000 ps) Waiting SPI command return end for 36000 ps
-#             (247254000 ps) 
-#             (247254000 ps) ==============================================================================================
-#             (247254000 ps)   Check no error
-#             (247254000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (247272000 ps) Check command return: PASS
-# ** Note   : (247272000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
-# ** Note   : (254688000 ps) Waiting SPI command end for 7416000 ps
-# ** Note   : (254688000 ps) Send SPI command value 7202_XXXX (C3_RELOCK_THRESHOLD, mode Read, data XXXX)
-# ** Note   : (254760000 ps) Waiting SPI command return end for 36000 ps
-#             (254760000 ps) 
-#             (254760000 ps) ==============================================================================================
-#             (254760000 ps)   Check C3_RELOCK_THRESHOLD content
-#             (254760000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (254778000 ps) Check command return: PASS
-# ** Note   : (254778000 ps)  * Read 7202_AAAA, expected value 7202_AAAA (C3_RELOCK_THRESHOLD, mode Read, data AAAA)
-# ** Note   : (262194000 ps) Waiting SPI command end for 7416000 ps
-# ** Note   : (262194000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
-# ** Note   : (262266000 ps) Waiting SPI command return end for 36000 ps
-#             (262266000 ps) 
-#             (262266000 ps) ==============================================================================================
-#             (262266000 ps)   Check no error
-#             (262266000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (262284000 ps) Check command return: PASS
-# ** Note   : (262284000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
-# ** Note   : (269700000 ps) Waiting SPI command end for 7416000 ps
-# ** Note   : (269700000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
-# ** Note   : (269772000 ps) Waiting SPI command return end for 36000 ps
-#             (269772000 ps) 
-#             (269772000 ps) ==============================================================================================
-#             (269772000 ps)   Check C3_RELOCK_THRESHOLD content
-#             (269772000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (269790000 ps) Check command return: PASS
-# ** Note   : (269790000 ps)  * Read 7202_0000, expected value 7202_0000 (C3_RELOCK_THRESHOLD, mode Read, data 0000)
-# ** Note   : (277206000 ps) Waiting SPI command end for 7416000 ps
+# ** Note   : (6915456 ps) Waiting event rst = '0' for 6835456 ps
+#             (6915456 ps) 
+#             (6915456 ps) ==============================================================================================
+#             (6915456 ps)   Start C0_RELOCK_THRESHOLD register test
+#             (6915456 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (6915456 ps) Send SPI command value 1202_XXXX (C0_RELOCK_THRESHOLD, mode Read, data XXXX)
+# ** Note   : (14406000 ps) Waiting SPI command end for 7454544 ps
+# ** Note   : (14406000 ps) Send SPI command value 1203_5555 (C0_RELOCK_THRESHOLD, mode Write, data 5555)
+# ** Note   : (21912000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (21912000 ps) Send SPI command value 1202_XXXX (C0_RELOCK_THRESHOLD, mode Read, data XXXX)
+# ** Note   : (21984000 ps) Waiting SPI command return end for 36000 ps
+#             (21984000 ps) 
+#             (21984000 ps) ==============================================================================================
+#             (21984000 ps)   Check C0_RELOCK_THRESHOLD content at start
+#             (21984000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (22002000 ps) Check command return: PASS
+# ** Note   : (22002000 ps)  * Read 1202_FFFF, expected value 1202_FFFF (C0_RELOCK_THRESHOLD, mode Read, data FFFF)
+# ** Note   : (29418000 ps) Waiting SPI command end for 7416000 ps
+# ** Note   : (29418000 ps) Send SPI command value 1203_AAAA (C0_RELOCK_THRESHOLD, mode Write, data AAAA)
+# ** Note   : (29490000 ps) Waiting SPI command return end for 36000 ps
+#             (29490000 ps) 
+#             (29490000 ps) ==============================================================================================
+#             (29490000 ps)   Check no error
+#             (29490000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (29508000 ps) Check command return: PASS
+# ** Note   : (29508000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
+# ** Note   : (36924000 ps) Waiting SPI command end for 7416000 ps
+# ** Note   : (36924000 ps) Send SPI command value 1202_XXXX (C0_RELOCK_THRESHOLD, mode Read, data XXXX)
+# ** Note   : (36996000 ps) Waiting SPI command return end for 36000 ps
+#             (36996000 ps) 
+#             (36996000 ps) ==============================================================================================
+#             (36996000 ps)   Check C0_RELOCK_THRESHOLD content
+#             (36996000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (37014000 ps) Check command return: PASS
+# ** Note   : (37014000 ps)  * Read 1202_5555, expected value 1202_5555 (C0_RELOCK_THRESHOLD, mode Read, data 5555)
+# ** Note   : (44430000 ps) Waiting SPI command end for 7416000 ps
+# ** Note   : (44430000 ps) Send SPI command value 1203_0000 (C0_RELOCK_THRESHOLD, mode Write, data 0000)
+# ** Note   : (44502000 ps) Waiting SPI command return end for 36000 ps
+#             (44502000 ps) 
+#             (44502000 ps) ==============================================================================================
+#             (44502000 ps)   Check no error
+#             (44502000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (44520000 ps) Check command return: PASS
+# ** Note   : (44520000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
+# ** Note   : (51936000 ps) Waiting SPI command end for 7416000 ps
+# ** Note   : (51936000 ps) Send SPI command value 1202_XXXX (C0_RELOCK_THRESHOLD, mode Read, data XXXX)
+# ** Note   : (52008000 ps) Waiting SPI command return end for 36000 ps
+#             (52008000 ps) 
+#             (52008000 ps) ==============================================================================================
+#             (52008000 ps)   Check C0_RELOCK_THRESHOLD content
+#             (52008000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (52026000 ps) Check command return: PASS
+# ** Note   : (52026000 ps)  * Read 1202_AAAA, expected value 1202_AAAA (C0_RELOCK_THRESHOLD, mode Read, data AAAA)
+# ** Note   : (59442000 ps) Waiting SPI command end for 7416000 ps
+# ** Note   : (59442000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (59514000 ps) Waiting SPI command return end for 36000 ps
+#             (59514000 ps) 
+#             (59514000 ps) ==============================================================================================
+#             (59514000 ps)   Check no error
+#             (59514000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (59532000 ps) Check command return: PASS
+# ** Note   : (59532000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
+# ** Note   : (66948000 ps) Waiting SPI command end for 7416000 ps
+# ** Note   : (66948000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (67020000 ps) Waiting SPI command return end for 36000 ps
+#             (67020000 ps) 
+#             (67020000 ps) ==============================================================================================
+#             (67020000 ps)   Check C0_RELOCK_THRESHOLD content
+#             (67020000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (67038000 ps) Check command return: PASS
+# ** Note   : (67038000 ps)  * Read 1202_0000, expected value 1202_0000 (C0_RELOCK_THRESHOLD, mode Read, data 0000)
+# ** Note   : (74454000 ps) Waiting SPI command end for 7416000 ps
+#             (74454000 ps) 
+#             (74454000 ps) ==============================================================================================
+#             (74454000 ps)   Start C1_RELOCK_THRESHOLD register test
+#             (74454000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (74454000 ps) Send SPI command value 3202_XXXX (C1_RELOCK_THRESHOLD, mode Read, data XXXX)
+# ** Note   : (81960000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (81960000 ps) Send SPI command value 3203_5555 (C1_RELOCK_THRESHOLD, mode Write, data 5555)
+# ** Note   : (89466000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (89466000 ps) Send SPI command value 3202_XXXX (C1_RELOCK_THRESHOLD, mode Read, data XXXX)
+# ** Note   : (89538000 ps) Waiting SPI command return end for 36000 ps
+#             (89538000 ps) 
+#             (89538000 ps) ==============================================================================================
+#             (89538000 ps)   Check C1_RELOCK_THRESHOLD content at start
+#             (89538000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (89556000 ps) Check command return: PASS
+# ** Note   : (89556000 ps)  * Read 3202_FFFF, expected value 3202_FFFF (C1_RELOCK_THRESHOLD, mode Read, data FFFF)
+# ** Note   : (96972000 ps) Waiting SPI command end for 7416000 ps
+# ** Note   : (96972000 ps) Send SPI command value 3203_AAAA (C1_RELOCK_THRESHOLD, mode Write, data AAAA)
+# ** Note   : (97044000 ps) Waiting SPI command return end for 36000 ps
+#             (97044000 ps) 
+#             (97044000 ps) ==============================================================================================
+#             (97044000 ps)   Check no error
+#             (97044000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (97062000 ps) Check command return: PASS
+# ** Note   : (97062000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
+# ** Note   : (104478000 ps) Waiting SPI command end for 7416000 ps
+# ** Note   : (104478000 ps) Send SPI command value 3202_XXXX (C1_RELOCK_THRESHOLD, mode Read, data XXXX)
+# ** Note   : (104550000 ps) Waiting SPI command return end for 36000 ps
+#             (104550000 ps) 
+#             (104550000 ps) ==============================================================================================
+#             (104550000 ps)   Check C1_RELOCK_THRESHOLD content
+#             (104550000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (104568000 ps) Check command return: PASS
+# ** Note   : (104568000 ps)  * Read 3202_5555, expected value 3202_5555 (C1_RELOCK_THRESHOLD, mode Read, data 5555)
+# ** Note   : (111984000 ps) Waiting SPI command end for 7416000 ps
+# ** Note   : (111984000 ps) Send SPI command value 3203_0000 (C1_RELOCK_THRESHOLD, mode Write, data 0000)
+# ** Note   : (112056000 ps) Waiting SPI command return end for 36000 ps
+#             (112056000 ps) 
+#             (112056000 ps) ==============================================================================================
+#             (112056000 ps)   Check no error
+#             (112056000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (112074000 ps) Check command return: PASS
+# ** Note   : (112074000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
+# ** Note   : (119490000 ps) Waiting SPI command end for 7416000 ps
+# ** Note   : (119490000 ps) Send SPI command value 3202_XXXX (C1_RELOCK_THRESHOLD, mode Read, data XXXX)
+# ** Note   : (119562000 ps) Waiting SPI command return end for 36000 ps
+#             (119562000 ps) 
+#             (119562000 ps) ==============================================================================================
+#             (119562000 ps)   Check C1_RELOCK_THRESHOLD content
+#             (119562000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (119580000 ps) Check command return: PASS
+# ** Note   : (119580000 ps)  * Read 3202_AAAA, expected value 3202_AAAA (C1_RELOCK_THRESHOLD, mode Read, data AAAA)
+# ** Note   : (126996000 ps) Waiting SPI command end for 7416000 ps
+# ** Note   : (126996000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (127068000 ps) Waiting SPI command return end for 36000 ps
+#             (127068000 ps) 
+#             (127068000 ps) ==============================================================================================
+#             (127068000 ps)   Check no error
+#             (127068000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (127086000 ps) Check command return: PASS
+# ** Note   : (127086000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
+# ** Note   : (134502000 ps) Waiting SPI command end for 7416000 ps
+# ** Note   : (134502000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (134574000 ps) Waiting SPI command return end for 36000 ps
+#             (134574000 ps) 
+#             (134574000 ps) ==============================================================================================
+#             (134574000 ps)   Check C1_RELOCK_THRESHOLD content
+#             (134574000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (134592000 ps) Check command return: PASS
+# ** Note   : (134592000 ps)  * Read 3202_0000, expected value 3202_0000 (C1_RELOCK_THRESHOLD, mode Read, data 0000)
+# ** Note   : (142008000 ps) Waiting SPI command end for 7416000 ps
+#             (142008000 ps) 
+#             (142008000 ps) 
+#             (142008000 ps) ==============================================================================================
+#             (142008000 ps)   Start C2_RELOCK_THRESHOLD register test
+#             (142008000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (142008000 ps) Send SPI command value 5202_XXXX (C2_RELOCK_THRESHOLD, mode Read, data XXXX)
+# ** Note   : (149514000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (149514000 ps) Send SPI command value 5203_5555 (C2_RELOCK_THRESHOLD, mode Write, data 5555)
+# ** Note   : (157020000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (157020000 ps) Send SPI command value 5202_XXXX (C2_RELOCK_THRESHOLD, mode Read, data XXXX)
+# ** Note   : (157092000 ps) Waiting SPI command return end for 36000 ps
+#             (157092000 ps) 
+#             (157092000 ps) ==============================================================================================
+#             (157092000 ps)   Check C2_RELOCK_THRESHOLD content at start
+#             (157092000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (157110000 ps) Check command return: PASS
+# ** Note   : (157110000 ps)  * Read 5202_FFFF, expected value 5202_FFFF (C2_RELOCK_THRESHOLD, mode Read, data FFFF)
+# ** Note   : (164526000 ps) Waiting SPI command end for 7416000 ps
+# ** Note   : (164526000 ps) Send SPI command value 5203_AAAA (C2_RELOCK_THRESHOLD, mode Write, data AAAA)
+# ** Note   : (164598000 ps) Waiting SPI command return end for 36000 ps
+#             (164598000 ps) 
+#             (164598000 ps) ==============================================================================================
+#             (164598000 ps)   Check no error
+#             (164598000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (164616000 ps) Check command return: PASS
+# ** Note   : (164616000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
+# ** Note   : (172032000 ps) Waiting SPI command end for 7416000 ps
+# ** Note   : (172032000 ps) Send SPI command value 5202_XXXX (C2_RELOCK_THRESHOLD, mode Read, data XXXX)
+# ** Note   : (172104000 ps) Waiting SPI command return end for 36000 ps
+#             (172104000 ps) 
+#             (172104000 ps) ==============================================================================================
+#             (172104000 ps)   Check C2_RELOCK_THRESHOLD content
+#             (172104000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (172122000 ps) Check command return: PASS
+# ** Note   : (172122000 ps)  * Read 5202_5555, expected value 5202_5555 (C2_RELOCK_THRESHOLD, mode Read, data 5555)
+# ** Note   : (179538000 ps) Waiting SPI command end for 7416000 ps
+# ** Note   : (179538000 ps) Send SPI command value 5203_0000 (C2_RELOCK_THRESHOLD, mode Write, data 0000)
+# ** Note   : (179610000 ps) Waiting SPI command return end for 36000 ps
+#             (179610000 ps) 
+#             (179610000 ps) ==============================================================================================
+#             (179610000 ps)   Check no error
+#             (179610000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (179628000 ps) Check command return: PASS
+# ** Note   : (179628000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
+# ** Note   : (187044000 ps) Waiting SPI command end for 7416000 ps
+# ** Note   : (187044000 ps) Send SPI command value 5202_XXXX (C2_RELOCK_THRESHOLD, mode Read, data XXXX)
+# ** Note   : (187116000 ps) Waiting SPI command return end for 36000 ps
+#             (187116000 ps) 
+#             (187116000 ps) ==============================================================================================
+#             (187116000 ps)   Check C2_RELOCK_THRESHOLD content
+#             (187116000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (187134000 ps) Check command return: PASS
+# ** Note   : (187134000 ps)  * Read 5202_AAAA, expected value 5202_AAAA (C2_RELOCK_THRESHOLD, mode Read, data AAAA)
+# ** Note   : (194550000 ps) Waiting SPI command end for 7416000 ps
+# ** Note   : (194550000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (194622000 ps) Waiting SPI command return end for 36000 ps
+#             (194622000 ps) 
+#             (194622000 ps) ==============================================================================================
+#             (194622000 ps)   Check no error
+#             (194622000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (194640000 ps) Check command return: PASS
+# ** Note   : (194640000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
+# ** Note   : (202056000 ps) Waiting SPI command end for 7416000 ps
+# ** Note   : (202056000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (202128000 ps) Waiting SPI command return end for 36000 ps
+#             (202128000 ps) 
+#             (202128000 ps) ==============================================================================================
+#             (202128000 ps)   Check C2_RELOCK_THRESHOLD content
+#             (202128000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (202146000 ps) Check command return: PASS
+# ** Note   : (202146000 ps)  * Read 5202_0000, expected value 5202_0000 (C2_RELOCK_THRESHOLD, mode Read, data 0000)
+# ** Note   : (209562000 ps) Waiting SPI command end for 7416000 ps
+#             (209562000 ps) 
+#             (209562000 ps) ==============================================================================================
+#             (209562000 ps)   Start C3_RELOCK_THRESHOLD register test
+#             (209562000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (209562000 ps) Send SPI command value 7202_XXXX (C3_RELOCK_THRESHOLD, mode Read, data XXXX)
+# ** Note   : (217068000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (217068000 ps) Send SPI command value 7203_5555 (C3_RELOCK_THRESHOLD, mode Write, data 5555)
+# ** Note   : (224574000 ps) Waiting SPI command end for 7470000 ps
+# ** Note   : (224574000 ps) Send SPI command value 7202_XXXX (C3_RELOCK_THRESHOLD, mode Read, data XXXX)
+# ** Note   : (224646000 ps) Waiting SPI command return end for 36000 ps
+#             (224646000 ps) 
+#             (224646000 ps) ==============================================================================================
+#             (224646000 ps)   Check C3_RELOCK_THRESHOLD content at start
+#             (224646000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (224664000 ps) Check command return: PASS
+# ** Note   : (224664000 ps)  * Read 7202_FFFF, expected value 7202_FFFF (C3_RELOCK_THRESHOLD, mode Read, data FFFF)
+# ** Note   : (232080000 ps) Waiting SPI command end for 7416000 ps
+# ** Note   : (232080000 ps) Send SPI command value 7203_AAAA (C3_RELOCK_THRESHOLD, mode Write, data AAAA)
+# ** Note   : (232152000 ps) Waiting SPI command return end for 36000 ps
+#             (232152000 ps) 
+#             (232152000 ps) ==============================================================================================
+#             (232152000 ps)   Check no error
+#             (232152000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (232170000 ps) Check command return: PASS
+# ** Note   : (232170000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
+# ** Note   : (239586000 ps) Waiting SPI command end for 7416000 ps
+# ** Note   : (239586000 ps) Send SPI command value 7202_XXXX (C3_RELOCK_THRESHOLD, mode Read, data XXXX)
+# ** Note   : (239658000 ps) Waiting SPI command return end for 36000 ps
+#             (239658000 ps) 
+#             (239658000 ps) ==============================================================================================
+#             (239658000 ps)   Check C3_RELOCK_THRESHOLD content
+#             (239658000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (239676000 ps) Check command return: PASS
+# ** Note   : (239676000 ps)  * Read 7202_5555, expected value 7202_5555 (C3_RELOCK_THRESHOLD, mode Read, data 5555)
+# ** Note   : (247092000 ps) Waiting SPI command end for 7416000 ps
+# ** Note   : (247092000 ps) Send SPI command value 7203_0000 (C3_RELOCK_THRESHOLD, mode Write, data 0000)
+# ** Note   : (247164000 ps) Waiting SPI command return end for 36000 ps
+#             (247164000 ps) 
+#             (247164000 ps) ==============================================================================================
+#             (247164000 ps)   Check no error
+#             (247164000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (247182000 ps) Check command return: PASS
+# ** Note   : (247182000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
+# ** Note   : (254598000 ps) Waiting SPI command end for 7416000 ps
+# ** Note   : (254598000 ps) Send SPI command value 7202_XXXX (C3_RELOCK_THRESHOLD, mode Read, data XXXX)
+# ** Note   : (254670000 ps) Waiting SPI command return end for 36000 ps
+#             (254670000 ps) 
+#             (254670000 ps) ==============================================================================================
+#             (254670000 ps)   Check C3_RELOCK_THRESHOLD content
+#             (254670000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (254688000 ps) Check command return: PASS
+# ** Note   : (254688000 ps)  * Read 7202_AAAA, expected value 7202_AAAA (C3_RELOCK_THRESHOLD, mode Read, data AAAA)
+# ** Note   : (262104000 ps) Waiting SPI command end for 7416000 ps
+# ** Note   : (262104000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (262176000 ps) Waiting SPI command return end for 36000 ps
+#             (262176000 ps) 
+#             (262176000 ps) ==============================================================================================
+#             (262176000 ps)   Check no error
+#             (262176000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (262194000 ps) Check command return: PASS
+# ** Note   : (262194000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
+# ** Note   : (269610000 ps) Waiting SPI command end for 7416000 ps
+# ** Note   : (269610000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (269682000 ps) Waiting SPI command return end for 36000 ps
+#             (269682000 ps) 
+#             (269682000 ps) ==============================================================================================
+#             (269682000 ps)   Check C3_RELOCK_THRESHOLD content
+#             (269682000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (269700000 ps) Check command return: PASS
+# ** Note   : (269700000 ps)  * Read 7202_0000, expected value 7202_0000 (C3_RELOCK_THRESHOLD, mode Read, data 0000)
+# ** Note   : (277116000 ps) Waiting SPI command end for 7416000 ps
 # ------------------------------------------------------------------------------------------------------------------------------------------------------
 # Error simulation time         : '0'
 # Error check discrete level    : '0'
