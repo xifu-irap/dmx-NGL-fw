@@ -11,7 +11,6 @@ verific -vhdl ./src/common/multiplexer.vhd
 verific -vhdl ./src/common/resize_stall_msb.vhd
 verific -vhdl ./src/common/cmd_im_ck.vhd
 verific -vhdl ./src/common/mem_scrubbing.vhd
-verific -vhdl ./ip/nx/NG-LARGE/lowskew.vhd
 verific -vhdl ./ip/nx/NG-LARGE/dsp.vhd
 verific -vhdl ./ip/nx/NG-LARGE/pll.vhd
 verific -vhdl ./ip/nx/NG-LARGE/dmem_ecc.vhd
