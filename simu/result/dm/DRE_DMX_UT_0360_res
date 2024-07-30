@@ -19,168 +19,168 @@
 #             (80000 ps) ==============================================================================================
 #             (80000 ps)   Wait internal reset deactivated
 #             (80000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (6995496 ps) Waiting event rst = '0' for 6915496 ps
-#             (6995496 ps) 
-#             (6995496 ps) ==============================================================================================
-#             (6995496 ps)   Start TEST_PATTERN_ENABLE register test
-#             (6995496 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (6995496 ps) Send SPI command value 82A0_XXXX (TEST_PATTERN_ENABLE, mode Read, data XXXX)
-# ** Note   : (9312000 ps) Waiting SPI command end for 2280504 ps
-# ** Note   : (9312000 ps) Send SPI command value 82A1_8XXX (TEST_PATTERN_ENABLE, mode Write, data 8XXX)
-# ** Note   : (11634000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (11634000 ps) Send SPI command value 82A0_XXXX (TEST_PATTERN_ENABLE, mode Read, data XXXX)
-# ** Note   : (11706000 ps) Waiting SPI command return end for 36000 ps
-#             (11706000 ps) 
-#             (11706000 ps) ==============================================================================================
-#             (11706000 ps)   Check TEST_PATTERN_ENABLE content at start
-#             (11706000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (11724000 ps) Check command return: PASS
-# ** Note   : (11724000 ps)  * Read 82A0_0000, expected value 82A0_0000 (TEST_PATTERN_ENABLE, mode Read, data 0000)
-# ** Note   : (13956000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (13956000 ps) Send SPI command value 82A1_4XXX (TEST_PATTERN_ENABLE, mode Write, data 4XXX)
-# ** Note   : (14028000 ps) Waiting SPI command return end for 36000 ps
-#             (14028000 ps) 
-#             (14028000 ps) ==============================================================================================
-#             (14028000 ps)   Check error position SPI data out of range detected
-#             (14028000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (14046000 ps) Check command return: PASS
-# ** Note   : (14046000 ps)  * Read C000_EFFF, expected value C000_EFFF (Status, mode Read, data EFFF)
-# ** Note   : (16278000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (16278000 ps) Send SPI command value 82A0_XXXX (TEST_PATTERN_ENABLE, mode Read, data XXXX)
-# ** Note   : (16350000 ps) Waiting SPI command return end for 36000 ps
-#             (16350000 ps) 
-#             (16350000 ps) ==============================================================================================
-#             (16350000 ps)   Check TEST_PATTERN_ENABLE no change
-#             (16350000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (16368000 ps) Check command return: PASS
-# ** Note   : (16368000 ps)  * Read 82A0_0000, expected value 82A0_0000 (TEST_PATTERN_ENABLE, mode Read, data 0000)
-# ** Note   : (18600000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (18600000 ps) Send SPI command value 82A1_2XXX (TEST_PATTERN_ENABLE, mode Write, data 2XXX)
-# ** Note   : (18672000 ps) Waiting SPI command return end for 36000 ps
-#             (18672000 ps) 
-#             (18672000 ps) ==============================================================================================
-#             (18672000 ps)   Check error position SPI data out of range detected
-#             (18672000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (18690000 ps) Check command return: PASS
-# ** Note   : (18690000 ps)  * Read C000_EFFF, expected value C000_EFFF (Status, mode Read, data EFFF)
-# ** Note   : (20922000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (20922000 ps) Send SPI command value 82A0_XXXX (TEST_PATTERN_ENABLE, mode Read, data XXXX)
-# ** Note   : (20994000 ps) Waiting SPI command return end for 36000 ps
-#             (20994000 ps) 
-#             (20994000 ps) ==============================================================================================
-#             (20994000 ps)   Check TEST_PATTERN_ENABLE no change
-#             (20994000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (21012000 ps) Check command return: PASS
-# ** Note   : (21012000 ps)  * Read 82A0_0000, expected value 82A0_0000 (TEST_PATTERN_ENABLE, mode Read, data 0000)
-# ** Note   : (23244000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (23244000 ps) Send SPI command value 82A1_1XXX (TEST_PATTERN_ENABLE, mode Write, data 1XXX)
-# ** Note   : (23316000 ps) Waiting SPI command return end for 36000 ps
-#             (23316000 ps) 
-#             (23316000 ps) ==============================================================================================
-#             (23316000 ps)   Check error position SPI data out of range detected
-#             (23316000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (23334000 ps) Check command return: PASS
-# ** Note   : (23334000 ps)  * Read C000_EFFF, expected value C000_EFFF (Status, mode Read, data EFFF)
-# ** Note   : (25566000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (25566000 ps) Send SPI command value 82A0_XXXX (TEST_PATTERN_ENABLE, mode Read, data XXXX)
-# ** Note   : (25638000 ps) Waiting SPI command return end for 36000 ps
-#             (25638000 ps) 
-#             (25638000 ps) ==============================================================================================
-#             (25638000 ps)   Check TEST_PATTERN_ENABLE no change
-#             (25638000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (25656000 ps) Check command return: PASS
-# ** Note   : (25656000 ps)  * Read 82A0_0000, expected value 82A0_0000 (TEST_PATTERN_ENABLE, mode Read, data 0000)
-# ** Note   : (27888000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (27888000 ps) Send SPI command value 82A1_X8XX (TEST_PATTERN_ENABLE, mode Write, data X8XX)
-# ** Note   : (27960000 ps) Waiting SPI command return end for 36000 ps
-#             (27960000 ps) 
-#             (27960000 ps) ==============================================================================================
-#             (27960000 ps)   Check error position SPI data out of range detected
-#             (27960000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (27978000 ps) Check command return: PASS
-# ** Note   : (27978000 ps)  * Read C000_EFFF, expected value C000_EFFF (Status, mode Read, data EFFF)
-# ** Note   : (30210000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (30210000 ps) Send SPI command value 82A0_XXXX (TEST_PATTERN_ENABLE, mode Read, data XXXX)
-# ** Note   : (30282000 ps) Waiting SPI command return end for 36000 ps
-#             (30282000 ps) 
-#             (30282000 ps) ==============================================================================================
-#             (30282000 ps)   Check TEST_PATTERN_ENABLE no change
-#             (30282000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (30300000 ps) Check command return: PASS
-# ** Note   : (30300000 ps)  * Read 82A0_0000, expected value 82A0_0000 (TEST_PATTERN_ENABLE, mode Read, data 0000)
-# ** Note   : (32532000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (32532000 ps) Send SPI command value 82A1_X4XX (TEST_PATTERN_ENABLE, mode Write, data X4XX)
-# ** Note   : (32604000 ps) Waiting SPI command return end for 36000 ps
-#             (32604000 ps) 
-#             (32604000 ps) ==============================================================================================
-#             (32604000 ps)   Check error position SPI data out of range detected
-#             (32604000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (32622000 ps) Check command return: PASS
-# ** Note   : (32622000 ps)  * Read C000_EFFF, expected value C000_EFFF (Status, mode Read, data EFFF)
-# ** Note   : (34854000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (34854000 ps) Send SPI command value 82A0_XXXX (TEST_PATTERN_ENABLE, mode Read, data XXXX)
-# ** Note   : (34926000 ps) Waiting SPI command return end for 36000 ps
-#             (34926000 ps) 
-#             (34926000 ps) ==============================================================================================
-#             (34926000 ps)   Check TEST_PATTERN_ENABLE no change
-#             (34926000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (34944000 ps) Check command return: PASS
-# ** Note   : (34944000 ps)  * Read 82A0_0000, expected value 82A0_0000 (TEST_PATTERN_ENABLE, mode Read, data 0000)
-# ** Note   : (37176000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (37176000 ps) Send SPI command value 82A1_003X (TEST_PATTERN_ENABLE, mode Write, data 003X)
-# ** Note   : (37248000 ps) Waiting SPI command return end for 36000 ps
-#             (37248000 ps) 
-#             (37248000 ps) ==============================================================================================
-#             (37248000 ps)   Check error position SPI data out of range detected
-#             (37248000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (37266000 ps) Check command return: PASS
-# ** Note   : (37266000 ps)  * Read C000_EFFF, expected value C000_EFFF (Status, mode Read, data EFFF)
-# ** Note   : (39498000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (39498000 ps) Send SPI command value 82A0_XXXX (TEST_PATTERN_ENABLE, mode Read, data XXXX)
-# ** Note   : (39570000 ps) Waiting SPI command return end for 36000 ps
-#             (39570000 ps) 
-#             (39570000 ps) ==============================================================================================
-#             (39570000 ps)   Check TEST_PATTERN_ENABLE no change
-#             (39570000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (39588000 ps) Check command return: PASS
-# ** Note   : (39588000 ps)  * Read 82A0_0000, expected value 82A0_0000 (TEST_PATTERN_ENABLE, mode Read, data 0000)
-# ** Note   : (41820000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (41820000 ps) Send SPI command value 82A1_0025 (TEST_PATTERN_ENABLE, mode Write, data 0025)
-# ** Note   : (41892000 ps) Waiting SPI command return end for 36000 ps
-#             (41892000 ps) 
-#             (41892000 ps) ==============================================================================================
-#             (41892000 ps)   Check no error
-#             (41892000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (41910000 ps) Check command return: PASS
-# ** Note   : (41910000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
-# ** Note   : (44142000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (44142000 ps) Send SPI command value 82A0_XXXX (TEST_PATTERN_ENABLE, mode Read, data XXXX)
-# ** Note   : (44214000 ps) Waiting SPI command return end for 36000 ps
-#             (44214000 ps) 
-#             (44214000 ps) ==============================================================================================
-#             (44214000 ps)   Check TEST_PATTERN_ENABLE content
-#             (44214000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (44232000 ps) Check command return: PASS
-# ** Note   : (44232000 ps)  * Read 82A0_0030, expected value 82A0_0030 (TEST_PATTERN_ENABLE, mode Read, data 0030)
-# ** Note   : (46464000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (46464000 ps) Send SPI command value 82A0_XXXX (TEST_PATTERN_ENABLE, mode Read, data XXXX)
-# ** Note   : (46536000 ps) Waiting SPI command return end for 36000 ps
-#             (46536000 ps) 
-#             (46536000 ps) ==============================================================================================
-#             (46536000 ps)   Check no error
-#             (46536000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (46554000 ps) Check command return: PASS
-# ** Note   : (46554000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
-# ** Note   : (48786000 ps) Waiting SPI command end for 2232000 ps
-# ** Note   : (48786000 ps) Send SPI command value 82A0_XXXX (TEST_PATTERN_ENABLE, mode Read, data XXXX)
-# ** Note   : (48858000 ps) Waiting SPI command return end for 36000 ps
-#             (48858000 ps) 
-#             (48858000 ps) ==============================================================================================
-#             (48858000 ps)   Check TEST_PATTERN_ENABLE content
-#             (48858000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (48876000 ps) Check command return: PASS
-# ** Note   : (48876000 ps)  * Read 82A0_0025, expected value 82A0_0025 (TEST_PATTERN_ENABLE, mode Read, data 0025)
-# ** Note   : (51108000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (6915456 ps) Waiting event rst = '0' for 6835456 ps
+#             (6915456 ps) 
+#             (6915456 ps) ==============================================================================================
+#             (6915456 ps)   Start TEST_PATTERN_ENABLE register test
+#             (6915456 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (6915456 ps) Send SPI command value 82A0_XXXX (TEST_PATTERN_ENABLE, mode Read, data XXXX)
+# ** Note   : (9222000 ps) Waiting SPI command end for 2270544 ps
+# ** Note   : (9222000 ps) Send SPI command value 82A1_8XXX (TEST_PATTERN_ENABLE, mode Write, data 8XXX)
+# ** Note   : (11544000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (11544000 ps) Send SPI command value 82A0_XXXX (TEST_PATTERN_ENABLE, mode Read, data XXXX)
+# ** Note   : (11616000 ps) Waiting SPI command return end for 36000 ps
+#             (11616000 ps) 
+#             (11616000 ps) ==============================================================================================
+#             (11616000 ps)   Check TEST_PATTERN_ENABLE content at start
+#             (11616000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (11634000 ps) Check command return: PASS
+# ** Note   : (11634000 ps)  * Read 82A0_0000, expected value 82A0_0000 (TEST_PATTERN_ENABLE, mode Read, data 0000)
+# ** Note   : (13866000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (13866000 ps) Send SPI command value 82A1_4XXX (TEST_PATTERN_ENABLE, mode Write, data 4XXX)
+# ** Note   : (13938000 ps) Waiting SPI command return end for 36000 ps
+#             (13938000 ps) 
+#             (13938000 ps) ==============================================================================================
+#             (13938000 ps)   Check error position SPI data out of range detected
+#             (13938000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (13956000 ps) Check command return: PASS
+# ** Note   : (13956000 ps)  * Read C000_EFFF, expected value C000_EFFF (Status, mode Read, data EFFF)
+# ** Note   : (16188000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (16188000 ps) Send SPI command value 82A0_XXXX (TEST_PATTERN_ENABLE, mode Read, data XXXX)
+# ** Note   : (16260000 ps) Waiting SPI command return end for 36000 ps
+#             (16260000 ps) 
+#             (16260000 ps) ==============================================================================================
+#             (16260000 ps)   Check TEST_PATTERN_ENABLE no change
+#             (16260000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (16278000 ps) Check command return: PASS
+# ** Note   : (16278000 ps)  * Read 82A0_0000, expected value 82A0_0000 (TEST_PATTERN_ENABLE, mode Read, data 0000)
+# ** Note   : (18510000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (18510000 ps) Send SPI command value 82A1_2XXX (TEST_PATTERN_ENABLE, mode Write, data 2XXX)
+# ** Note   : (18582000 ps) Waiting SPI command return end for 36000 ps
+#             (18582000 ps) 
+#             (18582000 ps) ==============================================================================================
+#             (18582000 ps)   Check error position SPI data out of range detected
+#             (18582000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (18600000 ps) Check command return: PASS
+# ** Note   : (18600000 ps)  * Read C000_EFFF, expected value C000_EFFF (Status, mode Read, data EFFF)
+# ** Note   : (20832000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (20832000 ps) Send SPI command value 82A0_XXXX (TEST_PATTERN_ENABLE, mode Read, data XXXX)
+# ** Note   : (20904000 ps) Waiting SPI command return end for 36000 ps
+#             (20904000 ps) 
+#             (20904000 ps) ==============================================================================================
+#             (20904000 ps)   Check TEST_PATTERN_ENABLE no change
+#             (20904000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (20922000 ps) Check command return: PASS
+# ** Note   : (20922000 ps)  * Read 82A0_0000, expected value 82A0_0000 (TEST_PATTERN_ENABLE, mode Read, data 0000)
+# ** Note   : (23154000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (23154000 ps) Send SPI command value 82A1_1XXX (TEST_PATTERN_ENABLE, mode Write, data 1XXX)
+# ** Note   : (23226000 ps) Waiting SPI command return end for 36000 ps
+#             (23226000 ps) 
+#             (23226000 ps) ==============================================================================================
+#             (23226000 ps)   Check error position SPI data out of range detected
+#             (23226000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (23244000 ps) Check command return: PASS
+# ** Note   : (23244000 ps)  * Read C000_EFFF, expected value C000_EFFF (Status, mode Read, data EFFF)
+# ** Note   : (25476000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (25476000 ps) Send SPI command value 82A0_XXXX (TEST_PATTERN_ENABLE, mode Read, data XXXX)
+# ** Note   : (25548000 ps) Waiting SPI command return end for 36000 ps
+#             (25548000 ps) 
+#             (25548000 ps) ==============================================================================================
+#             (25548000 ps)   Check TEST_PATTERN_ENABLE no change
+#             (25548000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (25566000 ps) Check command return: PASS
+# ** Note   : (25566000 ps)  * Read 82A0_0000, expected value 82A0_0000 (TEST_PATTERN_ENABLE, mode Read, data 0000)
+# ** Note   : (27798000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (27798000 ps) Send SPI command value 82A1_X8XX (TEST_PATTERN_ENABLE, mode Write, data X8XX)
+# ** Note   : (27870000 ps) Waiting SPI command return end for 36000 ps
+#             (27870000 ps) 
+#             (27870000 ps) ==============================================================================================
+#             (27870000 ps)   Check error position SPI data out of range detected
+#             (27870000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (27888000 ps) Check command return: PASS
+# ** Note   : (27888000 ps)  * Read C000_EFFF, expected value C000_EFFF (Status, mode Read, data EFFF)
+# ** Note   : (30120000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (30120000 ps) Send SPI command value 82A0_XXXX (TEST_PATTERN_ENABLE, mode Read, data XXXX)
+# ** Note   : (30192000 ps) Waiting SPI command return end for 36000 ps
+#             (30192000 ps) 
+#             (30192000 ps) ==============================================================================================
+#             (30192000 ps)   Check TEST_PATTERN_ENABLE no change
+#             (30192000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (30210000 ps) Check command return: PASS
+# ** Note   : (30210000 ps)  * Read 82A0_0000, expected value 82A0_0000 (TEST_PATTERN_ENABLE, mode Read, data 0000)
+# ** Note   : (32442000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (32442000 ps) Send SPI command value 82A1_X4XX (TEST_PATTERN_ENABLE, mode Write, data X4XX)
+# ** Note   : (32514000 ps) Waiting SPI command return end for 36000 ps
+#             (32514000 ps) 
+#             (32514000 ps) ==============================================================================================
+#             (32514000 ps)   Check error position SPI data out of range detected
+#             (32514000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (32532000 ps) Check command return: PASS
+# ** Note   : (32532000 ps)  * Read C000_EFFF, expected value C000_EFFF (Status, mode Read, data EFFF)
+# ** Note   : (34764000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (34764000 ps) Send SPI command value 82A0_XXXX (TEST_PATTERN_ENABLE, mode Read, data XXXX)
+# ** Note   : (34836000 ps) Waiting SPI command return end for 36000 ps
+#             (34836000 ps) 
+#             (34836000 ps) ==============================================================================================
+#             (34836000 ps)   Check TEST_PATTERN_ENABLE no change
+#             (34836000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (34854000 ps) Check command return: PASS
+# ** Note   : (34854000 ps)  * Read 82A0_0000, expected value 82A0_0000 (TEST_PATTERN_ENABLE, mode Read, data 0000)
+# ** Note   : (37086000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (37086000 ps) Send SPI command value 82A1_003X (TEST_PATTERN_ENABLE, mode Write, data 003X)
+# ** Note   : (37158000 ps) Waiting SPI command return end for 36000 ps
+#             (37158000 ps) 
+#             (37158000 ps) ==============================================================================================
+#             (37158000 ps)   Check error position SPI data out of range detected
+#             (37158000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (37176000 ps) Check command return: PASS
+# ** Note   : (37176000 ps)  * Read C000_EFFF, expected value C000_EFFF (Status, mode Read, data EFFF)
+# ** Note   : (39408000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (39408000 ps) Send SPI command value 82A0_XXXX (TEST_PATTERN_ENABLE, mode Read, data XXXX)
+# ** Note   : (39480000 ps) Waiting SPI command return end for 36000 ps
+#             (39480000 ps) 
+#             (39480000 ps) ==============================================================================================
+#             (39480000 ps)   Check TEST_PATTERN_ENABLE no change
+#             (39480000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (39498000 ps) Check command return: PASS
+# ** Note   : (39498000 ps)  * Read 82A0_0000, expected value 82A0_0000 (TEST_PATTERN_ENABLE, mode Read, data 0000)
+# ** Note   : (41730000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (41730000 ps) Send SPI command value 82A1_0025 (TEST_PATTERN_ENABLE, mode Write, data 0025)
+# ** Note   : (41802000 ps) Waiting SPI command return end for 36000 ps
+#             (41802000 ps) 
+#             (41802000 ps) ==============================================================================================
+#             (41802000 ps)   Check no error
+#             (41802000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (41820000 ps) Check command return: PASS
+# ** Note   : (41820000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
+# ** Note   : (44052000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (44052000 ps) Send SPI command value 82A0_XXXX (TEST_PATTERN_ENABLE, mode Read, data XXXX)
+# ** Note   : (44124000 ps) Waiting SPI command return end for 36000 ps
+#             (44124000 ps) 
+#             (44124000 ps) ==============================================================================================
+#             (44124000 ps)   Check TEST_PATTERN_ENABLE content
+#             (44124000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (44142000 ps) Check command return: PASS
+# ** Note   : (44142000 ps)  * Read 82A0_0030, expected value 82A0_0030 (TEST_PATTERN_ENABLE, mode Read, data 0030)
+# ** Note   : (46374000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (46374000 ps) Send SPI command value 82A0_XXXX (TEST_PATTERN_ENABLE, mode Read, data XXXX)
+# ** Note   : (46446000 ps) Waiting SPI command return end for 36000 ps
+#             (46446000 ps) 
+#             (46446000 ps) ==============================================================================================
+#             (46446000 ps)   Check no error
+#             (46446000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (46464000 ps) Check command return: PASS
+# ** Note   : (46464000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
+# ** Note   : (48696000 ps) Waiting SPI command end for 2232000 ps
+# ** Note   : (48696000 ps) Send SPI command value 82A0_XXXX (TEST_PATTERN_ENABLE, mode Read, data XXXX)
+# ** Note   : (48768000 ps) Waiting SPI command return end for 36000 ps
+#             (48768000 ps) 
+#             (48768000 ps) ==============================================================================================
+#             (48768000 ps)   Check TEST_PATTERN_ENABLE content
+#             (48768000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (48786000 ps) Check command return: PASS
+# ** Note   : (48786000 ps)  * Read 82A0_0025, expected value 82A0_0025 (TEST_PATTERN_ENABLE, mode Read, data 0025)
+# ** Note   : (51018000 ps) Waiting SPI command end for 2232000 ps
 # ------------------------------------------------------------------------------------------------------------------------------------------------------
 # Error simulation time         : '0'
 # Error check discrete level    : '0'

@@ -19,47 +19,47 @@
 #             (80000 ps) ==============================================================================================
 #             (80000 ps)   Wait internal reset deactivated
 #             (80000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (6995496 ps) Waiting event rst = '0' for 6915496 ps
-#             (6995496 ps) 
-#             (6995496 ps) ==============================================================================================
-#             (6995496 ps)   Send commands with invalid address
-#             (6995496 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (6995496 ps) Send SPI command value C008_XXXX (, mode Read, data XXXX)
-# ** Note   : (14496000 ps) Waiting SPI command end for 7464504 ps
-# ** Note   : (14496000 ps) Send SPI command value C00C_XXXX (, mode Read, data XXXX)
-# ** Note   : (14568000 ps) Waiting SPI command return end for 36000 ps
-# ** Note   : (14586000 ps) Check command return: PASS
-# ** Note   : (14586000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
-# ** Note   : (22002000 ps) Waiting SPI command end for 7416000 ps
-# ** Note   : (22002000 ps) Send SPI command value C014_XXXX (, mode Read, data XXXX)
-# ** Note   : (22074000 ps) Waiting SPI command return end for 36000 ps
-# ** Note   : (22092000 ps) Check command return: PASS
-# ** Note   : (22092000 ps)  * Read C000_7FFF, expected value C000_7FFF (Status, mode Read, data 7FFF)
-# ** Note   : (29508000 ps) Waiting SPI command end for 7416000 ps
-# ** Note   : (29508000 ps) Send SPI command value A001_XXXX (, mode Write, data XXXX)
-# ** Note   : (29580000 ps) Waiting SPI command return end for 36000 ps
-# ** Note   : (29598000 ps) Check command return: PASS
-# ** Note   : (29598000 ps)  * Read C000_7FFF, expected value C000_7FFF (Status, mode Read, data 7FFF)
-# ** Note   : (37014000 ps) Waiting SPI command end for 7416000 ps
-# ** Note   : (37014000 ps) Send SPI command value E001_XXXX (, mode Write, data XXXX)
-# ** Note   : (37086000 ps) Waiting SPI command return end for 36000 ps
-# ** Note   : (37104000 ps) Check command return: PASS
-# ** Note   : (37104000 ps)  * Read C000_7FFF, expected value C000_7FFF (Status, mode Read, data 7FFF)
-# ** Note   : (44520000 ps) Waiting SPI command end for 7416000 ps
-# ** Note   : (44520000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
-# ** Note   : (44592000 ps) Waiting SPI command return end for 36000 ps
-# ** Note   : (44610000 ps) Check command return: PASS
-# ** Note   : (44610000 ps)  * Read C000_7FFF, expected value C000_7FFF (Status, mode Read, data 7FFF)
-# ** Note   : (52026000 ps) Waiting SPI command end for 7416000 ps
-# ** Note   : (52026000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
-# ** Note   : (52098000 ps) Waiting SPI command return end for 36000 ps
-# ** Note   : (52116000 ps) Check command return: PASS
-# ** Note   : (52116000 ps)  * Read C000_7FFF, expected value C000_7FFF (Status, mode Read, data 7FFF)
-# ** Note   : (59532000 ps) Waiting SPI command end for 7416000 ps
-# ** Note   : (59532000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
-# ** Note   : (59604000 ps) Waiting SPI command return end for 36000 ps
-# ** Note   : (59622000 ps) Check command return: PASS
-# ** Note   : (59622000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
+# ** Note   : (6915456 ps) Waiting event rst = '0' for 6835456 ps
+#             (6915456 ps) 
+#             (6915456 ps) ==============================================================================================
+#             (6915456 ps)   Send commands with invalid address
+#             (6915456 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (6915456 ps) Send SPI command value C008_XXXX (, mode Read, data XXXX)
+# ** Note   : (14406000 ps) Waiting SPI command end for 7454544 ps
+# ** Note   : (14406000 ps) Send SPI command value C00C_XXXX (, mode Read, data XXXX)
+# ** Note   : (14478000 ps) Waiting SPI command return end for 36000 ps
+# ** Note   : (14496000 ps) Check command return: PASS
+# ** Note   : (14496000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
+# ** Note   : (21912000 ps) Waiting SPI command end for 7416000 ps
+# ** Note   : (21912000 ps) Send SPI command value C014_XXXX (, mode Read, data XXXX)
+# ** Note   : (21984000 ps) Waiting SPI command return end for 36000 ps
+# ** Note   : (22002000 ps) Check command return: PASS
+# ** Note   : (22002000 ps)  * Read C000_7FFF, expected value C000_7FFF (Status, mode Read, data 7FFF)
+# ** Note   : (29418000 ps) Waiting SPI command end for 7416000 ps
+# ** Note   : (29418000 ps) Send SPI command value A001_XXXX (, mode Write, data XXXX)
+# ** Note   : (29490000 ps) Waiting SPI command return end for 36000 ps
+# ** Note   : (29508000 ps) Check command return: PASS
+# ** Note   : (29508000 ps)  * Read C000_7FFF, expected value C000_7FFF (Status, mode Read, data 7FFF)
+# ** Note   : (36924000 ps) Waiting SPI command end for 7416000 ps
+# ** Note   : (36924000 ps) Send SPI command value E001_XXXX (, mode Write, data XXXX)
+# ** Note   : (36996000 ps) Waiting SPI command return end for 36000 ps
+# ** Note   : (37014000 ps) Check command return: PASS
+# ** Note   : (37014000 ps)  * Read C000_7FFF, expected value C000_7FFF (Status, mode Read, data 7FFF)
+# ** Note   : (44430000 ps) Waiting SPI command end for 7416000 ps
+# ** Note   : (44430000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (44502000 ps) Waiting SPI command return end for 36000 ps
+# ** Note   : (44520000 ps) Check command return: PASS
+# ** Note   : (44520000 ps)  * Read C000_7FFF, expected value C000_7FFF (Status, mode Read, data 7FFF)
+# ** Note   : (51936000 ps) Waiting SPI command end for 7416000 ps
+# ** Note   : (51936000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (52008000 ps) Waiting SPI command return end for 36000 ps
+# ** Note   : (52026000 ps) Check command return: PASS
+# ** Note   : (52026000 ps)  * Read C000_7FFF, expected value C000_7FFF (Status, mode Read, data 7FFF)
+# ** Note   : (59442000 ps) Waiting SPI command end for 7416000 ps
+# ** Note   : (59442000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (59514000 ps) Waiting SPI command return end for 36000 ps
+# ** Note   : (59532000 ps) Check command return: PASS
+# ** Note   : (59532000 ps)  * Read C000_FFFF, expected value C000_FFFF (Status, mode Read, data FFFF)
 # ------------------------------------------------------------------------------------------------------------------------------------------------------
 # Error simulation time         : '0'
 # Error check discrete level    : '0'

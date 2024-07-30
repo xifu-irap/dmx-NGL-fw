@@ -33,12 +33,9 @@ use     work.pkg_func_math.all;
 use     work.pkg_type.all;
 
 entity rst_gen is generic (
-         g_RST_LEV_ACT        : std_logic                                                                   ; --! Reset level activation value
          g_CNT_RST_NB_VAL     : integer                                                                       --! Counter for reset generation: number of value
    ); port (
-         i_arst               : in     std_logic                                                            ; --! Asynchronous reset ('0' = Inactive, '1' = Active)
          i_clock              : in     std_logic                                                            ; --! Clock
-
          o_reset              : out    std_logic                                                              --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
    );
 end entity rst_gen;
@@ -47,22 +44,19 @@ architecture RTL of rst_gen is
 constant c_CNT_RST_MAX_VAL    : integer := g_CNT_RST_NB_VAL - 3                                             ; --! Counter for reset generation: maximal value
 constant c_CNT_RST_S          : integer := log2_ceil(c_CNT_RST_MAX_VAL + 1) + 1                             ; --! Counter for reset generation: size bus (signed)
 
-signal   cnt_rst              : std_logic_vector(c_CNT_RST_S-1 downto 0)                                    ; --! Counter for reset generation
-signal   cnt_rst_msb_r_n      : std_logic                                                                   ; --! Counter for reset generation MSB inverted register
+signal   cnt_rst              : std_logic_vector(c_CNT_RST_S-1 downto 0) :=
+                                std_logic_vector(to_unsigned(c_CNT_RST_MAX_VAL, c_CNT_RST_S))               ; --! Counter for reset generation
+signal   cnt_rst_msb_r_n      : std_logic := c_HGH_LEV                                                      ; --! Counter for reset generation MSB inverted register
 
 begin
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Reset generation
    -- ------------------------------------------------------------------------------------------------------
-   P_cnt_rst : process (i_arst, i_clock)
+   P_cnt_rst : process (i_clock)
    begin
 
-      if i_arst = g_RST_LEV_ACT then
-         cnt_rst           <= std_logic_vector(to_unsigned(c_CNT_RST_MAX_VAL, cnt_rst'length));
-         cnt_rst_msb_r_n   <= c_HGH_LEV;
-
-      elsif rising_edge(i_clock) then
+      if rising_edge(i_clock) then
          if cnt_rst(cnt_rst'high) = c_LOW_LEV then
             cnt_rst  <= std_logic_vector(signed(cnt_rst) - 1);
 
@@ -74,9 +68,6 @@ begin
 
    end process P_cnt_rst;
 
-   I_reset: entity work.lowskew port map (
-         i_sig                => cnt_rst_msb_r_n      , -- in     std_logic                                 ; --! Signal
-         o_sig_lowskew        => o_reset                -- out    std_logic                                   --! Signal connected to lowskew network
-   );
+   o_reset <= cnt_rst_msb_r_n;
 
 end architecture RTL;

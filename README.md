@@ -109,7 +109,7 @@ DRE-DEMUX TDM firmware: https://github.com/xifu-irap/dmx-fw
 ## 5. Discrete outputs description (seen from simulation pilot side)
 
    Discrete outputs are grouped together in a 64 bits field (bit position 63 is the MSB, bit position 0 is the LSB):
-  - Position 0: **arst_n**, DRE-DEMUX input, Asynchronous reset ('0' = Active, '1' = Inactive)
+  - Position 0: **arst_n**, DRE-DEMUX input, Asynchronous reset ('0' = Active, '1' = Inactive) NOT USED ANYMORE (generated inside the design)
   - Position 3-1: **brd_model(y)**, DRE-DEMUX input, Board model bit 'y' (0->2)
   - Position 5-4: **sw_adc_vin(1)/sw_adc_vin(0)**, SQUID model input, Switch ADC Voltage input ("00": SQUID MUX DAC voltage, "01": SQUID AMP DAC voltage, "10": FPASIM Error voltage)
   - Position 6: **frm_cnt_sc_rst**, Science Data model input, Frame counter science reset ('0' = Active, '1' = Inactive)
@@ -284,7 +284,6 @@ DRE-DEMUX TDM firmware: https://github.com/xifu-irap/dmx-fw
       + TMTC-fw firmware 0015
 
    Implementation dmx-fw firmware on NG-LARGE Devkit with specific adaptation:
-   - Firmware Reset wired on Switch SW2
    - RAS Data Valid wired on Switch SW4
    - EP SPI select  wired on Switch SW5:
       + position right (GND select): SPI master from HE10

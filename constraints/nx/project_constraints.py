@@ -39,6 +39,8 @@ def synthesis_constraints(p,modelboard):
         # ------------------------------------------------------------------------------------------------------
         #   Region creation
         # ------------------------------------------------------------------------------------------------------
+        RESET           = Region('RESET'        , 25, 14,  1,  1)
+
         SQM_ADC_0       = Region('SQM_ADC_0'    , 22, 14,  1,  3)
         SQM_ADC_1       = Region('SQM_ADC_1'    , 24, 14,  1,  3)
         SQM_ADC_2       = Region('SQM_ADC_2'    , 26, 14,  1,  3)
@@ -54,6 +56,16 @@ def synthesis_constraints(p,modelboard):
         HK_MGT          = Region('HK_MGT'       , 18, 12,  1,  1)
 
         SCIENCE_MGT     = Region('SCIENCE_MGT'  , 27,  2,  2,  2)
+
+        # ------------------------------------------------------------------------------------------------------
+        #   Reset
+        # ------------------------------------------------------------------------------------------------------
+        p.addModule('rst_gen(XFC92C2C2)', 'I_top_dmx_dm_clk|I_rst_clk_mgt.I_rst', 'rst', 'Soft')
+        p.addModule('rst_gen(X0FAADB23)', 'I_top_dmx_dm_clk|I_rst_clk_mgt.I_rst_adc_dac', 'rst_sqm_adc_dac', 'Soft')
+
+        p.addRegion(RESET.n, RESET.c, RESET.r, RESET.w, RESET.h, False)
+        p.confineModule('rst', RESET.n)
+        p.confineModule('rst_sqm_adc_dac', RESET.n)
 
         # ------------------------------------------------------------------------------------------------------
         #   SQUID MUX ADC management constraints
@@ -132,6 +144,8 @@ def synthesis_constraints(p,modelboard):
         # ------------------------------------------------------------------------------------------------------
         #   Region creation
         # ------------------------------------------------------------------------------------------------------
+        RESET           = Region('RESET'        , 25, 14,  1,  1)
+
         CLK_SQM_ADC_0   = Region('CLK_SQM_ADC_0', 30, 22,  1,  1)
         CLK_SQM_ADC_1   = Region('CLK_SQM_ADC_1', 41,  2,  1,  1)
         CLK_SQM_ADC_2   = Region('CLK_SQM_ADC_2', 13,  2,  1,  1)
@@ -176,6 +190,16 @@ def synthesis_constraints(p,modelboard):
         REGISTER_MGT    = Region('REGISTER_MGT' , 22,  8,  7, 10)
 
         SCIENCE_MGT     = Region('SCIENCE_MGT'  , 36, 18,  2,  2)
+
+        # ------------------------------------------------------------------------------------------------------
+        #   Reset
+        # ------------------------------------------------------------------------------------------------------
+        p.addModule('rst_gen(XFC92C2C2)', 'I_rst_clk_mgt|I_rst', 'rst', 'Soft')
+        p.addModule('rst_gen(X0FAADB23)', 'I_rst_clk_mgt|I_rst_adc_dac', 'rst_sqm_adc_dac', 'Soft')
+
+        p.addRegion(RESET.n, RESET.c, RESET.r, RESET.w, RESET.h, False)
+        p.confineModule('rst', RESET.n)
+        p.confineModule('rst_sqm_adc_dac', RESET.n)
 
         # ------------------------------------------------------------------------------------------------------
         #   SQUID MUX ADC clocks constraints
@@ -332,8 +356,8 @@ def placing_constraints(p,modelboard):
         # ------------------------------------------------------------------------------------------------------
         #   Mapping directive
         # ------------------------------------------------------------------------------------------------------
-        p.setSite('I_top_dmx_dm_clk|I_rst_clk_mgt|I_rst|cnt_rst_msb_r_n_reg','TILE[25x10]')
-        p.setSite('I_top_dmx_dm_clk|I_rst_clk_mgt|I_rst_adc_dac|cnt_rst_msb_r_n_reg','TILE[25x10]')
+        p.injectLowskew('rst')
+        p.injectLowskew('rst_sqm_adc_dac')
         p.setSite('I_top_dmx_dm_clk|I_rst_clk_mgt|rst_sqm_adc_dac_lc_reg','TILE[32x2]')
 
         p.setSite('*G_column_mgt[0].I_sqm_fbk_mgt|o_sqm_data_fbk_reg*','TILE[21x14]')
@@ -357,8 +381,8 @@ def placing_constraints(p,modelboard):
         # ------------------------------------------------------------------------------------------------------
         #   Mapping directive
         # ------------------------------------------------------------------------------------------------------
-        p.setSite('I_rst_clk_mgt|I_rst.cnt_rst_msb_r_n_reg','TILE[25x10]')
-        p.setSite('I_rst_clk_mgt|I_rst_adc_dac.cnt_rst_msb_r_n_reg','TILE[25x10]')
+        p.injectLowskew('rst')
+        p.injectLowskew('rst_sqm_adc_dac')
         p.setSite('I_rst_clk_mgt|rst_sqm_adc_dac_lc_reg','TILE[37x22]')
 
         p.setSite('*G_column_mgt[0].I_sqm_fbk_mgt|o_sqm_data_fbk_reg*','TILE[33x6]')

@@ -46,7 +46,6 @@ quietly set TB_DIR $4
       ${SRC_DIR}/common/resize_stall_msb.vhd     \
       ${SRC_DIR}/common/cmd_im_ck.vhd            \
       ${SRC_DIR}/common/mem_scrubbing.vhd        \
-      ${IP_DIR}/lowskew.vhd                      \
       ${IP_DIR}/dsp.vhd                          \
       ${IP_DIR}/pll.vhd                          \
       ${IP_DIR}/dmem_ecc.vhd                     \

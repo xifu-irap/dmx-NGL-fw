@@ -24,46 +24,46 @@
 #             (1500000 ps) ==============================================================================================
 #             (1500000 ps)   Wait internal reset deactivated
 #             (1500000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (8425410 ps) Waiting event rst = '0' for 6925410 ps
-#             (8425410 ps) 
-#             (8425410 ps) ==============================================================================================
-#             (8425410 ps)   Writing a new value first pixel in feedback open loop column 0 memory
-#             (8425410 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (8425410 ps) Send SPI command value 0401_2000 (C0_MUX_SQ_FB0, mode Write, data 2000)
-# ** Note   : (10734000 ps) Waiting SPI command end for 2272590 ps
-# ** Note   : (10734000 ps) Send SPI command value 0443_0000 (C0_MUX_SQ_FB0, mode Write, data 0000)
-# ** Note   : (13056000 ps) Waiting SPI command end for 2286000 ps
-#             (13056000 ps) 
-#             (13056000 ps) ==============================================================================================
-#             (13056000 ps)   Select pulse shaping without filter
-#             (13056000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (13056000 ps) Send SPI command value 1101_0000 (C0_PULSE_SHAPING_SELECTION, mode Write, data 0000)
-# ** Note   : (15378000 ps) Waiting SPI command end for 2286000 ps
-#             (15378000 ps) 
-#             (15378000 ps) ==============================================================================================
-#             (15378000 ps)   Switch on Squid MUX feedback column 0
-#             (15378000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (15378000 ps) Send SPI command value 8003_0001 (MUX_SQ_FB_ON_OFF, mode Write, data 0001)
-# ** Note   : (17700000 ps) Waiting SPI command end for 2286000 ps
-#             (17700000 ps) 
-#             (17700000 ps) ==============================================================================================
-#             (17700000 ps)   Activate science data transmit in error signal mode
-#             (17700000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (17700000 ps) Send SPI command value 8001_0002 (DATA_ACQ_MODE, mode Write, data 0002)
-# ** Note   : (20022000 ps) Waiting SPI command end for 2286000 ps
-#             (20022000 ps) 
-#             (20022000 ps) ==============================================================================================
-#             (20022000 ps)   Wait end FPASIM configuration
-#             (20022000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (20023206 ps) Waiting event fpa_conf_busy(0) = '0' for 1206 ps
-# ** Note   : (20023206 ps) Waiting event fpa_conf_busy(1) = '0' for 0 ps
-# ** Note   : (20023206 ps) Waiting event fpa_conf_busy(2) = '0' for 0 ps
-# ** Note   : (20027208 ps) Waiting event fpa_conf_busy(3) = '0' for 4002 ps
-#             (20027208 ps) 
-#             (20027208 ps) ==============================================================================================
-#             (20027208 ps)   Send a pulse on FPASIM column 0
-#             (20027208 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (20027208 ps) Send FPASIM Make pulse command, data: 0000_0100
+# ** Note   : (8041218 ps) Waiting event rst = '0' for 6541218 ps
+#             (8041218 ps) 
+#             (8041218 ps) ==============================================================================================
+#             (8041218 ps)   Writing a new value first pixel in feedback open loop column 0 memory
+#             (8041218 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (8041218 ps) Send SPI command value 0401_2000 (C0_MUX_SQ_FB0, mode Write, data 2000)
+# ** Note   : (10356000 ps) Waiting SPI command end for 2278782 ps
+# ** Note   : (10356000 ps) Send SPI command value 0443_0000 (C0_MUX_SQ_FB0, mode Write, data 0000)
+# ** Note   : (12678000 ps) Waiting SPI command end for 2286000 ps
+#             (12678000 ps) 
+#             (12678000 ps) ==============================================================================================
+#             (12678000 ps)   Select pulse shaping without filter
+#             (12678000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (12678000 ps) Send SPI command value 1101_0000 (C0_PULSE_SHAPING_SELECTION, mode Write, data 0000)
+# ** Note   : (15000000 ps) Waiting SPI command end for 2286000 ps
+#             (15000000 ps) 
+#             (15000000 ps) ==============================================================================================
+#             (15000000 ps)   Switch on Squid MUX feedback column 0
+#             (15000000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (15000000 ps) Send SPI command value 8003_0001 (MUX_SQ_FB_ON_OFF, mode Write, data 0001)
+# ** Note   : (17322000 ps) Waiting SPI command end for 2286000 ps
+#             (17322000 ps) 
+#             (17322000 ps) ==============================================================================================
+#             (17322000 ps)   Activate science data transmit in error signal mode
+#             (17322000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (17322000 ps) Send SPI command value 8001_0002 (DATA_ACQ_MODE, mode Write, data 0002)
+# ** Note   : (19644000 ps) Waiting SPI command end for 2286000 ps
+#             (19644000 ps) 
+#             (19644000 ps) ==============================================================================================
+#             (19644000 ps)   Wait end FPASIM configuration
+#             (19644000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (19647018 ps) Waiting event fpa_conf_busy(0) = '0' for 3018 ps
+# ** Note   : (19647018 ps) Waiting event fpa_conf_busy(1) = '0' for 0 ps
+# ** Note   : (19647018 ps) Waiting event fpa_conf_busy(2) = '0' for 0 ps
+# ** Note   : (19651020 ps) Waiting event fpa_conf_busy(3) = '0' for 4002 ps
+#             (19651020 ps) 
+#             (19651020 ps) ==============================================================================================
+#             (19651020 ps)   Send a pulse on FPASIM column 0
+#             (19651020 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (19651020 ps) Send FPASIM Make pulse command, data: 0000_0100
 # ------------------------------------------------------------------------------------------------------------------------------------------------------
 # Error simulation time         : '0'
 # Error check discrete level    : '0'

@@ -24,39 +24,39 @@
 #             (80000 ps) ==============================================================================================
 #             (80000 ps)   Wait internal reset deactivated
 #             (80000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (6995496 ps) Waiting event rst = '0' for 6915496 ps
-#             (6995496 ps) 
-#             (6995496 ps) ==============================================================================================
-#             (6995496 ps)   Configure AMP SQUID lockpoint Offset
-#             (6995496 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (6995496 ps) Send SPI command value 0883_0FFF (C0_AMP_SQ_OFFSET_COARSE, mode Write, data 0FFF)
-# ** Note   : (9312000 ps) Waiting SPI command end for 2280504 ps
-# ** Note   : (9312000 ps) Send SPI command value 2883_0FFF (C1_AMP_SQ_OFFSET_COARSE, mode Write, data 0FFF)
-# ** Note   : (11634000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (11634000 ps) Send SPI command value 4883_0FFF (C2_AMP_SQ_OFFSET_COARSE, mode Write, data 0FFF)
-# ** Note   : (13956000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (13956000 ps) Send SPI command value 6883_0FFF (C3_AMP_SQ_OFFSET_COARSE, mode Write, data 0FFF)
-# ** Note   : (16278000 ps) Waiting SPI command end for 2286000 ps
-#             (16278000 ps) 
-#             (16278000 ps) ==============================================================================================
-#             (16278000 ps)   Send a AMP SQUID delay on each channels
-#             (16278000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (16278000 ps) Send SPI command value 0A03_0000 (C0_AMP_SQ_OFFSET_DAC_DELAY, mode Write, data 0000)
-# ** Note   : (18600000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (18600000 ps) Send SPI command value 2A03_0040 (C1_AMP_SQ_OFFSET_DAC_DELAY, mode Write, data 0040)
-# ** Note   : (20922000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (20922000 ps) Send SPI command value 4A03_0080 (C2_AMP_SQ_OFFSET_DAC_DELAY, mode Write, data 0080)
-# ** Note   : (23244000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (23244000 ps) Send SPI command value 6A03_00C0 (C3_AMP_SQ_OFFSET_DAC_DELAY, mode Write, data 00C0)
-# ** Note   : (25566000 ps) Waiting SPI command end for 2286000 ps
-#             (25566000 ps) 
-#             (25566000 ps) ==============================================================================================
-#             (25566000 ps)   Send command AMP_SQ_OFFSET_MODE to open loop
-#             (25566000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (25566000 ps) Send SPI command value 8005_1111 (AMP_SQ_OFFSET_MODE, mode Write, data 1111)
-# ** Note   : (27888000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (27889938 ps) Waiting event sync = '0' for 1938 ps
-# ** Note   : (32672328 ps) Waiting event sync = '1' for 4782390 ps
+# ** Note   : (6915456 ps) Waiting event rst = '0' for 6835456 ps
+#             (6915456 ps) 
+#             (6915456 ps) ==============================================================================================
+#             (6915456 ps)   Configure AMP SQUID lockpoint Offset
+#             (6915456 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (6915456 ps) Send SPI command value 0883_0FFF (C0_AMP_SQ_OFFSET_COARSE, mode Write, data 0FFF)
+# ** Note   : (9222000 ps) Waiting SPI command end for 2270544 ps
+# ** Note   : (9222000 ps) Send SPI command value 2883_0FFF (C1_AMP_SQ_OFFSET_COARSE, mode Write, data 0FFF)
+# ** Note   : (11544000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (11544000 ps) Send SPI command value 4883_0FFF (C2_AMP_SQ_OFFSET_COARSE, mode Write, data 0FFF)
+# ** Note   : (13866000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (13866000 ps) Send SPI command value 6883_0FFF (C3_AMP_SQ_OFFSET_COARSE, mode Write, data 0FFF)
+# ** Note   : (16188000 ps) Waiting SPI command end for 2286000 ps
+#             (16188000 ps) 
+#             (16188000 ps) ==============================================================================================
+#             (16188000 ps)   Send a AMP SQUID delay on each channels
+#             (16188000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (16188000 ps) Send SPI command value 0A03_0000 (C0_AMP_SQ_OFFSET_DAC_DELAY, mode Write, data 0000)
+# ** Note   : (18510000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (18510000 ps) Send SPI command value 2A03_0040 (C1_AMP_SQ_OFFSET_DAC_DELAY, mode Write, data 0040)
+# ** Note   : (20832000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (20832000 ps) Send SPI command value 4A03_0080 (C2_AMP_SQ_OFFSET_DAC_DELAY, mode Write, data 0080)
+# ** Note   : (23154000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (23154000 ps) Send SPI command value 6A03_00C0 (C3_AMP_SQ_OFFSET_DAC_DELAY, mode Write, data 00C0)
+# ** Note   : (25476000 ps) Waiting SPI command end for 2286000 ps
+#             (25476000 ps) 
+#             (25476000 ps) ==============================================================================================
+#             (25476000 ps)   Send command AMP_SQ_OFFSET_MODE to open loop
+#             (25476000 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (25476000 ps) Send SPI command value 8005_1111 (AMP_SQ_OFFSET_MODE, mode Write, data 1111)
+# ** Note   : (27798000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (27801894 ps) Waiting event sync = '0' for 3894 ps
+# ** Note   : (32672328 ps) Waiting event sync = '1' for 4870434 ps
 # ** Note   : (32832408 ps) Waiting event sync = '0' for 160080 ps
 # ** Note   : (38115048 ps) Waiting event sync = '1' for 5282640 ps
 #             (38115048 ps) 

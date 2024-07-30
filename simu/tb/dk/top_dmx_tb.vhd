@@ -39,8 +39,6 @@ entity top_dmx_tb is
 end entity top_dmx_tb;
 
 architecture Simulation of top_dmx_tb is
-signal   arst_n               : std_logic                                                                   ; --! Asynchronous reset ('0' = Active, '1' = Inactive)
-signal   arst                 : std_logic                                                                   ; --! Asynchronous reset ('0' = Inactive, '1' = Active)
 signal   clk_ref              : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! Reference Clock
 signal   clk_fpasim           : std_logic                                                                   ; --! FPASIM Clock
 signal   clk_fpasim_shift     : std_logic                                                                   ; --! FPASIM Clock, 90 degrees shifted
@@ -96,7 +94,6 @@ begin
    --!   DEMUX: Top level
    -- ------------------------------------------------------------------------------------------------------
    I_top_dmx_dk: entity work.top_dmx_dk port map (
-         i_arst_n             => arst_n               , -- in     std_logic                                 ; --! Asynchronous reset ('0' = Active, '1' = Inactive)
          i_clk_ref            => clk_ref(c_COL0)      , -- in     std_logic                                 ; --! Reference Clock
 
          o_clk_science_01     => clk_science_01       , -- out    std_logic                                 ; --! Science Data: Clock channel 0/1
@@ -177,11 +174,6 @@ begin
    end generate G_get_top_level_sig;
 
    -- ------------------------------------------------------------------------------------------------------
-   --!   Reset management
-   -- ------------------------------------------------------------------------------------------------------
-   arst <= not(arst_n);
-
-   -- ------------------------------------------------------------------------------------------------------
    --!   FPASIM clock reference generation
    -- ------------------------------------------------------------------------------------------------------
    I_clock_model: entity work.clock_model generic map (
@@ -248,7 +240,7 @@ begin
    --!   Science Data Model
    -- ------------------------------------------------------------------------------------------------------
    I_science_data_model: science_data_model port map (
-         i_arst               => arst                 , -- in     std_logic                                 ; --! Asynchronous reset ('0' = Inactive, '1' = Active)
+         i_arst               => d_rst                , -- in     std_logic                                 ; --! Asynchronous reset ('0' = Inactive, '1' = Active)
          i_clk_sqm_adc_acq    => d_clk_sqm_adc_acq    , -- in     std_logic                                 ; --! SQUID MUX ADC acquisition Clock
          i_clk_science        => clk_science_01       , -- in     std_logic                                 ; --! Science Clock
 
@@ -280,7 +272,7 @@ begin
    --!   Parser
    -- ------------------------------------------------------------------------------------------------------
    I_parser: parser port map (
-         o_arst_n             => arst_n               , -- out    std_logic                                 ; --! Asynchronous reset ('0' = Active, '1' = Inactive)
+         o_arst_n             => open                 , -- out    std_logic                                 ; --! Asynchronous reset ('0' = Active, '1' = Inactive)
          i_clk_ref            => clk_ref(c_COL0)      , -- in     std_logic                                 ; --! Reference Clock
          i_sync               => sync(c_COL0)         , -- in     std_logic                                 ; --! Pixel sequence synchronization (R.E. detected = position sequence to the first pixel)
 
