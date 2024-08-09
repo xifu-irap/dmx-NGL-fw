@@ -57,7 +57,7 @@ def add_options(p,timing_driven,seed):
         'MappingEffort'                     : 'High',
         'MaxRegisterCount'                  : '20000',
         'OptimizedMux'                      : 'Yes',
-        'PolishingEffort'                   : 'High',
+        'PolishingEffort'                   : 'Medium',
         'ReplicationApproval'               : 'Yes',
         'RoutingEffort'                     : 'High',
         'SaveTiming'                        : 'No',
