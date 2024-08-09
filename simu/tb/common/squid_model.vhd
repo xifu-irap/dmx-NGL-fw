@@ -79,11 +79,14 @@ entity squid_model is generic (
 end entity squid_model;
 
 architecture Behavioral of squid_model is
+signal   clk_sqm_dac_del      : std_logic                                                                   ; --! SQUID MUX DAC: Clock delayed
 signal   squid_err_volt       : real                                                                        ; --! SQUID Error voltage (Volt)
 signal   sqm_dac_delta_volt   : real                                                                        ; --! SQUID MUX voltage (Vin+ - Vin-) (Volt)
 signal   sqa_volt             : real                                                                        ; --! SQUID AMP voltage (Volt)
 
 begin
+
+   clk_sqm_dac_del <= transport i_clk_sqm_dac after c_CLK_DAC_DEL when now > c_CLK_DAC_DEL else 'X';
 
    -- ------------------------------------------------------------------------------------------------------
    --!   SQUID MUX DAC model management
@@ -91,7 +94,7 @@ begin
    I_sqm_dac_model: entity work.dac5675a_model generic map (
          g_VREF               => g_SQM_DAC_VREF         -- real                                               --! Voltage reference (Volt)
    ) port map (
-         i_clk                => i_clk_sqm_dac        , -- in     std_logic                                 ; --! Clock
+         i_clk                => clk_sqm_dac_del      , -- in     std_logic                                 ; --! Clock
          i_sleep              => i_sqm_dac_sleep      , -- in     std_logic                                 ; --! Sleep ('0' = Inactive, '1' = Active)
          i_d                  => i_sqm_dac_data       , -- in     std_logic_vector(13 downto 0)             ; --! Data
          o_delta_vout         => sqm_dac_delta_volt     -- out    real                                        --! Analog voltage (-g_VREF <= Vout1 - Vout2 < g_VREF)
@@ -104,7 +107,7 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    I_pulse_shaping_check: entity work.pulse_shaping_check port map (
          i_arst               => i_arst               , -- in     std_logic                                 ; --! Asynchronous reset ('0' = Inactive, '1' = Active)
-         i_clk_sqm_dac        => i_clk_sqm_dac        , -- in     std_logic                                 ; --! SQUID MUX DAC: Clock
+         i_clk_sqm_dac        => clk_sqm_dac_del      , -- in     std_logic                                 ; --! SQUID MUX DAC: Clock
          i_sync               => i_sync               , -- in     std_logic                                 ; --! Pixel sequence synchronization (R.E. detected = position sequence to the first pixel)
          i_sqm_dac_ana        => sqm_dac_delta_volt   , -- in     real                                      ; --! SQUID MUX DAC: Analog
          i_pls_shp_fc         => i_pls_shp_fc         , -- in     integer                                   ; --! Pulse shaping cut frequency (Hz)

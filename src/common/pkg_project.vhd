@@ -42,7 +42,7 @@ package pkg_project is
    --    @Req : DRE-DMX-FW-REQ-0120
    --    @Req : DRE-DMX-FW-REQ-0270
    -- ------------------------------------------------------------------------------------------------------
-constant c_FW_VERSION         : integer   := 16#0006#                                                       ; --! Firmware version
+constant c_FW_VERSION         : integer   := 16#0007#                                                       ; --! Firmware version
 
 constant c_FF_RSYNC_NB        : integer   := 2                                                              ; --! Flip-Flop number used for FPGA input resynchronization
 constant c_FF_RST_NB          : integer   := 6                                                              ; --! Flip-Flop number used for internal reset: System Clock
@@ -99,9 +99,8 @@ constant c_SQA_DAC_MODE_S     : integer   := 2                                  
 constant c_SQA_SPI_CPOL       : std_logic := c_LOW_LEV                                                      ; --! SQUID AMP DAC SPI: Clock polarity
 constant c_SQA_SPI_CPHA       : std_logic := c_HGH_LEV                                                      ; --! SQUID AMP DAC SPI: Clock phase
 constant c_SQA_SPI_SER_WD_S   : integer   := c_SQA_DAC_DATA_S + c_SQA_DAC_MODE_S + 2                        ; --! SQUID AMP DAC SPI: Data bus size
-constant c_SQA_SPI_SCLK_H     : integer   := div_ceil(c_CLK_ADC_FREQ * 13, 1000000000)                      ; --! SQUID AMP DAC SPI: Number of clock period for elaborating SPI Serial Clock high level
-constant c_SQA_SPI_SCLK_L     : integer   := maximum(c_SQA_SPI_SCLK_H,
-                                                     div_ceil(c_CLK_ADC_FREQ, 30000000) - c_SQA_SPI_SCLK_H) ; --! SQUID AMP DAC SPI: Number of clock period for elaborating SPI Serial Clock low level
+constant c_SQA_SPI_SCLK_H     : integer   := div_ceil(c_CLK_ADC_FREQ/1000 * 40, 1000000)                    ; --! SQUID AMP DAC SPI: Number of clock period for elaborating SPI Serial Clock high level
+constant c_SQA_SPI_SCLK_L     : integer   := c_SQA_SPI_SCLK_H                                               ; --! SQUID AMP DAC SPI: Number of clock period for elaborating SPI Serial Clock low level
 constant c_SQA_DAC_MUX_S      : integer   := 3                                                              ; --! SQUID AMP DAC Multiplexer size
 
 constant c_SC_DATA_SER_W_S    : integer   := 8                                                              ; --! Science data serial word size

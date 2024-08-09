@@ -262,7 +262,7 @@ COMM   Record AMP SQUID DAC column 0 by requesting an ADC dump on science
 COMM    (DAC feedback on ADC)
 COMM ----------------------------------------------------------------------------------------------
 WCMD W-DATA_ACQ_MODE-0004 W
-WAIT 175 us
+WAIT 174 us
 COMM
 COMM ==============================================================================================
 COMM   Configure AMP SQUID DAC LSB column 1
@@ -412,7 +412,7 @@ COMM   Record AMP SQUID DAC column 1 by requesting an ADC dump on science
 COMM    (DAC feedback on ADC)
 COMM ----------------------------------------------------------------------------------------------
 WCMD W-DATA_ACQ_MODE-0004 W
-WAIT 175 us
+WAIT 174 us
 COMM
 COMM ==============================================================================================
 COMM   Configure AMP SQUID DAC LSB column 2
@@ -562,7 +562,7 @@ COMM   Record AMP SQUID DAC column 2 by requesting an ADC dump on science
 COMM    (DAC feedback on ADC)
 COMM ----------------------------------------------------------------------------------------------
 WCMD W-DATA_ACQ_MODE-0004 W
-WAIT 175 us
+WAIT 174 us
 COMM
 COMM ==============================================================================================
 COMM   Configure AMP SQUID DAC LSB column 3
@@ -712,7 +712,7 @@ COMM   Record AMP SQUID DAC column 3 by requesting an ADC dump on science
 COMM    (DAC feedback on ADC)
 COMM ----------------------------------------------------------------------------------------------
 WCMD W-DATA_ACQ_MODE-0004 W
-WAIT 175 us
+WAIT 174 us
 COMM
 COMM ==============================================================================================
 COMM   Send command AMP_SQ_OFFSET_MODE column 3 to Off
