@@ -168,7 +168,7 @@ begin
       -- ------------------------------------------------------------------------------------------------------
       I_sqm_dac_out: entity work.im_ck generic map (
          g_FF_RSYNC_NB        => c_FF_RSYNC_NB        , -- integer                                          ; --! Flip-Flop number used for resynchronization
-         g_FF_CK_REF_NB       => c_FF_RSYNC_NB          -- integer                                            --! Flip-Flop number used for delaying image clock reference
+         g_FF_CK_REF_NB       => c_FF_RSYNC_NB + 1      -- integer                                            --! Flip-Flop number used for delaying image clock reference
       ) port map (
          i_clock              => clk_sqm_dac_out      , -- in     std_logic                                 ; --! Clock
          i_cmd_ck             => cmd_ck_sqm_dac(k)    , -- in     std_logic                                 ; --! Clock switch command ('0' = Inactive, '1' = Active)

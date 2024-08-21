@@ -255,10 +255,10 @@ def synthesis_constraints(p,modelboard):
         p.constrainPath(['I_rst_clk_mgt|G_column_mgt[2].I_cmd_ck_sqm_dac|o_cmd_ck_reg'],['I_rst_clk_mgt|G_column_mgt[2].I_sqm_dac_out|cmd_ck_r_reg[0]'], 'cmd_ck_dac_2', 'Soft', CLK_SQM_DAC_2.c, CLK_SQM_DAC_2.r, CLK_SQM_DAC_2.w, CLK_SQM_DAC_2.h, CLK_SQM_DAC_2.n, False)
         p.constrainPath(['I_rst_clk_mgt|G_column_mgt[3].I_cmd_ck_sqm_dac|o_cmd_ck_reg'],['I_rst_clk_mgt|G_column_mgt[3].I_sqm_dac_out|cmd_ck_r_reg[0]'], 'cmd_ck_dac_3', 'Soft', CLK_SQM_DAC_3.c, CLK_SQM_DAC_3.r, CLK_SQM_DAC_3.w, CLK_SQM_DAC_3.h, CLK_SQM_DAC_3.n, False)
 
-        p.addModule('im_ck(XAE17D183)', 'I_rst_clk_mgt|G_column_mgt[0].I_sqm_dac_out', 'squid_dac_mgt_0', 'Soft')
-        p.addModule('im_ck(XAE17D183)', 'I_rst_clk_mgt|G_column_mgt[1].I_sqm_dac_out', 'squid_dac_mgt_1', 'Soft')
-        p.addModule('im_ck(XAE17D183)', 'I_rst_clk_mgt|G_column_mgt[2].I_sqm_dac_out', 'squid_dac_mgt_2', 'Soft')
-        p.addModule('im_ck(XAE17D183)', 'I_rst_clk_mgt|G_column_mgt[3].I_sqm_dac_out', 'squid_dac_mgt_3', 'Soft')
+        p.addModule('im_ck(X2C9B091B)', 'I_rst_clk_mgt|G_column_mgt[0].I_sqm_dac_out', 'squid_dac_mgt_0', 'Soft')
+        p.addModule('im_ck(X2C9B091B)', 'I_rst_clk_mgt|G_column_mgt[1].I_sqm_dac_out', 'squid_dac_mgt_1', 'Soft')
+        p.addModule('im_ck(X2C9B091B)', 'I_rst_clk_mgt|G_column_mgt[2].I_sqm_dac_out', 'squid_dac_mgt_2', 'Soft')
+        p.addModule('im_ck(X2C9B091B)', 'I_rst_clk_mgt|G_column_mgt[3].I_sqm_dac_out', 'squid_dac_mgt_3', 'Soft')
 
         p.addRegion(CLK_SQM_DAC_0.n, CLK_SQM_DAC_0.c, CLK_SQM_DAC_0.r, CLK_SQM_DAC_0.w, CLK_SQM_DAC_0.h, False)
         p.addRegion(CLK_SQM_DAC_1.n, CLK_SQM_DAC_1.c, CLK_SQM_DAC_1.r, CLK_SQM_DAC_1.w, CLK_SQM_DAC_1.h, False)
