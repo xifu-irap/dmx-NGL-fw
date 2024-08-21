@@ -106,8 +106,6 @@ end entity parser;
 architecture Simulation of parser is
 constant c_SIM_NAME           : string    := c_CMD_FILE_ROOT & g_TST_NUM                                    ; --! Simulation name
 
-signal   clk_sqm_dac_del      : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! SQUID MUX DAC: Clock delayed
-
 signal   discrete_w           : std_logic_vector(c_CMD_FILE_FLD_DATA_S-1 downto 0)                          ; --! Discrete write
 signal   discrete_r           : std_logic_vector(c_CMD_FILE_FLD_DATA_S-1 downto 0)                          ; --! Discrete read
 signal   discrete_r_lst_ev    : time_vector(0 to c_CMD_FILE_FLD_DATA_S-1)                                   ; --! Discrete read last event time
@@ -118,14 +116,6 @@ file     cmd_file             : text                                            
 file     res_file             : text                                                                        ; --! Result file
 
 begin
-
-   -- ------------------------------------------------------------------------------------------------------
-   --!   Model delays
-   -- ------------------------------------------------------------------------------------------------------
-   clk_sqm_dac_del(c_COL0) <= transport i_clk_sqm_dac(c_COL0) after c_CLK_DAC_DEL when now > c_CLK_DAC_DEL else 'X';
-   clk_sqm_dac_del(c_COL1) <= transport i_clk_sqm_dac(c_COL1) after c_CLK_DAC_DEL when now > c_CLK_DAC_DEL else 'X';
-   clk_sqm_dac_del(c_COL2) <= transport i_clk_sqm_dac(c_COL2) after c_CLK_DAC_DEL when now > c_CLK_DAC_DEL else 'X';
-   clk_sqm_dac_del(c_COL3) <= transport i_clk_sqm_dac(c_COL3) after c_CLK_DAC_DEL when now > c_CLK_DAC_DEL else 'X';
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Discrete write signals association
@@ -171,10 +161,10 @@ begin
    discrete_r(c_DR_CLK_SQM_ADC_1)   <= i_clk_sqm_adc(c_COL1);
    discrete_r(c_DR_CLK_SQM_ADC_2)   <= i_clk_sqm_adc(c_COL2);
    discrete_r(c_DR_CLK_SQM_ADC_3)   <= i_clk_sqm_adc(c_COL3);
-   discrete_r(c_DR_CLK_SQM_DAC_0)   <= clk_sqm_dac_del(c_COL0);
-   discrete_r(c_DR_CLK_SQM_DAC_1)   <= clk_sqm_dac_del(c_COL1);
-   discrete_r(c_DR_CLK_SQM_DAC_2)   <= clk_sqm_dac_del(c_COL2);
-   discrete_r(c_DR_CLK_SQM_DAC_3)   <= clk_sqm_dac_del(c_COL3);
+   discrete_r(c_DR_CLK_SQM_DAC_0)   <= i_clk_sqm_dac(c_COL0);
+   discrete_r(c_DR_CLK_SQM_DAC_1)   <= i_clk_sqm_dac(c_COL1);
+   discrete_r(c_DR_CLK_SQM_DAC_2)   <= i_clk_sqm_dac(c_COL2);
+   discrete_r(c_DR_CLK_SQM_DAC_3)   <= i_clk_sqm_dac(c_COL3);
    discrete_r(c_DR_FPA_CONF_BUSY_0) <= i_fpa_conf_busy(c_COL0);
    discrete_r(c_DR_FPA_CONF_BUSY_1) <= i_fpa_conf_busy(c_COL1);
    discrete_r(c_DR_FPA_CONF_BUSY_2) <= i_fpa_conf_busy(c_COL2);

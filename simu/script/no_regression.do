@@ -368,7 +368,7 @@ proc run_utest {args} {
             add wave -format Logic                    -group "0 - SQUID MUX ADC" -group "SPI"      sim/:top_dmx_tb:I_top_dmx_dm:o_sqm_adc_spi_cs_n(0)
 
             add wave -format Logic                    -group "0 - SQUID MUX DAC"                   sim/:top_dmx_tb:I_top_dmx_dm:o_sqm_dac_sleep(0)
-            add wave -format Logic                    -group "0 - SQUID MUX DAC"                   sim/:top_dmx_tb:G_column_mgt(0):I_squid_model:clk_sqm_dac_del
+            add wave -format Logic                    -group "0 - SQUID MUX DAC"                   sim/:top_dmx_tb:I_top_dmx_dm:o_clk_sqm_dac(0)
             add wave -format Logic -Radix unsigned    -group "0 - SQUID MUX DAC"                   sim/:top_dmx_tb:I_top_dmx_dm:o_sqm_dac_data(0)
             add wave -format Analog-step -min -1.0 -max 1.0 \
                                                       -group "0 - SQUID MUX DAC"                   sim/:top_dmx_tb:sqm_dac_delta_volt(0)
@@ -406,7 +406,7 @@ proc run_utest {args} {
             add wave -format Logic                    -group "1 - SQUID MUX ADC" -group "SPI"      sim/:top_dmx_tb:I_top_dmx_dm:o_sqm_adc_spi_cs_n(1)
 
             add wave -format Logic                    -group "1 - SQUID MUX DAC"                   sim/:top_dmx_tb:I_top_dmx_dm:o_sqm_dac_sleep(1)
-            add wave -format Logic                    -group "1 - SQUID MUX DAC"                   sim/:top_dmx_tb:G_column_mgt(1):I_squid_model:clk_sqm_dac_del
+            add wave -format Logic                    -group "1 - SQUID MUX DAC"                   sim/:top_dmx_tb:I_top_dmx_dm:o_clk_sqm_dac(1)
             add wave -format Logic -Radix unsigned    -group "1 - SQUID MUX DAC"                   sim/:top_dmx_tb:I_top_dmx_dm:o_sqm_dac_data(1)
             add wave -format Analog-step -min -1.0 -max 1.0 \
                                                       -group "1 - SQUID MUX DAC"                   sim/:top_dmx_tb:sqm_dac_delta_volt(1)
@@ -444,7 +444,7 @@ proc run_utest {args} {
             add wave -format Logic                    -group "2 - SQUID MUX ADC" -group "SPI"      sim/:top_dmx_tb:I_top_dmx_dm:o_sqm_adc_spi_cs_n(2)
 
             add wave -format Logic                    -group "2 - SQUID MUX DAC"                   sim/:top_dmx_tb:I_top_dmx_dm:o_sqm_dac_sleep(2)
-            add wave -format Logic                    -group "2 - SQUID MUX DAC"                   sim/:top_dmx_tb:G_column_mgt(2):I_squid_model:clk_sqm_dac_del
+            add wave -format Logic                    -group "2 - SQUID MUX DAC"                   sim/:top_dmx_tb:I_top_dmx_dm:o_clk_sqm_dac(2)
             add wave -format Logic -Radix unsigned    -group "2 - SQUID MUX DAC"                   sim/:top_dmx_tb:I_top_dmx_dm:o_sqm_dac_data(2)
             add wave -format Analog-step -min -1.0 -max 1.0 \
                                                       -group "2 - SQUID MUX DAC"                   sim/:top_dmx_tb:sqm_dac_delta_volt(2)
@@ -482,7 +482,7 @@ proc run_utest {args} {
             add wave -format Logic                    -group "3 - SQUID MUX ADC" -group "SPI"      sim/:top_dmx_tb:I_top_dmx_dm:o_sqm_adc_spi_cs_n(3)
 
             add wave -format Logic                    -group "3 - SQUID MUX DAC"                   sim/:top_dmx_tb:I_top_dmx_dm:o_sqm_dac_sleep(3)
-            add wave -format Logic                    -group "3 - SQUID MUX DAC"                   sim/:top_dmx_tb:G_column_mgt(3):I_squid_model:clk_sqm_dac_del
+            add wave -format Logic                    -group "3 - SQUID MUX DAC"                   sim/:top_dmx_tb:I_top_dmx_dm:o_clk_sqm_dac(3)
             add wave -format Logic -Radix unsigned    -group "3 - SQUID MUX DAC"                   sim/:top_dmx_tb:I_top_dmx_dm:o_sqm_dac_data(3)
             add wave -format Analog-step -min -1.0 -max 1.0 \
                                                       -group "3 - SQUID MUX DAC"                   sim/:top_dmx_tb:sqm_dac_delta_volt(3)
