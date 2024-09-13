@@ -33,6 +33,7 @@ use     work.pkg_type.all;
 use     work.pkg_fpga_tech.all;
 use     work.pkg_func_math.all;
 use     work.pkg_project.all;
+use     work.pkg_mod.all;
 use     work.pkg_ep_cmd.all;
 use     work.pkg_ep_cmd_type.all;
 
@@ -66,7 +67,10 @@ constant c_SYNC_CNT_NB_VAL    : integer:= c_MUX_FACT * c_PIXEL_ADC_NB_CYC / 2   
 constant c_SYNC_CNT_MAX_VAL   : integer:= c_SYNC_CNT_NB_VAL-1                                               ; --! Sync counter: maximal value
 constant c_SYNC_CNT_S         : integer:= log2_ceil(c_SYNC_CNT_MAX_VAL + 1) + 1                             ; --! Sync counter: size bus (signed)
 
-constant c_HK_SPI_DTA_WD_NB_S : integer    :=  1                                                            ; --! HouseKeeping: SPI Data word number size
+constant c_DAC_MDL_POINT_V    : std_logic_vector(c_SQM_DAC_DATA_S-1 downto 0) :=
+                                std_logic_vector(to_signed(2**(c_SQM_DAC_DATA_S-1), c_SQM_DAC_DATA_S))      ; --! DAC middle point
+
+constant c_HK_SPI_DTA_WD_NB_S : integer :=  1                                                               ; --! HouseKeeping: SPI Data word number size
 
 constant c_ADD0               : std_logic_vector(c_HK_SPI_ADD_S-1 downto 0) :=
                                 std_logic_vector(to_unsigned(0, c_HK_SPI_ADD_S))                            ; --! Address 0
@@ -201,7 +205,20 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    G_column_mgt: for k in 0 to c_NB_COL-1 generate
    begin
-      sqm_adc_data(k) <= not(sqm_dac_data(k)(sqm_dac_data(k)'high)) & sqm_dac_data(k)(sqm_dac_data(k)'high-1 downto 0);
+
+      -- Case SQUID MUX data not complemented
+      G_sqm_dta_comp_n: if c_SQM_DATA_COMP(k) = c_LOW_LEV generate
+      begin
+         sqm_adc_data(k) <= not(sqm_dac_data(k)(sqm_dac_data(k)'high)) & sqm_dac_data(k)(sqm_dac_data(k)'high-1 downto 0);
+
+      end generate G_sqm_dta_comp_n;
+
+      -- Case SQUID MUX data complemented
+      G_sqm_dta_comp: if c_SQM_DATA_COMP(k) = c_HGH_LEV generate
+      begin
+         sqm_adc_data(k) <= std_logic_vector(signed(c_DAC_MDL_POINT_V) - signed(sqm_dac_data(k)));
+
+      end generate G_sqm_dta_comp;
 
    end generate G_column_mgt;
 

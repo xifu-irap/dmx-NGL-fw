@@ -39,7 +39,7 @@ def synthesis_constraints(p,modelboard):
         # ------------------------------------------------------------------------------------------------------
         #   Region creation
         # ------------------------------------------------------------------------------------------------------
-        RESET           = Region('RESET'        , 25, 10,  1,  1)
+        RESET           = Region('RESET'        , 25, 14,  1,  1)
 
         SQM_ADC_0       = Region('SQM_ADC_0'    , 22, 14,  1,  3)
         SQM_ADC_1       = Region('SQM_ADC_1'    , 24, 14,  1,  3)
@@ -88,10 +88,10 @@ def synthesis_constraints(p,modelboard):
         # ------------------------------------------------------------------------------------------------------
         #   SQUID MUX DAC management constraints
         # ------------------------------------------------------------------------------------------------------
-        p.addModule('sqm_dac_mgt', 'I_top_dmx_dm_clk|G_column_mgt[0].I_sqm_dac_mgt', 'sqm_dac_mgt_0', 'Soft')
-        p.addModule('sqm_dac_mgt', 'I_top_dmx_dm_clk|G_column_mgt[1].I_sqm_dac_mgt', 'sqm_dac_mgt_1', 'Soft')
-        p.addModule('sqm_dac_mgt', 'I_top_dmx_dm_clk|G_column_mgt[2].I_sqm_dac_mgt', 'sqm_dac_mgt_2', 'Soft')
-        p.addModule('sqm_dac_mgt', 'I_top_dmx_dm_clk|G_column_mgt[3].I_sqm_dac_mgt', 'sqm_dac_mgt_3', 'Soft')
+        p.addModule('sqm_dac_mgt(X0097C298)', 'I_top_dmx_dm_clk|G_column_mgt[0].I_sqm_dac_mgt', 'sqm_dac_mgt_0', 'Soft')
+        p.addModule('sqm_dac_mgt(X0097C298)', 'I_top_dmx_dm_clk|G_column_mgt[1].I_sqm_dac_mgt', 'sqm_dac_mgt_1', 'Soft')
+        p.addModule('sqm_dac_mgt(X0097C298)', 'I_top_dmx_dm_clk|G_column_mgt[2].I_sqm_dac_mgt', 'sqm_dac_mgt_2', 'Soft')
+        p.addModule('sqm_dac_mgt(X0097C298)', 'I_top_dmx_dm_clk|G_column_mgt[3].I_sqm_dac_mgt', 'sqm_dac_mgt_3', 'Soft')
 
         p.addRegion(SQM_DAC_0.n, SQM_DAC_0.c, SQM_DAC_0.r, SQM_DAC_0.w, SQM_DAC_0.h, False)
         p.addRegion(SQM_DAC_1.n, SQM_DAC_1.c, SQM_DAC_1.r, SQM_DAC_1.w, SQM_DAC_1.h, False)
@@ -170,6 +170,11 @@ def synthesis_constraints(p,modelboard):
         SQM_DAC_1       = Region('SQM_DAC_1'    , 25, 18,  1,  3)
         SQM_DAC_2       = Region('SQM_DAC_2'    , 17, 18,  1,  3)
         SQM_DAC_3       = Region('SQM_DAC_3'    , 15,  4,  1,  3)
+
+        SQM_DAC_PLS_0   = Region('SQM_DAC_PLS_0', 33,  2,  1,  3)
+        SQM_DAC_PLS_1   = Region('SQM_DAC_PLS_1', 25, 20,  1,  3)
+        SQM_DAC_PLS_2   = Region('SQM_DAC_PLS_2', 17, 20,  1,  3)
+        SQM_DAC_PLS_3   = Region('SQM_DAC_PLS_3', 15,  2,  1,  3)
 
         SQM_DAC_SLEEP_0 = Region('SQM_DAC_SLP_0', 48,  6,  1,  1)
         SQM_DAC_SLEEP_1 = Region('SQM_DAC_SLP_1', 48,  2,  1,  1)
@@ -278,10 +283,25 @@ def synthesis_constraints(p,modelboard):
         p.constrainPath(['I_rst_clk_mgt|G_column_mgt[2].I_cmd_ck_sqm_dac|cmd_ck_sleep_reg'],['I_rst_clk_mgt|G_column_mgt[2].I_cmd_ck_sqm_dac|o_cmd_ck_sleep_reg'], 'dac_sleep_2', 'Soft', SQM_DAC_SLEEP_2.c, SQM_DAC_SLEEP_2.r, SQM_DAC_SLEEP_2.w, SQM_DAC_SLEEP_2.h, SQM_DAC_SLEEP_2.n, False)
         p.constrainPath(['I_rst_clk_mgt|G_column_mgt[3].I_cmd_ck_sqm_dac|cmd_ck_sleep_reg'],['I_rst_clk_mgt|G_column_mgt[3].I_cmd_ck_sqm_dac|o_cmd_ck_sleep_reg'], 'dac_sleep_3', 'Soft', SQM_DAC_SLEEP_3.c, SQM_DAC_SLEEP_3.r, SQM_DAC_SLEEP_3.w, SQM_DAC_SLEEP_3.h, SQM_DAC_SLEEP_3.n, False)
 
-        p.addModule('sqm_dac_mgt', 'G_column_mgt[0].I_sqm_dac_mgt', 'sqm_dac_mgt_0', 'Soft')
-        p.addModule('sqm_dac_mgt', 'G_column_mgt[1].I_sqm_dac_mgt', 'sqm_dac_mgt_1', 'Soft')
-        p.addModule('sqm_dac_mgt', 'G_column_mgt[2].I_sqm_dac_mgt', 'sqm_dac_mgt_2', 'Soft')
-        p.addModule('sqm_dac_mgt', 'G_column_mgt[3].I_sqm_dac_mgt', 'sqm_dac_mgt_3', 'Soft')
+        p.addModule('pulse_shaping(X47E1BBE6)', 'G_column_mgt[0].I_sqm_dac_mgt|I_pulse_shaping', 'sqm_dac_pls_mgt_0', 'Soft')
+        p.addModule('pulse_shaping(X47E1BBE6)', 'G_column_mgt[1].I_sqm_dac_mgt|I_pulse_shaping', 'sqm_dac_pls_mgt_1', 'Soft')
+        p.addModule('pulse_shaping(X47E1BBE6)', 'G_column_mgt[2].I_sqm_dac_mgt|I_pulse_shaping', 'sqm_dac_pls_mgt_2', 'Soft')
+        p.addModule('pulse_shaping(X47E1BBE6)', 'G_column_mgt[3].I_sqm_dac_mgt|I_pulse_shaping', 'sqm_dac_pls_mgt_3', 'Soft')
+
+        p.addRegion(SQM_DAC_PLS_0.n, SQM_DAC_PLS_0.c, SQM_DAC_PLS_0.r, SQM_DAC_PLS_0.w, SQM_DAC_PLS_0.h, False)
+        p.addRegion(SQM_DAC_PLS_1.n, SQM_DAC_PLS_1.c, SQM_DAC_PLS_1.r, SQM_DAC_PLS_1.w, SQM_DAC_PLS_1.h, False)
+        p.addRegion(SQM_DAC_PLS_2.n, SQM_DAC_PLS_2.c, SQM_DAC_PLS_2.r, SQM_DAC_PLS_2.w, SQM_DAC_PLS_2.h, False)
+        p.addRegion(SQM_DAC_PLS_3.n, SQM_DAC_PLS_3.c, SQM_DAC_PLS_3.r, SQM_DAC_PLS_3.w, SQM_DAC_PLS_3.h, False)
+
+        p.confineModule('sqm_dac_pls_mgt_0', SQM_DAC_PLS_0.n)
+        p.confineModule('sqm_dac_pls_mgt_1', SQM_DAC_PLS_1.n)
+        p.confineModule('sqm_dac_pls_mgt_2', SQM_DAC_PLS_2.n)
+        p.confineModule('sqm_dac_pls_mgt_3', SQM_DAC_PLS_3.n)
+
+        p.addModule('sqm_dac_mgt(X0097C298)', 'G_column_mgt[0].I_sqm_dac_mgt', 'sqm_dac_mgt_0', 'Soft')
+        p.addModule('sqm_dac_mgt(X0097C298)', 'G_column_mgt[1].I_sqm_dac_mgt', 'sqm_dac_mgt_1', 'Soft')
+        p.addModule('sqm_dac_mgt(X0097C298)', 'G_column_mgt[2].I_sqm_dac_mgt', 'sqm_dac_mgt_2', 'Soft')
+        p.addModule('sqm_dac_mgt(X0097C298)', 'G_column_mgt[3].I_sqm_dac_mgt', 'sqm_dac_mgt_3', 'Soft')
 
         p.addRegion(SQM_DAC_0.n, SQM_DAC_0.c, SQM_DAC_0.r, SQM_DAC_0.w, SQM_DAC_0.h, False)
         p.addRegion(SQM_DAC_1.n, SQM_DAC_1.c, SQM_DAC_1.r, SQM_DAC_1.w, SQM_DAC_1.h, False)

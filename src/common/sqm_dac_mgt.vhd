@@ -35,7 +35,9 @@ use     work.pkg_func_math.all;
 use     work.pkg_project.all;
 use     work.pkg_ep_cmd.all;
 
-entity sqm_dac_mgt is port (
+entity sqm_dac_mgt is generic (
+         g_SQM_DATA_COMP      : std_logic                                                                     --! SQUID MUX data complemented ('0' = No, '1' = Yes)
+   ); port (
          i_rst_sqm_adc_dac    : in     std_logic                                                            ; --! Reset for SQUID ADC/DAC, de-assertion on system clock ('0' = Inactive, '1' = Active)
          i_clk_sqm_adc_dac    : in     std_logic                                                            ; --! SQUID ADC/DAC internal Clock
          i_clk_sqm_adc_dac_90 : in     std_logic                                                            ; --! SQUID ADC/DAC internal 90 degrees shift
@@ -85,8 +87,8 @@ signal   mem_plssh_prm        : t_mem(
                                 add(                c_MEM_PLSSH_ADD_S-1 downto 0),
                                 data_w(            c_DFLD_PLSSH_PLS_S-1 downto 0))                          ; --! SQUID MUX feedback pulse shaping coefficient, DAC side: memory inputs
 
-signal   x_init               : std_logic_vector(    c_SQM_DATA_FBK_S-1 downto 0)                           ; --! Pulse shaping: Last value reached by y[k] at the end of last slice (unsigned)
-signal   x_final              : std_logic_vector(    c_SQM_DATA_FBK_S-1 downto 0)                           ; --! Pulse shaping: Final value to reach by y[k] (unsigned)
+signal   x_init               : std_logic_vector(    c_SQM_DATA_FBK_S-1 downto 0)                           ; --! Pulse shaping: Last value reached by y[k] at the end of last slice (signed)
+signal   x_final              : std_logic_vector(    c_SQM_DATA_FBK_S-1 downto 0)                           ; --! Pulse shaping: Final value to reach by y[k] (signed)
 signal   a_mant_k             : std_logic_vector(  c_DFLD_PLSSH_PLS_S-1 downto 0)                           ; --! Pulse shaping: A[k] filter mantissa parameter (unsigned)
 signal   a_mant_k_rs          : std_logic_vector( c_SQM_PLS_SHP_A_EXP-1 downto 0)                           ; --! Pulse shaping: A[k] filter mantissa parameter (unsigned) resized
 
@@ -293,22 +295,18 @@ begin
 
    -- ------------------------------------------------------------------------------------------------------
    --!   SQUID MUX DAC: Pulse shaping inputs
-   --     x_final signed input adapted in order to get the correspondence:
-   --     - i_sqm_data_fbk = -2^(c_SQM_DATA_FBK_S-1)   -> o_sqm_dac_data = 0                      (DAC analog output = - Vref)
-   --     - i_sqm_data_fbk =  2^(c_SQM_DATA_FBK_S-1)-1 -> o_sqm_dac_data = 2^(c_SQM_DAC_DATA_S)-1 (DAC analog output =   Vref)
-   --     Either: x_final = i_sqm_data_fbk + 2^(c_SQM_DATA_FBK_S-1)
    -- ------------------------------------------------------------------------------------------------------
    P_pulse_shaping_in : process (rst_sqm_adc_dac_lc , i_clk_sqm_adc_dac)
    begin
 
       if rst_sqm_adc_dac_lc  = c_RST_LEV_ACT then
-         x_init   <= std_logic_vector(to_unsigned(c_DAC_MDL_POINT, x_init'length));
-         x_final  <= std_logic_vector(to_unsigned(c_DAC_MDL_POINT, x_final'length));
+         x_init   <= c_ZERO(x_init'range);
+         x_final  <= c_ZERO(x_final'range);
 
       elsif rising_edge(i_clk_sqm_adc_dac) then
          if pls_cnt = std_logic_vector(to_unsigned(c_PLS_VAL_SYNC_PRM, pls_cnt'length)) then
             x_init   <= x_final;
-            x_final  <= not(sqm_data_fbk_r(sqm_data_fbk_r'high)(x_final'high)) & sqm_data_fbk_r(sqm_data_fbk_r'high)(x_final'high-1 downto 0);
+            x_final  <= sqm_data_fbk_r(sqm_data_fbk_r'high);
 
          end if;
 
@@ -321,15 +319,16 @@ begin
    --    @Req : DRE-DMX-FW-REQ-0220
    --    @Req : DRE-DMX-FW-REQ-0240
    -- ------------------------------------------------------------------------------------------------------
-   I_pulse_shaping: entity work.pulse_shaping generic map (
+   I_pulse_shaping: entity work.pulse_shaping  generic map (
+         g_SQM_DATA_COMP      => g_SQM_DATA_COMP      , -- std_logic                                        ; --! SQUID MUX data complemented ('0' = No, '1' = Yes)
          g_X_K_S              => c_SQM_DATA_FBK_S     , -- integer                                          ; --! Data in bus size (<= c_MULT_ALU_PORTB_S-1)
          g_A_EXP              => c_SQM_PLS_SHP_A_EXP  , -- integer                                          ; --! A[k]: filter exponent parameter (<= c_MULT_ALU_PORTC_S-g_X_K_S-1)
          g_Y_K_S              => c_SQM_DAC_DATA_S       -- integer                                            --! y[k]: filtered data out bus size
    ) port map (
          i_rst_sqm_adc_dac_lc => rst_sqm_adc_dac_lc   , -- in     std_logic                                 ; --! Local reset for SQUID ADC/DAC, de-assertion on system clock
          i_clk_sqm_adc_dac    => i_clk_sqm_adc_dac    , -- in     std_logic                                 ; --! SQUID MUX pulse shaping Clock
-         i_x_init             => x_init               , -- in     std_logic_vector(g_X_K_S-1 downto 0)      ; --! Last value reached by y[k] at the end of last slice (unsigned)
-         i_x_final            => x_final              , -- in     std_logic_vector(g_X_K_S-1 downto 0)      ; --! Final value to reach by y[k] (unsigned)
+         i_x_init             => x_init               , -- in     std_logic_vector(g_X_K_S-1 downto 0)      ; --! Last value reached by y[k] at the end of last slice (signed)
+         i_x_final            => x_final              , -- in     std_logic_vector(g_X_K_S-1 downto 0)      ; --! Final value to reach by y[k] (signed)
          i_a_mant_k           => a_mant_k_rs          , -- in     std_logic_vector(g_A_EXP-1 downto 0)      ; --! A[k]: filter mantissa parameter (unsigned)
          o_y_k                => o_sqm_dac_data         -- out    std_logic_vector(g_Y_K_S-1 downto 0)        --! y[k]: filtered data out (unsigned)
    );

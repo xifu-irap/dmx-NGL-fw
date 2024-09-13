@@ -31,6 +31,7 @@ library work;
 use     work.pkg_type.all;
 use     work.pkg_func_math.all;
 use     work.pkg_project.all;
+use     work.pkg_mod.all;
 use     work.pkg_model.all;
 use     work.pkg_fpga_tech.all;
 use     work.pkg_ep_cmd.all;
@@ -411,6 +412,7 @@ begin
          i_pls_shp_fc         => pls_shp_fc(k)        , -- in     integer                                   ; --! Pulse shaping cut frequency (Hz)
          o_err_num_pls_shp    => err_num_pls_shp(k)   , -- out    integer                                   ; --! Pulse shaping error number
 
+         i_sqm_data_comp      => c_SQM_DATA_COMP(k)   , -- in     std_logic                                 ; --! SQUID MUX data complemented ('0' = No, '1' = Yes)
          i_clk_sqm_dac        => clk_sqm_dac(k)       , -- in     std_logic                                 ; --! SQUID MUX DAC: Clock
          i_sqm_dac_data       => sqm_dac_data(k)      , -- in     slv(c_SQM_DAC_DATA_S-1 downto 0)          ; --! SQUID MUX DAC: Data
          i_sqm_dac_sleep      => sqm_dac_sleep(k)     , -- in     std_logic                                 ; --! SQUID MUX DAC: Sleep ('0' = Inactive, '1' = Active)

@@ -42,7 +42,7 @@ package pkg_project is
    --    @Req : DRE-DMX-FW-REQ-0120
    --    @Req : DRE-DMX-FW-REQ-0270
    -- ------------------------------------------------------------------------------------------------------
-constant c_FW_VERSION         : integer   := 16#0008#                                                       ; --! Firmware version
+constant c_FW_VERSION         : integer   := 16#0009#                                                       ; --! Firmware version
 
 constant c_FF_RSYNC_NB        : integer   := 2                                                              ; --! Flip-Flop number used for FPGA input resynchronization
 constant c_FF_RST_NB          : integer   := 6                                                              ; --! Flip-Flop number used for internal reset: System Clock
@@ -316,17 +316,17 @@ constant c_DAC_SYNC_RDY_NPER  : integer := (c_FF_RSYNC_NB + 1)*(c_CLK_ADC_DAC_MU
                                           + c_FF_RSYNC_NB                                                   ; --! DAC clock period number for getting pixel sequence synchronization, synchronized
 constant c_DAC_SYNC_RE_NPER   : integer := 1                                                                ; --! DAC clock period number for getting pixel sequence synchronization rising edge
 constant c_DAC_MEM_PRM_NPER   : integer := c_MEM_RD_DATA_NPER + 1                                           ; --! DAC clock period number for getting parameters stored in memory from pixel sequence
-constant c_DAC_SHP_PRC_NPER   : integer := c_DSP_NPER + 1                                                   ; --! DAC clock period number for pulse shaping processing and DAC data input
+constant c_DAC_SHP_PRC_NPER   : integer := c_DSP_NPER + 3                                                   ; --! DAC clock period number for pulse shaping processing and DAC data input
 constant c_DAC_DATA_NPER      : integer := 3                                                                ; --! DAC clock period number between DAC data input and analog output
 constant c_DAC_SYNC_DATA_NPER : integer := c_DAC_SYNC_RDY_NPER + c_DAC_SYNC_RE_NPER + c_DAC_MEM_PRM_NPER +
                                            c_DAC_SHP_PRC_NPER  + c_DAC_DATA_NPER                            ; --! DAC clock period number for stalling analog output to pixel sequence synchronization
 
 constant c_SQM_PLS_CNT_MX_VAL : integer := c_PIXEL_DAC_NB_CYC - 2                                           ; --! SQUID MUX, Pulse shaping counter: maximal value
-constant c_SQM_PLS_CNT_INIT   : integer := c_SQM_PLS_CNT_MX_VAL - c_DAC_SYNC_DATA_NPER                      ; --! SQUID MUX, Pulse shaping counter: initialization value
+constant c_SQM_PLS_CNT_INIT   : integer := 2*(c_SQM_PLS_CNT_MX_VAL + 2) - c_DAC_SYNC_DATA_NPER - 2          ; --! SQUID MUX, Pulse shaping counter: initialization value
 constant c_SQM_PLS_CNT_S      : integer := log2_ceil(c_SQM_PLS_CNT_MX_VAL + 1) + 1                          ; --! SQUID MUX, Pulse shaping counter: size bus (signed)
 
 constant c_SQM_PXL_POS_MX_VAL : integer := c_MUX_FACT - 2                                                   ; --! SQUID MUX, Pixel position: maximal value
-constant c_SQM_PXL_POS_INIT   : integer := -1                                                               ; --! SQUID MUX, Pixel position: initialization value
+constant c_SQM_PXL_POS_INIT   : integer := c_SQM_PXL_POS_MX_VAL                                             ; --! SQUID MUX, Pixel position: initialization value
 constant c_SQM_PXL_POS_S      : integer := log2_ceil(c_SQM_PXL_POS_MX_VAL+1)+1                              ; --! SQUID MUX, Pixel position: size bus (signed)
 
    -- ------------------------------------------------------------------------------------------------------

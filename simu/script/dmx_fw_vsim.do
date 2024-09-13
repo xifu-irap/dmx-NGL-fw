@@ -89,6 +89,7 @@ quietly set TB_DIR $4
 
    if {${MODEL_BOARD} == "dm" || ${MODEL_BOARD} == "dk"} {
       vcom +cover=bcs -work work -2008           \
+         ${SRC_DIR}/dm/pkg_mod.vhd               \
          ${SRC_DIR}/dm/pkg_fir.vhd               \
          ${SRC_DIR}/dm/fir_deci.vhd              \
          ${SRC_DIR}/dm/sqa_under_samp.vhd        \

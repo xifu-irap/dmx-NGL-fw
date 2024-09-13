@@ -58,6 +58,7 @@ entity squid_model is generic (
          o_sqm_adc_data       : out    std_logic_vector(c_SQM_ADC_DATA_S-1 downto 0)                        ; --! SQUID MUX ADC: Data
          o_sqm_adc_oor        : out    std_logic                                                            ; --! SQUID MUX ADC: Out of range ('0' = No, '1' = under/over range)
 
+         i_sqm_data_comp      : in     std_logic                                                            ; --! SQUID MUX data complemented ('0' = No, '1' = Yes)
          i_clk_sqm_dac        : in     std_logic                                                            ; --! SQUID MUX DAC: Clock
          i_sqm_dac_data       : in     std_logic_vector(c_SQM_DAC_DATA_S-1 downto 0)                        ; --! SQUID MUX DAC: Data
          i_sqm_dac_sleep      : in     std_logic                                                            ; --! SQUID MUX DAC: Sleep ('0' = Inactive, '1' = Active)
@@ -80,6 +81,7 @@ end entity squid_model;
 
 architecture Behavioral of squid_model is
 signal   squid_err_volt       : real                                                                        ; --! SQUID Error voltage (Volt)
+signal   sqm_dac_out          : real                                                                        ; --! SQUID MUX DAC output
 signal   sqm_dac_delta_volt   : real                                                                        ; --! SQUID MUX voltage (Vin+ - Vin-) (Volt)
 signal   sqa_volt             : real                                                                        ; --! SQUID AMP voltage (Volt)
 
@@ -94,9 +96,10 @@ begin
          i_clk                => i_clk_sqm_dac        , -- in     std_logic                                 ; --! Clock
          i_sleep              => i_sqm_dac_sleep      , -- in     std_logic                                 ; --! Sleep ('0' = Inactive, '1' = Active)
          i_d                  => i_sqm_dac_data       , -- in     std_logic_vector(13 downto 0)             ; --! Data
-         o_delta_vout         => sqm_dac_delta_volt     -- out    real                                        --! Analog voltage (-g_VREF <= Vout1 - Vout2 < g_VREF)
+         o_delta_vout         => sqm_dac_out            -- out    real                                        --! Analog voltage (-g_VREF <= Vout1 - Vout2 < g_VREF)
    );
 
+   sqm_dac_delta_volt   <= sqm_dac_out when i_sqm_data_comp = c_LOW_LEV else -sqm_dac_out;
    o_sqm_dac_delta_volt <= transport sqm_dac_delta_volt after g_SQM_VOLT_DEL when now > g_SQM_VOLT_DEL else c_ZERO_REAL;
 
    -- ------------------------------------------------------------------------------------------------------
