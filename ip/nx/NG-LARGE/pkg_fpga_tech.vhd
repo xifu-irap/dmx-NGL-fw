@@ -45,10 +45,6 @@ constant c_HGH_LEV_B          : bit := not(c_LOW_LEV_B)                         
 constant c_IO_DEL_STEP        : integer   := 160                                                            ; --! FPGA I/O delay by step value (ps)
 constant c_PAD_REG_SET_AUTH   : std_logic := c_LOW_LEV                                                      ; --! Initialization set to one for register located in PAD allowed ('0': No, '1': Yes)
 
-constant c_FPGA_POS_ADC       : integer_vector(0 to 3) := ( 2, 3, 0, 1)                                     ; --! FPGA position ADC (0:Left Up, 1:Left Down, 2:Right Down, 3:Right up)
-constant c_FPGA_POS_SQM_DAC   : integer_vector(0 to 3) := ( 3, 2, 1, 0)                                     ; --! FPGA position MUX DAC (0:Left Up, 1:Left Down, 2:Right Down, 3:Right up)
-constant c_FPGA_POS_SQA_DAC   : integer_vector(0 to 3) := ( 3, 3, 0, 0)                                     ; --! FPGA position AMP DAC (0:Left Up, 1:Left Down, 2:Right Down, 3:Right up)
-
    -- ------------------------------------------------------------------------------------------------------
    --!   Pll/Wave Form Generator parameters
    -- ------------------------------------------------------------------------------------------------------

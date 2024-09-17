@@ -65,13 +65,12 @@ entity sqm_fbk_mgt is port (
 end entity sqm_fbk_mgt;
 
 architecture RTL of sqm_fbk_mgt is
-constant c_MINUSTWO           : std_logic_vector(c_SQM_PLS_CNT_S-1 downto 0):=
-                                std_logic_vector(to_signed(-2, c_SQM_PLS_CNT_S))                            ; --! Minus two value
+constant c_MINUSTWO_INT       : integer := -2                                                               ; --! Minus two value
 
 constant c_FRAME_NB_CYC       : integer := c_MUX_FACT * c_PIXEL_DAC_NB_CYC                                  ; --! Frame period number
 constant c_FRAME_NB_CYC_S     : integer := log2_ceil(c_FRAME_NB_CYC)                                        ; --! Frame period number bus size
 constant c_SMFBD_POSITIVE_S   : integer := c_FRAME_NB_CYC_S + 1                                             ; --! SQUID MUX feedback delay in positive bus size
-constant c_SMFBD_CMP_R_S      : integer := 2 * c_DSP_NPER + 2                                               ; --! SQUID MUX feedback delay compare register bus size
+constant c_SMFBD_CMP_R_S      : integer := 2 * c_DSP_NPER + 3                                               ; --! SQUID MUX feedback delay compare register bus size
 
 constant c_PLS_CNT_INIT_SHT   : integer := 2                                                                ; --! Pulse counter initialization number cycle shift
 constant c_PLS_CNT_INIT_SHT_V : std_logic_vector(c_SMFBD_POSITIVE_S-1 downto 0) :=
@@ -87,7 +86,7 @@ constant c_PXL_DAC_NCYC_INV_V : std_logic_vector(c_PXL_DAC_NCYC_INV_S-1 downto 0
 constant c_PXL_DAC_NCYC_NEG_V : std_logic_vector(c_MULT_ALU_PORTA_S-1 downto 0) :=
                                 std_logic_vector(to_signed(-c_PIXEL_DAC_NB_CYC , c_MULT_ALU_PORTA_S))       ; --! DAC clock period number allocated to one pixel acquisition negative vector
 
-constant c_FBK_PXL_POS_INIT   : integer:= c_SQM_PXL_POS_MX_VAL - 1                                          ; --! Feedback Pixel position: initialization value
+constant c_FBK_PXL_POS_INIT   : integer:= c_SQM_PXL_POS_INIT - 2                                            ; --! Feedback Pixel position: initialization value
 constant c_FBK_PXL_POS_SHIFT  : integer:= 2                                                                 ; --! Feedback Pixel position: shift
 
 signal   tst_pat_end_r        : std_logic                                                                   ; --! Test pattern end of all patterns register
@@ -104,6 +103,7 @@ signal   smfbd_cmp_r          : std_logic_vector(   c_SMFBD_CMP_R_S-1 downto 0) 
 signal   smfbd_positive       : std_logic_vector(c_SMFBD_POSITIVE_S-1 downto 0)                             ; --! SQUID MUX feedback delay in positive
 
 signal   pixel_pos_div        : std_logic_vector(   c_SQM_PXL_POS_S-1 downto 0)                             ; --! Pixel position division result
+signal   pixel_pos_div_r      : std_logic_vector(   c_SQM_PXL_POS_S-1 downto 0)                             ; --! Pixel position division result register
 signal   sqm_pixel_pos_init   : std_logic_vector(   c_SQM_PXL_POS_S-1 downto 0)                             ; --! SQUID MUX Pixel position initialization
 signal   fbk_pixel_pos_init   : std_logic_vector(   c_SQM_PXL_POS_S-1 downto 0)                             ; --! Feedback Pixel position initialization
 signal   pixel_pos_init       : std_logic_vector(   c_SQM_PXL_POS_S-1 downto 0)                             ; --! Feedback Pixel position initialization
@@ -111,6 +111,7 @@ signal   pixel_pos            : std_logic_vector(   c_SQM_PXL_POS_S-1 downto 0) 
 signal   pixel_pos_inc        : std_logic_vector(   c_SQM_PXL_POS_S-2 downto 0)                             ; --! Feedback Pixel position increasing
 signal   sqm_pls_cnt_init     : std_logic_vector(   c_SQM_PLS_CNT_S-1 downto 0)                             ; --! SQUID MUX Pulse shaping counter initialization
 signal   pls_cnt_div_rem      : std_logic_vector(   c_SQM_PLS_CNT_S-1 downto 0)                             ; --! Pulse counter division remainder
+signal   pls_cnt_div_rem_r    : std_logic_vector(   c_SQM_PLS_CNT_S-1 downto 0)                             ; --! Pulse counter division remainder register
 signal   pls_cnt              : std_logic_vector(   c_SQM_PLS_CNT_S-2 downto 0)                             ; --! Feedback Pulse counter
 
 signal   mem_smfb0_pp         : std_logic                                                                   ; --! SQUID MUX feedback value in open loop, TC/HK side: ping-pong buffer bit
@@ -269,6 +270,24 @@ begin
    );
 
    -- ------------------------------------------------------------------------------------------------------
+   --!   Pulse counter division remainder register
+   -- ------------------------------------------------------------------------------------------------------
+   P_pls_cnt_div_rem_r : process (i_rst, i_clk)
+   begin
+
+      if i_rst = c_RST_LEV_ACT then
+         pls_cnt_div_rem_r <= c_MINUSONE(pls_cnt_div_rem_r'range);
+         pixel_pos_div_r   <= c_MINUSONE(pixel_pos_div_r'range);
+
+      elsif rising_edge(i_clk) then
+         pls_cnt_div_rem_r <= pls_cnt_div_rem;
+         pixel_pos_div_r   <= pixel_pos_div;
+
+      end if;
+
+   end process P_pls_cnt_div_rem_r;
+
+   -- ------------------------------------------------------------------------------------------------------
    --!   SQUID MUX Pixel position initialization
    --    @Req : DRE-DMX-FW-REQ-0280
    -- ------------------------------------------------------------------------------------------------------
@@ -279,11 +298,14 @@ begin
          sqm_pixel_pos_init <= c_MINUSONE(sqm_pixel_pos_init'range);
 
       elsif rising_edge(i_clk) then
-         if pls_cnt_div_rem = c_MINUSTWO then
-            sqm_pixel_pos_init <= std_logic_vector(signed(pixel_pos_div) - 1);
+         if    pixel_pos_div_r = std_logic_vector(to_signed(c_MINUSTWO_INT, pixel_pos_div_r'length)) then
+            sqm_pixel_pos_init <= std_logic_vector(to_unsigned(c_SQM_PXL_POS_MX_VAL, sqm_pixel_pos_init'length));
+
+         elsif pls_cnt_div_rem_r = std_logic_vector(to_signed(c_MINUSTWO_INT, pls_cnt_div_rem_r'length)) then
+            sqm_pixel_pos_init <= std_logic_vector(signed(pixel_pos_div_r) - 1);
 
          else
-            sqm_pixel_pos_init <= pixel_pos_div;
+            sqm_pixel_pos_init <= pixel_pos_div_r;
 
          end if;
 
@@ -328,11 +350,11 @@ begin
          sqm_pls_cnt_init  <= c_MINUSONE(sqm_pls_cnt_init'range);
 
       elsif rising_edge(i_clk) then
-         if pls_cnt_div_rem = c_MINUSTWO then
+         if pls_cnt_div_rem_r = std_logic_vector(to_signed(c_MINUSTWO_INT, pls_cnt_div_rem_r'length)) then
             sqm_pls_cnt_init <= std_logic_vector(to_unsigned(c_SQM_PLS_CNT_MX_VAL, sqm_pls_cnt_init'length));
 
          else
-            sqm_pls_cnt_init <= pls_cnt_div_rem;
+            sqm_pls_cnt_init <= pls_cnt_div_rem_r;
 
          end if;
 
