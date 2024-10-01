@@ -69,4 +69,4 @@ jobs:
           name: debug
           path: |
             .linty/
-            include-hidden-files: true
+          include-hidden-files: true
