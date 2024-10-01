@@ -57,8 +57,7 @@ WUDI clk_sqm_adc(0) 1
 RTIM
 WUDI clk_sqm_adc_acq 1
 WUDI clk_sqm_adc_acq 0
-CTLR >= 4400 ps
-CTLR << 4560 ps
+CTLR == 8004 ps
 COMM
 COMM ==============================================================================================
 COMM   Check timing between o_c0_sqm_adc_pwdn deactivation and i_sync rising edge
@@ -105,8 +104,7 @@ WUDI clk_sqm_adc(0) 1
 RTIM
 WUDI clk_sqm_adc_acq 1
 WUDI clk_sqm_adc_acq 0
-CTLR >= 4400 ps
-CTLR << 4560 ps
+CTLR == 8004 ps
 COMM
 COMM ==============================================================================================
 COMM   Check timing between o_c0_sqm_adc_pwdn deactivation and i_sync rising edge
@@ -154,8 +152,7 @@ WUDI clk_sqm_adc(0) 1
 RTIM
 WUDI clk_sqm_adc_acq 1
 WUDI clk_sqm_adc_acq 0
-CTLR >= 4400 ps
-CTLR << 4560 ps
+CTLR == 8004 ps
 COMM
 COMM ==============================================================================================
 COMM   Check timing between o_c0_sqm_adc_pwdn deactivation and i_sync rising edge
@@ -201,8 +198,7 @@ WUDI clk_sqm_adc(0) 1
 RTIM
 WUDI clk_sqm_adc_acq 1
 WUDI clk_sqm_adc_acq 0
-CTLR >= 4400 ps
-CTLR << 4560 ps
+CTLR == 8004 ps
 COMM
 COMM ==============================================================================================
 COMM   Check timing between o_c0_sqm_adc_pwdn deactivation and i_sync rising edge
@@ -250,8 +246,7 @@ WUDI clk_sqm_adc(0) 1
 RTIM
 WUDI clk_sqm_adc_acq 1
 WUDI clk_sqm_adc_acq 0
-CTLR >= 4400 ps
-CTLR << 4560 ps
+CTLR == 8004 ps
 COMM
 COMM ==============================================================================================
 COMM   Check timing between o_c0_sqm_adc_pwdn deactivation and i_sync rising edge
@@ -299,8 +294,7 @@ WUDI clk_sqm_adc(0) 1
 RTIM
 WUDI clk_sqm_adc_acq 1
 WUDI clk_sqm_adc_acq 0
-CTLR >= 4400 ps
-CTLR << 4560 ps
+CTLR == 8004 ps
 COMM
 COMM ==============================================================================================
 COMM   Check timing between o_c0_sqm_adc_pwdn deactivation and i_sync rising edge
@@ -347,8 +341,7 @@ WUDI clk_sqm_adc(1) 1
 RTIM
 WUDI clk_sqm_adc_acq 1
 WUDI clk_sqm_adc_acq 0
-CTLR >= 4400 ps
-CTLR << 4560 ps
+CTLR == 8004 ps
 COMM
 COMM ==============================================================================================
 COMM   Check timing between o_c1_sqm_adc_pwdn deactivation and i_sync rising edge
@@ -395,8 +388,7 @@ WUDI clk_sqm_adc(1) 1
 RTIM
 WUDI clk_sqm_adc_acq 1
 WUDI clk_sqm_adc_acq 0
-CTLR >= 4400 ps
-CTLR << 4560 ps
+CTLR == 8004 ps
 COMM
 COMM ==============================================================================================
 COMM   Check timing between o_c1_sqm_adc_pwdn deactivation and i_sync rising edge
@@ -444,8 +436,7 @@ WUDI clk_sqm_adc(1) 1
 RTIM
 WUDI clk_sqm_adc_acq 1
 WUDI clk_sqm_adc_acq 0
-CTLR >= 4400 ps
-CTLR << 4560 ps
+CTLR == 8004 ps
 COMM
 COMM ==============================================================================================
 COMM   Check timing between o_c1_sqm_adc_pwdn deactivation and i_sync rising edge
@@ -491,8 +482,7 @@ WUDI clk_sqm_adc(1) 1
 RTIM
 WUDI clk_sqm_adc_acq 1
 WUDI clk_sqm_adc_acq 0
-CTLR >= 4400 ps
-CTLR << 4560 ps
+CTLR == 8004 ps
 COMM
 COMM ==============================================================================================
 COMM   Check timing between o_c1_sqm_adc_pwdn deactivation and i_sync rising edge
@@ -540,8 +530,7 @@ WUDI clk_sqm_adc(1) 1
 RTIM
 WUDI clk_sqm_adc_acq 1
 WUDI clk_sqm_adc_acq 0
-CTLR >= 4400 ps
-CTLR << 4560 ps
+CTLR == 8004 ps
 COMM
 COMM ==============================================================================================
 COMM   Check timing between o_c1_sqm_adc_pwdn deactivation and i_sync rising edge
@@ -589,8 +578,7 @@ WUDI clk_sqm_adc(1) 1
 RTIM
 WUDI clk_sqm_adc_acq 1
 WUDI clk_sqm_adc_acq 0
-CTLR >= 4400 ps
-CTLR << 4560 ps
+CTLR == 8004 ps
 COMM
 COMM ==============================================================================================
 COMM   Check timing between o_c1_sqm_adc_pwdn deactivation and i_sync rising edge
@@ -637,8 +625,7 @@ WUDI clk_sqm_adc(2) 1
 RTIM
 WUDI clk_sqm_adc_acq 1
 WUDI clk_sqm_adc_acq 0
-CTLR >= 4400 ps
-CTLR << 4560 ps
+CTLR == 8004 ps
 COMM
 COMM ==============================================================================================
 COMM   Check timing between o_c2_sqm_adc_pwdn deactivation and i_sync rising edge
@@ -685,8 +672,7 @@ WUDI clk_sqm_adc(2) 1
 RTIM
 WUDI clk_sqm_adc_acq 1
 WUDI clk_sqm_adc_acq 0
-CTLR >= 4400 ps
-CTLR << 4560 ps
+CTLR == 8004 ps
 COMM
 COMM ==============================================================================================
 COMM   Check timing between o_c2_sqm_adc_pwdn deactivation and i_sync rising edge
@@ -734,8 +720,7 @@ WUDI clk_sqm_adc(2) 1
 RTIM
 WUDI clk_sqm_adc_acq 1
 WUDI clk_sqm_adc_acq 0
-CTLR >= 4400 ps
-CTLR << 4560 ps
+CTLR == 8004 ps
 COMM
 COMM ==============================================================================================
 COMM   Check timing between o_c2_sqm_adc_pwdn deactivation and i_sync rising edge
@@ -781,8 +766,7 @@ WUDI clk_sqm_adc(2) 1
 RTIM
 WUDI clk_sqm_adc_acq 1
 WUDI clk_sqm_adc_acq 0
-CTLR >= 4400 ps
-CTLR << 4560 ps
+CTLR == 8004 ps
 COMM
 COMM ==============================================================================================
 COMM   Check timing between o_c2_sqm_adc_pwdn deactivation and i_sync rising edge
@@ -830,8 +814,7 @@ WUDI clk_sqm_adc(2) 1
 RTIM
 WUDI clk_sqm_adc_acq 1
 WUDI clk_sqm_adc_acq 0
-CTLR >= 4400 ps
-CTLR << 4560 ps
+CTLR == 8004 ps
 COMM
 COMM ==============================================================================================
 COMM   Check timing between o_c2_sqm_adc_pwdn deactivation and i_sync rising edge
@@ -879,8 +862,7 @@ WUDI clk_sqm_adc(2) 1
 RTIM
 WUDI clk_sqm_adc_acq 1
 WUDI clk_sqm_adc_acq 0
-CTLR >= 4400 ps
-CTLR << 4560 ps
+CTLR == 8004 ps
 COMM
 COMM ==============================================================================================
 COMM   Check timing between o_c2_sqm_adc_pwdn deactivation and i_sync rising edge
@@ -927,8 +909,7 @@ WUDI clk_sqm_adc(3) 1
 RTIM
 WUDI clk_sqm_adc_acq 1
 WUDI clk_sqm_adc_acq 0
-CTLR >= 4400 ps
-CTLR << 4560 ps
+CTLR == 8004 ps
 COMM
 COMM ==============================================================================================
 COMM   Check timing between o_c3_sqm_adc_pwdn deactivation and i_sync rising edge
@@ -975,8 +956,7 @@ WUDI clk_sqm_adc(3) 1
 RTIM
 WUDI clk_sqm_adc_acq 1
 WUDI clk_sqm_adc_acq 0
-CTLR >= 4400 ps
-CTLR << 4560 ps
+CTLR == 8004 ps
 COMM
 COMM ==============================================================================================
 COMM   Check timing between o_c3_sqm_adc_pwdn deactivation and i_sync rising edge
@@ -1024,8 +1004,7 @@ WUDI clk_sqm_adc(3) 1
 RTIM
 WUDI clk_sqm_adc_acq 1
 WUDI clk_sqm_adc_acq 0
-CTLR >= 4400 ps
-CTLR << 4560 ps
+CTLR == 8004 ps
 COMM
 COMM ==============================================================================================
 COMM   Check timing between o_c3_sqm_adc_pwdn deactivation and i_sync rising edge
@@ -1071,8 +1050,7 @@ WUDI clk_sqm_adc(3) 1
 RTIM
 WUDI clk_sqm_adc_acq 1
 WUDI clk_sqm_adc_acq 0
-CTLR >= 4400 ps
-CTLR << 4560 ps
+CTLR == 8004 ps
 COMM
 COMM ==============================================================================================
 COMM   Check timing between o_c3_sqm_adc_pwdn deactivation and i_sync rising edge
@@ -1120,8 +1098,7 @@ WUDI clk_sqm_adc(3) 1
 RTIM
 WUDI clk_sqm_adc_acq 1
 WUDI clk_sqm_adc_acq 0
-CTLR >= 4400 ps
-CTLR << 4560 ps
+CTLR == 8004 ps
 COMM
 COMM ==============================================================================================
 COMM   Check timing between o_c3_sqm_adc_pwdn deactivation and i_sync rising edge
@@ -1169,8 +1146,7 @@ WUDI clk_sqm_adc(3) 1
 RTIM
 WUDI clk_sqm_adc_acq 1
 WUDI clk_sqm_adc_acq 0
-CTLR >= 4400 ps
-CTLR << 4560 ps
+CTLR == 8004 ps
 COMM
 COMM ==============================================================================================
 COMM   Check timing between o_c3_sqm_adc_pwdn deactivation and i_sync rising edge

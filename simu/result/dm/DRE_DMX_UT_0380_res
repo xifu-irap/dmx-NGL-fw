@@ -3854,15 +3854,15 @@
 #             (587829768 ps) ==============================================================================================
 #             (587829768 ps)   Reset science frame counter
 #             (587829768 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (588366036 ps) Waiting time for 536268 ps
-# ** Note   : (588366036 ps) Write discrete: frm_cnt_sc_rst = '1'
-# ** Note   : (588386036 ps) Waiting time for 20000 ps
-# ** Note   : (588386036 ps) Write discrete: frm_cnt_sc_rst = '0'
-#             (588386036 ps) 
-#             (588386036 ps) ==============================================================================================
-#             (588386036 ps)   Second Test pattern generation
-#             (588386036 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (593272488 ps) Waiting event sync = '1' for 4886452 ps
+# ** Note   : (588382044 ps) Waiting time for 552276 ps
+# ** Note   : (588382044 ps) Write discrete: frm_cnt_sc_rst = '1'
+# ** Note   : (588402044 ps) Waiting time for 20000 ps
+# ** Note   : (588402044 ps) Write discrete: frm_cnt_sc_rst = '0'
+#             (588402044 ps) 
+#             (588402044 ps) ==============================================================================================
+#             (588402044 ps)   Second Test pattern generation
+#             (588402044 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (593272488 ps) Waiting event sync = '1' for 4870444 ps
 # ** Note   : (593432568 ps) Waiting event sync = '0' for 160080 ps
 # ** Note   : (598715208 ps) Waiting event sync = '1' for 5282640 ps
 # ** Note   : (598875288 ps) Waiting event sync = '0' for 160080 ps
@@ -3916,8 +3916,8 @@
 # ** Note   : (715488000 ps) Waiting SPI command end for 2279592 ps
 # ** Note   : (715488000 ps) Send SPI command value 8004_XXXX (AMP_SQ_OFFSET_MODE, mode Read, data XXXX)
 # ** Note   : (717810000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (717810242 ps) Waiting event sync = '0' for 242 ps
-# ** Note   : (718455048 ps) Waiting event sync = '1' for 644806 ps
+# ** Note   : (717810726 ps) Waiting event sync = '0' for 726 ps
+# ** Note   : (718455048 ps) Waiting event sync = '1' for 644322 ps
 # ** Note   : (718455048 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
 # ** Note   : (720762000 ps) Waiting SPI command end for 2270952 ps
 # ** Note   : (720762000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)

@@ -32,11 +32,13 @@ use     work.pkg_type.all;
 use     work.pkg_fpga_tech.all;
 use     work.pkg_func_math.all;
 use     work.pkg_project.all;
+use     work.pkg_mod.all;
 use     work.pkg_ep_cmd.all;
 use     work.pkg_ep_cmd_type.all;
 
 entity top_dmx_dm is port (
          i_clk_ref            : in     std_logic                                                            ; --! Reference Clock
+         i_sqm_adc_dc         : in     std_logic_vector(c_NB_COL-1 downto 0)                                ; --! SQUID MUX ADC: Data clock
 
          o_clk_sqm_adc        : out    std_logic_vector(c_NB_COL-1 downto 0)                                ; --! SQUID MUX ADC: Clock
          o_clk_sqm_dac        : out    std_logic_vector(c_NB_COL-1 downto 0)                                ; --! SQUID MUX DAC: Clock
@@ -451,6 +453,7 @@ begin
       I_squid_adc_mgt: entity work.squid_adc_mgt port map (
          i_rst_sqm_adc_dac    => rst_sqm_adc_dac      , -- in     std_logic                                 ; --! Reset for SQUID ADC/DAC, de-assertion on system clock ('0' = Inactive, '1' = Active)
          i_clk_sqm_adc_dac    => clk_sqm_adc_dac      , -- in     std_logic                                 ; --! SQUID ADC/DAC internal Clock
+         i_sqm_adc_dc         => i_sqm_adc_dc(k)      , -- in     std_logic                                 ; --! SQUID MUX ADC: Data clock
 
          i_rst                => rst                  , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                => clk                  , -- in     std_logic                                 ; --! System Clock
@@ -545,7 +548,9 @@ begin
          o_sqm_pls_cnt_init   => sqm_pls_cnt_init(k)    -- out    slv( c_SQM_PLS_CNT_S-1 downto 0)          ; --! SQUID MUX Pulse shaping counter initialization
       );
 
-      I_sqm_dac_mgt: entity work.sqm_dac_mgt port map (
+      I_sqm_dac_mgt: entity work.sqm_dac_mgt generic map (
+         g_SQM_DATA_COMP      => c_SQM_DATA_COMP(k)     -- std_logic                                          --! SQUID MUX data complemented ('0' = No, '1' = Yes)
+      ) port map (
          i_rst_sqm_adc_dac    => rst_sqm_adc_dac      , -- in     std_logic                                 ; --! Reset for SQUID MUX DAC, de-assertion on system clock ('0' = Inactive, '1' = Active)
          i_clk_sqm_adc_dac    => clk_sqm_adc_dac      , -- in     std_logic                                 ; --! SQUID ADC/DAC internal Clock
          i_clk_sqm_adc_dac_90 => clk_sqm_adc_dac_90   , -- in     std_logic                                 ; --! SQUID ADC/DAC internal 90 degrees shift

@@ -258,7 +258,7 @@
 # ** Note   : (97984968 ps) Check time, ADC channel 0 last event: PASS
 # ** Note   : (97984968 ps)  * ADC channel 0 last event 97984968 ps equal to expected value 97984968 ps
 # ** Note   : (97984968 ps) Check ADC level: PASS
-# ** Note   : (97984968 ps)  * Read ADC channel 0, value 0.000000e+00, expected 0.000000e+00
+# ** Note   : (97984968 ps)  * Read ADC channel 0, value -0.000000e+00, expected 0.000000e+00
 # ** Note   : (97984968 ps) Waiting event clk_sqm_dac(0) = '0' for 0 ps
 # ** Note   : (97988970 ps) Waiting event clk_sqm_dac(0) = '1' for 4002 ps
 # ** Note   : (97992972 ps) Waiting event clk_sqm_dac(0) = '0' for 4002 ps
@@ -397,8 +397,8 @@
 # ** Note   : (1132261848 ps) Send SPI command value 1101_0002 (C0_PULSE_SHAPING_SELECTION, mode Write, data 0002)
 # ** Note   : (1134582000 ps) Waiting SPI command end for 2284152 ps
 # ** Note   : (1134582000 ps) Configure pulse shaping cut frequency channel 0 to 25000000Hz
-# ** Note   : (1134582524 ps) Waiting event sync = '0' for 524 ps
-# ** Note   : (1137544488 ps) Waiting event sync = '1' for 2961964 ps
+# ** Note   : (1134583008 ps) Waiting event sync = '0' for 1008 ps
+# ** Note   : (1137544488 ps) Waiting event sync = '1' for 2961480 ps
 # ** Note   : (1137704568 ps) Waiting event sync = '0' for 160080 ps
 #             (1137704568 ps) 
 #             (1137704568 ps) ==============================================================================================
@@ -409,8 +409,8 @@
 # ** Note   : (1140018000 ps) Send SPI command value 8003_0010 (MUX_SQ_FB_ON_OFF, mode Write, data 0010)
 # ** Note   : (1142340000 ps) Waiting SPI command end for 2286000 ps
 # ** Note   : (1142340000 ps) Configure pulse shaping cut frequency channel 1 to 2147483647Hz
-# ** Note   : (1142342402 ps) Waiting event sync = '0' for 2402 ps
-# ** Note   : (1142987208 ps) Waiting event sync = '1' for 644806 ps
+# ** Note   : (1142342886 ps) Waiting event sync = '0' for 2886 ps
+# ** Note   : (1142987208 ps) Waiting event sync = '1' for 644322 ps
 #             (1142987208 ps) 
 #             (1142987208 ps) ==============================================================================================
 #             (1142987208 ps)   Writing memory dump data to compare
@@ -560,12 +560,12 @@
 #             (1223016000 ps) ==============================================================================================
 #             (1223016000 ps)   Check MUX SQUID column 1 output stay to its middle point until the next sync rising edge
 #             (1223016000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (1223018720 ps) Waiting event sync = '0' for 2720 ps
-# ** Note   : (1224628008 ps) Waiting event sync = '1' for 1609288 ps
+# ** Note   : (1223019204 ps) Waiting event sync = '0' for 3204 ps
+# ** Note   : (1224628008 ps) Waiting event sync = '1' for 1608804 ps
 # ** Note   : (1224628008 ps) Check time, ADC channel 1 last event: PASS
 # ** Note   : (1224628008 ps)  * ADC channel 1 last event 1224628008 ps equal to expected value 1224628008 ps
 # ** Note   : (1224628008 ps) Check ADC level: PASS
-# ** Note   : (1224628008 ps)  * Read ADC channel 1, value 0.000000e+00, expected 0.000000e+00
+# ** Note   : (1224628008 ps)  * Read ADC channel 1, value -0.000000e+00, expected 0.000000e+00
 # ** Note   : (1224628008 ps) Waiting event clk_sqm_dac(1) = '0' for 0 ps
 # ** Note   : (1224632010 ps) Waiting event clk_sqm_dac(1) = '1' for 4002 ps
 # ** Note   : (1224636012 ps) Waiting event clk_sqm_dac(1) = '0' for 4002 ps
@@ -684,8 +684,8 @@
 # ** Note   : (2249630000 ps) Send SPI command value 3101_0000 (C1_PULSE_SHAPING_SELECTION, mode Write, data 0000)
 # ** Note   : (2251950000 ps) Waiting SPI command end for 2284000 ps
 # ** Note   : (2251950000 ps) Configure pulse shaping cut frequency channel 1 to 2147483647Hz
-# ** Note   : (2251952930 ps) Waiting event sync = '0' for 2930 ps
-# ** Note   : (2253302088 ps) Waiting event sync = '1' for 1349158 ps
+# ** Note   : (2251953414 ps) Waiting event sync = '0' for 3414 ps
+# ** Note   : (2253302088 ps) Waiting event sync = '1' for 1348674 ps
 # ** Note   : (2253462168 ps) Waiting event sync = '0' for 160080 ps
 #             (2253462168 ps) 
 #             (2253462168 ps) ==============================================================================================
@@ -694,8 +694,8 @@
 # ** Note   : (2253462168 ps) Send SPI command value 3101_0001 (C1_PULSE_SHAPING_SELECTION, mode Write, data 0001)
 # ** Note   : (2255784000 ps) Waiting SPI command end for 2285832 ps
 # ** Note   : (2255784000 ps) Configure pulse shaping cut frequency channel 1 to 20000000Hz
-# ** Note   : (2255786846 ps) Waiting event sync = '0' for 2846 ps
-# ** Note   : (2258744808 ps) Waiting event sync = '1' for 2957962 ps
+# ** Note   : (2255787330 ps) Waiting event sync = '0' for 3330 ps
+# ** Note   : (2258744808 ps) Waiting event sync = '1' for 2957478 ps
 # ** Note   : (2258904888 ps) Waiting event sync = '0' for 160080 ps
 #             (2258904888 ps) 
 #             (2258904888 ps) ==============================================================================================
@@ -704,8 +704,8 @@
 # ** Note   : (2258904888 ps) Send SPI command value 3101_0002 (C1_PULSE_SHAPING_SELECTION, mode Write, data 0002)
 # ** Note   : (2261220000 ps) Waiting SPI command end for 2279112 ps
 # ** Note   : (2261220000 ps) Configure pulse shaping cut frequency channel 1 to 25000000Hz
-# ** Note   : (2261221562 ps) Waiting event sync = '0' for 1562 ps
-# ** Note   : (2264187528 ps) Waiting event sync = '1' for 2965966 ps
+# ** Note   : (2261222046 ps) Waiting event sync = '0' for 2046 ps
+# ** Note   : (2264187528 ps) Waiting event sync = '1' for 2965482 ps
 # ** Note   : (2264347608 ps) Waiting event sync = '0' for 160080 ps
 #             (2264347608 ps) 
 #             (2264347608 ps) ==============================================================================================
@@ -716,8 +716,8 @@
 # ** Note   : (2266656000 ps) Send SPI command value 8003_0100 (MUX_SQ_FB_ON_OFF, mode Write, data 0100)
 # ** Note   : (2268978000 ps) Waiting SPI command end for 2286000 ps
 # ** Note   : (2268978000 ps) Configure pulse shaping cut frequency channel 2 to 2147483647Hz
-# ** Note   : (2268981440 ps) Waiting event sync = '0' for 3440 ps
-# ** Note   : (2269630248 ps) Waiting event sync = '1' for 648808 ps
+# ** Note   : (2268981924 ps) Waiting event sync = '0' for 3924 ps
+# ** Note   : (2269630248 ps) Waiting event sync = '1' for 648324 ps
 #             (2269630248 ps) 
 #             (2269630248 ps) ==============================================================================================
 #             (2269630248 ps)   Writing memory dump data to compare
@@ -871,7 +871,7 @@
 # ** Note   : (2351271048 ps) Check time, ADC channel 2 last event: PASS
 # ** Note   : (2351271048 ps)  * ADC channel 2 last event 2351271048 ps equal to expected value 2351271048 ps
 # ** Note   : (2351271048 ps) Check ADC level: PASS
-# ** Note   : (2351271048 ps)  * Read ADC channel 2, value 0.000000e+00, expected 0.000000e+00
+# ** Note   : (2351271048 ps)  * Read ADC channel 2, value -0.000000e+00, expected 0.000000e+00
 # ** Note   : (2351271048 ps) Waiting event clk_sqm_dac(2) = '0' for 0 ps
 # ** Note   : (2351275050 ps) Waiting event clk_sqm_dac(2) = '1' for 4002 ps
 # ** Note   : (2351279052 ps) Waiting event clk_sqm_dac(2) = '0' for 4002 ps
@@ -1010,8 +1010,8 @@
 # ** Note   : (3385547928 ps) Send SPI command value 5101_0002 (C2_PULSE_SHAPING_SELECTION, mode Write, data 0002)
 # ** Note   : (3387858000 ps) Waiting SPI command end for 2274072 ps
 # ** Note   : (3387858000 ps) Configure pulse shaping cut frequency channel 2 to 25000000Hz
-# ** Note   : (3387860600 ps) Waiting event sync = '0' for 2600 ps
-# ** Note   : (3390830568 ps) Waiting event sync = '1' for 2969968 ps
+# ** Note   : (3387861084 ps) Waiting event sync = '0' for 3084 ps
+# ** Note   : (3390830568 ps) Waiting event sync = '1' for 2969484 ps
 # ** Note   : (3390990648 ps) Waiting event sync = '0' for 160080 ps
 #             (3390990648 ps) 
 #             (3390990648 ps) ==============================================================================================
@@ -1022,8 +1022,8 @@
 # ** Note   : (3393312000 ps) Send SPI command value 8003_1000 (MUX_SQ_FB_ON_OFF, mode Write, data 1000)
 # ** Note   : (3395634000 ps) Waiting SPI command end for 2286000 ps
 # ** Note   : (3395634000 ps) Configure pulse shaping cut frequency channel 3 to 2147483647Hz
-# ** Note   : (3395636486 ps) Waiting event sync = '0' for 2486 ps
-# ** Note   : (3396273288 ps) Waiting event sync = '1' for 636802 ps
+# ** Note   : (3395636970 ps) Waiting event sync = '0' for 2970 ps
+# ** Note   : (3396273288 ps) Waiting event sync = '1' for 636318 ps
 #             (3396273288 ps) 
 #             (3396273288 ps) ==============================================================================================
 #             (3396273288 ps)   Writing memory dump data to compare
@@ -1177,7 +1177,7 @@
 # ** Note   : (3477914088 ps) Check time, ADC channel 3 last event: PASS
 # ** Note   : (3477914088 ps)  * ADC channel 3 last event 3477914088 ps equal to expected value 3477914088 ps
 # ** Note   : (3477914088 ps) Check ADC level: PASS
-# ** Note   : (3477914088 ps)  * Read ADC channel 3, value 0.000000e+00, expected 0.000000e+00
+# ** Note   : (3477914088 ps)  * Read ADC channel 3, value -0.000000e+00, expected 0.000000e+00
 # ** Note   : (3477914088 ps) Waiting event clk_sqm_dac(3) = '0' for 0 ps
 # ** Note   : (3477918090 ps) Waiting event clk_sqm_dac(3) = '1' for 4002 ps
 # ** Note   : (3477922092 ps) Waiting event clk_sqm_dac(3) = '0' for 4002 ps
@@ -1296,8 +1296,8 @@
 # ** Note   : (4502906000 ps) Send SPI command value 7101_0000 (C3_PULSE_SHAPING_SELECTION, mode Write, data 0000)
 # ** Note   : (4505226000 ps) Waiting SPI command end for 2284000 ps
 # ** Note   : (4505226000 ps) Configure pulse shaping cut frequency channel 3 to 2147483647Hz
-# ** Note   : (4505227004 ps) Waiting event sync = '0' for 1004 ps
-# ** Note   : (4506588168 ps) Waiting event sync = '1' for 1361164 ps
+# ** Note   : (4505227488 ps) Waiting event sync = '0' for 1488 ps
+# ** Note   : (4506588168 ps) Waiting event sync = '1' for 1360680 ps
 # ** Note   : (4506748248 ps) Waiting event sync = '0' for 160080 ps
 #             (4506748248 ps) 
 #             (4506748248 ps) ==============================================================================================
@@ -1306,8 +1306,8 @@
 # ** Note   : (4506748248 ps) Send SPI command value 7101_0001 (C3_PULSE_SHAPING_SELECTION, mode Write, data 0001)
 # ** Note   : (4509060000 ps) Waiting SPI command end for 2275752 ps
 # ** Note   : (4509060000 ps) Configure pulse shaping cut frequency channel 3 to 20000000Hz
-# ** Note   : (4509060920 ps) Waiting event sync = '0' for 920 ps
-# ** Note   : (4512030888 ps) Waiting event sync = '1' for 2969968 ps
+# ** Note   : (4509061404 ps) Waiting event sync = '0' for 1404 ps
+# ** Note   : (4512030888 ps) Waiting event sync = '1' for 2969484 ps
 # ** Note   : (4512190968 ps) Waiting event sync = '0' for 160080 ps
 #             (4512190968 ps) 
 #             (4512190968 ps) ==============================================================================================

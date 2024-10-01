@@ -496,8 +496,8 @@
 #             (1058078056 ps) 
 # ** Note   : (1058078056 ps) Send SPI command value 8001_0001 (DATA_ACQ_MODE, mode Write, data 0001)
 # ** Note   : (1060386000 ps) Waiting SPI command end for 2271944 ps
-# ** Note   : (1060389446 ps) Waiting event sync = '0' for 3446 ps
-# ** Note   : (1061346408 ps) Waiting event sync = '1' for 956962 ps
+# ** Note   : (1060389930 ps) Waiting event sync = '0' for 3930 ps
+# ** Note   : (1061346408 ps) Waiting event sync = '1' for 956478 ps
 #             (1061346408 ps) 
 # ** Note   : (1061346408 ps) Send SPI command value 8001_0000 (DATA_ACQ_MODE, mode Write, data 0000)
 # ** Note   : (1063662000 ps) Waiting SPI command end for 2279592 ps
@@ -649,8 +649,8 @@
 #             (1751619088 ps) 
 # ** Note   : (1751619088 ps) Send SPI command value 8001_0001 (DATA_ACQ_MODE, mode Write, data 0001)
 # ** Note   : (1753926000 ps) Waiting SPI command end for 2270912 ps
-# ** Note   : (1753928042 ps) Waiting event sync = '0' for 2042 ps
-# ** Note   : (1758014568 ps) Waiting event sync = '1' for 4086526 ps
+# ** Note   : (1753928526 ps) Waiting event sync = '0' for 2526 ps
+# ** Note   : (1758014568 ps) Waiting event sync = '1' for 4086042 ps
 #             (1758014568 ps) 
 # ** Note   : (1758014568 ps) Send SPI command value 8001_0000 (DATA_ACQ_MODE, mode Write, data 0000)
 # ** Note   : (1760334000 ps) Waiting SPI command end for 2283432 ps
@@ -802,8 +802,8 @@
 #             (2448291088 ps) 
 # ** Note   : (2448291088 ps) Send SPI command value 8001_0001 (DATA_ACQ_MODE, mode Write, data 0001)
 # ** Note   : (2450598000 ps) Waiting SPI command end for 2270912 ps
-# ** Note   : (2450600204 ps) Waiting event sync = '0' for 2204 ps
-# ** Note   : (2454682728 ps) Waiting event sync = '1' for 4082524 ps
+# ** Note   : (2450600688 ps) Waiting event sync = '0' for 2688 ps
+# ** Note   : (2454682728 ps) Waiting event sync = '1' for 4082040 ps
 #             (2454682728 ps) 
 # ** Note   : (2454682728 ps) Send SPI command value 8001_0000 (DATA_ACQ_MODE, mode Write, data 0000)
 # ** Note   : (2456988000 ps) Waiting SPI command end for 2269272 ps
@@ -955,8 +955,8 @@
 #             (3144945088 ps) 
 # ** Note   : (3144945088 ps) Send SPI command value 8001_0001 (DATA_ACQ_MODE, mode Write, data 0001)
 # ** Note   : (3147252000 ps) Waiting SPI command end for 2270912 ps
-# ** Note   : (3147252356 ps) Waiting event sync = '0' for 356 ps
-# ** Note   : (3151350888 ps) Waiting event sync = '1' for 4098532 ps
+# ** Note   : (3147252840 ps) Waiting event sync = '0' for 840 ps
+# ** Note   : (3151350888 ps) Waiting event sync = '1' for 4098048 ps
 #             (3151350888 ps) 
 # ** Note   : (3151350888 ps) Send SPI command value 8001_0000 (DATA_ACQ_MODE, mode Write, data 0000)
 # ** Note   : (3153660000 ps) Waiting SPI command end for 2273112 ps
@@ -1108,8 +1108,8 @@
 #             (3841617088 ps) 
 # ** Note   : (3841617088 ps) Send SPI command value 8001_0001 (DATA_ACQ_MODE, mode Write, data 0001)
 # ** Note   : (3843924000 ps) Waiting SPI command end for 2270912 ps
-# ** Note   : (3843924518 ps) Waiting event sync = '0' for 518 ps
-# ** Note   : (3848019048 ps) Waiting event sync = '1' for 4094530 ps
+# ** Note   : (3843925002 ps) Waiting event sync = '0' for 1002 ps
+# ** Note   : (3848019048 ps) Waiting event sync = '1' for 4094046 ps
 #             (3848019048 ps) 
 # ** Note   : (3848019048 ps) Send SPI command value 8001_0000 (DATA_ACQ_MODE, mode Write, data 0000)
 # ** Note   : (3850332000 ps) Waiting SPI command end for 2276952 ps
@@ -1261,8 +1261,8 @@
 #             (4538289088 ps) 
 # ** Note   : (4538289088 ps) Send SPI command value 8001_0001 (DATA_ACQ_MODE, mode Write, data 0001)
 # ** Note   : (4540596000 ps) Waiting SPI command end for 2270912 ps
-# ** Note   : (4540596680 ps) Waiting event sync = '0' for 680 ps
-# ** Note   : (4544687208 ps) Waiting event sync = '1' for 4090528 ps
+# ** Note   : (4540597164 ps) Waiting event sync = '0' for 1164 ps
+# ** Note   : (4544687208 ps) Waiting event sync = '1' for 4090044 ps
 #             (4544687208 ps) 
 # ** Note   : (4544687208 ps) Send SPI command value 8001_0000 (DATA_ACQ_MODE, mode Write, data 0000)
 # ** Note   : (4547004000 ps) Waiting SPI command end for 2280792 ps
@@ -1414,8 +1414,8 @@
 #             (5234961088 ps) 
 # ** Note   : (5234961088 ps) Send SPI command value 8001_0001 (DATA_ACQ_MODE, mode Write, data 0001)
 # ** Note   : (5237268000 ps) Waiting SPI command end for 2270912 ps
-# ** Note   : (5237268842 ps) Waiting event sync = '0' for 842 ps
-# ** Note   : (5241355368 ps) Waiting event sync = '1' for 4086526 ps
+# ** Note   : (5237269326 ps) Waiting event sync = '0' for 1326 ps
+# ** Note   : (5241355368 ps) Waiting event sync = '1' for 4086042 ps
 #             (5241355368 ps) 
 # ** Note   : (5241355368 ps) Send SPI command value 8001_0000 (DATA_ACQ_MODE, mode Write, data 0000)
 # ** Note   : (5243676000 ps) Waiting SPI command end for 2284632 ps
@@ -1567,8 +1567,8 @@
 #             (5931633088 ps) 
 # ** Note   : (5931633088 ps) Send SPI command value 8001_0001 (DATA_ACQ_MODE, mode Write, data 0001)
 # ** Note   : (5933940000 ps) Waiting SPI command end for 2270912 ps
-# ** Note   : (5933941004 ps) Waiting event sync = '0' for 1004 ps
-# ** Note   : (5938023528 ps) Waiting event sync = '1' for 4082524 ps
+# ** Note   : (5933941488 ps) Waiting event sync = '0' for 1488 ps
+# ** Note   : (5938023528 ps) Waiting event sync = '1' for 4082040 ps
 #             (5938023528 ps) 
 # ** Note   : (5938023528 ps) Send SPI command value 8001_0000 (DATA_ACQ_MODE, mode Write, data 0000)
 # ** Note   : (5940330000 ps) Waiting SPI command end for 2270472 ps
@@ -1720,8 +1720,8 @@
 #             (6628287088 ps) 
 # ** Note   : (6628287088 ps) Send SPI command value 8001_0001 (DATA_ACQ_MODE, mode Write, data 0001)
 # ** Note   : (6630594000 ps) Waiting SPI command end for 2270912 ps
-# ** Note   : (6630597158 ps) Waiting event sync = '0' for 3158 ps
-# ** Note   : (6634691688 ps) Waiting event sync = '1' for 4094530 ps
+# ** Note   : (6630597642 ps) Waiting event sync = '0' for 3642 ps
+# ** Note   : (6634691688 ps) Waiting event sync = '1' for 4094046 ps
 #             (6634691688 ps) 
 # ** Note   : (6634691688 ps) Send SPI command value 8001_0000 (DATA_ACQ_MODE, mode Write, data 0000)
 # ** Note   : (6637002000 ps) Waiting SPI command end for 2274312 ps
@@ -1873,8 +1873,8 @@
 #             (7324959088 ps) 
 # ** Note   : (7324959088 ps) Send SPI command value 8001_0001 (DATA_ACQ_MODE, mode Write, data 0001)
 # ** Note   : (7327266000 ps) Waiting SPI command end for 2270912 ps
-# ** Note   : (7327269320 ps) Waiting event sync = '0' for 3320 ps
-# ** Note   : (7331359848 ps) Waiting event sync = '1' for 4090528 ps
+# ** Note   : (7327269804 ps) Waiting event sync = '0' for 3804 ps
+# ** Note   : (7331359848 ps) Waiting event sync = '1' for 4090044 ps
 #             (7331359848 ps) 
 # ** Note   : (7331359848 ps) Send SPI command value 8001_0000 (DATA_ACQ_MODE, mode Write, data 0000)
 # ** Note   : (7333674000 ps) Waiting SPI command end for 2278152 ps
@@ -2026,8 +2026,8 @@
 #             (8021631088 ps) 
 # ** Note   : (8021631088 ps) Send SPI command value 8001_0001 (DATA_ACQ_MODE, mode Write, data 0001)
 # ** Note   : (8023938000 ps) Waiting SPI command end for 2270912 ps
-# ** Note   : (8023941482 ps) Waiting event sync = '0' for 3482 ps
-# ** Note   : (8028028008 ps) Waiting event sync = '1' for 4086526 ps
+# ** Note   : (8023941966 ps) Waiting event sync = '0' for 3966 ps
+# ** Note   : (8028028008 ps) Waiting event sync = '1' for 4086042 ps
 #             (8028028008 ps) 
 # ** Note   : (8028028008 ps) Send SPI command value 8001_0000 (DATA_ACQ_MODE, mode Write, data 0000)
 # ** Note   : (8030346000 ps) Waiting SPI command end for 2281992 ps
@@ -2485,8 +2485,8 @@
 #             (10111629088 ps) 
 # ** Note   : (10111629088 ps) Send SPI command value 8001_0001 (DATA_ACQ_MODE, mode Write, data 0001)
 # ** Note   : (10113936000 ps) Waiting SPI command end for 2270912 ps
-# ** Note   : (10113937958 ps) Waiting event sync = '0' for 1958 ps
-# ** Note   : (10118032488 ps) Waiting event sync = '1' for 4094530 ps
+# ** Note   : (10113938442 ps) Waiting event sync = '0' for 2442 ps
+# ** Note   : (10118032488 ps) Waiting event sync = '1' for 4094046 ps
 #             (10118032488 ps) 
 # ** Note   : (10118032488 ps) Send SPI command value 8001_0000 (DATA_ACQ_MODE, mode Write, data 0000)
 # ** Note   : (10120344000 ps) Waiting SPI command end for 2275512 ps
