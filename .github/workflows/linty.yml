@@ -62,6 +62,10 @@ jobs:
         env:
           TABBY_CAD_LICENSE: ${{ secrets.TABBY_CAD_LICENSE }}
 
+      - name: List files
+        if: always()
+        run: ls -al
+
       - name: Debug
         if: always()
         uses: actions/upload-artifact@v3
