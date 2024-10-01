@@ -49,7 +49,6 @@ jobs:
         run: |
           docker run \
             --rm \
-            --user="$(id -u):$(id -g)" \
             -e SONAR_HOST_URL=${{ vars.LINTY_CLOUD_URL }} \
             -e SONAR_TOKEN="${{ secrets.LINTY_SCANNER_TOKEN }}" \
             -e GITHUB_TOKEN="${{ secrets.GITHUB_TOKEN }}" \
@@ -63,10 +62,6 @@ jobs:
         env:
           TABBY_CAD_LICENSE: ${{ secrets.TABBY_CAD_LICENSE }}
 
-      - name: List files
-        if: always()
-        run: ls -al
-
       - name: Debug
         if: always()
         uses: actions/upload-artifact@v3
@@ -74,3 +69,4 @@ jobs:
           name: debug
           path: |
             .linty/
+            include-hidden-files: true
