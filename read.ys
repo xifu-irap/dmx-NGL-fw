@@ -1,4 +1,4 @@
-verific -work nx -vhdl ./nxpackage.vhdp
+verific -work nx -vhdl ./nxLibrary-Large.vhdp
 
 verific -vhdl ./src/common/pkg_type.vhd
 verific -vhdl ./src/common/pkg_func_math.vhd
