@@ -1051,8 +1051,8 @@
 #             (1026418000 ps)    but the content can be altered because cross talk parameters is adjusted in the same time of
 #             (1026418000 ps)    science frame sending
 #             (1026418000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (1026420470 ps) Waiting event sync = '0' for 2470 ps
-# ** Note   : (1028690088 ps) Waiting event sync = '1' for 2269618 ps
+# ** Note   : (1026420954 ps) Waiting event sync = '0' for 2954 ps
+# ** Note   : (1028690088 ps) Waiting event sync = '1' for 2269134 ps
 #             (1028690088 ps) 
 # ** Note   : (1028690088 ps) Send SPI command value 0A01_0000 (C0_MUX_SQ_FB_DELAY, mode Write, data 0000)
 # ** Note   : (1031010000 ps) Waiting SPI command end for 2283912 ps
@@ -1108,8 +1108,8 @@
 #             (1088428000 ps)    but the content can be altered because cross talk parameters is adjusted in the same time of
 #             (1088428000 ps)    science frame sending
 #             (1088428000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (1088431460 ps) Waiting event sync = '0' for 3460 ps
-# ** Note   : (1088560008 ps) Waiting event sync = '1' for 128548 ps
+# ** Note   : (1088431944 ps) Waiting event sync = '0' for 3944 ps
+# ** Note   : (1088560008 ps) Waiting event sync = '1' for 128064 ps
 #             (1088560008 ps) 
 # ** Note   : (1088560008 ps) Send SPI command value 0A01_0012 (C0_MUX_SQ_FB_DELAY, mode Write, data 0012)
 # ** Note   : (1090878000 ps) Waiting SPI command end for 2281992 ps

@@ -12,7 +12,7 @@ jobs:
     env:
       EXT_LIB_PATH: xifu-irap/third-party-libraries-for-linty
       PROJECT_NAME: dmx-fw
-      LINTY_SCANNER: latest
+      LINTY_SCANNER: cloud
     steps:
       - name: Git Checkout
         uses: actions/checkout@v3
@@ -69,3 +69,4 @@ jobs:
           name: debug
           path: |
             .linty/
+          include-hidden-files: true

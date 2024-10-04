@@ -38,6 +38,7 @@ use     work.pkg_ep_cmd.all;
 entity squid_adc_mgt is port (
          i_rst_sqm_adc_dac    : in     std_logic                                                            ; --! Reset for SQUID ADC/DAC, de-assertion on system clock ('0' = Inactive, '1' = Active)
          i_clk_sqm_adc_dac    : in     std_logic                                                            ; --! SQUID ADC/DAC internal Clock
+         i_sqm_adc_dc         : in     std_logic                                                            ; --! SQUID MUX ADC: Data clock
 
          i_rst                : in     std_logic                                                            ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                : in     std_logic                                                            ; --! System Clock
@@ -85,6 +86,9 @@ signal   sync_rs_rsys         : std_logic                                       
 signal   aqmde_dmp_cmp_rsys   : std_logic                                                                   ; --! Telemetry mode, status "Dump" compared register (System Clock)
 signal   bxlgt_rsys           : std_logic_vector(c_DFLD_BXLGT_COL_S-1 downto 0)                             ; --! ADC sample number for averaging register (System Clock)
 signal   smpdl_rsys           : std_logic_vector(c_DFLD_SMPDL_COL_S-1 downto 0)                             ; --! ADC sample delay register (System Clock)
+
+signal   sqm_adc_data_rs_dc   : std_logic_vector(c_SQM_ADC_DATA_S-1 downto 0)                               ; --! SQUID MUX ADC: Data, synchronized on SQUID ADC Data clock
+signal   sqm_adc_oor_rs_dc    : std_logic                                                                   ; --! SQUID MUX ADC: Out of range, synchronized on SQUID ADC Data clock
 
 signal   rst_sqm_adc_dac_lc   : std_logic                                                                   ; --! Local reset for SQUID ADC/DAC, de-assertion on system clock
 
@@ -160,6 +164,19 @@ begin
    );
 
    -- ------------------------------------------------------------------------------------------------------
+   --!   Inputs pad resynchronization on SQUID MUX ADC: Data clock
+   -- ------------------------------------------------------------------------------------------------------
+   I_in_rs_sqm_adc_dc: entity work.in_rs_sqm_adc_dc port map (
+         i_sqm_adc_dc         => i_sqm_adc_dc         , -- in     std_logic                                 ; --! SQUID MUX ADC: Data clock
+
+         i_sqm_adc_data       => i_sqm_adc_data       , -- in     slv(c_SQM_ADC_DATA_S-1 downto 0)          ; --! SQUID MUX ADC: Data, no rsync
+         i_sqm_adc_oor        => i_sqm_adc_oor        , -- in     std_logic                                 ; --! SQUID MUX ADC: Out of range, no rsync ('0'= No, '1'= under/over range)
+
+         o_sqm_adc_data_rs_dc => sqm_adc_data_rs_dc   , -- out    slv(c_SQM_ADC_DATA_S-1 downto 0)          ; --! SQUID MUX ADC: Data, synchronized on SQUID ADC Data clock
+         o_sqm_adc_oor_rs_dc  => sqm_adc_oor_rs_dc      -- out    std_logic                                   --! SQUID MUX ADC: Out of range, synchronized on SQUID ADC Data clock
+   );
+
+   -- ------------------------------------------------------------------------------------------------------
    --!   Local reset on SQUID MUX ADC acquisition Clock
    --    @Req : DRE-DMX-FW-REQ-0050
    -- ------------------------------------------------------------------------------------------------------
@@ -177,7 +194,7 @@ begin
    end process P_rst_sqm_adc_dac_lc;
 
    -- ------------------------------------------------------------------------------------------------------
-   --!   Inputs Pad Resynchronization on SQUID MUX ADC acquisition Clock
+   --!   Resynchronization on SQUID MUX ADC acquisition Clock
    --    @Req : DRE-DMX-FW-REQ-0100
    -- ------------------------------------------------------------------------------------------------------
    P_in_pad_rsync : process (rst_sqm_adc_dac_lc , i_clk_sqm_adc_dac)
@@ -189,8 +206,8 @@ begin
          pixel_pos_msb_r   <= (others => c_HGH_LEV);
 
       elsif rising_edge(i_clk_sqm_adc_dac) then
-         sqm_adc_data_r    <= i_sqm_adc_data & sqm_adc_data_r(0 to sqm_adc_data_r'high-1);
-         sqm_adc_oor_r     <= sqm_adc_oor_r(sqm_adc_oor_r'high-1 downto 0) & i_sqm_adc_oor;
+         sqm_adc_data_r    <= sqm_adc_data_rs_dc & sqm_adc_data_r(0 to sqm_adc_data_r'high-1);
+         sqm_adc_oor_r     <= sqm_adc_oor_r(sqm_adc_oor_r'high-1 downto 0) & sqm_adc_oor_rs_dc;
          pixel_pos_msb_r   <= pixel_pos_msb_r(pixel_pos_msb_r'high-1 downto 0) & pixel_pos(pixel_pos'high);
 
       end if;

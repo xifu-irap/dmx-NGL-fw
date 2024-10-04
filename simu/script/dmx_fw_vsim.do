@@ -52,6 +52,7 @@ quietly set TB_DIR $4
       ${SRC_DIR}/common/im_ck.vhd                \
       ${SRC_DIR}/common/rst_gen.vhd              \
       ${SRC_DIR}/common/rst_clk_mgt.vhd          \
+      ${SRC_DIR}/common/in_rs_sqm_adc_dc.vhd     \
       ${SRC_DIR}/common/in_rs_clk.vhd            \
       ${SRC_DIR}/common/round_sat.vhd            \
       ${SRC_DIR}/common/adder_sat.vhd            \

@@ -394,7 +394,6 @@ def placing_constraints(p,modelboard):
         p.addWFGLocation('I_rst_clk_mgt|I_pll|I_wfg_clk_adc_dac','CKG3.WFG_C2')
         p.addWFGLocation('I_rst_clk_mgt|I_pll|I_wfg_clk_90','CKG3.WFG_C3')
         p.addWFGLocation('I_rst_clk_mgt|I_pll|I_wfg_clk_adc_dac_90','CKG3.WFG_C4')
-        p.addWFGLocation('I_rst_clk_mgt|I_pll|I_wfg_clk_adc','CKG3.WFG_M1')
         p.addWFGLocation('I_rst_clk_mgt|I_pll|I_wfg_clk_dac_out','CKG3.WFG_M2')
         p.addWFGLocation('I_rst_clk_mgt|I_pll|I_wfg_clk_sync_ref','CKG3.WFG_M3')
 

@@ -470,8 +470,8 @@
 # ** Note   : (338982000 ps) Waiting SPI command end for 2286000 ps
 # ** Note   : (338982000 ps) Send SPI command value 6A01_0003 (C3_MUX_SQ_FB_DELAY, mode Write, data 0003)
 # ** Note   : (341304000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (341306084 ps) Waiting event sync = '0' for 2084 ps
-# ** Note   : (342907368 ps) Waiting event sync = '1' for 1601284 ps
+# ** Note   : (341306568 ps) Waiting event sync = '0' for 2568 ps
+# ** Note   : (342907368 ps) Waiting event sync = '1' for 1600800 ps
 # ** Note   : (343067448 ps) Waiting event sync = '0' for 160080 ps
 #             (343067448 ps) 
 #             (343067448 ps) ==============================================================================================
@@ -492,8 +492,8 @@
 # ** Note   : (534336000 ps) Waiting SPI command end for 2286000 ps
 # ** Note   : (534336000 ps) Send SPI command value 6A01_0007 (C3_MUX_SQ_FB_DELAY, mode Write, data 0007)
 # ** Note   : (536658000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (536659712 ps) Waiting event sync = '0' for 1712 ps
-# ** Note   : (538845288 ps) Waiting event sync = '1' for 2185576 ps
+# ** Note   : (536660196 ps) Waiting event sync = '0' for 2196 ps
+# ** Note   : (538845288 ps) Waiting event sync = '1' for 2185092 ps
 # ** Note   : (539005368 ps) Waiting event sync = '0' for 160080 ps
 #             (539005368 ps) 
 #             (539005368 ps) ==============================================================================================
@@ -558,8 +558,8 @@
 # ** Note   : (1122162000 ps) Waiting SPI command end for 2286000 ps
 # ** Note   : (1122162000 ps) Send SPI command value 6A01_0013 (C3_MUX_SQ_FB_DELAY, mode Write, data 0013)
 # ** Note   : (1124484000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (1124485478 ps) Waiting event sync = '0' for 1478 ps
-# ** Note   : (1126659048 ps) Waiting event sync = '1' for 2173570 ps
+# ** Note   : (1124485962 ps) Waiting event sync = '0' for 1962 ps
+# ** Note   : (1126659048 ps) Waiting event sync = '1' for 2173086 ps
 # ** Note   : (1126819128 ps) Waiting event sync = '0' for 160080 ps
 #             (1126819128 ps) 
 #             (1126819128 ps) ==============================================================================================
@@ -580,8 +580,8 @@
 # ** Note   : (1318092000 ps) Waiting SPI command end for 2286000 ps
 # ** Note   : (1318092000 ps) Send SPI command value 6A01_0017 (C3_MUX_SQ_FB_DELAY, mode Write, data 0017)
 # ** Note   : (1320414000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (1320415394 ps) Waiting event sync = '0' for 1394 ps
-# ** Note   : (1322596968 ps) Waiting event sync = '1' for 2181574 ps
+# ** Note   : (1320415878 ps) Waiting event sync = '0' for 1878 ps
+# ** Note   : (1322596968 ps) Waiting event sync = '1' for 2181090 ps
 # ** Note   : (1322757048 ps) Waiting event sync = '0' for 160080 ps
 #             (1322757048 ps) 
 #             (1322757048 ps) ==============================================================================================
@@ -602,8 +602,8 @@
 # ** Note   : (1514040000 ps) Waiting SPI command end for 2286000 ps
 # ** Note   : (1514040000 ps) Send SPI command value 6A01_001B (C3_MUX_SQ_FB_DELAY, mode Write, data 001B)
 # ** Note   : (1516362000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (1516365320 ps) Waiting event sync = '0' for 3320 ps
-# ** Note   : (1518534888 ps) Waiting event sync = '1' for 2169568 ps
+# ** Note   : (1516365804 ps) Waiting event sync = '0' for 3804 ps
+# ** Note   : (1518534888 ps) Waiting event sync = '1' for 2169084 ps
 # ** Note   : (1518694968 ps) Waiting event sync = '0' for 160080 ps
 #             (1518694968 ps) 
 #             (1518694968 ps) ==============================================================================================
@@ -624,8 +624,8 @@
 # ** Note   : (1709970000 ps) Waiting SPI command end for 2286000 ps
 # ** Note   : (1709970000 ps) Send SPI command value 6A01_001F (C3_MUX_SQ_FB_DELAY, mode Write, data 001F)
 # ** Note   : (1712292000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (1712295236 ps) Waiting event sync = '0' for 3236 ps
-# ** Note   : (1714472808 ps) Waiting event sync = '1' for 2177572 ps
+# ** Note   : (1712295720 ps) Waiting event sync = '0' for 3720 ps
+# ** Note   : (1714472808 ps) Waiting event sync = '1' for 2177088 ps
 # ** Note   : (1714632888 ps) Waiting event sync = '0' for 160080 ps
 #             (1714632888 ps) 
 #             (1714632888 ps) ==============================================================================================
@@ -646,8 +646,8 @@
 # ** Note   : (1905918000 ps) Waiting SPI command end for 2286000 ps
 # ** Note   : (1905918000 ps) Send SPI command value 6A01_03FC (C3_MUX_SQ_FB_DELAY, mode Write, data 03FC)
 # ** Note   : (1908240000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (1908241160 ps) Waiting event sync = '0' for 1160 ps
-# ** Note   : (1910410728 ps) Waiting event sync = '1' for 2169568 ps
+# ** Note   : (1908241644 ps) Waiting event sync = '0' for 1644 ps
+# ** Note   : (1910410728 ps) Waiting event sync = '1' for 2169084 ps
 # ** Note   : (1910570808 ps) Waiting event sync = '0' for 160080 ps
 #             (1910570808 ps) 
 #             (1910570808 ps) ==============================================================================================
@@ -668,8 +668,8 @@
 # ** Note   : (2101848000 ps) Waiting SPI command end for 2286000 ps
 # ** Note   : (2101848000 ps) Send SPI command value 6A01_03F8 (C3_MUX_SQ_FB_DELAY, mode Write, data 03F8)
 # ** Note   : (2104170000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (2104171076 ps) Waiting event sync = '0' for 1076 ps
-# ** Note   : (2106348648 ps) Waiting event sync = '1' for 2177572 ps
+# ** Note   : (2104171560 ps) Waiting event sync = '0' for 1560 ps
+# ** Note   : (2106348648 ps) Waiting event sync = '1' for 2177088 ps
 # ** Note   : (2106508728 ps) Waiting event sync = '0' for 160080 ps
 #             (2106508728 ps) 
 #             (2106508728 ps) ==============================================================================================
@@ -690,8 +690,8 @@
 # ** Note   : (2297778000 ps) Waiting SPI command end for 2286000 ps
 # ** Note   : (2297778000 ps) Send SPI command value 6A01_03F4 (C3_MUX_SQ_FB_DELAY, mode Write, data 03F4)
 # ** Note   : (2300100000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (2300100992 ps) Waiting event sync = '0' for 992 ps
-# ** Note   : (2302286568 ps) Waiting event sync = '1' for 2185576 ps
+# ** Note   : (2300101476 ps) Waiting event sync = '0' for 1476 ps
+# ** Note   : (2302286568 ps) Waiting event sync = '1' for 2185092 ps
 # ** Note   : (2302446648 ps) Waiting event sync = '0' for 160080 ps
 #             (2302446648 ps) 
 #             (2302446648 ps) ==============================================================================================
@@ -712,8 +712,8 @@
 # ** Note   : (2493726000 ps) Waiting SPI command end for 2286000 ps
 # ** Note   : (2493726000 ps) Send SPI command value 6A01_03F0 (C3_MUX_SQ_FB_DELAY, mode Write, data 03F0)
 # ** Note   : (2496048000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (2496050918 ps) Waiting event sync = '0' for 2918 ps
-# ** Note   : (2498224488 ps) Waiting event sync = '1' for 2173570 ps
+# ** Note   : (2496051402 ps) Waiting event sync = '0' for 3402 ps
+# ** Note   : (2498224488 ps) Waiting event sync = '1' for 2173086 ps
 # ** Note   : (2498384568 ps) Waiting event sync = '0' for 160080 ps
 #             (2498384568 ps) 
 #             (2498384568 ps) ==============================================================================================
@@ -734,8 +734,8 @@
 # ** Note   : (2689656000 ps) Waiting SPI command end for 2286000 ps
 # ** Note   : (2689656000 ps) Send SPI command value 6A01_03EC (C3_MUX_SQ_FB_DELAY, mode Write, data 03EC)
 # ** Note   : (2691978000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (2691980834 ps) Waiting event sync = '0' for 2834 ps
-# ** Note   : (2694162408 ps) Waiting event sync = '1' for 2181574 ps
+# ** Note   : (2691981318 ps) Waiting event sync = '0' for 3318 ps
+# ** Note   : (2694162408 ps) Waiting event sync = '1' for 2181090 ps
 # ** Note   : (2694322488 ps) Waiting event sync = '0' for 160080 ps
 #             (2694322488 ps) 
 #             (2694322488 ps) ==============================================================================================
@@ -756,8 +756,8 @@
 # ** Note   : (2885604000 ps) Waiting SPI command end for 2286000 ps
 # ** Note   : (2885604000 ps) Send SPI command value 6A01_03E8 (C3_MUX_SQ_FB_DELAY, mode Write, data 03E8)
 # ** Note   : (2887926000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (2887926758 ps) Waiting event sync = '0' for 758 ps
-# ** Note   : (2890100328 ps) Waiting event sync = '1' for 2173570 ps
+# ** Note   : (2887927242 ps) Waiting event sync = '0' for 1242 ps
+# ** Note   : (2890100328 ps) Waiting event sync = '1' for 2173086 ps
 # ** Note   : (2890260408 ps) Waiting event sync = '0' for 160080 ps
 #             (2890260408 ps) 
 #             (2890260408 ps) ==============================================================================================
@@ -778,8 +778,8 @@
 # ** Note   : (3081534000 ps) Waiting SPI command end for 2286000 ps
 # ** Note   : (3081534000 ps) Send SPI command value 6A01_03E4 (C3_MUX_SQ_FB_DELAY, mode Write, data 03E4)
 # ** Note   : (3083856000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (3083856674 ps) Waiting event sync = '0' for 674 ps
-# ** Note   : (3086038248 ps) Waiting event sync = '1' for 2181574 ps
+# ** Note   : (3083857158 ps) Waiting event sync = '0' for 1158 ps
+# ** Note   : (3086038248 ps) Waiting event sync = '1' for 2181090 ps
 # ** Note   : (3086198328 ps) Waiting event sync = '0' for 160080 ps
 #             (3086198328 ps) 
 #             (3086198328 ps) ==============================================================================================
@@ -800,8 +800,8 @@
 # ** Note   : (3277482000 ps) Waiting SPI command end for 2286000 ps
 # ** Note   : (3277482000 ps) Send SPI command value 6A01_03E0 (C3_MUX_SQ_FB_DELAY, mode Write, data 03E0)
 # ** Note   : (3279804000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (3279806600 ps) Waiting event sync = '0' for 2600 ps
-# ** Note   : (3281976168 ps) Waiting event sync = '1' for 2169568 ps
+# ** Note   : (3279807084 ps) Waiting event sync = '0' for 3084 ps
+# ** Note   : (3281976168 ps) Waiting event sync = '1' for 2169084 ps
 # ** Note   : (3282136248 ps) Waiting event sync = '0' for 160080 ps
 #             (3282136248 ps) 
 #             (3282136248 ps) ==============================================================================================
@@ -822,8 +822,8 @@
 # ** Note   : (3473412000 ps) Waiting SPI command end for 2286000 ps
 # ** Note   : (3473412000 ps) Send SPI command value 6A01_038C (C3_MUX_SQ_FB_DELAY, mode Write, data 038C)
 # ** Note   : (3475734000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (3475736516 ps) Waiting event sync = '0' for 2516 ps
-# ** Note   : (3477914088 ps) Waiting event sync = '1' for 2177572 ps
+# ** Note   : (3475737000 ps) Waiting event sync = '0' for 3000 ps
+# ** Note   : (3477914088 ps) Waiting event sync = '1' for 2177088 ps
 # ** Note   : (3478074168 ps) Waiting event sync = '0' for 160080 ps
 #             (3478074168 ps) 
 #             (3478074168 ps) ==============================================================================================
@@ -844,8 +844,8 @@
 # ** Note   : (3669360000 ps) Waiting SPI command end for 2286000 ps
 # ** Note   : (3669360000 ps) Send SPI command value 6A01_0338 (C3_MUX_SQ_FB_DELAY, mode Write, data 0338)
 # ** Note   : (3671682000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (3671682440 ps) Waiting event sync = '0' for 440 ps
-# ** Note   : (3673852008 ps) Waiting event sync = '1' for 2169568 ps
+# ** Note   : (3671682924 ps) Waiting event sync = '0' for 924 ps
+# ** Note   : (3673852008 ps) Waiting event sync = '1' for 2169084 ps
 # ** Note   : (3674012088 ps) Waiting event sync = '0' for 160080 ps
 #             (3674012088 ps) 
 #             (3674012088 ps) ==============================================================================================
@@ -866,8 +866,8 @@
 # ** Note   : (3865290000 ps) Waiting SPI command end for 2286000 ps
 # ** Note   : (3865290000 ps) Send SPI command value 6A01_02E4 (C3_MUX_SQ_FB_DELAY, mode Write, data 02E4)
 # ** Note   : (3867612000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (3867612356 ps) Waiting event sync = '0' for 356 ps
-# ** Note   : (3869789928 ps) Waiting event sync = '1' for 2177572 ps
+# ** Note   : (3867612840 ps) Waiting event sync = '0' for 840 ps
+# ** Note   : (3869789928 ps) Waiting event sync = '1' for 2177088 ps
 # ** Note   : (3869950008 ps) Waiting event sync = '0' for 160080 ps
 #             (3869950008 ps) 
 #             (3869950008 ps) ==============================================================================================
@@ -888,8 +888,8 @@
 # ** Note   : (4061220000 ps) Waiting SPI command end for 2286000 ps
 # ** Note   : (4061220000 ps) Send SPI command value 6A01_0290 (C3_MUX_SQ_FB_DELAY, mode Write, data 0290)
 # ** Note   : (4063542000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (4063542272 ps) Waiting event sync = '0' for 272 ps
-# ** Note   : (4065727848 ps) Waiting event sync = '1' for 2185576 ps
+# ** Note   : (4063542756 ps) Waiting event sync = '0' for 756 ps
+# ** Note   : (4065727848 ps) Waiting event sync = '1' for 2185092 ps
 # ** Note   : (4065887928 ps) Waiting event sync = '0' for 160080 ps
 #             (4065887928 ps) 
 #             (4065887928 ps) ==============================================================================================
@@ -910,8 +910,8 @@
 # ** Note   : (4257168000 ps) Waiting SPI command end for 2286000 ps
 # ** Note   : (4257168000 ps) Send SPI command value 6A01_023C (C3_MUX_SQ_FB_DELAY, mode Write, data 023C)
 # ** Note   : (4259490000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (4259492198 ps) Waiting event sync = '0' for 2198 ps
-# ** Note   : (4261665768 ps) Waiting event sync = '1' for 2173570 ps
+# ** Note   : (4259492682 ps) Waiting event sync = '0' for 2682 ps
+# ** Note   : (4261665768 ps) Waiting event sync = '1' for 2173086 ps
 # ** Note   : (4261825848 ps) Waiting event sync = '0' for 160080 ps
 #             (4261825848 ps) 
 #             (4261825848 ps) ==============================================================================================
@@ -932,8 +932,8 @@
 # ** Note   : (4453098000 ps) Waiting SPI command end for 2286000 ps
 # ** Note   : (4453098000 ps) Send SPI command value 6A01_0028 (C3_MUX_SQ_FB_DELAY, mode Write, data 0028)
 # ** Note   : (4455420000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (4455422114 ps) Waiting event sync = '0' for 2114 ps
-# ** Note   : (4457603688 ps) Waiting event sync = '1' for 2181574 ps
+# ** Note   : (4455422598 ps) Waiting event sync = '0' for 2598 ps
+# ** Note   : (4457603688 ps) Waiting event sync = '1' for 2181090 ps
 # ** Note   : (4457763768 ps) Waiting event sync = '0' for 160080 ps
 #             (4457763768 ps) 
 #             (4457763768 ps) ==============================================================================================

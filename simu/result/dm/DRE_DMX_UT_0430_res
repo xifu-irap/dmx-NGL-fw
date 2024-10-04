@@ -56,8 +56,8 @@
 #             (21786888 ps)   Check the data packet type still science
 #             (21786888 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (31786888 ps) Waiting time for 10000000 ps
-# ** Note   : (31787402 ps) Waiting event sync = '0' for 514 ps
-# ** Note   : (32672328 ps) Waiting event sync = '1' for 884926 ps
+# ** Note   : (31787886 ps) Waiting event sync = '0' for 998 ps
+# ** Note   : (32672328 ps) Waiting event sync = '1' for 884442 ps
 # ** Note   : (32672328 ps) Check science packet type: PASS
 # ** Note   : (32672328 ps)  * Science packet type: science_data, value 11001000, expected 11001000
 #             (32672328 ps) 
@@ -93,8 +93,8 @@
 #             (45870000 ps) ==============================================================================================
 #             (45870000 ps)   Check the error science data packet type transfered
 #             (45870000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (45870440 ps) Waiting event sync = '0' for 440 ps
-# ** Note   : (49000488 ps) Waiting event sync = '1' for 3130048 ps
+# ** Note   : (45870924 ps) Waiting event sync = '0' for 924 ps
+# ** Note   : (49000488 ps) Waiting event sync = '1' for 3129564 ps
 # ** Note   : (49160568 ps) Waiting event sync = '0' for 160080 ps
 # ** Note   : (54443208 ps) Waiting event sync = '1' for 5282640 ps
 # ** Note   : (54443208 ps) Check science packet type: PASS
@@ -132,8 +132,8 @@
 #             (67650000 ps) ==============================================================================================
 #             (67650000 ps)   Check the RAS Data valid packet type currently transfered
 #             (67650000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (67653326 ps) Waiting event sync = '0' for 3326 ps
-# ** Note   : (70771368 ps) Waiting event sync = '1' for 3118042 ps
+# ** Note   : (67653810 ps) Waiting event sync = '0' for 3810 ps
+# ** Note   : (70771368 ps) Waiting event sync = '1' for 3117558 ps
 # ** Note   : (70931448 ps) Waiting event sync = '0' for 160080 ps
 # ** Note   : (76214088 ps) Waiting event sync = '1' for 5282640 ps
 # ** Note   : (76214088 ps) Check science packet type: PASS

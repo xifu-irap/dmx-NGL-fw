@@ -125,8 +125,9 @@ begin
    --     - w_k =  2^(c_SQM_DAC_DATA_S-1)-1 -> y_k = 2^(c_SQM_DAC_DATA_S)-1 (DAC analog output =   Vref)
    --     Either: y_k = w_k + 2^(c_SQM_DAC_DATA_S-1)
    -- ------------------------------------------------------------------------------------------------------
-   -- Case SQUID MUX data not complemented
    G_sqm_dta_comp_n: if g_SQM_DATA_COMP = c_LOW_LEV generate
+
+      -- Case SQUID MUX data not complemented
       P_yk : process (i_rst_sqm_adc_dac_lc, i_clk_sqm_adc_dac)
       begin
 
@@ -142,8 +143,9 @@ begin
 
    end generate G_sqm_dta_comp_n;
 
-   -- Case SQUID MUX data complemented
    G_sqm_dta_comp: if g_SQM_DATA_COMP = c_HGH_LEV generate
+
+      -- Case SQUID MUX data complemented
       P_yk : process (i_rst_sqm_adc_dac_lc, i_clk_sqm_adc_dac)
       begin
 

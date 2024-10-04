@@ -42,7 +42,7 @@ package pkg_project is
    --    @Req : DRE-DMX-FW-REQ-0120
    --    @Req : DRE-DMX-FW-REQ-0270
    -- ------------------------------------------------------------------------------------------------------
-constant c_FW_VERSION         : integer   := 16#0009#                                                       ; --! Firmware version
+constant c_FW_VERSION         : integer   := 16#000A#                                                       ; --! Firmware version
 
 constant c_FF_RSYNC_NB        : integer   := 2                                                              ; --! Flip-Flop number used for FPGA input resynchronization
 constant c_FF_RST_NB          : integer   := 6                                                              ; --! Flip-Flop number used for internal reset: System Clock
@@ -77,8 +77,6 @@ constant c_CLK_FREQ           : integer   := c_CLK_MULT          * c_CLK_COM_FRE
 constant c_CLK_ADC_FREQ       : integer   := c_CLK_ADC_DAC_MULT  * c_CLK_COM_FREQ                           ; --! ADC/DAC Clock frequency (Hz)
 constant c_CLK_DAC_OUT_FREQ   : integer   := c_CLK_DAC_OUT_MULT  * c_CLK_COM_FREQ                           ; --! DAC output Clock frequency (Hz)
 constant c_PLL_MAIN_VCO_FREQ  : integer   := c_PLL_MAIN_VCO_MULT * c_CLK_COM_FREQ                           ; --! PLL main VCO frequency (Hz)
-
-constant c_CLK_ADC_DEL_STEP   : integer   := div_floor(15*10**5/(c_CLK_ADC_FREQ/10**6) - 4400,c_IO_DEL_STEP); --! ADC Clock propagation delay step number
 
    -- ------------------------------------------------------------------------------------------------------
    --    Interface parameters
@@ -278,7 +276,7 @@ constant c_ADC_DATA_NPER      : integer := 12                                   
 
 constant c_ADC_SYNC_RDY_NPER  : integer := (c_FF_RSYNC_NB + 1)*(c_CLK_ADC_DAC_MULT/c_CLK_MULT)
                                           + c_FF_RSYNC_NB                                                   ; --! ADC clock period number for getting pixel sequence synchronization, synchronized
-constant c_ADC_DATA_RDY_NPER  : integer := c_ADC_DATA_NPER + c_FF_RSYNC_NB - 1                              ; --! ADC clock period number between the ADC acquisition start and ADC data ready
+constant c_ADC_DATA_RDY_NPER  : integer := c_ADC_DATA_NPER + 2*c_FF_RSYNC_NB - 1                            ; --! ADC clock period number between the ADC acquisition start and ADC data ready
 
 constant c_MEM_DUMP_ADD_S     : integer := c_RAM_ECC_ADD_S                                                  ; --! Memory Dump: address bus size (<= c_RAM_ECC_ADD_S)
 

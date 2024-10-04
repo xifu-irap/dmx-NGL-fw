@@ -98,15 +98,15 @@
 #             (32768376 ps) ==============================================================================================
 #             (32768376 ps)   Send command MUX_SQ_FB_ON_OFF column 0 to On for o_c0_sqm_dac_sleep deactivation
 #             (32768376 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (32771894 ps) Waiting event sync = '1' for 3518 ps
-# ** Note   : (32771894 ps) Send SPI command value 8003_0001 (MUX_SQ_FB_ON_OFF, mode Write, data 0001)
-#             (32807894 ps) 
-#             (32807894 ps) ==============================================================================================
-#             (32807894 ps)   check o_c0_sqm_dac_sleep remains to activated and wait o_c0_sqm_dac_sleep deactivation
-#             (32807894 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (32807894 ps) Check discrete level: PASS
-# ** Note   : (32807894 ps)  * Read discrete: sqm_dac_sleep(0), value '1', expected '1'
-# ** Note   : (43317648 ps) Waiting event sqm_dac_sleep(0) = '0' for 10509754 ps
+# ** Note   : (32772378 ps) Waiting event sync = '1' for 4002 ps
+# ** Note   : (32772378 ps) Send SPI command value 8003_0001 (MUX_SQ_FB_ON_OFF, mode Write, data 0001)
+#             (32808378 ps) 
+#             (32808378 ps) ==============================================================================================
+#             (32808378 ps)   check o_c0_sqm_dac_sleep remains to activated and wait o_c0_sqm_dac_sleep deactivation
+#             (32808378 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (32808378 ps) Check discrete level: PASS
+# ** Note   : (32808378 ps)  * Read discrete: sqm_dac_sleep(0), value '1', expected '1'
+# ** Note   : (43317648 ps) Waiting event sqm_dac_sleep(0) = '0' for 10509270 ps
 #             (43317648 ps) 
 #             (43317648 ps) ==============================================================================================
 #             (43317648 ps)   Check synchronization between o_c0_clk_sqm_dac rising edge
@@ -152,15 +152,15 @@
 #             (54539256 ps) ==============================================================================================
 #             (54539256 ps)   Send command MUX_SQ_FB_ON_OFF column 0 to On for o_c0_sqm_dac_sleep deactivation
 #             (54539256 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (54542774 ps) Waiting event sync = '1' for 3518 ps
-# ** Note   : (54542774 ps) Send SPI command value 8003_0001 (MUX_SQ_FB_ON_OFF, mode Write, data 0001)
-#             (54578774 ps) 
-#             (54578774 ps) ==============================================================================================
-#             (54578774 ps)   check o_c0_sqm_dac_sleep remains to activated and wait o_c0_sqm_dac_sleep deactivation
-#             (54578774 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (54578774 ps) Check discrete level: PASS
-# ** Note   : (54578774 ps)  * Read discrete: sqm_dac_sleep(0), value '1', expected '1'
-# ** Note   : (65088528 ps) Waiting event sqm_dac_sleep(0) = '0' for 10509754 ps
+# ** Note   : (54543258 ps) Waiting event sync = '1' for 4002 ps
+# ** Note   : (54543258 ps) Send SPI command value 8003_0001 (MUX_SQ_FB_ON_OFF, mode Write, data 0001)
+#             (54579258 ps) 
+#             (54579258 ps) ==============================================================================================
+#             (54579258 ps)   check o_c0_sqm_dac_sleep remains to activated and wait o_c0_sqm_dac_sleep deactivation
+#             (54579258 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (54579258 ps) Check discrete level: PASS
+# ** Note   : (54579258 ps)  * Read discrete: sqm_dac_sleep(0), value '1', expected '1'
+# ** Note   : (65088528 ps) Waiting event sqm_dac_sleep(0) = '0' for 10509270 ps
 #             (65088528 ps) 
 #             (65088528 ps) ==============================================================================================
 #             (65088528 ps)   Check synchronization between o_c0_clk_sqm_dac rising edge
@@ -206,15 +206,15 @@
 #             (76310136 ps) ==============================================================================================
 #             (76310136 ps)   Send command MUX_SQ_FB_ON_OFF column 1 to On for o_c1_sqm_dac_sleep deactivation
 #             (76310136 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (76313654 ps) Waiting event sync = '1' for 3518 ps
-# ** Note   : (76313654 ps) Send SPI command value 8003_0010 (MUX_SQ_FB_ON_OFF, mode Write, data 0010)
-#             (76349654 ps) 
-#             (76349654 ps) ==============================================================================================
-#             (76349654 ps)   Check no event is appeared on o_c1_sqm_dac_sleep and wait o_c1_sqm_dac_sleep deactivation
-#             (76349654 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (76349654 ps) Check time, sqm_dac_sleep(1) last event: PASS
-# ** Note   : (76349654 ps)  * sqm_dac_sleep(1) last event 76349654 ps equal to expected value 76349654 ps
-# ** Note   : (86859408 ps) Waiting event sqm_dac_sleep(1) = '0' for 10509754 ps
+# ** Note   : (76314138 ps) Waiting event sync = '1' for 4002 ps
+# ** Note   : (76314138 ps) Send SPI command value 8003_0010 (MUX_SQ_FB_ON_OFF, mode Write, data 0010)
+#             (76350138 ps) 
+#             (76350138 ps) ==============================================================================================
+#             (76350138 ps)   Check no event is appeared on o_c1_sqm_dac_sleep and wait o_c1_sqm_dac_sleep deactivation
+#             (76350138 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (76350138 ps) Check time, sqm_dac_sleep(1) last event: PASS
+# ** Note   : (76350138 ps)  * sqm_dac_sleep(1) last event 76350138 ps equal to expected value 76350138 ps
+# ** Note   : (86859408 ps) Waiting event sqm_dac_sleep(1) = '0' for 10509270 ps
 #             (86859408 ps) 
 #             (86859408 ps) ==============================================================================================
 #             (86859408 ps)   Check synchronization between o_c1_clk_sqm_dac rising edge
@@ -260,15 +260,15 @@
 #             (98081016 ps) ==============================================================================================
 #             (98081016 ps)   Send command MUX_SQ_FB_ON_OFF column 1 to On for o_c1_sqm_dac_sleep deactivation
 #             (98081016 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (98084534 ps) Waiting event sync = '1' for 3518 ps
-# ** Note   : (98084534 ps) Send SPI command value 8003_0010 (MUX_SQ_FB_ON_OFF, mode Write, data 0010)
-#             (98120534 ps) 
-#             (98120534 ps) ==============================================================================================
-#             (98120534 ps)   check o_c1_sqm_dac_sleep remains to activated and wait o_c1_sqm_dac_sleep deactivation
-#             (98120534 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (98120534 ps) Check discrete level: PASS
-# ** Note   : (98120534 ps)  * Read discrete: sqm_dac_sleep(1), value '1', expected '1'
-# ** Note   : (108630288 ps) Waiting event sqm_dac_sleep(1) = '0' for 10509754 ps
+# ** Note   : (98085018 ps) Waiting event sync = '1' for 4002 ps
+# ** Note   : (98085018 ps) Send SPI command value 8003_0010 (MUX_SQ_FB_ON_OFF, mode Write, data 0010)
+#             (98121018 ps) 
+#             (98121018 ps) ==============================================================================================
+#             (98121018 ps)   check o_c1_sqm_dac_sleep remains to activated and wait o_c1_sqm_dac_sleep deactivation
+#             (98121018 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (98121018 ps) Check discrete level: PASS
+# ** Note   : (98121018 ps)  * Read discrete: sqm_dac_sleep(1), value '1', expected '1'
+# ** Note   : (108630288 ps) Waiting event sqm_dac_sleep(1) = '0' for 10509270 ps
 #             (108630288 ps) 
 #             (108630288 ps) ==============================================================================================
 #             (108630288 ps)   Check synchronization between o_c1_clk_sqm_dac rising edge
@@ -314,15 +314,15 @@
 #             (119851896 ps) ==============================================================================================
 #             (119851896 ps)   Send command MUX_SQ_FB_ON_OFF column 1 to On for o_c1_sqm_dac_sleep deactivation
 #             (119851896 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (119855414 ps) Waiting event sync = '1' for 3518 ps
-# ** Note   : (119855414 ps) Send SPI command value 8003_0010 (MUX_SQ_FB_ON_OFF, mode Write, data 0010)
-#             (119891414 ps) 
-#             (119891414 ps) ==============================================================================================
-#             (119891414 ps)   check o_c1_sqm_dac_sleep remains to activated and wait o_c1_sqm_dac_sleep deactivation
-#             (119891414 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (119891414 ps) Check discrete level: PASS
-# ** Note   : (119891414 ps)  * Read discrete: sqm_dac_sleep(1), value '1', expected '1'
-# ** Note   : (130401168 ps) Waiting event sqm_dac_sleep(1) = '0' for 10509754 ps
+# ** Note   : (119855898 ps) Waiting event sync = '1' for 4002 ps
+# ** Note   : (119855898 ps) Send SPI command value 8003_0010 (MUX_SQ_FB_ON_OFF, mode Write, data 0010)
+#             (119891898 ps) 
+#             (119891898 ps) ==============================================================================================
+#             (119891898 ps)   check o_c1_sqm_dac_sleep remains to activated and wait o_c1_sqm_dac_sleep deactivation
+#             (119891898 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (119891898 ps) Check discrete level: PASS
+# ** Note   : (119891898 ps)  * Read discrete: sqm_dac_sleep(1), value '1', expected '1'
+# ** Note   : (130401168 ps) Waiting event sqm_dac_sleep(1) = '0' for 10509270 ps
 #             (130401168 ps) 
 #             (130401168 ps) ==============================================================================================
 #             (130401168 ps)   Check synchronization between o_c1_clk_sqm_dac rising edge
@@ -368,15 +368,15 @@
 #             (141622776 ps) ==============================================================================================
 #             (141622776 ps)   Send command MUX_SQ_FB_ON_OFF column 2 to On for o_c2_sqm_dac_sleep deactivation
 #             (141622776 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (141626294 ps) Waiting event sync = '1' for 3518 ps
-# ** Note   : (141626294 ps) Send SPI command value 8003_0100 (MUX_SQ_FB_ON_OFF, mode Write, data 0100)
-#             (141662294 ps) 
-#             (141662294 ps) ==============================================================================================
-#             (141662294 ps)   Check no event is appeared on o_c2_sqm_dac_sleep and wait o_c2_sqm_dac_sleep deactivation
-#             (141662294 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (141662294 ps) Check time, sqm_dac_sleep(2) last event: PASS
-# ** Note   : (141662294 ps)  * sqm_dac_sleep(2) last event 141662294 ps equal to expected value 141662294 ps
-# ** Note   : (152172048 ps) Waiting event sqm_dac_sleep(2) = '0' for 10509754 ps
+# ** Note   : (141626778 ps) Waiting event sync = '1' for 4002 ps
+# ** Note   : (141626778 ps) Send SPI command value 8003_0100 (MUX_SQ_FB_ON_OFF, mode Write, data 0100)
+#             (141662778 ps) 
+#             (141662778 ps) ==============================================================================================
+#             (141662778 ps)   Check no event is appeared on o_c2_sqm_dac_sleep and wait o_c2_sqm_dac_sleep deactivation
+#             (141662778 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (141662778 ps) Check time, sqm_dac_sleep(2) last event: PASS
+# ** Note   : (141662778 ps)  * sqm_dac_sleep(2) last event 141662778 ps equal to expected value 141662778 ps
+# ** Note   : (152172048 ps) Waiting event sqm_dac_sleep(2) = '0' for 10509270 ps
 #             (152172048 ps) 
 #             (152172048 ps) ==============================================================================================
 #             (152172048 ps)   Check synchronization between o_c2_clk_sqm_dac rising edge
@@ -422,15 +422,15 @@
 #             (163393656 ps) ==============================================================================================
 #             (163393656 ps)   Send command MUX_SQ_FB_ON_OFF column 2 to On for o_c2_sqm_dac_sleep deactivation
 #             (163393656 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (163397174 ps) Waiting event sync = '1' for 3518 ps
-# ** Note   : (163397174 ps) Send SPI command value 8003_0100 (MUX_SQ_FB_ON_OFF, mode Write, data 0100)
-#             (163433174 ps) 
-#             (163433174 ps) ==============================================================================================
-#             (163433174 ps)   check o_c2_sqm_dac_sleep remains to activated and wait o_c2_sqm_dac_sleep deactivation
-#             (163433174 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (163433174 ps) Check discrete level: PASS
-# ** Note   : (163433174 ps)  * Read discrete: sqm_dac_sleep(2), value '1', expected '1'
-# ** Note   : (173942928 ps) Waiting event sqm_dac_sleep(2) = '0' for 10509754 ps
+# ** Note   : (163397658 ps) Waiting event sync = '1' for 4002 ps
+# ** Note   : (163397658 ps) Send SPI command value 8003_0100 (MUX_SQ_FB_ON_OFF, mode Write, data 0100)
+#             (163433658 ps) 
+#             (163433658 ps) ==============================================================================================
+#             (163433658 ps)   check o_c2_sqm_dac_sleep remains to activated and wait o_c2_sqm_dac_sleep deactivation
+#             (163433658 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (163433658 ps) Check discrete level: PASS
+# ** Note   : (163433658 ps)  * Read discrete: sqm_dac_sleep(2), value '1', expected '1'
+# ** Note   : (173942928 ps) Waiting event sqm_dac_sleep(2) = '0' for 10509270 ps
 #             (173942928 ps) 
 #             (173942928 ps) ==============================================================================================
 #             (173942928 ps)   Check synchronization between o_c2_clk_sqm_dac rising edge
@@ -476,15 +476,15 @@
 #             (185164536 ps) ==============================================================================================
 #             (185164536 ps)   Send command MUX_SQ_FB_ON_OFF column 2 to On for o_c2_sqm_dac_sleep deactivation
 #             (185164536 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (185168054 ps) Waiting event sync = '1' for 3518 ps
-# ** Note   : (185168054 ps) Send SPI command value 8003_0100 (MUX_SQ_FB_ON_OFF, mode Write, data 0100)
-#             (185204054 ps) 
-#             (185204054 ps) ==============================================================================================
-#             (185204054 ps)   check o_c2_sqm_dac_sleep remains to activated and wait o_c2_sqm_dac_sleep deactivation
-#             (185204054 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (185204054 ps) Check discrete level: PASS
-# ** Note   : (185204054 ps)  * Read discrete: sqm_dac_sleep(2), value '1', expected '1'
-# ** Note   : (195713808 ps) Waiting event sqm_dac_sleep(2) = '0' for 10509754 ps
+# ** Note   : (185168538 ps) Waiting event sync = '1' for 4002 ps
+# ** Note   : (185168538 ps) Send SPI command value 8003_0100 (MUX_SQ_FB_ON_OFF, mode Write, data 0100)
+#             (185204538 ps) 
+#             (185204538 ps) ==============================================================================================
+#             (185204538 ps)   check o_c2_sqm_dac_sleep remains to activated and wait o_c2_sqm_dac_sleep deactivation
+#             (185204538 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (185204538 ps) Check discrete level: PASS
+# ** Note   : (185204538 ps)  * Read discrete: sqm_dac_sleep(2), value '1', expected '1'
+# ** Note   : (195713808 ps) Waiting event sqm_dac_sleep(2) = '0' for 10509270 ps
 #             (195713808 ps) 
 #             (195713808 ps) ==============================================================================================
 #             (195713808 ps)   Check synchronization between o_c2_clk_sqm_dac rising edge
@@ -530,15 +530,15 @@
 #             (206935416 ps) ==============================================================================================
 #             (206935416 ps)   Send command MUX_SQ_FB_ON_OFF column 3 to On for o_c3_sqm_dac_sleep deactivation
 #             (206935416 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (206938934 ps) Waiting event sync = '1' for 3518 ps
-# ** Note   : (206938934 ps) Send SPI command value 8003_1000 (MUX_SQ_FB_ON_OFF, mode Write, data 1000)
-#             (206974934 ps) 
-#             (206974934 ps) ==============================================================================================
-#             (206974934 ps)   Check no event is appeared on o_c3_sqm_dac_sleep and wait o_c3_sqm_dac_sleep deactivation
-#             (206974934 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (206974934 ps) Check time, sqm_dac_sleep(3) last event: PASS
-# ** Note   : (206974934 ps)  * sqm_dac_sleep(3) last event 206974934 ps equal to expected value 206974934 ps
-# ** Note   : (217484688 ps) Waiting event sqm_dac_sleep(3) = '0' for 10509754 ps
+# ** Note   : (206939418 ps) Waiting event sync = '1' for 4002 ps
+# ** Note   : (206939418 ps) Send SPI command value 8003_1000 (MUX_SQ_FB_ON_OFF, mode Write, data 1000)
+#             (206975418 ps) 
+#             (206975418 ps) ==============================================================================================
+#             (206975418 ps)   Check no event is appeared on o_c3_sqm_dac_sleep and wait o_c3_sqm_dac_sleep deactivation
+#             (206975418 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (206975418 ps) Check time, sqm_dac_sleep(3) last event: PASS
+# ** Note   : (206975418 ps)  * sqm_dac_sleep(3) last event 206975418 ps equal to expected value 206975418 ps
+# ** Note   : (217484688 ps) Waiting event sqm_dac_sleep(3) = '0' for 10509270 ps
 #             (217484688 ps) 
 #             (217484688 ps) ==============================================================================================
 #             (217484688 ps)   Check synchronization between o_c3_clk_sqm_dac rising edge
@@ -584,15 +584,15 @@
 #             (228706296 ps) ==============================================================================================
 #             (228706296 ps)   Send command MUX_SQ_FB_ON_OFF column 3 to On for o_c3_sqm_dac_sleep deactivation
 #             (228706296 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (228709814 ps) Waiting event sync = '1' for 3518 ps
-# ** Note   : (228709814 ps) Send SPI command value 8003_1000 (MUX_SQ_FB_ON_OFF, mode Write, data 1000)
-#             (228745814 ps) 
-#             (228745814 ps) ==============================================================================================
-#             (228745814 ps)   check o_c3_sqm_dac_sleep remains to activated and wait o_c3_sqm_dac_sleep deactivation
-#             (228745814 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (228745814 ps) Check discrete level: PASS
-# ** Note   : (228745814 ps)  * Read discrete: sqm_dac_sleep(3), value '1', expected '1'
-# ** Note   : (239255568 ps) Waiting event sqm_dac_sleep(3) = '0' for 10509754 ps
+# ** Note   : (228710298 ps) Waiting event sync = '1' for 4002 ps
+# ** Note   : (228710298 ps) Send SPI command value 8003_1000 (MUX_SQ_FB_ON_OFF, mode Write, data 1000)
+#             (228746298 ps) 
+#             (228746298 ps) ==============================================================================================
+#             (228746298 ps)   check o_c3_sqm_dac_sleep remains to activated and wait o_c3_sqm_dac_sleep deactivation
+#             (228746298 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (228746298 ps) Check discrete level: PASS
+# ** Note   : (228746298 ps)  * Read discrete: sqm_dac_sleep(3), value '1', expected '1'
+# ** Note   : (239255568 ps) Waiting event sqm_dac_sleep(3) = '0' for 10509270 ps
 #             (239255568 ps) 
 #             (239255568 ps) ==============================================================================================
 #             (239255568 ps)   Check synchronization between o_c3_clk_sqm_dac rising edge
@@ -638,15 +638,15 @@
 #             (250477176 ps) ==============================================================================================
 #             (250477176 ps)   Send command MUX_SQ_FB_ON_OFF column 3 to On for o_c3_sqm_dac_sleep deactivation
 #             (250477176 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (250480694 ps) Waiting event sync = '1' for 3518 ps
-# ** Note   : (250480694 ps) Send SPI command value 8003_1000 (MUX_SQ_FB_ON_OFF, mode Write, data 1000)
-#             (250516694 ps) 
-#             (250516694 ps) ==============================================================================================
-#             (250516694 ps)   check o_c3_sqm_dac_sleep remains to activated and wait o_c3_sqm_dac_sleep deactivation
-#             (250516694 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (250516694 ps) Check discrete level: PASS
-# ** Note   : (250516694 ps)  * Read discrete: sqm_dac_sleep(3), value '1', expected '1'
-# ** Note   : (261026448 ps) Waiting event sqm_dac_sleep(3) = '0' for 10509754 ps
+# ** Note   : (250481178 ps) Waiting event sync = '1' for 4002 ps
+# ** Note   : (250481178 ps) Send SPI command value 8003_1000 (MUX_SQ_FB_ON_OFF, mode Write, data 1000)
+#             (250517178 ps) 
+#             (250517178 ps) ==============================================================================================
+#             (250517178 ps)   check o_c3_sqm_dac_sleep remains to activated and wait o_c3_sqm_dac_sleep deactivation
+#             (250517178 ps) ----------------------------------------------------------------------------------------------
+# ** Note   : (250517178 ps) Check discrete level: PASS
+# ** Note   : (250517178 ps)  * Read discrete: sqm_dac_sleep(3), value '1', expected '1'
+# ** Note   : (261026448 ps) Waiting event sqm_dac_sleep(3) = '0' for 10509270 ps
 #             (261026448 ps) 
 #             (261026448 ps) ==============================================================================================
 #             (261026448 ps)   Check synchronization between o_c3_clk_sqm_dac rising edge
