@@ -28,7 +28,7 @@ COMM
 COMM ==============================================================================================
 COMM   Check C0_AMP_SQ_OFFSET_LSB_PTR content at start
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-C0_AMP_SQ_OFFSET_LSB_PTR-0000 W     # Return Command C0-0
+CCMD R-C0_AMP_SQ_OFFSET_LSB_PTR-000A W     # Return Command C0-0
 WCMD W-C0_AMP_SQ_OFFSET_LSB_PTR-4XXX R     # Command C0-3
 COMM
 COMM ==============================================================================================
@@ -40,7 +40,7 @@ COMM
 COMM ==============================================================================================
 COMM   Check C0_AMP_SQ_OFFSET_LSB_PTR no change
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-C0_AMP_SQ_OFFSET_LSB_PTR-0000 W     # Return Command C0-2
+CCMD R-C0_AMP_SQ_OFFSET_LSB_PTR-000A W     # Return Command C0-2
 WCMD W-C0_AMP_SQ_OFFSET_LSB_PTR-2XXX R     # Command C0-5
 COMM
 COMM ==============================================================================================
@@ -52,7 +52,7 @@ COMM
 COMM ==============================================================================================
 COMM   Check C0_AMP_SQ_OFFSET_LSB_PTR no change
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-C0_AMP_SQ_OFFSET_LSB_PTR-0000 W     # Return Command C0-4
+CCMD R-C0_AMP_SQ_OFFSET_LSB_PTR-000A W     # Return Command C0-4
 WCMD W-C0_AMP_SQ_OFFSET_LSB_PTR-1XXX R     # Command C0-7
 COMM
 COMM ==============================================================================================
@@ -64,7 +64,7 @@ COMM
 COMM ==============================================================================================
 COMM   Check C0_AMP_SQ_OFFSET_LSB_PTR no change
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-C0_AMP_SQ_OFFSET_LSB_PTR-0000 W     # Return Command C0-6
+CCMD R-C0_AMP_SQ_OFFSET_LSB_PTR-000A W     # Return Command C0-6
 WCMD W-C0_AMP_SQ_OFFSET_LSB_PTR-076A R     # Command C0-9
 COMM
 COMM ==============================================================================================
@@ -76,7 +76,7 @@ COMM
 COMM ==============================================================================================
 COMM   Check C0_AMP_SQ_OFFSET_LSB_PTR no change
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-C0_AMP_SQ_OFFSET_LSB_PTR-0000 W     # Return Command C0-8
+CCMD R-C0_AMP_SQ_OFFSET_LSB_PTR-000A W     # Return Command C0-8
 WCMD W-C0_AMP_SQ_OFFSET_LSB_PTR-0FFF R     # Command C0-11
 COMM
 COMM ==============================================================================================
@@ -106,7 +106,7 @@ COMM
 COMM ==============================================================================================
 COMM   Check C1_AMP_SQ_OFFSET_LSB_PTR content at start
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-C1_AMP_SQ_OFFSET_LSB_PTR-0000 W     # Return Command C1-0
+CCMD R-C1_AMP_SQ_OFFSET_LSB_PTR-000A W     # Return Command C1-0
 WCMD W-C1_AMP_SQ_OFFSET_LSB_PTR-4XXX R     # Command C1-3
 COMM
 COMM ==============================================================================================
@@ -118,7 +118,7 @@ COMM
 COMM ==============================================================================================
 COMM   Check C1_AMP_SQ_OFFSET_LSB_PTR no change
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-C1_AMP_SQ_OFFSET_LSB_PTR-0000 W     # Return Command C1-2
+CCMD R-C1_AMP_SQ_OFFSET_LSB_PTR-000A W     # Return Command C1-2
 WCMD W-C1_AMP_SQ_OFFSET_LSB_PTR-2XXX R     # Command C1-5
 COMM
 COMM ==============================================================================================
@@ -130,7 +130,7 @@ COMM
 COMM ==============================================================================================
 COMM   Check C1_AMP_SQ_OFFSET_LSB_PTR no change
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-C1_AMP_SQ_OFFSET_LSB_PTR-0000 W     # Return Command C1-4
+CCMD R-C1_AMP_SQ_OFFSET_LSB_PTR-000A W     # Return Command C1-4
 WCMD W-C1_AMP_SQ_OFFSET_LSB_PTR-1XXX R     # Command C1-7
 COMM
 COMM ==============================================================================================
@@ -142,7 +142,7 @@ COMM
 COMM ==============================================================================================
 COMM   Check C1_AMP_SQ_OFFSET_LSB_PTR no change
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-C1_AMP_SQ_OFFSET_LSB_PTR-0000 W     # Return Command C1-6
+CCMD R-C1_AMP_SQ_OFFSET_LSB_PTR-000A W     # Return Command C1-6
 WCMD W-C1_AMP_SQ_OFFSET_LSB_PTR-076A R     # Command C1-9
 COMM
 COMM ==============================================================================================
@@ -154,7 +154,7 @@ COMM
 COMM ==============================================================================================
 COMM   Check C1_AMP_SQ_OFFSET_LSB_PTR no change
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-C1_AMP_SQ_OFFSET_LSB_PTR-0000 W     # Return Command C1-8
+CCMD R-C1_AMP_SQ_OFFSET_LSB_PTR-000A W     # Return Command C1-8
 WCMD W-C1_AMP_SQ_OFFSET_LSB_PTR-0FFF R     # Command C1-11
 COMM
 COMM ==============================================================================================
@@ -184,7 +184,7 @@ COMM
 COMM ==============================================================================================
 COMM   Check C2_AMP_SQ_OFFSET_LSB_PTR content at start
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-C2_AMP_SQ_OFFSET_LSB_PTR-0000 W     # Return Command C2-0
+CCMD R-C2_AMP_SQ_OFFSET_LSB_PTR-000A W     # Return Command C2-0
 WCMD W-C2_AMP_SQ_OFFSET_LSB_PTR-4XXX R     # Command C2-3
 COMM
 COMM ==============================================================================================
@@ -196,7 +196,7 @@ COMM
 COMM ==============================================================================================
 COMM   Check C2_AMP_SQ_OFFSET_LSB_PTR no change
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-C2_AMP_SQ_OFFSET_LSB_PTR-0000 W     # Return Command C2-2
+CCMD R-C2_AMP_SQ_OFFSET_LSB_PTR-000A W     # Return Command C2-2
 WCMD W-C2_AMP_SQ_OFFSET_LSB_PTR-2XXX R     # Command C2-5
 COMM
 COMM ==============================================================================================
@@ -208,7 +208,7 @@ COMM
 COMM ==============================================================================================
 COMM   Check C2_AMP_SQ_OFFSET_LSB_PTR no change
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-C2_AMP_SQ_OFFSET_LSB_PTR-0000 W     # Return Command C2-4
+CCMD R-C2_AMP_SQ_OFFSET_LSB_PTR-000A W     # Return Command C2-4
 WCMD W-C2_AMP_SQ_OFFSET_LSB_PTR-1XXX R     # Command C2-7
 COMM
 COMM ==============================================================================================
@@ -220,7 +220,7 @@ COMM
 COMM ==============================================================================================
 COMM   Check C2_AMP_SQ_OFFSET_LSB_PTR no change
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-C2_AMP_SQ_OFFSET_LSB_PTR-0000 W     # Return Command C2-6
+CCMD R-C2_AMP_SQ_OFFSET_LSB_PTR-000A W     # Return Command C2-6
 WCMD W-C2_AMP_SQ_OFFSET_LSB_PTR-076A R     # Command C2-9
 COMM
 COMM ==============================================================================================
@@ -232,7 +232,7 @@ COMM
 COMM ==============================================================================================
 COMM   Check C2_AMP_SQ_OFFSET_LSB_PTR no change
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-C2_AMP_SQ_OFFSET_LSB_PTR-0000 W     # Return Command C2-8
+CCMD R-C2_AMP_SQ_OFFSET_LSB_PTR-000A W     # Return Command C2-8
 WCMD W-C2_AMP_SQ_OFFSET_LSB_PTR-0FFF R     # Command C2-11
 COMM
 COMM ==============================================================================================
@@ -262,7 +262,7 @@ COMM
 COMM ==============================================================================================
 COMM   Check C3_AMP_SQ_OFFSET_LSB_PTR content at start
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-C3_AMP_SQ_OFFSET_LSB_PTR-0000 W     # Return Command C3-0
+CCMD R-C3_AMP_SQ_OFFSET_LSB_PTR-000A W     # Return Command C3-0
 WCMD W-C3_AMP_SQ_OFFSET_LSB_PTR-4XXX R     # Command C3-3
 COMM
 COMM ==============================================================================================
@@ -274,7 +274,7 @@ COMM
 COMM ==============================================================================================
 COMM   Check C3_AMP_SQ_OFFSET_LSB_PTR no change
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-C3_AMP_SQ_OFFSET_LSB_PTR-0000 W     # Return Command C3-2
+CCMD R-C3_AMP_SQ_OFFSET_LSB_PTR-000A W     # Return Command C3-2
 WCMD W-C3_AMP_SQ_OFFSET_LSB_PTR-2XXX R     # Command C3-5
 COMM
 COMM ==============================================================================================
@@ -286,7 +286,7 @@ COMM
 COMM ==============================================================================================
 COMM   Check C3_AMP_SQ_OFFSET_LSB_PTR no change
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-C3_AMP_SQ_OFFSET_LSB_PTR-0000 W     # Return Command C3-4
+CCMD R-C3_AMP_SQ_OFFSET_LSB_PTR-000A W     # Return Command C3-4
 WCMD W-C3_AMP_SQ_OFFSET_LSB_PTR-1XXX R     # Command C3-7
 COMM
 COMM ==============================================================================================
@@ -298,7 +298,7 @@ COMM
 COMM ==============================================================================================
 COMM   Check C3_AMP_SQ_OFFSET_LSB_PTR no change
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-C3_AMP_SQ_OFFSET_LSB_PTR-0000 W     # Return Command C3-6
+CCMD R-C3_AMP_SQ_OFFSET_LSB_PTR-000A W     # Return Command C3-6
 WCMD W-C3_AMP_SQ_OFFSET_LSB_PTR-076A R     # Command C3-9
 COMM
 COMM ==============================================================================================
@@ -310,7 +310,7 @@ COMM
 COMM ==============================================================================================
 COMM   Check C3_AMP_SQ_OFFSET_LSB_PTR no change
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-C3_AMP_SQ_OFFSET_LSB_PTR-0000 W     # Return Command C3-8
+CCMD R-C3_AMP_SQ_OFFSET_LSB_PTR-000A W     # Return Command C3-8
 WCMD W-C3_AMP_SQ_OFFSET_LSB_PTR-0FFF R     # Command C3-11
 COMM
 COMM ==============================================================================================

@@ -38,7 +38,7 @@ use     work.pkg_ep_cmd.all;
 entity squid_adc_mgt is port (
          i_rst_sqm_adc_dac    : in     std_logic                                                            ; --! Reset for SQUID ADC/DAC, de-assertion on system clock ('0' = Inactive, '1' = Active)
          i_clk_sqm_adc_dac    : in     std_logic                                                            ; --! SQUID ADC/DAC internal Clock
-         i_sqm_adc_dc         : in     std_logic                                                            ; --! SQUID MUX ADC: Data clock
+         i_clk_adc_dc         : in     std_logic                                                            ; --! SQUID MUX ADC: Data clock
 
          i_rst                : in     std_logic                                                            ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                : in     std_logic                                                            ; --! System Clock
@@ -166,8 +166,8 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   Inputs pad resynchronization on SQUID MUX ADC: Data clock
    -- ------------------------------------------------------------------------------------------------------
-   I_in_rs_sqm_adc_dc: entity work.in_rs_sqm_adc_dc port map (
-         i_sqm_adc_dc         => i_sqm_adc_dc         , -- in     std_logic                                 ; --! SQUID MUX ADC: Data clock
+   I_in_rs_clk_adc_dc: entity work.in_rs_clk_adc_dc port map (
+         i_clk_adc_dc         => i_clk_adc_dc         , -- in     std_logic                                 ; --! SQUID MUX ADC: Data clock
 
          i_sqm_adc_data       => i_sqm_adc_data       , -- in     slv(c_SQM_ADC_DATA_S-1 downto 0)          ; --! SQUID MUX ADC: Data, no rsync
          i_sqm_adc_oor        => i_sqm_adc_oor        , -- in     std_logic                                 ; --! SQUID MUX ADC: Out of range, no rsync ('0'= No, '1'= under/over range)

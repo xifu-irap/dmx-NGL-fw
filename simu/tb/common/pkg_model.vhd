@@ -463,7 +463,7 @@ constant c_SCHK               : t_spi_chk_prm_arr(0 to c_CHK_ENA_SPI_NB-1) :=
          o_sqm_adc_ana        : out    real                                                                 ; --! SQUID MUX ADC: Analog
          o_sqm_adc_data       : out    std_logic_vector(c_SQM_ADC_DATA_S-1 downto 0)                        ; --! SQUID MUX ADC: Data
          o_sqm_adc_oor        : out    std_logic                                                            ; --! SQUID MUX ADC: Out of range ('0' = No, '1' = under/over range)
-         o_sqm_adc_dc         : out    std_logic                                                            ; --! SQUID MUX ADC: Data clock
+         o_clk_adc_dc         : out    std_logic                                                            ; --! SQUID MUX ADC: Data clock
 
          i_sqm_data_comp      : in     std_logic                                                            ; --! SQUID MUX data complemented ('0' = No, '1' = Yes)
          i_clk_sqm_dac        : in     std_logic                                                            ; --! SQUID MUX DAC: Clock

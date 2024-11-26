@@ -178,7 +178,7 @@ begin
                cnt_thr_exceed_wr <= c_CNT_THR_EXC_INIT;
 
             elsif (signed(diff_sqm_dta_fb0) > signed(resize(unsigned(rlthr_r), diff_sqm_dta_fb0'length))) or
-                 ((signed(diff_sqm_dta_fb0) + signed(resize(unsigned(rlthr_r), diff_sqm_dta_fb0'length))) < 0 ) then
+                 ((resize(signed(diff_sqm_dta_fb0), diff_sqm_dta_fb0'length+1) + signed(resize(unsigned(rlthr_r), diff_sqm_dta_fb0'length+1))) < 0 ) then
                cnt_thr_exceed_wr <= std_logic_vector(unsigned(cnt_thr_exceed_rd_r) + 1);
 
             else

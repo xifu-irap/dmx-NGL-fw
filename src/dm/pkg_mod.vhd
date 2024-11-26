@@ -41,6 +41,6 @@ constant c_FPGA_POS_ADC       : integer_vector(0 to c_NB_COL-1) := ( 2, 3, 0, 1)
 constant c_FPGA_POS_SQM_DAC   : integer_vector(0 to c_NB_COL-1) := ( 3, 2, 1, 0)                            ; --! FPGA position MUX DAC (0:Left Up, 1:Left Down, 2:Right Down, 3:Right up)
 constant c_FPGA_POS_SQA_DAC   : integer_vector(0 to c_NB_COL-1) := ( 3, 3, 0, 0)                            ; --! FPGA position AMP DAC (0:Left Up, 1:Left Down, 2:Right Down, 3:Right up)
 
-constant c_SQM_DATA_COMP      : std_logic_vector(c_NB_COL-1 downto 0):= (others => c_HGH_LEV)               ; --! SQUID MUX data by column complemented ('0' = No, '1' = Yes)
+constant c_SQM_DATA_COMP      : std_logic_vector(c_NB_COL-1 downto 0):= "1001"                              ; --! SQUID MUX data by column complemented ('0' = No, '1' = Yes)
 
 end pkg_mod;

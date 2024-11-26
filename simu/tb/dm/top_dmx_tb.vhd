@@ -43,7 +43,7 @@ architecture Simulation of top_dmx_tb is
 signal   clk_ref              : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! Reference Clock
 signal   clk_fpasim           : std_logic                                                                   ; --! FPASIM Clock
 signal   clk_fpasim_shift     : std_logic                                                                   ; --! FPASIM Clock, 90 degrees shifted
-signal   sqm_adc_dc           : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! SQUID MUX ADC: Data clock
+signal   clk_adc_dc           : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! SQUID MUX ADC: Data clock
 
 signal   clk_sqm_adc          : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! SQUID MUX ADC: Clocks
 signal   clk_sqm_dac          : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! SQUID MUX DAC: Clocks
@@ -145,7 +145,7 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    I_top_dmx_dm: entity work.top_dmx_dm port map (
          i_clk_ref            => clk_ref(c_COL0)      , -- in     std_logic                                 ; --! Reference Clock
-         i_sqm_adc_dc         => sqm_adc_dc           , -- in     std_logic_vector(c_NB_COL-1 downto 0)     ; --! SQUID MUX ADC: Data clock
+         i_clk_adc_dc         => clk_adc_dc           , -- in     std_logic_vector(c_NB_COL-1 downto 0)     ; --! SQUID MUX ADC: Data clock
 
          o_clk_sqm_adc        => clk_sqm_adc          , -- out    std_logic_vector(c_NB_COL-1 downto 0)     ; --! SQUID MUX ADC: Clock
          o_clk_sqm_dac        => clk_sqm_dac          , -- out    std_logic_vector(c_NB_COL-1 downto 0)     ; --! SQUID MUX DAC: Clock
@@ -410,7 +410,7 @@ begin
          o_sqm_adc_ana        => sqm_adc_ana(k)       , -- out    real                                      ; --! SQUID MUX ADC: Analog
          o_sqm_adc_data       => sqm_adc_data(k)      , -- out    slv(c_SQM_ADC_DATA_S-1 downto 0)          ; --! SQUID MUX ADC: Data
          o_sqm_adc_oor        => sqm_adc_oor(k)       , -- out    std_logic                                 ; --! SQUID MUX ADC: Out of range ('0' = No, '1' = under/over range)
-         o_sqm_adc_dc         => sqm_adc_dc(k)        , -- out    std_logic                                 ; --! SQUID MUX ADC: Data clock
+         o_clk_adc_dc         => clk_adc_dc(k)        , -- out    std_logic                                 ; --! SQUID MUX ADC: Data clock
 
          i_pls_shp_fc         => pls_shp_fc(k)        , -- in     integer                                   ; --! Pulse shaping cut frequency (Hz)
          o_err_num_pls_shp    => err_num_pls_shp(k)   , -- out    integer                                   ; --! Pulse shaping error number

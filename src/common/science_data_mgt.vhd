@@ -427,11 +427,6 @@ begin
                 ((aqmde_sync = c_DST_AQMDE_TEST))) and sqm_dta_sc_fst_all_r = c_HGH_LEV) then
             science_data(science_data'high) <= ctrl_first_pkt;
 
-         elsif  ((aqmde_sync = c_DST_AQMDE_DUMP) and dmp_cnt = c_ZERO(dmp_cnt'range)) or
-               (((aqmde_sync = c_DST_AQMDE_SCIE) or  (aqmde_sync = c_DST_AQMDE_ERRS)  or
-                ((aqmde_sync = c_DST_AQMDE_TEST))) and sqm_dta_sc_lst_all_r = c_HGH_LEV) then
-            science_data(science_data'high) <= c_SC_CTRL_EOD;
-
          else
             science_data(science_data'high) <= c_SC_CTRL_DTA_W;
 
