@@ -100,10 +100,12 @@ signal   mem_dump_sc_data_out : t_slv_arr(0 to c_NB_COL-1)(c_SQM_ADC_DATA_S+1 do
 signal   science_data_ser     : std_logic_vector(c_NB_COL*c_SC_DATA_SER_NB+1 downto 0)                      ; --! Science Data: Serial Data
 signal   science_data_ctrl    : t_slv_arr(0 to 1)(c_SC_DATA_SER_W_S-1 downto 0)                             ; --! Science Data: Control word
 signal   science_data         : t_slv_arr(0 to c_NB_COL-1)(c_SC_DATA_SER_NB*c_SC_DATA_SER_W_S-1 downto 0)   ; --! Science Data: Data
+signal   science_data_r       : t_slv_arr(0 to c_NB_COL-1)(c_SC_DATA_SER_NB*c_SC_DATA_SER_W_S-1 downto 0)   ; --! Science Data: Data register
 signal   science_data_rdy     : std_logic                                                                   ; --! Science Data Ready ('0' = Inactive, '1' = Active)
 signal   science_data_rdy_r   : std_logic                                                                   ; --! Science Data Ready register
 
 signal   science_data_err     : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! Science data error ('0' = No error, '1' = Error)
+signal   packet_end           : std_logic                                                                   ; --! Science packet end ('0' = No, '1' = Yes)
 
 begin
 
@@ -177,10 +179,12 @@ begin
       P_mem_dump_r : process(i_arst, i_clk_science)
       begin
          if i_arst = c_RST_LEV_ACT then
+            science_data_r(k)          <= c_ZERO(science_data_r(science_data_r'low)'range);
             mem_dump_sc_data_out(k)    <= c_ZERO(mem_dump_sc_data_out(mem_dump_sc_data_out'low)'range);
 
          elsif rising_edge(i_clk_science) then
             if (science_data_rdy = c_HGH_LEV) then
+               science_data_r(k)       <= science_data(k);
                mem_dump_sc_data_out(k) <= mem_dump(k)(to_integer(unsigned(mem_dump_sc_add)));
 
             end if;
@@ -202,10 +206,10 @@ begin
       elsif rising_edge(i_clk_science) then
          science_data_rdy_r   <= science_data_rdy;
 
-         if science_data_ctrl(science_data_ctrl'low) = c_SC_CTRL_EOD then
+         if packet_end = c_HGH_LEV then
             mem_dump_sc_add <= c_ZERO(mem_dump_sc_add'range);
 
-         elsif science_data_rdy = c_HGH_LEV then
+         elsif science_data_rdy_r = c_HGH_LEV then
             mem_dump_sc_add <= std_logic_vector(unsigned(mem_dump_sc_add) + 1);
 
          end if;
@@ -258,6 +262,7 @@ begin
          i_science_mem_data   => i_science_mem_data   , -- in     slv c_SC_DATA_SER_NB*c_SC_DATA_SER_W_S    ; --! Science  memory for data compare: data
          i_adc_dmp_mem_cs     => i_adc_dmp_mem_cs     , -- in     std_logic_vector(c_NB_COL-1 downto 0)     ; --! ADC Dump memory for data compare: chip select ('0' = Inactive, '1' = Active)
 
+         i_packet_end         => packet_end           , -- in     std_logic                                 ; --! Science packet end ('0' = No, '1' = Yes)
          i_science_data_ctrl  => science_data_ctrl(science_data_ctrl'low), -- in slv c_SC_DATA_SER_W_S      ; --! Science Data: Control word
          i_science_data       => science_data         , -- in     t_sc_data(0 to c_NB_COL-1)                ; --! Science Data: Data
          i_science_data_rdy   => science_data_rdy     , -- in     std_logic                                 ; --! Science Data Ready ('0' = Inactive, '1' = Active)
@@ -278,7 +283,6 @@ begin
    variable v_err_sc_pkt_size : std_logic                                                                   ; --! Error science packet size ('0' = No error, '1' = Error)
    variable v_err_sc_data     : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! Error science data ('0' = No error, '1' = Error)
 
-   variable v_ctrl_last       : std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0) := c_SC_CTRL_EOD             ; --! Control word last
    variable v_ctrl_first_pkt  : std_logic := c_LOW_LEV                                                      ; --! Control word first packet detected ('0' = No, '1' = Yes)
    variable v_packet_tx_time  : time := c_ZERO_TIME                                                         ; --! Science packet first word transmit time
    variable v_packet_type     : line := null                                                                ; --! Science packet type
@@ -291,6 +295,7 @@ begin
 
       -- Variable initialization
       write(v_packet_type, c_ZERO_INT);
+      packet_end   <= c_HGH_LEV;
       o_sc_pkt_err <= c_LOW_LEV;
 
       -- Check if science data analysis is required for unitary test
@@ -345,7 +350,7 @@ begin
                --    Case Science first data packet
                -- ------------------------------------------------------------------------------------------------------
                when c_SC_CTRL_SC_DTA | c_SC_CTRL_TST_PAT | c_SC_CTRL_ADC_DMP | c_SC_CTRL_ERRS | c_SC_CTRL_RAS_VLD =>
-                  sc_data_first_pkt(science_data_ctrl(science_data_ctrl'low), science_data,     v_ctrl_last,      v_ctrl_first_pkt,
+                  sc_data_first_pkt(science_data_ctrl(science_data_ctrl'low), science_data,     packet_end,       v_ctrl_first_pkt,
                                     v_packet_tx_time                        , v_packet_type,    v_packet_dump,    v_packet_size,
                                     v_packet_size_exp,                        v_packet_content, v_err_sc_pkt_eod, o_sc_pkt_type);
 
@@ -354,16 +359,18 @@ begin
                -- ------------------------------------------------------------------------------------------------------
                when c_SC_CTRL_DTA_W       =>
 
-                  -- Check start packet was sent before acquiring an another word
-                  v_err_sc_pkt_start := not(v_ctrl_first_pkt);
+                  -- Case End of packet
+                  if v_packet_size >= v_packet_size_exp then
+                     sc_data_end_pkt(v_packet_size_exp,  v_packet_content,  v_ctrl_first_pkt, v_packet_tx_time,
+                                     v_packet_type,      v_packet_size,     v_packet_dump,    packet_end,
+                                     v_err_sc_pkt_start, v_err_sc_pkt_size, o_sc_pkt_type,    scd_file);
 
-               -- ------------------------------------------------------------------------------------------------------
-               --    Case Science end of data packet
-               -- ------------------------------------------------------------------------------------------------------
-               when c_SC_CTRL_EOD         =>
-                  sc_data_end_pkt(v_packet_size_exp, v_packet_content, v_ctrl_first_pkt, v_packet_tx_time,
-                                  v_packet_type,     v_packet_size,    v_packet_dump,    v_err_sc_pkt_start,
-                                  v_err_sc_pkt_size, o_sc_pkt_type,    scd_file);
+                  -- Case Data packet
+                  else
+                     -- Check start packet was sent before acquiring an another word
+                     v_err_sc_pkt_start := not(v_ctrl_first_pkt);
+
+                  end if;
 
                -- ------------------------------------------------------------------------------------------------------
                --    Case control word unknown
@@ -375,17 +382,14 @@ begin
 
             -- Check science data
             for k in 0 to c_NB_COL-1 loop
-               if (v_packet_dump = c_HGH_LEV) and (science_data(k) /= std_logic_vector(resize(unsigned(mem_dump_sc_data_out(k)), science_data(k)'length))) then
+               if (v_packet_dump = c_HGH_LEV) and (science_data_r(k) /= std_logic_vector(resize(unsigned(mem_dump_sc_data_out(k)), science_data_r(k)'length))) then
                   v_err_sc_data(k) := c_HGH_LEV;
 
                end if;
             end loop;
 
-            -- Update Control word last
-            v_ctrl_last := science_data_ctrl(science_data_ctrl'low);
-
             -- Science data error display
-            sc_data_err_display( g_ERR_SC_DTA_ENA,      science_data,   science_data_err, mem_dump_sc_data_out,
+            sc_data_err_display( g_ERR_SC_DTA_ENA,    science_data_r,   science_data_err, mem_dump_sc_data_out,
                                 v_err_sc_ctrl_dif, v_err_sc_ctrl_ukn, v_err_sc_pkt_start, v_err_sc_pkt_eod,
                                 v_err_sc_pkt_size,     v_err_sc_data,       o_sc_pkt_err, scd_file);
 

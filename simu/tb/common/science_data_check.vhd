@@ -50,6 +50,7 @@ entity science_data_check is port (
          i_science_mem_data   : in     std_logic_vector(c_SC_DATA_SER_NB*c_SC_DATA_SER_W_S-1 downto 0)      ; --! Science  memory for data compare: data
          i_adc_dmp_mem_cs     : in     std_logic_vector(        c_NB_COL-1 downto 0)                        ; --! ADC Dump memory for data compare: chip select ('0' = Inactive, '1' = Active)
 
+         i_packet_end         : in     std_logic                                                            ; --! Science packet end ('0' = No, '1' = Yes)
          i_science_data_ctrl  : in     std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0)                       ; --! Science Data: Control word
          i_science_data       : in     t_slv_arr(0 to c_NB_COL-1)
                                                 (c_SC_DATA_SER_NB*c_SC_DATA_SER_W_S-1 downto 0)             ; --! Science Data: Data
@@ -131,7 +132,7 @@ begin
       elsif rising_edge(i_clk_science) then
          if i_science_data_rdy = c_HGH_LEV then
 
-            if    i_science_data_ctrl /= c_SC_CTRL_DTA_W and i_science_data_ctrl /= c_SC_CTRL_EOD then
+            if    i_science_data_ctrl /= c_SC_CTRL_DTA_W then
                pls_cnt <= std_logic_vector(to_signed(c_PLS_CNT_MAX_VAL, pls_cnt'length));
 
             elsif pls_cnt(pls_cnt'high) = c_HGH_LEV and (
@@ -163,7 +164,7 @@ begin
       elsif rising_edge(i_clk_science) then
          if i_science_data_rdy = c_HGH_LEV then
 
-            if    i_science_data_ctrl /= c_SC_CTRL_DTA_W and i_science_data_ctrl /= c_SC_CTRL_EOD then
+            if    i_science_data_ctrl /= c_SC_CTRL_DTA_W then
                pixel_pos <= c_ZERO(pixel_pos'range);
 
             elsif pls_cnt(pls_cnt'high) = c_HGH_LEV and
@@ -194,7 +195,7 @@ begin
       elsif rising_edge(i_clk_science) then
          if i_science_data_rdy = c_HGH_LEV then
 
-            if i_science_data_ctrl /= c_SC_CTRL_DTA_W and i_science_data_ctrl /= c_SC_CTRL_EOD then
+            if i_science_data_ctrl /= c_SC_CTRL_DTA_W then
                seq_cnt <= c_ZERO(seq_cnt'range);
 
             elsif pls_cnt(pls_cnt'high) = c_HGH_LEV and pixel_pos = std_logic_vector(to_unsigned(c_PIXEL_POS_MAX_VAL , pixel_pos'length)) then
@@ -247,7 +248,7 @@ begin
          if i_frm_cnt_sc_rst = c_HGH_LEV then
             frm_cnt_sc <= c_ZERO(frm_cnt_sc'range);
 
-         elsif science_data_rdy_r(science_data_rdy_r'high) = c_HGH_LEV and i_science_data_ctrl = c_SC_CTRL_EOD then
+         elsif science_data_rdy_r(science_data_rdy_r'high) = c_HGH_LEV and i_packet_end = c_HGH_LEV then
             frm_cnt_sc <= std_logic_vector(unsigned(frm_cnt_sc) + 1);
 
          end if;

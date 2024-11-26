@@ -35,7 +35,7 @@
 #             (21984000 ps)   Check C0_AMP_SQ_OFFSET_COARSE content at start
 #             (21984000 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (22002000 ps) Check command return: PASS
-# ** Note   : (22002000 ps)  * Read 0882_0000, expected value 0882_0000 (C0_AMP_SQ_OFFSET_COARSE, mode Read, data 0000)
+# ** Note   : (22002000 ps)  * Read 0882_000A, expected value 0882_000A (C0_AMP_SQ_OFFSET_COARSE, mode Read, data 000A)
 # ** Note   : (29418000 ps) Waiting SPI command end for 7416000 ps
 # ** Note   : (29418000 ps) Send SPI command value 0883_4XXX (C0_AMP_SQ_OFFSET_COARSE, mode Write, data 4XXX)
 # ** Note   : (29490000 ps) Waiting SPI command return end for 36000 ps
@@ -53,7 +53,7 @@
 #             (36996000 ps)   Check C0_AMP_SQ_OFFSET_COARSE no change
 #             (36996000 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (37014000 ps) Check command return: PASS
-# ** Note   : (37014000 ps)  * Read 0882_0000, expected value 0882_0000 (C0_AMP_SQ_OFFSET_COARSE, mode Read, data 0000)
+# ** Note   : (37014000 ps)  * Read 0882_000A, expected value 0882_000A (C0_AMP_SQ_OFFSET_COARSE, mode Read, data 000A)
 # ** Note   : (44430000 ps) Waiting SPI command end for 7416000 ps
 # ** Note   : (44430000 ps) Send SPI command value 0883_2XXX (C0_AMP_SQ_OFFSET_COARSE, mode Write, data 2XXX)
 # ** Note   : (44502000 ps) Waiting SPI command return end for 36000 ps
@@ -71,7 +71,7 @@
 #             (52008000 ps)   Check C0_AMP_SQ_OFFSET_COARSE no change
 #             (52008000 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (52026000 ps) Check command return: PASS
-# ** Note   : (52026000 ps)  * Read 0882_0000, expected value 0882_0000 (C0_AMP_SQ_OFFSET_COARSE, mode Read, data 0000)
+# ** Note   : (52026000 ps)  * Read 0882_000A, expected value 0882_000A (C0_AMP_SQ_OFFSET_COARSE, mode Read, data 000A)
 # ** Note   : (59442000 ps) Waiting SPI command end for 7416000 ps
 # ** Note   : (59442000 ps) Send SPI command value 0883_1XXX (C0_AMP_SQ_OFFSET_COARSE, mode Write, data 1XXX)
 # ** Note   : (59514000 ps) Waiting SPI command return end for 36000 ps
@@ -89,7 +89,7 @@
 #             (67020000 ps)   Check C0_AMP_SQ_OFFSET_COARSE no change
 #             (67020000 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (67038000 ps) Check command return: PASS
-# ** Note   : (67038000 ps)  * Read 0882_0000, expected value 0882_0000 (C0_AMP_SQ_OFFSET_COARSE, mode Read, data 0000)
+# ** Note   : (67038000 ps)  * Read 0882_000A, expected value 0882_000A (C0_AMP_SQ_OFFSET_COARSE, mode Read, data 000A)
 # ** Note   : (74454000 ps) Waiting SPI command end for 7416000 ps
 # ** Note   : (74454000 ps) Send SPI command value 0883_076A (C0_AMP_SQ_OFFSET_COARSE, mode Write, data 076A)
 # ** Note   : (74526000 ps) Waiting SPI command return end for 36000 ps
@@ -107,7 +107,7 @@
 #             (82032000 ps)   Check C0_AMP_SQ_OFFSET_COARSE no change
 #             (82032000 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (82050000 ps) Check command return: PASS
-# ** Note   : (82050000 ps)  * Read 0882_0000, expected value 0882_0000 (C0_AMP_SQ_OFFSET_COARSE, mode Read, data 0000)
+# ** Note   : (82050000 ps)  * Read 0882_000A, expected value 0882_000A (C0_AMP_SQ_OFFSET_COARSE, mode Read, data 000A)
 # ** Note   : (89466000 ps) Waiting SPI command end for 7416000 ps
 # ** Note   : (89466000 ps) Send SPI command value 0883_0FFF (C0_AMP_SQ_OFFSET_COARSE, mode Write, data 0FFF)
 # ** Note   : (89538000 ps) Waiting SPI command return end for 36000 ps
@@ -152,7 +152,7 @@
 #             (119562000 ps)   Check C1_AMP_SQ_OFFSET_COARSE content at start
 #             (119562000 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (119580000 ps) Check command return: PASS
-# ** Note   : (119580000 ps)  * Read 2882_0000, expected value 2882_0000 (C1_AMP_SQ_OFFSET_COARSE, mode Read, data 0000)
+# ** Note   : (119580000 ps)  * Read 2882_000A, expected value 2882_000A (C1_AMP_SQ_OFFSET_COARSE, mode Read, data 000A)
 # ** Note   : (126996000 ps) Waiting SPI command end for 7416000 ps
 # ** Note   : (126996000 ps) Send SPI command value 2883_4XXX (C1_AMP_SQ_OFFSET_COARSE, mode Write, data 4XXX)
 # ** Note   : (127068000 ps) Waiting SPI command return end for 36000 ps
@@ -170,7 +170,7 @@
 #             (134574000 ps)   Check C1_AMP_SQ_OFFSET_COARSE no change
 #             (134574000 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (134592000 ps) Check command return: PASS
-# ** Note   : (134592000 ps)  * Read 2882_0000, expected value 2882_0000 (C1_AMP_SQ_OFFSET_COARSE, mode Read, data 0000)
+# ** Note   : (134592000 ps)  * Read 2882_000A, expected value 2882_000A (C1_AMP_SQ_OFFSET_COARSE, mode Read, data 000A)
 # ** Note   : (142008000 ps) Waiting SPI command end for 7416000 ps
 # ** Note   : (142008000 ps) Send SPI command value 2883_2XXX (C1_AMP_SQ_OFFSET_COARSE, mode Write, data 2XXX)
 # ** Note   : (142080000 ps) Waiting SPI command return end for 36000 ps
@@ -188,7 +188,7 @@
 #             (149586000 ps)   Check C1_AMP_SQ_OFFSET_COARSE no change
 #             (149586000 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (149604000 ps) Check command return: PASS
-# ** Note   : (149604000 ps)  * Read 2882_0000, expected value 2882_0000 (C1_AMP_SQ_OFFSET_COARSE, mode Read, data 0000)
+# ** Note   : (149604000 ps)  * Read 2882_000A, expected value 2882_000A (C1_AMP_SQ_OFFSET_COARSE, mode Read, data 000A)
 # ** Note   : (157020000 ps) Waiting SPI command end for 7416000 ps
 # ** Note   : (157020000 ps) Send SPI command value 2883_1XXX (C1_AMP_SQ_OFFSET_COARSE, mode Write, data 1XXX)
 # ** Note   : (157092000 ps) Waiting SPI command return end for 36000 ps
@@ -206,7 +206,7 @@
 #             (164598000 ps)   Check C1_AMP_SQ_OFFSET_COARSE no change
 #             (164598000 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (164616000 ps) Check command return: PASS
-# ** Note   : (164616000 ps)  * Read 2882_0000, expected value 2882_0000 (C1_AMP_SQ_OFFSET_COARSE, mode Read, data 0000)
+# ** Note   : (164616000 ps)  * Read 2882_000A, expected value 2882_000A (C1_AMP_SQ_OFFSET_COARSE, mode Read, data 000A)
 # ** Note   : (172032000 ps) Waiting SPI command end for 7416000 ps
 # ** Note   : (172032000 ps) Send SPI command value 2883_076A (C1_AMP_SQ_OFFSET_COARSE, mode Write, data 076A)
 # ** Note   : (172104000 ps) Waiting SPI command return end for 36000 ps
@@ -224,7 +224,7 @@
 #             (179610000 ps)   Check C1_AMP_SQ_OFFSET_COARSE no change
 #             (179610000 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (179628000 ps) Check command return: PASS
-# ** Note   : (179628000 ps)  * Read 2882_0000, expected value 2882_0000 (C1_AMP_SQ_OFFSET_COARSE, mode Read, data 0000)
+# ** Note   : (179628000 ps)  * Read 2882_000A, expected value 2882_000A (C1_AMP_SQ_OFFSET_COARSE, mode Read, data 000A)
 # ** Note   : (187044000 ps) Waiting SPI command end for 7416000 ps
 # ** Note   : (187044000 ps) Send SPI command value 2883_0FFF (C1_AMP_SQ_OFFSET_COARSE, mode Write, data 0FFF)
 # ** Note   : (187116000 ps) Waiting SPI command return end for 36000 ps
@@ -269,7 +269,7 @@
 #             (217140000 ps)   Check C2_AMP_SQ_OFFSET_COARSE content at start
 #             (217140000 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (217158000 ps) Check command return: PASS
-# ** Note   : (217158000 ps)  * Read 4882_0000, expected value 4882_0000 (C2_AMP_SQ_OFFSET_COARSE, mode Read, data 0000)
+# ** Note   : (217158000 ps)  * Read 4882_000A, expected value 4882_000A (C2_AMP_SQ_OFFSET_COARSE, mode Read, data 000A)
 # ** Note   : (224574000 ps) Waiting SPI command end for 7416000 ps
 # ** Note   : (224574000 ps) Send SPI command value 4883_4XXX (C2_AMP_SQ_OFFSET_COARSE, mode Write, data 4XXX)
 # ** Note   : (224646000 ps) Waiting SPI command return end for 36000 ps
@@ -287,7 +287,7 @@
 #             (232152000 ps)   Check C2_AMP_SQ_OFFSET_COARSE no change
 #             (232152000 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (232170000 ps) Check command return: PASS
-# ** Note   : (232170000 ps)  * Read 4882_0000, expected value 4882_0000 (C2_AMP_SQ_OFFSET_COARSE, mode Read, data 0000)
+# ** Note   : (232170000 ps)  * Read 4882_000A, expected value 4882_000A (C2_AMP_SQ_OFFSET_COARSE, mode Read, data 000A)
 # ** Note   : (239586000 ps) Waiting SPI command end for 7416000 ps
 # ** Note   : (239586000 ps) Send SPI command value 4883_2XXX (C2_AMP_SQ_OFFSET_COARSE, mode Write, data 2XXX)
 # ** Note   : (239658000 ps) Waiting SPI command return end for 36000 ps
@@ -305,7 +305,7 @@
 #             (247164000 ps)   Check C2_AMP_SQ_OFFSET_COARSE no change
 #             (247164000 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (247182000 ps) Check command return: PASS
-# ** Note   : (247182000 ps)  * Read 4882_0000, expected value 4882_0000 (C2_AMP_SQ_OFFSET_COARSE, mode Read, data 0000)
+# ** Note   : (247182000 ps)  * Read 4882_000A, expected value 4882_000A (C2_AMP_SQ_OFFSET_COARSE, mode Read, data 000A)
 # ** Note   : (254598000 ps) Waiting SPI command end for 7416000 ps
 # ** Note   : (254598000 ps) Send SPI command value 4883_1XXX (C2_AMP_SQ_OFFSET_COARSE, mode Write, data 1XXX)
 # ** Note   : (254670000 ps) Waiting SPI command return end for 36000 ps
@@ -323,7 +323,7 @@
 #             (262176000 ps)   Check C2_AMP_SQ_OFFSET_COARSE no change
 #             (262176000 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (262194000 ps) Check command return: PASS
-# ** Note   : (262194000 ps)  * Read 4882_0000, expected value 4882_0000 (C2_AMP_SQ_OFFSET_COARSE, mode Read, data 0000)
+# ** Note   : (262194000 ps)  * Read 4882_000A, expected value 4882_000A (C2_AMP_SQ_OFFSET_COARSE, mode Read, data 000A)
 # ** Note   : (269610000 ps) Waiting SPI command end for 7416000 ps
 # ** Note   : (269610000 ps) Send SPI command value 4883_076A (C2_AMP_SQ_OFFSET_COARSE, mode Write, data 076A)
 # ** Note   : (269682000 ps) Waiting SPI command return end for 36000 ps
@@ -341,7 +341,7 @@
 #             (277188000 ps)   Check C2_AMP_SQ_OFFSET_COARSE no change
 #             (277188000 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (277206000 ps) Check command return: PASS
-# ** Note   : (277206000 ps)  * Read 4882_0000, expected value 4882_0000 (C2_AMP_SQ_OFFSET_COARSE, mode Read, data 0000)
+# ** Note   : (277206000 ps)  * Read 4882_000A, expected value 4882_000A (C2_AMP_SQ_OFFSET_COARSE, mode Read, data 000A)
 # ** Note   : (284622000 ps) Waiting SPI command end for 7416000 ps
 # ** Note   : (284622000 ps) Send SPI command value 4883_0FFF (C2_AMP_SQ_OFFSET_COARSE, mode Write, data 0FFF)
 # ** Note   : (284694000 ps) Waiting SPI command return end for 36000 ps
@@ -386,7 +386,7 @@
 #             (314718000 ps)   Check C3_AMP_SQ_OFFSET_COARSE content at start
 #             (314718000 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (314736000 ps) Check command return: PASS
-# ** Note   : (314736000 ps)  * Read 6882_0000, expected value 6882_0000 (C3_AMP_SQ_OFFSET_COARSE, mode Read, data 0000)
+# ** Note   : (314736000 ps)  * Read 6882_000A, expected value 6882_000A (C3_AMP_SQ_OFFSET_COARSE, mode Read, data 000A)
 # ** Note   : (322152000 ps) Waiting SPI command end for 7416000 ps
 # ** Note   : (322152000 ps) Send SPI command value 6883_4XXX (C3_AMP_SQ_OFFSET_COARSE, mode Write, data 4XXX)
 # ** Note   : (322224000 ps) Waiting SPI command return end for 36000 ps
@@ -404,7 +404,7 @@
 #             (329730000 ps)   Check C3_AMP_SQ_OFFSET_COARSE no change
 #             (329730000 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (329748000 ps) Check command return: PASS
-# ** Note   : (329748000 ps)  * Read 6882_0000, expected value 6882_0000 (C3_AMP_SQ_OFFSET_COARSE, mode Read, data 0000)
+# ** Note   : (329748000 ps)  * Read 6882_000A, expected value 6882_000A (C3_AMP_SQ_OFFSET_COARSE, mode Read, data 000A)
 # ** Note   : (337164000 ps) Waiting SPI command end for 7416000 ps
 # ** Note   : (337164000 ps) Send SPI command value 6883_2XXX (C3_AMP_SQ_OFFSET_COARSE, mode Write, data 2XXX)
 # ** Note   : (337236000 ps) Waiting SPI command return end for 36000 ps
@@ -422,7 +422,7 @@
 #             (344742000 ps)   Check C3_AMP_SQ_OFFSET_COARSE no change
 #             (344742000 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (344760000 ps) Check command return: PASS
-# ** Note   : (344760000 ps)  * Read 6882_0000, expected value 6882_0000 (C3_AMP_SQ_OFFSET_COARSE, mode Read, data 0000)
+# ** Note   : (344760000 ps)  * Read 6882_000A, expected value 6882_000A (C3_AMP_SQ_OFFSET_COARSE, mode Read, data 000A)
 # ** Note   : (352176000 ps) Waiting SPI command end for 7416000 ps
 # ** Note   : (352176000 ps) Send SPI command value 6883_1XXX (C3_AMP_SQ_OFFSET_COARSE, mode Write, data 1XXX)
 # ** Note   : (352248000 ps) Waiting SPI command return end for 36000 ps
@@ -440,7 +440,7 @@
 #             (359754000 ps)   Check C3_AMP_SQ_OFFSET_COARSE no change
 #             (359754000 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (359772000 ps) Check command return: PASS
-# ** Note   : (359772000 ps)  * Read 6882_0000, expected value 6882_0000 (C3_AMP_SQ_OFFSET_COARSE, mode Read, data 0000)
+# ** Note   : (359772000 ps)  * Read 6882_000A, expected value 6882_000A (C3_AMP_SQ_OFFSET_COARSE, mode Read, data 000A)
 # ** Note   : (367188000 ps) Waiting SPI command end for 7416000 ps
 # ** Note   : (367188000 ps) Send SPI command value 6883_076A (C3_AMP_SQ_OFFSET_COARSE, mode Write, data 076A)
 # ** Note   : (367260000 ps) Waiting SPI command return end for 36000 ps
@@ -458,7 +458,7 @@
 #             (374766000 ps)   Check C3_AMP_SQ_OFFSET_COARSE no change
 #             (374766000 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (374784000 ps) Check command return: PASS
-# ** Note   : (374784000 ps)  * Read 6882_0000, expected value 6882_0000 (C3_AMP_SQ_OFFSET_COARSE, mode Read, data 0000)
+# ** Note   : (374784000 ps)  * Read 6882_000A, expected value 6882_000A (C3_AMP_SQ_OFFSET_COARSE, mode Read, data 000A)
 # ** Note   : (382200000 ps) Waiting SPI command end for 7416000 ps
 # ** Note   : (382200000 ps) Send SPI command value 6883_0FFF (C3_AMP_SQ_OFFSET_COARSE, mode Write, data 0FFF)
 # ** Note   : (382272000 ps) Waiting SPI command return end for 36000 ps

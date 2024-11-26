@@ -42,7 +42,7 @@ package pkg_project is
    --    @Req : DRE-DMX-FW-REQ-0120
    --    @Req : DRE-DMX-FW-REQ-0270
    -- ------------------------------------------------------------------------------------------------------
-constant c_FW_VERSION         : integer   := 16#000A#                                                       ; --! Firmware version
+constant c_FW_VERSION         : integer   := 16#000B#                                                       ; --! Firmware version
 
 constant c_FF_RSYNC_NB        : integer   := 2                                                              ; --! Flip-Flop number used for FPGA input resynchronization
 constant c_FF_RST_NB          : integer   := 6                                                              ; --! Flip-Flop number used for internal reset: System Clock
@@ -354,7 +354,6 @@ constant c_SC_CTRL_SC_DTA     : std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0) :
 constant c_SC_CTRL_RAS_VLD    : std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0) := "11001010"                ; --! Science data, control word value: RAS Data valid packet first word
 constant c_SC_CTRL_TST_PAT    : std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0) := "11100000"                ; --! Science data, control word value: Test pattern packet first word
 constant c_SC_CTRL_ERRS       : std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0) := "11100010"                ; --! Science data, control word value: Error signal first word
-constant c_SC_CTRL_EOD        : std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0) := "11101010"                ; --! Science data, control word value: End of Data
 constant c_SC_CTRL_IDLE       : std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0) := "00000000"                ; --! Science data, control word value: Idle
 
 constant c_SC_DATA_IDLE_VAL   : std_logic_vector(c_SC_DATA_SER_W_S*c_SC_DATA_SER_NB-1 downto 0) := x"0000"  ; --! Science data: word sent when Telemetry mode on one column is in Idle

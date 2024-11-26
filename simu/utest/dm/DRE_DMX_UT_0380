@@ -3430,6 +3430,30 @@ WMDC 3 24 32 0000_3B20
 WMDC 3 24 33 0000_3B20
 COMM
 COMM ==============================================================================================
+COMM   Configure AMP SQUID DAC LSB Test pattern all columns
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-C0_AMP_SQ_OFFSET_LSB-0000 W
+WCMD W-C1_AMP_SQ_OFFSET_LSB-0000 W
+WCMD W-C2_AMP_SQ_OFFSET_LSB-0000 W
+WCMD W-C3_AMP_SQ_OFFSET_LSB-0000 W
+COMM
+COMM ==============================================================================================
+COMM   Configure AMP SQUID DAC LSB Test pattern all columns
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-C0_AMP_SQ_OFFSET_LSB_PTR-0000 W
+WCMD W-C1_AMP_SQ_OFFSET_LSB_PTR-0000 W
+WCMD W-C2_AMP_SQ_OFFSET_LSB_PTR-0000 W
+WCMD W-C3_AMP_SQ_OFFSET_LSB_PTR-0000 W
+COMM
+COMM ==============================================================================================
+COMM   Configure AMP SQUID lockpoint Offset all columns
+COMM ----------------------------------------------------------------------------------------------
+WCMD W-C0_AMP_SQ_OFFSET_COARSE-0000 W
+WCMD W-C1_AMP_SQ_OFFSET_COARSE-0000 W
+WCMD W-C2_AMP_SQ_OFFSET_COARSE-0000 W
+WCMD W-C3_AMP_SQ_OFFSET_COARSE-0000 W
+COMM
+COMM ==============================================================================================
 COMM   Writing a new table in AMP SQUID lockpoint value all columns
 COMM ----------------------------------------------------------------------------------------------
 WCMD W-C0_AMP_SQ_OFFSET_FINE(0)-0038 W

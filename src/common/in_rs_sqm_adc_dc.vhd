@@ -17,7 +17,7 @@
 --                            along with this program.  If not, see <https://www.gnu.org/licenses/>.
 -- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --    email                   slaurent@nanoxplore.com
---!   @file                   in_rs_sqm_adc_dc.vhd
+--!   @file                   in_rs_clk_adc_dc.vhd
 -- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --    Automatic Generation    No
 --    Code Rules Reference    SOC of design and VHDL handbook for VLSI development, CNES Edition (v2.1)
@@ -32,8 +32,8 @@ use     work.pkg_type.all;
 use     work.pkg_fpga_tech.all;
 use     work.pkg_project.all;
 
-entity in_rs_sqm_adc_dc is port (
-         i_sqm_adc_dc         : in     std_logic                                                            ; --! SQUID MUX ADC: Data clock
+entity in_rs_clk_adc_dc is port (
+         i_clk_adc_dc         : in     std_logic                                                            ; --! SQUID MUX ADC: Data clock
 
          i_sqm_adc_data       : in     std_logic_vector(c_SQM_ADC_DATA_S-1 downto 0)                        ; --! SQUID MUX ADC: Data, no rsync
          i_sqm_adc_oor        : in     std_logic                                                            ; --! SQUID MUX ADC: Out of range, no rsync ('0'= No, '1'= under/over range)
@@ -42,9 +42,9 @@ entity in_rs_sqm_adc_dc is port (
          o_sqm_adc_oor_rs_dc  : out    std_logic                                                              --! SQUID MUX ADC: Out of range, synchronized on SQUID ADC Data clock
 
    );
-end entity in_rs_sqm_adc_dc;
+end entity in_rs_clk_adc_dc;
 
-architecture RTL of in_rs_sqm_adc_dc is
+architecture RTL of in_rs_clk_adc_dc is
 signal   sqm_adc_data_r       : t_slv_arr(0 to c_FF_RSYNC_NB-1)(c_SQM_ADC_DATA_S-1 downto 0)                ; --! SQUID MUX ADC: Data register
 signal   sqm_adc_oor_r        : std_logic_vector(c_FF_RSYNC_NB-1 downto 0)                                  ; --! SQUID MUX ADC: Out of range register
 
@@ -53,10 +53,10 @@ begin
    -- ------------------------------------------------------------------------------------------------------
    --!   Resynchronization
    -- ------------------------------------------------------------------------------------------------------
-   P_rsync : process (i_sqm_adc_dc)
+   P_rsync : process (i_clk_adc_dc)
    begin
 
-      if rising_edge(i_sqm_adc_dc) then
+      if rising_edge(i_clk_adc_dc) then
          sqm_adc_data_r <= i_sqm_adc_data & sqm_adc_data_r(0 to sqm_adc_data_r'high-1);
          sqm_adc_oor_r  <= sqm_adc_oor_r(sqm_adc_oor_r'high-1 downto 0) & i_sqm_adc_oor;
 
