@@ -86,6 +86,8 @@ constant c_ADD5               : std_logic_vector(c_HK_SPI_ADD_S-1 downto 0) :=
                                 std_logic_vector(to_unsigned(5, c_HK_SPI_ADD_S))                            ; --! Address 5
 constant c_ADD6               : std_logic_vector(c_HK_SPI_ADD_S-1 downto 0) :=
                                 std_logic_vector(to_unsigned(6, c_HK_SPI_ADD_S))                            ; --! Address 6
+constant c_ADD7               : std_logic_vector(c_HK_SPI_ADD_S-1 downto 0) :=
+                                std_logic_vector(to_unsigned(7, c_HK_SPI_ADD_S))                            ; --! Address 7
 
 constant c_HK_P1V8_ANA        : std_logic_vector(c_HK_SPI_DATA_S-1 downto 0):=
                                 std_logic_vector(to_unsigned( 1170, c_HK_SPI_DATA_S))                       ; --! Housekeeping, HK_P1V8_ANA value
@@ -109,6 +111,8 @@ constant c_HK_VREF_TMP        : std_logic_vector(c_HK_SPI_DATA_S-1 downto 0):=
                                 std_logic_vector(to_unsigned( 3803, c_HK_SPI_DATA_S))                       ; --! Housekeeping, HK_VREF_TMP value
 constant c_HK_VREF_R2R        : std_logic_vector(c_HK_SPI_DATA_S-1 downto 0):=
                                 std_logic_vector(to_unsigned( 4000, c_HK_SPI_DATA_S))                       ; --! Housekeeping, HK_VREF_R2R value
+constant c_HK_VGND_OFF        : std_logic_vector(c_HK_SPI_DATA_S-1 downto 0):=
+                                std_logic_vector(to_unsigned( 1261, c_HK_SPI_DATA_S))                       ; --! Housekeeping, HK_VGND_OFF value
 constant c_HK_P5V0_ANA        : std_logic_vector(c_HK_SPI_DATA_S-1 downto 0):=
                                 std_logic_vector(to_unsigned(  293, c_HK_SPI_DATA_S))                       ; --! Housekeeping, HK_P5V0_ANA value
 constant c_HK_TEMP_AVE        : std_logic_vector(c_HK_SPI_DATA_S-1 downto 0):=
@@ -257,6 +261,9 @@ begin
 
                when c_ADD6 =>
                   hk_mux_data <= c_HK_VREF_R2R;
+
+               when c_ADD7 =>
+                  hk_mux_data <= c_HK_VGND_OFF;
 
                when others =>
                   hk_mux_data <= c_ZERO(hk_mux_data'range);

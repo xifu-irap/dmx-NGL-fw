@@ -1,7 +1,7 @@
 # dmx-fw
-DRE-DEMUX TDM firmware: https://github.com/xifu-irap/dmx-fw
+DRE-DEMUX TDM firmware, specific to Demonstrator Model Board 0: https://github.com/xifu-irap/dmx-fw/tree/DM_DMX0
 
-   - FPGA target: DK/DM: NG-LARGE (NanoXplore)
+   - FPGA target: DM0: NG-LARGE (NanoXplore)
    - Synthesis tool: nxdesignsuite v24.1.0.2. For simulation, Questasim must used modelsim directory from nxdesignsuite v23.5.1.2
    - Firmware specification:
       + IRAP/XIFU-DRE/FM/SP/0065 - DRE TDM firmware requirements, ed. 1.0
@@ -28,6 +28,8 @@ DRE-DEMUX TDM firmware: https://github.com/xifu-irap/dmx-fw
    - (file) **clean.sh**: Clean the project directories
 
 ## 2. Commands
+
+   The directory root name must be changed from dmx-fw to dmx-fw-dm0.
 
    Questasim and nxdesignsuite must be previously installed.
 
@@ -279,7 +281,7 @@ DRE-DEMUX TDM firmware: https://github.com/xifu-irap/dmx-fw
 ## 10. Devkit Model (DK)
 
    Pin compatibility with:
-      + IRAP/XIFU-DRE/DM/SP/0148 - NG-LARGE DEVKIT/MEDUSA BENCH ICD, Ed. 1 Rev. 2
+      + IRAP/XIFU-DRE/DM/SP/0148 - NG-LARGE DEVKIT/MEDUSA BENCH ICD, Ed. 2.0
       + TMTC-fw firmware 0015
 
    Implementation dmx-fw firmware on NG-LARGE Devkit with specific adaptation:
@@ -305,6 +307,7 @@ DRE-DEMUX TDM firmware: https://github.com/xifu-irap/dmx-fw
       + HK_P3V3_DIG: 2048
       + HK_VREF_TMP: 3803
       + HK_VREF_R2R: 4000
+      + HK_VGND_OFF: 1261
       + HK_P5V0_ANA:  293
       + HK_TEMP_AVE: 2925
       + HK_TEMP_MAX: 3218

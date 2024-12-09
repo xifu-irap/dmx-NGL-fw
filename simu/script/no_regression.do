@@ -28,7 +28,7 @@
 #### Parameters ####
 quietly set MODEL_BOARD $1
 quietly set NX_MODEL_PATH "../modelsim"
-quietly set PR_DIR "../project/dmx-fw"
+quietly set PR_DIR "../project/dmx-fw-dm0"
 quietly set FPASIM_DIR "../project/fpasim-fw"
 quietly set XLX_LIB_DIR "../xilinx_lib"
 quietly set COVER_NAME "coverage"

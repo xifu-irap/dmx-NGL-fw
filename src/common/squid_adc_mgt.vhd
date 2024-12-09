@@ -35,7 +35,9 @@ use     work.pkg_func_math.all;
 use     work.pkg_project.all;
 use     work.pkg_ep_cmd.all;
 
-entity squid_adc_mgt is port (
+entity squid_adc_mgt is generic (
+         g_ADC_HW_BUG_BYPASS  : std_logic                                                                     --! ADC harware bug bypass ('0' = No bug, '1' = Bug)
+   ); port (
          i_rst_sqm_adc_dac    : in     std_logic                                                            ; --! Reset for SQUID ADC/DAC, de-assertion on system clock ('0' = Inactive, '1' = Active)
          i_clk_sqm_adc_dac    : in     std_logic                                                            ; --! SQUID ADC/DAC internal Clock
          i_clk_adc_dc         : in     std_logic                                                            ; --! SQUID MUX ADC: Data clock
@@ -89,6 +91,9 @@ signal   smpdl_rsys           : std_logic_vector(c_DFLD_SMPDL_COL_S-1 downto 0) 
 
 signal   sqm_adc_data_rs_dc   : std_logic_vector(c_SQM_ADC_DATA_S-1 downto 0)                               ; --! SQUID MUX ADC: Data, synchronized on SQUID ADC Data clock
 signal   sqm_adc_oor_rs_dc    : std_logic                                                                   ; --! SQUID MUX ADC: Out of range, synchronized on SQUID ADC Data clock
+
+signal   sqm_adc_data_cor     : std_logic_vector(c_SQM_ADC_DATA_S-1 downto 0)                               ; --! SQUID MUX ADC: Data corrected
+signal   sqm_adc_oor_cor      : std_logic                                                                   ; --! SQUID MUX ADC: Out of range corrected
 
 signal   rst_sqm_adc_dac_lc   : std_logic                                                                   ; --! Local reset for SQUID ADC/DAC, de-assertion on system clock
 
@@ -194,6 +199,22 @@ begin
    end process P_rst_sqm_adc_dac_lc;
 
    -- ------------------------------------------------------------------------------------------------------
+   --!   ADC harware bug bypass
+   -- ------------------------------------------------------------------------------------------------------
+   I_adc_bug_bypass: entity work.squid_adc_bug_bypass generic map (
+         g_ADC_HW_BUG_BYPASS  => g_ADC_HW_BUG_BYPASS    -- std_logic                                          --! ADC harware bug bypass ('0' = No bug, '1' = Bug)
+   ) port map(
+         i_rst_sqm_adc_dac_lc => rst_sqm_adc_dac_lc   , -- in     std_logic                                 ; --! Local reset for SQUID ADC/DAC, de-assertion on system clock
+         i_clk_sqm_adc_dac    => i_clk_sqm_adc_dac    , -- in     std_logic                                 ; --! SQUID ADC/DAC internal Clock
+
+         i_sqm_adc_data_rs_dc => sqm_adc_data_rs_dc   , -- in     slv(c_SQM_ADC_DATA_S-1 downto 0)          ; --! SQUID MUX ADC: Data, synchronized on SQUID ADC Data clock
+         i_sqm_adc_oor_rs_dc  => sqm_adc_oor_rs_dc    , -- in     std_logic                                 ; --! SQUID MUX ADC: Out of range, synchronized on SQUID ADC Data clock
+
+         o_sqm_adc_data_cor   => sqm_adc_data_cor     , -- out    slv(c_SQM_ADC_DATA_S-1 downto 0)          ; --! SQUID MUX ADC: Data corrected
+         o_sqm_adc_oor_cor    => sqm_adc_oor_cor        -- out    std_logic                                   --! SQUID MUX ADC: Out of range corrected                         --! SQUID MUX ADC: Out of range corrected
+   );
+
+   -- ------------------------------------------------------------------------------------------------------
    --!   Resynchronization on SQUID MUX ADC acquisition Clock
    --    @Req : DRE-DMX-FW-REQ-0100
    -- ------------------------------------------------------------------------------------------------------
@@ -206,8 +227,8 @@ begin
          pixel_pos_msb_r   <= (others => c_HGH_LEV);
 
       elsif rising_edge(i_clk_sqm_adc_dac) then
-         sqm_adc_data_r    <= sqm_adc_data_rs_dc & sqm_adc_data_r(0 to sqm_adc_data_r'high-1);
-         sqm_adc_oor_r     <= sqm_adc_oor_r(sqm_adc_oor_r'high-1 downto 0) & sqm_adc_oor_rs_dc;
+         sqm_adc_data_r    <= sqm_adc_data_cor & sqm_adc_data_r(0 to sqm_adc_data_r'high-1);
+         sqm_adc_oor_r     <= sqm_adc_oor_r(sqm_adc_oor_r'high-1 downto 0) & sqm_adc_oor_cor;
          pixel_pos_msb_r   <= pixel_pos_msb_r(pixel_pos_msb_r'high-1 downto 0) & pixel_pos(pixel_pos'high);
 
       end if;

@@ -863,16 +863,16 @@
 # ** Note   : (119773848 ps) Check command return: PASS
 # ** Note   : (119773848 ps)  * Read 82A0_0022, expected value 82A0_0022 (TEST_PATTERN_ENABLE, mode Read, data 0022)
 #             (119773848 ps) 
-# ** Note   : (120326124 ps) Waiting time for 552276 ps
-# ** Note   : (120326124 ps) Write discrete: frm_cnt_sc_rst = '1'
-# ** Note   : (120346124 ps) Waiting time for 20000 ps
-# ** Note   : (120346124 ps) Write discrete: frm_cnt_sc_rst = '0'
-#             (120346124 ps) 
-# ** Note   : (120346124 ps) Send SPI command value 82A0_XXXX (TEST_PATTERN_ENABLE, mode Read, data XXXX)
-# ** Note   : (122658000 ps) Waiting SPI command end for 2275876 ps
-# ** Note   : (122658000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
-# ** Note   : (124980000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (125198568 ps) Waiting event sync = '1' for 218568 ps
+# ** Note   : (120342132 ps) Waiting time for 568284 ps
+# ** Note   : (120342132 ps) Write discrete: frm_cnt_sc_rst = '1'
+# ** Note   : (120362132 ps) Waiting time for 20000 ps
+# ** Note   : (120362132 ps) Write discrete: frm_cnt_sc_rst = '0'
+#             (120362132 ps) 
+# ** Note   : (120362132 ps) Send SPI command value 82A0_XXXX (TEST_PATTERN_ENABLE, mode Read, data XXXX)
+# ** Note   : (122676000 ps) Waiting SPI command end for 2277868 ps
+# ** Note   : (122676000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (124998000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (125198568 ps) Waiting event sync = '1' for 200568 ps
 # ** Note   : (125216568 ps) Check command return: PASS
 # ** Note   : (125216568 ps)  * Read 82A0_0021, expected value 82A0_0021 (TEST_PATTERN_ENABLE, mode Read, data 0021)
 # ** Note   : (125216568 ps) Send SPI command value 8000_XXXX (DATA_ACQ_MODE, mode Read, data XXXX)
@@ -974,13 +974,13 @@
 # ** Note   : (185086488 ps) Check command return: PASS
 # ** Note   : (185086488 ps)  * Read 82A0_002F, expected value 82A0_002F (TEST_PATTERN_ENABLE, mode Read, data 002F)
 #             (185086488 ps) 
-# ** Note   : (185638764 ps) Waiting time for 552276 ps
-# ** Note   : (185638764 ps) Write discrete: frm_cnt_sc_rst = '1'
-# ** Note   : (185658764 ps) Waiting time for 20000 ps
-# ** Note   : (185658764 ps) Write discrete: frm_cnt_sc_rst = '0'
-#             (185658764 ps) 
-# ** Note   : (185658764 ps) Send SPI command value 82A0_XXXX (TEST_PATTERN_ENABLE, mode Read, data XXXX)
-# ** Note   : (187980000 ps) Waiting SPI command end for 2285236 ps
+# ** Note   : (185654772 ps) Waiting time for 568284 ps
+# ** Note   : (185654772 ps) Write discrete: frm_cnt_sc_rst = '1'
+# ** Note   : (185674772 ps) Waiting time for 20000 ps
+# ** Note   : (185674772 ps) Write discrete: frm_cnt_sc_rst = '0'
+#             (185674772 ps) 
+# ** Note   : (185674772 ps) Send SPI command value 82A0_XXXX (TEST_PATTERN_ENABLE, mode Read, data XXXX)
+# ** Note   : (187980000 ps) Waiting SPI command end for 2269228 ps
 # ** Note   : (187980000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
 # ** Note   : (190302000 ps) Waiting SPI command end for 2286000 ps
 # ** Note   : (190511208 ps) Waiting event sync = '1' for 209208 ps
@@ -989,58 +989,58 @@
 # ** Note   : (195971928 ps) Check command return: PASS
 # ** Note   : (195971928 ps)  * Read 82A0_002E, expected value 82A0_002E (TEST_PATTERN_ENABLE, mode Read, data 002E)
 #             (195971928 ps) 
-# ** Note   : (196524204 ps) Waiting time for 552276 ps
-# ** Note   : (196524204 ps) Write discrete: frm_cnt_sc_rst = '1'
-# ** Note   : (196544204 ps) Waiting time for 20000 ps
-# ** Note   : (196544204 ps) Write discrete: frm_cnt_sc_rst = '0'
-#             (196544204 ps) 
-# ** Note   : (196544204 ps) Send SPI command value 82A0_XXXX (TEST_PATTERN_ENABLE, mode Read, data XXXX)
-# ** Note   : (198852000 ps) Waiting SPI command end for 2271796 ps
-# ** Note   : (198852000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
-# ** Note   : (201174000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (201396648 ps) Waiting event sync = '1' for 222648 ps
+# ** Note   : (196540212 ps) Waiting time for 568284 ps
+# ** Note   : (196540212 ps) Write discrete: frm_cnt_sc_rst = '1'
+# ** Note   : (196560212 ps) Waiting time for 20000 ps
+# ** Note   : (196560212 ps) Write discrete: frm_cnt_sc_rst = '0'
+#             (196560212 ps) 
+# ** Note   : (196560212 ps) Send SPI command value 82A0_XXXX (TEST_PATTERN_ENABLE, mode Read, data XXXX)
+# ** Note   : (198870000 ps) Waiting SPI command end for 2273788 ps
+# ** Note   : (198870000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (201192000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (201396648 ps) Waiting event sync = '1' for 204648 ps
 # ** Note   : (201556728 ps) Waiting event sync = '0' for 160080 ps
 # ** Note   : (206839368 ps) Waiting event sync = '1' for 5282640 ps
 # ** Note   : (206857368 ps) Check command return: PASS
 # ** Note   : (206857368 ps)  * Read 82A0_002D, expected value 82A0_002D (TEST_PATTERN_ENABLE, mode Read, data 002D)
 #             (206857368 ps) 
-# ** Note   : (207409644 ps) Waiting time for 552276 ps
-# ** Note   : (207409644 ps) Write discrete: frm_cnt_sc_rst = '1'
-# ** Note   : (207429644 ps) Waiting time for 20000 ps
-# ** Note   : (207429644 ps) Write discrete: frm_cnt_sc_rst = '0'
-#             (207429644 ps) 
-# ** Note   : (207429644 ps) Send SPI command value 82A0_XXXX (TEST_PATTERN_ENABLE, mode Read, data XXXX)
-# ** Note   : (209742000 ps) Waiting SPI command end for 2276356 ps
-# ** Note   : (209742000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
-# ** Note   : (212064000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (212282088 ps) Waiting event sync = '1' for 218088 ps
+# ** Note   : (207425652 ps) Waiting time for 568284 ps
+# ** Note   : (207425652 ps) Write discrete: frm_cnt_sc_rst = '1'
+# ** Note   : (207445652 ps) Waiting time for 20000 ps
+# ** Note   : (207445652 ps) Write discrete: frm_cnt_sc_rst = '0'
+#             (207445652 ps) 
+# ** Note   : (207445652 ps) Send SPI command value 82A0_XXXX (TEST_PATTERN_ENABLE, mode Read, data XXXX)
+# ** Note   : (209760000 ps) Waiting SPI command end for 2278348 ps
+# ** Note   : (209760000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (212082000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (212282088 ps) Waiting event sync = '1' for 200088 ps
 # ** Note   : (212442168 ps) Waiting event sync = '0' for 160080 ps
 # ** Note   : (217724808 ps) Waiting event sync = '1' for 5282640 ps
 # ** Note   : (217742808 ps) Check command return: PASS
 # ** Note   : (217742808 ps)  * Read 82A0_002C, expected value 82A0_002C (TEST_PATTERN_ENABLE, mode Read, data 002C)
 #             (217742808 ps) 
-# ** Note   : (218295084 ps) Waiting time for 552276 ps
-# ** Note   : (218295084 ps) Write discrete: frm_cnt_sc_rst = '1'
-# ** Note   : (218315084 ps) Waiting time for 20000 ps
-# ** Note   : (218315084 ps) Write discrete: frm_cnt_sc_rst = '0'
-#             (218315084 ps) 
-# ** Note   : (218315084 ps) Send SPI command value 82A0_XXXX (TEST_PATTERN_ENABLE, mode Read, data XXXX)
-# ** Note   : (220632000 ps) Waiting SPI command end for 2280916 ps
-# ** Note   : (220632000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
-# ** Note   : (222954000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (223167528 ps) Waiting event sync = '1' for 213528 ps
+# ** Note   : (218311092 ps) Waiting time for 568284 ps
+# ** Note   : (218311092 ps) Write discrete: frm_cnt_sc_rst = '1'
+# ** Note   : (218331092 ps) Waiting time for 20000 ps
+# ** Note   : (218331092 ps) Write discrete: frm_cnt_sc_rst = '0'
+#             (218331092 ps) 
+# ** Note   : (218331092 ps) Send SPI command value 82A0_XXXX (TEST_PATTERN_ENABLE, mode Read, data XXXX)
+# ** Note   : (220650000 ps) Waiting SPI command end for 2282908 ps
+# ** Note   : (220650000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (222972000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (223167528 ps) Waiting event sync = '1' for 195528 ps
 # ** Note   : (223327608 ps) Waiting event sync = '0' for 160080 ps
 # ** Note   : (228610248 ps) Waiting event sync = '1' for 5282640 ps
 # ** Note   : (228628248 ps) Check command return: PASS
 # ** Note   : (228628248 ps)  * Read 82A0_002B, expected value 82A0_002B (TEST_PATTERN_ENABLE, mode Read, data 002B)
 #             (228628248 ps) 
-# ** Note   : (229180524 ps) Waiting time for 552276 ps
-# ** Note   : (229180524 ps) Write discrete: frm_cnt_sc_rst = '1'
-# ** Note   : (229200524 ps) Waiting time for 20000 ps
-# ** Note   : (229200524 ps) Write discrete: frm_cnt_sc_rst = '0'
-#             (229200524 ps) 
-# ** Note   : (229200524 ps) Send SPI command value 82A0_XXXX (TEST_PATTERN_ENABLE, mode Read, data XXXX)
-# ** Note   : (231522000 ps) Waiting SPI command end for 2285476 ps
+# ** Note   : (229196532 ps) Waiting time for 568284 ps
+# ** Note   : (229196532 ps) Write discrete: frm_cnt_sc_rst = '1'
+# ** Note   : (229216532 ps) Waiting time for 20000 ps
+# ** Note   : (229216532 ps) Write discrete: frm_cnt_sc_rst = '0'
+#             (229216532 ps) 
+# ** Note   : (229216532 ps) Send SPI command value 82A0_XXXX (TEST_PATTERN_ENABLE, mode Read, data XXXX)
+# ** Note   : (231522000 ps) Waiting SPI command end for 2269468 ps
 # ** Note   : (231522000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
 # ** Note   : (233844000 ps) Waiting SPI command end for 2286000 ps
 # ** Note   : (234052968 ps) Waiting event sync = '1' for 208968 ps
@@ -1049,58 +1049,58 @@
 # ** Note   : (239513688 ps) Check command return: PASS
 # ** Note   : (239513688 ps)  * Read 82A0_002A, expected value 82A0_002A (TEST_PATTERN_ENABLE, mode Read, data 002A)
 #             (239513688 ps) 
-# ** Note   : (240065964 ps) Waiting time for 552276 ps
-# ** Note   : (240065964 ps) Write discrete: frm_cnt_sc_rst = '1'
-# ** Note   : (240085964 ps) Waiting time for 20000 ps
-# ** Note   : (240085964 ps) Write discrete: frm_cnt_sc_rst = '0'
-#             (240085964 ps) 
-# ** Note   : (240085964 ps) Send SPI command value 82A0_XXXX (TEST_PATTERN_ENABLE, mode Read, data XXXX)
-# ** Note   : (242394000 ps) Waiting SPI command end for 2272036 ps
-# ** Note   : (242394000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
-# ** Note   : (244716000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (244938408 ps) Waiting event sync = '1' for 222408 ps
+# ** Note   : (240081972 ps) Waiting time for 568284 ps
+# ** Note   : (240081972 ps) Write discrete: frm_cnt_sc_rst = '1'
+# ** Note   : (240101972 ps) Waiting time for 20000 ps
+# ** Note   : (240101972 ps) Write discrete: frm_cnt_sc_rst = '0'
+#             (240101972 ps) 
+# ** Note   : (240101972 ps) Send SPI command value 82A0_XXXX (TEST_PATTERN_ENABLE, mode Read, data XXXX)
+# ** Note   : (242412000 ps) Waiting SPI command end for 2274028 ps
+# ** Note   : (242412000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (244734000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (244938408 ps) Waiting event sync = '1' for 204408 ps
 # ** Note   : (245098488 ps) Waiting event sync = '0' for 160080 ps
 # ** Note   : (250381128 ps) Waiting event sync = '1' for 5282640 ps
 # ** Note   : (250399128 ps) Check command return: PASS
 # ** Note   : (250399128 ps)  * Read 82A0_0029, expected value 82A0_0029 (TEST_PATTERN_ENABLE, mode Read, data 0029)
 #             (250399128 ps) 
-# ** Note   : (250951404 ps) Waiting time for 552276 ps
-# ** Note   : (250951404 ps) Write discrete: frm_cnt_sc_rst = '1'
-# ** Note   : (250971404 ps) Waiting time for 20000 ps
-# ** Note   : (250971404 ps) Write discrete: frm_cnt_sc_rst = '0'
-#             (250971404 ps) 
-# ** Note   : (250971404 ps) Send SPI command value 82A0_XXXX (TEST_PATTERN_ENABLE, mode Read, data XXXX)
-# ** Note   : (253284000 ps) Waiting SPI command end for 2276596 ps
-# ** Note   : (253284000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
-# ** Note   : (255606000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (255823848 ps) Waiting event sync = '1' for 217848 ps
+# ** Note   : (250967412 ps) Waiting time for 568284 ps
+# ** Note   : (250967412 ps) Write discrete: frm_cnt_sc_rst = '1'
+# ** Note   : (250987412 ps) Waiting time for 20000 ps
+# ** Note   : (250987412 ps) Write discrete: frm_cnt_sc_rst = '0'
+#             (250987412 ps) 
+# ** Note   : (250987412 ps) Send SPI command value 82A0_XXXX (TEST_PATTERN_ENABLE, mode Read, data XXXX)
+# ** Note   : (253302000 ps) Waiting SPI command end for 2278588 ps
+# ** Note   : (253302000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (255624000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (255823848 ps) Waiting event sync = '1' for 199848 ps
 # ** Note   : (255983928 ps) Waiting event sync = '0' for 160080 ps
 # ** Note   : (261266568 ps) Waiting event sync = '1' for 5282640 ps
 # ** Note   : (261284568 ps) Check command return: PASS
 # ** Note   : (261284568 ps)  * Read 82A0_0028, expected value 82A0_0028 (TEST_PATTERN_ENABLE, mode Read, data 0028)
 #             (261284568 ps) 
-# ** Note   : (261836844 ps) Waiting time for 552276 ps
-# ** Note   : (261836844 ps) Write discrete: frm_cnt_sc_rst = '1'
-# ** Note   : (261856844 ps) Waiting time for 20000 ps
-# ** Note   : (261856844 ps) Write discrete: frm_cnt_sc_rst = '0'
-#             (261856844 ps) 
-# ** Note   : (261856844 ps) Send SPI command value 82A0_XXXX (TEST_PATTERN_ENABLE, mode Read, data XXXX)
-# ** Note   : (264174000 ps) Waiting SPI command end for 2281156 ps
-# ** Note   : (264174000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
-# ** Note   : (266496000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (266709288 ps) Waiting event sync = '1' for 213288 ps
+# ** Note   : (261852852 ps) Waiting time for 568284 ps
+# ** Note   : (261852852 ps) Write discrete: frm_cnt_sc_rst = '1'
+# ** Note   : (261872852 ps) Waiting time for 20000 ps
+# ** Note   : (261872852 ps) Write discrete: frm_cnt_sc_rst = '0'
+#             (261872852 ps) 
+# ** Note   : (261872852 ps) Send SPI command value 82A0_XXXX (TEST_PATTERN_ENABLE, mode Read, data XXXX)
+# ** Note   : (264192000 ps) Waiting SPI command end for 2283148 ps
+# ** Note   : (264192000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (266514000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (266709288 ps) Waiting event sync = '1' for 195288 ps
 # ** Note   : (266869368 ps) Waiting event sync = '0' for 160080 ps
 # ** Note   : (272152008 ps) Waiting event sync = '1' for 5282640 ps
 # ** Note   : (272170008 ps) Check command return: PASS
 # ** Note   : (272170008 ps)  * Read 82A0_0027, expected value 82A0_0027 (TEST_PATTERN_ENABLE, mode Read, data 0027)
 #             (272170008 ps) 
-# ** Note   : (272722284 ps) Waiting time for 552276 ps
-# ** Note   : (272722284 ps) Write discrete: frm_cnt_sc_rst = '1'
-# ** Note   : (272742284 ps) Waiting time for 20000 ps
-# ** Note   : (272742284 ps) Write discrete: frm_cnt_sc_rst = '0'
-#             (272742284 ps) 
-# ** Note   : (272742284 ps) Send SPI command value 82A0_XXXX (TEST_PATTERN_ENABLE, mode Read, data XXXX)
-# ** Note   : (275064000 ps) Waiting SPI command end for 2285716 ps
+# ** Note   : (272738292 ps) Waiting time for 568284 ps
+# ** Note   : (272738292 ps) Write discrete: frm_cnt_sc_rst = '1'
+# ** Note   : (272758292 ps) Waiting time for 20000 ps
+# ** Note   : (272758292 ps) Write discrete: frm_cnt_sc_rst = '0'
+#             (272758292 ps) 
+# ** Note   : (272758292 ps) Send SPI command value 82A0_XXXX (TEST_PATTERN_ENABLE, mode Read, data XXXX)
+# ** Note   : (275064000 ps) Waiting SPI command end for 2269708 ps
 # ** Note   : (275064000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
 # ** Note   : (277386000 ps) Waiting SPI command end for 2286000 ps
 # ** Note   : (277594728 ps) Waiting event sync = '1' for 208728 ps
@@ -1109,58 +1109,58 @@
 # ** Note   : (283055448 ps) Check command return: PASS
 # ** Note   : (283055448 ps)  * Read 82A0_0026, expected value 82A0_0026 (TEST_PATTERN_ENABLE, mode Read, data 0026)
 #             (283055448 ps) 
-# ** Note   : (283607724 ps) Waiting time for 552276 ps
-# ** Note   : (283607724 ps) Write discrete: frm_cnt_sc_rst = '1'
-# ** Note   : (283627724 ps) Waiting time for 20000 ps
-# ** Note   : (283627724 ps) Write discrete: frm_cnt_sc_rst = '0'
-#             (283627724 ps) 
-# ** Note   : (283627724 ps) Send SPI command value 82A0_XXXX (TEST_PATTERN_ENABLE, mode Read, data XXXX)
-# ** Note   : (285936000 ps) Waiting SPI command end for 2272276 ps
-# ** Note   : (285936000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
-# ** Note   : (288258000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (288480168 ps) Waiting event sync = '1' for 222168 ps
+# ** Note   : (283623732 ps) Waiting time for 568284 ps
+# ** Note   : (283623732 ps) Write discrete: frm_cnt_sc_rst = '1'
+# ** Note   : (283643732 ps) Waiting time for 20000 ps
+# ** Note   : (283643732 ps) Write discrete: frm_cnt_sc_rst = '0'
+#             (283643732 ps) 
+# ** Note   : (283643732 ps) Send SPI command value 82A0_XXXX (TEST_PATTERN_ENABLE, mode Read, data XXXX)
+# ** Note   : (285954000 ps) Waiting SPI command end for 2274268 ps
+# ** Note   : (285954000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (288276000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (288480168 ps) Waiting event sync = '1' for 204168 ps
 # ** Note   : (288640248 ps) Waiting event sync = '0' for 160080 ps
 # ** Note   : (293922888 ps) Waiting event sync = '1' for 5282640 ps
 # ** Note   : (293940888 ps) Check command return: PASS
 # ** Note   : (293940888 ps)  * Read 82A0_0025, expected value 82A0_0025 (TEST_PATTERN_ENABLE, mode Read, data 0025)
 #             (293940888 ps) 
-# ** Note   : (294493164 ps) Waiting time for 552276 ps
-# ** Note   : (294493164 ps) Write discrete: frm_cnt_sc_rst = '1'
-# ** Note   : (294513164 ps) Waiting time for 20000 ps
-# ** Note   : (294513164 ps) Write discrete: frm_cnt_sc_rst = '0'
-#             (294513164 ps) 
-# ** Note   : (294513164 ps) Send SPI command value 82A0_XXXX (TEST_PATTERN_ENABLE, mode Read, data XXXX)
-# ** Note   : (296826000 ps) Waiting SPI command end for 2276836 ps
-# ** Note   : (296826000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
-# ** Note   : (299148000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (299365608 ps) Waiting event sync = '1' for 217608 ps
+# ** Note   : (294509172 ps) Waiting time for 568284 ps
+# ** Note   : (294509172 ps) Write discrete: frm_cnt_sc_rst = '1'
+# ** Note   : (294529172 ps) Waiting time for 20000 ps
+# ** Note   : (294529172 ps) Write discrete: frm_cnt_sc_rst = '0'
+#             (294529172 ps) 
+# ** Note   : (294529172 ps) Send SPI command value 82A0_XXXX (TEST_PATTERN_ENABLE, mode Read, data XXXX)
+# ** Note   : (296844000 ps) Waiting SPI command end for 2278828 ps
+# ** Note   : (296844000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (299166000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (299365608 ps) Waiting event sync = '1' for 199608 ps
 # ** Note   : (299525688 ps) Waiting event sync = '0' for 160080 ps
 # ** Note   : (304808328 ps) Waiting event sync = '1' for 5282640 ps
 # ** Note   : (304826328 ps) Check command return: PASS
 # ** Note   : (304826328 ps)  * Read 82A0_0024, expected value 82A0_0024 (TEST_PATTERN_ENABLE, mode Read, data 0024)
 #             (304826328 ps) 
-# ** Note   : (305378604 ps) Waiting time for 552276 ps
-# ** Note   : (305378604 ps) Write discrete: frm_cnt_sc_rst = '1'
-# ** Note   : (305398604 ps) Waiting time for 20000 ps
-# ** Note   : (305398604 ps) Write discrete: frm_cnt_sc_rst = '0'
-#             (305398604 ps) 
-# ** Note   : (305398604 ps) Send SPI command value 82A0_XXXX (TEST_PATTERN_ENABLE, mode Read, data XXXX)
-# ** Note   : (307716000 ps) Waiting SPI command end for 2281396 ps
-# ** Note   : (307716000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
-# ** Note   : (310038000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (310251048 ps) Waiting event sync = '1' for 213048 ps
+# ** Note   : (305394612 ps) Waiting time for 568284 ps
+# ** Note   : (305394612 ps) Write discrete: frm_cnt_sc_rst = '1'
+# ** Note   : (305414612 ps) Waiting time for 20000 ps
+# ** Note   : (305414612 ps) Write discrete: frm_cnt_sc_rst = '0'
+#             (305414612 ps) 
+# ** Note   : (305414612 ps) Send SPI command value 82A0_XXXX (TEST_PATTERN_ENABLE, mode Read, data XXXX)
+# ** Note   : (307734000 ps) Waiting SPI command end for 2283388 ps
+# ** Note   : (307734000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (310056000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (310251048 ps) Waiting event sync = '1' for 195048 ps
 # ** Note   : (310411128 ps) Waiting event sync = '0' for 160080 ps
 # ** Note   : (315693768 ps) Waiting event sync = '1' for 5282640 ps
 # ** Note   : (315711768 ps) Check command return: PASS
 # ** Note   : (315711768 ps)  * Read 82A0_0023, expected value 82A0_0023 (TEST_PATTERN_ENABLE, mode Read, data 0023)
 #             (315711768 ps) 
-# ** Note   : (316264044 ps) Waiting time for 552276 ps
-# ** Note   : (316264044 ps) Write discrete: frm_cnt_sc_rst = '1'
-# ** Note   : (316284044 ps) Waiting time for 20000 ps
-# ** Note   : (316284044 ps) Write discrete: frm_cnt_sc_rst = '0'
-#             (316284044 ps) 
-# ** Note   : (316284044 ps) Send SPI command value 82A0_XXXX (TEST_PATTERN_ENABLE, mode Read, data XXXX)
-# ** Note   : (318606000 ps) Waiting SPI command end for 2285956 ps
+# ** Note   : (316280052 ps) Waiting time for 568284 ps
+# ** Note   : (316280052 ps) Write discrete: frm_cnt_sc_rst = '1'
+# ** Note   : (316300052 ps) Waiting time for 20000 ps
+# ** Note   : (316300052 ps) Write discrete: frm_cnt_sc_rst = '0'
+#             (316300052 ps) 
+# ** Note   : (316300052 ps) Send SPI command value 82A0_XXXX (TEST_PATTERN_ENABLE, mode Read, data XXXX)
+# ** Note   : (318606000 ps) Waiting SPI command end for 2269948 ps
 # ** Note   : (318606000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
 # ** Note   : (320928000 ps) Waiting SPI command end for 2286000 ps
 # ** Note   : (321136488 ps) Waiting event sync = '1' for 208488 ps
@@ -1169,16 +1169,16 @@
 # ** Note   : (326597208 ps) Check command return: PASS
 # ** Note   : (326597208 ps)  * Read 82A0_0022, expected value 82A0_0022 (TEST_PATTERN_ENABLE, mode Read, data 0022)
 #             (326597208 ps) 
-# ** Note   : (327149484 ps) Waiting time for 552276 ps
-# ** Note   : (327149484 ps) Write discrete: frm_cnt_sc_rst = '1'
-# ** Note   : (327169484 ps) Waiting time for 20000 ps
-# ** Note   : (327169484 ps) Write discrete: frm_cnt_sc_rst = '0'
-#             (327169484 ps) 
-# ** Note   : (327169484 ps) Send SPI command value 82A0_XXXX (TEST_PATTERN_ENABLE, mode Read, data XXXX)
-# ** Note   : (329478000 ps) Waiting SPI command end for 2272516 ps
-# ** Note   : (329478000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
-# ** Note   : (331800000 ps) Waiting SPI command end for 2286000 ps
-# ** Note   : (332021928 ps) Waiting event sync = '1' for 221928 ps
+# ** Note   : (327165492 ps) Waiting time for 568284 ps
+# ** Note   : (327165492 ps) Write discrete: frm_cnt_sc_rst = '1'
+# ** Note   : (327185492 ps) Waiting time for 20000 ps
+# ** Note   : (327185492 ps) Write discrete: frm_cnt_sc_rst = '0'
+#             (327185492 ps) 
+# ** Note   : (327185492 ps) Send SPI command value 82A0_XXXX (TEST_PATTERN_ENABLE, mode Read, data XXXX)
+# ** Note   : (329496000 ps) Waiting SPI command end for 2274508 ps
+# ** Note   : (329496000 ps) Send SPI command value C000_XXXX (Status, mode Read, data XXXX)
+# ** Note   : (331818000 ps) Waiting SPI command end for 2286000 ps
+# ** Note   : (332021928 ps) Waiting event sync = '1' for 203928 ps
 # ** Note   : (332182008 ps) Waiting event sync = '0' for 160080 ps
 # ** Note   : (337464648 ps) Waiting event sync = '1' for 5282640 ps
 # ** Note   : (337482648 ps) Check command return: PASS
@@ -4744,10 +4744,10 @@
 #             (702126888 ps) ==============================================================================================
 #             (702126888 ps)   Reset science frame counter
 #             (702126888 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (702679164 ps) Waiting time for 552276 ps
-# ** Note   : (702679164 ps) Write discrete: frm_cnt_sc_rst = '1'
-# ** Note   : (702699164 ps) Waiting time for 20000 ps
-# ** Note   : (702699164 ps) Write discrete: frm_cnt_sc_rst = '0'
+# ** Note   : (702695172 ps) Waiting time for 568284 ps
+# ** Note   : (702695172 ps) Write discrete: frm_cnt_sc_rst = '1'
+# ** Note   : (702715172 ps) Waiting time for 20000 ps
+# ** Note   : (702715172 ps) Write discrete: frm_cnt_sc_rst = '0'
 # ------------------------------------------------------------------------------------------------------------------------------------------------------
 # Error simulation time         : '0'
 # Error check discrete level    : '0'

@@ -41,6 +41,7 @@ verific -vhdl ./src/common/science_data_mgt.vhd
 verific -vhdl ./src/common/hk_mgt.vhd
 verific -vhdl ./src/common/adder_acc.vhd
 verific -vhdl ./src/common/squid_adc_sys.vhd
+verific -vhdl ./src/common/squid_adc_bug_bypass.vhd
 verific -vhdl ./src/common/squid_adc_mgt.vhd
 verific -vhdl ./src/common/squid_data_proc_mem.vhd
 verific -vhdl ./src/common/err_average.vhd

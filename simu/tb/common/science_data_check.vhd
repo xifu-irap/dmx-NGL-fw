@@ -426,7 +426,7 @@ begin
                                         pixel_pos = c_ZERO(pixel_pos'range) and
                                         seq_cnt   = c_ZERO(seq_cnt'range))  else
                               c_HGH_LEV when (i_sw_adc_vin = c_SW_ADC_VIN_ST_SQA and (sm_mode_sel = dump) and
-                                        i_science_data(k) /= adc_dump_dta2cmp_lst(k)) else
+                                        i_science_data(k) /= adc_dump_dta2cmp_lst(k) and k /= c_SQM_ADC_BUG_COL) else
                               c_HGH_LEV when (i_sw_adc_vin = c_SW_ADC_VIN_ST_SQM) and (pls_cnt = pls_cnt_pos_del(k)) and (sm_mode_sel = dump) and (
                                         signed(i_science_data(k)) /= signed(adc_dump_dta2cmp_lst(k))) else
                               c_HGH_LEV when (sm_mode_sel = error_sig) and (

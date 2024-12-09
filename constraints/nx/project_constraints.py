@@ -237,10 +237,10 @@ def synthesis_constraints(p,modelboard):
         p.constrainPath(['I_rst_clk_mgt|G_column_mgt[2].I_cmd_ck_adc|cmd_ck_sleep_reg'],['I_rst_clk_mgt|G_column_mgt[2].I_cmd_ck_adc|o_cmd_ck_sleep_reg'], 'adc_pwdn_2', 'Soft', SQM_ADC_PWDN_2.c, SQM_ADC_PWDN_2.r, SQM_ADC_PWDN_2.w, SQM_ADC_PWDN_2.h, SQM_ADC_PWDN_2.n, False)
         p.constrainPath(['I_rst_clk_mgt|G_column_mgt[3].I_cmd_ck_adc|cmd_ck_sleep_reg'],['I_rst_clk_mgt|G_column_mgt[3].I_cmd_ck_adc|o_cmd_ck_sleep_reg'], 'adc_pwdn_3', 'Soft', SQM_ADC_PWDN_3.c, SQM_ADC_PWDN_3.r, SQM_ADC_PWDN_3.w, SQM_ADC_PWDN_3.h, SQM_ADC_PWDN_3.n, False)
 
-        p.addModule('squid_adc_mgt', 'G_column_mgt[0].I_squid_adc_mgt', 'squid_adc_mgt_0', 'Soft')
-        p.addModule('squid_adc_mgt', 'G_column_mgt[1].I_squid_adc_mgt', 'squid_adc_mgt_1', 'Soft')
-        p.addModule('squid_adc_mgt', 'G_column_mgt[2].I_squid_adc_mgt', 'squid_adc_mgt_2', 'Soft')
-        p.addModule('squid_adc_mgt', 'G_column_mgt[3].I_squid_adc_mgt', 'squid_adc_mgt_3', 'Soft')
+        p.addModule('squid_adc_mgt(X516441A1)', 'G_column_mgt[0].I_squid_adc_mgt', 'squid_adc_mgt_0', 'Soft')
+        p.addModule('squid_adc_mgt(X516441A1)', 'G_column_mgt[1].I_squid_adc_mgt', 'squid_adc_mgt_1', 'Soft')
+        p.addModule('squid_adc_mgt(X516441A1)', 'G_column_mgt[2].I_squid_adc_mgt', 'squid_adc_mgt_2', 'Soft')
+        p.addModule('squid_adc_mgt(XBD320221)', 'G_column_mgt[3].I_squid_adc_mgt', 'squid_adc_mgt_3', 'Soft')
 
         p.addRegion(SQM_ADC_0.n, SQM_ADC_0.c, SQM_ADC_0.r, SQM_ADC_0.w, SQM_ADC_0.h, False)
         p.addRegion(SQM_ADC_1.n, SQM_ADC_1.c, SQM_ADC_1.r, SQM_ADC_1.w, SQM_ADC_1.h, False)

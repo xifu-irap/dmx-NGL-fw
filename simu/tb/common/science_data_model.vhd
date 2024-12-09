@@ -54,7 +54,7 @@ entity science_data_model is generic (
 
          i_science_ctrl_01    : in     std_logic                                                            ; --! Science Data: Control channel 0/1
          i_science_ctrl_23    : in     std_logic                                                            ; --! Science Data: Control channel 2/3
-         i_science_data       : in     t_slv_arr(0 to c_NB_COL  )(c_SC_DATA_SER_NB-1 downto 0)              ; --! Science Data: Serial Data
+         i_science_data       : in     t_slv_arr(0 to c_NB_COL-1)(c_SC_DATA_SER_NB-1 downto 0)              ; --! Science Data: Serial Data
 
          i_sync               : in     std_logic                                                            ; --! Pixel sequence synchronization (R.E. detected = position sequence to the first pixel)
          i_aqmde              : in     std_logic_vector(c_DFLD_AQMDE_S-1 downto 0)                          ; --! Telemetry mode
@@ -382,7 +382,7 @@ begin
 
             -- Check science data
             for k in 0 to c_NB_COL-1 loop
-               if (v_packet_dump = c_HGH_LEV) and (science_data_r(k) /= std_logic_vector(resize(unsigned(mem_dump_sc_data_out(k)), science_data_r(k)'length))) then
+               if (v_packet_dump = c_HGH_LEV) and (science_data_r(k) /= std_logic_vector(resize(unsigned(mem_dump_sc_data_out(k)), science_data_r(k)'length))) and k /= c_SQM_ADC_BUG_COL then
                   v_err_sc_data(k) := c_HGH_LEV;
 
                end if;

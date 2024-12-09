@@ -67,7 +67,7 @@ signal   sqm_dac_data         : t_slv_arr(0 to c_NB_COL-1)(c_SQM_DAC_DATA_S-1 do
 
 signal   science_ctrl_01      : std_logic                                                                   ; --! Science Data: Control channel 0/1
 signal   science_ctrl_23      : std_logic                                                                   ; --! Science Data: Control channel 2/3
-signal   science_data         : t_slv_arr(0 to c_NB_COL  )(c_SC_DATA_SER_NB-1 downto 0)                     ; --! Science Data: Serial Data
+signal   science_data         : t_slv_arr(0 to c_NB_COL-1)(c_SC_DATA_SER_NB-1 downto 0)                     ; --! Science Data: Serial Data
 
 signal   hk_spi_miso          : std_logic                                                                   ; --! HouseKeeping: SPI Master Input Slave Output
 signal   hk_spi_mosi          : std_logic                                                                   ; --! HouseKeeping: SPI Master Output Slave Input
@@ -407,6 +407,7 @@ begin
          i_sqm_adc_spi_sclk   => sqm_adc_spi_sclk(k)  , -- in     std_logic                                 ; --! SQUID MUX ADC: SPI Serial Clock (CPOL = '0', CPHA = '0')
 
          i_sw_adc_vin         => sw_adc_vin           , -- in     slv(c_SW_ADC_VIN_S-1 downto 0)            ; --! Switch ADC Voltage input
+         i_adc_hw_bug_bypass  => c_ADC_HW_BUG_BYPASS(k),-- in     std_logic                                 ; --! SQUID MUX ADC: ADC harware bug bypass ('0' = No bug, '1' = Bug)
          o_sqm_adc_ana        => sqm_adc_ana(k)       , -- out    real                                      ; --! SQUID MUX ADC: Analog
          o_sqm_adc_data       => sqm_adc_data(k)      , -- out    slv(c_SQM_ADC_DATA_S-1 downto 0)          ; --! SQUID MUX ADC: Data
          o_sqm_adc_oor        => sqm_adc_oor(k)       , -- out    std_logic                                 ; --! SQUID MUX ADC: Out of range ('0' = No, '1' = under/over range)
@@ -467,7 +468,7 @@ begin
 
          i_science_ctrl_01    => science_ctrl_01      , -- in     std_logic                                 ; --! Science Data: Control channel 0/1
          i_science_ctrl_23    => science_ctrl_23      , -- in     std_logic                                 ; --! Science Data: Control channel 2/3
-         i_science_data       => science_data         , -- in     t_slv_arr c_NB_COL+1 c_SC_DATA_SER_NB     ; --! Science Data: Serial Data
+         i_science_data       => science_data         , -- in     t_slv_arr c_NB_COL   c_SC_DATA_SER_NB     ; --! Science Data: Serial Data
 
          i_sync               => sync(c_COL0)         , -- in     std_logic                                 ; --! Pixel sequence synchronization (R.E. detected = position sequence to the first pixel)
          i_aqmde              => d_aqmde              , -- in     t_slv_arr c_NB_COL c_DFLD_AQMDE_S         ; --! Telemetry mode

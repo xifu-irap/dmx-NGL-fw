@@ -78,7 +78,7 @@ constant c_SPI_ERR_POS_STSCI  : integer := 9                                    
    -- ------------------------------------------------------------------------------------------------------
    --!   Parser constants
    -- ------------------------------------------------------------------------------------------------------
-constant c_DIR_ROOT           : string  := "../project/dmx-fw/"                                             ; --! Directory root
+constant c_DIR_ROOT           : string  := "../project/dmx-fw-dm0/"                                         ; --! Directory root
 constant c_DIR_ROOT_SIMU      : string  := c_DIR_ROOT & "simu/"                                             ; --! Directory root simulation directory
 constant c_DIR_ROOT_COSIM     : string  := c_DIR_ROOT_SIMU & "cosim/"                                       ; --! Directory root co-simulation directory
 constant c_DIR_CMD_FILE       : string  := "utest/"                                                         ; --! Directory unitary test file
@@ -298,6 +298,8 @@ constant c_HK_VREF_TMP_DEF    : std_logic_vector(c_HK_SPI_DATA_S-1 downto 0):=
                                 std_logic_vector(to_unsigned( 3803, c_HK_SPI_DATA_S))                       ; --! Housekeeping, HK_VREF_TMP default value
 constant c_HK_VREF_R2R_DEF    : std_logic_vector(c_HK_SPI_DATA_S-1 downto 0):=
                                 std_logic_vector(to_unsigned( 4000, c_HK_SPI_DATA_S))                       ; --! Housekeeping, HK_VREF_R2R default value
+constant c_HK_VGND_OFF_DEF    : std_logic_vector(c_HK_SPI_DATA_S-1 downto 0):=
+                                std_logic_vector(to_unsigned( 1261, c_HK_SPI_DATA_S))                       ; --! Housekeeping, HK_VGND_OFF default value
 constant c_HK_P5V0_ANA_DEF    : std_logic_vector(c_HK_SPI_DATA_S-1 downto 0):=
                                 std_logic_vector(to_unsigned(  293, c_HK_SPI_DATA_S))                       ; --! Housekeeping, HK_P5V0_ANA default value
 constant c_HK_TEMP_AVE_DEF    : std_logic_vector(c_HK_SPI_DATA_S-1 downto 0):=
@@ -352,6 +354,9 @@ constant c_SQM_ADC_ERR_VAL    : real    := 10.0**(-7)                           
 constant c_PLS_SHP_ERR_VAL    : real    :=  2.0**(-c_SQM_DAC_DATA_S+2)                                      ; --! Pulse shaping error value
 
 constant c_SER_WD_MAX_S       : integer   := 2*c_EP_CMD_S                                                   ; --! EP SPI serial word maximal size
+
+constant c_SQM_ADC_BUG_COL    : integer := 3                                                                ; --! ADC bug simulation: Column number
+constant c_SQM_ADC_BUG_BIT_DF : integer := 12                                                               ; --! ADC bug simulation: Data bit number in default for ADC bug simulation
 
    -- ------------------------------------------------------------------------------------------------------
    --    Clock parameters to check
@@ -460,6 +465,7 @@ constant c_SCHK               : t_spi_chk_prm_arr(0 to c_CHK_ENA_SPI_NB-1) :=
          i_sqm_adc_spi_sclk   : in     std_logic                                                            ; --! SQUID MUX ADC: SPI Serial Clock (CPOL = '0', CPHA = '0')
 
          i_sw_adc_vin         : in     std_logic_vector(c_SW_ADC_VIN_S-1 downto 0)                          ; --! Switch ADC Voltage input
+         i_adc_hw_bug_bypass  : in     std_logic                                                            ; --! SQUID MUX ADC: ADC harware bug bypass ('0' = No bug, '1' = Bug)
          o_sqm_adc_ana        : out    real                                                                 ; --! SQUID MUX ADC: Analog
          o_sqm_adc_data       : out    std_logic_vector(c_SQM_ADC_DATA_S-1 downto 0)                        ; --! SQUID MUX ADC: Data
          o_sqm_adc_oor        : out    std_logic                                                            ; --! SQUID MUX ADC: Out of range ('0' = No, '1' = under/over range)
@@ -562,7 +568,7 @@ constant c_SCHK               : t_spi_chk_prm_arr(0 to c_CHK_ENA_SPI_NB-1) :=
 
          i_science_ctrl_01    : in     std_logic                                                            ; --! Science Data: Control channel 0/1
          i_science_ctrl_23    : in     std_logic                                                            ; --! Science Data: Control channel 2/3
-         i_science_data       : in     t_slv_arr(0 to c_NB_COL  )(c_SC_DATA_SER_NB-1 downto 0)              ; --! Science Data: Serial Data
+         i_science_data       : in     t_slv_arr(0 to c_NB_COL-1)(c_SC_DATA_SER_NB-1 downto 0)              ; --! Science Data: Serial Data
 
          i_sync               : in     std_logic                                                            ; --! Pixel sequence synchronization (R.E. detected = position sequence to the first pixel)
          i_aqmde              : in     std_logic_vector(c_DFLD_AQMDE_S-1 downto 0)                          ; --! Telemetry mode

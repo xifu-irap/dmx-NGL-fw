@@ -76,6 +76,7 @@ quietly set TB_DIR $4
       ${SRC_DIR}/common/hk_mgt.vhd               \
       ${SRC_DIR}/common/adder_acc.vhd            \
       ${SRC_DIR}/common/squid_adc_sys.vhd        \
+      ${SRC_DIR}/common/squid_adc_bug_bypass.vhd \
       ${SRC_DIR}/common/squid_adc_mgt.vhd        \
       ${SRC_DIR}/common/squid_data_proc_mem.vhd  \
       ${SRC_DIR}/common/err_average.vhd          \
