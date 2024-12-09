@@ -17,6 +17,7 @@ COMM ===========================================================================
 COMM   Wait internal reset deactivated
 COMM ----------------------------------------------------------------------------------------------
 WUDI rst 0
+WAIT 500 ns
 COMM
 COMM ==============================================================================================
 COMM   Start Housekeeping test
@@ -215,13 +216,13 @@ COMM ===========================================================================
 COMM   Check error Try to write in a read only register detected
 COMM ----------------------------------------------------------------------------------------------
 CCMD R-Status-DFFF W          # Return Command 31
-WCMD W-460E-XXXX R            # Command 34
+WCMD W-HK_VGND-XXXX R         # Command 34
 COMM
 COMM ==============================================================================================
 COMM   Check error Try to write in a read only register detected
 COMM ----------------------------------------------------------------------------------------------
 CCMD R-Status-DFFF W          # Return Command 32
-WCMD R-Status-XXXX R
+WCMD R-HK_VGND-XXXX R         # Command 35
 COMM
 COMM ==============================================================================================
 COMM   Check error Try to write in a read only register detected
@@ -230,6 +231,12 @@ CCMD R-Status-DFFF W          # Return Command 33
 WCMD R-Status-XXXX R
 COMM
 COMM ==============================================================================================
-COMM   Check error Invalid register address detected
+COMM   Check error Try to write in a read only register detected
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-Status-7FFF W          # Return Command 34
+CCMD R-Status-DFFF W          # Return Command 34
+WCMD R-Status-XXXX R
+COMM
+COMM ==============================================================================================
+COMM   Check Housekeeping content
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-HK_VGND-HK_VGND_OFF_VAL W  # Return Command 35

@@ -42,7 +42,7 @@ package pkg_project is
    --    @Req : DRE-DMX-FW-REQ-0120
    --    @Req : DRE-DMX-FW-REQ-0270
    -- ------------------------------------------------------------------------------------------------------
-constant c_FW_VERSION         : integer   := 16#000B#                                                       ; --! Firmware version
+constant c_FW_VERSION         : integer   := 16#000C#                                                       ; --! Firmware version
 
 constant c_FF_RSYNC_NB        : integer   := 2                                                              ; --! Flip-Flop number used for FPGA input resynchronization
 constant c_FF_RST_NB          : integer   := 6                                                              ; --! Flip-Flop number used for internal reset: System Clock
@@ -114,7 +114,7 @@ constant c_HK_SPI_ADD_POS_LSB : integer   := 11                                 
 constant c_HK_SPI_DATA_S      : integer   := 12                                                             ; --! HK SPI: Data size
 constant c_HK_SPI_SCLK_NB_ACQ : integer   := 3                                                              ; --! HK SPI: SCLK cycle number for analog signal acquisition
 constant c_HK_MUX_S           : integer   := 3                                                              ; --! HK Multiplexer size
-constant c_HK_NW              : integer   := 14                                                             ; --! HK Number words
+constant c_HK_NW              : integer   := 15                                                             ; --! HK Number words
 
 constant c_EP_CMD_S           : integer   := 32                                                             ; --! EP command bus size
 constant c_EP_SPI_CPOL        : std_logic := c_LOW_LEV                                                      ; --! EP SPI Clock polarity
@@ -148,6 +148,8 @@ constant c_HK_ADC_VREF_TMP    : std_logic_vector(c_HK_SPI_ADD_S-1 downto 0):=
                                 std_logic_vector(to_unsigned( 4, c_HK_SPI_ADD_S))                           ; --! Housekeeping ADC position, HK_VREF_TMP
 constant c_HK_ADC_VREF_R2R    : std_logic_vector(c_HK_SPI_ADD_S-1 downto 0):=
                                 std_logic_vector(to_unsigned( 4, c_HK_SPI_ADD_S))                           ; --! Housekeeping ADC position, HK_VREF_R2R
+constant c_HK_ADC_VGND_OFF    : std_logic_vector(c_HK_SPI_ADD_S-1 downto 0):=
+                                std_logic_vector(to_unsigned( 4, c_HK_SPI_ADD_S))                           ; --! Housekeeping ADC position, HK_VGND_OFF
 constant c_HK_ADC_P5V0_ANA    : std_logic_vector(c_HK_SPI_ADD_S-1 downto 0):=
                                 std_logic_vector(to_unsigned( 5, c_HK_SPI_ADD_S))                           ; --! Housekeeping ADC position, HK_P5V0_ANA
 constant c_HK_ADC_TEMP_AVE    : std_logic_vector(c_HK_SPI_ADD_S-1 downto 0):=
@@ -177,6 +179,8 @@ constant c_HK_MUX_VREF_TMP    : std_logic_vector(c_HK_MUX_S-1 downto 0):=
                                 std_logic_vector(to_unsigned( 5, c_HK_MUX_S))                               ; --! Housekeeping MUX position, HK_VREF_TMP
 constant c_HK_MUX_VREF_R2R    : std_logic_vector(c_HK_MUX_S-1 downto 0):=
                                 std_logic_vector(to_unsigned( 6, c_HK_MUX_S))                               ; --! Housekeeping MUX position, HK_VREF_R2R
+constant c_HK_MUX_VGND_OFF    : std_logic_vector(c_HK_MUX_S-1 downto 0):=
+                                std_logic_vector(to_unsigned( 7, c_HK_MUX_S))                               ; --! Housekeeping MUX position, HK_VGND_OFF
 constant c_HK_MUX_P5V0_ANA    : std_logic_vector(c_HK_MUX_S-1 downto 0):=
                                 std_logic_vector(to_unsigned( 0, c_HK_MUX_S))                               ; --! Housekeeping MUX position, HK_P5V0_ANA
 constant c_HK_MUX_TEMP_AVE    : std_logic_vector(c_HK_MUX_S-1 downto 0):=
@@ -187,14 +191,14 @@ constant c_HK_MUX_TEMP_MAX    : std_logic_vector(c_HK_MUX_S-1 downto 0):=
 constant c_HK_ADC_SEQ         : t_slv_arr(0 to c_HK_NW-1)(c_HK_SPI_ADD_S-1 downto 0) :=
                                 (c_HK_ADC_P2V5_ANA, c_HK_ADC_M2V5_ANA, c_HK_ADC_P3V3_ANA, c_HK_ADC_M5V0_ANA,
                                  c_HK_ADC_P1V2_DIG, c_HK_ADC_P2V5_DIG, c_HK_ADC_P2V5_AUX, c_HK_ADC_P3V3_DIG,
-                                 c_HK_ADC_VREF_TMP, c_HK_ADC_VREF_R2R, c_HK_ADC_P5V0_ANA, c_HK_ADC_TEMP_AVE,
-                                 c_HK_ADC_TEMP_MAX, c_HK_ADC_P1V8_ANA)                                      ; --! Housekeeping ADC sequence
+                                 c_HK_ADC_VREF_TMP, c_HK_ADC_VREF_R2R, c_HK_ADC_VGND_OFF, c_HK_ADC_P5V0_ANA,
+                                 c_HK_ADC_TEMP_AVE, c_HK_ADC_TEMP_MAX, c_HK_ADC_P1V8_ANA)                   ; --! Housekeeping ADC sequence
 
 constant c_HK_MUX_SEQ         : t_slv_arr(0 to c_HK_NW-1)(c_HK_MUX_S-1 downto 0) :=
                                 (c_HK_MUX_P1V8_ANA, c_HK_MUX_P2V5_ANA, c_HK_MUX_M2V5_ANA, c_HK_MUX_P3V3_ANA,
                                  c_HK_MUX_M5V0_ANA, c_HK_MUX_P1V2_DIG, c_HK_MUX_P2V5_DIG, c_HK_MUX_P2V5_AUX,
-                                 c_HK_MUX_P3V3_DIG, c_HK_MUX_VREF_TMP, c_HK_MUX_VREF_R2R, c_HK_MUX_P5V0_ANA,
-                                 c_HK_MUX_TEMP_AVE, c_HK_MUX_TEMP_MAX)                                      ; --! Housekeeping MUX sequence
+                                 c_HK_MUX_P3V3_DIG, c_HK_MUX_VREF_TMP, c_HK_MUX_VREF_R2R, c_HK_MUX_VGND_OFF,
+                                 c_HK_MUX_P5V0_ANA, c_HK_MUX_TEMP_AVE, c_HK_MUX_TEMP_MAX)                   ; --! Housekeeping MUX sequence
 
    -- ------------------------------------------------------------------------------------------------------
    --    Inputs default value at reset
