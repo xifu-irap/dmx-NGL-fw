@@ -33,7 +33,7 @@ configuration DRE_DMX_UT_0440_cfg of top_dmx_tb is
       -- ------------------------------------------------------------------------------------------------------
       for I_parser : parser
          use entity work.parser generic map (
-            g_SIM_TIME           => 300 us               , -- time    := c_SIM_TIME_DEF                     ; --! Simulation time
+            g_SIM_TIME           => 3030 us              , -- time    := c_SIM_TIME_DEF                     ; --! Simulation time
             g_BRD_MDL            => "dk"                 , -- string  := c_BRD_MDL_DEF                      ; --! Board model
             g_TST_NUM            => "0440"                 -- string  := c_TST_NUM_DEF                        --! Test number
          );

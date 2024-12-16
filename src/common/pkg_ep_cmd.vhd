@@ -246,10 +246,10 @@ constant c_HK_ADD_TEMP_MAX    : std_logic_vector(c_MEM_HKEEP_ADD_S-1 downto 0):=
                                 std_logic_vector(to_unsigned(10, c_MEM_HKEEP_ADD_S))                        ; --! EP command: Housekeeping memory position, TEMP_MAX
 
 constant c_HK_ADD_SEQ         : t_slv_arr(0 to c_HK_NW-1)(c_MEM_HKEEP_ADD_S-1 downto 0) :=
-                                (c_HK_ADD_TEMP_AVE, c_HK_ADD_TEMP_MAX, c_HK_ADD_P1V8_ANA, c_HK_ADD_P2V5_ANA,
-                                 c_HK_ADD_M2V5_ANA, c_HK_ADD_P3V3_ANA, c_HK_ADD_M5V0_ANA, c_HK_ADD_P1V2_DIG,
-                                 c_HK_ADD_P2V5_DIG, c_HK_ADD_P2V5_AUX, c_HK_ADD_P3V3_DIG, c_HK_ADD_VREF_TMP,
-                                 c_HK_ADD_VREF_R2R, c_HK_ADD_VGND_OFF, c_HK_ADD_P5V0_ANA)                   ; --! Housekeeping memory position sequence
+                                (c_HK_ADD_P1V8_ANA, c_HK_ADD_P2V5_ANA, c_HK_ADD_M2V5_ANA, c_HK_ADD_P3V3_ANA,
+                                 c_HK_ADD_M5V0_ANA, c_HK_ADD_P1V2_DIG, c_HK_ADD_P2V5_DIG, c_HK_ADD_P2V5_AUX,
+                                 c_HK_ADD_P3V3_DIG, c_HK_ADD_VREF_TMP, c_HK_ADD_VREF_R2R, c_HK_ADD_VGND_OFF,
+                                 c_HK_ADD_P5V0_ANA, c_HK_ADD_TEMP_AVE, c_HK_ADD_TEMP_MAX)                   ; --! Housekeeping memory position sequence
 
    -- ------------------------------------------------------------------------------------------------------
    --    EP command: Write register authorization
