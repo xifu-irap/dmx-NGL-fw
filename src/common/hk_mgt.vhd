@@ -57,18 +57,22 @@ architecture RTL of hk_mgt is
 constant c_HK_SPI_SER_WD_S_V_S: integer := log2_ceil(c_HK_SPI_SER_WD_S+1)                                   ; --! HK SPI: Serial word size vector bus size
 constant c_HK_SPI_SER_WD_S_V  : std_logic_vector(c_HK_SPI_SER_WD_S_V_S-1 downto 0) :=
                                 std_logic_vector(to_unsigned(c_HK_SPI_SER_WD_S, c_HK_SPI_SER_WD_S_V_S))     ; --! HK SPI: Serial word size vector
-constant c_HK_MUX_NPER_DEL    : integer := c_HK_SPI_SCLK_NB_ACQ * (c_HK_SPI_SCLK_L + c_HK_SPI_SCLK_H)       ; --! HK Multiplexer: Clock period number to delay
+
+constant c_HK_ACQ_CNT_NB_VAL  : integer := c_HK_ACQ_NPER -
+                                           c_HK_SPI_SER_WD_S * (c_HK_SPI_SCLK_L + c_HK_SPI_SCLK_H)          ; --! HK Acquisition counter: number of value
+constant c_HK_ACQ_CNT_MAX_VAL : integer := c_HK_ACQ_CNT_NB_VAL - 2                                          ; --! HK Acquisition counter: maximal value
+constant c_HK_ACQ_CNT_S       : integer := log2_ceil(c_HK_ACQ_CNT_MAX_VAL + 1) + 1                          ; --! HK Acquisition counter: size bus (signed)
 
 signal   mem_hkeep            : t_slv_arr(0 to 2**c_MEM_HKEEP_ADD_S-1)(c_DFLD_HKEEP_S-1 downto 0)           ; --! Memory data storage Housekeeping
 signal   mem_hkeep_add_prm    : std_logic_vector(c_MEM_HKEEP_ADD_S-1 downto 0)                              ; --! Memory Housekeeping, getting parameter side: address
 
 signal   hk_pos               : std_logic_vector(c_MEM_HKEEP_ADD_S-1 downto 0)                              ; --! HK position
+signal   hk_acq_cnt           : std_logic_vector(   c_HK_ACQ_CNT_S-1 downto 0)                              ; --! HK Acquisition counter
 
+signal   hk_spi_start         : std_logic                                                                   ; --! HK SPI: Start transmit ('0' = Inactive, '1' = Active)
 signal   hk_spi_data_tx       : std_logic_vector(c_HK_SPI_SER_WD_S-1 downto 0)                              ; --! HK SPI: Data to transmit (stall on MSB)
 signal   hk_spi_tx_busy_n     : std_logic                                                                   ; --! HK SPI: Transmit link busy ('0' = Busy, '1' = Not Busy)
 signal   hk_spi_tx_busy_n_r   : std_logic                                                                   ; --! HK SPI: Transmit link busy register ('0' = Busy, '1' = Not Busy)
-signal   hk_spi_tx_busy_n_fe  : std_logic                                                                   ; --! HK SPI: Transmit link busy falling edge detect
-signal   hk_spi_tx_bsy_n_fe_r : std_logic_vector(c_HK_MUX_NPER_DEL-1 downto 0)                              ; --! HK SPI: Transmit link busy falling edge detect register
 signal   hk_spi_data_rx       : std_logic_vector(c_HK_SPI_SER_WD_S-1 downto 0)                              ; --! HK SPI: Receipted data (stall on LSB)
 signal   hk_spi_data_rx_rdy   : std_logic                                                                   ; --! HK SPI: Receipted data ready ('0' = Not ready, '1' = Ready)
 
@@ -83,6 +87,22 @@ signal   err_nin_cs           : std_logic_vector(c_ERR_NIN_MX_STIN(c_ERR_NIN_MX_
 begin
 
    -- ------------------------------------------------------------------------------------------------------
+   --!   Signal registered
+   -- ------------------------------------------------------------------------------------------------------
+   P_sig_r : process (i_rst, i_clk)
+   begin
+
+      if i_rst = c_RST_LEV_ACT then
+         hk_spi_tx_busy_n_r   <= c_HGH_LEV;
+
+      elsif rising_edge(i_clk) then
+         hk_spi_tx_busy_n_r   <= hk_spi_tx_busy_n;
+
+      end if;
+
+   end process P_sig_r;
+
+   -- ------------------------------------------------------------------------------------------------------
    --!   HK position
    --    @Req : DRE-DMX-FW-REQ-0540
    --    @Req : DRE-DMX-FW-REQ-0570
@@ -94,7 +114,7 @@ begin
          hk_pos  <= c_ZERO(hk_pos'range);
 
       elsif rising_edge(i_clk) then
-         if hk_spi_tx_busy_n = c_HGH_LEV then
+         if hk_spi_data_rx_rdy = c_HGH_LEV then
 
             if hk_pos = std_logic_vector(to_unsigned(c_HK_NW-1, hk_pos'length)) then
                hk_pos   <= c_ZERO(hk_pos'range);
@@ -111,24 +131,28 @@ begin
    end process P_hk_pos;
 
    -- ------------------------------------------------------------------------------------------------------
-   --!   HK SPI: Transmit link busy falling edge detect
+   --!   Acquisition counter
    -- ------------------------------------------------------------------------------------------------------
-   P_hk_spi_tx_bsy_n_fe : process (i_rst, i_clk)
+   P_hk_acq_cnt : process (i_rst, i_clk)
    begin
 
       if i_rst = c_RST_LEV_ACT then
-         hk_spi_tx_busy_n_r   <= c_HGH_LEV;
-         hk_spi_tx_busy_n_fe  <= c_LOW_LEV;
-         hk_spi_tx_bsy_n_fe_r <= (others => c_LOW_LEV);
+         hk_acq_cnt  <= std_logic_vector(to_unsigned(c_HK_ACQ_CNT_MAX_VAL, hk_acq_cnt'length));
 
       elsif rising_edge(i_clk) then
-         hk_spi_tx_busy_n_r   <= hk_spi_tx_busy_n;
-         hk_spi_tx_busy_n_fe  <= hk_spi_tx_busy_n_r and not(hk_spi_tx_busy_n);
-         hk_spi_tx_bsy_n_fe_r <= hk_spi_tx_bsy_n_fe_r(hk_spi_tx_bsy_n_fe_r'high-1 downto 0) & hk_spi_tx_busy_n_fe;
+         if (not(hk_spi_tx_busy_n_r) and hk_spi_tx_busy_n) = c_HGH_LEV then
+            hk_acq_cnt <= std_logic_vector(to_unsigned(c_HK_ACQ_CNT_MAX_VAL, hk_acq_cnt'length));
+
+         elsif hk_acq_cnt(hk_acq_cnt'high) = c_LOW_LEV then
+            hk_acq_cnt <= std_logic_vector(signed(hk_acq_cnt) - 1);
+
+         end if;
 
       end if;
 
-   end process P_hk_spi_tx_bsy_n_fe;
+   end process P_hk_acq_cnt;
+
+   hk_spi_start <= hk_spi_cs_n and hk_acq_cnt(hk_acq_cnt'high);
 
    -- ------------------------------------------------------------------------------------------------------
    --!   HK SPI master
@@ -151,7 +175,7 @@ begin
          i_rst                => i_rst                , -- in     std_logic                                 ; --! Reset asynchronous assertion, synchronous de-assertion ('0' = Inactive, '1' = Active)
          i_clk                => i_clk                , -- in     std_logic                                 ; --! Clock
 
-         i_start              => c_HGH_LEV            , -- in     std_logic                                 ; --! Start transmit ('0' = Inactive, '1' = Active)
+         i_start              => hk_spi_start         , -- in std_logic                                     ; --! Start transmit ('0' = Inactive, '1' = Active)
          i_ser_wd_s           => c_HK_SPI_SER_WD_S_V  , -- in     slv(log2_ceil(g_DATA_S+1)-1 downto 0)     ; --! Serial word size
          i_data_tx            => hk_spi_data_tx       , -- in     std_logic_vector(g_DATA_S-1 downto 0)     ; --! Data to transmit (stall on MSB)
          o_tx_busy_n          => hk_spi_tx_busy_n     , -- out    std_logic                                 ; --! Transmit link busy ('0' = Busy, '1' = Not Busy)
@@ -194,7 +218,7 @@ begin
          o_hk_mux  <= (others => c_LOW_LEV);
 
       elsif rising_edge(i_clk) then
-         if hk_spi_tx_bsy_n_fe_r(hk_spi_tx_bsy_n_fe_r'high) = c_HGH_LEV then
+         if (not(hk_spi_tx_busy_n_r) and hk_spi_tx_busy_n) = c_HGH_LEV then
             o_hk_mux            <= c_HK_MUX_SEQ(to_integer(unsigned(hk_pos)));
 
          end if;

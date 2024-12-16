@@ -22,7 +22,6 @@ COMM ===========================================================================
 COMM   Wait internal reset deactivated
 COMM ----------------------------------------------------------------------------------------------
 WUDI rst 0
-WAIT 500 ns
 COMM
 COMM ==============================================================================================
 COMM   Start Housekeeping test
@@ -68,177 +67,177 @@ CCMD R-Status-F7FF W          # Return Command 5
 WCMD R-HK_M2V5_ANA-XXXX R     # Command 8
 COMM
 COMM ==============================================================================================
-COMM   Check Housekeeping content
+COMM   Check error parameter to read not yet initialized detected
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-HK_P1V8_ANA-HK_P1V8_ANA_VAL W   # Return Command 6
-WCMD R-HK_P3V3_ANA-XXXX R              # Command 9
+CCMD R-Status-F7FF W          # Return Command 6
+WCMD R-HK_P3V3_ANA-XXXX R     # Command 9
 COMM
 COMM ==============================================================================================
-COMM   Check Housekeeping content
+COMM   Check error parameter to read not yet initialized detected
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-HK_P2V5_ANA-HK_P2V5_ANA_VAL W   # Return Command 7
-WCMD R-HK_M5V0_ANA-XXXX R              # Command 10
+CCMD R-Status-F7FF W          # Return Command 7
+WCMD R-HK_M5V0_ANA-XXXX R     # Command 10
 COMM
 COMM ==============================================================================================
-COMM   Check Housekeeping content
+COMM   Check error parameter to read not yet initialized detected
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-HK_M2V5_ANA-HK_M2V5_ANA_VAL W   # Return Command 8
-WCMD R-HK_P1V2_DIG-XXXX R              # Command 11
+CCMD R-Status-F7FF W          # Return Command 8
+WCMD R-HK_P1V2_DIG-XXXX R     # Command 11
 COMM
 COMM ==============================================================================================
-COMM   Check Housekeeping content
+COMM   Check error parameter to read not yet initialized detected
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-HK_P3V3_ANA-HK_P3V3_ANA_VAL W   # Return Command 9
-WCMD R-HK_P2V5_DIG-XXXX R              # Command 12
+CCMD R-Status-F7FF W          # Return Command 9
+WCMD R-HK_P2V5_DIG-XXXX R     # Command 12
 COMM
 COMM ==============================================================================================
-COMM   Check Housekeeping content
+COMM   Check error parameter to read not yet initialized detected
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-HK_M5V0_ANA-HK_M5V0_ANA_VAL W   # Return Command 10
-WCMD R-HK_P2V5_AUX-XXXX R              # Command 13
+CCMD R-Status-F7FF W          # Return Command 10
+WCMD R-HK_P2V5_AUX-XXXX R     # Command 13
 COMM
 COMM ==============================================================================================
-COMM   Check Housekeeping content
+COMM   Check error parameter to read not yet initialized detected
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-HK_P1V2_DIG-HK_P1V2_DIG_VAL W   # Return Command 11
-WCMD R-HK_P3V3_DIG-XXXX R              # Command 14
+CCMD R-Status-F7FF W          # Return Command 11
+WCMD R-HK_P3V3_DIG-XXXX R     # Command 14
 COMM
 COMM ==============================================================================================
-COMM   Check Housekeeping content
+COMM   Check error parameter to read not yet initialized detected
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-HK_P2V5_DIG-HK_P2V5_DIG_VAL W   # Return Command 12
-WCMD R-HK_VREF_TMP-XXXX R              # Command 15
+CCMD R-Status-F7FF W          # Return Command 12
+WCMD R-HK_VREF_TMP-XXXX R     # Command 15
 COMM
 COMM ==============================================================================================
-COMM   Check Housekeeping content
+COMM   Check error parameter to read not yet initialized detected
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-HK_P2V5_AUX-HK_P2V5_AUX_VAL W   # Return Command 13
-WCMD R-HK_VREF_R2R-XXXX R              # Command 16
+CCMD R-Status-F7FF W          # Return Command 13
+WCMD R-HK_VREF_R2R-XXXX R     # Command 16
 COMM
 COMM ==============================================================================================
-COMM   Check Housekeeping content
+COMM   Check error parameter to read not yet initialized detected
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-HK_P3V3_DIG-HK_P3V3_DIG_VAL W   # Return Command 14
-WCMD R-HK_P5V0_ANA-XXXX R              # Command 17
+CCMD R-Status-F7FF W          # Return Command 14
+WCMD R-HK_P5V0_ANA-XXXX R     # Command 17
 COMM
 COMM ==============================================================================================
-COMM   Check Housekeeping content
+COMM   Check error parameter to read not yet initialized detected
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-HK_VREF_TMP-HK_VREF_TMP_VAL W   # Return Command 15
-WCMD R-HK_TEMP_AVE-XXXX R              # Command 18
+CCMD R-Status-F7FF W          # Return Command 15
+WCMD R-HK_TEMP_AVE-XXXX R     # Command 18
 COMM
 COMM ==============================================================================================
-COMM   Check Housekeeping content
+COMM   Check error parameter to read not yet initialized detected
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-HK_VREF_R2R-HK_VREF_R2R_VAL W   # Return Command 16
-WCMD R-HK_TEMP_MAX-XXXX R              # Command 19
+CCMD R-Status-F7FF W          # Return Command 16
+WCMD R-HK_TEMP_MAX-XXXX R     # Command 19
 COMM
 COMM ==============================================================================================
-COMM   Check Housekeeping content
+COMM   Check error parameter to read not yet initialized detected
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-HK_P5V0_ANA-HK_P5V0_ANA_VAL W   # Return Command 17
-WCMD W-HK_P1V8_ANA-XXXX R              # Command 20
+CCMD R-Status-F7FF W          # Return Command 17
+WCMD W-HK_P1V8_ANA-XXXX R     # Command 20
 COMM
 COMM ==============================================================================================
-COMM   Check Housekeeping content
+COMM   Check error parameter to read not yet initialized detected
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-HK_TEMP_AVE-HK_TEMP_AVE_VAL W   # Return Command 18
-WCMD W-HK_P2V5_ANA-XXXX R              # Command 21
+CCMD R-Status-F7FF W          # Return Command 18
+WCMD W-HK_P2V5_ANA-XXXX R     # Command 21
 COMM
 COMM ==============================================================================================
-COMM   Check Housekeeping content
+COMM   Check error parameter to read not yet initialized detected
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-HK_TEMP_MAX-HK_TEMP_MAX_VAL W   # Return Command 19
-WCMD W-HK_M2V5_ANA-XXXX R              # Command 22
+CCMD R-Status-F7FF W          # Return Command 19
+WCMD W-HK_M2V5_ANA-XXXX R     # Command 22
 COMM
 COMM ==============================================================================================
 COMM   Check error Try to write in a read only register detected
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-Status-DFFF W          # Return Command 20
+CCMD R-Status-D7FF W          # Return Command 20
 WCMD W-HK_P3V3_ANA-XXXX R     # Command 23
 COMM
 COMM ==============================================================================================
 COMM   Check error Try to write in a read only register detected
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-Status-DFFF W          # Return Command 21
+CCMD R-Status-D7FF W          # Return Command 21
 WCMD W-HK_M5V0_ANA-XXXX R     # Command 24
 COMM
 COMM ==============================================================================================
 COMM   Check error Try to write in a read only register detected
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-Status-DFFF W          # Return Command 22
+CCMD R-Status-D7FF W          # Return Command 22
 WCMD W-HK_P1V2_DIG-XXXX R     # Command 25
 COMM
 COMM ==============================================================================================
 COMM   Check error Try to write in a read only register detected
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-Status-DFFF W          # Return Command 23
+CCMD R-Status-D7FF W          # Return Command 23
 WCMD W-HK_P2V5_DIG-XXXX R     # Command 26
 COMM
 COMM ==============================================================================================
 COMM   Check error Try to write in a read only register detected
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-Status-DFFF W          # Return Command 24
+CCMD R-Status-D7FF W          # Return Command 24
 WCMD W-HK_P2V5_AUX-XXXX R     # Command 27
 COMM
 COMM ==============================================================================================
 COMM   Check error Try to write in a read only register detected
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-Status-DFFF W          # Return Command 25
+CCMD R-Status-D7FF W          # Return Command 25
 WCMD W-HK_P3V3_DIG-XXXX R     # Command 28
 COMM
 COMM ==============================================================================================
 COMM   Check error Try to write in a read only register detected
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-Status-DFFF W          # Return Command 26
+CCMD R-Status-D7FF W          # Return Command 26
 WCMD W-HK_VREF_TMP-XXXX R     # Command 29
 COMM
 COMM ==============================================================================================
 COMM   Check error Try to write in a read only register detected
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-Status-DFFF W          # Return Command 27
+CCMD R-Status-D7FF W          # Return Command 27
 WCMD W-HK_VREF_R2R-XXXX R     # Command 30
 COMM
 COMM ==============================================================================================
 COMM   Check error Try to write in a read only register detected
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-Status-DFFF W          # Return Command 28
+CCMD R-Status-D7FF W          # Return Command 28
 WCMD W-HK_P5V0_ANA-XXXX R     # Command 31
 COMM
 COMM ==============================================================================================
 COMM   Check error Try to write in a read only register detected
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-Status-DFFF W          # Return Command 29
+CCMD R-Status-D7FF W          # Return Command 29
 WCMD W-HK_TEMP_AVE-XXXX R     # Command 32
 COMM
 COMM ==============================================================================================
 COMM   Check error Try to write in a read only register detected
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-Status-DFFF W          # Return Command 30
+CCMD R-Status-D7FF W          # Return Command 30
 WCMD W-HK_TEMP_MAX-XXXX R     # Command 33
 COMM
 COMM ==============================================================================================
 COMM   Check error Try to write in a read only register detected
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-Status-DFFF W          # Return Command 31
+CCMD R-Status-D7FF W          # Return Command 31
 WCMD W-HK_VGND-XXXX R         # Command 34
 COMM
 COMM ==============================================================================================
 COMM   Check error Try to write in a read only register detected
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-Status-DFFF W          # Return Command 32
+CCMD R-Status-D7FF W          # Return Command 32
 WCMD W-460F-XXXX R            # Command 35
 COMM
 COMM ==============================================================================================
 COMM   Check error Try to write in a read only register detected
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-Status-DFFF W          # Return Command 33
+CCMD R-Status-D7FF W          # Return Command 33
 WCMD R-HK_VGND-XXXX R         # Command 36
 COMM
 COMM ==============================================================================================
 COMM   Check error Try to write in a read only register detected
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-Status-DFFF W          # Return Command 34
+CCMD R-Status-D7FF W          # Return Command 34
 WCMD R-Status-XXXX R
 COMM
 COMM ==============================================================================================
@@ -248,6 +247,107 @@ CCMD R-Status-7FFF W          # Return Command 35
 WCMD R-Status-XXXX R
 COMM
 COMM ==============================================================================================
+COMM   Check error parameter to read not yet initialized detected
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-Status-F7FF N          # Return Command 36
+COMM
+COMM ==============================================================================================
+COMM   Wait acquisition of all Housekeeping
+COMM ----------------------------------------------------------------------------------------------
+WAIT 2600 us
+COMM
+COMM ==============================================================================================
+COMM   Start Housekeeping test
+COMM ----------------------------------------------------------------------------------------------
+WCMD R-HK_P1V8_ANA-XXXX W     # Command 37
+WCMD R-HK_P2V5_ANA-XXXX W     # Command 38
+WCMD R-HK_M2V5_ANA-XXXX R     # Command 39
+COMM
+COMM ==============================================================================================
 COMM   Check Housekeeping content
 COMM ----------------------------------------------------------------------------------------------
-CCMD R-HK_VGND-HK_VGND_OFF_VAL W  # Return Command 35
+CCMD R-HK_P1V8_ANA-HK_P1V8_ANA_VAL W   # Return Command 37
+WCMD R-HK_P3V3_ANA-XXXX R              # Command 40
+COMM
+COMM ==============================================================================================
+COMM   Check Housekeeping content
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-HK_P2V5_ANA-HK_P2V5_ANA_VAL W   # Return Command 38
+WCMD R-HK_M5V0_ANA-XXXX R              # Command 41
+COMM
+COMM ==============================================================================================
+COMM   Check Housekeeping content
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-HK_M2V5_ANA-HK_M2V5_ANA_VAL W   # Return Command 39
+WCMD R-HK_P1V2_DIG-XXXX R              # Command 42
+COMM
+COMM ==============================================================================================
+COMM   Check Housekeeping content
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-HK_P3V3_ANA-HK_P3V3_ANA_VAL W   # Return Command 40
+WCMD R-HK_P2V5_DIG-XXXX R              # Command 43
+COMM
+COMM ==============================================================================================
+COMM   Check Housekeeping content
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-HK_M5V0_ANA-HK_M5V0_ANA_VAL W   # Return Command 41
+WCMD R-HK_P2V5_AUX-XXXX R              # Command 44
+COMM
+COMM ==============================================================================================
+COMM   Check Housekeeping content
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-HK_P1V2_DIG-HK_P1V2_DIG_VAL W   # Return Command 42
+WCMD R-HK_P3V3_DIG-XXXX R              # Command 45
+COMM
+COMM ==============================================================================================
+COMM   Check Housekeeping content
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-HK_P2V5_DIG-HK_P2V5_DIG_VAL W   # Return Command 43
+WCMD R-HK_VREF_TMP-XXXX R              # Command 46
+COMM
+COMM ==============================================================================================
+COMM   Check Housekeeping content
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-HK_P2V5_AUX-HK_P2V5_AUX_VAL W   # Return Command 44
+WCMD R-HK_VREF_R2R-XXXX R              # Command 47
+COMM
+COMM ==============================================================================================
+COMM   Check Housekeeping content
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-HK_P3V3_DIG-HK_P3V3_DIG_VAL W   # Return Command 45
+WCMD R-HK_P5V0_ANA-XXXX R              # Command 48
+COMM
+COMM ==============================================================================================
+COMM   Check Housekeeping content
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-HK_VREF_TMP-HK_VREF_TMP_VAL W   # Return Command 46
+WCMD R-HK_TEMP_AVE-XXXX R              # Command 49
+COMM
+COMM ==============================================================================================
+COMM   Check Housekeeping content
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-HK_VREF_R2R-HK_VREF_R2R_VAL W   # Return Command 47
+WCMD R-HK_TEMP_MAX-XXXX R              # Command 50
+COMM
+COMM ==============================================================================================
+COMM   Check Housekeeping content
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-HK_P5V0_ANA-HK_P5V0_ANA_VAL W   # Return Command 48
+WCMD R-HK_VGND-XXXX R                  # Command 51
+COMM
+COMM ==============================================================================================
+COMM   Check Housekeeping content
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-HK_TEMP_AVE-HK_TEMP_AVE_VAL W   # Return Command 49
+WCMD R-Status-XXXX R                   # Command 52
+COMM
+COMM ==============================================================================================
+COMM   Check Housekeeping content
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-HK_TEMP_MAX-HK_TEMP_MAX_VAL W   # Return Command 50
+WCMD R-Status-XXXX R                   # Command 53
+COMM
+COMM ==============================================================================================
+COMM   Check Housekeeping content
+COMM ----------------------------------------------------------------------------------------------
+CCMD R-HK_VGND-HK_VGND_OFF_VAL W       # Return Command 51

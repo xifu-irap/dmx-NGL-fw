@@ -380,7 +380,7 @@ constant c_CCHK               : t_clk_chk_prm_arr(0 to c_CHK_ENA_CLK_NB-1) :=
    --    SPI parameters to check
    -- ------------------------------------------------------------------------------------------------------
 constant c_SPI_TIME_CHK_HK    : time_vector(0 to c_SPI_ERR_CHK_NB-3) :=
-                                (25600 ps, 25600 ps, 62500 ps, 125000 ps, 0 ps,    0 ps, 10000 ps, 10000 ps); --! SPI timings to check: ADC HK ADC128S102
+                                (25600 ps, 25600 ps, 62500 ps,   1250 ns, 0 ps,    0 ps, 10000 ps, 10000 ps); --! SPI timings to check: ADC HK ADC128S102
 
 constant c_SPI_TIME_CHK_SQA   : time_vector(0 to c_SPI_ERR_CHK_NB-3) :=
                                 (13000 ps, 13000 ps, 33000 ps, 999999 ms, 20000 ps, 1000 ps,5000 ps,4500 ps); --! SPI timings to check: DAC SQUID AMP DAC121S101

@@ -36,7 +36,7 @@ use     work.pkg_project.all;
 use     work.pkg_ep_cmd.all;
 
 entity squid_adc_bug_bypass is generic (
-         g_ADC_HW_BUG_BYPASS  : std_logic                                                                     --! ADC harware bug bypass ('0' = No bug, '1' = Bug)
+         g_ADC_HW_BUG_BYPASS  : std_logic := c_LOW_LEV                                                        --! ADC harware bug bypass ('0' = No bug, '1' = Bug)
    ); port (
          i_rst_sqm_adc_dac_lc : in     std_logic                                                            ; --! Local reset for SQUID ADC/DAC, de-assertion on system clock
          i_clk_sqm_adc_dac    : in     std_logic                                                            ; --! SQUID ADC/DAC internal Clock
