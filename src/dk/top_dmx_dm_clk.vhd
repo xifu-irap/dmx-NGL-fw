@@ -455,7 +455,9 @@ begin
    G_column_mgt: for k in 0 to c_NB_COL-1 generate
    begin
 
-      I_squid_adc_mgt: entity work.squid_adc_mgt port map (
+      I_squid_adc_mgt: entity work.squid_adc_mgt generic map (
+         g_ADC_HW_BUG_BYPASS  => c_ADC_HW_BUG_BYPASS(k) -- std_logic                                          --! ADC harware bug bypass ('0' = No bug, '1' = Bug)
+      ) port map (
          i_rst_sqm_adc_dac    => rst_sqm_adc_dac      , -- in     std_logic                                 ; --! Reset for SQUID ADC/DAC, de-assertion on system clock ('0' = Inactive, '1' = Active)
          i_clk_sqm_adc_dac    => clk_sqm_adc_dac      , -- in     std_logic                                 ; --! SQUID ADC/DAC internal Clock
          i_clk_adc_dc         => i_clk_adc_dc(k)      , -- in     std_logic                                 ; --! SQUID MUX ADC: Data clock
