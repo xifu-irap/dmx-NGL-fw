@@ -94,14 +94,14 @@ file     res_file             :        text                                     
    );
 
    -- ------------------------------------------------------------------------------------------------------
-   --! Parser command CSCP [science_packet] : check the science packet type
+   --! Parser command CSCP [science_ctrl_pos] [science_packet] : check the science packet type
    -- ------------------------------------------------------------------------------------------------------
    procedure parser_cmd_cscp (
          b_cmd_file_line      : inout  line                                                                 ; --  Command file line
          i_mess_header        : in     string                                                               ; --  Message header
 file     res_file             :        text                                                                 ; --  Result file
 
-         i_sc_pkt_type        : in     std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0)                       ; --  Science packet type
+         i_sc_pkt_type        : in     t_slv_arr(0 to c_SC_PKT_W_NB-1)(c_SC_DATA_SER_W_S-1 downto 0)        ; --  Science packet type
          b_err_chk_sc_pkt     : inout  std_logic                                                              --  Error check science packet ('0' = No error, '1' = Error)
    );
 
@@ -413,25 +413,26 @@ file     res_file             :        text                                     
    end parser_cmd_cldc;
 
    -- ------------------------------------------------------------------------------------------------------
-   --! Parser command CSCP [science_packet] : check the science packet type
+   --! Parser command CSCP [science_ctrl_pos] [science_packet] : check the science packet type
    -- ------------------------------------------------------------------------------------------------------
    procedure parser_cmd_cscp (
          b_cmd_file_line      : inout  line                                                                 ; --  Command file line
          i_mess_header        : in     string                                                               ; --  Message header
 file     res_file             :        text                                                                 ; --  Result file
 
-         i_sc_pkt_type        : in     std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0)                       ; --  Science packet type
+         i_sc_pkt_type        : in     t_slv_arr(0 to c_SC_PKT_W_NB-1)(c_SC_DATA_SER_W_S-1 downto 0)        ; --  Science packet type
          b_err_chk_sc_pkt     : inout  std_logic                                                              --  Error check science packet ('0' = No error, '1' = Error)
    ) is
+   variable v_fld_sc_ctrl_pos : integer range 0 to c_SC_PKT_W_NB-1                                          ; --! Field science control position
    variable v_fld_sc_pkt      : line                                                                        ; --! Field science packet type
    variable v_fld_sc_pkt_val  : std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0)                              ; --! Field science packet type value
    begin
 
       -- Get parameters
-      get_param_cscp(b_cmd_file_line, i_mess_header, v_fld_sc_pkt, v_fld_sc_pkt_val);
+      get_param_cscp(b_cmd_file_line, i_mess_header, v_fld_sc_ctrl_pos, v_fld_sc_pkt, v_fld_sc_pkt_val);
 
       -- Check result
-      if v_fld_sc_pkt_val = i_sc_pkt_type then
+      if v_fld_sc_pkt_val = i_sc_pkt_type(v_fld_sc_ctrl_pos) then
          fprintf(note , "Check science packet type: PASS", res_file);
 
       else
@@ -443,7 +444,7 @@ file     res_file             :        text                                     
       end if;
 
       -- Display result
-      fprintf(note , " * Science packet type: " & v_fld_sc_pkt.all & ", value " & to_string(i_sc_pkt_type) & ", expected " & to_string(v_fld_sc_pkt_val), res_file);
+      fprintf(note , " * Science packet type: " & v_fld_sc_pkt.all & ", value " & to_string(i_sc_pkt_type(v_fld_sc_ctrl_pos)) & ", expected " & to_string(v_fld_sc_pkt_val), res_file);
 
    end parser_cmd_cscp;
 

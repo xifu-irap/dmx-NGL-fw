@@ -37,14 +37,16 @@ WUDI sync 0
 WUDI sync 1
 WUDI sync 0
 WUDI sync 1
-CSCP ras_data_valid
+CSCP 0 science
+CSCP 1 ras_data_valid
 COMM
 COMM ==============================================================================================
 COMM   Check the science data packet type transfered after
 COMM ----------------------------------------------------------------------------------------------
 WUDI sync 0
 WUDI sync 1
-CSCP science_data
+CSCP 0 science
+CSCP 1 data_word
 COMM
 COMM ==============================================================================================
 COMM   Check the data packet type still science
@@ -52,7 +54,8 @@ COMM ---------------------------------------------------------------------------
 WAIT 10 us
 WUDI sync 0
 WUDI sync 1
-CSCP science_data
+CSCP 0 science
+CSCP 1 data_word
 COMM
 COMM ==============================================================================================
 COMM   Active RAS Data valid signal
@@ -66,14 +69,16 @@ COMM   Check the RAS Data valid packet type currently transfered
 COMM ----------------------------------------------------------------------------------------------
 WUDI sync 0
 WUDI sync 1
-CSCP ras_data_valid
+CSCP 0 science
+CSCP 1 ras_data_valid
 COMM
 COMM ==============================================================================================
 COMM   Check the science data packet type transfered after
 COMM ----------------------------------------------------------------------------------------------
 WUDI sync 0
 WUDI sync 1
-CSCP science_data
+CSCP 0 science
+CSCP 1 data_word
 COMM
 COMM ==============================================================================================
 COMM   Switch on data acquisition in mode error science
@@ -87,7 +92,8 @@ WUDI sync 0
 WUDI sync 1
 WUDI sync 0
 WUDI sync 1
-CSCP error_signal
+CSCP 0 adc_data
+CSCP 1 data_word
 COMM
 COMM ==============================================================================================
 COMM   Active RAS Data valid signal
@@ -101,19 +107,16 @@ COMM   Check the error science data packet type transfered after
 COMM ----------------------------------------------------------------------------------------------
 WUDI sync 0
 WUDI sync 1
-CSCP error_signal
+CSCP 0 adc_data
+CSCP 1 ras_data_valid
 COMM
 COMM ==============================================================================================
 COMM   Check the error science data packet type transfered after
 COMM ----------------------------------------------------------------------------------------------
 WUDI sync 0
 WUDI sync 1
-CSCP error_signal
-COMM
-COMM ==============================================================================================
-COMM   Switch on data acquisition in mode science
-COMM ----------------------------------------------------------------------------------------------
-WCMD W-DATA_ACQ_MODE-0001 W
+CSCP 0 adc_data
+CSCP 1 data_word
 COMM
 COMM ==============================================================================================
 COMM   Check the RAS Data valid packet type currently transfered
@@ -122,11 +125,13 @@ WUDI sync 0
 WUDI sync 1
 WUDI sync 0
 WUDI sync 1
-CSCP ras_data_valid
+CSCP 0 adc_data
+CSCP 1 data_word
 COMM
 COMM ==============================================================================================
 COMM   Check the science data packet type transfered after
 COMM ----------------------------------------------------------------------------------------------
 WUDI sync 0
 WUDI sync 1
-CSCP science_data
+CSCP 0 adc_data
+CSCP 1 data_word

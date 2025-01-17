@@ -278,6 +278,7 @@ begin
          i_aqmde_sync         => aqmde_sync           , -- in     t_slv_arr c_NB_COL c_DFLD_AQMDE_S         ; --! Telemetry mode, sync. on first pixel
          i_tsten_ena          => tsten_ena            , -- in     std_logic                                 ; --! Test pattern enable, field Enable ('0' = Inactive, '1' = Active)
          i_tst_pat_end        => tst_pat_end          , -- in     std_logic                                 ; --! Test pattern end of all patterns ('0' = Inactive, '1' = Active)
+         i_tst_pat_end_pat    => tst_pat_end_pat      , -- in     std_logic                                 ; --! Test pattern end of one pattern  ('0' = Inactive, '1' = Active)
          i_tst_pat_new_step   => tst_pat_new_step     , -- in     std_logic                                 ; --! Test pattern new step ('0' = Inactive, '1' = Active)
 
          i_test_pattern       => test_pattern_sc      , -- in     slv c_SC_DATA_SER_W_S*c_SC_DATA_SER_NB    ; --! Test pattern

@@ -66,7 +66,7 @@ signal   d_smfbd              : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SMFBD_COL_S-1 
 signal   d_saomd              : t_slv_arr(0 to c_NB_COL-1)(c_DFLD_SAOMD_COL_S-1 downto 0)                   ; --! Internal design: SQUID AMP offset MUX delay
 signal   d_sqm_fbm_cls_lp_n   : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! Internal design: SQUID MUX feedback mode Closed loop ('0': Yes; '1': No)
 
-signal   sc_pkt_type          : std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0)                              ; --! Science packet type
+signal   sc_pkt_type          : t_slv_arr(0 to c_SC_PKT_W_NB-1)(c_SC_DATA_SER_W_S-1 downto 0)               ; --! Science packet type
 signal   sc_pkt_err           : std_logic                                                                   ; --! Science packet error ('0' = No error, '1' = Error)
 
 signal   ep_cmd               : std_logic_vector(c_EP_CMD_S-1 downto 0)                                     ; --! EP: Command to send
@@ -264,7 +264,7 @@ begin
          i_science_mem_data   => science_mem_data     , -- in     slv c_SC_DATA_SER_NB*c_SC_DATA_SER_W_S    ; --! Science  memory for data compare: data
          i_adc_dmp_mem_cs     => adc_dmp_mem_cs       , -- in     std_logic                                 ; --! ADC Dump memory for data compare: chip select ('0' = Inactive, '1' = Active)
 
-         o_sc_pkt_type        => sc_pkt_type          , -- out    slv(c_SC_DATA_SER_W_S-1 downto 0)         ; --! Science packet type
+         o_sc_pkt_type        => sc_pkt_type          , -- out    t_slv_arr c_SC_PKT_W_NB c_SC_DATA_SER_W_S ; --! Science packet type
          o_sc_pkt_err         => sc_pkt_err             -- out    std_logic                                   --! Science packet error ('0' = No error, '1' = Error)
    );
 
@@ -298,7 +298,7 @@ begin
          i_clk_science_01     => clk_science_01       , -- in     std_logic                                 ; --! Science Data: Clock channel 0/1
          i_clk_science_23     => clk_science_23       , -- in     std_logic                                 ; --! Science Data: Clock channel 2/3
 
-         i_sc_pkt_type        => sc_pkt_type          , -- in     slv(c_SC_DATA_SER_W_S-1 downto 0)         ; --! Science packet type
+         i_sc_pkt_type        => sc_pkt_type          , -- in     t_slv_arr c_SC_PKT_W_NB c_SC_DATA_SER_W_S ; --! Science packet type
          i_sc_pkt_err         => sc_pkt_err           , -- out    std_logic                                 ; --! Science packet error ('0' = No error, '1' = Error)
 
          i_ep_data_rx         => ep_data_rx           , -- in     std_logic_vector(c_EP_CMD_S-1 downto 0)   ; --! EP: Receipted data

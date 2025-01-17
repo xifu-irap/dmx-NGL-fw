@@ -217,11 +217,11 @@ begin
 
    -- @Req : REG_CY_MUX_SQ_INPUT_GAIN
    -- @Req : DRE-DMX-FW-REQ-0147
-   data_rg_rd(c_EP_CMD_POS_SMIGN) <= std_logic_vector(resize(unsigned(rg_col_data_mux(c_EP_MEM_ACC(c_EP_RGC_NUM_SMIGN+1)-1 downto c_EP_MEM_ACC(c_EP_RGC_NUM_SMIGN))), c_EP_SPI_WD_S));
+   data_rg_rd(c_EP_CMD_POS_SMIGN) <= std_logic_vector(resize(unsigned(rg_col_data_mux(c_EP_RGC_ACC(c_EP_RGC_NUM_SMIGN+1)-1 downto c_EP_RGC_ACC(c_EP_RGC_NUM_SMIGN))), c_EP_SPI_WD_S));
 
    -- @Req : REG_CY_AMP_SQ_INPUT_GAIN
    -- @Req : DRE-DMX-FW-REQ-0148
-   data_rg_rd(c_EP_CMD_POS_SAIGN) <= std_logic_vector(resize(unsigned(rg_col_data_mux(c_EP_MEM_ACC(c_EP_RGC_NUM_SAIGN+1)-1 downto c_EP_MEM_ACC(c_EP_RGC_NUM_SAIGN))), c_EP_SPI_WD_S));
+   data_rg_rd(c_EP_CMD_POS_SAIGN) <= std_logic_vector(resize(unsigned(rg_col_data_mux(c_EP_RGC_ACC(c_EP_RGC_NUM_SAIGN+1)-1 downto c_EP_RGC_ACC(c_EP_RGC_NUM_SAIGN))), c_EP_SPI_WD_S));
 
    -- @Req : REG_CY_MUX_SQ_KI_KNORM
    -- @Req : DRE-DMX-FW-REQ-0170
@@ -229,7 +229,7 @@ begin
 
    -- @Req : REG_CY_AMP_SQ_KI_KNORM
    -- @Req : DRE-DMX-FW-REQ-0326
-   data_rg_rd(c_EP_CMD_POS_SAKKM) <= std_logic_vector(resize(unsigned(rg_col_data_mux(c_EP_MEM_ACC(c_EP_RGC_NUM_SAKKM+1)-1 downto c_EP_MEM_ACC(c_EP_RGC_NUM_SAKKM))), c_EP_SPI_WD_S));
+   data_rg_rd(c_EP_CMD_POS_SAKKM) <= std_logic_vector(resize(unsigned(rg_col_data_mux(c_EP_RGC_ACC(c_EP_RGC_NUM_SAKKM+1)-1 downto c_EP_RGC_ACC(c_EP_RGC_NUM_SAKKM))), c_EP_SPI_WD_S));
 
    -- @Req : REG_CY_MUX_SQ_KNORM
    -- @Req : DRE-DMX-FW-REQ-0392
@@ -237,7 +237,7 @@ begin
 
    -- @Req : REG_CY_AMP_SQ_KNORM
    -- @Req : DRE-DMX-FW-REQ-0392
-   data_rg_rd(c_EP_CMD_POS_SAKRM) <= std_logic_vector(resize(unsigned(rg_col_data_mux(c_EP_MEM_ACC(c_EP_RGC_NUM_SAKRM+1)-1 downto c_EP_MEM_ACC(c_EP_RGC_NUM_SAKRM))), c_EP_SPI_WD_S));
+   data_rg_rd(c_EP_CMD_POS_SAKRM) <= std_logic_vector(resize(unsigned(rg_col_data_mux(c_EP_RGC_ACC(c_EP_RGC_NUM_SAKRM+1)-1 downto c_EP_RGC_ACC(c_EP_RGC_NUM_SAKRM))), c_EP_SPI_WD_S));
 
    -- @Req : REG_CY_MUX_SQ_FB0
    -- @Req : DRE-DMX-FW-REQ-0200
@@ -258,7 +258,7 @@ begin
 
    -- @Req : REG_CY_AMP_SQ_OFFSET_LSB_PTR
    -- @Req : DRE-DMX-FW-REQ-0298
-   data_rg_rd(c_EP_CMD_POS_SAOLP) <= std_logic_vector(resize(unsigned(rg_col_data_mux(c_EP_MEM_ACC(c_EP_RGC_NUM_SAOLP+1)-1 downto c_EP_MEM_ACC(c_EP_RGC_NUM_SAOLP))), c_EP_SPI_WD_S));
+   data_rg_rd(c_EP_CMD_POS_SAOLP) <= std_logic_vector(resize(unsigned(rg_col_data_mux(c_EP_RGC_ACC(c_EP_RGC_NUM_SAOLP+1)-1 downto c_EP_RGC_ACC(c_EP_RGC_NUM_SAOLP))), c_EP_SPI_WD_S));
 
    -- @Req : REG_CY_AMP_SQ_OFFSET_COARSE
    -- @Req : DRE-DMX-FW-REQ-0290

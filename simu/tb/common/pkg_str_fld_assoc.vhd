@@ -474,25 +474,34 @@ constant c_PAD                : character := ' '                                
    variable v_fld_sc_pkt_pad  : line                                                                        ; --  Field science packet type with padding
    begin
 
+      -- Drop padding character(s)
+      drop_line_char(b_line, c_PAD, b_line);
+
       -- Get the science packet type name
       rfield_pad(b_line, c_PAD, c_CMD_NAME_STR_MAX_S, v_fld_sc_pkt_pad);
 
       -- Return the science packet type value
       case v_fld_sc_pkt_pad(c_ONE_INT to c_CMD_NAME_STR_MAX_S) is
-         when "science_data                  "  =>
-            o_fld_sc_pkt_val:= c_SC_CTRL_SC_DTA;
+         when "data_word                     "  =>
+            o_fld_sc_pkt_val:= c_SC_CTRL_DTW;
+
+         when "science                       "  =>
+            o_fld_sc_pkt_val:= c_SC_CTRL_FWS;
 
          when "test_pattern                  "  =>
-            o_fld_sc_pkt_val:= c_SC_CTRL_TST_PAT;
+            o_fld_sc_pkt_val:= c_SC_CTRL_TPT;
 
          when "adc_dump                      "  =>
-            o_fld_sc_pkt_val:= c_SC_CTRL_ADC_DMP;
+            o_fld_sc_pkt_val:= c_SC_CTRL_FWD;
 
-         when "error_signal                  "  =>
-            o_fld_sc_pkt_val:= c_SC_CTRL_ERRS;
+         when "adc_data                      "  =>
+            o_fld_sc_pkt_val:= c_SC_CTRL_FWA;
+
+         when "demux_data_valid              "  =>
+            o_fld_sc_pkt_val:= c_SC_CTRL_DDV;
 
          when "ras_data_valid                "  =>
-            o_fld_sc_pkt_val:= c_SC_CTRL_RAS_VLD;
+            o_fld_sc_pkt_val:= c_SC_CTRL_RDV;
 
          when others                            =>
             o_fld_sc_pkt_val:= c_RET_UKWN(o_fld_sc_pkt_val'range);

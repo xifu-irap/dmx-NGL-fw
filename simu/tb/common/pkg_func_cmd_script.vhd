@@ -110,11 +110,12 @@ type     t_wait_cmd_end         is (none, wait_cmd_end_tx, wait_rcmd_end_rx)    
    );
 
    -- ------------------------------------------------------------------------------------------------------
-   --! Get parameters command CSCP [science_packet] : check the science packet type
+   --! Get parameters command CSCP [science_ctrl_pos] [science_packet] : check the science packet type
    -- ------------------------------------------------------------------------------------------------------
    procedure get_param_cscp (
          b_cmd_file_line      : inout  line                                                                 ; --  Command file line
          i_mess_header        : in     string                                                               ; --  Message header
+         o_fld_sc_ctrl_pos    : out    integer range 0 to c_SC_PKT_W_NB-1                                   ; --  Field science control position
          o_fld_sc_pkt         : out    line                                                                 ; --  Field science packet type
          o_fld_sc_pkt_val     : out    std_logic_vector                                                       --  Field science packet type value
    );
@@ -474,15 +475,20 @@ package body pkg_func_cmd_script is
    end get_param_cldc;
 
    -- ------------------------------------------------------------------------------------------------------
-   --! Get parameters command CSCP [science_packet] : check the science packet type
+   --! Get parameters command CSCP [science_ctrl_pos] [science_packet] : check the science packet type
    -- ------------------------------------------------------------------------------------------------------
    procedure get_param_cscp (
          b_cmd_file_line      : inout  line                                                                 ; --  Command file line
          i_mess_header        : in     string                                                               ; --  Message header
+         o_fld_sc_ctrl_pos    : out    integer range 0 to c_SC_PKT_W_NB-1                                   ; --  Field science control position
          o_fld_sc_pkt         : out    line                                                                 ; --  Field science packet type
          o_fld_sc_pkt_val     : out    std_logic_vector                                                       --  Field science packet type value
    ) is
    begin
+
+      -- Get [science_ctrl_pos]
+      rfield(b_cmd_file_line, i_mess_header & "[science_ctrl_pos]", o_fld_sc_ctrl_pos);
+      assert o_fld_sc_ctrl_pos < c_SC_PKT_W_NB report i_mess_header & "[science_ctrl_pos]" & c_MESS_ERR_SIZE severity failure;
 
       -- Get [science_packet]
       get_sc_pkt_type(b_cmd_file_line, o_fld_sc_pkt, o_fld_sc_pkt_val);

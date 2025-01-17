@@ -72,7 +72,7 @@ entity science_data_model is generic (
          i_science_mem_data   : in     std_logic_vector(c_SC_DATA_SER_NB*c_SC_DATA_SER_W_S-1 downto 0)      ; --! Science  memory for data compare: data
          i_adc_dmp_mem_cs     : in     std_logic_vector(        c_NB_COL-1 downto 0)                        ; --! ADC Dump memory for data compare: chip select ('0' = Inactive, '1' = Active)
 
-         o_sc_pkt_type        : out    std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0)                       ; --! Science packet type
+         o_sc_pkt_type        : out    t_slv_arr(0 to c_SC_PKT_W_NB-1)(c_SC_DATA_SER_W_S-1 downto 0)        ; --! Science packet type
          o_sc_pkt_err         : out    std_logic                                                              --! Science packet error ('0' = No error, '1' = Error)
    );
 end entity science_data_model;
@@ -283,7 +283,7 @@ begin
    variable v_err_sc_pkt_size : std_logic                                                                   ; --! Error science packet size ('0' = No error, '1' = Error)
    variable v_err_sc_data     : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! Error science data ('0' = No error, '1' = Error)
 
-   variable v_ctrl_first_pkt  : std_logic := c_LOW_LEV                                                      ; --! Control word first packet detected ('0' = No, '1' = Yes)
+   variable v_sc_ctrl_fst_w   : std_logic := c_LOW_LEV                                                      ; --! Science data, first control word detected ('0' = No, '1' = Yes)
    variable v_packet_tx_time  : time := c_ZERO_TIME                                                         ; --! Science packet first word transmit time
    variable v_packet_type     : line := null                                                                ; --! Science packet type
    variable v_packet_dump     : std_logic := c_LOW_LEV                                                      ; --! Science packet dump ('0' = No, '1' = Yes)
@@ -295,8 +295,9 @@ begin
 
       -- Variable initialization
       write(v_packet_type, c_ZERO_INT);
-      packet_end   <= c_HGH_LEV;
-      o_sc_pkt_err <= c_LOW_LEV;
+      packet_end     <= c_HGH_LEV;
+      o_sc_pkt_type  <= (others => c_SC_CTRL_DTW);
+      o_sc_pkt_err   <= c_LOW_LEV;
 
       -- Check if science data analysis is required for unitary test
       if g_TST_NUM /= c_TST_NUM_DEF then
@@ -349,26 +350,33 @@ begin
                -- ------------------------------------------------------------------------------------------------------
                --    Case Science first data packet
                -- ------------------------------------------------------------------------------------------------------
-               when c_SC_CTRL_SC_DTA | c_SC_CTRL_TST_PAT | c_SC_CTRL_ADC_DMP | c_SC_CTRL_ERRS | c_SC_CTRL_RAS_VLD =>
-                  sc_data_first_pkt(science_data_ctrl(science_data_ctrl'low), science_data,     packet_end,       v_ctrl_first_pkt,
-                                    v_packet_tx_time                        , v_packet_type,    v_packet_dump,    v_packet_size,
-                                    v_packet_size_exp,                        v_packet_content, v_err_sc_pkt_eod, o_sc_pkt_type);
+               when c_SC_CTRL_FWS | c_SC_CTRL_TPT | c_SC_CTRL_FWD | c_SC_CTRL_FWA | c_SC_CTRL_RDV | c_SC_CTRL_DDV =>
+                  if v_packet_size = c_ONE_INT then
+                     sc_data_first_pkt(science_data_ctrl(science_data_ctrl'low), science_data,     packet_end,        v_sc_ctrl_fst_w,
+                                       v_packet_tx_time                        , v_packet_type,    v_packet_dump,     v_packet_size,
+                                       v_packet_size_exp,                        v_packet_content, v_err_sc_ctrl_ukn, v_err_sc_pkt_eod,
+                                       o_sc_pkt_type);
+
+                  else
+                     sc_data_sec_pkt(science_data_ctrl(science_data_ctrl'low), v_packet_type, v_err_sc_ctrl_ukn, o_sc_pkt_type);
+
+                  end if;
 
                -- ------------------------------------------------------------------------------------------------------
                --    Case Science data word
                -- ------------------------------------------------------------------------------------------------------
-               when c_SC_CTRL_DTA_W       =>
+               when c_SC_CTRL_DTW       =>
 
                   -- Case End of packet
                   if v_packet_size >= v_packet_size_exp then
-                     sc_data_end_pkt(v_packet_size_exp,  v_packet_content,  v_ctrl_first_pkt, v_packet_tx_time,
+                     sc_data_end_pkt(v_packet_size_exp,  v_packet_content,  v_sc_ctrl_fst_w,  v_packet_tx_time,
                                      v_packet_type,      v_packet_size,     v_packet_dump,    packet_end,
                                      v_err_sc_pkt_start, v_err_sc_pkt_size, o_sc_pkt_type,    scd_file);
 
                   -- Case Data packet
                   else
                      -- Check start packet was sent before acquiring an another word
-                     v_err_sc_pkt_start := not(v_ctrl_first_pkt);
+                     v_err_sc_pkt_start := not(v_sc_ctrl_fst_w);
 
                   end if;
 

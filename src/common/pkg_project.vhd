@@ -42,7 +42,7 @@ package pkg_project is
    --    @Req : DRE-DMX-FW-REQ-0120
    --    @Req : DRE-DMX-FW-REQ-0270
    -- ------------------------------------------------------------------------------------------------------
-constant c_FW_VERSION         : integer   := 16#000D#                                                       ; --! Firmware version
+constant c_FW_VERSION         : integer   := 16#000E#                                                       ; --! Firmware version
 
 constant c_FF_RSYNC_NB        : integer   := 2                                                              ; --! Flip-Flop number used for FPGA input resynchronization
 constant c_FF_RST_NB          : integer   := 6                                                              ; --! Flip-Flop number used for internal reset: System Clock
@@ -353,13 +353,14 @@ constant c_SQA_PXL_POS_S      : integer := log2_ceil(c_SQA_PXL_POS_MX_VAL+1)+1  
    --!   Science Data Transmit parameters
    --    @Req : DRE-DMX-FW-REQ-0590
    -- ------------------------------------------------------------------------------------------------------
-constant c_SC_CTRL_DTA_W      : std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0) := "11000000"                ; --! Science data, control word value: Data Word
-constant c_SC_CTRL_ADC_DMP    : std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0) := "11000010"                ; --! Science data, control word value: SQUID MUX ADC dump packet first word
-constant c_SC_CTRL_SC_DTA     : std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0) := "11001000"                ; --! Science data, control word value: Science data packet first word
-constant c_SC_CTRL_RAS_VLD    : std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0) := "11001010"                ; --! Science data, control word value: RAS Data valid packet first word
-constant c_SC_CTRL_TST_PAT    : std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0) := "11100000"                ; --! Science data, control word value: Test pattern packet first word
-constant c_SC_CTRL_ERRS       : std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0) := "11100010"                ; --! Science data, control word value: Error signal first word
-constant c_SC_CTRL_IDLE       : std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0) := "00000000"                ; --! Science data, control word value: Idle
+constant c_SC_CTRL_DTW        : std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0) := "11000000"                ; --! Science data, control word value: Data Word
+constant c_SC_CTRL_FWD        : std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0) := "11000010"                ; --! Science data, control word value: First Word of ADC Dump
+constant c_SC_CTRL_FWS        : std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0) := "11001000"                ; --! Science data, control word value: First Word of Science
+constant c_SC_CTRL_FWA        : std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0) := "11001010"                ; --! Science data, control word value: First Word of ADC data
+constant c_SC_CTRL_DDV        : std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0) := "11100000"                ; --! Science data, control word value: DEMUX Data Valid
+constant c_SC_CTRL_RDV        : std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0) := "11100010"                ; --! Science data, control word value: RAS Data Valid
+constant c_SC_CTRL_TPT        : std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0) := "11101000"                ; --! Science data, control word value: Test Pattern
+constant c_SC_CTRL_IDL        : std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0) := "00000000"                ; --! Science data, control word value: Idle
 
 constant c_SC_DATA_IDLE_VAL   : std_logic_vector(c_SC_DATA_SER_W_S*c_SC_DATA_SER_NB-1 downto 0) := x"0000"  ; --! Science data: word sent when Telemetry mode on one column is in Idle
 
