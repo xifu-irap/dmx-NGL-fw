@@ -5,7 +5,7 @@ DRE-DEMUX TDM firmware, specific to Demonstrator Model Board 0: https://github.c
    - Synthesis tool: nxdesignsuite v24.1.0.2. For simulation, Questasim must used modelsim directory from nxdesignsuite v23.5.1.2
    - Firmware specification:
       + IRAP/XIFU-DRE/FM/SP/0065 - DRE TDM firmware requirements, ed. 1.0
-      + IRAP/XIFU-DRE/FM/SP/0069 - DRE Inter-Modules Telemetry And Commands Definition, ed. 4.0
+      + IRAP/XIFU-DRE/FM/SP/0069 - DRE Inter-Modules Telemetry And Commands Definition, ed. 5.0
       + IRAP/XIFU-DRE/FM/SP/0136 - FPAsim command dictionnary, ed. ??
    - FPASIM simulation coupling: https://github.com/xifu-irap/fpasim-fw (tag 2.2.3)
 
@@ -139,11 +139,13 @@ DRE-DEMUX TDM firmware, specific to Demonstrator Model Board 0: https://github.c
 ## 7. Science packet type
 
    Select the science packet type
-   - **science_data**
+   - **data_word**
+   - **science**
    - **test_pattern**
    - **adc_dump**
-   - **error_signal**
+   - **adc_data**
    - **ras_data_valid**
+   - **demux_data_valid**
 
 
 ## 8. Unitary test script commands description
@@ -179,7 +181,8 @@ DRE-DEMUX TDM firmware, specific to Demonstrator Model Board 0: https://github.c
       + Parameter **value** : SQUID MUX ADC input value expected in real
 
 
-   - Command CSCP **science_packet** : check the science packet type
+   - Command CSCP **science_ctrl_pos** **science_packet** : check the science packet type
+      + Parameter **science_ctrl_pos**: decimal range 0 to c_SC_PKT_W_NB-1, science control position
       + Parameter **science_packet** : science packet type select (see 7 on science packet type description)
 
 

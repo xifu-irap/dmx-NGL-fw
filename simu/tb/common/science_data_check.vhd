@@ -98,6 +98,8 @@ signal   seq_cnt              : std_logic_vector(            c_SEQ_CNT_S-1 downt
 signal   pls_cnt_sc           : std_logic_vector(         c_PLS_CNT_SC_S-1 downto 0)                        ; --! Pulse counter (Science case)
 signal   frm_cnt_sc           : std_logic_vector(         c_FRM_CNT_SC_S-1 downto 0)                        ; --! Frame counter (Science case)
 
+signal   science_dta_ctrl_lst : std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0)                              ; --! Science Data: Control word last
+
 signal   sm_mode_sel          : t_tm_mode_sel                                                               ; --! Mode selection FSM
 
 signal   science_data_rdy_r   : std_logic_vector(1 downto 0)                                                ; --! Science Data Ready register ('0' = Inactive, '1' = Active)
@@ -132,7 +134,7 @@ begin
       elsif rising_edge(i_clk_science) then
          if i_science_data_rdy = c_HGH_LEV then
 
-            if    i_science_data_ctrl /= c_SC_CTRL_DTA_W then
+            if    i_science_data_ctrl /= c_SC_CTRL_DTW then
                pls_cnt <= std_logic_vector(to_signed(c_PLS_CNT_MAX_VAL, pls_cnt'length));
 
             elsif pls_cnt(pls_cnt'high) = c_HGH_LEV and (
@@ -164,7 +166,7 @@ begin
       elsif rising_edge(i_clk_science) then
          if i_science_data_rdy = c_HGH_LEV then
 
-            if    i_science_data_ctrl /= c_SC_CTRL_DTA_W then
+            if    i_science_data_ctrl /= c_SC_CTRL_DTW then
                pixel_pos <= c_ZERO(pixel_pos'range);
 
             elsif pls_cnt(pls_cnt'high) = c_HGH_LEV and
@@ -195,7 +197,7 @@ begin
       elsif rising_edge(i_clk_science) then
          if i_science_data_rdy = c_HGH_LEV then
 
-            if i_science_data_ctrl /= c_SC_CTRL_DTA_W then
+            if i_science_data_ctrl /= c_SC_CTRL_DTW then
                seq_cnt <= c_ZERO(seq_cnt'range);
 
             elsif pls_cnt(pls_cnt'high) = c_HGH_LEV and pixel_pos = std_logic_vector(to_unsigned(c_PIXEL_POS_MAX_VAL , pixel_pos'length)) then
@@ -221,7 +223,8 @@ begin
       elsif rising_edge(i_clk_science) then
          if i_science_data_rdy = c_HGH_LEV then
 
-            if    i_science_data_ctrl = c_SC_CTRL_ERRS or i_science_data_ctrl = c_SC_CTRL_SC_DTA or i_science_data_ctrl = c_SC_CTRL_TST_PAT or i_science_data_ctrl = c_SC_CTRL_RAS_VLD then
+            if    i_science_data_ctrl = c_SC_CTRL_FWA or i_science_data_ctrl = c_SC_CTRL_FWS or
+                 (i_science_data_ctrl = c_SC_CTRL_TPT and science_dta_ctrl_lst = c_SC_CTRL_DTW) then
                pls_cnt_sc <= c_ZERO(pls_cnt_sc'range);
 
             elsif pls_cnt_sc < std_logic_vector(to_unsigned(c_PLS_CNT_SC_MAX_VAL, pls_cnt_sc'length)) then
@@ -258,6 +261,25 @@ begin
    end process P_frm_cnt_sc;
 
    -- ------------------------------------------------------------------------------------------------------
+   --!   Science Data: Control word last
+   -- ------------------------------------------------------------------------------------------------------
+   P_sc_dta_ctrl_lst : process (i_rst, i_clk_science)
+   begin
+
+      if i_rst = c_RST_LEV_ACT then
+         science_dta_ctrl_lst <= c_SC_CTRL_DTW;
+
+      elsif rising_edge(i_clk_science) then
+         if i_science_data_rdy = c_HGH_LEV then
+            science_dta_ctrl_lst   <= i_science_data_ctrl;
+
+         end if;
+
+      end if;
+
+   end process P_sc_dta_ctrl_lst;
+
+   -- ------------------------------------------------------------------------------------------------------
    --!   Mode selection
    -- ------------------------------------------------------------------------------------------------------
    P_mode_sel : process (i_rst, i_clk_science)
@@ -267,16 +289,16 @@ begin
          sm_mode_sel <= idle;
 
       elsif rising_edge(i_clk_science) then
-         if    i_science_data_ctrl = c_SC_CTRL_ERRS then
+         if    i_science_data_ctrl = c_SC_CTRL_FWA then
             sm_mode_sel   <= error_sig;
 
-         elsif i_science_data_ctrl = c_SC_CTRL_SC_DTA then
+         elsif i_science_data_ctrl = c_SC_CTRL_FWS then
             sm_mode_sel   <= science;
 
-         elsif  i_science_data_ctrl = c_SC_CTRL_ADC_DMP then
+         elsif i_science_data_ctrl = c_SC_CTRL_FWD then
             sm_mode_sel   <= dump;
 
-         elsif  i_science_data_ctrl = c_SC_CTRL_TST_PAT then
+         elsif i_science_data_ctrl = c_SC_CTRL_TPT and science_dta_ctrl_lst = c_SC_CTRL_DTW then
             sm_mode_sel   <= test_pattern;
 
          end if;

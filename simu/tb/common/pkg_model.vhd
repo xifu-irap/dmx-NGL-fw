@@ -353,7 +353,8 @@ constant c_MEM_SC_ADD_S       : integer := c_MEM_SC_FRM_NB_S + c_MUX_FACT_S     
 constant c_SQM_ADC_ERR_VAL    : real    := 10.0**(-7)                                                       ; --! SQUID MUX ADC error value
 constant c_PLS_SHP_ERR_VAL    : real    :=  2.0**(-c_SQM_DAC_DATA_S+2)                                      ; --! Pulse shaping error value
 
-constant c_SER_WD_MAX_S       : integer   := 2*c_EP_CMD_S                                                   ; --! EP SPI serial word maximal size
+constant c_SER_WD_MAX_S       : integer := 2*c_EP_CMD_S                                                     ; --! EP SPI serial word maximal size
+constant c_SC_PKT_W_NB        : integer := 2                                                                ; --! Science packet word number
 
 constant c_SQM_ADC_BUG_COL    : integer := 3                                                                ; --! ADC bug simulation: Column number
 constant c_SQM_ADC_BUG_BIT_DF : integer := 12                                                               ; --! ADC bug simulation: Data bit number in default for ADC bug simulation
@@ -524,7 +525,7 @@ constant c_SCHK               : t_spi_chk_prm_arr(0 to c_CHK_ENA_SPI_NB-1) :=
          i_clk_science_01     : in     std_logic                                                            ; --! Science Data: Clock channel 0/1
          i_clk_science_23     : in     std_logic                                                            ; --! Science Data: Clock channel 2/3
 
-         i_sc_pkt_type        : in     std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0)                       ; --! Science packet type
+         i_sc_pkt_type        : in     t_slv_arr(0 to c_SC_PKT_W_NB-1)(c_SC_DATA_SER_W_S-1 downto 0)        ; --! Science packet type
          i_sc_pkt_err         : in     std_logic                                                            ; --! Science packet error ('0' = No error, '1' = Error)
 
          i_ep_data_rx         : in     std_logic_vector(c_EP_CMD_S-1 downto 0)                              ; --! EP: Receipted data
@@ -586,7 +587,7 @@ constant c_SCHK               : t_spi_chk_prm_arr(0 to c_CHK_ENA_SPI_NB-1) :=
          i_science_mem_data   : in     std_logic_vector(c_SC_DATA_SER_NB*c_SC_DATA_SER_W_S-1 downto 0)      ; --! Science  memory for data compare: data
          i_adc_dmp_mem_cs     : in     std_logic_vector(        c_NB_COL-1 downto 0)                        ; --! ADC Dump memory for data compare: chip select ('0' = Inactive, '1' = Active)
 
-         o_sc_pkt_type        : out    std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0)                       ; --! Science packet type
+         o_sc_pkt_type        : out    t_slv_arr(0 to c_SC_PKT_W_NB-1)(c_SC_DATA_SER_W_S-1 downto 0)        ; --! Science packet type
          o_sc_pkt_err         : out    std_logic                                                              --! Science packet error ('0' = No error, '1' = Error)
    );
    end component science_data_model;

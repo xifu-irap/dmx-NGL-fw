@@ -18,7 +18,7 @@ verific -vhdl ./src/common/im_ck.vhd
 verific -vhdl ./src/common/rst_gen.vhd
 verific -vhdl ./src/common/rst_clk_mgt.vhd
 verific -vhdl ./src/common/in_rs_clk.vhd
-verific -vhdl ./src/common/in_rs_sqm_adc_dc.vhd
+verific -vhdl ./src/common/in_rs_clk_adc_dc.vhd
 verific -vhdl ./src/common/round_sat.vhd
 verific -vhdl ./src/common/adder_sat.vhd
 verific -vhdl ./src/common/spi_slave.vhd

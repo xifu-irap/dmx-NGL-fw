@@ -73,7 +73,7 @@ entity parser is generic (
          i_clk_science_01     : in     std_logic                                                            ; --! Science Data: Clock channel 0/1
          i_clk_science_23     : in     std_logic                                                            ; --! Science Data: Clock channel 2/3
 
-         i_sc_pkt_type        : in     std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0)                       ; --! Science packet type
+         i_sc_pkt_type        : in     t_slv_arr(0 to c_SC_PKT_W_NB-1)(c_SC_DATA_SER_W_S-1 downto 0)        ; --! Science packet type
          i_sc_pkt_err         : in     std_logic                                                            ; --! Science packet error ('0' = No error, '1' = Error)
 
          i_ep_data_rx         : in     std_logic_vector(c_EP_CMD_S-1 downto 0)                              ; --! EP: Receipted data
@@ -307,7 +307,7 @@ begin
                   parser_cmd_cldc(v_cmd_file_line, v_head_mess_stdout.all, res_file, i_sqm_adc_ana, v_error_cat(c_ERR_CHK_DIS_R));
 
                -- ------------------------------------------------------------------------------------------------------
-               -- Command CSCP [science_packet] : check the science packet type
+               -- Command CSCP [science_ctrl_pos] [science_packet] : check the science packet type
                -- ------------------------------------------------------------------------------------------------------
                when "CSCP" =>
                   parser_cmd_cscp(v_cmd_file_line, v_head_mess_stdout.all, res_file, i_sc_pkt_type, v_error_cat(c_ERR_CHK_SC_PKT));

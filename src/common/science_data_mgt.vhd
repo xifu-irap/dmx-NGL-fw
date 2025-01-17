@@ -42,6 +42,7 @@ entity science_data_mgt is port (
          i_aqmde_sync         : in     t_slv_arr(0 to c_NB_COL-1)(c_DFLD_AQMDE_S-1 downto 0)                ; --! Telemetry mode, sync. on first pixel
          i_tsten_ena          : in     std_logic                                                            ; --! Test pattern enable, field Enable ('0' = Inactive, '1' = Active)
          i_tst_pat_end        : in     std_logic                                                            ; --! Test pattern end of all patterns ('0' = Inactive, '1' = Active)
+         i_tst_pat_end_pat    : in     std_logic                                                            ; --! Test pattern end of one pattern  ('0' = Inactive, '1' = Active)
          i_tst_pat_new_step   : in     std_logic                                                            ; --! Test pattern new step ('0' = Inactive, '1' = Active)
 
          i_test_pattern       : in     std_logic_vector(c_SC_DATA_SER_W_S*c_SC_DATA_SER_NB-1 downto 0)      ; --! Test pattern
@@ -99,19 +100,24 @@ signal   sqm_data_sc_fst_ena  : std_logic_vector(c_NB_COL-1 downto 0)           
 signal   sqm_data_sc_fst_and  : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! SQUID MUX Data science first pixel "and-ed"
 signal   sqm_data_sc_fst_all  : std_logic                                                                   ; --! SQUID MUX Data science first pixel for all columns
 signal   sqm_dta_sc_fst_all_r : std_logic                                                                   ; --! SQUID MUX Data science first pixel for all columns register
+signal   sqm_data_sc_sec_all  : std_logic                                                                   ; --! SQUID MUX Data science second pixel for all columns
+signal   sqm_data_sc_thd_all  : std_logic                                                                   ; --! SQUID MUX Data science third pixel for all columns
 signal   sqm_data_sc_lst_ena  : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! SQUID MUX Data science last pixel enable ('0' = No, '1' = Yes)
 signal   sqm_data_sc_lst_and  : std_logic_vector(c_NB_COL-1 downto 0)                                       ; --! SQUID MUX Data science last pixel "and-ed"
 signal   sqm_data_sc_lst_all  : std_logic                                                                   ; --! SQUID MUX Data science last pixel for all columns
 signal   sqm_dta_sc_lst_all_r : std_logic                                                                   ; --! SQUID MUX Data science last pixel for all columns register
 
 signal   aqmde_sync           : std_logic_vector(c_DFLD_AQMDE_S-1 downto 0)                                 ; --! Telemetry mode, sync on pixel sequence
+signal   tsten_ena_r          : std_logic                                                                   ; --! Test pattern enable register
 signal   tst_pat_end_r        : std_logic                                                                   ; --! Test pattern end of all patterns register
 signal   tst_pat_end_sync     : std_logic                                                                   ; --! Test pattern end of all patterns, sync on pixel sequence
+signal   tst_pat_bgn          : std_logic                                                                   ; --! Test pattern begin
 
 signal   dmp_cnt              : std_logic_vector(c_DMP_CNT_S-1 downto 0)                                    ; --! Dump counter
 signal   dmp_cnt_msb_r        : std_logic_vector(c_MEM_RD_DATA_NPER downto 0)                               ; --! Dump counter msb register
 
-signal   ctrl_first_pkt       : std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0)                              ; --! Control first packet value
+signal   sc_ctrl_fst_w        : std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0)                              ; --! Science data, first control word value
+signal   sc_ctrl_sec_w        : std_logic_vector(c_SC_DATA_SER_W_S-1 downto 0)                              ; --! Science data, second control word value
 
 signal   science_frame_ena    : std_logic                                                                   ; --! Science frame enable
 signal   science_data_tx_ena  : std_logic                                                                   ; --! Science Data transmit enable
@@ -136,7 +142,7 @@ begin
          if (i_ras_data_valid_rs and not(ras_data_valid_rs_r)) = c_HGH_LEV then
             ras_data_valid_ltc   <= c_HGH_LEV;
 
-         elsif (aqmde_sync = c_DST_AQMDE_SCIE) and (sqm_dta_sc_fst_all_r and science_data_tx_ena) = c_HGH_LEV then
+         elsif (aqmde_sync = c_DST_AQMDE_SCIE or aqmde_sync = c_DST_AQMDE_ERRS) and (sqm_data_sc_sec_all and science_data_tx_ena) = c_HGH_LEV then
             ras_data_valid_ltc   <= c_LOW_LEV;
 
          end if;
@@ -323,6 +329,8 @@ begin
          sqm_dta_sc_rdy_all_r <= (others => c_LOW_LEV);
          sqm_dta_sc_fst_all_r <= c_LOW_LEV;
          sqm_dta_sc_lst_all_r <= c_LOW_LEV;
+         sqm_data_sc_sec_all  <= c_LOW_LEV;
+         sqm_data_sc_thd_all  <= c_LOW_LEV;
 
       elsif rising_edge(i_clk) then
          if (sqm_data_sc_rdy_and(sqm_data_sc_rdy_and'high) or sqm_data_sc_fst_and(sqm_data_sc_fst_and'high)) = c_HGH_LEV then
@@ -334,6 +342,12 @@ begin
          sqm_dta_sc_rdy_all_r <= sqm_dta_sc_rdy_all_r(sqm_dta_sc_rdy_all_r'high-1 downto 0) & (sqm_data_sc_rdy_and(sqm_data_sc_rdy_and'high) or sqm_data_sc_fst_and(sqm_data_sc_fst_and'high));
          sqm_dta_sc_fst_all_r <= sqm_data_sc_fst_all;
          sqm_dta_sc_lst_all_r <= sqm_data_sc_lst_all;
+
+         if sqm_dta_sc_rdy_all_r(sqm_dta_sc_rdy_all_r'low) = c_HGH_LEV then
+            sqm_data_sc_sec_all <= sqm_dta_sc_fst_all_r;
+            sqm_data_sc_thd_all <= sqm_data_sc_sec_all;
+
+         end if;
 
       end if;
 
@@ -363,6 +377,31 @@ begin
       end if;
 
    end process P_aqmde_sync;
+
+   -- ------------------------------------------------------------------------------------------------------
+   --!   Test pattern begin
+   -- ------------------------------------------------------------------------------------------------------
+   P_tst_pat_bgn : process (i_rst, i_clk)
+   begin
+
+      if i_rst = c_RST_LEV_ACT then
+         tsten_ena_r <= c_LOW_LEV;
+         tst_pat_bgn <= c_LOW_LEV;
+
+      elsif rising_edge(i_clk) then
+         tsten_ena_r <= i_tsten_ena;
+
+         if ((i_tsten_ena and not(tsten_ena_r)) or i_tst_pat_end_pat) = c_HGH_LEV then
+            tst_pat_bgn <= c_HGH_LEV;
+
+         elsif (sqm_data_sc_thd_all or not(i_tsten_ena)) = c_HGH_LEV then
+            tst_pat_bgn <= c_LOW_LEV;
+
+         end if;
+
+      end if;
+
+   end process P_tst_pat_bgn;
 
    -- ------------------------------------------------------------------------------------------------------
    --!   Dump counter
@@ -400,35 +439,40 @@ begin
    o_sqm_mem_dump_add   <= dmp_cnt(o_sqm_mem_dump_add'high downto 0);
 
    -- ------------------------------------------------------------------------------------------------------
-   --!   Control packet value
+   --!   Control word value
    -- ------------------------------------------------------------------------------------------------------
-   ctrl_first_pkt <= c_SC_CTRL_RAS_VLD when (aqmde_sync = c_DST_AQMDE_SCIE and ras_data_valid_ltc = c_HGH_LEV) else
-                     c_SC_CTRL_RAS_VLD when (aqmde_sync = c_DST_AQMDE_SCIE and (i_tsten_ena and i_tst_pat_new_step) = c_HGH_LEV) else
-                     c_SC_CTRL_SC_DTA  when  aqmde_sync = c_DST_AQMDE_SCIE else
-                     c_SC_CTRL_RAS_VLD when (aqmde_sync = c_DST_AQMDE_ERRS and (i_tsten_ena and i_tst_pat_new_step) = c_HGH_LEV) else
-                     c_SC_CTRL_ERRS    when  aqmde_sync = c_DST_AQMDE_ERRS else
-                     c_SC_CTRL_ADC_DMP when  aqmde_sync = c_DST_AQMDE_DUMP else
-                     c_SC_CTRL_TST_PAT when  aqmde_sync = c_DST_AQMDE_TEST else
-                     c_SC_CTRL_IDLE;
+   sc_ctrl_fst_w  <= c_SC_CTRL_FWS when  aqmde_sync = c_DST_AQMDE_SCIE else
+                     c_SC_CTRL_FWA when  aqmde_sync = c_DST_AQMDE_ERRS else
+                     c_SC_CTRL_FWD when  aqmde_sync = c_DST_AQMDE_DUMP else
+                     c_SC_CTRL_TPT when  aqmde_sync = c_DST_AQMDE_TEST else
+                     c_SC_CTRL_IDL;
 
-   --! Control packet management
+   sc_ctrl_sec_w  <= c_SC_CTRL_TPT when ((aqmde_sync = c_DST_AQMDE_SCIE or aqmde_sync = c_DST_AQMDE_ERRS) and tst_pat_bgn = c_HGH_LEV) else
+                     c_SC_CTRL_DDV when ((aqmde_sync = c_DST_AQMDE_SCIE or aqmde_sync = c_DST_AQMDE_ERRS) and (i_tsten_ena and i_tst_pat_new_step) = c_HGH_LEV) else
+                     c_SC_CTRL_RDV when ((aqmde_sync = c_DST_AQMDE_SCIE or aqmde_sync = c_DST_AQMDE_ERRS) and ras_data_valid_ltc = c_HGH_LEV) else
+                     c_SC_CTRL_DTW;
+
+   --! Control word management
    P_ctrl_pkt : process (i_rst, i_clk)
    begin
 
       if i_rst = c_RST_LEV_ACT then
-         science_data(science_data'high) <= c_SC_CTRL_IDLE;
+         science_data(science_data'high) <= c_SC_CTRL_IDL;
 
       elsif rising_edge(i_clk) then
          if aqmde_sync = c_DST_AQMDE_IDLE or (aqmde_sync = c_DST_AQMDE_TEST and tst_pat_end_sync = c_HGH_LEV) then
-            science_data(science_data'high) <= c_SC_CTRL_IDLE;
+            science_data(science_data'high) <= c_SC_CTRL_IDL;
 
          elsif  ((aqmde_sync = c_DST_AQMDE_DUMP) and (dmp_cnt_msb_r(dmp_cnt_msb_r'high) and i_sqm_mem_dump_bsy) = c_HGH_LEV) or
                (((aqmde_sync = c_DST_AQMDE_SCIE) or  (aqmde_sync = c_DST_AQMDE_ERRS) or
                 ((aqmde_sync = c_DST_AQMDE_TEST))) and sqm_dta_sc_fst_all_r = c_HGH_LEV) then
-            science_data(science_data'high) <= ctrl_first_pkt;
+            science_data(science_data'high) <= sc_ctrl_fst_w;
+
+         elsif sqm_data_sc_sec_all = c_HGH_LEV then
+            science_data(science_data'high) <= sc_ctrl_sec_w;
 
          else
-            science_data(science_data'high) <= c_SC_CTRL_DTA_W;
+            science_data(science_data'high) <= c_SC_CTRL_DTW;
 
          end if;
 

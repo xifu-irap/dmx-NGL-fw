@@ -346,4 +346,5 @@ WAIT 175 us
 COMM ==============================================================================================
 COMM   Check the science packet type currently transfered
 COMM ----------------------------------------------------------------------------------------------
-CSCP adc_dump
+CSCP 0 adc_dump
+CSCP 1 data_word

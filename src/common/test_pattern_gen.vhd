@@ -74,6 +74,9 @@ signal   mem_tstpt_prm        : t_mem(
 
 signal   loop_nb_minus1       : std_logic_vector(c_DFLD_TSTEN_LOP_S     downto 0)                           ; --! Loop number minus 1
 
+signal   tsten_ena_r          : std_logic                                                                   ; --! Test pattern enable register
+signal   tsten_ena_re_dct     : std_logic                                                                   ; --! Test pattern enable rising edge detect
+
 signal   tst_region_change    : std_logic                                                                   ; --! Test pattern: region change ('0' = No, '1' = Yes)
 signal   tst_region_pos       : std_logic_vector(c_TST_RG_POS_S-1       downto 0)                           ; --! Test pattern: region position
 signal   tst_coef_seq_pos     : std_logic_vector(c_TST_COEF_SEQ_POS_S-1 downto 0)                           ; --! Test pattern: coefficient reading sequence position
@@ -128,6 +131,31 @@ begin
    end process P_loop_nb_minus1;
 
    -- ------------------------------------------------------------------------------------------------------
+   --!   Test pattern enable rising edge detect
+   -- ------------------------------------------------------------------------------------------------------
+   P_tsten_ena_re_dct : process (i_rst, i_clk)
+   begin
+
+      if i_rst = c_RST_LEV_ACT then
+         tsten_ena_r       <= c_LOW_LEV;
+         tsten_ena_re_dct  <= c_LOW_LEV;
+
+      elsif rising_edge(i_clk) then
+         tsten_ena_r       <= i_tsten_ena;
+
+         if (i_tsten_ena and not(tsten_ena_r)) = c_HGH_LEV then
+            tsten_ena_re_dct  <= c_HGH_LEV;
+
+         elsif tst_coef_sel(c_TST_IND_FRM_RDY) = c_HGH_LEV then
+            tsten_ena_re_dct  <= c_LOW_LEV;
+
+         end if;
+
+      end if;
+
+   end process P_tsten_ena_re_dct;
+
+   -- ------------------------------------------------------------------------------------------------------
    --!   Test pattern: region change
    -- ------------------------------------------------------------------------------------------------------
    P_tst_region_change : process (i_rst, i_clk)
@@ -137,7 +165,7 @@ begin
          tst_region_change <= c_LOW_LEV;
 
       elsif rising_edge(i_clk) then
-         tst_region_change <= tst_index_frm(tst_index_frm'high) and
+         tst_region_change <= tst_index_frm(tst_index_frm'high) and not(tsten_ena_re_dct) and
                               ((    tst_index_frm_max(tst_index_frm_max'high)  and tst_index_gte) or
                                (not(tst_index_frm_max(tst_index_frm_max'high)) and tst_index_end));
 
@@ -156,9 +184,6 @@ begin
 
       elsif rising_edge(i_clk) then
          if i_tsten_ena = c_LOW_LEV then
-            tst_region_pos <= c_MINUSONE(tst_region_pos'range);
-
-         elsif (i_sync_re and tst_region_pos(tst_region_pos'high)) = c_HGH_LEV then
             tst_region_pos <= std_logic_vector(to_unsigned(c_TST_RG_POS_MAX_VAL, tst_region_pos'length));
 
          elsif tst_coef_sel(c_TST_INDMAX_CHK_RDY) = c_HGH_LEV and tst_prm = c_ZERO(tst_prm'range) then
@@ -248,7 +273,7 @@ begin
          mem_tstpt_prm.pp      <= c_MEM_STR_ADD_PP_DEF;
 
       elsif rising_edge(i_clk) then
-         if tst_region_pos(tst_region_pos'high) = c_HGH_LEV then
+         if i_tsten_ena = c_LOW_LEV then
             mem_tstpt_prm.pp   <= mem_tstpt_pp;
 
          end if;
@@ -463,8 +488,7 @@ begin
          o_tst_pat_end        <= loop_nb_minus1(loop_nb_minus1'high) and not(i_tsten_inf);
          o_tst_pat_end_re     <= not(o_tst_pat_end) and loop_nb_minus1(loop_nb_minus1'high) and not(i_tsten_inf);
 
-         if (i_tsten_ena and tst_index_max(tst_index_max'high)) = c_HGH_LEV and
-             tst_region_pos = std_logic_vector(to_unsigned(c_TST_RG_POS_MAX_VAL, tst_region_pos'length)) then
+         if (i_tsten_ena and tst_index_max(tst_index_max'high)) = c_HGH_LEV then
             o_tst_pat_empty   <= tst_coef_sel(c_TST_INDMAX_RDY+1);
 
          else
