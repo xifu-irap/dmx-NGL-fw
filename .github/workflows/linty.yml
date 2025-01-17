@@ -31,16 +31,16 @@ jobs:
         run: mv ./${{ env.EXT_LIB_PATH }}/${{ env.PROJECT_NAME }}/* .
 
       - name: Cache
+        id: cache-sonar
         uses: actions/cache@v3.3.0
         with:
           path: $HOME/.sonar/cache
           key: sonar
           restore-keys: sonar
 
-      - name: Debug cache
-        run: |
-          ls -al
-          ls -al $HOME/.sonar/cache
+      - name: Create cache directory if cache is not restored
+        if: steps.cache-sonar.outputs.cache-hit != 'true'
+        run: mkdir $HOME/.sonar && mkdir $HOME/.sonar/cache
 
       - name: Set Linty Analysis parameters
         uses: haya14busa/action-cond@v1.1.1
