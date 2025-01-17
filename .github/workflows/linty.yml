@@ -37,6 +37,11 @@ jobs:
           key: sonar
           restore-keys: sonar
 
+      - name: Debug cache
+        run: |
+          ls -al
+          ls -al $HOME/.sonar/cache
+
       - name: Set Linty Analysis parameters
         uses: haya14busa/action-cond@v1.1.1
         id: linty_analysis_parameters
