@@ -195,7 +195,7 @@ begin
    begin
 
       if i_adc_hw_bug_bypass = c_LOW_LEV then
-         o_sqm_adc_data(c_SQM_ADC_BUG_BIT_DF) <= sqm_adc_data(c_SQM_ADC_BUG_BIT_DF);        
+         o_sqm_adc_data(c_SQM_ADC_BUG_BIT_DF) <= sqm_adc_data(c_SQM_ADC_BUG_BIT_DF);
 
       elsif rst = c_HGH_LEV then
          sqm_adc_dta_bit_df_r                   <= c_HGH_LEV;

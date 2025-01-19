@@ -211,7 +211,7 @@ begin
          i_sqm_adc_oor_rs_dc  => sqm_adc_oor_rs_dc    , -- in     std_logic                                 ; --! SQUID MUX ADC: Out of range, synchronized on SQUID ADC Data clock
 
          o_sqm_adc_data_cor   => sqm_adc_data_cor     , -- out    slv(c_SQM_ADC_DATA_S-1 downto 0)          ; --! SQUID MUX ADC: Data corrected
-         o_sqm_adc_oor_cor    => sqm_adc_oor_cor        -- out    std_logic                                   --! SQUID MUX ADC: Out of range corrected                         --! SQUID MUX ADC: Out of range corrected
+         o_sqm_adc_oor_cor    => sqm_adc_oor_cor        -- out    std_logic                                   --! SQUID MUX ADC: Out of range corrected
    );
 
    -- ------------------------------------------------------------------------------------------------------
