@@ -64,7 +64,7 @@ constant c_BRD_REF            : std_logic_vector(  c_BRD_REF_S-1 downto 0) := (o
 constant c_BRD_MODEL          : std_logic_vector(c_BRD_MODEL_S-1 downto 0) := (others => c_HGH_LEV)         ; --! Board model
 
 constant c_SYNC_CNT_NB_VAL    : integer:= c_MUX_FACT * c_PIXEL_ADC_NB_CYC / 2                               ; --! Sync counter: number of value
-constant c_SYNC_CNT_MAX_VAL   : integer:= c_SYNC_CNT_NB_VAL-1                                               ; --! Sync counter: maximal value
+constant c_SYNC_CNT_MAX_VAL   : integer:= c_SYNC_CNT_NB_VAL-2                                               ; --! Sync counter: maximal value
 constant c_SYNC_CNT_S         : integer:= log2_ceil(c_SYNC_CNT_MAX_VAL + 1) + 1                             ; --! Sync counter: size bus (signed)
 
 constant c_DAC_MDL_POINT_V    : std_logic_vector(c_SQM_DAC_DATA_S-1 downto 0) :=
