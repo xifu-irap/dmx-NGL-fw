@@ -89,8 +89,8 @@ def synthesis_constraints(p,modelboard):
         #   SQUID MUX DAC management constraints
         # ------------------------------------------------------------------------------------------------------
         p.addModule('sqm_dac_mgt(X0097C298)', 'I_top_dmx_dm_clk|G_column_mgt[0].I_sqm_dac_mgt', 'sqm_dac_mgt_0', 'Soft')
-        p.addModule('sqm_dac_mgt(X0097C298)', 'I_top_dmx_dm_clk|G_column_mgt[1].I_sqm_dac_mgt', 'sqm_dac_mgt_1', 'Soft')
-        p.addModule('sqm_dac_mgt(X0097C298)', 'I_top_dmx_dm_clk|G_column_mgt[2].I_sqm_dac_mgt', 'sqm_dac_mgt_2', 'Soft')
+        p.addModule('sqm_dac_mgt(XECC18118)', 'I_top_dmx_dm_clk|G_column_mgt[1].I_sqm_dac_mgt', 'sqm_dac_mgt_1', 'Soft')
+        p.addModule('sqm_dac_mgt(XECC18118)', 'I_top_dmx_dm_clk|G_column_mgt[2].I_sqm_dac_mgt', 'sqm_dac_mgt_2', 'Soft')
         p.addModule('sqm_dac_mgt(X0097C298)', 'I_top_dmx_dm_clk|G_column_mgt[3].I_sqm_dac_mgt', 'sqm_dac_mgt_3', 'Soft')
 
         p.addRegion(SQM_DAC_0.n, SQM_DAC_0.c, SQM_DAC_0.r, SQM_DAC_0.w, SQM_DAC_0.h, False)
@@ -284,8 +284,8 @@ def synthesis_constraints(p,modelboard):
         p.constrainPath(['I_rst_clk_mgt|G_column_mgt[3].I_cmd_ck_sqm_dac|cmd_ck_sleep_reg'],['I_rst_clk_mgt|G_column_mgt[3].I_cmd_ck_sqm_dac|o_cmd_ck_sleep_reg'], 'dac_sleep_3', 'Soft', SQM_DAC_SLEEP_3.c, SQM_DAC_SLEEP_3.r, SQM_DAC_SLEEP_3.w, SQM_DAC_SLEEP_3.h, SQM_DAC_SLEEP_3.n, False)
 
         p.addModule('pulse_shaping(X47E1BBE6)', 'G_column_mgt[0].I_sqm_dac_mgt|I_pulse_shaping', 'sqm_dac_pls_mgt_0', 'Soft')
-        p.addModule('pulse_shaping(X47E1BBE6)', 'G_column_mgt[1].I_sqm_dac_mgt|I_pulse_shaping', 'sqm_dac_pls_mgt_1', 'Soft')
-        p.addModule('pulse_shaping(X47E1BBE6)', 'G_column_mgt[2].I_sqm_dac_mgt|I_pulse_shaping', 'sqm_dac_pls_mgt_2', 'Soft')
+        p.addModule('pulse_shaping(XEECAB54F)', 'G_column_mgt[1].I_sqm_dac_mgt|I_pulse_shaping', 'sqm_dac_pls_mgt_1', 'Soft')
+        p.addModule('pulse_shaping(XEECAB54F)', 'G_column_mgt[2].I_sqm_dac_mgt|I_pulse_shaping', 'sqm_dac_pls_mgt_2', 'Soft')
         p.addModule('pulse_shaping(X47E1BBE6)', 'G_column_mgt[3].I_sqm_dac_mgt|I_pulse_shaping', 'sqm_dac_pls_mgt_3', 'Soft')
 
         p.addRegion(SQM_DAC_PLS_0.n, SQM_DAC_PLS_0.c, SQM_DAC_PLS_0.r, SQM_DAC_PLS_0.w, SQM_DAC_PLS_0.h, False)
@@ -299,8 +299,8 @@ def synthesis_constraints(p,modelboard):
         p.confineModule('sqm_dac_pls_mgt_3', SQM_DAC_PLS_3.n)
 
         p.addModule('sqm_dac_mgt(X0097C298)', 'G_column_mgt[0].I_sqm_dac_mgt', 'sqm_dac_mgt_0', 'Soft')
-        p.addModule('sqm_dac_mgt(X0097C298)', 'G_column_mgt[1].I_sqm_dac_mgt', 'sqm_dac_mgt_1', 'Soft')
-        p.addModule('sqm_dac_mgt(X0097C298)', 'G_column_mgt[2].I_sqm_dac_mgt', 'sqm_dac_mgt_2', 'Soft')
+        p.addModule('sqm_dac_mgt(XECC18118)', 'G_column_mgt[1].I_sqm_dac_mgt', 'sqm_dac_mgt_1', 'Soft')
+        p.addModule('sqm_dac_mgt(XECC18118)', 'G_column_mgt[2].I_sqm_dac_mgt', 'sqm_dac_mgt_2', 'Soft')
         p.addModule('sqm_dac_mgt(X0097C298)', 'G_column_mgt[3].I_sqm_dac_mgt', 'sqm_dac_mgt_3', 'Soft')
 
         p.addRegion(SQM_DAC_0.n, SQM_DAC_0.c, SQM_DAC_0.r, SQM_DAC_0.w, SQM_DAC_0.h, False)

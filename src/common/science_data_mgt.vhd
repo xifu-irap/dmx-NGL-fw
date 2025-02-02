@@ -111,6 +111,9 @@ signal   aqmde_sync           : std_logic_vector(c_DFLD_AQMDE_S-1 downto 0)     
 signal   tsten_ena_r          : std_logic                                                                   ; --! Test pattern enable register
 signal   tst_pat_end_r        : std_logic                                                                   ; --! Test pattern end of all patterns register
 signal   tst_pat_end_sync     : std_logic                                                                   ; --! Test pattern end of all patterns, sync on pixel sequence
+signal   tst_pat_end_pat_dtc  : std_logic                                                                   ; --! Test pattern end of one pattern detect
+signal   tst_pat_end_pat_snc  : std_logic                                                                   ; --! Test pattern end of one pattern detect, sync on pixel sequence
+
 signal   tst_pat_bgn          : std_logic                                                                   ; --! Test pattern begin
 
 signal   dmp_cnt              : std_logic_vector(c_DMP_CNT_S-1 downto 0)                                    ; --! Dump counter
@@ -360,10 +363,12 @@ begin
    begin
 
       if i_rst = c_RST_LEV_ACT then
-         tst_pat_end_r     <= c_HGH_LEV;
+         tst_pat_end_r        <= c_HGH_LEV;
 
-         aqmde_sync        <= c_EP_CMD_DEF_AQMDE;
-         tst_pat_end_sync  <= c_HGH_LEV;
+         aqmde_sync           <= c_EP_CMD_DEF_AQMDE;
+         tst_pat_end_sync     <= c_HGH_LEV;
+         tst_pat_end_pat_dtc  <= c_LOW_LEV;
+         tst_pat_end_pat_snc  <= c_LOW_LEV;
 
       elsif rising_edge(i_clk) then
          tst_pat_end_r     <= i_tst_pat_end;
@@ -371,6 +376,19 @@ begin
          if sqm_data_sc_fst_and(sqm_data_sc_fst_and'high) = c_HGH_LEV then
             aqmde_sync        <= i_aqmde_sync(c_COL0);
             tst_pat_end_sync  <= tst_pat_end_r;
+
+         end if;
+
+         if i_tst_pat_end_pat = c_HGH_LEV then
+            tst_pat_end_pat_dtc <= c_HGH_LEV;
+
+         elsif (sqm_data_sc_thd_all or not(i_tsten_ena)) = c_HGH_LEV then
+            tst_pat_end_pat_dtc <= c_LOW_LEV;
+
+         end if;
+
+         if sqm_data_sc_sec_all = c_HGH_LEV then
+            tst_pat_end_pat_snc  <= tst_pat_end_pat_dtc;
 
          end if;
 
@@ -391,7 +409,7 @@ begin
       elsif rising_edge(i_clk) then
          tsten_ena_r <= i_tsten_ena;
 
-         if ((i_tsten_ena and not(tsten_ena_r)) or i_tst_pat_end_pat) = c_HGH_LEV then
+         if ((i_tsten_ena and not(tsten_ena_r)) or tst_pat_end_pat_snc) = c_HGH_LEV then
             tst_pat_bgn <= c_HGH_LEV;
 
          elsif (sqm_data_sc_thd_all or not(i_tsten_ena)) = c_HGH_LEV then

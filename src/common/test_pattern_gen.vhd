@@ -379,11 +379,11 @@ begin
    begin
 
       if i_rst = c_RST_LEV_ACT then
-         tst_index <= c_MINUSONE(tst_index'range);
+         tst_index <= c_ZERO(tst_index'range);
 
       elsif rising_edge(i_clk) then
          if i_tsten_ena = c_LOW_LEV then
-            tst_index <= c_MINUSONE(tst_index'range);
+            tst_index <= c_ZERO(tst_index'range);
 
          elsif (i_sync_re and tst_index_frm(tst_index_frm'high) and tst_region_change) = c_HGH_LEV then
             tst_index <= c_MINUSONE(tst_index'range);

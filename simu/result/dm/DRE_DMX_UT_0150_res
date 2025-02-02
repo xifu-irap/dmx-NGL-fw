@@ -565,7 +565,7 @@
 # ** Note   : (1224628008 ps) Check time, ADC channel 1 last event: PASS
 # ** Note   : (1224628008 ps)  * ADC channel 1 last event 1224628008 ps equal to expected value 1224628008 ps
 # ** Note   : (1224628008 ps) Check ADC level: PASS
-# ** Note   : (1224628008 ps)  * Read ADC channel 1, value -0.000000e+00, expected 0.000000e+00
+# ** Note   : (1224628008 ps)  * Read ADC channel 1, value 0.000000e+00, expected 0.000000e+00
 # ** Note   : (1224628008 ps) Waiting event clk_sqm_dac(1) = '0' for 0 ps
 # ** Note   : (1224632010 ps) Waiting event clk_sqm_dac(1) = '1' for 4002 ps
 # ** Note   : (1224636012 ps) Waiting event clk_sqm_dac(1) = '0' for 4002 ps
@@ -871,7 +871,7 @@
 # ** Note   : (2351271048 ps) Check time, ADC channel 2 last event: PASS
 # ** Note   : (2351271048 ps)  * ADC channel 2 last event 2351271048 ps equal to expected value 2351271048 ps
 # ** Note   : (2351271048 ps) Check ADC level: PASS
-# ** Note   : (2351271048 ps)  * Read ADC channel 2, value -0.000000e+00, expected 0.000000e+00
+# ** Note   : (2351271048 ps)  * Read ADC channel 2, value 0.000000e+00, expected 0.000000e+00
 # ** Note   : (2351271048 ps) Waiting event clk_sqm_dac(2) = '0' for 0 ps
 # ** Note   : (2351275050 ps) Waiting event clk_sqm_dac(2) = '1' for 4002 ps
 # ** Note   : (2351279052 ps) Waiting event clk_sqm_dac(2) = '0' for 4002 ps
