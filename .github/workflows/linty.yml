@@ -15,12 +15,12 @@ jobs:
       LINTY_SCANNER: latest
     steps:
       - name: Git Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
       - name: Git Checkout Third-Party Libraries
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: ${{ env.EXT_LIB_PATH }}
           fetch-depth: 0
@@ -32,7 +32,7 @@ jobs:
 
       - name: Cache
         id: cache-sonar
-        uses: actions/cache@v3.3.0
+        uses: actions/cache@v4
         with:
           path: $HOME/.sonar/cache
           key: sonar
@@ -43,7 +43,7 @@ jobs:
         run: mkdir $HOME/.sonar && mkdir $HOME/.sonar/cache
 
       - name: Set Linty Analysis parameters
-        uses: haya14busa/action-cond@v1.1.1
+        uses: haya14busa/action-cond@v1
         id: linty_analysis_parameters
         with:
           cond: ${{ github.event.pull_request.number != '' }}
@@ -70,7 +70,7 @@ jobs:
 
       - name: Debug
         if: always()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: debug
           path: |
