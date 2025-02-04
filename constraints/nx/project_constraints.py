@@ -89,8 +89,8 @@ def synthesis_constraints(p,modelboard):
         #   SQUID MUX DAC management constraints
         # ------------------------------------------------------------------------------------------------------
         p.addModule('sqm_dac_mgt(X0097C298)', 'I_top_dmx_dm_clk|G_column_mgt[0].I_sqm_dac_mgt', 'sqm_dac_mgt_0', 'Soft')
-        p.addModule('sqm_dac_mgt(X0097C298)', 'I_top_dmx_dm_clk|G_column_mgt[1].I_sqm_dac_mgt', 'sqm_dac_mgt_1', 'Soft')
-        p.addModule('sqm_dac_mgt(X0097C298)', 'I_top_dmx_dm_clk|G_column_mgt[2].I_sqm_dac_mgt', 'sqm_dac_mgt_2', 'Soft')
+        p.addModule('sqm_dac_mgt(XECC18118)', 'I_top_dmx_dm_clk|G_column_mgt[1].I_sqm_dac_mgt', 'sqm_dac_mgt_1', 'Soft')
+        p.addModule('sqm_dac_mgt(XECC18118)', 'I_top_dmx_dm_clk|G_column_mgt[2].I_sqm_dac_mgt', 'sqm_dac_mgt_2', 'Soft')
         p.addModule('sqm_dac_mgt(X0097C298)', 'I_top_dmx_dm_clk|G_column_mgt[3].I_sqm_dac_mgt', 'sqm_dac_mgt_3', 'Soft')
 
         p.addRegion(SQM_DAC_0.n, SQM_DAC_0.c, SQM_DAC_0.r, SQM_DAC_0.w, SQM_DAC_0.h, False)

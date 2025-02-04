@@ -42,7 +42,9 @@
 # ** Note   : (16504248 ps) Waiting event sync = '0' for 160080 ps
 # ** Note   : (21786888 ps) Waiting event sync = '1' for 5282640 ps
 # ** Note   : (21786888 ps) Check science packet type: PASS
-# ** Note   : (21786888 ps)  * Science packet type: ras_data_valid, value 11001010, expected 11001010
+# ** Note   : (21786888 ps)  * Science packet type: science, value 11001000, expected 11001000
+# ** Note   : (21786888 ps) Check science packet type: PASS
+# ** Note   : (21786888 ps)  * Science packet type: ras_data_valid, value 11100010, expected 11100010
 #             (21786888 ps) 
 #             (21786888 ps) ==============================================================================================
 #             (21786888 ps)   Check the science data packet type transfered after
@@ -50,7 +52,9 @@
 # ** Note   : (21946968 ps) Waiting event sync = '0' for 160080 ps
 # ** Note   : (27229608 ps) Waiting event sync = '1' for 5282640 ps
 # ** Note   : (27229608 ps) Check science packet type: PASS
-# ** Note   : (27229608 ps)  * Science packet type: science_data, value 11001000, expected 11001000
+# ** Note   : (27229608 ps)  * Science packet type: science, value 11001000, expected 11001000
+# ** Note   : (27229608 ps) Check science packet type: PASS
+# ** Note   : (27229608 ps)  * Science packet type: data_word, value 11000000, expected 11000000
 #             (27229608 ps) 
 #             (27229608 ps) ==============================================================================================
 #             (27229608 ps)   Check the data packet type still science
@@ -59,7 +63,9 @@
 # ** Note   : (37234608 ps) Waiting event sync = '0' for 5000 ps
 # ** Note   : (38115048 ps) Waiting event sync = '1' for 880440 ps
 # ** Note   : (38115048 ps) Check science packet type: PASS
-# ** Note   : (38115048 ps)  * Science packet type: science_data, value 11001000, expected 11001000
+# ** Note   : (38115048 ps)  * Science packet type: science, value 11001000, expected 11001000
+# ** Note   : (38115048 ps) Check science packet type: PASS
+# ** Note   : (38115048 ps)  * Science packet type: data_word, value 11000000, expected 11000000
 #             (38115048 ps) 
 #             (38115048 ps) ==============================================================================================
 #             (38115048 ps)   Active RAS Data valid signal
@@ -74,7 +80,9 @@
 # ** Note   : (38275128 ps) Waiting event sync = '0' for 60080 ps
 # ** Note   : (43557768 ps) Waiting event sync = '1' for 5282640 ps
 # ** Note   : (43557768 ps) Check science packet type: PASS
-# ** Note   : (43557768 ps)  * Science packet type: ras_data_valid, value 11001010, expected 11001010
+# ** Note   : (43557768 ps)  * Science packet type: science, value 11001000, expected 11001000
+# ** Note   : (43557768 ps) Check science packet type: PASS
+# ** Note   : (43557768 ps)  * Science packet type: ras_data_valid, value 11100010, expected 11100010
 #             (43557768 ps) 
 #             (43557768 ps) ==============================================================================================
 #             (43557768 ps)   Check the science data packet type transfered after
@@ -82,7 +90,9 @@
 # ** Note   : (43717848 ps) Waiting event sync = '0' for 160080 ps
 # ** Note   : (49000488 ps) Waiting event sync = '1' for 5282640 ps
 # ** Note   : (49000488 ps) Check science packet type: PASS
-# ** Note   : (49000488 ps)  * Science packet type: science_data, value 11001000, expected 11001000
+# ** Note   : (49000488 ps)  * Science packet type: science, value 11001000, expected 11001000
+# ** Note   : (49000488 ps) Check science packet type: PASS
+# ** Note   : (49000488 ps)  * Science packet type: data_word, value 11000000, expected 11000000
 #             (49000488 ps) 
 #             (49000488 ps) ==============================================================================================
 #             (49000488 ps)   Switch on data acquisition in mode error science
@@ -98,7 +108,9 @@
 # ** Note   : (60046008 ps) Waiting event sync = '0' for 160080 ps
 # ** Note   : (65328648 ps) Waiting event sync = '1' for 5282640 ps
 # ** Note   : (65328648 ps) Check science packet type: PASS
-# ** Note   : (65328648 ps)  * Science packet type: error_signal, value 11100010, expected 11100010
+# ** Note   : (65328648 ps)  * Science packet type: adc_data, value 11001010, expected 11001010
+# ** Note   : (65328648 ps) Check science packet type: PASS
+# ** Note   : (65328648 ps)  * Science packet type: data_word, value 11000000, expected 11000000
 #             (65328648 ps) 
 #             (65328648 ps) ==============================================================================================
 #             (65328648 ps)   Active RAS Data valid signal
@@ -113,7 +125,9 @@
 # ** Note   : (65488728 ps) Waiting event sync = '0' for 60080 ps
 # ** Note   : (70771368 ps) Waiting event sync = '1' for 5282640 ps
 # ** Note   : (70771368 ps) Check science packet type: PASS
-# ** Note   : (70771368 ps)  * Science packet type: error_signal, value 11100010, expected 11100010
+# ** Note   : (70771368 ps)  * Science packet type: adc_data, value 11001010, expected 11001010
+# ** Note   : (70771368 ps) Check science packet type: PASS
+# ** Note   : (70771368 ps)  * Science packet type: ras_data_valid, value 11100010, expected 11100010
 #             (70771368 ps) 
 #             (70771368 ps) ==============================================================================================
 #             (70771368 ps)   Check the error science data packet type transfered after
@@ -121,31 +135,31 @@
 # ** Note   : (70931448 ps) Waiting event sync = '0' for 160080 ps
 # ** Note   : (76214088 ps) Waiting event sync = '1' for 5282640 ps
 # ** Note   : (76214088 ps) Check science packet type: PASS
-# ** Note   : (76214088 ps)  * Science packet type: error_signal, value 11100010, expected 11100010
+# ** Note   : (76214088 ps)  * Science packet type: adc_data, value 11001010, expected 11001010
+# ** Note   : (76214088 ps) Check science packet type: PASS
+# ** Note   : (76214088 ps)  * Science packet type: data_word, value 11000000, expected 11000000
 #             (76214088 ps) 
 #             (76214088 ps) ==============================================================================================
-#             (76214088 ps)   Switch on data acquisition in mode science
+#             (76214088 ps)   Check the RAS Data valid packet type currently transfered
 #             (76214088 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (76214088 ps) Send SPI command value 8001_0001 (DATA_ACQ_MODE, mode Write, data 0001)
-# ** Note   : (83706000 ps) Waiting SPI command end for 7455912 ps
-#             (83706000 ps) 
-#             (83706000 ps) ==============================================================================================
-#             (83706000 ps)   Check the RAS Data valid packet type currently transfered
-#             (83706000 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (83713836 ps) Waiting event sync = '0' for 7836 ps
-# ** Note   : (87099528 ps) Waiting event sync = '1' for 3385692 ps
+# ** Note   : (76374168 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (81656808 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (81816888 ps) Waiting event sync = '0' for 160080 ps
+# ** Note   : (87099528 ps) Waiting event sync = '1' for 5282640 ps
+# ** Note   : (87099528 ps) Check science packet type: PASS
+# ** Note   : (87099528 ps)  * Science packet type: adc_data, value 11001010, expected 11001010
+# ** Note   : (87099528 ps) Check science packet type: PASS
+# ** Note   : (87099528 ps)  * Science packet type: data_word, value 11000000, expected 11000000
+#             (87099528 ps) 
+#             (87099528 ps) ==============================================================================================
+#             (87099528 ps)   Check the science data packet type transfered after
+#             (87099528 ps) ----------------------------------------------------------------------------------------------
 # ** Note   : (87259608 ps) Waiting event sync = '0' for 160080 ps
 # ** Note   : (92542248 ps) Waiting event sync = '1' for 5282640 ps
 # ** Note   : (92542248 ps) Check science packet type: PASS
-# ** Note   : (92542248 ps)  * Science packet type: ras_data_valid, value 11001010, expected 11001010
-#             (92542248 ps) 
-#             (92542248 ps) ==============================================================================================
-#             (92542248 ps)   Check the science data packet type transfered after
-#             (92542248 ps) ----------------------------------------------------------------------------------------------
-# ** Note   : (92702328 ps) Waiting event sync = '0' for 160080 ps
-# ** Note   : (97984968 ps) Waiting event sync = '1' for 5282640 ps
-# ** Note   : (97984968 ps) Check science packet type: PASS
-# ** Note   : (97984968 ps)  * Science packet type: science_data, value 11001000, expected 11001000
+# ** Note   : (92542248 ps)  * Science packet type: adc_data, value 11001010, expected 11001010
+# ** Note   : (92542248 ps) Check science packet type: PASS
+# ** Note   : (92542248 ps)  * Science packet type: data_word, value 11000000, expected 11000000
 # ------------------------------------------------------------------------------------------------------------------------------------------------------
 # Error simulation time         : '0'
 # Error check discrete level    : '0'

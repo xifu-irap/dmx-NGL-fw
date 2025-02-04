@@ -193,7 +193,7 @@ proc run_utest {args} {
       close $CoverReport
 
       set CoverReport [open ${RES_DIR}/${COVER_NAME}.xml {WRONLY CREAT TRUNC}]
-      puts $CoverReport [string map { "../project/dmx-fw" . } $CoverReportContent]
+      puts $CoverReport [string map { "../project/dmx-fw-dm0" . } $CoverReportContent]
       close $CoverReport
 
    } else {

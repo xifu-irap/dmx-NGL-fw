@@ -284,7 +284,7 @@ DRE-DEMUX TDM firmware, specific to Demonstrator Model Board 0: https://github.c
 ## 10. Devkit Model (DK)
 
    Pin compatibility with:
-      + IRAP/XIFU-DRE/DM/SP/0148 - NG-LARGE DEVKIT/MEDUSA BENCH ICD, Ed. 2.0
+      + IRAP/XIFU-DRE/DM/SP/0148 - NG-LARGE DEVKIT/MEDUSA BENCH ICD, Ed. 2.3
       + TMTC-fw firmware 0015
 
    Implementation dmx-fw firmware on NG-LARGE Devkit with specific adaptation:
